@@ -24,6 +24,7 @@ var classRa_1_1Core_1_1AdjacencyList =
     [ "isJoint", "classRa_1_1Core_1_1AdjacencyList.html#a5c9f8b77aebc7f3d807c35df4b030727", null ],
     [ "isLeaf", "classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253", null ],
     [ "isRoot", "classRa_1_1Core_1_1AdjacencyList.html#a9bf4ac88fdea50ef9916b641617d4827", null ],
+    [ "operator=", "classRa_1_1Core_1_1AdjacencyList.html#a608cb8f6c0398e9b37a5d08a2b71024e", null ],
     [ "parents", "classRa_1_1Core_1_1AdjacencyList.html#a45d58d25c05abf04f4f6526ef3ae5a26", null ],
     [ "pruneLeaves", "classRa_1_1Core_1_1AdjacencyList.html#a4f812530789952c5d57c53d63449542a", null ],
     [ "pruneLeaves", "classRa_1_1Core_1_1AdjacencyList.html#abd88b9db0858e679b7f831dec59fab00", null ],

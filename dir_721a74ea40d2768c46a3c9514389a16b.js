@@ -37,8 +37,8 @@ var dir_721a74ea40d2768c46a3c9514389a16b =
       [ "Skeleton", "classRa_1_1Core_1_1Animation_1_1Skeleton.html", "classRa_1_1Core_1_1Animation_1_1Skeleton" ]
     ] ],
     [ "SkinningData.hpp", "SkinningData_8hpp.html", [
-      [ "RefData", "structRa_1_1Core_1_1Skinning_1_1RefData.html", "structRa_1_1Core_1_1Skinning_1_1RefData" ],
-      [ "FrameData", "structRa_1_1Core_1_1Skinning_1_1FrameData.html", "structRa_1_1Core_1_1Skinning_1_1FrameData" ]
+      [ "SkinningRefData", "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html", "structRa_1_1Core_1_1Animation_1_1SkinningRefData" ],
+      [ "SkinningFrameData", "structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html", "structRa_1_1Core_1_1Animation_1_1SkinningFrameData" ]
     ] ],
     [ "StretchableTwistableBoneSkinning.cpp", "StretchableTwistableBoneSkinning_8cpp.html", "StretchableTwistableBoneSkinning_8cpp" ],
     [ "StretchableTwistableBoneSkinning.hpp", "StretchableTwistableBoneSkinning_8hpp.html", "StretchableTwistableBoneSkinning_8hpp" ]

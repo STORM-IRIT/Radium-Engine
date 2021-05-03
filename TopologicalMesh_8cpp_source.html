@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -250,7 +250,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp_source.html','');
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="comment">//   if ( size &lt;= 3 ) continue;</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="comment">// base openmesh triangulate</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        base::triangulate( *f_it );</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <a class="code" href="namespaceRa_1_1Engine_1_1Scene.html#a065a86e926a88bd772aa9e87d0858b26">base::triangulate</a>( *f_it );</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="comment">// fix newly created he</span></div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 0; i &lt; size; ++i )</div>
@@ -753,383 +753,386 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp_source.html','');
 <div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;    <span class="comment">// incorrect factor</span></div>
 <div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;    <span class="keywordflow">if</span> ( f &lt; 0 || f &gt; 1 ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
 <div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160; </div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;    <span class="keywordflow">if</span> ( is_boundary( eh ) )</div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;    {</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( <span class="keyword">false</span>, <span class="stringliteral">&quot;ouch&quot;</span> );</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;    }</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> h0 = halfedge_handle( eh, 0 );</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> o0 = halfedge_handle( eh, 1 );</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160; </div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> v0 = to_vertex_handle( o0 );</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> v1 = to_vertex_handle( h0 );</div>
 <div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160; </div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> h0 = halfedge_handle( eh, 0 );</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> o0 = halfedge_handle( eh, 1 );</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160; </div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> v0 = to_vertex_handle( o0 );</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> v1 = to_vertex_handle( h0 );</div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160; </div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;    <span class="comment">// add the new point</span></div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ad10130fea53a693f02d20eb4c1c6a155">Point</a> p   = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ad10130fea53a693f02d20eb4c1c6a155">Point</a>( f * point( v1 ) + ( 1_ra - f ) * point( v0 ) );</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    VertexHandle vh = add_vertex( p );</div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160; </div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> h1 = next_halfedge_handle( h0 );</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> h2 = next_halfedge_handle( h1 );</div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160; </div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> o1 = next_halfedge_handle( o0 );</div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> o2 = next_halfedge_handle( o1 );</div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160; </div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;    <span class="comment">// compute interpolated wedge, or the two wedges if not the same wedges</span></div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;    <span class="comment">// around the two vertices of the edge (we always compute for two wedges,</span></div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;    <span class="comment">// even if add will return the same wedge.</span></div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> hw0idx = property( m_wedgeIndexPph, h2 );</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> hw1idx = property( m_wedgeIndexPph, h0 );</div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> ow0idx = property( m_wedgeIndexPph, o2 );</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> ow1idx = property( m_wedgeIndexPph, o0 );</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> hw0    = m_wedges.getWedgeData( hw0idx );</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> hw1    = m_wedges.getWedgeData( hw1idx );</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> ow0    = m_wedges.getWedgeData( ow0idx );</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> ow1    = m_wedges.getWedgeData( ow1idx );</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;    <span class="keyword">auto</span> hvw          = interpolateWedgeAttributes( hw0, hw1, f );</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;    <span class="keyword">auto</span> ovw          = interpolateWedgeAttributes( ow1, ow0, f );</div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;    hvw.m_position    = p;</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;    ovw.m_position    = p;</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;    <span class="keyword">auto</span> hvwidx       = m_wedges.add( hvw );</div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;    <span class="keyword">auto</span> ovwidx       = m_wedges.add( ovw );</div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160; </div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;    split_copy( eh, vh );</div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160; </div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;    <span class="keyword">auto</span> r0 = find_halfedge( v0, vh );</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;    <span class="keyword">auto</span> s0 = find_halfedge( vh, v1 );</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;    <span class="keyword">auto</span> t0 = find_halfedge( v1, vh );</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;    <span class="keyword">auto</span> u0 = find_halfedge( vh, v0 );</div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160; </div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;    <span class="keyword">auto</span> r1 = next_halfedge_handle( r0 );</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;    <span class="keyword">auto</span> r2 = next_halfedge_handle( r1 );</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> h1 = next_halfedge_handle( h0 );</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> h2 = next_halfedge_handle( h1 );</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> o1 = next_halfedge_handle( o0 );</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> o2 = next_halfedge_handle( o1 );</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160; </div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;    <span class="comment">// add the new point</span></div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ad10130fea53a693f02d20eb4c1c6a155">Point</a> p   = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ad10130fea53a693f02d20eb4c1c6a155">Point</a>( f * point( v1 ) + ( 1_ra - f ) * point( v0 ) );</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;    VertexHandle vh = add_vertex( p );</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160; </div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;    <span class="comment">// compute interpolated wedge, or the two wedges if not the same wedges</span></div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;    <span class="comment">// around the two vertices of the edge (we always compute for two wedges,</span></div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;    <span class="comment">// even if add will return the same wedge.</span></div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> ovwidx;</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> hvwidx;</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;    <span class="keywordflow">if</span> ( !is_boundary( h0 ) )</div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;    {</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160; </div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> hw0idx = property( m_wedgeIndexPph, h2 );</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> hw1idx = property( m_wedgeIndexPph, h0 );</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> hw0    = m_wedges.getWedgeData( hw0idx );</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> hw1    = m_wedges.getWedgeData( hw1idx );</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;        <span class="keyword">auto</span> hvw          = interpolateWedgeAttributes( hw0, hw1, f );</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;        hvw.m_position    = p;</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;        hvwidx            = m_wedges.add( hvw );</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;    }</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;    <span class="keywordflow">if</span> ( !is_boundary( o0 ) )</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;    {</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160; </div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> ow0idx = property( m_wedgeIndexPph, o2 );</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> ow1idx = property( m_wedgeIndexPph, o0 );</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> ow0    = m_wedges.getWedgeData( ow0idx );</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> ow1    = m_wedges.getWedgeData( ow1idx );</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;        <span class="keyword">auto</span> ovw          = interpolateWedgeAttributes( ow1, ow0, f );</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;        ovw.m_position    = p;</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;        ovwidx            = m_wedges.add( ovw );</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;    }</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160; </div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;    split_copy( eh, vh );</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160; </div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;    <span class="keyword">auto</span> r0 = find_halfedge( v0, vh );</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;    <span class="keyword">auto</span> s0 = find_halfedge( vh, v1 );</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;    <span class="keyword">auto</span> t0 = find_halfedge( v1, vh );</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;    <span class="keyword">auto</span> u0 = find_halfedge( vh, v0 );</div>
 <div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160; </div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;    <span class="keyword">auto</span> s1 = next_halfedge_handle( s0 );</div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;    <span class="keyword">auto</span> s2 = next_halfedge_handle( s1 );</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;    <span class="keyword">auto</span> r1 = next_halfedge_handle( r0 );</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;    <span class="keyword">auto</span> r2 = next_halfedge_handle( r1 );</div>
 <div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160; </div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;    <span class="keyword">auto</span> t1 = next_halfedge_handle( t0 );</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;    <span class="keyword">auto</span> t2 = next_halfedge_handle( t1 );</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;    <span class="keyword">auto</span> s1 = next_halfedge_handle( s0 );</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;    <span class="keyword">auto</span> s2 = next_halfedge_handle( s1 );</div>
 <div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160; </div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;    <span class="keyword">auto</span> u1 = next_halfedge_handle( u0 );</div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;    <span class="keyword">auto</span> u2 = next_halfedge_handle( u1 );</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;    <span class="keyword">auto</span> t1 = next_halfedge_handle( t0 );</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;    <span class="keyword">auto</span> t2 = next_halfedge_handle( t1 );</div>
 <div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160; </div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( s0 == h0, <span class="stringliteral">&quot;TopologicalMesh: splitEdgeWedge inconsistency&quot;</span> );</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( t0 == o0, <span class="stringliteral">&quot;TopologicalMesh: splitEdgeWedge inconsistency&quot;</span> );</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;    <span class="keyword">auto</span> u1 = next_halfedge_handle( u0 );</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;    <span class="keyword">auto</span> u2 = next_halfedge_handle( u1 );</div>
 <div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160; </div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    <span class="keyword">auto</span> updateWedgeIndex1 = [<span class="keyword">this</span>]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> widx_,</div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;                                     HalfedgeHandle r0_,</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;                                     HalfedgeHandle r1_,</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;                                     HalfedgeHandle r2_,</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;                                     HalfedgeHandle h1_,</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;                                     HalfedgeHandle h2_ ) {</div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( r2_ );</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( h2_ );</div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160; </div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( r0_ ) )</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        {</div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( r2_ == h2_, <span class="stringliteral">&quot;TopologicalMesh: splitEdgeWedge inconsistency&quot;</span> );</div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160; </div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;            <span class="comment">// Increment here, the first reference is for the other he</span></div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;            property( this-&gt;m_wedgeIndexPph, r0_ ) = this-&gt;m_wedges.newReference( widx_ );</div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;            property( this-&gt;m_wedgeIndexPph, r1_ ) =</div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;                this-&gt;m_wedges.newReference( property( this-&gt;m_wedgeIndexPph, h1_ ) );</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;        }</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;        { property( this-&gt;m_wedgeIndexPph, r0_ ) = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> {}; }</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    };</div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160; </div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    <span class="keyword">auto</span> updateWedgeIndex2 = [<span class="keyword">this</span>]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> widx_,</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;                                     HalfedgeHandle s0_,</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;                                     HalfedgeHandle s1_,</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;                                     HalfedgeHandle s2_,</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;                                     HalfedgeHandle h0_,</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;                                     HalfedgeHandle h1_ ) {</div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( s1_ );</div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( h1_ );</div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160; </div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( s0_ ) )</div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;        {</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( s1_ == h1_, <span class="stringliteral">&quot;TopologicalMesh: splitEdgeWedge inconsistency&quot;</span> );</div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;            <span class="comment">// do not increment here, since add has set ref to 1</span></div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;            property( this-&gt;m_wedgeIndexPph, s2_ ) = widx_;</div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;            <span class="comment">// &quot;steal&quot; ref from previous he (actually s0 is h0, u0 is the steal</span></div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;            <span class="comment">// from o0.</span></div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;            property( this-&gt;m_wedgeIndexPph, s0_ ) = property( this-&gt;m_wedgeIndexPph, h0_ );</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;        }</div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;        { property( this-&gt;m_wedgeIndexPph, s0_ ) = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> {}; }</div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;    };</div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160; </div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;    <span class="comment">// this update read from o0, must be done before t which reads from o0</span></div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    updateWedgeIndex2( ovwidx, u0, u1, u2, o0, o1 );</div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;    <span class="comment">// those update might be in any order</span></div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;    updateWedgeIndex2( hvwidx, s0, s1, s2, h0, h1 );</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;    updateWedgeIndex1( hvwidx, r0, r1, r2, h1, h2 );</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;    updateWedgeIndex1( ovwidx, t0, t1, t2, o1, o2 );</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160; </div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;}</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( s0 == h0, <span class="stringliteral">&quot;TopologicalMesh: splitEdgeWedge inconsistency&quot;</span> );</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( t0 == o0, <span class="stringliteral">&quot;TopologicalMesh: splitEdgeWedge inconsistency&quot;</span> );</div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160; </div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;    <span class="keyword">auto</span> updateWedgeIndex1 = [<span class="keyword">this</span>]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> widx_,</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;                                     HalfedgeHandle r0_,</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;                                     HalfedgeHandle r1_,</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;                                     HalfedgeHandle r2_,</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;                                     HalfedgeHandle h1_,</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;                                     HalfedgeHandle h2_ ) {</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( r2_ );</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( h2_ );</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160; </div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( r0_ ) )</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;        {</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( r2_ == h2_, <span class="stringliteral">&quot;TopologicalMesh: splitEdgeWedge inconsistency&quot;</span> );</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160; </div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;            <span class="comment">// Increment here, the first reference is for the other he</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;            property( this-&gt;m_wedgeIndexPph, r0_ ) = this-&gt;m_wedges.newReference( widx_ );</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;            property( this-&gt;m_wedgeIndexPph, r1_ ) =</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;                this-&gt;m_wedges.newReference( property( this-&gt;m_wedgeIndexPph, h1_ ) );</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;        }</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;        { property( this-&gt;m_wedgeIndexPph, r0_ ) = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> {}; }</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    };</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160; </div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;    <span class="keyword">auto</span> updateWedgeIndex2 = [<span class="keyword">this</span>]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> widx_,</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;                                     HalfedgeHandle s0_,</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;                                     HalfedgeHandle s1_,</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;                                     HalfedgeHandle s2_,</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;                                     HalfedgeHandle h0_,</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;                                     HalfedgeHandle h1_ ) {</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( s1_ );</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( h1_ );</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160; </div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( s0_ ) )</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;        {</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( s1_ == h1_, <span class="stringliteral">&quot;TopologicalMesh: splitEdgeWedge inconsistency&quot;</span> );</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;            <span class="comment">// do not increment here, since add has set ref to 1</span></div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;            property( this-&gt;m_wedgeIndexPph, s2_ ) = widx_;</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;            <span class="comment">// &quot;steal&quot; ref from previous he (actually s0 is h0, u0 is the steal</span></div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;            <span class="comment">// from o0.</span></div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;            property( this-&gt;m_wedgeIndexPph, s0_ ) = property( this-&gt;m_wedgeIndexPph, h0_ );</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;        }</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;        { property( this-&gt;m_wedgeIndexPph, s0_ ) = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> {}; }</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    };</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160; </div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;    <span class="comment">// this update read from o0, must be done before t which reads from o0</span></div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;    updateWedgeIndex2( ovwidx, u0, u1, u2, o0, o1 );</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;    <span class="comment">// those update might be in any order</span></div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;    updateWedgeIndex2( hvwidx, s0, s1, s2, h0, h1 );</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;    updateWedgeIndex1( hvwidx, r0, r1, r2, h1, h2 );</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;    updateWedgeIndex1( ovwidx, t0, t1, t2, o1, o2 );</div>
 <div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160; </div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;<span class="comment">//-----------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00784"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a46eee3e8fe80ff3a80f935964b5feaa2">  784</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a46eee3e8fe80ff3a80f935964b5feaa2">TopologicalMesh::collapse</a>( HalfedgeHandle _hh, <span class="keywordtype">bool</span> keepFrom ) {</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;    HalfedgeHandle h0 = _hh;</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;    HalfedgeHandle h1 = next_halfedge_handle( h0 );</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;    HalfedgeHandle o0 = opposite_halfedge_handle( h0 );</div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;    HalfedgeHandle o1 = next_halfedge_handle( o0 );</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160; </div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;    <span class="comment">// remove edge</span></div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;    collapse_edge( h0, keepFrom );</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;}</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160; </div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;<span class="comment">//-----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00787"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a46eee3e8fe80ff3a80f935964b5feaa2">  787</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a46eee3e8fe80ff3a80f935964b5feaa2">TopologicalMesh::collapse</a>( HalfedgeHandle _hh, <span class="keywordtype">bool</span> keepFrom ) {</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;    HalfedgeHandle h0 = _hh;</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;    HalfedgeHandle h1 = next_halfedge_handle( h0 );</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;    HalfedgeHandle o0 = opposite_halfedge_handle( h0 );</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;    HalfedgeHandle o1 = next_halfedge_handle( o0 );</div>
 <div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160; </div>
-<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;    <span class="comment">// remove loops</span></div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;    <span class="keywordflow">if</span> ( next_halfedge_handle( next_halfedge_handle( h1 ) ) == h1 )</div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;        collapse_loop( next_halfedge_handle( h1 ) );</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;    <span class="keywordflow">if</span> ( next_halfedge_handle( next_halfedge_handle( o1 ) ) == o1 ) collapse_loop( o1 );</div>
-<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;}</div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160; </div>
-<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;<span class="comment">//-----------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;<span class="keywordtype">void</span> TopologicalMesh::collapse_edge( HalfedgeHandle _hh, <span class="keywordtype">bool</span> keepFrom ) {</div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;    HalfedgeHandle h  = _hh;</div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;    HalfedgeHandle hn = next_halfedge_handle( h );</div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;    HalfedgeHandle hp = prev_halfedge_handle( h );</div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160; </div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;    HalfedgeHandle o   = opposite_halfedge_handle( h );</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;    HalfedgeHandle on  = next_halfedge_handle( o );</div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;    HalfedgeHandle ono = opposite_halfedge_handle( on );</div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;    HalfedgeHandle op  = prev_halfedge_handle( o );</div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160; </div>
-<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;    FaceHandle fh = face_handle( h );</div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;    FaceHandle fo = face_handle( o );</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;    <span class="comment">// remove edge</span></div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;    collapse_edge( h0, keepFrom );</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160; </div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;    <span class="comment">// remove loops</span></div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;    <span class="keywordflow">if</span> ( next_halfedge_handle( next_halfedge_handle( h1 ) ) == h1 )</div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;        collapse_loop( next_halfedge_handle( h1 ) );</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;    <span class="keywordflow">if</span> ( next_halfedge_handle( next_halfedge_handle( o1 ) ) == o1 ) collapse_loop( o1 );</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;}</div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160; </div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;<span class="comment">//-----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;<span class="keywordtype">void</span> TopologicalMesh::collapse_edge( HalfedgeHandle _hh, <span class="keywordtype">bool</span> keepFrom ) {</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;    HalfedgeHandle h  = _hh;</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;    HalfedgeHandle hn = next_halfedge_handle( h );</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;    HalfedgeHandle hp = prev_halfedge_handle( h );</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160; </div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;    HalfedgeHandle o   = opposite_halfedge_handle( h );</div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;    HalfedgeHandle on  = next_halfedge_handle( o );</div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;    HalfedgeHandle ono = opposite_halfedge_handle( on );</div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;    HalfedgeHandle op  = prev_halfedge_handle( o );</div>
 <div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160; </div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;    VertexHandle vh = to_vertex_handle( h );</div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;    VertexHandle vo = to_vertex_handle( o );</div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;    FaceHandle fh = face_handle( h );</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;    FaceHandle fo = face_handle( o );</div>
 <div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160; </div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;    <span class="keyword">auto</span> widx = getWedgeIndex( h );</div>
-<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;    <span class="keywordflow">if</span> ( widx.isInvalid() ) <span class="comment">// i.e. h is boundary</span></div>
-<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;        widx = getWedgeIndex( op );</div>
-<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;    <span class="keyword">auto</span> otherWidx = getWedgeIndex( op );</div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;    <span class="keywordflow">if</span> ( otherWidx.isInvalid() ) <span class="comment">// i.e. h is boundary</span></div>
-<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;        otherWidx = getWedgeIndex( h );</div>
-<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160; </div>
-<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;    <span class="comment">// halfedge -&gt; vertex</span></div>
-<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160; </div>
-<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;    <span class="comment">// manual iter for from fixup</span></div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;    <span class="keyword">auto</span> currentWidx     = widx;</div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;    <span class="keyword">auto</span> ringWidx        = WedgeIndex {};</div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;    <span class="keywordtype">int</span> phase            = 0;</div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;    HalfedgeHandle start = prev_halfedge_handle( opposite_halfedge_handle( hp ) );</div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;    HalfedgeHandle vih   = start;</div>
-<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;    <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;    {</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;        set_vertex_handle( vih, vh );</div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( vih ) )</div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;        {</div>
-<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;            <span class="keywordflow">if</span> ( !keepFrom )</div>
-<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;            {</div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;                <span class="keywordflow">if</span> ( phase == 0 )</div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;                {</div>
-<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;                    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( ringWidx.isInvalid(), <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;                    phase    = 1;</div>
-<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;                    ringWidx = getWedgeIndex( vih );</div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;                }</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;                <span class="keywordflow">if</span> ( phase == 1 &amp;&amp; ringWidx != getWedgeIndex( vih ) )</div>
-<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;                {</div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;                    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( ringWidx.isValid(), <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;                    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( getWedgeIndex( vih ).isValid(), <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;                    phase       = 2;</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;                    currentWidx = otherWidx;</div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;                }</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;                replaceWedgeIndex( vih, currentWidx );</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;            }</div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;            { m_wedges.setWedgePosition( getWedgeIndex( vih ), point( vh ) ); }</div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;        }</div>
-<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;        vih = prev_halfedge_handle( opposite_halfedge_handle( vih ) );</div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;    } <span class="keywordflow">while</span> ( vih != start );</div>
-<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;    <span class="comment">// Reference version from  openmesh</span></div>
-<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;    <span class="comment">//    for ( VertexIHalfedgeIter vih_it( vih_iter( vo ) ); vih_it.is_valid(); ++vih_it )</span></div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;    <span class="comment">//    {</span></div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;    <span class="comment">//        set_vertex_handle( *vih_it, vh );</span></div>
-<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;    <span class="comment">//        if ( !is_boundary( *vih_it ) )</span></div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;    <span class="comment">//        {</span></div>
-<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;    <span class="comment">//            if ( !keepFrom ) { replaceWedgeIndex( *vih_it, widx ); }</span></div>
-<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;    <span class="comment">//            else</span></div>
-<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;    <span class="comment">//            { m_wedges.setWedgePosition( getWedgeIndex( *vih_it ), point( vh ) ); }</span></div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;    <span class="comment">//        }</span></div>
-<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;    <span class="comment">//    }</span></div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160; </div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;    <span class="comment">// halfedge -&gt; halfedge</span></div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;    set_next_halfedge_handle( hp, hn );</div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;    <span class="keywordflow">if</span> ( !is_boundary( hp ) )</div>
-<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;        <span class="keywordflow">if</span> ( !keepFrom ) replaceWedgeIndex( hp, widx );</div>
-<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160; </div>
-<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;    set_next_halfedge_handle( op, on );</div>
-<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160; </div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;    <span class="keywordflow">if</span> ( keepFrom )</div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;    {</div>
-<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( op ) ) replaceWedgeIndex( op, getWedgeIndex( ono ) );</div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;    }</div>
-<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;    <span class="comment">// face -&gt; halfedge</span></div>
-<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;    <span class="keywordflow">if</span> ( fh.is_valid() ) set_halfedge_handle( fh, hn );</div>
-<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;    <span class="keywordflow">if</span> ( fo.is_valid() ) set_halfedge_handle( fo, on );</div>
-<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160; </div>
-<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;    <span class="comment">// vertex -&gt; halfedge</span></div>
-<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;    <span class="keywordflow">if</span> ( halfedge_handle( vh ) == o ) set_halfedge_handle( vh, hn );</div>
-<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;    adjust_outgoing_halfedge( vh );</div>
-<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;    set_isolated( vo );</div>
-<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160; </div>
-<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;    <span class="comment">// delete stuff</span></div>
-<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;    status( edge_handle( h ) ).set_deleted( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;    VertexHandle vh = to_vertex_handle( h );</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;    VertexHandle vo = to_vertex_handle( o );</div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160; </div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;    <span class="keyword">auto</span> widx = getWedgeIndex( h );</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;    <span class="keywordflow">if</span> ( widx.isInvalid() ) <span class="comment">// i.e. h is boundary</span></div>
+<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;        widx = getWedgeIndex( op );</div>
+<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;    <span class="keyword">auto</span> otherWidx = getWedgeIndex( op );</div>
+<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;    <span class="keywordflow">if</span> ( otherWidx.isInvalid() ) <span class="comment">// i.e. h is boundary</span></div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;        otherWidx = getWedgeIndex( h );</div>
+<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160; </div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;    <span class="comment">// halfedge -&gt; vertex</span></div>
+<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160; </div>
+<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;    <span class="comment">// manual iter for from fixup</span></div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;    <span class="keyword">auto</span> currentWidx     = widx;</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;    <span class="keyword">auto</span> ringWidx        = WedgeIndex {};</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;    <span class="keywordtype">int</span> phase            = 0;</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;    HalfedgeHandle start = prev_halfedge_handle( opposite_halfedge_handle( hp ) );</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;    HalfedgeHandle vih   = start;</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;    <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;    {</div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;        set_vertex_handle( vih, vh );</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( vih ) )</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;        {</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;            <span class="keywordflow">if</span> ( !keepFrom )</div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;            {</div>
+<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;                <span class="keywordflow">if</span> ( phase == 0 )</div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;                {</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;                    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( ringWidx.isInvalid(), <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;                    phase    = 1;</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;                    ringWidx = getWedgeIndex( vih );</div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;                }</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;                <span class="keywordflow">if</span> ( phase == 1 &amp;&amp; ringWidx != getWedgeIndex( vih ) )</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;                {</div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;                    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( ringWidx.isValid(), <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;                    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( getWedgeIndex( vih ).isValid(), <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;                    phase       = 2;</div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;                    currentWidx = otherWidx;</div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;                }</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;                replaceWedgeIndex( vih, currentWidx );</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;            }</div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;            { m_wedges.setWedgePosition( getWedgeIndex( vih ), point( vh ) ); }</div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;        }</div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;        vih = prev_halfedge_handle( opposite_halfedge_handle( vih ) );</div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;    } <span class="keywordflow">while</span> ( vih != start );</div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;    <span class="comment">// Reference version from  openmesh</span></div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;    <span class="comment">//    for ( VertexIHalfedgeIter vih_it( vih_iter( vo ) ); vih_it.is_valid(); ++vih_it )</span></div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;    <span class="comment">//    {</span></div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;    <span class="comment">//        set_vertex_handle( *vih_it, vh );</span></div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;    <span class="comment">//        if ( !is_boundary( *vih_it ) )</span></div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;    <span class="comment">//        {</span></div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;    <span class="comment">//            if ( !keepFrom ) { replaceWedgeIndex( *vih_it, widx ); }</span></div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;    <span class="comment">//            else</span></div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;    <span class="comment">//            { m_wedges.setWedgePosition( getWedgeIndex( *vih_it ), point( vh ) ); }</span></div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;    <span class="comment">//        }</span></div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;    <span class="comment">//    }</span></div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160; </div>
+<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;    <span class="comment">// halfedge -&gt; halfedge</span></div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;    set_next_halfedge_handle( hp, hn );</div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;    <span class="keywordflow">if</span> ( !is_boundary( hp ) )</div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;        <span class="keywordflow">if</span> ( !keepFrom ) replaceWedgeIndex( hp, widx );</div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160; </div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;    set_next_halfedge_handle( op, on );</div>
+<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160; </div>
+<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;    <span class="keywordflow">if</span> ( keepFrom )</div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;    {</div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( op ) ) replaceWedgeIndex( op, getWedgeIndex( ono ) );</div>
+<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;    }</div>
+<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;    <span class="comment">// face -&gt; halfedge</span></div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;    <span class="keywordflow">if</span> ( fh.is_valid() ) set_halfedge_handle( fh, hn );</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;    <span class="keywordflow">if</span> ( fo.is_valid() ) set_halfedge_handle( fo, on );</div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160; </div>
+<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;    <span class="comment">// vertex -&gt; halfedge</span></div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;    <span class="keywordflow">if</span> ( halfedge_handle( vh ) == o ) set_halfedge_handle( vh, hn );</div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;    adjust_outgoing_halfedge( vh );</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;    set_isolated( vo );</div>
 <div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160; </div>
-<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;    status( vo ).set_deleted( <span class="keyword">true</span> );</div>
-<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160; </div>
-<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;    m_wedges.del( getWedgeIndex( h ) );</div>
-<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;    m_wedges.del( getWedgeIndex( o ) );</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;    <span class="comment">// delete stuff</span></div>
+<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;    status( edge_handle( h ) ).set_deleted( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160; </div>
+<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;    status( vo ).set_deleted( <span class="keyword">true</span> );</div>
 <div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160; </div>
-<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;    <span class="keywordflow">if</span> ( has_halfedge_status() )</div>
-<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;    {</div>
-<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;        status( h ).set_deleted( <span class="keyword">true</span> );</div>
-<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;        status( o ).set_deleted( <span class="keyword">true</span> );</div>
-<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;    }</div>
-<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;}</div>
-<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160; </div>
-<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;<span class="comment">//-----------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;<span class="keywordtype">void</span> TopologicalMesh::collapse_loop( HalfedgeHandle _hh ) {</div>
-<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;    HalfedgeHandle h0 = _hh;</div>
-<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;    HalfedgeHandle h1 = next_halfedge_handle( h0 );</div>
-<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160; </div>
-<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;    HalfedgeHandle o0 = opposite_halfedge_handle( h0 );</div>
-<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;    HalfedgeHandle o1 = opposite_halfedge_handle( h1 );</div>
+<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;    m_wedges.del( getWedgeIndex( h ) );</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;    m_wedges.del( getWedgeIndex( o ) );</div>
+<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160; </div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;    <span class="keywordflow">if</span> ( has_halfedge_status() )</div>
+<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;    {</div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;        status( h ).set_deleted( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;        status( o ).set_deleted( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;    }</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;}</div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160; </div>
+<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;<span class="comment">//-----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;<span class="keywordtype">void</span> TopologicalMesh::collapse_loop( HalfedgeHandle _hh ) {</div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;    HalfedgeHandle h0 = _hh;</div>
+<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;    HalfedgeHandle h1 = next_halfedge_handle( h0 );</div>
 <div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160; </div>
-<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;    VertexHandle v0 = to_vertex_handle( h0 );</div>
-<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;    VertexHandle v1 = to_vertex_handle( h1 );</div>
+<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;    HalfedgeHandle o0 = opposite_halfedge_handle( h0 );</div>
+<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;    HalfedgeHandle o1 = opposite_halfedge_handle( h1 );</div>
 <div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160; </div>
-<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;    FaceHandle fh = face_handle( h0 );</div>
-<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;    FaceHandle fo = face_handle( o0 );</div>
+<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;    VertexHandle v0 = to_vertex_handle( h0 );</div>
+<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;    VertexHandle v1 = to_vertex_handle( h1 );</div>
 <div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160; </div>
-<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;    <span class="comment">// is it a loop ?</span></div>
-<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;    assert( ( next_halfedge_handle( h1 ) == h0 ) &amp;&amp; ( h1 != o0 ) );</div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;    FaceHandle fh = face_handle( h0 );</div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;    FaceHandle fo = face_handle( o0 );</div>
 <div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160; </div>
-<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;    <span class="comment">// halfedge -&gt; halfedge</span></div>
-<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;    set_next_halfedge_handle( h1, next_halfedge_handle( o0 ) );</div>
-<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;    replaceWedgeIndex( h1, getWedgeIndex( o0 ) );</div>
-<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;    set_next_halfedge_handle( prev_halfedge_handle( o0 ), h1 );</div>
-<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160; </div>
-<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;    <span class="comment">// halfedge -&gt; face</span></div>
-<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;    set_face_handle( h1, fo );</div>
+<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;    <span class="comment">// is it a loop ?</span></div>
+<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;    assert( ( next_halfedge_handle( h1 ) == h0 ) &amp;&amp; ( h1 != o0 ) );</div>
+<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160; </div>
+<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;    <span class="comment">// halfedge -&gt; halfedge</span></div>
+<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;    set_next_halfedge_handle( h1, next_halfedge_handle( o0 ) );</div>
+<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;    replaceWedgeIndex( h1, getWedgeIndex( o0 ) );</div>
+<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;    set_next_halfedge_handle( prev_halfedge_handle( o0 ), h1 );</div>
 <div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160; </div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;    <span class="comment">// vertex -&gt; halfedge</span></div>
-<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;    set_halfedge_handle( v0, h1 );</div>
-<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;    adjust_outgoing_halfedge( v0 );</div>
-<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;    set_halfedge_handle( v1, o1 );</div>
-<div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;    adjust_outgoing_halfedge( v1 );</div>
-<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160; </div>
-<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;    <span class="comment">// face -&gt; halfedge</span></div>
-<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;    <span class="keywordflow">if</span> ( fo.is_valid() &amp;&amp; halfedge_handle( fo ) == o0 ) { set_halfedge_handle( fo, h1 ); }</div>
+<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;    <span class="comment">// halfedge -&gt; face</span></div>
+<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;    set_face_handle( h1, fo );</div>
+<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160; </div>
+<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;    <span class="comment">// vertex -&gt; halfedge</span></div>
+<div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;    set_halfedge_handle( v0, h1 );</div>
+<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;    adjust_outgoing_halfedge( v0 );</div>
+<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;    set_halfedge_handle( v1, o1 );</div>
+<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;    adjust_outgoing_halfedge( v1 );</div>
 <div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160; </div>
-<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;    <span class="comment">// delete stuff</span></div>
-<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;    <span class="keywordflow">if</span> ( fh.is_valid() )</div>
-<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;    {</div>
-<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;        set_halfedge_handle( fh, InvalidHalfedgeHandle );</div>
-<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;        status( fh ).set_deleted( <span class="keyword">true</span> );</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;    }</div>
-<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;    status( edge_handle( h0 ) ).set_deleted( <span class="keyword">true</span> );</div>
-<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160; </div>
-<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;    m_wedges.del( getWedgeIndex( h0 ) );</div>
-<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;    m_wedges.del( getWedgeIndex( o0 ) );</div>
+<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;    <span class="comment">// face -&gt; halfedge</span></div>
+<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;    <span class="keywordflow">if</span> ( fo.is_valid() &amp;&amp; halfedge_handle( fo ) == o0 ) { set_halfedge_handle( fo, h1 ); }</div>
+<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160; </div>
+<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;    <span class="comment">// delete stuff</span></div>
+<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;    <span class="keywordflow">if</span> ( fh.is_valid() )</div>
+<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;    {</div>
+<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;        set_halfedge_handle( fh, InvalidHalfedgeHandle );</div>
+<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;        status( fh ).set_deleted( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;    }</div>
+<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;    status( edge_handle( h0 ) ).set_deleted( <span class="keyword">true</span> );</div>
 <div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160; </div>
-<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;    <span class="keywordflow">if</span> ( has_halfedge_status() )</div>
-<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;    {</div>
-<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;        status( h0 ).set_deleted( <span class="keyword">true</span> );</div>
-<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;        status( o0 ).set_deleted( <span class="keyword">true</span> );</div>
-<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;    }</div>
-<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;}</div>
-<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160; </div>
-<div class="line"><a name="l00957"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad76327ced50411f7fcb9f7a17cae3d17">  957</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad76327ced50411f7fcb9f7a17cae3d17">TopologicalMesh::collapseWedge</a>( TopologicalMesh::HalfedgeHandle heh, <span class="keywordtype">bool</span> keepFromWedges ) {</div>
-<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;    collapse( heh, keepFromWedges );</div>
-<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;}</div>
-<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160; </div>
-<div class="line"><a name="l00961"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc">  961</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc">TopologicalMesh::garbage_collection</a>() {</div>
-<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;    <span class="comment">// Wedge Ref count is already up to date, do not del again !</span></div>
+<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;    m_wedges.del( getWedgeIndex( h0 ) );</div>
+<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;    m_wedges.del( getWedgeIndex( o0 ) );</div>
+<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160; </div>
+<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;    <span class="keywordflow">if</span> ( has_halfedge_status() )</div>
+<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;    {</div>
+<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;        status( h0 ).set_deleted( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;        status( o0 ).set_deleted( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;    }</div>
+<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;}</div>
+<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160; </div>
+<div class="line"><a name="l00960"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad76327ced50411f7fcb9f7a17cae3d17">  960</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad76327ced50411f7fcb9f7a17cae3d17">TopologicalMesh::collapseWedge</a>( TopologicalMesh::HalfedgeHandle heh, <span class="keywordtype">bool</span> keepFromWedges ) {</div>
+<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;    collapse( heh, keepFromWedges );</div>
+<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;}</div>
 <div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160; </div>
-<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;    <span class="keyword">auto</span> offset = m_wedges.computeCleanupOffset();</div>
-<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;    <span class="keywordflow">for</span> ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )</div>
-<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;    {</div>
-<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;        <span class="keywordflow">if</span> ( !status( *he_it ).deleted() )</div>
-<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;        {</div>
-<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;            <span class="keyword">auto</span> index = property( m_wedgeIndexPph, *he_it );</div>
-<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;            <span class="keywordflow">if</span> ( index.isValid() ) { property( m_wedgeIndexPph, *he_it ) = index - offset[index]; }</div>
-<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;        }</div>
-<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;    }</div>
-<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;    m_wedges.garbageCollection();</div>
-<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;    base::garbage_collection();</div>
-<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160; </div>
-<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;    <span class="keywordflow">for</span> ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )</div>
-<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;    {</div>
-<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#ac1c032aad1e007a2b79b7f39b8813919">ON_ASSERT</a>( <span class="keyword">auto</span> idx = property( m_wedgeIndexPph, *he_it ); );</div>
-<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( !idx.isValid() || !m_wedges.getWedge( idx ).isDeleted(),</div>
-<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;                     <span class="stringliteral">&quot;references deleted wedge remains after garbage collection&quot;</span> );</div>
-<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;    }</div>
-<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 0; i &lt; m_wedges.size(); ++i )</div>
-<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;    {</div>
-<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( !m_wedges.getWedge( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> {i} ).isDeleted(),</div>
-<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;                     <span class="stringliteral">&quot;deleted wedge remains after garbage collection&quot;</span> );</div>
-<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;    }</div>
-<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;}</div>
-<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160; </div>
-<div class="line"><a name="l00989"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8217e23b6dd7ac9297aba305661d42f5">  989</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8217e23b6dd7ac9297aba305661d42f5">TopologicalMesh::delete_face</a>( FaceHandle _fh, <span class="keywordtype">bool</span> _delete_isolated_vertices ) {</div>
-<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> itr = fh_begin( _fh ); itr.is_valid(); ++itr )</div>
-<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;    {</div>
-<div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160;        <span class="keyword">auto</span> idx = property( m_wedgeIndexPph, *itr );</div>
-<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;        <span class="keywordflow">if</span> ( idx.isInvalid() )</div>
-<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;        {</div>
-<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> )</div>
-<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;[TopologicalMesh::delete_face] halfedge has an invalid wedge index&quot;</span>;</div>
-<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;        }</div>
-<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;        { m_wedges.del( idx ); }</div>
-<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;        <span class="comment">// set an invalid index for the boundary halfedges</span></div>
-<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;        property( m_wedgeIndexPph, *itr ) = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> {};</div>
-<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;    }</div>
-<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;    base::delete_face( _fh, _delete_isolated_vertices );</div>
-<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;}</div>
-<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160; </div>
-<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160; </div>
-<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TopologicalMesh::WedgeIndex</a></div>
-<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a0523a53d2d94a623e194830837863c4c">TopologicalMesh::WedgeCollection::add</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a>&amp; wd ) {</div>
-<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;    WedgeIndex idx;</div>
-<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;    <span class="keyword">auto</span> itr = std::find( m_data.begin(), m_data.end(), Wedge {wd} );</div>
-<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160; </div>
-<div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;    <span class="keywordflow">if</span> ( itr == m_data.end() )</div>
-<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;    {</div>
-<div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160;        idx = m_data.size();</div>
-<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;        m_data.emplace_back( wd );</div>
-<div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;    }</div>
-<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;    {</div>
-<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;        itr-&gt;incrementRefCount();</div>
-<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160;        idx = std::distance( m_data.begin(), itr );</div>
-<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;    }</div>
-<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;    <span class="keywordflow">return</span> idx;</div>
-<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;}</div>
-<div class="line"><a name="l01025"></a><span class="lineno"> 1025</span>&#160; </div>
-<div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;std::vector&lt;int&gt; TopologicalMesh::WedgeCollection::computeCleanupOffset()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01027"></a><span class="lineno"> 1027</span>&#160;    std::vector&lt;int&gt; ret( m_data.size(), 0 );</div>
-<div class="line"><a name="l01028"></a><span class="lineno"> 1028</span>&#160;    <span class="keywordtype">int</span> currentOffset = 0;</div>
-<div class="line"><a name="l01029"></a><span class="lineno"> 1029</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 0; i &lt; m_data.size(); ++i )</div>
-<div class="line"><a name="l01030"></a><span class="lineno"> 1030</span>&#160;    {</div>
-<div class="line"><a name="l01031"></a><span class="lineno"> 1031</span>&#160;        <span class="keywordflow">if</span> ( m_data[i].isDeleted() )</div>
-<div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;        {</div>
-<div class="line"><a name="l01033"></a><span class="lineno"> 1033</span>&#160;            ++currentOffset;</div>
-<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;            ret[i] = -1;</div>
-<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;        }</div>
-<div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160;        { ret[i] = currentOffset; }</div>
-<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;    }</div>
-<div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;}</div>
-<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160; </div>
-<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;} <span class="comment">// namespace Geometry</span></div>
-<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00964"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc">  964</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc">TopologicalMesh::garbage_collection</a>() {</div>
+<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;    <span class="comment">// Wedge Ref count is already up to date, do not del again !</span></div>
+<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160; </div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;    <span class="keyword">auto</span> offset = m_wedges.computeCleanupOffset();</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;    <span class="keywordflow">for</span> ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )</div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;    {</div>
+<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;        <span class="keywordflow">if</span> ( !status( *he_it ).deleted() )</div>
+<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;        {</div>
+<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;            <span class="keyword">auto</span> index = property( m_wedgeIndexPph, *he_it );</div>
+<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;            <span class="keywordflow">if</span> ( index.isValid() ) { property( m_wedgeIndexPph, *he_it ) = index - offset[index]; }</div>
+<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;        }</div>
+<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;    }</div>
+<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;    m_wedges.garbageCollection();</div>
+<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;    base::garbage_collection();</div>
+<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160; </div>
+<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;    <span class="keywordflow">for</span> ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )</div>
+<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;    {</div>
+<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#ac1c032aad1e007a2b79b7f39b8813919">ON_ASSERT</a>( <span class="keyword">auto</span> idx = property( m_wedgeIndexPph, *he_it ); );</div>
+<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( !idx.isValid() || !m_wedges.getWedge( idx ).isDeleted(),</div>
+<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;                     <span class="stringliteral">&quot;references deleted wedge remains after garbage collection&quot;</span> );</div>
+<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;    }</div>
+<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 0; i &lt; m_wedges.size(); ++i )</div>
+<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;    {</div>
+<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( !m_wedges.getWedge( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> {i} ).isDeleted(),</div>
+<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;                     <span class="stringliteral">&quot;deleted wedge remains after garbage collection&quot;</span> );</div>
+<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;    }</div>
+<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;}</div>
+<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160; </div>
+<div class="line"><a name="l00992"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8217e23b6dd7ac9297aba305661d42f5">  992</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8217e23b6dd7ac9297aba305661d42f5">TopologicalMesh::delete_face</a>( FaceHandle _fh, <span class="keywordtype">bool</span> _delete_isolated_vertices ) {</div>
+<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> itr = fh_begin( _fh ); itr.is_valid(); ++itr )</div>
+<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;    {</div>
+<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;        <span class="keyword">auto</span> idx = property( m_wedgeIndexPph, *itr );</div>
+<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;        <span class="keywordflow">if</span> ( idx.isInvalid() )</div>
+<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;        {</div>
+<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> )</div>
+<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;[TopologicalMesh::delete_face] halfedge has an invalid wedge index&quot;</span>;</div>
+<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;        }</div>
+<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;        { m_wedges.del( idx ); }</div>
+<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;        <span class="comment">// set an invalid index for the boundary halfedges</span></div>
+<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;        property( m_wedgeIndexPph, *itr ) = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">WedgeIndex</a> {};</div>
+<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;    }</div>
+<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;    base::delete_face( _fh, _delete_isolated_vertices );</div>
+<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;}</div>
+<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160; </div>
+<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160; </div>
+<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TopologicalMesh::WedgeIndex</a></div>
+<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a0523a53d2d94a623e194830837863c4c">TopologicalMesh::WedgeCollection::add</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a>&amp; wd ) {</div>
+<div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;    WedgeIndex idx;</div>
+<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;    <span class="keyword">auto</span> itr = std::find( m_data.begin(), m_data.end(), Wedge {wd} );</div>
+<div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160; </div>
+<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;    <span class="keywordflow">if</span> ( itr == m_data.end() )</div>
+<div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;    {</div>
+<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;        idx = m_data.size();</div>
+<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;        m_data.emplace_back( wd );</div>
+<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;    }</div>
+<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;    {</div>
+<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;        itr-&gt;incrementRefCount();</div>
+<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;        idx = std::distance( m_data.begin(), itr );</div>
+<div class="line"><a name="l01025"></a><span class="lineno"> 1025</span>&#160;    }</div>
+<div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;    <span class="keywordflow">return</span> idx;</div>
+<div class="line"><a name="l01027"></a><span class="lineno"> 1027</span>&#160;}</div>
+<div class="line"><a name="l01028"></a><span class="lineno"> 1028</span>&#160; </div>
+<div class="line"><a name="l01029"></a><span class="lineno"> 1029</span>&#160;std::vector&lt;int&gt; TopologicalMesh::WedgeCollection::computeCleanupOffset()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01030"></a><span class="lineno"> 1030</span>&#160;    std::vector&lt;int&gt; ret( m_data.size(), 0 );</div>
+<div class="line"><a name="l01031"></a><span class="lineno"> 1031</span>&#160;    <span class="keywordtype">int</span> currentOffset = 0;</div>
+<div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 0; i &lt; m_data.size(); ++i )</div>
+<div class="line"><a name="l01033"></a><span class="lineno"> 1033</span>&#160;    {</div>
+<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;        <span class="keywordflow">if</span> ( m_data[i].isDeleted() )</div>
+<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;        {</div>
+<div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;            ++currentOffset;</div>
+<div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160;            ret[i] = -1;</div>
+<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;        }</div>
+<div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;        { ret[i] = currentOffset; }</div>
+<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;    }</div>
+<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;}</div>
+<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160; </div>
+<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;} <span class="comment">// namespace Geometry</span></div>
+<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1IndexedGeometry_html_ad1fc6b57b469ef12d14f677852b8f2a8"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8">Ra::Core::Geometry::IndexedGeometry::setIndices</a></div><div class="ttdeci">void setIndices(IndexContainerType &amp;&amp;indices)</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00314">TriangleMesh.inl:314</a></div></div>
@@ -1145,7 +1148,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_aa9a2d79990cf7cfb6abac7a2a648440f"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa9a2d79990cf7cfb6abac7a2a648440f">Ra::Core::Geometry::TopologicalMesh::toTriangleMesh</a></div><div class="ttdeci">TriangleMesh toTriangleMesh()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00227">TopologicalMesh.cpp:227</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">Ra::Core::Geometry::TopologicalMesh::WedgeData</a></div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00333">TopologicalMesh.hpp:333</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html_ac1a3e02d77abd15c2a307673f5b67fa1"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1">Ra::Core::Utils::Index::isValid</a></div><div class="ttdeci">constexpr bool isValid() const</div><div class="ttdoc">VALID.</div><div class="ttdef"><b>Definition:</b> <a href="Index_8inl_source.html#l00018">Index.inl:18</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ad76327ced50411f7fcb9f7a17cae3d17"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad76327ced50411f7fcb9f7a17cae3d17">Ra::Core::Geometry::TopologicalMesh::collapseWedge</a></div><div class="ttdeci">void collapseWedge(TopologicalMesh::HalfedgeHandle he, bool keepFromVertex=false)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00957">TopologicalMesh.cpp:957</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ad76327ced50411f7fcb9f7a17cae3d17"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad76327ced50411f7fcb9f7a17cae3d17">Ra::Core::Geometry::TopologicalMesh::collapseWedge</a></div><div class="ttdeci">void collapseWedge(TopologicalMesh::HalfedgeHandle he, bool keepFromVertex=false)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00960">TopologicalMesh.cpp:960</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData_html_ad8391e50eb857079d355eda585ce42f2"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html#ad8391e50eb857079d355eda585ce42f2">Ra::Core::Geometry::TopologicalMesh::WedgeData::m_floatAttrib</a></div><div class="ttdeci">VectorArray&lt; Scalar &gt; m_floatAttrib</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00353">TopologicalMesh.hpp:353</a></div></div>
 <div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_a887411177386edbcdc35d0c6bf78a83a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a">Ra::Core::Geometry::AttribArrayGeometry::setVertices</a></div><div class="ttdeci">void setVertices(PointAttribHandle::Container &amp;&amp;vertices)</div><div class="ttdoc">Set vertices.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00079">TriangleMesh.inl:79</a></div></div>
@@ -1160,7 +1163,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_aafffdb88d46fb519720392457703cf1f"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aafffdb88d46fb519720392457703cf1f">Ra::Core::Geometry::TopologicalMesh::updatePositions</a></div><div class="ttdeci">void updatePositions(const Ra::Core::Geometry::TriangleMesh &amp;mesh)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00471">TopologicalMesh.cpp:471</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData_html_a649059560c8d8dd8188c9e5efdb5e755"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html#a649059560c8d8dd8188c9e5efdb5e755">Ra::Core::Geometry::TopologicalMesh::WedgeData::m_position</a></div><div class="ttdeci">Vector3 m_position</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00352">TopologicalMesh.hpp:352</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a226d5c166fcf83f949a0241b4a22ae4d"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a226d5c166fcf83f949a0241b4a22ae4d">Ra::Core::Geometry::TopologicalMesh::getVec4AttribNames</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; getVec4AttribNames() const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8inl_source.html#l00834">TopologicalMesh.inl:834</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a46eee3e8fe80ff3a80f935964b5feaa2"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a46eee3e8fe80ff3a80f935964b5feaa2">Ra::Core::Geometry::TopologicalMesh::collapse</a></div><div class="ttdeci">void collapse(HalfedgeHandle, bool=false)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00784">TopologicalMesh.cpp:784</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a46eee3e8fe80ff3a80f935964b5feaa2"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a46eee3e8fe80ff3a80f935964b5feaa2">Ra::Core::Geometry::TopologicalMesh::collapse</a></div><div class="ttdeci">void collapse(HalfedgeHandle, bool=false)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00787">TopologicalMesh.cpp:787</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1LineMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1LineMesh.html">Ra::Core::Geometry::LineMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00283">TriangleMesh.hpp:283</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyMesh.html">Ra::Core::Geometry::PolyMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00280">TriangleMesh.hpp:280</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1IndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html">Ra::Core::Geometry::IndexedGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00226">TriangleMesh.hpp:226</a></div></div>
@@ -1170,6 +1173,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp_source.html','');
 <div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00347">CoreMacros.hpp:347</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a67dd170fa636a6aaa6efecc3e359966d"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a67dd170fa636a6aaa6efecc3e359966d">Ra::Core::Geometry::moveContainerToMesh</a></div><div class="ttdeci">void moveContainerToMesh(IndexedGeometry&lt; U &gt; &amp;out, const std::vector&lt; std::string &gt; &amp;names, AlignedStdVector&lt; typename Attrib&lt; T &gt;::Container &gt; &amp;wedgeAttribData)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00217">TopologicalMesh.cpp:217</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Scene_html_a065a86e926a88bd772aa9e87d0858b26"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Scene.html#a065a86e926a88bd772aa9e87d0858b26">Ra::Engine::Scene::triangulate</a></div><div class="ttdeci">TriangleMesh triangulate(const PolyMesh &amp;polyMesh)</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8cpp_source.html#l00044">SkinningComponent.cpp:44</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_a71452620a83df6e6f6b995a503dc8a52"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a71452620a83df6e6f6b995a503dc8a52">Ra::Core::Geometry::AttribArrayGeometry::normalsUnlock</a></div><div class="ttdeci">void normalsUnlock()</div><div class="ttdoc">Release lock on vertices normals.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00181">TriangleMesh.inl:181</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_aa9438814ccaa8de9aaed2dbf5e0bd6aa"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Ra::Engine::Data::DrawPrimitives::Normal</a></div><div class="ttdeci">LineMeshPtr Normal(const Core::Vector3 &amp;point, const Core::Vector3 &amp;normal, const Core::Utils::Color &amp;color, Scalar scale)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00335">DrawPrimitives.cpp:335</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a74f2221e7c53c4927ef7da96cf5fc884"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a74f2221e7c53c4927ef7da96cf5fc884">Ra::Core::Geometry::copyWedgeDataToAttribContainer</a></div><div class="ttdeci">void copyWedgeDataToAttribContainer(AlignedStdVector&lt; typename Attrib&lt; T &gt;::Container &gt; &amp;c, const VectorArray&lt; T &gt; &amp;wd)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00208">TopologicalMesh.cpp:208</a></div></div>
@@ -1189,7 +1193,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_af8fc9107dd9bcb2eb4d769ef303b2b88"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af8fc9107dd9bcb2eb4d769ef303b2b88">Ra::Core::Geometry::TopologicalMesh::getFloatAttribNames</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; getFloatAttribNames() const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8inl_source.html#l00843">TopologicalMesh.inl:843</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a105652bf50ca7175a2cb8f85bde9d844"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a105652bf50ca7175a2cb8f85bde9d844">Ra::Core::Geometry::TopologicalMesh::isManifold</a></div><div class="ttdeci">bool isManifold(VertexHandle vh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00069">TopologicalMesh.cpp:69</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData_html_adbe218fffd628362f5f55cacaa6d279c"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html#adbe218fffd628362f5f55cacaa6d279c">Ra::Core::Geometry::TopologicalMesh::WedgeData::m_vector2Attrib</a></div><div class="ttdeci">VectorArray&lt; Vector2 &gt; m_vector2Attrib</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00354">TopologicalMesh.hpp:354</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a8217e23b6dd7ac9297aba305661d42f5"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8217e23b6dd7ac9297aba305661d42f5">Ra::Core::Geometry::TopologicalMesh::delete_face</a></div><div class="ttdeci">void delete_face(FaceHandle _fh, bool _delete_isolated_vertices=true)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00989">TopologicalMesh.cpp:989</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a8217e23b6dd7ac9297aba305661d42f5"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8217e23b6dd7ac9297aba305661d42f5">Ra::Core::Geometry::TopologicalMesh::delete_face</a></div><div class="ttdeci">void delete_face(FaceHandle _fh, bool _delete_isolated_vertices=true)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00992">TopologicalMesh.cpp:992</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00052">TopologicalMesh.hpp:52</a></div></div>
 <div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
@@ -1198,7 +1202,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a3cce1f3046115108f2f5678889b2ed40"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a3cce1f3046115108f2f5678889b2ed40">Ra::Core::Geometry::TopologicalMesh::getVec3AttribNames</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; getVec3AttribNames() const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8inl_source.html#l00837">TopologicalMesh.inl:837</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ab71f7b807bf20ff4b85d03a4db6961e6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a></div><div class="ttdeci">TopologicalMesh()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00202">TopologicalMesh.cpp:202</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_af6bbcf4207feca6844f6776de4e7f022"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af6bbcf4207feca6844f6776de4e7f022">Ra::Core::Geometry::TopologicalMesh::updateNormals</a></div><div class="ttdeci">void updateNormals(const Ra::Core::Geometry::TriangleMesh &amp;mesh)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00485">TopologicalMesh.cpp:485</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ad0eb9c1c7711f3aa24ad612b339942bc"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc">Ra::Core::Geometry::TopologicalMesh::garbage_collection</a></div><div class="ttdeci">void garbage_collection()</div><div class="ttdoc">Remove deleted element from the mesh, including wedges.</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00961">TopologicalMesh.cpp:961</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ad0eb9c1c7711f3aa24ad612b339942bc"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc">Ra::Core::Geometry::TopologicalMesh::garbage_collection</a></div><div class="ttdeci">void garbage_collection()</div><div class="ttdoc">Remove deleted element from the mesh, including wedges.</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00964">TopologicalMesh.cpp:964</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">Ra::Core::Utils::logERROR</a></div><div class="ttdeci">@ logERROR</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00016">Log.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_acae6706358022ff1eb312e6664358431"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#acae6706358022ff1eb312e6664358431">Ra::Core::Geometry::TopologicalMesh::toLineMesh</a></div><div class="ttdeci">LineMesh toLineMesh()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00282">TopologicalMesh.cpp:282</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
@@ -1208,7 +1212,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="TopologicalMesh_8cpp.html">TopologicalMesh.cpp</a></li>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:37 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:25 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

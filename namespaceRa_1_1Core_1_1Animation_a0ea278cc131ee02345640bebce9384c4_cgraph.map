@@ -1,0 +1,12 @@
+<map id="Ra::Core::Animation::computeSTBS_weights" name="Ra::Core::Animation::computeSTBS_weights">
+<area shape="rect" id="node1" title="Computes the weights for the STBS using simple projection on the bone." alt="" coords="5,167,184,208"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a8c7b89d8b68d4b42174bc3e377fdd8fa" title=" " alt="" coords="232,68,420,109"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Geometry.html#a749ee9e81862ef200b0b7540cc1f16bc" title=" " alt="" coords="251,133,401,175"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3" title=" " alt="" coords="250,199,402,240"/>
+<area shape="rect" id="node10" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="245,265,407,291"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1AdjacencyList.html#afb228941d27a01e44071d404e8b58aa4" title=" " alt="" coords="468,5,643,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253" title="Return true if the node is a leaf node." alt="" coords="468,71,643,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="691,71,865,112"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="472,139,639,166"/>
+<area shape="rect" id="node8" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="495,190,615,217"/>
+</map>

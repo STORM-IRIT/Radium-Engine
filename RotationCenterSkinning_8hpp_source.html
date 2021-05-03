@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -98,50 +98,46 @@ $(document).ready(function(){initNavTree('RotationCenterSkinning_8hpp_source.htm
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="SkinningData_8hpp.html">Core/Animation/SkinningData.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VectorArray_8hpp.html">Core/Containers/VectorArray.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Animation {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// Optimal center of rotation skinning, based on Le &amp; Hodgins</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// &quot;Real-time Skeletal Skinning with Optimized Centers of Rotation&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// ACM ToG, 2016.</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">weightSimilarity</a>( <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt;&amp; v1w,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                     <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt;&amp; v2w,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                     <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma = 0.1f );</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">struct </span>SkinningRefData;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">struct </span>SkinningFrameData;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a40700cdabdd47fdb360f6bbfe692b36d">computeCoR</a>( Skinning::RefData&amp; dataInOut,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                             <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma         = 0.1f,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                             <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> weightEpsilon = 0.1f );</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a6ed92a8ce349fc8e84c099d05ae0a35b">corSkinning</a>( <span class="keyword">const</span> Vector3Array&amp; input,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                              <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Animation::Pose</a>&amp; pose,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                              <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Animation::WeightMatrix</a>&amp; weight,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                              <span class="keyword">const</span> Vector3Array&amp; CoR,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                              Vector3Array&amp; output );</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace Animation</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// clang-format off</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"></span><span class="comment">// clang-format on</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">void</span> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#ac01535127ca12dc01779f0df10185c6e">computeCoR</a>( SkinningRefData&amp; dataInOut,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                             <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma         = 0.1_ra,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                             <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> weightEpsilon = 0.1_ra );</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">// clang-format off</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"></span><span class="comment">// clang-format on</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#ad451474c757b714cf8f2dbcc7f6a5ffc">centerOfRotationSkinning</a>( <span class="keyword">const</span> SkinningRefData&amp; refData,</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                           <span class="keyword">const</span> Vector3Array&amp; tangents,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                                           <span class="keyword">const</span> Vector3Array&amp; bitangents,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                           SkinningFrameData&amp; frameData );</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace Animation</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aVectorArray_8hpp_html"><div class="ttname"><a href="VectorArray_8hpp.html">VectorArray.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a6ed92a8ce349fc8e84c099d05ae0a35b"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a6ed92a8ce349fc8e84c099d05ae0a35b">Ra::Core::Animation::corSkinning</a></div><div class="ttdeci">void corSkinning(const Vector3Array &amp;input, const Animation::Pose &amp;pose, const Animation::WeightMatrix &amp;weight, const Vector3Array &amp;CoR, Vector3Array &amp;output)</div><div class="ttdoc">Skin the vertices with the optimal centers of rotation.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00228">RotationCenterSkinning.cpp:228</a></div></div>
 <div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a431d1716fa300515105fdeec7574f95c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Ra::Core::Animation::WeightMatrix</a></div><div class="ttdeci">Ra::Core::Sparse WeightMatrix</div><div class="ttdef"><b>Definition:</b> <a href="HandleWeight_8hpp_source.html#l00034">HandleWeight.hpp:34</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a71236244c5603a8a5bc63595db9b7717"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">Ra::Core::Animation::weightSimilarity</a></div><div class="ttdeci">Scalar weightSimilarity(const Eigen::SparseVector&lt; Scalar &gt; &amp;v1w, const Eigen::SparseVector&lt; Scalar &gt; &amp;v2w, Scalar sigma)</div><div class="ttdoc">Computes the similarity between two weights vector.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00020">RotationCenterSkinning.cpp:20</a></div></div>
-<div class="ttc" id="aSkinningData_8hpp_html"><div class="ttname"><a href="SkinningData_8hpp.html">SkinningData.hpp</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_ac01535127ca12dc01779f0df10185c6e"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#ac01535127ca12dc01779f0df10185c6e">Ra::Core::Animation::computeCoR</a></div><div class="ttdeci">void computeCoR(SkinningRefData &amp;dataInOut, Scalar sigma, Scalar weightEpsilon)</div><div class="ttdoc">Computes the per-vertex optimal center of rotations.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00053">RotationCenterSkinning.cpp:53</a></div></div>
 <div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_ad451474c757b714cf8f2dbcc7f6a5ffc"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#ad451474c757b714cf8f2dbcc7f6a5ffc">Ra::Core::Animation::centerOfRotationSkinning</a></div><div class="ttdeci">void centerOfRotationSkinning(const SkinningRefData &amp;refData, const Vector3Array &amp;tangents, const Vector3Array &amp;bitangents, SkinningFrameData &amp;frameData)</div><div class="ttdoc">Applies Center-of-Rotation skinning to the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00229">RotationCenterSkinning.cpp:229</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a9d0610a873baebcd700af02ac834fa38"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Ra::Core::Animation::Pose</a></div><div class="ttdeci">AlignedStdVector&lt; Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; &gt; Pose</div><div class="ttdef"><b>Definition:</b> <a href="Pose_8hpp_source.html#l00016">Pose.hpp:16</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a40700cdabdd47fdb360f6bbfe692b36d"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a40700cdabdd47fdb360f6bbfe692b36d">Ra::Core::Animation::computeCoR</a></div><div class="ttdeci">void computeCoR(Skinning::RefData &amp;dataInOut, Scalar sigma, Scalar weightEpsilon)</div><div class="ttdoc">Compute the optimal center of rotations (1 per vertex) based on weight similarity.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00052">RotationCenterSkinning.cpp:52</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><a class="el" href="RotationCenterSkinning_8hpp.html">RotationCenterSkinning.hpp</a></li>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:36 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:25 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

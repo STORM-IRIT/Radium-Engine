@@ -78,6 +78,8 @@ var hierarchy =
         [ "Ra::Engine::Scene::PointLight", "classRa_1_1Engine_1_1Scene_1_1PointLight.html", null ],
         [ "Ra::Engine::Scene::SpotLight", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html", null ]
       ] ],
+      [ "Ra::Engine::Scene::SkeletonComponent", "classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html", null ],
+      [ "Ra::Engine::Scene::SkinningComponent", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html", null ],
       [ "Ra::Engine::Scene::UiComponent", "classRa_1_1Engine_1_1Scene_1_1UiComponent.html", null ],
       [ "Ra::Engine::Scene::VolumeComponent", "classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html", null ]
     ] ],
@@ -151,7 +153,6 @@ var hierarchy =
       [ "Ra::IO::OBJFileManager", "classRa_1_1IO_1_1OBJFileManager.html", null ],
       [ "Ra::IO::OFFFileManager", "classRa_1_1IO_1_1OFFFileManager.html", null ]
     ] ],
-    [ "Ra::Core::Skinning::FrameData", "structRa_1_1Core_1_1Skinning_1_1FrameData.html", null ],
     [ "Ra::Engine::FrameInfo", "structRa_1_1Engine_1_1FrameInfo.html", null ],
     [ "Ra::FrameTimerData", "structRa_1_1FrameTimerData.html", null ],
     [ "Ra::Core::Geometry::Frustum", "structRa_1_1Core_1_1Geometry_1_1Frustum.html", null ],
@@ -279,6 +280,7 @@ var hierarchy =
       [ "Ra::Gui::Timeline", "classRa_1_1Gui_1_1Timeline.html", null ]
     ] ],
     [ "QFrame", "classQFrame.html", [
+      [ "Ra::Gui::SkeletonBasedAnimationUI", "classRa_1_1Gui_1_1SkeletonBasedAnimationUI.html", null ],
       [ "Ra::Gui::TimelineFrameSelector", "classRa_1_1Gui_1_1TimelineFrameSelector.html", null ],
       [ "Ra::Gui::TimelineTimeScale", "classRa_1_1Gui_1_1TimelineTimeScale.html", null ]
     ] ],
@@ -314,7 +316,6 @@ var hierarchy =
     [ "Ra::Plugins::RadiumPluginInterface", "classRa_1_1Plugins_1_1RadiumPluginInterface.html", null ],
     [ "Ra::Engine::Data::RawShaderMaterialConverter", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html", null ],
     [ "Ra::Core::AlignedAllocator< T, Alignment >::rebind< U >", "structRa_1_1Core_1_1AlignedAllocator_1_1rebind.html", null ],
-    [ "Ra::Core::Skinning::RefData", "structRa_1_1Core_1_1Skinning_1_1RefData.html", null ],
     [ "Ra::Engine::Rendering::Renderer", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html", [
       [ "Ra::Engine::Rendering::ForwardRenderer", "classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html", null ]
     ] ],
@@ -342,6 +343,8 @@ var hierarchy =
     [ "Ra::Engine::Data::ShaderProgramManager", "classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html", null ],
     [ "Ra::Engine::Scene::SignalManager", "classRa_1_1Engine_1_1Scene_1_1SignalManager.html", null ],
     [ "compile_time_utils::size< x >", "structcompile__time__utils_1_1size.html", null ],
+    [ "Ra::Core::Animation::SkinningFrameData", "structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html", null ],
+    [ "Ra::Core::Animation::SkinningRefData", "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html", null ],
     [ "Ra::Core::Geometry::Spline< D, K >", "classRa_1_1Core_1_1Geometry_1_1Spline.html", null ],
     [ "Ra::Core::Asset::LightData::SpotLight", "structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html", null ],
     [ "streambuf", null, [
@@ -360,7 +363,8 @@ var hierarchy =
       [ "Ra::Engine::Scene::GeometrySystem", "classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html", null ],
       [ "Ra::Engine::Scene::LightManager", "classRa_1_1Engine_1_1Scene_1_1LightManager.html", [
         [ "Ra::Engine::Scene::DefaultLightManager", "classRa_1_1Engine_1_1Scene_1_1DefaultLightManager.html", null ]
-      ] ]
+      ] ],
+      [ "Ra::Engine::Scene::SkeletonBasedAnimationSystem", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html", null ]
     ] ],
     [ "Ra::Core::Task", "classRa_1_1Core_1_1Task.html", [
       [ "Ra::Core::FunctionTask", "classRa_1_1Core_1_1FunctionTask.html", null ]
@@ -390,7 +394,6 @@ var hierarchy =
       [ "Ra::Core::AlignedStdVector< ChildrenList >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< Core::Vector2ui >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< Core::VectorNui >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< Eigen::Transform< Scalar, 3, Eigen::Affine > >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< IndexType >", "structRa_1_1Core_1_1AlignedStdVector.html", [
         [ "Ra::Core::VectorArray< IndexType >", "classRa_1_1Core_1_1VectorArray.html", null ]
       ] ],
@@ -402,6 +405,7 @@ var hierarchy =
       [ "Ra::Core::AlignedStdVector< Scalar >", "structRa_1_1Core_1_1AlignedStdVector.html", [
         [ "Ra::Core::VectorArray< Scalar >", "classRa_1_1Core_1_1VectorArray_3_01Scalar_01_4.html", null ]
       ] ],
+      [ "Ra::Core::AlignedStdVector< Transform >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< uint8_t >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< V >", "structRa_1_1Core_1_1AlignedStdVector.html", [
         [ "Ra::Core::VectorArray< V >", "classRa_1_1Core_1_1VectorArray.html", null ]

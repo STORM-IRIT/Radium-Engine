@@ -38,12 +38,6 @@ var engine =
       [ "MeshFeatureTracking Plugin", "develpicking.html#autotoc_md78", null ],
       [ "MeshPaint Plugin", "develpicking.html#autotoc_md79", null ]
     ] ],
-    [ "Animation pipeline", "develanimation.html", [
-      [ "Animation in Radium", "develanimation.html#autotoc_md41", [
-        [ "Using KeyFramedValue to animate data", "develanimation.html#autotoc_md42", null ],
-        [ "Character Animation", "develanimation.html#autotoc_md43", null ]
-      ] ]
-    ] ],
     [ "Timeline and Keyframes", "develtimeline.html", [
       [ "Timeline And Keyframes", "develtimeline.html#autotoc_md119", [
         [ "The Timeline UI", "develtimeline.html#autotoc_md120", null ],

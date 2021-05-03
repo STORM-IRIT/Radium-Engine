@@ -1,0 +1,13 @@
+<map id="Ra::Core::Animation::linearBlendSkinningSTBS" name="Ra::Core::Animation::linearBlendSkinningSTBS">
+<area shape="rect" id="node1" title="Applies the LBS version of STBS to the current frame." alt="" coords="5,176,199,217"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a8c7b89d8b68d4b42174bc3e377fdd8fa" title=" " alt="" coords="247,37,435,79"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759" title=" " alt="" coords="265,103,417,144"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="257,169,424,225"/>
+<area shape="rect" id="node9" href="$namespaceRa_1_1Core_1_1Animation.html#a03d7eb179bf339237a3e5b06d6d06100" title=" " alt="" coords="265,329,417,371"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="257,249,424,305"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1AdjacencyList.html#afb228941d27a01e44071d404e8b58aa4" title=" " alt="" coords="503,5,678,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253" title="Return true if the node is a leaf node." alt="" coords="503,71,678,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="747,71,921,112"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="483,216,699,257"/>
+<area shape="rect" id="node10" href="$namespaceRa_1_1Core_1_1Animation.html#a44a3a0320649edf2829268bf80555800" title=" " alt="" coords="515,329,667,371"/>
+</map>

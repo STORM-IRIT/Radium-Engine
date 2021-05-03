@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 6099;
+var viewWidth = 6920;
 var viewHeight = 506;
 var sectionId = 'dynsection-1';
 </script>
@@ -54,16 +54,16 @@ var sectionId = 'dynsection-1';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Math/Math.hpp</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-502 6095,-502 6095,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-502 6916,-502 6916,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="3013.5,-445.5 3013.5,-497.5 3177.5,-497.5 3177.5,-445.5 3013.5,-445.5"/>
-<text text-anchor="start" x="3021.5" y="-485.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3021.5" y="-474.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3021.5" y="-463.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
-<text text-anchor="middle" x="3095.5" y="-452.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Math.hpp</text>
+<polygon fill="#bfbfbf" stroke="black" points="5730,-445.5 5730,-497.5 5894,-497.5 5894,-445.5 5730,-445.5"/>
+<text text-anchor="start" x="5738" y="-485.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5738" y="-474.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5738" y="-463.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
+<text text-anchor="middle" x="5812" y="-452.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Math.hpp</text>
 </a>
 </g>
 </g>
@@ -71,1392 +71,1434 @@ var sectionId = 'dynsection-1';
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="Color_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="2116.5,-356.5 2116.5,-408.5 2278.5,-408.5 2278.5,-356.5 2116.5,-356.5"/>
-<text text-anchor="start" x="2124.5" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2124.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2124.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Utils</text>
-<text text-anchor="middle" x="2197.5" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Color.hpp</text>
+<polygon fill="white" stroke="black" points="3715,-356.5 3715,-408.5 3877,-408.5 3877,-356.5 3715,-356.5"/>
+<text text-anchor="start" x="3723" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3723" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3723" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Utils</text>
+<text text-anchor="middle" x="3796" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Color.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M3003.41,-461.58C2827.4,-444.53 2445.89,-407.56 2278.73,-391.37"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3003.14,-465.07 3013.43,-462.55 3003.81,-458.1 3003.14,-465.07"/>
+<path fill="none" stroke="midnightblue" d="M5719.78,-466.52C5379.6,-451.84 4198.14,-400.85 3877.07,-387"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5719.7,-470.02 5729.84,-466.95 5720,-463.03 5719.7,-470.02"/>
 </g>
-<!-- Node27 -->
+<!-- Node32 -->
 <g id="node5" class="node">
-<title>Node27</title>
+<title>Node32</title>
 <g id="a_node5"><a xlink:href="MeshPrimitives_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1418.5,-89.5 1418.5,-141.5 1606.5,-141.5 1606.5,-89.5 1418.5,-89.5"/>
-<text text-anchor="start" x="1426.5" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1426.5" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1426.5" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="1512.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MeshPrimitives.cpp</text>
+<polygon fill="white" stroke="black" points="2470,-89.5 2470,-141.5 2658,-141.5 2658,-89.5 2470,-89.5"/>
+<text text-anchor="start" x="2478" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="2478" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="2478" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="2564" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MeshPrimitives.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node27 -->
-<g id="edge95" class="edge">
-<title>Node1&#45;&gt;Node27</title>
-<path fill="none" stroke="midnightblue" d="M3003.3,-468.15C2575.56,-456.79 801.94,-404.71 722.5,-320 706.39,-302.82 708.26,-285.76 722.5,-267 767,-208.38 969.16,-191.53 1041.5,-178 1202.6,-147.86 1246.94,-169.58 1408.5,-142 1411.71,-141.45 1414.96,-140.86 1418.24,-140.23"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3003.36,-471.65 3013.45,-468.42 3003.55,-464.65 3003.36,-471.65"/>
+<!-- Node1&#45;&gt;Node32 -->
+<g id="edge100" class="edge">
+<title>Node1&#45;&gt;Node32</title>
+<path fill="none" stroke="midnightblue" d="M5719.66,-469.51C5327.82,-465.12 3800.77,-445.94 3321,-409 2875.26,-374.68 2599.05,-588.78 2331,-231 2316.88,-212.15 2316.63,-196.66 2331,-178 2333.29,-175.03 2406.22,-156.06 2469.88,-139.97"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5719.78,-473.01 5729.81,-469.63 5719.85,-466.01 5719.78,-473.01"/>
 </g>
-<!-- Node49 -->
+<!-- Node54 -->
 <g id="node14" class="node">
-<title>Node49</title>
+<title>Node54</title>
 <g id="a_node14"><a xlink:href="Camera_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-52.5 149,-52.5 149,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="74.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/Camera.cpp</text>
+<polygon fill="white" stroke="black" points="5737.5,-0.5 5737.5,-52.5 5886.5,-52.5 5886.5,-0.5 5737.5,-0.5"/>
+<text text-anchor="start" x="5745.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5745.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5745.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="5812" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/Camera.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node49 -->
-<g id="edge107" class="edge">
-<title>Node1&#45;&gt;Node49</title>
-<path fill="none" stroke="midnightblue" d="M3003.15,-469.76C2528.2,-465.82 377.58,-446 241.5,-409 140.8,-381.62 36.5,-398.86 36.5,-294.5 36.5,-294.5 36.5,-294.5 36.5,-203.5 36.5,-148.8 54.26,-86.64 65.49,-52.78"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3003.36,-473.27 3013.39,-469.85 3003.42,-466.27 3003.36,-473.27"/>
-</g>
-<!-- Node55 -->
-<g id="node18" class="node">
-<title>Node55</title>
-<g id="a_node18"><a xlink:href="Viewer_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="753,-0.5 753,-52.5 920,-52.5 920,-0.5 753,-0.5"/>
-<text text-anchor="start" x="761" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="761" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="761" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="836.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Viewer.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node55 -->
-<g id="edge113" class="edge">
-<title>Node1&#45;&gt;Node55</title>
-<path fill="none" stroke="midnightblue" d="M3003.21,-470.63C2608.07,-470.85 1069.48,-467.86 861.5,-409 785.43,-387.47 747.01,-388.47 707.5,-320 695.73,-299.6 698.96,-288.95 707.5,-267 715.37,-246.77 728.4,-249.02 740.5,-231 780.57,-171.33 812.63,-92.31 827.5,-52.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3003.45,-474.13 3013.45,-470.63 3003.45,-467.13 3003.45,-474.13"/>
-</g>
-<!-- Node62 -->
-<g id="node33" class="node">
-<title>Node62</title>
-<g id="a_node33"><a xlink:href="CameraManipulator_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="940,-89.5 940,-141.5 1107,-141.5 1107,-89.5 940,-89.5"/>
-<text text-anchor="start" x="948" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="948" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="948" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="1023.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/CameraManipulator.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node62 -->
-<g id="edge110" class="edge">
-<title>Node1&#45;&gt;Node62</title>
-<path fill="none" stroke="midnightblue" d="M3003.19,-469.73C2541.36,-465.69 498.66,-445.8 369.5,-409 294.58,-387.65 257.15,-387.64 218.5,-320 182.67,-257.29 232.94,-210.36 297.5,-178 408.11,-122.55 773.61,-115.93 939.86,-115.9"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3003.45,-473.23 3013.48,-469.82 3003.51,-466.23 3003.45,-473.23"/>
-</g>
-<!-- Node142 -->
-<g id="node36" class="node">
-<title>Node142</title>
-<g id="a_node36"><a xlink:href="SpotLight_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="2199,-178.5 2199,-230.5 2348,-230.5 2348,-178.5 2199,-178.5"/>
-<text text-anchor="start" x="2207" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2207" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2207" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="2273.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SpotLight.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node142 -->
-<g id="edge108" class="edge">
-<title>Node1&#45;&gt;Node142</title>
-<path fill="none" stroke="midnightblue" d="M3096.98,-435.05C3096.79,-388.4 3088.64,-307.58 3038.5,-267 2989.35,-227.21 2533.45,-237.06 2470.5,-231 2429.99,-227.1 2384.97,-221.38 2348.21,-216.34"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3093.48,-435.27 3096.9,-445.29 3100.48,-435.32 3093.48,-435.27"/>
-</g>
-<!-- Node144 -->
-<g id="node37" class="node">
-<title>Node144</title>
-<g id="a_node37"><a xlink:href="FlightCameraManipulator_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="368,-178.5 368,-230.5 535,-230.5 535,-178.5 368,-178.5"/>
-<text text-anchor="start" x="376" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="376" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="376" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="451.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/FlightCameraManipulator.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node144 -->
-<g id="edge111" class="edge">
-<title>Node1&#45;&gt;Node144</title>
-<path fill="none" stroke="midnightblue" d="M3003.24,-469.6C2552.22,-465.03 598.92,-443.28 546.5,-409 484.33,-368.35 462.08,-275.51 454.77,-230.67"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3003.26,-473.1 3013.3,-469.7 3003.33,-466.1 3003.26,-473.1"/>
-</g>
-<!-- Node145 -->
-<g id="node38" class="node">
-<title>Node145</title>
-<g id="a_node38"><a xlink:href="TrackballCameraManipulator_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="553,-178.5 553,-230.5 732,-230.5 732,-178.5 553,-178.5"/>
-<text text-anchor="start" x="561" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="561" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="561" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="642.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/TrackballCameraManipulator.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node145 -->
+<!-- Node1&#45;&gt;Node54 -->
 <g id="edge112" class="edge">
-<title>Node1&#45;&gt;Node145</title>
-<path fill="none" stroke="midnightblue" d="M3003.25,-470C2554.51,-467.33 619.71,-453.28 576.5,-409 532.42,-363.83 551.32,-324.87 576.5,-267 582.62,-252.93 593.73,-240.61 605.11,-230.78"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3003.23,-473.5 3013.25,-470.05 3003.27,-466.5 3003.23,-473.5"/>
+<title>Node1&#45;&gt;Node54</title>
+<path fill="none" stroke="midnightblue" d="M5844.87,-437.64C5852.11,-428.92 5859.07,-419.1 5864,-409 5886.81,-362.28 5888,-346.49 5888,-294.5 5888,-294.5 5888,-294.5 5888,-203.5 5888,-151.51 5886.81,-135.72 5864,-89 5857.56,-75.81 5847.65,-63.09 5838.21,-52.68"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5842.12,-435.48 5838.21,-445.32 5847.41,-440.06 5842.12,-435.48"/>
 </g>
-<!-- Node147 -->
-<g id="node40" class="node">
-<title>Node147</title>
-<g id="a_node40"><a xlink:href="AssimpAnimationDataLoader_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5894,-178.5 5894,-230.5 6091,-230.5 6091,-178.5 5894,-178.5"/>
-<text text-anchor="start" x="5902" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="5902" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="5902" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="5992.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpAnimationDataLoader.cpp</text>
+<!-- Node56 -->
+<g id="node16" class="node">
+<title>Node56</title>
+<g id="a_node16"><a xlink:href="SkeletonComponent_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="2729,-0.5 2729,-52.5 2899,-52.5 2899,-0.5 2729,-0.5"/>
+<text text-anchor="start" x="2737" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="2737" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="2737" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="2814" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SkeletonComponent.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node147 -->
+<!-- Node1&#45;&gt;Node56 -->
+<g id="edge115" class="edge">
+<title>Node1&#45;&gt;Node56</title>
+<path fill="none" stroke="midnightblue" d="M5719.55,-470.01C5195.55,-467.09 2616.32,-450.62 2454,-409 2347.99,-381.82 2236,-403.94 2236,-294.5 2236,-294.5 2236,-294.5 2236,-203.5 2236,-151.92 2216.97,-123.86 2255,-89 2293.12,-54.06 2668.03,-61.74 2719,-53 2722.28,-52.44 2725.62,-51.81 2728.97,-51.14"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5719.69,-473.51 5729.7,-470.07 5719.72,-466.51 5719.69,-473.51"/>
+</g>
+<!-- Node61 -->
+<g id="node19" class="node">
+<title>Node61</title>
+<g id="a_node19"><a xlink:href="Viewer_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="4838.5,-0.5 4838.5,-52.5 5005.5,-52.5 5005.5,-0.5 4838.5,-0.5"/>
+<text text-anchor="start" x="4846.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4846.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4846.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="4922" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Viewer.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node61 -->
+<g id="edge120" class="edge">
+<title>Node1&#45;&gt;Node61</title>
+<path fill="none" stroke="midnightblue" d="M5827.27,-435.85C5830.58,-427.21 5833.76,-417.88 5836,-409 5848.53,-359.29 5850,-345.77 5850,-294.5 5850,-294.5 5850,-294.5 5850,-203.5 5850,-143.62 5830.24,-119.97 5779,-89 5713.89,-49.65 5208.35,-33.96 5005.66,-29.21"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5823.97,-434.65 5823.51,-445.24 5830.47,-437.25 5823.97,-434.65"/>
+</g>
+<!-- Node18 -->
+<g id="node31" class="node">
+<title>Node18</title>
+<g id="a_node31"><a xlink:href="SkeletonBasedAnimationSystem_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="3276.5,-178.5 3276.5,-230.5 3507.5,-230.5 3507.5,-178.5 3276.5,-178.5"/>
+<text text-anchor="start" x="3284.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3284.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3284.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3392" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SkeletonBasedAnimationSystem.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node18 -->
 <g id="edge114" class="edge">
-<title>Node1&#45;&gt;Node147</title>
-<path fill="none" stroke="midnightblue" d="M3126.39,-437.85C3134.74,-428.68 3143.63,-418.6 3151.5,-409 3170.04,-386.38 3164.6,-369.58 3190.5,-356 3310.11,-293.27 4287.96,-386.52 4405.5,-320 4429.86,-306.22 4415.11,-280.73 4439.5,-267 4509.48,-227.61 5804.86,-241.28 5884.5,-231 5887.56,-230.61 5890.65,-230.16 5893.77,-229.67"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3123.73,-435.56 3119.54,-445.29 3128.89,-440.3 3123.73,-435.56"/>
+<title>Node1&#45;&gt;Node18</title>
+<path fill="none" stroke="midnightblue" d="M5719.59,-470.03C5366.76,-467.88 4104.39,-456.93 3706,-409 3517.85,-386.36 3408.2,-467.32 3289,-320 3274.18,-301.69 3277.37,-287.49 3289,-267 3297.74,-251.6 3312.03,-239.65 3327.22,-230.55"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5719.74,-473.53 5729.76,-470.09 5719.78,-466.53 5719.74,-473.53"/>
+</g>
+<!-- Node68 -->
+<g id="node35" class="node">
+<title>Node68</title>
+<g id="a_node35"><a xlink:href="CameraManipulator_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="5188.5,-89.5 5188.5,-141.5 5355.5,-141.5 5355.5,-89.5 5188.5,-89.5"/>
+<text text-anchor="start" x="5196.5" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5196.5" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5196.5" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="5272" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/CameraManipulator.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node68 -->
+<g id="edge117" class="edge">
+<title>Node1&#45;&gt;Node68</title>
+<path fill="none" stroke="midnightblue" d="M5818.6,-435.51C5824.82,-391.66 5828.43,-316.29 5792,-267 5740.05,-196.71 5489.09,-149.11 5355.72,-128.34"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5815.14,-435 5817.08,-445.42 5822.06,-436.07 5815.14,-435"/>
+</g>
+<!-- Node148 -->
+<g id="node38" class="node">
+<title>Node148</title>
+<g id="a_node38"><a xlink:href="SpotLight_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="4987.5,-178.5 4987.5,-230.5 5136.5,-230.5 5136.5,-178.5 4987.5,-178.5"/>
+<text text-anchor="start" x="4995.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4995.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4995.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="5062" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SpotLight.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node148 -->
+<g id="edge113" class="edge">
+<title>Node1&#45;&gt;Node148</title>
+<path fill="none" stroke="midnightblue" d="M5719.57,-466.42C5610.36,-460.03 5436.71,-444.52 5383,-409 5367.61,-398.82 5311.91,-277.86 5297,-267 5240.88,-226.13 5212,-249.2 5145,-231 5142.24,-230.25 5139.43,-229.47 5136.59,-228.67"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5719.42,-469.91 5729.6,-466.99 5719.82,-462.92 5719.42,-469.91"/>
 </g>
 <!-- Node150 -->
-<g id="node41" class="node">
+<g id="node39" class="node">
 <title>Node150</title>
-<g id="a_node41"><a xlink:href="Math_8inl.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3407.5,-356.5 3407.5,-408.5 3571.5,-408.5 3571.5,-356.5 3407.5,-356.5"/>
-<text text-anchor="start" x="3415.5" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3415.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3415.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
-<text text-anchor="middle" x="3489.5" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Math.inl</text>
+<g id="a_node39"><a xlink:href="FlightCameraManipulator_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="5351.5,-178.5 5351.5,-230.5 5518.5,-230.5 5518.5,-178.5 5351.5,-178.5"/>
+<text text-anchor="start" x="5359.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5359.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5359.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="5435" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/FlightCameraManipulator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node150 -->
-<g id="edge71" class="edge">
+<g id="edge118" class="edge">
 <title>Node1&#45;&gt;Node150</title>
-<path fill="none" stroke="midnightblue" d="M3187.63,-452.11C3245.73,-440.74 3322.17,-425.24 3389.5,-409 3395.24,-407.61 3401.17,-406.11 3407.14,-404.56"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3186.88,-448.69 3177.74,-454.04 3188.22,-455.56 3186.88,-448.69"/>
+<path fill="none" stroke="midnightblue" d="M5719.81,-466.15C5623.03,-455.97 5475.96,-423.27 5410,-320 5392.59,-292.73 5406.45,-255.17 5419.45,-230.62"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5719.59,-469.64 5729.89,-467.15 5720.28,-462.68 5719.59,-469.64"/>
 </g>
 <!-- Node151 -->
-<g id="node42" class="node">
+<g id="node40" class="node">
 <title>Node151</title>
-<g id="a_node42"><a xlink:href="LinearAlgebra_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4017.5,-267.5 4017.5,-319.5 4181.5,-319.5 4181.5,-267.5 4017.5,-267.5"/>
-<text text-anchor="start" x="4025.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="4025.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="4025.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
-<text text-anchor="middle" x="4099.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/LinearAlgebra.hpp</text>
+<g id="a_node40"><a xlink:href="TrackballCameraManipulator_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="5154.5,-178.5 5154.5,-230.5 5333.5,-230.5 5333.5,-178.5 5154.5,-178.5"/>
+<text text-anchor="start" x="5162.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5162.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5162.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="5244" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/TrackballCameraManipulator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node151 -->
-<g id="edge73" class="edge">
+<g id="edge119" class="edge">
 <title>Node1&#45;&gt;Node151</title>
-<path fill="none" stroke="midnightblue" d="M3104.56,-435.28C3113.38,-408.69 3129.65,-373.84 3157.5,-356 3228.95,-310.21 3801.43,-298.26 4017.42,-295.36"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3101.16,-434.42 3101.53,-445.01 3107.84,-436.5 3101.16,-434.42"/>
+<path fill="none" stroke="midnightblue" d="M5719.49,-463.23C5624.21,-454.36 5483.3,-436.99 5437,-409 5369.38,-368.11 5386.57,-322.18 5330,-267 5316.33,-253.67 5299.58,-241.02 5284.5,-230.7"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5719.44,-466.74 5729.72,-464.16 5720.08,-459.77 5719.44,-466.74"/>
 </g>
-<!-- Node168 -->
+<!-- Node153 -->
+<g id="node42" class="node">
+<title>Node153</title>
+<g id="a_node42"><a xlink:href="AssimpAnimationDataLoader_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="5916.5,-178.5 5916.5,-230.5 6113.5,-230.5 6113.5,-178.5 5916.5,-178.5"/>
+<text text-anchor="start" x="5924.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5924.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5924.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="6015" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpAnimationDataLoader.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node153 -->
+<g id="edge121" class="edge">
+<title>Node1&#45;&gt;Node153</title>
+<path fill="none" stroke="midnightblue" d="M5865.71,-439.79C5878.55,-430.91 5891.54,-420.47 5902,-409 5952.5,-353.6 5989.14,-271.64 6005.5,-230.69"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5863.69,-436.93 5857.33,-445.4 5867.59,-442.75 5863.69,-436.93"/>
+</g>
+<!-- Node156 -->
+<g id="node43" class="node">
+<title>Node156</title>
+<g id="a_node43"><a xlink:href="Math_8inl.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="6162,-356.5 6162,-408.5 6326,-408.5 6326,-356.5 6162,-356.5"/>
+<text text-anchor="start" x="6170" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="6170" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="6170" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
+<text text-anchor="middle" x="6244" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Math.inl</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node156 -->
+<g id="edge79" class="edge">
+<title>Node1&#45;&gt;Node156</title>
+<path fill="none" stroke="midnightblue" d="M5904.21,-455.06C5971.07,-443.87 6063.42,-427.51 6144,-409 6149.76,-407.68 6155.69,-406.22 6161.67,-404.7"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5903.41,-451.64 5894.12,-456.74 5904.56,-458.55 5903.41,-451.64"/>
+</g>
+<!-- Node157 -->
+<g id="node44" class="node">
+<title>Node157</title>
+<g id="a_node44"><a xlink:href="LinearAlgebra_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="1208,-267.5 1208,-319.5 1372,-319.5 1372,-267.5 1208,-267.5"/>
+<text text-anchor="start" x="1216" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1216" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1216" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
+<text text-anchor="middle" x="1290" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/LinearAlgebra.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node157 -->
+<g id="edge81" class="edge">
+<title>Node1&#45;&gt;Node157</title>
+<path fill="none" stroke="midnightblue" d="M5719.6,-470.23C5229.69,-468.63 2931.67,-458.53 2222,-409 1906.5,-386.98 1533.95,-332.58 1372,-307.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5719.79,-473.74 5729.8,-470.27 5719.81,-466.74 5719.79,-473.74"/>
+</g>
+<!-- Node173 -->
 <g id="node56" class="node">
-<title>Node168</title>
+<title>Node173</title>
 <g id="a_node56"><a xlink:href="KeyFramedValue_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="3199.5,-356.5 3199.5,-408.5 3389.5,-408.5 3389.5,-356.5 3199.5,-356.5"/>
-<text text-anchor="start" x="3207.5" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3207.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3207.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Animation</text>
-<text text-anchor="middle" x="3294.5" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/KeyFramedValue.hpp</text>
+<polygon fill="white" stroke="red" points="5954,-356.5 5954,-408.5 6144,-408.5 6144,-356.5 5954,-356.5"/>
+<text text-anchor="start" x="5962" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5962" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5962" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Animation</text>
+<text text-anchor="middle" x="6049" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/KeyFramedValue.hpp</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node168 -->
-<g id="edge91" class="edge">
-<title>Node1&#45;&gt;Node168</title>
-<path fill="none" stroke="midnightblue" d="M3161.98,-441.44C3186.37,-430.77 3213.76,-418.8 3237.27,-408.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3160.55,-438.24 3152.79,-445.45 3163.36,-444.65 3160.55,-438.24"/>
-</g>
-<!-- Node177 -->
-<g id="node57" class="node">
-<title>Node177</title>
-<g id="a_node57"><a xlink:href="CameraData_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3590,-356.5 3590,-408.5 3757,-408.5 3757,-356.5 3590,-356.5"/>
-<text text-anchor="start" x="3598" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3598" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3598" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Asset</text>
-<text text-anchor="middle" x="3673.5" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/CameraData.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node177 -->
-<g id="edge93" class="edge">
-<title>Node1&#45;&gt;Node177</title>
-<path fill="none" stroke="midnightblue" d="M3187.77,-462.72C3285.81,-453.54 3445.04,-436.02 3580.5,-409 3583.62,-408.38 3586.79,-407.71 3589.98,-407"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3187.23,-459.25 3177.59,-463.66 3187.87,-466.22 3187.23,-459.25"/>
-</g>
-<!-- Node178 -->
-<g id="node58" class="node">
-<title>Node178</title>
-<g id="a_node58"><a xlink:href="Spline_8inl.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="3775.5,-356.5 3775.5,-408.5 3963.5,-408.5 3963.5,-356.5 3775.5,-356.5"/>
-<text text-anchor="start" x="3783.5" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3783.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3783.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="3869.5" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Spline.inl</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node178 -->
-<g id="edge94" class="edge">
-<title>Node1&#45;&gt;Node178</title>
-<path fill="none" stroke="midnightblue" d="M3188.03,-466.37C3317.81,-459.59 3560.94,-443.27 3765.5,-409 3768.71,-408.46 3771.96,-407.88 3775.25,-407.26"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3187.55,-462.89 3177.74,-466.9 3187.91,-469.88 3187.55,-462.89"/>
-</g>
-<!-- Node182 -->
-<g id="node59" class="node">
-<title>Node182</title>
-<g id="a_node59"><a xlink:href="Camera_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="228,-267.5 228,-319.5 377,-319.5 377,-267.5 228,-267.5"/>
-<text text-anchor="start" x="236" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="236" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="236" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="302.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/Camera.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node182 -->
+<!-- Node1&#45;&gt;Node173 -->
 <g id="edge96" class="edge">
-<title>Node1&#45;&gt;Node182</title>
-<path fill="none" stroke="midnightblue" d="M3003.18,-469.82C2551.5,-466.31 591.31,-448.83 468.5,-409 412.72,-390.91 358.87,-347.47 328.3,-319.6"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3003.22,-473.32 3013.24,-469.9 3003.27,-466.32 3003.22,-473.32"/>
+<title>Node1&#45;&gt;Node173</title>
+<path fill="none" stroke="midnightblue" d="M5889.64,-442C5919.08,-431.19 5952.34,-418.98 5980.84,-408.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5888.41,-438.72 5880.23,-445.45 5890.83,-445.29 5888.41,-438.72"/>
 </g>
-<!-- Node191 -->
-<g id="node60" class="node">
-<title>Node191</title>
-<g id="a_node60"><a xlink:href="TimelineFrameSelector_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3981.5,-356.5 3981.5,-408.5 4157.5,-408.5 4157.5,-356.5 3981.5,-356.5"/>
-<text text-anchor="start" x="3989.5" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3989.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3989.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Timeline</text>
-<text text-anchor="middle" x="4069.5" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/TimelineFrameSelector.cpp</text>
+<!-- Node183 -->
+<g id="node57" class="node">
+<title>Node183</title>
+<g id="a_node57"><a xlink:href="CameraData_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="6344.5,-356.5 6344.5,-408.5 6511.5,-408.5 6511.5,-356.5 6344.5,-356.5"/>
+<text text-anchor="start" x="6352.5" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="6352.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="6352.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Asset</text>
+<text text-anchor="middle" x="6428" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/CameraData.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node191 -->
-<g id="edge109" class="edge">
-<title>Node1&#45;&gt;Node191</title>
-<path fill="none" stroke="midnightblue" d="M3188.03,-469.68C3348.69,-467 3689.2,-455.75 3972.5,-409 3975.42,-408.52 3978.38,-407.99 3981.36,-407.42"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3187.65,-466.19 3177.71,-469.85 3187.76,-473.19 3187.65,-466.19"/>
+<!-- Node1&#45;&gt;Node183 -->
+<g id="edge98" class="edge">
+<title>Node1&#45;&gt;Node183</title>
+<path fill="none" stroke="midnightblue" d="M5904.37,-463.87C6009.38,-455.35 6185.62,-438.09 6335,-409 6338.12,-408.39 6341.29,-407.73 6344.49,-407.04"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5903.81,-460.4 5894.12,-464.69 5904.37,-467.38 5903.81,-460.4"/>
+</g>
+<!-- Node184 -->
+<g id="node58" class="node">
+<title>Node184</title>
+<g id="a_node58"><a xlink:href="Spline_8inl.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="6530,-356.5 6530,-408.5 6718,-408.5 6718,-356.5 6530,-356.5"/>
+<text text-anchor="start" x="6538" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="6538" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="6538" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="6624" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Spline.inl</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node184 -->
+<g id="edge99" class="edge">
+<title>Node1&#45;&gt;Node184</title>
+<path fill="none" stroke="midnightblue" d="M5904.35,-467.01C6040.06,-460.86 6300.96,-445.15 6520,-409 6523.21,-408.47 6526.47,-407.89 6529.75,-407.28"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5903.84,-463.53 5894.01,-467.47 5904.15,-470.52 5903.84,-463.53"/>
+</g>
+<!-- Node188 -->
+<g id="node59" class="node">
+<title>Node188</title>
+<g id="a_node59"><a xlink:href="Camera_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="5419.5,-267.5 5419.5,-319.5 5568.5,-319.5 5568.5,-267.5 5419.5,-267.5"/>
+<text text-anchor="start" x="5427.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5427.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5427.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="5494" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/Camera.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node188 -->
+<g id="edge101" class="edge">
+<title>Node1&#45;&gt;Node188</title>
+<path fill="none" stroke="midnightblue" d="M5757.98,-440.6C5696.45,-406.55 5596.98,-351.5 5539.33,-319.59"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5756.33,-443.69 5766.78,-445.47 5759.72,-437.57 5756.33,-443.69"/>
+</g>
+<!-- Node197 -->
+<g id="node60" class="node">
+<title>Node197</title>
+<g id="a_node60"><a xlink:href="TimelineFrameSelector_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="6736,-356.5 6736,-408.5 6912,-408.5 6912,-356.5 6736,-356.5"/>
+<text text-anchor="start" x="6744" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="6744" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="6744" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Timeline</text>
+<text text-anchor="middle" x="6824" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">/TimelineFrameSelector.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node197 -->
+<g id="edge116" class="edge">
+<title>Node1&#45;&gt;Node197</title>
+<path fill="none" stroke="midnightblue" d="M5904.47,-470.07C6070.35,-468.01 6429,-457.73 6727,-409 6729.92,-408.52 6732.88,-408 6735.87,-407.43"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5904.26,-466.57 5894.31,-470.19 5904.35,-473.57 5904.26,-466.57"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:href="TriangleMesh_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="2619.5,-267.5 2619.5,-319.5 2807.5,-319.5 2807.5,-267.5 2619.5,-267.5"/>
-<text text-anchor="start" x="2627.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2627.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2627.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="2713.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/TriangleMesh.hpp</text>
+<polygon fill="white" stroke="red" points="2706,-267.5 2706,-319.5 2894,-319.5 2894,-267.5 2706,-267.5"/>
+<text text-anchor="start" x="2714" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="2714" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="2714" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="2800" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/TriangleMesh.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M2288.88,-369.91C2371.81,-358.88 2497.3,-340.89 2605.5,-320 2610.04,-319.12 2614.68,-318.19 2619.36,-317.21"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2288.19,-366.48 2278.73,-371.26 2289.1,-373.42 2288.19,-366.48"/>
+<path fill="none" stroke="midnightblue" d="M3704.85,-377.92C3548.92,-371.12 3221.17,-353.9 2946,-320 2929.14,-317.92 2911.28,-315.22 2894.04,-312.36"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.73,-381.42 3714.87,-378.35 3705.03,-374.42 3704.73,-381.42"/>
 </g>
-<!-- Node26 -->
+<!-- Node31 -->
 <g id="node4" class="node">
-<title>Node26</title>
+<title>Node31</title>
 <g id="a_node4"><a xlink:href="MeshPrimitives_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="2767.5,-178.5 2767.5,-230.5 2955.5,-230.5 2955.5,-178.5 2767.5,-178.5"/>
-<text text-anchor="start" x="2775.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2775.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2775.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="2861.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MeshPrimitives.hpp</text>
+<polygon fill="white" stroke="red" points="2546,-178.5 2546,-230.5 2734,-230.5 2734,-178.5 2546,-178.5"/>
+<text text-anchor="start" x="2554" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="2554" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="2554" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="2640" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MeshPrimitives.hpp</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node26 -->
-<g id="edge28" class="edge">
-<title>Node2&#45;&gt;Node26</title>
-<path fill="none" stroke="midnightblue" d="M2288.87,-381.67C2496.22,-381.1 2988.3,-374.01 3038.5,-320 3054.54,-302.75 3052.15,-286.2 3038.5,-267 3027.85,-252.02 2992.11,-238.28 2955.51,-227.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2288.61,-378.17 2278.62,-381.69 2288.63,-385.17 2288.61,-378.17"/>
-</g>
-<!-- Node29 -->
-<g id="node7" class="node">
-<title>Node29</title>
-<g id="a_node7"><a xlink:href="DrawPrimitives_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="2697,-0.5 2697,-52.5 2846,-52.5 2846,-0.5 2697,-0.5"/>
-<text text-anchor="start" x="2705" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2705" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2705" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="2771.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/DrawPrimitives.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node29 -->
-<g id="edge47" class="edge">
-<title>Node2&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M2288.79,-381.84C2499.72,-381.67 3006.88,-375.44 3058.5,-320 3074.55,-302.76 3069.79,-287.67 3058.5,-267 3044.32,-241.03 3017.4,-256.56 3002.5,-231 2970.66,-176.39 3034.2,-138.19 2994.5,-89 2975.74,-65.76 2903.49,-48.76 2846.25,-38.6"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2288.67,-378.34 2278.67,-381.84 2288.67,-385.34 2288.67,-378.34"/>
-</g>
-<!-- Node33 -->
-<g id="node8" class="node">
-<title>Node33</title>
-<g id="a_node8"><a xlink:href="RotateGizmo_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="2512,-0.5 2512,-52.5 2679,-52.5 2679,-0.5 2512,-0.5"/>
-<text text-anchor="start" x="2520" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2520" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2520" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="2595.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/RotateGizmo.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node33 -->
-<g id="edge65" class="edge">
-<title>Node2&#45;&gt;Node33</title>
-<path fill="none" stroke="midnightblue" d="M2288.68,-379.06C2452.25,-373.74 2781.77,-358.35 2816.5,-320 2832.31,-302.54 2827.95,-287.58 2816.5,-267 2801.75,-240.49 2781.32,-251 2758.5,-231 2720.03,-197.28 2717.53,-181.89 2685.5,-142 2660.96,-111.44 2633.14,-75.91 2615.01,-52.63"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2288.52,-375.57 2278.63,-379.38 2288.74,-382.56 2288.52,-375.57"/>
+<!-- Node2&#45;&gt;Node31 -->
+<g id="edge30" class="edge">
+<title>Node2&#45;&gt;Node31</title>
+<path fill="none" stroke="midnightblue" d="M3704.47,-379.54C3442.04,-373.54 2703.27,-353.7 2664,-320 2638.72,-298.31 2635.98,-257.42 2637.28,-230.83"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.65,-383.05 3714.73,-379.78 3704.81,-376.05 3704.65,-383.05"/>
 </g>
 <!-- Node34 -->
-<g id="node9" class="node">
+<g id="node7" class="node">
 <title>Node34</title>
-<g id="a_node9"><a xlink:href="ScaleGizmo_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1441,-0.5 1441,-52.5 1608,-52.5 1608,-0.5 1441,-0.5"/>
-<text text-anchor="start" x="1449" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1449" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1449" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="1524.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/ScaleGizmo.cpp</text>
+<g id="a_node7"><a xlink:href="DrawPrimitives_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="2561.5,-0.5 2561.5,-52.5 2710.5,-52.5 2710.5,-0.5 2561.5,-0.5"/>
+<text text-anchor="start" x="2569.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="2569.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="2569.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="2636" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/DrawPrimitives.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node34 -->
-<g id="edge66" class="edge">
+<g id="edge54" class="edge">
 <title>Node2&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M2106.06,-381.13C1791.47,-379.43 770.49,-370.04 722.5,-320 630.26,-223.83 812.43,-260.91 850.5,-231 907.46,-186.25 869.93,-128.73 930.5,-89 1012.48,-35.24 1297.53,-27.34 1440.86,-26.89"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.48,-384.63 2116.5,-381.19 2106.52,-377.63 2106.48,-384.63"/>
-</g>
-<!-- Node35 -->
-<g id="node10" class="node">
-<title>Node35</title>
-<g id="a_node10"><a xlink:href="TranslateGizmo_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="2327,-0.5 2327,-52.5 2494,-52.5 2494,-0.5 2327,-0.5"/>
-<text text-anchor="start" x="2335" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2335" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2335" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="2410.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/TranslateGizmo.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node35 -->
-<g id="edge67" class="edge">
-<title>Node2&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M2267.56,-351.75C2283.97,-342.93 2300.68,-332.29 2314.5,-320 2350.33,-288.13 2357.46,-275.43 2375.5,-231 2400.24,-170.05 2407.5,-91.92 2409.62,-52.55"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2265.75,-348.75 2258.49,-356.46 2268.98,-354.96 2265.75,-348.75"/>
+<path fill="none" stroke="midnightblue" d="M3704.53,-379.76C3446.86,-374.43 2731.42,-356.4 2697,-320 2680.82,-302.88 2686.68,-288.18 2697,-267 2708.37,-243.66 2731.63,-254.34 2743,-231 2753.32,-209.82 2749.88,-200.53 2743,-178 2727.68,-127.87 2688.28,-80.39 2661.81,-52.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.54,-383.26 3714.61,-379.97 3704.68,-376.27 3704.54,-383.26"/>
 </g>
 <!-- Node38 -->
-<g id="node12" class="node">
+<g id="node8" class="node">
 <title>Node38</title>
-<g id="a_node12"><a xlink:href="DisplayableObject_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="2479.5,-178.5 2479.5,-230.5 2635.5,-230.5 2635.5,-178.5 2479.5,-178.5"/>
-<text text-anchor="start" x="2487.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2487.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2487.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="2557.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/DisplayableObject.hpp</text>
+<g id="a_node8"><a xlink:href="RotateGizmo_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="2917.5,-0.5 2917.5,-52.5 3084.5,-52.5 3084.5,-0.5 2917.5,-0.5"/>
+<text text-anchor="start" x="2925.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="2925.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="2925.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="3001" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/RotateGizmo.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node38 -->
-<g id="edge40" class="edge">
+<g id="edge73" class="edge">
 <title>Node2&#45;&gt;Node38</title>
-<path fill="none" stroke="midnightblue" d="M2288.76,-376.19C2376.42,-369.16 2500.42,-353.48 2534.5,-320 2558.08,-296.84 2560.95,-256.75 2559.93,-230.68"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2288.23,-372.72 2278.53,-376.99 2288.77,-379.7 2288.23,-372.72"/>
+<path fill="none" stroke="midnightblue" d="M3704.82,-380.59C3505.16,-377.74 3042.84,-366.18 2990,-320 2913.1,-252.78 2963.74,-110.8 2989.05,-52.89"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.94,-384.09 3714.99,-380.73 3705.04,-377.09 3704.94,-384.09"/>
 </g>
 <!-- Node39 -->
-<g id="node13" class="node">
+<g id="node9" class="node">
 <title>Node39</title>
-<g id="a_node13"><a xlink:href="Mesh_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="2441,-89.5 2441,-141.5 2590,-141.5 2590,-89.5 2441,-89.5"/>
-<text text-anchor="start" x="2449" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2449" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2449" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="2515.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/Mesh.hpp</text>
+<g id="a_node9"><a xlink:href="ScaleGizmo_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="3102.5,-0.5 3102.5,-52.5 3269.5,-52.5 3269.5,-0.5 3102.5,-0.5"/>
+<text text-anchor="start" x="3110.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3110.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3110.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="3186" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/ScaleGizmo.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node39 -->
-<g id="edge48" class="edge">
+<g id="edge74" class="edge">
 <title>Node2&#45;&gt;Node39</title>
-<path fill="none" stroke="midnightblue" d="M2288.81,-372.71C2380.53,-362.71 2514.66,-344.52 2560.5,-320 2560.5,-320 2644.5,-231 2644.5,-231 2653.2,-209.11 2657.07,-197.92 2644.5,-178 2637.02,-166.15 2611.01,-152.77 2584.28,-141.53"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2288.25,-369.25 2278.68,-373.8 2289,-376.21 2288.25,-369.25"/>
+<path fill="none" stroke="midnightblue" d="M3704.78,-380.59C3512.62,-377.76 3079.96,-366.28 3033,-320 2959.67,-247.75 2956.87,-173.27 3016,-89 3021.7,-80.87 3063.28,-65.76 3103.88,-52.55"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.81,-384.09 3714.86,-380.73 3704.91,-377.09 3704.81,-384.09"/>
+</g>
+<!-- Node40 -->
+<g id="node10" class="node">
+<title>Node40</title>
+<g id="a_node10"><a xlink:href="TranslateGizmo_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="3287.5,-0.5 3287.5,-52.5 3454.5,-52.5 3454.5,-0.5 3287.5,-0.5"/>
+<text text-anchor="start" x="3295.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3295.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3295.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="3371" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/TranslateGizmo.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node40 -->
+<g id="edge75" class="edge">
+<title>Node2&#45;&gt;Node40</title>
+<path fill="none" stroke="midnightblue" d="M3704.45,-377.78C3563.22,-371.05 3299.39,-354.25 3212,-320 3150.51,-295.9 3122.58,-290.05 3093,-231 3082.45,-209.94 3079.79,-197.51 3093,-178 3117.15,-142.33 3144.47,-161.27 3183,-142 3237.34,-114.82 3296.71,-77.23 3333.89,-52.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.66,-381.29 3714.82,-378.27 3704.99,-374.3 3704.66,-381.29"/>
+</g>
+<!-- Node43 -->
+<g id="node12" class="node">
+<title>Node43</title>
+<g id="a_node12"><a xlink:href="DisplayableObject_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="3102,-178.5 3102,-230.5 3258,-230.5 3258,-178.5 3102,-178.5"/>
+<text text-anchor="start" x="3110" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3110" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3110" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3180" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/DisplayableObject.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node43 -->
+<g id="edge47" class="edge">
+<title>Node2&#45;&gt;Node43</title>
+<path fill="none" stroke="midnightblue" d="M3704.79,-379.27C3574.14,-374.67 3341.49,-360.85 3269,-320 3232.81,-299.61 3206.3,-257.94 3192.02,-230.89"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.67,-382.77 3714.79,-379.61 3704.91,-375.77 3704.67,-382.77"/>
 </g>
 <!-- Node44 -->
-<g id="node16" class="node">
+<g id="node13" class="node">
 <title>Node44</title>
-<g id="a_node16"><a xlink:href="GeometryComponent_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="2073,-0.5 2073,-52.5 2250,-52.5 2250,-0.5 2073,-0.5"/>
-<text text-anchor="start" x="2081" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2081" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2081" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="2161.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/GeometryComponent.cpp</text>
+<g id="a_node13"><a xlink:href="Mesh_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="3025.5,-89.5 3025.5,-141.5 3174.5,-141.5 3174.5,-89.5 3025.5,-89.5"/>
+<text text-anchor="start" x="3033.5" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3033.5" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3033.5" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3100" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/Mesh.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node44 -->
-<g id="edge62" class="edge">
-<title>Node2&#45;&gt;Node44</title>
-<path fill="none" stroke="midnightblue" d="M2235.37,-349.64C2246.22,-340.26 2257.96,-329.87 2268.5,-320 2322.7,-269.26 2389.25,-244.64 2356.5,-178 2327.74,-119.47 2264.04,-77.27 2217.24,-52.71"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2232.96,-347.1 2227.66,-356.27 2237.53,-352.41 2232.96,-347.1"/>
-</g>
-<!-- Node52 -->
-<g id="node17" class="node">
-<title>Node52</title>
-<g id="a_node17"><a xlink:href="Renderer_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="1625,-89.5 1625,-141.5 1774,-141.5 1774,-89.5 1625,-89.5"/>
-<text text-anchor="start" x="1633" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1633" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1633" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="1699.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Rendering/Renderer.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node52 -->
-<g id="edge54" class="edge">
-<title>Node2&#45;&gt;Node52</title>
-<path fill="none" stroke="midnightblue" d="M2106.47,-371.49C2062.09,-363.16 2009.75,-347.9 1969.5,-320 1945.68,-303.49 1956.72,-281.29 1931.5,-267 1846.92,-219.07 1561.35,-302.52 1495.5,-231 1479.54,-213.67 1481.44,-196.9 1495.5,-178 1528.74,-133.33 1562.19,-158.09 1615.5,-142 1618.56,-141.08 1621.69,-140.13 1624.85,-139.18"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2105.93,-374.95 2116.39,-373.26 2107.16,-368.06 2105.93,-374.95"/>
-</g>
-<!-- Node2&#45;&gt;Node55 -->
-<g id="edge68" class="edge">
-<title>Node2&#45;&gt;Node55</title>
-<path fill="none" stroke="midnightblue" d="M2106.37,-381.21C1788.1,-379.76 742.57,-371.11 693.5,-320 677.19,-303.01 680.66,-286.75 693.5,-267 714.97,-233.97 748.4,-260.51 774.5,-231 820.26,-179.27 832.25,-94.53 835.39,-52.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.47,-384.71 2116.48,-381.26 2106.5,-377.71 2106.47,-384.71"/>
-</g>
-<!-- Node70 -->
-<g id="node19" class="node">
-<title>Node70</title>
-<g id="a_node19"><a xlink:href="BlinnPhongMaterialData_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="2863,-267.5 2863,-319.5 3030,-319.5 3030,-267.5 2863,-267.5"/>
-<text text-anchor="start" x="2871" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2871" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2871" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Asset</text>
-<text text-anchor="middle" x="2946.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/BlinnPhongMaterialData.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node70 -->
-<g id="edge24" class="edge">
-<title>Node2&#45;&gt;Node70</title>
-<path fill="none" stroke="midnightblue" d="M2288.67,-377.6C2415.31,-371.11 2651.26,-355.16 2849.5,-320 2853.87,-319.22 2858.34,-318.35 2862.83,-317.41"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2288.43,-374.1 2278.62,-378.1 2288.79,-381.09 2288.43,-374.1"/>
-</g>
-<!-- Node75 -->
-<g id="node20" class="node">
-<title>Node75</title>
-<g id="a_node20"><a xlink:href="LightData_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="732,-267.5 732,-319.5 899,-319.5 899,-267.5 732,-267.5"/>
-<text text-anchor="start" x="740" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="740" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="740" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Asset</text>
-<text text-anchor="middle" x="815.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/LightData.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node75 -->
-<g id="edge25" class="edge">
-<title>Node2&#45;&gt;Node75</title>
-<path fill="none" stroke="midnightblue" d="M2105.89,-379.78C1851.27,-374.59 1138.69,-357.07 907.5,-320 904.72,-319.55 901.9,-319.05 899.06,-318.51"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.14,-383.29 2116.21,-379.99 2106.28,-376.29 2106.14,-383.29"/>
-</g>
-<!-- Node89 -->
-<g id="node21" class="node">
-<title>Node89</title>
-<g id="a_node21"><a xlink:href="VolumeData_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="917,-267.5 917,-319.5 1084,-319.5 1084,-267.5 917,-267.5"/>
-<text text-anchor="start" x="925" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="925" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="925" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Asset</text>
-<text text-anchor="middle" x="1000.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VolumeData.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node89 -->
-<g id="edge26" class="edge">
-<title>Node2&#45;&gt;Node89</title>
-<path fill="none" stroke="midnightblue" d="M2106.14,-378.91C1877.96,-372.02 1287.56,-351.64 1093.5,-320 1090.44,-319.5 1087.34,-318.94 1084.22,-318.33"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.3,-382.41 2116.4,-379.21 2106.51,-375.41 2106.3,-382.41"/>
-</g>
-<!-- Node90 -->
-<g id="node22" class="node">
-<title>Node90</title>
-<g id="a_node22"><a xlink:href="BVH_8inl.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="1102.5,-267.5 1102.5,-319.5 1294.5,-319.5 1294.5,-267.5 1102.5,-267.5"/>
-<text text-anchor="start" x="1110.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1110.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1110.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Containers</text>
-<text text-anchor="middle" x="1198.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/BVH.inl</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node90 -->
-<g id="edge27" class="edge">
-<title>Node2&#45;&gt;Node90</title>
-<path fill="none" stroke="midnightblue" d="M2105.81,-380.31C1943.25,-377.06 1594.23,-364.97 1303.5,-320 1300.63,-319.56 1297.72,-319.07 1294.78,-318.55"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.18,-383.82 2116.25,-380.51 2106.31,-376.82 2106.18,-383.82"/>
-</g>
-<!-- Node92 -->
-<g id="node23" class="node">
-<title>Node92</title>
-<g id="a_node23"><a xlink:href="BlinnPhongMaterial_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="2018.5,-178.5 2018.5,-230.5 2180.5,-230.5 2180.5,-178.5 2018.5,-178.5"/>
-<text text-anchor="start" x="2026.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2026.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2026.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="2099.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/BlinnPhongMaterial.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node92 -->
-<g id="edge29" class="edge">
-<title>Node2&#45;&gt;Node92</title>
-<path fill="none" stroke="midnightblue" d="M2232.29,-348.78C2239.32,-340.17 2245.71,-330.35 2249.5,-320 2257.6,-297.88 2262.62,-286.56 2249.5,-267 2240.76,-253.97 2211.18,-240.62 2180.57,-229.71"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2229.64,-346.51 2225.71,-356.35 2234.92,-351.1 2229.64,-346.51"/>
-</g>
-<!-- Node94 -->
-<g id="node24" class="node">
-<title>Node94</title>
-<g id="a_node24"><a xlink:href="RenderParameters_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="1518,-267.5 1518,-319.5 1675,-319.5 1675,-267.5 1518,-267.5"/>
-<text text-anchor="start" x="1526" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1526" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1526" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="1596.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/RenderParameters.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node94 -->
-<g id="edge31" class="edge">
-<title>Node2&#45;&gt;Node94</title>
-<path fill="none" stroke="midnightblue" d="M2106.37,-375.08C2003.24,-366.77 1830.6,-349.72 1684.5,-320 1681.38,-319.37 1678.22,-318.68 1675.02,-317.94"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.19,-378.58 2116.44,-375.88 2106.75,-371.6 2106.19,-378.58"/>
-</g>
-<!-- Node18 -->
-<g id="node25" class="node">
-<title>Node18</title>
-<g id="a_node25"><a xlink:href="ForwardRenderer_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1236,-178.5 1236,-230.5 1411,-230.5 1411,-178.5 1236,-178.5"/>
-<text text-anchor="start" x="1244" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1244" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1244" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="1323.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Rendering/ForwardRenderer.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node18 -->
 <g id="edge55" class="edge">
-<title>Node2&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M2106.3,-378.18C2045.09,-372.33 1964.75,-357.36 1903.5,-320 1877.6,-304.2 1887.32,-281.17 1860.5,-267 1774.73,-221.7 1521.2,-246.81 1425.5,-231 1420.82,-230.23 1416.03,-229.35 1411.22,-228.39"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.07,-381.67 2116.34,-379.07 2106.69,-374.7 2106.07,-381.67"/>
+<title>Node2&#45;&gt;Node44</title>
+<path fill="none" stroke="midnightblue" d="M3704.61,-380.63C3517.1,-377.88 3102.83,-366.56 3060,-320 3017.27,-273.55 3042.05,-238.51 3060,-178 3063.84,-165.06 3071.36,-152.29 3078.85,-141.77"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.67,-384.13 3714.72,-380.77 3704.77,-377.13 3704.67,-384.13"/>
 </g>
-<!-- Node115 -->
-<g id="node26" class="node">
-<title>Node115</title>
-<g id="a_node26"><a xlink:href="Gizmo_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="1051,-178.5 1051,-230.5 1218,-230.5 1218,-178.5 1051,-178.5"/>
-<text text-anchor="start" x="1059" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1059" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1059" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="1134.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/Gizmo.hpp</text>
+<!-- Node49 -->
+<g id="node15" class="node">
+<title>Node49</title>
+<g id="a_node15"><a xlink:href="GeometryComponent_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="3493.5,-0.5 3493.5,-52.5 3670.5,-52.5 3670.5,-0.5 3493.5,-0.5"/>
+<text text-anchor="start" x="3501.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3501.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3501.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3582" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/GeometryComponent.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node115 -->
-<g id="edge64" class="edge">
-<title>Node2&#45;&gt;Node115</title>
-<path fill="none" stroke="midnightblue" d="M2106.09,-377.57C1930.59,-369.41 1559.21,-348.96 1508.5,-320 1483.33,-305.63 1495.25,-282.09 1470.5,-267 1376.91,-209.93 1333.75,-253.68 1226.5,-231 1223.74,-230.42 1220.95,-229.8 1218.13,-229.15"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.19,-381.08 2116.35,-378.04 2106.52,-374.09 2106.19,-381.08"/>
+<!-- Node2&#45;&gt;Node49 -->
+<g id="edge69" class="edge">
+<title>Node2&#45;&gt;Node49</title>
+<path fill="none" stroke="midnightblue" d="M3785.88,-346.52C3780.88,-321.14 3779.49,-287.76 3799,-267 3861.18,-200.84 4144.69,-297.97 4206,-231 4221.91,-213.63 4220.57,-196.51 4206,-178 4203.9,-175.33 3842.48,-89.3 3670.72,-48.53"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3782.52,-347.5 3788.11,-356.5 3789.35,-345.97 3782.52,-347.5"/>
 </g>
-<!-- Node121 -->
-<g id="node27" class="node">
-<title>Node121</title>
-<g id="a_node27"><a xlink:href="Texture_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="2021,-267.5 2021,-319.5 2170,-319.5 2170,-267.5 2021,-267.5"/>
-<text text-anchor="start" x="2029" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2029" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2029" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="2095.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/Texture.hpp</text>
+<!-- Node11 -->
+<g id="node17" class="node">
+<title>Node11</title>
+<g id="a_node17"><a xlink:href="SkinningComponent_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="3700,-0.5 3700,-52.5 3870,-52.5 3870,-0.5 3700,-0.5"/>
+<text text-anchor="start" x="3708" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3708" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3708" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3785" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SkinningComponent.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node121 -->
-<g id="edge34" class="edge">
-<title>Node2&#45;&gt;Node121</title>
-<path fill="none" stroke="midnightblue" d="M2160.16,-349.65C2148.55,-339.75 2135.92,-328.98 2124.94,-319.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2158.12,-352.51 2168,-356.34 2162.66,-347.18 2158.12,-352.51"/>
-</g>
-<!-- Node96 -->
-<g id="node28" class="node">
-<title>Node96</title>
-<g id="a_node28"><a xlink:href="SimpleMaterial_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="1505,-178.5 1505,-230.5 1654,-230.5 1654,-178.5 1505,-178.5"/>
-<text text-anchor="start" x="1513" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1513" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1513" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="1579.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/SimpleMaterial.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node96 -->
-<g id="edge49" class="edge">
-<title>Node2&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M2106.52,-362.82C2074.58,-353.42 2039.67,-339.69 2011.5,-320 1986.87,-302.78 1995.75,-281.64 1969.5,-267 1849.91,-200.28 1797.54,-259 1663.5,-231 1660.52,-230.38 1657.49,-229.7 1654.43,-228.97"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2105.75,-366.24 2116.33,-365.6 2107.66,-359.51 2105.75,-366.24"/>
-</g>
-<!-- Node106 -->
-<g id="node29" class="node">
-<title>Node106</title>
-<g id="a_node29"><a xlink:href="VolumetricMaterial_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="1672.5,-178.5 1672.5,-230.5 1832.5,-230.5 1832.5,-178.5 1672.5,-178.5"/>
-<text text-anchor="start" x="1680.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1680.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1680.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="1752.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/VolumetricMaterial.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node106 -->
-<g id="edge50" class="edge">
-<title>Node2&#45;&gt;Node106</title>
-<path fill="none" stroke="midnightblue" d="M2201.91,-345.97C2202.94,-320.31 2199.5,-286.81 2178.5,-267 2123.72,-215.31 1915.42,-245.43 1841.5,-231 1838.66,-230.45 1835.78,-229.84 1832.88,-229.2"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2198.41,-345.87 2201.26,-356.07 2205.39,-346.32 2198.41,-345.87"/>
-</g>
-<!-- Node126 -->
-<g id="node30" class="node">
-<title>Node126</title>
-<g id="a_node30"><a xlink:href="DrawPrimitives_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="2377,-267.5 2377,-319.5 2526,-319.5 2526,-267.5 2377,-267.5"/>
-<text text-anchor="start" x="2385" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2385" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2385" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="2451.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/DrawPrimitives.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node126 -->
-<g id="edge41" class="edge">
-<title>Node2&#45;&gt;Node126</title>
-<path fill="none" stroke="midnightblue" d="M2280.3,-353.14C2311.95,-342.3 2347.78,-330.03 2378.45,-319.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2278.95,-349.9 2270.63,-356.45 2281.22,-356.52 2278.95,-349.9"/>
-</g>
-<!-- Node127 -->
-<g id="node31" class="node">
-<title>Node127</title>
-<g id="a_node31"><a xlink:href="SystemDisplay_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="1851,-178.5 1851,-230.5 2000,-230.5 2000,-178.5 1851,-178.5"/>
-<text text-anchor="start" x="1859" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1859" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1859" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="1925.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SystemDisplay.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node127 -->
-<g id="edge51" class="edge">
-<title>Node2&#45;&gt;Node127</title>
-<path fill="none" stroke="midnightblue" d="M2214.19,-346.64C2223.44,-321.71 2229.78,-288.82 2211.5,-267 2182.22,-232.04 2053.84,-241.64 2009.5,-231 2006.39,-230.25 2003.22,-229.46 2000.03,-228.63"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2210.87,-345.53 2210.41,-356.11 2217.37,-348.13 2210.87,-345.53"/>
+<!-- Node2&#45;&gt;Node11 -->
+<g id="edge70" class="edge">
+<title>Node2&#45;&gt;Node11</title>
+<path fill="none" stroke="midnightblue" d="M3887.46,-380.35C4166.7,-376.41 4991.69,-361.31 5031,-320 5047.24,-302.93 5045.12,-285.85 5031,-267 4996.85,-221.42 4955.78,-262.01 4908,-231 4882.08,-214.17 4887.33,-197.05 4863,-178 4793.04,-123.24 4769.75,-112.26 4684,-89 4532.16,-47.82 4064.01,-33.38 3870.28,-29.09"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3887.31,-376.86 3877.36,-380.5 3887.41,-383.86 3887.31,-376.86"/>
 </g>
 <!-- Node58 -->
-<g id="node32" class="node">
+<g id="node18" class="node">
 <title>Node58</title>
-<g id="a_node32"><a xlink:href="BaseApplication_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1167,-95 1167,-136 1400,-136 1400,-95 1167,-95"/>
-<text text-anchor="start" x="1175" y="-124" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1175" y="-113" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="middle" x="1283.5" y="-102" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/BaseApplication.cpp</text>
+<g id="a_node18"><a xlink:href="Renderer_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="4275.5,-89.5 4275.5,-141.5 4424.5,-141.5 4424.5,-89.5 4275.5,-89.5"/>
+<text text-anchor="start" x="4283.5" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4283.5" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4283.5" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="4350" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Rendering/Renderer.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node58 -->
-<g id="edge63" class="edge">
+<g id="edge61" class="edge">
 <title>Node2&#45;&gt;Node58</title>
-<path fill="none" stroke="midnightblue" d="M2106.35,-377.25C2051.54,-370.83 1982.71,-355.58 1931.5,-320 1908.32,-303.89 1920.76,-281.43 1896.5,-267 1737.02,-172.11 1651.37,-303.41 1480.5,-231 1447.43,-216.99 1449.74,-197.38 1419.5,-178 1393.43,-161.29 1362.06,-146.78 1336.03,-136.06"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.09,-380.75 2116.42,-378.35 2106.85,-373.79 2106.09,-380.75"/>
+<path fill="none" stroke="midnightblue" d="M3887.83,-380.27C4164.33,-376.12 4972.43,-360.57 5011,-320 5027.23,-302.93 5025.45,-285.6 5011,-267 4971.32,-215.92 4924.47,-265.88 4870,-231 4844.46,-214.64 4853.76,-192.28 4827,-178 4749.43,-136.61 4519.26,-159 4433,-142 4430.34,-141.48 4427.64,-140.9 4424.92,-140.28"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3887.38,-376.78 3877.43,-380.42 3887.48,-383.78 3887.38,-376.78"/>
 </g>
-<!-- Node131 -->
-<g id="node34" class="node">
-<title>Node131</title>
-<g id="a_node34"><a xlink:href="DebugRender_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="1693.5,-267.5 1693.5,-319.5 1851.5,-319.5 1851.5,-267.5 1693.5,-267.5"/>
-<text text-anchor="start" x="1701.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1701.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1701.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="1772.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Rendering/DebugRender.hpp</text>
+<!-- Node2&#45;&gt;Node61 -->
+<g id="edge76" class="edge">
+<title>Node2&#45;&gt;Node61</title>
+<path fill="none" stroke="midnightblue" d="M3887.46,-380.43C4169.77,-376.69 5010.97,-362.04 5051,-320 5067.24,-302.94 5064.13,-286.56 5051,-267 5027.45,-231.92 4989.92,-263.57 4963,-231 4920.07,-179.05 4917.98,-94.41 4919.97,-52.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3887.2,-376.93 3877.25,-380.56 3887.3,-383.93 3887.2,-376.93"/>
+</g>
+<!-- Node76 -->
+<g id="node20" class="node">
+<title>Node76</title>
+<g id="a_node20"><a xlink:href="BlinnPhongMaterialData_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="4222.5,-267.5 4222.5,-319.5 4389.5,-319.5 4389.5,-267.5 4222.5,-267.5"/>
+<text text-anchor="start" x="4230.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4230.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4230.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Asset</text>
+<text text-anchor="middle" x="4306" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/BlinnPhongMaterialData.hpp</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node131 -->
-<g id="edge52" class="edge">
-<title>Node2&#45;&gt;Node131</title>
-<path fill="none" stroke="midnightblue" d="M2106.17,-366.72C2039.24,-355.37 1946.34,-338.54 1865.5,-320 1860.93,-318.95 1856.25,-317.83 1851.53,-316.66"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2105.82,-370.21 2116.26,-368.42 2106.99,-363.31 2105.82,-370.21"/>
+<!-- Node2&#45;&gt;Node76 -->
+<g id="edge26" class="edge">
+<title>Node2&#45;&gt;Node76</title>
+<path fill="none" stroke="midnightblue" d="M3887.2,-370.83C3971.22,-360.31 4099.14,-342.55 4209,-320 4213.35,-319.11 4217.79,-318.14 4222.27,-317.12"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3886.67,-367.37 3877.18,-372.07 3887.53,-374.31 3886.67,-367.37"/>
+</g>
+<!-- Node81 -->
+<g id="node21" class="node">
+<title>Node81</title>
+<g id="a_node21"><a xlink:href="LightData_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="4407.5,-267.5 4407.5,-319.5 4574.5,-319.5 4574.5,-267.5 4407.5,-267.5"/>
+<text text-anchor="start" x="4415.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4415.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4415.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Asset</text>
+<text text-anchor="middle" x="4491" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/LightData.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node81 -->
+<g id="edge27" class="edge">
+<title>Node2&#45;&gt;Node81</title>
+<path fill="none" stroke="midnightblue" d="M3887.55,-376.88C4006.14,-369.82 4218.88,-353.47 4398,-320 4401.04,-319.43 4404.13,-318.81 4407.25,-318.15"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3887.21,-373.39 3877.43,-377.47 3887.62,-380.38 3887.21,-373.39"/>
+</g>
+<!-- Node95 -->
+<g id="node22" class="node">
+<title>Node95</title>
+<g id="a_node22"><a xlink:href="VolumeData_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="4592.5,-267.5 4592.5,-319.5 4759.5,-319.5 4759.5,-267.5 4592.5,-267.5"/>
+<text text-anchor="start" x="4600.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4600.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4600.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Asset</text>
+<text text-anchor="middle" x="4676" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VolumeData.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node95 -->
+<g id="edge28" class="edge">
+<title>Node2&#45;&gt;Node95</title>
+<path fill="none" stroke="midnightblue" d="M3887.42,-379.97C4034.85,-376.24 4333.82,-363.49 4583,-320 4586.05,-319.47 4589.15,-318.88 4592.26,-318.24"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3886.98,-376.48 3877.07,-380.22 3887.15,-383.47 3886.98,-376.48"/>
+</g>
+<!-- Node96 -->
+<g id="node23" class="node">
+<title>Node96</title>
+<g id="a_node23"><a xlink:href="BVH_8inl.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="4778,-267.5 4778,-319.5 4970,-319.5 4970,-267.5 4778,-267.5"/>
+<text text-anchor="start" x="4786" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4786" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4786" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Containers</text>
+<text text-anchor="middle" x="4874" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/BVH.inl</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node96 -->
+<g id="edge29" class="edge">
+<title>Node2&#45;&gt;Node96</title>
+<path fill="none" stroke="midnightblue" d="M3887.22,-380.97C4060.05,-378.81 4446.69,-368.44 4768,-320 4771.28,-319.51 4774.6,-318.96 4777.95,-318.37"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3887.11,-377.47 3877.15,-381.09 3887.19,-384.47 3887.11,-377.47"/>
+</g>
+<!-- Node98 -->
+<g id="node24" class="node">
+<title>Node98</title>
+<g id="a_node24"><a xlink:href="BlinnPhongMaterial_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="3492,-89.5 3492,-141.5 3654,-141.5 3654,-89.5 3492,-89.5"/>
+<text text-anchor="start" x="3500" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3500" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3500" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3573" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/BlinnPhongMaterial.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node98 -->
+<g id="edge31" class="edge">
+<title>Node2&#45;&gt;Node98</title>
+<path fill="none" stroke="midnightblue" d="M3704.5,-375.99C3574.34,-367.2 3348.67,-348.09 3324,-320 3218.15,-199.47 3405.02,-314.86 3516,-231 3531.24,-219.49 3551.73,-171.76 3563.54,-141.67"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.65,-379.51 3714.86,-376.68 3705.11,-372.52 3704.65,-379.51"/>
+</g>
+<!-- Node100 -->
+<g id="node25" class="node">
+<title>Node100</title>
+<g id="a_node25"><a xlink:href="RenderParameters_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="4009.5,-267.5 4009.5,-319.5 4166.5,-319.5 4166.5,-267.5 4009.5,-267.5"/>
+<text text-anchor="start" x="4017.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4017.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4017.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="4088" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/RenderParameters.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node100 -->
+<g id="edge35" class="edge">
+<title>Node2&#45;&gt;Node100</title>
+<path fill="none" stroke="midnightblue" d="M3887.16,-354.34C3926.34,-342.67 3971.68,-329.16 4009.36,-317.93"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3885.92,-351.06 3877.34,-357.27 3887.92,-357.76 3885.92,-351.06"/>
+</g>
+<!-- Node23 -->
+<g id="node26" class="node">
+<title>Node23</title>
+<g id="a_node26"><a xlink:href="ForwardRenderer_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="4022.5,-178.5 4022.5,-230.5 4197.5,-230.5 4197.5,-178.5 4022.5,-178.5"/>
+<text text-anchor="start" x="4030.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4030.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4030.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="4110" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Rendering/ForwardRenderer.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node23 -->
+<g id="edge62" class="edge">
+<title>Node2&#45;&gt;Node23</title>
+<path fill="none" stroke="midnightblue" d="M3704.76,-366.52C3653.72,-356.08 3597.34,-340.37 3582,-320 3567.83,-301.18 3566.05,-284.34 3582,-267 3614.54,-231.63 3965.64,-239.14 4013,-231 4016.09,-230.47 4019.22,-229.89 4022.38,-229.26"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.39,-370.02 3714.89,-368.54 3705.76,-363.16 3704.39,-370.02"/>
+</g>
+<!-- Node121 -->
+<g id="node27" class="node">
+<title>Node121</title>
+<g id="a_node27"><a xlink:href="Gizmo_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="4651.5,-178.5 4651.5,-230.5 4818.5,-230.5 4818.5,-178.5 4651.5,-178.5"/>
+<text text-anchor="start" x="4659.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4659.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4659.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="4735" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/Gizmo.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node121 -->
+<g id="edge72" class="edge">
+<title>Node2&#45;&gt;Node121</title>
+<path fill="none" stroke="midnightblue" d="M3887.21,-374.75C3983.63,-366.23 4128.14,-349.04 4175,-320 4199.64,-304.73 4187.79,-281.31 4213,-267 4296.2,-219.78 4547.8,-247.72 4642,-231 4645.05,-230.46 4648.14,-229.86 4651.26,-229.22"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3886.82,-371.28 3877.16,-375.63 3887.42,-378.25 3886.82,-371.28"/>
+</g>
+<!-- Node127 -->
+<g id="node28" class="node">
+<title>Node127</title>
+<g id="a_node28"><a xlink:href="Texture_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="3348.5,-267.5 3348.5,-319.5 3497.5,-319.5 3497.5,-267.5 3348.5,-267.5"/>
+<text text-anchor="start" x="3356.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3356.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3356.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3423" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/Texture.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node127 -->
+<g id="edge38" class="edge">
+<title>Node2&#45;&gt;Node127</title>
+<path fill="none" stroke="midnightblue" d="M3704.96,-363.54C3648.82,-352.04 3575.47,-336.28 3511,-320 3506.68,-318.91 3502.26,-317.75 3497.8,-316.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.38,-366.99 3714.88,-365.56 3705.78,-360.13 3704.38,-366.99"/>
+</g>
+<!-- Node102 -->
+<g id="node29" class="node">
+<title>Node102</title>
+<g id="a_node29"><a xlink:href="SimpleMaterial_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="3855.5,-178.5 3855.5,-230.5 4004.5,-230.5 4004.5,-178.5 3855.5,-178.5"/>
+<text text-anchor="start" x="3863.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3863.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3863.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3930" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/SimpleMaterial.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node102 -->
+<g id="edge56" class="edge">
+<title>Node2&#45;&gt;Node102</title>
+<path fill="none" stroke="midnightblue" d="M3704.6,-370.55C3642.54,-361.01 3568.37,-344.78 3549,-320 3534.49,-301.44 3533.39,-284.64 3549,-267 3592.47,-217.87 3777.74,-244.17 3842,-231 3846.36,-230.11 3850.82,-229.1 3855.31,-228.02"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.44,-374.06 3714.84,-372.08 3705.47,-367.14 3704.44,-374.06"/>
+</g>
+<!-- Node112 -->
+<g id="node30" class="node">
+<title>Node112</title>
+<g id="a_node30"><a xlink:href="VolumetricMaterial_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="3602,-178.5 3602,-230.5 3762,-230.5 3762,-178.5 3602,-178.5"/>
+<text text-anchor="start" x="3610" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3610" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3610" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3682" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/VolumetricMaterial.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node112 -->
+<g id="edge57" class="edge">
+<title>Node2&#45;&gt;Node112</title>
+<path fill="none" stroke="midnightblue" d="M3704.84,-375.59C3578.43,-366.45 3362.68,-347.08 3339,-320 3323.49,-302.27 3323.81,-285 3339,-267 3369.68,-230.65 3503.2,-239.51 3550,-231 3566.76,-227.95 3584.7,-224.57 3601.78,-221.29"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3704.68,-379.09 3714.91,-376.31 3705.18,-372.11 3704.68,-379.09"/>
+</g>
+<!-- Node64 -->
+<g id="node32" class="node">
+<title>Node64</title>
+<g id="a_node32"><a xlink:href="BaseApplication_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="4442.5,-95 4442.5,-136 4675.5,-136 4675.5,-95 4442.5,-95"/>
+<text text-anchor="start" x="4450.5" y="-124" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4450.5" y="-113" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="middle" x="4559" y="-102" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/BaseApplication.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node64 -->
+<g id="edge71" class="edge">
+<title>Node2&#45;&gt;Node64</title>
+<path fill="none" stroke="midnightblue" d="M3797.54,-345.78C3800.7,-319.71 3809.46,-285.78 3833,-267 3903.99,-210.39 4151.32,-250.5 4240,-231 4341.72,-208.64 4455.28,-162.46 4515.67,-136.09"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3794.02,-345.75 3796.52,-356.04 3800.99,-346.43 3794.02,-345.75"/>
 </g>
 <!-- Node132 -->
-<g id="node35" class="node">
+<g id="node33" class="node">
 <title>Node132</title>
-<g id="a_node35"><a xlink:href="Light_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="1313,-267.5 1313,-319.5 1462,-319.5 1462,-267.5 1313,-267.5"/>
-<text text-anchor="start" x="1321" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1321" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1321" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="1387.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/Light.hpp</text>
+<g id="a_node33"><a xlink:href="DrawPrimitives_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="3842.5,-267.5 3842.5,-319.5 3991.5,-319.5 3991.5,-267.5 3842.5,-267.5"/>
+<text text-anchor="start" x="3850.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3850.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3850.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3917" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Data/DrawPrimitives.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node132 -->
-<g id="edge56" class="edge">
+<g id="edge48" class="edge">
 <title>Node2&#45;&gt;Node132</title>
-<path fill="none" stroke="midnightblue" d="M2106.32,-379.48C1968.6,-375.14 1699.79,-361.63 1475.5,-320 1471.12,-319.19 1466.65,-318.25 1462.15,-317.22"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2106.3,-382.98 2116.41,-379.79 2106.52,-375.99 2106.3,-382.98"/>
+<path fill="none" stroke="midnightblue" d="M3839.51,-350.22C3853.49,-340.16 3868.79,-329.16 3882.08,-319.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3837.07,-347.66 3831,-356.34 3841.16,-353.34 3837.07,-347.66"/>
 </g>
-<!-- Node146 -->
-<g id="node39" class="node">
-<title>Node146</title>
-<g id="a_node39"><a xlink:href="AssimpWrapper_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="4200,-267.5 4200,-319.5 4397,-319.5 4397,-267.5 4200,-267.5"/>
-<text text-anchor="start" x="4208" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="4208" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="4208" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="4298.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpWrapper.hpp</text>
+<!-- Node133 -->
+<g id="node34" class="node">
+<title>Node133</title>
+<g id="a_node34"><a xlink:href="SystemDisplay_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="4484.5,-178.5 4484.5,-230.5 4633.5,-230.5 4633.5,-178.5 4484.5,-178.5"/>
+<text text-anchor="start" x="4492.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="4492.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="4492.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="4559" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SystemDisplay.hpp</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node146 -->
-<g id="edge69" class="edge">
-<title>Node2&#45;&gt;Node146</title>
-<path fill="none" stroke="midnightblue" d="M2288.97,-378.93C2673.67,-368.07 4142.79,-326.3 4190.5,-320 4193.56,-319.6 4196.65,-319.14 4199.77,-318.65"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2288.62,-375.44 2278.72,-379.22 2288.81,-382.43 2288.62,-375.44"/>
-</g>
-<!-- Node3&#45;&gt;Node26 -->
-<g id="edge3" class="edge">
-<title>Node3&#45;&gt;Node26</title>
-<path fill="none" stroke="midnightblue" d="M2765.27,-262.07C2782.76,-251.79 2802.08,-240.43 2818.79,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2763.15,-259.25 2756.31,-267.34 2766.7,-265.29 2763.15,-259.25"/>
-</g>
-<!-- Node36 -->
-<g id="node11" class="node">
-<title>Node36</title>
-<g id="a_node11"><a xlink:href="RayCast_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3011.5,-178.5 3011.5,-230.5 3199.5,-230.5 3199.5,-178.5 3011.5,-178.5"/>
-<text text-anchor="start" x="3019.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3019.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3019.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="3105.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/RayCast.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node3&#45;&gt;Node36 -->
-<g id="edge11" class="edge">
-<title>Node3&#45;&gt;Node36</title>
-<path fill="none" stroke="midnightblue" d="M2817.79,-269.35C2877.91,-256.01 2952.9,-239.37 3011.25,-226.42"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2816.9,-265.97 2807.89,-271.55 2818.41,-272.8 2816.9,-265.97"/>
-</g>
-<!-- Node3&#45;&gt;Node38 -->
-<g id="edge12" class="edge">
-<title>Node3&#45;&gt;Node38</title>
-<path fill="none" stroke="midnightblue" d="M2659.44,-262.35C2640.87,-252 2620.3,-240.52 2602.52,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2657.94,-265.52 2668.38,-267.34 2661.35,-259.41 2657.94,-265.52"/>
-</g>
-<!-- Node3&#45;&gt;Node39 -->
-<g id="edge23" class="edge">
-<title>Node3&#45;&gt;Node39</title>
-<path fill="none" stroke="midnightblue" d="M2710.5,-257.28C2706.63,-232.28 2697.77,-199.49 2677.5,-178 2664.7,-164.43 2626.29,-149.58 2590.09,-137.87"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2707.07,-258.01 2711.87,-267.46 2714.01,-257.08 2707.07,-258.01"/>
-</g>
-<!-- Node26&#45;&gt;Node27 -->
-<g id="edge4" class="edge">
-<title>Node26&#45;&gt;Node27</title>
-<path fill="none" stroke="midnightblue" d="M2757.45,-189.52C2721.7,-185.18 2681.41,-180.81 2644.5,-178 2188.21,-143.27 2068.71,-205.33 1615.5,-142 1612.58,-141.59 1609.62,-141.14 1606.65,-140.64"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2757.05,-192.99 2767.4,-190.74 2757.9,-186.05 2757.05,-192.99"/>
-</g>
-<!-- Node28 -->
-<g id="node6" class="node">
-<title>Node28</title>
-<g id="a_node6"><a xlink:href="MeshPrimitives_8inl.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="2797.5,-89.5 2797.5,-141.5 2985.5,-141.5 2985.5,-89.5 2797.5,-89.5"/>
-<text text-anchor="start" x="2805.5" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="2805.5" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="2805.5" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="2891.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MeshPrimitives.inl</text>
-</a>
-</g>
-</g>
-<!-- Node26&#45;&gt;Node28 -->
-<g id="edge5" class="edge">
-<title>Node26&#45;&gt;Node28</title>
-<path fill="none" stroke="midnightblue" d="M2866.94,-168.48C2869.79,-159.49 2873.22,-149.99 2876.66,-141.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2863.51,-167.75 2863.99,-178.34 2870.21,-169.76 2863.51,-167.75"/>
-</g>
-<!-- Node26&#45;&gt;Node29 -->
-<g id="edge7" class="edge">
-<title>Node26&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M2813.58,-171.8C2803.88,-163.23 2794.75,-153.19 2788.5,-142 2773.03,-114.27 2770.18,-77.16 2770.26,-52.8"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2811.52,-174.63 2821.45,-178.34 2816,-169.25 2811.52,-174.63"/>
-</g>
-<!-- Node26&#45;&gt;Node33 -->
-<g id="edge8" class="edge">
-<title>Node26&#45;&gt;Node33</title>
-<path fill="none" stroke="midnightblue" d="M2815.06,-172.77C2763.57,-138.71 2681.5,-84.4 2633.63,-52.73"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2813.4,-175.87 2823.67,-178.47 2817.26,-170.03 2813.4,-175.87"/>
-</g>
-<!-- Node26&#45;&gt;Node34 -->
-<g id="edge9" class="edge">
-<title>Node26&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M2757.42,-189.8C2500.91,-156.03 1842.25,-69.33 1608.41,-38.55"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2757.11,-193.29 2767.48,-191.12 2758.03,-186.35 2757.11,-193.29"/>
-</g>
-<!-- Node26&#45;&gt;Node35 -->
-<g id="edge10" class="edge">
-<title>Node26&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M2768.59,-175.13C2741.34,-165.72 2711.81,-154.44 2685.5,-142 2644.57,-122.65 2639.62,-107.94 2598.5,-89 2579.16,-80.09 2534.45,-65.38 2493.48,-52.59"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2767.53,-178.47 2778.13,-178.38 2769.79,-171.84 2767.53,-178.47"/>
-</g>
-<!-- Node28&#45;&gt;Node26 -->
-<g id="edge6" class="edge">
-<title>Node28&#45;&gt;Node26</title>
-<path fill="none" stroke="midnightblue" d="M2886.08,-151.46C2883.23,-160.45 2879.8,-169.95 2876.36,-178.34"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2889.51,-152.19 2889.02,-141.61 2882.81,-150.19 2889.51,-152.19"/>
-</g>
-<!-- Node38&#45;&gt;Node39 -->
-<g id="edge13" class="edge">
-<title>Node38&#45;&gt;Node39</title>
-<path fill="none" stroke="midnightblue" d="M2540.87,-169.06C2536.45,-159.9 2531.75,-150.17 2527.62,-141.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2537.85,-170.85 2545.35,-178.34 2544.16,-167.81 2537.85,-170.85"/>
-</g>
-<!-- Node38&#45;&gt;Node52 -->
-<g id="edge21" class="edge">
-<title>Node38&#45;&gt;Node52</title>
-<path fill="none" stroke="midnightblue" d="M2469.1,-191.65C2434.07,-187.12 2393.41,-182.07 2356.5,-178 2145.84,-154.78 1896.54,-133 1774.46,-122.71"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2468.93,-195.16 2479.3,-192.97 2469.83,-188.21 2468.93,-195.16"/>
-</g>
-<!-- Node39&#45;&gt;Node29 -->
-<g id="edge14" class="edge">
-<title>Node39&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M2598.96,-86.14C2630.85,-75.3 2666.96,-63.03 2697.87,-52.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2597.54,-82.92 2589.2,-89.45 2599.8,-89.55 2597.54,-82.92"/>
-</g>
-<!-- Node39&#45;&gt;Node33 -->
-<g id="edge18" class="edge">
-<title>Node39&#45;&gt;Node33</title>
-<path fill="none" stroke="midnightblue" d="M2545.58,-81.79C2554.46,-72.13 2564.04,-61.71 2572.41,-52.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2542.83,-79.61 2538.64,-89.34 2547.98,-84.34 2542.83,-79.61"/>
-</g>
-<!-- Node39&#45;&gt;Node34 -->
-<g id="edge19" class="edge">
-<title>Node39&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M2430.87,-95.82C2417.09,-93.23 2402.94,-90.83 2389.5,-89 2104.39,-50.18 1762.86,-35.04 1608.07,-29.87"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2430.33,-99.28 2440.81,-97.74 2431.66,-92.41 2430.33,-99.28"/>
-</g>
-<!-- Node39&#45;&gt;Node35 -->
-<g id="edge20" class="edge">
-<title>Node39&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M2477.4,-82.93C2465.36,-72.96 2452.22,-62.07 2440.8,-52.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2475.2,-85.65 2485.13,-89.34 2479.66,-80.26 2475.2,-85.65"/>
-</g>
-<!-- Node39&#45;&gt;Node49 -->
-<g id="edge15" class="edge">
-<title>Node39&#45;&gt;Node49</title>
-<path fill="none" stroke="midnightblue" d="M2430.46,-111.54C2293.85,-106.78 2017.06,-97.14 1782.5,-89 1320.72,-72.97 1205.25,-69.8 743.5,-53 527.75,-45.15 272.88,-35.27 149.24,-30.43"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2430.73,-115.05 2440.84,-111.9 2430.97,-108.05 2430.73,-115.05"/>
-</g>
-<!-- Node50 -->
-<g id="node15" class="node">
-<title>Node50</title>
-<g id="a_node15"><a xlink:href="Component_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3813,-0.5 3813,-52.5 3962,-52.5 3962,-0.5 3813,-0.5"/>
-<text text-anchor="start" x="3821" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3821" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3821" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="3887.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/Component.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node39&#45;&gt;Node50 -->
-<g id="edge16" class="edge">
-<title>Node39&#45;&gt;Node50</title>
-<path fill="none" stroke="midnightblue" d="M2600.36,-105.75C2654.22,-100.41 2725.4,-93.71 2788.5,-89 3173.44,-60.26 3635.16,-38.58 3812.81,-30.72"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2599.78,-102.29 2590.17,-106.77 2600.47,-109.26 2599.78,-102.29"/>
-</g>
-<!-- Node39&#45;&gt;Node44 -->
-<g id="edge17" class="edge">
-<title>Node39&#45;&gt;Node44</title>
-<path fill="none" stroke="midnightblue" d="M2430.87,-93.7C2376.3,-80.29 2305.46,-62.88 2250.12,-49.28"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2430.31,-97.17 2440.86,-96.16 2431.98,-90.37 2430.31,-97.17"/>
-</g>
-<!-- Node52&#45;&gt;Node55 -->
-<g id="edge22" class="edge">
-<title>Node52&#45;&gt;Node55</title>
-<path fill="none" stroke="midnightblue" d="M1614.7,-89.03C1357.75,-41.46 1061.63,-30.69 920,-28.2"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1614.12,-92.48 1624.59,-90.89 1615.41,-85.6 1614.12,-92.48"/>
-</g>
-<!-- Node92&#45;&gt;Node44 -->
-<g id="edge30" class="edge">
-<title>Node92&#45;&gt;Node44</title>
-<path fill="none" stroke="midnightblue" d="M2111.76,-168.69C2123.81,-134.48 2141.91,-83.1 2152.63,-52.67"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2108.4,-167.69 2108.38,-178.28 2115.01,-170.01 2108.4,-167.69"/>
-</g>
-<!-- Node94&#45;&gt;Node18 -->
-<g id="edge32" class="edge">
-<title>Node94&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M1507.94,-264.28C1473.82,-253.4 1435.12,-241.07 1402.01,-230.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1507.31,-267.75 1517.9,-267.45 1509.44,-261.08 1507.31,-267.75"/>
-</g>
-<!-- Node94&#45;&gt;Node115 -->
-<g id="edge33" class="edge">
-<title>Node94&#45;&gt;Node115</title>
-<path fill="none" stroke="midnightblue" d="M1507.92,-267.91C1506.43,-267.6 1504.96,-267.29 1503.5,-267 1381.79,-242.53 1348.18,-255.64 1226.5,-231 1223.74,-230.44 1220.94,-229.84 1218.12,-229.22"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1507.26,-271.35 1517.78,-270.11 1508.78,-264.52 1507.26,-271.35"/>
-</g>
-<!-- Node121&#45;&gt;Node92 -->
-<g id="edge35" class="edge">
-<title>Node121&#45;&gt;Node92</title>
-<path fill="none" stroke="midnightblue" d="M2097.12,-257.19C2097.53,-248.28 2097.96,-238.9 2098.35,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2093.62,-257.19 2096.66,-267.34 2100.61,-257.51 2093.62,-257.19"/>
-</g>
-<!-- Node121&#45;&gt;Node18 -->
-<g id="edge39" class="edge">
-<title>Node121&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M2010.75,-281.12C1974.65,-276.45 1932.05,-271.18 1893.5,-267 1716.92,-247.87 1671.86,-252.03 1495.5,-231 1468.07,-227.73 1438.28,-223.54 1411.31,-219.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2010.38,-284.61 2020.75,-282.42 2011.28,-277.66 2010.38,-284.61"/>
-</g>
-<!-- Node121&#45;&gt;Node96 -->
-<g id="edge36" class="edge">
-<title>Node121&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M2010.8,-267.66C2009.69,-267.43 2008.59,-267.21 2007.5,-267 1856.64,-237.49 1814.17,-261.47 1663.5,-231 1660.51,-230.4 1657.48,-229.73 1654.42,-229.02"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2010.31,-271.14 2020.83,-269.88 2011.82,-264.31 2010.31,-271.14"/>
-</g>
-<!-- Node121&#45;&gt;Node106 -->
-<g id="edge37" class="edge">
-<title>Node121&#45;&gt;Node106</title>
-<path fill="none" stroke="midnightblue" d="M2010.76,-267.83C2009.67,-267.55 2008.58,-267.27 2007.5,-267 1934.31,-248.48 1914.71,-249.41 1841.5,-231 1838.69,-230.29 1835.84,-229.56 1832.97,-228.81"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2010.14,-271.29 2020.7,-270.45 2011.92,-264.52 2010.14,-271.29"/>
-</g>
-<!-- Node106&#45;&gt;Node44 -->
-<g id="edge38" class="edge">
-<title>Node106&#45;&gt;Node44</title>
-<path fill="none" stroke="midnightblue" d="M1820.04,-174.44C1899.02,-140.45 2028.44,-84.76 2103.2,-52.59"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1818.47,-171.3 1810.67,-178.47 1821.23,-177.73 1818.47,-171.3"/>
-</g>
-<!-- Node126&#45;&gt;Node29 -->
-<g id="edge42" class="edge">
-<title>Node126&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M2448.09,-257.15C2447.66,-232.09 2451.44,-199.27 2470.5,-178 2509.93,-133.98 2544.77,-166.6 2598.5,-142 2651.55,-117.71 2706.74,-78.31 2740.11,-52.65"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2444.6,-257.51 2448.49,-267.36 2451.59,-257.23 2444.6,-257.51"/>
-</g>
-<!-- Node126&#45;&gt;Node127 -->
-<g id="edge43" class="edge">
-<title>Node126&#45;&gt;Node127</title>
-<path fill="none" stroke="midnightblue" d="M2366.77,-281.44C2248.24,-265.85 2043.55,-238.49 2009.5,-231 2006.52,-230.35 2003.5,-229.64 2000.45,-228.89"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2366.54,-284.94 2376.91,-282.77 2367.45,-278 2366.54,-284.94"/>
-</g>
-<!-- Node127&#45;&gt;Node55 -->
-<g id="edge46" class="edge">
-<title>Node127&#45;&gt;Node55</title>
-<path fill="none" stroke="midnightblue" d="M1896.05,-170.68C1869.39,-143.44 1827.49,-106.45 1782.5,-89 1742.65,-73.54 1144.47,-42.67 920.4,-31.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1893.7,-173.29 1903.16,-178.07 1898.75,-168.44 1893.7,-173.29"/>
-</g>
-<!-- Node127&#45;&gt;Node58 -->
-<g id="edge44" class="edge">
-<title>Node127&#45;&gt;Node58</title>
-<path fill="none" stroke="midnightblue" d="M1840.55,-178.01C1650.44,-142.73 1596.98,-168.69 1409.5,-142 1397.79,-140.33 1385.53,-138.26 1373.44,-136.03"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1840.12,-181.49 1850.59,-179.9 1841.41,-174.61 1840.12,-181.49"/>
-</g>
-<!-- Node127&#45;&gt;Node62 -->
-<g id="edge45" class="edge">
-<title>Node127&#45;&gt;Node62</title>
-<path fill="none" stroke="midnightblue" d="M1840.73,-178.07C1539.87,-126.53 1456.47,-178.15 1157.5,-142 1141.16,-140.02 1123.82,-137.24 1107.22,-134.24"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1840.16,-181.52 1850.61,-179.79 1841.36,-174.63 1840.16,-181.52"/>
-</g>
-<!-- Node131&#45;&gt;Node18 -->
-<g id="edge53" class="edge">
-<title>Node131&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M1683.19,-267.08C1568.48,-243.52 1536.05,-252.47 1425.5,-231 1420.84,-230.1 1416.08,-229.11 1411.28,-228.07"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1682.56,-270.52 1693.06,-269.14 1683.99,-263.67 1682.56,-270.52"/>
-</g>
-<!-- Node132&#45;&gt;Node18 -->
-<g id="edge57" class="edge">
-<title>Node132&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M1363.01,-259.22C1356.03,-249.72 1348.53,-239.53 1341.97,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1360.24,-261.35 1368.99,-267.34 1365.88,-257.21 1360.24,-261.35"/>
-</g>
-<!-- Node132&#45;&gt;Node62 -->
-<g id="edge59" class="edge">
-<title>Node132&#45;&gt;Node62</title>
-<path fill="none" stroke="midnightblue" d="M1302.59,-267.25C1231.11,-255.96 1081.49,-270.22 1041.5,-231 1018.08,-208.03 1017.19,-167.89 1019.63,-141.76"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1302.08,-270.71 1312.55,-269.11 1303.36,-263.83 1302.08,-270.71"/>
-</g>
-<!-- Node132&#45;&gt;Node142 -->
+<!-- Node2&#45;&gt;Node133 -->
 <g id="edge58" class="edge">
-<title>Node132&#45;&gt;Node142</title>
-<path fill="none" stroke="midnightblue" d="M1472.18,-272.92C1484.32,-270.62 1496.69,-268.55 1508.5,-267 1809.02,-227.63 1890.98,-283.4 2189.5,-231 2192.5,-230.47 2195.55,-229.87 2198.61,-229.21"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1471.21,-269.55 1462.06,-274.9 1472.55,-276.42 1471.21,-269.55"/>
+<title>Node2&#45;&gt;Node133</title>
+<path fill="none" stroke="midnightblue" d="M3887.3,-380.15C4158.29,-375.69 4941.56,-359.44 4979,-320 5069.81,-224.34 4986.35,-301.61 4642,-231 4639.34,-230.45 4636.65,-229.86 4633.93,-229.23"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3887.05,-376.65 3877.1,-380.31 3887.16,-383.65 3887.05,-376.65"/>
 </g>
-<!-- Node132&#45;&gt;Node144 -->
-<g id="edge60" class="edge">
-<title>Node132&#45;&gt;Node144</title>
-<path fill="none" stroke="midnightblue" d="M1302.66,-267.07C968.44,-210.9 874.14,-283.97 543.5,-231 540.72,-230.55 537.9,-230.06 535.06,-229.51"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1302.17,-270.53 1312.62,-268.77 1303.35,-263.63 1302.17,-270.53"/>
+<!-- Node137 -->
+<g id="node36" class="node">
+<title>Node137</title>
+<g id="a_node36"><a xlink:href="DebugRender_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="3591,-267.5 3591,-319.5 3749,-319.5 3749,-267.5 3591,-267.5"/>
+<text text-anchor="start" x="3599" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="3599" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="3599" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="3670" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Rendering/DebugRender.hpp</text>
+</a>
 </g>
-<!-- Node132&#45;&gt;Node145 -->
-<g id="edge61" class="edge">
-<title>Node132&#45;&gt;Node145</title>
-<path fill="none" stroke="midnightblue" d="M1302.63,-267.06C1179.64,-244.72 882.23,-222.14 732.06,-211.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1302.11,-270.52 1312.58,-268.94 1303.41,-263.64 1302.11,-270.52"/>
 </g>
-<!-- Node146&#45;&gt;Node147 -->
-<g id="edge70" class="edge">
-<title>Node146&#45;&gt;Node147</title>
-<path fill="none" stroke="midnightblue" d="M4407.52,-267.52C4408.85,-267.34 4410.18,-267.16 4411.5,-267 5061.4,-186.53 5235.01,-314.69 5884.5,-231 5887.56,-230.61 5890.65,-230.16 5893.77,-229.67"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4406.59,-264.11 4397.21,-269.04 4407.62,-271.04 4406.59,-264.11"/>
+<!-- Node2&#45;&gt;Node137 -->
+<g id="edge59" class="edge">
+<title>Node2&#45;&gt;Node137</title>
+<path fill="none" stroke="midnightblue" d="M3751.11,-350.5C3736.43,-340.37 3720.33,-329.25 3706.36,-319.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3749.34,-353.53 3759.56,-356.34 3753.32,-347.77 3749.34,-353.53"/>
 </g>
-<!-- Node150&#45;&gt;Node1 -->
-<g id="edge72" class="edge">
-<title>Node150&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M3399.63,-410.88C3323,-429.07 3238.47,-445.75 3177.81,-456.85"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3400.51,-414.27 3409.42,-408.53 3398.88,-407.46 3400.51,-414.27"/>
+<!-- Node138 -->
+<g id="node37" class="node">
+<title>Node138</title>
+<g id="a_node37"><a xlink:href="Light_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="5139.5,-267.5 5139.5,-319.5 5288.5,-319.5 5288.5,-267.5 5139.5,-267.5"/>
+<text text-anchor="start" x="5147.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5147.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5147.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="5214" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/Light.hpp</text>
+</a>
 </g>
-<!-- Node151&#45;&gt;Node28 -->
-<g id="edge84" class="edge">
-<title>Node151&#45;&gt;Node28</title>
-<path fill="none" stroke="midnightblue" d="M4007.26,-290.25C3800.23,-284.57 3311.59,-267.44 3246.5,-231 3221.21,-216.84 3232.9,-193.65 3208.5,-178 3172.28,-154.77 3065.52,-137.29 2985.84,-127.01"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4007.41,-293.75 4017.5,-290.53 4007.6,-286.76 4007.41,-293.75"/>
 </g>
-<!-- Node151&#45;&gt;Node36 -->
-<g id="edge87" class="edge">
-<title>Node151&#45;&gt;Node36</title>
-<path fill="none" stroke="midnightblue" d="M4007.09,-291.02C3845.36,-287.34 3500.84,-274.6 3213.5,-231 3208.93,-230.31 3204.27,-229.52 3199.57,-228.66"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4007.4,-294.53 4017.48,-291.25 4007.56,-287.53 4007.4,-294.53"/>
-</g>
-<!-- Node151&#45;&gt;Node50 -->
-<g id="edge89" class="edge">
-<title>Node151&#45;&gt;Node50</title>
-<path fill="none" stroke="midnightblue" d="M4191.72,-267.35C4295.43,-257.32 4770.4,-279.83 4816.5,-231 4832.67,-213.87 4831.77,-195.94 4816.5,-178 4706.5,-48.75 4163.22,-30.16 3962.34,-27.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4191.14,-263.89 4181.66,-268.62 4192.02,-270.84 4191.14,-263.89"/>
+<!-- Node2&#45;&gt;Node138 -->
+<g id="edge63" class="edge">
+<title>Node2&#45;&gt;Node138</title>
+<path fill="none" stroke="midnightblue" d="M3887.32,-380.08C4147.1,-375.59 4886.9,-359.6 5126,-320 5130.39,-319.27 5134.88,-318.4 5139.38,-317.42"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3887.11,-376.58 3877.17,-380.25 3887.23,-383.58 3887.11,-376.58"/>
 </g>
 <!-- Node152 -->
-<g id="node43" class="node">
+<g id="node41" class="node">
 <title>Node152</title>
-<g id="a_node43"><a xlink:href="DualQuaternion_8inl.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="3835.5,-178.5 3835.5,-230.5 3999.5,-230.5 3999.5,-178.5 3835.5,-178.5"/>
-<text text-anchor="start" x="3843.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3843.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3843.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
-<text text-anchor="middle" x="3917.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/DualQuaternion.inl</text>
+<g id="a_node41"><a xlink:href="AssimpWrapper_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="5586.5,-267.5 5586.5,-319.5 5783.5,-319.5 5783.5,-267.5 5586.5,-267.5"/>
+<text text-anchor="start" x="5594.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="5594.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="5594.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="5685" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpWrapper.hpp</text>
 </a>
 </g>
 </g>
-<!-- Node151&#45;&gt;Node152 -->
-<g id="edge74" class="edge">
-<title>Node151&#45;&gt;Node152</title>
-<path fill="none" stroke="midnightblue" d="M4037.61,-262.92C4015.64,-252.41 3991.14,-240.7 3970.02,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4036.33,-266.18 4046.86,-267.34 4039.35,-259.87 4036.33,-266.18"/>
+<!-- Node2&#45;&gt;Node152 -->
+<g id="edge77" class="edge">
+<title>Node2&#45;&gt;Node152</title>
+<path fill="none" stroke="midnightblue" d="M3887.12,-380.73C4202.33,-377.69 5245.3,-364.44 5577,-320 5580.06,-319.59 5583.15,-319.13 5586.27,-318.63"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3887.07,-377.23 3877.11,-380.82 3887.14,-384.23 3887.07,-377.23"/>
 </g>
-<!-- Node157 -->
-<g id="node44" class="node">
-<title>Node157</title>
-<g id="a_node44"><a xlink:href="LinearAlgebra_8inl.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4017.5,-178.5 4017.5,-230.5 4181.5,-230.5 4181.5,-178.5 4017.5,-178.5"/>
-<text text-anchor="start" x="4025.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="4025.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="4025.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
-<text text-anchor="middle" x="4099.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/LinearAlgebra.inl</text>
+<!-- Node3&#45;&gt;Node31 -->
+<g id="edge3" class="edge">
+<title>Node3&#45;&gt;Node31</title>
+<path fill="none" stroke="midnightblue" d="M2744.82,-262.49C2725.7,-252.1 2704.49,-240.57 2686.17,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2743.26,-265.63 2753.72,-267.34 2746.61,-259.48 2743.26,-265.63"/>
+</g>
+<!-- Node41 -->
+<g id="node11" class="node">
+<title>Node41</title>
+<g id="a_node11"><a xlink:href="RayCast_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="2340,-178.5 2340,-230.5 2528,-230.5 2528,-178.5 2340,-178.5"/>
+<text text-anchor="start" x="2348" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="2348" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="2348" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="2434" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/RayCast.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node151&#45;&gt;Node157 -->
-<g id="edge75" class="edge">
-<title>Node151&#45;&gt;Node157</title>
-<path fill="none" stroke="midnightblue" d="M4092.86,-257.19C4092.62,-248.28 4092.77,-238.9 4093.32,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4089.37,-257.5 4093.31,-267.34 4096.36,-257.19 4089.37,-257.5"/>
+<!-- Node3&#45;&gt;Node41 -->
+<g id="edge11" class="edge">
+<title>Node3&#45;&gt;Node41</title>
+<path fill="none" stroke="midnightblue" d="M2696.05,-268.52C2647.66,-257.27 2589.35,-243.6 2537,-231 2534.04,-230.29 2531.04,-229.56 2528.01,-228.83"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2695.37,-271.95 2705.9,-270.81 2696.95,-265.14 2695.37,-271.95"/>
+</g>
+<!-- Node3&#45;&gt;Node43 -->
+<g id="edge12" class="edge">
+<title>Node3&#45;&gt;Node43</title>
+<path fill="none" stroke="midnightblue" d="M2904.18,-267.88C2905.46,-267.59 2906.73,-267.29 2908,-267 2973.33,-251.9 3047.59,-235.14 3101.99,-222.93"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2903.18,-264.52 2894.23,-270.2 2904.76,-271.34 2903.18,-264.52"/>
+</g>
+<!-- Node3&#45;&gt;Node44 -->
+<g id="edge24" class="edge">
+<title>Node3&#45;&gt;Node44</title>
+<path fill="none" stroke="midnightblue" d="M2851.31,-262.4C2909.3,-228.38 3002.67,-173.6 3057,-141.73"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2849.52,-259.39 2842.66,-267.47 2853.06,-265.43 2849.52,-259.39"/>
+</g>
+<!-- Node3&#45;&gt;Node56 -->
+<g id="edge25" class="edge">
+<title>Node3&#45;&gt;Node56</title>
+<path fill="none" stroke="midnightblue" d="M2801.88,-256.89C2804.75,-202.56 2810.16,-100.26 2812.66,-52.83"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2798.37,-256.92 2801.34,-267.09 2805.37,-257.29 2798.37,-256.92"/>
+</g>
+<!-- Node31&#45;&gt;Node32 -->
+<g id="edge4" class="edge">
+<title>Node31&#45;&gt;Node32</title>
+<path fill="none" stroke="midnightblue" d="M2611.43,-170.79C2602.99,-161.13 2593.88,-150.71 2585.93,-141.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2608.8,-173.11 2618.02,-178.34 2614.07,-168.5 2608.8,-173.11"/>
+</g>
+<!-- Node33 -->
+<g id="node6" class="node">
+<title>Node33</title>
+<g id="a_node6"><a xlink:href="MeshPrimitives_8inl.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="2264,-89.5 2264,-141.5 2452,-141.5 2452,-89.5 2264,-89.5"/>
+<text text-anchor="start" x="2272" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="2272" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="2272" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="2358" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MeshPrimitives.inl</text>
+</a>
+</g>
+</g>
+<!-- Node31&#45;&gt;Node33 -->
+<g id="edge5" class="edge">
+<title>Node31&#45;&gt;Node33</title>
+<path fill="none" stroke="midnightblue" d="M2542.62,-175.42C2506.69,-164.51 2466.57,-152.12 2432.93,-141.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2542.05,-178.9 2552.63,-178.45 2544.08,-172.2 2542.05,-178.9"/>
+</g>
+<!-- Node31&#45;&gt;Node34 -->
+<g id="edge7" class="edge">
+<title>Node31&#45;&gt;Node34</title>
+<path fill="none" stroke="midnightblue" d="M2658.13,-168.95C2661.8,-160.37 2665.1,-151.04 2667,-142 2671.84,-118.95 2672.45,-111.92 2667,-89 2663.99,-76.32 2657.92,-63.29 2651.94,-52.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2654.85,-167.71 2653.9,-178.26 2661.23,-170.6 2654.85,-167.71"/>
+</g>
+<!-- Node31&#45;&gt;Node38 -->
+<g id="edge8" class="edge">
+<title>Node31&#45;&gt;Node38</title>
+<path fill="none" stroke="midnightblue" d="M2698.64,-173.84C2745.01,-150.51 2811.46,-117.31 2870,-89 2895.22,-76.8 2923.32,-63.57 2947.01,-52.51"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2697,-170.75 2689.64,-178.38 2700.14,-177 2697,-170.75"/>
+</g>
+<!-- Node31&#45;&gt;Node39 -->
+<g id="edge9" class="edge">
+<title>Node31&#45;&gt;Node39</title>
+<path fill="none" stroke="midnightblue" d="M2735.27,-175.31C2766.1,-165.53 2800.25,-153.99 2831,-142 2883.44,-121.56 2892.87,-107.56 2946,-89 3009.5,-66.82 3027.89,-69.9 3093,-53 3096.08,-52.2 3099.21,-51.38 3102.38,-50.55"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2733.88,-172.07 2725.39,-178.42 2735.98,-178.75 2733.88,-172.07"/>
+</g>
+<!-- Node31&#45;&gt;Node40 -->
+<g id="edge10" class="edge">
+<title>Node31&#45;&gt;Node40</title>
+<path fill="none" stroke="midnightblue" d="M2744.12,-184.38C2793.03,-174.08 2851.71,-159.8 2903,-142 2955.4,-123.81 2962.81,-104.73 3016,-89 3128.71,-55.66 3162.85,-76.59 3278,-53 3281.12,-52.36 3284.28,-51.68 3287.47,-50.96"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2743.23,-180.99 2734.16,-186.46 2744.66,-187.85 2743.23,-180.99"/>
+</g>
+<!-- Node33&#45;&gt;Node31 -->
+<g id="edge6" class="edge">
+<title>Node33&#45;&gt;Node31</title>
+<path fill="none" stroke="midnightblue" d="M2455.29,-144.55C2491.22,-155.46 2531.33,-167.85 2564.99,-178.45"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2455.86,-141.07 2445.28,-141.52 2453.84,-147.77 2455.86,-141.07"/>
+</g>
+<!-- Node43&#45;&gt;Node44 -->
+<g id="edge13" class="edge">
+<title>Node43&#45;&gt;Node44</title>
+<path fill="none" stroke="midnightblue" d="M3149.92,-170.79C3141.04,-161.13 3131.46,-150.71 3123.09,-141.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3147.52,-173.34 3156.86,-178.34 3152.67,-168.61 3147.52,-173.34"/>
+</g>
+<!-- Node43&#45;&gt;Node58 -->
+<g id="edge22" class="edge">
+<title>Node43&#45;&gt;Node58</title>
+<path fill="none" stroke="midnightblue" d="M3268.2,-178.01C3480.81,-143.79 4067.05,-124.5 4275.41,-118.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3267.34,-174.61 3258.06,-179.71 3268.5,-181.51 3267.34,-174.61"/>
+</g>
+<!-- Node44&#45;&gt;Node34 -->
+<g id="edge14" class="edge">
+<title>Node44&#45;&gt;Node34</title>
+<path fill="none" stroke="midnightblue" d="M3014.97,-104.07C2937.54,-93.78 2820.32,-76.23 2720,-53 2716.88,-52.28 2713.71,-51.5 2710.51,-50.69"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3014.78,-107.57 3025.15,-105.41 3015.7,-100.63 3014.78,-107.57"/>
+</g>
+<!-- Node44&#45;&gt;Node38 -->
+<g id="edge19" class="edge">
+<title>Node44&#45;&gt;Node38</title>
+<path fill="none" stroke="midnightblue" d="M3063.76,-82.65C3052.49,-72.75 3040.24,-61.98 3029.57,-52.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3061.54,-85.36 3071.37,-89.34 3066.16,-80.11 3061.54,-85.36"/>
+</g>
+<!-- Node44&#45;&gt;Node39 -->
+<g id="edge20" class="edge">
+<title>Node44&#45;&gt;Node39</title>
+<path fill="none" stroke="midnightblue" d="M3132.05,-82.08C3141.68,-72.34 3152.09,-61.8 3161.18,-52.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3129.42,-79.76 3124.87,-89.34 3134.39,-84.68 3129.42,-79.76"/>
+</g>
+<!-- Node44&#45;&gt;Node40 -->
+<g id="edge21" class="edge">
+<title>Node44&#45;&gt;Node40</title>
+<path fill="none" stroke="midnightblue" d="M3184.38,-87.41C3218.96,-76.31 3258.76,-63.53 3292.69,-52.64"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3183.22,-84.11 3174.77,-90.5 3185.36,-90.77 3183.22,-84.11"/>
+</g>
+<!-- Node44&#45;&gt;Node54 -->
+<g id="edge15" class="edge">
+<title>Node44&#45;&gt;Node54</title>
+<path fill="none" stroke="midnightblue" d="M3185,-107.79C3262.58,-101.92 3380.42,-93.62 3483,-89 4162.94,-58.38 4333.63,-71.87 5014,-53 5280.21,-45.62 5596.3,-34.95 5737.47,-30.09"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3184.51,-104.32 3174.8,-108.57 3185.04,-111.3 3184.51,-104.32"/>
+</g>
+<!-- Node44&#45;&gt;Node49 -->
+<g id="edge16" class="edge">
+<title>Node44&#45;&gt;Node49</title>
+<path fill="none" stroke="midnightblue" d="M3184.71,-101.21C3258.4,-89.4 3367.97,-71.22 3463,-53 3472.86,-51.11 3483.15,-49.04 3493.38,-46.93"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3183.88,-97.8 3174.56,-102.84 3184.99,-104.71 3183.88,-97.8"/>
+</g>
+<!-- Node44&#45;&gt;Node56 -->
+<g id="edge17" class="edge">
+<title>Node44&#45;&gt;Node56</title>
+<path fill="none" stroke="midnightblue" d="M3015.32,-88.74C2977.75,-77.31 2933.69,-63.91 2896.38,-52.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3014.64,-92.19 3025.23,-91.76 3016.68,-85.5 3014.64,-92.19"/>
+</g>
+<!-- Node44&#45;&gt;Node11 -->
+<g id="edge18" class="edge">
+<title>Node44&#45;&gt;Node11</title>
+<path fill="none" stroke="midnightblue" d="M3184.92,-108.96C3298.19,-100.78 3504.71,-83.09 3679,-53 3685.81,-51.82 3692.83,-50.47 3699.87,-49"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3184.65,-105.47 3174.92,-109.67 3185.15,-112.45 3184.65,-105.47"/>
+</g>
+<!-- Node58&#45;&gt;Node61 -->
+<g id="edge23" class="edge">
+<title>Node58&#45;&gt;Node61</title>
+<path fill="none" stroke="midnightblue" d="M4434.99,-88.7C4581,-58.05 4742.42,-41.58 4838.2,-33.6"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4434,-85.33 4424.95,-90.84 4435.46,-92.18 4434,-85.33"/>
+</g>
+<!-- Node98&#45;&gt;Node49 -->
+<g id="edge32" class="edge">
+<title>Node98&#45;&gt;Node49</title>
+<path fill="none" stroke="midnightblue" d="M3576.65,-79.19C3577.57,-70.28 3578.54,-60.9 3579.4,-52.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3573.15,-79.03 3575.6,-89.34 3580.11,-79.75 3573.15,-79.03"/>
+</g>
+<!-- Node98&#45;&gt;Node56 -->
+<g id="edge33" class="edge">
+<title>Node98&#45;&gt;Node56</title>
+<path fill="none" stroke="midnightblue" d="M3481.68,-108.02C3326.02,-96.64 3015.67,-72.43 2908,-53 2905.09,-52.47 2902.13,-51.9 2899.16,-51.29"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3481.48,-111.51 3491.71,-108.75 3481.99,-104.53 3481.48,-111.51"/>
+</g>
+<!-- Node98&#45;&gt;Node11 -->
+<g id="edge34" class="edge">
+<title>Node98&#45;&gt;Node11</title>
+<path fill="none" stroke="midnightblue" d="M3643.48,-85.58C3669.55,-74.88 3698.87,-62.85 3724.03,-52.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3641.96,-82.42 3634.03,-89.45 3644.61,-88.89 3641.96,-82.42"/>
+</g>
+<!-- Node100&#45;&gt;Node23 -->
+<g id="edge36" class="edge">
+<title>Node100&#45;&gt;Node23</title>
+<path fill="none" stroke="midnightblue" d="M4096.86,-257.48C4099.13,-248.49 4101.53,-238.99 4103.65,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4093.42,-256.78 4094.36,-267.34 4100.21,-258.5 4093.42,-256.78"/>
+</g>
+<!-- Node100&#45;&gt;Node121 -->
+<g id="edge37" class="edge">
+<title>Node100&#45;&gt;Node121</title>
+<path fill="none" stroke="midnightblue" d="M4176.56,-267.81C4178.05,-267.53 4179.53,-267.26 4181,-267 4383.45,-231.67 4439.55,-266.33 4642,-231 4645.05,-230.47 4648.15,-229.88 4651.27,-229.24"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4175.76,-264.4 4166.66,-269.82 4177.16,-271.26 4175.76,-264.4"/>
+</g>
+<!-- Node127&#45;&gt;Node11 -->
+<g id="edge45" class="edge">
+<title>Node127&#45;&gt;Node11</title>
+<path fill="none" stroke="midnightblue" d="M3507.73,-272.35C3516.58,-270.45 3525.46,-268.63 3534,-267 3586.33,-257.03 3734.91,-270.18 3771,-231 3816.11,-182.03 3802.51,-95.24 3792.11,-52.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3506.8,-268.97 3497.77,-274.52 3508.29,-275.81 3506.8,-268.97"/>
+</g>
+<!-- Node127&#45;&gt;Node98 -->
+<g id="edge39" class="edge">
+<title>Node127&#45;&gt;Node98</title>
+<path fill="none" stroke="midnightblue" d="M3506.75,-265.56C3523.15,-256.85 3538.74,-245.54 3550,-231 3569.87,-205.35 3573.88,-167.04 3574.1,-141.91"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3504.96,-262.54 3497.58,-270.14 3508.09,-268.8 3504.96,-262.54"/>
+</g>
+<!-- Node127&#45;&gt;Node23 -->
+<g id="edge43" class="edge">
+<title>Node127&#45;&gt;Node23</title>
+<path fill="none" stroke="midnightblue" d="M3507.64,-273.89C3521.42,-271.29 3535.57,-268.87 3549,-267 3753.86,-238.43 3809.04,-265.43 4013,-231 4016.09,-230.48 4019.23,-229.9 4022.38,-229.29"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3506.85,-270.48 3497.7,-275.82 3508.18,-277.36 3506.85,-270.48"/>
+</g>
+<!-- Node127&#45;&gt;Node102 -->
+<g id="edge40" class="edge">
+<title>Node127&#45;&gt;Node102</title>
+<path fill="none" stroke="midnightblue" d="M3507.71,-267.67C3508.81,-267.44 3509.91,-267.22 3511,-267 3656.17,-238.3 3696.83,-259.7 3842,-231 3846.37,-230.14 3850.84,-229.16 3855.32,-228.1"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3506.67,-264.31 3497.68,-269.9 3508.2,-271.15 3506.67,-264.31"/>
+</g>
+<!-- Node127&#45;&gt;Node112 -->
+<g id="edge41" class="edge">
+<title>Node127&#45;&gt;Node112</title>
+<path fill="none" stroke="midnightblue" d="M3507.43,-264.14C3539.7,-253.3 3576.24,-241.03 3607.51,-230.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3505.93,-260.95 3497.57,-267.45 3508.16,-267.59 3505.93,-260.95"/>
+</g>
+<!-- Node127&#45;&gt;Node18 -->
+<g id="edge44" class="edge">
+<title>Node127&#45;&gt;Node18</title>
+<path fill="none" stroke="midnightblue" d="M3410.63,-257.77C3407.39,-248.69 3403.96,-239.08 3400.95,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3407.38,-259.09 3414.03,-267.34 3413.97,-256.74 3407.38,-259.09"/>
+</g>
+<!-- Node127&#45;&gt;Node64 -->
+<g id="edge46" class="edge">
+<title>Node127&#45;&gt;Node64</title>
+<path fill="none" stroke="midnightblue" d="M3507.7,-272.19C3516.56,-270.32 3525.45,-268.55 3534,-267 3653.12,-245.42 3698.74,-290.8 3804,-231 3830.13,-216.15 3819.35,-191.9 3846,-178 3961.86,-117.54 4303.42,-159 4433,-142 4445.17,-140.4 4457.93,-138.32 4470.46,-136.02"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3506.78,-268.8 3497.74,-274.33 3508.25,-275.65 3506.78,-268.8"/>
+</g>
+<!-- Node112&#45;&gt;Node49 -->
+<g id="edge42" class="edge">
+<title>Node112&#45;&gt;Node49</title>
+<path fill="none" stroke="midnightblue" d="M3682.78,-168.38C3681.8,-144.45 3677.42,-112.9 3663,-89 3654.24,-74.49 3640.66,-62.21 3627.11,-52.53"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3679.28,-168.54 3683.01,-178.46 3686.28,-168.38 3679.28,-168.54"/>
+</g>
+<!-- Node132&#45;&gt;Node34 -->
+<g id="edge49" class="edge">
+<title>Node132&#45;&gt;Node34</title>
+<path fill="none" stroke="midnightblue" d="M3832.28,-277.22C3808.33,-273.37 3782.2,-269.59 3758,-267 3463.69,-235.52 3380.75,-300.35 3093,-231 3010.26,-211.06 2786.33,-102.36 2685.91,-52.51"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3831.96,-280.72 3842.4,-278.88 3833.09,-273.81 3831.96,-280.72"/>
+</g>
+<!-- Node132&#45;&gt;Node133 -->
+<g id="edge50" class="edge">
+<title>Node132&#45;&gt;Node133</title>
+<path fill="none" stroke="midnightblue" d="M4001.99,-266.79C4107.55,-246.67 4358.26,-223.14 4484.29,-211.96"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4001.06,-263.4 3991.94,-268.78 4002.43,-270.27 4001.06,-263.4"/>
+</g>
+<!-- Node133&#45;&gt;Node61 -->
+<g id="edge53" class="edge">
+<title>Node133&#45;&gt;Node61</title>
+<path fill="none" stroke="midnightblue" d="M4619.8,-174.02C4689.97,-140 4804.17,-84.63 4870.26,-52.59"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4618.09,-170.96 4610.62,-178.47 4621.15,-177.26 4618.09,-170.96"/>
+</g>
+<!-- Node133&#45;&gt;Node64 -->
+<g id="edge51" class="edge">
+<title>Node133&#45;&gt;Node64</title>
+<path fill="none" stroke="midnightblue" d="M4559,-168.16C4559,-157.21 4559,-145.55 4559,-136.08"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4555.5,-168.34 4559,-178.34 4562.5,-168.34 4555.5,-168.34"/>
+</g>
+<!-- Node133&#45;&gt;Node68 -->
+<g id="edge52" class="edge">
+<title>Node133&#45;&gt;Node68</title>
+<path fill="none" stroke="midnightblue" d="M4643.75,-177.85C4761.09,-156.15 5045.96,-133.24 5188.38,-122.57"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4643.08,-174.41 4633.93,-179.74 4644.41,-181.29 4643.08,-174.41"/>
+</g>
+<!-- Node137&#45;&gt;Node23 -->
+<g id="edge60" class="edge">
+<title>Node137&#45;&gt;Node23</title>
+<path fill="none" stroke="midnightblue" d="M3759.17,-267.81C3760.46,-267.54 3761.73,-267.26 3763,-267 3872.9,-244.11 3902.98,-253.31 4013,-231 4016.07,-230.38 4019.19,-229.72 4022.34,-229.02"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3758.22,-264.44 3749.24,-270.06 3759.76,-271.27 3758.22,-264.44"/>
+</g>
+<!-- Node138&#45;&gt;Node23 -->
+<g id="edge64" class="edge">
+<title>Node138&#45;&gt;Node23</title>
+<path fill="none" stroke="midnightblue" d="M5129.51,-282.56C5084.81,-277.49 5028.97,-271.48 4979,-267 4940.56,-263.56 4410.92,-226.5 4197.85,-211.63"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5129.12,-286.04 5139.46,-283.69 5129.92,-279.08 5129.12,-286.04"/>
+</g>
+<!-- Node138&#45;&gt;Node68 -->
+<g id="edge66" class="edge">
+<title>Node138&#45;&gt;Node68</title>
+<path fill="none" stroke="midnightblue" d="M5129.25,-267.87C5128.16,-267.58 5127.08,-267.29 5126,-267 5060.59,-249.58 5019.83,-284.23 4978,-231 4963.44,-212.48 4963.15,-196.28 4978,-178 5004.1,-145.88 5110.89,-129.94 5188.25,-122.47"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5128.6,-271.32 5139.17,-270.58 5130.44,-264.57 5128.6,-271.32"/>
+</g>
+<!-- Node138&#45;&gt;Node148 -->
+<g id="edge65" class="edge">
+<title>Node138&#45;&gt;Node148</title>
+<path fill="none" stroke="midnightblue" d="M5161.33,-262.35C5143.23,-252 5123.19,-240.52 5105.87,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5159.62,-265.41 5170.04,-267.34 5163.1,-259.33 5159.62,-265.41"/>
+</g>
+<!-- Node138&#45;&gt;Node150 -->
+<g id="edge67" class="edge">
+<title>Node138&#45;&gt;Node150</title>
+<path fill="none" stroke="midnightblue" d="M5287.12,-263.72C5314.39,-252.98 5345.1,-240.89 5371.44,-230.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5285.65,-260.53 5277.63,-267.45 5288.21,-267.05 5285.65,-260.53"/>
+</g>
+<!-- Node138&#45;&gt;Node151 -->
+<g id="edge68" class="edge">
+<title>Node138&#45;&gt;Node151</title>
+<path fill="none" stroke="midnightblue" d="M5225.98,-257.77C5229.11,-248.69 5232.42,-239.08 5235.34,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5222.63,-256.74 5222.68,-267.34 5229.25,-259.02 5222.63,-256.74"/>
+</g>
+<!-- Node152&#45;&gt;Node153 -->
+<g id="edge78" class="edge">
+<title>Node152&#45;&gt;Node153</title>
+<path fill="none" stroke="midnightblue" d="M5789.93,-264.84C5831.68,-253.83 5879.38,-241.25 5920.09,-230.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5788.78,-261.52 5780.01,-267.45 5790.57,-268.29 5788.78,-261.52"/>
+</g>
+<!-- Node156&#45;&gt;Node1 -->
+<g id="edge80" class="edge">
+<title>Node156&#45;&gt;Node1</title>
+<path fill="none" stroke="midnightblue" d="M6154.11,-410.79C6063.89,-431.11 5963.12,-448.35 5894.27,-459.03"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="6154.95,-414.19 6163.93,-408.55 6153.4,-407.36 6154.95,-414.19"/>
+</g>
+<!-- Node157&#45;&gt;Node33 -->
+<g id="edge92" class="edge">
+<title>Node157&#45;&gt;Node33</title>
+<path fill="none" stroke="midnightblue" d="M1382.46,-289.55C1601.76,-282.09 2140.75,-260.94 2217,-231 2242.39,-221.03 2297.86,-172.25 2331.15,-141.66"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1382.14,-286.06 1372.26,-289.89 1382.38,-293.05 1382.14,-286.06"/>
+</g>
+<!-- Node157&#45;&gt;Node41 -->
+<g id="edge95" class="edge">
+<title>Node157&#45;&gt;Node41</title>
+<path fill="none" stroke="midnightblue" d="M1382.12,-290.25C1558.5,-285.18 1955.89,-270.11 2288,-231 2304.87,-229.01 2322.74,-226.36 2339.98,-223.51"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1382,-286.75 1372.1,-290.53 1382.2,-293.75 1382,-286.75"/>
 </g>
 <!-- Node158 -->
 <g id="node45" class="node">
 <title>Node158</title>
-<g id="a_node45"><a xlink:href="HandleWeightOperation_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4199.5,-178.5 4199.5,-230.5 4389.5,-230.5 4389.5,-178.5 4199.5,-178.5"/>
-<text text-anchor="start" x="4207.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="4207.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="4207.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Animation</text>
-<text text-anchor="middle" x="4294.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/HandleWeightOperation.cpp</text>
+<g id="a_node45"><a xlink:href="DualQuaternion_8inl.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="206,-178.5 206,-230.5 370,-230.5 370,-178.5 206,-178.5"/>
+<text text-anchor="start" x="214" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="214" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="214" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
+<text text-anchor="middle" x="288" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/DualQuaternion.inl</text>
 </a>
 </g>
 </g>
-<!-- Node151&#45;&gt;Node158 -->
-<g id="edge77" class="edge">
-<title>Node151&#45;&gt;Node158</title>
-<path fill="none" stroke="midnightblue" d="M4164.96,-263.29C4188.78,-252.67 4215.48,-240.76 4238.42,-230.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4163.35,-260.18 4155.64,-267.45 4166.2,-266.57 4163.35,-260.18"/>
-</g>
-<!-- Node159 -->
-<g id="node46" class="node">
-<title>Node159</title>
-<g id="a_node46"><a xlink:href="Skeleton_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4407.5,-178.5 4407.5,-230.5 4597.5,-230.5 4597.5,-178.5 4407.5,-178.5"/>
-<text text-anchor="start" x="4415.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="4415.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="4415.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Animation</text>
-<text text-anchor="middle" x="4502.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Skeleton.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node151&#45;&gt;Node159 -->
-<g id="edge78" class="edge">
-<title>Node151&#45;&gt;Node159</title>
-<path fill="none" stroke="midnightblue" d="M4191.77,-266.81C4283.77,-246.55 4309.8,-249.53 4398.5,-231 4401.41,-230.39 4404.37,-229.76 4407.35,-229.11"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4190.74,-263.45 4181.74,-269.05 4192.27,-270.28 4190.74,-263.45"/>
-</g>
-<!-- Node160 -->
-<g id="node47" class="node">
-<title>Node160</title>
-<g id="a_node47"><a xlink:href="Tex_8inl.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="4615.5,-178.5 4615.5,-230.5 4807.5,-230.5 4807.5,-178.5 4615.5,-178.5"/>
-<text text-anchor="start" x="4623.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="4623.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="4623.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Containers</text>
-<text text-anchor="middle" x="4711.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Tex.inl</text>
-</a>
-</g>
-</g>
-<!-- Node151&#45;&gt;Node160 -->
-<g id="edge79" class="edge">
-<title>Node151&#45;&gt;Node160</title>
-<path fill="none" stroke="midnightblue" d="M4191.64,-266.95C4374.9,-234.76 4426.58,-260.46 4606.5,-231 4609.46,-230.52 4612.46,-229.99 4615.49,-229.43"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4190.91,-263.52 4181.68,-268.73 4192.14,-270.41 4190.91,-263.52"/>
+<!-- Node157&#45;&gt;Node158 -->
+<g id="edge82" class="edge">
+<title>Node157&#45;&gt;Node158</title>
+<path fill="none" stroke="midnightblue" d="M1197.85,-292.52C1032.57,-291.16 675.29,-281.95 379,-231 376.09,-230.5 373.14,-229.94 370.17,-229.34"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1197.95,-296.02 1207.98,-292.59 1198.01,-289.02 1197.95,-296.02"/>
 </g>
 <!-- Node162 -->
-<g id="node48" class="node">
+<g id="node46" class="node">
 <title>Node162</title>
-<g id="a_node48"><a xlink:href="Adjacency_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4863.5,-178.5 4863.5,-230.5 5051.5,-230.5 5051.5,-178.5 4863.5,-178.5"/>
-<text text-anchor="start" x="4871.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="4871.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="4871.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="4957.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Adjacency.cpp</text>
+<g id="a_node46"><a xlink:href="LinearAlgebra_8inl.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="388,-178.5 388,-230.5 552,-230.5 552,-178.5 388,-178.5"/>
+<text text-anchor="start" x="396" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="396" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="396" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Math</text>
+<text text-anchor="middle" x="470" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/LinearAlgebra.inl</text>
 </a>
 </g>
 </g>
-<!-- Node151&#45;&gt;Node162 -->
-<g id="edge80" class="edge">
-<title>Node151&#45;&gt;Node162</title>
-<path fill="none" stroke="midnightblue" d="M4191.62,-266.98C4481.7,-220.34 4562.44,-272.4 4849.5,-231 4854.08,-230.34 4858.74,-229.58 4863.45,-228.74"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4190.96,-263.54 4181.66,-268.61 4192.09,-270.45 4190.96,-263.54"/>
+<!-- Node157&#45;&gt;Node162 -->
+<g id="edge83" class="edge">
+<title>Node157&#45;&gt;Node162</title>
+<path fill="none" stroke="midnightblue" d="M1197.57,-290.47C1056.93,-286.08 781.55,-272.46 552,-231 551.19,-230.85 550.38,-230.7 549.57,-230.55"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1197.77,-293.98 1207.87,-290.79 1197.98,-286.99 1197.77,-293.98"/>
 </g>
 <!-- Node163 -->
-<g id="node49" class="node">
+<g id="node47" class="node">
 <title>Node163</title>
-<g id="a_node49"><a xlink:href="Area_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5069.5,-178.5 5069.5,-230.5 5257.5,-230.5 5257.5,-178.5 5069.5,-178.5"/>
-<text text-anchor="start" x="5077.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="5077.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="5077.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="5163.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Area.cpp</text>
+<g id="a_node47"><a xlink:href="HandleWeightOperation_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="570,-178.5 570,-230.5 760,-230.5 760,-178.5 570,-178.5"/>
+<text text-anchor="start" x="578" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="578" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="578" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Animation</text>
+<text text-anchor="middle" x="665" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/HandleWeightOperation.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node151&#45;&gt;Node163 -->
-<g id="edge81" class="edge">
-<title>Node151&#45;&gt;Node163</title>
-<path fill="none" stroke="midnightblue" d="M4191.61,-267C4574.53,-207.73 4680.67,-285.31 5060.5,-231 5063.42,-230.58 5066.37,-230.12 5069.35,-229.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4190.99,-263.55 4181.65,-268.56 4192.07,-270.47 4190.99,-263.55"/>
+<!-- Node157&#45;&gt;Node163 -->
+<g id="edge85" class="edge">
+<title>Node157&#45;&gt;Node163</title>
+<path fill="none" stroke="midnightblue" d="M1197.67,-285.06C1093.13,-275.83 917.97,-257.95 769,-231 766.07,-230.47 763.11,-229.91 760.11,-229.32"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1197.6,-288.56 1207.87,-285.95 1198.21,-281.59 1197.6,-288.56"/>
 </g>
 <!-- Node164 -->
-<g id="node50" class="node">
+<g id="node48" class="node">
 <title>Node164</title>
-<g id="a_node50"><a xlink:href="Laplacian_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5275.5,-178.5 5275.5,-230.5 5463.5,-230.5 5463.5,-178.5 5275.5,-178.5"/>
-<text text-anchor="start" x="5283.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="5283.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="5283.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="5369.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Laplacian.cpp</text>
+<g id="a_node48"><a xlink:href="Skeleton_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="778,-178.5 778,-230.5 968,-230.5 968,-178.5 778,-178.5"/>
+<text text-anchor="start" x="786" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="786" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="786" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Animation</text>
+<text text-anchor="middle" x="873" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Skeleton.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node151&#45;&gt;Node164 -->
-<g id="edge82" class="edge">
-<title>Node151&#45;&gt;Node164</title>
-<path fill="none" stroke="midnightblue" d="M4191.82,-266.97C4665.22,-195.37 4795.92,-296.39 5266.5,-231 5269.42,-230.59 5272.38,-230.14 5275.35,-229.64"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4191,-263.56 4181.65,-268.53 4192.06,-270.48 4191,-263.56"/>
-</g>
-<!-- Node24 -->
-<g id="node51" class="node">
-<title>Node24</title>
-<g id="a_node51"><a xlink:href="LoopSubdivider_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="5481.5,-178.5 5481.5,-230.5 5669.5,-230.5 5669.5,-178.5 5481.5,-178.5"/>
-<text text-anchor="start" x="5489.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="5489.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="5489.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="5575.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/LoopSubdivider.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node151&#45;&gt;Node24 -->
-<g id="edge83" class="edge">
-<title>Node151&#45;&gt;Node24</title>
-<path fill="none" stroke="midnightblue" d="M4191.66,-267C4755.86,-182.93 4911.02,-307.48 5472.5,-231 5475.42,-230.6 5478.38,-230.15 5481.36,-229.66"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4191.01,-263.56 4181.64,-268.51 4192.05,-270.48 4191.01,-263.56"/>
+<!-- Node157&#45;&gt;Node164 -->
+<g id="edge86" class="edge">
+<title>Node157&#45;&gt;Node164</title>
+<path fill="none" stroke="midnightblue" d="M1197.9,-275.57C1135.43,-263.8 1051.05,-247.34 977,-231 974.1,-230.36 971.15,-229.7 968.17,-229.02"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1197.26,-279.01 1207.74,-277.42 1198.55,-272.13 1197.26,-279.01"/>
 </g>
 <!-- Node165 -->
-<g id="node52" class="node">
+<g id="node49" class="node">
 <title>Node165</title>
-<g id="a_node52"><a xlink:href="Normal_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5687.5,-178.5 5687.5,-230.5 5875.5,-230.5 5875.5,-178.5 5687.5,-178.5"/>
-<text text-anchor="start" x="5695.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="5695.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="5695.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="5781.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Normal.cpp</text>
+<g id="a_node49"><a xlink:href="Tex_8inl.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="986,-178.5 986,-230.5 1178,-230.5 1178,-178.5 986,-178.5"/>
+<text text-anchor="start" x="994" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="994" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="994" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Containers</text>
+<text text-anchor="middle" x="1082" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Tex.inl</text>
 </a>
 </g>
 </g>
-<!-- Node151&#45;&gt;Node165 -->
-<g id="edge85" class="edge">
-<title>Node151&#45;&gt;Node165</title>
-<path fill="none" stroke="midnightblue" d="M4191.8,-266.98C4846.57,-170.52 5026.22,-318.56 5678.5,-231 5681.42,-230.61 5684.38,-230.17 5687.36,-229.68"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4191.02,-263.56 4181.64,-268.49 4192.05,-270.49 4191.02,-263.56"/>
-</g>
-<!-- Node10 -->
-<g id="node53" class="node">
-<title>Node10</title>
-<g id="a_node53"><a xlink:href="PolyLine_8inl.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="red" points="3255.5,-178.5 3255.5,-230.5 3443.5,-230.5 3443.5,-178.5 3255.5,-178.5"/>
-<text text-anchor="start" x="3263.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3263.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3263.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="3349.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/PolyLine.inl</text>
-</a>
-</g>
-</g>
-<!-- Node151&#45;&gt;Node10 -->
-<g id="edge86" class="edge">
-<title>Node151&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M4007.28,-288.03C3881.26,-280.95 3648.52,-264.39 3452.5,-231 3449.59,-230.51 3446.65,-229.97 3443.68,-229.41"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4007.1,-291.53 4017.28,-288.59 4007.49,-284.54 4007.1,-291.53"/>
-</g>
-<!-- Node166 -->
-<g id="node54" class="node">
-<title>Node166</title>
-<g id="a_node54"><a xlink:href="TriangleOperation_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3461.5,-178.5 3461.5,-230.5 3649.5,-230.5 3649.5,-178.5 3461.5,-178.5"/>
-<text text-anchor="start" x="3469.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3469.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3469.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
-<text text-anchor="middle" x="3555.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/TriangleOperation.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node151&#45;&gt;Node166 -->
-<g id="edge88" class="edge">
-<title>Node151&#45;&gt;Node166</title>
-<path fill="none" stroke="midnightblue" d="M4007.27,-282.47C3917.73,-272.07 3778.18,-254.09 3658.5,-231 3655.61,-230.44 3652.67,-229.85 3649.71,-229.24"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4007.06,-285.97 4017.39,-283.64 4007.86,-279.02 4007.06,-285.97"/>
+<!-- Node157&#45;&gt;Node165 -->
+<g id="edge87" class="edge">
+<title>Node157&#45;&gt;Node165</title>
+<path fill="none" stroke="midnightblue" d="M1220.85,-263.58C1195.27,-252.88 1166.5,-240.85 1141.82,-230.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1219.54,-266.82 1230.12,-267.45 1222.24,-260.36 1219.54,-266.82"/>
 </g>
 <!-- Node167 -->
-<g id="node55" class="node">
+<g id="node50" class="node">
 <title>Node167</title>
-<g id="a_node55"><a xlink:href="Entity_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3668,-178.5 3668,-230.5 3817,-230.5 3817,-178.5 3668,-178.5"/>
-<text text-anchor="start" x="3676" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="3676" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="3676" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="3742.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/Entity.cpp</text>
+<g id="a_node50"><a xlink:href="Adjacency_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1196,-178.5 1196,-230.5 1384,-230.5 1384,-178.5 1196,-178.5"/>
+<text text-anchor="start" x="1204" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1204" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1204" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="1290" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Adjacency.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node151&#45;&gt;Node167 -->
+<!-- Node157&#45;&gt;Node167 -->
+<g id="edge88" class="edge">
+<title>Node157&#45;&gt;Node167</title>
+<path fill="none" stroke="midnightblue" d="M1290,-257.19C1290,-248.28 1290,-238.9 1290,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1286.5,-257.34 1290,-267.34 1293.5,-257.34 1286.5,-257.34"/>
+</g>
+<!-- Node168 -->
+<g id="node51" class="node">
+<title>Node168</title>
+<g id="a_node51"><a xlink:href="Area_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1402,-178.5 1402,-230.5 1590,-230.5 1590,-178.5 1402,-178.5"/>
+<text text-anchor="start" x="1410" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1410" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1410" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="1496" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Area.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node157&#45;&gt;Node168 -->
+<g id="edge89" class="edge">
+<title>Node157&#45;&gt;Node168</title>
+<path fill="none" stroke="midnightblue" d="M1358.82,-263.44C1384.07,-252.77 1412.42,-240.8 1436.75,-230.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1357.16,-260.34 1349.31,-267.45 1359.88,-266.79 1357.16,-260.34"/>
+</g>
+<!-- Node169 -->
+<g id="node52" class="node">
+<title>Node169</title>
+<g id="a_node52"><a xlink:href="Laplacian_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1608,-178.5 1608,-230.5 1796,-230.5 1796,-178.5 1608,-178.5"/>
+<text text-anchor="start" x="1616" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1616" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1616" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="1702" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Laplacian.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node157&#45;&gt;Node169 -->
 <g id="edge90" class="edge">
-<title>Node151&#45;&gt;Node167</title>
-<path fill="none" stroke="midnightblue" d="M4007.22,-273.47C3954.13,-262.08 3886.3,-246.79 3826.5,-231 3823.41,-230.18 3820.25,-229.33 3817.07,-228.45"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4006.78,-276.95 4017.29,-275.62 4008.24,-270.11 4006.78,-276.95"/>
+<title>Node157&#45;&gt;Node169</title>
+<path fill="none" stroke="midnightblue" d="M1382.27,-275.29C1443.81,-263.53 1526.43,-247.2 1599,-231 1601.88,-230.36 1604.8,-229.7 1607.74,-229.02"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1381.36,-271.9 1372.19,-277.21 1382.67,-278.78 1381.36,-271.9"/>
 </g>
-<!-- Node157&#45;&gt;Node151 -->
-<g id="edge76" class="edge">
-<title>Node157&#45;&gt;Node151</title>
-<path fill="none" stroke="midnightblue" d="M4106.14,-240.75C4106.38,-249.65 4106.23,-259.04 4105.69,-267.34"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4109.63,-240.44 4105.68,-230.61 4102.64,-240.76 4109.63,-240.44"/>
+<!-- Node29 -->
+<g id="node53" class="node">
+<title>Node29</title>
+<g id="a_node53"><a xlink:href="LoopSubdivider_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="1814,-178.5 1814,-230.5 2002,-230.5 2002,-178.5 1814,-178.5"/>
+<text text-anchor="start" x="1822" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1822" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1822" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="1908" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/LoopSubdivider.hpp</text>
+</a>
 </g>
-<!-- Node168&#45;&gt;Node147 -->
-<g id="edge92" class="edge">
-<title>Node168&#45;&gt;Node147</title>
-<path fill="none" stroke="midnightblue" d="M3399.78,-355.96C3858.85,-293.27 3980.48,-342.07 4439.5,-320 5082.2,-289.1 5247.97,-325.05 5884.5,-231 5887.55,-230.55 5890.64,-230.06 5893.75,-229.53"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3398.99,-352.53 3389.56,-357.36 3399.95,-359.47 3398.99,-352.53"/>
 </g>
-<!-- Node182&#45;&gt;Node33 -->
-<g id="edge102" class="edge">
-<title>Node182&#45;&gt;Node33</title>
-<path fill="none" stroke="midnightblue" d="M289.37,-257.69C282.35,-232.49 278.57,-199.24 297.5,-178 343.94,-125.9 540.38,-151.69 609.5,-142 752.7,-121.93 786.53,-102.47 930.5,-89 1278.41,-56.46 2156.75,-103.58 2502.5,-53 2505.56,-52.55 2508.67,-52.04 2511.8,-51.46"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="286.03,-258.72 292.3,-267.26 292.72,-256.67 286.03,-258.72"/>
+<!-- Node157&#45;&gt;Node29 -->
+<g id="edge91" class="edge">
+<title>Node157&#45;&gt;Node29</title>
+<path fill="none" stroke="midnightblue" d="M1382.18,-284.96C1485.63,-275.7 1658.2,-257.83 1805,-231 1807.9,-230.47 1810.84,-229.91 1813.8,-229.32"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1381.73,-281.49 1372.08,-285.86 1382.35,-288.46 1381.73,-281.49"/>
 </g>
-<!-- Node182&#45;&gt;Node34 -->
-<g id="edge103" class="edge">
-<title>Node182&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M239.9,-261.68C228.88,-253.31 218.9,-243.12 212.5,-231 182,-173.22 196.87,-126.31 250.5,-89 256.63,-84.73 1158.35,-43.93 1440.87,-31.24"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="237.89,-264.54 248.08,-267.46 241.93,-258.83 237.89,-264.54"/>
+<!-- Node170 -->
+<g id="node54" class="node">
+<title>Node170</title>
+<g id="a_node54"><a xlink:href="Normal_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="2020,-178.5 2020,-230.5 2208,-230.5 2208,-178.5 2020,-178.5"/>
+<text text-anchor="start" x="2028" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="2028" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="2028" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="2114" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Normal.cpp</text>
+</a>
 </g>
-<!-- Node182&#45;&gt;Node35 -->
-<g id="edge104" class="edge">
-<title>Node182&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M269.65,-259.73C248.97,-235.13 229.78,-201.76 250.5,-178 441.56,41.1 608.76,-112.66 898.5,-89 1501.15,-39.79 1656.65,-111.16 2258.5,-53 2280.74,-50.85 2304.64,-47.39 2326.76,-43.7"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="267.13,-262.17 276.36,-267.38 272.4,-257.55 267.13,-262.17"/>
 </g>
-<!-- Node182&#45;&gt;Node49 -->
+<!-- Node157&#45;&gt;Node170 -->
+<g id="edge93" class="edge">
+<title>Node157&#45;&gt;Node170</title>
+<path fill="none" stroke="midnightblue" d="M1382.25,-289.28C1519.93,-283.44 1787,-268.04 2011,-231 2013.91,-230.52 2016.85,-230 2019.82,-229.45"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1382,-285.79 1372.16,-289.71 1382.29,-292.78 1382,-285.79"/>
+</g>
+<!-- Node10 -->
+<g id="node55" class="node">
+<title>Node10</title>
+<g id="a_node55"><a xlink:href="PolyLine_8inl.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="red" points="0,-178.5 0,-230.5 188,-230.5 188,-178.5 0,-178.5"/>
+<text text-anchor="start" x="8" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="8" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="8" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Geometry</text>
+<text text-anchor="middle" x="94" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/PolyLine.inl</text>
+</a>
+</g>
+</g>
+<!-- Node157&#45;&gt;Node10 -->
+<g id="edge94" class="edge">
+<title>Node157&#45;&gt;Node10</title>
+<path fill="none" stroke="midnightblue" d="M1197.72,-293.09C1008.78,-293.03 564.7,-286.37 197,-231 194.09,-230.56 191.13,-230.08 188.16,-229.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1197.88,-296.59 1207.88,-293.09 1197.88,-289.59 1197.88,-296.59"/>
+</g>
+<!-- Node162&#45;&gt;Node157 -->
+<g id="edge84" class="edge">
+<title>Node162&#45;&gt;Node157</title>
+<path fill="none" stroke="midnightblue" d="M562.01,-229.45C564.7,-230.01 567.37,-230.52 570,-231 798.89,-272.34 1073.34,-286.01 1207.76,-290.44"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="562.72,-226.02 552.2,-227.3 561.22,-232.86 562.72,-226.02"/>
+</g>
+<!-- Node173&#45;&gt;Node153 -->
 <g id="edge97" class="edge">
-<title>Node182&#45;&gt;Node49</title>
-<path fill="none" stroke="midnightblue" d="M217.88,-277.27C188.71,-268.2 158,-253.81 136.5,-231 89,-180.61 77.82,-94.87 75.24,-52.59"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="217.12,-280.69 227.7,-280.14 219.08,-273.97 217.12,-280.69"/>
+<title>Node173&#45;&gt;Node153</title>
+<path fill="none" stroke="midnightblue" d="M6042.19,-346.25C6035.58,-312.04 6025.72,-260.97 6019.86,-230.67"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="6038.8,-347.13 6044.13,-356.28 6045.67,-345.8 6038.8,-347.13"/>
 </g>
-<!-- Node182&#45;&gt;Node55 -->
+<!-- Node188&#45;&gt;Node38 -->
+<g id="edge107" class="edge">
+<title>Node188&#45;&gt;Node38</title>
+<path fill="none" stroke="midnightblue" d="M5552.8,-261.41C5563.36,-253.02 5572.93,-242.89 5579,-231 5589.71,-210.02 5592.09,-197.58 5579,-178 5521.53,-92.02 5465.27,-109.97 5364,-89 5116.88,-37.83 3342.78,-88.99 3093,-53 3090.21,-52.6 3087.39,-52.14 3084.54,-51.63"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5550.53,-258.73 5544.57,-267.49 5554.69,-264.36 5550.53,-258.73"/>
+</g>
+<!-- Node188&#45;&gt;Node39 -->
+<g id="edge108" class="edge">
+<title>Node188&#45;&gt;Node39</title>
+<path fill="none" stroke="midnightblue" d="M5578.19,-264.94C5604.42,-254.54 5628.48,-242.45 5636,-231 5670.64,-178.25 5680.28,-133.97 5636,-89 5590.03,-42.33 3342.84,-62.32 3278,-53 3275.21,-52.6 3272.39,-52.14 3269.54,-51.63"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5576.91,-261.68 5568.84,-268.54 5579.43,-268.21 5576.91,-261.68"/>
+</g>
+<!-- Node188&#45;&gt;Node40 -->
+<g id="edge109" class="edge">
+<title>Node188&#45;&gt;Node40</title>
+<path fill="none" stroke="midnightblue" d="M5578.17,-266.11C5623.5,-251.5 5670.84,-235.41 5674,-231 5710.71,-179.66 5718.26,-133.99 5674,-89 5631.33,-45.63 3544.41,-60.23 3484,-53 3474.42,-51.85 3464.45,-50.24 3454.59,-48.37"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5576.99,-262.81 5568.54,-269.2 5579.13,-269.48 5576.99,-262.81"/>
+</g>
+<!-- Node188&#45;&gt;Node54 -->
+<g id="edge102" class="edge">
+<title>Node188&#45;&gt;Node54</title>
+<path fill="none" stroke="midnightblue" d="M5578.55,-267.08C5637.91,-256.93 5757.1,-263.54 5788,-231 5834.06,-182.5 5825.41,-95.49 5817.57,-52.68"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5577.64,-263.69 5568.53,-269.1 5579.03,-270.56 5577.64,-263.69"/>
+</g>
+<!-- Node188&#45;&gt;Node61 -->
+<g id="edge111" class="edge">
+<title>Node188&#45;&gt;Node61</title>
+<path fill="none" stroke="midnightblue" d="M5578.78,-266.88C5656.95,-250.92 5702.48,-289.43 5750,-231 5789.82,-182.04 5792.94,-135.25 5750,-89 5700.07,-35.23 5205.71,-28.09 5005.52,-27.42"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5577.52,-263.57 5568.56,-269.23 5579.09,-270.39 5577.52,-263.57"/>
+</g>
+<!-- Node188&#45;&gt;Node121 -->
 <g id="edge106" class="edge">
-<title>Node182&#45;&gt;Node55</title>
-<path fill="none" stroke="midnightblue" d="M218.55,-268.67C201.11,-259.71 184.9,-247.53 174.5,-231 140.9,-177.58 131.99,-135.64 174.5,-89 212.77,-47.01 583.7,-33.23 753,-29.11"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="217.22,-271.91 227.75,-273.06 220.23,-265.59 217.22,-271.91"/>
+<title>Node188&#45;&gt;Node121</title>
+<path fill="none" stroke="midnightblue" d="M5409.1,-281.14C5374.37,-276.59 5333.78,-271.39 5297,-267 5127.42,-246.75 4928.73,-225.61 4818.85,-214.15"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5408.84,-284.63 5419.21,-282.47 5409.75,-277.69 5408.84,-284.63"/>
 </g>
-<!-- Node182&#45;&gt;Node115 -->
-<g id="edge101" class="edge">
-<title>Node182&#45;&gt;Node115</title>
-<path fill="none" stroke="midnightblue" d="M387.34,-283.63C547.34,-266.9 891.87,-230.87 1050.91,-214.24"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="386.65,-280.18 377.07,-284.7 387.38,-287.14 386.65,-280.18"/>
+<!-- Node188&#45;&gt;Node64 -->
+<g id="edge103" class="edge">
+<title>Node188&#45;&gt;Node64</title>
+<path fill="none" stroke="midnightblue" d="M5518.84,-258.88C5534.23,-233.66 5547.52,-199.86 5527,-178 5512.6,-162.65 4929.88,-133.75 4675.63,-121.84"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5515.82,-257.1 5513.36,-267.41 5521.71,-260.89 5515.82,-257.1"/>
 </g>
-<!-- Node182&#45;&gt;Node58 -->
-<g id="edge98" class="edge">
-<title>Node182&#45;&gt;Node58</title>
-<path fill="none" stroke="midnightblue" d="M317.35,-257.75C331.32,-225.86 351.15,-182.83 358.5,-178 428.86,-131.73 1031.71,-150.33 1115.5,-142 1132.09,-140.35 1149.53,-138.19 1166.66,-135.82"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="314,-256.67 313.22,-267.24 320.42,-259.46 314,-256.67"/>
+<!-- Node188&#45;&gt;Node68 -->
+<g id="edge104" class="edge">
+<title>Node188&#45;&gt;Node68</title>
+<path fill="none" stroke="midnightblue" d="M5538.77,-260.42C5547.39,-251.92 5555.22,-242 5560,-231 5569.4,-209.4 5574.82,-196.31 5560,-178 5534.68,-146.7 5431.5,-130.63 5355.85,-122.91"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5536.37,-257.87 5531.39,-267.22 5541.12,-263.02 5536.37,-257.87"/>
 </g>
-<!-- Node182&#45;&gt;Node62 -->
-<g id="edge99" class="edge">
-<title>Node182&#45;&gt;Node62</title>
-<path fill="none" stroke="midnightblue" d="M299.55,-256.98C299.52,-231.02 304.34,-197.13 326.5,-178 377.06,-134.36 860.55,-152.54 926.5,-142 930.88,-141.3 935.36,-140.48 939.86,-139.59"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="296.05,-257.29 299.8,-267.2 303.05,-257.11 296.05,-257.29"/>
-</g>
-<!-- Node182&#45;&gt;Node144 -->
-<g id="edge100" class="edge">
-<title>Node182&#45;&gt;Node144</title>
-<path fill="none" stroke="midnightblue" d="M354.61,-262.07C372.23,-251.79 391.68,-240.43 408.5,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="352.47,-259.27 345.6,-267.34 356,-265.32 352.47,-259.27"/>
-</g>
-<!-- Node182&#45;&gt;Node145 -->
+<!-- Node188&#45;&gt;Node150 -->
 <g id="edge105" class="edge">
-<title>Node182&#45;&gt;Node145</title>
-<path fill="none" stroke="midnightblue" d="M387.12,-270.96C433.34,-259.18 491.57,-244.31 543.5,-231 546.59,-230.21 549.74,-229.4 552.92,-228.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="385.97,-267.64 377.15,-273.5 387.7,-274.42 385.97,-267.64"/>
+<title>Node188&#45;&gt;Node150</title>
+<path fill="none" stroke="midnightblue" d="M5471.23,-258.93C5464.85,-249.51 5458.02,-239.44 5452.03,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5468.43,-261.02 5476.93,-267.34 5474.22,-257.1 5468.43,-261.02"/>
+</g>
+<!-- Node188&#45;&gt;Node151 -->
+<g id="edge110" class="edge">
+<title>Node188&#45;&gt;Node151</title>
+<path fill="none" stroke="midnightblue" d="M5412.5,-264.14C5381.35,-253.3 5346.09,-241.03 5315.9,-230.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="5411.43,-267.47 5422.03,-267.45 5413.73,-260.86 5411.43,-267.47"/>
 </g>
 </g>
 </svg>

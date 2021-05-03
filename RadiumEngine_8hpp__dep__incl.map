@@ -1,5 +1,5 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/RadiumEngine.hpp" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/RadiumEngine.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="3061,5,3260,76"/>
+<area shape="rect" id="node1" title=" " alt="" coords="3436,5,3635,76"/>
 <area shape="rect" id="node2" href="$BlinnPhongMaterial_8cpp.html" title=" " alt="" coords="5,124,220,195"/>
 <area shape="rect" id="node3" href="$LambertianMaterial_8cpp.html" title=" " alt="" coords="245,124,461,195"/>
 <area shape="rect" id="node4" href="$PlainMaterial_8cpp.html" title=" " alt="" coords="485,124,684,195"/>
@@ -21,27 +21,30 @@
 <area shape="rect" id="node21" href="$ItemEntry_8cpp.html" title=" " alt="" coords="4115,124,4313,195"/>
 <area shape="rect" id="node22" href="$Light_8cpp.html" title=" " alt="" coords="4337,124,4536,195"/>
 <area shape="rect" id="node23" href="$LightManager_8cpp.html" title=" " alt="" coords="4560,124,4759,195"/>
-<area shape="rect" id="node24" href="$Viewer_8hpp.html" title=" " alt="" coords="4832,124,5055,195"/>
-<area shape="rect" id="node25" href="$BaseApplication_8cpp.html" title=" " alt="" coords="4096,250,4407,306"/>
-<area shape="rect" id="node28" href="$Viewer_8cpp.html" title=" " alt="" coords="5619,361,5841,432"/>
-<area shape="rect" id="node29" href="$EntityTreeModel_8hpp.html" title=" " alt="" coords="5079,124,5325,195"/>
-<area shape="rect" id="node33" href="$SelectionManager_8cpp.html" title=" " alt="" coords="5283,361,5521,432"/>
-<area shape="rect" id="node35" href="$Timeline_8cpp.html" title=" " alt="" coords="6259,124,6494,195"/>
-<area shape="rect" id="node36" href="$Gizmo_8hpp.html" title=" " alt="" coords="6013,124,6236,195"/>
+<area shape="rect" id="node24" href="$SkeletonBasedAnimationSystem_8cpp.html" title=" " alt="" coords="4783,124,5091,195"/>
+<area shape="rect" id="node25" href="$SkinningComponent_8cpp.html" title=" " alt="" coords="5115,124,5342,195"/>
+<area shape="rect" id="node26" href="$Viewer_8hpp.html" title=" " alt="" coords="5416,124,5639,195"/>
+<area shape="rect" id="node27" href="$BaseApplication_8cpp.html" title=" " alt="" coords="4521,250,4832,306"/>
+<area shape="rect" id="node30" href="$Viewer_8cpp.html" title=" " alt="" coords="6044,361,6267,432"/>
+<area shape="rect" id="node31" href="$EntityTreeModel_8hpp.html" title=" " alt="" coords="5663,124,5909,195"/>
+<area shape="rect" id="node35" href="$SelectionManager_8cpp.html" title=" " alt="" coords="5708,361,5947,432"/>
+<area shape="rect" id="node37" href="$SkeletonBasedAnimationUI_8cpp.html" title=" " alt="" coords="6563,124,6860,195"/>
+<area shape="rect" id="node38" href="$Timeline_8cpp.html" title=" " alt="" coords="6885,124,7119,195"/>
+<area shape="rect" id="node39" href="$Gizmo_8hpp.html" title=" " alt="" coords="6316,124,6539,195"/>
 <area shape="rect" id="node10" href="$ForwardRenderer_8cpp.html" title=" " alt="" coords="1521,243,1755,313"/>
-<area shape="rect" id="node26" href="$SimpleWindow_8cpp.html" title=" " alt="" coords="4905,361,5185,432"/>
-<area shape="rect" id="node27" href="$CameraManipulator_8cpp.html" title=" " alt="" coords="4431,243,4653,313"/>
-<area shape="rect" id="node30" href="$SimpleWindow_8hpp.html" title=" " alt="" coords="4727,243,5007,313"/>
-<area shape="rect" id="node32" href="$SelectionManager_8hpp.html" title=" " alt="" coords="5083,243,5321,313"/>
-<area shape="rect" id="node34" href="$EntityTreeModel_8cpp.html" title=" " alt="" coords="5397,243,5642,313"/>
-<area shape="rect" id="node31" href="$SimpleWindowFactory_8hpp.html" title=" " alt="" coords="4601,361,4881,432"/>
-<area shape="rect" id="node37" href="$Gizmo_8cpp.html" title=" " alt="" coords="6507,243,6729,313"/>
-<area shape="rect" id="node38" href="$GizmoManager_8hpp.html" title=" " alt="" coords="5767,243,5989,313"/>
-<area shape="rect" id="node40" href="$RotateGizmo_8hpp.html" title=" " alt="" coords="6260,243,6483,313"/>
-<area shape="rect" id="node42" href="$ScaleGizmo_8hpp.html" title=" " alt="" coords="6753,243,6976,313"/>
-<area shape="rect" id="node44" href="$TranslateGizmo_8hpp.html" title=" " alt="" coords="6013,243,6236,313"/>
-<area shape="rect" id="node39" href="$GizmoManager_8cpp.html" title=" " alt="" coords="6187,361,6409,432"/>
-<area shape="rect" id="node41" href="$RotateGizmo_8cpp.html" title=" " alt="" coords="6433,361,6656,432"/>
-<area shape="rect" id="node43" href="$ScaleGizmo_8cpp.html" title=" " alt="" coords="6753,361,6976,432"/>
-<area shape="rect" id="node45" href="$TranslateGizmo_8cpp.html" title=" " alt="" coords="5940,361,6163,432"/>
+<area shape="rect" id="node28" href="$SimpleWindow_8cpp.html" title=" " alt="" coords="5330,361,5610,432"/>
+<area shape="rect" id="node29" href="$CameraManipulator_8cpp.html" title=" " alt="" coords="4856,243,5079,313"/>
+<area shape="rect" id="node32" href="$SimpleWindow_8hpp.html" title=" " alt="" coords="5153,243,5433,313"/>
+<area shape="rect" id="node34" href="$SelectionManager_8hpp.html" title=" " alt="" coords="5508,243,5747,313"/>
+<area shape="rect" id="node36" href="$EntityTreeModel_8cpp.html" title=" " alt="" coords="5822,243,6067,313"/>
+<area shape="rect" id="node33" href="$SimpleWindowFactory_8hpp.html" title=" " alt="" coords="5026,361,5306,432"/>
+<area shape="rect" id="node40" href="$Gizmo_8cpp.html" title=" " alt="" coords="6932,243,7155,313"/>
+<area shape="rect" id="node41" href="$GizmoManager_8hpp.html" title=" " alt="" coords="6192,243,6415,313"/>
+<area shape="rect" id="node43" href="$RotateGizmo_8hpp.html" title=" " alt="" coords="6685,243,6908,313"/>
+<area shape="rect" id="node45" href="$ScaleGizmo_8hpp.html" title=" " alt="" coords="7179,243,7401,313"/>
+<area shape="rect" id="node47" href="$TranslateGizmo_8hpp.html" title=" " alt="" coords="6439,243,6661,313"/>
+<area shape="rect" id="node42" href="$GizmoManager_8cpp.html" title=" " alt="" coords="6612,361,6835,432"/>
+<area shape="rect" id="node44" href="$RotateGizmo_8cpp.html" title=" " alt="" coords="6859,361,7081,432"/>
+<area shape="rect" id="node46" href="$ScaleGizmo_8cpp.html" title=" " alt="" coords="7179,361,7401,432"/>
+<area shape="rect" id="node48" href="$TranslateGizmo_8cpp.html" title=" " alt="" coords="6365,361,6588,432"/>
 </map>

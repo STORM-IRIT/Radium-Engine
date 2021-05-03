@@ -1,36 +1,31 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Animation/StretchableTwistableBoneSkinning.hpp" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Animation/StretchableTwistableBoneSkinning.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="533,5,812,76"/>
-<area shape="rect" id="node2" href="$HandleWeight_8hpp.html" title=" " alt="" coords="25,295,272,322"/>
-<area shape="rect" id="node3" href="$AlignedStdVector_8hpp.html" title=" " alt="" coords="274,377,474,419"/>
-<area shape="rect" id="node13" href="$Types_8hpp.html" title=" " alt="" coords="1288,385,1409,411"/>
-<area shape="rect" id="node18" href="$Pose_8hpp.html" title=" " alt="" coords="346,295,532,322"/>
-<area shape="rect" id="node19" href="$Skeleton_8hpp.html" title=" " alt="" coords="788,124,999,151"/>
-<area shape="rect" id="node23" href="$VectorArray_8hpp.html" title=" " alt="" coords="556,295,788,322"/>
-<area shape="rect" id="node25" href="$DualQuaternion_8hpp.html" title=" " alt="" coords="1537,124,1760,151"/>
-<area shape="rect" id="node17" title=" " alt="" coords="123,385,174,411"/>
-<area shape="rect" id="node4" href="$RaCore_8hpp.html" title=" " alt="" coords="1108,467,1239,493"/>
-<area shape="rect" id="node11" title=" " alt="" coords="253,467,377,493"/>
-<area shape="rect" id="node12" title=" " alt="" coords="401,467,464,493"/>
-<area shape="rect" id="node5" href="$CoreMacros_8hpp.html" title=" " alt="" coords="1050,541,1212,568"/>
-<area shape="rect" id="node6" title=" " alt="" coords="1142,616,1211,643"/>
-<area shape="rect" id="node7" title=" " alt="" coords="1235,616,1296,643"/>
-<area shape="rect" id="node8" title=" " alt="" coords="830,616,910,643"/>
-<area shape="rect" id="node9" title=" " alt="" coords="955,616,1030,643"/>
-<area shape="rect" id="node10" title=" " alt="" coords="1054,616,1118,643"/>
-<area shape="rect" id="node14" title=" " alt="" coords="1302,467,1394,493"/>
-<area shape="rect" id="node15" title=" " alt="" coords="1469,467,1596,493"/>
-<area shape="rect" id="node16" title=" " alt="" coords="1671,467,1778,493"/>
-<area shape="rect" id="node20" href="$HandleArray_8hpp.html" title=" " alt="" coords="1107,206,1342,233"/>
-<area shape="rect" id="node22" href="$AdjacencyList_8hpp.html" title=" " alt="" coords="795,199,992,240"/>
-<area shape="rect" id="node21" href="$HandleArray_8inl.html" title=" " alt="" coords="1186,295,1412,322"/>
-<area shape="rect" id="node24" href="$AdjacencyList_8inl.html" title=" " alt="" coords="863,288,1060,329"/>
-<area shape="rect" id="node26" href="$DualQuaternion_8inl.html" title=" " alt="" coords="1640,206,1854,233"/>
-<area shape="rect" id="node27" href="$LinearAlgebra_8hpp.html" title=" " alt="" coords="1642,295,1852,322"/>
-<area shape="rect" id="node28" title=" " alt="" coords="1864,385,1950,411"/>
-<area shape="rect" id="node29" title=" " alt="" coords="1974,377,2170,419"/>
-<area shape="rect" id="node30" href="$Math_8hpp.html" title=" " alt="" coords="2195,385,2350,411"/>
-<area shape="rect" id="node34" href="$LinearAlgebra_8inl.html" title=" " alt="" coords="1535,385,1738,411"/>
-<area shape="rect" id="node31" title=" " alt="" coords="2299,467,2384,493"/>
-<area shape="rect" id="node32" title=" " alt="" coords="2409,467,2472,493"/>
-<area shape="rect" id="node33" href="$Math_8inl.html" title=" " alt="" coords="2128,467,2275,493"/>
+<area shape="rect" id="node1" title=" " alt="" coords="346,5,625,76"/>
+<area shape="rect" id="node2" href="$HandleWeight_8hpp.html" title=" " alt="" coords="522,124,769,151"/>
+<area shape="rect" id="node3" href="$AlignedStdVector_8hpp.html" title=" " alt="" coords="255,199,455,240"/>
+<area shape="rect" id="node18" href="$Pose_8hpp.html" title=" " alt="" coords="261,124,448,151"/>
+<area shape="rect" id="node19" href="$VectorArray_8hpp.html" title=" " alt="" coords="5,124,237,151"/>
+<area shape="rect" id="node20" href="$DualQuaternion_8hpp.html" title=" " alt="" coords="793,124,1015,151"/>
+<area shape="rect" id="node13" href="$Types_8hpp.html" title=" " alt="" coords="1421,370,1542,397"/>
+<area shape="rect" id="node17" title=" " alt="" coords="620,206,671,233"/>
+<area shape="rect" id="node4" href="$RaCore_8hpp.html" title=" " alt="" coords="403,452,533,479"/>
+<area shape="rect" id="node11" title=" " alt="" coords="281,288,405,315"/>
+<area shape="rect" id="node12" title=" " alt="" coords="194,288,257,315"/>
+<area shape="rect" id="node5" href="$CoreMacros_8hpp.html" title=" " alt="" coords="387,527,549,553"/>
+<area shape="rect" id="node6" title=" " alt="" coords="249,601,319,628"/>
+<area shape="rect" id="node7" title=" " alt="" coords="343,601,404,628"/>
+<area shape="rect" id="node8" title=" " alt="" coords="428,601,508,628"/>
+<area shape="rect" id="node9" title=" " alt="" coords="532,601,607,628"/>
+<area shape="rect" id="node10" title=" " alt="" coords="631,601,695,628"/>
+<area shape="rect" id="node14" title=" " alt="" coords="1515,452,1607,479"/>
+<area shape="rect" id="node15" title=" " alt="" coords="1071,452,1198,479"/>
+<area shape="rect" id="node16" title=" " alt="" coords="1348,452,1455,479"/>
+<area shape="rect" id="node21" href="$DualQuaternion_8inl.html" title=" " alt="" coords="797,206,1011,233"/>
+<area shape="rect" id="node22" href="$LinearAlgebra_8hpp.html" title=" " alt="" coords="767,288,977,315"/>
+<area shape="rect" id="node23" title=" " alt="" coords="811,370,898,397"/>
+<area shape="rect" id="node24" title=" " alt="" coords="922,363,1118,404"/>
+<area shape="rect" id="node25" href="$Math_8hpp.html" title=" " alt="" coords="581,370,736,397"/>
+<area shape="rect" id="node29" href="$LinearAlgebra_8inl.html" title=" " alt="" coords="1143,370,1345,397"/>
+<area shape="rect" id="node26" title=" " alt="" coords="816,452,901,479"/>
+<area shape="rect" id="node27" title=" " alt="" coords="558,452,621,479"/>
+<area shape="rect" id="node28" href="$Math_8inl.html" title=" " alt="" coords="645,452,792,479"/>
 </map>

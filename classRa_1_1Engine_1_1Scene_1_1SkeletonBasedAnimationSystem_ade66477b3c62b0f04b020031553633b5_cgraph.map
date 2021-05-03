@@ -1,0 +1,13 @@
+<map id="Ra::Engine::Scene::SkeletonBasedAnimationSystem::handleAssetLoading" name="Ra::Engine::Scene::SkeletonBasedAnimationSystem::handleAssetLoading">
+<area shape="rect" id="node1" title="Loads Skeletons and Animations from a file data into the givn Entity." alt="" coords="5,129,240,185"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1FileData.html#a1773968b4addf2f9650b1c328b46228b" title=" " alt="" coords="313,5,496,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1FileData.html#aa5d248078f13298a50e507ddedb8fa61" title="DATA." alt="" coords="313,71,496,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1FileData.html#a3bda19bf489c04e591051dca63b62336" title=" " alt="" coords="313,136,496,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a200365fa79324fce0170226db7d8c448" title=" " alt="" coords="288,202,521,258"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece" title=" " alt="" coords="303,311,507,352"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#af1dfd12eba28ffeb3cce0c489fe786f8" title=" " alt="" coords="569,144,776,185"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119" title="Acces to the name of the asset." alt="" coords="575,209,771,251"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#aaaac457b6b1c62d618f626c9c6771ad2" title="Return the entity the component belongs to." alt="" coords="591,275,755,316"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e" title="Return the component&#39;s name." alt="" coords="590,340,755,381"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#ad938ddceb5b48fc2c0ba6ef699ac3cfa" title="Set the system to which the component belongs." alt="" coords="585,405,760,447"/>
+</map>

@@ -83,6 +83,18 @@ var dir_89bb22796d297d82305d45a42e7934d2 =
     [ "SignalManager.hpp", "SignalManager_8hpp.html", [
       [ "SignalManager", "classRa_1_1Engine_1_1Scene_1_1SignalManager.html", "classRa_1_1Engine_1_1Scene_1_1SignalManager" ]
     ] ],
+    [ "SkeletonBasedAnimationSystem.cpp", "SkeletonBasedAnimationSystem_8cpp.html", null ],
+    [ "SkeletonBasedAnimationSystem.hpp", "SkeletonBasedAnimationSystem_8hpp.html", [
+      [ "SkeletonBasedAnimationSystem", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem" ]
+    ] ],
+    [ "SkeletonComponent.cpp", "SkeletonComponent_8cpp.html", "SkeletonComponent_8cpp" ],
+    [ "SkeletonComponent.hpp", "SkeletonComponent_8hpp.html", [
+      [ "SkeletonComponent", "classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html", "classRa_1_1Engine_1_1Scene_1_1SkeletonComponent" ]
+    ] ],
+    [ "SkinningComponent.cpp", "SkinningComponent_8cpp.html", "SkinningComponent_8cpp" ],
+    [ "SkinningComponent.hpp", "SkinningComponent_8hpp.html", [
+      [ "SkinningComponent", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent" ]
+    ] ],
     [ "SpotLight.cpp", "SpotLight_8cpp.html", null ],
     [ "SpotLight.hpp", "SpotLight_8hpp.html", [
       [ "SpotLight", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html", "classRa_1_1Engine_1_1Scene_1_1SpotLight" ]

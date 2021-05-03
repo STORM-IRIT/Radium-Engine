@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -117,6 +117,12 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">SkinningFrameData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose data for one frame.  <a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skinning data that get set at startup including the "reference state".  <a href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -161,12 +167,6 @@ Functions</h2></td></tr>
 <tr class="separator:aeb92178b314ad1f8db15f3281087e8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b9feaa27f271fe7defdc410eb743979"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0b9feaa27f271fe7defdc410eb743979">findCorrectionData</a> (const Vector3Array &amp;mesh, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#aa7dffc73a98beb6277c094647bc2c5cf">MaxWeightID</a> &amp;wID, const <a class="el" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a> &amp;graph, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;pose, <a class="el" href="structRa_1_1Core_1_1Animation_1_1BulgeCorrectionData.html">BulgeCorrectionData</a> &amp;data)</td></tr>
 <tr class="separator:a0b9feaa27f271fe7defdc410eb743979"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeee390b619e41b72639ee6d3c27ae613"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#aeee390b619e41b72639ee6d3c27ae613">computeDQ</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;pose, const <a class="el" href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Sparse</a> &amp;weight, <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> &amp;DQ)</td></tr>
-<tr class="separator:aeee390b619e41b72639ee6d3c27ae613"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad34b4a4214b342c4d707bfa6fc2a13f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#ad34b4a4214b342c4d707bfa6fc2a13f7">computeDQ_naive</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;pose, const <a class="el" href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Sparse</a> &amp;weight, <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> &amp;DQ)</td></tr>
-<tr class="separator:ad34b4a4214b342c4d707bfa6fc2a13f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac00813d1e8a00ddb0c98dccfc91d4828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#ac00813d1e8a00ddb0c98dccfc91d4828">dualQuaternionSkinning</a> (const Ra::Core::Vector3Array &amp;input, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> &amp;DQ, Ra::Core::Vector3Array &amp;output)</td></tr>
-<tr class="separator:ac00813d1e8a00ddb0c98dccfc91d4828"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9df40f6d3b472659390f133027995e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#ae9df40f6d3b472659390f133027995e4">extractWeightMatrix</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a409a4dddd1a4324e6bb7aee74f67a15a">MeshWeight</a> &amp;weight, const <a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> weight_size)</td></tr>
 <tr class="separator:ae9df40f6d3b472659390f133027995e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af54baf4ab194875f0e31fe90b8b5c7a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a409a4dddd1a4324e6bb7aee74f67a15a">MeshWeight</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#af54baf4ab194875f0e31fe90b8b5c7a9">extractMeshWeight</a> (Eigen::Ref&lt; const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> &gt; matrix)</td></tr>
@@ -183,8 +183,6 @@ Functions</h2></td></tr>
 <tr class="separator:a5f77b87a09e5e7bd707190d70e4f4b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa14369aa1ddc895efc6959f900b591f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#aa14369aa1ddc895efc6959f900b591f5">normalizeWeights</a> (Eigen::Ref&lt; <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> &gt; matrix, const <a class="el" href="classbool.html">bool</a> MT)</td></tr>
 <tr class="separator:aa14369aa1ddc895efc6959f900b591f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19bc7bcc26d8a3662f182f6d9a61764d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a19bc7bcc26d8a3662f182f6d9a61764d">linearBlendSkinning</a> (const Vector3Array &amp;inMesh, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;pose, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> &amp;weight, Vector3Array &amp;outMesh)</td></tr>
-<tr class="separator:a19bc7bcc26d8a3662f182f6d9a61764d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44a3a0320649edf2829268bf80555800"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a44a3a0320649edf2829268bf80555800">compatible</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;p0, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;p1)</td></tr>
 <tr class="separator:a44a3a0320649edf2829268bf80555800"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03d7eb179bf339237a3e5b06d6d06100"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a03d7eb179bf339237a3e5b06d6d06100">relativePose</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;modelPose, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#abae9cd5d9ecaa84d5d8a24e4a127943a">RestPose</a> &amp;restPose)</td></tr>
@@ -197,15 +195,8 @@ Functions</h2></td></tr>
 <tr class="separator:a11c1b81e9ee797fa8989a34dc2514d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5e2e11d79318fd2777aaa259f8210db"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#aa5e2e11d79318fd2777aaa259f8210db">interpolatePoses</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;a, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;b, const <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> t)</td></tr>
 <tr class="separator:aa5e2e11d79318fd2777aaa259f8210db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71236244c5603a8a5bc63595db9b7717"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">weightSimilarity</a> (const Eigen::SparseVector&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt; &amp;v1w, const Eigen::SparseVector&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt; &amp;v2w, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma=0.1f)</td></tr>
-<tr class="memdesc:a71236244c5603a8a5bc63595db9b7717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the similarity between two weights vector.  <a href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">More...</a><br /></td></tr>
-<tr class="separator:a71236244c5603a8a5bc63595db9b7717"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40700cdabdd47fdb360f6bbfe692b36d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a40700cdabdd47fdb360f6bbfe692b36d">computeCoR</a> (<a class="el" href="structRa_1_1Core_1_1Skinning_1_1RefData.html">Skinning::RefData</a> &amp;dataInOut, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma=0.1f, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> weightEpsilon=0.1f)</td></tr>
-<tr class="memdesc:a40700cdabdd47fdb360f6bbfe692b36d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the optimal center of rotations (1 per vertex) based on weight similarity.  <a href="namespaceRa_1_1Core_1_1Animation.html#a40700cdabdd47fdb360f6bbfe692b36d">More...</a><br /></td></tr>
-<tr class="separator:a40700cdabdd47fdb360f6bbfe692b36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ed92a8ce349fc8e84c099d05ae0a35b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a6ed92a8ce349fc8e84c099d05ae0a35b">corSkinning</a> (const Vector3Array &amp;input, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Animation::Pose</a> &amp;pose, const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Animation::WeightMatrix</a> &amp;weight, const Vector3Array &amp;CoR, Vector3Array &amp;output)</td></tr>
-<tr class="memdesc:a6ed92a8ce349fc8e84c099d05ae0a35b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skin the vertices with the optimal centers of rotation.  <a href="namespaceRa_1_1Core_1_1Animation.html#a6ed92a8ce349fc8e84c099d05ae0a35b">More...</a><br /></td></tr>
-<tr class="separator:a6ed92a8ce349fc8e84c099d05ae0a35b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e29ad918c37dcd14eee94f49c7ec300"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a7e29ad918c37dcd14eee94f49c7ec300">weightSimilarity</a> (const Eigen::SparseVector&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt; &amp;v1w, const Eigen::SparseVector&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt; &amp;v2w, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma)</td></tr>
+<tr class="separator:a7e29ad918c37dcd14eee94f49c7ec300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93d6305ed74ab59961969dce601714c2"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a93d6305ed74ab59961969dce601714c2">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a> &amp;skeleton)</td></tr>
 <tr class="separator:a93d6305ed74ab59961969dce601714c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -238,7 +229,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="DualQuaternionSkinning_8hpp_source.html#l00012">12</a> of file <a class="el" href="DualQuaternionSkinning_8hpp_source.html">DualQuaternionSkinning.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DualQuaternionSkinning_8hpp_source.html#l00016">16</a> of file <a class="el" href="DualQuaternionSkinning_8hpp_source.html">DualQuaternionSkinning.hpp</a>.</p>
 
 </div>
 </div>
@@ -489,6 +480,39 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a1969f91403c6d521dcedc835c0d64383"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1969f91403c6d521dcedc835c0d64383">&#9670;&nbsp;</a></span>applyDualQuaternions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vector3Array <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::applyDualQuaternions </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> &amp;&#160;</td>
+          <td class="paramname"><em>DQ</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>vertices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies the given Dual-Quaternions to the given vertices. </p>
+<dl class="section note"><dt>Note</dt><dd>Parallelized loop inside (using openmp). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="DualQuaternionSkinning_8cpp_source.html#l00111">111</a> of file <a class="el" href="DualQuaternionSkinning_8cpp_source.html">DualQuaternionSkinning.cpp</a>.</p>
+
+</div>
+</div>
 <a id="acff4040ab93ce5001c3ee1d01224c3f9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acff4040ab93ce5001c3ee1d01224c3f9">&#9670;&nbsp;</a></span>applyTransformation() <span class="overload">[1/2]</span></h2>
 
@@ -629,6 +653,63 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad451474c757b714cf8f2dbcc7f6a5ffc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad451474c757b714cf8f2dbcc7f6a5ffc">&#9670;&nbsp;</a></span>centerOfRotationSkinning()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::centerOfRotationSkinning </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a> &amp;&#160;</td>
+          <td class="paramname"><em>refData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>tangents</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>bitangents</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">SkinningFrameData</a> &amp;&#160;</td>
+          <td class="paramname"><em>frameData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies Center-of-Rotation skinning to the current frame. </p>
+<p>Center-of-Rotation skinning deforms the mesh geometry for frame \(t\) as follows: \(\mathbf{p}_i^t = \sum_{s\in S} \omega_{is}\mathbf{M}_s\mathbf{p}_i^* + \mathbf{R}(\mathbf{p}_i^0-\mathbf{p}_i^*)\) , where \(\mathbf{R}\) is the rotation matrix given by the quaternion \(\mathbf{q} = \frac{\sum_{s\in S}^\oplus \omega_{is}\mathbf{q}_s} {\|\sum_{s\in S}^\oplus \omega_{is}\mathbf{q}_s\|}\) and \(\mathbf{p}_i^*\) is the Center-of-Rotation for vertex \(\mathbf{p}_i\), computed as: \(\mathbf{p}_i^* = \frac{\sum_{t}\varsigma(\mathbf{w}_i, \mathbf{w}_t)\mathcal{A}_t\mathbf{v}_t} {\sum_{t}\varsigma(\mathbf{w}_i, \mathbf{w}_t)\mathcal{A}_t}\) , where \(\mathbf{w}_i=\begin{bmatrix}\omega_{i0}&amp;\omega_{i1}&amp;\cdots&amp;\omega_{in}\end{bmatrix}\) , \(\mathbf{w}_t = \frac{1}{3}(\mathbf{w}_{t_0}+\mathbf{w}_{t_1}+\mathbf{w}_{t_2})\) and \(\mathbf{v}_t = \frac{1}{3}(\mathbf{p}_{t_0}+\mathbf{p}_{t_1}+\mathbf{p}_{t_2})\) , \(t_j\) being the \(j\)-th vertex of triangle \(t\) and \(\mathcal{A}_t\) its area.</p>
+<p>The skinning of the normal, tangent and bitangent vectors is approximated as: \(\mathbf{v}_i^t = \mathbf{R}\mathbf{v}_i^0\)</p>
+<dl class="section note"><dt>Note</dt><dd>Considers frameData is well sized. </dd>
+<dd>
+Parallelized loop inside (using openmp). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RotationCenterSkinning_8cpp_source.html#l00229">229</a> of file <a class="el" href="RotationCenterSkinning_8cpp_source.html">RotationCenterSkinning.cpp</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_ad451474c757b714cf8f2dbcc7f6a5ffc_cgraph.svg" width="100%" height="591"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
+</div>
+</div>
 <a id="a5f77b87a09e5e7bd707190d70e4f4b64"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5f77b87a09e5e7bd707190d70e4f4b64">&#9670;&nbsp;</a></span>checkNoWeightVertex()</h2>
 
@@ -698,11 +779,11 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="HandleWeightOperation_8cpp_source.html#l00062">62</a> of file <a class="el" href="HandleWeightOperation_8cpp_source.html">HandleWeightOperation.cpp</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a386a12a440bf79de7a806c397023c443_cgraph.svg" width="422" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -739,8 +820,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a40700cdabdd47fdb360f6bbfe692b36d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40700cdabdd47fdb360f6bbfe692b36d">&#9670;&nbsp;</a></span>computeCoR()</h2>
+<a id="ac01535127ca12dc01779f0df10185c6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac01535127ca12dc01779f0df10185c6e">&#9670;&nbsp;</a></span>computeCoR()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -748,20 +829,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::computeCoR </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structRa_1_1Core_1_1Skinning_1_1RefData.html">Skinning::RefData</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a> &amp;&#160;</td>
           <td class="paramname"><em>dataInOut</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
-          <td class="paramname"><em>sigma</em>, </td>
+          <td class="paramname"><em>sigma</em> = <code>0.1_ra</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
-          <td class="paramname"><em>weightEpsilon</em>&#160;</td>
+          <td class="paramname"><em>weightEpsilon</em> = <code>0.1_ra</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -771,72 +852,71 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Compute the optimal center of rotations (1 per vertex) based on weight similarity. </p>
+<p>Computes the per-vertex optimal center of rotations. </p>
+<p>The optimal center of rotations are computed as: \(\mathbf{p}_i^* = \frac{\sum_{t}\varsigma(\mathbf{w}_i, \mathbf{w}_t)\mathcal{A}_t\mathbf{v}_t} {\sum_{t}\varsigma(\mathbf{w}_i, \mathbf{w}_t)\mathcal{A}_t}\) , where \(\mathbf{w}_i=\begin{bmatrix}\omega_{i0}&amp;\omega_{i1}&amp;\cdots&amp;\omega_{in}\end{bmatrix}\) , \(\mathbf{w}_t = \frac{1}{3}(\mathbf{w}_{t_0}+\mathbf{w}_{t_1}+\mathbf{w}_{t_2})\) and \(\mathbf{v}_t = \frac{1}{3}(\mathbf{p}_{t_0}+\mathbf{p}_{t_1}+\mathbf{p}_{t_2})\) , \(t_j\) being the \(j\)-th vertex of triangle \(t\) and \(\mathcal{A}_t\) its area.</p>
+<dl class="section note"><dt>Note</dt><dd>Parallelized loop inside (using openmp). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RotationCenterSkinning_8cpp_source.html#l00052">52</a> of file <a class="el" href="RotationCenterSkinning_8cpp_source.html">RotationCenterSkinning.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a40700cdabdd47fdb360f6bbfe692b36d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="aeee390b619e41b72639ee6d3c27ae613"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeee390b619e41b72639ee6d3c27ae613">&#9670;&nbsp;</a></span>computeDQ()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::computeDQ </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;&#160;</td>
-          <td class="paramname"><em>pose</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Sparse</a> &amp;&#160;</td>
-          <td class="paramname"><em>weight</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> &amp;&#160;</td>
-          <td class="paramname"><em>DQ</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DualQuaternionSkinning_8cpp_source.html#l00006">6</a> of file <a class="el" href="DualQuaternionSkinning_8cpp_source.html">DualQuaternionSkinning.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RotationCenterSkinning_8cpp_source.html#l00053">53</a> of file <a class="el" href="RotationCenterSkinning_8cpp_source.html">RotationCenterSkinning.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_aeee390b619e41b72639ee6d3c27ae613_cgraph.svg" width="606" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_ac01535127ca12dc01779f0df10185c6e_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
 </div>
 </div>
-<a id="ad34b4a4214b342c4d707bfa6fc2a13f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad34b4a4214b342c4d707bfa6fc2a13f7">&#9670;&nbsp;</a></span>computeDQ_naive()</h2>
+<a id="a503173d23c757d1de7fcaa87553c8ead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a503173d23c757d1de7fcaa87553c8ead">&#9670;&nbsp;</a></span>computeDQ()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::computeDQ_naive </td>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::computeDQ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;&#160;</td>
+          <td class="paramname"><em>pose</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>weight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the per-vertex dual quaternion. </p>
+<p>Such a dual quaternion is computed as: \( \mathbf{Q}_i=\frac{\sum_{s\in S} \omega_{is}\mathbf{Q}_s} {\|\sum_{s\in S} \omega_{is}\mathbf{Q}_s\|} \) </p>
+
+<p class="definition">Definition at line <a class="el" href="DualQuaternionSkinning_8cpp_source.html#l00009">9</a> of file <a class="el" href="DualQuaternionSkinning_8cpp_source.html">DualQuaternionSkinning.cpp</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a503173d23c757d1de7fcaa87553c8ead_cgraph.svg" width="606" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a4a52c0d435c795b36e8803eea805e3d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a52c0d435c795b36e8803eea805e3d8">&#9670;&nbsp;</a></span>computeDQ_naive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::computeDQ_naive </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;&#160;</td>
           <td class="paramname"><em>pose</em>, </td>
@@ -845,13 +925,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Sparse</a> &amp;&#160;</td>
-          <td class="paramname"><em>weight</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> &amp;&#160;</td>
-          <td class="paramname"><em>DQ</em>&#160;</td>
+          <td class="paramname"><em>weight</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -861,89 +935,70 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="DualQuaternionSkinning_8cpp_source.html#l00064">64</a> of file <a class="el" href="DualQuaternionSkinning_8cpp_source.html">DualQuaternionSkinning.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_ad34b4a4214b342c4d707bfa6fc2a13f7_cgraph.svg" width="606" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p>Default non-optimized, non-parallel implementation of computeDQ. </p>
 
-</div>
-</div>
-<a id="a4e637369100a8526751be5b3a09f9fcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e637369100a8526751be5b3a09f9fcd">&#9670;&nbsp;</a></span>computeDQSTBS()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::computeDQSTBS </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;&#160;</td>
-          <td class="paramname"><em>pose</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a> &amp;&#160;</td>
-          <td class="paramname"><em>poseSkel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a> &amp;&#160;</td>
-          <td class="paramname"><em>restSkel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>weight</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>weightSTBS</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> &amp;&#160;</td>
-          <td class="paramname"><em>DQ</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Computes the dual quaternions from the given pose, skeleton states and sets of skinning weights (STBS version). </p>
-
-<p class="definition">Definition at line <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html#l00068">68</a> of file <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html">StretchableTwistableBoneSkinning.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DualQuaternionSkinning_8cpp_source.html#l00068">68</a> of file <a class="el" href="DualQuaternionSkinning_8cpp_source.html">DualQuaternionSkinning.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a4e637369100a8526751be5b3a09f9fcd_cgraph.svg" width="100%" height="465"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a4a52c0d435c795b36e8803eea805e3d8_cgraph.svg" width="606" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="a413a700b4f95262480fa2488146f5519"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a413a700b4f95262480fa2488146f5519">&#9670;&nbsp;</a></span>computeSTBS_weights()</h2>
+<a id="abf54b0ad4a76933eb30a93b2ac773f53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf54b0ad4a76933eb30a93b2ac773f53">&#9670;&nbsp;</a></span>computeDQSTBS()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::computeSTBS_weights </td>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::computeDQSTBS </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a> &amp;&#160;</td>
+          <td class="paramname"><em>refData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a> &amp;&#160;</td>
+          <td class="paramname"><em>poseSkel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the per-vertex STBS dual quaternion. </p>
+<p>Such a dual quaternion is computed as: \(\mathbf{Q}_i = \frac{\sum_{s\in S} \omega_{is}\mathbf{Q}_{is}} {\|\sum_{s\in S} \omega_{is}\mathbf{Q}_{is}\|}\) , where \(\mathbf{Q}_{is}\) is the STBS dual quaternion w.r.t. bone \(s\), computed from the STBS translation and rotation: \(\mathcal{T}_{is} = \mathbf{s_a}&#39;+ \mathbf{R}_s\mathbf{K}_{is}(e_{is}\mathbf{e}_s-\mathbf{s_a})\) and \(\mathcal{R}_{is} = \mathbf{R}_s\mathbf{K}_{is}\)</p>
+<dl class="section note"><dt>Note</dt><dd>Parallelized loop inside (using openmp). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html#l00086">86</a> of file <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html">StretchableTwistableBoneSkinning.cpp</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_abf54b0ad4a76933eb30a93b2ac773f53_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a0ea278cc131ee02345640bebce9384c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ea278cc131ee02345640bebce9384c4">&#9670;&nbsp;</a></span>computeSTBS_weights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::computeSTBS_weights </td>
           <td>(</td>
           <td class="paramtype">const Vector3Array &amp;&#160;</td>
           <td class="paramname"><em>inMesh</em>, </td>
@@ -951,14 +1006,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Ra::Core::Animation::Skeleton</a> &amp;&#160;</td>
-          <td class="paramname"><em>skel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Ra::Core::Animation::WeightMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>weights</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a> &amp;&#160;</td>
+          <td class="paramname"><em>skel</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -968,78 +1017,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html#l00009">9</a> of file <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html">StretchableTwistableBoneSkinning.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a413a700b4f95262480fa2488146f5519_cgraph.svg" width="100%" height="523"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
+<p>Computes the weights for the STBS using simple projection on the bone. </p>
+<p>Weights are computed as follows: \(e_{is} = \frac{\|\mathbf{q}_i-\mathbf{s_a}\|}{\|\mathbf{s_b}-\mathbf{s_a}\|}\) , where \(\mathbf{q}_i\) is the projection of point \(\mathbf{p}_i\) on bone \(s\). </p>
 
-</div>
-</div>
-<a id="a6ed92a8ce349fc8e84c099d05ae0a35b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ed92a8ce349fc8e84c099d05ae0a35b">&#9670;&nbsp;</a></span>corSkinning()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::corSkinning </td>
-          <td>(</td>
-          <td class="paramtype">const Vector3Array &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Animation::Pose</a> &amp;&#160;</td>
-          <td class="paramname"><em>pose</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Animation::WeightMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>weight</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Vector3Array &amp;&#160;</td>
-          <td class="paramname"><em>CoR</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Vector3Array &amp;&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Skin the vertices with the optimal centers of rotation. </p>
-
-<p class="definition">Definition at line <a class="el" href="RotationCenterSkinning_8cpp_source.html#l00228">228</a> of file <a class="el" href="RotationCenterSkinning_8cpp_source.html">RotationCenterSkinning.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html#l00012">12</a> of file <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html">StretchableTwistableBoneSkinning.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-7-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a6ed92a8ce349fc8e84c099d05ae0a35b_cgraph.svg" width="100%" height="421"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a0ea278cc131ee02345640bebce9384c4_cgraph.svg" width="100%" height="523"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
 </div>
 </div>
-<a id="ac00813d1e8a00ddb0c98dccfc91d4828"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac00813d1e8a00ddb0c98dccfc91d4828">&#9670;&nbsp;</a></span>dualQuaternionSkinning()</h2>
+<a id="ad29480d1520ec6e14c4ff4a5b9a497c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad29480d1520ec6e14c4ff4a5b9a497c4">&#9670;&nbsp;</a></span>dualQuaternionSkinning()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1047,20 +1041,26 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::dualQuaternionSkinning </td>
           <td>(</td>
-          <td class="paramtype">const Ra::Core::Vector3Array &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
+          <td class="paramtype">const <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a> &amp;&#160;</td>
+          <td class="paramname"><em>refData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a0cfe49948d8cf5c3b41aaa59c9d726ab">DQList</a> &amp;&#160;</td>
-          <td class="paramname"><em>DQ</em>, </td>
+          <td class="paramtype">const Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>tangents</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Ra::Core::Vector3Array &amp;&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
+          <td class="paramtype">const Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>bitangents</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">SkinningFrameData</a> &amp;&#160;</td>
+          <td class="paramname"><em>frameData</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1070,7 +1070,79 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="DualQuaternionSkinning_8cpp_source.html#l00106">106</a> of file <a class="el" href="DualQuaternionSkinning_8cpp_source.html">DualQuaternionSkinning.cpp</a>.</p>
+<p>Applies Dual-Quaternion skinning to the current frame. </p>
+<p>Dual-Quaternion skinning deforms the mesh geometry for frame \(t\) as follows: \(\mathbf{p}_i^t = \mathbf{Q}_i(\mathbf{p}_i^0)\) , where \(\mathbf{Q}_i = \frac{\sum_{s\in S} \omega_{is}\mathbf{Q}_s} {\|\sum_{s\in S} \omega_{is}\mathbf{Q}_s\|}\)</p>
+<p>The skinning of the normal, tangent and bitangent vectors is approximated as: \(\mathbf{v}_i^t = \mathbf{Q}_i(\mathbf{v}_i^0)\)</p>
+<dl class="section note"><dt>Note</dt><dd>Assumes frameData is well sized. </dd>
+<dd>
+Parallelized loop inside (using openmp). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="DualQuaternionSkinning_8cpp_source.html#l00121">121</a> of file <a class="el" href="DualQuaternionSkinning_8cpp_source.html">DualQuaternionSkinning.cpp</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_ad29480d1520ec6e14c4ff4a5b9a497c4_cgraph.svg" width="100%" height="591"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a9fcb07dcf3c408b5a1c3929effd7bb9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fcb07dcf3c408b5a1c3929effd7bb9e">&#9670;&nbsp;</a></span>dualQuaternionSkinningSTBS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::dualQuaternionSkinningSTBS </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a> &amp;&#160;</td>
+          <td class="paramname"><em>refData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>tangents</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>bitangents</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">SkinningFrameData</a> &amp;&#160;</td>
+          <td class="paramname"><em>frameData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies the DQS version of STBS to the current frame. </p>
+<p>The DQS version of STBS deforms the mesh geometry for frame \(t\) as follows: \(\mathbf{p}_i^t = \mathbf{Q}_i(\mathbf{p}_i^0)\) , where \(\mathbf{Q}_i = \frac{\sum_{s\in S} \omega_{is}\mathbf{Q}_{is}} {\|\sum_{s\in S} \omega_{is}\mathbf{Q}_{is}\|}\) , where \(\mathbf{Q}_{is}\) is the STBS dual quaternion w.r.t. bone \(s\), computed from the STBS translation and rotation: \(\mathcal{T}_{is} = \mathbf{s_a}&#39;+ \mathbf{R}_s\mathbf{K}_{is}(e_{is}\mathbf{e}_s-\mathbf{s_a})\) and \(\mathcal{R}_{is} = \mathbf{R}_s\mathbf{K}_{is}\)</p>
+<p>The skinning of the normal, tangent and bitangent vectors is approximated as: \(\mathbf{v}_i^t = \mathbf{Q}_i(\mathbf{v}_i^0)\)</p>
+<dl class="section note"><dt>Note</dt><dd>Assumes frameData is well sized. </dd>
+<dd>
+Parallelized loop inside (using openmp). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html#l00147">147</a> of file <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html">StretchableTwistableBoneSkinning.cpp</a>.</p>
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a9fcb07dcf3c408b5a1c3929effd7bb9e_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 
 </div>
 </div>
@@ -1169,11 +1241,11 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="BulgeCorrection_8cpp_source.html#l00036">36</a> of file <a class="el" href="BulgeCorrection_8cpp_source.html">BulgeCorrection.cpp</a>.</p>
-<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a0b9feaa27f271fe7defdc410eb743979_cgraph.svg" width="600" height="199"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1237,11 +1309,11 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="HandleWeightOperation_8cpp_source.html#l00054">54</a> of file <a class="el" href="HandleWeightOperation_8cpp_source.html">HandleWeightOperation.cpp</a>.</p>
-<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_acf15b7625d5418d5abe110d0445e1df1_cgraph.svg" width="379" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1281,19 +1353,19 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="PoseOperation_8cpp_source.html#l00055">55</a> of file <a class="el" href="PoseOperation_8cpp_source.html">PoseOperation.cpp</a>.</p>
-<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_aa5e2e11d79318fd2777aaa259f8210db_cgraph.svg" width="656" height="71"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="a19bc7bcc26d8a3662f182f6d9a61764d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19bc7bcc26d8a3662f182f6d9a61764d">&#9670;&nbsp;</a></span>linearBlendSkinning()</h2>
+<a id="a3c50efb711c289e47c9b0eb8614a85ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c50efb711c289e47c9b0eb8614a85ff">&#9670;&nbsp;</a></span>linearBlendSkinning()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1301,26 +1373,26 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::linearBlendSkinning </td>
           <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a> &amp;&#160;</td>
+          <td class="paramname"><em>refData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const Vector3Array &amp;&#160;</td>
-          <td class="paramname"><em>inMesh</em>, </td>
+          <td class="paramname"><em>tangents</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;&#160;</td>
-          <td class="paramname"><em>pose</em>, </td>
+          <td class="paramtype">const Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>bitangents</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>weight</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Vector3Array &amp;&#160;</td>
-          <td class="paramname"><em>outMesh</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">SkinningFrameData</a> &amp;&#160;</td>
+          <td class="paramname"><em>frameData</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1330,12 +1402,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LinearBlendSkinning_8cpp_source.html#l00007">7</a> of file <a class="el" href="LinearBlendSkinning_8cpp_source.html">LinearBlendSkinning.cpp</a>.</p>
+<p>Applies Linear-Blend skinning to the current frame. </p>
+<p>Linear-Blend skinning deforms the mesh geometry for frame \(t\) as follows: \(\mathbf{p}_i^t = \sum_{s\in S}\omega_{is}\mathbf{M}_s\mathbf{p}_i^0\)</p>
+<p>The skinning of the normal, tangent and bitangent vectors is approximated as: \(\mathbf{v}_i^t = \sum_{s\in S}\omega_{is}\mathbf{R}_s\mathbf{v}_i^0\)</p>
+<dl class="section note"><dt>Note</dt><dd>Assumes frameData is well sized. </dd>
+<dd>
+Parallelized loop inside (using openmp). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="LinearBlendSkinning_8cpp_source.html#l00009">9</a> of file <a class="el" href="LinearBlendSkinning_8cpp_source.html">LinearBlendSkinning.cpp</a>.</p>
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a3c50efb711c289e47c9b0eb8614a85ff_cgraph.svg" width="650" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
-<a id="a6146eab259e0cce29f436870c6b8fc74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6146eab259e0cce29f436870c6b8fc74">&#9670;&nbsp;</a></span>linearBlendSkinningSTBS()</h2>
+<a id="a4a86c328fd4314323715e7d849beedeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a86c328fd4314323715e7d849beedeb">&#9670;&nbsp;</a></span>linearBlendSkinningSTBS()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1343,44 +1430,26 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::linearBlendSkinningSTBS </td>
           <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a> &amp;&#160;</td>
+          <td class="paramname"><em>refData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const Vector3Array &amp;&#160;</td>
-          <td class="paramname"><em>inMesh</em>, </td>
+          <td class="paramname"><em>tangents</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a> &amp;&#160;</td>
-          <td class="paramname"><em>pose</em>, </td>
+          <td class="paramtype">const Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>bitangents</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a> &amp;&#160;</td>
-          <td class="paramname"><em>poseSkel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a> &amp;&#160;</td>
-          <td class="paramname"><em>restSkel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>weightLBS</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">WeightMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>weightSTBS</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Vector3Array &amp;&#160;</td>
-          <td class="paramname"><em>outMesh</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">SkinningFrameData</a> &amp;&#160;</td>
+          <td class="paramname"><em>frameData</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1389,15 +1458,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Apply the linear interpolation of transformations to the vertices of inMesh (STBS version). </p>
 
-<p class="definition">Definition at line <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html#l00029">29</a> of file <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html">StretchableTwistableBoneSkinning.cpp</a>.</p>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+<p>Applies the LBS version of STBS to the current frame. </p>
+<p>The LBS version of STBS deforms the mesh geometry for frame \(t\) as follows: \(\mathbf{p}_i^t = \sum_{s\in S} \omega_{is}[\mathbf{s_a}&#39;+ \mathbf{R}_s\mathbf{K}_{is} (e_{is}\mathbf{e}_s+(-\mathbf{s_a}+\mathbf{p}_i^0))]\) , where \(\mathbf{e}_s = (\frac{\|\mathbf{s_b}&#39;-\mathbf{s_a}&#39;\|} {\|\mathbf{s_b}-\mathbf{s_a}\|} - 1) (\mathbf{s_b}-\mathbf{s_a})\) , \(\mathbf{s_*}&#39;=\mathbf{M}_s\mathbf{s_*}\) and \(\mathbf{K}_{is}\) is the twisting rotation, function of the STBS weight \(e_{is}\).</p>
+<p>The skinning of the normal, tangent and bitangent vectors is approximated as: \(\mathbf{v}_i^t = \sum_{s\in S}\omega_{is}\mathbf{R}_s\mathbf{K}_{is}\mathbf{v}_i^0\)</p>
+<dl class="section note"><dt>Note</dt><dd>Assumes frameData is well sized. </dd>
+<dd>
+Parallelized loop inside (using openmp). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html#l00031">31</a> of file <a class="el" href="StretchableTwistableBoneSkinning_8cpp_source.html">StretchableTwistableBoneSkinning.cpp</a>.</p>
+<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a6146eab259e0cce29f436870c6b8fc74_cgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a4a86c328fd4314323715e7d849beedeb_cgraph.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -1440,11 +1515,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="KeyFramedValueInterpolators_8hpp_source.html#l00019">19</a> of file <a class="el" href="KeyFramedValueInterpolators_8hpp_source.html">KeyFramedValueInterpolators.hpp</a>.</p>
-<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a6ea0c7f78b5a986cf6dfac548ec18a66_cgraph.svg" width="656" height="220"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1490,11 +1565,11 @@ template&lt;&gt; </div>
 <p>Force step for booleans. </p>
 
 <p class="definition">Definition at line <a class="el" href="KeyFramedValueInterpolators_8hpp_source.html#l00027">27</a> of file <a class="el" href="KeyFramedValueInterpolators_8hpp_source.html">KeyFramedValueInterpolators.hpp</a>.</p>
-<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a88d29b2ae8b61277df40081bbabab79e_cgraph.svg" width="423" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1540,11 +1615,11 @@ template&lt;&gt; </div>
 <p>Force step for integers. </p>
 
 <p class="definition">Definition at line <a class="el" href="KeyFramedValueInterpolators_8hpp_source.html#l00037">37</a> of file <a class="el" href="KeyFramedValueInterpolators_8hpp_source.html">KeyFramedValueInterpolators.hpp</a>.</p>
-<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a1919d87b90ea520905cb68ee07de6100_cgraph.svg" width="423" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1590,11 +1665,11 @@ template&lt;&gt; </div>
 <p>Specific implementation for Pose. </p>
 
 <p class="definition">Definition at line <a class="el" href="KeyFramedValueInterpolators_8hpp_source.html#l00047">47</a> of file <a class="el" href="KeyFramedValueInterpolators_8hpp_source.html">KeyFramedValueInterpolators.hpp</a>.</p>
-<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a974acac44b3fb4d25e568dab2762e4e7_cgraph.svg" width="100%" height="476"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1629,11 +1704,11 @@ template&lt;&gt; </div>
 <p>In-place normalization of the weights, such that matrix.row( k ).sum() = 1; </p><dl class="section return"><dt>Returns</dt><dd>true if normalization was required. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="HandleWeightOperation_8cpp_source.html#l00114">114</a> of file <a class="el" href="HandleWeightOperation_8cpp_source.html">HandleWeightOperation.cpp</a>.</p>
-<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_aa14369aa1ddc895efc6959f900b591f5_cgraph.svg" width="404" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1665,14 +1740,13 @@ template&lt;&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Stream insertion operator. </p>
 
-<p class="definition">Definition at line <a class="el" href="Skeleton_8cpp_source.html#l00185">185</a> of file <a class="el" href="Skeleton_8cpp_source.html">Skeleton.cpp</a>.</p>
-<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="Skeleton_8cpp_source.html#l00220">220</a> of file <a class="el" href="Skeleton_8cpp_source.html">Skeleton.cpp</a>.</p>
+<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a93d6305ed74ab59961969dce601714c2_cgraph.svg" width="608" height="510"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1696,11 +1770,11 @@ template&lt;&gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="HandleWeightOperation_8cpp_source.html#l00041">41</a> of file <a class="el" href="HandleWeightOperation_8cpp_source.html">HandleWeightOperation.cpp</a>.</p>
-<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a783282452ff718ee56e48990a12ce1c4_cgraph.svg" width="604" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1734,25 +1808,25 @@ template&lt;&gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="PoseOperation_8cpp_source.html#l00014">14</a> of file <a class="el" href="PoseOperation_8cpp_source.html">PoseOperation.cpp</a>.</p>
-<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Animation_a03d7eb179bf339237a3e5b06d6d06100_cgraph.svg" width="363" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="a71236244c5603a8a5bc63595db9b7717"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71236244c5603a8a5bc63595db9b7717">&#9670;&nbsp;</a></span>weightSimilarity()</h2>
+<a id="a7e29ad918c37dcd14eee94f49c7ec300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e29ad918c37dcd14eee94f49c7ec300">&#9670;&nbsp;</a></span>weightSimilarity()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> <a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> Ra::Core::Animation::weightSimilarity </td>
+          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> Ra::Core::Animation::weightSimilarity </td>
           <td>(</td>
           <td class="paramtype">const Eigen::SparseVector&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>v1w</em>, </td>
@@ -1777,9 +1851,7 @@ template&lt;&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Computes the similarity between two weights vector. </p>
-
-<p class="definition">Definition at line <a class="el" href="RotationCenterSkinning_8cpp_source.html#l00020">20</a> of file <a class="el" href="RotationCenterSkinning_8cpp_source.html">RotationCenterSkinning.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RotationCenterSkinning_8cpp_source.html#l00021">21</a> of file <a class="el" href="RotationCenterSkinning_8cpp_source.html">RotationCenterSkinning.cpp</a>.</p>
 
 </div>
 </div>
@@ -1789,7 +1861,7 @@ template&lt;&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html">Animation</a></li>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:38 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:27 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

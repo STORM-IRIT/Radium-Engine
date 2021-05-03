@@ -2,6 +2,7 @@ var dir_b5ac5e964c12a6b13a9d28feb9f3d3ed =
 [
     [ "RadiumWindow", "dir_8988f038b6d0fb62ed1585b002e0bbf1.html", "dir_8988f038b6d0fb62ed1585b002e0bbf1" ],
     [ "SelectionManager", "dir_17bfc51b20949079282a076b84b0b9f6.html", "dir_17bfc51b20949079282a076b84b0b9f6" ],
+    [ "SkeletonBasedAnimation", "dir_4ad3c504bd7dbe7fbaf289b8a94c13df.html", "dir_4ad3c504bd7dbe7fbaf289b8a94c13df" ],
     [ "Timeline", "dir_c11d904bd882c8440c506ccb3c29fbe5.html", "dir_c11d904bd882c8440c506ccb3c29fbe5" ],
     [ "TimerData", "dir_da97eec9491dc31fa09aed195cee77be.html", "dir_da97eec9491dc31fa09aed195cee77be" ],
     [ "TransformEditor", "dir_2a529fd74e7782bdaa5de0314056ee46.html", "dir_2a529fd74e7782bdaa5de0314056ee46" ],

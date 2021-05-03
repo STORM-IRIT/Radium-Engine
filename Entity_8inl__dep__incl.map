@@ -1,6 +1,6 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Scene/Entity.inl" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Scene/Entity.inl">
-<area shape="rect" id="node1" title=" " alt="" coords="5092,5,5291,76"/>
-<area shape="rect" id="node2" href="$Entity_8hpp.html" title=" " alt="" coords="5092,124,5291,195"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5223,5,5421,76"/>
+<area shape="rect" id="node2" href="$Entity_8hpp.html" title=" " alt="" coords="5223,124,5421,195"/>
 <area shape="rect" id="node3" href="$RadiumEngine_8cpp.html" title=" " alt="" coords="5,599,204,669"/>
 <area shape="rect" id="node4" href="$SystemDisplay_8hpp.html" title=" " alt="" coords="921,480,1120,551"/>
 <area shape="rect" id="node7" href="$LightManager_8cpp.html" title=" " alt="" coords="228,599,427,669"/>
@@ -13,9 +13,10 @@
 <area shape="rect" id="node44" href="$Component_8cpp.html" title=" " alt="" coords="5612,243,5811,313"/>
 <area shape="rect" id="node45" href="$Entity_8cpp.html" title=" " alt="" coords="5835,243,6033,313"/>
 <area shape="rect" id="node46" href="$System_8cpp.html" title=" " alt="" coords="6057,243,6256,313"/>
-<area shape="rect" id="node47" href="$Timeline_8cpp.html" title=" " alt="" coords="6279,243,6514,313"/>
-<area shape="rect" id="node48" href="$TransformEditor_8cpp.html" title=" " alt="" coords="6538,243,6781,313"/>
-<area shape="rect" id="node49" href="$EntityTreeModel_8cpp.html" title=" " alt="" coords="6805,243,7050,313"/>
+<area shape="rect" id="node47" href="$SkeletonBasedAnimationUI_8cpp.html" title=" " alt="" coords="6280,243,6577,313"/>
+<area shape="rect" id="node48" href="$Timeline_8cpp.html" title=" " alt="" coords="6602,243,6837,313"/>
+<area shape="rect" id="node49" href="$TransformEditor_8cpp.html" title=" " alt="" coords="6861,243,7103,313"/>
+<area shape="rect" id="node50" href="$EntityTreeModel_8cpp.html" title=" " alt="" coords="7127,243,7373,313"/>
 <area shape="rect" id="node5" href="$EntityManager_8cpp.html" title=" " alt="" coords="896,599,1095,669"/>
 <area shape="rect" id="node6" href="$ItemEntry_8cpp.html" title=" " alt="" coords="451,599,649,669"/>
 <area shape="rect" id="node8" href="$SystemDisplay_8cpp.html" title=" " alt="" coords="673,599,872,669"/>

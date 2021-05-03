@@ -5,7 +5,6 @@ var namespaceRa_1_1Core =
     [ "Asset", "namespaceRa_1_1Core_1_1Asset.html", "namespaceRa_1_1Core_1_1Asset" ],
     [ "Containers", "namespaceRa_1_1Core_1_1Containers.html", "namespaceRa_1_1Core_1_1Containers" ],
     [ "Geometry", "namespaceRa_1_1Core_1_1Geometry.html", "namespaceRa_1_1Core_1_1Geometry" ],
-    [ "Skinning", "namespaceRa_1_1Core_1_1Skinning.html", "namespaceRa_1_1Core_1_1Skinning" ],
     [ "Utils", "namespaceRa_1_1Core_1_1Utils.html", "namespaceRa_1_1Core_1_1Utils" ],
     [ "AdjacencyList", "classRa_1_1Core_1_1AdjacencyList.html", "classRa_1_1Core_1_1AdjacencyList" ],
     [ "AlignedAllocator", "classRa_1_1Core_1_1AlignedAllocator.html", "classRa_1_1Core_1_1AlignedAllocator" ],

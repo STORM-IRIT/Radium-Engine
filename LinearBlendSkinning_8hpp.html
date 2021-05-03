@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -91,22 +91,19 @@ $(document).ready(function(){initNavTree('LinearBlendSkinning_8hpp.html',''); in
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">LinearBlendSkinning.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="HandleWeight_8hpp_source.html">Core/Animation/HandleWeight.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Pose_8hpp_source.html">Core/Animation/Pose.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="VectorArray_8hpp_source.html">Core/Containers/VectorArray.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Types_8hpp_source.html">Core/Types.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="VectorArray_8hpp_source.html">Core/Containers/VectorArray.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="RaCore_8hpp_source.html">RaCore.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for LinearBlendSkinning.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="LinearBlendSkinning_8hpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="LinearBlendSkinning_8hpp__incl.svg" width="531" height="470"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -114,7 +111,7 @@ $(document).ready(function(){initNavTree('LinearBlendSkinning_8hpp.html',''); in
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="LinearBlendSkinning_8hpp__dep__incl.svg" width="542" height="200"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="LinearBlendSkinning_8hpp__dep__incl.svg" width="100%" height="450"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </div>
@@ -132,8 +129,18 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a19bc7bcc26d8a3662f182f6d9a61764d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a19bc7bcc26d8a3662f182f6d9a61764d">Ra::Core::Animation::linearBlendSkinning</a> (const Vector3Array &amp;inMesh, const Pose &amp;pose, const WeightMatrix &amp;weight, Vector3Array &amp;outMesh)</td></tr>
-<tr class="separator:a19bc7bcc26d8a3662f182f6d9a61764d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Linear Blend Skinning</div></td></tr>
+<tr class="memitem:a3c50efb711c289e47c9b0eb8614a85ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a3c50efb711c289e47c9b0eb8614a85ff">Ra::Core::Animation::linearBlendSkinning</a> (const SkinningRefData &amp;refData, const Vector3Array &amp;tangents, const Vector3Array &amp;bitangents, SkinningFrameData &amp;frameData)</td></tr>
+<tr class="memdesc:a3c50efb711c289e47c9b0eb8614a85ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies Linear-Blend skinning to the current frame.  <a href="namespaceRa_1_1Core_1_1Animation.html#a3c50efb711c289e47c9b0eb8614a85ff">More...</a><br /></td></tr>
+<tr class="separator:a3c50efb711c289e47c9b0eb8614a85ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Linear Blend Skinning</div></td></tr>
+<tr class="memitem:a3c50efb711c289e47c9b0eb8614a85ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a3c50efb711c289e47c9b0eb8614a85ff">Ra::Core::Animation::linearBlendSkinning</a> (const SkinningRefData &amp;refData, const Vector3Array &amp;tangents, const Vector3Array &amp;bitangents, SkinningFrameData &amp;frameData)</td></tr>
+<tr class="memdesc:a3c50efb711c289e47c9b0eb8614a85ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies Linear-Blend skinning to the current frame.  <a href="namespaceRa_1_1Core_1_1Animation.html#a3c50efb711c289e47c9b0eb8614a85ff">More...</a><br /></td></tr>
+<tr class="separator:a3c50efb711c289e47c9b0eb8614a85ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Linear Blend Skinning</div></td></tr>
+<tr class="memitem:a3c50efb711c289e47c9b0eb8614a85ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a3c50efb711c289e47c9b0eb8614a85ff">Ra::Core::Animation::linearBlendSkinning</a> (const SkinningRefData &amp;refData, const Vector3Array &amp;tangents, const Vector3Array &amp;bitangents, SkinningFrameData &amp;frameData)</td></tr>
+<tr class="memdesc:a3c50efb711c289e47c9b0eb8614a85ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies Linear-Blend skinning to the current frame.  <a href="namespaceRa_1_1Core_1_1Animation.html#a3c50efb711c289e47c9b0eb8614a85ff">More...</a><br /></td></tr>
+<tr class="separator:a3c50efb711c289e47c9b0eb8614a85ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -141,7 +148,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><a class="el" href="LinearBlendSkinning_8hpp.html">LinearBlendSkinning.hpp</a></li>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:38 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:26 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

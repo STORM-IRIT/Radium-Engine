@@ -1,6 +1,6 @@
 var RotationCenterSkinning_8cpp =
 [
-    [ "computeCoR", "RotationCenterSkinning_8cpp.html#a40700cdabdd47fdb360f6bbfe692b36d", null ],
-    [ "corSkinning", "RotationCenterSkinning_8cpp.html#a6ed92a8ce349fc8e84c099d05ae0a35b", null ],
-    [ "weightSimilarity", "RotationCenterSkinning_8cpp.html#a71236244c5603a8a5bc63595db9b7717", null ]
+    [ "centerOfRotationSkinning", "RotationCenterSkinning_8cpp.html#ad451474c757b714cf8f2dbcc7f6a5ffc", null ],
+    [ "computeCoR", "RotationCenterSkinning_8cpp.html#ac01535127ca12dc01779f0df10185c6e", null ],
+    [ "weightSimilarity", "RotationCenterSkinning_8cpp.html#a7e29ad918c37dcd14eee94f49c7ec300", null ]
 ];

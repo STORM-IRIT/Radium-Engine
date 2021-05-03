@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -141,6 +141,8 @@ $(document).ready(function(){initNavTree('functions_func_i.html',''); initResiza
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html#afe39de2269d9d71e7a564c0640310842">Ra::Engine::Scene::GeometryComponent</a>
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a81e523ca85bf99b5ca36b74c2460a78e">Ra::Engine::Scene::Light</a>
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html#a00b825a4a1e8cc58444a1b00ccf79206">Ra::Engine::Scene::PointCloudComponent</a>
+, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a57316334f6cf00c960729c0f05e07475">Ra::Engine::Scene::SkeletonComponent</a>
+, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#ae713060be15a959aaa74e81c6d3be657">Ra::Engine::Scene::SkinningComponent</a>
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1UiComponent.html#ac6a900cf35cabebc4debc3b8dc3134bd">Ra::Engine::Scene::UiComponent</a>
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html#af11f82cf8ccc00be112f34144f2006e5">Ra::Engine::Scene::VolumeComponent</a>
 , <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a46ddcfcbd872c4e7e29aac63a3d521fb">Ra::Gui::BaseApplication</a>
@@ -224,6 +226,9 @@ $(document).ready(function(){initNavTree('functions_func_i.html',''); initResiza
 </li>
 <li>isAreaLight()
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a556ce4b12317c1b79b21f0e4361ad8e2">Ra::Core::Asset::LightData</a>
+</li>
+<li>isAutoRepeat()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#af5019b602ab73ea90bdea645f7b6713c">Ra::Engine::Scene::SkeletonComponent</a>
 </li>
 <li>isBranch()
 : <a class="el" href="classRa_1_1Core_1_1AdjacencyList.html#a7cc5e8bee935a36439b9cd62d47e4404">Ra::Core::AdjacencyList</a>
@@ -321,6 +326,9 @@ $(document).ready(function(){initNavTree('functions_func_i.html',''); initResiza
 <li>isPickable()
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a49f4840946f75afe28c7d35e7af37f06">Ra::Engine::Rendering::RenderObject</a>
 </li>
+<li>isPingPong()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a54989f8584cc21b843865b9c1109ccdc">Ra::Engine::Scene::SkeletonComponent</a>
+</li>
 <li>isPointCloud()
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae5bd93fb5c9da1e296da6779b3f8c7a9">Ra::Core::Asset::GeometryData</a>
 , <a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html#a7e8db498db9034691d626d297ff85b2b">Ra::Core::Asset::HandleData</a>
@@ -360,6 +368,12 @@ $(document).ready(function(){initNavTree('functions_func_i.html',''); initResiza
 , <a class="el" href="classRa_1_1Gui_1_1ScaleGizmo.html#a4afd9769371c01d0d59180291e006846">Ra::Gui::ScaleGizmo</a>
 , <a class="el" href="classRa_1_1Gui_1_1SelectionManager.html#ad6df9e5929c42e279ebaee7dc049ed0e">Ra::Gui::SelectionManager</a>
 , <a class="el" href="classRa_1_1Gui_1_1TranslateGizmo.html#a6d1a88818c1a26864639236a5d4e7d84">Ra::Gui::TranslateGizmo</a>
+</li>
+<li>isShowingSkeleton()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a1373de48b1145a757e5084c3546b6b1f">Ra::Engine::Scene::SkeletonComponent</a>
+</li>
+<li>isShowingWeights()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#aee24a475c99076a2c3746e1a86bc5077">Ra::Engine::Scene::SkinningComponent</a>
 </li>
 <li>isSkeleton()
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html#a1925f9927f611deca7a9038d32c3088a">Ra::Core::Asset::HandleData</a>
@@ -422,8 +436,14 @@ $(document).ready(function(){initNavTree('functions_func_i.html',''); initResiza
 <li>isXRay()
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ab59df2ead0a645488d3669d07545569c">Ra::Engine::Rendering::RenderObject</a>
 </li>
+<li>isXray()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#aa8a61a85c5424e6833596fb431c30cb1">Ra::Engine::Scene::SkeletonComponent</a>
+</li>
+<li>isXrayOn()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#a0c389a482191cbd85a7cff3cbe3fefdd">Ra::Engine::Scene::SkeletonBasedAnimationSystem</a>
+</li>
 <li>ItemEntry()
-: <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a37fa5faa692ad4c8577d57ee15762b9c">Ra::Engine::Scene::ItemEntry</a>
+: <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a795a13821c8380144ae4b8c30d657baa">Ra::Engine::Scene::ItemEntry</a>
 </li>
 <li>ItemModel()
 : <a class="el" href="classRa_1_1Gui_1_1ItemModel.html#aeeb609585866894252ff1b99fac138e3">Ra::Gui::ItemModel</a>
@@ -432,7 +452,7 @@ $(document).ready(function(){initNavTree('functions_func_i.html',''); initResiza
 : <a class="el" href="classRa_1_1Gui_1_1SelectionManager.html#aa377708ea2b68d031b452915e144dc5a">Ra::Gui::SelectionManager</a>
 </li>
 <li>Iterator()
-: <a class="el" href="classRa_1_1Core_1_1Grid_1_1Iterator.html#a07ba95734112d0d75d64515271d5503f">Ra::Core::Grid&lt; T, D &gt;::Iterator</a>
+: <a class="el" href="classRa_1_1Core_1_1Grid_1_1Iterator.html#a78bb2a4eb79a32d7a0acd22a4d4f3189">Ra::Core::Grid&lt; T, D &gt;::Iterator</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -440,7 +460,7 @@ $(document).ready(function(){initNavTree('functions_func_i.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:40 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:28 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

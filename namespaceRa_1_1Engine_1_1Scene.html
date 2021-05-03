@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -93,7 +93,8 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Engine_1_1Scene.html','
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Ra::Engine::Scene Namespace Reference</div>  </div>
 </div><!--header-->
@@ -154,6 +155,13 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SignalManager.html">SignalManager</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html">SkeletonBasedAnimationSystem</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">SkeletonComponent</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html">SkinningComponent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html" title="The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj...">SkinningComponent</a> class is responsible for applying Geometric Skinning Methods on an animated object's mesh.  <a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html">SpotLight</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html">SurfaceMeshComponent</a></td></tr>
@@ -186,8 +194,19 @@ Functions</h2></td></tr>
 <tr class="separator:a6e686b60ad6a81dde7a154411273b5f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae7c9d8844b8896084b0734418f8916a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Scene.html#aae7c9d8844b8896084b0734418f8916a">getItemROs</a> (const <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a> *, const <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a> &amp;ent)</td></tr>
 <tr class="separator:aae7c9d8844b8896084b0734418f8916a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a402cdd3d4ddfc31e87d13e69e65efb24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Core::Geometry::TriangleMesh</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Scene.html#a402cdd3d4ddfc31e87d13e69e65efb24">makeBoneShape</a> ()</td></tr>
+<tr class="separator:a402cdd3d4ddfc31e87d13e69e65efb24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a065a86e926a88bd772aa9e87d0858b26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Scene.html#a065a86e926a88bd772aa9e87d0858b26">triangulate</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1PolyMesh.html">PolyMesh</a> &amp;polyMesh)</td></tr>
+<tr class="separator:a065a86e926a88bd772aa9e87d0858b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01594963d5c4d679f429220b246f7ab1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Scene.html#a01594963d5c4d679f429220b246f7ab1">RA_SINGLETON_IMPLEMENTATION</a> (<a class="el" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html">SystemEntity</a>)</td></tr>
 <tr class="separator:a01594963d5c4d679f429220b246f7ab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ad8d343f5cbcbfef644548b906277f0ee"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Scene.html#ad8d343f5cbcbfef644548b906277f0ee">tangentName</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad22c7cbacae9e25437341a8a42c5b5bd">Data::Mesh::getAttribName</a>( <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa3ba579a4050a38f4dcdf307a1d23254b">Data::Mesh::VERTEX_TANGENT</a> )</td></tr>
+<tr class="separator:ad8d343f5cbcbfef644548b906277f0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a322f8e7f324be84b353bc237ca83ea16"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Scene.html#a322f8e7f324be84b353bc237ca83ea16">bitangentName</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad22c7cbacae9e25437341a8a42c5b5bd">Data::Mesh::getAttribName</a>( <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fafd45357c1d5dd5d1a28160e2d447c42d">Data::Mesh::VERTEX_BITANGENT</a> )</td></tr>
+<tr class="separator:a322f8e7f324be84b353bc237ca83ea16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a5b2448b254344dc0b6680bac7d7ed80d"></a>
@@ -302,6 +321,33 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a402cdd3d4ddfc31e87d13e69e65efb24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a402cdd3d4ddfc31e87d13e69e65efb24">&#9670;&nbsp;</a></span>makeBoneShape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Core::Geometry::TriangleMesh</a> Ra::Engine::Scene::makeBoneShape </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SkeletonComponent_8cpp_source.html#l00270">270</a> of file <a class="el" href="SkeletonComponent_8cpp_source.html">SkeletonComponent.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Engine_1_1Scene_a402cdd3d4ddfc31e87d13e69e65efb24_cgraph.svg" width="100%" height="485"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
+</div>
+</div>
 <a id="aa3bf5e5f16dca6e2aabb32744b09d2ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa3bf5e5f16dca6e2aabb32744b09d2ab">&#9670;&nbsp;</a></span>RA_SINGLETON_IMPLEMENTATION() <span class="overload">[1/2]</span></h2>
 
@@ -338,13 +384,90 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a065a86e926a88bd772aa9e87d0858b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a065a86e926a88bd772aa9e87d0858b26">&#9670;&nbsp;</a></span>triangulate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> Ra::Engine::Scene::triangulate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1PolyMesh.html">PolyMesh</a> &amp;&#160;</td>
+          <td class="paramname"><em>polyMesh</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SkinningComponent_8cpp_source.html#l00044">44</a> of file <a class="el" href="SkinningComponent_8cpp_source.html">SkinningComponent.cpp</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Engine_1_1Scene_a065a86e926a88bd772aa9e87d0858b26_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a322f8e7f324be84b353bc237ca83ea16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a322f8e7f324be84b353bc237ca83ea16">&#9670;&nbsp;</a></span>bitangentName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ra::Engine::Scene::bitangentName = <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad22c7cbacae9e25437341a8a42c5b5bd">Data::Mesh::getAttribName</a>( <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fafd45357c1d5dd5d1a28160e2d447c42d">Data::Mesh::VERTEX_BITANGENT</a> )</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SkinningComponent_8cpp_source.html#l00042">42</a> of file <a class="el" href="SkinningComponent_8cpp_source.html">SkinningComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad8d343f5cbcbfef644548b906277f0ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8d343f5cbcbfef644548b906277f0ee">&#9670;&nbsp;</a></span>tangentName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ra::Engine::Scene::tangentName = <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad22c7cbacae9e25437341a8a42c5b5bd">Data::Mesh::getAttribName</a>( <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa3ba579a4050a38f4dcdf307a1d23254b">Data::Mesh::VERTEX_TANGENT</a> )</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="SkinningComponent_8cpp_source.html#l00041">41</a> of file <a class="el" href="SkinningComponent_8cpp_source.html">SkinningComponent.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Scene.html">Scene</a></li>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:39 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:28 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

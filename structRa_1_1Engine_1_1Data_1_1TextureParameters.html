@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -155,7 +155,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Describes the content and parameters of a texture. This structures encapsulates all the states used for creating an OpenGL texture. These parameters describe the image data of the texture :</p><ul>
 <li>target, width, height, depth, format, internalFormat, type and texels for describing image data</li>
-<li>wrapS, wrapT, wrapP, minfilter and magFilter for describing the sampler of the texture.</li>
+<li>wrapS, wrapT, wrapP, minFilter and magFilter for describing the sampler of the texture.</li>
 </ul>
 <p>When one wants to create a texture, the first thing to do is to create and fill a <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> parameter structure that will describe the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>.</p>
 <p>The <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> creation could be done either using the <a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">TextureManager</a> or directly on the client class/function.</p>
@@ -320,16 +320,16 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>External data (ownership is left to caller, not stored after OpenGL texture creation). Note that, for cubmap texture, this is considered as a "void*[6]" array containing the 6 faces of the cube corresponding to the targets. <br  />
+<p>External data (ownership is left to caller, not stored after OpenGL texture creation). Note that, for cube-map texture, this is considered as a "void*[6]" array containing the 6 faces of the cube corresponding to the targets. <br  />
  texels[0] &lt;&ndash; GL_TEXTURE_CUBE_MAP_POSITIVE_X <br  />
  texels[1] &lt;&ndash; GL_TEXTURE_CUBE_MAP_NEGATIVE_X <br  />
  texels[2] &lt;&ndash; GL_TEXTURE_CUBE_MAP_POSITIVE_Y <br  />
  texels[3] &lt;&ndash; GL_TEXTURE_CUBE_MAP_NEGATIVE_Y <br  />
  texels[4] &lt;&ndash; GL_TEXTURE_CUBE_MAP_POSITIVE_Z <br  />
  texels[5] &lt;&ndash; GL_TEXTURE_CUBE_MAP_NEGATIVE_Z <br  />
- </p>
+ </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000043">Todo:</a></b></dt><dd>memory allocated for this pointer might be lost at texture deletion as ownership is unclear. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00078">78</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00080">80</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -432,7 +432,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Data</a></li><li class="navelem"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a></li>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:39 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:27 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

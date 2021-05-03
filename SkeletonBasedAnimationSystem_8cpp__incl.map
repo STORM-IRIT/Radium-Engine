@@ -1,0 +1,62 @@
+<map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Scene/SkeletonBasedAnimationSystem.cpp" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Scene/SkeletonBasedAnimationSystem.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="4220,5,4528,76"/>
+<area shape="rect" id="node2" href="$SkeletonBasedAnimationSystem_8hpp.html" title=" " alt="" coords="4269,199,4479,240"/>
+<area shape="rect" id="node11" title=" " alt="" coords="4303,370,4362,397"/>
+<area shape="rect" id="node16" href="$FileData_8hpp.html" title=" " alt="" coords="4081,124,4259,151"/>
+<area shape="rect" id="node21" href="$Math_8hpp.html" title=" " alt="" coords="5153,452,5307,479"/>
+<area shape="rect" id="node33" href="$Resources_8hpp.html" title=" " alt="" coords="2552,206,2775,233"/>
+<area shape="rect" id="node35" href="$Task_8hpp.html" title=" " alt="" coords="4719,206,4872,233"/>
+<area shape="rect" id="node37" href="$TaskQueue_8hpp.html" title=" " alt="" coords="270,288,465,315"/>
+<area shape="rect" id="node42" href="$Texture_8hpp.html" title=" " alt="" coords="5426,288,5607,315"/>
+<area shape="rect" id="node43" href="$TextureManager_8hpp.html" title=" " alt="" coords="5461,206,5698,233"/>
+<area shape="rect" id="node44" href="$FrameInfo_8hpp.html" title=" " alt="" coords="5476,124,5640,151"/>
+<area shape="rect" id="node45" href="$RadiumEngine_8hpp.html" title=" " alt="" coords="2042,288,2234,315"/>
+<area shape="rect" id="node49" href="$SkeletonComponent_8hpp.html" title=" " alt="" coords="2155,206,2427,233"/>
+<area shape="rect" id="node53" href="$SkinningComponent_8hpp.html" title=" " alt="" coords="1342,124,1614,151"/>
+<area shape="rect" id="node3" href="$ItemEntry_8hpp.html" title=" " alt="" coords="4717,288,4919,315"/>
+<area shape="rect" id="node14" href="$System_8hpp.html" title=" " alt="" coords="3793,288,3984,315"/>
+<area shape="rect" id="node4" href="$RaEngine_8hpp.html" title=" " alt="" coords="5309,370,5468,397"/>
+<area shape="rect" id="node8" href="$Index_8hpp.html" title=" " alt="" coords="2233,370,2387,397"/>
+<area shape="rect" id="node12" title=" " alt="" coords="2991,370,3053,397"/>
+<area shape="rect" id="node13" href="$ItemEntry_8inl.html" title=" " alt="" coords="4721,370,4915,397"/>
+<area shape="rect" id="node5" href="$CoreMacros_8hpp.html" title=" " alt="" coords="4103,601,4264,628"/>
+<area shape="rect" id="node7" href="$OpenGL_8hpp.html" title=" " alt="" coords="5595,452,5745,479"/>
+<area shape="rect" id="node6" title=" " alt="" coords="1445,676,1509,703"/>
+<area shape="rect" id="node9" href="$RaCore_8hpp.html" title=" " alt="" coords="2957,527,3087,553"/>
+<area shape="rect" id="node10" title=" " alt="" coords="2281,452,2339,479"/>
+<area shape="rect" id="node15" title=" " alt="" coords="3717,370,3794,397"/>
+<area shape="rect" id="node17" href="$FileData_8inl.html" title=" " alt="" coords="4023,206,4194,233"/>
+<area shape="rect" id="node18" href="$AnimationData_8hpp.html" title=" " alt="" coords="3121,288,3344,315"/>
+<area shape="rect" id="node26" href="$CameraData_8hpp.html" title=" " alt="" coords="4008,288,4215,315"/>
+<area shape="rect" id="node27" href="$GeometryData_8hpp.html" title=" " alt="" coords="2877,288,3097,315"/>
+<area shape="rect" id="node28" href="$HandleData_8hpp.html" title=" " alt="" coords="2549,288,2751,315"/>
+<area shape="rect" id="node29" href="$LightData_8hpp.html" title=" " alt="" coords="4239,288,4426,315"/>
+<area shape="rect" id="node31" href="$VolumeData_8hpp.html" title=" " alt="" coords="5096,288,5300,315"/>
+<area shape="rect" id="node32" href="$Log_8hpp.html" title=" " alt="" coords="4551,288,4693,315"/>
+<area shape="rect" id="node19" href="$KeyFramedValue_8hpp.html" title=" " alt="" coords="2665,363,2865,404"/>
+<area shape="rect" id="node20" title=" " alt="" coords="2802,452,2853,479"/>
+<area shape="rect" id="node25" href="$Types_8hpp.html" title=" " alt="" coords="2516,452,2637,479"/>
+<area shape="rect" id="node22" title=" " alt="" coords="5222,527,5307,553"/>
+<area shape="rect" id="node23" title=" " alt="" coords="4964,527,5027,553"/>
+<area shape="rect" id="node24" href="$Math_8inl.html" title=" " alt="" coords="5051,527,5198,553"/>
+<area shape="rect" id="node30" href="$Color_8hpp.html" title=" " alt="" coords="5129,370,5280,397"/>
+<area shape="rect" id="node34" href="$StdOptional_8hpp.html" title=" " alt="" coords="1538,288,1733,315"/>
+<area shape="rect" id="node36" title=" " alt="" coords="3631,288,3717,315"/>
+<area shape="rect" id="node38" title=" " alt="" coords="45,370,188,397"/>
+<area shape="rect" id="node39" title=" " alt="" coords="212,370,275,397"/>
+<area shape="rect" id="node40" title=" " alt="" coords="299,370,363,397"/>
+<area shape="rect" id="node41" href="$Timer_8hpp.html" title=" " alt="" coords="259,452,414,479"/>
+<area shape="rect" id="node46" href="$Singleton_8hpp.html" title=" " alt="" coords="1793,370,1971,397"/>
+<area shape="rect" id="node47" title=" " alt="" coords="1996,370,2053,397"/>
+<area shape="rect" id="node48" title=" " alt="" coords="2078,370,2209,397"/>
+<area shape="rect" id="node50" href="$HandleWeight_8hpp.html" title=" " alt="" coords="1217,288,1464,315"/>
+<area shape="rect" id="node51" href="$Skeleton_8hpp.html" title=" " alt="" coords="1757,288,1967,315"/>
+<area shape="rect" id="node52" href="$Component_8hpp.html" title=" " alt="" coords="2309,288,2525,315"/>
+<area shape="rect" id="node54" href="$Pose_8hpp.html" title=" " alt="" coords="1006,288,1193,315"/>
+<area shape="rect" id="node55" href="$SkinningData_8hpp.html" title=" " alt="" coords="1157,206,1399,233"/>
+<area shape="rect" id="node56" href="$TriangleMesh_8hpp.html" title=" " alt="" coords="743,288,981,315"/>
+<area shape="rect" id="node57" href="$TopologicalMesh_8hpp.html" title=" " alt="" coords="683,199,881,240"/>
+<area shape="rect" id="node58" href="$DualQuaternion_8hpp.html" title=" " alt="" coords="539,370,761,397"/>
+<area shape="rect" id="node59" href="$Material_8hpp.html" title=" " alt="" coords="3369,288,3555,315"/>
+<area shape="rect" id="node60" href="$ComponentMessenger_8hpp.html" title=" " alt="" coords="2799,206,3085,233"/>
+</map>

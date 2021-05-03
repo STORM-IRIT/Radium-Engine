@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -125,46 +125,47 @@ $(document).ready(function(){initNavTree('AdjacencyList_8hpp_source.html',''); i
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"></span>    <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>();</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> n );</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>&amp; adj );</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// DESTRUCTOR</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"></span>    ~<a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// NODE</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"></span>    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> addRoot();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> addNode( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> parent );</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> pruneLeaves( std::vector&lt;uint&gt;&amp; pruned, std::vector&lt;bool&gt;&amp; delete_flag );</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> pruneLeaves();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Eigen::Matrix&lt;uint, 2, 1&gt;</a>&gt; extractEdgeList( <span class="keywordtype">bool</span> include_leaf = <span class="keyword">false</span> ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// SIZE</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment"></span>    <span class="keyword">inline</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> size() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> clear();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// QUERY</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment"></span>    ConsistencyStatus computeConsistencyStatus() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isEmpty() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isRoot( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isLeaf( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isBranch( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isJoint( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isEdge( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i, <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Adjacency</a>&amp; children() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">ParentList</a>&amp; parents() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">// VARIABLE</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment"></span>  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Adjacency</a> m_child;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">ParentList</a> m_parent;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">LevelList</a> m_level;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::ofstream&amp; <a class="code" href="namespaceRa_1_1Core.html#a371a08966c9812524a357b5e94952378">operator&lt;&lt;</a>( std::ofstream&amp; ofs, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>&amp; p );</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AdjacencyList_8inl.html">Core/Containers/AdjacencyList.inl</a>&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>&amp; ) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// DESTRUCTOR</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"></span>    ~<a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// NODE</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"></span>    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> addRoot();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> addNode( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> parent );</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> pruneLeaves( std::vector&lt;uint&gt;&amp; pruned, std::vector&lt;bool&gt;&amp; delete_flag );</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> pruneLeaves();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Eigen::Matrix&lt;uint, 2, 1&gt;</a>&gt; extractEdgeList( <span class="keywordtype">bool</span> include_leaf = <span class="keyword">false</span> ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// SIZE</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"></span>    <span class="keyword">inline</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> size() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> clear();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// QUERY</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment"></span>    ConsistencyStatus computeConsistencyStatus() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isEmpty() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isRoot( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isLeaf( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isBranch( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isJoint( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isEdge( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i, <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Adjacency</a>&amp; children() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">ParentList</a>&amp; parents() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">// VARIABLE</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment"></span>  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Adjacency</a> m_child;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">ParentList</a> m_parent;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">LevelList</a> m_level;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;};</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::ofstream&amp; <a class="code" href="namespaceRa_1_1Core.html#a371a08966c9812524a357b5e94952378">operator&lt;&lt;</a>( std::ofstream&amp; ofs, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html">AdjacencyList</a>&amp; p );</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AdjacencyList_8inl.html">Core/Containers/AdjacencyList.inl</a>&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
@@ -182,7 +183,7 @@ $(document).ready(function(){initNavTree('AdjacencyList_8hpp_source.html',''); i
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_1456dd235032e023892318efbecb420b.html">Containers</a></li><li class="navelem"><a class="el" href="AdjacencyList_8hpp.html">AdjacencyList.hpp</a></li>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:36 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:25 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

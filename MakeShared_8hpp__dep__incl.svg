@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 1514;
+var viewWidth = 1703;
 var viewHeight = 328;
 var sectionId = 'dynsection-1';
 </script>
@@ -54,16 +54,16 @@ var sectionId = 'dynsection-1';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Containers/MakeShared.hpp</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-324 1510,-324 1510,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-324 1699,-324 1699,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="630.5,-267.5 630.5,-319.5 822.5,-319.5 822.5,-267.5 630.5,-267.5"/>
-<text text-anchor="start" x="638.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="638.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="638.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Containers</text>
-<text text-anchor="middle" x="726.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MakeShared.hpp</text>
+<polygon fill="#bfbfbf" stroke="black" points="687.5,-267.5 687.5,-319.5 879.5,-319.5 879.5,-267.5 687.5,-267.5"/>
+<text text-anchor="start" x="695.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="695.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="695.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Core/Containers</text>
+<text text-anchor="middle" x="783.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MakeShared.hpp</text>
 </a>
 </g>
 </g>
@@ -82,8 +82,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M620.04,-287.06C505.01,-279.78 316.8,-263.77 157.5,-231 154.84,-230.45 152.15,-229.86 149.44,-229.22"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="620.05,-290.57 630.25,-287.7 620.48,-283.58 620.05,-290.57"/>
+<path fill="none" stroke="midnightblue" d="M677.08,-288.53C551.76,-282.37 337.8,-267.17 157.5,-231 154.84,-230.47 152.14,-229.88 149.43,-229.26"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="677.28,-292.04 687.44,-289.03 677.62,-285.05 677.28,-292.04"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -100,8 +100,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M620.09,-277.01C546.6,-265.74 446.76,-249.3 359.5,-231 356.4,-230.35 353.26,-229.67 350.08,-228.97"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="619.87,-280.52 630.28,-278.56 620.92,-273.6 619.87,-280.52"/>
+<path fill="none" stroke="midnightblue" d="M677.41,-280.2C591.33,-269.48 467.06,-252.32 359.5,-231 356.4,-230.38 353.24,-229.73 350.06,-229.06"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="677.1,-283.69 687.46,-281.44 677.96,-276.74 677.1,-283.69"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -118,8 +118,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M636.36,-264.39C601.07,-253.39 560.94,-240.87 526.78,-230.22"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="635.59,-267.82 646.18,-267.45 637.67,-261.13 635.59,-267.82"/>
+<path fill="none" stroke="midnightblue" d="M677.48,-266.15C634.86,-255.43 585.3,-242.81 540.5,-231 535.97,-229.81 531.31,-228.57 526.62,-227.31"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="676.75,-269.58 687.3,-268.62 678.46,-262.79 676.75,-269.58"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
@@ -136,8 +136,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M622.9,-263.23C605.28,-254.89 588.26,-244.32 574.5,-231 547.51,-204.86 509.58,-100.97 492.91,-52.57"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="621.6,-266.49 632.16,-267.39 624.47,-260.1 621.6,-266.49"/>
+<path fill="none" stroke="midnightblue" d="M677.27,-279.7C641.28,-270.88 603.02,-256.03 574.5,-231 546.26,-206.22 508.98,-101.62 492.7,-52.8"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="676.82,-283.19 687.35,-282.03 678.4,-276.37 676.82,-283.19"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
@@ -154,8 +154,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M704.5,-258.93C698.33,-249.51 691.74,-239.44 685.95,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="701.61,-260.89 710.01,-267.34 707.46,-257.05 701.61,-260.89"/>
+<path fill="none" stroke="midnightblue" d="M742.51,-261.22C729.34,-251.16 714.92,-240.16 702.4,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="740.45,-264.05 750.53,-267.34 744.7,-258.49 740.45,-264.05"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node">
@@ -172,8 +172,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node8 -->
 <g id="edge13" class="edge">
 <title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M748.55,-258.67C754.01,-249.8 759.67,-240.16 764.5,-231 797.36,-168.63 829.11,-91.76 844.63,-52.77"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="745.54,-256.89 743.2,-267.22 751.47,-260.6 745.54,-256.89"/>
+<path fill="none" stroke="midnightblue" d="M787.78,-257.32C790.93,-234.5 795.84,-204.25 802.5,-178 813.93,-132.99 832.75,-82.24 844.34,-52.67"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="784.31,-256.86 786.45,-267.23 791.25,-257.78 784.31,-256.86"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
@@ -190,8 +190,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node10 -->
 <g id="edge11" class="edge">
 <title>Node1&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M782.8,-262.64C802.46,-252.2 824.31,-240.61 843.17,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="781.13,-259.56 773.94,-267.34 784.41,-265.74 781.13,-259.56"/>
+<path fill="none" stroke="midnightblue" d="M822.32,-260.93C834.59,-250.96 847.98,-240.07 859.62,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="820,-258.31 814.45,-267.34 824.42,-263.74 820,-258.31"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
@@ -208,44 +208,62 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node11 -->
 <g id="edge12" class="edge">
 <title>Node1&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M832.38,-268.12C877.56,-257.34 930.77,-244.14 978.5,-231 981.26,-230.24 984.07,-229.45 986.9,-228.64"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="831.49,-264.73 822.57,-270.45 833.11,-271.54 831.49,-264.73"/>
+<path fill="none" stroke="midnightblue" d="M873.23,-264.42C909.9,-252.94 951.83,-239.82 986.79,-228.88"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="872.03,-261.13 863.54,-267.45 874.13,-267.81 872.03,-261.13"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
-<g id="a_node12"><a xlink:href="Gizmo_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1154,-178.5 1154,-230.5 1321,-230.5 1321,-178.5 1154,-178.5"/>
-<text text-anchor="start" x="1162" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1162" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1162" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="1237.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/Gizmo.cpp</text>
+<g id="a_node12"><a xlink:href="SkeletonComponent_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1154.5,-178.5 1154.5,-230.5 1324.5,-230.5 1324.5,-178.5 1154.5,-178.5"/>
+<text text-anchor="start" x="1162.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1162.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1162.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="1239.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SkeletonComponent.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node12 -->
 <g id="edge14" class="edge">
 <title>Node1&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M832.72,-280.62C917.81,-270.22 1039.97,-253.28 1145.5,-231 1148.26,-230.42 1151.05,-229.8 1153.87,-229.16"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="832.3,-277.15 822.79,-281.83 833.14,-284.1 832.3,-277.15"/>
+<path fill="none" stroke="midnightblue" d="M889.69,-277.23C962.11,-266.13 1060.02,-249.81 1145.5,-231 1148.39,-230.36 1151.32,-229.7 1154.28,-229"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="889,-273.79 879.64,-278.76 890.05,-280.71 889,-273.79"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
-<g id="a_node13"><a xlink:href="Viewer_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1339,-178.5 1339,-230.5 1506,-230.5 1506,-178.5 1339,-178.5"/>
-<text text-anchor="start" x="1347" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1347" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1347" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
-<text text-anchor="middle" x="1422.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Viewer.cpp</text>
+<g id="a_node13"><a xlink:href="Gizmo_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1343,-178.5 1343,-230.5 1510,-230.5 1510,-178.5 1343,-178.5"/>
+<text text-anchor="start" x="1351" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1351" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1351" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="1426.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Gizmo/Gizmo.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node13 -->
 <g id="edge15" class="edge">
 <title>Node1&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M832.7,-287.13C953.95,-279.74 1157.83,-263.48 1330.5,-231 1333.27,-230.48 1336.08,-229.91 1338.9,-229.32"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="832.45,-283.64 822.67,-287.73 832.87,-290.62 832.45,-283.64"/>
+<path fill="none" stroke="midnightblue" d="M889.79,-285.56C1001.11,-277.15 1180.69,-260.31 1333.5,-231 1336.62,-230.4 1339.8,-229.75 1342.99,-229.06"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="889.28,-282.09 879.57,-286.33 889.8,-289.07 889.28,-282.09"/>
+</g>
+<!-- Node14 -->
+<g id="node14" class="node">
+<title>Node14</title>
+<g id="a_node14"><a xlink:href="Viewer_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1528,-178.5 1528,-230.5 1695,-230.5 1695,-178.5 1528,-178.5"/>
+<text text-anchor="start" x="1536" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1536" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1536" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Viewer</text>
+<text text-anchor="middle" x="1611.5" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Viewer.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node14 -->
+<g id="edge16" class="edge">
+<title>Node1&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M889.66,-289.85C1033.44,-284.85 1297.62,-270.66 1519.5,-231 1522.27,-230.5 1525.08,-229.96 1527.92,-229.38"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="889.39,-286.36 879.51,-290.2 889.63,-293.35 889.39,-286.36"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">

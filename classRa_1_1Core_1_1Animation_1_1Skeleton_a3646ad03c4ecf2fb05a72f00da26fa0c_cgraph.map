@@ -1,0 +1,9 @@
+<map id="Ra::Core::Animation::Skeleton::projectOnBone" name="Ra::Core::Animation::Skeleton::projectOnBone">
+<area shape="rect" id="node1" title="Projects point pos, given in Model Space, onto the bone with index boneIdx." alt="" coords="5,57,196,98"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="255,5,421,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a8c7b89d8b68d4b42174bc3e377fdd8fa" title=" " alt="" coords="244,57,432,98"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="257,123,419,149"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1AdjacencyList.html#afb228941d27a01e44071d404e8b58aa4" title=" " alt="" coords="480,23,655,65"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253" title="Return true if the node is a leaf node." alt="" coords="480,89,655,130"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="703,89,877,130"/>
+</map>

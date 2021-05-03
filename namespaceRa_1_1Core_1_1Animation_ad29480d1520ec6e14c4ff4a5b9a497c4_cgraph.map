@@ -1,0 +1,13 @@
+<map id="Ra::Core::Animation::dualQuaternionSkinning" name="Ra::Core::Animation::dualQuaternionSkinning">
+<area shape="rect" id="node1" title="Applies Dual&#45;Quaternion skinning to the current frame." alt="" coords="5,187,192,229"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Animation.html#a503173d23c757d1de7fcaa87553c8ead" title="Computes the per&#45;vertex dual quaternion." alt="" coords="247,49,399,90"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759" title=" " alt="" coords="247,114,399,155"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="240,180,407,236"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3" title=" " alt="" coords="247,261,399,302"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="240,327,407,383"/>
+<area shape="rect" id="node3" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="503,5,623,32"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="486,56,639,83"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0" title=" " alt="" coords="477,107,649,133"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title=" " alt="" coords="719,56,893,83"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="455,261,671,302"/>
+</map>

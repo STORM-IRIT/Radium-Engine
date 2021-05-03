@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -124,8 +124,8 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a1c9efc93971f69ed8f3554ec45b43cfe">Ra::Gui::Viewer</a>
 </li>
 <li>m_bindMatrices
-: <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#a15b12f701bb7101734eeb59cd3cbfe29">Ra::Core::Asset::HandleComponentData</a>
-, <a class="el" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a6d342658fa9e6cf5b807a4b1732a89f9">Ra::Core::Skinning::RefData</a>
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#aea33faf9757c25d0034191916c1b3617">Ra::Core::Animation::SkinningRefData</a>
+, <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#a15b12f701bb7101734eeb59cd3cbfe29">Ra::Core::Asset::HandleComponentData</a>
 </li>
 <li>m_bitangent
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#af703576ee787bd2a97d2ed4d382fbe74">Ra::Core::Asset::GeometryData</a>
@@ -188,7 +188,7 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a4d29083479f7f8723ee6b7a3a7484395">Ra::Gui::BaseApplication</a>
 </li>
 <li>m_CoR
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a83991e3bad763b25818daa27f8f6c5a0">Ra::Core::Skinning::RefData</a>
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#acf79647a2d488d67ce6d586c439e8404">Ra::Core::Animation::SkinningRefData</a>
 </li>
 <li>m_core
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1IndicesUpdater.html#ab62c30410a5b12fde26a49fb26c6108d">Ra::Engine::Rendering::IndicesUpdater&lt; CoreGeometry &gt;</a>
@@ -197,20 +197,23 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_cpu_indices
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html#a0cfffa4c3d3d54729b2b26f9e3782d1e">Ra::Engine::Data::IndexedAttribArrayDisplayable&lt; I &gt;</a>
 </li>
+<li>m_currentBitangent
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#a47b5cccfb5377ff72148e9a1c0acaf90">Ra::Core::Animation::SkinningFrameData</a>
+</li>
 <li>m_currentEdit
 : <a class="el" href="classRa_1_1Gui_1_1TransformEditor.html#a274c60848e0b76599b8b5634ed3e31b2">Ra::Gui::TransformEditor</a>
 </li>
 <li>m_currentNormal
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#a5dbfced6353aa3cfb2e280f3e2193179">Ra::Core::Skinning::FrameData</a>
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab0e08e0323281b7ab94ed3431383021c">Ra::Core::Animation::SkinningFrameData</a>
 </li>
-<li>m_currentPos
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#ac92404df1c777a11868a7770d88abca3">Ra::Core::Skinning::FrameData</a>
-</li>
-<li>m_currentPose
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#ac92da3789cd3b27b5df668140ac2c573">Ra::Core::Skinning::FrameData</a>
+<li>m_currentPosition
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab129074abae3c0910bf30bdb5490c86e">Ra::Core::Animation::SkinningFrameData</a>
 </li>
 <li>m_currentRenderer
 : <a class="el" href="classRa_1_1Gui_1_1Viewer.html#ad85783f5b9a617b5cdfafa5d78cb1f39">Ra::Gui::Viewer</a>
+</li>
+<li>m_currentTangent
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#a3b32a1c0acf4b542d3ee1711ea294aff">Ra::Core::Animation::SkinningFrameData</a>
 </li>
 <li>m_data
 : <a class="el" href="classRa_1_1Core_1_1Grid.html#ac85d69028f7262936e226ed92d2b87fd">Ra::Core::Grid&lt; T, D &gt;</a>
@@ -244,10 +247,10 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#aec03675d675074abd0e41d3dee92d01b">Ra::Gui::TrackballCameraManipulator</a>
 </li>
 <li>m_doReset
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#a64d3b28d90c265ea6c0de459c6e1a010">Ra::Core::Skinning::FrameData</a>
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#afdec7e3d9cf263036dc8bd861731c037">Ra::Core::Animation::SkinningFrameData</a>
 </li>
 <li>m_doSkinning
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#ad4c782e75c75c51cc513d87f5869b5fc">Ra::Core::Skinning::FrameData</a>
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#a227d4786f4255121bad516b1af345341">Ra::Core::Animation::SkinningFrameData</a>
 </li>
 <li>m_drawDebug
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1b0da4588cd7bdfe63f4bb3f8b23e7b7">Ra::Engine::Rendering::Renderer</a>
@@ -338,7 +341,7 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a62590cb32a648351b33d3571d324e8e8">Ra::Gui::BaseApplication</a>
 </li>
 <li>m_frameCounter
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#a72fb76596c13920c88bf2453b0361672">Ra::Core::Skinning::FrameData</a>
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#a4778bf305a715938205e4976bbe27ed3">Ra::Core::Animation::SkinningFrameData</a>
 , <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a5968478ead2e7db915361ea493385ccc">Ra::Gui::BaseApplication</a>
 </li>
 <li>m_frameEndCallbacks
@@ -360,7 +363,7 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">Ra::Gui::WindowQt</a>
 </li>
 <li>m_graph
-: <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#aa124dd7fa0e76a91693801682bac8718">Ra::Core::Animation::Skeleton</a>
+: <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a830e12404b138dced44acd9bb6d3e465">Ra::Core::Animation::Skeleton</a>
 </li>
 <li>m_handleData
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a49d2c5360ca4f4a777429f5f32f3966a">Ra::Core::Asset::FileData</a>
@@ -481,6 +484,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_mainWindow
 : <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a05e5c3fec95387d7c83671afa24acfa1">Ra::Gui::BaseApplication</a>
 </li>
+<li>m_manipulation
+: <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#abba5e6507a9a7630e532d098ab2a60d8">Ra::Core::Animation::Skeleton</a>
+</li>
 <li>m_mapCameraBahaviourToAabb
 : <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a31102b2e3d599001f824da47dfd10916">Ra::Gui::CameraManipulator</a>
 </li>
@@ -492,6 +498,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_mesh
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a82d54406f4a5911c28b0ab004697786d">Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;</a>
+</li>
+<li>m_meshTransformInverse
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#a9a372d341d2de95d9df2a452efe763cf">Ra::Core::Animation::SkinningRefData</a>
 </li>
 <li>m_mode
 : <a class="el" href="structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html#a4c76e046246980d17f031df0d8e5c15d">Ra::Engine::Rendering::Renderer::PickingQuery</a>
@@ -588,15 +597,6 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_postprocessFbo
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a564839affe669c634da20570da00d4d1">Ra::Engine::Rendering::ForwardRenderer</a>
 </li>
-<li>m_previousPos
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#a14ab94ba89fc270eb93027a61bc07f99">Ra::Core::Skinning::FrameData</a>
-</li>
-<li>m_previousPose
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#a9dec4484da5370cdf36b2f3607c8c2df">Ra::Core::Skinning::FrameData</a>
-</li>
-<li>m_prevToCurrentRelPose
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#ae1788735ea40b5c678ffb0ed89e9bbf9">Ra::Core::Skinning::FrameData</a>
-</li>
 <li>m_prj
 : <a class="el" href="structRa_1_1Core_1_1Animation_1_1BulgeCorrectionData.html#a4d0ebae95ab49603f28056f94e805de6">Ra::Core::Animation::BulgeCorrectionData</a>
 </li>
@@ -631,13 +631,7 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a44f6cefbfc79dc8572511e3284ea9731">Ra::Gui::BaseApplication</a>
 </li>
 <li>m_referenceMesh
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a80426d3d097901f4596c939d75ecc712">Ra::Core::Skinning::RefData</a>
-</li>
-<li>m_refPose
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a89fffddc14dcde363c9f1f2dc3021ad8">Ra::Core::Skinning::RefData</a>
-</li>
-<li>m_refToCurrentRelPose
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1FrameData.html#aa88359198d80ed69c3a00ddcff09d5d0">Ra::Core::Skinning::FrameData</a>
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#af21bf62cf7f52cefbfbf657865e80597">Ra::Core::Animation::SkinningRefData</a>
 </li>
 <li>m_renderAsSplat
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a0fed73d9efd1eea8fde5d8d1b2583d55">Ra::Engine::Data::BlinnPhongMaterial</a>
@@ -720,7 +714,8 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classRa_1_1Core_1_1Grid.html#a0d9cd50f1f4a9ffe702f0f808f9a4f38">Ra::Core::Grid&lt; T, D &gt;</a>
 </li>
 <li>m_skeleton
-: <a class="el" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#abaabe4b513c63f93cb9ed7f8b9085c52">Ra::Core::Skinning::RefData</a>
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#aa6b1895eb133356c52f0e0bcb2723484">Ra::Core::Animation::SkinningFrameData</a>
+, <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#ad5af0e14f662ce7368936aa0877ad15c">Ra::Core::Animation::SkinningRefData</a>
 </li>
 <li>m_specular
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a659627947794a4bf79524b94d6c0093d">Ra::Core::Asset::BlinnPhongMaterialData</a>
@@ -881,8 +876,11 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a97836f97c8b8673ae4203226e4ec5810">Ra::Engine::Rendering::ForwardRenderer</a>
 </li>
 <li>m_weights
-: <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#a9b26362082179b1b0b4bbb2f6bdc4887">Ra::Core::Asset::HandleComponentData</a>
-, <a class="el" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a62204786816cf5e53fef81b3f28f1b5b">Ra::Core::Skinning::RefData</a>
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#ae1377701feb2454d6cbd671ac10555f7">Ra::Core::Animation::SkinningRefData</a>
+, <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#a9b26362082179b1b0b4bbb2f6bdc4887">Ra::Core::Asset::HandleComponentData</a>
+</li>
+<li>m_weightSTBS
+: <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#a48793a30ffc8b29f99464594622e5170">Ra::Core::Animation::SkinningRefData</a>
 </li>
 <li>m_wheelSpeedModifier
 : <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a8760bbc7145f2ebbc85a8e77a2da4033">Ra::Gui::CameraManipulator</a>
@@ -936,7 +934,7 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:40 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:28 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

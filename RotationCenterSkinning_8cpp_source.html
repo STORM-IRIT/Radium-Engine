@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -103,294 +103,335 @@ $(document).ready(function(){initNavTree('RotationCenterSkinning_8cpp_source.htm
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="HandleWeight_8hpp.html">Core/Animation/HandleWeight.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="LinearBlendSkinning_8hpp.html">Core/Animation/LinearBlendSkinning.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Pose_8hpp.html">Core/Animation/Pose.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TopologicalMesh_8hpp.html">Core/Geometry/TopologicalMesh.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TriangleOperation_8hpp.html">Core/Geometry/TriangleOperation.hpp</a>&gt;</span> <span class="comment">// triangleArea</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Animation {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">using namespace </span>Utils; <span class="comment">// log</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">   20</a></span>&#160;<a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">weightSimilarity</a>( <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt;&amp; v1w,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                         <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt;&amp; v2w,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                         <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma ) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigmaSq = sigma * sigma;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> result = 0;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment">// Iterating over non zero coefficients</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">for</span> ( Eigen::SparseVector&lt;Scalar&gt;::InnerIterator it1( v1w ); it1; ++it1 )</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j      = it1.index();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; W1j = it1.value();              <span class="comment">// This one is necessarily non zero</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; W2j = v2w.coeff( it1.index() ); <span class="comment">// This one may be 0.</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> ( W2j &gt; 0 )</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">for</span> ( Eigen::SparseVector&lt;Scalar&gt;::InnerIterator it2( v2w ); it2; ++it2 )</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k      = it2.index();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; W1k = v1w.coeff( it2.index() );</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; W2k = it2.value();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                <span class="keywordflow">if</span> ( j != k &amp;&amp; W1k &gt; 0 )</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> diff =</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                        std::exp( -Math::ipow&lt;2&gt;( ( W1j * W2k ) - ( W1k * W2j ) ) / ( sigmaSq ) );</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                    result += W1j * W1k * W2j * W2k * diff;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#a40700cdabdd47fdb360f6bbfe692b36d">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a40700cdabdd47fdb360f6bbfe692b36d">computeCoR</a>( <a class="code" href="structRa_1_1Core_1_1Skinning_1_1RefData.html">Skinning::RefData</a>&amp; dataInOut, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> weightEpsilon ) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Precomputing CoRs&quot;</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// First step : subdivide the original mesh until weights are sufficiently close enough.</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// convert the mesh to TopologicalMesh for easy processing.</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Geometry::TriangleMesh</a> triMesh;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    triMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a240c93af3b90a3b019c9ef01f7cb2f7b">copy</a>( dataInOut.<a class="code" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a80426d3d097901f4596c939d75ecc712">m_referenceMesh</a> );</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Geometry::TopologicalMesh</a> topoMesh( triMesh );</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">// hashing function for Vector3</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">struct </span><a class="code" href="structRa_1_1Core_1_1Geometry_1_1hash__vec.html">hash_vec</a> {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">size_t</span> operator()( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>&amp; lvalue )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordtype">size_t</span> hx = std::hash&lt;Scalar&gt;()( lvalue[0] );</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordtype">size_t</span> hy = std::hash&lt;Scalar&gt;()( lvalue[1] );</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordtype">size_t</span> hz = std::hash&lt;Scalar&gt;()( lvalue[2] );</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">return</span> ( hx ^ ( hy &lt;&lt; 1 ) ) ^ hz;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    };</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// fill map from vertex position to handle index, used to access the weight</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// matrix from initial mesh vertices</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::unordered_map&lt;Ra::Core::Vector3, int, hash_vec&gt; mapV2I;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> vit = topoMesh.vertices_begin(); vit != topoMesh.vertices_end(); ++vit )</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        mapV2I[topoMesh.point( *vit )] = vit-&gt;idx();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// Squash weight matrix to fit TopologicalMesh (access through handle indices)</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="comment">// Store the weights as row major here because we are going to query the per-vertex weights.</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    Eigen::SparseMatrix&lt;Scalar, Eigen::RowMajor&gt; subdivW;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> numCols = dataInOut.<a class="code" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a62204786816cf5e53fef81b3f28f1b5b">m_weights</a>.cols();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    subdivW.resize( topoMesh.n_vertices(), numCols );</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="classV.html">V</a> = triMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>();</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">for</span> ( std::size_t i = 0; i &lt; <a class="code" href="classV.html">V</a>.size(); ++i )</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        subdivW.row( mapV2I[<a class="code" href="classV.html">V</a>[i]] ) = dataInOut.<a class="code" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a62204786816cf5e53fef81b3f28f1b5b">m_weights</a>.row( <span class="keywordtype">int</span>( i ) );</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="comment">// The mesh will be subdivided by repeated edge-split, so that adjacent vertices</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="comment">// weights are distant of at most `weightEpsilon`.</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">// New vertices created by the edge splitting and their new weights are computed</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">// and appended to the existing vertices.</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> wEps2       = weightEpsilon * weightEpsilon;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> maxWeightDistance = 0;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        maxWeightDistance = 0;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="comment">// Stores the edges to split</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        std::vector&lt;Geometry::TopologicalMesh::EdgeHandle&gt; edgesToSplit;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="comment">// Compute all weights distances for all edges.</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span> e_it = topoMesh.edges_begin(); e_it != topoMesh.edges_end(); ++e_it )</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he0 = topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( *e_it, 0 );</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he1 = topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( *e_it, 1 );</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keywordtype">int</span> v0          = topoMesh.to_vertex_handle( he0 ).idx();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordtype">int</span> v1          = topoMesh.to_vertex_handle( he1 ).idx();</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> weightDistance = ( subdivW.row( v0 ) - subdivW.row( v1 ) ).squaredNorm();</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            maxWeightDistance = std::max( maxWeightDistance, weightDistance );</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">if</span> ( weightDistance &gt; wEps2 ) { edgesToSplit.push_back( *e_it ); }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Max weight distance is &quot;</span> &lt;&lt; sqrt( maxWeightDistance );</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="comment">// sort edges to split according to growing weightDistance to avoid</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="comment">// creating edges larger than weightDistance</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        std::sort(</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            edgesToSplit.begin(),</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            edgesToSplit.end(),</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            [&amp;topoMesh, &amp;subdivW]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; a, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; b ) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                const auto&amp; a0 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( a, 0 ) );</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                const auto&amp; a1 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( a, 1 ) );</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                Scalar la = ( subdivW.row( a0.idx() ) - subdivW.row( a1.idx() ) ).squaredNorm();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                const auto&amp; b0 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( b, 0 ) );</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                const auto&amp; b1 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( b, 1 ) );</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                Scalar lb = ( subdivW.row( b0.idx() ) - subdivW.row( b1.idx() ) ).squaredNorm();</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                return ( la &gt; lb );</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            } );</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="comment">// We found some edges over the limit, so we split them.</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">if</span> ( !edgesToSplit.empty() )</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        {</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Splitting &quot;</span> &lt;&lt; edgesToSplit.size() &lt;&lt; <span class="stringliteral">&quot; edges&quot;</span>;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordtype">int</span> startIndex = subdivW.rows();</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            Eigen::SparseMatrix&lt;Scalar, Eigen::RowMajor&gt; newWeights(</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                startIndex + edgesToSplit.size(), numCols );</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            newWeights.topRows( startIndex ) = subdivW;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            subdivW                          = newWeights;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="comment">// Split ALL the edges !</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; edge : edgesToSplit )</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                <span class="keywordtype">int</span> v0 = topoMesh.to_vertex_handle( topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( edge, 0 ) ).idx();</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                <span class="keywordtype">int</span> v1 = topoMesh.to_vertex_handle( topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( edge, 1 ) ).idx();</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5be06e9a973e79d487dad3e570fb5928">splitEdge</a>( edge, 0.5f );</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                subdivW.row( startIndex + i ) = 0.5f * ( subdivW.row( v0 ) + subdivW.row( v1 ) );</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                ++i;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        }</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    } <span class="keywordflow">while</span> ( maxWeightDistance &gt; wEps2 );</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( topoMesh.n_vertices() == <span class="keywordtype">size_t</span>( subdivW.rows() ),</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                 <span class="stringliteral">&quot;Weights and vertices don&#39;t match&quot;</span> );</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="comment">// Second step : evaluate the integrals over all triangles for all vertices.</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="comment">// naive implementation : iterate over all the triangles (of the subdivided mesh)</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="comment">// for all vertices (of the original mesh).</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> nVerts = <a class="code" href="classV.html">V</a>.size();</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    dataInOut.<a class="code" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a83991e3bad763b25818daa27f8f6c5a0">m_CoR</a>.clear();</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    dataInOut.<a class="code" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a83991e3bad763b25818daa27f8f6c5a0">m_CoR</a>.resize( nVerts, Vector3::Zero() );</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="comment">// first precompute triangle data</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    std::map&lt;Geometry::TopologicalMesh::FaceHandle,</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;             std::tuple&lt;Vector3, Scalar, Eigen::SparseVector&lt;Scalar&gt;&gt;&gt;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        triangleData;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> f_it = topoMesh.faces_begin(); f_it != topoMesh.faces_end(); ++f_it )</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    {</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="comment">// get needed data</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he0        = topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( *f_it );</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he1        = topoMesh.next_halfedge_handle( he0 );</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he2        = topoMesh.next_halfedge_handle( he1 );</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; v0         = topoMesh.to_vertex_handle( he0 );</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; v1         = topoMesh.to_vertex_handle( he1 );</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; v2         = topoMesh.to_vertex_handle( he2 );</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; p0         = topoMesh.point( v0 );</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; p1         = topoMesh.point( v1 );</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; p2         = topoMesh.point( v2 );</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> centroid = ( p0 + p1 + p2 ) / 3.f;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> area      = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a178f2b7309fe2ea5bc31a3abcb25368e">Geometry::triangleArea</a>( p0, p1, p2 );</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt; triWeight =</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            ( 1 / 3.f ) *</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            ( subdivW.row( v0.idx() ) + subdivW.row( v1.idx() ) + subdivW.row( v2.idx() ) );</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        triangleData[*f_it] = std::make_tuple( centroid, area, triWeight );</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    }</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classint.html">int</a>( nVerts ); ++i )</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    {</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> cor( 0, 0, 0 );</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sumweight                     = 0;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt; Wi = subdivW.row( mapV2I[<a class="code" href="classV.html">V</a>[i]] );</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="comment">// Sum the cor and weights over all triangles of the subdivided mesh.</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span> f_it = topoMesh.faces_begin(); f_it != topoMesh.faces_end(); ++f_it )</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        {</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; triData     = triangleData[*f_it];</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; centroid = std::get&lt;0&gt;( triData );</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> area             = std::get&lt;1&gt;( triData );</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; triWeight   = std::get&lt;2&gt;( triData );</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> s          = <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">weightSimilarity</a>( Wi, triWeight, sigma );</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            cor += s * area * centroid;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            sumweight += s * area;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        }</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <span class="comment">// Avoid division by 0</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        <span class="keywordflow">if</span> ( sumweight &gt; 0 ) { dataInOut.<a class="code" href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a83991e3bad763b25818daa27f8f6c5a0">m_CoR</a>[i] = cor / sumweight; }</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="preprocessor">#if defined CORE_DEBUG</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="keywordflow">if</span> ( i % 100 == 0 ) { <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;CoR: &quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; / &quot;</span> &lt;&lt; nVerts; }</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="preprocessor">#endif // CORE_DEBUG</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    }</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;}</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
-<div class="line"><a name="l00228"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#a6ed92a8ce349fc8e84c099d05ae0a35b">  228</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a6ed92a8ce349fc8e84c099d05ae0a35b">corSkinning</a>( <span class="keyword">const</span> Vector3Array&amp; input,</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                  <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Animation::Pose</a>&amp; pose,</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                  <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Animation::WeightMatrix</a>&amp; weight,</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                  <span class="keyword">const</span> Vector3Array&amp; CoR,</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                  Vector3Array&amp; output ) {</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> size = input.size();</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    output.resize( size );</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="SkinningData_8hpp.html">Core/Animation/SkinningData.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TopologicalMesh_8hpp.html">Core/Geometry/TopologicalMesh.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TriangleOperation_8hpp.html">Core/Geometry/TriangleOperation.hpp</a>&gt;</span> <span class="comment">// triangleArea</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>Animation {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">using namespace </span>Utils; <span class="comment">// log</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#a7e29ad918c37dcd14eee94f49c7ec300">   21</a></span>&#160;<a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a7e29ad918c37dcd14eee94f49c7ec300">weightSimilarity</a>( <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt;&amp; v1w,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                         <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt;&amp; v2w,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                         <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma ) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigmaSq = sigma * sigma;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> result = 0;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// Iterating over non zero coefficients</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">for</span> ( Eigen::SparseVector&lt;Scalar&gt;::InnerIterator it1( v1w ); it1; ++it1 )</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j      = it1.index();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; W1j = it1.value();              <span class="comment">// This one is necessarily non zero</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; W2j = v2w.coeff( it1.index() ); <span class="comment">// This one may be 0.</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> ( W2j &gt; 0 )</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordflow">for</span> ( Eigen::SparseVector&lt;Scalar&gt;::InnerIterator it2( v2w ); it2; ++it2 )</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k      = it2.index();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; W1k = v1w.coeff( it2.index() );</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; W2k = it2.value();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                <span class="keywordflow">if</span> ( j != k &amp;&amp; W1k &gt; 0 )</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> diff =</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                        std::exp( -Math::ipow&lt;2&gt;( ( W1j * W2k ) - ( W1k * W2j ) ) / ( sigmaSq ) );</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                    result += W1j * W1k * W2j * W2k * diff;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#ac01535127ca12dc01779f0df10185c6e">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#ac01535127ca12dc01779f0df10185c6e">computeCoR</a>( <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a>&amp; dataInOut, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> weightEpsilon ) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Precomputing CoRs&quot;</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// First step : subdivide the original mesh until weights are sufficiently close enough.</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="comment">// convert the mesh to TopologicalMesh for easy processing.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Geometry::TriangleMesh</a> triMesh;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    triMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a240c93af3b90a3b019c9ef01f7cb2f7b">copy</a>( dataInOut.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#af21bf62cf7f52cefbfbf657865e80597">m_referenceMesh</a> );</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Geometry::TopologicalMesh</a> topoMesh( triMesh );</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">// hashing function for Vector3</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">struct </span><a class="code" href="structRa_1_1Core_1_1Geometry_1_1hash__vec.html">hash_vec</a> {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordtype">size_t</span> operator()( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>&amp; lvalue )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordtype">size_t</span> hx = std::hash&lt;Scalar&gt;()( lvalue[0] );</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordtype">size_t</span> hy = std::hash&lt;Scalar&gt;()( lvalue[1] );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordtype">size_t</span> hz = std::hash&lt;Scalar&gt;()( lvalue[2] );</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">return</span> ( hx ^ ( hy &lt;&lt; 1 ) ) ^ hz;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    };</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// fill map from vertex position to handle index, used to access the weight</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment">// matrix from initial mesh vertices</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    std::unordered_map&lt;Ra::Core::Vector3, int, hash_vec&gt; mapV2I;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> vit = topoMesh.vertices_begin(); vit != topoMesh.vertices_end(); ++vit )</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        mapV2I[topoMesh.point( *vit )] = vit-&gt;idx();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="comment">// Squash weight matrix to fit TopologicalMesh (access through handle indices)</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="comment">// Store the weights as row major here because we are going to query the per-vertex weights.</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    Eigen::SparseMatrix&lt;Scalar, Eigen::RowMajor&gt; subdivW;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> numCols = dataInOut.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#ae1377701feb2454d6cbd671ac10555f7">m_weights</a>.cols();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    subdivW.resize( topoMesh.n_vertices(), numCols );</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="classV.html">V</a> = triMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">for</span> ( std::size_t i = 0; i &lt; <a class="code" href="classV.html">V</a>.size(); ++i )</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        subdivW.row( mapV2I[<a class="code" href="classV.html">V</a>[i]] ) = dataInOut.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#ae1377701feb2454d6cbd671ac10555f7">m_weights</a>.row( <span class="keywordtype">int</span>( i ) );</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="comment">// The mesh will be subdivided by repeated edge-split, so that adjacent vertices</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">// weights are distant of at most `weightEpsilon`.</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">// New vertices created by the edge splitting and their new weights are computed</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">// and appended to the existing vertices.</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> wEps2       = weightEpsilon * weightEpsilon;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> maxWeightDistance = 0;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        maxWeightDistance = 0;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="comment">// Stores the edges to split</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        std::vector&lt;Geometry::TopologicalMesh::EdgeHandle&gt; edgesToSplit;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="comment">// Compute all weights distances for all edges.</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span> e_it = topoMesh.edges_begin(); e_it != topoMesh.edges_end(); ++e_it )</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he0 = topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( *e_it, 0 );</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he1 = topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( *e_it, 1 );</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordtype">int</span> v0          = topoMesh.to_vertex_handle( he0 ).idx();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordtype">int</span> v1          = topoMesh.to_vertex_handle( he1 ).idx();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> weightDistance = ( subdivW.row( v0 ) - subdivW.row( v1 ) ).squaredNorm();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            maxWeightDistance = std::max( maxWeightDistance, weightDistance );</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">if</span> ( weightDistance &gt; wEps2 ) { edgesToSplit.push_back( *e_it ); }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Max weight distance is &quot;</span> &lt;&lt; sqrt( maxWeightDistance );</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="comment">// sort edges to split according to growing weightDistance to avoid</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="comment">// creating edges larger than weightDistance</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        std::sort(</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            edgesToSplit.begin(),</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            edgesToSplit.end(),</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            [&amp;topoMesh, &amp;subdivW]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; a, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; b ) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                const auto&amp; a0 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( a, 0 ) );</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                const auto&amp; a1 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( a, 1 ) );</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                Scalar la = ( subdivW.row( a0.idx() ) - subdivW.row( a1.idx() ) ).squaredNorm();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                const auto&amp; b0 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( b, 0 ) );</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                const auto&amp; b1 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( b, 1 ) );</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                Scalar lb = ( subdivW.row( b0.idx() ) - subdivW.row( b1.idx() ) ).squaredNorm();</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                return ( la &gt; lb );</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            } );</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="comment">// We found some edges over the limit, so we split them.</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">if</span> ( !edgesToSplit.empty() )</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Splitting &quot;</span> &lt;&lt; edgesToSplit.size() &lt;&lt; <span class="stringliteral">&quot; edges&quot;</span>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="keywordtype">int</span> startIndex = subdivW.rows();</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            Eigen::SparseMatrix&lt;Scalar, Eigen::RowMajor&gt; newWeights(</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                startIndex + edgesToSplit.size(), numCols );</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            newWeights.topRows( startIndex ) = subdivW;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            subdivW                          = newWeights;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="comment">// Split ALL the edges !</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; edge : edgesToSplit )</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            {</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                <span class="keywordtype">int</span> v0 = topoMesh.to_vertex_handle( topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( edge, 0 ) ).idx();</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                <span class="keywordtype">int</span> v1 = topoMesh.to_vertex_handle( topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( edge, 1 ) ).idx();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5be06e9a973e79d487dad3e570fb5928">splitEdge</a>( edge, 0.5f );</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                subdivW.row( startIndex + i ) = 0.5f * ( subdivW.row( v0 ) + subdivW.row( v1 ) );</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                ++i;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            }</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        }</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    } <span class="keywordflow">while</span> ( maxWeightDistance &gt; wEps2 );</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( topoMesh.n_vertices() == <span class="keywordtype">size_t</span>( subdivW.rows() ),</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                 <span class="stringliteral">&quot;Weights and vertices don&#39;t match&quot;</span> );</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="comment">// Second step : evaluate the integrals over all triangles for all vertices.</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="comment">// naive implementation : iterate over all the triangles (of the subdivided mesh)</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="comment">// for all vertices (of the original mesh).</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> nVerts = <a class="code" href="classV.html">V</a>.size();</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    dataInOut.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#acf79647a2d488d67ce6d586c439e8404">m_CoR</a>.clear();</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    dataInOut.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#acf79647a2d488d67ce6d586c439e8404">m_CoR</a>.resize( nVerts, Vector3::Zero() );</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="comment">// first precompute triangle data</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    std::map&lt;Geometry::TopologicalMesh::FaceHandle,</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;             std::tuple&lt;Vector3, Scalar, Eigen::SparseVector&lt;Scalar&gt;&gt;&gt;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        triangleData;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> f_it = topoMesh.faces_begin(); f_it != topoMesh.faces_end(); ++f_it )</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="comment">// get needed data</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he0        = topoMesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( *f_it );</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he1        = topoMesh.next_halfedge_handle( he0 );</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; he2        = topoMesh.next_halfedge_handle( he1 );</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; v0         = topoMesh.to_vertex_handle( he0 );</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; v1         = topoMesh.to_vertex_handle( he1 );</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; v2         = topoMesh.to_vertex_handle( he2 );</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; p0         = topoMesh.point( v0 );</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; p1         = topoMesh.point( v1 );</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; p2         = topoMesh.point( v2 );</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> centroid = ( p0 + p1 + p2 ) / 3.f;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> area      = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a178f2b7309fe2ea5bc31a3abcb25368e">Geometry::triangleArea</a>( p0, p1, p2 );</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt; triWeight =</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            ( 1 / 3.f ) *</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            ( subdivW.row( v0.idx() ) + subdivW.row( v1.idx() ) + subdivW.row( v2.idx() ) );</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        triangleData[*f_it] = std::make_tuple( centroid, area, triWeight );</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classint.html">int</a>( nVerts ); ++i )</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    {</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> cor( 0, 0, 0 );</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sumweight                     = 0;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keyword">const</span> Eigen::SparseVector&lt;Scalar&gt; Wi = subdivW.row( mapV2I[<a class="code" href="classV.html">V</a>[i]] );</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="comment">// Sum the cor and weights over all triangles of the subdivided mesh.</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span> f_it = topoMesh.faces_begin(); f_it != topoMesh.faces_end(); ++f_it )</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        {</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; triData     = triangleData[*f_it];</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; centroid = std::get&lt;0&gt;( triData );</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> area             = std::get&lt;1&gt;( triData );</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; triWeight   = std::get&lt;2&gt;( triData );</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> s          = <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a7e29ad918c37dcd14eee94f49c7ec300">weightSimilarity</a>( Wi, triWeight, sigma );</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            cor += s * area * centroid;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            sumweight += s * area;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        <span class="comment">// Avoid division by 0</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        <span class="keywordflow">if</span> ( sumweight &gt; 0 ) { dataInOut.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#acf79647a2d488d67ce6d586c439e8404">m_CoR</a>[i] = cor / sumweight; }</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="preprocessor">#if defined CORE_DEBUG</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordflow">if</span> ( i % 100 == 0 ) { <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;CoR: &quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; / &quot;</span> &lt;&lt; nVerts; }</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="preprocessor">#endif // CORE_DEBUG</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    }</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;}</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#ad451474c757b714cf8f2dbcc7f6a5ffc">  229</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#ad451474c757b714cf8f2dbcc7f6a5ffc">centerOfRotationSkinning</a>( <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">SkinningRefData</a>&amp; refData,</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                               <span class="keyword">const</span> Vector3Array&amp; tangents,</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                               <span class="keyword">const</span> Vector3Array&amp; bitangents,</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                               <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">SkinningFrameData</a>&amp; frameData ) {</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( refData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#acf79647a2d488d67ce6d586c439e8404">m_CoR</a>.size() == frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab129074abae3c0910bf30bdb5490c86e">m_currentPosition</a>.size(),</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                 <span class="stringliteral">&quot;Invalid center of rotations&quot;</span> );</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( CoR.size() == size, <span class="stringliteral">&quot;Invalid center of rotations&quot;</span> );</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="comment">// Compute the dual quaternions</span></div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;DualQuaternion&gt;</a> DQ;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#aeee390b619e41b72639ee6d3c27ae613">Animation::computeDQ</a>( pose, weight, DQ );</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; W        = refData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#ae1377701feb2454d6cbd671ac10555f7">m_weights</a>;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; vertices = refData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#af21bf62cf7f52cefbfbf657865e80597">m_referenceMesh</a>.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>();</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; normals  = refData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#af21bf62cf7f52cefbfbf657865e80597">m_referenceMesh</a>.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e">normals</a>();</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; CoR      = refData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#acf79647a2d488d67ce6d586c439e8404">m_CoR</a>;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keyword">auto</span> pose            = frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#aa6b1895eb133356c52f0e0bcb2723484">m_skeleton</a>.<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759">getPose</a>( <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4da7a03bac2692f8d17e2cda1b0721ffd0e">HandleArray::SpaceType::MODEL</a> );</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="comment">// Do LBS on the COR with weights of their associated vertices</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    Vector3Array transformedCoR;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a19bc7bcc26d8a3662f182f6d9a61764d">Animation::linearBlendSkinning</a>( CoR, pose, weight, transformedCoR );</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classint.html">int</a>( size ); ++i )</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    {</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        output[i] = DQ[i].rotate( input[i] - CoR[i] ) + transformedCoR[i];</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    }</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;}</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;} <span class="comment">// namespace Animation</span></div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="comment">// prepare the pose w.r.t. the bind matrices</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classint.html">int</a>( frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#aa6b1895eb133356c52f0e0bcb2723484">m_skeleton</a>.<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3">size</a>() ); ++i )</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    {</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        pose[i] = refData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#a9a372d341d2de95d9df2a452efe763cf">m_meshTransformInverse</a> * pose[i] * refData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#aea33faf9757c25d0034191916c1b3617">m_bindMatrices</a>[i];</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    }</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="comment">// Compute the dual quaternions</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> DQ = <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a503173d23c757d1de7fcaa87553c8ead">computeDQ</a>( pose, W );</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="comment">// Do LBS on the COR with weights of their associated vertices</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classint.html">int</a>( frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab129074abae3c0910bf30bdb5490c86e">m_currentPosition</a>.size() ); ++i )</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab129074abae3c0910bf30bdb5490c86e">m_currentPosition</a>[i] = Vector3::Zero();</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    }</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> k = 0; k &lt; W.outerSize(); ++k )</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> nonZero = W.col( k ).nonZeros();</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        WeightMatrix::InnerIterator it0( W, k );</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> nz = 0; nz &lt; nonZero; ++nz )</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        {</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            WeightMatrix::InnerIterator it = it0 + Eigen::Index( nz );</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i                   = it.row();</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j                   = it.col();</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> w                 = it.value();</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab129074abae3c0910bf30bdb5490c86e">m_currentPosition</a>[i] += w * ( pose[j] * CoR[i] );</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        }</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="comment">// Compute final transformation</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classint.html">int</a>( frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab129074abae3c0910bf30bdb5490c86e">m_currentPosition</a>.size() ); ++i )</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    {</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab129074abae3c0910bf30bdb5490c86e">m_currentPosition</a>[i] += DQ[i].rotate( vertices[i] - CoR[i] );</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab0e08e0323281b7ab94ed3431383021c">m_currentNormal</a>[i]    = DQ[i].rotate( normals[i] );</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#a3b32a1c0acf4b542d3ee1711ea294aff">m_currentTangent</a>[i]   = DQ[i].rotate( tangents[i] );</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        frameData.<a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#a47b5cccfb5377ff72148e9a1c0acaf90">m_currentBitangent</a>[i] = DQ[i].rotate( bitangents[i] );</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    }</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;}</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;} <span class="comment">// namespace Animation</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructRa_1_1Core_1_1Skinning_1_1RefData_html_a83991e3bad763b25818daa27f8f6c5a0"><div class="ttname"><a href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a83991e3bad763b25818daa27f8f6c5a0">Ra::Core::Skinning::RefData::m_CoR</a></div><div class="ttdeci">Ra::Core::Vector3Array m_CoR</div><div class="ttdoc">Optionnal centers of rotations for CoR skinning.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00031">SkinningData.hpp:31</a></div></div>
 <div class="ttc" id="aPose_8hpp_html"><div class="ttname"><a href="Pose_8hpp.html">Pose.hpp</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_acabe05880d71a8dc4406964c258fff5a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">Ra::Core::Geometry::AttribArrayGeometry::vertices</a></div><div class="ttdeci">const PointAttribHandle::Container &amp; vertices() const</div><div class="ttdoc">Access the vertices positions.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00088">TriangleMesh.inl:88</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Skinning_1_1RefData_html_a62204786816cf5e53fef81b3f28f1b5b"><div class="ttname"><a href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a62204786816cf5e53fef81b3f28f1b5b">Ra::Core::Skinning::RefData::m_weights</a></div><div class="ttdeci">Ra::Core::Animation::WeightMatrix m_weights</div><div class="ttdoc">Skinning weights.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00025">SkinningData.hpp:25</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a19bc7bcc26d8a3662f182f6d9a61764d"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a19bc7bcc26d8a3662f182f6d9a61764d">Ra::Core::Animation::linearBlendSkinning</a></div><div class="ttdeci">void linearBlendSkinning(const Vector3Array &amp;inMesh, const Pose &amp;pose, const WeightMatrix &amp;weight, Vector3Array &amp;outMesh)</div><div class="ttdef"><b>Definition:</b> <a href="LinearBlendSkinning_8cpp_source.html#l00007">LinearBlendSkinning.cpp:7</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a6ed92a8ce349fc8e84c099d05ae0a35b"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a6ed92a8ce349fc8e84c099d05ae0a35b">Ra::Core::Animation::corSkinning</a></div><div class="ttdeci">void corSkinning(const Vector3Array &amp;input, const Animation::Pose &amp;pose, const Animation::WeightMatrix &amp;weight, const Vector3Array &amp;CoR, Vector3Array &amp;output)</div><div class="ttdoc">Skin the vertices with the optimal centers of rotation.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00228">RotationCenterSkinning.cpp:228</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningRefData_html_ae1377701feb2454d6cbd671ac10555f7"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#ae1377701feb2454d6cbd671ac10555f7">Ra::Core::Animation::SkinningRefData::m_weights</a></div><div class="ttdeci">WeightMatrix m_weights</div><div class="ttdoc">The matrix of skinning weights.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00028">SkinningData.hpp:28</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningRefData_html"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">Ra::Core::Animation::SkinningRefData</a></div><div class="ttdoc">Skinning data that get set at startup including the &quot;reference state&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00014">SkinningData.hpp:14</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a8d51faa3b4fa49a0056d28c830860c4da7a03bac2692f8d17e2cda1b0721ffd0e"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4da7a03bac2692f8d17e2cda1b0721ffd0e">Ra::Core::Animation::HandleArray::SpaceType::MODEL</a></div><div class="ttdeci">@ MODEL</div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Skeleton_html_acb6381c3f288f580800589eb718c1759"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759">Ra::Core::Animation::Skeleton::getPose</a></div><div class="ttdeci">const Pose &amp; getPose(const SpaceType MODE) const override</div><div class="ttdef"><b>Definition:</b> <a href="Skeleton_8cpp_source.html#l00022">Skeleton.cpp:22</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html_ab129074abae3c0910bf30bdb5490c86e"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab129074abae3c0910bf30bdb5490c86e">Ra::Core::Animation::SkinningFrameData::m_currentPosition</a></div><div class="ttdeci">Vector3Array m_currentPosition</div><div class="ttdoc">The current mesh vertex position.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00043">SkinningData.hpp:43</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a503173d23c757d1de7fcaa87553c8ead"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a503173d23c757d1de7fcaa87553c8ead">Ra::Core::Animation::computeDQ</a></div><div class="ttdeci">DQList computeDQ(const Pose &amp;pose, const Sparse &amp;weight)</div><div class="ttdoc">Computes the per-vertex dual quaternion.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternionSkinning_8cpp_source.html#l00009">DualQuaternionSkinning.cpp:9</a></div></div>
 <div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Skinning_1_1RefData_html_a80426d3d097901f4596c939d75ecc712"><div class="ttname"><a href="structRa_1_1Core_1_1Skinning_1_1RefData.html#a80426d3d097901f4596c939d75ecc712">Ra::Core::Skinning::RefData::m_referenceMesh</a></div><div class="ttdeci">Ra::Core::Geometry::TriangleMesh m_referenceMesh</div><div class="ttdoc">Mesh in reference position.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00019">SkinningData.hpp:19</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_abfd2320cb73c0cb14805c234af594b5e"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e">Ra::Core::Geometry::AttribArrayGeometry::normals</a></div><div class="ttdeci">const NormalAttribHandle::Container &amp; normals() const</div><div class="ttdoc">Access the vertices normals.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00100">TriangleMesh.inl:100</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a5be06e9a973e79d487dad3e570fb5928"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5be06e9a973e79d487dad3e570fb5928">Ra::Core::Geometry::TopologicalMesh::splitEdge</a></div><div class="ttdeci">bool splitEdge(TopologicalMesh::EdgeHandle eh, Scalar f)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00645">TopologicalMesh.cpp:645</a></div></div>
 <div class="ttc" id="aDualQuaternionSkinning_8hpp_html"><div class="ttname"><a href="DualQuaternionSkinning_8hpp.html">DualQuaternionSkinning.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1IndexedGeometry_html_a240c93af3b90a3b019c9ef01f7cb2f7b"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a240c93af3b90a3b019c9ef01f7cb2f7b">Ra::Core::Geometry::IndexedGeometry::copy</a></div><div class="ttdeci">void copy(const IndexedGeometry&lt; IndexType &gt; &amp;other)</div><div class="ttdoc">Copy only the geometry and the indices from other, but not the attributes.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00233">TriangleMesh.inl:233</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TriangleMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00277">TriangleMesh.hpp:277</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a431d1716fa300515105fdeec7574f95c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Ra::Core::Animation::WeightMatrix</a></div><div class="ttdeci">Ra::Core::Sparse WeightMatrix</div><div class="ttdef"><b>Definition:</b> <a href="HandleWeight_8hpp_source.html#l00034">HandleWeight.hpp:34</a></div></div>
 <div class="ttc" id="aHandleWeight_8hpp_html"><div class="ttname"><a href="HandleWeight_8hpp.html">HandleWeight.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a71236244c5603a8a5bc63595db9b7717"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">Ra::Core::Animation::weightSimilarity</a></div><div class="ttdeci">Scalar weightSimilarity(const Eigen::SparseVector&lt; Scalar &gt; &amp;v1w, const Eigen::SparseVector&lt; Scalar &gt; &amp;v2w, Scalar sigma)</div><div class="ttdoc">Computes the similarity between two weights vector.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00020">RotationCenterSkinning.cpp:20</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_ac01535127ca12dc01779f0df10185c6e"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#ac01535127ca12dc01779f0df10185c6e">Ra::Core::Animation::computeCoR</a></div><div class="ttdeci">void computeCoR(SkinningRefData &amp;dataInOut, Scalar sigma, Scalar weightEpsilon)</div><div class="ttdoc">Computes the per-vertex optimal center of rotations.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00053">RotationCenterSkinning.cpp:53</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningRefData_html_acf79647a2d488d67ce6d586c439e8404"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#acf79647a2d488d67ce6d586c439e8404">Ra::Core::Animation::SkinningRefData::m_CoR</a></div><div class="ttdeci">Vector3Array m_CoR</div><div class="ttdoc">The optionnal centers of rotations for CoR skinning.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00031">SkinningData.hpp:31</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Skeleton_html_a5679e1beb544b515c4539ce48a2f2ba3"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3">Ra::Core::Animation::Skeleton::size</a></div><div class="ttdeci">uint size() const override</div><div class="ttdef"><b>Definition:</b> <a href="Skeleton_8hpp_source.html#l00040">Skeleton.hpp:40</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a7e29ad918c37dcd14eee94f49c7ec300"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a7e29ad918c37dcd14eee94f49c7ec300">Ra::Core::Animation::weightSimilarity</a></div><div class="ttdeci">Scalar weightSimilarity(const Eigen::SparseVector&lt; Scalar &gt; &amp;v1w, const Eigen::SparseVector&lt; Scalar &gt; &amp;v2w, Scalar sigma)</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00021">RotationCenterSkinning.cpp:21</a></div></div>
+<div class="ttc" id="aSkinningData_8hpp_html"><div class="ttname"><a href="SkinningData_8hpp.html">SkinningData.hpp</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00347">CoreMacros.hpp:347</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html_a3b32a1c0acf4b542d3ee1711ea294aff"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#a3b32a1c0acf4b542d3ee1711ea294aff">Ra::Core::Animation::SkinningFrameData::m_currentTangent</a></div><div class="ttdeci">Vector3Array m_currentTangent</div><div class="ttdoc">The current mesh vertex tangent vectors.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00049">SkinningData.hpp:49</a></div></div>
 <div class="ttc" id="aRotationCenterSkinning_8hpp_html"><div class="ttname"><a href="RotationCenterSkinning_8hpp.html">RotationCenterSkinning.hpp</a></div></div>
 <div class="ttc" id="aclassV_html"><div class="ttname"><a href="classV.html">V</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1hash__vec_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1hash__vec.html">Ra::Core::Geometry::hash_vec</a></div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8inl_source.html#l00414">TopologicalMesh.inl:414</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_afaacfdb6d79a9ccac45b78eba989d41d"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">Ra::Core::Geometry::TopologicalMesh::halfedge_handle</a></div><div class="ttdeci">HalfedgeHandle halfedge_handle(VertexHandle vh, FaceHandle fh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8inl_source.html#l00685">TopologicalMesh.inl:685</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_ad451474c757b714cf8f2dbcc7f6a5ffc"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#ad451474c757b714cf8f2dbcc7f6a5ffc">Ra::Core::Animation::centerOfRotationSkinning</a></div><div class="ttdeci">void centerOfRotationSkinning(const SkinningRefData &amp;refData, const Vector3Array &amp;tangents, const Vector3Array &amp;bitangents, SkinningFrameData &amp;frameData)</div><div class="ttdoc">Applies Center-of-Rotation skinning to the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00229">RotationCenterSkinning.cpp:229</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a178f2b7309fe2ea5bc31a3abcb25368e"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a178f2b7309fe2ea5bc31a3abcb25368e">Ra::Core::Geometry::triangleArea</a></div><div class="ttdeci">Scalar triangleArea(const Vector3 &amp;p, const Vector3 &amp;q, const Vector3 &amp;r)</div><div class="ttdef"><b>Definition:</b> <a href="TriangleOperation_8cpp_source.html#l00019">TriangleOperation.cpp:19</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector&lt; Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; &gt;</a></div></div>
 <div class="ttc" id="aTopologicalMesh_8hpp_html"><div class="ttname"><a href="TopologicalMesh_8hpp.html">TopologicalMesh.hpp</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html_aa6b1895eb133356c52f0e0bcb2723484"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#aa6b1895eb133356c52f0e0bcb2723484">Ra::Core::Animation::SkinningFrameData::m_skeleton</a></div><div class="ttdeci">Skeleton m_skeleton</div><div class="ttdoc">The animation skeleton in the current pose.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00040">SkinningData.hpp:40</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
 <div class="ttc" id="aTriangleOperation_8hpp_html"><div class="ttname"><a href="TriangleOperation_8hpp.html">TriangleOperation.hpp</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Skinning_1_1RefData_html"><div class="ttname"><a href="structRa_1_1Core_1_1Skinning_1_1RefData.html">Ra::Core::Skinning::RefData</a></div><div class="ttdoc">Skinning data that gets set at startup including the &quot;reference state&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00014">SkinningData.hpp:14</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">Ra::Core::Animation::SkinningFrameData</a></div><div class="ttdoc">Pose data for one frame.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00038">SkinningData.hpp:38</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningRefData_html_aea33faf9757c25d0034191916c1b3617"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#aea33faf9757c25d0034191916c1b3617">Ra::Core::Animation::SkinningRefData::m_bindMatrices</a></div><div class="ttdeci">AlignedStdVector&lt; Transform &gt; m_bindMatrices</div><div class="ttdoc">The per-bone bind matrices.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00025">SkinningData.hpp:25</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00052">TopologicalMesh.hpp:52</a></div></div>
 <div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html_ab0e08e0323281b7ab94ed3431383021c"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab0e08e0323281b7ab94ed3431383021c">Ra::Core::Animation::SkinningFrameData::m_currentNormal</a></div><div class="ttdeci">Vector3Array m_currentNormal</div><div class="ttdoc">The current mesh vertex normals.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00046">SkinningData.hpp:46</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">Ra::Core::Utils::logDEBUG</a></div><div class="ttdeci">@ logDEBUG</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00019">Log.hpp:19</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a40700cdabdd47fdb360f6bbfe692b36d"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a40700cdabdd47fdb360f6bbfe692b36d">Ra::Core::Animation::computeCoR</a></div><div class="ttdeci">void computeCoR(Skinning::RefData &amp;dataInOut, Scalar sigma, Scalar weightEpsilon)</div><div class="ttdoc">Compute the optimal center of rotations (1 per vertex) based on weight similarity.</div><div class="ttdef"><b>Definition:</b> <a href="RotationCenterSkinning_8cpp_source.html#l00052">RotationCenterSkinning.cpp:52</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_aeee390b619e41b72639ee6d3c27ae613"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#aeee390b619e41b72639ee6d3c27ae613">Ra::Core::Animation::computeDQ</a></div><div class="ttdeci">void computeDQ(const Pose &amp;pose, const Sparse &amp;weight, DQList &amp;DQ)</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternionSkinning_8cpp_source.html#l00006">DualQuaternionSkinning.cpp:6</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningRefData_html_a9a372d341d2de95d9df2a452efe763cf"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#a9a372d341d2de95d9df2a452efe763cf">Ra::Core::Animation::SkinningRefData::m_meshTransformInverse</a></div><div class="ttdeci">Transform m_meshTransformInverse</div><div class="ttdoc">The inverse of the mesh's transform.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00019">SkinningData.hpp:19</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html_a47b5cccfb5377ff72148e9a1c0acaf90"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#a47b5cccfb5377ff72148e9a1c0acaf90">Ra::Core::Animation::SkinningFrameData::m_currentBitangent</a></div><div class="ttdeci">Vector3Array m_currentBitangent</div><div class="ttdoc">The current mesh vertex bitangent vectors.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00052">SkinningData.hpp:52</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningRefData_html_af21bf62cf7f52cefbfbf657865e80597"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#af21bf62cf7f52cefbfbf657865e80597">Ra::Core::Animation::SkinningRefData::m_referenceMesh</a></div><div class="ttdeci">Geometry::TriangleMesh m_referenceMesh</div><div class="ttdoc">The mesh in reference position.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00016">SkinningData.hpp:16</a></div></div>
 <div class="ttc" id="aclassint_html"><div class="ttname"><a href="classint.html">int</a></div></div>
 <div class="ttc" id="aLinearBlendSkinning_8hpp_html"><div class="ttname"><a href="LinearBlendSkinning_8hpp.html">LinearBlendSkinning.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><a class="el" href="RotationCenterSkinning_8cpp.html">RotationCenterSkinning.cpp</a></li>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:36 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:25 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

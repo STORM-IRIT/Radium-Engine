@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
+   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
    </div>
   </td>
  </tr>
@@ -104,6 +104,7 @@ $(document).ready(function(){initNavTree('RotationCenterSkinning_8cpp.html','');
 <code>#include &lt;<a class="el" href="HandleWeight_8hpp_source.html">Core/Animation/HandleWeight.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="LinearBlendSkinning_8hpp_source.html">Core/Animation/LinearBlendSkinning.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Pose_8hpp_source.html">Core/Animation/Pose.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="SkinningData_8hpp_source.html">Core/Animation/SkinningData.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="TopologicalMesh_8hpp_source.html">Core/Geometry/TopologicalMesh.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="TriangleOperation_8hpp_source.html">Core/Geometry/TriangleOperation.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Log_8hpp_source.html">Core/Utils/Log.hpp</a>&gt;</code><br />
@@ -130,15 +131,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a71236244c5603a8a5bc63595db9b7717"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">Ra::Core::Animation::weightSimilarity</a> (const Eigen::SparseVector&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt; &amp;v1w, const Eigen::SparseVector&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt; &amp;v2w, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma=0.1f)</td></tr>
-<tr class="memdesc:a71236244c5603a8a5bc63595db9b7717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the similarity between two weights vector.  <a href="namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717">More...</a><br /></td></tr>
-<tr class="separator:a71236244c5603a8a5bc63595db9b7717"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40700cdabdd47fdb360f6bbfe692b36d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a40700cdabdd47fdb360f6bbfe692b36d">Ra::Core::Animation::computeCoR</a> (Skinning::RefData &amp;dataInOut, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma=0.1f, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> weightEpsilon=0.1f)</td></tr>
-<tr class="memdesc:a40700cdabdd47fdb360f6bbfe692b36d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the optimal center of rotations (1 per vertex) based on weight similarity.  <a href="namespaceRa_1_1Core_1_1Animation.html#a40700cdabdd47fdb360f6bbfe692b36d">More...</a><br /></td></tr>
-<tr class="separator:a40700cdabdd47fdb360f6bbfe692b36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ed92a8ce349fc8e84c099d05ae0a35b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a6ed92a8ce349fc8e84c099d05ae0a35b">Ra::Core::Animation::corSkinning</a> (const Vector3Array &amp;input, const Animation::Pose &amp;pose, const Animation::WeightMatrix &amp;weight, const Vector3Array &amp;CoR, Vector3Array &amp;output)</td></tr>
-<tr class="memdesc:a6ed92a8ce349fc8e84c099d05ae0a35b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skin the vertices with the optimal centers of rotation.  <a href="namespaceRa_1_1Core_1_1Animation.html#a6ed92a8ce349fc8e84c099d05ae0a35b">More...</a><br /></td></tr>
-<tr class="separator:a6ed92a8ce349fc8e84c099d05ae0a35b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e29ad918c37dcd14eee94f49c7ec300"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a7e29ad918c37dcd14eee94f49c7ec300">Ra::Core::Animation::weightSimilarity</a> (const Eigen::SparseVector&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt; &amp;v1w, const Eigen::SparseVector&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt; &amp;v2w, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sigma)</td></tr>
+<tr class="separator:a7e29ad918c37dcd14eee94f49c7ec300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -146,7 +140,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><a class="el" href="RotationCenterSkinning_8cpp.html">RotationCenterSkinning.cpp</a></li>
-    <li class="footer">Generated on Thu Apr 29 2021 09:18:38 for Radium Engine by
+    <li class="footer">Generated on Mon May 3 2021 07:43:26 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -17,6 +17,7 @@ var namespaceRa_1_1Gui =
     [ "SelectionManager", "classRa_1_1Gui_1_1SelectionManager.html", "classRa_1_1Gui_1_1SelectionManager" ],
     [ "SimpleWindow", "classRa_1_1Gui_1_1SimpleWindow.html", "classRa_1_1Gui_1_1SimpleWindow" ],
     [ "SimpleWindowFactory", "classRa_1_1Gui_1_1SimpleWindowFactory.html", "classRa_1_1Gui_1_1SimpleWindowFactory" ],
+    [ "SkeletonBasedAnimationUI", "classRa_1_1Gui_1_1SkeletonBasedAnimationUI.html", "classRa_1_1Gui_1_1SkeletonBasedAnimationUI" ],
     [ "Timeline", "classRa_1_1Gui_1_1Timeline.html", "classRa_1_1Gui_1_1Timeline" ],
     [ "TimelineFrameSelector", "classRa_1_1Gui_1_1TimelineFrameSelector.html", "classRa_1_1Gui_1_1TimelineFrameSelector" ],
     [ "TimelineScrollArea", "classRa_1_1Gui_1_1TimelineScrollArea.html", "classRa_1_1Gui_1_1TimelineScrollArea" ],
