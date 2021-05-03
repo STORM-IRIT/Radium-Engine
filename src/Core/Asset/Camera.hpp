@@ -87,7 +87,7 @@ class RA_CORE_API Camera
     /// \note Meaningless for orthogonal projection.
     inline Scalar getFOV() const;
 
-    /// Set the Field Of View to 'fov'.
+    /// Set the Field Of View to 'fov' in the x (horizontal) direction.
     /// \note Meaningless for orthogonal projection.
     /// \warning Trigger a rebuild of the projection matrix.
     inline void setFOV( Scalar fov );
@@ -141,6 +141,9 @@ class RA_CORE_API Camera
 
     const Scalar m_minZNear {0.01_ra};
     const Scalar m_minZRange {0.01_ra};
+
+    static Core::Matrix4 frustum( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, Scalar f );
+    static Core::Matrix4 ortho( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, Scalar f );
 
   private:
     Core::Transform m_frame {
