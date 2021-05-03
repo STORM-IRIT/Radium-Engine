@@ -71,43 +71,59 @@ void Camera::updateProjMatrix() {
         const Scalar dx = m_zoomFactor * .5_ra;
         const Scalar dy = dx / m_aspect;
         // ------------
-        // Compute projection matrix as describe in the doc of gluPerspective()
+        // Compute projection matrix as describe in the doc of glOrtho()
         const Scalar l = -dx; // left
         const Scalar r = dx;  // right
         const Scalar t = dy;  // top
         const Scalar b = -dy; // bottom
-
-        Core::Vector3 tr( -( r + l ) / ( r - l ),
-                          -( t + b ) / ( t - b ),
-                          -( ( m_zFar + m_zNear ) / ( m_zFar - m_zNear ) ) );
-
-        m_projMatrix.setIdentity();
-
-        m_projMatrix.coeffRef( 0, 0 )    = 2_ra / ( r - l );
-        m_projMatrix.coeffRef( 1, 1 )    = 2_ra / ( t - b );
-        m_projMatrix.coeffRef( 2, 2 )    = -2_ra / ( m_zFar - m_zNear );
-        m_projMatrix.block<3, 1>( 0, 3 ) = tr;
+        m_projMatrix   = ortho( b, t, l, r, m_zNear, m_zFar );
     }
     break;
 
     case ProjType::PERSPECTIVE: {
-        // Compute projection matrix as describe in the doc of gluPerspective()
-        const Scalar f    = std::tan( ( PiDiv2 ) - ( m_fov * m_zoomFactor * .5_ra ) );
-        const Scalar diff = m_zNear - m_zFar;
+        // Compute projection matrix as describe here
+        // https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix
+        auto scale = std::tan( m_fov * .5_ra ) * m_zNear;
 
-        m_projMatrix.setZero();
+        auto r = scale;
+        auto l = -r;
+        auto t = scale / m_aspect;
+        auto b = -t;
 
-        m_projMatrix.coeffRef( 0, 0 ) = f / m_aspect;
-        m_projMatrix.coeffRef( 1, 1 ) = f;
-        m_projMatrix.coeffRef( 2, 2 ) = ( m_zFar + m_zNear ) / diff;
-        m_projMatrix.coeffRef( 2, 3 ) = ( 2_ra * m_zFar * m_zNear ) / diff;
-        m_projMatrix.coeffRef( 3, 2 ) = -1_ra;
+        m_projMatrix = frustum( b, t, l, r, m_zNear, m_zFar );
     }
     break;
 
     default:
         break;
     }
+}
+
+Core::Matrix4 Camera::frustum( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, Scalar f ) {
+    Core::Matrix4 projMatrix;
+    projMatrix.setZero();
+    const Scalar diff           = ( n - f );
+    projMatrix.coeffRef( 0, 0 ) = 2_ra * n / ( r - l );
+    projMatrix.coeffRef( 1, 1 ) = 2_ra * n / ( t - b );
+    projMatrix.coeffRef( 2, 2 ) = ( f + n ) / diff;
+    projMatrix.coeffRef( 2, 3 ) = ( 2_ra * f * n ) / diff;
+    projMatrix.coeffRef( 3, 2 ) = -1_ra;
+    return projMatrix;
+}
+
+Core::Matrix4 Camera::ortho( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, Scalar f ) {
+    Core::Matrix4 projMatrix;
+    projMatrix.setZero();
+
+    Core::Vector3 tr( -( r + l ) / ( r - l ), -( t + b ) / ( t - b ), -( ( f + n ) / ( f - n ) ) );
+
+    projMatrix.setIdentity();
+    projMatrix.coeffRef( 0, 0 )    = 2_ra / ( r - l );
+    projMatrix.coeffRef( 1, 1 )    = 2_ra / ( t - b );
+    projMatrix.coeffRef( 2, 2 )    = -2_ra / ( f - n );
+    projMatrix.block<3, 1>( 0, 3 ) = tr;
+
+    return projMatrix;
 }
 
 void Camera::fitZRange( const Core::Aabb& aabb ) {
