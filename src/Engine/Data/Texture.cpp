@@ -13,7 +13,7 @@ using namespace Core::Utils; // log
 Texture::Texture( const TextureParameters& texParameters ) :
     m_textureParameters {texParameters},
     m_texture {nullptr},
-    m_isMipMaped {false},
+    m_isMipMapped {false},
     m_isLinear {false} {}
 
 Texture::~Texture() = default;
@@ -26,30 +26,30 @@ void Texture::initializeGL( bool linearize ) {
          ( m_textureParameters.target != GL_TEXTURE_CUBE_MAP ) )
     {
         LOG( logERROR ) << "Texture of type " << m_textureParameters.target
-                        << " must be generated explicitely!";
+                        << " must be generated explicitly!";
         return;
     }
     // Transform texels if needed
     if ( linearize )
     {
-        uint numcomp  = 0;
+        uint numComp  = 0;
         bool hasAlpha = false;
         switch ( m_textureParameters.format )
         {
             // RED and RG texture store a gray scale color. Verify if we need to convert
         case GL_RED:
-            numcomp = 1;
+            numComp = 1;
             break;
         case GL_RG:
             // corresponds to deprecated GL_LUMINANCE_ALPHA
-            numcomp  = 2;
+            numComp  = 2;
             hasAlpha = true;
             break;
         case GL_RGB:
-            numcomp = 3;
+            numComp = 3;
             break;
         case GL_RGBA:
-            numcomp  = 4;
+            numComp  = 4;
             hasAlpha = true;
             break;
         default:
@@ -58,12 +58,12 @@ void Texture::initializeGL( bool linearize ) {
             return;
         }
         if ( m_textureParameters.target == GL_TEXTURE_CUBE_MAP )
-        { linearizeCubeMap( numcomp, hasAlpha ); }
+        { linearizeCubeMap( numComp, hasAlpha ); }
         else
         {
             // This will only do do the RGB space conversion
             sRGBToLinearRGB(
-                reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp, hasAlpha );
+                reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numComp, hasAlpha );
         }
     }
     // Generate OpenGL texture
@@ -73,13 +73,13 @@ void Texture::initializeGL( bool linearize ) {
         GL_CHECK_ERROR;
     }
     // Update the sampler parameters
-    m_isMipMaped = !( m_textureParameters.minFilter == GL_NEAREST ||
-                      m_textureParameters.minFilter == GL_LINEAR );
+    m_isMipMapped = !( m_textureParameters.minFilter == GL_NEAREST ||
+                       m_textureParameters.minFilter == GL_LINEAR );
     updateParameters();
     // upload texture to the GPU
     updateData( m_textureParameters.texels );
-    // Generate mipmap if needed.
-    if ( m_isMipMaped ) { m_texture->generateMipmap(); }
+    // Generate mip-map if needed.
+    if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
 
 void Texture::bind( int unit ) {
@@ -89,10 +89,10 @@ void Texture::bind( int unit ) {
 }
 
 void Texture::bindImageTexture( int unit,
-                                const GLint level,
-                                const GLboolean layered,
-                                const GLint layer,
-                                const GLenum access ) {
+                                GLint level,
+                                GLboolean layered,
+                                GLint layer,
+                                GLenum access ) {
     m_texture->bindImageTexture(
         uint( unit ), level, layered, layer, access, m_textureParameters.internalFormat );
 }
@@ -138,11 +138,11 @@ void Texture::updateData( const void* data ) {
     }
     break;
     case GL_TEXTURE_CUBE_MAP: {
-        // Load the 6 faces of the cubemap
+        // Load the 6 faces of the cube-map
         void** texels = (void**)data;
         m_texture->bind();
         // track globjects update that will hopefully support direct loading of
-        // cubemaps
+        // cube-maps
         gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_POSITIVE_X,
                           0,
                           m_textureParameters.internalFormat,
@@ -247,20 +247,20 @@ void Texture::linearize() {
         return;
     }
     // Only RGB and RGBA texture contains color information
-    // (others are not really colors and must be managed explicitely by the user)
-    uint numcomp  = 0;
+    // (others are not really colors and must be managed explicitly by the user)
+    uint numComp  = 0;
     bool hasAlpha = false;
     switch ( m_textureParameters.format )
     {
         // RED texture store a gray scale color. Verify if we need to convert
     case GL_RED:
-        numcomp = 1;
+        numComp = 1;
         break;
     case GL_RGB:
-        numcomp = 3;
+        numComp = 3;
         break;
     case GL_RGBA:
-        numcomp  = 4;
+        numComp  = 4;
         hasAlpha = true;
         break;
     default:
@@ -268,10 +268,10 @@ void Texture::linearize() {
                         << " can't be linearized." << m_textureParameters.name;
         return;
     }
-    sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp, hasAlpha );
+    sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numComp, hasAlpha );
 }
 
-void Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel ) {
+void Texture::sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel ) {
     if ( !m_isLinear )
     {
         m_isLinear = true;
@@ -284,14 +284,14 @@ void Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlph
             { c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), 2.4f ); }
             return uint8_t( c * 255 );
         };
-        uint numvalues = hasAlphaChannel ? numCommponent - 1 : numCommponent;
+        uint numValues = hasAlphaChannel ? numComponent - 1 : numComponent;
 #pragma omp parallel for
         for ( int i = 0; i < int( m_textureParameters.width * m_textureParameters.height *
                                   m_textureParameters.depth );
               ++i )
         {
             // Convert each R or RGB value while keeping alpha unchanged
-            for ( uint p = i * numCommponent; p < i * numCommponent + numvalues; ++p )
+            for ( uint p = i * numComponent; p < i * numComponent + numValues; ++p )
             {
                 texels[p] = linearize( texels[p] );
             }
@@ -307,10 +307,10 @@ void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     if ( m_texture == nullptr ) { initializeGL( false ); }
     else
     { updateData( m_textureParameters.texels ); }
-    if ( m_isMipMaped ) { m_texture->generateMipmap(); }
+    if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
 
-void Texture::linearizeCubeMap( uint numCommponent, bool hasAlphaChannel ) {
+void Texture::linearizeCubeMap( uint numComponent, bool hasAlphaChannel ) {
     if ( m_textureParameters.type == gl::GLenum::GL_UNSIGNED_BYTE )
     {
         /// Only unsigned byte texture could be linearized. Considering other formats where already
@@ -319,7 +319,7 @@ void Texture::linearizeCubeMap( uint numCommponent, bool hasAlphaChannel ) {
         {
             sRGBToLinearRGB(
                 reinterpret_cast<uint8_t*>( ( (void**)m_textureParameters.texels )[i] ),
-                numCommponent,
+                numComponent,
                 hasAlphaChannel );
         }
     }

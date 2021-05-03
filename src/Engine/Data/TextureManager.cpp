@@ -12,7 +12,7 @@ namespace Data {
 
 using namespace Core::Utils; // log
 
-TextureManager::TextureManager() : m_verbose( false ) {}
+TextureManager::TextureManager() = default;
 
 TextureManager::~TextureManager() {
     for ( auto& tex : m_textures )
@@ -20,6 +20,8 @@ TextureManager::~TextureManager() {
         delete tex.second;
     }
     m_textures.clear();
+    m_pendingTextures.clear();
+    m_pendingData.clear();
 }
 
 TextureParameters&
@@ -85,32 +87,24 @@ void TextureManager::loadTextureImage( TextureParameters& texParameters ) {
     break;
     }
 
-    if ( m_verbose )
-    {
-        LOG( logINFO ) << "Image stats (" << texParameters.name << ") :\n"
-                       << "\tPixels : " << n << std::endl
-                       << "\tFormat : " << texParameters.format << std::endl
-                       << "\tSize   : " << texParameters.width << ", " << texParameters.height;
-    }
-
     CORE_ASSERT( data, "Data is null" );
     texParameters.texels = data;
     texParameters.type   = GL_UNSIGNED_BYTE;
 }
 
 Texture* TextureManager::loadTexture( const TextureParameters& texParameters, bool linearize ) {
-    TextureParameters texparams = texParameters;
+    TextureParameters texParams = texParameters;
     // TODO : allow to keep texels in texture parameters with automatic lifetime management.
-    bool freeTexels = false;
-    if ( texparams.texels == nullptr )
+    bool mustFreeTexels = false;
+    if ( texParams.texels == nullptr )
     {
-        loadTextureImage( texparams );
-        freeTexels = true;
+        loadTextureImage( texParams );
+        mustFreeTexels = true;
     }
-    auto ret = new Texture( texparams );
+    auto ret = new Texture( texParams );
     ret->initializeGL( linearize );
 
-    if ( freeTexels )
+    if ( mustFreeTexels )
     {
         stbi_image_free( ret->getParameters().texels );
         ret->getParameters().texels = nullptr;
@@ -120,9 +114,24 @@ Texture* TextureManager::loadTexture( const TextureParameters& texParameters, bo
 
 Texture* TextureManager::getOrLoadTexture( const TextureParameters& texParameters,
                                            bool linearize ) {
-    auto it = m_textures.find( texParameters.name );
-    if ( it != m_textures.end() ) { return it->second; }
-
+    {
+        // Is texture in the manager ?
+        auto it = m_textures.find( texParameters.name );
+        if ( it != m_textures.end() ) { return it->second; }
+    }
+    {
+        // Is texture pending but registered in the manager
+        auto it = m_pendingTextures.find( texParameters.name );
+        if ( it != m_pendingTextures.end() )
+        {
+            auto pendingParams             = it->second;
+            auto ret                       = loadTexture( pendingParams, linearize );
+            m_textures[pendingParams.name] = ret;
+            m_pendingTextures.erase( it );
+            return ret;
+        }
+    }
+    // Texture is not in the manager, add it
     auto ret = loadTexture( texParameters, linearize );
 
     m_textures[texParameters.name] = ret;

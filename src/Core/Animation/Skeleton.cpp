@@ -13,8 +13,6 @@ Skeleton::Skeleton() : HandleArray(), m_graph(), m_modelSpace() {}
 
 Skeleton::Skeleton( const uint n ) : HandleArray( n ), m_graph( n ), m_modelSpace( n ) {}
 
-Skeleton::~Skeleton() {}
-
 void Skeleton::clear() {
     m_pose.clear();
     m_graph.clear();
@@ -59,6 +57,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
         }
     }
 }
+
 const Transform& Skeleton::getTransform( const uint i, const SpaceType MODE ) const {
     CORE_ASSERT( ( i < size() ), "Index i out of bounds" );
     static_assert( std::is_same<bool, typename std::underlying_type<SpaceType>::type>::value,
@@ -71,49 +70,85 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
     CORE_ASSERT( ( i < size() ), "Index i out of bounds" );
     static_assert( std::is_same<bool, typename std::underlying_type<SpaceType>::type>::value,
                    "SpaceType is not a boolean" );
-    if ( MODE == SpaceType::LOCAL )
+
+    switch ( m_manipulation )
     {
-        m_pose[i] = T;
-        // Compute the model space pose
-        if ( m_graph.isRoot( i ) ) { m_modelSpace[i] = m_pose[i]; }
+    case FORWARD: {
+        // just set the transfrom
+        if ( MODE == SpaceType::LOCAL )
+            setLocalTransform( i, T );
         else
-        { m_modelSpace[i] = m_modelSpace[m_graph.parents()[i]] * T; }
-        if ( !m_graph.isLeaf( i ) )
+            setModelTransform( i, T );
+    }
+    break;
+    case PSEUDO_IK: {
+        Transform modelT = T;
+        if ( MODE == SpaceType::LOCAL ) modelT = ( m_modelSpace[i] * m_pose[i].inverse() * T );
+        // turn bone translation into rotation for parent
+        const int pBoneIdx = m_graph.parents()[i];
+        if ( pBoneIdx != -1 && m_graph.children()[pBoneIdx].size() == 1 )
         {
-            std::stack<uint> stack;
-            stack.push( i );
-            while ( !stack.empty() )
+            const auto& pTBoneModel = m_modelSpace[pBoneIdx];
+
+            Ra::Core::Vector3 A;
+            Ra::Core::Vector3 B;
+            getBonePoints( pBoneIdx, A, B );
+            Ra::Core::Vector3 B_;
+            B_     = modelT.translation();
+            auto q = Ra::Core::Quaternion::FromTwoVectors( ( B - A ), ( B_ - A ) );
+            Ra::Core::Transform R( q );
+            R.pretranslate( A );
+            R.translate( -A );
+            setModelTransform( pBoneIdx, R * pTBoneModel );
+        }
+        // update bone transform and also children's transform
+        setLocalTransform( i, m_pose[i] * m_modelSpace[i].inverse() * modelT );
+    }
+    break;
+    }
+}
+
+void Skeleton::setLocalTransform( const uint i, const Transform& T ) {
+    m_pose[i] = T;
+    // Compute the model space pose
+    if ( m_graph.isRoot( i ) ) { m_modelSpace[i] = m_pose[i]; }
+    else
+    { m_modelSpace[i] = m_modelSpace[m_graph.parents()[i]] * T; }
+    if ( !m_graph.isLeaf( i ) )
+    {
+        std::stack<uint> stack;
+        stack.push( i );
+        while ( !stack.empty() )
+        {
+            uint parent = stack.top();
+            stack.pop();
+            for ( const auto& child : m_graph.children()[parent] )
             {
-                uint parent = stack.top();
-                stack.pop();
-                for ( const auto& child : m_graph.children()[parent] )
-                {
-                    m_modelSpace[child] = m_modelSpace[parent] * m_pose[child];
-                    stack.push( child );
-                }
+                m_modelSpace[child] = m_modelSpace[parent] * m_pose[child];
+                stack.push( child );
             }
         }
     }
+}
+
+void Skeleton::setModelTransform( const uint i, const Transform& T ) {
+    m_modelSpace[i] = T;
+    // Compute the local space pose
+    if ( m_graph.isRoot( i ) ) { m_pose[i] = m_modelSpace[i]; }
     else
+    { m_pose[i] = m_modelSpace[m_graph.parents()[i]].inverse() * T; }
+    if ( !m_graph.isLeaf( i ) )
     {
-        m_modelSpace[i] = T;
-        // Compute the local space pose
-        if ( m_graph.isRoot( i ) ) { m_pose[i] = m_modelSpace[i]; }
-        else
-        { m_pose[i] = m_modelSpace[m_graph.parents()[i]].inverse() * T; }
-        if ( !m_graph.isLeaf( i ) )
+        std::stack<uint> stack;
+        stack.push( i );
+        while ( !stack.empty() )
         {
-            std::stack<uint> stack;
-            stack.push( i );
-            while ( !stack.empty() )
+            uint parent = stack.top();
+            stack.pop();
+            for ( const auto& child : m_graph.children()[parent] )
             {
-                uint parent = stack.top();
-                stack.pop();
-                for ( const auto& child : m_graph.children()[parent] )
-                {
-                    m_pose[child] = m_modelSpace[parent].inverse() * m_modelSpace[child];
-                    stack.push( child );
-                }
+                m_pose[child] = m_modelSpace[parent].inverse() * m_modelSpace[child];
+                stack.push( child );
             }
         }
     }

@@ -12,11 +12,14 @@
 #include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/Version.hpp>
 
+#include <Engine/Data/Texture.hpp>
+#include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
+#include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
 #include <PluginBase/RadiumPluginInterface.hpp>
@@ -326,13 +329,20 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
 }
 
 void BaseApplication::engineBaseInitialization() {
+    // TODO : modify interface to allow the app to ask for specific systems registration
     // Register the GeometrySystem converting loaded assets to meshes
     m_engine->registerSystem(
         "GeometrySystem", new Ra::Engine::Scene::GeometrySystem, defaultSystemPriority );
     // Register the TimeSystem managing time dependant systems
     Scalar dt = ( m_targetFPS == 0 ? 1_ra / 60_ra : 1_ra / m_targetFPS );
     m_engine->setConstantTimeStep( dt );
+    // Register the SkeletonBasedAnimationSystem converting loaded assets to
+    // skeletons and skinning data
+    m_engine->registerSystem( "SkeletonBasedAnimationSystem",
+                              new Ra::Engine::Scene::SkeletonBasedAnimationSystem,
+                              defaultSystemPriority );
 }
+
 void BaseApplication::engineOpenGLInitialize() {
     // initialize here the OpenGL part of the engine used by the application
     m_engine->initializeGL();

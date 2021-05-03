@@ -40,6 +40,9 @@ set( engine_sources
     Scene/LightManager.cpp
     Scene/PointLight.cpp
     Scene/SignalManager.cpp
+    Scene/SkeletonBasedAnimationSystem.cpp
+    Scene/SkeletonComponent.cpp
+    Scene/SkinningComponent.cpp
     Scene/SpotLight.cpp
     Scene/System.cpp
     Scene/SystemDisplay.cpp
@@ -96,6 +99,9 @@ set( engine_headers
     Scene/LightStorage.hpp
     Scene/PointLight.hpp
     Scene/SignalManager.hpp
+    Scene/SkeletonBasedAnimationSystem.hpp
+    Scene/SkeletonComponent.hpp
+    Scene/SkinningComponent.hpp
     Scene/SpotLight.hpp
     Scene/SystemDisplay.hpp
     Scene/System.hpp

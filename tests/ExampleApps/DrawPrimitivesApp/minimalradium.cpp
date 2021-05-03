@@ -41,9 +41,12 @@ const bool ENABLE_NORMALS   = true;
 const bool ENABLE_POLYS     = true;
 const bool ENABLE_LOGO      = true;
 const bool ENABLE_COLLAPSE  = true;
+const bool ENABLE_SPLIT     = true;
 
 using namespace Ra;
 using namespace Ra::Core;
+using namespace Ra::Core::Utils;
+using namespace Ra::Core::Geometry;
 using namespace Ra::Engine;
 using namespace Ra::Engine::Rendering;
 using namespace Ra::Engine::Data;
@@ -72,7 +75,7 @@ void updateCellCorner( Vector3& cellCorner, const Scalar cellSize, const int nCe
 void MinimalComponent::initialize() {
     auto blinnPhongMaterial              = make_shared<BlinnPhongMaterial>( "Shaded Material" );
     blinnPhongMaterial->m_perVertexColor = true;
-    blinnPhongMaterial->m_ks             = Utils::Color::White();
+    blinnPhongMaterial->m_ks             = Color::White();
     blinnPhongMaterial->m_ns             = 100_ra;
 
     auto plainMaterial              = make_shared<PlainMaterial>( "Plain Material" );
@@ -92,6 +95,7 @@ void MinimalComponent::initialize() {
     Vector3 offsetVec {offset, offset, offset};
     std::random_device rd;    // Will be used to obtain a seed for the random number engine
     std::mt19937 gen( rd() ); // Standard mersenne_twister_engine seeded with rd()
+    gen.seed( 13371337 );
     std::uniform_real_distribution<Scalar> dis015( 0_ra, cellSize - 2_ra * offset );
     std::uniform_real_distribution<Scalar> dis01( 0_ra, 1_ra );
     std::uniform_real_distribution<Scalar> dis11( -1_ra, 1_ra );
@@ -106,7 +110,7 @@ void MinimalComponent::initialize() {
         auto gridPrimitive = DrawPrimitives::Grid( Vector3::Zero(),
                                                    Vector3::UnitX(),
                                                    Vector3::UnitZ(),
-                                                   Utils::Color::Grey( 0.6f ),
+                                                   Color::Grey( 0.6f ),
                                                    cellSize,
                                                    nCellX );
 
@@ -124,7 +128,7 @@ void MinimalComponent::initialize() {
         auto coord = cellSize / 8_ra;
         cube1->loadGeometry( Geometry::makeSharpBox( Vector3 {coord, coord, coord} ) );
         cube1->getCoreGeometry().addAttrib(
-            "in_color", Vector4Array {cube1->getNumVertices(), Utils::Color::Green()} );
+            "in_color", Vector4Array {cube1->getNumVertices(), Color::Green()} );
 
         auto renderObject1 = RenderObject::createRenderObject(
             "Cube1", this, RenderObjectType::Geometry, cube1, {} );
@@ -136,8 +140,8 @@ void MinimalComponent::initialize() {
         std::shared_ptr<Mesh> cube2( new Mesh( "Cube" ) );
         coord = cellSize / 4_ra;
         cube2->loadGeometry( Geometry::makeSharpBox( Vector3 {coord, coord, coord} ) );
-        cube2->getCoreGeometry().addAttrib(
-            "colour", Vector4Array {cube2->getNumVertices(), Utils::Color::Red()} );
+        cube2->getCoreGeometry().addAttrib( "colour",
+                                            Vector4Array {cube2->getNumVertices(), Color::Red()} );
 
         cube2->setAttribNameCorrespondance( "colour", "in_color" );
         auto renderObject2 = RenderObject::createRenderObject(
@@ -158,7 +162,7 @@ void MinimalComponent::initialize() {
             "test_point",
             this,
             RenderObjectType::Geometry,
-            DrawPrimitives::Point( cellCorner, colorBoost * Utils::Color {0_ra, 1_ra, 0.3_ra} ),
+            DrawPrimitives::Point( cellCorner, colorBoost * Color {0_ra, 1_ra, 0.3_ra} ),
             {} );
         testpoint->setMaterial( plainMaterial );
         addRenderObject( testpoint );
@@ -187,9 +191,8 @@ void MinimalComponent::initialize() {
             "test_line",
             this,
             RenderObjectType::Geometry,
-            DrawPrimitives::Line( cellCorner,
-                                  cellCorner + Vector3 {0_ra, 0.4_ra, 0_ra},
-                                  colorBoost * Utils::Color::Red() ),
+            DrawPrimitives::Line(
+                cellCorner, cellCorner + Vector3 {0_ra, 0.4_ra, 0_ra}, colorBoost * Color::Red() ),
             {} );
         testline->setMaterial( plainMaterial );
         addRenderObject( testline );
@@ -223,7 +226,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Vector(
-                cellCorner, Vector3 {0_ra, 0.5_ra, 0_ra}, colorBoost * Utils::Color::Blue() ),
+                cellCorner, Vector3 {0_ra, 0.5_ra, 0_ra}, colorBoost * Color::Blue() ),
             {} );
         testvector->setMaterial( plainMaterial );
         addRenderObject( testvector );
@@ -259,7 +262,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Ray(
-                {cellCorner, {0_ra, 1_ra, 0_ra}}, colorBoost * Utils::Color::Yellow(), cellSize ),
+                {cellCorner, {0_ra, 1_ra, 0_ra}}, colorBoost * Color::Yellow(), cellSize ),
             {} );
         testray->setMaterial( plainMaterial );
         addRenderObject( testray );
@@ -278,7 +281,7 @@ void MinimalComponent::initialize() {
             DrawPrimitives::Triangle( cellCorner + 4_ra * Vector3 {-0.01_ra, 0.0_ra, 0.0_ra},
                                       cellCorner + 4_ra * Vector3 {+0.01_ra, 0.0_ra, 0.0_ra},
                                       cellCorner + 4_ra * Vector3 {+0.0_ra, 0.02_ra, 0.0_ra},
-                                      colorBoost * Utils::Color::White(),
+                                      colorBoost * Color::White(),
                                       true ),
             {} );
         triangle1->setMaterial( plainMaterial );
@@ -294,7 +297,7 @@ void MinimalComponent::initialize() {
                                           Vector3 {+0.071_ra, 0.0_ra, 0.0_ra},
                                       cellCorner + Vector3 {cellSize / 2_ra, 0_ra, 0_ra} +
                                           Vector3 {+0.0_ra, 0.2_ra, 0.0_ra},
-                                      colorBoost * Utils::Color::Green(),
+                                      colorBoost * Color::Green(),
                                       true ),
             {} );
         triangle2->setMaterial( plainMaterial );
@@ -313,7 +316,7 @@ void MinimalComponent::initialize() {
                         Vector3 {+0.071_ra, 0.0_ra, Scalar( i ) / 20_ra * cellSize},
                     cellCorner + Vector3 {cellSize / 2_ra, 0_ra, 0_ra} +
                         Vector3 {+0.0_ra, 0.2_ra, Scalar( i ) / 20_ra * cellSize},
-                    colorBoost * Utils::Color::White() * Scalar( i ) / 10_ra,
+                    colorBoost * Color::White() * Scalar( i ) / 10_ra,
                     false ),
                 {} );
             triwire->setMaterial( plainMaterial );
@@ -346,7 +349,7 @@ void MinimalComponent::initialize() {
                                         {0_ra, 0_ra, 1_ra},
                                         cellSize / 8_ra,
                                         64,
-                                        colorBoost * Utils::Color::White() ),
+                                        colorBoost * Color::White() ),
                 {} );
             circle->setMaterial( plainMaterial );
             addRenderObject( circle );
@@ -393,7 +396,7 @@ void MinimalComponent::initialize() {
                                            cellSize / 8_ra,
                                            1_ra,
                                            64,
-                                           colorBoost * Utils::Color::White() ),
+                                           colorBoost * Color::White() ),
                 {} );
             arc->setMaterial( plainMaterial );
             addRenderObject( arc );
@@ -441,7 +444,7 @@ void MinimalComponent::initialize() {
                 "test_sphere",
                 this,
                 RenderObjectType::Geometry,
-                DrawPrimitives::Sphere( cellCorner, 0.02_ra, Utils::Color::White() ),
+                DrawPrimitives::Sphere( cellCorner, 0.02_ra, Color::White() ),
                 {} );
             sphere->setMaterial( blinnPhongMaterial );
             addRenderObject( sphere );
@@ -467,9 +470,9 @@ void MinimalComponent::initialize() {
                          0_ra,
                          ratio * cellSize * .4_ra * std::sin( angle + Math::PiDiv3 * 4_ra )}};
 
-            Color color1 {Utils::Color::Green() * ratio};
-            Color color2 {Utils::Color::Red() * ratio};
-            Color color3 {Utils::Color::Blue() * ratio};
+            Color color1 {Color::Green() * ratio};
+            Color color2 {Color::Red() * ratio};
+            Color color3 {Color::Blue() * ratio};
             auto sphere = RenderObject::createRenderObject(
                 "test_sphere",
                 this,
@@ -508,10 +511,8 @@ void MinimalComponent::initialize() {
             "test_capsule",
             this,
             RenderObjectType::Geometry,
-            DrawPrimitives::Capsule( cellCorner,
-                                     cellCorner + Vector3 {0_ra, 0.1_ra, 0_ra},
-                                     0.02_ra,
-                                     Utils::Color::White() ),
+            DrawPrimitives::Capsule(
+                cellCorner, cellCorner + Vector3 {0_ra, 0.1_ra, 0_ra}, 0.02_ra, Color::White() ),
             {} );
         capsule->setMaterial( blinnPhongMaterial );
         addRenderObject( capsule );
@@ -527,11 +528,8 @@ void MinimalComponent::initialize() {
             "test_disk",
             this,
             RenderObjectType::Geometry,
-            DrawPrimitives::Disk( cellCorner,
-                                  Vector3 {0_ra, 0_ra, 1_ra},
-                                  0.05_ra,
-                                  32,
-                                  colorBoost * Utils::Color::White() ),
+            DrawPrimitives::Disk(
+                cellCorner, Vector3 {0_ra, 0_ra, 1_ra}, 0.05_ra, 32, colorBoost * Color::White() ),
             {} );
         disk->setMaterial( blinnPhongMaterial );
         addRenderObject( disk );
@@ -549,7 +547,7 @@ void MinimalComponent::initialize() {
             RenderObjectType::Geometry,
             DrawPrimitives::Normal( cellCorner + Vector3 {0_ra, 0.1_ra, 0_ra},
                                     Vector3 {0_ra, 0_ra, 1_ra},
-                                    colorBoost * Utils::Color::White(),
+                                    colorBoost * Color::White(),
                                     0.01_ra ),
             {} );
         normal->setMaterial( plainMaterial );
@@ -570,7 +568,7 @@ void MinimalComponent::initialize() {
                    DrawPrimitives::Grid( const Core::Vector3& center,
                                                    const Core::Vector3& x,
                                                    const Core::Vector3& y,
-                              k                     const Core::Utils::Color& color,
+                              k                     const Core::Color& color,
                                                    Scalar cellSize = 1.f,
                                                    uint res        = 10 );
 
@@ -579,21 +577,21 @@ void MinimalComponent::initialize() {
                    this,
                    RenderObjectType::Geometry,
                    DrawPrimitives::AABB( const Core::Aabb& aabb, const
-                       Core::Utils::Color& color );
+                       Core::Color& color );
 
                            addRenderObject( RenderObject::createRenderObject(
                    "test_ray",
                    this,
                    RenderObjectType::Geometry,
                    DrawPrimitives::OBB( const Core::Geometry::Obb& obb, const
-                       Core::Utils::Color& color );
+                       Core::Color& color );
 
                            addRenderObject( RenderObject::createRenderObject(
                    "test_ray",
                    this,
                    RenderObjectType::Geometry,
                    DrawPrimitives::Spline( const Core::Geometry::Spline<3, 3>&
-                       spline, uint pointCount, const Core::Utils::Color& color, Scalar scale
+                       spline, uint pointCount, const Core::Color& color, Scalar scale
        = 1.0f
                    );*/
 
@@ -603,7 +601,7 @@ void MinimalComponent::initialize() {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
-        Ra::Core::Geometry::PolyMesh polyMesh;
+        Geometry::PolyMesh polyMesh;
         polyMesh.setVertices( {
             // quad
             {-1.1_ra, -0_ra, 0_ra},
@@ -633,11 +631,11 @@ void MinimalComponent::initialize() {
         hepta << 3, 2, 4, 5, 6, 7, 8;
         polyMesh.setIndices( {quad, hepta} );
 
-        std::shared_ptr<PolyMesh> poly1( new PolyMesh( "Poly", std::move( polyMesh ) ) );
+        std::shared_ptr<Data::PolyMesh> poly1(
+            new Data::PolyMesh( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
             "in_color",
-            Vector4Array {poly1->getNumVertices(),
-                          colorBoost * Utils::Color {1_ra, 0.6_ra, 0.1_ra}} );
+            Vector4Array {poly1->getNumVertices(), colorBoost * Color {1_ra, 0.6_ra, 0.1_ra}} );
 
         auto renderObject1 = RenderObject::createRenderObject(
             "PolyMesh", this, RenderObjectType::Geometry, poly1, {} );
@@ -654,8 +652,7 @@ void MinimalComponent::initialize() {
         std::shared_ptr<Mesh> poly2( new Mesh( "Poly", std::move( triangulated ) ) );
         poly2->getCoreGeometry().addAttrib(
             "in_color",
-            Vector4Array {poly2->getNumVertices(),
-                          colorBoost * Utils::Color {0_ra, 0.6_ra, 0.1_ra}} );
+            Vector4Array {poly2->getNumVertices(), colorBoost * Color {0_ra, 0.6_ra, 0.1_ra}} );
 
         auto renderObject2 = RenderObject::createRenderObject(
             "triangulated", this, RenderObjectType::Geometry, poly2, {} );
@@ -695,7 +692,7 @@ void MinimalComponent::initialize() {
                     break;
                 case Ra::Core::Asset::GeometryData::QUAD_MESH:
                 case Ra::Core::Asset::GeometryData::POLY_MESH:
-                    mesh = std::shared_ptr<PolyMesh> {
+                    mesh = std::shared_ptr<Data::PolyMesh> {
                         createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd )};
                     break;
                 default:
@@ -733,148 +730,144 @@ void MinimalComponent::initialize() {
         }
     }
 
+    Vector3Array points1 {
+        {00._ra, 00._ra, 00._ra},
+        {10._ra, 00._ra, 00._ra},
+        {05._ra, 05._ra, 00._ra},
+        {05._ra, 10._ra, 00._ra},
+        {15._ra, 05._ra, 00._ra},
+        {10._ra, 08._ra, 00._ra},
+        {10._ra, 12._ra, 00._ra},
+        {15._ra, 10._ra, 00._ra},
+    };
+    Vector3Array points2 = {points1[0], points1[0], points1[1], points1[1], points1[1], points1[2],
+                            points1[2], points1[2], points1[2], points1[3], points1[3], points1[3],
+                            points1[4], points1[4], points1[5], points1[5], points1[5], points1[5],
+                            points1[5], points1[5], points1[6], points1[6], points1[7], points1[7]};
+
+    Vector4Array colors1 = {
+        {0_ra, 0_ra, 0_ra, 1_ra},    {1_ra, 1_ra, 1_ra, 1_ra},    {2_ra, 2_ra, 2_ra, 1_ra},
+        {3_ra, 3_ra, 3_ra, 1_ra},    {4_ra, 4_ra, 4_ra, 1_ra},    {5_ra, 5_ra, 5_ra, 1_ra},
+        {6_ra, 6_ra, 6_ra, 1_ra},    {7_ra, 7_ra, 7_ra, 1_ra},    {8_ra, 8_ra, 8_ra, 1_ra},
+        {9_ra, 9_ra, 9_ra, 1_ra},    {10_ra, 10_ra, 10_ra, 1_ra}, {11_ra, 11_ra, 11_ra, 1_ra},
+        {12_ra, 12_ra, 12_ra, 1_ra}, {13_ra, 13_ra, 13_ra, 1_ra}, {14_ra, 14_ra, 14_ra, 1_ra},
+        {15_ra, 15_ra, 15_ra, 1_ra}, {16_ra, 16_ra, 16_ra, 1_ra}, {17_ra, 17_ra, 17_ra, 1_ra},
+        {18_ra, 18_ra, 18_ra, 1_ra}, {19_ra, 19_ra, 19_ra, 1_ra}, {20_ra, 20_ra, 20_ra, 1_ra},
+        {21_ra, 21_ra, 21_ra, 1_ra}, {22_ra, 22_ra, 22_ra, 1_ra}, {23_ra, 23_ra, 23_ra, 1_ra},
+    };
+
+    for ( auto& c : colors1 )
+    {
+        c = colorBoost * Vector4 {dis01( gen ), dis01( gen ), dis01( gen ), 1_ra};
+    }
+
+    Vector3uArray indices1 {
+        {0, 2, 1}, {0, 3, 2}, {1, 2, 5}, {2, 3, 5}, {1, 5, 4}, {3, 6, 5}, {5, 6, 7}, {4, 5, 7}};
+    Vector3uArray indices3 = {{0, 2, 1}, {1, 2, 5}, {1, 5, 4}, {3, 6, 5}, {5, 6, 7}, {4, 5, 7}};
+
+    Vector3uArray indices4 = {
+        {0, 2, 5}, {3, 14, 6}, {4, 12, 15}, {11, 18, 20}, {17, 22, 21}, {16, 13, 23}};
+
+    Vector3uArray indices2 {{0, 5, 2},
+                            {1, 9, 8},
+                            {3, 6, 14},
+                            {7, 10, 19},
+                            {4, 15, 12},
+                            {11, 20, 18},
+                            {17, 21, 22},
+                            {16, 23, 13}};
+
+    Vector4Array colors2 {24, Color::White()};
+    for ( const auto& face : indices2 )
+    {
+        colors2[face[0]] = colors1[face[0]];
+        colors2[face[1]] = colors1[face[0]];
+        colors2[face[2]] = colors1[face[0]];
+    }
+
+    Vector4Array colors3 {24, Color::White()};
+    std::vector<int> topFaceIndices {1, 3, 5, 6};
+    std::vector<int> bottomFaceIndices {0, 2, 4, 7};
+
+    for ( const auto& faceIndex : topFaceIndices )
+    {
+        colors3[indices2[faceIndex][0]] = colors1[0];
+        colors3[indices2[faceIndex][1]] = colors1[0];
+        colors3[indices2[faceIndex][2]] = colors1[0];
+    }
+    for ( const auto& faceIndex : bottomFaceIndices )
+    {
+        colors3[indices2[faceIndex][0]] = colors1[1];
+        colors3[indices2[faceIndex][1]] = colors1[1];
+        colors3[indices2[faceIndex][2]] = colors1[1];
+    }
+    Vector4Array colors4 {24, Color::White()};
+
+    std::vector<std::vector<int>> splitContinuousWedges {// 0
+                                                         {0},
+                                                         {1},
+                                                         // 1
+                                                         {2, 3, 4},
+                                                         // 2
+                                                         {8, 7},
+                                                         {5, 6},
+                                                         // 3
+                                                         {9, 10, 11},
+                                                         // 4
+                                                         {12, 13},
+                                                         // 5
+                                                         {14, 15, 16},
+                                                         {17, 18, 19},
+                                                         // 6
+                                                         {20, 21},
+                                                         // 7
+                                                         {22, 23}};
+
+    for ( size_t i = 0; i < splitContinuousWedges.size(); ++i )
+    {
+        for ( const auto& widx : splitContinuousWedges[i] )
+        {
+            colors4[widx] = colors1[i];
+        }
+    }
+
+    auto findHalfedge = []( TopologicalMesh& topo,
+                            const Vector3& from,
+                            const Vector3& to ) -> optional<TopologicalMesh::HalfedgeHandle> {
+        bool found;
+        TopologicalMesh::HalfedgeHandle he;
+        for ( auto he_iter = topo.halfedges_begin(); he_iter != topo.halfedges_end(); ++he_iter )
+        {
+
+            if ( topo.point( topo.to_vertex_handle( he_iter ) ) == to &&
+                 topo.point( topo.from_vertex_handle( he_iter ) ) == from )
+            {
+                found = true;
+                he    = *he_iter;
+            }
+        }
+        if ( found ) return he;
+        return {};
+    };
+
+    auto addMesh = [this, colorBoost, plainMaterial]( Vector3 pos, TopologicalMesh topo1 ) {
+        topo1.checkIntegrity();
+        auto mesh1 = topo1.toTriangleMesh();
+        std::shared_ptr<Mesh> poly( new Mesh( "TEST", std::move( mesh1 ) ) );
+
+        auto renderObject2 =
+            RenderObject::createRenderObject( "TEST", this, RenderObjectType::Geometry, poly, {} );
+        renderObject2->setMaterial( plainMaterial );
+        renderObject2->setLocalTransform(
+            Transform {Translation( Vector3( pos ) ) * Eigen::UniformScaling<Scalar>( 0.003_ra )} );
+
+        addRenderObject( renderObject2 );
+    };
+
     if ( ENABLE_COLLAPSE )
     {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
-
-        using namespace Ra::Core;
-        using namespace Ra::Core::Utils;
-        using namespace Ra::Core::Geometry;
-        auto findHalfedge = []( TopologicalMesh& topo,
-                                const Vector3& from,
-                                const Vector3& to ) -> optional<TopologicalMesh::HalfedgeHandle> {
-            bool found;
-            TopologicalMesh::HalfedgeHandle he;
-            for ( auto he_iter = topo.halfedges_begin(); he_iter != topo.halfedges_end();
-                  ++he_iter )
-            {
-
-                if ( topo.point( topo.to_vertex_handle( he_iter ) ) == to &&
-                     topo.point( topo.from_vertex_handle( he_iter ) ) == from )
-                {
-                    found = true;
-                    he    = *he_iter;
-                }
-            }
-            if ( found ) return he;
-            return {};
-        };
-
-        auto addMesh = [this, colorBoost, plainMaterial]( Vector3 pos, TopologicalMesh topo1 ) {
-            topo1.checkIntegrity();
-            auto mesh1 = topo1.toTriangleMesh();
-            std::shared_ptr<Mesh> poly( new Mesh( "TEST", std::move( mesh1 ) ) );
-
-            auto renderObject2 = RenderObject::createRenderObject(
-                "TEST", this, RenderObjectType::Geometry, poly, {} );
-            renderObject2->setMaterial( plainMaterial );
-            renderObject2->setLocalTransform( Transform {
-                Translation( Vector3( pos ) ) * Eigen::UniformScaling<Scalar>( 0.003_ra )} );
-
-            addRenderObject( renderObject2 );
-        };
-
-        Vector3Array points1 {
-            {00._ra, 00._ra, 00._ra},
-            {10._ra, 00._ra, 00._ra},
-            {05._ra, 05._ra, 00._ra},
-            {05._ra, 10._ra, 00._ra},
-            {15._ra, 05._ra, 00._ra},
-            {10._ra, 08._ra, 00._ra},
-            {10._ra, 12._ra, 00._ra},
-            {15._ra, 10._ra, 00._ra},
-        };
-        Vector3Array points2 = {points1[0], points1[0], points1[1], points1[1], points1[1],
-                                points1[2], points1[2], points1[2], points1[2], points1[3],
-                                points1[3], points1[3], points1[4], points1[4], points1[5],
-                                points1[5], points1[5], points1[5], points1[5], points1[5],
-                                points1[6], points1[6], points1[7], points1[7]};
-
-        Vector4Array colors1 = {
-            {0_ra, 0_ra, 0_ra, 1_ra},    {1_ra, 1_ra, 1_ra, 1_ra},    {2_ra, 2_ra, 2_ra, 1_ra},
-            {3_ra, 3_ra, 3_ra, 1_ra},    {4_ra, 4_ra, 4_ra, 1_ra},    {5_ra, 5_ra, 5_ra, 1_ra},
-            {6_ra, 6_ra, 6_ra, 1_ra},    {7_ra, 7_ra, 7_ra, 1_ra},    {8_ra, 8_ra, 8_ra, 1_ra},
-            {9_ra, 9_ra, 9_ra, 1_ra},    {10_ra, 10_ra, 10_ra, 1_ra}, {11_ra, 11_ra, 11_ra, 1_ra},
-            {12_ra, 12_ra, 12_ra, 1_ra}, {13_ra, 13_ra, 13_ra, 1_ra}, {14_ra, 14_ra, 14_ra, 1_ra},
-            {15_ra, 15_ra, 15_ra, 1_ra}, {16_ra, 16_ra, 16_ra, 1_ra}, {17_ra, 17_ra, 17_ra, 1_ra},
-            {18_ra, 18_ra, 18_ra, 1_ra}, {19_ra, 19_ra, 19_ra, 1_ra}, {20_ra, 20_ra, 20_ra, 1_ra},
-            {21_ra, 21_ra, 21_ra, 1_ra}, {22_ra, 22_ra, 22_ra, 1_ra}, {23_ra, 23_ra, 23_ra, 1_ra},
-        };
-
-        for ( auto& c : colors1 )
-        {
-            c = colorBoost * Vector4 {dis01( gen ), dis01( gen ), dis01( gen ), 1_ra};
-        }
-
-        Vector3uArray indices1 {
-            {0, 2, 1}, {0, 3, 2}, {1, 2, 5}, {2, 3, 5}, {1, 5, 4}, {3, 6, 5}, {5, 6, 7}, {4, 5, 7}};
-        Vector3uArray indices3 = {{0, 2, 1}, {1, 2, 5}, {1, 5, 4}, {3, 6, 5}, {5, 6, 7}, {4, 5, 7}};
-
-        Vector3uArray indices4 = {
-            {0, 2, 5}, {3, 14, 6}, {4, 12, 15}, {11, 18, 20}, {17, 22, 21}, {16, 13, 23}};
-
-        Vector3uArray indices2 {{0, 5, 2},
-                                {1, 9, 8},
-                                {3, 6, 14},
-                                {7, 10, 19},
-                                {4, 15, 12},
-                                {11, 20, 18},
-                                {17, 21, 22},
-                                {16, 23, 13}};
-        Vector4Array colors2 {24, Color::White()};
-        for ( const auto& face : indices2 )
-        {
-            colors2[face[0]] = colors1[face[0]];
-            colors2[face[1]] = colors1[face[0]];
-            colors2[face[2]] = colors1[face[0]];
-        }
-
-        Vector4Array colors3 {24, Color::White()};
-        std::vector<int> topFaceIndices {1, 3, 5, 6};
-        std::vector<int> bottomFaceIndices {0, 2, 4, 7};
-
-        for ( const auto& faceIndex : topFaceIndices )
-        {
-            colors3[indices2[faceIndex][0]] = colors1[0];
-            colors3[indices2[faceIndex][1]] = colors1[0];
-            colors3[indices2[faceIndex][2]] = colors1[0];
-        }
-        for ( const auto& faceIndex : bottomFaceIndices )
-        {
-            colors3[indices2[faceIndex][0]] = colors1[1];
-            colors3[indices2[faceIndex][1]] = colors1[1];
-            colors3[indices2[faceIndex][2]] = colors1[1];
-        }
-        Vector4Array colors4 {24, Color::White()};
-
-        std::vector<std::vector<int>> splitContinuousWedges {// 0
-                                                             {0},
-                                                             {1},
-                                                             // 1
-                                                             {2, 3, 4},
-                                                             // 2
-                                                             {8, 7},
-                                                             {5, 6},
-                                                             // 3
-                                                             {9, 10, 11},
-                                                             // 4
-                                                             {12, 13},
-                                                             // 5
-                                                             {14, 15, 16},
-                                                             {17, 18, 19},
-                                                             // 6
-                                                             {20, 21},
-                                                             // 7
-                                                             {22, 23}};
-
-        for ( size_t i = 0; i < splitContinuousWedges.size(); ++i )
-        {
-            for ( const auto& widx : splitContinuousWedges[i] )
-            {
-                colors4[widx] = colors1[i];
-            }
-        }
 
         auto addMergeScene =
             [findHalfedge, addMesh, &cellCorner, toCellCenter, cellSize, nCellX, nCellY](
@@ -905,9 +898,10 @@ void MinimalComponent::initialize() {
                 topo.collapse( *optHe );
                 addMesh( pos, topo );
 
-                topo  = TopologicalMesh {mesh};
-                optHe = findHalfedge( topo, from, to );
                 pos += up;
+                topo = TopologicalMesh {mesh};
+                topo.mergeEqualWedges();
+                optHe = findHalfedge( topo, from, to );
                 topo.collapse( *optHe, true );
                 addMesh( pos, topo );
 
@@ -921,9 +915,10 @@ void MinimalComponent::initialize() {
                 topo.collapse( *optHe );
                 addMesh( pos, topo );
 
-                topo  = TopologicalMesh {mesh};
-                optHe = findHalfedge( topo, from, to );
                 pos += up;
+                topo = TopologicalMesh {mesh};
+                topo.mergeEqualWedges();
+                optHe = findHalfedge( topo, from, to );
                 topo.collapse( *optHe, true );
                 addMesh( pos, topo );
             };
@@ -932,6 +927,7 @@ void MinimalComponent::initialize() {
         pos[2] += toCellCenter[2];
         // With "continuous" wedges.
         addMergeScene( pos, points1, colors1, indices1, points1[5], points1[2] );
+        pos += dx;
 
         // with "top/bottom" wedges
         addMergeScene( pos, points2, colors3, indices2, points1[5], points1[2] );
@@ -960,6 +956,86 @@ void MinimalComponent::initialize() {
 
         // with "flat face" wedges
         addMergeScene( pos, points2, colors2, indices4, points1[5], points1[2] );
+    }
+
+    if ( ENABLE_SPLIT )
+    {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        auto addSplitScene =
+            [findHalfedge, addMesh, &cellCorner, toCellCenter, cellSize, nCellX, nCellY](
+                Vector3 pos,
+                const Vector3Array& points,
+                const Vector4Array& colors,
+                const Vector3uArray& indices,
+                Vector3 from,
+                Vector3 to ) {
+                TriangleMesh mesh;
+                TopologicalMesh topo;
+                optional<TopologicalMesh::HalfedgeHandle> optHe;
+                Vector3 up {0_ra, .05_ra, 0_ra};
+
+                mesh.setVertices( points );
+                mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
+                                Vector4Array {colors.begin(), colors.begin() + points.size()} );
+                mesh.setIndices( indices );
+
+                topo = TopologicalMesh {mesh};
+                topo.mergeEqualWedges();
+                topo.garbage_collection();
+
+                addMesh( pos, topo );
+
+                for ( int i = 0; i < 2; ++i )
+                {
+                    for ( auto f : {0.25_ra, 0.5_ra, 0.75_ra} )
+                    {
+                        pos += up;
+                        topo      = TopologicalMesh {mesh};
+                        optHe     = findHalfedge( topo, from, to );
+                        auto edge = topo.edge_handle( *optHe );
+                        topo.mergeEqualWedges();
+                        topo.splitEdge( edge, f );
+                        addMesh( pos, topo );
+                    }
+                    std::swap( from, to );
+                }
+            };
+        Vector3 dx  = Vector3( cellSize / 8_ra, 0_ra, 0_ra );
+        Vector3 pos = cellCorner;
+        pos[2] += toCellCenter[2];
+        // With "continuous" wedges.
+        addSplitScene( pos, points1, colors1, indices1, points1[5], points1[2] );
+        pos += dx;
+
+        // with "top/bottom" wedges
+        addSplitScene( pos, points2, colors3, indices2, points1[5], points1[2] );
+        pos += dx;
+
+        // with continuous"top/bottom" wedges
+        addSplitScene( pos, points2, colors4, indices2, points1[5], points1[2] );
+        pos += dx;
+
+        // with "flat face" wedges
+        addSplitScene( pos, points2, colors2, indices2, points1[5], points1[2] );
+        pos += dx;
+
+        // boundary
+        // With "continuous" wedges.
+        addSplitScene( pos, points1, colors1, indices3, points1[5], points1[2] );
+        pos += dx;
+
+        // with "top/bottom" wedges
+        addSplitScene( pos, points2, colors3, indices4, points1[5], points1[2] );
+        pos += dx;
+
+        // with continuous"top/bottom" wedges
+        addSplitScene( pos, points2, colors4, indices4, points1[5], points1[2] );
+        pos += dx;
+
+        // with "flat face" wedges
+        addSplitScene( pos, points2, colors2, indices4, points1[5], points1[2] );
     }
 }
 
