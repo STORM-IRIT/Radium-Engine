@@ -28,6 +28,7 @@ CameraManager::CameraManager() {
     defaultCamera.setFOV( 60.0_ra * Core::Math::toRad );
     defaultCamera.setZNear( 0.1_ra );
     defaultCamera.setZFar( 1000.0_ra );
+    m_activeCamera = defaultCamera;
 }
 
 void CameraManager::initialize() {
@@ -37,29 +38,6 @@ void CameraManager::initialize() {
         LOG( logDEBUG ) << "CameraManager seems to be already initialized, do nothing.";
         return;
     }
-
-    auto comp = new Engine::Scene::CameraComponent( Engine::Scene::SystemEntity::getInstance(),
-                                                    "CAMERA_DEFAULT" );
-    comp->initialize();
-    *comp->getCamera() = defaultCamera;
-    addCamera( comp );
-
-    /// TMP FOR TESTS
-    comp = new Engine::Scene::CameraComponent( Engine::Scene::SystemEntity::getInstance(),
-                                               "CAMERA_DEFAULT60" );
-    comp->initialize();
-    *comp->getCamera() = defaultCamera;
-    addCamera( comp );
-
-    comp = new Engine::Scene::CameraComponent( Engine::Scene::SystemEntity::getInstance(),
-                                               "CAMERA_DEFAULT120" );
-    comp->initialize();
-    *comp->getCamera() = defaultCamera;
-    comp->getCamera()->setFOV( 120 * Core::Math::toRad );
-    comp->getCamera()->setPosition( {1_ra, 1_ra, 1_ra} );
-    comp->getCamera()->setViewport( 100, 10 );
-
-    addCamera( comp );
 }
 
 void CameraManager::activate( Core::Utils::Index index ) {
@@ -70,11 +48,11 @@ void CameraManager::activate( Core::Utils::Index index ) {
         return;
     }
     // save current size
-    auto width                   = getCamera( 0 )->getCamera()->getWidth();
-    auto height                  = getCamera( 0 )->getCamera()->getHeight();
-    *getCamera( 0 )->getCamera() = *getCamera( index )->getCamera();
-    getCamera( 0 )->getCamera()->setViewport( width, height );
-    getCamera( 0 )->getCamera()->updateProjMatrix();
+    auto width     = m_activeCamera.getWidth();
+    auto height    = m_activeCamera.getHeight();
+    m_activeCamera = *getCamera( index )->getCamera();
+    m_activeCamera.setViewport( width, height );
+    m_activeCamera.updateProjMatrix();
 }
 
 Ra::Core::Utils::Index CameraManager::getCameraIndex( const CameraComponent* cam ) {
@@ -117,6 +95,7 @@ void CameraManager::generateTasks( Core::TaskQueue* taskQueue,
 void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
     std::vector<CameraData*> cameraData = filedata->getCameraData();
     uint id                             = 0;
+    uint cpt                            = 0;
     for ( const auto& data : cameraData )
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
@@ -142,12 +121,11 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
         comp->getCamera()->setZFar( data->getZFar() );
         comp->getCamera()->setZoomFactor( data->getZoomFactor() );
 
-        // comp should be allocated in CameraStorage (well, not sure ...)
-        if ( !comp ) continue;
-
+        cpt++;
         registerComponent( entity, comp );
     }
-    LOG( logINFO ) << "CameraManager : loaded " << count() << " Cameras.";
+    LOG( logINFO ) << "CameraManager : loaded " << cpt << " Cameras. (now manager has " << count()
+                   << " cameras).";
 }
 
 void CameraManager::registerComponent( const Entity* entity, Component* component ) {
