@@ -40,7 +40,7 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
     bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
     void toggleRotateAround();
-    void setCamera( Core::Asset::Camera* camera ) override;
+    void updateCamera() override;
 
   public slots:
     void setCameraPosition( const Core::Vector3& position ) override;
