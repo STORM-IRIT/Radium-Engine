@@ -15,8 +15,10 @@
 #include <iostream>
 
 namespace Ra {
-namespace Gui {
 using Core::Math::Pi;
+using namespace Ra::Core::Utils;
+
+namespace Gui {
 
 using TrackballCameraMapping = KeyMappingManageable<TrackballCameraManipulator>;
 
@@ -32,9 +34,9 @@ KeyMappingCamera
         Gui::KeyMappingManager::getInstance()->getContext( "CameraContext" ) );
     if ( TrackballCameraMapping::getContext().isInvalid() )
     {
-        LOG( Ra::Core::Utils::logINFO )
+        LOG( logINFO )
             << "CameraContext not defined (maybe the configuration file do not contains it)";
-        LOG( Ra::Core::Utils::logERROR ) << "CameraContext all keymapping invalide !";
+        LOG( logERROR ) << "CameraContext all keymapping invalide !";
         return;
     }
 
@@ -86,7 +88,6 @@ void Gui::TrackballCameraManipulator::resetCamera() {
 void Gui::TrackballCameraManipulator::updateCamera() {
     m_target         = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
     m_distFromCenter = 2.0_ra;
-    updatePhiTheta();
     updatePhiTheta();
 
     if ( m_light != nullptr )
@@ -419,14 +420,12 @@ bool Gui::TrackballCameraManipulator::checkIntegrity( const std::string& mess ) 
     Scalar d        = ( m_target - c ).norm();
     if ( d > 0.001_ra )
     {
-        LOG( Ra::Core::Utils::logWARNING )
-            << "TrackballCameraManipulator Integrity problem : " << mess;
-        LOG( Ra::Core::Utils::logWARNING ) << "\t Position " << m_camera->getPosition().transpose();
-        LOG( Ra::Core::Utils::logWARNING )
-            << "\t Direction " << m_camera->getDirection().transpose();
-        LOG( Ra::Core::Utils::logWARNING ) << "\t Target " << m_target.transpose();
-        LOG( Ra::Core::Utils::logWARNING ) << "\t Center " << c.transpose();
-        LOG( Ra::Core::Utils::logWARNING ) << "\t Distance " << d;
+        LOG( logWARNING ) << "TrackballCameraManipulator Integrity problem : " << mess;
+        LOG( logWARNING ) << "\t Position " << m_camera->getPosition().transpose();
+        LOG( logWARNING ) << "\t Direction " << m_camera->getDirection().transpose();
+        LOG( logWARNING ) << "\t Target " << m_target.transpose();
+        LOG( logWARNING ) << "\t Center " << c.transpose();
+        LOG( logWARNING ) << "\t Distance " << d;
     }
     return d < 0.001_ra;
 }
