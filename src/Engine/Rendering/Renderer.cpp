@@ -15,6 +15,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
+#include <Engine/Scene/DefaultCameraManager.hpp>
 #include <Engine/Scene/LightManager.hpp>
 
 #include <globjects/Framebuffer.h>
@@ -639,6 +640,12 @@ void Renderer::resize( uint w, uint h ) {
         m_pickingFbo->unbind();
         resizeInternal();
     }
+
+    auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+        Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+
+    auto comp = cameraManager->getCamera( 0 );
+    comp->getCamera()->setViewport( m_height, m_width );
 }
 
 void Renderer::displayTexture( const std::string& texName ) {
