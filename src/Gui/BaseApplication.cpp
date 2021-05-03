@@ -316,16 +316,9 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
     {
         if ( loadFile( parser.value( "camera" ) ) )
         {
-
-            /// \todo fix this, I don't get this code (d.),
-            /// updated using cameraManager.
-            auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
-            auto camera =
-                static_cast<Engine::Scene::CameraComponent*>( entity->getComponents()[0].get() );
-            auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
-                Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-
-            cameraManager->addCamera( camera );
+            ///\todo Code updated wrt camera manager, TEST IT !
+            // loadFile call camera system handle asset loading, so cameras from the file are
+            // already loaded.
         }
     }
 
