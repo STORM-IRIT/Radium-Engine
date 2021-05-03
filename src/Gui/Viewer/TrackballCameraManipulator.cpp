@@ -83,6 +83,21 @@ void Gui::TrackballCameraManipulator::resetCamera() {
     emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
+void Gui::TrackballCameraManipulator::updateCamera() {
+    m_target         = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
+    m_distFromCenter = 2.0_ra;
+    updatePhiTheta();
+    updatePhiTheta();
+
+    if ( m_light != nullptr )
+    {
+        m_light->setPosition( m_camera->getPosition() );
+        m_light->setDirection( m_camera->getDirection() );
+    }
+
+    emit cameraChanged( m_camera->getPosition(), m_target );
+}
+
 void Gui::TrackballCameraManipulator::setTrackballRadius( Scalar rad ) {
     m_distFromCenter = rad;
     m_target         = m_camera->getPosition() + m_distFromCenter * m_camera->getDirection();
