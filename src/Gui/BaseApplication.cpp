@@ -17,7 +17,6 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
-#include <Engine/Scene/CameraManager.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
 #include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>

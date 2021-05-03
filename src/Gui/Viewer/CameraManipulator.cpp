@@ -36,13 +36,7 @@ CameraManipulator::CameraManipulator() :
 
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-
-    if ( cameraManager->count() > 0 ) { m_camera = cameraManager->getCamera( 0 )->getCamera(); }
-    else
-    {
-        LOG( logWARNING )
-            << "CameraManager has no camera ! it should always have the default camera";
-    }
+    m_camera = cameraManager->getActiveCamera();
 }
 
 CameraManipulator::~CameraManipulator() {}
@@ -83,7 +77,7 @@ void CameraManipulator::setCamera( Core::Asset::Camera* camera ) {
     if ( !camera ) return;
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-    *cameraManager->getCamera( 0 )->getCamera() = *camera;
+    *cameraManager->getActiveCamera() = *camera;
     updateCamera();
 }
 

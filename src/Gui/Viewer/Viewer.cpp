@@ -125,8 +125,8 @@ void Gui::Viewer::resetToDefaultCamera() {
 
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-
-    *m_camera->getCamera() = cameraManager->defaultCamera;
+    cameraManager->resetActiveCamera();
+    m_camera->updateCamera();
     m_camera->getCamera()->setViewport( width(), height() );
 }
 

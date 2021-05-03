@@ -1,10 +1,10 @@
 #pragma once
 
 #include <Engine/RaEngine.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/CameraStorage.hpp>
 #include <Engine/Scene/System.hpp>
 
-#include <Engine/Scene/CameraComponent.hpp>
 #include <memory>
 
 namespace Ra {
@@ -17,8 +17,13 @@ namespace Scene {
 /**
  * Interface providing functions to manage a group or type of Cameras
  * in a specific way.
- * Always have at least one camera (index 0) as "active".
- * Activate camera copy camera content from id to camera index 0.
+ * CameraManager handle one "active camera" for rendering as m_activeCamera;
+ * this rendering camera has no Component associated, and it can retrieve it's data from any managed
+ * camera with activate(index).
+ * Manipulator and renderer can access (and even store as a visiting ptr) this data with
+ * getActiveCamera()
+ * Default camera data is used to intializad camera. Client code can set this static data to control
+ * default camera initialization.
  */
 class RA_ENGINE_API CameraManager : public System
 {
@@ -80,6 +85,9 @@ class RA_ENGINE_API CameraManager : public System
     /// can be tweaked after ctor and before initalization, or for any kind of reset.
     static Ra::Core::Asset::Camera defaultCamera;
 
+    Ra::Core::Asset::Camera* getActiveCamera() { return &m_activeCamera; }
+    void resetActiveCamera() { m_activeCamera = defaultCamera; }
+
   protected:
     /** Inherited method marked as final to ensure correct memory management
      *  even in child classes (e.g. CameraStorage).
@@ -97,6 +105,9 @@ class RA_ENGINE_API CameraManager : public System
   protected:
     /// Stores the object that stores the Cameras...
     std::unique_ptr<CameraStorage> m_data {nullptr};
+
+    /// active camera data, active camera hasn't any component just pure data.
+    Ra::Core::Asset::Camera m_activeCamera;
 };
 
 } // namespace Scene
