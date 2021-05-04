@@ -102,12 +102,17 @@ void Camera::updateProjMatrix() {
 Core::Matrix4 Camera::frustum( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, Scalar f ) {
     Core::Matrix4 projMatrix;
     projMatrix.setZero();
-    const Scalar diff           = ( n - f );
     projMatrix.coeffRef( 0, 0 ) = 2_ra * n / ( r - l );
     projMatrix.coeffRef( 1, 1 ) = 2_ra * n / ( t - b );
-    projMatrix.coeffRef( 2, 2 ) = ( f + n ) / diff;
-    projMatrix.coeffRef( 2, 3 ) = ( 2_ra * f * n ) / diff;
+
+    /// (row, col)
+    projMatrix.coeffRef( 0, 2 ) = ( r + l ) / ( r - l );
+    projMatrix.coeffRef( 1, 2 ) = ( t + b ) / ( t - b );
+    projMatrix.coeffRef( 2, 2 ) = -( f + n ) / ( f - n );
     projMatrix.coeffRef( 3, 2 ) = -1_ra;
+
+    projMatrix.coeffRef( 2, 3 ) = -( 2_ra * f * n ) / ( f - n );
+
     return projMatrix;
 }
 
