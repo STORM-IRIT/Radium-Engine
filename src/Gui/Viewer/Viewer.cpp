@@ -182,43 +182,35 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     m_pickingManager->clear();
     makeCurrent();
 
-    // TODO : as soon as everything could be computed efficiently, activate z-bounds fitting.
-    // For the moment (sept 2019), request of the scene bounding box is really inefficient (all is
-    // recomputed, even if no change since last computation)
-    // TODO : implement better management of UI and debug render objects so that the are drawn with
-    // an adequate
-    //  znear/zfar values
-#if 1
     // update znear/zfar to fit the scene ...
     auto entityManager = Engine::RadiumEngine::getInstance()->getEntityManager();
     if ( entityManager )
     {
-        Core::Aabb aabb;
 
+        // to fit scene only
+        // auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
+        // to fit also debug and system entity aabb
+        Core::Aabb aabb;
         for ( const auto& entity : entityManager->getEntities() )
         {
-            // transform is applied in ro aabb computation ...
+            // entity aabb is in world space
             aabb.extend( entity->computeAabb() );
         }
-        if ( !aabb.isEmpty() )
-        {
-            // tight depth boundsCM
-            m_camera->getCamera()->fitZRange( aabb );
-        }
+
+        if ( !aabb.isEmpty() ) { m_camera->getCamera()->fitZRange( aabb ); }
         else
         {
             auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
                 Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
 
-            // scene is empty, reset to defaults bounds ?
+            // scene is empty, reset to defaults bounds
             m_camera->setCameraZNear( cameraManager->defaultCamera.getZNear() );
             m_camera->setCameraZFar( cameraManager->defaultCamera.getZFar() );
         }
     }
-#endif
 
-    // FIXME : move this outside of the rendering loop. must be done once per renderer ...
-    // if there is no light on the renderer, add the head light attached to the camera ...
+    /// \todo FIXME : move this outside of the rendering loop. must be done once per renderer ...
+    /// if there is no light on the renderer, add the head light attached to the camera ...
     if ( !m_currentRenderer->hasLight() )
     {
         if ( m_camera->hasLightAttached() )
@@ -263,6 +255,9 @@ void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
     {
         CORE_ASSERT( m_camera != nullptr, "No camera found." );
         m_camera->fitScene( aabb );
+
+        // uncomment to display scene aabb
+        // RA_DISPLAY_AABB( aabb, Color::Blue() );
         emit needUpdate();
     }
     else
