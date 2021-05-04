@@ -243,7 +243,7 @@ void Gui::TrackballCameraManipulator::setCameraPosition( const Core::Vector3& po
     m_distFromCenter = (m_target - position).norm();
     updatePhiTheta();
     */
-    m_target = position + m_distFromCenter * m_camera->getDirection().normalized();
+    m_target = position + m_distFromCenter * m_camera->getDirection();
 
     if ( m_light != nullptr )
     {
@@ -381,7 +381,7 @@ void Gui::TrackballCameraManipulator::handleCameraZoom( Scalar z ) {
 
 void Gui::TrackballCameraManipulator::updatePhiTheta() {
     using Core::Math::areApproxEqual;
-    const auto R = m_camera->getDirection().normalized();
+    const auto R = m_camera->getDirection();
 
     m_theta = std::acos( -R.y() );
 
