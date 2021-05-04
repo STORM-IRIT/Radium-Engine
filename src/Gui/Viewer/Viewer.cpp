@@ -218,7 +218,8 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
         else
             LOG( logDEBUG ) << "Unable to attach the head light!";
     }
-    Engine::Data::ViewingParameters data {m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt};
+    Engine::Data::ViewingParameters data {
+        m_camera->getCamera()->getViewMatrix(), m_camera->getCamera()->getProjMatrix(), dt};
     m_currentRenderer->render( data );
 }
 
@@ -774,7 +775,7 @@ Gui::Viewer::pickAtPosition( Core::Vector2 position ) {
         {position,
          Engine::Rendering::Renderer::PickingPurpose::SELECTION,
          Engine::Rendering::Renderer::RO},
-        {m_camera->getViewMatrix(), m_camera->getProjMatrix(), 0.} );
+        {m_camera->getCamera()->getViewMatrix(), m_camera->getCamera()->getProjMatrix(), 0.} );
 
     doneCurrent();
     return result;
