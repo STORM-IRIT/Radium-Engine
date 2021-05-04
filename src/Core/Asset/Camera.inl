@@ -119,12 +119,12 @@ inline void Camera::setProjMatrix( Core::Matrix4 projMatrix ) {
 }
 
 inline Core::Vector2 Camera::project( const Core::Vector3& p ) const {
-    Core::Vector4 point   = Core::Vector4::Ones();
-    point.head<3>()       = p;
-    Core::Vector4 vpPoint = getProjMatrix() * getViewMatrix() * point;
+    Core::Vector4 point = Core::Vector4::Ones();
+    point.head<3>()     = p;
+    auto vpPoint        = getProjMatrix() * getViewMatrix() * point;
 
     return Core::Vector2( getWidth() * 0.5_ra * ( vpPoint.x() + 1_ra ),
-                          getHeight() * 0.5_ra * ( vpPoint.y() + -1_ra ) );
+                          getHeight() * 0.5_ra * ( 1_ra - vpPoint.y() ) );
 }
 
 inline Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
