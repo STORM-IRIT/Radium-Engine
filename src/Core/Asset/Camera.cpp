@@ -132,16 +132,16 @@ Core::Matrix4 Camera::ortho( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, S
 }
 
 void Camera::fitZRange( const Core::Aabb& aabb ) {
-    const auto& position        = getPosition();
-    Ra::Core::Vector3 direction = getDirection();
+    const auto position  = Ra::Core::Vector3 {0_ra, 0_ra, 0_ra};
+    const auto direction = Ra::Core::Vector3 {0_ra, 0_ra, -1_ra};
+    const auto view      = getFrame().inverse();
+    const auto& minAabb  = aabb.min();
+    const auto& maxAabb  = aabb.max();
 
-    const auto& minAabb = aabb.min();
-    const auto& maxAabb = aabb.max();
-    m_zNear = m_zFar = direction.dot( minAabb - position );
-
-    auto adaptRange = [position, direction, this]( Scalar x, Scalar y, Scalar z ) {
-        Ra::Core::Vector3 corner( x, y, z );
-        auto d        = direction.dot( corner - position );
+    m_zNear = m_zFar = direction.dot( view * minAabb - position );
+    auto adaptRange  = [view, position, direction, this]( Scalar x, Scalar y, Scalar z ) {
+        auto corner   = Core::Vector3 {x, y, z};
+        auto d        = direction.dot( view * corner - position );
         this->m_zNear = std::min( d, this->m_zNear );
         this->m_zFar  = std::max( d, this->m_zFar );
     };
