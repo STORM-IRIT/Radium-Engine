@@ -86,8 +86,10 @@ void Gui::TrackballCameraManipulator::resetCamera() {
 }
 
 void Gui::TrackballCameraManipulator::updateCamera() {
-    m_target         = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
-    m_distFromCenter = 2.0_ra;
+    // try to keep target near the previous camera's one, take it at the same distance from camera,
+    // but in the new direction.
+    m_distFromCenter = ( m_target - m_camera->getPosition() ).norm();
+    m_target         = m_camera->getPosition() + m_distFromCenter * m_camera->getDirection();
     updatePhiTheta();
 
     if ( m_light != nullptr )
@@ -238,12 +240,8 @@ void Gui::TrackballCameraManipulator::setCameraPosition( const Core::Vector3& po
         return;
     }
     m_camera->setPosition( position );
-    /*
-    m_camera->setDirection( (m_target - position).normalized() );
-    m_distFromCenter = (m_target - position).norm();
-    updatePhiTheta();
-    */
     m_target = position + m_distFromCenter * m_camera->getDirection();
+    updatePhiTheta();
 
     if ( m_light != nullptr )
     {
