@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">69e887f836202746c94187d8d7642beae49322f8</span>
+   &#160;<span id="projectnumber">aa76df71b0aa79f6d68e46a14e8382c31f28bdfb</span>
    </div>
   </td>
  </tr>
@@ -95,13 +95,13 @@ $(document).ready(function(){initNavTree('develkeymapping.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md80">Usage</a></li>
-<li class="level1"><a href="#autotoc_md81">Implementation note</a></li>
-<li class="level1"><a href="#autotoc_md82">Key mapping and inheritence.</a></li>
-<li class="level1"><a href="#autotoc_md83">Limits</a></li>
+<ul><li class="level1"><a href="#autotoc_md83">Usage</a></li>
+<li class="level1"><a href="#autotoc_md84">Implementation note</a></li>
+<li class="level1"><a href="#autotoc_md85">Key mapping and inheritence.</a></li>
+<li class="level1"><a href="#autotoc_md86">Limits</a></li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md80"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md83"></a>
 Usage</h1>
 <p>You first need to add into every configuration file (located in the <code>install_dir/Configs/</code> folder) an entry which will bind your action to a key. This file as an only <code>keymaps</code> node, with <code>keymap</code> per binding.</p>
 <div class="fragment"><div class="line">&lt;<span class="keywordtype">keymaps</span>&gt;</div>
@@ -165,7 +165,7 @@ Usage</h1>
 <div class="line">    KeyMappingMyClass</div>
 <div class="line"><span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"><span class="preprocessor">}</span></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md81"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md84"></a>
 Implementation note</h1>
 <p>The viewer is the main entry point to dispatch key and mouse event. The idea is that at a key press or mouse press event, the viewer is capable of determining which class will receive the events.</p>
 <p>For instance see <code><a class="el" href="Viewer_8cpp.html">Viewer.cpp</a></code> <code>Viewer::mousePressEvent</code>: </p><div class="fragment"><div class="line">    <span class="keyword">auto</span> buttons   = <span class="keyword">event</span>-&gt;buttons();</div>
@@ -183,7 +183,7 @@ Implementation note</h1>
 <div class="line">            m_activeContext = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">KeyMappingManageable::getContext</a>();</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md82"></a>
+</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md85"></a>
 Key mapping and inheritence.</h1>
 <p>If you want to define a derived class that inherits a base class with key mapping, and you want to have key mapping management in this derived, you have to consider the following implementation details:</p>
 <ul>
@@ -228,7 +228,7 @@ Key mapping and inheritence.</h1>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"><span class="preprocessor">}</span></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md83"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md86"></a>
 Limits</h1>
 <ul>
 <li>Multiple keys/buttons are not yet implemented. </li>
@@ -250,7 +250,7 @@ Limits</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
-    <li class="footer">Generated on Mon May 3 2021 07:43:27 for Radium Engine by
+    <li class="footer">Generated on Wed May 5 2021 13:26:03 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

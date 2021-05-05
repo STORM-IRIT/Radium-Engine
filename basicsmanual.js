@@ -16,7 +16,7 @@ var basicsmanual =
     ] ],
     [ "Use Radium Libraries in your own project", "basicsRadiumSubmodule.html", null ],
     [ "Troubleshooting", "basicsTroubleshooting.html", [
-      [ "Qt cmake errors", "basicsTroubleshooting.html#autotoc_md20", null ],
-      [ "Crash when starting main application on windows", "basicsTroubleshooting.html#autotoc_md21", null ]
+      [ "Qt cmake errors", "basicsTroubleshooting.html#autotoc_md22", null ],
+      [ "Crash when starting main application on windows", "basicsTroubleshooting.html#autotoc_md23", null ]
     ] ]
 ];

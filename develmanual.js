@@ -1,84 +1,85 @@
 var develmanual =
 [
     [ "CMake setup", "cmakeutilities.html", [
-      [ "Radium cmake utilities", "cmakeutilities.html#autotoc_md56", [
-        [ "Client application configuration", "cmakeutilities.html#autotoc_md57", [
+      [ "Radium cmake utilities", "cmakeutilities.html#autotoc_md58", [
+        [ "Using Radium in your application", "cmakeutilities.html#autotoc_md59", null ],
+        [ "Client application configuration", "cmakeutilities.html#autotoc_md60", [
           [ "configure_radium_app", "cmakeutilities.html#configure_radium_app", null ]
         ] ],
-        [ "Extending Radium through libraries", "cmakeutilities.html#autotoc_md58", [
+        [ "Extending Radium through libraries", "cmakeutilities.html#autotoc_md61", [
           [ "configure_radium_library", "cmakeutilities.html#configure_radium_library", null ],
           [ "install_target_resources", "cmakeutilities.html#install_target_resources", null ],
           [ "configure_radium_package", "cmakeutilities.html#configurePackage", null ],
           [ "radium_exported_resources", "cmakeutilities.html#radium_exported_resources", null ]
         ] ],
-        [ "Extending Radium through plugins", "cmakeutilities.html#autotoc_md59", [
+        [ "Extending Radium through plugins", "cmakeutilities.html#autotoc_md62", [
           [ "configure_radium_plugin", "cmakeutilities.html#configure_radium_plugin", null ]
         ] ]
       ] ],
-      [ "How to write your CMakeLists.txt", "cmakeutilities.html#autotoc_md60", [
-        [ "General cmake preamble", "cmakeutilities.html#autotoc_md61", null ],
-        [ "Configuring client application", "cmakeutilities.html#autotoc_md62", null ],
-        [ "Configuring client and extension libraries", "cmakeutilities.html#autotoc_md63", null ],
-        [ "Configuring an application plugin", "cmakeutilities.html#autotoc_md64", null ]
+      [ "How to write your CMakeLists.txt", "cmakeutilities.html#autotoc_md63", [
+        [ "General cmake preamble", "cmakeutilities.html#autotoc_md64", null ],
+        [ "Configuring client application", "cmakeutilities.html#autotoc_md65", null ],
+        [ "Configuring client and extension libraries", "cmakeutilities.html#autotoc_md66", null ],
+        [ "Configuring an application plugin", "cmakeutilities.html#autotoc_md67", null ]
       ] ]
     ] ],
     [ "How to write your own plugin", "develplugin.html", [
-      [ "Radium Plugin", "develplugin.html#autotoc_md109", null ],
-      [ "Setting a CMakeLists.txt for a Radium plugin", "develplugin.html#autotoc_md110", null ],
-      [ "Configuring the plugin", "develplugin.html#autotoc_md111", null ],
-      [ "Using the Plugin", "develplugin.html#autotoc_md112", null ]
+      [ "Radium Plugin", "develplugin.html#autotoc_md112", null ],
+      [ "Setting a CMakeLists.txt for a Radium plugin", "develplugin.html#autotoc_md113", null ],
+      [ "Configuring the plugin", "develplugin.html#autotoc_md114", null ],
+      [ "Using the Plugin", "develplugin.html#autotoc_md115", null ]
     ] ],
     [ "How to write your own application", "apps.html", [
       [ "Radium Application", "apps.html#autotoc_md2", null ]
     ] ],
     [ "How to contribute to Radium Libraries", "develWithRadium.html", [
-      [ "Radium libraries", "develWithRadium.html#autotoc_md73", null ],
-      [ "Radium test suite", "develWithRadium.html#autotoc_md74", [
-        [ "Preliminaries", "develWithRadium.html#autotoc_md75", null ],
-        [ "How to write tests", "develWithRadium.html#autotoc_md76", null ]
+      [ "Radium libraries", "develWithRadium.html#autotoc_md76", null ],
+      [ "Radium test suite", "develWithRadium.html#autotoc_md77", [
+        [ "Preliminaries", "develWithRadium.html#autotoc_md78", null ],
+        [ "How to write tests", "develWithRadium.html#autotoc_md79", null ]
       ] ]
     ] ],
     [ "Coding conventions for Radium", "develCodingConvention.html", [
-      [ "Code style", "develCodingConvention.html#autotoc_md65", null ],
-      [ "Headers", "develCodingConvention.html#autotoc_md66", null ],
-      [ "Functions", "develCodingConvention.html#autotoc_md67", null ],
-      [ "Scope and names", "develCodingConvention.html#autotoc_md68", null ],
-      [ "Variables", "develCodingConvention.html#autotoc_md69", null ],
-      [ "Scalar types", "develCodingConvention.html#autotoc_md70", null ],
-      [ "Class design", "develCodingConvention.html#autotoc_md71", null ],
-      [ "Non-negociable", "develCodingConvention.html#autotoc_md72", null ]
+      [ "Code style", "develCodingConvention.html#autotoc_md68", null ],
+      [ "Headers", "develCodingConvention.html#autotoc_md69", null ],
+      [ "Functions", "develCodingConvention.html#autotoc_md70", null ],
+      [ "Scope and names", "develCodingConvention.html#autotoc_md71", null ],
+      [ "Variables", "develCodingConvention.html#autotoc_md72", null ],
+      [ "Scalar types", "develCodingConvention.html#autotoc_md73", null ],
+      [ "Class design", "develCodingConvention.html#autotoc_md74", null ],
+      [ "Non-negociable", "develCodingConvention.html#autotoc_md75", null ]
     ] ],
     [ "Radium Build Chain", "develbuildchain.html", [
-      [ "Installation directory", "develbuildchain.html#autotoc_md44", null ],
-      [ "Radium Libraries", "develbuildchain.html#autotoc_md45", [
-        [ "Overview", "develbuildchain.html#autotoc_md46", null ],
-        [ "Dependencies between libraries", "develbuildchain.html#autotoc_md47", null ]
+      [ "Installation directory", "develbuildchain.html#autotoc_md46", null ],
+      [ "Radium Libraries", "develbuildchain.html#autotoc_md47", [
+        [ "Overview", "develbuildchain.html#autotoc_md48", null ],
+        [ "Dependencies between libraries", "develbuildchain.html#autotoc_md49", null ]
       ] ],
-      [ "External dependencies", "develbuildchain.html#autotoc_md48", [
-        [ "Fetch and build at configure time", "develbuildchain.html#autotoc_md49", null ],
-        [ "Building and installing Radium dependencies once for all", "develbuildchain.html#autotoc_md50", null ],
-        [ "User provided external dependencies", "develbuildchain.html#autotoc_md51", null ]
+      [ "External dependencies", "develbuildchain.html#autotoc_md50", [
+        [ "Fetch and build at configure time", "develbuildchain.html#autotoc_md51", null ],
+        [ "Building and installing Radium dependencies once for all", "develbuildchain.html#autotoc_md52", null ],
+        [ "User provided external dependencies", "develbuildchain.html#autotoc_md53", null ]
       ] ],
-      [ "Coverage", "develbuildchain.html#autotoc_md52", null ]
+      [ "Coverage", "develbuildchain.html#autotoc_md54", null ]
     ] ],
     [ "API", "api.html", "api" ],
     [ "[deprecated] Radium Engine programmer manual", "develoldmanual.html", [
-      [ "Source code organization", "develoldmanual.html#autotoc_md95", [
-        [ "Import and export", "develoldmanual.html#autotoc_md96", null ]
+      [ "Source code organization", "develoldmanual.html#autotoc_md98", [
+        [ "Import and export", "develoldmanual.html#autotoc_md99", null ]
       ] ],
-      [ "Core Libs", "develoldmanual.html#autotoc_md97", null ],
-      [ "Engine Object Model", "develoldmanual.html#autotoc_md98", [
-        [ "Entities", "develoldmanual.html#autotoc_md99", null ],
-        [ "Systems and Components", "develoldmanual.html#autotoc_md100", null ],
-        [ "Frame and Tasks", "develoldmanual.html#autotoc_md101", null ],
-        [ "Rendering", "develoldmanual.html#autotoc_md102", null ],
-        [ "ItemEntry : Handles to engine objects", "develoldmanual.html#autotoc_md103", null ],
-        [ "Object manipulation and editable transforms", "develoldmanual.html#autotoc_md104", null ],
-        [ "The system Entity and Debug Display", "develoldmanual.html#autotoc_md105", null ]
+      [ "Core Libs", "develoldmanual.html#autotoc_md100", null ],
+      [ "Engine Object Model", "develoldmanual.html#autotoc_md101", [
+        [ "Entities", "develoldmanual.html#autotoc_md102", null ],
+        [ "Systems and Components", "develoldmanual.html#autotoc_md103", null ],
+        [ "Frame and Tasks", "develoldmanual.html#autotoc_md104", null ],
+        [ "Rendering", "develoldmanual.html#autotoc_md105", null ],
+        [ "ItemEntry : Handles to engine objects", "develoldmanual.html#autotoc_md106", null ],
+        [ "Object manipulation and editable transforms", "develoldmanual.html#autotoc_md107", null ],
+        [ "The system Entity and Debug Display", "develoldmanual.html#autotoc_md108", null ]
       ] ],
-      [ "The plugin framework", "develoldmanual.html#autotoc_md106", [
-        [ "Requirements", "develoldmanual.html#autotoc_md107", null ],
-        [ "Default plugins", "develoldmanual.html#autotoc_md108", null ]
+      [ "The plugin framework", "develoldmanual.html#autotoc_md109", [
+        [ "Requirements", "develoldmanual.html#autotoc_md110", null ],
+        [ "Default plugins", "develoldmanual.html#autotoc_md111", null ]
       ] ]
     ] ]
 ];

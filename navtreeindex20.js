@@ -1,5 +1,8 @@
 var NAVTREEINDEX20 =
 {
+"structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#aa6b1895eb133356c52f0e0bcb2723484":[9,0,2,0,1,8,7],
+"structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab0e08e0323281b7ab94ed3431383021c":[9,0,2,0,1,8,1],
+"structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#ab129074abae3c0910bf30bdb5490c86e":[9,0,2,0,1,8,2],
 "structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#afdec7e3d9cf263036dc8bd861731c037":[9,0,2,0,1,8,4],
 "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html":[9,0,2,0,1,9],
 "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#a48793a30ffc8b29f99464594622e5170":[9,0,2,0,1,9,6],
