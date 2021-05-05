@@ -13,7 +13,6 @@ set( core_sources
     Asset/AnimationData.cpp
     Asset/BlinnPhongMaterialData.cpp
     Asset/Camera.cpp
-    Asset/CameraData.cpp
     Asset/FileData.cpp
     Asset/GeometryData.cpp
     Asset/HandleData.cpp
@@ -67,7 +66,6 @@ set( core_headers
     Asset/AnimationTime.hpp
     Asset/AssetData.hpp
     Asset/BlinnPhongMaterialData.hpp
-    Asset/CameraData.hpp
     Asset/Camera.hpp
     Asset/DataLoader.hpp
     Asset/FileData.hpp
@@ -147,7 +145,6 @@ set( core_inlines
     Animation/Sequence.inl
     Asset/AnimationData.inl
     Asset/BlinnPhongMaterialData.inl
-    Asset/CameraData.inl
     Asset/Camera.inl
     Asset/FileData.inl
     Asset/GeometryData.inl
