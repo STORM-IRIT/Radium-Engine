@@ -265,6 +265,13 @@ void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
     { LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox."; }
 }
 
+void Gui::Viewer::fitCamera() {
+    auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
+    if ( aabb.isEmpty() ) { getCameraManipulator()->resetCamera(); }
+    else
+    { fitCameraToScene( aabb ); }
+}
+
 std::vector<std::string> Gui::Viewer::getRenderersName() const {
     std::vector<std::string> ret;
 
@@ -637,6 +644,8 @@ void Gui::Viewer::handleKeyPressEvent( QKeyEvent* event ) {
             }
             idx++;
         }
+        else if ( actionViewer == VIEWER_CAMERA_FIT_SCENE )
+        { fitCamera(); }
     }
 }
 
