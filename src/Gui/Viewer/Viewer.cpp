@@ -54,31 +54,32 @@
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
 namespace Ra {
+namespace Gui {
 
 using namespace Core::Utils; // log
 using namespace glbinding;
 
-using ViewerMapping = Gui::KeyMappingManageable<Gui::Viewer>;
+using ViewerMapping = KeyMappingManageable<Viewer>;
 
-#define KMA_VALUE( x ) Gui::KeyMappingManager::KeyMappingAction Gui::Viewer::x;
+#define KMA_VALUE( x ) KeyMappingManager::KeyMappingAction Viewer::x;
 KeyMappingViewer
 #undef KMA_VALUE
 
     // Register all keymapings related to the viewer and its managed functionalities (Trackball
     // camera, Gizmo, ..)
     void
-    Gui::Viewer::setupKeyMappingCallbacks() {
-    auto keyMappingManager = Gui::KeyMappingManager::getInstance();
+    Viewer::setupKeyMappingCallbacks() {
+    auto keyMappingManager = KeyMappingManager::getInstance();
 
     // Add default manipulator listener
-    keyMappingManager->addListener( Gui::TrackballCameraManipulator::configureKeyMapping );
+    keyMappingManager->addListener( TrackballCameraManipulator::configureKeyMapping );
     // add viewer related listener
-    keyMappingManager->addListener( Gui::GizmoManager::configureKeyMapping );
+    keyMappingManager->addListener( GizmoManager::configureKeyMapping );
     keyMappingManager->addListener( configureKeyMapping );
 }
 
-void Gui::Viewer::configureKeyMapping_impl() {
-    auto keyMappingManager = Gui::KeyMappingManager::getInstance();
+void Viewer::configureKeyMapping_impl() {
+    auto keyMappingManager = KeyMappingManager::getInstance();
     ViewerMapping::setContext( keyMappingManager->getContext( "ViewerContext" ) );
     if ( ViewerMapping::getContext().isInvalid() )
     {
@@ -93,7 +94,7 @@ void Gui::Viewer::configureKeyMapping_impl() {
 #undef KMA_VALUE
 }
 
-Gui::Viewer::Viewer( QScreen* screen ) :
+Viewer::Viewer( QScreen* screen ) :
     WindowQt( screen ),
     m_currentRenderer( nullptr ),
     m_pickingManager( new PickingManager() ),
@@ -102,7 +103,7 @@ Gui::Viewer::Viewer( QScreen* screen ) :
     m_camera( nullptr ),
     m_gizmoManager( nullptr ) {}
 
-Gui::Viewer::~Viewer() {
+Viewer::~Viewer() {
     if ( m_glInitialized.load() )
     {
         makeCurrent();
@@ -113,15 +114,15 @@ Gui::Viewer::~Viewer() {
     }
 }
 
-void Gui::Viewer::setCameraManipulator( CameraManipulator* ci ) {
+void Viewer::setCameraManipulator( CameraManipulator* ci ) {
     m_camera.reset( ci );
 }
 
-Gui::CameraManipulator* Gui::Viewer::getCameraManipulator() {
+CameraManipulator* Viewer::getCameraManipulator() {
     return m_camera.get();
 }
 
-void Gui::Viewer::resetToDefaultCamera() {
+void Viewer::resetToDefaultCamera() {
 
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
@@ -130,19 +131,19 @@ void Gui::Viewer::resetToDefaultCamera() {
     m_camera->getCamera()->setViewport( width(), height() );
 }
 
-Gui::GizmoManager* Gui::Viewer::getGizmoManager() {
+GizmoManager* Viewer::getGizmoManager() {
     return m_gizmoManager;
 }
 
-const Engine::Rendering::Renderer* Gui::Viewer::getRenderer() const {
+const Engine::Rendering::Renderer* Viewer::getRenderer() const {
     return m_currentRenderer;
 }
 
-Engine::Rendering::Renderer* Gui::Viewer::getRenderer() {
+Engine::Rendering::Renderer* Viewer::getRenderer() {
     return m_currentRenderer;
 }
 
-int Gui::Viewer::addRenderer( const std::shared_ptr<Engine::Rendering::Renderer>& e ) {
+int Viewer::addRenderer( const std::shared_ptr<Engine::Rendering::Renderer>& e ) {
     // initial state and lighting (deferred if GL is not ready yet)
     if ( m_glInitialized.load() )
     {
@@ -162,18 +163,18 @@ int Gui::Viewer::addRenderer( const std::shared_ptr<Engine::Rendering::Renderer>
     return m_renderers.size() - 1;
 }
 
-Gui::PickingManager* Gui::Viewer::getPickingManager() {
+PickingManager* Viewer::getPickingManager() {
     return m_pickingManager;
 }
 
-void Gui::Viewer::update( const Scalar dt ) {
+void Viewer::update( const Scalar dt ) {
     CORE_UNUSED( dt );
     if ( m_gizmoManager != nullptr ) { m_gizmoManager->updateValues(); }
 }
 
 // Asynchronous rendering implementation
 
-void Gui::Viewer::startRendering( const Scalar dt ) {
+void Viewer::startRendering( const Scalar dt ) {
 
     CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized before rendering." );
 
@@ -223,12 +224,12 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     m_currentRenderer->render( data );
 }
 
-void Gui::Viewer::swapBuffers() {
+void Viewer::swapBuffers() {
     if ( isExposed() ) { m_context->swapBuffers( this ); }
     doneCurrent();
 }
 
-void Gui::Viewer::processPicking() {
+void Viewer::processPicking() {
     CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized before rendering." );
 
     CORE_ASSERT( m_currentRenderer != nullptr, "No renderer found." );
@@ -251,7 +252,7 @@ void Gui::Viewer::processPicking() {
     }
 }
 
-void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
+void Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
     if ( !aabb.isEmpty() )
     {
         CORE_ASSERT( m_camera != nullptr, "No camera found." );
@@ -265,14 +266,14 @@ void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
     { LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox."; }
 }
 
-void Gui::Viewer::fitCamera() {
+void Viewer::fitCamera() {
     auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
     if ( aabb.isEmpty() ) { getCameraManipulator()->resetCamera(); }
     else
     { fitCameraToScene( aabb ); }
 }
 
-std::vector<std::string> Gui::Viewer::getRenderersName() const {
+std::vector<std::string> Viewer::getRenderersName() const {
     std::vector<std::string> ret;
 
     for ( const auto& renderer : m_renderers )
@@ -283,7 +284,7 @@ std::vector<std::string> Gui::Viewer::getRenderersName() const {
     return ret;
 }
 
-void Gui::Viewer::grabFrame( const std::string& filename ) {
+void Viewer::grabFrame( const std::string& filename ) {
     makeCurrent();
 
     size_t w, h;
@@ -300,7 +301,7 @@ void Gui::Viewer::grabFrame( const std::string& filename ) {
     doneCurrent();
 }
 
-void Gui::Viewer::enableDebug() {
+void Viewer::enableDebug() {
     glbinding::setCallbackMask( glbinding::CallbackMask::After |
                                 glbinding::CallbackMask::ParametersAndReturnValue );
     glbinding::setAfterCallback( []( const glbinding::FunctionCall& call ) {
@@ -316,7 +317,7 @@ void Gui::Viewer::enableDebug() {
     } );
 }
 
-void Gui::Viewer::reloadShaders() {
+void Viewer::reloadShaders() {
     CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized reload shaders." );
 
     makeCurrent();
@@ -329,7 +330,7 @@ void Gui::Viewer::reloadShaders() {
     emit needUpdate();
 }
 
-void Gui::Viewer::displayTexture( const QString& tex ) {
+void Viewer::displayTexture( const QString& tex ) {
     CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized to display textures." );
 
     makeCurrent();
@@ -341,7 +342,7 @@ void Gui::Viewer::displayTexture( const QString& tex ) {
     emit needUpdate();
 }
 
-bool Gui::Viewer::changeRenderer( int index ) {
+bool Viewer::changeRenderer( int index ) {
     if ( m_glInitialized.load() && m_renderers[index] )
     {
         makeCurrent();
@@ -369,15 +370,15 @@ bool Gui::Viewer::changeRenderer( int index ) {
     return false;
 }
 
-void Gui::Viewer::enablePostProcess( int enabled ) {
+void Viewer::enablePostProcess( int enabled ) {
     m_currentRenderer->enablePostProcess( enabled );
 }
 
-void Gui::Viewer::enableDebugDraw( int enabled ) {
+void Viewer::enableDebugDraw( int enabled ) {
     m_currentRenderer->enableDebugDraw( enabled );
 }
 
-void Gui::Viewer::setBackgroundColor( const Core::Utils::Color& background ) {
+void Viewer::setBackgroundColor( const Core::Utils::Color& background ) {
     m_backgroundColor = background;
     for ( const auto& renderer : m_renderers )
         renderer->setBackgroundColor( m_backgroundColor );
@@ -385,34 +386,34 @@ void Gui::Viewer::setBackgroundColor( const Core::Utils::Color& background ) {
     emit needUpdate();
 }
 
-void Gui::Viewer::onAboutToCompose() {
+void Viewer::onAboutToCompose() {
     // This slot function is called from the main thread as part of the event loop
     // when the GUI is about to update. We have to wait for the rendering to finish.
     m_currentRenderer->lockRendering();
 }
 
-void Gui::Viewer::onAboutToResize() {
+void Viewer::onAboutToResize() {
     // Like swap buffers, resizing is a blocking operation and we have to wait for the rendering
     // to finish before resizing.
     m_currentRenderer->lockRendering();
 }
 
-void Gui::Viewer::onResized() {
+void Viewer::onResized() {
     m_currentRenderer->unlockRendering();
     emit needUpdate();
 }
 
-void Gui::Viewer::onFrameSwapped() {
+void Viewer::onFrameSwapped() {
     // This slot is called from the main thread as part of the event loop when the
     // GUI has finished displaying the rendered image, so we unlock the renderer.
     m_currentRenderer->unlockRendering();
 }
 
-void Gui::Viewer::createGizmoManager() {
+void Viewer::createGizmoManager() {
     if ( m_gizmoManager == nullptr ) { m_gizmoManager = new GizmoManager( this ); }
 }
 
-void Gui::Viewer::initializeRenderer( Engine::Rendering::Renderer* renderer ) {
+void Viewer::initializeRenderer( Engine::Rendering::Renderer* renderer ) {
     // see issue #261 Qt Event order and default viewport management (Viewer.cpp)
     // https://github.com/STORM-IRIT/Radium-Engine/issues/261
 #ifndef OS_MACOS
@@ -433,7 +434,7 @@ void Gui::Viewer::initializeRenderer( Engine::Rendering::Renderer* renderer ) {
     renderer->lockRendering();
 }
 
-bool Gui::Viewer::initializeGL() {
+bool Viewer::initializeGL() {
     globjects::init( getProcAddress );
 
     LOG( logINFO ) << "*** Radium Engine OpenGL context ***";
@@ -471,7 +472,7 @@ bool Gui::Viewer::initializeGL() {
         }
     }
     // create default camera interface : trackball
-    m_camera = std::make_unique<Gui::TrackballCameraManipulator>();
+    m_camera = std::make_unique<TrackballCameraManipulator>();
     m_camera->getCamera()->setViewport( width(), height() );
     auto headlight = new Engine::Scene::DirectionalLight(
         Ra::Engine::Scene::SystemEntity::getInstance(), "headlight" );
@@ -484,7 +485,7 @@ bool Gui::Viewer::initializeGL() {
     return true;
 }
 
-void Gui::Viewer::resizeGL( QResizeEvent* event ) {
+void Viewer::resizeGL( QResizeEvent* event ) {
     int width  = event->size().width();
     int height = event->size().height();
     // Renderer should have been locked by previous events.
@@ -497,7 +498,7 @@ void Gui::Viewer::resizeGL( QResizeEvent* event ) {
 }
 
 Engine::Rendering::Renderer::PickingMode
-Gui::Viewer::getPickingMode( const KeyMappingManager::KeyMappingAction& action ) const {
+Viewer::getPickingMode( const KeyMappingManager::KeyMappingAction& action ) const {
     if ( action == VIEWER_PICKING_VERTEX )
     {
         return m_isBrushPickingEnabled ? Engine::Rendering::Renderer::C_VERTEX
@@ -517,7 +518,7 @@ Gui::Viewer::getPickingMode( const KeyMappingManager::KeyMappingAction& action )
     return Engine::Rendering::Renderer::NONE;
 }
 
-void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
+void Viewer::keyPressEvent( QKeyEvent* event ) {
 
     if ( !m_glInitialized.load() )
     {
@@ -532,13 +533,13 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
     emit needUpdate();
 }
 
-void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
+void Viewer::keyReleaseEvent( QKeyEvent* event ) {
     keyReleased( event->key() );
     m_camera->handleKeyReleaseEvent( event );
     emit needUpdate();
 }
 
-void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
+void Viewer::mousePressEvent( QMouseEvent* event ) {
     if ( !m_glInitialized.load() )
     {
         event->ignore();
@@ -554,12 +555,12 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     emit needUpdate();
 }
 
-void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
+void Viewer::mouseReleaseEvent( QMouseEvent* event ) {
     handleMouseReleaseEvent( event );
     emit needUpdate();
 }
 
-void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
+void Viewer::mouseMoveEvent( QMouseEvent* event ) {
     if ( !m_glInitialized.load() )
     {
         event->ignore();
@@ -574,7 +575,7 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
     emit needUpdate();
 }
 
-void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
+void Viewer::wheelEvent( QWheelEvent* event ) {
 
     if ( !m_glInitialized.load() )
     {
@@ -587,7 +588,7 @@ void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
     emit needUpdate();
 }
 
-void Gui::Viewer::showEvent( QShowEvent* ev ) {
+void Viewer::showEvent( QShowEvent* ev ) {
     WindowQt::showEvent( ev );
     /// \todo remove this commented code when camera init in ctr is tested on other arch.
 
@@ -596,9 +597,9 @@ void Gui::Viewer::showEvent( QShowEvent* ev ) {
     emit needUpdate();
 }
 
-void Gui::Viewer::handleKeyPressEvent( QKeyEvent* event ) {
+void Viewer::handleKeyPressEvent( QKeyEvent* event ) {
 
-    auto keyMap    = Gui::KeyMappingManager::getInstance();
+    auto keyMap    = KeyMappingManager::getInstance();
     auto buttons   = Qt::NoButton;
     auto modifiers = event->modifiers();
     auto key       = activeKey();
@@ -649,8 +650,8 @@ void Gui::Viewer::handleKeyPressEvent( QKeyEvent* event ) {
     }
 }
 
-void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
-                                         Ra::Engine::Rendering::Renderer::PickingResult& result ) {
+void Viewer::handleMousePressEvent( QMouseEvent* event,
+                                    Ra::Engine::Rendering::Renderer::PickingResult& result ) {
 
     ///\todo something like explained here
     // if under mouse objects grabs the action, just send it to the object
@@ -663,7 +664,7 @@ void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
     // for now just handle one active context
     m_activeContext = -1;
 
-    auto keyMap = Gui::KeyMappingManager::getInstance();
+    auto keyMap = KeyMappingManager::getInstance();
     //! [event dispatch]
     auto buttons   = event->buttons();
     auto modifiers = event->modifiers();
@@ -708,14 +709,14 @@ void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
         }
     }
     /*
-     * // action == Gui::KeyMappingManager::VIEWER_RAYCAST
+     * // action == KeyMappingManager::VIEWER_RAYCAST
     LOG( logINFO ) << "Raycast query are disabled";
     auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ));
     RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f ); RA_DISPLAY_RAY( r, Color::Yellow() );
     }*/
 }
 
-void Gui::Viewer::handleMouseReleaseEvent( QMouseEvent* event ) {
+void Viewer::handleMouseReleaseEvent( QMouseEvent* event ) {
     if ( m_activeContext == m_camera->mappingContext() )
     { m_camera->handleMouseReleaseEvent( event ); }
     if ( m_activeContext == GizmoManager::getContext() )
@@ -723,10 +724,10 @@ void Gui::Viewer::handleMouseReleaseEvent( QMouseEvent* event ) {
     m_activeContext = -1;
 }
 
-void Gui::Viewer::handleMouseMoveEvent( QMouseEvent* event,
-                                        Ra::Engine::Rendering::Renderer::PickingResult& result ) {
+void Viewer::handleMouseMoveEvent( QMouseEvent* event,
+                                   Ra::Engine::Rendering::Renderer::PickingResult& result ) {
 
-    auto keyMap    = Gui::KeyMappingManager::getInstance();
+    auto keyMap    = KeyMappingManager::getInstance();
     auto buttons   = event->buttons();
     auto modifiers = event->modifiers();
     auto key       = activeKey();
@@ -757,9 +758,9 @@ void Gui::Viewer::handleMouseMoveEvent( QMouseEvent* event,
     { getGizmoManager()->handlePickingResult( result.m_roIdx ); }
 }
 
-void Gui::Viewer::handleWheelEvent( QWheelEvent* event ) {
+void Viewer::handleWheelEvent( QWheelEvent* event ) {
 
-    auto keyMap    = Gui::KeyMappingManager::getInstance();
+    auto keyMap    = KeyMappingManager::getInstance();
     auto buttons   = event->buttons();
     auto modifiers = event->modifiers();
     auto key       = activeKey();
@@ -777,8 +778,7 @@ void Gui::Viewer::handleWheelEvent( QWheelEvent* event ) {
     { m_camera->handleWheelEvent( event ); }
 }
 
-Ra::Engine::Rendering::Renderer::PickingResult
-Gui::Viewer::pickAtPosition( Core::Vector2 position ) {
+Ra::Engine::Rendering::Renderer::PickingResult Viewer::pickAtPosition( Core::Vector2 position ) {
     makeCurrent();
     auto result = m_currentRenderer->doPickingNow(
         {position,
@@ -790,7 +790,7 @@ Gui::Viewer::pickAtPosition( Core::Vector2 position ) {
     return result;
 }
 
-bool Gui::Viewer::prepareDisplay() {
+bool Viewer::prepareDisplay() {
     auto renderer = getRenderer();
     if ( renderer )
     {
@@ -805,4 +805,6 @@ bool Gui::Viewer::prepareDisplay() {
     }
     return false;
 }
+
+} // namespace Gui
 } // namespace Ra
