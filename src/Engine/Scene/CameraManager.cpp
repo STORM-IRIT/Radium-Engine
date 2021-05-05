@@ -2,7 +2,7 @@
 #include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/CameraManager.hpp>
 
-#include <Core/Asset/CameraData.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Core/Asset/FileData.hpp>
 
 #include <Core/Tasks/Task.hpp>
@@ -93,30 +93,30 @@ void CameraManager::generateTasks( Core::TaskQueue* taskQueue,
 }
 
 void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
-    std::vector<CameraData*> cameraData = filedata->getCameraData();
-    uint id                             = 0;
-    uint cpt                            = 0;
+    std::vector<Camera*> cameraData = filedata->getCameraData();
+    uint id                         = 0;
+    uint cpt                        = 0;
     for ( const auto& data : cameraData )
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
         auto comp                 = new CameraComponent( entity, componentName, 100, 100 );
         switch ( data->getType() )
         {
-        case CameraData::ORTHOGRAPHIC: {
+        case Camera::ProjType::ORTHOGRAPHIC: {
             comp->setType( Ra::Core::Asset::Camera::ProjType::ORTHOGRAPHIC );
             break;
         }
-        case CameraData::PERSPECTIVE: {
+        case Camera::ProjType::PERSPECTIVE: {
             comp->setType( Ra::Core::Asset::Camera::ProjType::PERSPECTIVE );
             break;
         }
         }
         comp->getCamera()->setFrame( Core::Transform( data->getFrame() ) );
-        if ( data->getType() == CameraData::CameraType::ORTHOGRAPHIC )
+        if ( data->getType() == Camera::ProjType::ORTHOGRAPHIC )
             comp->getCamera()->setType( Camera::ProjType::ORTHOGRAPHIC );
         else
             comp->getCamera()->setType( Camera::ProjType::PERSPECTIVE );
-        comp->getCamera()->setFOV( data->getFov() );
+        comp->getCamera()->setFOV( data->getFOV() );
         comp->getCamera()->setZNear( data->getZNear() );
         comp->getCamera()->setZFar( data->getZFar() );
         comp->getCamera()->setZoomFactor( data->getZoomFactor() );
