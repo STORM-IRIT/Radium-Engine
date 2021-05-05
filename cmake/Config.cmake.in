@@ -111,6 +111,16 @@ if(Engine_FOUND)
 endif()
 
 if(IO_FOUND)
+    define_property(TARGET
+        PROPERTY RADIUM_IO_USE_ASSIMP
+        BRIEF_DOCS "Radium::IO has assimp support."
+        FULL_DOCS "Identify if Radium::IO was compiled with assimp support."
+    )
+    define_property(TARGET
+        PROPERTY RADIUM_IO_USE_TINYPLY
+        BRIEF_DOCS "Radium::IO has tinyply support."
+        FULL_DOCS "Identify if Radium::IO was compiled with tinyply support."
+    )
     include("${CMAKE_CURRENT_LIST_DIR}/IOTargets.cmake" )
 
     # Detect if library has been compiled using assimp and tinyply
@@ -134,6 +144,11 @@ if(IO_FOUND)
         if (MSVC OR MSVC_IDE OR MINGW)
             add_imported_dir( FROM assimp::assimp TO RadiumExternalDlls_location)
         endif()
+        set_target_properties(
+            Radium::IO
+            PROPERTIES
+                RADIUM_IO_USE_ASSIMP TRUE
+        )
     endif()
     if( depTinyPLYFound GREATER_EQUAL "0")
         if ("@tinyply_DIR@" STREQUAL "")
@@ -145,6 +160,11 @@ if(IO_FOUND)
         if (MSVC OR MSVC_IDE OR MINGW)
             add_imported_dir( FROM tinyply TO RadiumExternalDlls_location)
         endif()
+        set_target_properties(
+            Radium::IO
+            PROPERTIES
+                RADIUM_IO_USE_TINYPLY TRUE
+        )
     endif()
 
 endif()

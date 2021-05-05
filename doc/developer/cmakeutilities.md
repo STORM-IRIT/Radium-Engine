@@ -13,6 +13,7 @@ Complete functional examples using these cmake scripts are accessible in the `sr
 Once installed, either from source or from pre-built binaries, Radium could be used and extended in any application, 
 library or plugin as a cmake package.
 
+## Using Radium in your application
 To integrate the Radium libraries into your build-chain configuration, you have to ask cmake to find the Radium package.
 As for any cmake package, this could be done by adding the following line into your `CMakeLists.txt` file:
 ~~~{.cmake}
@@ -29,6 +30,28 @@ to all the public interface of Radium (include search path, libraries, ...), for
 ~~~{.cmake}
 target_link_libraries (myTarget PUBLIC Radium::Core Radium::Engine)
 ~~~
+
+### Using Radium components
+
+If your application does not need all the radium components, you can select which ones you want among the following :
+- Core : search only for the availability of the target Radium::Core
+- Engine : search only for the availability of the target Radium::Engine
+- Gui : search for the Qt-based Gui toolkit
+- PluginBase : search for the Qt-based plugin development interface
+- IO : search only for the availability of the target Radium::IO
+
+  On this target, you might also ask for support of several file loaders using the following properties defined on the
+  target Radium::IO
+    - RADIUM_IO_USE_ASSIMP : Identify if Radium::IO was compiled with assimp support
+    - RADIUM_IO_USE_TINYPLY : Identify if Radium::IO was compiled with tinyply support.
+      You might use these properties to define compilation macro in your code
+      ~~~{.cmake}
+      get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
+      if (${USE_ASSIMP})
+       target_compile_definitions(yourTarget PRIVATE ADD_ASSIMP_LOADER)
+      endif()  
+      ~~~
+
 
 The radium package also defines several cmake functions, described below, that you can use to ease the configuration of 
 your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their 
@@ -661,4 +684,3 @@ where `<resourcesPrefix>` corresponds to the parameter `PREFIX` used when instal
 
 ## Configuring an application plugin
 See [How to write your own plugin](@ref develplugin).
-
