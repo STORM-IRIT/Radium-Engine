@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">26ad4dd7ef9d363d8391e8a3ebf6abc1d8141dd2</span>
+   &#160;<span id="projectnumber">90ad20f4cbd9b585dc8f09990af1d4851105324e</span>
    </div>
   </td>
  </tr>
@@ -354,65 +354,73 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        }</div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        handle-&gt;needEndNodes( needEndBone );</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="comment">// register the HandleData</span></div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        data.emplace_back( handle );</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">if</span> ( m_verbose ) { handle-&gt;displayInfo(); }</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    }</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;}</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="keywordtype">void</span> AssimpHandleDataLoader::loadHandleComponentDataFrame( <span class="keyword">const</span> aiScene* scene,</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                                                           <span class="keyword">const</span> aiString&amp; boneName,</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                                                           HandleComponentData&amp; data )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="comment">// fetch global transform</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    data.m_frame.setIdentity();</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    aiNode* node = scene-&gt;mRootNode-&gt;FindNode( boneName );</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="keywordflow">while</span> ( node != <span class="keyword">nullptr</span> )</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    {</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        data.m_frame = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( node-&gt;mTransformation ) * data.m_frame;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        node         = node-&gt;mParent;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    }</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;}</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="keywordtype">void</span> AssimpHandleDataLoader::loadHandleComponentDataWeights( <span class="keyword">const</span> aiBone* bone,</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;                                                             <span class="keyword">const</span> std::string&amp; meshName,</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                                                             HandleComponentData&amp; data )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="comment">// fetch skinning weigthts</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j = 0; j &lt; bone-&gt;mNumWeights; ++j )</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    {</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        std::pair&lt;uint, Scalar&gt; weight( bone-&gt;mWeights[j].mVertexId, bone-&gt;mWeights[j].mWeight );</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        data.m_weights[meshName].push_back( weight );</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    }</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    data.m_bindMatrices[meshName] = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( bone-&gt;mOffsetMatrix );</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;}</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="keywordtype">void</span> AssimpHandleDataLoader::fillHandleData(</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keyword">const</span> std::string&amp; node,</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="keyword">const</span> std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&amp; edgeList,</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keyword">const</span> std::map&lt;std::string, HandleComponentData&gt;&amp; mapBone2Data,</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    std::map&lt;std::string, uint&gt;&amp; nameTable,</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    HandleData* data )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="comment">// register the HandleComponentData for the bone</span></div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    nameTable[node] = <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>( data-&gt;getComponentData().size() );</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    data-&gt;getComponentData().push_back( mapBone2Data.at( node ) );</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="comment">// bind meshes bound to the bone</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; mesh : mapBone2Data.at( node ).m_weights )</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    {</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        data-&gt;addBindMesh( mesh.first );</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    }</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="comment">// go through children</span></div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; edge : edgeList )</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    {</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        <span class="keywordflow">if</span> ( edge.first == node )</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        {</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            fillHandleData( edge.second, edgeList, mapBone2Data, nameTable, data );</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            data-&gt;getEdgeData().push_back(</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                {nameTable.at( edge.first ), nameTable.at( edge.second )} );</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        }</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    }</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;}</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;} <span class="comment">// namespace IO</span></div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="keywordflow">if</span> ( handle-&gt;isSkeleton() &amp;&amp; !handle-&gt;hasEdges() )</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        {</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <span class="comment">// Do not load empty skeleton</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            <span class="keyword">delete</span> handle;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        {</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            <span class="comment">// register the HandleData</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            data.emplace_back( handle );</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            <span class="keywordflow">if</span> ( m_verbose ) { handle-&gt;displayInfo(); }</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        }</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    }</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;}</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="keywordtype">void</span> AssimpHandleDataLoader::loadHandleComponentDataFrame( <span class="keyword">const</span> aiScene* scene,</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                                                           <span class="keyword">const</span> aiString&amp; boneName,</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                                                           HandleComponentData&amp; data )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="comment">// fetch global transform</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    data.m_frame.setIdentity();</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    aiNode* node = scene-&gt;mRootNode-&gt;FindNode( boneName );</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordflow">while</span> ( node != <span class="keyword">nullptr</span> )</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        data.m_frame = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( node-&gt;mTransformation ) * data.m_frame;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        node         = node-&gt;mParent;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    }</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;}</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="keywordtype">void</span> AssimpHandleDataLoader::loadHandleComponentDataWeights( <span class="keyword">const</span> aiBone* bone,</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                                                             <span class="keyword">const</span> std::string&amp; meshName,</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                                                             HandleComponentData&amp; data )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="comment">// fetch skinning weigthts</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j = 0; j &lt; bone-&gt;mNumWeights; ++j )</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    {</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        std::pair&lt;uint, Scalar&gt; weight( bone-&gt;mWeights[j].mVertexId, bone-&gt;mWeights[j].mWeight );</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        data.m_weights[meshName].push_back( weight );</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    }</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    data.m_bindMatrices[meshName] = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( bone-&gt;mOffsetMatrix );</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;}</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="keywordtype">void</span> AssimpHandleDataLoader::fillHandleData(</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keyword">const</span> std::string&amp; node,</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keyword">const</span> std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&amp; edgeList,</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keyword">const</span> std::map&lt;std::string, HandleComponentData&gt;&amp; mapBone2Data,</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    std::map&lt;std::string, uint&gt;&amp; nameTable,</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    HandleData* data )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="comment">// register the HandleComponentData for the bone</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    nameTable[node] = <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>( data-&gt;getComponentData().size() );</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    data-&gt;getComponentData().push_back( mapBone2Data.at( node ) );</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="comment">// bind meshes bound to the bone</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; mesh : mapBone2Data.at( node ).m_weights )</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    {</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        data-&gt;addBindMesh( mesh.first );</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    }</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="comment">// go through children</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; edge : edgeList )</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <span class="keywordflow">if</span> ( edge.first == node )</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        {</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            fillHandleData( edge.second, edgeList, mapBone2Data, nameTable, data );</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;            data-&gt;getEdgeData().push_back(</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                {nameTable.at( edge.first ), nameTable.at( edge.second )} );</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        }</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    }</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;}</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;} <span class="comment">// namespace IO</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
@@ -436,7 +444,7 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_7788c5f37a81918c772c9185f759a19f.html">AssimpLoader</a></li><li class="navelem"><a class="el" href="AssimpHandleDataLoader_8cpp.html">AssimpHandleDataLoader.cpp</a></li>
-    <li class="footer">Generated on Thu May 6 2021 10:49:03 for Radium Engine by
+    <li class="footer">Generated on Thu May 6 2021 17:25:19 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
