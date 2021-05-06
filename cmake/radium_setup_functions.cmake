@@ -727,7 +727,7 @@ function(configure_radium_plugin)
     if (ARGS_RESOURCES)
         foreach (resLocation ${ARGS_RESOURCES})
             message(STATUS "[configure_radium_plugin] Installing plugin resources ${resLocation} for ${ARGS_NAME} ")
-            install_plugin_resourcess(
+            install_plugin_resources(
                 TARGET ${ARGS_NAME}
                 DIRECTORY ${resLocation}
                 BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Plugins/Resources/${ARGS_NAME}
