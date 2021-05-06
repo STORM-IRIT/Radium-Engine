@@ -70,10 +70,16 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
     /// \todo tmp test    Core::Matrix4 frame  = loadCameraFrame( scene, rootMatrix, data );
     Core::Matrix4 frame  = loadCameraFrame( scene, rootMatrix, camera, data );
     Core::Vector3 pos    = assimpToCore( camera.mPosition );
-    Core::Vector3 lookAt = assimpToCore( camera.mLookAt ).normalized();
+    Core::Vector3 lookAt = -assimpToCore( camera.mLookAt ).normalized();
     Core::Vector3 up     = assimpToCore( camera.mUp ).normalized();
     Core::Vector3 right  = lookAt.cross( up );
     Core::Matrix4 view;
+
+    // make frame a normal frame change (consider it's already ortho ...)
+    frame.block( 0, 0, 3, 1 ).normalize();
+    frame.block( 0, 1, 3, 1 ).normalize();
+    frame.block( 0, 2, 3, 1 ).normalize();
+
     view.block<3, 1>( 0, 0 ) = right;
     view.block<3, 1>( 0, 1 ) = up;
     view.block<3, 1>( 0, 2 ) = lookAt;
@@ -105,7 +111,6 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
     //    }
 
     aiNode* node = scene->mRootNode->FindNode( cameraNode.mName );
-
     Core::Matrix4 frame;
     frame.setIdentity();
 

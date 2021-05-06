@@ -100,27 +100,7 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
         auto comp                 = new CameraComponent( entity, componentName, 100, 100 );
-        switch ( data->getType() )
-        {
-        case Camera::ProjType::ORTHOGRAPHIC: {
-            comp->setType( Ra::Core::Asset::Camera::ProjType::ORTHOGRAPHIC );
-            break;
-        }
-        case Camera::ProjType::PERSPECTIVE: {
-            comp->setType( Ra::Core::Asset::Camera::ProjType::PERSPECTIVE );
-            break;
-        }
-        }
-        comp->getCamera()->setFrame( Core::Transform( data->getFrame() ) );
-        if ( data->getType() == Camera::ProjType::ORTHOGRAPHIC )
-            comp->getCamera()->setType( Camera::ProjType::ORTHOGRAPHIC );
-        else
-            comp->getCamera()->setType( Camera::ProjType::PERSPECTIVE );
-        comp->getCamera()->setFOV( data->getFOV() );
-        comp->getCamera()->setZNear( data->getZNear() );
-        comp->getCamera()->setZFar( data->getZFar() );
-        comp->getCamera()->setZoomFactor( data->getZoomFactor() );
-
+        *( comp->getCamera() )    = *data;
         cpt++;
         registerComponent( entity, comp );
     }
