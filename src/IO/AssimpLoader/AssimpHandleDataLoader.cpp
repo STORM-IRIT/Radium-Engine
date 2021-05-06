@@ -263,9 +263,17 @@ void AssimpHandleDataLoader::loadHandleData(
         }
         handle->needEndNodes( needEndBone );
 
-        // register the HandleData
-        data.emplace_back( handle );
-        if ( m_verbose ) { handle->displayInfo(); }
+        if ( handle->isSkeleton() && !handle->hasEdges() )
+        {
+            // Do not load empty skeleton
+            delete handle;
+        }
+        else
+        {
+            // register the HandleData
+            data.emplace_back( handle );
+            if ( m_verbose ) { handle->displayInfo(); }
+        }
     }
 }
 
