@@ -1,5 +1,6 @@
 set( gui_sources
     BaseApplication.cpp
+    AboutDialog/AboutDialog.cpp
     RadiumWindow/SimpleWindow.cpp
     SelectionManager/SelectionManager.cpp
     SkeletonBasedAnimation/SkeletonBasedAnimationUI.cpp
@@ -31,6 +32,7 @@ set( gui_sources
 set( gui_headers
     BaseApplication.hpp
     MainWindowInterface.hpp
+    AboutDialog/AboutDialog.hpp
     RadiumWindow/SimpleWindowFactory.hpp
     RadiumWindow/SimpleWindow.hpp
     RaGui.hpp
@@ -68,12 +70,14 @@ set( gui_inlines
 )
 
 set( gui_uis
+    AboutDialog/AboutDialog.ui
     SkeletonBasedAnimation/SkeletonBasedAnimationUI.ui
     Timeline/HelpDialog.ui
     Timeline/Timeline.ui
 )
 
 set( gui_resources
+    QtResources/RadiumQtResources.qrc
     SkeletonBasedAnimation/SkeletonBasedAnimation.qrc
     Timeline/timeline.qrc
 )
