@@ -198,6 +198,8 @@ class KeyFramedValue : public KeyFramedValueBase
             m_keyframes.begin(), m_keyframes.end(), kf0, []( const auto& a, const auto& b ) {
                 return a.first < b.first;
             } );
+
+        // here upper > begin() since before first case is already taken into account.
         auto lower = upper;
         --lower;
         if ( Math::areApproxEqual( lower->first, t ) )
