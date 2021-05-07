@@ -76,21 +76,18 @@ void Camera::updateProjMatrix() {
         const Scalar r = dx;  // right
         const Scalar t = dy;  // top
         const Scalar b = -dy; // bottom
-        m_projMatrix   = ortho( b, t, l, r, m_zNear, m_zFar );
+        m_projMatrix   = ortho( l, r, b, t, m_zNear, m_zFar );
     }
     break;
 
     case ProjType::PERSPECTIVE: {
-        // Compute projection matrix as describe here
-        // https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix
-        auto scale = std::tan( m_fov * .5_ra ) * m_zNear;
 
-        auto r = scale;
-        auto l = -r;
-        auto t = scale / m_aspect;
-        auto b = -t;
-
-        m_projMatrix = frustum( b, t, l, r, m_zNear, m_zFar );
+        Scalar r     = m_zNear * std::tan( m_fov / 2_ra );
+        Scalar l     = -r;
+        Scalar t     = r / m_aspect;
+        Scalar b     = -t;
+        m_projMatrix = frustum( l, r, b, t, m_zNear, m_zFar );
+        m_projMatrix = perspective( m_aspect, m_fov, m_zNear, m_zFar );
     }
     break;
 
@@ -99,24 +96,39 @@ void Camera::updateProjMatrix() {
     }
 }
 
-Core::Matrix4 Camera::frustum( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, Scalar f ) {
+Core::Matrix4 Camera::perspective( Scalar a, Scalar fov, Scalar n, Scalar f ) {
     Core::Matrix4 projMatrix;
-    projMatrix.setZero();
-    projMatrix.coeffRef( 0, 0 ) = 2_ra * n / ( r - l );
-    projMatrix.coeffRef( 1, 1 ) = 2_ra * n / ( t - b );
+    Scalar tanf = std::tan( fov * .5_ra );
 
-    /// (row, col)
-    projMatrix.coeffRef( 0, 2 ) = ( r + l ) / ( r - l );
-    projMatrix.coeffRef( 1, 2 ) = ( t + b ) / ( t - b );
-    projMatrix.coeffRef( 2, 2 ) = -( f + n ) / ( f - n );
-    projMatrix.coeffRef( 3, 2 ) = -1_ra;
-
-    projMatrix.coeffRef( 2, 3 ) = -( 2_ra * f * n ) / ( f - n );
+    // clang-format off
+    projMatrix << 1_ra / tanf,     0_ra,                  0_ra,                         0_ra,
+                         0_ra, a / tanf,                  0_ra,                         0_ra,
+                         0_ra,     0_ra, ( f + n ) / ( n - f ), ( 2_ra * f * n ) / ( n - f ),
+                         0_ra,     0_ra,                 -1_ra,                         0_ra;
+    // clang-format on
 
     return projMatrix;
 }
 
-Core::Matrix4 Camera::ortho( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, Scalar f ) {
+Core::Matrix4 Camera::frustum( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f ) {
+    Core::Matrix4 projMatrix;
+    projMatrix.setZero();
+    const Scalar A = ( r + l ) / ( r - l );
+
+    const Scalar B = ( t + b ) / ( t - b );
+    const Scalar C = ( f + n ) / ( n - f );
+    const Scalar D = ( 2_ra * f * n ) / ( n - f );
+    // clang-format off
+    projMatrix << 2_ra * n / ( r - l ),                  0_ra,     A, 0_ra,
+                                  0_ra,  2_ra * n / ( t - b ),     B, 0_ra,
+                                  0_ra,                  0_ra,     C,    D,
+                                  0_ra,                  0_ra, -1_ra, 0_ra;
+    // clang-format on
+
+    return projMatrix;
+}
+
+Core::Matrix4 Camera::ortho( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f ) {
     Core::Matrix4 projMatrix;
     projMatrix.setZero();
 
@@ -125,13 +137,29 @@ Core::Matrix4 Camera::ortho( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, S
     projMatrix.setIdentity();
     projMatrix.coeffRef( 0, 0 )    = 2_ra / ( r - l );
     projMatrix.coeffRef( 1, 1 )    = 2_ra / ( t - b );
-    projMatrix.coeffRef( 2, 2 )    = -2_ra / ( f - n );
+    projMatrix.coeffRef( 2, 2 )    = 2_ra / ( n - f );
     projMatrix.block<3, 1>( 0, 3 ) = tr;
 
     return projMatrix;
 }
 
 void Camera::fitZRange( const Core::Aabb& aabb ) {
+#if 1
+    const auto& position        = getPosition();
+    Ra::Core::Vector3 direction = -m_frame.affine().block<3, 1>( 0, 2 );
+
+    const auto& minAabb = aabb.min();
+    const auto& maxAabb = aabb.max();
+    this->m_zNear = this->m_zFar = direction.dot( minAabb - position );
+
+    auto adaptRange = [position, direction, this]( Scalar x, Scalar y, Scalar z ) {
+        Ra::Core::Vector3 corner( x, y, z );
+        auto d        = direction.dot( corner - position );
+        this->m_zNear = std::min( d, this->m_zNear );
+        this->m_zFar  = std::max( d, this->m_zFar );
+    };
+#else
+
     const auto position  = Ra::Core::Vector3 {0_ra, 0_ra, 0_ra};
     const auto direction = Ra::Core::Vector3 {0_ra, 0_ra, -1_ra};
     const auto view      = getFrame().inverse();
@@ -145,6 +173,7 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
         this->m_zNear = std::min( d, this->m_zNear );
         this->m_zFar  = std::max( d, this->m_zFar );
     };
+#endif
 
     adaptRange( minAabb[0], minAabb[1], maxAabb[2] );
     adaptRange( minAabb[0], maxAabb[1], minAabb[2] );

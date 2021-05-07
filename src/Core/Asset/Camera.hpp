@@ -7,6 +7,9 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
+/// Camera class, define by a frame (assume to be orthonormal)
+/// The view direction is -z in camera space.
+/// Non orthormal frame are supported but leads to bad computation in fitZRange (bug suspected).
 class RA_CORE_API Camera
 {
   public:
@@ -83,7 +86,7 @@ class RA_CORE_API Camera
     /// Set the zoom factor to 'zoomFactor'.
     inline void setZoomFactor( const Scalar& zoomFactor );
 
-    /// Return the Field Of View.
+    /// Return the horizontal Field Of View.
     /// \note Meaningless for orthogonal projection.
     inline Scalar getFOV() const;
 
@@ -104,11 +107,6 @@ class RA_CORE_API Camera
 
     inline void setProjMatrix( Core::Matrix4 projMatrix );
 
-    /// \name To be deprecated.
-    /// Currently, only the CameraInterface (i.e. TrackballCameraManipulator) calls these
-    /// methods. A rework of the rendering architecture will be done soon.
-    /// Thus these methods might disappear.
-    ///@{
     /// Return the Z Near plane distance from the camera.
     inline Scalar getZNear() const;
 
@@ -130,9 +128,8 @@ class RA_CORE_API Camera
     /// Return the aspect ratio of the viewport.
     inline Scalar getAspect() const;
 
-    /// Change the viewport size.
+    /// Change the viewport size. Also compute aspectRatio.
     void setViewport( Scalar width, Scalar height );
-    ///@}
 
     void applyTransform( const Core::Transform& T );
 
@@ -142,8 +139,29 @@ class RA_CORE_API Camera
     const Scalar m_minZNear {0.01_ra};
     const Scalar m_minZRange {0.01_ra};
 
-    static Core::Matrix4 frustum( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, Scalar f );
-    static Core::Matrix4 ortho( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, Scalar f );
+    /// Compute a project projection matrix as describe here
+    /// https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#cameras
+    /// adapted to horizontal fov
+    /// equivalent to scale = tan(m_fov*.5)*m_zNear
+    /// frustum(-n*tan(f/2), n*tan(f/2), -n*tan(f/2)/aspect, n*tan(f/2)/aspect, n, f);
+    /// \param a : aspect ratio as width/height, i.e. getAspect()
+    /// \param y : fov in the horizontal direction, i.e. getFOV()
+    /// \param n : z near, i.e. getZNear()
+    /// \param f : z far, i.e. getZFar()
+    static Core::Matrix4 perspective( Scalar a, Scalar y, Scalar n, Scalar f );
+
+    /// Return a projection matrix
+    /// Compute projection matrix as describe here
+    /// https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix
+    /// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml
+    /// \param l : left
+    /// \param r : right
+    /// \param b : bottom
+    /// \param t : top
+    /// \param n : z near
+    /// \param f : z far
+    static Core::Matrix4 frustum( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f );
+    static Core::Matrix4 ortho( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f );
 
   private:
     Core::Transform m_frame {
@@ -154,17 +172,11 @@ class RA_CORE_API Camera
     Scalar m_zoomFactor {1};                     ///< Zoom factor (modifies the field of view)
     Scalar m_fov {Core::Math::PiDiv4};           ///< Field of view
 
-    /// \name To be deprecated
-    /// Currently, only the CameraManipulator (i.e. TrackballCameraManipulator) accesses these
-    /// attributes. A rework of the rendering architecture will be done soon.
-    /// Thus these attributes might disappear.
-    ///@{
     Scalar m_zNear {0.1_ra}; ///< Z Near plane distance
     Scalar m_zFar {1000_ra}; ///< Z Far plane distance
     Scalar m_width {1_ra};   ///< Viewport width (in pixels)
     Scalar m_height {1_ra};  ///< Viewport height (in pixels)
     Scalar m_aspect {1_ra};  ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
-    ///@}
 };
 } // namespace Asset
 } // namespace Core
