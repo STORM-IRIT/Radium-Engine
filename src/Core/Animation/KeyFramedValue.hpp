@@ -120,13 +120,14 @@ class KeyFramedValue : public KeyFramedValueBase
             m_keyframes.begin(), m_keyframes.end(), kf, []( const auto& a, const auto& b ) {
                 return a.first < b.first;
             } );
-        auto lower = upper;
-        --lower;
         if ( upper == m_keyframes.begin() ) { m_keyframes.insert( upper, kf ); }
-        else if ( Math::areApproxEqual( lower->first, t ) )
-        { lower->second = frame; }
         else
-        { m_keyframes.insert( upper, kf ); }
+        {
+            auto lower = upper - 1;
+            if ( Math::areApproxEqual( lower->first, t ) ) { lower->second = frame; }
+            else
+            { m_keyframes.insert( upper, kf ); }
+        }
     }
 
     /**
@@ -197,6 +198,8 @@ class KeyFramedValue : public KeyFramedValueBase
             m_keyframes.begin(), m_keyframes.end(), kf0, []( const auto& a, const auto& b ) {
                 return a.first < b.first;
             } );
+
+        // here upper > begin() since before first case is already taken into account.
         auto lower = upper;
         --lower;
         if ( Math::areApproxEqual( lower->first, t ) )
