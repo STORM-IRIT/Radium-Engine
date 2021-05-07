@@ -87,7 +87,8 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
     data.setFrame( Core::Transform {view * frame} );
 
     data.setType( Camera::ProjType::PERSPECTIVE ); // default value since not in aiCamera
-    data.setFOV( camera.mHorizontalFOV );
+    // assimp fov is fovx/2.
+    data.setFOV( camera.mHorizontalFOV * 2_ra );
     data.setZNear( camera.mClipPlaneNear );
     data.setZFar( camera.mClipPlaneFar );
     data.setZoomFactor( 1.0 ); // default value since not in aiCamera
