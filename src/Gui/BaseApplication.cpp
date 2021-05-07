@@ -1,3 +1,4 @@
+#include <Gui/AboutDialog/AboutDialog.hpp>
 #include <Gui/BaseApplication.hpp>
 #include <Gui/MainWindowInterface.hpp>
 #include <Gui/Viewer/Viewer.hpp>
@@ -36,6 +37,7 @@
 
 #include <QCommandLineParser>
 #include <QDir>
+#include <QMenuBar>
 #include <QMessageBox>
 #include <QOpenGLContext>
 #include <QPluginLoader>
@@ -277,6 +279,20 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
     // (thus the viewer should have initialized the OpenGL context..)
     createConnections();
     m_mainWindow->show();
+
+    // add the "about" action
+    auto qtWnd = dynamic_cast<QMainWindow*>( m_mainWindow.get() );
+    if ( qtWnd )
+    {
+        auto windowMenuBar = m_mainWindow->menuBar();
+        auto mainMenu      = windowMenuBar->findChild<QMenu*>( "Radium" );
+        if ( mainMenu == nullptr ) { mainMenu = windowMenuBar->addMenu( "Radium" ); }
+        auto aboutDiag = new AboutDialog( qtWnd );
+        aboutDiag->setModal( false );
+        mainMenu->addAction( "About", aboutDiag, &QDialog::show );
+        connect( aboutDiag, &AboutDialog::settings, this, &BaseApplication::editSettings );
+    }
+
     // processEvents();
     CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
     CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
