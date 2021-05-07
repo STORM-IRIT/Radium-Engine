@@ -25,7 +25,7 @@ inline void Camera::setPosition( const Core::Vector3& position ) {
 }
 
 inline Core::Vector3 Camera::getDirection() const {
-    return ( -m_frame.affine().block<3, 1>( 0, 2 ) ).normalized();
+    return ( -m_frame.linear().block<3, 1>( 0, 2 ) ).normalized();
 }
 
 inline Core::Vector3 Camera::getUpVector() const {
