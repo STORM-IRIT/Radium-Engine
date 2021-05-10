@@ -1100,8 +1100,10 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
     auto addMergeScene = [findHalfedge]( const Vector3Array& points,
                                          const Vector4Array& colors,
                                          const Vector3uArray& indices,
-                                         Vector3 from,
-                                         Vector3 to ) {
+                                         const Vector3& inFrom,
+                                         const Vector3& inTo ) {
+        Vector3 from {inFrom};
+        Vector3 to {inTo};
         TriangleMesh mesh1;
         TopologicalMesh topo1;
         optional<TopologicalMesh::HalfedgeHandle> optHe;
