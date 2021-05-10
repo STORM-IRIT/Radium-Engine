@@ -119,23 +119,23 @@ inline void Camera::setProjMatrix( Core::Matrix4 projMatrix ) {
 }
 
 inline Core::Vector2 Camera::project( const Core::Vector3& p ) const {
-    Core::Vector4 point = Core::Vector4::Ones();
-    point.head<3>()     = p;
-    auto vpPoint        = getProjMatrix() * getViewMatrix() * point;
+    Core::Vector4 point   = Core::Vector4::Ones();
+    point.head<3>()       = p;
+    Core::Vector4 vpPoint = getProjMatrix() * getViewMatrix() * point;
 
-    return Core::Vector2( getWidth() * Scalar( 0.5 ) * ( vpPoint.x() + Scalar( 1 ) ),
-                          getHeight() * Scalar( 0.5 ) * ( vpPoint.y() + Scalar( -1 ) ) );
+    return Core::Vector2( getWidth() * 0.5_ra * ( vpPoint.x() + 1_ra ),
+                          getHeight() * 0.5_ra * ( vpPoint.y() + -1_ra ) );
 }
 
 inline Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
-    const Scalar localX = ( Scalar( 2 ) * pix.x() ) / getWidth() - Scalar( 1 );
+    const Scalar localX = ( 2_ra * pix.x() ) / getWidth() - 1_ra;
     // Y is "inverted" (goes downwards)
-    const Scalar localY = -( Scalar( 2 ) * pix.y() ) / getHeight() + Scalar( 1 );
+    const Scalar localY = -( 2_ra * pix.y() ) / getHeight() + 1_ra;
 
     // Multiply the point in screen space by the inverted projection matrix
     // and then by the inverted view matrix ( = m_frame) to get it in world space.
     // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
-    const Core::Vector4 localPoint( localX, localY, -getZNear(), Scalar( 1 ) );
+    const Core::Vector4 localPoint( localX, localY, -getZNear(), 1_ra );
     const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint;
     return getFrame() * unproj.head<3>();
 }

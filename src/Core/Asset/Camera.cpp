@@ -32,11 +32,11 @@ Camera& Camera::operator=( const Camera& rhs ) {
 void Camera::setDirection( const Core::Vector3& direction ) {
     Core::Transform T = Core::Transform::Identity();
 
-    auto d0 = getDirection();
-    auto d1 = direction.normalized();
+    Core::Vector3 d0 = getDirection();
+    Core::Vector3 d1 = direction.normalized();
 
-    auto c = d0.cross( d1 );
-    auto d = d0.dot( d1 );
+    Core::Vector3 c = d0.cross( d1 );
+    Scalar d        = d0.dot( d1 );
 
     // Special case if two directions are exactly opposites we constrain.
     // to rotate around the up vector.
@@ -145,11 +145,11 @@ Core::Matrix4 Camera::ortho( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, S
 
 void Camera::fitZRange( const Core::Aabb& aabb ) {
 #if 1
-    const auto& position        = getPosition();
-    Ra::Core::Vector3 direction = -m_frame.affine().block<3, 1>( 0, 2 );
+    const Core::Vector3& position = getPosition();
+    Core::Vector3 direction       = -m_frame.affine().block<3, 1>( 0, 2 );
 
-    const auto& minAabb = aabb.min();
-    const auto& maxAabb = aabb.max();
+    const Core::Vector3& minAabb = aabb.min();
+    const Core::Vector3& maxAabb = aabb.max();
     this->m_zNear = this->m_zFar = direction.dot( minAabb - position );
 
     auto adaptRange = [position, direction, this]( Scalar x, Scalar y, Scalar z ) {
