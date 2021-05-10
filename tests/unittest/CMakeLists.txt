@@ -10,6 +10,7 @@ add_executable(unittests
     unittestUtils.hpp
     Core/algebra.cpp
     Core/animation.cpp
+    Core/camera.cpp
     Core/color.cpp
     Core/containers.cpp
     Core/distance.cpp
@@ -23,7 +24,6 @@ add_executable(unittests
     Core/string.cpp
     Core/topomesh.cpp
     Gui/keymapping.cpp
-    Engine/camera.cpp
     )
 
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
