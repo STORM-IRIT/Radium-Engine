@@ -65,10 +65,10 @@ class RA_CORE_API Camera
     Core::Ray getRayFromScreen( const Core::Vector2& pix ) const;
 
     /// Return the screen coordinates of the given point p (in world coordinates).
-    inline Core::Vector2 project( const Core::Vector3& p ) const;
+    Core::Vector2 project( const Core::Vector3& p ) const;
 
     /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
-    inline Core::Vector3 unProject( const Core::Vector2& pix ) const;
+    Core::Vector3 unProject( const Core::Vector2& pix ) const;
 
     //
     // Getters and setters for projection matrix parameters.
