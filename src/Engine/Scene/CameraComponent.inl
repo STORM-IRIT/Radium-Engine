@@ -108,7 +108,7 @@ inline Core::Matrix4 CameraComponent::getProjMatrix() const {
 }
 
 inline Core::Vector2 CameraComponent::project( const Core::Vector3& p ) const {
-    return m_camera->project( p );
+    return m_camera->project( p ).head<2>();
 }
 
 inline Core::Vector3 CameraComponent::unProject( const Core::Vector2& pix ) const {
