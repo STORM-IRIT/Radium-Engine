@@ -39,26 +39,27 @@ struct RA_CORE_API AbstractGeometry {
     virtual void clear() = 0;
 
     /// Compute bounding box
-    virtual Aabb computeAabb() = 0;
+    virtual Aabb computeAabb() const = 0;
 
-    void invalidateAabb() {
-        m_isAabbValid = false;
-        m_aabbObservable.notify();
-    }
-    bool isAabbValid() { return m_isAabbValid; }
-    Core::Aabb getAabb() const { return m_aabb; }
     Ra::Core::Utils::ObservableVoid& getAabbObservable() { return m_aabbObservable; }
 
   protected:
+    bool isAabbValid() const { return m_isAabbValid; }
+    Core::Aabb getAabb() const { return m_aabb; }
+
+    void invalidateAabb() const {
+        m_isAabbValid = false;
+        m_aabbObservable.notify();
+    }
     // set a new (valid) aabb
-    void setAabb( const Core::Aabb& aabb ) {
+    void setAabb( const Core::Aabb& aabb ) const {
         m_aabb        = aabb;
         m_isAabbValid = true;
     }
 
   private:
-    bool m_isAabbValid {false};
-    Core::Aabb m_aabb;
+    mutable bool m_isAabbValid {false};
+    mutable Core::Aabb m_aabb;
     Ra::Core::Utils::ObservableVoid m_aabbObservable;
 };
 

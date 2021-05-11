@@ -109,7 +109,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
     void clear() override;
 
     /// Compute the aabb of the volume
-    Aabb computeAabb() override;
+    Aabb computeAabb() const override;
 
     /// return the size (number of bins ni each dimension) of the volume
     const Vector3i& size() const { return m_size; }
