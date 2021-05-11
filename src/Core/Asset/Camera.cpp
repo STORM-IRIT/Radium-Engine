@@ -70,18 +70,15 @@ void Camera::updateProjMatrix() {
     case ProjType::ORTHOGRAPHIC: {
         const Scalar dx = m_zoomFactor * .5_ra;
         const Scalar dy = dx / m_aspect;
-        // ------------
-        // Compute projection matrix as describe in the doc of glOrtho()
-        const Scalar l = -dx; // left
-        const Scalar r = dx;  // right
-        const Scalar t = dy;  // top
-        const Scalar b = -dy; // bottom
-        m_projMatrix   = ortho( l, r, b, t, m_zNear, m_zFar );
+        const Scalar l  = -dx; // left
+        const Scalar r  = dx;  // right
+        const Scalar t  = dy;  // top
+        const Scalar b  = -dy; // bottom
+        m_projMatrix    = ortho( l, r, b, t, m_zNear, m_zFar );
     }
     break;
 
     case ProjType::PERSPECTIVE: {
-
         Scalar r     = m_zNear * std::tan( m_fov / 2_ra );
         Scalar l     = -r;
         Scalar t     = r / m_aspect;
@@ -194,16 +191,21 @@ Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     return Core::Ray::Through( getPosition(), unProject( pix ) );
 }
 
-Core::Vector2 Camera::project( const Core::Vector3& p ) const {
+Core::Vector3 Camera::project( const Core::Vector3& p ) const {
     Core::Vector4 point   = Core::Vector4::Ones();
     point.head<3>()       = p;
     Core::Vector4 vpPoint = getProjMatrix() * getViewMatrix() * point;
-
-    return Core::Vector2( getWidth() * 0.5_ra * ( 1_ra + vpPoint.x() ),
-                          getHeight() * 0.5_ra * ( 1_ra - vpPoint.y() ) );
+    vpPoint               = vpPoint / vpPoint.w();
+    return Core::Vector3( getWidth() * 0.5_ra * ( 1_ra + vpPoint.x() ),
+                          getHeight() * 0.5_ra * ( 1_ra - vpPoint.y() ),
+                          vpPoint.z() );
 }
 
 Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
+    return unProject( Vector3 {pix.x(), pix.y(), -getZNear()} );
+}
+
+Core::Vector3 Camera::unProject( const Core::Vector3& pix ) const {
     const Scalar localX = ( 2_ra * pix.x() ) / getWidth() - 1_ra;
     // Y is "inverted" (goes downwards)
     const Scalar localY = -( 2_ra * pix.y() ) / getHeight() + 1_ra;
@@ -211,9 +213,9 @@ Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
     // Multiply the point in screen space by the inverted projection matrix
     // and then by the inverted view matrix ( = m_frame) to get it in world space.
     // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
-    const Core::Vector4 localPoint( localX, localY, -getZNear(), 1_ra );
+    const Core::Vector4 localPoint( localX, localY, pix.z(), 1_ra );
     const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint;
-    return getFrame() * unproj.head<3>();
+    return getFrame() * ( unproj.head<3>() / unproj.w() );
 }
 
 } // namespace Asset
