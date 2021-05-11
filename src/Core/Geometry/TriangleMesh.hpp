@@ -164,7 +164,7 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// \warning The original handles are not valid for the AttribArrayGeometry copy.
     inline bool copyAllAttributes( const AttribArrayGeometry& input );
 
-    inline Aabb computeAabb() override;
+    inline Aabb computeAabb() const override;
 
     /// Utility function colorzing the AttribArrayGeometry with a given color.
     /// \note Add the color attribute if needed.

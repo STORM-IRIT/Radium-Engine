@@ -61,7 +61,7 @@ void AbstractDiscreteVolume::clear() {
     invalidateAabb();
 }
 
-Aabb AbstractDiscreteVolume::computeAabb() {
+Aabb AbstractDiscreteVolume::computeAabb() const {
     if ( !isAabbValid() )
     { setAabb( Aabb( Vector3::Zero(), m_binSize.cwiseProduct( m_size.cast<Scalar>() ) ) ); }
     return getAabb();

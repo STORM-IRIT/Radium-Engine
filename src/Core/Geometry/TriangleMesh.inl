@@ -75,7 +75,7 @@ inline bool AttribArrayGeometry::copyAllAttributes( const AttribArrayGeometry& i
     return true;
 }
 
-inline Aabb AttribArrayGeometry::computeAabb() {
+inline Aabb AttribArrayGeometry::computeAabb() const {
     if ( !isAabbValid() )
     {
         Aabb aabb;
@@ -83,7 +83,6 @@ inline Aabb AttribArrayGeometry::computeAabb() {
         {
             aabb.extend( v );
         }
-
         setAabb( aabb );
     }
 
