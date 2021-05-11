@@ -136,7 +136,7 @@ void SkinningComponent::initialize() {
             }
             m_refData.m_referenceMesh.addAttrib( bitangentName, std::move( bitangents ) );
         }
-        m_topoMesh.initWithWedge( m_refData.m_referenceMesh );
+        m_topoMesh = Ra::Core::Geometry::TopologicalMesh {m_refData.m_referenceMesh};
 
         auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
         // get other data
