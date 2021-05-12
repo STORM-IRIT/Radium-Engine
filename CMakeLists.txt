@@ -110,6 +110,9 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "${RADIUM_BUNDLE_DIRECTORY}" CACHE PATH
         "Install path prefix, prepended onto install directories." FORCE)
     messageInfo("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
+    # prevent subsequent modification of CMAKE_INSTALL_PREFIX
+    # based on CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT value
+    unset(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 
 #------------------------------------------------------------------------------
@@ -227,4 +230,3 @@ messageSetting("USE_GOLD_LINKER")
 messageEnd()
 
 set( CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL "Previous value of CMAKE_INSTALL_PREFIX")
-
