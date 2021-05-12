@@ -219,10 +219,10 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
 
     GL_ASSERT( glReadPixels(
         query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
-    result.m_roIdx = pick[0];                    // RO idx
-    result.m_vertexIdx.emplace_back( pick[1] );  // vertex idx in the element
-    result.m_elementIdx.emplace_back( pick[2] ); // element idx
-    result.m_edgeIdx.emplace_back( pick[3] );    // edge opposite idx for triangles
+    result.m_roIdx = pick[0];                // RO idx
+    result.m_result.emplace_back( pick[2],   // element idx
+                                  pick[1],   // vertex idx in the element
+                                  pick[3] ); // edge opposite idx for triangles
 
     result.m_mode = query.m_mode;
 
@@ -448,10 +448,10 @@ void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
                                      GL_RGBA_INTEGER,
                                      GL_INT,
                                      pick ) );
-            result.m_roIdx = pick[0];                    // RO idx
-            result.m_vertexIdx.emplace_back( pick[1] );  // vertex idx in the element
-            result.m_elementIdx.emplace_back( pick[2] ); // element idx
-            result.m_edgeIdx.emplace_back( pick[3] );    // edge opposite idx for triangles
+            result.m_roIdx = pick[0];                // RO idx
+            result.m_result.emplace_back( pick[2],   // element idx
+                                          pick[1],   // vertex idx in the element
+                                          pick[3] ); // edge opposite idx for triangles
         }
         else
         {
@@ -470,19 +470,19 @@ void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
                     { continue; }
                     GL_ASSERT( glReadPixels( x, y, 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                     resultPerRO[pick[0]].m_roIdx = pick[0];
-                    resultPerRO[pick[0]].m_vertexIdx.emplace_back( pick[1] );
-                    resultPerRO[pick[0]].m_elementIdx.emplace_back( pick[2] );
-                    resultPerRO[pick[0]].m_edgeIdx.emplace_back( pick[3] );
+                    resultPerRO[pick[0]].m_result.emplace_back( pick[2],   // element idx
+                                                                pick[1],   // vertex idx
+                                                                pick[3] ); // edge opposite
                 }
             }
 
-            auto itr = std::max_element(
-                resultPerRO.begin(),
-                resultPerRO.end(),
-                []( const std::map<int, PickingResult>::value_type& a,
-                    const std::map<int, PickingResult>::value_type& b ) -> bool {
-                    return a.second.m_vertexIdx.size() < b.second.m_vertexIdx.size();
-                } );
+            auto itr =
+                std::max_element( resultPerRO.begin(),
+                                  resultPerRO.end(),
+                                  []( const std::map<int, PickingResult>::value_type& a,
+                                      const std::map<int, PickingResult>::value_type& b ) -> bool {
+                                      return a.second.m_result.size() < b.second.m_result.size();
+                                  } );
             result = itr->second;
         }
         result.m_mode = query.m_mode;
