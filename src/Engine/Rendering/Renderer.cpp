@@ -219,10 +219,8 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
 
     GL_ASSERT( glReadPixels(
         query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
-    result.m_roIdx = pick[0];                // RO idx
-    result.m_result.emplace_back( pick[2],   // element idx
-                                  pick[1],   // vertex idx in the element
-                                  pick[3] ); // edge opposite idx for triangles
+    result.m_roIdx = pick[0]; // RO idx
+    result.addIndex( {pick[2], pick[1], pick[3]} );
 
     result.m_mode = query.m_mode;
 
@@ -448,10 +446,8 @@ void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
                                      GL_RGBA_INTEGER,
                                      GL_INT,
                                      pick ) );
-            result.m_roIdx = pick[0];                // RO idx
-            result.m_result.emplace_back( pick[2],   // element idx
-                                          pick[1],   // vertex idx in the element
-                                          pick[3] ); // edge opposite idx for triangles
+            result.m_roIdx = pick[0]; // RO idx
+            result.addIndex( {pick[2], pick[1], pick[3]} );
         }
         else
         {
@@ -470,9 +466,7 @@ void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
                     { continue; }
                     GL_ASSERT( glReadPixels( x, y, 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                     resultPerRO[pick[0]].m_roIdx = pick[0];
-                    resultPerRO[pick[0]].m_result.emplace_back( pick[2],   // element idx
-                                                                pick[1],   // vertex idx
-                                                                pick[3] ); // edge opposite
+                    resultPerRO[pick[0]].addIndex( {pick[2], pick[1], pick[3]} );
                 }
             }
 
@@ -481,7 +475,7 @@ void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
                                   resultPerRO.end(),
                                   []( const std::map<int, PickingResult>::value_type& a,
                                       const std::map<int, PickingResult>::value_type& b ) -> bool {
-                                      return a.second.m_result.size() < b.second.m_result.size();
+                                      return a.second.indices().size() < b.second.indices().size();
                                   } );
             result = itr->second;
         }
