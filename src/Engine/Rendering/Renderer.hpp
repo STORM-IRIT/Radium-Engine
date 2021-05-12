@@ -105,7 +105,7 @@ class RA_ENGINE_API Renderer
      * clouds.
      *
      *  For performance reasons, there is no duplicate check when filling PickingResult. When
-     *  required, call removeDuplicate() before processing indices().
+     *  required, call removeDuplicatedIndices() before processing indices().
      *
      *  \see getPickingResults
      */
@@ -114,21 +114,34 @@ class RA_ENGINE_API Renderer
         PickingMode m_mode {Engine::Rendering::Renderer::RO};
         /// Idx of the picked RO
         Core::Utils::Index m_roIdx {Core::Utils::Index::Invalid()};
-        /// Query result, stored as: [vertexId, elementId, edgeId]
-        /// \see removeDuplicate()
-        std::vector<std::tuple<int, int, int>> m_result;
 
-        /// Remove duplicates in m_result
-        inline void removeDuplicate() {
-            std::sort( m_result.begin(), m_result.end() );
-            m_result.erase( std::unique( m_result.begin(), m_result.end() ), m_result.end() );
+      private:
+        /// Query result, stored as: [vertexId, elementId, edgeId]
+        /// \see removeDuplicatedIndices()
+        ///
+        /// \note Set as mutable to be able to call removeDuplicatedIndices() in const context.
+        mutable std::vector<std::tuple<int, int, int>> m_indices;
+
+      public:
+        /// Read access to the collected ids
+        inline const std::vector<std::tuple<int, int, int>>& indices() const { return m_indices; }
+
+        /// Add new ids to the result
+        inline void addIndex( const std::tuple<int, int, int>& idx ) { m_indices.push_back( idx ); }
+
+        /// Reserve size of ids container
+        inline void reserve( size_t s ) { m_indices.reserve( s ); }
+        /// Remove duplicates in m_indices
+        inline void removeDuplicatedIndices() const {
+            std::sort( m_indices.begin(), m_indices.end() );
+            m_indices.erase( std::unique( m_indices.begin(), m_indices.end() ), m_indices.end() );
         }
 
         /// Reset query to default
         inline void clear() {
             m_mode  = Engine::Rendering::Renderer::RO;
             m_roIdx = Core::Utils::Index::Invalid();
-            m_result.clear();
+            m_indices.clear();
         }
     };
 
