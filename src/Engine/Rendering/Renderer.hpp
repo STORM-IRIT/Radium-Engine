@@ -93,14 +93,43 @@ class RA_ENGINE_API Renderer
     };
 
     /**
-     * Picking result
+     * \brief Result of a PickingQuery
+     *
+     * For each selected pixel, store the following indices: `<elementIdx, vertexIdx, edgeIdx>`
+     *  - `elementIdx`: Index of the selected face or edge (for mesh and line mesh respectively).
+     * Set to -1 for point clouds.
+     *  - `vertexIdx`: On meshes/lines: index of the closest vertex on the selected face/edge. On
+     *  point-clouds: index of the selected vertex
+     *  - `edgeIdx`: On meshes/lines: index of the closest edge on the selected face/edge. In
+     * meshes, `edgeIdx` is defined using the index of the opposite vertex. Set to -1 for point
+     * clouds.
+     *
+     *  For performance reasons, there is no duplicate check when filling PickingResult. When
+     *  required, call removeDuplicate() before processing indices().
+     *
+     *  \see getPickingResults
      */
     struct PickingResult {
-        PickingMode m_mode;         // Picking mode of the query
-        Core::Utils::Index m_roIdx; // Idx of the picked RO
+        /// Picking mode of the query
+        PickingMode m_mode {Engine::Rendering::Renderer::RO};
+        /// Idx of the picked RO
+        Core::Utils::Index m_roIdx {Core::Utils::Index::Invalid()};
         /// Query result, stored as: [vertexId, elementId, edgeId]
         /// \see removeDuplicate()
         std::vector<std::tuple<int, int, int>> m_result;
+
+        /// Remove duplicates in m_result
+        inline void removeDuplicate() {
+            std::sort( m_result.begin(), m_result.end() );
+            m_result.erase( std::unique( m_result.begin(), m_result.end() ), m_result.end() );
+        }
+
+        /// Reset query to default
+        inline void clear() {
+            m_mode  = Engine::Rendering::Renderer::RO;
+            m_roIdx = Core::Utils::Index::Invalid();
+            m_result.clear();
+        }
     };
 
   public:
@@ -213,7 +242,7 @@ class RA_ENGINE_API Renderer
     /**
      * Get the vector of picking results.
      * Results in the returned vector correspond to queries in the return vector by the function
-     * getPickingQueries.
+     * getPickingQueries().
      * @return Queries results
      */
     inline const std::vector<PickingResult>& getPickingResults() const { return m_pickingResults; }
@@ -221,7 +250,7 @@ class RA_ENGINE_API Renderer
     /**
      * Get the vector of picking queries.
      * Queries in the returned vector correspond to results in the return vector by the function
-     * getPickingResults.
+     * getPickingResults().
      * @return Queries results
      */
     inline const std::vector<PickingQuery>& getPickingQueries() const {
