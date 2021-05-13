@@ -6,8 +6,8 @@ namespace Ra {
 namespace Gui {
 
 PickingManager::PickingManager() {
-    m_pickingResult.m_mode  = Engine::Rendering::Renderer::RO;
-    m_pickingResult.m_roIdx = -1;
+    m_pickingResult.setMode( Engine::Rendering::Renderer::RO );
+    m_pickingResult.setRoIdx( Core::Utils::Index::Invalid() );
 }
 
 PickingManager::~PickingManager() {}

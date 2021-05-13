@@ -109,22 +109,13 @@ class RA_ENGINE_API Renderer
      *
      *  \see getPickingResults
      */
-    struct PickingResult {
-        /// Picking mode of the query
-        PickingMode m_mode {Engine::Rendering::Renderer::RO};
-        /// Idx of the picked RO
-        Core::Utils::Index m_roIdx {Core::Utils::Index::Invalid()};
-
-      private:
-        /// Query result, stored as: [vertexId, elementId, edgeId]
-        /// \see removeDuplicatedIndices()
-        ///
-        /// \note Set as mutable to be able to call removeDuplicatedIndices() in const context.
-        mutable std::vector<std::tuple<int, int, int>> m_indices;
-
+    class PickingResult
+    {
       public:
         /// Read access to the collected ids
-        inline const std::vector<std::tuple<int, int, int>>& indices() const { return m_indices; }
+        inline const std::vector<std::tuple<int, int, int>>& getIndices() const {
+            return m_indices;
+        }
 
         /// Add new ids to the result
         inline void addIndex( const std::tuple<int, int, int>& idx ) { m_indices.push_back( idx ); }
@@ -143,6 +134,23 @@ class RA_ENGINE_API Renderer
             m_roIdx = Core::Utils::Index::Invalid();
             m_indices.clear();
         }
+
+        inline void setRoIdx( Core::Utils::Index idx ) { m_roIdx = idx; }
+        inline Core::Utils::Index getRoIdx() const { return m_roIdx; }
+        inline void setMode( PickingMode mode ) { m_mode = mode; }
+        inline PickingMode getMode() const { return m_mode; }
+
+      private:
+        /// Picking mode of the query
+        PickingMode m_mode {Engine::Rendering::Renderer::RO};
+        /// Idx of the picked RO
+        Core::Utils::Index m_roIdx {Core::Utils::Index::Invalid()};
+
+        /// Query result, stored as: [vertexId, elementId, edgeId]
+        /// \see removeDuplicatedIndices()
+        ///
+        /// \note Set as mutable to be able to call removeDuplicatedIndices() in const context.
+        mutable std::vector<std::tuple<int, int, int>> m_indices;
     };
 
   public:

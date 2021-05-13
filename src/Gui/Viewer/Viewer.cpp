@@ -671,7 +671,7 @@ void Viewer::handleMousePressEvent( QMouseEvent* event,
     auto key       = activeKey();
 
     // nothing under mouse ? juste move the camera ...
-    if ( result.m_roIdx.isInvalid() )
+    if ( result.getRoIdx().isInvalid() )
     {
         if ( m_camera->handleMousePressEvent( event, buttons, modifiers, key ) )
         { m_activeContext = m_camera->mappingContext(); }
@@ -685,7 +685,7 @@ void Viewer::handleMousePressEvent( QMouseEvent* event,
     else
     {
         // something under the mouse, let's check if it's a gizmo ro
-        getGizmoManager()->handlePickingResult( result.m_roIdx );
+        getGizmoManager()->handlePickingResult( result.getRoIdx() );
         if ( getGizmoManager()->handleMousePressEvent(
                  event, buttons, modifiers, key, *m_camera->getCamera() ) )
         { m_activeContext = GizmoManager::getContext(); } // if not, try to do camera stuff
@@ -755,7 +755,7 @@ void Viewer::handleMouseMoveEvent( QMouseEvent* event,
         }
     }
     else
-    { getGizmoManager()->handlePickingResult( result.m_roIdx ); }
+    { getGizmoManager()->handlePickingResult( result.getRoIdx() ); }
 }
 
 void Viewer::handleWheelEvent( QWheelEvent* event ) {
