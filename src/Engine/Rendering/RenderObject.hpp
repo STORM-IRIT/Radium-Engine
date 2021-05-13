@@ -152,6 +152,9 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     /// Notify component that the render object has expired.
     void hasExpired();
 
+    /// Set a lifetime to an existing RenderObject.
+    void setLifetime( int t );
+
     /**
      * Render the object with the given rendering environment defined by the lighting parameters,
      * the viewing parameters and  the shader
