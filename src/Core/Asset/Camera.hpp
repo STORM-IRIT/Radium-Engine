@@ -7,9 +7,11 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-/// Camera class, define by a frame (assume to be orthonormal)
+/// \brief Camera class storing the Camera frame and the projection properties
 /// The view direction is -z in camera space.
-/// Non orthormal frame are supported but leads to bad computation in fitZRange (bug suspected).
+/// \note Both orthonormal and non-orthonormal frames are supported. However, in the current
+/// implementation suspect a bug in fitZRange which does not behave as expected for non-orthogonal
+/// frames..
 class RA_CORE_API Camera
 {
   public:
@@ -153,8 +155,9 @@ class RA_CORE_API Camera
     /// \param f : z far, i.e. getZFar()
     static Core::Matrix4 perspective( Scalar a, Scalar y, Scalar n, Scalar f );
 
-    /// Return a projection matrix
-    /// Compute projection matrix as describe here
+    /// \brief Build a projection matrix from the parameters of the view volume
+    /// \see perspective()
+    /// Implements the algorithm described here
     /// https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix
     /// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml
     /// \param l : left
