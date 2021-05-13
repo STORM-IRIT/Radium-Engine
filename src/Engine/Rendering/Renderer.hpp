@@ -113,32 +113,24 @@ class RA_ENGINE_API Renderer
     {
       public:
         /// Read access to the collected ids
-        inline const std::vector<std::tuple<int, int, int>>& getIndices() const {
-            return m_indices;
-        }
+        inline const std::vector<std::tuple<int, int, int>>& getIndices() const;
 
         /// Add new ids to the result
-        inline void addIndex( const std::tuple<int, int, int>& idx ) { m_indices.push_back( idx ); }
+        inline void addIndex( const std::tuple<int, int, int>& idx );
 
         /// Reserve size of ids container
-        inline void reserve( size_t s ) { m_indices.reserve( s ); }
+        inline void reserve( size_t s );
+
         /// Remove duplicates in m_indices
-        inline void removeDuplicatedIndices() const {
-            std::sort( m_indices.begin(), m_indices.end() );
-            m_indices.erase( std::unique( m_indices.begin(), m_indices.end() ), m_indices.end() );
-        }
+        inline void removeDuplicatedIndices() const;
 
         /// Reset query to default
-        inline void clear() {
-            m_mode  = Engine::Rendering::Renderer::RO;
-            m_roIdx = Core::Utils::Index::Invalid();
-            m_indices.clear();
-        }
+        inline void clear();
 
-        inline void setRoIdx( Core::Utils::Index idx ) { m_roIdx = idx; }
-        inline Core::Utils::Index getRoIdx() const { return m_roIdx; }
-        inline void setMode( PickingMode mode ) { m_mode = mode; }
-        inline PickingMode getMode() const { return m_mode; }
+        inline void setRoIdx( Core::Utils::Index idx );
+        inline Core::Utils::Index getRoIdx() const;
+        inline void setMode( PickingMode mode );
+        inline PickingMode getMode() const;
 
       private:
         /// Picking mode of the query
@@ -168,51 +160,51 @@ class RA_ENGINE_API Renderer
     /**
      * Extract the timings from las render
      */
-    inline const TimerData& getTimerData() const { return m_timerData; }
+    inline const TimerData& getTimerData() const;
 
     /**
      * Get the currently displayed texture
      */
-    inline Data::Texture* getDisplayTexture() const { return m_displayedTexture; }
+    inline Data::Texture* getDisplayTexture() const;
 
     // Lock the renderer (for MT access)
     /**
      * Lock rendering. Usefull if there is multithread update of the rendering data
      */
-    inline void lockRendering() { m_renderMutex.lock(); }
+    inline void lockRendering();
 
     /**
      * Unlock the rendering.
      */
-    inline void unlockRendering() { m_renderMutex.unlock(); }
+    inline void unlockRendering();
 
     /**
      * Toggle the fill/wireframe rendering mode
      */
-    inline void toggleWireframe() { m_wireframe = !m_wireframe; }
+    inline void toggleWireframe();
 
     /**
      * set the fill/wireframe rendering mode
      * @param enabled true if rendering mode must be wireframe, false for fill render mode
      */
-    inline void enableWireframe( bool enabled ) { m_wireframe = enabled; }
+    inline void enableWireframe( bool enabled );
 
     /**
      * Toggle debug rendering
      */
-    inline void toggleDrawDebug() { m_drawDebug = !m_drawDebug; }
+    inline void toggleDrawDebug();
 
     /**
      * Set the debug rendering mode
      * @param enabled true if rendering mode must include debug objects, false else
      */
-    inline void enableDebugDraw( bool enabled ) { m_drawDebug = enabled; }
+    inline void enableDebugDraw( bool enabled );
 
     /**
      * set the post-process mode
      * @param enabled true if post processing must bve applied before display.
      */
-    inline void enablePostProcess( bool enabled ) { m_postProcessEnabled = enabled; }
+    inline void enablePostProcess( bool enabled );
 
     /**
      * @brief Tell the renderer it needs to render.
@@ -256,9 +248,7 @@ class RA_ENGINE_API Renderer
      * Add a new picking query for the next rendering
      * @param query
      */
-    inline void addPickingRequest( const PickingQuery& query ) {
-        m_pickingQueries.push_back( query );
-    }
+    inline void addPickingRequest( const PickingQuery& query );
 
     /**
      * Get the vector of picking results.
@@ -266,7 +256,7 @@ class RA_ENGINE_API Renderer
      * getPickingQueries().
      * @return Queries results
      */
-    inline const std::vector<PickingResult>& getPickingResults() const { return m_pickingResults; }
+    inline const std::vector<PickingResult>& getPickingResults() const;
 
     /**
      * Get the vector of picking queries.
@@ -274,24 +264,19 @@ class RA_ENGINE_API Renderer
      * getPickingResults().
      * @return Queries results
      */
-    inline const std::vector<PickingQuery>& getPickingQueries() const {
-        return m_lastFramePickingQueries;
-    }
+    inline const std::vector<PickingQuery>& getPickingQueries() const;
 
-    inline void setMousePosition( const Core::Vector2& pos ) {
-        m_mousePosition[0] = pos[0];
-        m_mousePosition[1] = m_height - pos[1];
-    }
+    inline void setMousePosition( const Core::Vector2& pos );
 
-    inline void setBrushRadius( Scalar brushRadius ) { m_brushRadius = brushRadius; }
+    inline void setBrushRadius( Scalar brushRadius );
 
     /// Tell if the renderer has an usable light.
     bool hasLight() const;
 
     /// Update the background color (does not trigger a redraw)
-    inline void setBackgroundColor( const Core::Utils::Color& color ) { m_backgroundColor = color; }
+    inline void setBackgroundColor( const Core::Utils::Color& color );
 
-    inline const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
+    inline const Core::Utils::Color& getBackgroundColor() const;
 
     // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
     /** Add a light to the renderer.
@@ -511,3 +496,5 @@ class RA_ENGINE_API Renderer
 } // namespace Rendering
 } // namespace Engine
 } // namespace Ra
+
+#include <Engine/Rendering/Renderer.inl>
