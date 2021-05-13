@@ -96,7 +96,7 @@ class DemoWindow : public Ra::Gui::SimpleWindow
         LOG( logINFO ) << "Pixels in the selection : " << pickingResult.getIndices().size();
         pickingResult.removeDuplicatedIndices();
         LOG( logINFO ) << "Nearest [face, vertex, edge] by pixels : ";
-        for ( const auto& [f, v, e] : pickingResult.indices() )
+        for ( const auto& [f, v, e] : pickingResult.getIndices() )
             LOG( logINFO ) << f << ' ' << v << ' ' << e;
     }
 
