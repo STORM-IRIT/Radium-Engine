@@ -36,7 +36,6 @@ var hierarchy =
     [ "Ra::Core::Asset::LightData::AreaLight", "structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html", null ],
     [ "Ra::Core::Asset::AssetData", "classRa_1_1Core_1_1Asset_1_1AssetData.html", [
       [ "Ra::Core::Asset::AnimationData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html", null ],
-      [ "Ra::Core::Asset::CameraData", "classRa_1_1Core_1_1Asset_1_1CameraData.html", null ],
       [ "Ra::Core::Asset::GeometryData", "classRa_1_1Core_1_1Asset_1_1GeometryData.html", null ],
       [ "Ra::Core::Asset::HandleData", "classRa_1_1Core_1_1Asset_1_1HandleData.html", null ],
       [ "Ra::Core::Asset::LightData", "classRa_1_1Core_1_1Asset_1_1LightData.html", null ],
@@ -61,13 +60,14 @@ var hierarchy =
     [ "Ra::Core::Containers::BVH< T >", "classRa_1_1Core_1_1Containers_1_1BVH.html", null ],
     [ "Ra::Engine::Scene::ComponentMessenger::CallbackTypes< T >", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html", null ],
     [ "Ra::Engine::Scene::ComponentMessenger::CallbackTypes< std::shared_ptr< T > >", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html", null ],
+    [ "Ra::Core::Asset::Camera", "classRa_1_1Core_1_1Asset_1_1Camera.html", null ],
     [ "Ra::Engine::Scene::CameraStorage", "classRa_1_1Engine_1_1Scene_1_1CameraStorage.html", [
       [ "Ra::Engine::Scene::DefaultCameraStorage", "classRa_1_1Engine_1_1Scene_1_1DefaultCameraStorage.html", null ]
     ] ],
     [ "Ra::Core::Utils::Chrono", "classRa_1_1Core_1_1Utils_1_1Chrono.html", null ],
     [ "Ra::Core::Utils::CircularIndex", "classRa_1_1Core_1_1Utils_1_1CircularIndex.html", null ],
     [ "Ra::Engine::Scene::Component", "classRa_1_1Engine_1_1Scene_1_1Component.html", [
-      [ "Ra::Engine::Scene::Camera", "classRa_1_1Engine_1_1Scene_1_1Camera.html", null ],
+      [ "Ra::Engine::Scene::CameraComponent", "classRa_1_1Engine_1_1Scene_1_1CameraComponent.html", null ],
       [ "Ra::Engine::Scene::DebugComponent", "classRa_1_1Engine_1_1Scene_1_1DebugComponent.html", null ],
       [ "Ra::Engine::Scene::GeometryComponent", "classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html", [
         [ "Ra::Engine::Scene::PointCloudComponent", "classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html", null ],
@@ -94,7 +94,7 @@ var hierarchy =
     [ "Ra::Core::Asset::DataLoader< Core::Asset::AnimationData >", "classRa_1_1Core_1_1Asset_1_1DataLoader.html", [
       [ "Ra::IO::AssimpAnimationDataLoader", "classRa_1_1IO_1_1AssimpAnimationDataLoader.html", null ]
     ] ],
-    [ "Ra::Core::Asset::DataLoader< Core::Asset::CameraData >", "classRa_1_1Core_1_1Asset_1_1DataLoader.html", [
+    [ "Ra::Core::Asset::DataLoader< Core::Asset::Camera >", "classRa_1_1Core_1_1Asset_1_1DataLoader.html", [
       [ "Ra::IO::AssimpCameraDataLoader", "classRa_1_1IO_1_1AssimpCameraDataLoader.html", null ]
     ] ],
     [ "Ra::Core::Asset::DataLoader< Core::Asset::GeometryData >", "classRa_1_1Core_1_1Asset_1_1DataLoader.html", [
@@ -373,8 +373,8 @@ var hierarchy =
     [ "Ra::Engine::Data::Texture", "classRa_1_1Engine_1_1Data_1_1Texture.html", null ],
     [ "Ra::Engine::Data::TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html", null ],
     [ "Ra::Engine::Data::TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", null ],
-    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
+    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Gui::TransformEditor", "classRa_1_1Gui_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],

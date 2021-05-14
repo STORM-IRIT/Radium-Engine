@@ -1,5 +1,5 @@
 <map id="Ra::Engine::Data::LineMesh" name="Ra::Engine::Data::LineMesh">
-<area shape="rect" id="node1" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="148,2059,348,2136"/>
+<area shape="rect" id="node1" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="148,2059,348,2151"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="145,1859,351,2009"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="373,1323,619,1796"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="364,293,585,752"/>

@@ -10,7 +10,7 @@
 <area shape="rect" id="node32" href="$MainWindowInterface_8hpp.html" title=" " alt="" coords="1243,206,1461,233"/>
 <area shape="rect" id="node34" href="$Viewer_8hpp.html" title=" " alt="" coords="2254,117,2423,143"/>
 <area shape="rect" id="node37" href="$RadiumEngine_8hpp.html" title=" " alt="" coords="2413,288,2605,315"/>
-<area shape="rect" id="node38" href="$Camera_8hpp.html" title=" " alt="" coords="3184,206,3376,233"/>
+<area shape="rect" id="node38" href="$CameraComponent_8hpp.html" title=" " alt="" coords="3184,206,3451,233"/>
 <area shape="rect" id="node41" href="$Resources_8hpp.html" title=" " alt="" coords="1610,117,1833,143"/>
 <area shape="rect" id="node43" href="$Task_8hpp.html" title=" " alt="" coords="2937,288,3090,315"/>
 <area shape="rect" id="node45" href="$StringUtils_8hpp.html" title=" " alt="" coords="680,288,867,315"/>
@@ -21,7 +21,7 @@
 <area shape="rect" id="node50" href="$EntityManager_8hpp.html" title=" " alt="" coords="1435,288,1669,315"/>
 <area shape="rect" id="node51" href="$GeometrySystem_8hpp.html" title=" " alt="" coords="3387,117,3642,143"/>
 <area shape="rect" id="node52" href="$SkeletonBasedAnimationSystem_8hpp.html" title=" " alt="" coords="3666,109,3875,151"/>
-<area shape="rect" id="node53" href="$SystemDisplay_8hpp.html" title=" " alt="" coords="3451,206,3688,233"/>
+<area shape="rect" id="node53" href="$SystemDisplay_8hpp.html" title=" " alt="" coords="3525,206,3763,233"/>
 <area shape="rect" id="node54" href="$CameraLoader_8hpp.html" title=" " alt="" coords="3951,117,4212,143"/>
 <area shape="rect" id="node55" title=" " alt="" coords="4235,117,4402,143"/>
 <area shape="rect" id="node56" title=" " alt="" coords="4427,117,4477,143"/>

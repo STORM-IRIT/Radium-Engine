@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 244;
+var viewWidth = 221;
 var viewHeight = 464;
 var sectionId = 'dynsection-0';
 </script>
@@ -54,7 +54,7 @@ var sectionId = 'dynsection-0';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>Ra::IO::AssimpCameraDataLoader</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-460 240,-460 240,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-460 217,-460 217,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
@@ -80,17 +80,17 @@ var sectionId = 'dynsection-0';
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Asset_1_1DataLoader.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="6,-183.5 6,-295.5 168,-295.5 168,-183.5 6,-183.5"/>
-<text text-anchor="start" x="14" y="-283.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::DataLoader</text>
-<text text-anchor="middle" x="87" y="-272.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Core::Asset::CameraData &gt;</text>
-<polyline fill="none" stroke="black" points="6,-265.5 168,-265.5 "/>
-<text text-anchor="start" x="14" y="-253.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_verbose</text>
-<polyline fill="none" stroke="black" points="6,-246.5 168,-246.5 "/>
-<text text-anchor="start" x="14" y="-234.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DataLoader()</text>
-<text text-anchor="start" x="14" y="-223.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~DataLoader()</text>
-<text text-anchor="start" x="14" y="-212.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadData()</text>
-<text text-anchor="start" x="14" y="-201.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isVerbose()</text>
-<text text-anchor="start" x="14" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setVerbose()</text>
+<polygon fill="white" stroke="black" points="10.5,-183.5 10.5,-295.5 163.5,-295.5 163.5,-183.5 10.5,-183.5"/>
+<text text-anchor="start" x="18.5" y="-283.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::DataLoader</text>
+<text text-anchor="middle" x="87" y="-272.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Core::Asset::Camera &gt;</text>
+<polyline fill="none" stroke="black" points="10.5,-265.5 163.5,-265.5 "/>
+<text text-anchor="start" x="18.5" y="-253.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_verbose</text>
+<polyline fill="none" stroke="black" points="10.5,-246.5 163.5,-246.5 "/>
+<text text-anchor="start" x="18.5" y="-234.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DataLoader()</text>
+<text text-anchor="start" x="18.5" y="-223.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~DataLoader()</text>
+<text text-anchor="start" x="18.5" y="-212.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadData()</text>
+<text text-anchor="start" x="18.5" y="-201.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isVerbose()</text>
+<text text-anchor="start" x="18.5" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setVerbose()</text>
 </a>
 </g>
 </g>
@@ -123,7 +123,7 @@ var sectionId = 'dynsection-0';
 <title>Node3&#45;&gt;Node2</title>
 <path fill="none" stroke="orange" d="M87,-332.97C87,-320.59 87,-307.76 87,-295.73"/>
 <polygon fill="orange" stroke="orange" points="83.5,-333.24 87,-343.24 90.5,-333.24 83.5,-333.24"/>
-<text text-anchor="middle" x="161.5" y="-317" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Core::Asset::CameraData &gt;</text>
+<text text-anchor="middle" x="150" y="-317" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Core::Asset::Camera &gt;</text>
 </g>
 </g>
 </svg>

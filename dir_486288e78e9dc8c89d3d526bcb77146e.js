@@ -17,11 +17,11 @@ var dir_486288e78e9dc8c89d3d526bcb77146e =
       [ "BlinnPhongMaterialData", "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html", "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData" ]
     ] ],
     [ "BlinnPhongMaterialData.inl", "BlinnPhongMaterialData_8inl.html", null ],
-    [ "CameraData.cpp", "CameraData_8cpp.html", null ],
-    [ "CameraData.hpp", "CameraData_8hpp.html", [
-      [ "CameraData", "classRa_1_1Core_1_1Asset_1_1CameraData.html", "classRa_1_1Core_1_1Asset_1_1CameraData" ]
+    [ "Camera.cpp", "Camera_8cpp.html", null ],
+    [ "Camera.hpp", "Camera_8hpp.html", [
+      [ "Camera", "classRa_1_1Core_1_1Asset_1_1Camera.html", "classRa_1_1Core_1_1Asset_1_1Camera" ]
     ] ],
-    [ "CameraData.inl", "CameraData_8inl.html", null ],
+    [ "Camera.inl", "Camera_8inl.html", null ],
     [ "DataLoader.hpp", "DataLoader_8hpp.html", [
       [ "DataLoader", "classRa_1_1Core_1_1Asset_1_1DataLoader.html", "classRa_1_1Core_1_1Asset_1_1DataLoader" ]
     ] ],

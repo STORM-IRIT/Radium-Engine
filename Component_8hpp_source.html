@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b21a3ebac44e805fac76a181ae63519781aa418a</span>
+   &#160;<span id="projectnumber">18590973ea5803b6766234245e7c4c91f37211c4</span>
    </div>
   </td>
  </tr>
@@ -157,25 +157,33 @@ $(document).ready(function(){initNavTree('Component_8hpp_source.html',''); initR
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> notifyRenderObjectExpired( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>&amp; idx );</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">// return the aabb of the union of visible RenderObjects aabb</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> computeAabb() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> computeAabb();</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">static</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html">Rendering::RenderObjectManager</a>* getRoMgr();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> invalidateAabb();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a044d1a2e0cbfb4f5891bf367e96308b7">   94</a></span>&#160;    <span class="keyword">const</span> std::vector&lt;Core::Utils::Index&gt;&amp; <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a044d1a2e0cbfb4f5891bf367e96308b7">getRenderObjects</a>() { <span class="keywordflow">return</span> m_renderObjects; }</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a1dda86212423f39ac2d1928455a47945">   97</a></span>&#160;    std::vector&lt;Core::Utils::Index&gt; <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a1dda86212423f39ac2d1928455a47945">m_renderObjects</a>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Component.html#acb08277f9e891ab8eef2516bba1b14a5">  100</a></span>&#160;    std::string m_name {};</div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a8f94f147465d3dfd94b34f691f3db548">  101</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* m_entity {<span class="keyword">nullptr</span>};</div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a91e115f3d524ec77d5165a6b7a3f56ec">  102</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1System.html">System</a>* m_system {<span class="keyword">nullptr</span>};</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Component_8inl.html">Engine/Scene/Component.inl</a>&gt;</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">static</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html">Rendering::RenderObjectManager</a>* getRoMgr();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a1dda86212423f39ac2d1928455a47945">  101</a></span>&#160;    std::vector&lt;Core::Utils::Index&gt; <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a1dda86212423f39ac2d1928455a47945">m_renderObjects</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Component.html#acb08277f9e891ab8eef2516bba1b14a5">  104</a></span>&#160;    std::string m_name {};</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a8f94f147465d3dfd94b34f691f3db548">  105</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* m_entity {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a91e115f3d524ec77d5165a6b7a3f56ec">  106</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1System.html">System</a>* m_system {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">bool</span> m_isAabbValid {<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> m_aabb;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Component_8inl.html">Engine/Scene/Component.inl</a>&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
@@ -191,7 +199,8 @@ $(document).ready(function(){initNavTree('Component_8hpp_source.html',''); initR
 <div class="ttc" id="aIndex_8hpp_html"><div class="ttname"><a href="Index_8hpp.html">Index.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a1dda86212423f39ac2d1928455a47945"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a1dda86212423f39ac2d1928455a47945">Ra::Engine::Scene::Component::m_renderObjects</a></div><div class="ttdeci">std::vector&lt; Core::Utils::Index &gt; m_renderObjects</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00097">Component.hpp:97</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a044d1a2e0cbfb4f5891bf367e96308b7"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a044d1a2e0cbfb4f5891bf367e96308b7">Ra::Engine::Scene::Component::getRenderObjects</a></div><div class="ttdeci">const std::vector&lt; Core::Utils::Index &gt; &amp; getRenderObjects()</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00094">Component.hpp:94</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a1dda86212423f39ac2d1928455a47945"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a1dda86212423f39ac2d1928455a47945">Ra::Engine::Scene::Component::m_renderObjects</a></div><div class="ttdeci">std::vector&lt; Core::Utils::Index &gt; m_renderObjects</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00101">Component.hpp:101</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1System_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1System.html">Ra::Engine::Scene::System</a></div><div class="ttdef"><b>Definition:</b> <a href="System_8hpp_source.html#l00030">System.hpp:30</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00021">Entity.hpp:21</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a301f9492c4f8e18d5eca53acddf0a9f0"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a301f9492c4f8e18d5eca53acddf0a9f0">Ra::Engine::Scene::Component::setTransform</a></div><div class="ttdeci">virtual void setTransform(const Core::Utils::Index &amp;, const Core::Transform &amp;)</div><div class="ttdoc">Set the new transform associated with the RO index key.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00084">Component.hpp:84</a></div></div>
@@ -200,7 +209,7 @@ $(document).ready(function(){initNavTree('Component_8hpp_source.html',''); initR
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="Component_8hpp.html">Component.hpp</a></li>
-    <li class="footer">Generated on Fri May 7 2021 11:32:48 for Radium Engine by
+    <li class="footer">Generated on Fri May 14 2021 06:44:14 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

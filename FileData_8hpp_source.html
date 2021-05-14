@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b21a3ebac44e805fac76a181ae63519781aa418a</span>
+   &#160;<span id="projectnumber">18590973ea5803b6766234245e7c4c91f37211c4</span>
    </div>
   </td>
  </tr>
@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('FileData_8hpp_source.html',''); initRe
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Asset {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>AnimationData;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>CameraData;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Camera;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>GeometryData;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">struct </span>VolumeData;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>HandleData;</div>
@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('FileData_8hpp_source.html',''); initRe
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">inline</span> std::vector&lt;HandleData*&gt; getHandleData() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">inline</span> std::vector&lt;AnimationData*&gt; getAnimationData() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">inline</span> std::vector&lt;LightData*&gt; getLightData() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">inline</span> std::vector&lt;CameraData*&gt; getCameraData() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">inline</span> std::vector&lt;Camera*&gt; getCameraData() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setVerbose( <span class="keyword">const</span> <span class="keywordtype">bool</span> VERBOSE_MODE );</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
@@ -158,7 +158,7 @@ $(document).ready(function(){initNavTree('FileData_8hpp_source.html',''); initRe
 <div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a49d2c5360ca4f4a777429f5f32f3966a">   70</a></span>&#160;    std::vector&lt;std::unique_ptr&lt;HandleData&gt;&gt; <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a49d2c5360ca4f4a777429f5f32f3966a">m_handleData</a>;</div>
 <div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a913a4c4bd1e020f35da8651c12533c60">   71</a></span>&#160;    std::vector&lt;std::unique_ptr&lt;AnimationData&gt;&gt; <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a913a4c4bd1e020f35da8651c12533c60">m_animationData</a>;</div>
 <div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a78406ab5aa5d16de09be8599c643026f">   72</a></span>&#160;    std::vector&lt;std::unique_ptr&lt;LightData&gt;&gt; <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a78406ab5aa5d16de09be8599c643026f">m_lightData</a>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a45746e67e5d1cccb39e468874b8a0dd3">   73</a></span>&#160;    std::vector&lt;std::unique_ptr&lt;CameraData&gt;&gt; <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a45746e67e5d1cccb39e468874b8a0dd3">m_cameraData</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a58ece40a4922c87de88cfb8e88a37af7">   73</a></span>&#160;    std::vector&lt;std::unique_ptr&lt;Camera&gt;&gt; <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a58ece40a4922c87de88cfb8e88a37af7">m_cameraData</a>;</div>
 <div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a7ea3759b35ec4754253aefa14de64733">   74</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a7ea3759b35ec4754253aefa14de64733">m_processed</a>;</div>
 <div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileData.html#ab9025c365a62d48576b0ef139716dfc4">   75</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#ab9025c365a62d48576b0ef139716dfc4">m_verbose</a>;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
@@ -172,6 +172,7 @@ $(document).ready(function(){initNavTree('FileData_8hpp_source.html',''); initRe
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a487a25dd7ce2669b6ace320cdba6f8f3"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a487a25dd7ce2669b6ace320cdba6f8f3">Ra::Core::Asset::FileData::m_loadingTime</a></div><div class="ttdeci">Scalar m_loadingTime</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00067">FileData.hpp:67</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a49d2c5360ca4f4a777429f5f32f3966a"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a49d2c5360ca4f4a777429f5f32f3966a">Ra::Core::Asset::FileData::m_handleData</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; HandleData &gt; &gt; m_handleData</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00070">FileData.hpp:70</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a58ece40a4922c87de88cfb8e88a37af7"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a58ece40a4922c87de88cfb8e88a37af7">Ra::Core::Asset::FileData::m_cameraData</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; Camera &gt; &gt; m_cameraData</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00073">FileData.hpp:73</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a913a4c4bd1e020f35da8651c12533c60"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a913a4c4bd1e020f35da8651c12533c60">Ra::Core::Asset::FileData::m_animationData</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; AnimationData &gt; &gt; m_animationData</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00071">FileData.hpp:71</a></div></div>
 <div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
@@ -179,7 +180,6 @@ $(document).ready(function(){initNavTree('FileData_8hpp_source.html',''); initRe
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a7ea3759b35ec4754253aefa14de64733"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a7ea3759b35ec4754253aefa14de64733">Ra::Core::Asset::FileData::m_processed</a></div><div class="ttdeci">bool m_processed</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00074">FileData.hpp:74</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a775184f741ed9d902bfafdd121a56fea"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a775184f741ed9d902bfafdd121a56fea">Ra::Core::Asset::FileData::m_volumeData</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; VolumeData &gt; &gt; m_volumeData</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00069">FileData.hpp:69</a></div></div>
 <div class="ttc" id="aFileData_8inl_html"><div class="ttname"><a href="FileData_8inl.html">FileData.inl</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a45746e67e5d1cccb39e468874b8a0dd3"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a45746e67e5d1cccb39e468874b8a0dd3">Ra::Core::Asset::FileData::m_cameraData</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; CameraData &gt; &gt; m_cameraData</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00073">FileData.hpp:73</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00019">FileData.hpp:19</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a78406ab5aa5d16de09be8599c643026f"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a78406ab5aa5d16de09be8599c643026f">Ra::Core::Asset::FileData::m_lightData</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; LightData &gt; &gt; m_lightData</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00072">FileData.hpp:72</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_ab9025c365a62d48576b0ef139716dfc4"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#ab9025c365a62d48576b0ef139716dfc4">Ra::Core::Asset::FileData::m_verbose</a></div><div class="ttdeci">bool m_verbose</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00075">FileData.hpp:75</a></div></div>
@@ -190,7 +190,7 @@ $(document).ready(function(){initNavTree('FileData_8hpp_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="FileData_8hpp.html">FileData.hpp</a></li>
-    <li class="footer">Generated on Fri May 7 2021 11:32:48 for Radium Engine by
+    <li class="footer">Generated on Fri May 14 2021 06:44:13 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

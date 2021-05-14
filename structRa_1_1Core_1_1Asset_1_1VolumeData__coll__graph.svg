@@ -355,26 +355,31 @@ var sectionId = 'dynsection-1';
 <g id="node12" class="node">
 <title>Node12</title>
 <g id="a_node12"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="532,-700 532,-823 665,-823 665,-700 532,-700"/>
-<text text-anchor="start" x="540" y="-811" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="598.5" y="-800" font-family="Helvetica,sans-Serif" font-size="10.00">::AbstractGeometry</text>
-<polyline fill="none" stroke="black" points="532,-793 665,-793 "/>
-<text text-anchor="middle" x="598.5" y="-781" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="532,-774 665,-774 "/>
-<text text-anchor="start" x="540" y="-762" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AbstractGeometry()</text>
-<text text-anchor="start" x="540" y="-751" font-family="Helvetica,sans-Serif" font-size="10.00">+ AbstractGeometry()</text>
-<text text-anchor="start" x="540" y="-740" font-family="Helvetica,sans-Serif" font-size="10.00">+ AbstractGeometry()</text>
-<text text-anchor="start" x="540" y="-729" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="540" y="-718" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="540" y="-707" font-family="Helvetica,sans-Serif" font-size="10.00">+ computeAabb()</text>
+<polygon fill="white" stroke="black" points="532,-672.5 532,-850.5 665,-850.5 665,-672.5 532,-672.5"/>
+<text text-anchor="start" x="540" y="-838.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="598.5" y="-827.5" font-family="Helvetica,sans-Serif" font-size="10.00">::AbstractGeometry</text>
+<polyline fill="none" stroke="black" points="532,-820.5 665,-820.5 "/>
+<text text-anchor="middle" x="598.5" y="-808.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="532,-801.5 665,-801.5 "/>
+<text text-anchor="start" x="540" y="-789.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AbstractGeometry()</text>
+<text text-anchor="start" x="540" y="-778.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AbstractGeometry()</text>
+<text text-anchor="start" x="540" y="-767.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AbstractGeometry()</text>
+<text text-anchor="start" x="540" y="-756.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="540" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="540" y="-734.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ computeAabb()</text>
+<text text-anchor="start" x="540" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAabbObservable()</text>
+<text text-anchor="start" x="540" y="-712.5" font-family="Helvetica,sans-Serif" font-size="10.00"># isAabbValid()</text>
+<text text-anchor="start" x="540" y="-701.5" font-family="Helvetica,sans-Serif" font-size="10.00"># getAabb()</text>
+<text text-anchor="start" x="540" y="-690.5" font-family="Helvetica,sans-Serif" font-size="10.00"># invalidateAabb()</text>
+<text text-anchor="start" x="540" y="-679.5" font-family="Helvetica,sans-Serif" font-size="10.00"># setAabb()</text>
 </a>
 </g>
 </g>
 <!-- Node12&#45;&gt;Node11 -->
 <g id="edge11" class="edge">
 <title>Node12&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M609.81,-689.76C620.89,-620.5 637.95,-513.8 651,-432.19"/>
-<polygon fill="none" stroke="midnightblue" points="606.35,-689.27 608.22,-699.69 613.26,-690.37 606.35,-689.27"/>
+<path fill="none" stroke="midnightblue" d="M614.25,-661.98C625.1,-594.13 639.57,-503.7 650.97,-432.38"/>
+<polygon fill="none" stroke="midnightblue" points="610.74,-661.82 612.61,-672.25 617.65,-662.93 610.74,-661.82"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">

@@ -4,7 +4,7 @@ var namespaceRa_1_1Core_1_1Asset =
     [ "AnimationTime", "classRa_1_1Core_1_1Asset_1_1AnimationTime.html", "classRa_1_1Core_1_1Asset_1_1AnimationTime" ],
     [ "AssetData", "classRa_1_1Core_1_1Asset_1_1AssetData.html", "classRa_1_1Core_1_1Asset_1_1AssetData" ],
     [ "BlinnPhongMaterialData", "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html", "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData" ],
-    [ "CameraData", "classRa_1_1Core_1_1Asset_1_1CameraData.html", "classRa_1_1Core_1_1Asset_1_1CameraData" ],
+    [ "Camera", "classRa_1_1Core_1_1Asset_1_1Camera.html", "classRa_1_1Core_1_1Asset_1_1Camera" ],
     [ "DataLoader", "classRa_1_1Core_1_1Asset_1_1DataLoader.html", "classRa_1_1Core_1_1Asset_1_1DataLoader" ],
     [ "FileData", "classRa_1_1Core_1_1Asset_1_1FileData.html", "classRa_1_1Core_1_1Asset_1_1FileData" ],
     [ "FileLoaderInterface", "classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html", "classRa_1_1Core_1_1Asset_1_1FileLoaderInterface" ],

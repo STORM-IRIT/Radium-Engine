@@ -106,19 +106,19 @@ var sectionId = 'dynsection-1';
 <g id="node8" class="node">
 <title>Node8</title>
 <g id="a_node8"><a xlink:href="AssimpCameraDataLoader_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1543,-89.5 1543,-141.5 1740,-141.5 1740,-89.5 1543,-89.5"/>
-<text text-anchor="start" x="1551" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1551" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1551" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="1641.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpCameraDataLoader.hpp</text>
+<polygon fill="white" stroke="black" points="683,-89.5 683,-141.5 880,-141.5 880,-89.5 683,-89.5"/>
+<text text-anchor="start" x="691" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="691" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="691" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="781.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpCameraDataLoader.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node8 -->
 <g id="edge7" class="edge">
 <title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M1405.59,-176.03C1447.91,-165.35 1498.95,-152.47 1542.72,-141.43"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1404.71,-172.64 1395.87,-178.48 1406.42,-179.43 1404.71,-172.64"/>
+<path fill="none" stroke="midnightblue" d="M1222.25,-188.38C1134.81,-178.94 1002.46,-162.94 888.5,-142 885.78,-141.5 883.02,-140.97 880.24,-140.43"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1222.11,-191.88 1232.42,-189.47 1222.85,-184.92 1222.11,-191.88"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
@@ -133,7 +133,7 @@ var sectionId = 'dynsection-1';
 </g>
 </g>
 <!-- Node1&#45;&gt;Node10 -->
-<g id="edge9" class="edge">
+<g id="edge10" class="edge">
 <title>Node1&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M1231.44,-175.96C1189.39,-165.32 1138.76,-152.51 1095.28,-141.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1230.82,-179.42 1241.37,-178.48 1232.54,-172.63 1230.82,-179.42"/>
@@ -142,55 +142,55 @@ var sectionId = 'dynsection-1';
 <g id="node11" class="node">
 <title>Node11</title>
 <g id="a_node11"><a xlink:href="AssimpGeometryDataLoader_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="683,-89.5 683,-141.5 880,-141.5 880,-89.5 683,-89.5"/>
-<text text-anchor="start" x="691" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="691" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="691" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="781.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpGeometryDataLoader.hpp</text>
+<polygon fill="white" stroke="black" points="1113,-89.5 1113,-141.5 1310,-141.5 1310,-89.5 1113,-89.5"/>
+<text text-anchor="start" x="1121" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1121" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1121" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="1211.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpGeometryDataLoader.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node11 -->
-<g id="edge11" class="edge">
+<g id="edge12" class="edge">
 <title>Node1&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M1222.25,-188.38C1134.81,-178.94 1002.46,-162.94 888.5,-142 885.78,-141.5 883.02,-140.97 880.24,-140.43"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1222.11,-191.88 1232.42,-189.47 1222.85,-184.92 1222.11,-191.88"/>
+<path fill="none" stroke="midnightblue" d="M1284.74,-172.29C1271.94,-162.53 1257.37,-151.44 1244.62,-141.73"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1282.79,-175.2 1292.87,-178.48 1287.04,-169.64 1282.79,-175.2"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
 <g id="a_node13"><a xlink:href="AssimpHandleDataLoader_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1113,-89.5 1113,-141.5 1310,-141.5 1310,-89.5 1113,-89.5"/>
-<text text-anchor="start" x="1121" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1121" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1121" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="1211.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpHandleDataLoader.hpp</text>
+<polygon fill="white" stroke="black" points="1328,-89.5 1328,-141.5 1525,-141.5 1525,-89.5 1328,-89.5"/>
+<text text-anchor="start" x="1336" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1336" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1336" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="1426.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpHandleDataLoader.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node13 -->
-<g id="edge14" class="edge">
+<g id="edge15" class="edge">
 <title>Node1&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M1284.74,-172.29C1271.94,-162.53 1257.37,-151.44 1244.62,-141.73"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1282.79,-175.2 1292.87,-178.48 1287.04,-169.64 1282.79,-175.2"/>
+<path fill="none" stroke="midnightblue" d="M1352.57,-172.29C1365.5,-162.53 1380.2,-151.44 1393.07,-141.73"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1350.24,-169.66 1344.37,-178.48 1354.46,-175.25 1350.24,-169.66"/>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
 <g id="a_node15"><a xlink:href="AssimpLightDataLoader_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1328,-89.5 1328,-141.5 1525,-141.5 1525,-89.5 1328,-89.5"/>
-<text text-anchor="start" x="1336" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1336" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1336" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="1426.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpLightDataLoader.hpp</text>
+<polygon fill="white" stroke="black" points="1543,-89.5 1543,-141.5 1740,-141.5 1740,-89.5 1543,-89.5"/>
+<text text-anchor="start" x="1551" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1551" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1551" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="1641.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpLightDataLoader.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node15 -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>Node1&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M1352.57,-172.29C1365.5,-162.53 1380.2,-151.44 1393.07,-141.73"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1350.24,-169.66 1344.37,-178.48 1354.46,-175.25 1350.24,-169.66"/>
+<path fill="none" stroke="midnightblue" d="M1405.59,-176.03C1447.91,-165.35 1498.95,-152.47 1542.72,-141.43"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1404.71,-172.64 1395.87,-178.48 1406.42,-179.43 1404.71,-172.64"/>
 </g>
 <!-- Node17 -->
 <g id="node17" class="node">
@@ -205,7 +205,7 @@ var sectionId = 'dynsection-1';
 </g>
 </g>
 <!-- Node1&#45;&gt;Node17 -->
-<g id="edge20" class="edge">
+<g id="edge21" class="edge">
 <title>Node1&#45;&gt;Node17</title>
 <path fill="none" stroke="midnightblue" d="M1414.81,-188.74C1502.3,-179.55 1634.68,-163.7 1748.5,-142 1751.79,-141.37 1755.13,-140.7 1758.49,-140"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1414.22,-185.28 1404.64,-189.8 1414.95,-192.24 1414.22,-185.28"/>
@@ -223,7 +223,7 @@ var sectionId = 'dynsection-1';
 </g>
 </g>
 <!-- Node1&#45;&gt;Node19 -->
-<g id="edge22" class="edge">
+<g id="edge23" class="edge">
 <title>Node1&#45;&gt;Node19</title>
 <path fill="none" stroke="midnightblue" d="M1414.78,-194.28C1539.07,-188.38 1761.67,-174.07 1949.5,-142 1952.41,-141.5 1955.37,-140.96 1958.34,-140.39"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1414.37,-190.8 1404.54,-194.76 1414.69,-197.79 1414.37,-190.8"/>
@@ -241,7 +241,7 @@ var sectionId = 'dynsection-1';
 </g>
 </g>
 <!-- Node1&#45;&gt;Node21 -->
-<g id="edge24" class="edge">
+<g id="edge25" class="edge">
 <title>Node1&#45;&gt;Node21</title>
 <path fill="none" stroke="midnightblue" d="M1415,-196.64C1570.47,-193.3 1885.68,-181.76 2149.5,-142 2152.55,-141.54 2155.64,-141.04 2158.75,-140.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1414.46,-193.15 1404.54,-196.86 1414.61,-200.15 1414.46,-193.15"/>
@@ -317,101 +317,107 @@ var sectionId = 'dynsection-1';
 <path fill="none" stroke="midnightblue" d="M675.29,-88.69C770.2,-69.89 796.68,-71.51 888.5,-53 891.62,-52.37 894.78,-51.72 897.97,-51.05"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="674.38,-85.31 665.26,-90.7 675.76,-92.17 674.38,-85.31"/>
 </g>
+<!-- Node8&#45;&gt;Node7 -->
+<g id="edge9" class="edge">
+<title>Node8&#45;&gt;Node7</title>
+<path fill="none" stroke="midnightblue" d="M852.98,-85.58C879.42,-74.88 909.15,-62.85 934.67,-52.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="851.36,-82.46 843.4,-89.45 853.98,-88.95 851.36,-82.46"/>
+</g>
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="AssimpCameraDataLoader_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1543,-0.5 1543,-52.5 1740,-52.5 1740,-0.5 1543,-0.5"/>
-<text text-anchor="start" x="1551" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1551" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1551" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="1641.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpCameraDataLoader.cpp</text>
+<polygon fill="white" stroke="black" points="683,-0.5 683,-52.5 880,-52.5 880,-0.5 683,-0.5"/>
+<text text-anchor="start" x="691" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="691" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="691" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="781.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpCameraDataLoader.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node8&#45;&gt;Node9 -->
 <g id="edge8" class="edge">
 <title>Node8&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M1641.5,-79.19C1641.5,-70.28 1641.5,-60.9 1641.5,-52.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1638,-79.34 1641.5,-89.34 1645,-79.34 1638,-79.34"/>
+<path fill="none" stroke="midnightblue" d="M781.5,-79.19C781.5,-70.28 781.5,-60.9 781.5,-52.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="778,-79.34 781.5,-89.34 785,-79.34 778,-79.34"/>
 </g>
 <!-- Node10&#45;&gt;Node7 -->
-<g id="edge10" class="edge">
+<g id="edge11" class="edge">
 <title>Node10&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M996.5,-79.19C996.5,-70.28 996.5,-60.9 996.5,-52.61"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="993,-79.34 996.5,-89.34 1000,-79.34 993,-79.34"/>
 </g>
 <!-- Node11&#45;&gt;Node7 -->
-<g id="edge12" class="edge">
+<g id="edge13" class="edge">
 <title>Node11&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M852.98,-85.58C879.42,-74.88 909.15,-62.85 934.67,-52.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="851.36,-82.46 843.4,-89.45 853.98,-88.95 851.36,-82.46"/>
+<path fill="none" stroke="midnightblue" d="M1140.02,-85.58C1113.58,-74.88 1083.85,-62.85 1058.33,-52.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1139.02,-88.95 1149.6,-89.45 1141.64,-82.46 1139.02,-88.95"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
 <g id="a_node12"><a xlink:href="AssimpGeometryDataLoader_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="683,-0.5 683,-52.5 880,-52.5 880,-0.5 683,-0.5"/>
-<text text-anchor="start" x="691" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="691" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="691" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="781.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpGeometryDataLoader.cpp</text>
+<polygon fill="white" stroke="black" points="1113,-0.5 1113,-52.5 1310,-52.5 1310,-0.5 1113,-0.5"/>
+<text text-anchor="start" x="1121" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1121" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1121" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="1211.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpGeometryDataLoader.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node11&#45;&gt;Node12 -->
-<g id="edge13" class="edge">
+<g id="edge14" class="edge">
 <title>Node11&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M781.5,-79.19C781.5,-70.28 781.5,-60.9 781.5,-52.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="778,-79.34 781.5,-89.34 785,-79.34 778,-79.34"/>
+<path fill="none" stroke="midnightblue" d="M1211.5,-79.19C1211.5,-70.28 1211.5,-60.9 1211.5,-52.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1208,-79.34 1211.5,-89.34 1215,-79.34 1208,-79.34"/>
 </g>
 <!-- Node13&#45;&gt;Node7 -->
-<g id="edge15" class="edge">
+<g id="edge16" class="edge">
 <title>Node13&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M1140.02,-85.58C1113.58,-74.88 1083.85,-62.85 1058.33,-52.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1139.02,-88.95 1149.6,-89.45 1141.64,-82.46 1139.02,-88.95"/>
+<path fill="none" stroke="midnightblue" d="M1318.11,-88.99C1221.84,-69.99 1195.4,-71.62 1103.5,-53 1100.79,-52.45 1098.04,-51.88 1095.26,-51.3"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1317.48,-92.43 1327.97,-90.95 1318.85,-85.56 1317.48,-92.43"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
 <title>Node14</title>
 <g id="a_node14"><a xlink:href="AssimpHandleDataLoader_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1113,-0.5 1113,-52.5 1310,-52.5 1310,-0.5 1113,-0.5"/>
-<text text-anchor="start" x="1121" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1121" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1121" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="1211.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpHandleDataLoader.cpp</text>
+<polygon fill="white" stroke="black" points="1328,-0.5 1328,-52.5 1525,-52.5 1525,-0.5 1328,-0.5"/>
+<text text-anchor="start" x="1336" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1336" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1336" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="1426.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpHandleDataLoader.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node13&#45;&gt;Node14 -->
-<g id="edge16" class="edge">
+<g id="edge17" class="edge">
 <title>Node13&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M1211.5,-79.19C1211.5,-70.28 1211.5,-60.9 1211.5,-52.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1208,-79.34 1211.5,-89.34 1215,-79.34 1208,-79.34"/>
+<path fill="none" stroke="midnightblue" d="M1426.5,-79.19C1426.5,-70.28 1426.5,-60.9 1426.5,-52.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1423,-79.34 1426.5,-89.34 1430,-79.34 1423,-79.34"/>
 </g>
 <!-- Node15&#45;&gt;Node7 -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>Node15&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M1318.11,-88.99C1221.84,-69.99 1195.4,-71.62 1103.5,-53 1100.79,-52.45 1098.04,-51.88 1095.26,-51.3"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1317.48,-92.43 1327.97,-90.95 1318.85,-85.56 1317.48,-92.43"/>
+<path fill="none" stroke="midnightblue" d="M1532.68,-88.99C1342.31,-59.7 1289.63,-82.8 1103.5,-53 1100.77,-52.56 1098,-52.09 1095.21,-51.6"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1532.32,-92.47 1542.74,-90.56 1533.4,-85.56 1532.32,-92.47"/>
 </g>
 <!-- Node16 -->
 <g id="node16" class="node">
 <title>Node16</title>
 <g id="a_node16"><a xlink:href="AssimpLightDataLoader_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1328,-0.5 1328,-52.5 1525,-52.5 1525,-0.5 1328,-0.5"/>
-<text text-anchor="start" x="1336" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1336" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1336" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="1426.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpLightDataLoader.cpp</text>
+<polygon fill="white" stroke="black" points="1543,-0.5 1543,-52.5 1740,-52.5 1740,-0.5 1543,-0.5"/>
+<text text-anchor="start" x="1551" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1551" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1551" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="1641.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpLightDataLoader.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node15&#45;&gt;Node16 -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>Node15&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M1426.5,-79.19C1426.5,-70.28 1426.5,-60.9 1426.5,-52.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1423,-79.34 1426.5,-89.34 1430,-79.34 1423,-79.34"/>
+<path fill="none" stroke="midnightblue" d="M1641.5,-79.19C1641.5,-70.28 1641.5,-60.9 1641.5,-52.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1638,-79.34 1641.5,-89.34 1645,-79.34 1638,-79.34"/>
 </g>
 <!-- Node18 -->
 <g id="node18" class="node">
@@ -426,7 +432,7 @@ var sectionId = 'dynsection-1';
 </g>
 </g>
 <!-- Node17&#45;&gt;Node18 -->
-<g id="edge21" class="edge">
+<g id="edge22" class="edge">
 <title>Node17&#45;&gt;Node18</title>
 <path fill="none" stroke="midnightblue" d="M1849.5,-79.19C1849.5,-70.28 1849.5,-60.9 1849.5,-52.61"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1846,-79.34 1849.5,-89.34 1853,-79.34 1846,-79.34"/>
@@ -444,7 +450,7 @@ var sectionId = 'dynsection-1';
 </g>
 </g>
 <!-- Node19&#45;&gt;Node20 -->
-<g id="edge23" class="edge">
+<g id="edge24" class="edge">
 <title>Node19&#45;&gt;Node20</title>
 <path fill="none" stroke="midnightblue" d="M2049.5,-79.19C2049.5,-70.28 2049.5,-60.9 2049.5,-52.61"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2046,-79.34 2049.5,-89.34 2053,-79.34 2046,-79.34"/>
@@ -462,7 +468,7 @@ var sectionId = 'dynsection-1';
 </g>
 </g>
 <!-- Node21&#45;&gt;Node22 -->
-<g id="edge25" class="edge">
+<g id="edge26" class="edge">
 <title>Node21&#45;&gt;Node22</title>
 <path fill="none" stroke="midnightblue" d="M2257.5,-79.19C2257.5,-70.28 2257.5,-60.9 2257.5,-52.61"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2254,-79.34 2257.5,-89.34 2261,-79.34 2254,-79.34"/>

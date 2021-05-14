@@ -1,16 +1,16 @@
 <map id="Ra::Engine::Scene::VolumeComponent" name="Ra::Engine::Scene::VolumeComponent">
-<area shape="rect" id="node1" title="Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject." alt="" coords="319,1733,511,1913"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="305,1372,526,1684"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="49,1034,261,1243"/>
+<area shape="rect" id="node1" title="Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject." alt="" coords="319,1777,511,1957"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="305,1387,526,1728"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="49,1041,261,1251"/>
 <area shape="rect" id="node4" title=" " alt="" coords="38,769,241,891"/>
 <area shape="rect" id="node5" title=" " alt="" coords="5,343,236,450"/>
 <area shape="rect" id="node6" title="STL class." alt="" coords="260,358,389,435"/>
 <area shape="rect" id="node7" title=" " alt="" coords="305,5,344,83"/>
-<area shape="rect" id="node8" title="STL class." alt="" coords="291,1100,377,1177"/>
+<area shape="rect" id="node8" title="STL class." alt="" coords="291,1107,377,1185"/>
 <area shape="rect" id="node9" title="STL class." alt="" coords="265,784,403,876"/>
-<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="402,968,594,1309"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="402,968,594,1324"/>
 <area shape="rect" id="node11" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="428,755,603,905"/>
 <area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title=" " alt="" coords="424,145,607,648"/>
 <area shape="rect" id="node13" href="$classint.html" title=" " alt="" coords="496,5,535,83"/>
-<area shape="rect" id="node14" title=" " alt="" coords="618,1093,789,1185"/>
+<area shape="rect" id="node14" title=" " alt="" coords="618,1100,789,1192"/>
 </map>

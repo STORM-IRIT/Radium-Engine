@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b21a3ebac44e805fac76a181ae63519781aa418a</span>
+   &#160;<span id="projectnumber">18590973ea5803b6766234245e7c4c91f37211c4</span>
    </div>
   </td>
  </tr>
@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('Viewer_8hpp.html',''); initResizable()
 <code>#include &lt;<a class="el" href="Types_8hpp_source.html">Core/Types.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="RadiumEngine_8hpp_source.html">Engine/RadiumEngine.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Renderer_8hpp_source.html">Engine/Rendering/Renderer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Camera_8hpp_source.html">Engine/Scene/Camera.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="CameraComponent_8hpp_source.html">Engine/Scene/CameraComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="KeyMappingManager_8hpp_source.html">Gui/Utils/KeyMappingManager.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="WindowQt_8hpp_source.html">Gui/Viewer/WindowQt.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -169,9 +169,11 @@ Macros</h2></td></tr>
 <div class="line">    KMA_VALUE( VIEWER_RAYCAST )              \</div>
 <div class="line">    KMA_VALUE( VIEWER_SCALE_BRUSH )          \</div>
 <div class="line">    KMA_VALUE( VIEWER_RELOAD_SHADERS )       \</div>
-<div class="line">    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )</div>
+<div class="line">    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )     \</div>
+<div class="line">    KMA_VALUE( VIEWER_SWITCH_CAMERA )        \</div>
+<div class="line">    KMA_VALUE( VIEWER_CAMERA_FIT_SCENE )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00272">272</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00271">271</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -191,18 +193,18 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00283">283</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00284">284</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aViewer_8hpp_html_a3939ec33e0cb280a33715cae09cf6512"><div class="ttname"><a href="Viewer_8hpp.html#a3939ec33e0cb280a33715cae09cf6512">KMA_VALUE</a></div><div class="ttdeci">#define KMA_VALUE(x)</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00283">Viewer.hpp:283</a></div></div>
+<div class="ttc" id="aViewer_8hpp_html_a3939ec33e0cb280a33715cae09cf6512"><div class="ttname"><a href="Viewer_8hpp.html#a3939ec33e0cb280a33715cae09cf6512">KMA_VALUE</a></div><div class="ttdeci">#define KMA_VALUE(x)</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00284">Viewer.hpp:284</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="Viewer_8hpp.html">Viewer.hpp</a></li>
-    <li class="footer">Generated on Fri May 7 2021 11:32:49 for Radium Engine by
+    <li class="footer">Generated on Fri May 14 2021 06:44:15 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

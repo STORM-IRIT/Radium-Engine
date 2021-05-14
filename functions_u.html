@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b21a3ebac44e805fac76a181ae63519781aa418a</span>
+   &#160;<span id="projectnumber">18590973ea5803b6766234245e7c4c91f37211c4</span>
    </div>
   </td>
  </tr>
@@ -137,7 +137,8 @@ $(document).ready(function(){initNavTree('functions_u.html',''); initResizable()
 : <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aae6f537da7fc9b979be8f8d0ace4ae6b">Ra::Gui::CameraManipulator</a>
 </li>
 <li>unProject()
-: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Camera.html#a30dad115cdad28bc80a9b28529153298">Ra::Engine::Scene::Camera</a>
+: <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html#acc2a5fbb0968d977b698f53d94fe0fc2">Ra::Core::Asset::Camera</a>
+, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html#a0fb56fae1328ae5cf90d43e479f94033">Ra::Engine::Scene::CameraComponent</a>
 </li>
 <li>unregisterAllComponents()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ac9571e393e56856455f7558bc5bd8e7e">Ra::Engine::Scene::CameraManager</a>
@@ -168,6 +169,11 @@ $(document).ready(function(){initNavTree('functions_u.html',''); initResizable()
 </li>
 <li>UpdateCallback
 : <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html#a82bda2dcdb87d6c69bdcf0573897a536">Ra::Core::Animation::KeyFramedValueController</a>
+</li>
+<li>updateCamera()
+: <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a1cd20c02d6d0159246bb5e9c5e6f4c3e">Ra::Gui::CameraManipulator</a>
+, <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#abc603108b0bfdb1ac6e7f284868c1acd">Ra::Gui::FlightCameraManipulator</a>
+, <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a2992a883ab6d27b82b32f8908743253f">Ra::Gui::TrackballCameraManipulator</a>
 </li>
 <li>updateData()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html#ae9167e7dfaa67cf669c903c12a7568ba">Ra::Engine::Data::Texture</a>
@@ -221,10 +227,11 @@ $(document).ready(function(){initNavTree('functions_u.html',''); initResizable()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a4ba75a89f6c80c147b1bca040928ef6a">Ra::Engine::Data::AttribArrayDisplayable</a>
 </li>
 <li>updatePositions()
-: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aafffdb88d46fb519720392457703cf1f">Ra::Core::Geometry::TopologicalMesh</a>
+: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a3239124dc871989c12902db381cb1a0d">Ra::Core::Geometry::TopologicalMesh</a>
 </li>
 <li>updateProjMatrix()
-: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Camera.html#ac7669c1535dcde660198ad790d21bacd">Ra::Engine::Scene::Camera</a>
+: <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7">Ra::Core::Asset::Camera</a>
+, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html#af1516a2ec133bf784c95f7387bdb9ce6">Ra::Engine::Scene::CameraComponent</a>
 </li>
 <li>updateRadiumFrameIfNeeded()
 : <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a6597afd597f1fa78e883d03cd876cc5c">Ra::Gui::BaseApplication</a>
@@ -245,7 +252,8 @@ $(document).ready(function(){initNavTree('functions_u.html',''); initResizable()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#aecfe45e96992f0e069978c564e8b0d9e">Ra::Engine::Data::TextureManager</a>
 </li>
 <li>updateTransform()
-: <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#a2fc380738268508ca2d46ac856c2f98a">Ra::Gui::Gizmo</a>
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html#ae4d9ed1bfcda78b5d3cbaceffabcf451">Ra::Engine::Scene::CameraComponent</a>
+, <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#a2fc380738268508ca2d46ac856c2f98a">Ra::Gui::Gizmo</a>
 , <a class="el" href="classRa_1_1Gui_1_1RotateGizmo.html#ae2bb91bda019135fbd93be06fa1fdb62">Ra::Gui::RotateGizmo</a>
 , <a class="el" href="classRa_1_1Gui_1_1ScaleGizmo.html#aa51b01edb58183c9b461be7400311d22">Ra::Gui::ScaleGizmo</a>
 , <a class="el" href="classRa_1_1Gui_1_1TranslateGizmo.html#a5a100607ad14934626008ba6222a4563">Ra::Gui::TranslateGizmo</a>
@@ -255,7 +263,7 @@ $(document).ready(function(){initNavTree('functions_u.html',''); initResizable()
 , <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a33f49b5e6bcec6a87ec7fdbff9caa457">Ra::Core::Geometry::TopologicalMesh</a>
 </li>
 <li>updateTriangleMeshNormals()
-: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a664e45c4342d614e6e643f133b719ada">Ra::Core::Geometry::TopologicalMesh</a>
+: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afac801a579f45b7bc5c384c3c5b57c1f">Ra::Core::Geometry::TopologicalMesh</a>
 </li>
 <li>updateUi()
 : <a class="el" href="classRa_1_1Gui_1_1MainWindowInterface.html#aad1fed51c3a22bbaeb0da5ea5ea693a1">Ra::Gui::MainWindowInterface</a>
@@ -281,7 +289,7 @@ $(document).ready(function(){initNavTree('functions_u.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri May 7 2021 11:32:51 for Radium Engine by
+    <li class="footer">Generated on Fri May 14 2021 06:44:16 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

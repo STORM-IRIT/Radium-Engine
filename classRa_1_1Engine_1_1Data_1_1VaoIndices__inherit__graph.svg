@@ -190,19 +190,20 @@ var sectionId = 'dynsection-0';
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:href="classRa_1_1Engine_1_1Data_1_1LineMesh.html" target="_top" xlink:title="LineMesh, own a Core::Geometry::LineMesh.">
-<polygon fill="white" stroke="black" points="2,-6 2,-63 152,-63 152,-6 2,-6"/>
-<text text-anchor="middle" x="77" y="-51" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::LineMesh</text>
-<polyline fill="none" stroke="black" points="2,-44 152,-44 "/>
-<text text-anchor="middle" x="77" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="2,-25 152,-25 "/>
-<text text-anchor="start" x="10" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineMesh()</text>
+<polygon fill="white" stroke="black" points="2,-0.5 2,-68.5 152,-68.5 152,-0.5 2,-0.5"/>
+<text text-anchor="middle" x="77" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::LineMesh</text>
+<polyline fill="none" stroke="black" points="2,-49.5 152,-49.5 "/>
+<text text-anchor="middle" x="77" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="2,-30.5 152,-30.5 "/>
+<text text-anchor="start" x="10" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineMesh()</text>
+<text text-anchor="start" x="10" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineMesh()</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M77,-96.03C77,-84.4 77,-72.88 77,-63.07"/>
+<path fill="none" stroke="midnightblue" d="M77,-95.96C77,-86.48 77,-77.08 77,-68.62"/>
 <polygon fill="none" stroke="midnightblue" points="73.5,-96.23 77,-106.23 80.5,-96.23 73.5,-96.23"/>
 </g>
 <!-- Node5 -->

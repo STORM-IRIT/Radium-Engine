@@ -1,6 +1,7 @@
 <map id="Ra::Core::Geometry::AttribArrayGeometry::addAttrib" name="Ra::Core::Geometry::AttribArrayGeometry::addAttrib">
-<area shape="rect" id="node1" title=" " alt="" coords="5,67,172,123"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,105,172,161"/>
 <area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac2d3cdc360ffe1904a15ff8504de95b8" title=" " alt="" coords="220,75,436,116"/>
+<area shape="rect" id="node8" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="250,141,406,197"/>
 <area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f" title="Return true if h correspond to an existing attribute in *this." alt="" coords="484,37,700,79"/>
 <area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="493,103,691,159"/>
 <area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" title=" " alt="" coords="748,5,953,47"/>

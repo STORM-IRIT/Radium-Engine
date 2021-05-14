@@ -1,7 +1,7 @@
 var namespaceRa_1_1Engine_1_1Scene =
 [
     [ "BaseCouplingSystem", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem" ],
-    [ "Camera", "classRa_1_1Engine_1_1Scene_1_1Camera.html", "classRa_1_1Engine_1_1Scene_1_1Camera" ],
+    [ "CameraComponent", "classRa_1_1Engine_1_1Scene_1_1CameraComponent.html", "classRa_1_1Engine_1_1Scene_1_1CameraComponent" ],
     [ "CameraManager", "classRa_1_1Engine_1_1Scene_1_1CameraManager.html", "classRa_1_1Engine_1_1Scene_1_1CameraManager" ],
     [ "CameraStorage", "classRa_1_1Engine_1_1Scene_1_1CameraStorage.html", "classRa_1_1Engine_1_1Scene_1_1CameraStorage" ],
     [ "Component", "classRa_1_1Engine_1_1Scene_1_1Component.html", "classRa_1_1Engine_1_1Scene_1_1Component" ],

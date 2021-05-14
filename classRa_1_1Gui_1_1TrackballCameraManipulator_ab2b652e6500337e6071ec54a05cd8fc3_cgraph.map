@@ -1,7 +1,0 @@
-<map id="Ra::Gui::TrackballCameraManipulator::setCamera" name="Ra::Gui::TrackballCameraManipulator::setCamera">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,192,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a4f4d78382a79c6e9c92114f6377d9b6d" title="Return the position." alt="" coords="240,5,395,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a3f96e239fb8fda392ceeb511ca068b54" title="Change the viewport size." alt="" coords="244,71,391,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#ac7669c1535dcde660198ad790d21bacd" title="Update the projection matrix according to the current parameters." alt="" coords="443,71,636,112"/>
-<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="684,78,847,105"/>
-</map>

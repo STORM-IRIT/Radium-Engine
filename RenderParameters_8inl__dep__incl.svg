@@ -328,7 +328,7 @@ var sectionId = 'dynsection-1';
 <!-- Node3&#45;&gt;Node10 -->
 <g id="edge42" class="edge">
 <title>Node3&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M2322.18,-375.21C2485.09,-361.17 2832.44,-321.14 2904.5,-231 2919.21,-212.6 2907.96,-201.3 2904.5,-178 2898.43,-137.11 2909.64,-114.99 2877.5,-89 2828.55,-49.41 2419.04,-34.28 2235.21,-29.45"/>
+<path fill="none" stroke="midnightblue" d="M2322.18,-375.21C2485.09,-361.17 2832.44,-321.14 2904.5,-231 2919.99,-211.62 2907.28,-100.56 2895.5,-89 2849.23,-43.59 2423.35,-31.62 2235.18,-28.54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2321.87,-371.73 2312.2,-376.06 2322.46,-378.7 2321.87,-371.73"/>
 </g>
 <!-- Node15 -->
@@ -688,19 +688,19 @@ var sectionId = 'dynsection-1';
 <!-- Node19 -->
 <g id="node19" class="node">
 <title>Node19</title>
-<g id="a_node19"><a xlink:href="Camera_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="2720,-89.5 2720,-141.5 2869,-141.5 2869,-89.5 2720,-89.5"/>
+<g id="a_node19"><a xlink:href="CameraComponent_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="2720,-89.5 2720,-141.5 2887,-141.5 2887,-89.5 2720,-89.5"/>
 <text text-anchor="start" x="2728" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
 <text text-anchor="start" x="2728" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
 <text text-anchor="start" x="2728" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="2794.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/Camera.cpp</text>
+<text text-anchor="middle" x="2803.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/CameraComponent.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node16&#45;&gt;Node19 -->
 <g id="edge21" class="edge">
 <title>Node16&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M2544.84,-177.74C2618.7,-158.98 2640.01,-160.26 2710.5,-142 2713.6,-141.2 2716.75,-140.35 2719.94,-139.48"/>
+<path fill="none" stroke="midnightblue" d="M2544.84,-177.73C2618.68,-158.9 2639.77,-159.31 2710.5,-142 2713.59,-141.24 2716.73,-140.46 2719.91,-139.66"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2543.88,-174.37 2535.07,-180.26 2545.63,-181.15 2543.88,-174.37"/>
 </g>
 <!-- Node20 -->

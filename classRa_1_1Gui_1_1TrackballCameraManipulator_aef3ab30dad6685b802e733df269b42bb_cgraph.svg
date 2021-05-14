@@ -69,18 +69,18 @@ var sectionId = 'dynsection-3';
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Camera.html#a4f4d78382a79c6e9c92114f6377d9b6d" target="_top" xlink:title="Return the position.">
-<polygon fill="white" stroke="black" points="220,-88.5 220,-118.5 336,-118.5 336,-88.5 220,-88.5"/>
-<text text-anchor="start" x="228" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
-<text text-anchor="middle" x="278" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">Camera::getPosition</text>
+<g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" target="_top" xlink:title="Return the position.">
+<polygon fill="white" stroke="black" points="210.5,-88.5 210.5,-118.5 345.5,-118.5 345.5,-88.5 210.5,-88.5"/>
+<text text-anchor="start" x="218.5" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
+<text text-anchor="middle" x="278" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getPosition</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M163.01,-77.71C178.7,-81.26 194.99,-84.95 210.18,-88.38"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="209.45,-91.81 219.98,-90.6 211,-84.98 209.45,-91.81"/>
+<path fill="none" stroke="midnightblue" d="M163.01,-77.71C175.47,-80.53 188.3,-83.43 200.65,-86.23"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="199.92,-89.65 210.45,-88.44 201.46,-82.82 199.92,-89.65"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">

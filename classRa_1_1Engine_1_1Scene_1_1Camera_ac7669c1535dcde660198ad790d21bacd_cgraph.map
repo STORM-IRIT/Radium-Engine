@@ -1,4 +1,0 @@
-<map id="Ra::Engine::Scene::Camera::updateProjMatrix" name="Ra::Engine::Scene::Camera::updateProjMatrix">
-<area shape="rect" id="node1" title="Update the projection matrix according to the current parameters." alt="" coords="5,5,199,47"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="247,13,409,39"/>
-</map>

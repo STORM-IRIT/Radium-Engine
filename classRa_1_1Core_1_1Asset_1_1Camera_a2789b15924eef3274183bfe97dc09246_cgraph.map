@@ -1,0 +1,4 @@
+<map id="Ra::Core::Asset::Camera::frustum" name="Ra::Core::Asset::Camera::frustum">
+<area shape="rect" id="node1" title="Build a projection matrix from the parameters of the view volume." alt="" coords="5,5,185,47"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="233,13,396,39"/>
+</map>

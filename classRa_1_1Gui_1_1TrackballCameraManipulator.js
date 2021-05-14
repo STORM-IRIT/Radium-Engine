@@ -1,6 +1,6 @@
 var classRa_1_1Gui_1_1TrackballCameraManipulator =
 [
-    [ "TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ae21369f08555a7f35e0f188f049eb50d", null ],
+    [ "TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a678caf5aba198ddf7002e75aaa3d647c", null ],
     [ "TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#aef3ab30dad6685b802e733df269b42bb", null ],
     [ "~TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0a160af972e5593fbd69bb0622e26b29", null ],
     [ "fitScene", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a2e0ad51d15edb28c78e5af6ef72c35fc", null ],
@@ -17,12 +17,12 @@ var classRa_1_1Gui_1_1TrackballCameraManipulator =
     [ "handleMouseReleaseEvent", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a32dd812e2bf249b55b37f15d6b180d59", null ],
     [ "handleWheelEvent", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a06b6743d9516b67e62947559c033551d", null ],
     [ "resetCamera", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a8a75d252e06bcec380a3ac7354a1febd", null ],
-    [ "setCamera", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ab2b652e6500337e6071ec54a05cd8fc3", null ],
     [ "setCameraPosition", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a5f04b67406543e5831557ed7327aa722", null ],
     [ "setCameraTarget", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a5842e8033069575bc57501e7d052c375", null ],
     [ "setTrackballCenter", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a10d35d47a6220187e3331763831b43ca", null ],
     [ "setTrackballRadius", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ac98a71dfff950f2bfe7ed218c7187e89", null ],
     [ "toggleRotateAround", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a9e1116bd7d69c247e8621957b90119ed", null ],
+    [ "updateCamera", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a2992a883ab6d27b82b32f8908743253f", null ],
     [ "updatePhiTheta", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592", null ],
     [ "KeyMappingManageable< TrackballCameraManipulator >", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a65bd68fb31f11b6808fb16a0602d6476", null ],
     [ "m_cameraPanMode", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#adfa806713ddfc33ebc65163c9367be55", null ],

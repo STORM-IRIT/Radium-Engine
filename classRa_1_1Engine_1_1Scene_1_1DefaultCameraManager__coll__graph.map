@@ -1,7 +1,7 @@
 <map id="Ra::Engine::Scene::DefaultCameraManager" name="Ra::Engine::Scene::DefaultCameraManager">
-<area shape="rect" id="node1" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="315,1177,518,1299"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="311,875,523,1128"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="228,616,440,825"/>
+<area shape="rect" id="node1" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="406,1748,609,1869"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="401,1372,613,1699"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="224,858,436,1067"/>
 <area shape="rect" id="node4" title=" " alt="" coords="162,432,365,553"/>
 <area shape="rect" id="node5" title=" " alt="" coords="5,182,236,289"/>
 <area shape="rect" id="node6" title="STL class." alt="" coords="260,197,389,274"/>
@@ -9,4 +9,6 @@
 <area shape="rect" id="node10" title="STL class." alt="" coords="414,197,571,274"/>
 <area shape="rect" id="node8" title=" " alt="" coords="389,447,634,539"/>
 <area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1CameraStorage.html" title=" " alt="" coords="596,145,755,325"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is &#45;z in camer..." alt="" coords="597,631,777,1295"/>
+<area shape="rect" id="node12" title=" " alt="" coords="662,454,713,531"/>
 </map>

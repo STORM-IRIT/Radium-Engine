@@ -1,6 +1,6 @@
 <map id="Ra::Gui::BaseApplication" name="Ra::Gui::BaseApplication">
-<area shape="rect" id="node1" title="This class contains the main application logic. It owns the engine and the GUI." alt="" coords="1095,4775,1338,5292"/>
-<area shape="rect" id="node2" href="$classQApplication.html" title=" " alt="" coords="5,4627,111,4705"/>
+<area shape="rect" id="node1" title="This class contains the main application logic. It owns the engine and the GUI." alt="" coords="1095,4789,1338,5307"/>
+<area shape="rect" id="node2" href="$classQApplication.html" title=" " alt="" coords="5,4642,111,4719"/>
 <area shape="rect" id="node3" title=" " alt="" coords="415,1295,557,1372"/>
 <area shape="rect" id="node4" href="$classint.html" title=" " alt="" coords="1019,744,1057,821"/>
 <area shape="rect" id="node22" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title=" " alt="" coords="1085,1675,1268,2177"/>
@@ -14,49 +14,49 @@
 <area shape="rect" id="node8" href="$classRa_1_1Plugins_1_1RadiumPluginInterface.html" title="Interface class for Radiums plugins." alt="" coords="624,204,833,487"/>
 <area shape="rect" id="node28" title=" " alt="" coords="2454,737,2649,829"/>
 <area shape="rect" id="node33" title=" " alt="" coords="3419,737,3611,829"/>
-<area shape="rect" id="node38" title=" " alt="" coords="3197,3203,3402,3310"/>
-<area shape="rect" id="node56" title=" " alt="" coords="959,2458,1170,2550"/>
-<area shape="rect" id="node10" title=" " alt="" coords="1308,4620,1499,4712"/>
+<area shape="rect" id="node38" title=" " alt="" coords="3197,3189,3402,3295"/>
+<area shape="rect" id="node56" title=" " alt="" coords="959,2451,1170,2543"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1308,4635,1499,4727"/>
 <area shape="rect" id="node11" href="$classRa_1_1Engine_1_1RadiumEngine.html" title=" " alt="" coords="1391,3644,1616,4499"/>
-<area shape="rect" id="node49" href="$classRa_1_1Plugins_1_1Context.html" title="Data passed to the plugin constructor." alt="" coords="3204,4627,3357,4705"/>
+<area shape="rect" id="node49" href="$classRa_1_1Plugins_1_1Context.html" title="Data passed to the plugin constructor." alt="" coords="3204,4642,3357,4719"/>
 <area shape="rect" id="node16" title=" " alt="" coords="1689,744,1950,821"/>
 <area shape="rect" id="node30" title=" " alt="" coords="2217,737,2430,829"/>
 <area shape="rect" id="node31" title=" " alt="" coords="2907,737,3091,829"/>
-<area shape="rect" id="node44" title=" " alt="" coords="2512,3211,2716,3303"/>
+<area shape="rect" id="node44" title=" " alt="" coords="2512,3196,2716,3288"/>
 <area shape="rect" id="node46" title=" " alt="" coords="63,737,280,829"/>
 <area shape="rect" id="node59" title=" " alt="" coords="611,737,766,829"/>
-<area shape="rect" id="node13" href="$classRa_1_1Gui_1_1Viewer.html" title=" " alt="" coords="2641,3585,2867,4557"/>
+<area shape="rect" id="node13" href="$classRa_1_1Gui_1_1Viewer.html" title=" " alt="" coords="2641,3571,2867,4572"/>
 <area shape="rect" id="node14" href="$classRa_1_1Gui_1_1WindowQt.html" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="2277,1163,2447,1504"/>
 <area shape="rect" id="node15" href="$classQWindow.html" title=" " alt="" coords="2033,744,2117,821"/>
 <area shape="rect" id="node17" title=" " alt="" coords="1548,744,1651,821"/>
 <area shape="rect" id="node18" href="$classbool.html" title=" " alt="" coords="2142,744,2193,821"/>
-<area shape="rect" id="node45" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="2719,2201,2975,2807"/>
-<area shape="rect" id="node19" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="2062,2831,2299,2967"/>
+<area shape="rect" id="node45" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="2719,2201,2975,2792"/>
+<area shape="rect" id="node19" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="2062,2816,2299,2952"/>
 <area shape="rect" id="node20" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="1711,1273,1986,1394"/>
-<area shape="rect" id="node43" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="1906,2436,2143,2572"/>
+<area shape="rect" id="node43" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="1906,2429,2143,2565"/>
 <area shape="rect" id="node21" title=" " alt="" coords="2965,1295,3015,1372"/>
-<area shape="rect" id="node23" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="2298,2991,2487,3523"/>
-<area shape="rect" id="node24" title=" " alt="" coords="2218,2458,2381,2550"/>
-<area shape="rect" id="node25" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="2405,2238,2594,2770"/>
-<area shape="rect" id="node26" href="$classRa_1_1Gui_1_1PickingManager.html" title=" " alt="" coords="3426,3189,3607,3325"/>
-<area shape="rect" id="node39" title=" " alt="" coords="3332,2451,3483,2557"/>
+<area shape="rect" id="node23" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="2298,2976,2487,3508"/>
+<area shape="rect" id="node24" title=" " alt="" coords="2218,2451,2381,2543"/>
+<area shape="rect" id="node25" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="2405,2231,2594,2763"/>
+<area shape="rect" id="node26" href="$classRa_1_1Gui_1_1PickingManager.html" title=" " alt="" coords="3426,3174,3607,3310"/>
+<area shape="rect" id="node39" title=" " alt="" coords="3332,2443,3483,2550"/>
 <area shape="rect" id="node29" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html" title=" " alt="" coords="2673,656,2883,909"/>
 <area shape="rect" id="node32" href="$classRa_1_1Engine_1_1Data_1_1Texture.html" title=" " alt="" coords="3617,160,3803,531"/>
 <area shape="rect" id="node34" title=" " alt="" coords="3881,737,4097,829"/>
 <area shape="rect" id="node35" title="STL class." alt="" coords="4091,307,4177,384"/>
 <area shape="rect" id="node36" title="STL class." alt="" coords="4065,5,4203,97"/>
 <area shape="rect" id="node37" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html" title=" " alt="" coords="3115,663,3395,902"/>
-<area shape="rect" id="node40" href="$classRa_1_1Gui_1_1GizmoManager.html" title=" " alt="" coords="1852,3145,2075,3369"/>
+<area shape="rect" id="node40" href="$classRa_1_1Gui_1_1GizmoManager.html" title=" " alt="" coords="1852,3130,2075,3354"/>
 <area shape="rect" id="node41" href="$classQObject.html" title=" " alt="" coords="1613,1295,1687,1372"/>
-<area shape="rect" id="node42" href="$classRa_1_1Gui_1_1TransformEditor.html" title=" " alt="" coords="1651,2414,1831,2594"/>
+<area shape="rect" id="node42" href="$classRa_1_1Gui_1_1TransformEditor.html" title=" " alt="" coords="1651,2407,1831,2587"/>
 <area shape="rect" id="node47" href="$classRa_1_1Gui_1_1MainWindowInterface.html" title=" " alt="" coords="62,241,281,450"/>
 <area shape="rect" id="node48" href="$classQMainWindow.html" title=" " alt="" coords="113,13,229,90"/>
 <area shape="rect" id="node50" href="$classRa_1_1Gui_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes." alt="" coords="3705,3923,3928,4220"/>
-<area shape="rect" id="node51" href="$classQDialog.html" title=" " alt="" coords="3779,3218,3854,3295"/>
+<area shape="rect" id="node51" href="$classQDialog.html" title=" " alt="" coords="3779,3203,3854,3281"/>
 <area shape="rect" id="node52" href="$classRa_1_1Gui_1_1SelectionManager.html" title=" " alt="" coords="3953,3974,4147,4169"/>
-<area shape="rect" id="node53" href="$classQItemSelectionModel.html" title=" " alt="" coords="3969,3218,4131,3295"/>
-<area shape="rect" id="node54" title=" " alt="" coords="4223,4627,4304,4705"/>
-<area shape="rect" id="node55" title=" " alt="" coords="4328,4627,4505,4705"/>
+<area shape="rect" id="node53" href="$classQItemSelectionModel.html" title=" " alt="" coords="3969,3203,4131,3281"/>
+<area shape="rect" id="node54" title=" " alt="" coords="4223,4642,4304,4719"/>
+<area shape="rect" id="node55" title=" " alt="" coords="4328,4642,4505,4719"/>
 <area shape="rect" id="node58" title=" " alt="" coords="428,744,587,821"/>
 <area shape="rect" id="node60" href="$classRa_1_1Core_1_1TaskQueue.html" title=" " alt="" coords="396,219,600,472"/>
 </map>

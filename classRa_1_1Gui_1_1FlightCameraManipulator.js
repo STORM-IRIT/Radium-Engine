@@ -1,6 +1,6 @@
 var classRa_1_1Gui_1_1FlightCameraManipulator =
 [
-    [ "FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html#aa0d396a03b9e4b03a08f1464e21155d4", null ],
+    [ "FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a44b4914494ca4a919599b93ff8838dea", null ],
     [ "FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a29a599b7fc225b0ed0b044f37e0fe73b", null ],
     [ "FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html#af6ac9e05d08730caa271b8995a39d246", null ],
     [ "~FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a1e2d30a65bf9290793ecfb82ffccfe37", null ],
@@ -17,10 +17,10 @@ var classRa_1_1Gui_1_1FlightCameraManipulator =
     [ "handleWheelEvent", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a15ab7c6e186e9713319b2206c733797f", null ],
     [ "mappingContext", "classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c", null ],
     [ "resetCamera", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a17ab04bf806ecdf489d9302074a9c3f4", null ],
-    [ "setCamera", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a1a95d7d2b4aa7f581ac153ebe81a6f61", null ],
     [ "setCameraPosition", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a64c25ec331d4b59d4846b574d3cd2da4", null ],
     [ "setCameraTarget", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a2a17637e6af05694ed723608edcd1d46", null ],
     [ "toggleRotateAround", "classRa_1_1Gui_1_1FlightCameraManipulator.html#afe6090b28af87790eabdbbfb168e75ac", null ],
+    [ "updateCamera", "classRa_1_1Gui_1_1FlightCameraManipulator.html#abc603108b0bfdb1ac6e7f284868c1acd", null ],
     [ "KeyMappingManageable< FlightCameraManipulator >", "classRa_1_1Gui_1_1FlightCameraManipulator.html#ae8895dd77a0b4788b2afdbb614bec52e", null ],
     [ "m_cameraPanMode", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a0a4cdc6d043366365ebe6f1d1b0a98d0", null ],
     [ "m_cameraRotateMode", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a700923d77dea635b17b57dc50d8b0d4d", null ],

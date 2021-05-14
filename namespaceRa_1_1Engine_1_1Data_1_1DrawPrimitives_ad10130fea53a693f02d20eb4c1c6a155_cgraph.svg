@@ -82,41 +82,41 @@ var sectionId = 'dynsection-8';
 <path fill="none" stroke="midnightblue" d="M118.25,-140.19C143.2,-153.57 181.03,-173.17 215,-188 219.41,-189.92 223.98,-191.84 228.61,-193.71"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="227.57,-197.06 238.15,-197.49 230.15,-190.55 227.57,-197.06"/>
 </g>
-<!-- Node9 -->
-<g id="node9" class="node">
-<title>Node9</title>
-<g id="a_node9"><a xlink:href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31" target="_top" xlink:title="Returns the quaternion q multipled by a scalar factor of k.">
-<polygon fill="white" stroke="black" points="237,-159.5 237,-178.5 357,-178.5 357,-159.5 237,-159.5"/>
-<text text-anchor="middle" x="297" y="-166.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Math::scale</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node9 -->
-<g id="edge8" class="edge">
-<title>Node1&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M160.65,-140.02C187.11,-145.69 216.8,-152.04 241.62,-157.36"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="241.06,-160.82 251.57,-159.49 242.53,-153.97 241.06,-160.82"/>
-</g>
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
-<g id="a_node10"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="215,-110 215,-140 379,-140 379,-110 215,-110"/>
-<text text-anchor="start" x="223" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="297" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry::setIndices</text>
+<g id="a_node10"><a xlink:href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31" target="_top" xlink:title="Returns the quaternion q multipled by a scalar factor of k.">
+<polygon fill="white" stroke="black" points="237,-159.5 237,-178.5 357,-178.5 357,-159.5 237,-159.5"/>
+<text text-anchor="middle" x="297" y="-166.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Math::scale</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node10 -->
 <g id="edge9" class="edge">
 <title>Node1&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M179.14,-125C187.56,-125 196.11,-125 204.55,-125"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="204.78,-128.5 214.78,-125 204.78,-121.5 204.78,-128.5"/>
+<path fill="none" stroke="midnightblue" d="M160.65,-140.02C187.11,-145.69 216.8,-152.04 241.62,-157.36"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="241.06,-160.82 251.57,-159.49 242.53,-153.97 241.06,-160.82"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" target="_top" xlink:title="Set vertices.">
+<g id="a_node11"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="215,-110 215,-140 379,-140 379,-110 215,-110"/>
+<text text-anchor="start" x="223" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="297" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry::setIndices</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge10" class="edge">
+<title>Node1&#45;&gt;Node11</title>
+<path fill="none" stroke="midnightblue" d="M179.14,-125C187.56,-125 196.11,-125 204.55,-125"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="204.78,-128.5 214.78,-125 204.78,-121.5 204.78,-128.5"/>
+</g>
+<!-- Node12 -->
+<g id="node12" class="node">
+<title>Node12</title>
+<g id="a_node12"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" target="_top" xlink:title="Set vertices.">
 <polygon fill="white" stroke="black" points="234.5,-49.5 234.5,-90.5 359.5,-90.5 359.5,-49.5 234.5,-49.5"/>
 <text text-anchor="start" x="242.5" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="start" x="242.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
@@ -124,16 +124,16 @@ var sectionId = 'dynsection-8';
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node11 -->
-<g id="edge10" class="edge">
-<title>Node1&#45;&gt;Node11</title>
+<!-- Node1&#45;&gt;Node12 -->
+<g id="edge11" class="edge">
+<title>Node1&#45;&gt;Node12</title>
 <path fill="none" stroke="midnightblue" d="M146.65,-109.97C170.68,-103.54 199.01,-95.96 224.51,-89.13"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="225.74,-92.43 234.5,-86.46 223.93,-85.66 225.74,-92.43"/>
 </g>
-<!-- Node13 -->
-<g id="node13" class="node">
-<title>Node13</title>
-<g id="a_node13"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" target="_top" xlink:title="Access the vertices positions.">
+<!-- Node14 -->
+<g id="node14" class="node">
+<title>Node14</title>
+<g id="a_node14"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" target="_top" xlink:title="Access the vertices positions.">
 <polygon fill="white" stroke="black" points="433.5,-0.5 433.5,-41.5 558.5,-41.5 558.5,-0.5 433.5,-0.5"/>
 <text text-anchor="start" x="441.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="start" x="441.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
@@ -141,9 +141,9 @@ var sectionId = 'dynsection-8';
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node13 -->
-<g id="edge14" class="edge">
-<title>Node1&#45;&gt;Node13</title>
+<!-- Node1&#45;&gt;Node14 -->
+<g id="edge16" class="edge">
+<title>Node1&#45;&gt;Node14</title>
 <path fill="none" stroke="midnightblue" d="M106.62,-109.7C128.95,-89.6 171.47,-55.07 215,-40 282.86,-16.5 365.4,-13.76 423.22,-15.67"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="423.23,-19.17 433.36,-16.06 423.5,-12.18 423.23,-19.17"/>
 </g>
@@ -162,6 +162,23 @@ var sectionId = 'dynsection-8';
 <title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M359.52,-218C373.88,-218 389.46,-218 404.77,-218"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="404.78,-221.5 414.78,-218 404.78,-214.5 404.78,-221.5"/>
+</g>
+<!-- Node9 -->
+<g id="node9" class="node">
+<title>Node9</title>
+<g id="a_node9"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="437.5,-126.5 437.5,-167.5 554.5,-167.5 554.5,-126.5 437.5,-126.5"/>
+<text text-anchor="start" x="445.5" y="-155.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="start" x="445.5" y="-144.5" font-family="Helvetica,sans-Serif" font-size="10.00">::AbstractGeometry::</text>
+<text text-anchor="middle" x="496" y="-133.5" font-family="Helvetica,sans-Serif" font-size="10.00">invalidateAabb</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node9 -->
+<g id="edge8" class="edge">
+<title>Node2&#45;&gt;Node9</title>
+<path fill="none" stroke="midnightblue" d="M354.98,-197.46C377.85,-189.22 404.38,-179.66 428.15,-171.09"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="429.59,-174.3 437.81,-167.61 427.21,-167.71 429.59,-174.3"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -244,41 +261,47 @@ var sectionId = 'dynsection-8';
 <path fill="none" stroke="midnightblue" d="M947.68,-220C961.47,-220 976.3,-220 990.51,-220"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="990.72,-223.5 1000.72,-220 990.72,-216.5 990.72,-223.5"/>
 </g>
-<!-- Node12 -->
-<g id="node12" class="node">
-<title>Node12</title>
-<g id="a_node12"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" target="_top" xlink:title=" ">
+<!-- Node12&#45;&gt;Node9 -->
+<g id="edge12" class="edge">
+<title>Node12&#45;&gt;Node9</title>
+<path fill="none" stroke="midnightblue" d="M352.06,-90.59C361.07,-94.05 370.3,-97.61 379,-101 396.88,-107.97 416.28,-115.62 434.01,-122.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="433.07,-126.05 443.66,-126.49 435.66,-119.54 433.07,-126.05"/>
+</g>
+<!-- Node13 -->
+<g id="node13" class="node">
+<title>Node13</title>
+<g id="a_node13"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="415,-61 415,-91 577,-91 577,-61 415,-61"/>
 <text text-anchor="start" x="423" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
 <text text-anchor="middle" x="496" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00">::setAttrib</text>
 </a>
 </g>
 </g>
-<!-- Node11&#45;&gt;Node12 -->
-<g id="edge11" class="edge">
-<title>Node11&#45;&gt;Node12</title>
+<!-- Node12&#45;&gt;Node13 -->
+<g id="edge13" class="edge">
+<title>Node12&#45;&gt;Node13</title>
 <path fill="none" stroke="midnightblue" d="M359.52,-71.87C373.88,-72.31 389.46,-72.79 404.77,-73.25"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="404.67,-76.75 414.78,-73.56 404.89,-69.75 404.67,-76.75"/>
 </g>
-<!-- Node11&#45;&gt;Node13 -->
-<g id="edge12" class="edge">
-<title>Node11&#45;&gt;Node13</title>
+<!-- Node12&#45;&gt;Node14 -->
+<g id="edge14" class="edge">
+<title>Node12&#45;&gt;Node14</title>
 <path fill="none" stroke="midnightblue" d="M359.52,-54.7C379.79,-49.66 402.51,-44.01 423.46,-38.79"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="424.41,-42.17 433.27,-36.35 422.72,-35.37 424.41,-42.17"/>
 </g>
-<!-- Node14 -->
-<g id="node14" class="node">
-<title>Node14</title>
-<g id="a_node14"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" target="_top" xlink:title=" ">
+<!-- Node15 -->
+<g id="node15" class="node">
+<title>Node15</title>
+<g id="a_node15"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="613,-6 613,-36 775,-36 775,-6 613,-6"/>
 <text text-anchor="start" x="621" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
 <text text-anchor="middle" x="694" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">::getAttrib</text>
 </a>
 </g>
 </g>
-<!-- Node13&#45;&gt;Node14 -->
-<g id="edge13" class="edge">
-<title>Node13&#45;&gt;Node14</title>
+<!-- Node14&#45;&gt;Node15 -->
+<g id="edge15" class="edge">
+<title>Node14&#45;&gt;Node15</title>
 <path fill="none" stroke="midnightblue" d="M558.75,-21C572.7,-21 587.79,-21 602.64,-21"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="602.87,-24.5 612.87,-21 602.87,-17.5 602.87,-24.5"/>
 </g>

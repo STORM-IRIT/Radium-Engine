@@ -2,7 +2,7 @@ var classRa_1_1Engine_1_1Rendering_1_1RenderObject =
 [
     [ "RenderObject", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ad09f179ed5641c53f3c027a94855f6ae", null ],
     [ "~RenderObject", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a85200a60ab565cecd6fdfd6824dc3012", null ],
-    [ "computeAabb", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#afd88992c231a8568e0df15d1d8156208", null ],
+    [ "computeAabb", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a879355edfb347138f8ed1724e3bc2007", null ],
     [ "createRenderObject", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#afe02bfade7fd3fe985d553fcf0a88410", null ],
     [ "getComponent", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a4626a2f732492d338ba45b687ce9b3e3", null ],
     [ "getComponent", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ae91b08d3e3bca047eed7300f07947ad6", null ],
@@ -20,6 +20,7 @@ var classRa_1_1Engine_1_1Rendering_1_1RenderObject =
     [ "getType", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a8aba5cb11ce2693de3c89dd0c80ed9c9", null ],
     [ "hasBeenRenderedOnce", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a31f912dff1496051766cf1c78fa026c6", null ],
     [ "hasExpired", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#af119e66780614042ea72bd271d619a27", null ],
+    [ "invalidateAabb", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a8fd17cabf3c55e11f9dcc90a72d99867", null ],
     [ "isDirty", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a3abdeb4cd1e68c0f356ebdb16dbaf103", null ],
     [ "isPickable", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a49f4840946f75afe28c7d35e7af37f06", null ],
     [ "isTransparent", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a6cb868afe904d515a1ecb320d115bb7f", null ],

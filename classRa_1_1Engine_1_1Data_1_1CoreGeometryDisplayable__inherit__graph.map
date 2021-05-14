@@ -12,6 +12,6 @@
 <area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="33,1888,238,2039"/>
 <area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="674,2088,847,2180"/>
 <area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1PolyMesh.html" title=" " alt="" coords="361,2088,563,2180"/>
-<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="35,2095,235,2173"/>
-<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Data_1_1PointCloud.html" title="A PointCloud without indices." alt="" coords="1070,1903,1278,2024"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="35,2088,235,2180"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Data_1_1PointCloud.html" title="A PointCloud without indices." alt="" coords="1070,1895,1278,2031"/>
 </map>

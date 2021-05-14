@@ -1,7 +1,8 @@
 <map id="Ra::Core::Geometry::deprecated::addAttribPairToCore" name="Ra::Core::Geometry::deprecated::addAttribPairToCore">
-<area shape="rect" id="node1" title=" " alt="" coords="5,67,200,123"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671" title=" " alt="" coords="248,67,415,123"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,105,200,161"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671" title=" " alt="" coords="248,105,415,161"/>
 <area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac2d3cdc360ffe1904a15ff8504de95b8" title=" " alt="" coords="463,75,679,116"/>
+<area shape="rect" id="node9" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="493,141,649,197"/>
 <area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f" title="Return true if h correspond to an existing attribute in *this." alt="" coords="727,37,943,79"/>
 <area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="736,103,933,159"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" title=" " alt="" coords="991,5,1196,47"/>

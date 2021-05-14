@@ -5,7 +5,8 @@
 <area shape="rect" id="node4" href="$classRa_1_1IO_1_1OFFFileManager.html#af4009cbdb7ba4fa80adbcb2e5ef6efb3" title="HEADER." alt="" coords="250,151,425,193"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title=" " alt="" coords="228,217,447,258"/>
 <area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices." alt="" coords="254,283,421,339"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="495,253,711,294"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="519,319,686,375"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="759,326,975,367"/>
+<area shape="rect" id="node7" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="525,209,681,265"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="495,290,711,331"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="519,356,686,412"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="759,363,975,405"/>
 </map>

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b21a3ebac44e805fac76a181ae63519781aa418a</span>
+   &#160;<span id="projectnumber">18590973ea5803b6766234245e7c4c91f37211c4</span>
    </div>
   </td>
  </tr>
@@ -124,7 +124,8 @@ $(document).ready(function(){initNavTree('Viewer_8cpp.html',''); initResizable()
 <code>#include &lt;<a class="el" href="ViewingParameters_8hpp_source.html">Engine/Data/ViewingParameters.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ForwardRenderer_8hpp_source.html">Engine/Rendering/ForwardRenderer.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Renderer_8hpp_source.html">Engine/Rendering/Renderer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Camera_8hpp_source.html">Engine/Scene/Camera.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="CameraComponent_8hpp_source.html">Engine/Scene/CameraComponent.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="CameraManager_8hpp_source.html">Engine/Scene/CameraManager.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Component_8hpp_source.html">Engine/Scene/Component.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="DirLight_8hpp_source.html">Engine/Scene/DirLight.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="EntityManager_8hpp_source.html">Engine/Scene/EntityManager.hpp</a>&gt;</code><br />
@@ -132,6 +133,7 @@ $(document).ready(function(){initNavTree('Viewer_8cpp.html',''); initResizable()
 <code>#include &lt;<a class="el" href="KeyMappingManager_8hpp_source.html">Gui/Utils/KeyMappingManager.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Keyboard_8hpp_source.html">Gui/Utils/Keyboard.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="PickingManager_8hpp_source.html">Gui/Utils/PickingManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Camera_8hpp_source.html">Core/Asset/Camera.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="GizmoManager_8hpp_source.html">Gui/Viewer/Gizmo/GizmoManager.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="TrackballCameraManipulator_8hpp_source.html">Gui/Viewer/TrackballCameraManipulator.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -150,20 +152,22 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceRa"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa.html">Ra</a></td></tr>
 <tr class="memdesc:namespaceRa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This file contains definitions of aliases for basic vector classes and functions. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Gui"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Gui.html">Ra::Gui</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:aefe397a94e8feddc652f92ef40ce9597"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8cpp.html#aefe397a94e8feddc652f92ef40ce9597">STB_IMAGE_WRITE_IMPLEMENTATION</a></td></tr>
 <tr class="separator:aefe397a94e8feddc652f92ef40ce9597"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3939ec33e0cb280a33715cae09cf6512"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8cpp.html#a3939ec33e0cb280a33715cae09cf6512">KMA_VALUE</a>(x)&#160;&#160;&#160;Gui::KeyMappingManager::KeyMappingAction Gui::Viewer::x;</td></tr>
+<tr class="memitem:a3939ec33e0cb280a33715cae09cf6512"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8cpp.html#a3939ec33e0cb280a33715cae09cf6512">KMA_VALUE</a>(x)&#160;&#160;&#160;KeyMappingManager::KeyMappingAction Viewer::x;</td></tr>
 <tr class="separator:a3939ec33e0cb280a33715cae09cf6512"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1478fa43039cf1b62157b0375df9960"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8cpp.html#ab1478fa43039cf1b62157b0375df9960">KMA_VALUE</a>(XX)&#160;&#160;&#160;XX = keyMappingManager-&gt;getActionIndex( ViewerMapping::getContext(), #XX );</td></tr>
 <tr class="separator:ab1478fa43039cf1b62157b0375df9960"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aea44796e0c0aa338b2192996812552b8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa.html#aea44796e0c0aa338b2192996812552b8">Ra::ViewerMapping</a> = Gui::KeyMappingManageable&lt; Gui::Viewer &gt;</td></tr>
-<tr class="separator:aea44796e0c0aa338b2192996812552b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcc363eda25e18f81fd720b1b13f50eb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Gui.html#abcc363eda25e18f81fd720b1b13f50eb">Ra::Gui::ViewerMapping</a> = KeyMappingManageable&lt; Viewer &gt;</td></tr>
+<tr class="separator:abcc363eda25e18f81fd720b1b13f50eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a3939ec33e0cb280a33715cae09cf6512"></a>
@@ -177,12 +181,12 @@ Typedefs</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;Gui::KeyMappingManager::KeyMappingAction Gui::Viewer::x;</td>
+          <td>&#160;&#160;&#160;KeyMappingManager::KeyMappingAction Viewer::x;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00061">61</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00064">64</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -202,7 +206,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00061">61</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00064">64</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -228,7 +232,7 @@ Typedefs</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="Viewer_8cpp.html">Viewer.cpp</a></li>
-    <li class="footer">Generated on Fri May 7 2021 11:32:49 for Radium Engine by
+    <li class="footer">Generated on Fri May 14 2021 06:44:15 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

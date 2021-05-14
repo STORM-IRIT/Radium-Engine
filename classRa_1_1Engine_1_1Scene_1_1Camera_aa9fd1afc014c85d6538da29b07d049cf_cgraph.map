@@ -1,6 +1,0 @@
-<map id="Ra::Engine::Scene::Camera::project" name="Ra::Engine::Scene::Camera::project">
-<area shape="rect" id="node1" title="Return the screen coordinates of the given point p (in world coordinates)." alt="" coords="5,39,152,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a61a8e0be9ab8f68298233904701f151e" title="Return the projection matrix." alt="" coords="203,5,373,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a6b9f35d941e70dffc59628c63545aaf5" title="Return the view matrix." alt="" coords="200,71,376,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#ae5cd18623e1aca8045a05e32ecdff6e6" title=" " alt="" coords="424,71,577,112"/>
-</map>

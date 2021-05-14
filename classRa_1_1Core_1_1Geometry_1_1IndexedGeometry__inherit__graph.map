@@ -1,16 +1,16 @@
 <map id="Ra::Core::Geometry::IndexedGeometry&lt; T &gt;" name="Ra::Core::Geometry::IndexedGeometry&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="425,1264,609,1547"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="5,1609,243,1892"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="267,1609,506,1892"/>
-<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="531,1609,768,1892"/>
-<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="792,1609,1029,1892"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title=" " alt="" coords="304,551,499,1215"/>
-<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="313,314,490,479"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title=" " alt="" coords="523,844,749,921"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="527,292,745,501"/>
+<area shape="rect" id="node1" title=" " alt="" coords="425,1293,609,1576"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="5,1639,243,1921"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="267,1639,506,1921"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="531,1639,768,1921"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="792,1639,1029,1921"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title=" " alt="" coords="304,580,499,1244"/>
+<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="313,292,490,531"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title=" " alt="" coords="523,873,749,951"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="527,307,745,516"/>
 <area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="537,5,735,229"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html" title=" " alt="" coords="49,1941,199,2033"/>
-<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Geometry_1_1PolyMesh.html" title=" " alt="" coords="311,1941,462,2033"/>
-<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Geometry_1_1LineMesh.html" title=" " alt="" coords="574,1941,725,2033"/>
-<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html" title=" " alt="" coords="835,1941,986,2033"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html" title=" " alt="" coords="49,1971,199,2063"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Geometry_1_1PolyMesh.html" title=" " alt="" coords="311,1971,462,2063"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Geometry_1_1LineMesh.html" title=" " alt="" coords="574,1971,725,2063"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html" title=" " alt="" coords="835,1971,986,2063"/>
 </map>

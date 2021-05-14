@@ -392,41 +392,43 @@
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="classRa_1_1Engine_1_1Data_1_1LineMesh.html" target="_top" xlink:title="LineMesh, own a Core::Geometry::LineMesh.">
-<polygon fill="white" stroke="black" points="340.5,-6 340.5,-63 490.5,-63 490.5,-6 340.5,-6"/>
-<text text-anchor="middle" x="415.5" y="-51" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::LineMesh</text>
-<polyline fill="none" stroke="black" points="340.5,-44 490.5,-44 "/>
-<text text-anchor="middle" x="415.5" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="340.5,-25 490.5,-25 "/>
-<text text-anchor="start" x="348.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineMesh()</text>
+<polygon fill="white" stroke="black" points="340.5,-0.5 340.5,-68.5 490.5,-68.5 490.5,-0.5 340.5,-0.5"/>
+<text text-anchor="middle" x="415.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::LineMesh</text>
+<polyline fill="none" stroke="black" points="340.5,-49.5 490.5,-49.5 "/>
+<text text-anchor="middle" x="415.5" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="340.5,-30.5 490.5,-30.5 "/>
+<text text-anchor="start" x="348.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineMesh()</text>
+<text text-anchor="start" x="348.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineMesh()</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M415.5,-96.03C415.5,-84.4 415.5,-72.88 415.5,-63.07"/>
+<path fill="none" stroke="midnightblue" d="M415.5,-95.96C415.5,-86.48 415.5,-77.08 415.5,-68.62"/>
 <polygon fill="none" stroke="midnightblue" points="412,-96.23 415.5,-106.23 419,-96.23 412,-96.23"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="classRa_1_1Engine_1_1Data_1_1PointCloud.html" target="_top" xlink:title="A PointCloud without indices.">
-<polygon fill="white" stroke="black" points="832.5,-117.5 832.5,-207.5 988.5,-207.5 988.5,-117.5 832.5,-117.5"/>
-<text text-anchor="middle" x="910.5" y="-195.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::PointCloud</text>
-<polyline fill="none" stroke="black" points="832.5,-188.5 988.5,-188.5 "/>
-<text text-anchor="middle" x="910.5" y="-176.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="832.5,-169.5 988.5,-169.5 "/>
-<text text-anchor="start" x="840.5" y="-157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PointCloud()</text>
-<text text-anchor="start" x="840.5" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ render()</text>
-<text text-anchor="start" x="840.5" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadGeometry()</text>
-<text text-anchor="start" x="840.5" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00"># updateGL_specific_impl()</text>
+<polygon fill="white" stroke="black" points="832.5,-112 832.5,-213 988.5,-213 988.5,-112 832.5,-112"/>
+<text text-anchor="middle" x="910.5" y="-201" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::PointCloud</text>
+<polyline fill="none" stroke="black" points="832.5,-194 988.5,-194 "/>
+<text text-anchor="middle" x="910.5" y="-182" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="832.5,-175 988.5,-175 "/>
+<text text-anchor="start" x="840.5" y="-163" font-family="Helvetica,sans-Serif" font-size="10.00">+ PointCloud()</text>
+<text text-anchor="start" x="840.5" y="-152" font-family="Helvetica,sans-Serif" font-size="10.00">+ PointCloud()</text>
+<text text-anchor="start" x="840.5" y="-141" font-family="Helvetica,sans-Serif" font-size="10.00">+ render()</text>
+<text text-anchor="start" x="840.5" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadGeometry()</text>
+<text text-anchor="start" x="840.5" y="-119" font-family="Helvetica,sans-Serif" font-size="10.00"># updateGL_specific_impl()</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M910.5,-267.11C910.5,-245.16 910.5,-224.59 910.5,-207.66"/>
+<path fill="none" stroke="midnightblue" d="M910.5,-267.23C910.5,-247.57 910.5,-229.01 910.5,-213.18"/>
 <polygon fill="none" stroke="midnightblue" points="907,-267.28 910.5,-277.28 914,-267.28 907,-267.28"/>
 </g>
 <!-- Node9 -->

@@ -1,10 +1,10 @@
 var dir_89bb22796d297d82305d45a42e7934d2 =
 [
-    [ "Camera.cpp", "Camera_8cpp.html", null ],
-    [ "Camera.hpp", "Camera_8hpp.html", [
-      [ "Camera", "classRa_1_1Engine_1_1Scene_1_1Camera.html", "classRa_1_1Engine_1_1Scene_1_1Camera" ]
+    [ "CameraComponent.cpp", "CameraComponent_8cpp.html", null ],
+    [ "CameraComponent.hpp", "CameraComponent_8hpp.html", [
+      [ "CameraComponent", "classRa_1_1Engine_1_1Scene_1_1CameraComponent.html", "classRa_1_1Engine_1_1Scene_1_1CameraComponent" ]
     ] ],
-    [ "Camera.inl", "Camera_8inl.html", null ],
+    [ "CameraComponent.inl", "CameraComponent_8inl.html", null ],
     [ "CameraManager.cpp", "CameraManager_8cpp.html", null ],
     [ "CameraManager.hpp", "CameraManager_8hpp.html", [
       [ "CameraManager", "classRa_1_1Engine_1_1Scene_1_1CameraManager.html", "classRa_1_1Engine_1_1Scene_1_1CameraManager" ]

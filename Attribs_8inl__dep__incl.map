@@ -1,11 +1,11 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Utils/Attribs.inl" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Utils/Attribs.inl">
-<area shape="rect" id="node1" title=" " alt="" coords="6621,5,6837,76"/>
-<area shape="rect" id="node2" href="$Attribs_8hpp.html" title=" " alt="" coords="6621,124,6837,195"/>
+<area shape="rect" id="node1" title=" " alt="" coords="6645,5,6861,76"/>
+<area shape="rect" id="node2" href="$Attribs_8hpp.html" title=" " alt="" coords="6645,124,6861,195"/>
 <area shape="rect" id="node3" href="$TriangleMesh_8hpp.html" title=" " alt="" coords="4131,243,4381,313"/>
-<area shape="rect" id="node40" href="$Mesh_8cpp.html" title=" " alt="" coords="6579,599,6778,669"/>
-<area shape="rect" id="node54" href="$GeometryData_8hpp.html" title=" " alt="" coords="7089,361,7311,432"/>
-<area shape="rect" id="node59" href="$Attribs_8cpp.html" title=" " alt="" coords="6767,243,6983,313"/>
-<area shape="rect" id="node60" href="$TinyPlyFileLoader_8cpp.html" title=" " alt="" coords="7007,243,7270,313"/>
+<area shape="rect" id="node40" href="$Mesh_8cpp.html" title=" " alt="" coords="6603,599,6802,669"/>
+<area shape="rect" id="node54" href="$GeometryData_8hpp.html" title=" " alt="" coords="7113,361,7335,432"/>
+<area shape="rect" id="node59" href="$Attribs_8cpp.html" title=" " alt="" coords="6791,243,7007,313"/>
+<area shape="rect" id="node60" href="$TinyPlyFileLoader_8cpp.html" title=" " alt="" coords="7031,243,7294,313"/>
 <area shape="rect" id="node4" href="$DistanceQueries_8hpp.html" title=" " alt="" coords="557,361,808,432"/>
 <area shape="rect" id="node10" href="$TriangleMesh_8inl.html" title=" " alt="" coords="1515,361,1765,432"/>
 <area shape="rect" id="node11" href="$SkinningData_8hpp.html" title=" " alt="" coords="1789,361,2043,432"/>
@@ -17,8 +17,8 @@
 <area shape="rect" id="node36" href="$TriangleMesh_8cpp.html" title=" " alt="" coords="4405,361,4656,432"/>
 <area shape="rect" id="node37" href="$DisplayableObject_8hpp.html" title=" " alt="" coords="4844,361,5052,432"/>
 <area shape="rect" id="node38" href="$Mesh_8hpp.html" title=" " alt="" coords="4849,480,5047,551"/>
-<area shape="rect" id="node43" href="$GeometryComponent_8hpp.html" title=" " alt="" coords="6801,599,7039,669"/>
-<area shape="rect" id="node48" href="$SkeletonComponent_8cpp.html" title=" " alt="" coords="6328,599,6555,669"/>
+<area shape="rect" id="node43" href="$GeometryComponent_8hpp.html" title=" " alt="" coords="6825,599,7063,669"/>
+<area shape="rect" id="node48" href="$SkeletonComponent_8cpp.html" title=" " alt="" coords="6352,599,6579,669"/>
 <area shape="rect" id="node52" href="$OBJFileManager_8hpp.html" title=" " alt="" coords="5457,361,5700,432"/>
 <area shape="rect" id="node53" href="$OFFFileManager_8hpp.html" title=" " alt="" coords="5724,361,5967,432"/>
 <area shape="rect" id="node5" href="$BulgeCorrection_8cpp.html" title=" " alt="" coords="5,480,259,551"/>
@@ -49,14 +49,14 @@
 <area shape="rect" id="node50" href="$Renderer_8hpp.html" title=" " alt="" coords="4626,480,4825,551"/>
 <area shape="rect" id="node51" href="$RenderObject_8cpp.html" title=" " alt="" coords="5121,480,5332,551"/>
 <area shape="rect" id="node39" href="$Mesh_8inl.html" title=" " alt="" coords="4849,599,5047,669"/>
-<area shape="rect" id="node42" href="$GeometryComponent_8cpp.html" title=" " alt="" coords="6027,717,6263,788"/>
+<area shape="rect" id="node42" href="$GeometryComponent_8cpp.html" title=" " alt="" coords="6039,717,6275,788"/>
 <area shape="rect" id="node45" href="$RenderObjectManager_8cpp.html" title=" " alt="" coords="5344,599,5611,669"/>
-<area shape="rect" id="node46" href="$Camera_8cpp.html" title=" " alt="" coords="5635,599,5834,669"/>
-<area shape="rect" id="node47" href="$Component_8cpp.html" title=" " alt="" coords="5858,599,6057,669"/>
-<area shape="rect" id="node49" href="$Gizmo_8cpp.html" title=" " alt="" coords="6081,599,6303,669"/>
-<area shape="rect" id="node44" href="$GeometrySystem_8cpp.html" title=" " alt="" coords="6917,717,7128,788"/>
-<area shape="rect" id="node55" href="$FileData_8inl.html" title=" " alt="" coords="7163,480,7386,551"/>
-<area shape="rect" id="node56" href="$GeometryData_8inl.html" title=" " alt="" coords="7410,480,7633,551"/>
-<area shape="rect" id="node57" href="$GeometryData_8cpp.html" title=" " alt="" coords="7657,480,7879,551"/>
-<area shape="rect" id="node58" href="$AssimpGeometryDataLoader_8cpp.html" title=" " alt="" coords="7903,480,8166,551"/>
+<area shape="rect" id="node46" href="$CameraComponent_8cpp.html" title=" " alt="" coords="5635,599,5858,669"/>
+<area shape="rect" id="node47" href="$Component_8cpp.html" title=" " alt="" coords="5882,599,6081,669"/>
+<area shape="rect" id="node49" href="$Gizmo_8cpp.html" title=" " alt="" coords="6105,599,6327,669"/>
+<area shape="rect" id="node44" href="$GeometrySystem_8cpp.html" title=" " alt="" coords="6941,717,7152,788"/>
+<area shape="rect" id="node55" href="$FileData_8inl.html" title=" " alt="" coords="7187,480,7410,551"/>
+<area shape="rect" id="node56" href="$GeometryData_8inl.html" title=" " alt="" coords="7434,480,7657,551"/>
+<area shape="rect" id="node57" href="$GeometryData_8cpp.html" title=" " alt="" coords="7681,480,7903,551"/>
+<area shape="rect" id="node58" href="$AssimpGeometryDataLoader_8cpp.html" title=" " alt="" coords="7927,480,8190,551"/>
 </map>

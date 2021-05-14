@@ -1,0 +1,12 @@
+<map id="Ra::Gui::Viewer::prepareDisplay" name="Ra::Gui::Viewer::prepareDisplay">
+<area shape="rect" id="node1" title=" " alt="" coords="5,237,185,279"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a7042ea2839f794059ca7a97f75118afe" title=" " alt="" coords="233,41,497,83"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="289,107,441,148"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1Viewer.html#abe554bf67788b02cc920d395f1329212" title="Moves the camera so that the whole scene is visible." alt="" coords="268,172,463,213"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1Viewer.html#ac8bfa139c95713d812dd52f7e509fa66" title="Access to camera interface." alt="" coords="264,237,467,279"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1Viewer.html#aa494c3894be5858ef29cd48bf67d9e96" title="Read&#45;only access to renderer." alt="" coords="260,303,471,330"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="289,355,441,396"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5" title="Reset the Camera settings to default values." alt="" coords="262,420,469,461"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6e1b35d72acf4f5a7a1ab6fa9a146a1e" title=" " alt="" coords="545,5,785,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a9280b3e44e311a6c3724e02f5d02a944" title=" " alt="" coords="569,71,762,127"/>
+</map>

@@ -9,5 +9,5 @@
 <area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="355,977,563,1084"/>
 <area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="21,1723,195,1815"/>
 <area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Data_1_1PolyMesh.html" title=" " alt="" coords="237,1723,438,1815"/>
-<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="471,1730,671,1807"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="471,1723,671,1815"/>
 </map>

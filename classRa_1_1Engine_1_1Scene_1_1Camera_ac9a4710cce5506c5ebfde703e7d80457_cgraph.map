@@ -1,6 +1,0 @@
-<map id="Ra::Engine::Scene::Camera::getRayFromScreen" name="Ra::Engine::Scene::Camera::getRayFromScreen">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,209,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a4f4d78382a79c6e9c92114f6377d9b6d" title="Return the position." alt="" coords="257,5,412,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a30dad115cdad28bc80a9b28529153298" title="Return the point on the screen plane (near plane) represented by screen coordinates pix." alt="" coords="261,71,408,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a61a8e0be9ab8f68298233904701f151e" title="Return the projection matrix." alt="" coords="460,71,629,112"/>
-</map>
