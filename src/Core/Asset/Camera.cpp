@@ -79,12 +79,7 @@ void Camera::updateProjMatrix() {
     break;
 
     case ProjType::PERSPECTIVE: {
-        Scalar r     = m_zNear * std::tan( m_fov / 2_ra );
-        Scalar l     = -r;
-        Scalar t     = r / m_aspect;
-        Scalar b     = -t;
-        m_projMatrix = frustum( l, r, b, t, m_zNear, m_zFar );
-        m_projMatrix = perspective( m_aspect, m_fov, m_zNear, m_zFar );
+        m_projMatrix = perspective( m_aspect, m_zoomFactor * m_fov, m_zNear, m_zFar );
     }
     break;
 
