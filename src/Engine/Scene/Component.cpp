@@ -36,6 +36,7 @@ Rendering::RenderObjectManager* Component::getRoMgr() {
 
 Core::Utils::Index Component::addRenderObject( Rendering::RenderObject* renderObject ) {
     m_renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
+    invalidateAabb();
     return m_renderObjects.back();
 }
 
@@ -47,6 +48,7 @@ void Component::removeRenderObject( const Core::Utils::Index& roIdx ) {
         getRoMgr()->removeRenderObject( *found );
         m_renderObjects.erase( found );
     }
+    invalidateAabb();
 }
 
 void Component::notifyRenderObjectExpired( const Core::Utils::Index& idx ) {
@@ -55,16 +57,28 @@ void Component::notifyRenderObjectExpired( const Core::Utils::Index& idx ) {
     if ( found != m_renderObjects.cend() ) { m_renderObjects.erase( found ); }
 }
 
-Core::Aabb Component::computeAabb() const {
-
-    // component haven't any transformation, so ask render objects own aabb.
-    Core::Aabb aabb;
-    for ( const auto& roIndex : m_renderObjects )
+Core::Aabb Component::computeAabb() {
+    if ( !m_isAabbValid )
     {
-        auto ro = RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject( roIndex );
-        if ( ro->isVisible() ) { aabb.extend( ro->computeAabb() ); }
+        // component haven't any transformation, so ask render objects own aabb.
+        Core::Aabb aabb;
+        for ( const auto& roIndex : m_renderObjects )
+        {
+            auto ro =
+                RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject( roIndex );
+            if ( ro->isVisible() ) { aabb.extend( ro->computeAabb() ); }
+        }
+
+        m_aabb        = aabb;
+        m_isAabbValid = true;
     }
-    return aabb;
+
+    return m_aabb;
+}
+
+void Component::invalidateAabb() {
+    m_isAabbValid = false;
+    m_entity->invalidateAabb();
 }
 
 } // namespace Scene

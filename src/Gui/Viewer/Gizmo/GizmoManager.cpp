@@ -1,5 +1,6 @@
+#include <Core/Asset/Camera.hpp>
 #include <Engine/OpenGL.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 #include <Gui/Viewer/CameraManipulator.hpp>
@@ -119,7 +120,8 @@ void GizmoManager::updateValues() {
 bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
                                           const Qt::MouseButtons& buttons,
                                           const Qt::KeyboardModifiers& modifiers,
-                                          int key ) {
+                                          int key,
+                                          const Core::Asset::Camera& cam ) {
 
     if ( !canEdit() || m_currentGizmoType == NONE || !currentGizmo()->isSelected() )
     { return false; }
@@ -128,7 +130,6 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
 
     if ( !( isValidAction( action ) ) ) { return false; }
 
-    const Engine::Scene::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
     currentGizmo()->setInitialState( cam,
                                      Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
     return true;
@@ -142,7 +143,8 @@ bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
 bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
                                          const Qt::MouseButtons& buttons,
                                          const Qt::KeyboardModifiers& modifiers,
-                                         int key ) {
+                                         int key,
+                                         const Core::Asset::Camera& cam ) {
     ///\todo what about if someone start a motion with a key, and then release it while moving the
     /// mouse ?
     auto action = KeyMappingManager::getInstance()->getAction(
@@ -152,7 +154,6 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
          currentGizmo()->isSelected() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
-        const Engine::Scene::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
         bool step  = action == GIZMOMANAGER_STEP || action == GIZMOMANAGER_STEP_WHOLE;
         bool whole = action == GIZMOMANAGER_WHOLE || action == GIZMOMANAGER_STEP_WHOLE;
 

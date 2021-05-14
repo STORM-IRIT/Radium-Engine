@@ -1,14 +1,14 @@
 #include <Gui/Viewer/FlightCameraManipulator.hpp>
 
+#include <Core/Asset/Camera.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Utils/Log.hpp>
-#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 
 #include <Gui/Utils/KeyMappingManager.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <QApplication>
 #include <QMessageBox>
 #include <algorithm>
@@ -68,8 +68,8 @@ KeyMappingManager::Context Gui::FlightCameraManipulator::mappingContext() {
     return FlightCameraKeyMapping::getContext();
 }
 
-Gui::FlightCameraManipulator::FlightCameraManipulator( uint width, uint height ) :
-    CameraManipulator( width, height ),
+Gui::FlightCameraManipulator::FlightCameraManipulator() :
+    CameraManipulator(),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
@@ -99,6 +99,22 @@ Gui::FlightCameraManipulator::FlightCameraManipulator( const CameraManipulator& 
 //! [Constructor]
 
 Gui::FlightCameraManipulator::~FlightCameraManipulator() = default;
+
+void Gui::FlightCameraManipulator::updateCamera() {
+
+    initializeFixedUpVector();
+
+    m_target      = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
+    m_flightSpeed = 0.2_ra;
+
+    if ( m_light != nullptr )
+    {
+        m_light->setPosition( m_camera->getPosition() );
+        m_light->setDirection( m_camera->getDirection() );
+    }
+
+    emit cameraChanged( m_camera->getPosition(), m_target );
+}
 
 void Gui::FlightCameraManipulator::resetCamera() {
     m_camera->setFrame( Core::Transform::Identity() );
@@ -226,23 +242,6 @@ bool Gui::FlightCameraManipulator::handleKeyPressEvent(
 
 bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
-}
-
-void Gui::FlightCameraManipulator::setCamera( Engine::Scene::Camera* camera ) {
-
-    if ( !camera ) return;
-    camera->resize( m_camera->getWidth(), m_camera->getHeight() );
-    m_camera = camera;
-    m_target = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
-    initializeFixedUpVector();
-
-    m_camera->show( false );
-
-    if ( m_light != nullptr )
-    {
-        m_light->setPosition( m_camera->getPosition() );
-        m_light->setDirection( m_camera->getDirection() );
-    }
 }
 
 void Gui::FlightCameraManipulator::setCameraPosition( const Core::Vector3& position ) {

@@ -69,18 +69,18 @@ FileData* CameraFileLoader::loadFile( const std::string& filename ) {
     std::clock_t endTime = std::clock();
 
     /// create the CameraData
-    CameraData* camera = new CameraData();
-    camera->setName( Core::Utils::getBaseName( filename, false ) );
-    camera->setType( CameraData::CameraType( type ) );
+    Camera* camera = new Camera();
+    //    camera->setName( Core::Utils::getBaseName( filename, false ) );
+    camera->setType( Camera::ProjType( type ) );
     Core::Matrix4 frame;
     frame << M[0], M[1], M[2], M[3], M[4], M[5], M[6], M[7], M[8], M[9], M[10], M[11], M[12], M[13],
         M[14], M[15];
-    camera->setFrame( frame );
-    camera->setFov( fov );
+    camera->setFrame( Core::Transform {frame} );
+    camera->setFOV( fov );
     camera->setZNear( znear );
     camera->setZFar( zfar );
     camera->setZoomFactor( zoom );
-    camera->setAspect( aspect );
+    camera->setViewport( aspect, 1 );
     fileData->m_cameraData.emplace_back( camera );
     if ( fileData->isVerbose() ) { fileData->displayInfo(); }
 

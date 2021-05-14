@@ -17,8 +17,7 @@ class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
 {
   public:
     /// Default constructor
-    inline CameraManipulator2D( uint width, uint height ) :
-        Ra::Gui::TrackballCameraManipulator( width, height ) {}
+    inline CameraManipulator2D() : Ra::Gui::TrackballCameraManipulator() {}
 
     /// Copy constructor used when switching camera manipulator
     /// Requires that m_target is on the line of sight of the camera.

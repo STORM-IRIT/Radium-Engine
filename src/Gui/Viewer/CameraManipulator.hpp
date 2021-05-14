@@ -11,7 +11,8 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 
 namespace Ra {
@@ -34,7 +35,7 @@ class RA_GUI_API CameraManipulator : public QObject
 
   public:
     /// Initializes a manipulator for a given viewport size.
-    CameraManipulator( uint width, uint height );
+    CameraManipulator();
 
     /// Initializes a manipulator keeping properties from an already existing one.
     /// This allows to switch from one manipulator to another while keeping the same visual
@@ -47,13 +48,16 @@ class RA_GUI_API CameraManipulator : public QObject
     virtual ~CameraManipulator();
 
     /// Resize the camera viewport.
-    void resizeViewport( uint width, uint height );
+    [[deprecated( "use getCamera()->setViewport() instead" )]] void resizeViewport( uint width,
+                                                                                    uint height );
 
     /// @return the projection matrix of the manipulated camera.
-    Core::Matrix4 getProjMatrix() const;
+    [[deprecated( "use getCamera()->getProjMatrix() instead" )]] Core::Matrix4
+    getProjMatrix() const;
 
     /// @return the view matrix of the manipulated camera.
-    Core::Matrix4 getViewMatrix() const;
+    [[deprecated( "use getCamera()->getViewMatrix() instead" )]] Core::Matrix4
+    getViewMatrix() const;
 
     /// @return the mapping context for keymapping, nullptr if no mapping is available
     virtual KeyMappingManager::Context mappingContext();
@@ -80,23 +84,19 @@ class RA_GUI_API CameraManipulator : public QObject
     virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
     /// Pointer access to the camera.
-    const Engine::Scene::Camera* getCamera() const { return m_camera; }
+    const Core::Asset::Camera* getCamera() const { return m_camera; }
 
     /// Pointer access to the camera.
-    Engine::Scene::Camera* getCamera() { return m_camera; }
+    Core::Asset::Camera* getCamera() { return m_camera; }
 
     /// Set the Camera to be manipulated.
     /// \note CameraManipulator doesn't have ownership.
-    virtual void setCamera( Engine::Scene::Camera* camera ) = 0;
+    [[deprecated( "use CameraManager::activate(idx) instead" )]] virtual void
+    setCamera( Core::Asset::Camera* camera );
 
-    /**
-     * Set the Engine::Data::Camera used to the default one.
-     * This method allow to have a quick fix of issue #378 before switching to Radium v2
-     * development. \todo have a cleaner camera management and control in the Gui Radium
-     * library. Gui Camera interface Must define a clean interface between the application and
-     * the Engine. This method is similar to the getCameraFromViewer, it should not be there ...
-     */
-    void resetToDefaultCamera();
+    /// Reset manipulator internal data according to current active camera from manager.
+    /// Call each time the active camera is changed to have coherent data.
+    virtual void updateCamera();
 
     /// Set the Light attached to the camera.
     /// \note CameraManipulator doesn't have ownership.
@@ -107,10 +107,6 @@ class RA_GUI_API CameraManipulator : public QObject
 
     /// pointer acces to the attached light if it exists, returns nullptr otherwise.
     Engine::Scene::Light* getLight() { return m_light; }
-
-    /// Static method to get the Camera from the given viewer.
-    // FIXME: shouldn't be here!
-    static const Engine::Scene::Camera& getCameraFromViewer( QObject* v );
 
   public slots:
     /// \name Camera properties setters
@@ -164,12 +160,12 @@ class RA_GUI_API CameraManipulator : public QObject
     bool m_mapCameraBahaviourToAabb; ///< whether the camera is restrained or not
 
     /// Target point of the camera (usefull for most of the manipulator metaphor)
-    /// Be aware that m_target must always be on the line of sight of the camera so that it could be
-    /// used as a "focus" point by a manipulator.
+    /// Be aware that m_target must always be on the line of sight of the camera so that it
+    /// could be used as a "focus" point by a manipulator.
     Core::Vector3 m_target;
 
-    Engine::Scene::Camera* m_camera; ///< The Camera.
-    Engine::Scene::Light* m_light;   ///< The light attached to the Camera.
+    Core::Asset::Camera* m_camera; ///< The Camera.
+    Engine::Scene::Light* m_light; ///< The light attached to the Camera.
 };
 
 } // namespace Gui

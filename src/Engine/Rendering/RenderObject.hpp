@@ -136,7 +136,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     Core::Transform getTransform() const;
     Core::Matrix4 getTransformAsMatrix() const;
 
-    Core::Aabb computeAabb() const;
+    Core::Aabb computeAabb();
 
     void setLocalTransform( const Core::Transform& transform );
     void setLocalTransform( const Core::Matrix4& transform );
@@ -175,6 +175,8 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
                  const Data::ViewingParameters& viewParams,
                  Core::Utils::Index passId = DefaultRenderingPasses::LIGHTING_OPAQUE );
 
+    void invalidateAabb();
+
   private:
     Core::Transform m_localTransform {Core::Transform::Identity()};
 
@@ -195,6 +197,10 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     bool m_transparent {false};
     bool m_dirty {true};
     bool m_hasLifetime {false};
+
+    bool m_isAabbValid {false};
+    Core::Aabb m_aabb;
+    int m_aabbObserverIndex {-1};
 };
 
 } // namespace Rendering

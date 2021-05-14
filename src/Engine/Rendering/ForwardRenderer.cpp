@@ -14,7 +14,6 @@
 #include <Engine/OpenGL.hpp>
 #include <Engine/Rendering/DebugRender.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Scene/DefaultCameraManager.hpp>
 #include <Engine/Scene/DefaultLightManager.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <globjects/Framebuffer.h>
@@ -23,6 +22,8 @@
 #include <Core/RaCore.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
+
+#include <Engine/Scene/SystemDisplay.hpp>
 
 #include <map>
 
@@ -50,10 +51,6 @@ ForwardRenderer::~ForwardRenderer() = default;
 void ForwardRenderer::initializeInternal() {
     initShaders();
     initBuffers();
-
-    auto cameraManager = new Scene::DefaultCameraManager();
-    Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultCameraManager",
-                                                             cameraManager );
 
     auto lightManager = new Scene::DefaultLightManager();
     Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultLightManager", lightManager );
