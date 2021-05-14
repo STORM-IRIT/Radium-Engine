@@ -175,7 +175,7 @@ class RA_CORE_API Camera
     Core::Matrix4 m_projMatrix {Core::Matrix4::Identity()}; ///< Projection matrix
 
     ProjType m_projType {ProjType::PERSPECTIVE}; ///< Projection type
-    Scalar m_zoomFactor {1};                     ///< Zoom factor (modifies the field of view)
+    Scalar m_zoomFactor {1_ra};                  ///< Zoom factor (modifies the field of view)
     Scalar m_fov {Core::Math::PiDiv4};           ///< Field of view
 
     Scalar m_zNear {0.1_ra}; ///< Z Near plane distance
