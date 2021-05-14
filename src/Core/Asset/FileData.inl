@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Core/Asset/AnimationData.hpp>
-#include <Core/Asset/CameraData.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Asset/HandleData.hpp>
 #include <Core/Asset/LightData.hpp>
@@ -77,8 +77,8 @@ inline std::vector<LightData*> FileData::getLightData() const {
     return list;
 }
 
-inline std::vector<CameraData*> FileData::getCameraData() const {
-    std::vector<CameraData*> list;
+inline std::vector<Camera*> FileData::getCameraData() const {
+    std::vector<Camera*> list;
     list.reserve( m_cameraData.size() );
     for ( const auto& item : m_cameraData )
     {

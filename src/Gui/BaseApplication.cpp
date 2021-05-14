@@ -16,7 +16,7 @@
 #include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
 #include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
@@ -315,9 +315,9 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
     {
         if ( loadFile( parser.value( "camera" ) ) )
         {
-            auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
-            auto camera = static_cast<Engine::Scene::Camera*>( entity->getComponents()[0].get() );
-            m_viewer->setCamera( camera );
+            ///\todo Code updated wrt camera manager, TEST IT !
+            // loadFile call camera system handle asset loading, so cameras from the file are
+            // already loaded.
         }
     }
 

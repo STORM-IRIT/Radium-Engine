@@ -6,10 +6,11 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Index.hpp>
 
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -70,19 +71,19 @@ class Gizmo
 
     /// Called when the gizmo is first clicked, with the camera parameters and the initial pixel
     /// coordinates.
-    virtual void setInitialState( const Engine::Scene::Camera& cam,
+    virtual void setInitialState( const Core::Asset::Camera& cam,
                                   const Core::Vector2& initialXY ) = 0;
 
     /// Called when the mouse movement is recorder with the camera parameters and the current pixel
     /// coordinates.
-    virtual Core::Transform mouseMove( const Engine::Scene::Camera& cam,
+    virtual Core::Transform mouseMove( const Core::Asset::Camera& cam,
                                        const Core::Vector2& nextXY,
                                        bool stepped = false,
                                        bool whole   = false ) = 0;
 
   protected:
     /// Find a mouse-designed point on a 3D axis
-    static bool findPointOnAxis( const Engine::Scene::Camera& cam,
+    static bool findPointOnAxis( const Core::Asset::Camera& cam,
                                  const Core::Vector3& origin,
                                  const Core::Vector3& axis,
                                  const Core::Vector2& pix,
@@ -90,7 +91,7 @@ class Gizmo
                                  std::vector<Scalar>& hits );
 
     /// Find a mouse-designed point on a 3D plane
-    static bool findPointOnPlane( const Engine::Scene::Camera& cam,
+    static bool findPointOnPlane( const Core::Asset::Camera& cam,
                                   const Core::Vector3& origin,
                                   const Core::Vector3& axis,
                                   const Core::Vector2& pix,

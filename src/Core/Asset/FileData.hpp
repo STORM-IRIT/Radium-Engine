@@ -10,7 +10,7 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 class AnimationData;
-class CameraData;
+class Camera;
 class GeometryData;
 struct VolumeData;
 class HandleData;
@@ -41,7 +41,7 @@ class RA_CORE_API FileData final
     inline std::vector<HandleData*> getHandleData() const;
     inline std::vector<AnimationData*> getAnimationData() const;
     inline std::vector<LightData*> getLightData() const;
-    inline std::vector<CameraData*> getCameraData() const;
+    inline std::vector<Camera*> getCameraData() const;
 
     inline void setVerbose( const bool VERBOSE_MODE );
 
@@ -70,7 +70,7 @@ class RA_CORE_API FileData final
     std::vector<std::unique_ptr<HandleData>> m_handleData;
     std::vector<std::unique_ptr<AnimationData>> m_animationData;
     std::vector<std::unique_ptr<LightData>> m_lightData;
-    std::vector<std::unique_ptr<CameraData>> m_cameraData;
+    std::vector<std::unique_ptr<Camera>> m_cameraData;
     bool m_processed;
     bool m_verbose;
 };

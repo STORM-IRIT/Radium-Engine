@@ -1,10 +1,11 @@
 #include <Gui/Viewer/Gizmo/Gizmo.hpp>
 
+#include <Core/Asset/Camera.hpp>
 #include <Core/Geometry/RayCast.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
@@ -50,7 +51,7 @@ void Gizmo::show( bool on ) {
     }
 }
 
-bool Gizmo::findPointOnAxis( const Engine::Scene::Camera& cam,
+bool Gizmo::findPointOnAxis( const Core::Asset::Camera& cam,
                              const Core::Vector3& origin,
                              const Core::Vector3& axis,
                              const Core::Vector2& pix,
@@ -69,7 +70,7 @@ bool Gizmo::findPointOnAxis( const Engine::Scene::Camera& cam,
     return hasHit;
 }
 
-bool Gizmo::findPointOnPlane( const Engine::Scene::Camera& cam,
+bool Gizmo::findPointOnPlane( const Core::Asset::Camera& cam,
                               const Core::Vector3& origin,
                               const Core::Vector3& axis,
                               const Core::Vector2& pix,

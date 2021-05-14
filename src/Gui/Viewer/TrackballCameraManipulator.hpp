@@ -1,7 +1,8 @@
 #pragma once
 #include <Gui/RaGui.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Viewer/CameraManipulator.hpp>
 
 namespace Ra {
@@ -17,7 +18,7 @@ class RA_GUI_API TrackballCameraManipulator
 
   public:
     /// Default constructor
-    TrackballCameraManipulator( uint width, uint height );
+    TrackballCameraManipulator();
 
     /// Copy constructor used when switching camera manipulator
     /// Requires that m_target is on the line of sight of the camera.
@@ -44,7 +45,7 @@ class RA_GUI_API TrackballCameraManipulator
     bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
     void toggleRotateAround();
-    void setCamera( Engine::Scene::Camera* camera ) override;
+    void updateCamera() override;
 
     /// Set the distance from the camera to the target point.
     /// \note doesn't modify the camera.

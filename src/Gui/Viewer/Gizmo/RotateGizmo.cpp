@@ -4,10 +4,11 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -90,7 +91,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform RotateGizmo::mouseMove( const Engine::Scene::Camera& cam,
+Core::Transform RotateGizmo::mouseMove( const Core::Asset::Camera& cam,
                                         const Core::Vector2& nextXY,
                                         bool stepped,
                                         bool /*whole*/ ) {
@@ -145,7 +146,8 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Scene::Camera& cam,
     {
         // Rotation plane is orthogonal to the image plane
         Core::Vector2 dir =
-            ( cam.project( originW + rotationAxisW ) - cam.project( originW ) ).normalized();
+            ( cam.project( originW + rotationAxisW ).head<2>() - cam.project( originW ).head<2>() )
+                .normalized();
         if ( std::abs( dir( 0 ) ) < 1e-3_ra ) { dir << 1, 0; }
         else if ( std::abs( dir( 1 ) ) < 1e-3_ra )
         { dir << 0, 1; }
@@ -179,7 +181,7 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Scene::Camera& cam,
     return m_transform;
 }
 
-void RotateGizmo::setInitialState( const Engine::Scene::Camera& /*cam*/,
+void RotateGizmo::setInitialState( const Core::Asset::Camera& /*cam*/,
                                    const Core::Vector2& initialXY ) {
     m_initialPix = initialXY;
     m_start      = false;

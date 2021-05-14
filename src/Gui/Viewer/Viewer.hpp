@@ -15,7 +15,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/Renderer.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/WindowQt.hpp>
 
@@ -86,8 +86,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// Access to camera interface.
     CameraManipulator* getCameraManipulator();
 
-    /// Set the camera managed by the cameraInterface
-    void setCamera( Engine::Scene::Camera* camera );
+    void resetToDefaultCamera();
 
     /// Access to gizmo manager
     GizmoManager* getGizmoManager();
@@ -138,7 +137,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     /// Moves the camera so that the whole scene is visible.
     void fitCameraToScene( const Core::Aabb& sceneAabb );
-
+    void fitCamera();
     /// Returns the names of the different registred renderers.
     std::vector<std::string> getRenderersName() const;
 
@@ -278,7 +277,9 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     KMA_VALUE( VIEWER_RAYCAST )              \
     KMA_VALUE( VIEWER_SCALE_BRUSH )          \
     KMA_VALUE( VIEWER_RELOAD_SHADERS )       \
-    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )
+    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )     \
+    KMA_VALUE( VIEWER_SWITCH_CAMERA )        \
+    KMA_VALUE( VIEWER_CAMERA_FIT_SCENE )
 
 #define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
     KeyMappingViewer

@@ -117,6 +117,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
     void setSize( Eigen::Ref<const Vector3i> size ) {
         m_size = size;
         updateStorage();
+        invalidateAabb();
     }
     /// return the bin size
     const Vector3& binSize() const { return m_binSize; }
@@ -125,6 +126,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
     void setBinSize( Eigen::Ref<const Vector3> binSize ) {
         CORE_ASSERT( binSize != Vector3::Zero(), "Volume bin size can't be zero." );
         m_binSize = binSize;
+        invalidateAabb();
     }
 
     /// Get the value of the given bin
@@ -149,6 +151,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
         if ( auto res = linearIndex( p ) )
         {
             addToBin( value, *res );
+            invalidateAabb();
             return true;
         }
         return false;

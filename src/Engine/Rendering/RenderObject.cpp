@@ -33,7 +33,10 @@ RenderObject::RenderObject( const std::string& name,
     m_lifetime {lifetime},
     m_hasLifetime {lifetime > 0} {}
 
-RenderObject::~RenderObject() = default;
+RenderObject::~RenderObject() {
+    if ( m_mesh )
+    { m_mesh->getAbstractGeometry().getAabbObservable().detach( m_aabbObserverIndex ); }
+}
 
 RenderObject* RenderObject::createRenderObject( const std::string& name,
                                                 Scene::Component* comp,
@@ -157,7 +160,17 @@ std::shared_ptr<Data::Material> RenderObject::getMaterial() {
 }
 
 void RenderObject::setMesh( std::shared_ptr<Data::Displayable> mesh ) {
+
+    if ( m_mesh )
+    { m_mesh->getAbstractGeometry().getAabbObservable().detach( m_aabbObserverIndex ); }
+
     m_mesh = mesh;
+    if ( m_mesh )
+    {
+        m_aabbObserverIndex = m_mesh->getAbstractGeometry().getAabbObservable().attach(
+            [this]() { this->invalidateAabb(); } );
+        invalidateAabb();
+    }
 }
 
 std::shared_ptr<const Data::Displayable> RenderObject::getMesh() const {
@@ -176,25 +189,40 @@ Core::Matrix4 RenderObject::getTransformAsMatrix() const {
     return getTransform().matrix();
 }
 
-Core::Aabb RenderObject::computeAabb() const {
-    auto aabb = m_mesh->getAbstractGeometry().computeAabb();
-    if ( aabb.isEmpty() ) { return aabb; }
-
-    Core::Aabb result;
-    for ( int i = 0; i < 8; ++i )
+Core::Aabb RenderObject::computeAabb() {
+    if ( !m_isAabbValid )
     {
-        result.extend( getTransform() * aabb.corner( Core::Aabb::CornerType( i ) ) );
+        auto aabb = m_mesh->getAbstractGeometry().computeAabb();
+        if ( !aabb.isEmpty() )
+        {
+
+            Core::Aabb result;
+            for ( int i = 0; i < 8; ++i )
+            {
+                result.extend( getTransform() * aabb.corner( Core::Aabb::CornerType( i ) ) );
+            }
+
+            m_aabb        = result;
+            m_isAabbValid = true;
+        }
+        else
+        {
+            m_aabb        = aabb;
+            m_isAabbValid = true;
+        }
     }
 
-    return result;
+    return m_aabb;
 }
 
 void RenderObject::setLocalTransform( const Core::Transform& transform ) {
     m_localTransform = transform;
+    invalidateAabb();
 }
 
 void RenderObject::setLocalTransform( const Core::Matrix4& transform ) {
     m_localTransform = Core::Transform( transform );
+    invalidateAabb();
 }
 
 const Core::Transform& RenderObject::getLocalTransform() const {
@@ -256,6 +284,11 @@ void RenderObject::render( const Data::RenderParameters& lightParams,
                 shader,
                 paramsProvider ? paramsProvider->getParameters() : Data::RenderParameters() );
     }
+}
+
+void RenderObject::invalidateAabb() {
+    m_isAabbValid = false;
+    m_component->invalidateAabb();
 }
 
 } // namespace Rendering

@@ -32,6 +32,8 @@ void Entity::addComponent( Component* component ) {
 
     RadiumEngine::getInstance()->getSignalManager()->fireComponentAdded(
         ItemEntry( this, component ) );
+
+    m_isAabbValid = false;
 }
 
 Component* Entity::getComponent( const std::string& name ) {
@@ -60,6 +62,8 @@ void Entity::removeComponent( const std::string& name ) {
 
     CORE_ASSERT( pos != m_components.end(), "Component not found in entity" );
     m_components.erase( pos );
+
+    m_isAabbValid = false;
 }
 
 void Entity::swapTransformBuffers() {
@@ -70,16 +74,26 @@ void Entity::swapTransformBuffers() {
     }
 }
 
-Core::Aabb Entity::computeAabb() const {
-
-    Core::Aabb aabb;
-
-    for ( const auto& component : m_components )
+Core::Aabb Entity::computeAabb() {
+    if ( !m_isAabbValid )
     {
-        // transform is applied in ro aabb computation ...
-        aabb.extend( component->computeAabb() );
+        Core::Aabb aabb;
+
+        for ( const auto& component : m_components )
+        {
+            // transform is applied in ro aabb computation ...
+            aabb.extend( component->computeAabb() );
+        }
+
+        m_aabb        = aabb;
+        m_isAabbValid = true;
     }
-    return aabb;
+
+    return m_aabb;
+}
+
+void Entity::invalidateAabb() {
+    m_isAabbValid = false;
 }
 
 } // namespace Scene

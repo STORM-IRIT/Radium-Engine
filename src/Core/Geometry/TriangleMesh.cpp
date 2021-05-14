@@ -18,6 +18,8 @@ bool AttribArrayGeometry::append( const AttribArrayGeometry& other ) {
         if ( attr->isVector4() ) this->append_attrib<Vector4>( attr );
     } );
 
+    invalidateAabb();
+
     return true;
 }
 
@@ -28,6 +30,8 @@ void AttribArrayGeometry::clearAttributes() {
     initDefaultAttribs();
     setVertices( v );
     setNormals( n );
+
+    invalidateAabb();
 }
 
 void AttribArrayGeometry::colorize( const Utils::Color& color ) {

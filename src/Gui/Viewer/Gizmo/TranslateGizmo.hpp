@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Engine/Scene/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Viewer/Gizmo/Gizmo.hpp>
 
 namespace Ra {
@@ -21,9 +22,8 @@ class TranslateGizmo : public Gizmo
                           const Core::Transform& t ) override;
     void selectConstraint( int drawableIndex ) override;
     bool isSelected() override { return m_selectedAxis != -1 || m_selectedPlane != -1; }
-    void setInitialState( const Engine::Scene::Camera& cam,
-                          const Core::Vector2& initialXY ) override;
-    Core::Transform mouseMove( const Engine::Scene::Camera& cam,
+    void setInitialState( const Core::Asset::Camera& cam, const Core::Vector2& initialXY ) override;
+    Core::Transform mouseMove( const Core::Asset::Camera& cam,
                                const Core::Vector2& nextXY,
                                bool stepped,
                                bool whole ) override;

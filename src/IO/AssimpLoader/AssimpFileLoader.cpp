@@ -7,6 +7,7 @@
 #include <assimp/scene.h>
 
 #include <IO/AssimpLoader/AssimpAnimationDataLoader.hpp>
+#include <IO/AssimpLoader/AssimpCameraDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpGeometryDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpHandleDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpLightDataLoader.hpp>
@@ -115,6 +116,8 @@ FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
         AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),
                                            fileData->isVerbose() );
         lightLoader.loadData( scene, fileData->m_lightData );
+        AssimpCameraDataLoader cameraLoader( fileData->isVerbose() );
+        cameraLoader.loadData( scene, fileData->m_cameraData );
     }
 
     fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );

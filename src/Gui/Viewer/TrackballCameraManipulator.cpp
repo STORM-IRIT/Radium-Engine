@@ -1,22 +1,24 @@
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
+#include <Core/Asset/Camera.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Utils/Log.hpp>
-#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 
 #include <Gui/Utils/KeyMappingManager.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <QApplication>
 #include <QMessageBox>
 #include <algorithm>
 #include <iostream>
 
 namespace Ra {
-namespace Gui {
 using Core::Math::Pi;
+using namespace Ra::Core::Utils;
+
+namespace Gui {
 
 using TrackballCameraMapping = KeyMappingManageable<TrackballCameraManipulator>;
 
@@ -32,9 +34,9 @@ KeyMappingCamera
         Gui::KeyMappingManager::getInstance()->getContext( "CameraContext" ) );
     if ( TrackballCameraMapping::getContext().isInvalid() )
     {
-        LOG( Ra::Core::Utils::logINFO )
+        LOG( logINFO )
             << "CameraContext not defined (maybe the configuration file do not contains it)";
-        LOG( Ra::Core::Utils::logERROR ) << "CameraContext all keymapping invalide !";
+        LOG( logERROR ) << "CameraContext all keymapping invalide !";
         return;
     }
 
@@ -45,8 +47,8 @@ KeyMappingCamera
 #undef KMA_VALUE
 }
 
-Gui::TrackballCameraManipulator::TrackballCameraManipulator( uint width, uint height ) :
-    CameraManipulator( width, height ),
+Gui::TrackballCameraManipulator::TrackballCameraManipulator() :
+    CameraManipulator(),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
@@ -72,6 +74,22 @@ void Gui::TrackballCameraManipulator::resetCamera() {
     m_target = Core::Vector3::Zero();
     m_camera->setDirection( Core::Vector3( 0_ra, 0_ra, -1_ra ) );
     m_distFromCenter = 2.0_ra;
+    updatePhiTheta();
+
+    if ( m_light != nullptr )
+    {
+        m_light->setPosition( m_camera->getPosition() );
+        m_light->setDirection( m_camera->getDirection() );
+    }
+
+    emit cameraChanged( m_camera->getPosition(), m_target );
+}
+
+void Gui::TrackballCameraManipulator::updateCamera() {
+    // try to keep target near the previous camera's one, take it at the same distance from camera,
+    // but in the new direction.
+    m_distFromCenter = ( m_target - m_camera->getPosition() ).norm();
+    m_target         = m_camera->getPosition() + m_distFromCenter * m_camera->getDirection();
     updatePhiTheta();
 
     if ( m_light != nullptr )
@@ -215,22 +233,6 @@ bool Gui::TrackballCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) 
     return false;
 }
 
-void Gui::TrackballCameraManipulator::setCamera( Engine::Scene::Camera* camera ) {
-    if ( !camera ) return;
-    camera->resize( m_camera->getWidth(), m_camera->getHeight() );
-    m_camera         = camera;
-    m_target         = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
-    m_distFromCenter = 2.0_ra;
-    updatePhiTheta();
-    m_camera->show( false );
-
-    if ( m_light != nullptr )
-    {
-        m_light->setPosition( m_camera->getPosition() );
-        m_light->setDirection( m_camera->getDirection() );
-    }
-}
-
 void Gui::TrackballCameraManipulator::setCameraPosition( const Core::Vector3& position ) {
     if ( position == m_target )
     {
@@ -238,12 +240,8 @@ void Gui::TrackballCameraManipulator::setCameraPosition( const Core::Vector3& po
         return;
     }
     m_camera->setPosition( position );
-    /*
-    m_camera->setDirection( (m_target - position).normalized() );
-    m_distFromCenter = (m_target - position).norm();
+    m_target = position + m_distFromCenter * m_camera->getDirection();
     updatePhiTheta();
-    */
-    m_target = position + m_distFromCenter * m_camera->getDirection().normalized();
 
     if ( m_light != nullptr )
     {
@@ -381,7 +379,7 @@ void Gui::TrackballCameraManipulator::handleCameraZoom( Scalar z ) {
 
 void Gui::TrackballCameraManipulator::updatePhiTheta() {
     using Core::Math::areApproxEqual;
-    const auto R = m_camera->getDirection().normalized();
+    const auto R = m_camera->getDirection();
 
     m_theta = std::acos( -R.y() );
 
@@ -405,14 +403,12 @@ bool Gui::TrackballCameraManipulator::checkIntegrity( const std::string& mess ) 
     Scalar d        = ( m_target - c ).norm();
     if ( d > 0.001_ra )
     {
-        LOG( Ra::Core::Utils::logWARNING )
-            << "TrackballCameraManipulator Integrity problem : " << mess;
-        LOG( Ra::Core::Utils::logWARNING ) << "\t Position " << m_camera->getPosition().transpose();
-        LOG( Ra::Core::Utils::logWARNING )
-            << "\t Direction " << m_camera->getDirection().transpose();
-        LOG( Ra::Core::Utils::logWARNING ) << "\t Target " << m_target.transpose();
-        LOG( Ra::Core::Utils::logWARNING ) << "\t Center " << c.transpose();
-        LOG( Ra::Core::Utils::logWARNING ) << "\t Distance " << d;
+        LOG( logWARNING ) << "TrackballCameraManipulator Integrity problem : " << mess;
+        LOG( logWARNING ) << "\t Position " << m_camera->getPosition().transpose();
+        LOG( logWARNING ) << "\t Direction " << m_camera->getDirection().transpose();
+        LOG( logWARNING ) << "\t Target " << m_target.transpose();
+        LOG( logWARNING ) << "\t Center " << c.transpose();
+        LOG( logWARNING ) << "\t Distance " << d;
     }
     return d < 0.001_ra;
 }
