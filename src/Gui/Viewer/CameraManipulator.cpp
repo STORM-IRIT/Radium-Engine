@@ -22,15 +22,7 @@ CameraManipulator::CameraManipulator( const CameraManipulator& other ) :
     m_camera( other.m_camera ),
     m_light( other.m_light ) {}
 
-CameraManipulator::CameraManipulator() :
-    m_cameraSensitivity( 1.0_ra ),
-    m_quickCameraModifier( 1._ra ),
-    m_wheelSpeedModifier( 0.02_ra ),
-    m_targetedAabbVolume( 0.0_ra ),
-    m_mapCameraBahaviourToAabb( false ),
-    m_target( 0_ra, 0_ra, 0_ra ),
-    m_camera( nullptr ),
-    m_light( nullptr ) {
+CameraManipulator::CameraManipulator() {
 
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );

@@ -17,6 +17,8 @@ class RA_GUI_API TrackballCameraManipulator
     friend class KeyMappingManageable<TrackballCameraManipulator>;
 
   public:
+    using TrackballCameraMapping = KeyMappingManageable<TrackballCameraManipulator>;
+
     /// Default constructor
     TrackballCameraManipulator();
 
@@ -38,7 +40,10 @@ class RA_GUI_API TrackballCameraManipulator
                                const Qt::MouseButtons& buttons,
                                const Qt::KeyboardModifiers& modifiers,
                                int key ) override;
-    bool handleWheelEvent( QWheelEvent* event ) override;
+    bool handleWheelEvent( QWheelEvent* event,
+                           const Qt::MouseButtons& buttons,
+                           const Qt::KeyboardModifiers& modifiers,
+                           int key ) override;
 
     bool handleKeyPressEvent( QKeyEvent* event,
                               const KeyMappingManager::KeyMappingAction& action ) override;
@@ -73,6 +78,8 @@ class RA_GUI_API TrackballCameraManipulator
     virtual void handleCameraPan( Scalar dx, Scalar dy );
     virtual void handleCameraZoom( Scalar dx, Scalar dy );
     virtual void handleCameraZoom( Scalar z );
+    virtual void handleCameraMoveForward( Scalar dx, Scalar dy );
+    virtual void handleCameraMoveForward( Scalar z );
 
     /// Update the polar coordinates of the Camera w.r.t. the trackball center.
     void updatePhiTheta();
@@ -94,21 +101,19 @@ class RA_GUI_API TrackballCameraManipulator
     Scalar m_distFromCenter {0_ra};
 
     /// Whether the corresponding camera movement is active or not.
-    bool m_rotateAround;
-    bool m_cameraRotateMode;
-    bool m_cameraPanMode;
-    bool m_cameraZoomMode;
+    Ra::Core::Utils::Index m_currentAction {};
 
   private:
     bool checkIntegrity( const std::string& mess ) const;
     static void configureKeyMapping_impl();
 
   protected:
-#define KeyMappingCamera                \
-    KMA_VALUE( TRACKBALLCAMERA_ROTATE ) \
-    KMA_VALUE( TRACKBALLCAMERA_PAN )    \
-    KMA_VALUE( TRACKBALLCAMERA_ZOOM )   \
-    KMA_VALUE( TRACKBALLCAMERA_ROTATE_AROUND )
+#define KeyMappingCamera                   \
+    KMA_VALUE( TRACKBALLCAMERA_ROTATE )    \
+    KMA_VALUE( TRACKBALLCAMERA_PAN )       \
+    KMA_VALUE( TRACKBALLCAMERA_ZOOM )      \
+    KMA_VALUE( TRACKBALLCAMERA_PROJ_MODE ) \
+    KMA_VALUE( TRACKBALLCAMERA_MOVE_FORWARD )
 
 #define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
     KeyMappingCamera

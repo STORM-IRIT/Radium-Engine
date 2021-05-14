@@ -775,7 +775,7 @@ void Viewer::handleWheelEvent( QWheelEvent* event ) {
         m_currentRenderer->setBrushRadius( m_brushRadius );
     }
     else
-    { m_camera->handleWheelEvent( event ); }
+    { m_camera->handleWheelEvent( event, buttons, modifiers, key ); }
 }
 
 Ra::Engine::Rendering::Renderer::PickingResult Viewer::pickAtPosition( Core::Vector2 position ) {

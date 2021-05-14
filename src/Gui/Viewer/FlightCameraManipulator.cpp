@@ -207,8 +207,11 @@ bool Gui::FlightCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event
     return true;
 }
 
-bool Gui::FlightCameraManipulator::handleWheelEvent( QWheelEvent* event ) {
-
+bool Gui::FlightCameraManipulator::handleWheelEvent( QWheelEvent* event,
+                                                     const Qt::MouseButtons& buttons,
+                                                     const Qt::KeyboardModifiers& modifiers,
+                                                     int key ) {
+    ///\todo use action.
     handleCameraZoom( ( event->angleDelta().y() + event->angleDelta().x() ) *
                       m_wheelSpeedModifier );
 

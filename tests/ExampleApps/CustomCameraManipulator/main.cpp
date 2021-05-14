@@ -32,21 +32,20 @@ class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
         m_lastMouseX = event->pos().x();
         m_lastMouseY = event->pos().y();
 
-        auto action = Ra::Gui::KeyMappingManager::getInstance()->getAction(
-            Ra::Gui::TrackballCameraManipulator::getContext(), buttons, modifiers, key, false );
+        m_currentAction = Ra::Gui::KeyMappingManager::getInstance()->getAction(
+            Ra::Gui::TrackballCameraManipulator::TrackballCameraMapping::getContext(),
+            buttons,
+            modifiers,
+            key,
+            false );
 
-        if ( action == TRACKBALLCAMERA_PAN )
+        // ignore rotate
+        if ( m_currentAction == TRACKBALLCAMERA_ROTATE )
         {
-            m_cameraPanMode = true;
-            handled         = true;
+            m_currentAction = Ra::Core::Utils::Index::Invalid();
+            return false;
         }
-        if ( action == TRACKBALLCAMERA_ZOOM )
-        {
-            m_cameraZoomMode = true;
-            handled          = true;
-        }
-
-        return handled;
+        return true;
     }
 };
 //! [extend trackball]
