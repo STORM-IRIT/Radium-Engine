@@ -72,7 +72,10 @@ class RA_GUI_API CameraManipulator : public QObject
                                        const Qt::KeyboardModifiers& modifiers,
                                        int key ) = 0;
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleWheelEvent( QWheelEvent* event ) = 0;
+    virtual bool handleWheelEvent( QWheelEvent* event,
+                                   const Qt::MouseButtons& buttons,
+                                   const Qt::KeyboardModifiers& modifiers,
+                                   int key ) = 0;
 
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleKeyPressEvent( QKeyEvent* event,
@@ -146,23 +149,23 @@ class RA_GUI_API CameraManipulator : public QObject
 
   protected:
     /// the Camera sensitivity to manipulation.
-    Scalar m_cameraSensitivity;
+    Scalar m_cameraSensitivity {1_ra};
     /// Additional factor for camera sensitivity.
-    Scalar m_quickCameraModifier;
+    Scalar m_quickCameraModifier {1_ra};
     /// Speed modifier on mouse wheel events.
-    Scalar m_wheelSpeedModifier;
+    Scalar m_wheelSpeedModifier {0.02_ra};
 
-    Core::Aabb m_targetedAabb;       ///< Camera behavior restriction AABB.
-    Scalar m_targetedAabbVolume;     ///< Volume of the m_targetedAabb
-    bool m_mapCameraBahaviourToAabb; ///< whether the camera is restrained or not
+    Core::Aabb m_targetedAabb;               ///< Camera behavior restriction AABB.
+    Scalar m_targetedAabbVolume {0_ra};      ///< Volume of the m_targetedAabb
+    bool m_mapCameraBahaviourToAabb {false}; ///< whether the camera is restrained or not
 
     /// Target point of the camera (usefull for most of the manipulator metaphor)
     /// Be aware that m_target must always be on the line of sight of the camera so that it
     /// could be used as a "focus" point by a manipulator.
-    Core::Vector3 m_target;
+    Core::Vector3 m_target {0_ra, 0_ra, 0_ra};
 
-    Core::Asset::Camera* m_camera; ///< The Camera.
-    Engine::Scene::Light* m_light; ///< The light attached to the Camera.
+    Core::Asset::Camera* m_camera {nullptr}; ///< The Camera.
+    Engine::Scene::Light* m_light {nullptr}; ///< The light attached to the Camera.
 };
 
 } // namespace Gui
