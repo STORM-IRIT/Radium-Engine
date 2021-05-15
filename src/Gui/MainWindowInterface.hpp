@@ -3,6 +3,7 @@
 #include <Gui/RaGui.hpp>
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <memory>
 
 namespace Ra {
@@ -61,6 +62,12 @@ class RA_GUI_API MainWindowInterface : public QMainWindow
 
     /// Cleanup resources.
     virtual void cleanup() = 0;
+
+    virtual void displayHelpDialog() {
+        QMessageBox helpMsg;
+        helpMsg.setText( "No help for this application yet !" );
+        helpMsg.exec();
+    }
 
   signals:
     /// Emitted when the closed button has been hit.
