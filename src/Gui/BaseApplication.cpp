@@ -289,6 +289,10 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
         aboutDiag->setModal( false );
         mainMenu->addAction( "About", aboutDiag, &QDialog::show );
         connect( aboutDiag, &AboutDialog::settings, this, &BaseApplication::editSettings );
+        connect( aboutDiag,
+                 &AboutDialog::help,
+                 m_mainWindow.get(),
+                 &MainWindowInterface::displayHelpDialog );
     }
 
     // processEvents();
