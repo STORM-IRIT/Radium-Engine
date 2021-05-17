@@ -67,13 +67,20 @@ class RA_CORE_API Camera
     Core::Ray getRayFromScreen( const Core::Vector2& pix ) const;
 
     /// Return the screen coordinates + depth of the given point p (in world coordinates).
-    Core::Vector3 project( const Core::Vector3& p ) const;
+    Core::Vector3 projectToScreen( const Core::Vector3& p ) const;
+
+    /// return NDC cordinate in the view NDC cube [-1,1]^3
+    Core::Vector3 projectToNDC( const Core::Vector3& p ) const;
 
     /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
-    Core::Vector3 unProject( const Core::Vector2& pix ) const;
+    /// use z = 0 (near plane)
+    Core::Vector3 unProjectFromScreen( const Core::Vector2& pix ) const;
     /// Return the 3D point in world space corresponding to screen pixels pix.x(), pix.y(), at depth
     /// pix.z()
-    Core::Vector3 unProject( const Core::Vector3& pix ) const;
+    /// x and y are in pixel coordinates (from (0,0) to width,height, z is in 0, 1 (0 near, 1 far
+    /// plane)
+    Core::Vector3 unProjectFromScreen( const Core::Vector3& pix ) const;
+    Core::Vector3 unProjectFromNDC( const Core::Vector3& pix ) const;
 
     //
     // Getters and setters for projection matrix parameters.
