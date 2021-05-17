@@ -13,6 +13,7 @@ namespace Scene {
 class Entity;
 
 /// A Camera is an Engine Component storing a Camera object.
+///\todo attached camera do not take entity's transformation into account ...
 class RA_ENGINE_API CameraComponent : public Scene::Component
 {
   public:
