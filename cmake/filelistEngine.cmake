@@ -117,6 +117,7 @@ set( engine_inlines
     Data/SimpleMaterial.inl
     Data/VolumeObject.inl
     Data/VolumetricMaterial.inl
+    Rendering/Renderer.inl
     Rendering/RenderTechnique.inl
     Scene/CameraComponent.inl
     Scene/Component.inl

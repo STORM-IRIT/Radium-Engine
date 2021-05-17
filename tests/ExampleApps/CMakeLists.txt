@@ -10,6 +10,7 @@ add_custom_target(${PROJECT_NAME})
 set(RADIUM_ROOT_DIR "${CMAKE_INSTALL_PREFIX}/")
 set(RADIUM_RESOURCES_DIR "${CMAKE_INSTALL_PREFIX}/Resources/Radium")
 set(RADIUM_PLUGINS_DIR "${CMAKE_INSTALL_PREFIX}/Plugins")
+set(IN_RADIUM_BUILD_TREE TRUE)
 
 if (MSVC OR MSVC_IDE OR MINGW)
     # must find the Qt installation directory. This will be set by RadiumConfig.cmake after install
@@ -105,3 +106,5 @@ add_dependencies(${PROJECT_NAME} CustomCameraManipulator)
 message(STATUS "Installing CustomCameraManipulator into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME CustomCameraManipulator)
 #endif ()
+
+add_subdirectory(PickingDemoApp)
