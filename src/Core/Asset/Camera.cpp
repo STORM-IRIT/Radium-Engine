@@ -202,15 +202,16 @@ Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
 }
 
 Core::Vector3 Camera::unProject( const Core::Vector3& pix ) const {
-    const Scalar localX = ( 2_ra * pix.x() ) / getWidth() - 1_ra;
-    // Y is "inverted" (goes downwards)
-    const Scalar localY = -( 2_ra * pix.y() ) / getHeight() + 1_ra;
+    Core::Vector3 localPoint {pix.cwiseProduct( Core::Vector3( 2_ra, -2_ra, 2_ra ) )
+                                  .cwiseQuotient( Core::Vector3( getWidth(), getHeight(), 1_ra ) ) +
+                              Core::Vector3 {-1_ra, 1_ra, -1_ra}};
 
     // Multiply the point in screen space by the inverted projection matrix
     // and then by the inverted view matrix ( = m_frame) to get it in world space.
     // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
-    const Core::Vector4 localPoint( localX, localY, pix.z(), 1_ra );
-    const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint;
+    Core::Vector4 localPoint4;
+    localPoint4 << localPoint, 1_ra;
+    const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint4;
     return getFrame() * ( unproj.head<3>() / unproj.w() );
 }
 
