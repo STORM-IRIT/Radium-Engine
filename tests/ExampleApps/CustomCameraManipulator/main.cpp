@@ -28,7 +28,6 @@ class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
                                        const Qt::MouseButtons& buttons,
                                        const Qt::KeyboardModifiers& modifiers,
                                        int key ) {
-        bool handled = false;
         m_lastMouseX = event->pos().x();
         m_lastMouseY = event->pos().y();
 
@@ -41,11 +40,9 @@ class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
 
         // ignore rotate
         if ( m_currentAction == TRACKBALLCAMERA_ROTATE )
-        {
-            m_currentAction = Ra::Core::Utils::Index::Invalid();
-            return false;
-        }
-        return true;
+        { m_currentAction = Ra::Core::Utils::Index::Invalid(); }
+
+        return m_currentAction.isValid();
     }
 };
 //! [extend trackball]
