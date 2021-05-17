@@ -31,18 +31,6 @@ CameraManipulator::CameraManipulator() {
 
 CameraManipulator::~CameraManipulator() {}
 
-void CameraManipulator::resizeViewport( uint width, uint height ) {
-    m_camera->setViewport( Scalar( width ), Scalar( height ) );
-}
-
-Core::Matrix4 CameraManipulator::getProjMatrix() const {
-    return m_camera->getProjMatrix();
-}
-
-Core::Matrix4 CameraManipulator::getViewMatrix() const {
-    return m_camera->getViewMatrix();
-}
-
 void CameraManipulator::setCameraSensitivity( Scalar sensitivity ) {
     m_cameraSensitivity = sensitivity;
 }

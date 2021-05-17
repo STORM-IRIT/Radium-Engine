@@ -359,7 +359,7 @@ bool Viewer::changeRenderer( int index ) {
         LOG( logINFO ) << "[Viewer] Set active renderer: " << m_currentRenderer->getRendererName();
 
         // resize camera viewport since the one in show event might have 0x0
-        m_camera->resizeViewport( width(), height() );
+        m_camera->getCamera()->setViewport( width(), height() );
 
         doneCurrent();
         emit rendererReady();
@@ -421,16 +421,6 @@ void Viewer::initializeRenderer( Engine::Rendering::Renderer* renderer ) {
 #endif
     renderer->initialize( width(), height() );
     renderer->setBackgroundColor( m_backgroundColor );
-    // resize camera viewport since it might be 0x0
-    // Why this line ?TODO -- Move this at the right place
-    // m_camera->resizeViewport( width(), height() );
-    // do this only when the renderer has something to render and that there is no lights
-    /*
-    if ( m_camera->hasLightAttached() )
-    {
-        renderer->addLight( m_camera->getLight() );
-    }
-    */
     renderer->lockRendering();
 }
 
@@ -590,9 +580,8 @@ void Viewer::wheelEvent( QWheelEvent* event ) {
 
 void Viewer::showEvent( QShowEvent* ev ) {
     WindowQt::showEvent( ev );
-    /// \todo remove this commented code when camera init in ctr is tested on other arch.
 
-    m_camera->resizeViewport( width(), height() );
+    m_camera->getCamera()->setViewport( width(), height() );
 
     emit needUpdate();
 }

@@ -44,18 +44,6 @@ class RA_GUI_API CameraManipulator : public QObject
     /// associated Camera.
     virtual ~CameraManipulator();
 
-    /// Resize the camera viewport.
-    [[deprecated( "use getCamera()->setViewport() instead" )]] void resizeViewport( uint width,
-                                                                                    uint height );
-
-    /// @return the projection matrix of the manipulated camera.
-    [[deprecated( "use getCamera()->getProjMatrix() instead" )]] Core::Matrix4
-    getProjMatrix() const;
-
-    /// @return the view matrix of the manipulated camera.
-    [[deprecated( "use getCamera()->getViewMatrix() instead" )]] Core::Matrix4
-    getViewMatrix() const;
-
     /// @return the mapping context for keymapping, nullptr if no mapping is available
     virtual KeyMappingManager::Context mappingContext();
 

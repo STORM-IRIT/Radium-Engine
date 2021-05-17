@@ -71,27 +71,12 @@ void CameraComponent::show( bool on ) {
     m_RO->setVisible( on );
 }
 
-void CameraComponent::applyTransform( const Core::Transform& T ) {
-    CORE_ASSERT( m_RO, "Camera's render object must be initialize with Camera::intialize()" );
-    m_camera->applyTransform( T );
-    m_RO->setLocalTransform( m_camera->getFrame() );
-}
-
 void CameraComponent::updateTransform() {
     CORE_ASSERT( m_RO, "Camera's render object must be initialize with Camera::intialize()" );
     m_RO->setLocalTransform( m_camera->getFrame() *
                              Eigen::Scaling( 1_ra,
                                              1_ra / m_camera->getAspect(),
                                              .5_ra / std::tan( m_camera->getFOV() * .5_ra ) ) );
-}
-
-void CameraComponent::updateProjMatrix() {
-    m_camera->updateProjMatrix();
-}
-
-Core::Ray CameraComponent::getRayFromScreen( const Core::Vector2& pix ) const {
-    // Ray starts from the camera's current position.
-    return m_camera->getRayFromScreen( pix );
 }
 
 CameraComponent* CameraComponent::duplicate( Entity* cloneEntity,
@@ -107,10 +92,6 @@ CameraComponent* CameraComponent::duplicate( Entity* cloneEntity,
     cam->getCamera()->setZFar( m_camera->getZFar() );
     cam->initialize();
     return cam;
-}
-
-void CameraComponent::fitZRange( const Core::Aabb& aabb ) {
-    m_camera->fitZRange( aabb );
 }
 
 } // namespace Scene
