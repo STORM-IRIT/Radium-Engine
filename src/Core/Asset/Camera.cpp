@@ -184,37 +184,41 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
 
 Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     // Ray starts from the camera's current position.
-    return Core::Ray::Through( getPosition(), unProject( pix ) );
+    return Core::Ray::Through( getPosition(), unProjectFromScreen( pix ) );
 }
 
-Core::Vector3 Camera::project( const Core::Vector3& p ) const {
+Core::Vector3 Camera::projectToNDC( const Core::Vector3& p ) const {
     Core::Vector4 point   = Core::Vector4::Ones();
     point.head<3>()       = p;
     Core::Vector4 vpPoint = getProjMatrix() * getViewMatrix() * point;
     vpPoint               = vpPoint / vpPoint.w();
+    return vpPoint.head<3>();
+}
+
+Core::Vector3 Camera::projectToScreen( const Core::Vector3& p ) const {
+    Core::Vector3 vpPoint = projectToNDC( p );
     return Core::Vector3( getWidth() * 0.5_ra * ( 1_ra + vpPoint.x() ),
                           getHeight() * 0.5_ra * ( 1_ra - vpPoint.y() ),
-                          vpPoint.z() );
+                          vpPoint.z() * .5_ra + .5_ra );
 }
 
-Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
-    return unProject( Vector3 {pix.x(), pix.y(), -getZNear()} );
+Core::Vector3 Camera::unProjectFromScreen( const Core::Vector2& pix ) const {
+    return unProjectFromScreen( Vector3 {pix.x(), pix.y(), 0_ra} );
 }
 
-Core::Vector3 Camera::unProject( const Core::Vector3& pix ) const {
-    Core::Vector3 localPoint {pix.cwiseProduct( Core::Vector3( 2_ra, -2_ra, 2_ra ) )
-                                  .cwiseQuotient( Core::Vector3( getWidth(), getHeight(), 1_ra ) ) +
-                              Core::Vector3 {-1_ra, 1_ra, -1_ra}};
+Core::Vector3 Camera::unProjectFromScreen( const Core::Vector3& pix ) const {
+    Core::Vector3 ndc {pix.cwiseProduct( Core::Vector3( 2_ra, -2_ra, 2_ra ) )
+                           .cwiseQuotient( Core::Vector3( getWidth(), getHeight(), 1_ra ) ) +
+                       Core::Vector3 {-1_ra, 1_ra, -1_ra}};
+    return unProjectFromNDC( ndc );
+}
 
-    // Multiply the point in screen space by the inverted projection matrix
-    // and then by the inverted view matrix ( = m_frame) to get it in world space.
-    // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
+Core::Vector3 Camera::unProjectFromNDC( const Core::Vector3& ndc ) const {
     Core::Vector4 localPoint4;
-    localPoint4 << localPoint, 1_ra;
+    localPoint4 << ndc, 1_ra;
     const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint4;
     return getFrame() * ( unproj.head<3>() / unproj.w() );
 }
-
 } // namespace Asset
 } // namespace Core
 } // namespace Ra

@@ -145,9 +145,9 @@ Core::Transform RotateGizmo::mouseMove( const Core::Asset::Camera& cam,
     else
     {
         // Rotation plane is orthogonal to the image plane
-        Core::Vector2 dir =
-            ( cam.project( originW + rotationAxisW ).head<2>() - cam.project( originW ).head<2>() )
-                .normalized();
+        Core::Vector2 dir = ( cam.projectToScreen( originW + rotationAxisW ).head<2>() -
+                              cam.projectToScreen( originW ).head<2>() )
+                                .normalized();
         if ( std::abs( dir( 0 ) ) < 1e-3_ra ) { dir << 1, 0; }
         else if ( std::abs( dir( 1 ) ) < 1e-3_ra )
         { dir << 0, 1; }

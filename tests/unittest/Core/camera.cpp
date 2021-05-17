@@ -9,23 +9,31 @@ using namespace Ra::Core::Utils;
 using namespace Ra::Core::Asset;
 
 void testProjectUnproject( const Camera& cam, const Vector3& x, const Vector2& ref ) {
-    Vector3 p = cam.project( x );
+    std::cout << "x" << x.transpose() << " ref " << ref.transpose() << "\n";
+    Vector3 p = cam.projectToScreen( x );
+    std::cout << "p " << p.transpose() << "\n";
     if ( ref.head<2>().norm() > 0_ra )
         REQUIRE( p.head<2>().isApprox( ref ) );
     else
         REQUIRE( Math::areApproxEqual( p.head<2>().norm(), 0_ra ) );
 
-    Vector3 q = cam.unProject( p );
+    Vector3 q = cam.unProjectFromScreen( p );
+    std::cout << "q " << q.transpose() << "\n";
     if ( x.norm() > 0_ra )
         REQUIRE( q.isApprox( x ) );
     else
         REQUIRE( Math::areApproxEqual( q.norm(), 0_ra ) );
 
-    Vector3 r    = cam.unProject( Vector2 {p.head<2>()} );
+    Vector3 r = cam.unProjectFromScreen( Vector2 {p.head<2>()} );
+    std::cout << "r " << r.transpose() << "\n";
+
     Vector3 rRef = ( x - cam.getPosition() );
+    std::cout << "rref " << rRef.transpose() << "\n";
+
     Scalar ratio = cam.getZNear() / cam.getDirection().dot( rRef );
     rRef *= ratio;
     rRef += cam.getPosition();
+    std::cout << "rref " << rRef.transpose() << "\n";
     if ( rRef.norm() > 0_ra )
         REQUIRE( r.isApprox( rRef ) );
     else
