@@ -58,11 +58,12 @@ void CameraComponent::initialize() {
                                                         Rendering::RenderObjectType::Geometry,
                                                         m,
                                                         Rendering::RenderTechnique {} );
+
     m_RO->setLocalTransform( m_camera->getFrame() );
 
     m_RO->setMaterial( mat );
     show( false );
-    m_RO->setPickable( false );
+    m_RO->setPickable( true );
     addRenderObject( m_RO );
 }
 
