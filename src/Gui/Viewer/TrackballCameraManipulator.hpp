@@ -100,9 +100,6 @@ class RA_GUI_API TrackballCameraManipulator
     /// The distance from the camera to the trackball center.
     Scalar m_distFromCenter {0_ra};
 
-    /// Whether the corresponding camera movement is active or not.
-    Ra::Core::Utils::Index m_currentAction {};
-
   private:
     bool checkIntegrity( const std::string& mess ) const;
     static void configureKeyMapping_impl();

@@ -163,7 +163,7 @@ bool Gui::TrackballCameraManipulator::handleMouseMoveEvent(
 }
 
 bool Gui::TrackballCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
-    m_currentAction       = Ra::Core::Utils::Index::Invalid();
+    m_currentAction       = KeyMappingManager::KeyMappingAction::Invalid();
     m_quickCameraModifier = 1.0_ra;
     return true;
 }
@@ -174,10 +174,22 @@ bool Gui::TrackballCameraManipulator::handleWheelEvent( QWheelEvent* event,
                                                         int key
 
 ) {
-    ///\todo use action
-    handleCameraMoveForward(
-        ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
-        m_wheelSpeedModifier );
+    auto action = KeyMappingManager::getInstance()->getAction(
+        TrackballCameraMapping::getContext(), buttons, modifiers, key, true );
+
+    if ( action == TRACKBALLCAMERA_MOVE_FORWARD )
+    {
+        handleCameraMoveForward(
+            ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
+            m_wheelSpeedModifier );
+        emit cameraPositionChanged( m_camera->getPosition() );
+    }
+    else if ( action == TRACKBALLCAMERA_ZOOM )
+    {
+        handleCameraZoom(
+            ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
+            m_wheelSpeedModifier );
+    }
 
     if ( m_light != nullptr )
     {
@@ -185,9 +197,7 @@ bool Gui::TrackballCameraManipulator::handleWheelEvent( QWheelEvent* event,
         m_light->setDirection( m_camera->getDirection() );
     }
 
-    emit cameraPositionChanged( m_camera->getPosition() );
-
-    return true;
+    return action.isValid();
 }
 
 bool Gui::TrackballCameraManipulator::handleKeyPressEvent(
