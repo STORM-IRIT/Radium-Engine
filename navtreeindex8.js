@@ -1,5 +1,7 @@
 var NAVTREEINDEX8 =
 {
+"classRa_1_1Core_1_1Asset_1_1HandleData.html#a4f4461ac9833720406c058c63020618f":[9,0,2,0,2,11,2],
+"classRa_1_1Core_1_1Asset_1_1HandleData.html#a583661ca8646175c80bd0964f23abf07":[9,0,2,0,2,11,32],
 "classRa_1_1Core_1_1Asset_1_1HandleData.html#a5bf652ad1ce4e91fd672ca37096c7cef":[9,0,2,0,2,11,15],
 "classRa_1_1Core_1_1Asset_1_1HandleData.html#a62b172f75cd5860336cee073192845f6":[9,0,2,0,2,11,30],
 "classRa_1_1Core_1_1Asset_1_1HandleData.html#a75d567bdf4d00e604483ab40ab753e42":[9,0,2,0,2,11,7],
@@ -247,7 +249,5 @@ var NAVTREEINDEX8 =
 "classRa_1_1Core_1_1Geometry_1_1Line.html#a6fae0729472a379f0c7cdd6667cbc482":[9,0,2,0,4,12,5],
 "classRa_1_1Core_1_1Geometry_1_1Line.html#a8267678069b2097b3fd9bd081f194e96":[9,0,2,0,4,12,6],
 "classRa_1_1Core_1_1Geometry_1_1Line.html#ab45bbbc0a677de4d361204312e9ae968":[9,0,2,0,4,12,0],
-"classRa_1_1Core_1_1Geometry_1_1Line.html#add3a2c9b08694c0e21d84331f434ef34":[9,0,2,0,4,12,4],
-"classRa_1_1Core_1_1Geometry_1_1LineMesh.html":[9,0,2,0,4,13],
-"classRa_1_1Core_1_1Geometry_1_1LineStrip.html":[9,0,2,0,4,14]
+"classRa_1_1Core_1_1Geometry_1_1Line.html#add3a2c9b08694c0e21d84331f434ef34":[9,0,2,0,4,12,4]
 };

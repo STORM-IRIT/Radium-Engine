@@ -13,8 +13,9 @@ var dir_6b51c25a1fae8ca1123814c12a4ebb69 =
       [ "Renderer", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html", "classRa_1_1Engine_1_1Rendering_1_1Renderer" ],
       [ "TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData" ],
       [ "PickingQuery", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery" ],
-      [ "PickingResult", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult" ]
+      [ "PickingResult", "classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html", "classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult" ]
     ] ],
+    [ "Renderer.inl", "Renderer_8inl.html", null ],
     [ "RenderObject.cpp", "RenderObject_8cpp.html", null ],
     [ "RenderObject.hpp", "RenderObject_8hpp.html", [
       [ "RenderObject", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html", "classRa_1_1Engine_1_1Rendering_1_1RenderObject" ]

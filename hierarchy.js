@@ -259,7 +259,7 @@ var hierarchy =
     ] ],
     [ "Ra::Gui::PickingManager", "classRa_1_1Gui_1_1PickingManager.html", null ],
     [ "Ra::Engine::Rendering::Renderer::PickingQuery", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html", null ],
-    [ "Ra::Engine::Rendering::Renderer::PickingResult", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html", null ],
+    [ "Ra::Engine::Rendering::Renderer::PickingResult", "classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html", null ],
     [ "Ra::Core::Asset::LightData::PointLight", "structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html", null ],
     [ "Ra::Core::Geometry::PointToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput.html", null ],
     [ "Ra::Core::Geometry::PolyLine", "classRa_1_1Core_1_1Geometry_1_1PolyLine.html", null ],
@@ -373,8 +373,8 @@ var hierarchy =
     [ "Ra::Engine::Data::Texture", "classRa_1_1Engine_1_1Data_1_1Texture.html", null ],
     [ "Ra::Engine::Data::TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html", null ],
     [ "Ra::Engine::Data::TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", null ],
-    [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
     [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
+    [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
     [ "Ra::Gui::TransformEditor", "classRa_1_1Gui_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],

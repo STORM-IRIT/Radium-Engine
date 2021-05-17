@@ -1,5 +1,17 @@
 var NAVTREEINDEX20 =
 {
+"namespacemembers_z.html":[8,1,0,22],
+"namespaces.html":[8,0],
+"pages.html":[],
+"pluginSystem.html":[3,2],
+"pluginSystem.html#autotoc_md38":[3,2,0],
+"pluginSystem.html#autotoc_md39":[3,2,1],
+"pluginSystem.html#autotoc_md40":[3,2,2],
+"pluginSystem.html#autotoc_md41":[3,2,3],
+"pluginSystem.html#autotoc_md42":[3,2,4],
+"qt__utils_8hpp.html":[10,0,3,2,7,6],
+"qt__utils_8hpp.html#a65fbfc2c434ebd9f8c61f5c26cf67d6e":[10,0,3,2,7,6,0],
+"qt__utils_8hpp_source.html":[10,0,3,2,7,6],
 "structOpenMesh_1_1vector__traits_3_01Ra_1_1Core_1_1Vector3_01_4.html":[9,0,1,0],
 "structOpenMesh_1_1vector__traits_3_01Ra_1_1Core_1_1Vector3_01_4.html#a4daa619fbe284c433b5408300395597a":[9,0,1,0,1],
 "structOpenMesh_1_1vector__traits_3_01Ra_1_1Core_1_1Vector3_01_4.html#a88a2bb61748b4828949a49834a857728":[9,0,1,0,2],
@@ -199,12 +211,6 @@ var NAVTREEINDEX20 =
 "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html#a4c76e046246980d17f031df0d8e5c15d":[9,0,2,1,1,4,0,0],
 "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html#a836c5fc5055765f241a6c029fee4fbfc":[9,0,2,1,1,4,0,1],
 "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html#aea5883a46558474b9032da92160b1a68":[9,0,2,1,1,4,0,2],
-"structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html":[9,0,2,1,1,4,1],
-"structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a1962880eb04ec89d77b2f9dc1b1c08ff":[9,0,2,1,1,4,1,0],
-"structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a3cb58786d6f92891d579f7ea790348b6":[9,0,2,1,1,4,1,2],
-"structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a3e216350154b0366ccb074c6ff46cf44":[9,0,2,1,1,4,1,4],
-"structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a72139bc2b6f4cff4ebfc65e6d6533b47":[9,0,2,1,1,4,1,3],
-"structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#afd8672f3d37f56195fe11e7fe51c8872":[9,0,2,1,1,4,1,1],
 "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html":[9,0,2,1,1,4,2],
 "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html#a2d1c4409955e860f55f6acc9b4ae4eef":[9,0,2,1,1,4,2,5],
 "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html#a374db824383cb9e4d480b7905a9e1d62":[9,0,2,1,1,4,2,1],
@@ -243,11 +249,5 @@ var NAVTREEINDEX20 =
 "structRa_1_1FrameTimerData.html":[9,0,2,5],
 "structRa_1_1FrameTimerData.html#a14e57c08253004ab500702946340be10":[9,0,2,5,7],
 "structRa_1_1FrameTimerData.html#a5ec2bafbc1d43e2161124b23ab19a1f6":[9,0,2,5,3],
-"structRa_1_1FrameTimerData.html#a83507e419f57b18c91e0367c6d4eb737":[9,0,2,5,0],
-"structRa_1_1FrameTimerData.html#aa2feff72ada664c2aca7f1c24b03bad4":[9,0,2,5,4],
-"structRa_1_1FrameTimerData.html#ac68bb5a6a090d353a60f556122fd4f95":[9,0,2,5,2],
-"structRa_1_1FrameTimerData.html#add27c93a693a20130d60fe02d625afa8":[9,0,2,5,6],
-"structRa_1_1FrameTimerData.html#ae429147877c2e044cc1f349a0a23856d":[9,0,2,5,1],
-"structRa_1_1FrameTimerData.html#af2e3864dbbedbe09a6fd0d60a09813a1":[9,0,2,5,5],
-"structRa_1_1IO_1_1memory__buffer.html":[9,0,2,3,8]
+"structRa_1_1FrameTimerData.html#a83507e419f57b18c91e0367c6d4eb737":[9,0,2,5,0]
 };

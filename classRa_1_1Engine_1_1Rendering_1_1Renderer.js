@@ -1,7 +1,7 @@
 var classRa_1_1Engine_1_1Rendering_1_1Renderer =
 [
     [ "PickingQuery", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery" ],
-    [ "PickingResult", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult" ],
+    [ "PickingResult", "classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html", "classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult" ],
     [ "TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData" ],
     [ "RenderObjectPtr", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2dbcea680a2cabb126009ce2ffa3fbe1", null ],
     [ "PickingMode", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6be", [
@@ -31,12 +31,12 @@ var classRa_1_1Engine_1_1Rendering_1_1Renderer =
     [ "enablePostProcess", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a4087e3192218b75f636bbf11d35f502f", null ],
     [ "enableWireframe", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afd08b8b069d8bba3b3466194e2a46117", null ],
     [ "getAvailableTextures", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a90e11eaba8790aa87c4f5fd82fcd3477", null ],
-    [ "getBackgroundColor", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#aec11e13c6ce043eb41983c06bee251e4", null ],
-    [ "getDisplayTexture", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a49c038d3c08bee290ece716f74792001", null ],
-    [ "getPickingQueries", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a3eee37a36db24e7c154e7756d296a1db", null ],
-    [ "getPickingResults", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1deb18151eac57cbac857a29c13ab171", null ],
+    [ "getBackgroundColor", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a0af66834741d66766806023bed90200b", null ],
+    [ "getDisplayTexture", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6d0b36b4cca4646de24d1691d929d6c0", null ],
+    [ "getPickingQueries", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac42e4205ffd8ebb7aa736b78da26dae1", null ],
+    [ "getPickingResults", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab8bd7377df698283d3f916cb53d90be5", null ],
     [ "getRendererName", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a305a4ebf52a2d2642245155eab3099dc", null ],
-    [ "getTimerData", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2b0027960e5b4a51ca7e4bffbadd9e50", null ],
+    [ "getTimerData", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1aa09e5b99011891aa0c5b6e0d8ed808", null ],
     [ "grabFrame", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a91618e8af83863c37d30cc5274ad60c7", null ],
     [ "hasLight", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a4bce4a0e7b0c92d787bfbc4f3589c973", null ],
     [ "initialize", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1937407357a05fef64bd1f0bafa50492", null ],
