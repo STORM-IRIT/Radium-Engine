@@ -79,7 +79,8 @@ void Camera::updateProjMatrix() {
     break;
 
     case ProjType::PERSPECTIVE: {
-        m_projMatrix = perspective( m_aspect, m_zoomFactor * m_fov, m_zNear, m_zFar );
+        Scalar fov   = std::clamp( m_zoomFactor * m_fov, 0.001_ra, Math::Pi - 0.1_ra );
+        m_projMatrix = perspective( m_aspect, fov, m_zNear, m_zFar );
     }
     break;
 
