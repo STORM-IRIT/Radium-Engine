@@ -186,16 +186,15 @@ void Renderer::initialize( uint width, uint height ) {
 Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
                                                 const Data::ViewingParameters& renderData ) {
     CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
-
-    PickingResult result;
-
     // skip query if out of window (can occur when picking while moving outside)
     if ( query.m_screenCoords.x() < 0 || query.m_screenCoords.x() > m_width - 1 ||
          query.m_screenCoords.y() < 0 || query.m_screenCoords.y() > m_height - 1 )
     {
-        result.m_roIdx = -1;
-        return result;
+        // return empty result
+        return {};
     }
+
+    PickingResult result;
 
     std::lock_guard<std::mutex> renderLock( m_renderMutex );
     CORE_UNUSED( renderLock );
@@ -219,12 +218,9 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
 
     GL_ASSERT( glReadPixels(
         query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
-    result.m_roIdx = pick[0];                    // RO idx
-    result.m_vertexIdx.emplace_back( pick[1] );  // vertex idx in the element
-    result.m_elementIdx.emplace_back( pick[2] ); // element idx
-    result.m_edgeIdx.emplace_back( pick[3] );    // edge opposite idx for triangles
-
-    result.m_mode = query.m_mode;
+    result.setRoIdx( pick[0] ); // RO idx
+    result.addIndex( {pick[2], pick[1], pick[3]} );
+    result.setMode( query.m_mode );
 
     m_pickingFbo->unbind();
 
@@ -437,8 +433,8 @@ void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
             if ( query.m_screenCoords.x() < 0 || query.m_screenCoords.x() > m_width - 1 ||
                  query.m_screenCoords.y() < 0 || query.m_screenCoords.y() > m_height - 1 )
             {
-                result.m_roIdx = -1;
-                m_pickingResults.push_back( result );
+                // this qurey has an empty result
+                m_pickingResults.push_back( {} );
                 continue;
             }
             GL_ASSERT( glReadPixels( query.m_screenCoords.x(),
@@ -448,10 +444,8 @@ void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
                                      GL_RGBA_INTEGER,
                                      GL_INT,
                                      pick ) );
-            result.m_roIdx = pick[0];                    // RO idx
-            result.m_vertexIdx.emplace_back( pick[1] );  // vertex idx in the element
-            result.m_elementIdx.emplace_back( pick[2] ); // element idx
-            result.m_edgeIdx.emplace_back( pick[3] );    // edge opposite idx for triangles
+            result.setRoIdx( pick[0] ); // RO idx
+            result.addIndex( {pick[2], pick[1], pick[3]} );
         }
         else
         {
@@ -469,10 +463,8 @@ void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
                     if ( x < 0 || x > int( m_width ) - 1 || y < 0 || y > int( m_height ) - 1 )
                     { continue; }
                     GL_ASSERT( glReadPixels( x, y, 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
-                    resultPerRO[pick[0]].m_roIdx = pick[0];
-                    resultPerRO[pick[0]].m_vertexIdx.emplace_back( pick[1] );
-                    resultPerRO[pick[0]].m_elementIdx.emplace_back( pick[2] );
-                    resultPerRO[pick[0]].m_edgeIdx.emplace_back( pick[3] );
+                    resultPerRO[pick[0]].setRoIdx( pick[0] );
+                    resultPerRO[pick[0]].addIndex( {pick[2], pick[1], pick[3]} );
                 }
             }
 
@@ -481,11 +473,11 @@ void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
                 resultPerRO.end(),
                 []( const std::map<int, PickingResult>::value_type& a,
                     const std::map<int, PickingResult>::value_type& b ) -> bool {
-                    return a.second.m_vertexIdx.size() < b.second.m_vertexIdx.size();
+                    return a.second.getIndices().size() < b.second.getIndices().size();
                 } );
             result = itr->second;
         }
-        result.m_mode = query.m_mode;
+        result.setMode( query.m_mode );
         m_pickingResults.push_back( result );
     }
 
