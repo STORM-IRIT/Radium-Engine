@@ -144,21 +144,8 @@ bool Gui::FlightCameraManipulator::handleMousePressEvent( QMouseEvent* event,
     auto action = KeyMappingManager::getInstance()->getAction(
         FlightCameraKeyMapping::getContext(), buttons, modifiers, key, false );
 
-    if ( action == FLIGHTMODECAMERA_ROTATE )
-    {
-        m_cameraRotateMode = true;
-        handled            = true;
-    }
-    if ( action == FLIGHTMODECAMERA_PAN )
-    {
-        m_cameraPanMode = true;
-        handled         = true;
-    }
-    if ( action == FLIGHTMODECAMERA_ZOOM )
-    {
-        m_cameraZoomMode = true;
-        handled          = true;
-    }
+    m_currentAction = KeyMappingManager::getInstance()->getAction(
+        FlightCameraKeyMapping::getContext(), buttons, modifiers, key, false );
 
     return handled;
 }
@@ -178,11 +165,11 @@ bool Gui::FlightCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
     else
     { m_quickCameraModifier = 2.0_ra; }
 
-    if ( m_cameraRotateMode ) { handleCameraRotate( dx, dy ); }
-
-    if ( m_cameraPanMode ) { handleCameraPan( dx, dy ); }
-
-    if ( m_cameraZoomMode ) { handleCameraZoom( dx, dy ); }
+    if ( m_currentAction == FLIGHTMODECAMERA_ROTATE ) { handleCameraRotate( dx, dy ); }
+    else if ( m_currentAction == FLIGHTMODECAMERA_PAN )
+    { handleCameraPan( dx, dy ); }
+    else if ( m_currentAction == FLIGHTMODECAMERA_ZOOM )
+    { handleCameraZoom( dx, dy ); }
 
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();
@@ -195,13 +182,11 @@ bool Gui::FlightCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
 
     emit cameraChanged( m_camera->getPosition(), m_target );
 
-    return m_cameraRotateMode || m_cameraPanMode || m_cameraZoomMode;
+    return m_currentAction.isValid();
 }
 
 bool Gui::FlightCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
-    m_cameraRotateMode    = false;
-    m_cameraPanMode       = false;
-    m_cameraZoomMode      = false;
+    m_currentAction       = KeyMappingManager::KeyMappingAction::Invalid();
     m_quickCameraModifier = 1.0_ra;
 
     return true;
@@ -212,8 +197,16 @@ bool Gui::FlightCameraManipulator::handleWheelEvent( QWheelEvent* event,
                                                      const Qt::KeyboardModifiers& modifiers,
                                                      int key ) {
     ///\todo use action.
-    handleCameraZoom( ( event->angleDelta().y() + event->angleDelta().x() ) *
-                      m_wheelSpeedModifier );
+
+    auto action = KeyMappingManager::getInstance()->getAction(
+        FlightCameraKeyMapping::getContext(), buttons, modifiers, key, true );
+
+    if ( action == FLIGHTMODECAMERA_ZOOM )
+    {
+        handleCameraZoom(
+            ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
+            m_wheelSpeedModifier );
+    }
 
     if ( m_light != nullptr )
     {
@@ -223,7 +216,7 @@ bool Gui::FlightCameraManipulator::handleWheelEvent( QWheelEvent* event,
 
     emit cameraPositionChanged( m_camera->getPosition() );
 
-    return true;
+    return action.isValid();
 }
 
 void Gui::FlightCameraManipulator::toggleRotateAround() {
