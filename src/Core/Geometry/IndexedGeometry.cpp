@@ -5,9 +5,10 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/// \fixme Deep copy
 MultiIndexedGeometry::MultiIndexedGeometry( const MultiIndexedGeometry& other ) :
-    AttribArrayGeometry( other ), m_indices( other.m_indices ) {}
+    AttribArrayGeometry( other ) {
+    deepCopy( other );
+}
 
 MultiIndexedGeometry::MultiIndexedGeometry( MultiIndexedGeometry&& other ) :
     AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {}
@@ -18,16 +19,14 @@ MultiIndexedGeometry::MultiIndexedGeometry( const AttribArrayGeometry& other ) :
 MultiIndexedGeometry::MultiIndexedGeometry( AttribArrayGeometry&& other ) :
     AttribArrayGeometry( std::move( other ) ) {}
 
-/// \fixme Deep copy
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometry& other ) {
     AttribArrayGeometry::operator=( other );
-    m_indices                    = other.m_indices;
+    deepCopy( other );
     notify();
     invalidateAabb();
     return *this;
 }
 
-/// \fixme Deep copy
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( MultiIndexedGeometry&& other ) {
     AttribArrayGeometry::operator=( std::move( other ) );
     m_indices                    = std::move( other.m_indices );
@@ -37,16 +36,15 @@ MultiIndexedGeometry& MultiIndexedGeometry::operator=( MultiIndexedGeometry&& ot
 }
 
 void MultiIndexedGeometry::clear() {
-    m_indices.clear();
     AttribArrayGeometry::clear();
+    deepClear();
     notify();
     invalidateAabb();
 }
 
-/// \fixme Deep copy
 void MultiIndexedGeometry::copy( const MultiIndexedGeometry& other ) {
     AttribArrayGeometry::copyBaseGeometry( other );
-    m_indices = other.m_indices;
+    deepCopy( other );
     notify();
     invalidateAabb();
 }
@@ -222,6 +220,19 @@ bool MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& l
 
     notify();
     return true;
+}
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+void MultiIndexedGeometry::deepCopy( const MultiIndexedGeometry& other ) {
+    m_indices = other.m_indices;
+    for ( auto& el : m_indices )
+        el.second.second = el.second.second->duplicate(); // replace copied entries by duplicates
+}
+void MultiIndexedGeometry::deepClear() {
+    for ( auto& el : m_indices )
+        delete el.second.second;
+    m_indices.clear();
 }
 
 //////////////////////////////////////////////////////////////////////

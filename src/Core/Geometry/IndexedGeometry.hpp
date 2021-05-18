@@ -35,6 +35,9 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
         return *this;
     }
 
+    /// \brief Create new layer with duplicated content
+    virtual GeometryIndexLayerBase* duplicate() = 0;
+
     virtual bool append( const GeometryIndexLayerBase& other ) = 0;
 
     /// return the number of index (i.e. "faces") contained in the layer.
@@ -67,6 +70,12 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     }
 
     inline size_t size() override { return _collection.size(); }
+
+    virtual inline GeometryIndexLayerBase* duplicate() {
+        auto copy         = new GeometryIndexLayer<T>( *this );
+        copy->_collection = _collection;
+        return copy;
+    }
 
   protected:
     template <class... SemanticNames>
@@ -143,9 +152,11 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     MultiIndexedGeometry& operator=( const MultiIndexedGeometry& other );
     MultiIndexedGeometry& operator=( MultiIndexedGeometry&& other );
 
+    virtual inline ~MultiIndexedGeometry() { clear(); }
+
     void clear() override;
 
-    /// \brief Copy only the geometry and the indices from \p other, but not the attributes.
+    /// \brief Copy geometry and indices from \p others.
     /// \see AttribArrayGeometry::copyBaseGeometry
     void copy( const MultiIndexedGeometry& other );
 
@@ -384,6 +395,12 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     [[nodiscard]] inline auto layerKeys() const { return Utils::map_keys( m_indices ); }
 
   private:
+    /// \brief Duplicate attributes stored as pointers
+    void deepCopy( const MultiIndexedGeometry& other );
+
+    /// \brief Clear attributes stored as pointers
+    void deepClear();
+
     /// Note: we cannot store unique_ptr here has unordered_map needs its
     /// elements to be copy-constructible
     using EntryType = std::pair<bool, GeometryIndexLayerBase*>;
