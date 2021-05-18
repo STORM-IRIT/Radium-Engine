@@ -77,11 +77,6 @@ class RA_GUI_API CameraManipulator : public QObject
     /// Pointer access to the camera.
     Core::Asset::Camera* getCamera() { return m_camera; }
 
-    /// Set the Camera to be manipulated.
-    /// \note CameraManipulator doesn't have ownership.
-    [[deprecated( "use CameraManager::activate(idx) instead" )]] virtual void
-    setCamera( Core::Asset::Camera* camera );
-
     /// Reset manipulator internal data according to current active camera from manager.
     /// Call each time the active camera is changed to have coherent data.
     virtual void updateCamera();
