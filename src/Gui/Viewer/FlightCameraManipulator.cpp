@@ -112,8 +112,6 @@ void Gui::FlightCameraManipulator::updateCamera() {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
 void Gui::FlightCameraManipulator::resetCamera() {
@@ -129,25 +127,19 @@ void Gui::FlightCameraManipulator::resetCamera() {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
 bool Gui::FlightCameraManipulator::handleMousePressEvent( QMouseEvent* event,
                                                           const Qt::MouseButtons& buttons,
                                                           const Qt::KeyboardModifiers& modifiers,
                                                           int key ) {
-    bool handled = false;
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();
-
-    auto action = KeyMappingManager::getInstance()->getAction(
-        FlightCameraKeyMapping::getContext(), buttons, modifiers, key, false );
 
     m_currentAction = KeyMappingManager::getInstance()->getAction(
         FlightCameraKeyMapping::getContext(), buttons, modifiers, key, false );
 
-    return handled;
+    return m_currentAction.isValid();
 }
 
 bool Gui::FlightCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
@@ -180,8 +172,6 @@ bool Gui::FlightCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
         m_light->setDirection( m_camera->getDirection() );
     }
 
-    emit cameraChanged( m_camera->getPosition(), m_target );
-
     return m_currentAction.isValid();
 }
 
@@ -213,8 +203,6 @@ bool Gui::FlightCameraManipulator::handleWheelEvent( QWheelEvent* event,
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraPositionChanged( m_camera->getPosition() );
 
     return action.isValid();
 }
@@ -254,8 +242,6 @@ void Gui::FlightCameraManipulator::setCameraPosition( const Core::Vector3& posit
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraPositionChanged( m_camera->getPosition() );
 }
 
 void Gui::FlightCameraManipulator::setCameraTarget( const Core::Vector3& target ) {
@@ -269,8 +255,6 @@ void Gui::FlightCameraManipulator::setCameraTarget( const Core::Vector3& target 
     m_camera->setDirection( ( target - m_camera->getPosition() ).normalized() );
 
     if ( m_light != nullptr ) { m_light->setDirection( m_camera->getDirection() ); }
-
-    emit cameraTargetChanged( m_target );
 }
 
 void Gui::FlightCameraManipulator::fitScene( const Core::Aabb& aabb ) {
@@ -300,8 +284,6 @@ void Gui::FlightCameraManipulator::fitScene( const Core::Aabb& aabb ) {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
 void Gui::FlightCameraManipulator::handleCameraRotate( Scalar dx, Scalar dy ) {

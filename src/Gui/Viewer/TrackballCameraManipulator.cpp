@@ -70,8 +70,6 @@ void Gui::TrackballCameraManipulator::resetCamera() {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
 void Gui::TrackballCameraManipulator::updateCamera() {
@@ -86,8 +84,6 @@ void Gui::TrackballCameraManipulator::updateCamera() {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
 void Gui::TrackballCameraManipulator::setTrackballRadius( Scalar rad ) {
@@ -157,8 +153,6 @@ bool Gui::TrackballCameraManipulator::handleMouseMoveEvent(
         m_light->setDirection( m_camera->getDirection() );
     }
 
-    emit cameraChanged( m_camera->getPosition(), m_target );
-
     return m_currentAction.isValid();
 }
 
@@ -182,7 +176,6 @@ bool Gui::TrackballCameraManipulator::handleWheelEvent( QWheelEvent* event,
         handleCameraMoveForward(
             ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
             m_wheelSpeedModifier );
-        emit cameraPositionChanged( m_camera->getPosition() );
     }
     else if ( action == TRACKBALLCAMERA_ZOOM )
     {
@@ -209,6 +202,7 @@ bool Gui::TrackballCameraManipulator::handleKeyPressEvent(
     {
         m_camera->setType( m_camera->getType() == ProjType::ORTHOGRAPHIC ? ProjType::PERSPECTIVE
                                                                          : ProjType::ORTHOGRAPHIC );
+        return true;
     }
 
     return false;
@@ -233,8 +227,6 @@ void Gui::TrackballCameraManipulator::setCameraPosition( const Core::Vector3& po
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraPositionChanged( m_camera->getPosition() );
 }
 
 void Gui::TrackballCameraManipulator::setCameraTarget( const Core::Vector3& target ) {
@@ -250,8 +242,6 @@ void Gui::TrackballCameraManipulator::setCameraTarget( const Core::Vector3& targ
     updatePhiTheta();
 
     if ( m_light != nullptr ) { m_light->setDirection( m_camera->getDirection() ); }
-
-    emit cameraTargetChanged( m_target );
 }
 
 void Gui::TrackballCameraManipulator::fitScene( const Core::Aabb& aabb ) {
@@ -281,8 +271,6 @@ void Gui::TrackballCameraManipulator::fitScene( const Core::Aabb& aabb ) {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
 void Gui::TrackballCameraManipulator::handleCameraRotate( Scalar dx, Scalar dy ) {
@@ -349,8 +337,6 @@ void Gui::TrackballCameraManipulator::handleCameraMoveForward( Scalar z ) {
     m_camera->applyTransform( T );
 
     m_distFromCenter = ( m_target - m_camera->getPosition() ).norm();
-
-    emit cameraPositionChanged( m_camera->getPosition() );
 }
 
 void Gui::TrackballCameraManipulator::handleCameraZoom( Scalar dx, Scalar dy ) {

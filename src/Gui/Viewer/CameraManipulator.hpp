@@ -120,15 +120,6 @@ class RA_GUI_API CameraManipulator : public QObject
     virtual void resetCamera() = 0;
 
   signals:
-    /// Emitted when the position of the Camera has changed.
-    void cameraPositionChanged( const Core::Vector3& );
-
-    /// Emitted when the target of the Camera has changed.
-    void cameraTargetChanged( const Core::Vector3& );
-
-    /// Emitted when both the position and the target of the Camera has changed.
-    /// \note cameraPositionChanged and cameraTargetChanged are not called in such a case.
-    void cameraChanged( const Core::Vector3& position, const Core::Vector3& target );
 
   protected:
     /// the Camera sensitivity to manipulation.
