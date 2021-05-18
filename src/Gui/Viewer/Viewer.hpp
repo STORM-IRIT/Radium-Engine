@@ -209,18 +209,21 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     getPickingMode( const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) const;
 
     /// @name
-    /// Qt event, do the viewer stuff, and call handle*Event to perform the
-    /// actual event handling, according to keyMapping.
+    /// If GL is initialized, do the viewer stuff, and call handle*Event to perform actual event
+    /// handling, according to keyMapping. If event is not processed by Viewer, it's forwarded to
+    /// parent() (if any).
     ///@{
-    /// Do nothing if GL is not initialized, then call handleKeyPressEvent
     void keyPressEvent( QKeyEvent* event ) override;
     void keyReleaseEvent( QKeyEvent* event ) override;
 
     /// We intercept the mouse events in this widget to get the coordinates of the mouse
     /// in screen space.
     void mousePressEvent( QMouseEvent* event ) override;
+    ///\todo propagateToParent
     void mouseReleaseEvent( QMouseEvent* event ) override;
+    ///\todo propagateToParent
     void mouseMoveEvent( QMouseEvent* event ) override;
+    ///\todo propagateToParent
     void wheelEvent( QWheelEvent* event ) override;
     ///@}
 
@@ -230,7 +233,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// handle the events, called by *Event, do the actual work, should be overriden in
     /// derived classes.
     ///@{
-    virtual void handleKeyPressEvent( QKeyEvent* event );
+    virtual bool handleKeyPressEvent( QKeyEvent* event );
     virtual void handleMousePressEvent( QMouseEvent* event,
                                         Ra::Engine::Rendering::Renderer::PickingResult& result );
     virtual void handleMouseReleaseEvent( QMouseEvent* event );
@@ -246,6 +249,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     static void configureKeyMapping_impl();
 
     Ra::Engine::Rendering::Renderer::PickingResult pickAtPosition( Core::Vector2 position );
+
+    void propagateEventToParent( QEvent* event );
 
   protected:
     ///\todo make the following  private:
