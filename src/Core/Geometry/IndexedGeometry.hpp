@@ -501,7 +501,7 @@ class IndexedGeometry : public MultiIndexedGeometry
     using DefaultLayerType = typename IndexLayerType::getType<IndexType>::Type;
 
   public:
-    IndexedGeometry() {
+    inline IndexedGeometry() {
         auto layer          = std::make_unique<DefaultLayerType>();
         m_mainIndexLayerKey = {layer->semantics(), ""};
         addLayer( std::move( layer ) );
@@ -536,7 +536,7 @@ class IndexedGeometry : public MultiIndexedGeometry
         static_cast<DefaultLayerType&>( abstractLayer ).collection() = indices;
         notify();
     }
-    const LayerKeyType& getLayerKey() const { return m_mainIndexLayerKey; }
+    inline const LayerKeyType& getLayerKey() const { return m_mainIndexLayerKey; }
 
   private:
     LayerKeyType m_mainIndexLayerKey;
