@@ -18,6 +18,9 @@
             action="TRACKBALLCAMERA_MOVE_FORWARD"/>
     <keymap context="CameraContext" key="Key_T" modifiers="" buttons="" action="TRACKBALLCAMERA_PROJ_MODE"/>
 
+    <keymap context="CameraContext" key="Key_B" modifiers="" buttons="" action="ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS"/>
+    <keymap context="CameraContext" key="Key_V" modifiers="" buttons="" action="ROTATEAROUND_SET_PIVOT"/>
+
     <keymap context="FlightManipulatorContext" key="" modifiers="" buttons="MiddleButton" action="FLIGHTMODECAMERA_ROTATE"/>
     <keymap context="FlightManipulatorContext" key="" modifiers="ShiftModifier" buttons="MiddleButton"
             action="FLIGHTMODECAMERA_PAN"/>
