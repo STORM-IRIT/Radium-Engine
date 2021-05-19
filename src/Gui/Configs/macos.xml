@@ -6,9 +6,7 @@
 <keymaps>
     <keymap context="CameraContext" action="TRACKBALLCAMERA_ROTATE" buttons="LeftButton" modifiers="" key=""/>
     <keymap context="CameraContext" action="TRACKBALLCAMERA_PAN" buttons="LeftButton" modifiers="ShiftModifier" key=""/>
-    <keymap context="CameraContext" action="TRACKBALLCAMERA_ZOOM" buttons="LeftButton" modifiers="ControlModifier" key=""/>
     <keymap context="CameraContext" action="TRACKBALLCAMERA_ZOOM" buttons="" modifiers="ControlModifier" key="" wheel="true"/>
-    <keymap context="CameraContext" action="TRACKBALLCAMERA_MOVE_FORWARD" buttons="LeftButton" modifiers="ShiftModifier,ControlModifier" key=""/>
     <keymap context="CameraContext" action="TRACKBALLCAMERA_MOVE_FORWARD" buttons="" modifiers="" key="" wheel="true"/>
     <keymap context="CameraContext" action="TRACKBALLCAMERA_PROJ_MODE" buttons="" modifiers=""  key="Key_P" />
 
