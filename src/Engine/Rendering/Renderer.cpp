@@ -720,6 +720,11 @@ int Renderer::buildAllRenderTechniques() const {
     return 0;
 }
 
+Scalar Renderer::getDepth( int, int ) {
+    CORE_ASSERT( false, "Renderer::getDepth() not implemented, must be overriden" );
+    return 0_ra;
+}
+
 } // namespace Rendering
 } // namespace Engine
 } // namespace Ra

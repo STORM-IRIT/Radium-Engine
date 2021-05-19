@@ -338,6 +338,9 @@ class RA_ENGINE_API Renderer
      */
     virtual std::unique_ptr<uchar[]> grabFrame( size_t& w, size_t& h ) const;
 
+    /// return the value of the depth buffer under pixel (x,y)
+    ///
+    virtual Scalar getDepth( int x, int y );
     PickingResult doPickingNow( const PickingQuery& query,
                                 const Data::ViewingParameters& renderData );
 

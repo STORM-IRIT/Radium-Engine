@@ -108,6 +108,7 @@ inline void Renderer::setBackgroundColor( const Core::Utils::Color& color ) {
 inline const Core::Utils::Color& Renderer::getBackgroundColor() const {
     return m_backgroundColor;
 }
+
 } // namespace Rendering
 } // namespace Engine
 } // namespace Ra
