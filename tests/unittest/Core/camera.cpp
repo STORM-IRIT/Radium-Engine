@@ -71,6 +71,10 @@ TEST_CASE( "Core/Camera" ) {
         REQUIRE( cam2.getWidth() == 10 );
         REQUIRE( cam2.getHeight() == 20 );
         REQUIRE( Math::areApproxEqual( cam2.getAspect(), 10_ra / 20_ra ) );
+        auto xymag  = cam->getXYmag();
+        auto xymag2 = cam2.getXYmag();
+        REQUIRE( Math::areApproxEqual( xymag.first, xymag2.first ) );
+        REQUIRE( Math::areApproxEqual( xymag.second, xymag2.second ) );
     }
 
     SECTION( "setters" ) {
@@ -119,9 +123,9 @@ TEST_CASE( "Core/Camera" ) {
         cam->setType( Camera::ProjType::ORTHOGRAPHIC );
         REQUIRE( cam->getType() == Camera::ProjType::ORTHOGRAPHIC );
         cam->updateProjMatrix();
-        // aspect is 10/20, near 10, far 90
+        // aspect is 10/20, near 10, far 100
         Ra::Core::Matrix4 ref;
-        ref << 2_ra, 0_ra, 0_ra, 0_ra, 0_ra, 1_ra, 0_ra, 0_ra, 0_ra, 0_ra, -2_ra / 90_ra,
+        ref << 1_ra, 0_ra, 0_ra, 0_ra, 0_ra, 0.5_ra, 0_ra, 0_ra, 0_ra, 0_ra, -2_ra / 90_ra,
             -110_ra / 90_ra, 0_ra, 0_ra, 0_ra, 1_ra;
         REQUIRE( cam->getProjMatrix().isApprox( ref ) );
 
@@ -139,6 +143,12 @@ TEST_CASE( "Core/Camera" ) {
         REQUIRE( Math::areApproxEqual( cam->getFOV(), Math::PiDiv2 ) );
         cam->setFOV( Math::PiDiv4 );
         REQUIRE( Math::areApproxEqual( cam->getFOV(), Math::PiDiv4 ) );
+
+        // set x and y mag
+        cam->setXYmag( 1.414_ra, 1.732_ra );
+        auto xymag = cam->getXYmag();
+        REQUIRE( Math::areApproxEqual( xymag.first, 1.414_ra ) );
+        REQUIRE( Math::areApproxEqual( xymag.second, 1.732_ra ) );
 
         REQUIRE( Math::areApproxEqual( cam->getZoomFactor(), 1_ra ) );
         cam->setZoomFactor( 2_ra );
