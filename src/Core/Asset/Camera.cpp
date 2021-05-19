@@ -25,6 +25,8 @@ Camera& Camera::operator=( const Camera& rhs ) {
     m_fov        = rhs.getFOV();
     m_zNear      = rhs.getZNear();
     m_zFar       = rhs.getZFar();
+    m_xmag       = rhs.m_xmag;
+    m_ymag       = rhs.m_ymag;
     setViewport( rhs.getWidth(), rhs.getHeight() );
     return *this;
 }
@@ -64,17 +66,12 @@ void Camera::applyTransform( const Core::Transform& T ) {
 }
 
 void Camera::updateProjMatrix() {
-
     switch ( m_projType )
     {
     case ProjType::ORTHOGRAPHIC: {
-        const Scalar dx = m_zoomFactor * .5_ra;
-        const Scalar dy = dx / m_aspect;
-        const Scalar l  = -dx; // left
-        const Scalar r  = dx;  // right
-        const Scalar t  = dy;  // top
-        const Scalar b  = -dy; // bottom
-        m_projMatrix    = ortho( l, r, b, t, m_zNear, m_zFar );
+        const Scalar r = m_xmag * m_zoomFactor;
+        const Scalar t = m_ymag * m_zoomFactor / m_aspect;
+        m_projMatrix   = ortho( -r, r, -t, t, m_zNear, m_zFar );
     }
     break;
 
@@ -125,13 +122,14 @@ Core::Matrix4 Camera::ortho( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, S
     Core::Matrix4 projMatrix;
     projMatrix.setZero();
 
-    Core::Vector3 tr( -( r + l ) / ( r - l ), -( t + b ) / ( t - b ), -( ( f + n ) / ( f - n ) ) );
+    Core::Vector4 tr(
+        -( r + l ) / ( r - l ), -( t + b ) / ( t - b ), -( f + n ) / ( f - n ), 1_ra );
 
     projMatrix.setIdentity();
     projMatrix.coeffRef( 0, 0 )    = 2_ra / ( r - l );
     projMatrix.coeffRef( 1, 1 )    = 2_ra / ( t - b );
     projMatrix.coeffRef( 2, 2 )    = 2_ra / ( n - f );
-    projMatrix.block<3, 1>( 0, 3 ) = tr;
+    projMatrix.block<4, 1>( 0, 3 ) = tr;
 
     return projMatrix;
 }

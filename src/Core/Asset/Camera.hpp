@@ -140,6 +140,12 @@ class RA_CORE_API Camera
     /// Return the aspect ratio of the viewport.
     inline Scalar getAspect() const;
 
+    /// Set xmag and ymag for orthographic camera
+    inline void setXYmag( Scalar xmag, Scalar ymag );
+
+    /// Get xmag and ymag for orthographic camera
+    inline std::pair<Scalar, Scalar> getXYmag() const;
+
     /// Change the viewport size. Also compute aspectRatio.
     void setViewport( Scalar width, Scalar height );
 
@@ -174,22 +180,44 @@ class RA_CORE_API Camera
     /// \param n : z near
     /// \param f : z far
     static Core::Matrix4 frustum( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f );
+
+    /// \brief Build a projection matrix from the parameters of the view volume
+    /// Implements the algorithm described here
+    /// https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/orthographic-projection-matrix
+    /// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml
+    /// \param l : left
+    /// \param r : right
+    /// \param b : bottom
+    /// \param t : top
+    /// \param n : z near
+    /// \param f : z far
     static Core::Matrix4 ortho( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f );
 
   private:
     Core::Transform m_frame {
         Core::Transform::Identity()}; ///< Camera frame (inverse of the view matrix)
+
     Core::Matrix4 m_projMatrix {Core::Matrix4::Identity()}; ///< Projection matrix
+
+    Scalar m_width {1_ra};  ///< Viewport width (in pixels)
+    Scalar m_height {1_ra}; ///< Viewport height (in pixels)
+    Scalar m_aspect {1_ra}; ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
 
     ProjType m_projType {ProjType::PERSPECTIVE}; ///< Projection type
     Scalar m_zoomFactor {1_ra};                  ///< Zoom factor (modifies the field of view)
-    Scalar m_fov {Core::Math::PiDiv4};           ///< Field of view
+    Scalar m_zNear {0.1_ra};                     ///< Z Near plane distance
+    Scalar m_zFar {1000_ra};                     ///< Z Far plane distance
 
-    Scalar m_zNear {0.1_ra}; ///< Z Near plane distance
-    Scalar m_zFar {1000_ra}; ///< Z Far plane distance
-    Scalar m_width {1_ra};   ///< Viewport width (in pixels)
-    Scalar m_height {1_ra};  ///< Viewport height (in pixels)
-    Scalar m_aspect {1_ra};  ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
+    /// \name Perspective projection parameters
+    ///@{
+    Scalar m_fov {Core::Math::PiDiv4}; ///< Horizontal Field Of View
+    ///@}
+
+    /// \name Orthographic projection parameters
+    ///@{
+    Scalar m_xmag {1_ra};
+    Scalar m_ymag {1_ra};
+    ///@}
 };
 } // namespace Asset
 } // namespace Core

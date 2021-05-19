@@ -48,6 +48,9 @@ inline Scalar Camera::getFOV() const {
 
 inline void Camera::setFOV( Scalar fov ) {
     m_fov = fov;
+    // update m_xmag and m_ymag according to the perspective parameters (heuristic)
+    m_xmag = 2_ra * std::tan( m_fov / 2_ra );
+    m_ymag = m_xmag;
     updateProjMatrix();
 }
 
@@ -116,6 +119,18 @@ inline Scalar Camera::getMinZRange() const {
 
 inline void Camera::setProjMatrix( Core::Matrix4 projMatrix ) {
     m_projMatrix = projMatrix;
+}
+
+inline void Camera::setXYmag( Scalar xmag, Scalar ymag ) {
+    m_xmag = xmag;
+    m_ymag = ymag;
+    // update m_fov according to  orthographic parameters (heuristic)
+    m_fov = std::atan2( m_xmag * 2, 1_ra );
+    updateProjMatrix();
+}
+
+inline std::pair<Scalar, Scalar> Camera::getXYmag() const {
+    return {m_xmag, m_ymag};
 }
 
 } // namespace Asset
