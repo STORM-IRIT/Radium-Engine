@@ -53,18 +53,16 @@ class RA_GUI_API TrackballCameraManipulator
     void updateCamera() override;
 
     /// Set the distance from the camera to the target point.
+    /// update target m_referenceFrame.translation();
     /// \note doesn't modify the camera.
     void setTrackballRadius( Scalar rad );
 
     /// Return the distance from the camera to the target point.
     Scalar getTrackballRadius() const;
 
-    /// Set the trackball center.
-    void setTrackballCenter( const Core::Vector3& c );
-
     /// Return the trackball center.
     /// \note doesn't modify the camera.
-    const Core::Vector3& getTrackballCenter() const;
+    const Core::Transform::ConstTranslationPart getTrackballCenter() const;
 
   public slots:
     void setCameraPosition( const Core::Vector3& position ) override;
@@ -85,7 +83,7 @@ class RA_GUI_API TrackballCameraManipulator
     void updatePhiTheta();
 
   protected:
-    // the center of the trackball is defined by the inherited m_target
+    // the center of the trackball is defined by the m_referenceFrame.translation()
 
     /// x-position of the mouse on the screen at the manipulation start.
     Scalar m_lastMouseX {0_ra};
@@ -93,9 +91,18 @@ class RA_GUI_API TrackballCameraManipulator
     /// y-position of the mouse on the screen at the manipulation start.
     Scalar m_lastMouseY {0_ra};
 
-    /// Polar coordinates of the Camera w.r.t. the trackball center.
+    /// Spherical coordinates   (ISO 80000-2:2019 convention)
+    /// https://en.wikipedia.org/wiki/Spherical_coordinate_system
+    /// phi is azimutal
+    /// theta is polar, from y which is world "up" direction
+    /// rest pose correspond to camera view direction at m_referenceFrame -z;
     Scalar m_phi {0_ra};
     Scalar m_theta {0_ra};
+    /// sign of m_theta at mousePressEvent, to guide the phi rotation direction.
+    Scalar m_phiDir {1_ra};
+
+    /// initial frame of the camera, centered on target, to compute angles.
+    Core::Transform m_referenceFrame;
 
     /// The distance from the camera to the trackball center.
     Scalar m_distFromCenter {0_ra};
@@ -103,6 +110,7 @@ class RA_GUI_API TrackballCameraManipulator
   private:
     bool checkIntegrity( const std::string& mess ) const;
     static void configureKeyMapping_impl();
+    void clampThetaPhi();
 
   protected:
 #define KeyMappingCamera                   \
