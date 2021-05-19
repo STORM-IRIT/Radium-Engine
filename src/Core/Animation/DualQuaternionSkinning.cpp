@@ -108,7 +108,7 @@ DQList computeDQ_naive( const Pose& pose, const Sparse& weight ) {
     return DQ;
 }
 
-Vector3Array applyDualQuaternions( const DQList& DQ, Vector3Array& vertices ) {
+Vector3Array applyDualQuaternions( const DQList& DQ, const Vector3Array& vertices ) {
     Vector3Array out( vertices.size(), Vector3::Zero() );
 #pragma omp parallel for
     for ( int i = 0; i < int( vertices.size() ); ++i )
