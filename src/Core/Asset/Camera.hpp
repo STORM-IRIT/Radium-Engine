@@ -103,6 +103,9 @@ class RA_CORE_API Camera
     inline Scalar getFOV() const;
 
     /// Set the Field Of View to 'fov' in the x (horizontal) direction.
+    /// If you have an vertical field of view, you can convert it to horizontal as
+    /// Scalar fovx = 2_ra*std::atan( radiumCam->getAspect() * std::tan( cam.yfov / 2_ra ) );
+    //        if ( fovxDiv2 < 0_ra ) { fovxDiv2 = Ra::Core::Math::PiDiv2; }
     /// \note Meaningless for orthogonal projection.
     /// \warning Trigger a rebuild of the projection matrix.
     inline void setFOV( Scalar fov );
@@ -194,8 +197,9 @@ class RA_CORE_API Camera
     static Core::Matrix4 ortho( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f );
 
   private:
-    Core::Transform m_frame {
-        Core::Transform::Identity()}; ///< Camera frame (inverse of the view matrix)
+    /// Camera frame (inverse of the view matrix).
+    /// This represent the transformation from view space to world space.
+    Core::Transform m_frame {Core::Transform::Identity()};
 
     Core::Matrix4 m_projMatrix {Core::Matrix4::Identity()}; ///< Projection matrix
 
