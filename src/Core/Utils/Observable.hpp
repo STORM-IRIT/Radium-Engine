@@ -62,9 +62,8 @@ class Observable
     /// \return An unique int to identify the observer, could be used to pass to Obeservable::detach
     template <typename T>
     int attachMember( T* object, void ( T::*observer )( Args... ) ) {
-        return attach( std::bind( observer, object, std::placeholders::_1 ) );
+        return attach( bind( observer, object ) );
     }
-
     /// Notify (i.e. call) each attached observer with argument \p p
     inline void notify( Args... p ) const {
         for ( const auto& o : m_observers )
@@ -79,6 +78,12 @@ class Observable
     inline void detach( int observerId ) { m_observers.erase( observerId ); }
 
   private:
+    // from https://stackoverflow.com/questions/21192659/variadic-templates-and-stdbind
+    template <typename R, typename T, typename U>
+    std::function<R( Args... )> bind( R ( T::*f )( Args... ), U p ) {
+        return [p, f]( Args... args ) -> R { return ( p->*f )( args... ); };
+    }
+
     std::map<int, Observer> m_observers;
     int m_currentId {0};
 };
