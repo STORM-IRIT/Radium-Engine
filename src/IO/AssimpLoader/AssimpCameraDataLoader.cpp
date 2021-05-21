@@ -87,8 +87,9 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
     data.setFrame( Core::Transform {view * frame} );
 
     data.setType( Camera::ProjType::PERSPECTIVE ); // default value since not in aiCamera
-    // assimp fov is fovx/2.
-    data.setFOV( camera.mHorizontalFOV * 2_ra );
+    // assimp doc state mHorizontalFOV is half angle, but it is not, at least for collada,
+    // see  https://github.com/assimp/assimp/issues/2256 https://github.com/assimp/assimp/pull/3912
+    data.setFOV( camera.mHorizontalFOV );
     data.setZNear( camera.mClipPlaneNear );
     data.setZFar( camera.mClipPlaneFar );
     data.setZoomFactor( 1.0 ); // default value since not in aiCamera
