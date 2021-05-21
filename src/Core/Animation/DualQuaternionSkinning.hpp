@@ -38,7 +38,7 @@ DQList RA_CORE_API computeDQ_naive( const Pose& pose, const WeightMatrix& weight
  * \brief Applies the given Dual-Quaternions to the given vertices.
  * \note Parallelized loop inside (using openmp).
  */
-Vector3Array RA_CORE_API applyDualQuaternions( const DQList& DQ, Vector3Array& vertices );
+Vector3Array RA_CORE_API applyDualQuaternions( const DQList& DQ, const Vector3Array& vertices );
 
 // clang-format off
 /**
