@@ -42,7 +42,10 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     /// \return false if data cannot be appended, e.g., different semantics
     virtual bool append( const GeometryIndexLayerBase& other ) = 0;
 
-    /// return the number of index (i.e. "faces") contained in the layer.
+    /// \brief Compare if two layers have the same content
+    virtual inline bool operator==( const GeometryIndexLayerBase& other ) const { return false; }
+
+    /// \return the number of index (i.e. "faces") contained in the layer.
     virtual size_t size() = 0;
 
   protected:
@@ -67,6 +70,16 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
                                 othercasted.collection().begin(),
                                 othercasted.collection().end() );
             return true;
+        }
+        return false;
+    }
+
+    /// \warning Does not account for elements permutations
+    inline bool operator==( const GeometryIndexLayerBase& other ) const final {
+        if ( shareSemantic( other ) )
+        {
+            const auto& othercasted = static_cast<const GeometryIndexLayer<T>&>( other );
+            return othercasted.collection() == _collection;
         }
         return false;
     }
