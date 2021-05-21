@@ -23,6 +23,7 @@ add_executable(unittests
     Core/resources.cpp
     Core/string.cpp
     Core/topomesh.cpp
+    Engine/signalmanager.cpp
     Gui/keymapping.cpp
     )
 
