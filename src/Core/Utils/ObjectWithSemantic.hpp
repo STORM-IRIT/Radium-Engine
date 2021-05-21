@@ -34,13 +34,15 @@ class RA_CORE_API ObjectWithSemantic
         return *this;
     }
 
-    inline bool shareSemantic( const ObjectWithSemantic& other ) {
+    inline bool shareSemantic( const ObjectWithSemantic& other ) const {
         return std::any_of( _names.begin(), _names.end(), [&other]( const auto& s ) {
             return other.hasSemantic( s );
         } );
     }
 
-    inline bool sameSemantics( const ObjectWithSemantic& other ) { return _names == other._names; }
+    inline bool sameSemantics( const ObjectWithSemantic& other ) const {
+        return _names == other._names;
+    }
 
   protected:
     template <class... SemanticNames>
