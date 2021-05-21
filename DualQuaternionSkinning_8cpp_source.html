@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">f7179c71dc44f2f7ad09bf3cc7b38a936d6c4d0a</span>
+   &#160;<span id="projectnumber">de88bbe0a8c7e9290884c53ec64516741d408196</span>
    </div>
   </td>
  </tr>
@@ -204,7 +204,7 @@ $(document).ready(function(){initNavTree('DualQuaternionSkinning_8cpp_source.htm
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> DQ;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#a1969f91403c6d521dcedc835c0d64383">  111</a></span>&#160;Vector3Array <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a1969f91403c6d521dcedc835c0d64383">applyDualQuaternions</a>( <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">DQList</a>&amp; DQ, Vector3Array&amp; vertices ) {</div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#a7cd9e3488f178ad1ffe1c16b67ac6dc0">  111</a></span>&#160;Vector3Array <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a7cd9e3488f178ad1ffe1c16b67ac6dc0">applyDualQuaternions</a>( <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">DQList</a>&amp; DQ, <span class="keyword">const</span> Vector3Array&amp; vertices ) {</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    Vector3Array out( vertices.size(), Vector3::Zero() );</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classint.html">int</a>( vertices.size() ); ++i )</div>
@@ -267,7 +267,7 @@ $(document).ready(function(){initNavTree('DualQuaternionSkinning_8cpp_source.htm
 <div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
 <div class="ttc" id="anamespaceOpenMesh_html_a575b338f0fc9ecb5393d23e977e6ac38"><div class="ttname"><a href="namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38">OpenMesh::dot</a></div><div class="ttdeci">Derived::Scalar dot(Eigen::MatrixBase&lt; Derived &gt; const &amp;v1, Eigen::MatrixBase&lt; Derived &gt; const &amp;v2)</div><div class="ttdef"><b>Definition:</b> <a href="OpenMesh_8hpp_source.html#l00016">OpenMesh.hpp:16</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html_aa6b1895eb133356c52f0e0bcb2723484"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#aa6b1895eb133356c52f0e0bcb2723484">Ra::Core::Animation::SkinningFrameData::m_skeleton</a></div><div class="ttdeci">Skeleton m_skeleton</div><div class="ttdoc">The animation skeleton in the current pose.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00040">SkinningData.hpp:40</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a1969f91403c6d521dcedc835c0d64383"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a1969f91403c6d521dcedc835c0d64383">Ra::Core::Animation::applyDualQuaternions</a></div><div class="ttdeci">Vector3Array applyDualQuaternions(const DQList &amp;DQ, Vector3Array &amp;vertices)</div><div class="ttdoc">Applies the given Dual-Quaternions to the given vertices.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternionSkinning_8cpp_source.html#l00111">DualQuaternionSkinning.cpp:111</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a7cd9e3488f178ad1ffe1c16b67ac6dc0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a7cd9e3488f178ad1ffe1c16b67ac6dc0">Ra::Core::Animation::applyDualQuaternions</a></div><div class="ttdeci">Vector3Array applyDualQuaternions(const DQList &amp;DQ, const Vector3Array &amp;vertices)</div><div class="ttdoc">Applies the given Dual-Quaternions to the given vertices.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternionSkinning_8cpp_source.html#l00111">DualQuaternionSkinning.cpp:111</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">Ra::Core::Animation::SkinningFrameData</a></div><div class="ttdoc">Pose data for one frame.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00038">SkinningData.hpp:38</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningRefData_html_aea33faf9757c25d0034191916c1b3617"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#aea33faf9757c25d0034191916c1b3617">Ra::Core::Animation::SkinningRefData::m_bindMatrices</a></div><div class="ttdeci">AlignedStdVector&lt; Transform &gt; m_bindMatrices</div><div class="ttdoc">The per-bone bind matrices.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00025">SkinningData.hpp:25</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
@@ -283,7 +283,7 @@ $(document).ready(function(){initNavTree('DualQuaternionSkinning_8cpp_source.htm
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><a class="el" href="DualQuaternionSkinning_8cpp.html">DualQuaternionSkinning.cpp</a></li>
-    <li class="footer">Generated on Fri May 21 2021 06:24:15 for Radium Engine by
+    <li class="footer">Generated on Fri May 21 2021 10:37:42 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

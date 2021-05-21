@@ -118,7 +118,7 @@ var searchData=
   ['animationtime_2ehpp_120',['AnimationTime.hpp',['../AnimationTime_8hpp.html',1,'']]],
   ['api_121',['API',['../api.html',1,'develmanual']]],
   ['append_122',['append',['../classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acfa0fc88202889dece552a7cb354006a',1,'Ra::Core::Geometry::AttribArrayGeometry::append()'],['../classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a911ec504149568146f3371aa357c1ab9',1,'Ra::Core::Geometry::IndexedGeometry::append()']]],
-  ['applydualquaternions_123',['applyDualQuaternions',['../namespaceRa_1_1Core_1_1Animation.html#a1969f91403c6d521dcedc835c0d64383',1,'Ra::Core::Animation']]],
+  ['applydualquaternions_123',['applyDualQuaternions',['../namespaceRa_1_1Core_1_1Animation.html#a7cd9e3488f178ad1ffe1c16b67ac6dc0',1,'Ra::Core::Animation']]],
   ['applytransform_124',['applyTransform',['../classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f',1,'Ra::Core::Asset::Camera::applyTransform()'],['../classRa_1_1Engine_1_1Scene_1_1CameraComponent.html#a803ca4a75507af19a59b3e6880a3b26c',1,'Ra::Engine::Scene::CameraComponent::applyTransform()']]],
   ['applytransformation_125',['applyTransformation',['../namespaceRa_1_1Core_1_1Animation.html#acff4040ab93ce5001c3ee1d01224c3f9',1,'Ra::Core::Animation::applyTransformation(const Pose &amp;pose, const AlignedStdVector&lt; Transform &gt; &amp;transform)'],['../namespaceRa_1_1Core_1_1Animation.html#ac9e0acaea0cd8bb37756a01afb9b6b7f',1,'Ra::Core::Animation::applyTransformation(const Pose &amp;pose, const Transform &amp;transform)']]],
   ['appneedstoquit_126',['appNeedsToQuit',['../classRa_1_1Gui_1_1BaseApplication.html#a9576c0542f29e5929e0efd229cf3f1d9',1,'Ra::Gui::BaseApplication']]],
