@@ -38,6 +38,8 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     /// \brief Create new layer with duplicated content
     virtual GeometryIndexLayerBase* duplicate() = 0;
 
+    /// \brief Append content from another layer
+    /// \return false if data cannot be appended, e.g., different semantics
     virtual bool append( const GeometryIndexLayerBase& other ) = 0;
 
     /// return the number of index (i.e. "faces") contained in the layer.
