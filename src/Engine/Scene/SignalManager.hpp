@@ -26,7 +26,7 @@ namespace Scene {
  *
  * Signals of end of frame send no parameters.
  **/
-class SignalManager
+class RA_ENGINE_API SignalManager
 {
 
   public:
