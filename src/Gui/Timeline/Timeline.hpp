@@ -94,6 +94,11 @@ class RA_GUI_API Timeline : public QDialog
      */
     Scalar getTime() const;
 
+    /** Detach from engine signals
+     *
+     */
+    void detachFromEngine();
+
   signals:
     /*!
      * \brief startChanged is emitted when user move left slider of playzone or set new value in
@@ -270,6 +275,13 @@ class RA_GUI_API Timeline : public QDialog
 
     /// The current keyframe.
     Ra::Core::Animation::KeyFramedValueController m_current;
+
+    /// Observers id for engine event
+    ///@{
+    int m_entityAddObserverId {-1};
+    int m_entityRemoveObserverId {-1};
+    int m_roAddObserverId {-1};
+    ///@}
 };
 
 } // namespace Ra::Gui

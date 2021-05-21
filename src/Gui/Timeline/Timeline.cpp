@@ -73,37 +73,68 @@ Timeline::Timeline( QWidget* parent ) : QDialog( parent ), ui( new Ui::Timeline 
              &Timeline::durationChanged );
 
     // --- DEAL WITH OBJET REMOVAL ---
-    Ra::Engine::RadiumEngine::getInstance()
-        ->getSignalManager()
-        ->m_entityDestroyedCallbacks.push_back( [this](
-                                                    const Ra::Engine::Scene::ItemEntry& entry ) {
+    auto signalManager = Ra::Engine::RadiumEngine::getInstance()->getSignalManager();
+
+    auto& entityAddedObs = signalManager->getEntityCreatedNotifier();
+    m_entityAddObserverId =
+        entityAddedObs.attach( [this]( const Ra::Engine::Scene::ItemEntry& entry ) {
             auto it = std::find_if(
                 m_entityKeyFrames.begin(), m_entityKeyFrames.end(), [entry]( const auto& frames ) {
                     return entry.m_entity == frames.first;
                 } );
             if ( it != m_entityKeyFrames.end() ) { m_entityKeyFrames.erase( it ); }
         } );
-    Ra::Engine::RadiumEngine::getInstance()
-        ->getSignalManager()
-        ->m_componentRemovedCallbacks.push_back(
-            [this]( const Ra::Engine::Scene::ItemEntry& entry ) {
-                auto it = std::find_if(
-                    m_componentKeyFrames.begin(),
-                    m_componentKeyFrames.end(),
-                    [entry]( const auto& frames ) { return entry.m_component == frames.first; } );
-                if ( it != m_componentKeyFrames.end() ) { m_componentKeyFrames.erase( it ); }
-            } );
-    Ra::Engine::RadiumEngine::getInstance()->getSignalManager()->m_roRemovedCallbacks.push_back(
-        [this]( const Ra::Engine::Scene::ItemEntry& entry ) {
+
+    auto& entityRemovedObs = signalManager->getEntityDestroyedNotifier();
+    m_entityRemoveObserverId =
+        entityRemovedObs.attach( [this]( const Ra::Engine::Scene::ItemEntry& entry ) {
             auto it = std::find_if(
-                m_renderObjectKeyFrames.begin(),
-                m_renderObjectKeyFrames.end(),
-                [entry]( const auto& frames ) { return entry.m_roIndex == frames.first; } );
-            if ( it != m_renderObjectKeyFrames.end() ) { m_renderObjectKeyFrames.erase( it ); }
+                m_componentKeyFrames.begin(),
+                m_componentKeyFrames.end(),
+                [entry]( const auto& frames ) { return entry.m_component == frames.first; } );
+            if ( it != m_componentKeyFrames.end() ) { m_componentKeyFrames.erase( it ); }
         } );
+
+    auto& roAddedObs  = signalManager->getRenderObjectCreatedNotifier();
+    m_roAddObserverId = roAddedObs.attach( [this]( const Ra::Engine::Scene::ItemEntry& entry ) {
+        auto it = std::find_if(
+            m_renderObjectKeyFrames.begin(),
+            m_renderObjectKeyFrames.end(),
+            [entry]( const auto& frames ) { return entry.m_roIndex == frames.first; } );
+        if ( it != m_renderObjectKeyFrames.end() ) { m_renderObjectKeyFrames.erase( it ); }
+    } );
+}
+
+void Timeline::detachFromEngine() {
+    // Lifetime of Timeline (as a gui object) is hard to predict. Check all pointer and properties.
+    if ( auto engine = Ra::Engine::RadiumEngine::getInstance() )
+    {
+        if ( auto signalManager = engine->getSignalManager() )
+        {
+            if ( m_entityAddObserverId != -1 )
+            {
+                auto& obs = signalManager->getEntityCreatedNotifier();
+                obs.detach( m_entityAddObserverId );
+                m_entityAddObserverId = -1;
+            }
+            if ( m_entityRemoveObserverId != -1 )
+            {
+                auto& obs = signalManager->getEntityDestroyedNotifier();
+                obs.detach( m_entityRemoveObserverId );
+                m_entityRemoveObserverId = -1;
+            }
+            if ( m_roAddObserverId )
+            {
+                auto& obs = signalManager->getRenderObjectCreatedNotifier();
+                obs.detach( m_roAddObserverId );
+                m_roAddObserverId = -1;
+            }
+        }
+    }
 }
 
 Timeline::~Timeline() {
+    detachFromEngine();
     delete ui;
 }
 
