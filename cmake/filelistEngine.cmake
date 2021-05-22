@@ -119,7 +119,6 @@ set( engine_inlines
     Data/VolumetricMaterial.inl
     Rendering/Renderer.inl
     Rendering/RenderTechnique.inl
-    Scene/CameraComponent.inl
     Scene/Component.inl
     Scene/ComponentMessenger.inl
     Scene/DirLight.inl
