@@ -45,5 +45,3 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
 } // namespace Scene
 } // namespace Engine
 } // namespace Ra
-
-#include <Engine/Scene/CameraComponent.inl>
