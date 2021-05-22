@@ -39,17 +39,43 @@ class VectorArray : public AlignedStdVector<V>
 /// This specialization stores an array of scalars which can be used as a dynamic
 /// Eigen column vector.
 template <>
-class VectorArray<Scalar> : public AlignedStdVector<Scalar>
+class VectorArray<float> : public AlignedStdVector<float>
 {
   public:
     // Type shortcuts
-    using Matrix         = Eigen::Matrix<Scalar, 1, Eigen::Dynamic>;
+    using Matrix         = Eigen::Matrix<float, 1, Eigen::Dynamic>;
     using MatrixMap      = Eigen::Map<Matrix>;
     using ConstMatrixMap = Eigen::Map<const Matrix>;
 
   public:
     /// Inheriting constructors from std::vector
-    using AlignedStdVector<Scalar>::AlignedStdVector;
+    using AlignedStdVector<float>::AlignedStdVector;
+
+    /// Returns the array as an Eigen Matrix Map
+    MatrixMap getMap() {
+        CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
+        return MatrixMap( this->data(), 1, Eigen::Index( this->size() ) );
+    }
+
+    /// Returns the array as an Eigen Matrix Map (const version)
+    ConstMatrixMap getMap() const {
+        CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
+        return ConstMatrixMap( this->data(), 1, Eigen::Index( this->size() ) );
+    }
+};
+
+template <>
+class VectorArray<double> : public AlignedStdVector<double>
+{
+  public:
+    // Type shortcuts
+    using Matrix         = Eigen::Matrix<double, 1, Eigen::Dynamic>;
+    using MatrixMap      = Eigen::Map<Matrix>;
+    using ConstMatrixMap = Eigen::Map<const Matrix>;
+
+  public:
+    /// Inheriting constructors from std::vector
+    using AlignedStdVector<double>::AlignedStdVector;
 
     /// Returns the array as an Eigen Matrix Map
     MatrixMap getMap() {

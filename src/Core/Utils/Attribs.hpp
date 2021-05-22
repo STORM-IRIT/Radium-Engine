@@ -69,7 +69,7 @@ class RA_CORE_API AttribBase : public ObservableVoid
     template <typename T>
     inline const Attrib<T>& cast() const;
 
-    /// Return true if the attribute content is of float type, false otherwise.
+    /// Return true if the attribute content is of Scalar type, false otherwise.
     virtual bool isFloat() const = 0;
 
     /// Return true if the attribute content is of Vector2 type, false otherwise.
@@ -193,17 +193,17 @@ class AttribHandle
  * \code
  * // somewhere: creation
  * AttribManager mng;
- * auto inputfattrib = mng.addAttrib<float>("MyAttrib");
+ * auto inputfattrib = mng.addAttrib<Scalar>("MyAttrib");
  *
  * ...
  *
  * // somewhere else: access
- * auto iattribhandler = mng.findAttrib<float>("MyAttrib"); //  iattribhandler == inputfattrib
+ * auto iattribhandler = mng.findAttrib<Scalar>("MyAttrib"); //  iattribhandler == inputfattrib
  * if ( mng.isValid( iattribhandler ) ) { // true
  *     auto &attrib = mng.getAttrib( iattribhandler );
  *     ...
  * }
- * auto& iattribhandler = mng.findAttrib<float>("InvalidAttrib"); // invalid
+ * auto& iattribhandler = mng.findAttrib<Scalar>("InvalidAttrib"); // invalid
  * if ( mng.isValid( iattribhandler ) ) { // false
  *    ...
  * }

@@ -257,7 +257,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     PickingManager* m_pickingManager;
 
     bool m_isBrushPickingEnabled;
-    float m_brushRadius;
+    Scalar m_brushRadius;
 
     /// Owning pointer to the camera.
     std::unique_ptr<CameraManipulator> m_camera;
