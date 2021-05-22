@@ -13,7 +13,8 @@ namespace Scene {
 class Entity;
 
 /// A Camera is an Engine Component storing a Camera object.
-///\todo attached camera do not take entity's transformation into account ...
+///\todo attached camera do not take entity's transformation into account. This prevents, for now,
+/// keyframed animation of the Camera from its entity ...
 class RA_ENGINE_API CameraComponent : public Scene::Component
 {
   public:
