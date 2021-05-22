@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <cpplocate/cpplocate.h>
+#include <stack>
 
 namespace Ra {
 namespace Core {
@@ -53,6 +54,27 @@ optional<std::string> getResourcesPath( void* symbol, const std::string& pattern
     p      = clean( p / pattern );
     if ( p.empty() ) return {};
     return p.string();
+}
+
+namespace DataPath {
+static std::stack<std::string> s_dataPaths;
+}
+
+std::string getDataPath() {
+    if ( DataPath::s_dataPaths.empty() ) { return fs::current_path().string(); }
+    return DataPath::s_dataPaths.top();
+}
+
+std::string popDataPath() {
+    if ( DataPath::s_dataPaths.empty() ) { return fs::current_path().string(); }
+    auto p = DataPath::s_dataPaths.top();
+    DataPath::s_dataPaths.pop();
+    return p;
+}
+
+void pushDataPath( std::string datapath ) {
+    DataPath::s_dataPaths.emplace( std::move( datapath ) );
+    fs::create_directories( DataPath::s_dataPaths.top() );
 }
 
 } // namespace Resources
