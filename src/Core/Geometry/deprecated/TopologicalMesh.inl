@@ -29,7 +29,7 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
 
-    std::vector<PropPair<float>> vprop_float;
+    std::vector<PropPair<Scalar>> vprop_float;
     std::vector<std::pair<AttribHandle<Vector2>, OpenMesh::HPropHandleT<Vector2>>> vprop_vec2;
     std::vector<std::pair<AttribHandle<Vector3>, OpenMesh::HPropHandleT<Vector3>>> vprop_vec3;
     std::vector<std::pair<AttribHandle<Vector4>, OpenMesh::HPropHandleT<Vector4>>> vprop_vec4;
@@ -210,7 +210,7 @@ TopologicalMesh::getOutputTriangleMeshIndexPropHandle() const {
     return m_outputTriangleMeshIndexPph;
 }
 
-inline const std::vector<OpenMesh::HPropHandleT<float>>&
+inline const std::vector<OpenMesh::HPropHandleT<Scalar>>&
 TopologicalMesh::getFloatPropsHandles() const {
     return m_floatPph;
 }

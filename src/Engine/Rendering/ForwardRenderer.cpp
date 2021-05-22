@@ -277,15 +277,17 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
     }
     else
     { glDisable( GL_POLYGON_OFFSET_FILL ); }
-    static const auto clearZeros = Core::Utils::Color::Black();
-    static const auto clearOnes  = Core::Utils::Color::White();
+    static const auto clearZeros = Core::Utils::Color::Black().cast<GL_SCALAR_PLAIN>().eval();
+    static const auto clearOnes  = Core::Utils::Color::White().cast<GL_SCALAR_PLAIN>().eval();
     static const float clearDepth {1.0f};
 
-    GL_ASSERT( glClearBufferfv( GL_COLOR, 0, getBackgroundColor().data() ) ); // Clear color
-    GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearZeros.data() ) );           // Clear normals
-    GL_ASSERT( glClearBufferfv( GL_COLOR, 2, clearZeros.data() ) );           // Clear diffuse
-    GL_ASSERT( glClearBufferfv( GL_COLOR, 3, clearZeros.data() ) );           // Clear specular
-    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );                 // Clear depth
+    ///\todo use globjects.
+    auto bgColor = getBackgroundColor().cast<GL_SCALAR_PLAIN>().eval();
+    GL_ASSERT( glClearBufferfv( GL_COLOR, 0, bgColor.data() ) );    // Clear color
+    GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearZeros.data() ) ); // Clear normals
+    GL_ASSERT( glClearBufferfv( GL_COLOR, 2, clearZeros.data() ) ); // Clear diffuse
+    GL_ASSERT( glClearBufferfv( GL_COLOR, 3, clearZeros.data() ) ); // Clear specular
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );       // Clear depth
 
     // Z prepass
     GL_ASSERT( glDepthFunc( GL_LESS ) );
@@ -410,7 +412,8 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
     {
         m_volumeFbo->bind();
         GL_ASSERT( glDrawBuffers( 1, buffers ) );
-        GL_ASSERT( glClearBufferfv( GL_COLOR, 0, Core::Utils::Color::Alpha().data() ) );
+        auto alpha = Core::Utils::Color::Alpha().cast<GL_SCALAR_PLAIN>().eval();
+        GL_ASSERT( glClearBufferfv( GL_COLOR, 0, alpha.data() ) );
         GL_ASSERT( glDisable( GL_BLEND ) );
         // for ( const auto& l : m_lights )
         for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i )

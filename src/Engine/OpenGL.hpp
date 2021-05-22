@@ -19,11 +19,9 @@ using namespace gl;
 
 #include <glbinding-aux/types_to_string.h>
 
-#ifndef CORE_USE_DOUBLE
-#    define GL_SCALAR GL_FLOAT
-#else
-#    define GL_SCALAR GL_DOUBLE
-#endif
+// use always float on the OpenGL side.
+#define GL_SCALAR GL_FLOAT
+#define GL_SCALAR_PLAIN float
 
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext() {

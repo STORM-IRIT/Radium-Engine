@@ -233,7 +233,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
 
     /// add attribs to out
     TriangleMesh::PointAttribHandle::Container wedgePosition;
-    AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(
+    AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(
         m_wedges.m_floatAttribNames.size() );
     AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
         m_wedges.m_vector2AttribNames.size() );
@@ -254,7 +254,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
     }
 
     out.setVertices( std::move( wedgePosition ) );
-    moveContainerToMesh<float>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
+    moveContainerToMesh<Scalar>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
     moveContainerToMesh<Vector2>( out, m_wedges.m_vector2AttribNames, wedgeVector2AttribData );
     moveContainerToMesh<Vector3>( out, m_wedges.m_vector3AttribNames, wedgeVector3AttribData );
     moveContainerToMesh<Vector4>( out, m_wedges.m_vector4AttribNames, wedgeVector4AttribData );
@@ -287,7 +287,7 @@ LineMesh TopologicalMesh::toLineMesh() {
     LineMesh::IndexContainerType indices;
 
     TriangleMesh::PointAttribHandle::Container wedgePosition;
-    AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(
+    AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(
         m_wedges.m_floatAttribNames.size() );
     AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
         m_wedges.m_vector2AttribNames.size() );
@@ -308,7 +308,7 @@ LineMesh TopologicalMesh::toLineMesh() {
     }
 
     out.setVertices( std::move( wedgePosition ) );
-    moveContainerToMesh<float>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
+    moveContainerToMesh<Scalar>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
     moveContainerToMesh<Vector2>( out, m_wedges.m_vector2AttribNames, wedgeVector2AttribData );
     moveContainerToMesh<Vector3>( out, m_wedges.m_vector3AttribNames, wedgeVector3AttribData );
     moveContainerToMesh<Vector4>( out, m_wedges.m_vector4AttribNames, wedgeVector4AttribData );
@@ -345,13 +345,13 @@ PolyMesh TopologicalMesh::toPolyMesh() {
     PolyMesh::IndexContainerType indices;
 
     /// add attribs to out
-    std::vector<AttribHandle<float>> wedgeFloatAttribHandles;
+    std::vector<AttribHandle<Scalar>> wedgeFloatAttribHandles;
     std::vector<AttribHandle<Vector2>> wedgeVector2AttribHandles;
     std::vector<AttribHandle<Vector3>> wedgeVector3AttribHandles;
     std::vector<AttribHandle<Vector4>> wedgeVector4AttribHandles;
 
     TriangleMesh::PointAttribHandle::Container wedgePosition;
-    AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(
+    AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(
         m_wedges.m_floatAttribNames.size() );
     AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
         m_wedges.m_vector2AttribNames.size() );
@@ -372,7 +372,7 @@ PolyMesh TopologicalMesh::toPolyMesh() {
     }
 
     out.setVertices( std::move( wedgePosition ) );
-    moveContainerToMesh<float>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
+    moveContainerToMesh<Scalar>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
     moveContainerToMesh<Vector2>( out, m_wedges.m_vector2AttribNames, wedgeVector2AttribData );
     moveContainerToMesh<Vector3>( out, m_wedges.m_vector3AttribNames, wedgeVector3AttribData );
     moveContainerToMesh<Vector4>( out, m_wedges.m_vector4AttribNames, wedgeVector4AttribData );
@@ -399,7 +399,7 @@ PolyMesh TopologicalMesh::toPolyMesh() {
 
 void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& out ) {
     TriangleMesh::PointAttribHandle::Container wedgePosition;
-    AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(
+    AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(
         m_wedges.m_floatAttribNames.size() );
     AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
         m_wedges.m_vector2AttribNames.size() );
@@ -420,7 +420,7 @@ void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& out 
     }
 
     out.setVertices( std::move( wedgePosition ) );
-    moveContainerToMesh<float>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
+    moveContainerToMesh<Scalar>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
     moveContainerToMesh<Vector2>( out, m_wedges.m_vector2AttribNames, wedgeVector2AttribData );
     moveContainerToMesh<Vector3>( out, m_wedges.m_vector3AttribNames, wedgeVector3AttribData );
     moveContainerToMesh<Vector4>( out, m_wedges.m_vector4AttribNames, wedgeVector4AttribData );

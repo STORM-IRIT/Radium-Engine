@@ -79,7 +79,7 @@ inline bool TopologicalMesh::WedgeData::operator<( const TopologicalMesh::WedgeD
         return m_##NAME##Attrib;                                                               \
     }
 
-GET_ATTRIB_ARRAY_HELPER( float, float )
+GET_ATTRIB_ARRAY_HELPER( Scalar, float )
 GET_ATTRIB_ARRAY_HELPER( Vector2, vector2 )
 GET_ATTRIB_ARRAY_HELPER( Vector3, vector3 )
 GET_ATTRIB_ARRAY_HELPER( Vector4, vector4 )
@@ -277,7 +277,7 @@ TopologicalMesh::WedgeCollection::setWedgePosition( const TopologicalMesh::Wedge
         return m_##NAME##AttribNames;                                                             \
     }
 
-GET_NAME_ARRAY_HELPER( float, float )
+GET_NAME_ARRAY_HELPER( Scalar, float )
 GET_NAME_ARRAY_HELPER( Vector2, vector2 )
 GET_NAME_ARRAY_HELPER( Vector3, vector3 )
 GET_NAME_ARRAY_HELPER( Vector4, vector4 )
@@ -350,7 +350,7 @@ void init( VectorArray<T>& vec, const std::vector<std::string> names ) {
 // return a new wedgeData with uninit values.
 inline TopologicalMesh::WedgeData TopologicalMesh::WedgeCollection::newWedgeData() const {
     WedgeData ret;
-    init<float>( ret.getAttribArray<float>(), m_floatAttribNames );
+    init<Scalar>( ret.getAttribArray<Scalar>(), m_floatAttribNames );
     init<Vector2>( ret.getAttribArray<Vector2>(), m_vector2AttribNames );
     init<Vector3>( ret.getAttribArray<Vector3>(), m_vector3AttribNames );
     init<Vector4>( ret.getAttribArray<Vector4>(), m_vector4AttribNames );
@@ -379,8 +379,8 @@ void TopologicalMesh::InitWedgeAttribs<T>::operator()( AttribBase* attr ) const 
         if ( attr->isFloat() )
         {
             m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
-                m_triMesh.template getAttribHandle<float>( attr->getName() ) );
-            m_topo->m_wedges.addAttribName<float>( attr->getName() );
+                m_triMesh.template getAttribHandle<Scalar>( attr->getName() ) );
+            m_topo->m_wedges.addAttribName<Scalar>( attr->getName() );
         }
         else if ( attr->isVector2() )
         {
@@ -654,7 +654,7 @@ void TopologicalMesh::copyAttribToWedgeData( const IndexedGeometry<U>& mesh,
 template <typename T>
 void TopologicalMesh::copyMeshToWedgeData( const IndexedGeometry<T>& mesh,
                                            unsigned int vindex,
-                                           const std::vector<AttribHandle<float>>& wprop_float,
+                                           const std::vector<AttribHandle<Scalar>>& wprop_float,
                                            const std::vector<AttribHandle<Vector2>>& wprop_vec2,
                                            const std::vector<AttribHandle<Vector3>>& wprop_vec3,
                                            const std::vector<AttribHandle<Vector4>>& wprop_vec4,

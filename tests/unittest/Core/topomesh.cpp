@@ -143,7 +143,7 @@ void copyToWedgesVector( size_t size,
             }
         }
 
-        COPY_TO_WEDGES_VECTOR_HELPER( Float, float );
+        COPY_TO_WEDGES_VECTOR_HELPER( Float, Scalar );
         COPY_TO_WEDGES_VECTOR_HELPER( Vector2, Vector2 );
         COPY_TO_WEDGES_VECTOR_HELPER( Vector3, Vector3 );
         COPY_TO_WEDGES_VECTOR_HELPER( Vector4, Vector4 );
@@ -358,7 +358,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
 
     SECTION( "Test skip empty attributes" ) {
         auto mesh = Ra::Core::Geometry::makeCylinder( Vector3( 0, 0, 0 ), Vector3( 0, 0, 1 ), 1 );
-        mesh.addAttrib<float>( "empty" );
+        mesh.addAttrib<Scalar>( "empty" );
         auto topologicalMesh = TopologicalMesh( mesh );
         auto newMesh         = topologicalMesh.toTriangleMesh();
         REQUIRE( !newMesh.hasAttrib( "empty" ) );
@@ -435,17 +435,17 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     }
 }
 
-void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, float f ) {
+void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, Scalar f ) {
 
     auto he0 = topo.halfedge_handle( eh, 0 );
     auto he1 = topo.halfedge_handle( eh, 1 );
     auto v0  = topo.from_vertex_handle( he0 ); // i.e. to_vertex_handle(he1)
     REQUIRE( v0 == topo.to_vertex_handle( he1 ) );
-    auto v1  = topo.to_vertex_handle( he0 );
-    auto p0  = topo.point( v0 );
-    float f0 = topo.getWedgeData( *( topo.getVertexWedges( v0 ) ).begin() ).m_floatAttrib[0];
-    auto p1  = topo.point( v1 );
-    float f1 = topo.getWedgeData( *( topo.getVertexWedges( v1 ) ).begin() ).m_floatAttrib[0];
+    auto v1   = topo.to_vertex_handle( he0 );
+    auto p0   = topo.point( v0 );
+    Scalar f0 = topo.getWedgeData( *( topo.getVertexWedges( v0 ) ).begin() ).m_floatAttrib[0];
+    auto p1   = topo.point( v1 );
+    Scalar f1 = topo.getWedgeData( *( topo.getVertexWedges( v1 ) ).begin() ).m_floatAttrib[0];
     topo.splitEdge( eh, f );
 
     // check validity
@@ -461,17 +461,17 @@ void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, float f 
     REQUIRE( vsplit == topo.from_vertex_handle( he0 ) );
 
     auto psplit = topo.point( vsplit );
-    auto vcheck = ( f * p1 + ( 1.f - f ) * p0 );
-    REQUIRE( Math::areApproxEqual( ( psplit - vcheck ).squaredNorm(), 0.f ) );
+    auto vcheck = ( f * p1 + ( 1_ra - f ) * p0 );
+    REQUIRE( Math::areApproxEqual( ( psplit - vcheck ).squaredNorm(), 0_ra ) );
 
     auto wedges = topo.getVertexWedges( vsplit );
     REQUIRE( wedges.size() == 1 );
 
     auto wd     = topo.getWedgeData( *wedges.begin() );
     auto fsplit = wd.m_floatAttrib[0];
-    auto fcheck = ( f * f1 + ( 1.f - f ) * f0 );
+    auto fcheck = ( f * f1 + ( 1_ra - f ) * f0 );
     REQUIRE( Math::areApproxEqual( fsplit, fcheck ) );
-    REQUIRE( Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0.f ) );
+    REQUIRE( Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0_ra ) );
 }
 
 void test_poly() {
@@ -555,7 +555,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][Top
     meshSplit.setNormals( {{-1, -1, 1}, {1, -1, 1}, {1, 1, 1}, {-1, 1, 1}} );
     meshSplit.setIndices( {Vector3ui( 0, 1, 2 ), Vector3ui( 0, 2, 3 )} );
     // add a float attrib
-    auto handle = meshSplit.addAttrib<float>( "test", {0.f, 1.f, 2.f, 3.f} );
+    auto handle = meshSplit.addAttrib<Scalar>( "test", {0_ra, 1_ra, 2_ra, 3_ra} );
     CORE_UNUSED( handle ); // until unit test is finished.
 
     // convert to topomesh
@@ -575,7 +575,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][Top
     }
 
     REQUIRE( innerEdgeCount == 1 );
-    float f = .3f;
+    Scalar f = .3_ra;
 
     test_split( topo, eh, f );
     /// \todo : split boundary edge.
@@ -856,9 +856,9 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges", "[Core][Core/Geometry][T
 }
 
 template <typename T>
-void testAttrib( const IndexedGeometry<T>& mesh, const std::string& name, float value ) {
+void testAttrib( const IndexedGeometry<T>& mesh, const std::string& name, Scalar value ) {
 
-    auto attribHandle = mesh.template getAttribHandle<float>( name );
+    auto attribHandle = mesh.template getAttribHandle<Scalar>( name );
     REQUIRE( attribHandle.idx().isValid() );
     auto& attrib = mesh.getAttrib( attribHandle );
     for ( const auto& v : attrib.data() )
@@ -886,7 +886,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate", "[Core][Core/Geometry][T
 
     REQUIRE( topo.n_faces() == 1 );
 
-    auto index1 = topo.addWedgeAttrib<float>( "test1", 1.f );
+    auto index1 = topo.addWedgeAttrib<Scalar>( "test1", 1_ra );
     REQUIRE( index1 == 0 );
     REQUIRE( topo.getFloatAttribNames().size() == 1 );
     REQUIRE( topo.getFloatAttribNames()[0] == "test1" );
@@ -902,12 +902,12 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate", "[Core][Core/Geometry][T
         wd.m_position     = topo.point( wd.m_vertexHandle );
 
         REQUIRE( wd.m_floatAttrib.size() == 1 );
-        wd.m_floatAttrib[index1] = 2.f;
+        wd.m_floatAttrib[index1] = 2_ra;
         topo.replaceWedge( he, wd );
     }
     REQUIRE( topo.checkIntegrity() );
 
-    auto index2 = topo.addWedgeAttrib<float>( "test2", 2.f );
+    auto index2 = topo.addWedgeAttrib<Scalar>( "test2", 2_ra );
     REQUIRE( index2 == 1 );
     for ( const auto& he : topo.halfedges() )
     {
@@ -919,11 +919,11 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate", "[Core][Core/Geometry][T
         REQUIRE( wd.m_position == topo.point( wd.m_vertexHandle ) );
 
         REQUIRE( wd.m_floatAttrib.size() == 2 );
-        wd.m_floatAttrib[index2] = 3.f;
+        wd.m_floatAttrib[index2] = 3_ra;
         topo.replaceWedge( he, wd );
     }
 
-    auto index3 = topo.addWedgeAttrib<float>( "test3", 3.f );
+    auto index3 = topo.addWedgeAttrib<Scalar>( "test3", 3_ra );
     REQUIRE( index3 == 2 );
     for ( const auto& he : topo.halfedges() )
     {
@@ -933,18 +933,18 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate", "[Core][Core/Geometry][T
         REQUIRE( topo.getWedgeRefCount( wedgeIndex ) == 1 );
         auto wedgeData = topo.getWedgeData( wedgeIndex );
 
-        REQUIRE( wedgeData.m_floatAttrib[index1] == 0.f );
-        REQUIRE( wedgeData.m_floatAttrib[index2] == 3.f );
-        REQUIRE( wedgeData.m_floatAttrib[index3] == 3.f );
+        REQUIRE( wedgeData.m_floatAttrib[index1] == 0_ra );
+        REQUIRE( wedgeData.m_floatAttrib[index2] == 3_ra );
+        REQUIRE( wedgeData.m_floatAttrib[index3] == 3_ra );
     }
 
     auto poly = topo.toPolyMesh();
     REQUIRE( poly.vertices().size() == 4 );
     REQUIRE( poly.getIndices().size() == 1 );
     REQUIRE( poly.getIndices()[0].size() == 4 );
-    testAttrib( poly, "test1", 0.f );
-    testAttrib( poly, "test2", 3.f );
-    testAttrib( poly, "test3", 3.f );
+    testAttrib( poly, "test1", 0_ra );
+    testAttrib( poly, "test2", 3_ra );
+    testAttrib( poly, "test3", 3_ra );
 
     topo.triangulate();
     topo.checkIntegrity();
@@ -953,9 +953,9 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate", "[Core][Core/Geometry][T
     REQUIRE( tri.getIndices().size() == 2 );
     REQUIRE( tri.getIndices()[0].size() == 3 );
     REQUIRE( tri.getIndices()[1].size() == 3 );
-    testAttrib( tri, "test1", 0.f );
-    testAttrib( tri, "test2", 3.f );
-    testAttrib( tri, "test3", 3.f );
+    testAttrib( tri, "test1", 0_ra );
+    testAttrib( tri, "test2", 3_ra );
+    testAttrib( tri, "test3", 3_ra );
 }
 
 optional<TopologicalMesh::HalfedgeHandle>
@@ -1221,8 +1221,8 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
                 REQUIRE( vsplit == topo.from_vertex_handle( he0 ) );
 
                 auto psplit = topo.point( vsplit );
-                auto vcheck = ( f * p1 + ( 1.f - f ) * p0 );
-                REQUIRE( Math::areApproxEqual( ( psplit - vcheck ).squaredNorm(), 0.f ) );
+                auto vcheck = ( f * p1 + ( 1_ra - f ) * p0 );
+                REQUIRE( Math::areApproxEqual( ( psplit - vcheck ).squaredNorm(), 0_ra ) );
                 REQUIRE( he0boundary == topo.is_boundary( he0 ) );
                 REQUIRE( he1boundary == topo.is_boundary( he1 ) );
 
@@ -1236,10 +1236,10 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
                     auto wd =
                         topo.getWedgeData( topo.getWedgeIndex( topo.prev_halfedge_handle( he0 ) ) );
                     auto fsplit = wd.m_vector4Attrib[0];
-                    auto fcheck = ( f * f1 + ( 1.f - f ) * f0 );
-                    REQUIRE( Math::areApproxEqual( ( fsplit - fcheck ).squaredNorm(), 0.f ) );
+                    auto fcheck = ( f * f1 + ( 1_ra - f ) * f0 );
+                    REQUIRE( Math::areApproxEqual( ( fsplit - fcheck ).squaredNorm(), 0_ra ) );
                     REQUIRE(
-                        Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0.f ) );
+                        Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0_ra ) );
                 }
                 else
                 { REQUIRE( topo.getWedgeIndex( topo.prev_halfedge_handle( he0 ) ).isInvalid() ); }
@@ -1252,10 +1252,10 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
                     auto f1     = topo.getWedgeData( widx11 ).m_vector4Attrib[0];
                     auto wd     = topo.getWedgeData( topo.getWedgeIndex( he1 ) );
                     auto fsplit = wd.m_vector4Attrib[0];
-                    auto fcheck = ( f * f1 + ( 1.f - f ) * f0 );
-                    REQUIRE( Math::areApproxEqual( ( fsplit - fcheck ).squaredNorm(), 0.f ) );
+                    auto fcheck = ( f * f1 + ( 1_ra - f ) * f0 );
+                    REQUIRE( Math::areApproxEqual( ( fsplit - fcheck ).squaredNorm(), 0_ra ) );
                     REQUIRE(
-                        Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0.f ) );
+                        Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0_ra ) );
                 }
                 else
                 { REQUIRE( topo.getWedgeIndex( he1 ).isInvalid() ); }

@@ -518,7 +518,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
         /// attrib handle from the CoreMesh given at construction, if any.
         /// used by TopologicalMesh::update()
-        std::vector<AttribHandle<float>> m_wedgeFloatAttribHandles;
+        std::vector<AttribHandle<Scalar>> m_wedgeFloatAttribHandles;
         std::vector<AttribHandle<Vector2>> m_wedgeVector2AttribHandles;
         std::vector<AttribHandle<Vector3>> m_wedgeVector3AttribHandles;
         std::vector<AttribHandle<Vector4>> m_wedgeVector4AttribHandles;
@@ -571,7 +571,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     template <typename T>
     inline void copyMeshToWedgeData( const Ra::Core::Geometry::IndexedGeometry<T>& mesh,
                                      unsigned int vindex,
-                                     const std::vector<AttribHandle<float>>& wprop_float,
+                                     const std::vector<AttribHandle<Scalar>>& wprop_float,
                                      const std::vector<AttribHandle<Vector2>>& wprop_vec2,
                                      const std::vector<AttribHandle<Vector3>>& wprop_vec3,
                                      const std::vector<AttribHandle<Vector4>>& wprop_vec4,

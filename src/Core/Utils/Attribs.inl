@@ -102,7 +102,7 @@ size_t Attrib<T>::getBufferSize() const {
 
 template <typename T>
 bool Attrib<T>::isFloat() const {
-    return std::is_same<float, T>::value;
+    return std::is_same<Scalar, T>::value;
 }
 
 template <typename T>
@@ -129,6 +129,8 @@ bool Attrib<T>::isType() {
 // fully specialization defined in .cpp
 template <>
 RA_CORE_API size_t Attrib<float>::getElementSize() const;
+template <>
+RA_CORE_API size_t Attrib<double>::getElementSize() const;
 // template specialization defined in header.
 template <typename T>
 size_t Attrib<T>::getElementSize() const {

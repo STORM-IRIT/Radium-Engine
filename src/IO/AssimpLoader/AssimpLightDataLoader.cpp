@@ -82,8 +82,8 @@ std::unique_ptr<LightData> AssimpLightDataLoader::loadLightData( const aiScene* 
     case LightData::POINT_LIGHT: {
         builtLight->setLight(
             color,
-            ( frame * Eigen::Map<const Eigen::Matrix<Scalar, 3, 1>>( &( light.mPosition.x ) )
-                          .homogeneous() )
+            ( frame *
+              Core::Vector4 {light.mPosition[0], light.mPosition[1], light.mPosition[2], 0.0} )
                 .hnormalized(),
             LightData::LightAttenuation( light.mAttenuationConstant,
                                          light.mAttenuationLinear,
@@ -96,8 +96,8 @@ std::unique_ptr<LightData> AssimpLightDataLoader::loadLightData( const aiScene* 
 
         builtLight->setLight(
             color,
-            ( frame * Eigen::Map<const Eigen::Matrix<Scalar, 3, 1>>( &( light.mPosition.x ) )
-                          .homogeneous() )
+            ( frame *
+              Core::Vector4 {light.mPosition[0], light.mPosition[1], light.mPosition[2], 0.0} )
                 .hnormalized(),
             -( frame.transpose().inverse() * dir ).head<3>(),
             light.mAngleInnerCone,

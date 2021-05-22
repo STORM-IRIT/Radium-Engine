@@ -15,6 +15,11 @@ size_t Attrib<float>::getElementSize() const {
     return 1;
 }
 
+template <>
+size_t Attrib<double>::getElementSize() const {
+    return 1;
+}
+
 AttribManager::~AttribManager() {
     clear();
 }
@@ -30,8 +35,8 @@ void AttribManager::copyAllAttributes( const AttribManager& m ) {
         if ( attr == nullptr ) continue;
         if ( attr->isFloat() )
         {
-            auto h = addAttrib<float>( attr->getName() );
-            getAttrib( h ).setData( static_cast<Attrib<float>*>( attr.get() )->data() );
+            auto h = addAttrib<Scalar>( attr->getName() );
+            getAttrib( h ).setData( static_cast<Attrib<Scalar>*>( attr.get() )->data() );
         }
         else if ( attr->isVector2() )
         {

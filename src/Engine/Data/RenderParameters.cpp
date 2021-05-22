@@ -49,7 +49,7 @@ void RenderParameters::addParameter( const std::string& name, std::vector<uint> 
     m_uintsParamsVector[name] = UIntsParameter( name, value );
 }
 
-void RenderParameters::addParameter( const std::string& name, std::vector<Scalar> value ) {
+void RenderParameters::addParameter( const std::string& name, std::vector<float> value ) {
     m_scalarsParamsVector[name] = ScalarsParameter( name, value );
 }
 
