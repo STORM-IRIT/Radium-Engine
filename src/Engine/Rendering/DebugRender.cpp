@@ -193,17 +193,11 @@ void DebugRender::renderPoints( const Core::Matrix4f& viewMatrix,
     glBindBuffer( GL_ARRAY_BUFFER, vbo );
     glBufferData(
         GL_ARRAY_BUFFER, size * 2 * sizeof( Core::Vector3 ), m_points.data(), GL_DYNAMIC_DRAW );
-
-#ifdef CORE_USE_DOUBLE
-    GLenum type = GL_DOUBLE;
-#else
-    GLenum type = GL_FLOAT;
-#endif
     GLint64 ptr = 0;
-    glVertexAttribPointer( 0, 3, type, GL_FALSE, 6 * sizeof( Scalar ), (GLvoid*)ptr );
+    glVertexAttribPointer( 0, 3, GL_SCALAR, GL_FALSE, 6 * sizeof( Scalar ), (GLvoid*)ptr );
     glEnableVertexAttribArray( 0 );
     ptr += 3 * sizeof( Scalar );
-    glVertexAttribPointer( 1, 3, type, GL_FALSE, 6 * sizeof( Scalar ), (GLvoid*)ptr );
+    glVertexAttribPointer( 1, 3, GL_SCALAR, GL_FALSE, 6 * sizeof( Scalar ), (GLvoid*)ptr );
     glEnableVertexAttribArray( 1 );
 
     glEnable( GL_PROGRAM_POINT_SIZE );
