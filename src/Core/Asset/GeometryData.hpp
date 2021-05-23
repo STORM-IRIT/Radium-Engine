@@ -47,7 +47,7 @@ class RA_CORE_API GeometryData : public AssetData
 
     GeometryData( const std::string& name = "", const GeometryType& type = UNKNOWN );
 
-    GeometryData( const GeometryData& data ) = default;
+    GeometryData( const GeometryData& data ) = delete;
 
     ~GeometryData();
 
