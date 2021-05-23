@@ -108,7 +108,7 @@ void ForwardRenderer::initBuffers() {
     // Color texture
     texparams.internalFormat = GL_RGBA32F;
     texparams.format         = GL_RGBA;
-    texparams.type           = GL_FLOAT;
+    texparams.type           = GL_SCALAR;
     texparams.minFilter      = GL_LINEAR;
     texparams.magFilter      = GL_LINEAR;
 

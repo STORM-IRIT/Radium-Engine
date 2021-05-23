@@ -341,7 +341,7 @@ void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) 
 
 template <>
 void ShaderProgram::setUniform( const char* name, const Scalar& value ) const {
-    m_program->setUniform( name, GL_SCALAR_PLAIN {value} );
+    m_program->setUniform( name, static_cast<GL_SCALAR_PLAIN>( value ) );
 }
 
 void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {

@@ -19,7 +19,9 @@ using namespace gl;
 
 #include <glbinding-aux/types_to_string.h>
 
-// use always float on the OpenGL side.
+// use always float on the OpenGL side, since double have some unresolved func with globjects.
+// maybe fix this to allow GL_DOUBLE ? in this change data conversion in color or mesh attrib gpu
+// data transfer.
 #define GL_SCALAR GL_FLOAT
 #define GL_SCALAR_PLAIN float
 
