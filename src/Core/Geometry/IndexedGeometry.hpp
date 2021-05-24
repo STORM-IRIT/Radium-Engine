@@ -62,16 +62,16 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     using IndexType          = T;
     using IndexContainerType = VectorArray<IndexType>;
 
-    inline IndexContainerType& collection() { return _collection; };
-    const IndexContainerType& collection() const { return _collection; };
+    inline IndexContainerType& collection() { return m_collection; };
+    const IndexContainerType& collection() const { return m_collection; };
 
     inline bool append( const GeometryIndexLayerBase& other ) final {
         if ( shareSemantic( other ) )
         {
             const auto& othercasted = static_cast<const GeometryIndexLayer<T>&>( other );
-            _collection.insert( _collection.end(),
-                                othercasted.collection().begin(),
-                                othercasted.collection().end() );
+            m_collection.insert( m_collection.end(),
+                                 othercasted.collection().begin(),
+                                 othercasted.collection().end() );
             return true;
         }
         return false;
@@ -82,16 +82,16 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
         if ( shareSemantic( other ) )
         {
             const auto& othercasted = static_cast<const GeometryIndexLayer<T>&>( other );
-            return othercasted.collection() == _collection;
+            return othercasted.collection() == m_collection;
         }
         return false;
     }
 
-    inline size_t size() override { return _collection.size(); }
+    inline size_t size() override { return m_collection.size(); }
 
     virtual inline GeometryIndexLayerBase* duplicate() {
-        auto copy         = new GeometryIndexLayer<T>( *this );
-        copy->_collection = _collection;
+        auto copy          = new GeometryIndexLayer<T>( *this );
+        copy->m_collection = m_collection;
         return copy;
     }
 
@@ -100,7 +100,7 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     inline GeometryIndexLayer( SemanticNames... names ) : GeometryIndexLayerBase( names... ) {}
 
   private:
-    IndexContainerType _collection;
+    IndexContainerType m_collection;
 };
 
 /// \brief AbstractGeometry with per-vertex attributes and layers of indices.
