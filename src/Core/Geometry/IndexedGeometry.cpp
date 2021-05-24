@@ -66,13 +66,15 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
             dataHasBeenCopied = true;
         }
         else
+        {
             // try to append to an existing layer: should always work
-            if ( it->second.second->append( *( value.second ) ) )
-            dataHasBeenCopied = true;
-        else
-            CORE_ASSERT( false,
-                         "Inconsistent situation found: layers with different semantics sharing "
-                         "the same key" );
+            if ( it->second.second->append( *( value.second ) ) ) { dataHasBeenCopied = true; }
+            else
+            {
+                CORE_ASSERT( false,
+                             "Inconsistency: layers with different semantics shares the same key" );
+            }
+        }
     }
 
     if ( dataHasBeenCopied )
