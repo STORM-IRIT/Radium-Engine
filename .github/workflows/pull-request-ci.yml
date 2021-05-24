@@ -1,4 +1,4 @@
-name: Compile and Test Radium libraries
+name: Compile and Test Radium libraries (Release/float)
 
 defaults:
   run:
