@@ -23,6 +23,7 @@ if (RADIUM_IO_ASSIMP)
     if (NOT DEFINED assimp_DIR)
         CheckExternalsPrerequisite()
         StatusMessage("[IOExternal]" "assimp" "remote git")
+        
         # I found some problems when generating xcode project for Assimp. The debug version is expected even in Release mode.
         # As Release build does not generate the debug version, the script fail.
         # For now, only configure in Debug mode to work with xcode
@@ -31,6 +32,7 @@ if (RADIUM_IO_ASSIMP)
             GIT_TAG tags/v5.0.1
             GIT_SHALLOW TRUE
             GIT_PROGRESS TRUE
+            PATCH_COMMAND  git reset --hard && git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/assimp.patch"
             INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
             CMAKE_ARGS
             ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
