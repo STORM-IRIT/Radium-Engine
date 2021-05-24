@@ -37,7 +37,7 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     virtual ~GeometryIndexLayerBase() {}
 
     /// \brief Create new layer with duplicated content
-    virtual GeometryIndexLayerBase* duplicate() = 0;
+    virtual GeometryIndexLayerBase* clone() = 0;
 
     /// \brief Append content from another layer
     /// \return false if data cannot be appended, e.g., different semantics
@@ -89,7 +89,7 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
 
     inline size_t size() override { return m_collection.size(); }
 
-    virtual inline GeometryIndexLayerBase* duplicate() {
+    inline GeometryIndexLayerBase* clone() override {
         auto copy          = new GeometryIndexLayer<T>( *this );
         copy->m_collection = m_collection;
         return copy;
