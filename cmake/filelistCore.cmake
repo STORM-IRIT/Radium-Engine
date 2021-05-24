@@ -162,6 +162,7 @@ set( core_inlines
     Geometry/Curve2D.inl
     Geometry/deprecated/TopologicalMesh.inl
     Geometry/DistanceQueries.inl
+    Geometry/IndexedGeometry.inl
     Geometry/MeshPrimitives.inl
     Geometry/PolyLine.inl
     Geometry/Spline.inl
