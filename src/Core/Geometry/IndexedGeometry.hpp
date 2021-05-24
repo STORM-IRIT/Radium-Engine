@@ -19,9 +19,9 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
                                            public Utils::ObjectWithSemantic
 {
   public:
+    /// these ctor and assignement operators do not copy observers
     inline explicit GeometryIndexLayerBase( const GeometryIndexLayerBase& other ) :
         ObjectWithSemantic( other.semantics() ) {}
-
     inline GeometryIndexLayerBase& operator=( const GeometryIndexLayerBase& other ) {
         CORE_UNUSED( other );
         CORE_ASSERT( semantics() == other.semantics(),
@@ -34,6 +34,7 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
                      "Try to assign GeometryIndexLayer of different type" );
         return *this;
     }
+    virtual ~GeometryIndexLayerBase() {}
 
     /// \brief Create new layer with duplicated content
     virtual GeometryIndexLayerBase* duplicate() = 0;
