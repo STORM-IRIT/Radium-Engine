@@ -337,7 +337,7 @@ class RA_ENGINE_API PointCloud : public CoreGeometryDisplayable<Core::Geometry::
     void updateGL_specific_impl() override;
 };
 
-/// A CoreGeometry, with indices
+/// An engine mesh owning CoreGeometry, with indices
 template <typename T>
 class IndexedGeometry : public CoreGeometryDisplayable<T>, public VaoIndices
 {
@@ -357,6 +357,8 @@ class IndexedGeometry : public CoreGeometryDisplayable<T>, public VaoIndices
     void updateGL_specific_impl() override;
 };
 
+/// An engine mesh owning a MultiIndexedCoreGeometry, with multiple indices layer.
+/// \todo Work in progress.
 template <typename T>
 class MultiIndexedGeometry : public CoreGeometryDisplayable<T>
 {

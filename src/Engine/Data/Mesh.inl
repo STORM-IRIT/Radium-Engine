@@ -518,6 +518,8 @@ void MultiIndexedGeometry<T>::loadGeometry( T&& mesh ) {
     m_indices.clear();
 
     base::loadGeometry_common( std::move( mesh ) );
+    CORE_ASSERT( false, "not implemented yet" );
+
     /// \todo HERE
     // indices
     //  base::m_mesh.attach( IndicesObserver( this ) );
@@ -525,6 +527,7 @@ void MultiIndexedGeometry<T>::loadGeometry( T&& mesh ) {
 
 template <typename T>
 void MultiIndexedGeometry<T>::updateGL_specific_impl() {
+    CORE_ASSERT( false, "not implemented yet" );
     //    if ( !m_indices )
     //    {
     //        m_indices      = globjects::Buffer::create();
@@ -553,7 +556,8 @@ void MultiIndexedGeometry<T>::updateGL_specific_impl() {
 }
 
 template <typename T>
-void MultiIndexedGeometry<T>::render( const ShaderProgram* prog ) {
+void MultiIndexedGeometry<T>::render( const ShaderProgram* ) {
+    CORE_ASSERT( false, "not implemented yet" );
     //    if ( base::m_vao )
     //    {
     //        GL_CHECK_ERROR;
