@@ -239,7 +239,7 @@ bool MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& l
 void MultiIndexedGeometry::deepCopy( const MultiIndexedGeometry& other ) {
     m_indices = other.m_indices;
     for ( auto& el : m_indices )
-        el.second.second = el.second.second->duplicate(); // replace copied entries by duplicates
+        el.second.second = el.second.second->clone(); // replace copied entries by duplicates
 }
 void MultiIndexedGeometry::deepClear() {
     for ( auto& el : m_indices )
