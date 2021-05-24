@@ -20,21 +20,10 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
 {
   public:
     /// these ctor and assignement operators do not copy observers
-    inline explicit GeometryIndexLayerBase( const GeometryIndexLayerBase& other ) :
-        ObjectWithSemantic( other.semantics() ) {}
-    inline GeometryIndexLayerBase& operator=( const GeometryIndexLayerBase& other ) {
-        CORE_UNUSED( other );
-        CORE_ASSERT( semantics() == other.semantics(),
-                     "Try to assign object with different semantics" );
-        return *this;
-    }
-    inline GeometryIndexLayerBase& operator=( GeometryIndexLayerBase&& other ) {
-        CORE_UNUSED( other );
-        CORE_ASSERT( semantics() == other.semantics(),
-                     "Try to assign GeometryIndexLayer of different type" );
-        return *this;
-    }
-    virtual ~GeometryIndexLayerBase() {}
+    inline explicit GeometryIndexLayerBase( const GeometryIndexLayerBase& other );
+    inline GeometryIndexLayerBase& operator=( const GeometryIndexLayerBase& other );
+    inline GeometryIndexLayerBase& operator=( GeometryIndexLayerBase&& other );
+    virtual ~GeometryIndexLayerBase();
 
     /// \brief Create new layer with duplicated content
     virtual GeometryIndexLayerBase* clone() = 0;
@@ -44,10 +33,7 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     virtual bool append( const GeometryIndexLayerBase& other ) = 0;
 
     /// \brief Compare if two layers have the same content
-    virtual inline bool operator==( const GeometryIndexLayerBase& /*other*/ ) const {
-        return false;
-    }
-
+    virtual inline bool operator==( const GeometryIndexLayerBase& other ) const;
     /// \return the number of index (i.e. "faces") contained in the layer.
     virtual size_t size() = 0;
 
@@ -62,38 +48,17 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     using IndexType          = T;
     using IndexContainerType = VectorArray<IndexType>;
 
-    inline IndexContainerType& collection() { return m_collection; };
-    const IndexContainerType& collection() const { return m_collection; };
+    inline IndexContainerType& collection();
+    const IndexContainerType& collection() const;
 
-    inline bool append( const GeometryIndexLayerBase& other ) final {
-        if ( shareSemantic( other ) )
-        {
-            const auto& othercasted = static_cast<const GeometryIndexLayer<T>&>( other );
-            m_collection.insert( m_collection.end(),
-                                 othercasted.collection().begin(),
-                                 othercasted.collection().end() );
-            return true;
-        }
-        return false;
-    }
+    inline bool append( const GeometryIndexLayerBase& other ) final;
 
     /// \warning Does not account for elements permutations
-    inline bool operator==( const GeometryIndexLayerBase& other ) const final {
-        if ( shareSemantic( other ) )
-        {
-            const auto& othercasted = static_cast<const GeometryIndexLayer<T>&>( other );
-            return othercasted.collection() == m_collection;
-        }
-        return false;
-    }
+    inline bool operator==( const GeometryIndexLayerBase& other ) const final;
 
-    inline size_t size() override { return m_collection.size(); }
+    inline size_t size() override;
 
-    inline GeometryIndexLayerBase* clone() override {
-        auto copy          = new GeometryIndexLayer<T>( *this );
-        copy->m_collection = m_collection;
-        return copy;
-    }
+    inline GeometryIndexLayerBase* clone() override;
 
   protected:
     template <class... SemanticNames>
@@ -170,8 +135,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     MultiIndexedGeometry& operator=( const MultiIndexedGeometry& other );
     MultiIndexedGeometry& operator=( MultiIndexedGeometry&& other );
 
-    virtual inline ~MultiIndexedGeometry() { clear(); }
-
+    virtual inline ~MultiIndexedGeometry();
     void clear() override;
 
     /// \brief Copy geometry and indices from \p others.
@@ -193,9 +157,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \brief Check if at least one layer with such properties exists
     /// \param layerKey layer key
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
-    inline bool containsLayer( const LayerKeyType& layerKey ) const {
-        return m_indices.find( layerKey ) != m_indices.end();
-    }
+    inline bool containsLayer( const LayerKeyType& layerKey ) const;
 
     /// \copybrief containsLayer( const LayerKeyType& ) const
     ///
@@ -204,9 +166,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \param layerName layer name
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     inline bool containsLayer( const LayerSemanticCollection& semantics,
-                               const std::string& layerName ) const {
-        return containsLayer( {semantics, layerName} );
-    }
+                               const std::string& layerName ) const;
 
     /// \copybrief containsLayer( const LayerKeyType& ) const
     ///
@@ -228,9 +188,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \brief Count the number of layer matching the input parameters
     /// \param layerKey layer key
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
-    inline size_t countLayers( const LayerKeyType& layerKey ) const {
-        return m_indices.count( layerKey );
-    }
+    inline size_t countLayers( const LayerKeyType& layerKey ) const;
 
     /// \copybrief countLayers( const LayerKeyType& ) const
     ///
@@ -239,9 +197,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \param layerName layer name
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     inline size_t countLayers( const LayerSemanticCollection& semantics,
-                               const std::string& layerName ) const {
-        return countLayers( {semantics, layerName} );
-    }
+                               const std::string& layerName ) const;
 
     /// \copybrief countLayers( const LayerKeyType& ) const
     ///
@@ -264,10 +220,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \param layerKey layer key
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
-    inline const GeometryIndexLayerBase& getLayer( const LayerKeyType& layerKey ) const {
-        return *( m_indices.at( layerKey ).second );
-    }
-
+    inline const GeometryIndexLayerBase& getLayer( const LayerKeyType& layerKey ) const;
     /// \copybrief getLayer( const LayerKeyType& ) const
     ///
     /// Convenience function.
@@ -276,10 +229,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
     inline const GeometryIndexLayerBase& getLayer( const LayerSemanticCollection& semantics,
-                                                   const std::string& layerName ) const {
-        return getLayer( {semantics, layerName} );
-    }
-
+                                                   const std::string& layerName ) const;
     /// \copybrief getLayer( const LayerKeyType& ) const
     ///
     /// Convenience function.
@@ -322,10 +272,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
     inline GeometryIndexLayerBase& getLayerWithLock( const LayerSemanticCollection& semantics,
-                                                     const std::string& layerName ) {
-        return getLayerWithLock( {semantics, layerName} );
-    }
-
+                                                     const std::string& layerName );
     /// \copybrief getLayerWithLock( const LayerKeyType& )
     ///
     /// Convenience function.
@@ -368,9 +315,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
     inline void unlockLayer( const LayerSemanticCollection& semantics,
-                             const std::string& layerName ) {
-        unlockLayer( {semantics, layerName} );
-    }
+                             const std::string& layerName );
 
     // The following methods are only mean to be used by PredifinedIndexGeometry and should not be
     // part of the final API
@@ -410,7 +355,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     ///
     /// Usage:
     /// \snippet tests/unittest/Core/indexview.cpp Iterating over layer keys
-    [[nodiscard]] inline auto layerKeys() const { return Utils::map_keys( m_indices ); }
+    [[nodiscard]] inline auto layerKeys() const;
 
   private:
     /// \brief Duplicate attributes stored as pointers
@@ -435,7 +380,8 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
 };
 
 struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
-    inline PointCloudIndexLayer() : GeometryIndexLayer( staticSemanticName ) {}
+    inline PointCloudIndexLayer();
+
     /// \brief Generate linearly spaced indices with same size as \p attr vertex buffer
     void linearIndices( const AttribArrayGeometry& attr );
 
@@ -443,41 +389,34 @@ struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
 
   protected:
     template <class... SemanticNames>
-    inline PointCloudIndexLayer( SemanticNames... names ) :
-        GeometryIndexLayer( staticSemanticName, names... ) {}
+    inline PointCloudIndexLayer( SemanticNames... names );
 };
 
 struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
-    inline TriangleIndexLayer() : GeometryIndexLayer( staticSemanticName ) {}
-
+    inline TriangleIndexLayer();
     static constexpr const char* staticSemanticName = "TriangleMesh";
 
   protected:
     template <class... SemanticNames>
-    inline TriangleIndexLayer( SemanticNames... names ) :
-        GeometryIndexLayer( staticSemanticName, names... ) {}
+    inline TriangleIndexLayer( SemanticNames... names );
 };
 
 struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
-    inline PolyIndexLayer() : GeometryIndexLayer( staticSemanticName ) {}
-
+    inline PolyIndexLayer();
     static constexpr const char* staticSemanticName = "PolyMesh";
 
   protected:
     template <class... SemanticNames>
-    inline PolyIndexLayer( SemanticNames... names ) :
-        GeometryIndexLayer( staticSemanticName, names... ) {}
+    inline PolyIndexLayer( SemanticNames... names );
 };
 
 struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
-    inline LineIndexLayer() : GeometryIndexLayer( staticSemanticName ) {}
-
+    inline LineIndexLayer();
     static constexpr const char* staticSemanticName = "LineMesh";
 
   protected:
     template <class... SemanticNames>
-    inline LineIndexLayer( SemanticNames... names ) :
-        GeometryIndexLayer( staticSemanticName, names... ) {}
+    inline LineIndexLayer( SemanticNames... names );
 };
 
 /// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
@@ -528,42 +467,22 @@ class IndexedGeometry : public MultiIndexedGeometry
     using DefaultLayerType = typename IndexLayerType::getType<IndexType>::Type;
 
   public:
-    inline IndexedGeometry() {
-        auto layer          = std::make_unique<DefaultLayerType>();
-        m_mainIndexLayerKey = {layer->semantics(), ""};
-        addLayer( std::move( layer ) );
-    }
+    inline IndexedGeometry();
 
-    inline const IndexContainerType& getIndices() const {
-        const auto& abstractLayer = getLayer( m_mainIndexLayerKey );
-        return static_cast<const DefaultLayerType&>( abstractLayer ).collection();
-    }
-
+    inline const IndexContainerType& getIndices() const;
     /// read write access to indices.
     /// Cause indices to be "lock" for the caller
     /// need to be unlock by the caller before any one can ask for write access.
-    inline IndexContainerType& getIndicesWithLock() {
-        auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
-        return static_cast<DefaultLayerType&>( abstractLayer ).collection();
-    }
+    inline IndexContainerType& getIndicesWithLock();
 
     /// unlock previously read write acces, notify observers of the update.
-    inline void indicesUnlock() { unlockLayer( m_mainIndexLayerKey ); }
-
+    inline void indicesUnlock();
     /// set indices. Indices must be unlock, i.e. no one should have write
     /// access to it.
     /// Notify observers of the update.
-    inline void setIndices( IndexContainerType&& indices ) {
-        auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
-        static_cast<DefaultLayerType&>( abstractLayer ).collection() = std::move( indices );
-        notify();
-    }
-    inline void setIndices( const IndexContainerType& indices ) {
-        auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
-        static_cast<DefaultLayerType&>( abstractLayer ).collection() = indices;
-        notify();
-    }
-    inline const LayerKeyType& getLayerKey() const { return m_mainIndexLayerKey; }
+    inline void setIndices( IndexContainerType&& indices );
+    inline void setIndices( const IndexContainerType& indices );
+    inline const LayerKeyType& getLayerKey() const;
 
   private:
     LayerKeyType m_mainIndexLayerKey;
@@ -584,3 +503,5 @@ class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
+
+#include <Core/Geometry/IndexedGeometry.inl>
