@@ -14,18 +14,24 @@ namespace Resources {
 using namespace Ra::Core::Utils;
 namespace fs = ::std::filesystem;
 
+// This exclude the functions in the \cond LABEL ... \endcond section if LABEL is not defined
+// in the ENABLED_SECTIONS variable of the doxygen configuration file
+// see https://www.doxygen.nl/manual/commands.html#cmdcond
+/// \cond IMPLEMENTATION_DETAIL
+/// wrapper to cpplocate::locatePath to find a path into the filesystem
 fs::path searchPath( const std::string& pattern, const std::string& system, void* libSymbol ) {
     std::string p = cpplocate::locatePath( pattern, system, libSymbol );
     return fs::path( p ).lexically_normal();
 }
 
-// add a trailing "/" if path point to an existing directory.
+/// Format the path : add a trailing "/" if path point to an existing directory.
 fs::path clean( const fs::path& path ) {
     auto status = fs::status( path );
     if ( status.type() == fs::file_type::not_found ) return "";
     if ( status.type() == fs::file_type::directory ) return path / "";
     return path;
 }
+/// \endcond
 
 optional<std::string> getRadiumResourcesPath() {
     auto p =
@@ -56,9 +62,11 @@ optional<std::string> getResourcesPath( void* symbol, const std::string& pattern
     return p.string();
 }
 
+/// \cond IMPLEMENTATION_DETAIL
 namespace DataPath {
 static std::stack<std::string> s_dataPaths;
 }
+/// \endcond
 
 std::string getDataPath() {
     if ( DataPath::s_dataPaths.empty() ) { return fs::current_path().string(); }

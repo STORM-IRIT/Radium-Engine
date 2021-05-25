@@ -89,6 +89,7 @@ BaseApplication::BaseApplication( int& argc,
     parser.addHelpOption();
     parser.addVersionOption();
 
+    //! [Command line arguments]
     QCommandLineOption fpsOpt(
         QStringList {"r", "framerate", "fps"},
         "Control the application framerate, 0 to disable it (and run as fast as possible).",
@@ -129,6 +130,7 @@ BaseApplication::BaseApplication( int& argc,
                                     "Set the default data path and store it in the settings.",
                                     "folder",
                                     "./" );
+    //! [Command line arguments]
 
     parser.addOptions( {fpsOpt,
                         pluginOpt,
