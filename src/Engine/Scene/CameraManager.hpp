@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Engine/RaEngine.hpp>
-#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/CameraStorage.hpp>
 #include <Engine/Scene/System.hpp>
 
@@ -9,11 +8,8 @@
 
 namespace Ra {
 namespace Engine {
-namespace Data {
-class CameraComponent;
-}
-
 namespace Scene {
+
 /**
  * Interface providing functions to manage a group or type of Cameras
  * in a specific way.

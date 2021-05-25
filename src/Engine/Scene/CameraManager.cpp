@@ -1,16 +1,13 @@
-#include <Core/Asset/Camera.hpp>
-#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/CameraManager.hpp>
 
 #include <Core/Asset/Camera.hpp>
 #include <Core/Asset/FileData.hpp>
-
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
-
 #include <Engine/FrameInfo.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
