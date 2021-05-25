@@ -22,7 +22,11 @@ EntityManager::EntityManager() {
         ItemEntry( SystemEntity::getInstance() ) );
 }
 
-EntityManager::~EntityManager() = default;
+EntityManager::~EntityManager() {
+    auto& ent = m_entities[0];
+    ent.release();
+    SystemEntity::destroyInstance();
+}
 
 Entity* EntityManager::createEntity( const std::string& name ) {
     auto idx  = m_entities.emplace( new Entity( name ) );
