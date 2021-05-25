@@ -1720,34 +1720,38 @@
 <g id="node50" class="node">
 <title>Node73</title>
 <g id="a_node50"><a xlink:href="classRa_1_1Gui_1_1Timeline.html" target="_top" xlink:title="The Timeline class provides display and management of time, as well as keyframes.">
-<polygon fill="white" stroke="black" points="2775,-815.5 2775,-1037.5 2942,-1037.5 2942,-815.5 2775,-815.5"/>
-<text text-anchor="middle" x="2858.5" y="-1025.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Timeline</text>
-<polyline fill="none" stroke="black" points="2775,-1018.5 2942,-1018.5 "/>
-<text text-anchor="middle" x="2858.5" y="-1006.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="2775,-999.5 2942,-999.5 "/>
-<text text-anchor="start" x="2783" y="-987.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Timeline()</text>
-<text text-anchor="start" x="2783" y="-976.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Timeline()</text>
-<text text-anchor="start" x="2783" y="-965.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ selectionChanged()</text>
+<polygon fill="white" stroke="black" points="2775,-793.5 2775,-1059.5 2942,-1059.5 2942,-793.5 2775,-793.5"/>
+<text text-anchor="middle" x="2858.5" y="-1047.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Timeline</text>
+<polyline fill="none" stroke="black" points="2775,-1040.5 2942,-1040.5 "/>
+<text text-anchor="middle" x="2858.5" y="-1028.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="2775,-1021.5 2942,-1021.5 "/>
+<text text-anchor="start" x="2783" y="-1009.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Timeline()</text>
+<text text-anchor="start" x="2783" y="-998.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Timeline()</text>
+<text text-anchor="start" x="2783" y="-987.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ selectionChanged()</text>
+<text text-anchor="start" x="2783" y="-976.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerKeyFramedValue()</text>
+<text text-anchor="start" x="2783" y="-965.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unregisterKeyFramedValue()</text>
 <text text-anchor="start" x="2783" y="-954.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerKeyFramedValue()</text>
 <text text-anchor="start" x="2783" y="-943.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unregisterKeyFramedValue()</text>
 <text text-anchor="start" x="2783" y="-932.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerKeyFramedValue()</text>
 <text text-anchor="start" x="2783" y="-921.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unregisterKeyFramedValue()</text>
-<text text-anchor="start" x="2783" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerKeyFramedValue()</text>
-<text text-anchor="start" x="2783" y="-899.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unregisterKeyFramedValue()</text>
-<text text-anchor="start" x="2783" y="-888.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTime()</text>
-<text text-anchor="start" x="2783" y="-877.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeStart()</text>
-<text text-anchor="start" x="2783" y="-866.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeEnd()</text>
-<text text-anchor="start" x="2783" y="-855.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeDuration()</text>
-<text text-anchor="start" x="2783" y="-844.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeCursor()</text>
-<text text-anchor="start" x="2783" y="-833.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onSetPlay()</text>
-<text text-anchor="start" x="2783" y="-822.5" font-family="Helvetica,sans-Serif" font-size="10.00"># resizeEvent()</text>
+<text text-anchor="start" x="2783" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTime()</text>
+<text text-anchor="start" x="2783" y="-899.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachFromEngine()</text>
+<text text-anchor="start" x="2783" y="-888.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeStart()</text>
+<text text-anchor="start" x="2783" y="-877.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeEnd()</text>
+<text text-anchor="start" x="2783" y="-866.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeDuration()</text>
+<text text-anchor="start" x="2783" y="-855.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeCursor()</text>
+<text text-anchor="start" x="2783" y="-844.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onSetPlay()</text>
+<text text-anchor="start" x="2783" y="-833.5" font-family="Helvetica,sans-Serif" font-size="10.00"># resizeEvent()</text>
+<text text-anchor="start" x="2783" y="-822.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_entityAddObserverId</text>
+<text text-anchor="start" x="2783" y="-811.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_entityRemoveObserverId</text>
+<text text-anchor="start" x="2783" y="-800.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_roAddObserverId</text>
 </a>
 </g>
 </g>
 <!-- Node73&#45;&gt;Node72 -->
 <g id="edge75" class="edge">
 <title>Node73&#45;&gt;Node72</title>
-<path fill="none" stroke="#404040" d="M2863.08,-815.47C2860.55,-723.71 2841.15,-596.37 2761.5,-522 2728.29,-491 2605.75,-478.48 2526.46,-473.55"/>
+<path fill="none" stroke="#404040" d="M2862.16,-793.48C2857.17,-704.24 2834.97,-590.59 2761.5,-522 2728.29,-491 2605.75,-478.48 2526.46,-473.55"/>
 <polygon fill="none" stroke="#404040" points="2526.11,-473.53 2519.88,-477.17 2514.13,-472.83 2520.36,-469.19 2526.11,-473.53"/>
 <text text-anchor="middle" x="2802" y="-525" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_timeline</text>
 </g>
@@ -1767,7 +1771,7 @@
 <!-- Node74&#45;&gt;Node73 -->
 <g id="edge76" class="edge">
 <title>Node74&#45;&gt;Node73</title>
-<path fill="none" stroke="midnightblue" d="M2858.5,-1509.4C2858.5,-1417.18 2858.5,-1179.14 2858.5,-1037.73"/>
+<path fill="none" stroke="midnightblue" d="M2858.5,-1509.39C2858.5,-1421.77 2858.5,-1202.53 2858.5,-1059.58"/>
 <polygon fill="none" stroke="midnightblue" points="2855,-1509.66 2858.5,-1519.66 2862,-1509.66 2855,-1509.66"/>
 </g>
 <!-- Node75 -->

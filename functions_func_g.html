@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">de88bbe0a8c7e9290884c53ec64516741d408196</span>
+   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
    </div>
   </td>
  </tr>
@@ -268,11 +268,17 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 , <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ae91b08d3e3bca047eed7300f07947ad6">Ra::Engine::Rendering::RenderObject</a>
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a3ca3bcd93a56efca0b1d2d1c1f288c23">Ra::Engine::Scene::Entity</a>
 </li>
+<li>getComponentCreatedNotifier()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SignalManager.html#a16bcfb99dbbb5f3ab359c0b4bcac6f55">Ra::Engine::Scene::SignalManager</a>
+</li>
 <li>getComponentData()
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html#af1dfd12eba28ffeb3cce0c489fe786f8">Ra::Core::Asset::HandleData</a>
 </li>
 <li>getComponentDataSize()
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html#a137536338beb29e1044d72dc31027f77">Ra::Core::Asset::HandleData</a>
+</li>
+<li>getComponentDestroyedNotifier()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SignalManager.html#af70763579f5cc48799d9b2076feaaefe">Ra::Engine::Scene::SignalManager</a>
 </li>
 <li>getComponents()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a84c220ea552c63202359423e123758b8">Ra::Engine::Scene::Entity</a>
@@ -333,11 +339,14 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ad80e7fb989468f38b598b76c7f9906b2">Ra::Core::Asset::GeometryData</a>
 </li>
 <li>getElementSize()
-: <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#ab5eaed58d457c665ff87f510a85c2838">Ra::Core::Utils::Attrib&lt; T &gt;</a>
+: <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a46f11d578e15c96981aff15dfb9fea7b">Ra::Core::Utils::Attrib&lt; T &gt;</a>
 , <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae3368b25d8113148b27e5d5119eaeec1">Ra::Core::Utils::AttribBase</a>
 </li>
 <li>getEnd()
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a898a89c655528ebc3892a4739d3a3689">Ra::Core::Asset::AnimationTime</a>
+</li>
+<li>getEndFrameNotifier()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SignalManager.html#a808c2d199dcab4775ca79d93e7a7335a">Ra::Engine::Scene::SignalManager</a>
 </li>
 <li>getEndTime()
 : <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#aaca6d9d3e6748b5ee4e4109a85b8f211">Ra::Engine::RadiumEngine</a>
@@ -354,6 +363,12 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 </li>
 <li>getEntityComponents()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1System.html#a099c55f55d7e7f39b4b0a0bc687a278b">Ra::Engine::Scene::System</a>
+</li>
+<li>getEntityCreatedNotifier()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SignalManager.html#a1bf97995e2edc92bfaba5d996d946f1c">Ra::Engine::Scene::SignalManager</a>
+</li>
+<li>getEntityDestroyedNotifier()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SignalManager.html#a4a02944242dc38c279b42cd31c05369f">Ra::Engine::Scene::SignalManager</a>
 </li>
 <li>getEntityManager()
 : <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee">Ra::Engine::RadiumEngine</a>
@@ -574,7 +589,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 : <a class="el" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a4ddf0282e59e54315c29c49c4edcb9f7">Ra::Core::Geometry::PolyLine</a>
 </li>
 <li>getNormals()
-: <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2b2872e4665cd3b99e53a8b9f7038767">Ra::Core::Asset::GeometryData</a>
+: <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2efe57cb294fc84bec35d413d16a69a5">Ra::Core::Asset::GeometryData</a>
 </li>
 <li>getNormalSkinning()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a79f88dfc6b059053fc4eecfbb59f80a4">Ra::Engine::Scene::SkinningComponent</a>
@@ -614,7 +629,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html#af04c46b3dd84cf17e340a6b1d9f5b420">Ra::Engine::Data::Texture</a>
 </li>
 <li>getParameterSet()
-: <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e">Ra::Engine::Data::RenderParameters</a>
+: <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae005d82f1311363657a20405db1ce8bf">Ra::Engine::Data::RenderParameters</a>
 </li>
 <li>getParametersProvider()
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2dcfdb2e3b96bf8c5f1e2310cdec5afe">Ra::Engine::Rendering::RenderTechnique</a>
@@ -702,6 +717,12 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html#a90fb0030f6c2b65d5b47ca942b2f141a">Ra::Engine::Scene::CameraComponent</a>
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1DebugComponent.html#a754146b71e827d3cf7400258b315f2bb">Ra::Engine::Scene::DebugComponent</a>
 </li>
+<li>getRenderObjectCreatedNotifier()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SignalManager.html#a4b578c426937053b0dc0a5ac40a84e0a">Ra::Engine::Scene::SignalManager</a>
+</li>
+<li>getRenderObjectDestroyedNotifier()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SignalManager.html#a5dea787c4b96e7cac2c17b1aef4c032c">Ra::Engine::Scene::SignalManager</a>
+</li>
 <li>getRenderObjectIndex()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html#a19b327966ba8b6164f3254e0a8083a9d">Ra::Engine::Scene::VolumeComponent</a>
 </li>
@@ -766,7 +787,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a100abc65da2878bf821643ddecaa308c">Ra::Engine::Scene::SpotLight</a>
 </li>
 <li>getShaderProgram()
-: <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a73db5789bbbb51ef1c4e4722999da2d8">Ra::Engine::Data::ShaderProgramManager</a>
+: <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a17bac2f07d312be7a01ab2722bd810df">Ra::Engine::Data::ShaderProgramManager</a>
 </li>
 <li>getShaderProgramManager()
 : <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#ac7c4502212c24fbbad9b41d44a654548">Ra::Engine::RadiumEngine</a>
@@ -829,7 +850,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#afdb1d67866fa6dc2a0c390452aaf0f40">Ra::Engine::Scene::ComponentMessenger</a>
 </li>
 <li>getTexCoords()
-: <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#adcff5c75183311f4377368c01d32e531">Ra::Core::Asset::GeometryData</a>
+: <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a401dc38d3ba67efbb915efcf6e30cc6a">Ra::Core::Asset::GeometryData</a>
 </li>
 <li>getTexture()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#aa8e89544b5da028dda7e38896dc27213">Ra::Engine::Data::BlinnPhongMaterial</a>
@@ -954,7 +975,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 : <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ac00371a5be6d24886a0e8dc7284924b7">Ra::Core::Geometry::TopologicalMesh</a>
 </li>
 <li>getWedgeData()
-: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2a91efc2d7af261a917e7d5a54f73af4">Ra::Core::Geometry::TopologicalMesh</a>
+: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">Ra::Core::Geometry::TopologicalMesh</a>
 </li>
 <li>getWedgeIndex()
 : <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1ff1d09485ae33f3070ea2f0bd41abf9">Ra::Core::Geometry::TopologicalMesh</a>
@@ -1013,7 +1034,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 : <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a>
 </li>
 <li>Grid()
-: <a class="el" href="classRa_1_1Core_1_1Grid.html#a5c1b5a229a69f59188a2e4173d0d6717">Ra::Core::Grid&lt; T, D &gt;</a>
+: <a class="el" href="classRa_1_1Core_1_1Grid.html#a45ed0e29c52d152177c621b50562744e">Ra::Core::Grid&lt; T, D &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -1021,7 +1042,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri May 21 2021 10:37:45 for Radium Engine by
+    <li class="footer">Generated on Tue May 25 2021 11:05:28 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -238,6 +238,7 @@ var hierarchy =
     ] ],
     [ "Ra::Core::Geometry::Obb", "classRa_1_1Core_1_1Geometry_1_1Obb.html", null ],
     [ "Ra::Core::Utils::Observable< Args >", "classRa_1_1Core_1_1Utils_1_1Observable.html", null ],
+    [ "Ra::Core::Utils::Observable< const ItemEntry & >", "classRa_1_1Core_1_1Utils_1_1Observable.html", null ],
     [ "Ra::Core::Utils::Observable< const std::string & >", "classRa_1_1Core_1_1Utils_1_1Observable.html", [
       [ "Ra::Core::Utils::AttribManager", "classRa_1_1Core_1_1Utils_1_1AttribManager.html", null ]
     ] ],
@@ -373,8 +374,8 @@ var hierarchy =
     [ "Ra::Engine::Data::Texture", "classRa_1_1Engine_1_1Data_1_1Texture.html", null ],
     [ "Ra::Engine::Data::TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html", null ],
     [ "Ra::Engine::Data::TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", null ],
-    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
+    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Gui::TransformEditor", "classRa_1_1Gui_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],

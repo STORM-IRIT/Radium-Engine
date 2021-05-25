@@ -3,6 +3,7 @@ var classRa_1_1Gui_1_1Timeline =
     [ "Timeline", "classRa_1_1Gui_1_1Timeline.html#a2ac1a39fe02e2b52292b883062914408", null ],
     [ "~Timeline", "classRa_1_1Gui_1_1Timeline.html#ad32d7c8dfececea68fff0e84324d6bbd", null ],
     [ "cursorChanged", "classRa_1_1Gui_1_1Timeline.html#ae4d172ef056ede716bfd19694494df89", null ],
+    [ "detachFromEngine", "classRa_1_1Gui_1_1Timeline.html#ae9cd5fd2a0866efda0fe878486917f17", null ],
     [ "durationChanged", "classRa_1_1Gui_1_1Timeline.html#a7d73c865ed91c9d703d5dff852051a28", null ],
     [ "endChanged", "classRa_1_1Gui_1_1Timeline.html#ac23f6fb82aa6fab0ce92f4ff49fc1dda", null ],
     [ "getTime", "classRa_1_1Gui_1_1Timeline.html#aa4df28243cd806b7d785c59f2839f308", null ],

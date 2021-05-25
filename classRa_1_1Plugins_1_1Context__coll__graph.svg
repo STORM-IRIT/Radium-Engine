@@ -1806,34 +1806,38 @@ var sectionId = 'dynsection-1';
 <g id="node56" class="node">
 <title>Node62</title>
 <g id="a_node56"><a xlink:href="classRa_1_1Gui_1_1Timeline.html" target="_top" xlink:title="The Timeline class provides display and management of time, as well as keyframes.">
-<polygon fill="white" stroke="black" points="3633.99,-369.5 3633.99,-591.5 3800.99,-591.5 3800.99,-369.5 3633.99,-369.5"/>
-<text text-anchor="middle" x="3717.49" y="-579.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Timeline</text>
-<polyline fill="none" stroke="black" points="3633.99,-572.5 3800.99,-572.5 "/>
-<text text-anchor="middle" x="3717.49" y="-560.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="3633.99,-553.5 3800.99,-553.5 "/>
-<text text-anchor="start" x="3641.99" y="-541.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Timeline()</text>
-<text text-anchor="start" x="3641.99" y="-530.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Timeline()</text>
-<text text-anchor="start" x="3641.99" y="-519.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ selectionChanged()</text>
+<polygon fill="white" stroke="black" points="3633.99,-347.5 3633.99,-613.5 3800.99,-613.5 3800.99,-347.5 3633.99,-347.5"/>
+<text text-anchor="middle" x="3717.49" y="-601.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Timeline</text>
+<polyline fill="none" stroke="black" points="3633.99,-594.5 3800.99,-594.5 "/>
+<text text-anchor="middle" x="3717.49" y="-582.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="3633.99,-575.5 3800.99,-575.5 "/>
+<text text-anchor="start" x="3641.99" y="-563.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Timeline()</text>
+<text text-anchor="start" x="3641.99" y="-552.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Timeline()</text>
+<text text-anchor="start" x="3641.99" y="-541.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ selectionChanged()</text>
+<text text-anchor="start" x="3641.99" y="-530.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerKeyFramedValue()</text>
+<text text-anchor="start" x="3641.99" y="-519.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unregisterKeyFramedValue()</text>
 <text text-anchor="start" x="3641.99" y="-508.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerKeyFramedValue()</text>
 <text text-anchor="start" x="3641.99" y="-497.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unregisterKeyFramedValue()</text>
 <text text-anchor="start" x="3641.99" y="-486.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerKeyFramedValue()</text>
 <text text-anchor="start" x="3641.99" y="-475.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unregisterKeyFramedValue()</text>
-<text text-anchor="start" x="3641.99" y="-464.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerKeyFramedValue()</text>
-<text text-anchor="start" x="3641.99" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unregisterKeyFramedValue()</text>
-<text text-anchor="start" x="3641.99" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTime()</text>
-<text text-anchor="start" x="3641.99" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeStart()</text>
-<text text-anchor="start" x="3641.99" y="-420.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeEnd()</text>
-<text text-anchor="start" x="3641.99" y="-409.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeDuration()</text>
-<text text-anchor="start" x="3641.99" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeCursor()</text>
-<text text-anchor="start" x="3641.99" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onSetPlay()</text>
-<text text-anchor="start" x="3641.99" y="-376.5" font-family="Helvetica,sans-Serif" font-size="10.00"># resizeEvent()</text>
+<text text-anchor="start" x="3641.99" y="-464.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTime()</text>
+<text text-anchor="start" x="3641.99" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachFromEngine()</text>
+<text text-anchor="start" x="3641.99" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeStart()</text>
+<text text-anchor="start" x="3641.99" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeEnd()</text>
+<text text-anchor="start" x="3641.99" y="-420.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeDuration()</text>
+<text text-anchor="start" x="3641.99" y="-409.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onChangeCursor()</text>
+<text text-anchor="start" x="3641.99" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onSetPlay()</text>
+<text text-anchor="start" x="3641.99" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00"># resizeEvent()</text>
+<text text-anchor="start" x="3641.99" y="-376.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_entityAddObserverId</text>
+<text text-anchor="start" x="3641.99" y="-365.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_entityRemoveObserverId</text>
+<text text-anchor="start" x="3641.99" y="-354.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_roAddObserverId</text>
 </a>
 </g>
 </g>
 <!-- Node62&#45;&gt;Node1 -->
 <g id="edge84" class="edge">
 <title>Node62&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M3692.89,-369.45C3674.25,-288.07 3647.35,-174.72 3620.49,-76 3619.9,-73.86 3619.29,-71.66 3618.66,-69.45"/>
+<path fill="none" stroke="#404040" d="M3687.78,-347.24C3669.52,-268.23 3644.98,-166.03 3620.49,-76 3619.9,-73.86 3619.29,-71.66 3618.66,-69.45"/>
 <polygon fill="none" stroke="#404040" points="3618.58,-69.17 3613.05,-64.54 3615.19,-57.65 3620.72,-62.28 3618.58,-69.17"/>
 <text text-anchor="middle" x="3656.99" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_timeline</text>
 </g>
@@ -1853,7 +1857,7 @@ var sectionId = 'dynsection-1';
 <!-- Node63&#45;&gt;Node62 -->
 <g id="edge85" class="edge">
 <title>Node63&#45;&gt;Node62</title>
-<path fill="none" stroke="midnightblue" d="M3717.49,-1063.4C3717.49,-971.18 3717.49,-733.14 3717.49,-591.73"/>
+<path fill="none" stroke="midnightblue" d="M3717.49,-1063.39C3717.49,-975.77 3717.49,-756.53 3717.49,-613.58"/>
 <polygon fill="none" stroke="midnightblue" points="3713.99,-1063.66 3717.49,-1073.66 3720.99,-1063.66 3713.99,-1063.66"/>
 </g>
 <!-- Node64 -->
