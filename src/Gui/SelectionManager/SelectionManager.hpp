@@ -6,13 +6,6 @@
 #include <QItemSelectionModel>
 
 namespace Ra {
-namespace Engine {
-class Entity;
-class Component;
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
 namespace Gui {
 
 class RA_GUI_API SelectionManager : public QItemSelectionModel
