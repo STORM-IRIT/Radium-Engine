@@ -28,7 +28,7 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 
     using PointAttribHandle  = Utils::AttribHandle<Point>;
     using NormalAttribHandle = Utils::AttribHandle<Normal>;
-    using FloatAttribHandle  = Utils::AttribHandle<float>;
+    using FloatAttribHandle  = Utils::AttribHandle<Scalar>;
     using Vec2AttribHandle   = Utils::AttribHandle<Vector2>;
     using Vec3AttribHandle   = Utils::AttribHandle<Vector3>;
     using Vec4AttribHandle   = Utils::AttribHandle<Vector4>;

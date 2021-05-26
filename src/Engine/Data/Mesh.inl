@@ -139,9 +139,16 @@ void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer( const ShaderProg
             auto binding = m_vao->binding( idx );
             binding->setAttribute( loc );
             CORE_ASSERT( m_vbos[m_handleToBuffer[attribName]].get(), "vbo is nullptr" );
+#ifdef CORE_USE_DOUBLE
+            binding->setBuffer( m_vbos[m_handleToBuffer[attribName]].get(),
+                                0,
+                                attrib->getElementSize() * sizeof( float ) );
+#else
+
             binding->setBuffer(
                 m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib->getStride() );
-            binding->setFormat( attrib->getElementSize(), GL_FLOAT );
+#endif
+            binding->setFormat( attrib->getElementSize(), GL_SCALAR );
         }
         else
         { m_vao->disable( loc ); }
@@ -265,9 +272,16 @@ void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const Shade
             auto binding = m_vao->binding( idx );
             binding->setAttribute( loc );
             CORE_ASSERT( m_vbos[m_handleToBuffer[attribName]].get(), "vbo is nullptr" );
+#ifdef CORE_USE_DOUBLE
+            binding->setBuffer( m_vbos[m_handleToBuffer[attribName]].get(),
+                                0,
+                                attrib->getElementSize() * sizeof( float ) );
+#else
+
             binding->setBuffer(
                 m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib->getStride() );
-            binding->setFormat( attrib->getElementSize(), GL_FLOAT );
+#endif
+            binding->setFormat( attrib->getElementSize(), GL_SCALAR );
         }
         else
         { m_vao->disable( loc ); }
@@ -335,7 +349,39 @@ void CoreGeometryDisplayable<CoreGeometry>::updateGL() {
         CORE_ASSERT( !( m_mesh.vertices().empty() ), "No vertex." );
 
         updateGL_specific_impl();
+#ifdef CORE_USE_DOUBLE
+        // need convserion
+        auto func = [this]( Ra::Core::Utils::AttribBase* b ) {
+            auto idx = m_handleToBuffer[b->getName()];
 
+            if ( m_dataDirty[idx] )
+            {
+                if ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }
+
+                auto stride      = b->getStride();
+                auto eltSize     = b->getElementSize();
+                auto size        = b->getSize();
+                auto data        = std::make_unique<float[]>( size * eltSize );
+                const void* ptr  = b->dataPtr();
+                const char* cptr = reinterpret_cast<const char*>( ptr );
+
+                for ( size_t i = 0; i < size; i++ )
+                {
+                    auto tptr = reinterpret_cast<const Scalar*>( cptr + i * stride );
+                    for ( size_t j = 0; j < eltSize; ++j )
+                    {
+                        data[i * eltSize + j] = tptr[j];
+                    }
+                }
+
+                m_vbos[idx]->setData(
+                    size * eltSize * sizeof( float ), data.get(), GL_DYNAMIC_DRAW );
+
+                m_dataDirty[idx] = false;
+            }
+        };
+
+#else
         auto func = [this]( Ra::Core::Utils::AttribBase* b ) {
             auto idx = m_handleToBuffer[b->getName()];
 
@@ -346,6 +392,7 @@ void CoreGeometryDisplayable<CoreGeometry>::updateGL() {
                 m_dataDirty[idx] = false;
             }
         };
+#endif
         m_mesh.vertexAttribs().for_each_attrib( func );
 
         // cleanup removed attrib

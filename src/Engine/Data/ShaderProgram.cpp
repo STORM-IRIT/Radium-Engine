@@ -311,33 +311,39 @@ ShaderConfiguration ShaderProgram::getBasicConfiguration() const {
 
 template <>
 void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const {
-    m_program->setUniform( name, value.cast<float>().eval() );
+    m_program->setUniform( name, value.cast<GL_SCALAR_PLAIN>().eval() );
 }
 
 template <>
 void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const {
-    m_program->setUniform( name, value.cast<float>().eval() );
+    m_program->setUniform( name, value.cast<GL_SCALAR_PLAIN>().eval() );
 }
 
 template <>
 void ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const {
-    m_program->setUniform( name, value.cast<float>().eval() );
+    m_program->setUniform( name, value.cast<GL_SCALAR_PLAIN>().eval() );
 }
 
 template <>
 void ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const {
-    m_program->setUniform( name, value.cast<float>().eval() );
+    m_program->setUniform( name, value.cast<GL_SCALAR_PLAIN>().eval() );
 }
 
 template <>
 void ShaderProgram::setUniform( const char* name, const Core::Matrix3d& value ) const {
-    m_program->setUniform( name, value.cast<float>().eval() );
+    m_program->setUniform( name, value.cast<GL_SCALAR_PLAIN>().eval() );
 }
 
 template <>
 void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const {
-    m_program->setUniform( name, value.cast<float>().eval() );
+    m_program->setUniform( name, value.cast<GL_SCALAR_PLAIN>().eval() );
 }
+
+template <>
+void ShaderProgram::setUniform( const char* name, const Scalar& value ) const {
+    m_program->setUniform( name, static_cast<GL_SCALAR_PLAIN>( value ) );
+}
+
 void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
     tex->bind( texUnit );
 

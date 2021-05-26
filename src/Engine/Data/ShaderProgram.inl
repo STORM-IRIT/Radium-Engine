@@ -26,6 +26,9 @@ RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Core::Matr
 template <>
 RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const;
 
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Scalar& value ) const;
+
 // Uniform setters
 template <typename T>
 inline void ShaderProgram::setUniform( const char* name, const T& value ) const {

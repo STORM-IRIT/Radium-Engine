@@ -5,6 +5,12 @@ project (radiumengine-external VERSION 1.0.0)
 include(ExternalProject)
 include(ExternalInclude)
 
+macro(add_dependency_if_compiled target dep)
+    if( TARGET ${dep})
+        add_dependencies(${target} ${dep})
+    endif()
+endmacro()
+
 #------------------------------------------------------------------------------
 # Eigen - Linear Algebra library
 
@@ -79,6 +85,11 @@ else ()
 endif ()
 
 if (NOT DEFINED globjects_DIR)
+    add_custom_target(globjects-dep)
+    add_dependency_if_compiled(globjects-dep Eigen3)
+    add_dependency_if_compiled(globjects-dep glbinding)
+    add_dependency_if_compiled(globjects-dep glm)
+
     CheckExternalsPrerequisite()
     StatusMessage("" "globjects" "remote git")
     ExternalProject_Add(globjects
@@ -87,7 +98,7 @@ if (NOT DEFINED globjects_DIR)
         GIT_PROGRESS TRUE
         PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        DEPENDS glbinding glm
+        DEPENDS glbinding glm globjects-dep
         CMAKE_ARGS
         ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
         -DOPTION_BUILD_DOCS=OFF

@@ -56,6 +56,9 @@ Bundle-*
 
 Radium offers the following build options:
 ~~~bash
+// Enable coverage, gcc only. Experimental, need ENABLE_TESTING
+RADIUM_ENABLE_COVERAGE:BOOL=OFF
+--
 // Enable testing. Tests are automatically built with target all
 RADIUM_ENABLE_TESTING:BOOL=ON
 --
@@ -106,6 +109,9 @@ RADIUM_SKIP_IO_EXTERNAL:BOOL=ON
 --
 // Update version file each time the project is compiled (update compilation time in version.cpp)
 RADIUM_UPDATE_VERSION:BOOL=ON
+--
+// Use double precision for Scalar
+RADIUM_USE_DOUBLE:BOOL=OFF
 ~~~
 
 All radium related cmake options (with their current values) can be printed with `cmake -LAH | grep -B1 RADIUM` (on linux like system)

@@ -1,0 +1,17 @@
+diff --git a/assimpTargets-debug.cmake.in b/assimpTargets-debug.cmake.in
+index 1ebe2a6..2001533 100644
+--- a/assimpTargets-debug.cmake.in
++++ b/assimpTargets-debug.cmake.in
+@@ -63,7 +63,11 @@ if(MSVC)
+ else()
+   set(ASSIMP_LIBRARY_SUFFIX "@ASSIMP_LIBRARY_SUFFIX@" CACHE STRING "the suffix for the assimp libraries" )
+   if(ASSIMP_BUILD_SHARED_LIBS)
+-    set(sharedLibraryName "libassimp${ASSIMP_LIBRARY_SUFFIX}@CMAKE_DEBUG_POSTFIX@@CMAKE_SHARED_LIBRARY_SUFFIX@.@ASSIMP_VERSION_MAJOR@")
++    if(APPLE)
++      set(sharedLibraryName "libassimp${ASSIMP_LIBRARY_SUFFIX}@CMAKE_DEBUG_POSTFIX@.@ASSIMP_VERSION_MAJOR@@CMAKE_SHARED_LIBRARY_SUFFIX@")
++    else()
++      set(sharedLibraryName "libassimp${ASSIMP_LIBRARY_SUFFIX}@CMAKE_DEBUG_POSTFIX@@CMAKE_SHARED_LIBRARY_SUFFIX@.@ASSIMP_VERSION_MAJOR@")
++    endif()
+     set_target_properties(assimp::assimp PROPERTIES
+       IMPORTED_SONAME_DEBUG "${sharedLibraryName}"
+       IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/lib/${sharedLibraryName}"

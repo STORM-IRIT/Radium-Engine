@@ -19,11 +19,11 @@ using namespace gl;
 
 #include <glbinding-aux/types_to_string.h>
 
-#ifndef CORE_USE_DOUBLE
-#    define GL_SCALAR GL_FLOAT
-#else
-#    define GL_SCALAR GL_DOUBLE
-#endif
+// use always float on the OpenGL side, since double have some unresolved func with globjects.
+// maybe fix this to allow GL_DOUBLE ? in this change data conversion in color or mesh attrib gpu
+// data transfer.
+#define GL_SCALAR GL_FLOAT
+#define GL_SCALAR_PLAIN float
 
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext() {
