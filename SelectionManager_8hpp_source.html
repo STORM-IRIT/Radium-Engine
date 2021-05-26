@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
+   &#160;<span id="projectnumber">3254e526f2d6b775c05604e823e0e45a59891954</span>
    </div>
   </td>
  </tr>
@@ -102,48 +102,41 @@ $(document).ready(function(){initNavTree('SelectionManager_8hpp_source.html','')
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QItemSelectionModel&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Entity;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Component;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1SelectionManager.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1SelectionManager.html">SelectionManager</a> : <span class="keyword">public</span> <a class="code" href="classQItemSelectionModel.html">QItemSelectionModel</a></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    Q_OBJECT</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1SelectionManager.html">SelectionManager</a>( <a class="code" href="classRa_1_1Gui_1_1ItemModel.html">ItemModel</a>* model, <a class="code" href="classQObject.html">QObject</a>* parent = <span class="keyword">nullptr</span> );</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// The following functions adapt QItemSelectionModel functions to</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">// operate with ItemEntries instead of model indices.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Gui {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1SelectionManager.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1SelectionManager.html">SelectionManager</a> : <span class="keyword">public</span> <a class="code" href="classQItemSelectionModel.html">QItemSelectionModel</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1SelectionManager.html">SelectionManager</a>( <a class="code" href="classRa_1_1Gui_1_1ItemModel.html">ItemModel</a>* model, <a class="code" href="classQObject.html">QObject</a>* parent = <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="comment">// The following functions adapt QItemSelectionModel functions to</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="comment">// operate with ItemEntries instead of model indices.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">bool</span> isSelected( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Engine::Scene::ItemEntry</a>&amp; ent ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">bool</span> isSelected( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Engine::Scene::ItemEntry</a>&amp; ent ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    std::vector&lt;Engine::Scene::ItemEntry&gt; selectedEntries() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    std::vector&lt;Engine::Scene::ItemEntry&gt; selectedEntries() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Engine::Scene::ItemEntry</a>&amp; currentItem() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Engine::Scene::ItemEntry</a>&amp; currentItem() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> select( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Engine::Scene::ItemEntry</a>&amp; ent,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                         QItemSelectionModel::SelectionFlags command );</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> setCurrentEntry( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Engine::Scene::ItemEntry</a>&amp; ent,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                          QItemSelectionModel::SelectionFlags command );</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">protected</span> slots:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> onModelRebuilt();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> select( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Engine::Scene::ItemEntry</a>&amp; ent,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                         QItemSelectionModel::SelectionFlags command );</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> setCurrentEntry( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Engine::Scene::ItemEntry</a>&amp; ent,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                          QItemSelectionModel::SelectionFlags command );</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keyword">protected</span> slots:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> onModelRebuilt();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keyword">protected</span> slots:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> printSelection() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1SelectionManager.html#aa377708ea2b68d031b452915e144dc5a">   60</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1ItemModel.html">ItemModel</a>* <a class="code" href="classRa_1_1Gui_1_1SelectionManager.html#aa377708ea2b68d031b452915e144dc5a">itemModel</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="classRa_1_1Gui_1_1ItemModel.html">ItemModel</a>*<span class="keyword">&gt;</span>( model() ); }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">protected</span> slots:</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> printSelection() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1SelectionManager.html#aa377708ea2b68d031b452915e144dc5a">   67</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1ItemModel.html">ItemModel</a>* <a class="code" href="classRa_1_1Gui_1_1SelectionManager.html#aa377708ea2b68d031b452915e144dc5a">itemModel</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="classRa_1_1Gui_1_1ItemModel.html">ItemModel</a>*<span class="keyword">&gt;</span>( model() ); }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassQObject_html"><div class="ttname"><a href="classQObject.html">QObject</a></div></div>
@@ -151,17 +144,17 @@ $(document).ready(function(){initNavTree('SelectionManager_8hpp_source.html','')
 <div class="ttc" id="aRaGui_8hpp_html"><div class="ttname"><a href="RaGui_8hpp.html">RaGui.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1ItemModel_html"><div class="ttname"><a href="classRa_1_1Gui_1_1ItemModel.html">Ra::Gui::ItemModel</a></div><div class="ttdef"><b>Definition:</b> <a href="EntityTreeModel_8hpp_source.html#l00029">EntityTreeModel.hpp:29</a></div></div>
 <div class="ttc" id="aclassQItemSelectionModel_html"><div class="ttname"><a href="classQItemSelectionModel.html">QItemSelectionModel</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1SelectionManager_html_aa377708ea2b68d031b452915e144dc5a"><div class="ttname"><a href="classRa_1_1Gui_1_1SelectionManager.html#aa377708ea2b68d031b452915e144dc5a">Ra::Gui::SelectionManager::itemModel</a></div><div class="ttdeci">const ItemModel * itemModel() const</div><div class="ttdef"><b>Definition:</b> <a href="SelectionManager_8hpp_source.html#l00067">SelectionManager.hpp:67</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1SelectionManager_html_aa377708ea2b68d031b452915e144dc5a"><div class="ttname"><a href="classRa_1_1Gui_1_1SelectionManager.html#aa377708ea2b68d031b452915e144dc5a">Ra::Gui::SelectionManager::itemModel</a></div><div class="ttdeci">const ItemModel * itemModel() const</div><div class="ttdef"><b>Definition:</b> <a href="SelectionManager_8hpp_source.html#l00060">SelectionManager.hpp:60</a></div></div>
 <div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
 <div class="ttc" id="aItemEntry_8hpp_html"><div class="ttname"><a href="ItemEntry_8hpp.html">ItemEntry.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1SelectionManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1SelectionManager.html">Ra::Gui::SelectionManager</a></div><div class="ttdef"><b>Definition:</b> <a href="SelectionManager_8hpp_source.html#l00018">SelectionManager.hpp:18</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1SelectionManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1SelectionManager.html">Ra::Gui::SelectionManager</a></div><div class="ttdef"><b>Definition:</b> <a href="SelectionManager_8hpp_source.html#l00011">SelectionManager.hpp:11</a></div></div>
 <div class="ttc" id="aEntityTreeModel_8hpp_html"><div class="ttname"><a href="EntityTreeModel_8hpp.html">EntityTreeModel.hpp</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00025">ItemEntry.hpp:25</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_17bfc51b20949079282a076b84b0b9f6.html">SelectionManager</a></li><li class="navelem"><a class="el" href="SelectionManager_8hpp.html">SelectionManager.hpp</a></li>
-    <li class="footer">Generated on Wed May 26 2021 06:40:49 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 07:31:51 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

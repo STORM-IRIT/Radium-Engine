@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
+   &#160;<span id="projectnumber">3254e526f2d6b775c05604e823e0e45a59891954</span>
    </div>
   </td>
  </tr>
@@ -97,92 +97,87 @@ $(document).ready(function(){initNavTree('CameraManager_8hpp_source.html',''); i
 <a href="CameraManager_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="CameraComponent_8hpp.html">Engine/Scene/CameraComponent.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="CameraStorage_8hpp.html">Engine/Scene/CameraStorage.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="System_8hpp.html">Engine/Scene/System.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>Data {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>CameraComponent;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Scene {</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1System.html">System</a></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">// Radium-V2 : make Camera manager compatible with range for ...</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>();</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="CameraStorage_8hpp.html">Engine/Scene/CameraStorage.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="System_8hpp.html">Engine/Scene/System.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Engine {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Scene {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1System.html">System</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment">// Radium-V2 : make Camera manager compatible with range for ...</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">// Make copies impossible</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>&amp; ) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// Make copies impossible</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html">CameraComponent</a>* getCamera( <span class="keywordtype">size_t</span> i ) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> addCamera( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html">CameraComponent</a>* cam ) = 0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">CameraManager</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html">CameraComponent</a>* getCamera( <span class="keywordtype">size_t</span> i ) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> addCamera( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html">CameraComponent</a>* cam ) = 0;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> getCameraIndex( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html">CameraComponent</a>* cam );</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> getCameraIndex( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html">CameraComponent</a>* cam );</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> initialize();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> activate( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> index );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> initialize();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> activate( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> index );</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// Calls for the Renderer</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="comment">//</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">// Calls for the Renderer</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// I dont&#39; get the idea of texture camera storage here, event if it&#39;s possible for some kind of</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// multi view synthesis, the camera manager manages Components, do this idea of texture means</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// the components share some data where the know how to read/write the chunk ? (dlyr.)</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> count() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// System methods</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> generateTasks( <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">Core::TaskQueue</a>* taskQueue, <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1FrameInfo.html">Engine::FrameInfo</a>&amp; frameInfo ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> handleAssetLoading( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html">Core::Asset::FileData</a>* data ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// I dont&#39; get the idea of texture camera storage here, event if it&#39;s possible for some kind of</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">// multi view synthesis, the camera manager manages Components, do this idea of texture means</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// the components share some data where the know how to read/write the chunk ? (dlyr.)</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> count() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// System methods</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> generateTasks( <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">Core::TaskQueue</a>* taskQueue, <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1FrameInfo.html">Engine::FrameInfo</a>&amp; frameInfo ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> handleAssetLoading( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html">Core::Asset::FileData</a>* data ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ae20af0691c0e6f11eabd54df7aea82e2">   82</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ae20af0691c0e6f11eabd54df7aea82e2">defaultCamera</a>;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ae20af0691c0e6f11eabd54df7aea82e2">   86</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ae20af0691c0e6f11eabd54df7aea82e2">defaultCamera</a>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a">   88</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a">getActiveCamera</a>() { <span class="keywordflow">return</span> &amp;m_activeCamera; }</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a0b184fce71ffadd4a5f37df92b695cb3">   89</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a0b184fce71ffadd4a5f37df92b695cb3">resetActiveCamera</a>() { m_activeCamera = defaultCamera; }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> registerComponent( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity, <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a>* component ) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a">   84</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a">getActiveCamera</a>() { <span class="keywordflow">return</span> &amp;m_activeCamera; }</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a0b184fce71ffadd4a5f37df92b695cb3">   85</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a0b184fce71ffadd4a5f37df92b695cb3">resetActiveCamera</a>() { m_activeCamera = defaultCamera; }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> registerComponent( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity, <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a>* component ) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> unregisterComponent( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity, <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a>* component ) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> unregisterComponent( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity, <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a>* component ) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> unregisterAllComponents( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity ) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">void</span> unregisterAllComponents( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity ) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a6b1f770d6077bf783ea64f0f6b4640fa">  103</a></span>&#160;    std::unique_ptr&lt;CameraStorage&gt; m_data {<span class="keyword">nullptr</span>};</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a6b1f770d6077bf783ea64f0f6b4640fa">  107</a></span>&#160;    std::unique_ptr&lt;CameraStorage&gt; m_data {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a4b9fc62f052f87e2ba3ad2bfd9e081e4">  106</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a4b9fc62f052f87e2ba3ad2bfd9e081e4">m_activeCamera</a>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;};</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a4b9fc62f052f87e2ba3ad2bfd9e081e4">  110</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a4b9fc62f052f87e2ba3ad2bfd9e081e4">m_activeCamera</a>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aCameraStorage_8hpp_html"><div class="ttname"><a href="CameraStorage_8hpp.html">CameraStorage.hpp</a></div></div>
 <div class="ttc" id="aSystem_8hpp_html"><div class="ttname"><a href="System_8hpp.html">System.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html_a0b184fce71ffadd4a5f37df92b695cb3"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a0b184fce71ffadd4a5f37df92b695cb3">Ra::Engine::Scene::CameraManager::resetActiveCamera</a></div><div class="ttdeci">void resetActiveCamera()</div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00089">CameraManager.hpp:89</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html_a0b184fce71ffadd4a5f37df92b695cb3"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a0b184fce71ffadd4a5f37df92b695cb3">Ra::Engine::Scene::CameraManager::resetActiveCamera</a></div><div class="ttdeci">void resetActiveCamera()</div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00085">CameraManager.hpp:85</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html_a4b9fc62f052f87e2ba3ad2bfd9e081e4"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a4b9fc62f052f87e2ba3ad2bfd9e081e4">Ra::Engine::Scene::CameraManager::m_activeCamera</a></div><div class="ttdeci">Ra::Core::Asset::Camera m_activeCamera</div><div class="ttdoc">active camera data, active camera hasn't any component just pure data.</div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00110">CameraManager.hpp:110</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html_a4b9fc62f052f87e2ba3ad2bfd9e081e4"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a4b9fc62f052f87e2ba3ad2bfd9e081e4">Ra::Engine::Scene::CameraManager::m_activeCamera</a></div><div class="ttdeci">Ra::Core::Asset::Camera m_activeCamera</div><div class="ttdoc">active camera data, active camera hasn't any component just pure data.</div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00106">CameraManager.hpp:106</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraComponent_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html">Ra::Engine::Scene::CameraComponent</a></div><div class="ttdoc">A Camera is an Engine Component storing a Camera object.</div><div class="ttdef"><b>Definition:</b> <a href="CameraComponent_8hpp_source.html#l00016">CameraComponent.hpp:16</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html_ae20af0691c0e6f11eabd54df7aea82e2"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ae20af0691c0e6f11eabd54df7aea82e2">Ra::Engine::Scene::CameraManager::defaultCamera</a></div><div class="ttdeci">static Ra::Core::Asset::Camera defaultCamera</div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00086">CameraManager.hpp:86</a></div></div>
-<div class="ttc" id="aCameraComponent_8hpp_html"><div class="ttname"><a href="CameraComponent_8hpp.html">CameraComponent.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html_a184d260e962c99207d617faa6a79992a"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a">Ra::Engine::Scene::CameraManager::getActiveCamera</a></div><div class="ttdeci">Ra::Core::Asset::Camera * getActiveCamera()</div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00088">CameraManager.hpp:88</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html_ae20af0691c0e6f11eabd54df7aea82e2"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ae20af0691c0e6f11eabd54df7aea82e2">Ra::Engine::Scene::CameraManager::defaultCamera</a></div><div class="ttdeci">static Ra::Core::Asset::Camera defaultCamera</div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00082">CameraManager.hpp:82</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html_a184d260e962c99207d617faa6a79992a"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a">Ra::Engine::Scene::CameraManager::getActiveCamera</a></div><div class="ttdeci">Ra::Core::Asset::Camera * getActiveCamera()</div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00084">CameraManager.hpp:84</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a></div><div class="ttdoc">Camera class storing the Camera frame and the projection properties The view direction is -z in camer...</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8hpp_source.html#l00015">Camera.hpp:15</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1FrameInfo_html"><div class="ttname"><a href="structRa_1_1Engine_1_1FrameInfo.html">Ra::Engine::FrameInfo</a></div><div class="ttdoc">Structure passed to each system before they fill the task queue.</div><div class="ttdef"><b>Definition:</b> <a href="FrameInfo_8hpp_source.html#l00008">FrameInfo.hpp:8</a></div></div>
@@ -190,12 +185,12 @@ $(document).ready(function(){initNavTree('CameraManager_8hpp_source.html',''); i
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00019">FileData.hpp:19</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1System_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1System.html">Ra::Engine::Scene::System</a></div><div class="ttdef"><b>Definition:</b> <a href="System_8hpp_source.html#l00030">System.hpp:30</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00021">Entity.hpp:21</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">Ra::Engine::Scene::CameraManager</a></div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00028">CameraManager.hpp:28</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1CameraManager_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html">Ra::Engine::Scene::CameraManager</a></div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8hpp_source.html#l00024">CameraManager.hpp:24</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="CameraManager_8hpp.html">CameraManager.hpp</a></li>
-    <li class="footer">Generated on Wed May 26 2021 06:40:49 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 07:31:51 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
