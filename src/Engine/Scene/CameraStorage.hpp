@@ -5,13 +5,7 @@
 
 namespace Ra {
 namespace Engine {
-
-namespace Data {
-class Camera;
-}
-
 namespace Scene {
-class CameraComponent;
 
 /**
  * Interface providing functions to access and store cameras in
