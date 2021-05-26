@@ -115,7 +115,7 @@ class RA_CORE_API CatmullClarkSubdivider
     OpenMesh::FPropHandleT<deprecated::TopologicalMesh::Normal> m_normalPropF;
 
     /// deal with custom properties on faces
-    std::vector<OpenMesh::FPropHandleT<float>> m_floatPropsF;
+    std::vector<OpenMesh::FPropHandleT<Scalar>> m_floatPropsF;
     std::vector<OpenMesh::FPropHandleT<Vector2>> m_vec2PropsF;
     std::vector<OpenMesh::FPropHandleT<Vector3>> m_vec3PropsF;
     std::vector<OpenMesh::FPropHandleT<Vector4>> m_vec4PropsF;

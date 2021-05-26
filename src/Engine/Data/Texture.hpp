@@ -158,7 +158,7 @@ class RA_ENGINE_API Texture final
 
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
-     * This will transform the internal representation of the texture to GL_FLOAT.
+     * This will transform the internal representation of the texture to GL_SCALAR (GL_FLOAT).
      * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
      */

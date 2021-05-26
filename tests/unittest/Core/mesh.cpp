@@ -187,7 +187,7 @@ TEST_CASE( "Core/Geometry/TriangleMesh/CopyAllAttributes", "[Core][Core/Geometry
     buf1.push_back( {3, 3} );
     attrib1.unlock();
 
-    auto handle2  = m.addAttrib<float>( "float_attrib" );
+    auto handle2  = m.addAttrib<Scalar>( "float_attrib" );
     auto& attrib2 = m.getAttrib( handle2 );
     attrib2.setData( {1.f, 2.f, 3.f} );
 
@@ -213,7 +213,7 @@ TEST_CASE( "Core/Geometry/TriangleMesh/CopyAllAttributes", "[Core][Core/Geometry
     m3.copyAllAttributes( m );
 
     REQUIRE( m3.getAttribHandle<Vector3>( attrib1.getName() ).idx().isValid() );
-    REQUIRE( m3.getAttribHandle<float>( attrib2.getName() ).idx().isValid() );
+    REQUIRE( m3.getAttribHandle<Scalar>( attrib2.getName() ).idx().isValid() );
     REQUIRE( m3.getAttribHandle<Vector5>( attrib3.getName() ).idx().isInvalid() );
     REQUIRE( !m3.vertexAttribs().hasSameAttribs( m.vertexAttribs() ) );
     REQUIRE( !m.vertexAttribs().hasSameAttribs( m3.vertexAttribs() ) );

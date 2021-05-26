@@ -154,7 +154,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * the TriangleMesh attributes.
      */
     ///@{
-    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<float>>&
+    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Scalar>>&
     getFloatPropsHandles() const;
     [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Vector2>>&
     getVector2PropsHandles() const;
@@ -381,7 +381,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///\todo to be deleted/updated
     OpenMesh::HPropHandleT<Index> m_inputTriangleMeshIndexPph;
     OpenMesh::HPropHandleT<Index> m_outputTriangleMeshIndexPph;
-    [[deprecated]] std::vector<OpenMesh::HPropHandleT<float>> m_floatPph;
+    [[deprecated]] std::vector<OpenMesh::HPropHandleT<Scalar>> m_floatPph;
     [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Pph;
     [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
     [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;

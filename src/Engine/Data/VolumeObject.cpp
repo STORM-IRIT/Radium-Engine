@@ -59,7 +59,7 @@ void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const C
                                     size_t( dim( 2 ) ),
                                     GL_RED,
                                     GL_R32F,
-                                    GL_FLOAT,
+                                    GL_SCALAR,
                                     GL_CLAMP_TO_BORDER,
                                     GL_CLAMP_TO_BORDER,
                                     GL_CLAMP_TO_BORDER,

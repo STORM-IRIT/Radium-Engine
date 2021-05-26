@@ -102,7 +102,7 @@ size_t Attrib<T>::getBufferSize() const {
 
 template <typename T>
 bool Attrib<T>::isFloat() const {
-    return std::is_same<float, T>::value;
+    return std::is_same<Scalar, T>::value;
 }
 
 template <typename T>
@@ -126,9 +126,14 @@ bool Attrib<T>::isType() {
     return std::is_same<U, T>::value;
 }
 
-// fully specialization defined in .cpp
+// fully specialization defined in .cpp def for both float and double.
+// Specialize for scalar only might raise error if
+// user wants to have a specific attrib precision, while Radium Scalar is the other precision.
+// Do we need to specialize for all floating point types ?
 template <>
 RA_CORE_API size_t Attrib<float>::getElementSize() const;
+template <>
+RA_CORE_API size_t Attrib<double>::getElementSize() const;
 // template specialization defined in header.
 template <typename T>
 size_t Attrib<T>::getElementSize() const {
