@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="480,2532,736,3123"/>
 <area shape="rect" id="node2" href="$classQObject.html" title=" " alt="" coords="5,2099,80,2176"/>
 <area shape="rect" id="node3" title=" " alt="" coords="105,2099,271,2176"/>
-<area shape="rect" id="node4" title=" " alt="" coords="379,1519,429,1596"/>
+<area shape="rect" id="node4" href="$classfloat.html" title=" " alt="" coords="379,1519,429,1596"/>
 <area shape="rect" id="node21" href="$classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is &#45;z in camer..." alt="" coords="518,1805,698,2469"/>
 <area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="722,2025,910,2249"/>
 <area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="705,1387,927,1728"/>

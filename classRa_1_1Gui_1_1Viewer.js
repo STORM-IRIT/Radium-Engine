@@ -55,7 +55,7 @@ var classRa_1_1Gui_1_1Viewer =
     [ "KeyMappingManageable< Viewer >", "classRa_1_1Gui_1_1Viewer.html#a81781dc8e55a693679a3022dc35dd953", null ],
     [ "m_activeContext", "classRa_1_1Gui_1_1Viewer.html#a45c872a04c0cf984096f9c106e201eea", null ],
     [ "m_backgroundColor", "classRa_1_1Gui_1_1Viewer.html#a1c9efc93971f69ed8f3554ec45b43cfe", null ],
-    [ "m_brushRadius", "classRa_1_1Gui_1_1Viewer.html#a3fb791c061ab715571765fa6f0c64fce", null ],
+    [ "m_brushRadius", "classRa_1_1Gui_1_1Viewer.html#af283d5cb030a69f14cb602a7e199bae6", null ],
     [ "m_camera", "classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f", null ],
     [ "m_currentRenderer", "classRa_1_1Gui_1_1Viewer.html#ad85783f5b9a617b5cdfafa5d78cb1f39", null ],
     [ "m_gizmoManager", "classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268", null ],

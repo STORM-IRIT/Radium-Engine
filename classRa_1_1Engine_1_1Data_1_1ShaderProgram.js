@@ -16,6 +16,7 @@ var classRa_1_1Engine_1_1Data_1_1ShaderProgram =
     [ "setUniform", "classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a55666ee1c7da7725426b5c42872e24f5", null ],
     [ "setUniform", "classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a7d5543c5966d2bbbdfc05a6cd0ef0d51", null ],
     [ "setUniform", "classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a4da7736ec5192ac9da391090b30c251c", null ],
+    [ "setUniform", "classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#aa88a3e5dfcbaf15c3cbb71fb97e60c3d", null ],
     [ "setUniform", "classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62", null ],
     [ "setUniform", "classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a5893a8639742f623f666ca529e82c871", null ],
     [ "setUniformTexture", "classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a53d2b676abc12dbaeb0f0225aec1e766", null ],

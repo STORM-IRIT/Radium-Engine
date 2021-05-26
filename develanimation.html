@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -95,17 +95,17 @@ $(document).ready(function(){initNavTree('develanimation.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md43">Animation in Radium</a><ul><li class="level2"><a href="#autotoc_md44">Using KeyFramedValue to animate data</a></li>
-<li class="level2"><a href="#autotoc_md45">Character Animation</a></li>
+<ul><li class="level1"><a href="#autotoc_md44">Animation in Radium</a><ul><li class="level2"><a href="#autotoc_md45">Using KeyFramedValue to animate data</a></li>
+<li class="level2"><a href="#autotoc_md46">Character Animation</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md43"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md44"></a>
 Animation in Radium</h1>
 <p>The Radium Engine provides a set of classes dedicated to animation, which can be found in <code>Core/Animation</code>.</p>
 <p>In Radium, the animation of any data can be done through the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code> template. It stores the data keyframes, i.e. time-value couples, which are interpolated when the value for a given time is requested.</p>
-<h2><a class="anchor" id="autotoc_md44"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 Using KeyFramedValue to animate data</h2>
 <p>There are two ways data can be animated using <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>:</p><ul>
 <li>When the data is directly specified as a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>. In this case, particular values at specific times can be specified to create the animation keyframes, and then used when requested: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValue_8hpp.html">Core/Animation/KeyFramedValue.hpp</a>&gt;</span></div>
@@ -118,14 +118,14 @@ Using KeyFramedValue to animate data</h2>
 <div class="line">            m_animatedData.insertKeyFrame( 3_ra, 2_ra ); <span class="comment">// adding a keyframe with value 2 at time 3</span></div>
 <div class="line">        }</div>
 <div class="line"> </div>
-<div class="line">        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> fetch( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time ) {</div>
+<div class="line">        <a class="code" href="classfloat.html">Scalar</a> fetch( <a class="code" href="classfloat.html">Scalar</a> time ) {</div>
 <div class="line">            <span class="comment">// fetch the interpolated value for the given time</span></div>
-<div class="line">            <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> v_t = m_animatedData.at( time, Ra::Core::Animation::linearInterpolate&lt;Scalar&gt; );</div>
+<div class="line">            <a class="code" href="classfloat.html">Scalar</a> v_t = m_animatedData.at( time, Ra::Core::Animation::linearInterpolate&lt;Scalar&gt; );</div>
 <div class="line">            <span class="comment">// use it</span></div>
 <div class="line">            <span class="keywordflow">return</span> m_nonAnimatedData * v_t;</div>
 <div class="line">        }</div>
 <div class="line"> </div>
-<div class="line">        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_nonAnimatedData;</div>
+<div class="line">        <a class="code" href="classfloat.html">Scalar</a> m_nonAnimatedData;</div>
 <div class="line">        <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue&lt;Scalar&gt;</a> m_animatedData;</div>
 <div class="line">    };</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">        MyStruct a;</div>
@@ -142,7 +142,7 @@ Using KeyFramedValue to animate data</h2>
 <div class="line">            frames-&gt;<a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236">insertKeyFrame</a>( 4_ra, 4_ra );</div>
 <div class="line">            <span class="comment">// create the controller</span></div>
 <div class="line">            m_controller.m_value   = frames;</div>
-<div class="line">            m_controller.m_updater = [frames, &amp;s]( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ) {</div>
+<div class="line">            m_controller.m_updater = [frames, &amp;s]( <span class="keyword">const</span> <a class="code" href="classfloat.html">Scalar</a>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ) {</div>
 <div class="line">                <span class="comment">// fetch the interpolated value for the given time</span></div>
 <div class="line">                <span class="keyword">auto</span> v_t = frames-&gt;at( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>, Ra::Core::Animation::linearInterpolate&lt;Scalar&gt; );</div>
 <div class="line">                <span class="comment">// update the data</span></div>
@@ -150,7 +150,7 @@ Using KeyFramedValue to animate data</h2>
 <div class="line">            };</div>
 <div class="line">        }</div>
 <div class="line"> </div>
-<div class="line">        <span class="keywordtype">void</span> update( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time ) {</div>
+<div class="line">        <span class="keywordtype">void</span> update( <a class="code" href="classfloat.html">Scalar</a> time ) {</div>
 <div class="line">            m_controller.updateKeyFrame( time ); <span class="comment">// uses the keyframes to update the data.</span></div>
 <div class="line">        }</div>
 <div class="line"> </div>
@@ -176,7 +176,7 @@ Using KeyFramedValue to animate data</h2>
 <div class="line"> </div>
 </div><!-- fragment --> </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md45"></a>
+<h2><a class="anchor" id="autotoc_md46"></a>
 Character Animation</h2>
 <h3>Character Animation Basics</h3>
 <p>In order to animate a digital character, one may choose from two main animation techniques:</p><ul>
@@ -217,13 +217,13 @@ Character Animation</h2>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValueController_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValueController_8hpp_source.html#l00016">KeyFramedValueController.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00062">KeyFramedValue.hpp:62</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html_a7607a8855a37987dc11a5aa826c8a236"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236">Ra::Core::Animation::KeyFramedValue::insertKeyFrame</a></div><div class="ttdeci">void insertKeyFrame(const Scalar &amp;t, const VALUE_TYPE &amp;frame)</div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00117">KeyFramedValue.hpp:117</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
 <div class="ttc" id="aKeyFramedValueController_8hpp_html"><div class="ttname"><a href="KeyFramedValueController_8hpp.html">KeyFramedValueController.hpp</a></div></div>
+<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:26 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:50 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

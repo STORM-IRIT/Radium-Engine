@@ -59,67 +59,236 @@ var sectionId = 'dynsection-0';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="335.5,-0.5 335.5,-123.5 501.5,-123.5 501.5,-0.5 335.5,-0.5"/>
-<text text-anchor="start" x="343.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="418.5" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">::TopologicalMesh::WedgeData</text>
-<polyline fill="none" stroke="black" points="335.5,-93.5 501.5,-93.5 "/>
-<text text-anchor="middle" x="418.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="335.5,-74.5 501.5,-74.5 "/>
-<text text-anchor="start" x="343.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WedgeData()</text>
-<text text-anchor="start" x="343.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator==()</text>
-<text text-anchor="start" x="343.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator!=()</text>
-<text text-anchor="start" x="343.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator&lt;()</text>
-<text text-anchor="start" x="343.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribArray()</text>
-<text text-anchor="start" x="343.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribArray()</text>
+<polygon fill="#bfbfbf" stroke="black" points="355.5,-0.5 355.5,-123.5 521.5,-123.5 521.5,-0.5 355.5,-0.5"/>
+<text text-anchor="start" x="363.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="438.5" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">::TopologicalMesh::WedgeData</text>
+<polyline fill="none" stroke="black" points="355.5,-93.5 521.5,-93.5 "/>
+<text text-anchor="middle" x="438.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="355.5,-74.5 521.5,-74.5 "/>
+<text text-anchor="start" x="363.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WedgeData()</text>
+<text text-anchor="start" x="363.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator==()</text>
+<text text-anchor="start" x="363.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator!=()</text>
+<text text-anchor="start" x="363.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator&lt;()</text>
+<text text-anchor="start" x="363.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribArray()</text>
+<text text-anchor="start" x="363.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribArray()</text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="17,-182.5 17,-239.5 70,-239.5 70,-182.5 17,-182.5"/>
-<text text-anchor="middle" x="43.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">Vector3</text>
-<polyline fill="none" stroke="#bfbfbf" points="17,-220.5 70,-220.5 "/>
-<text text-anchor="middle" x="43.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="17,-201.5 70,-201.5 "/>
-<text text-anchor="middle" x="43.5" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<g id="a_node2"><a xlink:href="classRa_1_1Core_1_1VectorArray_3_01float_01_4.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="13,-269.5 13,-348.5 134,-348.5 134,-269.5 13,-269.5"/>
+<text text-anchor="start" x="21" y="-336.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
+<text text-anchor="middle" x="73.5" y="-325.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; float &gt;</text>
+<polyline fill="none" stroke="black" points="13,-318.5 134,-318.5 "/>
+<text text-anchor="middle" x="73.5" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="13,-299.5 134,-299.5 "/>
+<text text-anchor="start" x="21" y="-287.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+<text text-anchor="start" x="21" y="-276.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M36.47,-182.42C34.7,-168.83 35.42,-153.03 44.5,-142 79.27,-99.76 224.38,-79.16 323.29,-69.85"/>
-<polygon fill="none" stroke="#404040" points="323.46,-69.83 329.07,-65.3 335.41,-68.74 329.8,-73.27 323.46,-69.83"/>
-<text text-anchor="middle" x="77.5" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_position</text>
+<path fill="none" stroke="#404040" d="M65.12,-269.26C60.98,-239.26 60.79,-198.35 82.5,-171 115.09,-129.95 249.46,-97.54 343.45,-79.31"/>
+<polygon fill="none" stroke="#404040" points="343.49,-79.3 348.63,-74.25 355.27,-77.05 350.13,-82.11 343.49,-79.3"/>
+<text text-anchor="middle" x="120.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_floatAttrib</text>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="358,-171.5 358,-250.5 479,-250.5 479,-171.5 358,-171.5"/>
-<text text-anchor="start" x="366" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
-<text text-anchor="middle" x="418.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4 &gt;</text>
-<polyline fill="none" stroke="black" points="358,-220.5 479,-220.5 "/>
-<text text-anchor="middle" x="418.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="358,-201.5 479,-201.5 "/>
-<text text-anchor="start" x="366" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
-<text text-anchor="start" x="366" y="-178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+<g id="a_node3"><a xlink:href="structRa_1_1Core_1_1AlignedStdVector.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="0,-473.5 0,-541.5 147,-541.5 147,-473.5 0,-473.5"/>
+<text text-anchor="start" x="8" y="-529.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::AlignedStdVector</text>
+<text text-anchor="middle" x="73.5" y="-518.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; float &gt;</text>
+<polyline fill="none" stroke="black" points="0,-511.5 147,-511.5 "/>
+<text text-anchor="middle" x="73.5" y="-499.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="0,-492.5 147,-492.5 "/>
+<text text-anchor="middle" x="73.5" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node1 -->
+<!-- Node3&#45;&gt;Node2 -->
 <g id="edge2" class="edge">
-<title>Node3&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M418.5,-171.38C418.5,-160.4 418.5,-148.08 418.5,-135.78"/>
-<polygon fill="none" stroke="#404040" points="418.5,-135.55 414.5,-129.55 418.5,-123.55 422.5,-129.55 418.5,-135.55"/>
-<text text-anchor="middle" x="464" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_vector4Attrib</text>
+<title>Node3&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M73.5,-462.99C73.5,-428.74 73.5,-381.46 73.5,-348.56"/>
+<polygon fill="none" stroke="midnightblue" points="70,-463.17 73.5,-473.17 77,-463.17 70,-463.17"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="structRa_1_1Core_1_1AlignedStdVector.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:title="STL class.">
+<polygon fill="white" stroke="#bfbfbf" points="17,-687.5 17,-766.5 154,-766.5 154,-687.5 17,-687.5"/>
+<text text-anchor="start" x="25" y="-754.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; float,</text>
+<text text-anchor="start" x="25" y="-743.5" font-family="Helvetica,sans-Serif" font-size="10.00"> Eigen::aligned_allocator</text>
+<text text-anchor="middle" x="85.5" y="-732.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; float &gt; &gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="17,-725.5 154,-725.5 "/>
+<text text-anchor="middle" x="85.5" y="-713.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="17,-706.5 154,-706.5 "/>
+<text text-anchor="middle" x="85.5" y="-694.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node4&#45;&gt;Node3 -->
+<g id="edge3" class="edge">
+<title>Node4&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M82.81,-677.26C80.53,-635.99 77.33,-577.93 75.34,-541.79"/>
+<polygon fill="none" stroke="midnightblue" points="79.32,-677.57 83.37,-687.37 86.31,-677.19 79.32,-677.57"/>
+</g>
+<!-- Node5 -->
+<g id="node5" class="node">
+<title>Node5</title>
+<g id="a_node5"><a xlink:title=" ">
+<polygon fill="white" stroke="#bfbfbf" points="409,-912.5 409,-969.5 438,-969.5 438,-912.5 409,-912.5"/>
+<text text-anchor="middle" x="423.5" y="-957.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
+<polyline fill="none" stroke="#bfbfbf" points="409,-950.5 438,-950.5 "/>
+<text text-anchor="middle" x="423.5" y="-938.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="409,-931.5 438,-931.5 "/>
+<text text-anchor="middle" x="423.5" y="-919.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node4 -->
+<g id="edge4" class="edge">
+<title>Node5&#45;&gt;Node4</title>
+<path fill="none" stroke="#404040" d="M408.85,-939.03C376.65,-936.35 298.13,-926.68 242.5,-894 192.11,-864.4 147.72,-813.89 119.11,-776.34"/>
+<polygon fill="none" stroke="#404040" points="119.02,-776.21 112.22,-773.81 111.83,-766.61 118.62,-769.01 119.02,-776.21"/>
+<text text-anchor="middle" x="271.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
+</g>
+<!-- Node7 -->
+<g id="node7" class="node">
+<title>Node7</title>
+<g id="a_node7"><a xlink:title="STL class.">
+<polygon fill="white" stroke="#bfbfbf" points="401.5,-791 401.5,-859 547.5,-859 547.5,-791 401.5,-791"/>
+<text text-anchor="start" x="409.5" y="-847" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; T, Eigen</text>
+<text text-anchor="middle" x="474.5" y="-836" font-family="Helvetica,sans-Serif" font-size="10.00">::aligned_allocator&lt; T &gt; &gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="401.5,-829 547.5,-829 "/>
+<text text-anchor="middle" x="474.5" y="-817" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="401.5,-810 547.5,-810 "/>
+<text text-anchor="middle" x="474.5" y="-798" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node7 -->
+<g id="edge7" class="edge">
+<title>Node5&#45;&gt;Node7</title>
+<path fill="none" stroke="#404040" d="M435.85,-912.4C441.52,-899.72 448.39,-884.35 454.76,-870.12"/>
+<polygon fill="none" stroke="#404040" points="454.83,-869.98 453.63,-862.86 459.73,-859.02 460.93,-866.13 454.83,-869.98"/>
+<text text-anchor="middle" x="477.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
+</g>
+<!-- Node11 -->
+<g id="node11" class="node">
+<title>Node11</title>
+<g id="a_node11"><a xlink:title="STL class.">
+<polygon fill="white" stroke="#bfbfbf" points="575,-785.5 575,-864.5 712,-864.5 712,-785.5 575,-785.5"/>
+<text text-anchor="start" x="583" y="-852.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; Vector4,</text>
+<text text-anchor="start" x="583" y="-841.5" font-family="Helvetica,sans-Serif" font-size="10.00"> Eigen::aligned_allocator</text>
+<text text-anchor="middle" x="643.5" y="-830.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4 &gt; &gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="575,-823.5 712,-823.5 "/>
+<text text-anchor="middle" x="643.5" y="-811.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="575,-804.5 712,-804.5 "/>
+<text text-anchor="middle" x="643.5" y="-792.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node11 -->
+<g id="edge12" class="edge">
+<title>Node5&#45;&gt;Node11</title>
+<path fill="none" stroke="#404040" d="M438.28,-932.34C463.79,-919.13 517.79,-891.14 564,-867.19"/>
+<polygon fill="none" stroke="#404040" points="564.29,-867.04 567.78,-860.73 574.95,-861.52 571.46,-867.83 564.29,-867.04"/>
+<text text-anchor="middle" x="562.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
+</g>
+<!-- Node14 -->
+<g id="node14" class="node">
+<title>Node14</title>
+<g id="a_node14"><a xlink:title="STL class.">
+<polygon fill="white" stroke="#bfbfbf" points="303,-693 303,-761 450,-761 450,-693 303,-693"/>
+<text text-anchor="start" x="311" y="-749" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; V, Eigen</text>
+<text text-anchor="middle" x="376.5" y="-738" font-family="Helvetica,sans-Serif" font-size="10.00">::aligned_allocator&lt; V &gt; &gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="303,-731 450,-731 "/>
+<text text-anchor="middle" x="376.5" y="-719" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="303,-712 450,-712 "/>
+<text text-anchor="middle" x="376.5" y="-700" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node14 -->
+<g id="edge17" class="edge">
+<title>Node5&#45;&gt;Node14</title>
+<path fill="none" stroke="#404040" d="M408.95,-928.87C399.21,-920.47 387.19,-908.03 381.5,-894 365.88,-855.45 366.27,-807.62 369.6,-773.22"/>
+<polygon fill="none" stroke="#404040" points="369.61,-773.12 366.29,-766.72 370.93,-761.2 374.25,-767.6 369.61,-773.12"/>
+<text text-anchor="middle" x="410.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
+</g>
+<!-- Node17 -->
+<g id="node17" class="node">
+<title>Node17</title>
+<g id="a_node17"><a xlink:title="STL class.">
+<polygon fill="white" stroke="#bfbfbf" points="161,-687.5 161,-766.5 298,-766.5 298,-687.5 161,-687.5"/>
+<text text-anchor="start" x="169" y="-754.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; Vector2,</text>
+<text text-anchor="start" x="169" y="-743.5" font-family="Helvetica,sans-Serif" font-size="10.00"> Eigen::aligned_allocator</text>
+<text text-anchor="middle" x="229.5" y="-732.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2 &gt; &gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="161,-725.5 298,-725.5 "/>
+<text text-anchor="middle" x="229.5" y="-713.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="161,-706.5 298,-706.5 "/>
+<text text-anchor="middle" x="229.5" y="-694.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node17 -->
+<g id="edge22" class="edge">
+<title>Node5&#45;&gt;Node17</title>
+<path fill="none" stroke="#404040" d="M408.83,-937.1C386.28,-931.97 342.85,-919.36 315.5,-894 281.46,-862.43 258.61,-814.33 245.08,-778.01"/>
+<polygon fill="none" stroke="#404040" points="245.06,-777.97 239.27,-773.67 241.01,-766.67 246.8,-770.97 245.06,-777.97"/>
+<text text-anchor="middle" x="344.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
+</g>
+<!-- Node20 -->
+<g id="node20" class="node">
+<title>Node20</title>
+<g id="a_node20"><a xlink:title="STL class.">
+<polygon fill="white" stroke="#bfbfbf" points="694,-589.5 694,-668.5 831,-668.5 831,-589.5 694,-589.5"/>
+<text text-anchor="start" x="702" y="-656.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; Vector3,</text>
+<text text-anchor="start" x="702" y="-645.5" font-family="Helvetica,sans-Serif" font-size="10.00"> Eigen::aligned_allocator</text>
+<text text-anchor="middle" x="762.5" y="-634.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector3 &gt; &gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="694,-627.5 831,-627.5 "/>
+<text text-anchor="middle" x="762.5" y="-615.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="694,-608.5 831,-608.5 "/>
+<text text-anchor="middle" x="762.5" y="-596.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node20 -->
+<g id="edge28" class="edge">
+<title>Node5&#45;&gt;Node20</title>
+<path fill="none" stroke="#404040" d="M438.26,-938.39C492.79,-932.15 681.84,-907.71 721.5,-865 767.42,-815.56 771.5,-733.85 768.39,-680.99"/>
+<polygon fill="none" stroke="#404040" points="768.38,-680.83 763.96,-675.13 767.52,-668.86 771.94,-674.56 768.38,-680.83"/>
+<text text-anchor="middle" x="789.5" y="-822.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
+</g>
+<!-- Node6 -->
+<g id="node6" class="node">
+<title>Node6</title>
+<g id="a_node6"><a xlink:href="structRa_1_1Core_1_1AlignedStdVector.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="369.5,-600.5 369.5,-657.5 545.5,-657.5 545.5,-600.5 369.5,-600.5"/>
+<text text-anchor="middle" x="457.5" y="-645.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::AlignedStdVector&lt; T &gt;</text>
+<polyline fill="none" stroke="black" points="369.5,-638.5 545.5,-638.5 "/>
+<text text-anchor="middle" x="457.5" y="-626.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="369.5,-619.5 545.5,-619.5 "/>
+<text text-anchor="middle" x="457.5" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node6&#45;&gt;Node3 -->
+<g id="edge5" class="edge">
+<title>Node6&#45;&gt;Node3</title>
+<path fill="none" stroke="orange" d="M359.71,-603.09C300.17,-587.2 222.86,-565.27 155.5,-542 152.74,-541.05 149.93,-540.05 147.11,-539.02"/>
+<polygon fill="orange" stroke="orange" points="358.92,-606.5 369.48,-605.69 360.72,-599.74 358.92,-606.5"/>
+<text text-anchor="middle" x="269.5" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; float &gt;</text>
+</g>
+<!-- Node10 -->
+<g id="node10" class="node">
+<title>Node10</title>
+<g id="a_node10"><a xlink:href="structRa_1_1Core_1_1AlignedStdVector.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="525,-473.5 525,-541.5 672,-541.5 672,-473.5 525,-473.5"/>
 <text text-anchor="start" x="533" y="-529.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::AlignedStdVector</text>
 <text text-anchor="middle" x="598.5" y="-518.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4 &gt;</text>
@@ -130,185 +299,17 @@ var sectionId = 'dynsection-0';
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node3 -->
-<g id="edge3" class="edge">
-<title>Node4&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M609.3,-463.34C619.67,-410.65 627.63,-322.02 580.5,-269 552.82,-237.86 527.63,-265.32 488.5,-251 485.36,-249.85 482.2,-248.58 479.04,-247.21"/>
-<polygon fill="none" stroke="midnightblue" points="605.82,-462.87 607.21,-473.37 612.67,-464.3 605.82,-462.87"/>
+<!-- Node6&#45;&gt;Node10 -->
+<g id="edge13" class="edge">
+<title>Node6&#45;&gt;Node10</title>
+<path fill="none" stroke="orange" d="M476.21,-591.75C483.12,-580.65 491.69,-569 501.5,-560 508.88,-553.23 517.31,-547.08 526.05,-541.56"/>
+<polygon fill="orange" stroke="orange" points="473.12,-590.09 471.03,-600.47 479.14,-593.66 473.12,-590.09"/>
+<text text-anchor="middle" x="533" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector4 &gt;</text>
 </g>
-<!-- Node5 -->
-<g id="node5" class="node">
-<title>Node5</title>
-<g id="a_node5"><a xlink:title="STL class.">
-<polygon fill="white" stroke="#bfbfbf" points="537,-687.5 537,-766.5 674,-766.5 674,-687.5 537,-687.5"/>
-<text text-anchor="start" x="545" y="-754.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; Vector4,</text>
-<text text-anchor="start" x="545" y="-743.5" font-family="Helvetica,sans-Serif" font-size="10.00"> Eigen::aligned_allocator</text>
-<text text-anchor="middle" x="605.5" y="-732.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4 &gt; &gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="537,-725.5 674,-725.5 "/>
-<text text-anchor="middle" x="605.5" y="-713.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="537,-706.5 674,-706.5 "/>
-<text text-anchor="middle" x="605.5" y="-694.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node4 -->
-<g id="edge4" class="edge">
-<title>Node5&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M621.75,-677.26C630.51,-643.85 637.66,-598.74 627.5,-560 625.86,-553.75 623.27,-547.45 620.3,-541.52"/>
-<polygon fill="none" stroke="midnightblue" points="618.28,-676.66 618.99,-687.23 625.03,-678.53 618.28,-676.66"/>
-</g>
-<!-- Node6 -->
-<g id="node6" class="node">
-<title>Node6</title>
-<g id="a_node6"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="367,-912.5 367,-969.5 396,-969.5 396,-912.5 367,-912.5"/>
-<text text-anchor="middle" x="381.5" y="-957.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-<polyline fill="none" stroke="#bfbfbf" points="367,-950.5 396,-950.5 "/>
-<text text-anchor="middle" x="381.5" y="-938.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="367,-931.5 396,-931.5 "/>
-<text text-anchor="middle" x="381.5" y="-919.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node5 -->
-<g id="edge5" class="edge">
-<title>Node6&#45;&gt;Node5</title>
-<path fill="none" stroke="#404040" d="M396.28,-934.63C422.66,-924.46 478.46,-900.19 514.5,-865 540.65,-839.46 563.4,-805.21 579.62,-777.34"/>
-<polygon fill="none" stroke="#404040" points="579.78,-777.05 579.27,-769.86 585.72,-766.62 586.23,-773.81 579.78,-777.05"/>
-<text text-anchor="middle" x="520.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
-</g>
-<!-- Node8 -->
-<g id="node8" class="node">
-<title>Node8</title>
-<g id="a_node8"><a xlink:title="STL class.">
-<polygon fill="white" stroke="#bfbfbf" points="359.5,-791 359.5,-859 505.5,-859 505.5,-791 359.5,-791"/>
-<text text-anchor="start" x="367.5" y="-847" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; T, Eigen</text>
-<text text-anchor="middle" x="432.5" y="-836" font-family="Helvetica,sans-Serif" font-size="10.00">::aligned_allocator&lt; T &gt; &gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="359.5,-829 505.5,-829 "/>
-<text text-anchor="middle" x="432.5" y="-817" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="359.5,-810 505.5,-810 "/>
-<text text-anchor="middle" x="432.5" y="-798" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node8 -->
-<g id="edge8" class="edge">
-<title>Node6&#45;&gt;Node8</title>
-<path fill="none" stroke="#404040" d="M393.85,-912.4C399.52,-899.72 406.39,-884.35 412.76,-870.12"/>
-<polygon fill="none" stroke="#404040" points="412.83,-869.98 411.63,-862.86 417.73,-859.02 418.93,-866.13 412.83,-869.98"/>
-<text text-anchor="middle" x="435.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
-</g>
-<!-- Node11 -->
-<g id="node11" class="node">
-<title>Node11</title>
-<g id="a_node11"><a xlink:title="STL class.">
-<polygon fill="white" stroke="#bfbfbf" points="261,-693 261,-761 408,-761 408,-693 261,-693"/>
-<text text-anchor="start" x="269" y="-749" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; V, Eigen</text>
-<text text-anchor="middle" x="334.5" y="-738" font-family="Helvetica,sans-Serif" font-size="10.00">::aligned_allocator&lt; V &gt; &gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="261,-731 408,-731 "/>
-<text text-anchor="middle" x="334.5" y="-719" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="261,-712 408,-712 "/>
-<text text-anchor="middle" x="334.5" y="-700" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node11 -->
-<g id="edge12" class="edge">
-<title>Node6&#45;&gt;Node11</title>
-<path fill="none" stroke="#404040" d="M366.95,-928.87C357.21,-920.47 345.19,-908.03 339.5,-894 323.88,-855.45 324.27,-807.62 327.6,-773.22"/>
-<polygon fill="none" stroke="#404040" points="327.61,-773.12 324.29,-766.72 328.93,-761.2 332.25,-767.6 327.61,-773.12"/>
-<text text-anchor="middle" x="368.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
-</g>
-<!-- Node14 -->
-<g id="node14" class="node">
-<title>Node14</title>
-<g id="a_node14"><a xlink:title="STL class.">
-<polygon fill="white" stroke="#bfbfbf" points="45,-785.5 45,-864.5 182,-864.5 182,-785.5 45,-785.5"/>
-<text text-anchor="start" x="53" y="-852.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; Scalar,</text>
-<text text-anchor="start" x="53" y="-841.5" font-family="Helvetica,sans-Serif" font-size="10.00"> Eigen::aligned_allocator</text>
-<text text-anchor="middle" x="113.5" y="-830.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Scalar &gt; &gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="45,-823.5 182,-823.5 "/>
-<text text-anchor="middle" x="113.5" y="-811.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="45,-804.5 182,-804.5 "/>
-<text text-anchor="middle" x="113.5" y="-792.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node14 -->
-<g id="edge17" class="edge">
-<title>Node6&#45;&gt;Node14</title>
-<path fill="none" stroke="#404040" d="M366.79,-938.7C321.56,-934.45 185.49,-919.76 150.5,-894 143.74,-889.02 138.07,-882.42 133.37,-875.29"/>
-<polygon fill="none" stroke="#404040" points="133.18,-874.96 126.71,-871.78 127.16,-864.59 133.63,-867.77 133.18,-874.96"/>
-<text text-anchor="middle" x="179.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
-</g>
-<!-- Node17 -->
-<g id="node17" class="node">
-<title>Node17</title>
-<g id="a_node17"><a xlink:title="STL class.">
-<polygon fill="white" stroke="#bfbfbf" points="119,-687.5 119,-766.5 256,-766.5 256,-687.5 119,-687.5"/>
-<text text-anchor="start" x="127" y="-754.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; Vector2,</text>
-<text text-anchor="start" x="127" y="-743.5" font-family="Helvetica,sans-Serif" font-size="10.00"> Eigen::aligned_allocator</text>
-<text text-anchor="middle" x="187.5" y="-732.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2 &gt; &gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="119,-725.5 256,-725.5 "/>
-<text text-anchor="middle" x="187.5" y="-713.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="119,-706.5 256,-706.5 "/>
-<text text-anchor="middle" x="187.5" y="-694.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node17 -->
-<g id="edge22" class="edge">
-<title>Node6&#45;&gt;Node17</title>
-<path fill="none" stroke="#404040" d="M366.83,-937.1C344.28,-931.97 300.85,-919.36 273.5,-894 239.46,-862.43 216.61,-814.33 203.08,-778.01"/>
-<polygon fill="none" stroke="#404040" points="203.06,-777.97 197.27,-773.67 199.01,-766.67 204.8,-770.97 203.06,-777.97"/>
-<text text-anchor="middle" x="302.5" y="-886" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
-</g>
-<!-- Node20 -->
-<g id="node20" class="node">
-<title>Node20</title>
-<g id="a_node20"><a xlink:title="STL class.">
-<polygon fill="white" stroke="#bfbfbf" points="677,-589.5 677,-668.5 814,-668.5 814,-589.5 677,-589.5"/>
-<text text-anchor="start" x="685" y="-656.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; Vector3,</text>
-<text text-anchor="start" x="685" y="-645.5" font-family="Helvetica,sans-Serif" font-size="10.00"> Eigen::aligned_allocator</text>
-<text text-anchor="middle" x="745.5" y="-634.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector3 &gt; &gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="677,-627.5 814,-627.5 "/>
-<text text-anchor="middle" x="745.5" y="-615.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="677,-608.5 814,-608.5 "/>
-<text text-anchor="middle" x="745.5" y="-596.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node20 -->
-<g id="edge28" class="edge">
-<title>Node6&#45;&gt;Node20</title>
-<path fill="none" stroke="#404040" d="M396.26,-938.6C427.25,-935.13 500.58,-924.13 553.5,-894 623.7,-854.04 637.16,-833.16 683.5,-767 702.16,-740.36 717.34,-707.21 728.01,-680.19"/>
-<polygon fill="none" stroke="#404040" points="728.14,-679.84 726.56,-672.81 732.44,-668.64 734.03,-675.68 728.14,-679.84"/>
-<text text-anchor="middle" x="698.5" y="-822.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
-</g>
-<!-- Node7 -->
-<g id="node7" class="node">
-<title>Node7</title>
-<g id="a_node7"><a xlink:href="structRa_1_1Core_1_1AlignedStdVector.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="338.5,-600.5 338.5,-657.5 514.5,-657.5 514.5,-600.5 338.5,-600.5"/>
-<text text-anchor="middle" x="426.5" y="-645.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::AlignedStdVector&lt; T &gt;</text>
-<polyline fill="none" stroke="black" points="338.5,-638.5 514.5,-638.5 "/>
-<text text-anchor="middle" x="426.5" y="-626.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="338.5,-619.5 514.5,-619.5 "/>
-<text text-anchor="middle" x="426.5" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-</g>
-<!-- Node7&#45;&gt;Node4 -->
-<g id="edge6" class="edge">
-<title>Node7&#45;&gt;Node4</title>
-<path fill="none" stroke="orange" d="M448.75,-591.94C457.03,-580.62 467.19,-568.8 478.5,-560 483.02,-556.48 502.65,-547.72 524.76,-538.41"/>
-<polygon fill="orange" stroke="orange" points="445.67,-590.23 442.79,-600.43 451.4,-594.25 445.67,-590.23"/>
-<text text-anchor="middle" x="510" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector4 &gt;</text>
-</g>
-<!-- Node10 -->
-<g id="node10" class="node">
-<title>Node10</title>
-<g id="a_node10"><a xlink:href="structRa_1_1Core_1_1AlignedStdVector.html" target="_top" xlink:title=" ">
+<!-- Node13 -->
+<g id="node13" class="node">
+<title>Node13</title>
+<g id="a_node13"><a xlink:href="structRa_1_1Core_1_1AlignedStdVector.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="330.5,-479 330.5,-536 506.5,-536 506.5,-479 330.5,-479"/>
 <text text-anchor="middle" x="418.5" y="-524" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::AlignedStdVector&lt; V &gt;</text>
 <polyline fill="none" stroke="black" points="330.5,-517 506.5,-517 "/>
@@ -318,33 +319,12 @@ var sectionId = 'dynsection-0';
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node10 -->
-<g id="edge13" class="edge">
-<title>Node7&#45;&gt;Node10</title>
-<path fill="none" stroke="orange" d="M423.8,-590.03C423.36,-583.67 422.91,-577.15 422.5,-571 421.74,-559.61 420.93,-547.05 420.24,-536.19"/>
-<polygon fill="orange" stroke="orange" points="420.34,-590.73 424.53,-600.46 427.33,-590.24 420.34,-590.73"/>
-<text text-anchor="middle" x="439" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; V &gt;</text>
-</g>
-<!-- Node13 -->
-<g id="node13" class="node">
-<title>Node13</title>
-<g id="a_node13"><a xlink:href="structRa_1_1Core_1_1AlignedStdVector.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-473.5 0,-541.5 147,-541.5 147,-473.5 0,-473.5"/>
-<text text-anchor="start" x="8" y="-529.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::AlignedStdVector</text>
-<text text-anchor="middle" x="73.5" y="-518.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Scalar &gt;</text>
-<polyline fill="none" stroke="black" points="0,-511.5 147,-511.5 "/>
-<text text-anchor="middle" x="73.5" y="-499.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="0,-492.5 147,-492.5 "/>
-<text text-anchor="middle" x="73.5" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-</g>
-<!-- Node7&#45;&gt;Node13 -->
+<!-- Node6&#45;&gt;Node13 -->
 <g id="edge18" class="edge">
-<title>Node7&#45;&gt;Node13</title>
-<path fill="none" stroke="orange" d="M328.48,-598.98C276.7,-583.13 212.29,-562.57 155.5,-542 152.75,-541 149.96,-539.97 147.15,-538.91"/>
-<polygon fill="orange" stroke="orange" points="327.74,-602.41 338.33,-601.99 329.79,-595.72 327.74,-602.41"/>
-<text text-anchor="middle" x="265.5" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Scalar &gt;</text>
+<title>Node6&#45;&gt;Node13</title>
+<path fill="none" stroke="orange" d="M445.2,-590.33C439.46,-572.74 432.75,-552.18 427.5,-536.07"/>
+<polygon fill="orange" stroke="orange" points="442.02,-591.86 448.45,-600.28 448.68,-589.69 442.02,-591.86"/>
+<text text-anchor="middle" x="454" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; V &gt;</text>
 </g>
 <!-- Node16 -->
 <g id="node16" class="node">
@@ -360,12 +340,12 @@ var sectionId = 'dynsection-0';
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node16 -->
+<!-- Node6&#45;&gt;Node16 -->
 <g id="edge23" class="edge">
-<title>Node7&#45;&gt;Node16</title>
-<path fill="none" stroke="orange" d="M374.26,-594.8C348.15,-578.2 316.64,-558.17 290.56,-541.59"/>
-<polygon fill="orange" stroke="orange" points="372.58,-597.87 382.9,-600.28 376.33,-591.97 372.58,-597.87"/>
-<text text-anchor="middle" x="364" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2 &gt;</text>
+<title>Node6&#45;&gt;Node16</title>
+<path fill="none" stroke="orange" d="M398.11,-595.6C367.46,-578.87 330.14,-558.5 299.29,-541.67"/>
+<polygon fill="orange" stroke="orange" points="396.53,-598.72 406.98,-600.43 399.88,-592.57 396.53,-598.72"/>
+<text text-anchor="middle" x="379" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2 &gt;</text>
 </g>
 <!-- Node19 -->
 <g id="node19" class="node">
@@ -381,207 +361,227 @@ var sectionId = 'dynsection-0';
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node19 -->
+<!-- Node6&#45;&gt;Node19 -->
 <g id="edge29" class="edge">
-<title>Node7&#45;&gt;Node19</title>
-<path fill="none" stroke="orange" d="M522.32,-597.26C570.36,-581.45 629.28,-561.45 681.5,-542 684.24,-540.98 687.02,-539.93 689.83,-538.85"/>
-<polygon fill="orange" stroke="orange" points="520.96,-594.02 512.55,-600.46 523.15,-600.67 520.96,-594.02"/>
-<text text-anchor="middle" x="657" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3 &gt;</text>
+<title>Node6&#45;&gt;Node19</title>
+<path fill="none" stroke="orange" d="M539.98,-596.82C582.36,-580.67 634.78,-560.51 681.5,-542 684.22,-540.92 686.98,-539.82 689.77,-538.71"/>
+<polygon fill="orange" stroke="orange" points="538.64,-593.58 530.54,-600.41 541.13,-600.12 538.64,-593.58"/>
+<text text-anchor="middle" x="664" y="-563" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3 &gt;</text>
 </g>
-<!-- Node8&#45;&gt;Node7 -->
-<g id="edge7" class="edge">
-<title>Node8&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M431.15,-780.48C429.99,-742.86 428.34,-689.62 427.35,-657.59"/>
-<polygon fill="none" stroke="midnightblue" points="427.66,-780.76 431.47,-790.65 434.66,-780.55 427.66,-780.76"/>
+<!-- Node7&#45;&gt;Node6 -->
+<g id="edge6" class="edge">
+<title>Node7&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M470.69,-780.48C467.39,-742.86 462.72,-689.62 459.92,-657.59"/>
+<polygon fill="none" stroke="midnightblue" points="467.22,-780.99 471.58,-790.65 474.19,-780.38 467.22,-780.99"/>
+</g>
+<!-- Node8 -->
+<g id="node8" class="node">
+<title>Node8</title>
+<g id="a_node8"><a xlink:title=" ">
+<polygon fill="white" stroke="#bfbfbf" points="168,-182.5 168,-239.5 221,-239.5 221,-182.5 168,-182.5"/>
+<text text-anchor="middle" x="194.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">Vector3</text>
+<polyline fill="none" stroke="#bfbfbf" points="168,-220.5 221,-220.5 "/>
+<text text-anchor="middle" x="194.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="168,-201.5 221,-201.5 "/>
+<text text-anchor="middle" x="194.5" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node8&#45;&gt;Node1 -->
+<g id="edge8" class="edge">
+<title>Node8&#45;&gt;Node1</title>
+<path fill="none" stroke="#404040" d="M219.27,-182.33C222.97,-178.45 226.78,-174.58 230.5,-171 244.82,-157.23 247.74,-152.65 264.5,-142 289.24,-126.27 317.64,-111.99 344.22,-100.03"/>
+<polygon fill="none" stroke="#404040" points="344.51,-99.9 348.38,-93.81 355.48,-95.04 351.61,-101.13 344.51,-99.9"/>
+<text text-anchor="middle" x="297.5" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_position</text>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="343.5,-367.5 343.5,-435.5 493.5,-435.5 493.5,-367.5 343.5,-367.5"/>
-<text text-anchor="middle" x="418.5" y="-423.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray&lt; V &gt;</text>
-<polyline fill="none" stroke="black" points="343.5,-416.5 493.5,-416.5 "/>
-<text text-anchor="middle" x="418.5" y="-404.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="343.5,-397.5 493.5,-397.5 "/>
-<text text-anchor="start" x="351.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
-<text text-anchor="start" x="351.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+<polygon fill="white" stroke="black" points="378,-171.5 378,-250.5 499,-250.5 499,-171.5 378,-171.5"/>
+<text text-anchor="start" x="386" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
+<text text-anchor="middle" x="438.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4 &gt;</text>
+<polyline fill="none" stroke="black" points="378,-220.5 499,-220.5 "/>
+<text text-anchor="middle" x="438.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="378,-201.5 499,-201.5 "/>
+<text text-anchor="start" x="386" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+<text text-anchor="start" x="386" y="-178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node3 -->
+<!-- Node9&#45;&gt;Node1 -->
 <g id="edge9" class="edge">
-<title>Node9&#45;&gt;Node3</title>
-<path fill="none" stroke="orange" d="M418.5,-356.82C418.5,-324.77 418.5,-281.63 418.5,-250.79"/>
-<polygon fill="orange" stroke="orange" points="415,-357.23 418.5,-367.23 422,-357.23 415,-357.23"/>
-<text text-anchor="middle" x="450" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector4 &gt;</text>
+<title>Node9&#45;&gt;Node1</title>
+<path fill="none" stroke="#404040" d="M438.5,-171.38C438.5,-160.4 438.5,-148.08 438.5,-135.78"/>
+<polygon fill="none" stroke="#404040" points="438.5,-135.55 434.5,-129.55 438.5,-123.55 442.5,-129.55 438.5,-135.55"/>
+<text text-anchor="middle" x="484" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_vector4Attrib</text>
+</g>
+<!-- Node10&#45;&gt;Node9 -->
+<g id="edge10" class="edge">
+<title>Node10&#45;&gt;Node9</title>
+<path fill="none" stroke="midnightblue" d="M609.41,-463.3C619.85,-410.97 628.04,-323.09 582.5,-269 560.7,-243.11 540.01,-263.35 508.5,-251 505.39,-249.78 502.25,-248.45 499.11,-247.03"/>
+<polygon fill="none" stroke="midnightblue" points="605.95,-462.77 607.31,-473.28 612.8,-464.21 605.95,-462.77"/>
+</g>
+<!-- Node11&#45;&gt;Node10 -->
+<g id="edge11" class="edge">
+<title>Node11&#45;&gt;Node10</title>
+<path fill="none" stroke="midnightblue" d="M656.22,-775.72C668.07,-721.08 679.91,-630.51 650.5,-560 647.76,-553.43 643.73,-547.27 639.11,-541.66"/>
+<polygon fill="none" stroke="midnightblue" points="652.8,-774.97 654.01,-785.49 659.63,-776.51 652.8,-774.97"/>
+</g>
+<!-- Node12 -->
+<g id="node12" class="node">
+<title>Node12</title>
+<g id="a_node12"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="345.5,-367.5 345.5,-435.5 495.5,-435.5 495.5,-367.5 345.5,-367.5"/>
+<text text-anchor="middle" x="420.5" y="-423.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray&lt; V &gt;</text>
+<polyline fill="none" stroke="black" points="345.5,-416.5 495.5,-416.5 "/>
+<text text-anchor="middle" x="420.5" y="-404.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="345.5,-397.5 495.5,-397.5 "/>
+<text text-anchor="start" x="353.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+<text text-anchor="start" x="353.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+</a>
+</g>
+</g>
+<!-- Node12&#45;&gt;Node9 -->
+<g id="edge14" class="edge">
+<title>Node12&#45;&gt;Node9</title>
+<path fill="none" stroke="orange" d="M422.49,-357.3C423.92,-331.6 426.18,-298.38 429.5,-269 430.17,-263.03 431.03,-256.72 431.94,-250.57"/>
+<polygon fill="orange" stroke="orange" points="418.99,-357.29 421.95,-367.46 425.98,-357.66 418.99,-357.29"/>
+<text text-anchor="middle" x="461" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector4 &gt;</text>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
 <g id="a_node15"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="219,-171.5 219,-250.5 340,-250.5 340,-171.5 219,-171.5"/>
-<text text-anchor="start" x="227" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
-<text text-anchor="middle" x="279.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2 &gt;</text>
-<polyline fill="none" stroke="black" points="219,-220.5 340,-220.5 "/>
-<text text-anchor="middle" x="279.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="219,-201.5 340,-201.5 "/>
-<text text-anchor="start" x="227" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
-<text text-anchor="start" x="227" y="-178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+<polygon fill="white" stroke="black" points="239,-171.5 239,-250.5 360,-250.5 360,-171.5 239,-171.5"/>
+<text text-anchor="start" x="247" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
+<text text-anchor="middle" x="299.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2 &gt;</text>
+<polyline fill="none" stroke="black" points="239,-220.5 360,-220.5 "/>
+<text text-anchor="middle" x="299.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="239,-201.5 360,-201.5 "/>
+<text text-anchor="start" x="247" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+<text text-anchor="start" x="247" y="-178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node15 -->
+<!-- Node12&#45;&gt;Node15 -->
 <g id="edge24" class="edge">
-<title>Node9&#45;&gt;Node15</title>
-<path fill="none" stroke="orange" d="M362.42,-360.52C358.53,-356.82 354.84,-352.97 351.5,-349 326.58,-319.4 306.92,-279.75 294.48,-250.73"/>
-<polygon fill="orange" stroke="orange" points="360.32,-363.33 370.09,-367.42 365,-358.13 360.32,-363.33"/>
-<text text-anchor="middle" x="383" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2 &gt;</text>
+<title>Node12&#45;&gt;Node15</title>
+<path fill="none" stroke="orange" d="M365.22,-360.26C361.72,-356.66 358.43,-352.9 355.5,-349 333.27,-319.42 318.33,-279.77 309.51,-250.74"/>
+<polygon fill="orange" stroke="orange" points="363.03,-363.01 372.67,-367.42 367.88,-357.96 363.03,-363.01"/>
+<text text-anchor="middle" x="387" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2 &gt;</text>
 </g>
 <!-- Node18 -->
 <g id="node18" class="node">
 <title>Node18</title>
 <g id="a_node18"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="497,-171.5 497,-250.5 618,-250.5 618,-171.5 497,-171.5"/>
-<text text-anchor="start" x="505" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
-<text text-anchor="middle" x="557.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector3 &gt;</text>
-<polyline fill="none" stroke="black" points="497,-220.5 618,-220.5 "/>
-<text text-anchor="middle" x="557.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="497,-201.5 618,-201.5 "/>
-<text text-anchor="start" x="505" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
-<text text-anchor="start" x="505" y="-178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+<polygon fill="white" stroke="black" points="517,-171.5 517,-250.5 638,-250.5 638,-171.5 517,-171.5"/>
+<text text-anchor="start" x="525" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
+<text text-anchor="middle" x="577.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector3 &gt;</text>
+<polyline fill="none" stroke="black" points="517,-220.5 638,-220.5 "/>
+<text text-anchor="middle" x="577.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="517,-201.5 638,-201.5 "/>
+<text text-anchor="start" x="525" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
+<text text-anchor="start" x="525" y="-178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node18 -->
+<!-- Node12&#45;&gt;Node18 -->
 <g id="edge30" class="edge">
-<title>Node9&#45;&gt;Node18</title>
-<path fill="none" stroke="orange" d="M474.58,-360.52C478.47,-356.82 482.16,-352.97 485.5,-349 510.42,-319.4 530.08,-279.75 542.52,-250.73"/>
-<polygon fill="orange" stroke="orange" points="472,-358.13 466.91,-367.42 476.68,-363.33 472,-358.13"/>
-<text text-anchor="middle" x="564" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3 &gt;</text>
-</g>
-<!-- Node10&#45;&gt;Node9 -->
-<g id="edge10" class="edge">
-<title>Node10&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M418.5,-468.87C418.5,-458.05 418.5,-446.33 418.5,-435.79"/>
-<polygon fill="none" stroke="midnightblue" points="415,-468.9 418.5,-478.9 422,-468.9 415,-468.9"/>
-</g>
-<!-- Node11&#45;&gt;Node10 -->
-<g id="edge11" class="edge">
-<title>Node11&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M316.05,-683.17C303.8,-647.6 293.73,-597.01 316.5,-560 322.43,-550.37 330.77,-542.47 340.16,-536.02"/>
-<polygon fill="none" stroke="midnightblue" points="312.84,-684.58 319.54,-692.78 319.42,-682.19 312.84,-684.58"/>
-</g>
-<!-- Node12 -->
-<g id="node12" class="node">
-<title>Node12</title>
-<g id="a_node12"><a xlink:href="classRa_1_1Core_1_1VectorArray_3_01Scalar_01_4.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="51,-269.5 51,-348.5 172,-348.5 172,-269.5 51,-269.5"/>
-<text text-anchor="start" x="59" y="-336.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
-<text text-anchor="middle" x="111.5" y="-325.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Scalar &gt;</text>
-<polyline fill="none" stroke="black" points="51,-318.5 172,-318.5 "/>
-<text text-anchor="middle" x="111.5" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="51,-299.5 172,-299.5 "/>
-<text text-anchor="start" x="59" y="-287.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
-<text text-anchor="start" x="59" y="-276.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMap()</text>
-</a>
-</g>
-</g>
-<!-- Node12&#45;&gt;Node1 -->
-<g id="edge14" class="edge">
-<title>Node12&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M108.23,-269.24C107.8,-239.24 112.1,-198.32 134.5,-171 180.85,-114.48 260.23,-87.5 323.31,-74.65"/>
-<polygon fill="none" stroke="#404040" points="323.5,-74.61 328.64,-69.54 335.29,-72.33 330.15,-77.4 323.5,-74.61"/>
-<text text-anchor="middle" x="172.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_floatAttrib</text>
+<title>Node12&#45;&gt;Node18</title>
+<path fill="none" stroke="orange" d="M480.16,-360.79C484.52,-357.01 488.69,-353.07 492.5,-349 520.15,-319.48 543.66,-279.63 558.91,-250.53"/>
+<polygon fill="orange" stroke="orange" points="477.63,-358.34 472.15,-367.41 482.09,-363.74 477.63,-358.34"/>
+<text text-anchor="middle" x="579" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3 &gt;</text>
 </g>
 <!-- Node13&#45;&gt;Node12 -->
 <g id="edge15" class="edge">
 <title>Node13&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M81.91,-462.99C88.54,-428.74 97.68,-381.46 104.04,-348.56"/>
-<polygon fill="none" stroke="midnightblue" points="78.41,-462.68 79.95,-473.17 85.28,-464.01 78.41,-462.68"/>
+<path fill="none" stroke="midnightblue" d="M419.22,-468.87C419.43,-458.05 419.66,-446.33 419.86,-435.79"/>
+<polygon fill="none" stroke="midnightblue" points="415.72,-468.84 419.03,-478.9 422.72,-468.97 415.72,-468.84"/>
 </g>
 <!-- Node14&#45;&gt;Node13 -->
 <g id="edge16" class="edge">
 <title>Node14&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M107.33,-775.34C99.12,-710.54 84.8,-597.6 77.71,-541.74"/>
-<polygon fill="none" stroke="midnightblue" points="103.87,-775.83 108.6,-785.31 110.81,-774.95 103.87,-775.83"/>
+<path fill="none" stroke="midnightblue" d="M351.74,-683.96C334.65,-648.99 318.45,-598.84 339.5,-560 344.57,-550.64 352.16,-542.72 360.66,-536.1"/>
+<polygon fill="none" stroke="midnightblue" points="348.66,-685.63 356.32,-692.95 354.9,-682.45 348.66,-685.63"/>
 </g>
 <!-- Node15&#45;&gt;Node1 -->
 <g id="edge19" class="edge">
 <title>Node15&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M301.55,-171.48C308.05,-161.44 315.57,-150.94 323.5,-142 326.45,-138.68 329.54,-135.37 332.74,-132.11"/>
-<polygon fill="none" stroke="#404040" points="332.86,-131.99 334.33,-124.93 341.41,-123.57 339.94,-130.63 332.86,-131.99"/>
-<text text-anchor="middle" x="369" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_vector2Attrib</text>
+<path fill="none" stroke="#404040" d="M321.55,-171.48C328.05,-161.44 335.57,-150.94 343.5,-142 346.45,-138.68 349.54,-135.37 352.74,-132.11"/>
+<polygon fill="none" stroke="#404040" points="352.86,-131.99 354.33,-124.93 361.41,-123.57 359.94,-130.63 352.86,-131.99"/>
+<text text-anchor="middle" x="389" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_vector2Attrib</text>
 </g>
 <!-- Node16&#45;&gt;Node15 -->
 <g id="edge20" class="edge">
 <title>Node16&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M244.54,-463.1C252.53,-405.74 266.48,-305.55 274.12,-250.67"/>
-<polygon fill="none" stroke="midnightblue" points="241.04,-462.9 243.12,-473.29 247.97,-463.87 241.04,-462.9"/>
+<path fill="none" stroke="midnightblue" d="M247.42,-463.45C259.28,-406.15 280.1,-305.67 291.49,-250.67"/>
+<polygon fill="none" stroke="midnightblue" points="243.98,-462.79 245.38,-473.29 250.83,-464.21 243.98,-462.79"/>
 </g>
 <!-- Node17&#45;&gt;Node16 -->
 <g id="edge21" class="edge">
 <title>Node17&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M189.65,-677.17C192.23,-643.53 197.93,-598.2 210.5,-560 212.54,-553.81 215.3,-547.5 218.31,-541.51"/>
-<polygon fill="none" stroke="midnightblue" points="186.15,-676.99 188.94,-687.21 193.13,-677.48 186.15,-676.99"/>
+<path fill="none" stroke="midnightblue" d="M231.52,-677.26C233.22,-635.99 235.63,-577.93 237.12,-541.79"/>
+<polygon fill="none" stroke="midnightblue" points="228.02,-677.23 231.1,-687.37 235.01,-677.52 228.02,-677.23"/>
 </g>
 <!-- Node18&#45;&gt;Node1 -->
 <g id="edge25" class="edge">
 <title>Node18&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M535.45,-171.48C528.95,-161.44 521.43,-150.94 513.5,-142 510.55,-138.68 507.46,-135.37 504.26,-132.11"/>
-<polygon fill="none" stroke="#404040" points="504.14,-131.99 497.06,-130.63 495.59,-123.57 502.67,-124.93 504.14,-131.99"/>
-<text text-anchor="middle" x="567" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_vector3Attrib</text>
+<path fill="none" stroke="#404040" d="M555.45,-171.48C548.95,-161.44 541.43,-150.94 533.5,-142 530.55,-138.68 527.46,-135.37 524.26,-132.11"/>
+<polygon fill="none" stroke="#404040" points="524.14,-131.99 517.06,-130.63 515.59,-123.57 522.67,-124.93 524.14,-131.99"/>
+<text text-anchor="middle" x="587" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_vector3Attrib</text>
 </g>
 <!-- Node19&#45;&gt;Node18 -->
 <g id="edge26" class="edge">
 <title>Node19&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M739.64,-464.7C711.18,-416.05 661.08,-334.08 610.5,-269 605.77,-262.92 600.52,-256.72 595.22,-250.76"/>
-<polygon fill="none" stroke="midnightblue" points="736.64,-466.51 744.69,-473.39 742.69,-462.98 736.64,-466.51"/>
+<path fill="none" stroke="midnightblue" d="M736.98,-464.52C700.91,-407.4 636.87,-306.01 601.92,-250.67"/>
+<polygon fill="none" stroke="midnightblue" points="734.23,-466.7 742.52,-473.29 740.14,-462.97 734.23,-466.7"/>
 </g>
 <!-- Node20&#45;&gt;Node19 -->
 <g id="edge27" class="edge">
 <title>Node20&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M752.83,-579.31C754.73,-566.73 756.72,-553.48 758.47,-541.89"/>
-<polygon fill="none" stroke="midnightblue" points="749.37,-578.79 751.34,-589.2 756.29,-579.83 749.37,-578.79"/>
+<path fill="none" stroke="midnightblue" d="M762.91,-578.93C763.01,-566.47 763.12,-553.37 763.22,-541.89"/>
+<polygon fill="none" stroke="midnightblue" points="759.41,-579.17 762.82,-589.2 766.41,-579.23 759.41,-579.17"/>
 </g>
 <!-- Node21 -->
 <g id="node21" class="node">
 <title>Node21</title>
 <g id="a_node21"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="636,-182.5 636,-239.5 719,-239.5 719,-182.5 636,-182.5"/>
-<text text-anchor="middle" x="677.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">VertexHandle</text>
-<polyline fill="none" stroke="#bfbfbf" points="636,-220.5 719,-220.5 "/>
-<text text-anchor="middle" x="677.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="636,-201.5 719,-201.5 "/>
-<text text-anchor="middle" x="677.5" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#bfbfbf" points="656,-182.5 656,-239.5 739,-239.5 739,-182.5 656,-182.5"/>
+<text text-anchor="middle" x="697.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">VertexHandle</text>
+<polyline fill="none" stroke="#bfbfbf" points="656,-220.5 739,-220.5 "/>
+<text text-anchor="middle" x="697.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="656,-201.5 739,-201.5 "/>
+<text text-anchor="middle" x="697.5" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node21&#45;&gt;Node1 -->
 <g id="edge31" class="edge">
 <title>Node21&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M657.63,-182.38C646.72,-168.78 632.23,-152.99 616.5,-142 585.42,-120.3 547.52,-103.31 513.22,-90.75"/>
-<polygon fill="none" stroke="#404040" points="513.05,-90.69 506.06,-92.44 501.75,-86.66 508.74,-84.9 513.05,-90.69"/>
-<text text-anchor="middle" x="676" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_vertexHandle</text>
+<path fill="none" stroke="#404040" d="M677.63,-182.38C666.72,-168.78 652.23,-152.99 636.5,-142 605.42,-120.3 567.52,-103.31 533.22,-90.75"/>
+<polygon fill="none" stroke="#404040" points="533.05,-90.69 526.06,-92.44 521.75,-86.66 528.74,-84.9 533.05,-90.69"/>
+<text text-anchor="middle" x="696" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_vertexHandle</text>
 </g>
 <!-- Node22 -->
 <g id="node22" class="node">
 <title>Node22</title>
 <g id="a_node22"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="761,-182.5 761,-239.5 806,-239.5 806,-182.5 761,-182.5"/>
-<text text-anchor="middle" x="783.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">friend</text>
-<polyline fill="none" stroke="#bfbfbf" points="761,-220.5 806,-220.5 "/>
-<text text-anchor="middle" x="783.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="761,-201.5 806,-201.5 "/>
-<text text-anchor="middle" x="783.5" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#bfbfbf" points="781,-182.5 781,-239.5 826,-239.5 826,-182.5 781,-182.5"/>
+<text text-anchor="middle" x="803.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">friend</text>
+<polyline fill="none" stroke="#bfbfbf" points="781,-220.5 826,-220.5 "/>
+<text text-anchor="middle" x="803.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="781,-201.5 826,-201.5 "/>
+<text text-anchor="middle" x="803.5" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node22&#45;&gt;Node1 -->
 <g id="edge32" class="edge">
 <title>Node22&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M766.31,-182.19C756.32,-168.19 742.53,-152.1 726.5,-142 662.21,-101.51 578.03,-81.72 513.92,-72.08"/>
-<polygon fill="none" stroke="#404040" points="513.67,-72.04 507.16,-75.15 501.79,-70.34 508.29,-67.23 513.67,-72.04"/>
-<text text-anchor="middle" x="762" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +Wedge</text>
+<path fill="none" stroke="#404040" d="M786.31,-182.19C776.32,-168.19 762.53,-152.1 746.5,-142 682.21,-101.51 598.03,-81.72 533.92,-72.08"/>
+<polygon fill="none" stroke="#404040" points="533.67,-72.04 527.16,-75.15 521.79,-70.34 528.29,-67.23 533.67,-72.04"/>
+<text text-anchor="middle" x="782" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00"> +Wedge</text>
 </g>
 </g>
 </svg>

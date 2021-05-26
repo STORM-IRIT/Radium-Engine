@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -152,7 +152,7 @@ $(document).ready(function(){initNavTree('Spline_8inl_source.html',''); initResi
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> D, u<span class="keywordtype">int</span> K&gt;</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa5bd25d48429d2187c1c123b96c43983">   60</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Spline&lt;D, K&gt;::Vector</a> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa5bd25d48429d2187c1c123b96c43983">Spline&lt;D, K&gt;::f</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> u )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa5bd25d48429d2187c1c123b96c43983">   60</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Spline&lt;D, K&gt;::Vector</a> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa5bd25d48429d2187c1c123b96c43983">Spline&lt;D, K&gt;::f</a>( <a class="code" href="classfloat.html">Scalar</a> u )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    u = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180">std::clamp</a>( u, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( 0 ), <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( 1 ) );</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">return</span> eval( u, m_points, m_node, K );</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
@@ -160,7 +160,7 @@ $(document).ready(function(){initNavTree('Spline_8inl_source.html',''); initResi
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> D, u<span class="keywordtype">int</span> K&gt;</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aac14f330817f2e52952c6369300192ec">   68</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Spline&lt;D, K&gt;::Vector</a> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aac14f330817f2e52952c6369300192ec">Spline&lt;D, K&gt;::df</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> u )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aac14f330817f2e52952c6369300192ec">   68</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Spline&lt;D, K&gt;::Vector</a> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aac14f330817f2e52952c6369300192ec">Spline&lt;D, K&gt;::df</a>( <a class="code" href="classfloat.html">Scalar</a> u )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    u = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180">std::clamp</a>( u, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( 0 ), <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( 1 ) );</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> eval( u, m_vecs, m_node, K - 1, 1 ) * <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( K - 1 );</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
@@ -196,7 +196,7 @@ $(document).ready(function(){initNavTree('Spline_8inl_source.html',''); initResi
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> n = m_points.size() - 1;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    m_node.resize( K + n + 1 );</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> step = 1.f / <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( n - K + 2 );</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> step = 1.f / <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( n - K + 2 );</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i = 0; i &lt; m_node.size(); ++i )</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    {</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        m_node[i] = <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( i ) * step - step * ( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> )( K - 1 );</div>
@@ -226,7 +226,7 @@ $(document).ready(function(){initNavTree('Spline_8inl_source.html',''); initResi
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> D, u<span class="keywordtype">int</span> K&gt;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Spline&lt;D, K&gt;::Vector</a> Spline&lt;D, K&gt;::eval( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> u,</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Spline&lt;D, K&gt;::Vector</a> Spline&lt;D, K&gt;::eval( <a class="code" href="classfloat.html">Scalar</a> u,</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                                                         <span class="keyword">const</span> Core::VectorArray&lt;Vector&gt;&amp; points,</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                                                         <span class="keyword">const</span> std::vector&lt;Scalar&gt;&amp; node,</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                                                         <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k,</div>
@@ -259,7 +259,7 @@ $(document).ready(function(){initNavTree('Spline_8inl_source.html',''); initResi
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> D, u<span class="keywordtype">int</span> K&gt;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Spline&lt;D, K&gt;::Vector</a> Spline&lt;D, K&gt;::evalRec( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> u,</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Spline&lt;D, K&gt;::Vector</a> Spline&lt;D, K&gt;::evalRec( <a class="code" href="classfloat.html">Scalar</a> u,</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                                                            <span class="keyword">const</span> Core::VectorArray&lt;Vector&gt;&amp; points,</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                                                            <span class="keyword">const</span> std::vector&lt;Scalar&gt;&amp; node,</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                                                            <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k ) {</div>
@@ -270,10 +270,10 @@ $(document).ready(function(){initNavTree('Spline_8inl_source.html',''); initResi
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i = 0; i &lt; ( k - 1 ); ++i )</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    {</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> n0 = node[i + k - 1];</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> n1 = node[i];</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> f0 = ( n0 - u ) / ( n0 - n1 );</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> f1 = ( u - n1 ) / ( n0 - n1 );</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keyword">const</span> <a class="code" href="classfloat.html">Scalar</a> n0 = node[i + k - 1];</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keyword">const</span> <a class="code" href="classfloat.html">Scalar</a> n1 = node[i];</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keyword">const</span> <a class="code" href="classfloat.html">Scalar</a> f0 = ( n0 - u ) / ( n0 - n1 );</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keyword">const</span> <a class="code" href="classfloat.html">Scalar</a> f1 = ( u - n1 ) / ( n0 - n1 );</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        pOut[i] = points[i] * f0 + points[i + 1] * f1;</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    }</div>
@@ -309,11 +309,12 @@ $(document).ready(function(){initNavTree('Spline_8inl_source.html',''); initResi
 <div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Spline_html_aac14f330817f2e52952c6369300192ec"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aac14f330817f2e52952c6369300192ec">Ra::Core::Geometry::Spline::df</a></div><div class="ttdeci">Vector df(Scalar u) const</div><div class="ttdoc">Evaluate speed of the spline.</div><div class="ttdef"><b>Definition:</b> <a href="Spline_8inl_source.html#l00068">Spline.inl:68</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Spline_html_a42c38a23a2dfae2239f39eddd8feb81b"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a42c38a23a2dfae2239f39eddd8feb81b">Ra::Core::Geometry::Spline::getCtrlPoints</a></div><div class="ttdeci">const Core::VectorArray&lt; Vector &gt; &amp; getCtrlPoints() const</div><div class="ttdoc">Get the control points of the spline.</div><div class="ttdef"><b>Definition:</b> <a href="Spline_8inl_source.html#l00043">Spline.inl:43</a></div></div>
+<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="Spline_8inl.html">Spline.inl</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:25 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

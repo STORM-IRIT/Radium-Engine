@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -177,8 +177,8 @@ $(document).ready(function(){initNavTree('AssimpLightDataLoader_8cpp_source.html
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca771a9111952db0d6d1adb4c7287b91f7">LightData::POINT_LIGHT</a>: {</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        builtLight-&gt;setLight(</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            color,</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            ( frame * Eigen::Map&lt;<span class="keyword">const</span> Eigen::Matrix&lt;Scalar, 3, 1&gt;&gt;( &amp;( light.mPosition.x ) )</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                          .homogeneous() )</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            ( frame *</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;              <a class="code" href="namespaceRa_1_1Core.html#a637da7f2442a99a8074fca3e4d11df0a">Core::Vector4</a> {light.mPosition[0], light.mPosition[1], light.mPosition[2], 0.0} )</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                .hnormalized(),</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <a class="code" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html">LightData::LightAttenuation</a>( light.mAttenuationConstant,</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                         light.mAttenuationLinear,</div>
@@ -191,8 +191,8 @@ $(document).ready(function(){initNavTree('AssimpLightDataLoader_8cpp_source.html
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        builtLight-&gt;setLight(</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            color,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            ( frame * Eigen::Map&lt;<span class="keyword">const</span> Eigen::Matrix&lt;Scalar, 3, 1&gt;&gt;( &amp;( light.mPosition.x ) )</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                          .homogeneous() )</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            ( frame *</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;              <a class="code" href="namespaceRa_1_1Core.html#a637da7f2442a99a8074fca3e4d11df0a">Core::Vector4</a> {light.mPosition[0], light.mPosition[1], light.mPosition[2], 0.0} )</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                .hnormalized(),</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            -( frame.transpose().inverse() * dir ).head&lt;3&gt;(),</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            light.mAngleInnerCone,</div>
@@ -305,7 +305,7 @@ $(document).ready(function(){initNavTree('AssimpLightDataLoader_8cpp_source.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_7788c5f37a81918c772c9185f759a19f.html">AssimpLoader</a></li><li class="navelem"><a class="el" href="AssimpLightDataLoader_8cpp.html">AssimpLightDataLoader.cpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:26 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:49 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

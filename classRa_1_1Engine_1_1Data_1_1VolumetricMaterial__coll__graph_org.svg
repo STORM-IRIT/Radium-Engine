@@ -234,12 +234,12 @@
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="397,-386 397,-443 435,-443 435,-386 397,-386"/>
+<g id="a_node9"><a xlink:href="classfloat.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="397,-386 397,-443 435,-443 435,-386 397,-386"/>
 <text text-anchor="middle" x="416" y="-431" font-family="Helvetica,sans-Serif" font-size="10.00">float</text>
-<polyline fill="none" stroke="#bfbfbf" points="397,-424 435,-424 "/>
+<polyline fill="none" stroke="black" points="397,-424 435,-424 "/>
 <text text-anchor="middle" x="416" y="-412" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="397,-405 435,-405 "/>
+<polyline fill="none" stroke="black" points="397,-405 435,-405 "/>
 <text text-anchor="middle" x="416" y="-393" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>

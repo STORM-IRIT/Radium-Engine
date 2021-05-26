@@ -1,5 +1,16 @@
 var NAVTREEINDEX21 =
 {
+"structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4":[9,0,2,1,2,16,5],
+"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html":[9,0,2,1,2,17,0],
+"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a1310d6dfd9df2b6c6d923fa61e67e73f":[9,0,2,1,2,17,0,1],
+"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a5c3937f6b97223c2a6b57ecc76b966ae":[9,0,2,1,2,17,0,2],
+"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a6beef8226d33156dbbe499ba8fe9173f":[9,0,2,1,2,17,0,3],
+"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#aca996c790e184fe027d63b62cd0622fb":[9,0,2,1,2,17,0,0],
+"structRa_1_1FrameTimerData.html":[9,0,2,5],
+"structRa_1_1FrameTimerData.html#a14e57c08253004ab500702946340be10":[9,0,2,5,7],
+"structRa_1_1FrameTimerData.html#a5ec2bafbc1d43e2161124b23ab19a1f6":[9,0,2,5,3],
+"structRa_1_1FrameTimerData.html#a83507e419f57b18c91e0367c6d4eb737":[9,0,2,5,0],
+"structRa_1_1FrameTimerData.html#aa2feff72ada664c2aca7f1c24b03bad4":[9,0,2,5,4],
 "structRa_1_1FrameTimerData.html#ac68bb5a6a090d353a60f556122fd4f95":[9,0,2,5,2],
 "structRa_1_1FrameTimerData.html#add27c93a693a20130d60fe02d625afa8":[9,0,2,5,6],
 "structRa_1_1FrameTimerData.html#ae429147877c2e044cc1f349a0a23856d":[9,0,2,5,1],

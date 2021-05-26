@@ -341,12 +341,12 @@ var sectionId = 'dynsection-1';
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="492.5,-876 492.5,-933 530.5,-933 530.5,-876 492.5,-876"/>
+<g id="a_node11"><a xlink:href="classfloat.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="492.5,-876 492.5,-933 530.5,-933 530.5,-876 492.5,-876"/>
 <text text-anchor="middle" x="511.5" y="-921" font-family="Helvetica,sans-Serif" font-size="10.00">float</text>
-<polyline fill="none" stroke="#bfbfbf" points="492.5,-914 530.5,-914 "/>
+<polyline fill="none" stroke="black" points="492.5,-914 530.5,-914 "/>
 <text text-anchor="middle" x="511.5" y="-902" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="492.5,-895 530.5,-895 "/>
+<polyline fill="none" stroke="black" points="492.5,-895 530.5,-895 "/>
 <text text-anchor="middle" x="511.5" y="-883" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>

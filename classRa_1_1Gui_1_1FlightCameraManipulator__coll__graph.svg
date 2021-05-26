@@ -184,12 +184,12 @@ var sectionId = 'dynsection-1';
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="968.5,-1471.5 968.5,-1528.5 1006.5,-1528.5 1006.5,-1471.5 968.5,-1471.5"/>
+<g id="a_node5"><a xlink:href="classfloat.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="968.5,-1471.5 968.5,-1528.5 1006.5,-1528.5 1006.5,-1471.5 968.5,-1471.5"/>
 <text text-anchor="middle" x="987.5" y="-1516.5" font-family="Helvetica,sans-Serif" font-size="10.00">float</text>
-<polyline fill="none" stroke="#bfbfbf" points="968.5,-1509.5 1006.5,-1509.5 "/>
+<polyline fill="none" stroke="black" points="968.5,-1509.5 1006.5,-1509.5 "/>
 <text text-anchor="middle" x="987.5" y="-1497.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="968.5,-1490.5 1006.5,-1490.5 "/>
+<polyline fill="none" stroke="black" points="968.5,-1490.5 1006.5,-1490.5 "/>
 <text text-anchor="middle" x="987.5" y="-1478.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>

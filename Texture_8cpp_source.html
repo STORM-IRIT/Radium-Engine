@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -374,7 +374,7 @@ $(document).ready(function(){initNavTree('Texture_8cpp_source.html',''); initRes
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <span class="comment">// auto linearize = [gamma](float in)-&gt; float {</span></div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <span class="keyword">auto</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html#a223eab722d3f56c1c8a50ee5cc9e959b">linearize</a> = []( uint8_t in ) -&gt; uint8_t {</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            <span class="comment">// Constants are described at https://en.wikipedia.org/wiki/SRGB</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            <span class="keywordtype">float</span> c = float( in ) / 255;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            <span class="keywordtype">float</span> c = <a class="code" href="classfloat.html">float</a>( in ) / 255;</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            <span class="keywordflow">if</span> ( c &lt; 0.04045 ) { c = c / 12.92f; }</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            { c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), 2.4f ); }</div>
@@ -456,13 +456,14 @@ $(document).ready(function(){initNavTree('Texture_8cpp_source.html',''); initRes
 <div class="ttc" id="aOpenGL_8hpp_html_a56aaa83bc346bbef34e231c43cb3b443"><div class="ttname"><a href="OpenGL_8hpp.html#a56aaa83bc346bbef34e231c43cb3b443">GL_CHECK_ERROR</a></div><div class="ttdeci">#define GL_CHECK_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="OpenGL_8hpp_source.html#l00111">OpenGL.hpp:111</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">Ra::Core::Utils::logERROR</a></div><div class="ttdeci">@ logERROR</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00016">Log.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Texture_html_ae88bb2f346291aaba4cbaebf4278095b"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Texture.html#ae88bb2f346291aaba4cbaebf4278095b">Ra::Engine::Data::Texture::updateParameters</a></div><div class="ttdeci">void updateParameters()</div><div class="ttdef"><b>Definition:</b> <a href="Texture_8cpp_source.html#l00217">Texture.cpp:217</a></div></div>
+<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <div class="ttc" id="aclassint_html"><div class="ttname"><a href="classint.html">int</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1TextureParameters_html_a124f9b243369203db3b8e2be37065949"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a124f9b243369203db3b8e2be37065949">Ra::Engine::Data::TextureParameters::wrapT</a></div><div class="ttdeci">GLenum wrapT</div><div class="ttdoc">OpenGL wrap mode in the t direction.</div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00062">Texture.hpp:62</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="Texture_8cpp.html">Texture.cpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:25 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -169,7 +169,7 @@ $(document).ready(function(){initNavTree('BVH_8inl_source.html',''); initResizab
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// As long as there are several leaves to merge</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">while</span> ( toMerge.size() &gt; 2 )</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> low = m_root_aabb.isEmpty() ? 0 : m_root_aabb.volume();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="classfloat.html">Scalar</a> low = m_root_aabb.isEmpty() ? 0 : m_root_aabb.volume();</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">typename</span> std::vector&lt;NodePtr&gt;::iterator l_min, r_min;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        Aabb merge;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
@@ -272,14 +272,14 @@ $(document).ready(function(){initNavTree('BVH_8inl_source.html',''); initResizab
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Containers_1_1BVH_html_a40020030e0ab1509843044ee9dc849b3"><div class="ttname"><a href="classRa_1_1Core_1_1Containers_1_1BVH.html#a40020030e0ab1509843044ee9dc849b3">Ra::Core::Containers::BVH::NodePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; NodePtr</div><div class="ttdef"><b>Definition:</b> <a href="BVH_8hpp_source.html#l00054">BVH.hpp:54</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1Frustum_html_aaf8e6d01c7eb5038ebf92ab0537c70de"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1Frustum.html#aaf8e6d01c7eb5038ebf92ab0537c70de">Ra::Core::Geometry::Frustum::getPlane</a></div><div class="ttdeci">const Eigen::Matrix&lt; Scalar, 4, 1 &gt; &amp; getPlane(uint p) const</div><div class="ttdef"><b>Definition:</b> <a href="Frustum_8hpp_source.html#l00038">Frustum.hpp:38</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Containers_1_1BVH_html_a955ba1bee61c05b663e365bc8ced31f7"><div class="ttname"><a href="classRa_1_1Core_1_1Containers_1_1BVH.html#a955ba1bee61c05b663e365bc8ced31f7">Ra::Core::Containers::BVH::insertLeaf</a></div><div class="ttdeci">void insertLeaf(const std::shared_ptr&lt; T &gt; &amp;t)</div><div class="ttdef"><b>Definition:</b> <a href="BVH_8inl_source.html#l00042">BVH.inl:42</a></div></div>
 <div class="ttc" id="aColor_8hpp_html"><div class="ttname"><a href="Color_8hpp.html">Color.hpp</a></div></div>
+<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_1456dd235032e023892318efbecb420b.html">Containers</a></li><li class="navelem"><a class="el" href="BVH_8inl.html">BVH.inl</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:24 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

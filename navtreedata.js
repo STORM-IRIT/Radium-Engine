@@ -23,19 +23,21 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Radium Engine", "index.html", [
-    [ "Badges", "index.html#autotoc_md0", null ],
-    [ "Overview", "index.html#autotoc_md1", null ],
+    [ "Badges", "index.html#autotoc_md0", [
+      [ "Badges", "index.html#autotoc_md1", null ]
+    ] ],
+    [ "Overview", "index.html#autotoc_md2", null ],
     [ "Radium Basics", "basicsmanual.html", "basicsmanual" ],
     [ "Radium Concepts", "conceptsmanual.html", "conceptsmanual" ],
     [ "Developer manual", "develmanual.html", "develmanual" ],
     [ "Licenses", "licenses.html", [
-      [ "Radium contributors", "licenses.html#autotoc_md3", null ],
-      [ "Third-party libraries", "licenses.html#autotoc_md4", [
-        [ "Qt", "licenses.html#autotoc_md5", null ],
-        [ "Eigen", "licenses.html#autotoc_md6", null ],
-        [ "Assimp", "licenses.html#autotoc_md7", null ],
-        [ "STB Image", "licenses.html#autotoc_md8", null ],
-        [ "Additional material", "licenses.html#autotoc_md9", null ]
+      [ "Radium contributors", "licenses.html#autotoc_md4", null ],
+      [ "Third-party libraries", "licenses.html#autotoc_md5", [
+        [ "Qt", "licenses.html#autotoc_md6", null ],
+        [ "Eigen", "licenses.html#autotoc_md7", null ],
+        [ "Assimp", "licenses.html#autotoc_md8", null ],
+        [ "STB Image", "licenses.html#autotoc_md9", null ],
+        [ "Additional material", "licenses.html#autotoc_md10", null ]
       ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
@@ -84,24 +86,24 @@ var NAVTREEINDEX =
 "CouplingSystem_8hpp_source.html",
 "GlmAdapters_8hpp.html#aa3d7b88b75e4fff82295015d83725352",
 "Log_8hpp.html#a6c6bb5efb42799004bfb0e047598c185",
-"RadiumEngine_8hpp_source.html",
-"StringUtils_8cpp_source.html",
-"Volume_8hpp.html",
-"classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a05706a4836ec061b36cb49d7ab04f9cc",
-"classRa_1_1Core_1_1Asset_1_1HandleData.html#a4f4461ac9833720406c058c63020618f",
-"classRa_1_1Core_1_1Geometry_1_1LineMesh.html",
-"classRa_1_1Core_1_1Grid_1_1Iterator.html#a57348c88771de4c988b0f0eabbc8238b",
-"classRa_1_1Core_1_1Utils_1_1Index.html#a95142d2bcd5daf301e193437b3f352ef",
-"classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499",
-"classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee",
-"classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#ab48fce117d0b64e86f287843efbf2616",
-"classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html#a2d600883ea0364b3fd893e2d46bdcc82",
-"classRa_1_1Gui_1_1CameraManipulator.html#a3fb7d1d8d6e6ab03f43d995488aa0d8f",
-"classRa_1_1Gui_1_1Timeline.html#ae9ff6daccd6224af687ffccd2bcb0f00",
-"classRa_1_1IO_1_1AssimpCameraDataLoader.html#a5924fe84dceaf4072a9d5a48e7689f0b",
-"develtimeline.html#autotoc_md123",
-"namespaces.html",
-"structRa_1_1FrameTimerData.html#ac68bb5a6a090d353a60f556122fd4f95"
+"RadiumEngine_8hpp.html",
+"StringUtils_8cpp.html#aad2a7bedc49e227d0503794d76acbfea",
+"Volume_8cpp_source.html",
+"classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a04bbf6fc8d6f56edcbd4a9b791ac7f2d",
+"classRa_1_1Core_1_1Asset_1_1HandleData.html#a4e0ea1c3324bd9e1dc1dd75a63dd37ce",
+"classRa_1_1Core_1_1Geometry_1_1Line.html#add3a2c9b08694c0e21d84331f434ef34",
+"classRa_1_1Core_1_1Grid_1_1Iterator.html#a5175e61630c8f87ea53dcabc3f624928",
+"classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf",
+"classRa_1_1Engine_1_1Data_1_1Material.html#a8fb4a3a438c6d84285770ab97ac2eb68",
+"classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a92159439586f9783d1334576b1aa1b88",
+"classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afd545cce7c8d137eefc8cd20a08648fd",
+"classRa_1_1Engine_1_1Scene_1_1LightStorage.html#a378b7a12cecc7eb12dc458cd76c8228c",
+"classRa_1_1Gui_1_1CameraManipulator.html#a05ab4f61a46bf029a76b203ed3ea86e9",
+"classRa_1_1Gui_1_1Timeline.html#aa4df28243cd806b7d785c59f2839f308",
+"classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a9179b9b54341520c9925633795318f77",
+"develplugin.html#autotoc_md116",
+"namespacemembers_p.html",
+"structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

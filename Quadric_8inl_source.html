@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('Quadric_8inl_source.html',''); initRes
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Quadric.html#a21fd0e17071dc790100c1f7fb31c51f9">   10</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html#a1b519985e1e96507441552fe0b989a52">Quadric&lt;DIM&gt;::Quadric</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html">Quadric&lt;DIM&gt;</a>&amp; q ) : m_a( q.m_a ), m_b( q.m_b ), m_c( q.m_c ) {}</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">template</span> &lt;<span class="keywordtype">int</span> DIM&gt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Quadric.html#a08c2b9f8c5a36742f8947467c8ae167f">   13</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html#a1b519985e1e96507441552fe0b989a52">Quadric&lt;DIM&gt;::Quadric</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html#aef495567e139d575acefe9e9fa97ce8a">Vector</a>&amp; n, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> ndotp ) :</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Quadric.html#a08c2b9f8c5a36742f8947467c8ae167f">   13</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html#a1b519985e1e96507441552fe0b989a52">Quadric&lt;DIM&gt;::Quadric</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html#aef495567e139d575acefe9e9fa97ce8a">Vector</a>&amp; n, <a class="code" href="classfloat.html">Scalar</a> ndotp ) :</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    m_a( n * n.transpose() ), m_b( ndotp * n ), m_c( ndotp * ndotp ) {}</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">template</span> &lt;<span class="keywordtype">int</span> DIM&gt;</div>
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('Quadric_8inl_source.html',''); initRes
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">template</span> &lt;<span class="keywordtype">int</span> DIM&gt;</div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Quadric.html#a8c0c06178ad000d833a71ed52955d0e9">   74</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html">Quadric&lt;DIM&gt;</a> <a class="code" href="classRa_1_1Core_1_1Quadric.html#a8c0c06178ad000d833a71ed52955d0e9">Quadric&lt;DIM&gt;::operator*</a>( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> scal ) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Quadric.html#a8c0c06178ad000d833a71ed52955d0e9">   74</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html">Quadric&lt;DIM&gt;</a> <a class="code" href="classRa_1_1Core_1_1Quadric.html#a8c0c06178ad000d833a71ed52955d0e9">Quadric&lt;DIM&gt;::operator*</a>( <span class="keyword">const</span> <a class="code" href="classfloat.html">Scalar</a> scal ) {</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html">Quadric&lt;DIM&gt;</a>( m_a * scal, m_b * scal, m_c * scal );</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
@@ -180,7 +180,7 @@ $(document).ready(function(){initNavTree('Quadric_8inl_source.html',''); initRes
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keyword">template</span> &lt;<span class="keywordtype">int</span> DIM&gt;</div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Quadric.html#a88a5adf148644664524c45150231be74">   87</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html">Quadric&lt;DIM&gt;</a>&amp; <a class="code" href="classRa_1_1Core_1_1Quadric.html#a88a5adf148644664524c45150231be74">Quadric&lt;DIM&gt;::operator*=</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> scal ) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Quadric.html#a88a5adf148644664524c45150231be74">   87</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Quadric.html">Quadric&lt;DIM&gt;</a>&amp; <a class="code" href="classRa_1_1Core_1_1Quadric.html#a88a5adf148644664524c45150231be74">Quadric&lt;DIM&gt;::operator*=</a>( <a class="code" href="classfloat.html">Scalar</a> scal ) {</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    m_a *= scal;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    m_b *= scal;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    m_c *= scal;</div>
@@ -208,15 +208,15 @@ $(document).ready(function(){initNavTree('Quadric_8inl_source.html',''); initRes
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html_a8c0c06178ad000d833a71ed52955d0e9"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html#a8c0c06178ad000d833a71ed52955d0e9">Ra::Core::Quadric::operator*</a></div><div class="ttdeci">Quadric operator*(const Scalar scal)</div><div class="ttdef"><b>Definition:</b> <a href="Quadric_8inl_source.html#l00074">Quadric.inl:74</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html_ae206cdab05157aeee1e26ee9aace045d"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html#ae206cdab05157aeee1e26ee9aace045d">Ra::Core::Quadric::operator+=</a></div><div class="ttdeci">Quadric &amp; operator+=(const Quadric &amp;q)</div><div class="ttdef"><b>Definition:</b> <a href="Quadric_8inl_source.html#l00079">Quadric.inl:79</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html">Ra::Core::Quadric</a></div><div class="ttdef"><b>Definition:</b> <a href="Quadric_8hpp_source.html#l00027">Quadric.hpp:27</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html_a83f5d4f91f2d657cfc31d5285d388d64"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html#a83f5d4f91f2d657cfc31d5285d388d64">Ra::Core::Quadric::setB</a></div><div class="ttdeci">void setB(const Vector &amp;b)</div><div class="ttdef"><b>Definition:</b> <a href="Quadric_8inl_source.html#l00042">Quadric.inl:42</a></div></div>
 <div class="ttc" id="aQuadric_8hpp_html"><div class="ttname"><a href="Quadric_8hpp.html">Quadric.hpp</a></div></div>
+<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html_aff5a0df07f44c436350c368b84579615"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html#aff5a0df07f44c436350c368b84579615">Ra::Core::Quadric::operator+</a></div><div class="ttdeci">Quadric operator+(const Quadric &amp;q) const</div><div class="ttdoc">Operators.</div><div class="ttdef"><b>Definition:</b> <a href="Quadric_8inl_source.html#l00069">Quadric.inl:69</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_a1f42069ba95676f6b9abbd5065ccf6d.html">Math</a></li><li class="navelem"><a class="el" href="Quadric_8inl.html">Quadric.inl</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:25 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

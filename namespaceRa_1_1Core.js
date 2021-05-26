@@ -17,5 +17,6 @@ var namespaceRa_1_1Core =
     [ "TaskQueue", "classRa_1_1Core_1_1TaskQueue.html", "classRa_1_1Core_1_1TaskQueue" ],
     [ "Tex", "classRa_1_1Core_1_1Tex.html", "classRa_1_1Core_1_1Tex" ],
     [ "VectorArray", "classRa_1_1Core_1_1VectorArray.html", "classRa_1_1Core_1_1VectorArray" ],
-    [ "VectorArray< Scalar >", "classRa_1_1Core_1_1VectorArray_3_01Scalar_01_4.html", "classRa_1_1Core_1_1VectorArray_3_01Scalar_01_4" ]
+    [ "VectorArray< double >", "classRa_1_1Core_1_1VectorArray_3_01double_01_4.html", "classRa_1_1Core_1_1VectorArray_3_01double_01_4" ],
+    [ "VectorArray< float >", "classRa_1_1Core_1_1VectorArray_3_01float_01_4.html", "classRa_1_1Core_1_1VectorArray_3_01float_01_4" ]
 ];

@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"RadiumEngine_8hpp.html":[10,0,3,1,6],
 "RadiumEngine_8hpp_source.html":[10,0,3,1,6],
 "RadiumPluginInterface_8cpp.html":[10,0,3,4,1],
 "RadiumPluginInterface_8cpp_source.html":[10,0,3,4,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "StretchableTwistableBoneSkinning_8hpp_source.html":[10,0,3,0,0,29],
 "StringUtils_8cpp.html":[10,0,3,0,7,21],
 "StringUtils_8cpp.html#a3255c68f2926d6f7f133d6b3c0e996a5":[10,0,3,0,7,21,1],
-"StringUtils_8cpp.html#a99d916309a7c1727e74e630c93e6bdfa":[10,0,3,0,7,21,0],
-"StringUtils_8cpp.html#aad2a7bedc49e227d0503794d76acbfea":[10,0,3,0,7,21,2]
+"StringUtils_8cpp.html#a99d916309a7c1727e74e630c93e6bdfa":[10,0,3,0,7,21,0]
 };

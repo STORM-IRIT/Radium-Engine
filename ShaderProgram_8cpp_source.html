@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -406,132 +406,138 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp_source.html',''); i
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
 <div class="line"><a name="l00313"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a55666ee1c7da7725426b5c42872e24f5">  313</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a436e9750e260615cc0eb9f66c527d441">Core::Vector2d</a>&amp; value )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<span class="keywordtype">float</span>&gt;().eval() );</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<a class="code" href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">GL_SCALAR_PLAIN</a>&gt;().eval() );</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;}</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
 <div class="line"><a name="l00318"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a7d5543c5966d2bbbdfc05a6cd0ef0d51">  318</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a09191a8b26fb20aa1e309f690db32259">Core::Vector3d</a>&amp; value )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<span class="keywordtype">float</span>&gt;().eval() );</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<a class="code" href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">GL_SCALAR_PLAIN</a>&gt;().eval() );</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;}</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
 <div class="line"><a name="l00323"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a4da7736ec5192ac9da391090b30c251c">  323</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#ac4661b83c2afb6dfe87742a86ff218c9">Core::Vector4d</a>&amp; value )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<span class="keywordtype">float</span>&gt;().eval() );</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<a class="code" href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">GL_SCALAR_PLAIN</a>&gt;().eval() );</div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;}</div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
 <div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a11bc09a7860a49ff0e11ed73bc552a79">  328</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a3d8b02fdf55fdd67ca5dfb6fc84a4f7a">Core::Matrix2d</a>&amp; value )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<span class="keywordtype">float</span>&gt;().eval() );</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<a class="code" href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">GL_SCALAR_PLAIN</a>&gt;().eval() );</div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;}</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
 <div class="line"><a name="l00333"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a81e190bdf66657140105a5e5b47460ef">  333</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a0948e198e7d5605884439f451b004df4">Core::Matrix3d</a>&amp; value )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<span class="keywordtype">float</span>&gt;().eval() );</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<a class="code" href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">GL_SCALAR_PLAIN</a>&gt;().eval() );</div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;}</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
 <div class="line"><a name="l00338"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a64461a22c3587b9ab986c6a577089250">  338</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a60c536981d8bf358d171d66902af4204">Core::Matrix4d</a>&amp; value )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<span class="keywordtype">float</span>&gt;().eval() );</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    m_program-&gt;setUniform( name, value.cast&lt;<a class="code" href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">GL_SCALAR_PLAIN</a>&gt;().eval() );</div>
 <div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;}</div>
-<div class="line"><a name="l00341"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a5893a8639742f623f666ca529e82c871">  341</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* tex, <span class="keywordtype">int</span> texUnit )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    tex-&gt;<a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422">bind</a>( texUnit );</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    m_program-&gt;setUniform( name, texUnit );</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00343"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#aa88a3e5dfcbaf15c3cbb71fb97e60c3d">  343</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&amp; value )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    m_program-&gt;setUniform( name, <span class="keyword">static_cast&lt;</span><a class="code" href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">GL_SCALAR_PLAIN</a><span class="keyword">&gt;</span>( value ) );</div>
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;}</div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a53d2b676abc12dbaeb0f0225aec1e766">  347</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniformTexture( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* tex )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keyword">auto</span> itr = textureUnits.find( std::string( name ) );</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keywordflow">if</span> ( itr != textureUnits.end() )</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    {</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        tex-&gt;<a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422">bind</a>( itr-&gt;second.m_texUnit );</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        m_program-&gt;setUniform( itr-&gt;second.m_location, itr-&gt;second.m_texUnit );</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    }</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;}</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
-<div class="line"><a name="l00356"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a8119c49554e8f766fa10025b05749abe">  356</a></span>&#160;globjects::Program* ShaderProgram::getProgramObject()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="keywordflow">return</span> m_program.get();</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;}</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment">/****************************************************</span></div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment"> * Include workaround due to globject bugs</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment"> ****************************************************/</span></div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;std::string ShaderProgram::preprocessIncludes( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                                               <span class="keyword">const</span> std::string&amp; shader,</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                                               <span class="keywordtype">int</span> level,</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                                               <span class="keywordtype">int</span> line ) {</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( line ); <span class="comment">// left for radium v2 ??</span></div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a51559d4ac02d231e9601c7e5ae775204">CORE_ERROR_IF</a>( level &lt; 32, <span class="stringliteral">&quot;Shader inclusion depth limit reached.&quot;</span> );</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    std::string result {};</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    std::vector&lt;std::string&gt; finalStrings;</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> nline = 0;</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160; </div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> std::regex reg( <span class="stringliteral">&quot;^[ ]*#[ ]*include[ ]+[\&quot;&lt;](.*)[\&quot;&gt;].*&quot;</span> );</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160; </div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="comment">// source: https://www.fluentcpp.com/2017/04/21/how-to-split-a-string-in-c/</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    std::istringstream iss( shader );</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    std::string codeline;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">while</span> ( std::getline( iss, codeline, <span class="charliteral">&#39;\n&#39;</span> ) )</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    {</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;        std::smatch match;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        <span class="keywordflow">if</span> ( std::regex_search( codeline, match, reg ) )</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        {</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            <span class="comment">// Radium V2 : for composable shaders, use the includePaths set elsewhere.</span></div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;            <span class="keyword">auto</span> includeNameString =</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;                globjects::NamedString::getFromRegistry( std::string( <span class="stringliteral">&quot;/&quot;</span> ) + match[1].str() );</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;            <span class="keywordflow">if</span> ( includeNameString != <span class="keyword">nullptr</span> )</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;            {</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                codeline =</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;                    preprocessIncludes( match[1].str(), includeNameString-&gt;string(), level + 1, 0 );</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;            }</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a5893a8639742f623f666ca529e82c871">  347</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* tex, <span class="keywordtype">int</span> texUnit )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    tex-&gt;<a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422">bind</a>( texUnit );</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    m_program-&gt;setUniform( name, texUnit );</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;}</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160; </div>
+<div class="line"><a name="l00353"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a53d2b676abc12dbaeb0f0225aec1e766">  353</a></span>&#160;<span class="keywordtype">void</span> ShaderProgram::setUniformTexture( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* tex )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    <span class="keyword">auto</span> itr = textureUnits.find( std::string( name ) );</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keywordflow">if</span> ( itr != textureUnits.end() )</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    {</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        tex-&gt;<a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422">bind</a>( itr-&gt;second.m_texUnit );</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        m_program-&gt;setUniform( itr-&gt;second.m_location, itr-&gt;second.m_texUnit );</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    }</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;}</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
+<div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a8119c49554e8f766fa10025b05749abe">  362</a></span>&#160;globjects::Program* ShaderProgram::getProgramObject()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keywordflow">return</span> m_program.get();</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;}</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment">/****************************************************</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="comment"> * Include workaround due to globject bugs</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="comment"> ****************************************************/</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;std::string ShaderProgram::preprocessIncludes( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                                               <span class="keyword">const</span> std::string&amp; shader,</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                                               <span class="keywordtype">int</span> level,</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                                               <span class="keywordtype">int</span> line ) {</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( line ); <span class="comment">// left for radium v2 ??</span></div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a51559d4ac02d231e9601c7e5ae775204">CORE_ERROR_IF</a>( level &lt; 32, <span class="stringliteral">&quot;Shader inclusion depth limit reached.&quot;</span> );</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    std::string result {};</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    std::vector&lt;std::string&gt; finalStrings;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> nline = 0;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> std::regex reg( <span class="stringliteral">&quot;^[ ]*#[ ]*include[ ]+[\&quot;&lt;](.*)[\&quot;&gt;].*&quot;</span> );</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <span class="comment">// source: https://www.fluentcpp.com/2017/04/21/how-to-split-a-string-in-c/</span></div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    std::istringstream iss( shader );</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    std::string codeline;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="keywordflow">while</span> ( std::getline( iss, codeline, <span class="charliteral">&#39;\n&#39;</span> ) )</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    {</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        std::smatch match;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        <span class="keywordflow">if</span> ( std::regex_search( codeline, match, reg ) )</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        {</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;            <span class="comment">// Radium V2 : for composable shaders, use the includePaths set elsewhere.</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;            <span class="keyword">auto</span> includeNameString =</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;                globjects::NamedString::getFromRegistry( std::string( <span class="stringliteral">&quot;/&quot;</span> ) + match[1].str() );</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            <span class="keywordflow">if</span> ( includeNameString != <span class="keyword">nullptr</span> )</div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;            {</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;                <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Cannot open included file &quot;</span> &lt;&lt; match[1].str() &lt;&lt; <span class="stringliteral">&quot; at line&quot;</span></div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;                                  &lt;&lt; nline &lt;&lt; <span class="stringliteral">&quot; of file &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot;. Ignored.&quot;</span>;</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;                codeline =</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;                    preprocessIncludes( match[1].str(), includeNameString-&gt;string(), level + 1, 0 );</div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;            }</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;            <span class="comment">// Radium V2, adapt this if globjct includes bug is still present</span></div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;            <span class="comment">/*</span></div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment">             std::string inc;</span></div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment">             std::string file = m_filepath + match[1].str();</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment">             if (parseFile(file, inc))</span></div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="comment">             {</span></div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="comment">             sublerr.start = nline;</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment">             sublerr.name  = file;</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment">             lerr.subfiles.push_back(sublerr);</span></div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment">             line  = preprocessIncludes(inc, level + 1, lerr.subfiles.back());</span></div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment">             nline = lerr.subfiles.back().end;</span></div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="comment">             }</span></div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment">             else</span></div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment">             {</span></div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment">             LOG(logWARNING) &lt;&lt; &quot;Cannot open included file &quot; &lt;&lt; file &lt;&lt; &quot; from &quot; &lt;&lt; m_filename &lt;&lt; &quot;.</span></div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment">             Ignored.&quot;; continue;</span></div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment">             }</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment">             */</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        }</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        finalStrings.push_back( codeline );</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        ++nline;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    }</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160; </div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    <span class="comment">// Build final shader string</span></div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; l : finalStrings )</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    {</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        result.append( l );</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        result.append( <span class="stringliteral">&quot;\n&quot;</span> );</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    }</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    result.append( <span class="stringliteral">&quot;\0&quot;</span> );</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;}</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160; </div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;            {</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Cannot open included file &quot;</span> &lt;&lt; match[1].str() &lt;&lt; <span class="stringliteral">&quot; at line&quot;</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;                                  &lt;&lt; nline &lt;&lt; <span class="stringliteral">&quot; of file &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot;. Ignored.&quot;</span>;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;            }</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;            <span class="comment">// Radium V2, adapt this if globjct includes bug is still present</span></div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;            <span class="comment">/*</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment">             std::string inc;</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment">             std::string file = m_filepath + match[1].str();</span></div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment">             if (parseFile(file, inc))</span></div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment">             {</span></div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="comment">             sublerr.start = nline;</span></div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment">             sublerr.name  = file;</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment">             lerr.subfiles.push_back(sublerr);</span></div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment">             line  = preprocessIncludes(inc, level + 1, lerr.subfiles.back());</span></div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment">             nline = lerr.subfiles.back().end;</span></div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment">             }</span></div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment">             else</span></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment">             {</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment">             LOG(logWARNING) &lt;&lt; &quot;Cannot open included file &quot; &lt;&lt; file &lt;&lt; &quot; from &quot; &lt;&lt; m_filename &lt;&lt; &quot;.</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment">             Ignored.&quot;; continue;</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment">             }</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment">             */</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        }</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160; </div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        finalStrings.push_back( codeline );</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        ++nline;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    }</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160; </div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    <span class="comment">// Build final shader string</span></div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; l : finalStrings )</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    {</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        result.append( l );</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        result.append( <span class="stringliteral">&quot;\n&quot;</span> );</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    }</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160; </div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    result.append( <span class="stringliteral">&quot;\0&quot;</span> );</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;}</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160; </div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
@@ -559,10 +565,12 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp_source.html',''); i
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_html_a6c6d2135a635e37605870be1d6fc5ef4"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data.html#a6c6d2135a635e37605870be1d6fc5ef4">Ra::Engine::Data::getTypeAsGLEnum</a></div><div class="ttdeci">GLenum getTypeAsGLEnum(ShaderType type)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8cpp_source.html#l00024">ShaderProgram.cpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Texture_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Texture.html">Ra::Engine::Data::Texture</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00086">Texture.hpp:86</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html_ad85e77eb9b459035a7f9a0a37456befa"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#ad85e77eb9b459035a7f9a0a37456befa">Ra::Engine::Data::ShaderProgram::~ShaderProgram</a></div><div class="ttdeci">~ShaderProgram()</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8cpp_source.html#l00086">ShaderProgram.cpp:86</a></div></div>
+<div class="ttc" id="aOpenGL_8hpp_html_a2a4c53f44d6b572da82674b892ef967a"><div class="ttname"><a href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">GL_SCALAR_PLAIN</a></div><div class="ttdeci">#define GL_SCALAR_PLAIN</div><div class="ttdef"><b>Definition:</b> <a href="OpenGL_8hpp_source.html#l00026">OpenGL.hpp:26</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_html_a7c546bc5ccbcfd57b78b5f4b689b1e5aa4409473bd8bd22f415d0548ae9b1e344"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa4409473bd8bd22f415d0548ae9b1e344">Ra::Engine::Data::ShaderType_TESS_EVALUATION</a></div><div class="ttdeci">@ ShaderType_TESS_EVALUATION</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8hpp_source.html#l00023">ShaderConfiguration.hpp:23</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html_ad0a62b6cea82542b665467ccd0c3af16"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#ad0a62b6cea82542b665467ccd0c3af16">Ra::Engine::Data::ShaderProgram::ShaderProgram</a></div><div class="ttdeci">ShaderProgram()</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8cpp_source.html#l00075">ShaderProgram.cpp:75</a></div></div>
 <div class="ttc" id="aShaderProgram_8hpp_html"><div class="ttname"><a href="ShaderProgram_8hpp.html">ShaderProgram.hpp</a></div></div>
 <div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
+<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
 <div class="ttc" id="aOpenGL_8hpp_html_a56aaa83bc346bbef34e231c43cb3b443"><div class="ttname"><a href="OpenGL_8hpp.html#a56aaa83bc346bbef34e231c43cb3b443">GL_CHECK_ERROR</a></div><div class="ttdeci">#define GL_CHECK_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="OpenGL_8hpp_source.html#l00111">OpenGL.hpp:111</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html_ad64e2483a2011aebb7ab793f3a4f9cbb"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#ad64e2483a2011aebb7ab793f3a4f9cbb">Ra::Engine::Data::ShaderProgram::load</a></div><div class="ttdeci">void load(const Data::ShaderConfiguration &amp;shaderConfig)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8cpp_source.html#l00195">ShaderProgram.cpp:195</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">Ra::Core::Utils::logDEBUG</a></div><div class="ttdeci">@ logDEBUG</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00019">Log.hpp:19</a></div></div>
@@ -574,7 +582,7 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp_source.html',''); i
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="ShaderProgram_8cpp.html">ShaderProgram.cpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:25 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

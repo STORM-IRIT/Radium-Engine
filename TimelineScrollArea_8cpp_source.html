@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -255,12 +255,12 @@ $(document).ready(function(){initNavTree('TimelineScrollArea_8cpp_source.html','
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordtype">double</span> x = <span class="keyword">event</span>-&gt;position().x();</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordtype">double</span> time = ( hScroll + x - double( m_zero ) ) / <span class="keywordtype">double</span>( m_pixPerSec );</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordtype">double</span> time = ( hScroll + x - <a class="code" href="classdouble.html">double</a>( m_zero ) ) / <span class="keywordtype">double</span>( m_pixPerSec );</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html#ab5de24629ff8ac5f142313bc977b372d">onDrawRuler</a>( newRulerWidth );</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="comment">// ruler values may have changed</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordtype">double</span> a                      = time * double( m_pixPerSec ) + double( m_zero );</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordtype">double</span> a                      = time * <a class="code" href="classdouble.html">double</a>( m_pixPerSec ) + <a class="code" href="classdouble.html">double</a>( m_zero );</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordtype">double</span> hScrollAfterProjection = a - x;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        horizontalScrollBar()-&gt;setValue( <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>( hScrollAfterProjection ) );</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    }</div>
@@ -300,6 +300,7 @@ $(document).ready(function(){initNavTree('TimelineScrollArea_8cpp_source.html','
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_af53301af105f5723ae4e189843f62810"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#af53301af105f5723ae4e189843f62810">Ra::Gui::TimelineScrollArea::getPixPerSec</a></div><div class="ttdeci">Scalar getPixPerSec()</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00050">TimelineScrollArea.cpp:50</a></div></div>
 <div class="ttc" id="aTimelineScrollArea_8hpp_html"><div class="ttname"><a href="TimelineScrollArea_8hpp.html">TimelineScrollArea.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a15a2e39c53f62f31dd72e98d2ee4ea3e"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a15a2e39c53f62f31dd72e98d2ee4ea3e">Ra::Gui::TimelineScrollArea::redo</a></div><div class="ttdeci">void redo()</div><div class="ttdoc">Emitted when [crtl] + [shift] + [z] / [r] key is pressed.</div></div>
+<div class="ttc" id="aclassdouble_html"><div class="ttname"><a href="classdouble.html">double</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a3ae4fab1eb0ea8fed75de7774336936a"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a3ae4fab1eb0ea8fed75de7774336936a">Ra::Gui::TimelineScrollArea::getZero</a></div><div class="ttdeci">int getZero()</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00046">TimelineScrollArea.cpp:46</a></div></div>
 <div class="ttc" id="aclassQScrollArea_html"><div class="ttname"><a href="classQScrollArea.html">QScrollArea</a></div></div>
 <div class="ttc" id="aConfigurations_8hpp_html_adb3f6f4cae703c2a156e6a59dc752452"><div class="ttname"><a href="Configurations_8hpp.html#adb3f6f4cae703c2a156e6a59dc752452">TIMELINE_ZOOM_SPEED</a></div><div class="ttdeci">#define TIMELINE_ZOOM_SPEED</div><div class="ttdef"><b>Definition:</b> <a href="Configurations_8hpp_source.html#l00007">Configurations.hpp:7</a></div></div>
@@ -325,7 +326,7 @@ $(document).ready(function(){initNavTree('TimelineScrollArea_8cpp_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><a class="el" href="TimelineScrollArea_8cpp.html">TimelineScrollArea.cpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:25 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:49 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

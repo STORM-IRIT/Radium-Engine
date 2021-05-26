@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -194,8 +194,8 @@ $(document).ready(function(){initNavTree('Camera_8hpp_source.html',''); initResi
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">void</span> fitZRange( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a>&amp; aabb );</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a50d0a7199903e55e7c0ce5ce0f200810">  144</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_minZNear {0.01_ra};</div>
-<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a401d6dc6bd537640a4f0b0df850b73a3">  145</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_minZRange {0.01_ra};</div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a50d0a7199903e55e7c0ce5ce0f200810">  144</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classfloat.html">Scalar</a> m_minZNear {0.01_ra};</div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a401d6dc6bd537640a4f0b0df850b73a3">  145</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classfloat.html">Scalar</a> m_minZRange {0.01_ra};</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">static</span> <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ab5436769ec59975b2a35b83a86defd2c">perspective</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> a, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> y, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> n, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> f );</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
@@ -208,14 +208,14 @@ $(document).ready(function(){initNavTree('Camera_8hpp_source.html',''); initResi
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> m_projMatrix {Core::Matrix4::Identity()}; </div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    ProjType m_projType {ProjType::PERSPECTIVE}; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_zoomFactor {1};                     </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_fov {<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a56b71d90f407dc71dfc7e4929c79438d">Core::Math::PiDiv4</a>};           </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_zoomFactor {1};                     </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_fov {<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a56b71d90f407dc71dfc7e4929c79438d">Core::Math::PiDiv4</a>};           </div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_zNear {0.1_ra}; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_zFar {1000_ra}; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_width {1_ra};   </div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_height {1_ra};  </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_aspect {1_ra};  </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_zNear {0.1_ra}; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_zFar {1000_ra}; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_width {1_ra};   </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_height {1_ra};  </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_aspect {1_ra};  </div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;};</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;} <span class="comment">// namespace Asset</span></div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;} <span class="comment">// namespace Core</span></div>
@@ -242,11 +242,12 @@ $(document).ready(function(){initNavTree('Camera_8hpp_source.html',''); initResi
 <div class="ttc" id="aObservable_8hpp_html"><div class="ttname"><a href="Observable_8hpp.html">Observable.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_aae0c29088c6a4c7ab0d9ecb5398c9c18"><div class="ttname"><a href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Ra::Core::Matrix4</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 4, 4 &gt; Matrix4</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00052">Types.hpp:52</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a56b71d90f407dc71dfc7e4929c79438d"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a56b71d90f407dc71dfc7e4929c79438d">Ra::Core::Math::PiDiv4</a></div><div class="ttdeci">constexpr Scalar PiDiv4</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00017">Math.hpp:17</a></div></div>
+<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="Camera_8hpp.html">Camera.hpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:24 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

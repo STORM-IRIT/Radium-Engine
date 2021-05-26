@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -110,11 +110,11 @@ $(document).ready(function(){initNavTree('OpenGL_8hpp_source.html',''); initResi
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;glbinding-aux/types_to_string.h&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#ifndef CORE_USE_DOUBLE</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a7115ab24bb95f1fdca73face844bbec9">   23</a></span>&#160;<span class="preprocessor">#    define GL_SCALAR GL_FLOAT</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#    define GL_SCALAR GL_DOUBLE</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// use always float on the OpenGL side, since double have some unresolved func with globjects.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// maybe fix this to allow GL_DOUBLE ? in this change data conversion in color or mesh attrib gpu</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">// data transfer.</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a7115ab24bb95f1fdca73face844bbec9">   25</a></span>&#160;<span class="preprocessor">#define GL_SCALAR GL_FLOAT</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">   26</a></span>&#160;<span class="preprocessor">#define GL_SCALAR_PLAIN float</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a4535d2fd17ceb415ebb19b2824560e14">   29</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="OpenGL_8hpp.html#a4535d2fd17ceb415ebb19b2824560e14">checkOpenGLContext</a>() {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> glGetString( gl::GL_VERSION ) != <span class="keyword">nullptr</span>;</div>
@@ -211,7 +211,7 @@ $(document).ready(function(){initNavTree('OpenGL_8hpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="OpenGL_8hpp.html">OpenGL.hpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:25 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

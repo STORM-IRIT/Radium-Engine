@@ -395,6 +395,12 @@ var hierarchy =
       [ "Ra::Core::AlignedStdVector< ChildrenList >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< Core::Vector2ui >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< Core::VectorNui >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
+      [ "Ra::Core::AlignedStdVector< double >", "structRa_1_1Core_1_1AlignedStdVector.html", [
+        [ "Ra::Core::VectorArray< double >", "classRa_1_1Core_1_1VectorArray_3_01double_01_4.html", null ]
+      ] ],
+      [ "Ra::Core::AlignedStdVector< float >", "structRa_1_1Core_1_1AlignedStdVector.html", [
+        [ "Ra::Core::VectorArray< float >", "classRa_1_1Core_1_1VectorArray_3_01float_01_4.html", null ]
+      ] ],
       [ "Ra::Core::AlignedStdVector< IndexType >", "structRa_1_1Core_1_1AlignedStdVector.html", [
         [ "Ra::Core::VectorArray< IndexType >", "classRa_1_1Core_1_1VectorArray.html", null ]
       ] ],
@@ -402,9 +408,6 @@ var hierarchy =
       [ "Ra::Core::AlignedStdVector< Ra::Core::Asset::HandleComponentData >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< Ra::Core::Vector3ui >", "structRa_1_1Core_1_1AlignedStdVector.html", [
         [ "Ra::Core::VectorArray< Ra::Core::Vector3ui >", "classRa_1_1Core_1_1VectorArray.html", null ]
-      ] ],
-      [ "Ra::Core::AlignedStdVector< Scalar >", "structRa_1_1Core_1_1AlignedStdVector.html", [
-        [ "Ra::Core::VectorArray< Scalar >", "classRa_1_1Core_1_1VectorArray_3_01Scalar_01_4.html", null ]
       ] ],
       [ "Ra::Core::AlignedStdVector< Transform >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< uint8_t >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
@@ -436,6 +439,8 @@ var hierarchy =
       [ "Ra::Gui::SimpleWindowFactory", "classRa_1_1Gui_1_1SimpleWindowFactory.html", null ]
     ] ],
     [ "bool", "classbool.html", null ],
+    [ "double", "classdouble.html", null ],
+    [ "float", "classfloat.html", null ],
     [ "IndexType", "classIndexType.html", null ],
     [ "int", "classint.html", null ],
     [ "Observer", "classObserver.html", null ],

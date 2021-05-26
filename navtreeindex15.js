@@ -1,5 +1,15 @@
 var NAVTREEINDEX15 =
 {
+"classRa_1_1Engine_1_1Scene_1_1LightStorage.html#a378b7a12cecc7eb12dc458cd76c8228c":[9,0,2,1,2,19,3],
+"classRa_1_1Engine_1_1Scene_1_1LightStorage.html#a481ba1e19cd11ebeb7d8630e38195260":[9,0,2,1,2,19,5],
+"classRa_1_1Engine_1_1Scene_1_1LightStorage.html#aa12fde00f232a7d9725b8ed463c4d05c":[9,0,2,1,2,19,1],
+"classRa_1_1Engine_1_1Scene_1_1LightStorage.html#ab2e57aeb36a1accf65acf73d2bea3c5b":[9,0,2,1,2,19,7],
+"classRa_1_1Engine_1_1Scene_1_1LightStorage.html#ac0845f9afa034fab54e9636ce7cca8be":[9,0,2,1,2,19,4],
+"classRa_1_1Engine_1_1Scene_1_1LightStorage.html#aced7d5eae6130845ed55dc6bbc530457":[9,0,2,1,2,19,0],
+"classRa_1_1Engine_1_1Scene_1_1LightStorage.html#ae215330f44a285dce461d7467f302b6c":[9,0,2,1,2,19,6],
+"classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html":[9,0,2,1,2,20],
+"classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html#a00b825a4a1e8cc58444a1b00ccf79206":[9,0,2,1,2,20,6],
+"classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html#a2a3de49b8a1b3b39a0069c6151909dc7":[9,0,2,1,2,20,8],
 "classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html#a2d600883ea0364b3fd893e2d46bdcc82":[9,0,2,1,2,20,0],
 "classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html#a377e225516bd60792062458808e87253":[9,0,2,1,2,20,1],
 "classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html#a63a48b63b182ccb3328e0ff39ef68734":[9,0,2,1,2,20,7],
@@ -239,15 +249,5 @@ var NAVTREEINDEX15 =
 "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html#a2161baa55f6e794858e31018916bf9ca":[9,0,2,2,0,0,2],
 "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html#a7ff9835ef145b894b0abc57e6cca6b61":[9,0,2,2,0,0,1],
 "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html#ae34094a01af231b3b1c164b327268dcf":[9,0,2,2,0,0,0],
-"classRa_1_1Gui_1_1CameraManipulator.html":[9,0,2,2,1],
-"classRa_1_1Gui_1_1CameraManipulator.html#a05ab4f61a46bf029a76b203ed3ea86e9":[9,0,2,2,1,40],
-"classRa_1_1Gui_1_1CameraManipulator.html#a17debfc054b4807a45925b9addda72db":[9,0,2,2,1,38],
-"classRa_1_1Gui_1_1CameraManipulator.html#a185e3ba5f2743f4b020afef74d7426ac":[9,0,2,2,1,31],
-"classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5":[9,0,2,2,1,22],
-"classRa_1_1Gui_1_1CameraManipulator.html#a1cd20c02d6d0159246bb5e9c5e6f4c3e":[9,0,2,2,1,33],
-"classRa_1_1Gui_1_1CameraManipulator.html#a1e9ae9fcc237ee6c4219c15b349bb177":[9,0,2,2,1,25],
-"classRa_1_1Gui_1_1CameraManipulator.html#a2d6ed6f3956cb3af914a9b753e3edbd9":[9,0,2,2,1,11],
-"classRa_1_1Gui_1_1CameraManipulator.html#a31102b2e3d599001f824da47dfd10916":[9,0,2,2,1,37],
-"classRa_1_1Gui_1_1CameraManipulator.html#a36f2a3ac6608489e1e2de6715bdd147f":[9,0,2,2,1,28],
-"classRa_1_1Gui_1_1CameraManipulator.html#a3ce965d6f6dc542684e76ad0f656035b":[9,0,2,2,1,4]
+"classRa_1_1Gui_1_1CameraManipulator.html":[9,0,2,2,1]
 };

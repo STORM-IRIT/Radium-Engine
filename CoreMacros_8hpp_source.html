@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -348,17 +348,17 @@ $(document).ready(function(){initNavTree('CoreMacros_8hpp_source.html',''); init
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="comment">// Use this to use double precision for all maths</span></div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="comment">// #define CORE_USE_DOUBLE</span></div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="preprocessor">#ifndef CORE_USE_DOUBLE</span></div>
-<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">  255</a></span>&#160;<span class="keyword">using</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> = float;</div>
+<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">  255</a></span>&#160;<span class="keyword">using</span> <a class="code" href="classfloat.html">Scalar</a> = <a class="code" href="classfloat.html">float</a>;</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="keyword">using</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> = double;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="keyword">using</span> <a class="code" href="classfloat.html">Scalar</a> = <a class="code" href="classdouble.html">double</a>;</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="CoreMacros_8hpp.html#ac747d09fe682050cd27be8a2abbbef28">  268</a></span>&#160;constexpr <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> <span class="keyword">operator</span><span class="stringliteral">&quot;&quot;</span> _ra ( <span class="keywordtype">long</span> <span class="keywordtype">double</span> n )</div>
+<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="CoreMacros_8hpp.html#ac747d09fe682050cd27be8a2abbbef28">  268</a></span>&#160;constexpr <a class="code" href="classfloat.html">Scalar</a> <span class="keyword">operator</span><span class="stringliteral">&quot;&quot;</span> _ra ( <span class="keywordtype">long</span> <span class="keywordtype">double</span> n )</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;{</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( n );</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;}</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
-<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="CoreMacros_8hpp.html#abaf93df22d4645d5b47c46457e295868">  281</a></span>&#160;constexpr <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> <span class="keyword">operator</span><span class="stringliteral">&quot;&quot;</span> _ra ( <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> n )</div>
+<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="CoreMacros_8hpp.html#abaf93df22d4645d5b47c46457e295868">  281</a></span>&#160;constexpr <a class="code" href="classfloat.html">Scalar</a> <span class="keyword">operator</span><span class="stringliteral">&quot;&quot;</span> _ra ( <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> n )</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;{</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( n );</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;}</div>
@@ -484,8 +484,10 @@ $(document).ready(function(){initNavTree('CoreMacros_8hpp_source.html',''); init
 <div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
 <div class="ttc" id="anamespacecompile__time__utils_html"><div class="ttname"><a href="namespacecompile__time__utils.html">compile_time_utils</a></div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00290">CoreMacros.hpp:290</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_ae666ff9c44d45e6b7b6b8ed4340dd9c0"><div class="ttname"><a href="CoreMacros_8hpp.html#ae666ff9c44d45e6b7b6b8ed4340dd9c0">ushort</a></div><div class="ttdeci">unsigned short ushort</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00248">CoreMacros.hpp:248</a></div></div>
+<div class="ttc" id="aclassdouble_html"><div class="ttname"><a href="classdouble.html">double</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a441b2f7db117201ab36246e7692a5974"><div class="ttname"><a href="CoreMacros_8hpp.html#a441b2f7db117201ab36246e7692a5974">ulong</a></div><div class="ttdeci">unsigned long ulong</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00250">CoreMacros.hpp:250</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
+<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_ae48ac2456c5ad6c956fef86e7bef3a21"><div class="ttname"><a href="CoreMacros_8hpp.html#ae48ac2456c5ad6c956fef86e7bef3a21">uchar</a></div><div class="ttdeci">unsigned char uchar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00247">CoreMacros.hpp:247</a></div></div>
 <div class="ttc" id="aclassint_html"><div class="ttname"><a href="classint.html">int</a></div></div>
 <div class="ttc" id="astructcompile__time__utils_1_1size_html"><div class="ttname"><a href="structcompile__time__utils_1_1size.html">compile_time_utils::size</a></div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00292">CoreMacros.hpp:292</a></div></div>
@@ -493,7 +495,7 @@ $(document).ready(function(){initNavTree('CoreMacros_8hpp_source.html',''); init
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="CoreMacros_8hpp.html">CoreMacros.hpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:24 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

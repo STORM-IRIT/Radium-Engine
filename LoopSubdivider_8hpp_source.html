@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -159,7 +159,7 @@ $(document).ready(function(){initNavTree('LoopSubdivider_8hpp_source.html',''); 
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="comment">//             64</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="keywordflow">if</span> ( ++m_valence )</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordtype">double</span> inv_v = 1.0 / double( m_valence );</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordtype">double</span> inv_v = 1.0 / <a class="code" href="classdouble.html">double</a>( m_valence );</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                <span class="keywordtype">double</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>     = ( 3.0 + 2.0 * <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8">std::cos</a>( 2.0 * <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ae85a94d4f706d35cfcd6864480aee5b3">Math::Pi</a> * inv_v ) );</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="keywordtype">double</span> alpha = ( 40.0 - <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> * <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ) / 64.0;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                <span class="keywordflow">return</span> Weight( 1.0 - alpha, inv_v * alpha );</div>
@@ -220,6 +220,7 @@ $(document).ready(function(){initNavTree('LoopSubdivider_8hpp_source.html',''); 
 <div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1LoopSubdivider_html_ad650455ef805579f334047f5a4a985ec"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#ad650455ef805579f334047f5a4a985ec">Ra::Core::Geometry::LoopSubdivider::~LoopSubdivider</a></div><div class="ttdeci">~LoopSubdivider()</div><div class="ttdef"><b>Definition:</b> <a href="LoopSubdivider_8hpp_source.html#l00036">LoopSubdivider.hpp:36</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1LoopSubdivider_html_afcc808c56ee62d778fe0c2729b31a85c"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#afcc808c56ee62d778fe0c2729b31a85c">Ra::Core::Geometry::LoopSubdivider::name</a></div><div class="ttdeci">const char * name(void) const override</div><div class="ttdef"><b>Definition:</b> <a href="LoopSubdivider_8hpp_source.html#l00039">LoopSubdivider.hpp:39</a></div></div>
+<div class="ttc" id="aclassdouble_html"><div class="ttname"><a href="classdouble.html">double</a></div></div>
 <div class="ttc" id="adeprecated_2TopologicalMesh_8hpp_html"><div class="ttname"><a href="deprecated_2TopologicalMesh_8hpp.html">TopologicalMesh.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a4f441ac6a56092d52849a4f48e274aa8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8">Ra::Core::Math::cos</a></div><div class="ttdeci">Scalar cos(const Vector_ &amp;v1, const Vector_ &amp;v2)</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8inl_source.html#l00066">LinearAlgebra.inl:66</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
@@ -234,7 +235,7 @@ $(document).ready(function(){initNavTree('LoopSubdivider_8hpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="LoopSubdivider_8hpp.html">LoopSubdivider.hpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:25 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

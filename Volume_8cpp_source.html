@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -159,7 +159,7 @@ $(document).ready(function(){initNavTree('Volume_8cpp_source.html',''); initResi
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html#a00f0f81c8d427160968784aae9046ec6">   64</a></span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Aabb</a> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html#a00f0f81c8d427160968784aae9046ec6">AbstractDiscreteVolume::computeAabb</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> ( !<a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a8b5f4f6093971b1691e92ab5d65cea05">isAabbValid</a>() )</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    { <a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a5279cc29d76310a739c2764308b9c9d2">setAabb</a>( <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Aabb</a>( Vector3::Zero(), m_binSize.cwiseProduct( m_size.cast&lt;<a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&gt;() ) ) ); }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    { <a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a5279cc29d76310a739c2764308b9c9d2">setAabb</a>( <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Aabb</a>( Vector3::Zero(), m_binSize.cwiseProduct( m_size.cast&lt;<a class="code" href="classfloat.html">Scalar</a>&gt;() ) ) ); }</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a324dfab0d40a3794e27bf4d42e8e94c5">getAabb</a>();</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
@@ -193,15 +193,15 @@ $(document).ready(function(){initNavTree('Volume_8cpp_source.html',''); initResi
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractVolume_html_a3694905bc84d652111c0106ac54c937e"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a3694905bc84d652111c0106ac54c937e">Ra::Core::Geometry::AbstractVolume::isParametric</a></div><div class="ttdeci">bool isParametric() const</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8cpp_source.html#l00020">Volume.cpp:20</a></div></div>
 <div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1AbstractGeometry_html_a324dfab0d40a3794e27bf4d42e8e94c5"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a324dfab0d40a3794e27bf4d42e8e94c5">Ra::Core::Geometry::AbstractGeometry::getAabb</a></div><div class="ttdeci">Core::Aabb getAabb() const</div><div class="ttdef"><b>Definition:</b> <a href="AbstractGeometry_8hpp_source.html#l00048">AbstractGeometry.hpp:48</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractVolume_html_a975088f25fa3c2ed0b4f16faa540c308"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a975088f25fa3c2ed0b4f16faa540c308">Ra::Core::Geometry::AbstractVolume::m_type</a></div><div class="ttdeci">VolumeStorageType m_type</div><div class="ttdoc">The type of geometry for the object.</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00085">Volume.hpp:85</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractVolume_html_a6c591df007bdb41c6e7ad3f044dc0902"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a6c591df007bdb41c6e7ad3f044dc0902">Ra::Core::Geometry::AbstractVolume::displayInfo</a></div><div class="ttdeci">void displayInfo() const</div><div class="ttdoc">Print info to the Debug output. Need to be extended by child classes.</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8cpp_source.html#l00036">Volume.cpp:36</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractVolume_html_aa0dd0324c3b7b655ea24dec3cbe44311"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#aa0dd0324c3b7b655ea24dec3cbe44311">Ra::Core::Geometry::AbstractVolume::isDiscrete</a></div><div class="ttdeci">bool isDiscrete() const</div><div class="ttdoc">Return true if the volume is discrete. Can be cast as AbstractDiscreteVolume.</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8cpp_source.html#l00024">Volume.cpp:24</a></div></div>
+<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="Volume_8cpp.html">Volume.cpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:25 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:48 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

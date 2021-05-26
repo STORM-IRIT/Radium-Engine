@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">5c987239680652e720898ecffa17ce3d20980a3a</span>
+   &#160;<span id="projectnumber">2c87534e57eccd19918b1cdc71995e1b78f001e9</span>
    </div>
   </td>
  </tr>
@@ -210,8 +210,8 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    } );</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a56b3df107bae34145166d19c347c7b1c">  117</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a56b3df107bae34145166d19c347c7b1c">TimelineFrameSelector::onChangeStart</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newStart = std::max( std::min( time, m_end ), 0_ra );</div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a56b3df107bae34145166d19c347c7b1c">  117</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a56b3df107bae34145166d19c347c7b1c">TimelineFrameSelector::onChangeStart</a>( <a class="code" href="classfloat.html">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> newStart = std::max( std::min( time, m_end ), 0_ra );</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">bool</span> out    = std::abs( newStart - time ) &gt; 1<a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a>-5_ra;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">bool</span> change = std::abs( newStart - m_start ) &gt; 1<a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a>-5_ra;</div>
@@ -231,8 +231,8 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    }</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#ac362efb871a042ef2e9285b3f669ef37">  138</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#ac362efb871a042ef2e9285b3f669ef37">TimelineFrameSelector::onChangeEnd</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newEnd =</div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#ac362efb871a042ef2e9285b3f669ef37">  138</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#ac362efb871a042ef2e9285b3f669ef37">TimelineFrameSelector::onChangeEnd</a>( <a class="code" href="classfloat.html">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> newEnd =</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        std::min( std::max( time, m_start ), m_timelineUI-&gt;m_scrollArea-&gt;getMaxDuration() );</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">bool</span> out    = std::abs( newEnd - time ) &gt; 1<a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a>-5_ra;</div>
@@ -252,9 +252,9 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    }</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a26c08457e157014c365a508c12da2b3a">  159</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a26c08457e157014c365a508c12da2b3a">TimelineFrameSelector::onChangeDuration</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newDuration = std::max( time, 0_ra );</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> oldDuration = m_timelineUI-&gt;m_scrollArea-&gt;getMaxDuration();</div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a26c08457e157014c365a508c12da2b3a">  159</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a26c08457e157014c365a508c12da2b3a">TimelineFrameSelector::onChangeDuration</a>( <a class="code" href="classfloat.html">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> newDuration = std::max( time, 0_ra );</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> oldDuration = m_timelineUI-&gt;m_scrollArea-&gt;getMaxDuration();</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordtype">bool</span> out    = std::abs( newDuration - time ) &gt; 1<a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a>-5_ra;</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordtype">bool</span> change = std::abs( newDuration - oldDuration ) &gt; 1<a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a>-5_ra;</div>
@@ -282,8 +282,8 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="comment">// auto update</span></div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a2f9fc4fb8ac6e0ee369ac7306f039e45">  189</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a2f9fc4fb8ac6e0ee369ac7306f039e45">TimelineFrameSelector::onChangeCursor</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newCursor = std::max( 0_ra, time );</div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a2f9fc4fb8ac6e0ee369ac7306f039e45">  189</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a2f9fc4fb8ac6e0ee369ac7306f039e45">TimelineFrameSelector::onChangeCursor</a>( <a class="code" href="classfloat.html">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> newCursor = std::max( 0_ra, time );</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">internal</span> ) { newCursor = nearestStep( newCursor ); }</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
@@ -303,7 +303,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;}</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a0ef43032c588d16ee502c924a868697c">  210</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a0ef43032c588d16ee502c924a868697c">TimelineFrameSelector::onAddingKeyFrame</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a0ef43032c588d16ee502c924a868697c">  210</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a0ef43032c588d16ee502c924a868697c">TimelineFrameSelector::onAddingKeyFrame</a>( <a class="code" href="classfloat.html">Scalar</a> time, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="comment">// by default (time = -1.0), add keyFrame on cursor</span></div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>( time ) == -1 ) time = m_cursor;</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
@@ -356,7 +356,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    update();</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;}</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
-<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a25612263f5a7592308237db9d888e016">  263</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a25612263f5a7592308237db9d888e016">TimelineFrameSelector::onMoveKeyFrame</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time0, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time1, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
+<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a25612263f5a7592308237db9d888e016">  263</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a25612263f5a7592308237db9d888e016">TimelineFrameSelector::onMoveKeyFrame</a>( <a class="code" href="classfloat.html">Scalar</a> time0, <a class="code" href="classfloat.html">Scalar</a> time1, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a>( time0, time1 ) ) { <span class="keywordflow">return</span>; }</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keyword">auto</span> it = std::find_if( m_keyFrames.begin(), m_keyFrames.end(), [<span class="keyword">this</span>]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ) {</div>
@@ -377,7 +377,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    update();</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;}</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
-<div class="line"><a name="l00284"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a6a8a1b470812dae561b60c93a3633a92">  284</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a6a8a1b470812dae561b60c93a3633a92">TimelineFrameSelector::onMoveKeyFrames</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> offset, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
+<div class="line"><a name="l00284"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a6a8a1b470812dae561b60c93a3633a92">  284</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a6a8a1b470812dae561b60c93a3633a92">TimelineFrameSelector::onMoveKeyFrames</a>( <a class="code" href="classfloat.html">Scalar</a> time, <a class="code" href="classfloat.html">Scalar</a> offset, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a>( offset, 0_ra ) ) { <span class="keywordflow">return</span>; }</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keyword">auto</span> it = std::find_if( m_keyFrames.begin(), m_keyFrames.end(), [time]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ) {</div>
@@ -392,10 +392,10 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    std::transform( m_keyFrames.begin(),</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                    m_keyFrames.end(),</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                    std::back_inserter( clone ),</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                    [time, offset]( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> p ) { return ( p &lt; time ? p : p + offset ); } );</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                    [time, offset]( <a class="code" href="classfloat.html">Scalar</a> p ) { return ( p &lt; time ? p : p + offset ); } );</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    std::exchange( m_keyFrames, clone );</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> left = ( offset &gt; 0 ) ? ( time ) : ( time + offset );</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> left = ( offset &gt; 0 ) ? ( time ) : ( time + offset );</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">if</span> ( m_start &gt;= left )</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    {</div>
@@ -405,7 +405,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="keywordflow">if</span> ( <span class="keyword">internal</span> ) { emit <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#aff629fefaf065dbdbca2364e712566cd">startChanged</a>( m_start ); }</div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    }</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> right = *m_keyFrames.rbegin();</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> right = *m_keyFrames.rbegin();</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">if</span> ( right &gt; m_timelineUI-&gt;m_scrollArea-&gt;getMaxDuration() )</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    {</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        m_timelineUI-&gt;m_scrollArea-&gt;setMaxDuration( right );</div>
@@ -443,16 +443,16 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="keywordtype">void</span> TimelineFrameSelector::onSlideLeftSlider( <span class="keywordtype">int</span> deltaX ) {</div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    { m_timelineUI-&gt;m_leftSlider-&gt;setStyleSheet( <span class="stringliteral">&quot;background-color: green&quot;</span> ); }</div>
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> pixPerSec = m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec();</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newStart  = m_start + deltaX / pixPerSec;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> pixPerSec = m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec();</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> newStart  = m_start + deltaX / pixPerSec;</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160; </div>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a56b3df107bae34145166d19c347c7b1c">onChangeStart</a>( newStart );</div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;}</div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="keywordtype">void</span> TimelineFrameSelector::onSlideRightSlider( <span class="keywordtype">int</span> deltaX ) {</div>
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    { m_timelineUI-&gt;m_rightSlider-&gt;setStyleSheet( <span class="stringliteral">&quot;background-color: red&quot;</span> ); }</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> pixPerSec = m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec();</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newEnd    = m_end + deltaX / pixPerSec;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> pixPerSec = m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec();</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> newEnd    = m_end + deltaX / pixPerSec;</div>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160; </div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#ac362efb871a042ef2e9285b3f669ef37">onChangeEnd</a>( newEnd );</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;}</div>
@@ -491,11 +491,11 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <span class="comment">// DRAW FRAME SCALE</span></div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    painter.setPen( QPen( Qt::lightGray ) );</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> frameDuration = 1_ra / <a class="code" href="Configurations_8hpp.html#a791f7cc1578d866c47b59139e85f761b">TIMELINE_FPS</a>;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> frameDuration = 1_ra / <a class="code" href="Configurations_8hpp.html#a791f7cc1578d866c47b59139e85f761b">TIMELINE_FPS</a>;</div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="keywordtype">int</span> hUp              = h / 3;</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> nbFrame       = m_timelineUI-&gt;m_scrollArea-&gt;getMaxDuration() / frameDuration;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> pixPerSec     = m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec();</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> step          = m_timelineUI-&gt;m_scrollArea-&gt;getStep();</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> nbFrame       = m_timelineUI-&gt;m_scrollArea-&gt;getMaxDuration() / frameDuration;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> pixPerSec     = m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec();</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> step          = m_timelineUI-&gt;m_scrollArea-&gt;getStep();</div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="keywordtype">int</span> zero             = m_timelineUI-&gt;m_scrollArea-&gt;getZero();</div>
 <div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; nbFrame; i++ )</div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    {</div>
@@ -511,7 +511,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="comment">// DRAW KEYFRAMES</span></div>
 <div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    painter.setPen( QPen( QColor( 255, 255, 0, 255 ), 3 ) );</div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="keywordtype">int</span> hTemp = h / 3 + 2;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> keyFrame : m_keyFrames )</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="classfloat.html">Scalar</a> keyFrame : m_keyFrames )</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    {</div>
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        <span class="keywordtype">int</span> xKeyFrame = <a class="code" href="classint.html">int</a>( zero + keyFrame * pixPerSec );</div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        painter.drawLine( xKeyFrame, hTemp, xKeyFrame, h );</div>
@@ -563,7 +563,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    <span class="comment">// ---------------------- LEFT CLICK --------------------------------------</span></div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="keywordflow">if</span> ( event-&gt;button() == Qt::LeftButton )</div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    {</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newCursor = std::max( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( event-&gt;x() - m_timelineUI-&gt;m_scrollArea-&gt;getZero() ) /</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        <a class="code" href="classfloat.html">Scalar</a> newCursor = std::max( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( event-&gt;x() - m_timelineUI-&gt;m_scrollArea-&gt;getZero() ) /</div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                                         m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec(),</div>
 <div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;                                     0_ra );</div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        <span class="comment">// move cursor without render</span></div>
@@ -581,7 +581,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;    <span class="comment">// ------------------ RIGHT CLICK -------------------------------------</span></div>
 <div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( event-&gt;button() == Qt::RightButton )</div>
 <div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;    {</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newFrame = std::max( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( event-&gt;x() - m_timelineUI-&gt;m_scrollArea-&gt;getZero() ) /</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;        <a class="code" href="classfloat.html">Scalar</a> newFrame = std::max( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( event-&gt;x() - m_timelineUI-&gt;m_scrollArea-&gt;getZero() ) /</div>
 <div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;                                        m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec(),</div>
 <div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;                                    0_ra );</div>
 <div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;        <span class="keyword">auto</span> it = std::find_if( m_keyFrames.begin(), m_keyFrames.end(), [<span class="keyword">this</span>]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ) {</div>
@@ -591,7 +591,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;        <span class="comment">// ------------------- CURSOR ON KEYFRAME -----------------------</span></div>
 <div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;        <span class="keywordflow">if</span> ( it != m_keyFrames.end() )</div>
 <div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;        {</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> nearest = nearestStep( newFrame );</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;            <a class="code" href="classfloat.html">Scalar</a> nearest = nearestStep( newFrame );</div>
 <div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;            <span class="comment">// -------------- SINGLE MOVE -------------------------------------</span></div>
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;            <span class="keywordflow">if</span> ( shiftDown )</div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;            {</div>
@@ -609,7 +609,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;                <span class="comment">// if not before preceding KeyFrame, remove or insert time</span></div>
 <div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;                <span class="keyword">auto</span> itLeft = it;</div>
 <div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;                --itLeft;</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;                <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> left = ( it == m_keyFrames.begin() ) ? ( 0.0 ) : ( *itLeft );</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;                <a class="code" href="classfloat.html">Scalar</a> left = ( it == m_keyFrames.begin() ) ? ( 0.0 ) : ( *itLeft );</div>
 <div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;                <span class="keywordflow">if</span> ( nearest &gt; left ) { <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a6a8a1b470812dae561b60c93a3633a92">onMoveKeyFrames</a>( m_cursor, nearest - m_cursor ); }</div>
 <div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;            }</div>
 <div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        }</div>
@@ -649,7 +649,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00553"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#acc54cc6d0924434a4af0dd6900d2f69c">  553</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#acc54cc6d0924434a4af0dd6900d2f69c">TimelineFrameSelector::mouseMoveEvent</a>( QMouseEvent* event ) {</div>
 <div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;    <span class="keywordflow">if</span> ( m_mouseLeftClicked )</div>
 <div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;    {</div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newCursor = std::max( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( event-&gt;x() - m_timelineUI-&gt;m_scrollArea-&gt;getZero() ) /</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;        <a class="code" href="classfloat.html">Scalar</a> newCursor = std::max( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( event-&gt;x() - m_timelineUI-&gt;m_scrollArea-&gt;getZero() ) /</div>
 <div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;                                         m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec(),</div>
 <div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;                                     0_ra );</div>
 <div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160; </div>
@@ -705,16 +705,16 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    m_timelineUI-&gt;m_nbKeyFramesSpin-&gt;setText( <span class="stringliteral">&quot; &quot;</span> + QString::number( m_keyFrames.size() ) + <span class="stringliteral">&quot; &quot;</span> );</div>
 <div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;}</div>
 <div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160; </div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;<a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> TimelineFrameSelector::nearestStep( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> deltaT =</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;<a class="code" href="classfloat.html">Scalar</a> TimelineFrameSelector::nearestStep( <a class="code" href="classfloat.html">Scalar</a> time )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> deltaT =</div>
 <div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;        <a class="code" href="Configurations_8hpp.html#af21f6303465b1f2c83b937487150b55d">TIMELINE_AUTO_SUGGEST_CURSOR_RADIUS</a> / m_timelineUI-&gt;m_scrollArea-&gt;getPixPerSec();</div>
 <div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160; </div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> minDist = <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( m_timelineUI-&gt;m_durationSpin-&gt;maximum() );</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dist;</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> minDist = <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( m_timelineUI-&gt;m_durationSpin-&gt;maximum() );</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> dist;</div>
 <div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160; </div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newCursor = time;</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> newCursor = time;</div>
 <div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160; </div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> keyFrame : m_keyFrames )</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="classfloat.html">Scalar</a> keyFrame : m_keyFrames )</div>
 <div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    {</div>
 <div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;        dist = qAbs( keyFrame - time );</div>
 <div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        <span class="keywordflow">if</span> ( dist &lt; deltaT &amp;&amp; dist &lt; minDist )</div>
@@ -725,10 +725,10 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;        <span class="keywordflow">if</span> ( time &lt; keyFrame ) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    }</div>
 <div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160; </div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> step = m_timelineUI-&gt;m_scrollArea-&gt;getStep();</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> step = m_timelineUI-&gt;m_scrollArea-&gt;getStep();</div>
 <div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; m_timelineUI-&gt;m_scrollArea-&gt;getNbInterval() - 1; ++i )</div>
 <div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    {</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> pos = i * step;</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;        <a class="code" href="classfloat.html">Scalar</a> pos = i * step;</div>
 <div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;        dist       = std::abs( pos - time );</div>
 <div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;        <span class="keywordflow">if</span> ( dist &lt; deltaT &amp;&amp; dist &lt; minDist )</div>
 <div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;        {</div>
@@ -750,18 +750,18 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;    <span class="keywordflow">return</span> newCursor;</div>
 <div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;}</div>
 <div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160; </div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;<span class="keywordtype">void</span> TimelineFrameSelector::deleteZone( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time2 ) {</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> left  = std::min( time, time2 );</div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> right = std::max( time, time2 );</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;<span class="keywordtype">void</span> TimelineFrameSelector::deleteZone( <a class="code" href="classfloat.html">Scalar</a> time, <a class="code" href="classfloat.html">Scalar</a> time2 ) {</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> left  = std::min( time, time2 );</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> right = std::max( time, time2 );</div>
 <div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160; </div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dist = right - left;</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> dist = right - left;</div>
 <div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160; </div>
 <div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    <span class="comment">// remove KeyFrames</span></div>
 <div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;    <span class="keyword">auto</span> it    = m_keyFrames.begin();</div>
 <div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;    <span class="keywordtype">bool</span> first = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;    <span class="keywordflow">while</span> ( it != m_keyFrames.end() )</div>
 <div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;    {</div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> keyFrame = *it;</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;        <a class="code" href="classfloat.html">Scalar</a> keyFrame = *it;</div>
 <div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160; </div>
 <div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;        <span class="keywordflow">if</span> ( keyFrame &gt;= left )</div>
 <div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;        {</div>
@@ -786,7 +786,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;    updateNbKeyFrameSpin();</div>
 <div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160; </div>
 <div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;    <span class="comment">// update playzone</span></div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newStart = std::max( std::max( std::min( m_start, left ), m_start - dist ), 0_ra );</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> newStart = std::max( std::max( std::min( m_start, left ), m_start - dist ), 0_ra );</div>
 <div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;    <span class="keywordflow">if</span> ( std::abs( newStart - m_start ) &gt; 1<a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a>-5_ra )</div>
 <div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;    {</div>
 <div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;        m_start = newStart;</div>
@@ -795,7 +795,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;        emit <a class="code" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#aff629fefaf065dbdbca2364e712566cd">startChanged</a>( m_start );</div>
 <div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;    }</div>
 <div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160; </div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> newEnd = std::max( std::max( std::min( m_end, left ), m_end - dist ), 0_ra );</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> newEnd = std::max( std::max( std::min( m_end, left ), m_end - dist ), 0_ra );</div>
 <div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;    <span class="keywordflow">if</span> ( std::abs( newEnd - m_end ) &gt; 1<a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a>-5_ra )</div>
 <div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;    {</div>
 <div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;        m_end = newEnd;</div>
@@ -863,6 +863,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineFrameSelector_html_a4bb6ed4d5946e6ec98e0e792c11a27b6"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a4bb6ed4d5946e6ec98e0e792c11a27b6">Ra::Gui::TimelineFrameSelector::keyFrameAdded</a></div><div class="ttdeci">void keyFrameAdded(Scalar time)</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_af9d3580015e2efb17754058a32ef2945"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#af9d3580015e2efb17754058a32ef2945">Ra::Gui::TimelineScrollArea::nextKeyFrame</a></div><div class="ttdeci">void nextKeyFrame()</div><div class="ttdoc">Emitted when [right_arrow] is pressed or [shift] + [wheel-down].</div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a46540d56930b4c1ff3b115872cde4893"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00090">Math.inl:90</a></div></div>
+<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineFrameSelector_html_ac4496dec46143263d234bd9369dea9ab"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineFrameSelector.html#ac4496dec46143263d234bd9369dea9ab">Ra::Gui::TimelineFrameSelector::paintEvent</a></div><div class="ttdeci">virtual void paintEvent(QPaintEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineFrameSelector_8cpp_source.html#l00388">TimelineFrameSelector.cpp:388</a></div></div>
 <div class="ttc" id="aclassint_html"><div class="ttname"><a href="classint.html">int</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineFrameSelector_html_a6e3b02871cd9b865b7964841c9dfc747"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a6e3b02871cd9b865b7964841c9dfc747">Ra::Gui::TimelineFrameSelector::mouseReleaseEvent</a></div><div class="ttdeci">void mouseReleaseEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineFrameSelector_8cpp_source.html#l00566">TimelineFrameSelector.cpp:566</a></div></div>
@@ -870,7 +871,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><a class="el" href="TimelineFrameSelector_8cpp.html">TimelineFrameSelector.cpp</a></li>
-    <li class="footer">Generated on Tue May 25 2021 11:05:25 for Radium Engine by
+    <li class="footer">Generated on Wed May 26 2021 06:40:49 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
