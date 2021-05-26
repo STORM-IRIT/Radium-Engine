@@ -1,10 +1,8 @@
 #include <Gui/Viewer/CameraManipulator.hpp>
 
 #include <Core/Math/Math.hpp>
-#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/CameraManager.hpp>
 #include <Engine/Scene/Light.hpp>
-#include <Engine/Scene/SystemDisplay.hpp>
 
 #include <Core/Asset/Camera.hpp>
 #include <Gui/Viewer/Viewer.hpp>
