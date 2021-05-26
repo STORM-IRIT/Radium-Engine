@@ -17,9 +17,6 @@
 
 namespace Ra {
 namespace Engine {
-namespace Data {
-class Camera;
-} // namespace Data
 namespace Scene {
 class Light;
 }

@@ -16,7 +16,6 @@ namespace Ra {
 namespace Engine {
 
 namespace Data {
-class Camera;
 class PlainMaterial;
 class RenderObject;
 } // namespace Data
