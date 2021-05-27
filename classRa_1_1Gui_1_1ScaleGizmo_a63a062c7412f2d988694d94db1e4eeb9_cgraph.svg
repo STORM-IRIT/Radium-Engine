@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 829;
+var viewWidth = 658;
 var viewHeight = 287;
 var sectionId = 'dynsection-3';
 </script>
@@ -54,7 +54,7 @@ var sectionId = 'dynsection-3';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>Ra::Gui::ScaleGizmo::mouseMove</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-283 825,-283 825,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-283 654,-283 654,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
@@ -78,8 +78,8 @@ var sectionId = 'dynsection-3';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M69.84,-134.78C85.6,-155.9 116.82,-193.85 152,-215.5 154.66,-217.14 157.43,-218.67 160.29,-220.1"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="159.09,-223.4 169.64,-224.36 161.99,-217.03 159.09,-223.4"/>
+<path fill="none" stroke="midnightblue" d="M69.92,-134.55C85.76,-155.38 117.08,-192.85 152,-214.5 155.33,-216.57 158.85,-218.48 162.48,-220.25"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="161.11,-223.47 171.67,-224.35 163.96,-217.08 161.11,-223.47"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -97,65 +97,65 @@ var sectionId = 'dynsection-3';
 <path fill="none" stroke="midnightblue" d="M87,-134.68C105.21,-144.22 129.64,-156.4 152,-165.5 157.5,-167.74 163.29,-169.92 169.12,-172.01"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="168.32,-175.43 178.91,-175.41 170.61,-168.82 168.32,-175.43"/>
 </g>
-<!-- Node12 -->
-<g id="node12" class="node">
-<title>Node12</title>
-<g id="a_node12"><a xlink:href="classRa_1_1Gui_1_1Gizmo.html#a609064fa341157eae19e5a760e5044c2" target="_top" xlink:title="Find a mouse&#45;designed point on a 3D plane.">
+<!-- Node11 -->
+<g id="node11" class="node">
+<title>Node11</title>
+<g id="a_node11"><a xlink:href="classRa_1_1Gui_1_1Gizmo.html#a609064fa341157eae19e5a760e5044c2" target="_top" xlink:title="Find a mouse&#45;designed point on a 3D plane.">
 <polygon fill="white" stroke="black" points="161,-126.5 161,-156.5 299,-156.5 299,-126.5 161,-126.5"/>
 <text text-anchor="start" x="169" y="-144.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Gizmo::findPoint</text>
 <text text-anchor="middle" x="230" y="-133.5" font-family="Helvetica,sans-Serif" font-size="10.00">OnPlane</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node12 -->
-<g id="edge11" class="edge">
-<title>Node1&#45;&gt;Node12</title>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge10" class="edge">
+<title>Node1&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M116.08,-126.89C127.2,-128.33 139.03,-129.86 150.69,-131.37"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="150.51,-134.87 160.88,-132.68 151.41,-127.93 150.51,-134.87"/>
+</g>
+<!-- Node12 -->
+<g id="node12" class="node">
+<title>Node12</title>
+<g id="a_node12"><a xlink:href="classRa_1_1Gui_1_1Gizmo.html#ad9d1c38f9ce6bc77e087517c2292a926" target="_top" xlink:title="Returns the controler (ShaderParametersProvider) associated to the given gizmo component.">
+<polygon fill="white" stroke="black" points="152,-88 152,-107 308,-107 308,-88 152,-88"/>
+<text text-anchor="middle" x="230" y="-95" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Gizmo::getControler</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node12 -->
+<g id="edge13" class="edge">
+<title>Node1&#45;&gt;Node12</title>
+<path fill="none" stroke="midnightblue" d="M116.08,-112.11C125.56,-110.89 135.56,-109.59 145.53,-108.3"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="146,-111.77 155.47,-107.02 145.1,-104.83 146,-111.77"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
-<g id="a_node13"><a xlink:href="classRa_1_1Gui_1_1Gizmo.html#ad9d1c38f9ce6bc77e087517c2292a926" target="_top" xlink:title="Returns the controler (ShaderParametersProvider) associated to the given gizmo component.">
-<polygon fill="white" stroke="black" points="152,-88 152,-107 308,-107 308,-88 152,-88"/>
-<text text-anchor="middle" x="230" y="-95" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Gizmo::getControler</text>
+<g id="a_node13"><a xlink:href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31" target="_top" xlink:title="Returns the quaternion q multipled by a scalar factor of k.">
+<polygon fill="white" stroke="black" points="170,-50 170,-69 290,-69 290,-50 170,-50"/>
+<text text-anchor="middle" x="230" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Math::scale</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node13 -->
 <g id="edge14" class="edge">
 <title>Node1&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M116.08,-112.11C125.56,-110.89 135.56,-109.59 145.53,-108.3"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="146,-111.77 155.47,-107.02 145.1,-104.83 146,-111.77"/>
+<path fill="none" stroke="midnightblue" d="M89.47,-104.47C107.37,-96.04 130.62,-85.79 152,-78.5 159.33,-76 167.16,-73.68 174.91,-71.59"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="175.85,-74.96 184.64,-69.05 174.08,-68.18 175.85,-74.96"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
 <title>Node14</title>
-<g id="a_node14"><a xlink:href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31" target="_top" xlink:title="Returns the quaternion q multipled by a scalar factor of k.">
-<polygon fill="white" stroke="black" points="170,-50 170,-69 290,-69 290,-50 170,-50"/>
-<text text-anchor="middle" x="230" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Math::scale</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node14 -->
-<g id="edge15" class="edge">
-<title>Node1&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M89.47,-104.47C107.37,-96.04 130.62,-85.79 152,-78.5 159.33,-76 167.16,-73.68 174.91,-71.59"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="175.85,-74.96 184.64,-69.05 174.08,-68.18 175.85,-74.96"/>
-</g>
-<!-- Node15 -->
-<g id="node15" class="node">
-<title>Node15</title>
-<g id="a_node15"><a xlink:href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8" target="_top" xlink:title="Set the state of the controler to true.">
+<g id="a_node14"><a xlink:href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8" target="_top" xlink:title="Set the state of the controler to true.">
 <polygon fill="white" stroke="black" points="154.5,-0.5 154.5,-30.5 305.5,-30.5 305.5,-0.5 154.5,-0.5"/>
 <text text-anchor="start" x="162.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Gizmo::UiSelection</text>
 <text text-anchor="middle" x="230" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Controler::setState</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node15 -->
-<g id="edge16" class="edge">
-<title>Node1&#45;&gt;Node15</title>
+<!-- Node1&#45;&gt;Node14 -->
+<g id="edge15" class="edge">
+<title>Node1&#45;&gt;Node14</title>
 <path fill="none" stroke="midnightblue" d="M73.09,-104.38C90.22,-86.79 120.74,-57.95 152,-40.5 155.9,-38.32 160.02,-36.3 164.25,-34.43"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="165.71,-37.61 173.62,-30.57 163.04,-31.14 165.71,-37.61"/>
 </g>
@@ -191,35 +191,35 @@ var sectionId = 'dynsection-3';
 <path fill="none" stroke="midnightblue" d="M299.12,-181.01C310.47,-179.43 322.31,-177.78 333.86,-176.17"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="334.49,-179.62 343.91,-174.77 333.53,-172.69 334.49,-179.62"/>
 </g>
-<!-- Node9 -->
-<g id="node9" class="node">
-<title>Node9</title>
-<g id="a_node9"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" target="_top" xlink:title="Return the up vector.">
+<!-- Node8 -->
+<g id="node8" class="node">
+<title>Node8</title>
+<g id="a_node8"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" target="_top" xlink:title="Return the up vector.">
 <polygon fill="white" stroke="black" points="344,-199.5 344,-229.5 479,-229.5 479,-199.5 344,-199.5"/>
 <text text-anchor="start" x="352" y="-217.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="411.5" y="-206.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getUpVector</text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node9 -->
-<g id="edge8" class="edge">
-<title>Node3&#45;&gt;Node9</title>
+<!-- Node3&#45;&gt;Node8 -->
+<g id="edge7" class="edge">
+<title>Node3&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M299.12,-199.61C310.47,-201.13 322.31,-202.71 333.86,-204.25"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="333.54,-207.74 343.91,-205.6 334.47,-200.8 333.54,-207.74"/>
 </g>
-<!-- Node10 -->
-<g id="node10" class="node">
-<title>Node10</title>
-<g id="a_node10"><a xlink:href="namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" target="_top" xlink:title="Intersect a ray with an infinite plane defined by point A and normal.">
+<!-- Node9 -->
+<g id="node9" class="node">
+<title>Node9</title>
+<g id="a_node9"><a xlink:href="namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" target="_top" xlink:title="Intersect a ray with an infinite plane defined by point A and normal.">
 <polygon fill="white" stroke="black" points="355,-101.5 355,-131.5 468,-131.5 468,-101.5 355,-101.5"/>
 <text text-anchor="start" x="363" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="middle" x="411.5" y="-108.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RayCastPlane</text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node10 -->
-<g id="edge9" class="edge">
-<title>Node3&#45;&gt;Node10</title>
+<!-- Node3&#45;&gt;Node9 -->
+<g id="edge8" class="edge">
+<title>Node3&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M284.42,-175.42C292.48,-172.5 300.57,-169.18 308,-165.5 325.45,-156.84 326.69,-149.44 344,-140.5 347.46,-138.71 351.08,-137 354.77,-135.37"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="356.17,-138.58 364.05,-131.5 353.47,-132.13 356.17,-138.58"/>
 </g>
@@ -242,10 +242,10 @@ var sectionId = 'dynsection-3';
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#acc2a5fbb0968d977b698f53d94fe0fc2" target="_top" xlink:title="Return the point on the screen plane (near plane) represented by screen coordinates pix.">
+<g id="a_node7"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a64dc74dc61ceafce1b143f93c16f88f0" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="515,-196.5 515,-226.5 650,-226.5 650,-196.5 515,-196.5"/>
 <text text-anchor="start" x="523" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
-<text text-anchor="middle" x="582.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::unProject</text>
+<text text-anchor="middle" x="582.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::unProjectFromScreen</text>
 </a>
 </g>
 </g>
@@ -255,46 +255,30 @@ var sectionId = 'dynsection-3';
 <path fill="none" stroke="midnightblue" d="M467.84,-180.56C483.38,-184.79 500.43,-189.43 516.48,-193.8"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="515.76,-197.23 526.33,-196.48 517.6,-190.48 515.76,-197.23"/>
 </g>
-<!-- Node8 -->
-<g id="node8" class="node">
-<title>Node8</title>
-<g id="a_node8"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a86f275275519c56c2c88af1e1fc928bb" target="_top" xlink:title="Return the Z Near plane distance from the camera.">
-<polygon fill="white" stroke="black" points="686,-196.5 686,-226.5 821,-226.5 821,-196.5 686,-196.5"/>
-<text text-anchor="start" x="694" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
-<text text-anchor="middle" x="753.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getZNear</text>
-</a>
-</g>
-</g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge7" class="edge">
-<title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M650.29,-211.5C658.62,-211.5 667.19,-211.5 675.66,-211.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="675.92,-215 685.92,-211.5 675.92,-208 675.92,-215"/>
-</g>
-<!-- Node11 -->
-<g id="node11" class="node">
-<title>Node11</title>
-<g id="a_node11"><a xlink:href="namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" target="_top" xlink:title=" ">
+<!-- Node10 -->
+<g id="node10" class="node">
+<title>Node10</title>
+<g id="a_node10"><a xlink:href="namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="537.5,-107 537.5,-126 627.5,-126 627.5,-107 537.5,-107"/>
 <text text-anchor="middle" x="582.5" y="-114" font-family="Helvetica,sans-Serif" font-size="10.00">OpenMesh::dot</text>
 </a>
 </g>
 </g>
-<!-- Node10&#45;&gt;Node11 -->
-<g id="edge10" class="edge">
-<title>Node10&#45;&gt;Node11</title>
+<!-- Node9&#45;&gt;Node10 -->
+<g id="edge9" class="edge">
+<title>Node9&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M468.31,-116.5C487.21,-116.5 508.28,-116.5 527.07,-116.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="527.25,-120 537.25,-116.5 527.25,-113 527.25,-120"/>
 </g>
-<!-- Node12&#45;&gt;Node5 -->
-<g id="edge12" class="edge">
-<title>Node12&#45;&gt;Node5</title>
+<!-- Node11&#45;&gt;Node5 -->
+<g id="edge11" class="edge">
+<title>Node11&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M299.12,-150.61C310.47,-152.13 322.31,-153.71 333.86,-155.25"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="333.54,-158.74 343.91,-156.6 334.47,-151.8 333.54,-158.74"/>
 </g>
-<!-- Node12&#45;&gt;Node10 -->
-<g id="edge13" class="edge">
-<title>Node12&#45;&gt;Node10</title>
+<!-- Node11&#45;&gt;Node9 -->
+<g id="edge12" class="edge">
+<title>Node11&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M299.12,-132.01C314.11,-129.93 329.95,-127.72 344.84,-125.65"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="345.55,-129.08 354.97,-124.23 344.58,-122.15 345.55,-129.08"/>
 </g>

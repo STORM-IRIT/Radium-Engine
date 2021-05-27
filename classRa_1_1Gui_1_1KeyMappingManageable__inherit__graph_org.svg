@@ -198,51 +198,50 @@
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="classRa_1_1Gui_1_1TrackballCameraManipulator.html" target="_top" xlink:title="A Trackball manipulator for Cameras.">
-<polygon fill="white" stroke="black" points="392,-215 392,-624 576,-624 576,-215 392,-215"/>
-<text text-anchor="start" x="400" y="-612" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::TrackballCamera</text>
-<text text-anchor="middle" x="484" y="-601" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator</text>
-<polyline fill="none" stroke="black" points="392,-594 576,-594 "/>
-<text text-anchor="start" x="400" y="-582" font-family="Helvetica,sans-Serif" font-size="10.00"># m_lastMouseX</text>
-<text text-anchor="start" x="400" y="-571" font-family="Helvetica,sans-Serif" font-size="10.00"># m_lastMouseY</text>
-<text text-anchor="start" x="400" y="-560" font-family="Helvetica,sans-Serif" font-size="10.00"># m_phi</text>
-<text text-anchor="start" x="400" y="-549" font-family="Helvetica,sans-Serif" font-size="10.00"># m_theta</text>
-<text text-anchor="start" x="400" y="-538" font-family="Helvetica,sans-Serif" font-size="10.00"># m_distFromCenter</text>
-<text text-anchor="start" x="400" y="-527" font-family="Helvetica,sans-Serif" font-size="10.00"># m_rotateAround</text>
-<text text-anchor="start" x="400" y="-516" font-family="Helvetica,sans-Serif" font-size="10.00"># m_cameraRotateMode</text>
-<text text-anchor="start" x="400" y="-505" font-family="Helvetica,sans-Serif" font-size="10.00"># m_cameraPanMode</text>
-<text text-anchor="start" x="400" y="-494" font-family="Helvetica,sans-Serif" font-size="10.00"># m_cameraZoomMode</text>
-<polyline fill="none" stroke="black" points="392,-487 576,-487 "/>
-<text text-anchor="start" x="400" y="-475" font-family="Helvetica,sans-Serif" font-size="10.00">+ TrackballCameraManipulator()</text>
-<text text-anchor="start" x="400" y="-464" font-family="Helvetica,sans-Serif" font-size="10.00">+ TrackballCameraManipulator()</text>
-<text text-anchor="start" x="400" y="-453" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~TrackballCameraManipulator()</text>
-<text text-anchor="start" x="400" y="-442" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMousePressEvent()</text>
-<text text-anchor="start" x="400" y="-431" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMouseReleaseEvent()</text>
-<text text-anchor="start" x="400" y="-420" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMouseMoveEvent()</text>
-<text text-anchor="start" x="400" y="-409" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleWheelEvent()</text>
-<text text-anchor="start" x="400" y="-398" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleKeyPressEvent()</text>
-<text text-anchor="start" x="400" y="-387" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleKeyReleaseEvent()</text>
-<text text-anchor="start" x="400" y="-376" font-family="Helvetica,sans-Serif" font-size="10.00">+ toggleRotateAround()</text>
-<text text-anchor="start" x="400" y="-365" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateCamera()</text>
-<text text-anchor="start" x="400" y="-354" font-family="Helvetica,sans-Serif" font-size="10.00">+ setTrackballRadius()</text>
-<text text-anchor="start" x="400" y="-343" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTrackballRadius()</text>
-<text text-anchor="start" x="400" y="-332" font-family="Helvetica,sans-Serif" font-size="10.00">+ setTrackballCenter()</text>
-<text text-anchor="start" x="400" y="-321" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTrackballCenter()</text>
-<text text-anchor="start" x="400" y="-310" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraPosition()</text>
-<text text-anchor="start" x="400" y="-299" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraTarget()</text>
-<text text-anchor="start" x="400" y="-288" font-family="Helvetica,sans-Serif" font-size="10.00">+ fitScene()</text>
-<text text-anchor="start" x="400" y="-277" font-family="Helvetica,sans-Serif" font-size="10.00">+ resetCamera()</text>
-<text text-anchor="start" x="400" y="-266" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraRotate()</text>
-<text text-anchor="start" x="400" y="-255" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraPan()</text>
-<text text-anchor="start" x="400" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraZoom()</text>
-<text text-anchor="start" x="400" y="-233" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraZoom()</text>
-<text text-anchor="start" x="400" y="-222" font-family="Helvetica,sans-Serif" font-size="10.00"># updatePhiTheta()</text>
+<polygon fill="white" stroke="black" points="392,-220.5 392,-618.5 576,-618.5 576,-220.5 392,-220.5"/>
+<text text-anchor="start" x="400" y="-606.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::TrackballCamera</text>
+<text text-anchor="middle" x="484" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator</text>
+<polyline fill="none" stroke="black" points="392,-588.5 576,-588.5 "/>
+<text text-anchor="start" x="400" y="-576.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_lastMouseX</text>
+<text text-anchor="start" x="400" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_lastMouseY</text>
+<text text-anchor="start" x="400" y="-554.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_phi</text>
+<text text-anchor="start" x="400" y="-543.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_theta</text>
+<text text-anchor="start" x="400" y="-532.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_phiDir</text>
+<text text-anchor="start" x="400" y="-521.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_referenceFrame</text>
+<text text-anchor="start" x="400" y="-510.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_distFromCenter</text>
+<polyline fill="none" stroke="black" points="392,-503.5 576,-503.5 "/>
+<text text-anchor="start" x="400" y="-491.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TrackballCameraManipulator()</text>
+<text text-anchor="start" x="400" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TrackballCameraManipulator()</text>
+<text text-anchor="start" x="400" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~TrackballCameraManipulator()</text>
+<text text-anchor="start" x="400" y="-458.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMousePressEvent()</text>
+<text text-anchor="start" x="400" y="-447.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMouseReleaseEvent()</text>
+<text text-anchor="start" x="400" y="-436.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMouseMoveEvent()</text>
+<text text-anchor="start" x="400" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleWheelEvent()</text>
+<text text-anchor="start" x="400" y="-414.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleKeyPressEvent()</text>
+<text text-anchor="start" x="400" y="-403.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleKeyReleaseEvent()</text>
+<text text-anchor="start" x="400" y="-392.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ toggleRotateAround()</text>
+<text text-anchor="start" x="400" y="-381.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateCamera()</text>
+<text text-anchor="start" x="400" y="-370.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setTrackballRadius()</text>
+<text text-anchor="start" x="400" y="-359.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTrackballRadius()</text>
+<text text-anchor="start" x="400" y="-348.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTrackballCenter()</text>
+<text text-anchor="start" x="400" y="-337.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraPosition()</text>
+<text text-anchor="start" x="400" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraTarget()</text>
+<text text-anchor="start" x="400" y="-315.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ fitScene()</text>
+<text text-anchor="start" x="400" y="-304.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ resetCamera()</text>
+<text text-anchor="start" x="400" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraRotate()</text>
+<text text-anchor="start" x="400" y="-282.5" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraPan()</text>
+<text text-anchor="start" x="400" y="-271.5" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraZoom()</text>
+<text text-anchor="start" x="400" y="-260.5" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraZoom()</text>
+<text text-anchor="start" x="400" y="-249.5" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraMoveForward()</text>
+<text text-anchor="start" x="400" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00"># handleCameraMoveForward()</text>
+<text text-anchor="start" x="400" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00"># updatePhiTheta()</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M482.24,-866.14C482.47,-806.38 482.85,-711.14 483.19,-624.02"/>
+<path fill="none" stroke="midnightblue" d="M482.24,-865.94C482.48,-804.96 482.87,-707.18 483.22,-618.75"/>
 <polygon fill="none" stroke="midnightblue" points="478.74,-866.13 482.2,-876.15 485.74,-866.16 478.74,-866.13"/>
 </g>
 <!-- Node9 -->

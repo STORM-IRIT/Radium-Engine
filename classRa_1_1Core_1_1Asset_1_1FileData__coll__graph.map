@@ -1,62 +1,62 @@
 <map id="Ra::Core::Asset::FileData" name="Ra::Core::Asset::FileData">
-<area shape="rect" id="node1" title=" " alt="" coords="3774,5828,3957,6228"/>
-<area shape="rect" id="node2" title=" " alt="" coords="3780,5644,3959,5751"/>
-<area shape="rect" id="node3" title=" " alt="" coords="3772,5489,3951,5581"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is &#45;z in camer..." alt="" coords="3725,1423,3905,2087"/>
-<area shape="rect" id="node5" href="$classfloat.html" title=" " alt="" coords="3789,499,3840,577"/>
-<area shape="rect" id="node18" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html" title=" " alt="" coords="1151,2353,1343,2445"/>
+<area shape="rect" id="node1" title=" " alt="" coords="3774,5931,3957,6331"/>
+<area shape="rect" id="node2" title=" " alt="" coords="3780,5747,3959,5853"/>
+<area shape="rect" id="node3" title=" " alt="" coords="3772,5592,3951,5684"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is &#45;z in camer..." alt="" coords="3725,1423,3910,2189"/>
+<area shape="rect" id="node5" href="$classfloat.html" title=" " alt="" coords="3792,499,3843,577"/>
+<area shape="rect" id="node18" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html" title=" " alt="" coords="1151,2455,1343,2547"/>
 <area shape="rect" id="node19" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html" title=" " alt="" coords="1143,1087,1335,1179"/>
-<area shape="rect" id="node40" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html" title=" " alt="" coords="4205,4411,4432,4737"/>
-<area shape="rect" id="node6" title="STL class." alt="" coords="3115,4535,3272,4613"/>
-<area shape="rect" id="node10" title=" " alt="" coords="1533,5489,1723,5581"/>
-<area shape="rect" id="node30" title=" " alt="" coords="2929,5489,3135,5581"/>
-<area shape="rect" id="node39" title=" " alt="" coords="4138,5489,4363,5581"/>
-<area shape="rect" id="node46" title=" " alt="" coords="2525,5489,2747,5581"/>
-<area shape="rect" id="node59" title=" " alt="" coords="3159,5489,3363,5581"/>
+<area shape="rect" id="node40" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html" title=" " alt="" coords="4205,4513,4432,4840"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="3115,4638,3272,4715"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1533,5592,1723,5684"/>
+<area shape="rect" id="node30" title=" " alt="" coords="2929,5592,3135,5684"/>
+<area shape="rect" id="node39" title=" " alt="" coords="4138,5592,4363,5684"/>
+<area shape="rect" id="node46" title=" " alt="" coords="2525,5592,2747,5684"/>
+<area shape="rect" id="node59" title=" " alt="" coords="3159,5592,3363,5684"/>
 <area shape="rect" id="node7" title=" " alt="" coords="3499,499,3538,577"/>
 <area shape="rect" id="node8" title="STL class." alt="" coords="3567,1094,3697,1171"/>
 <area shape="rect" id="node50" title="STL class." alt="" coords="2869,1094,3027,1171"/>
-<area shape="rect" id="node9" title=" " alt="" coords="1672,5644,1851,5751"/>
-<area shape="rect" id="node29" title=" " alt="" coords="3312,5644,3491,5751"/>
-<area shape="rect" id="node38" title=" " alt="" coords="4161,5644,4340,5751"/>
-<area shape="rect" id="node43" title=" " alt="" coords="4123,2353,4325,2445"/>
-<area shape="rect" id="node45" title=" " alt="" coords="2695,5644,2873,5751"/>
-<area shape="rect" id="node58" title=" " alt="" coords="3577,5644,3756,5751"/>
-<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1LightData.html" title=" " alt="" coords="639,4425,831,4723"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1672,5747,1851,5853"/>
+<area shape="rect" id="node29" title=" " alt="" coords="3312,5747,3491,5853"/>
+<area shape="rect" id="node38" title=" " alt="" coords="4161,5747,4340,5853"/>
+<area shape="rect" id="node43" title=" " alt="" coords="4123,2455,4325,2547"/>
+<area shape="rect" id="node45" title=" " alt="" coords="2695,5747,2873,5853"/>
+<area shape="rect" id="node58" title=" " alt="" coords="3577,5747,3756,5853"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1LightData.html" title=" " alt="" coords="639,4528,831,4825"/>
 <area shape="rect" id="node12" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="2734,477,2930,599"/>
-<area shape="rect" id="node31" href="$structRa_1_1Core_1_1Asset_1_1VolumeData.html" title=" " alt="" coords="2655,4535,2865,4613"/>
-<area shape="rect" id="node47" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html" title=" " alt="" coords="2170,3736,2395,5412"/>
+<area shape="rect" id="node31" href="$structRa_1_1Core_1_1Asset_1_1VolumeData.html" title=" " alt="" coords="2655,4638,2865,4715"/>
+<area shape="rect" id="node47" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html" title=" " alt="" coords="2170,3839,2395,5515"/>
 <area shape="rect" id="node49" href="$classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name...." alt="" coords="2579,1057,2794,1208"/>
-<area shape="rect" id="node60" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html" title=" " alt="" coords="3291,2711,3498,3712"/>
+<area shape="rect" id="node60" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html" title=" " alt="" coords="3291,2813,3498,3815"/>
 <area shape="rect" id="node13" title="STL class." alt="" coords="4454,147,4541,224"/>
 <area shape="rect" id="node44" href="$structRa_1_1Core_1_1Asset_1_1HandleAnimation.html" title=" " alt="" coords="4465,1094,4708,1171"/>
 <area shape="rect" id="node14" title="STL class." alt="" coords="4428,5,4567,97"/>
-<area shape="rect" id="node15" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1DirLight.html" title=" " alt="" coords="5,2353,197,2445"/>
+<area shape="rect" id="node15" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1DirLight.html" title=" " alt="" coords="5,2455,197,2547"/>
 <area shape="rect" id="node16" title=" " alt="" coords="840,1094,995,1171"/>
-<area shape="rect" id="node25" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html" title=" " alt="" coords="935,2353,1127,2445"/>
-<area shape="rect" id="node27" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html" title=" " alt="" coords="540,2353,732,2445"/>
-<area shape="rect" id="node17" title=" " alt="" coords="222,2360,357,2437"/>
-<area shape="rect" id="node20" title=" " alt="" coords="381,2360,465,2437"/>
-<area shape="rect" id="node21" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="1657,2133,1847,2665"/>
+<area shape="rect" id="node25" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html" title=" " alt="" coords="935,2455,1127,2547"/>
+<area shape="rect" id="node27" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html" title=" " alt="" coords="540,2455,732,2547"/>
+<area shape="rect" id="node17" title=" " alt="" coords="222,2463,357,2540"/>
+<area shape="rect" id="node20" title=" " alt="" coords="381,2463,465,2540"/>
+<area shape="rect" id="node21" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="1657,2235,1847,2767"/>
 <area shape="rect" id="node22" title=" " alt="" coords="2100,1087,2263,1179"/>
 <area shape="rect" id="node23" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="1887,867,2076,1399"/>
 <area shape="rect" id="node24" title=" " alt="" coords="374,492,549,584"/>
-<area shape="rect" id="node26" title=" " alt="" coords="756,2360,911,2437"/>
+<area shape="rect" id="node26" title=" " alt="" coords="756,2463,911,2540"/>
 <area shape="rect" id="node28" title=" " alt="" coords="532,1094,687,1171"/>
-<area shape="rect" id="node32" title=" " alt="" coords="2840,2353,2987,2445"/>
-<area shape="rect" id="node33" title=" " alt="" coords="3247,2360,3430,2437"/>
-<area shape="rect" id="node34" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html" title=" " alt="" coords="3062,2243,3223,2555"/>
+<area shape="rect" id="node32" title=" " alt="" coords="2840,2455,2987,2547"/>
+<area shape="rect" id="node33" title=" " alt="" coords="3247,2463,3430,2540"/>
+<area shape="rect" id="node34" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html" title=" " alt="" coords="3062,2345,3223,2657"/>
 <area shape="rect" id="node35" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="3051,1013,3229,1252"/>
 <area shape="rect" id="node36" title=" " alt="" coords="3253,1094,3403,1171"/>
-<area shape="rect" id="node37" href="$classbool.html" title=" " alt="" coords="3987,5659,4037,5736"/>
+<area shape="rect" id="node37" href="$classbool.html" title=" " alt="" coords="3987,5761,4037,5839"/>
 <area shape="rect" id="node41" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html" title=" " alt="" coords="4595,301,4824,775"/>
 <area shape="rect" id="node42" title=" " alt="" coords="4678,147,4741,224"/>
-<area shape="rect" id="node48" title=" " alt="" coords="2603,2353,2815,2445"/>
-<area shape="rect" id="node51" title=" " alt="" coords="1922,2360,2038,2437"/>
-<area shape="rect" id="node52" title=" " alt="" coords="2063,2360,2177,2437"/>
-<area shape="rect" id="node53" title=" " alt="" coords="2201,2360,2308,2437"/>
-<area shape="rect" id="node54" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles." alt="" coords="1417,2111,1633,2687"/>
+<area shape="rect" id="node48" title=" " alt="" coords="2603,2455,2815,2547"/>
+<area shape="rect" id="node51" title=" " alt="" coords="1922,2463,2038,2540"/>
+<area shape="rect" id="node52" title=" " alt="" coords="2063,2463,2177,2540"/>
+<area shape="rect" id="node53" title=" " alt="" coords="2201,2463,2308,2540"/>
+<area shape="rect" id="node54" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles." alt="" coords="1417,2213,1633,2789"/>
 <area shape="rect" id="node55" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="1665,1021,1863,1245"/>
-<area shape="rect" id="node56" title=" " alt="" coords="2332,2360,2439,2437"/>
-<area shape="rect" id="node57" title=" " alt="" coords="2463,2360,2580,2437"/>
+<area shape="rect" id="node56" title=" " alt="" coords="2332,2463,2439,2540"/>
+<area shape="rect" id="node57" title=" " alt="" coords="2463,2463,2580,2540"/>
 </map>

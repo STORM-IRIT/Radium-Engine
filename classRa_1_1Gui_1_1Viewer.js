@@ -22,7 +22,7 @@ var classRa_1_1Gui_1_1Viewer =
     [ "getRenderersName", "classRa_1_1Gui_1_1Viewer.html#a837ca0842e415bbe295c9e6a1be6d75a", null ],
     [ "glInitialized", "classRa_1_1Gui_1_1Viewer.html#a8e1e9d1346dcf767bec5b743a2dd8802", null ],
     [ "grabFrame", "classRa_1_1Gui_1_1Viewer.html#ab3854bf1c656d1f6bf7e12e61251e9dc", null ],
-    [ "handleKeyPressEvent", "classRa_1_1Gui_1_1Viewer.html#a30900e66057a8fe9b013cb1fddf0af33", null ],
+    [ "handleKeyPressEvent", "classRa_1_1Gui_1_1Viewer.html#ab1d2a64be8ffde526df5ec78af532413", null ],
     [ "handleMouseMoveEvent", "classRa_1_1Gui_1_1Viewer.html#a587512c405c7aa219ac119c41f841517", null ],
     [ "handleMousePressEvent", "classRa_1_1Gui_1_1Viewer.html#af99c80d12a451e71c935f28987d93c77", null ],
     [ "handleMouseReleaseEvent", "classRa_1_1Gui_1_1Viewer.html#a4c4e7539f7a0a060d64cc6c374a98035", null ],

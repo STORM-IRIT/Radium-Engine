@@ -12,8 +12,8 @@
 <area shape="rect" id="node16" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a717cfcf775ed10b6f323a02434336a85" title="Set the Z Near plane distance to &#39;zNear&#39;." alt="" coords="261,561,441,602"/>
 <area shape="rect" id="node17" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a7ceb08c02e98b235ca29ac671f263364" title="Set the zoom factor to &#39;zoomFactor&#39;." alt="" coords="261,626,441,668"/>
 <area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="499,496,679,537"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2789b15924eef3274183bfe97dc09246" title="Build a projection matrix from the parameters of the view volume." alt="" coords="727,408,907,449"/>
-<area shape="rect" id="node9" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="955,474,1117,500"/>
-<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" title=" " alt="" coords="727,525,907,566"/>
-<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="727,590,907,632"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="733,415,900,442"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" title="Build a projection matrix from the parameters of the view volume Implements the algorithm described h..." alt="" coords="727,466,907,508"/>
+<area shape="rect" id="node10" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="955,503,1117,530"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="727,584,907,625"/>
 </map>

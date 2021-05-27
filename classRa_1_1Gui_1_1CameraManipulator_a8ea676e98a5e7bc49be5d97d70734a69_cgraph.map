@@ -1,9 +1,0 @@
-<map id="Ra::Gui::CameraManipulator::resizeViewport" name="Ra::Gui::CameraManipulator::resizeViewport">
-<area shape="rect" id="node1" title="Resize the camera viewport." alt="" coords="5,93,212,135"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6" title="Change the viewport size. Also compute aspectRatio." alt="" coords="260,93,440,135"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="488,93,668,135"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2789b15924eef3274183bfe97dc09246" title="Build a projection matrix from the parameters of the view volume." alt="" coords="716,5,896,47"/>
-<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="944,71,1107,98"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" title=" " alt="" coords="716,123,896,164"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="716,188,896,229"/>
-</map>

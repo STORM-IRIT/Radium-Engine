@@ -1,7 +1,0 @@
-<map id="Ra::Engine::Scene::CameraComponent::applyTransform" name="Ra::Engine::Scene::CameraComponent::applyTransform">
-<area shape="rect" id="node1" title="Apply the local transformation &#39;T&#39; to the camera." alt="" coords="5,5,263,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a854a52959e785430e0e81ed9c7ae2c0d" title=" " alt="" coords="311,5,556,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a8fd17cabf3c55e11f9dcc90a72d99867" title=" " alt="" coords="604,5,828,47"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a9dadff3e36e369d3922214f770076dc1" title=" " alt="" coords="876,5,1079,47"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#aed744089160c610607ce47a06f2edef5" title=" " alt="" coords="1127,5,1292,47"/>
-</map>

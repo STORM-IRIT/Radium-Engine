@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">cfcf1fabfeb35790c03291a370a0c7dcfc6d2e03</span>
+   &#160;<span id="projectnumber">935ef31e119152d9d7560951fdd4f07a295ac94c</span>
    </div>
   </td>
  </tr>
@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>Page <a class="el" href="apps.html">How to write your own application</a>  </dt>
 <dd><a class="anchor" id="_todo000002"></a>write application dev doc, merging ExampleApp and Apps docs.  </dd>
 <dt>Member <a class="el" href="GizmoManager_8cpp.html#ab1478fa43039cf1b62157b0375df9960">KMA_VALUE</a>  (XX)</dt>
-<dd><a class="anchor" id="_todo000071"></a>If a macro expert could write a recursive marco to have something like KM_DEFINE_STATICS(GizmoManager, KeyMappingGizmo)  </dd>
+<dd><a class="anchor" id="_todo000073"></a>If a macro expert could write a recursive marco to have something like KM_DEFINE_STATICS(GizmoManager, KeyMappingGizmo)  </dd>
 <dt>Page <a class="el" href="develmaterials.html">Material management</a>  </dt>
 <dd><a class="anchor" id="_todo000006"></a>update snippets that are not available anymore. </dd>
 <dt>Page <a class="el" href="pluginSystem.html">Plugin System</a>  </dt>
@@ -193,58 +193,68 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dd><p class="startdd"><a class="anchor" id="_todo000053"></a>make offset relative to wireframe line width </p>
 <p class="enddd"><a class="anchor" id="_todo000054"></a>use globjects.  </p>
 </dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html">Ra::Engine::Scene::CameraComponent</a>  </dt>
+<dd><a class="anchor" id="_todo000055"></a>attached camera do not take entity's transformation into account. This prevents, for now, keyframed animation of the Camera from its entity ...  </dd>
 <dt>Class <a class="el" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html">Ra::Engine::Scene::Light::Attenuation</a>  </dt>
-<dd><a class="anchor" id="_todo000058"></a>for the moment, the attenuation is non physically coherent. make attenuation be quadratic by default  </dd>
+<dd><a class="anchor" id="_todo000059"></a>for the moment, the attenuation is non physically coherent. make attenuation be quadratic by default  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">Ra::Engine::Scene::Light::LightType</a>  </dt>
-<dd><a class="anchor" id="_todo000057"></a>: replace this enum by something extensible as we plan to add new light type by plugins  </dd>
+<dd><a class="anchor" id="_todo000058"></a>: replace this enum by something extensible as we plan to add new light type by plugins  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7">Ra::Engine::Scene::Light::setDirection</a>  (const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</dt>
-<dd><a class="anchor" id="_todo000059"></a>put this only on directional and spot light sources  </dd>
+<dd><a class="anchor" id="_todo000060"></a>put this only on directional and spot light sources  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f">Ra::Engine::Scene::Light::setPosition</a>  (const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</dt>
-<dd><a class="anchor" id="_todo000060"></a>put this only on point and spot light sources  </dd>
+<dd><a class="anchor" id="_todo000061"></a>put this only on point and spot light sources  </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html">Ra::Engine::Scene::PointCloudComponent</a>  </dt>
-<dd><a class="anchor" id="_todo000056"></a>doc.  </dd>
+<dd><a class="anchor" id="_todo000057"></a>doc.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a6d5edec13e1d25cd2dd60151b41ef5cc">Ra::Engine::Scene::SkeletonComponent::setXray</a>  (bool on) const</dt>
-<dd><a class="anchor" id="_todo000061"></a>the way skeletons will be displayed will be changed.  </dd>
+<dd><a class="anchor" id="_todo000062"></a>the way skeletons will be displayed will be changed.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a206dc5c82ced974ba84956de4cb8cd26">Ra::Gui::BaseApplication::BaseApplication</a>  (int &amp;argc, char **argv, QString applicationName="RadiumEngine", QString organizationName="STORM-IRIT")</dt>
-<dd><a class="anchor" id="_todo000062"></a>check optional  </dd>
+<dd><a class="anchor" id="_todo000063"></a>check optional  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a46ddcfcbd872c4e7e29aac63a3d521fb">Ra::Gui::BaseApplication::initialize</a>  (const <a class="el" href="classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html">WindowFactory</a> &amp;factory)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000064"></a>allow the user to ask for some "standard" systems to be added to the initialized <a class="el" href="namespaceRa_1_1Engine.html">Engine</a>. </p>
-<p class="enddd"><a class="anchor" id="_todo000063"></a>Code updated wrt camera manager, TEST IT !  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000065"></a>allow the user to ask for some "standard" systems to be added to the initialized <a class="el" href="namespaceRa_1_1Engine.html">Engine</a>. </p>
+<p class="enddd"><a class="anchor" id="_todo000064"></a>Code updated wrt camera manager, TEST IT !  </p>
 </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a214bf6bbfc4e9b4b05a5a6727cf9e671">Ra::Gui::FlightCameraManipulator::handleWheelEvent</a>  (QWheelEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</dt>
+<dd><a class="anchor" id="_todo000071"></a>use action.  </dd>
 <dt>Class <a class="el" href="classRa_1_1Gui_1_1Gizmo.html">Ra::Gui::Gizmo</a>  </dt>
-<dd><a class="anchor" id="_todo000070"></a>There is a lot of duplicated code shared between the different Gizmos (rotate, translate, scale). This is due to the fact that they all have Render Objects in xyz directions, and which can be selected with the same logic. An alternative would be to have an intermediate class , e.g. <code>XYZGizmo</code> which performs all the generic operations (e.g. render object coloring in <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#a6ad53eca5654b426a0b467ab716a2704" title="Called when one of the drawables of the gizmo has been selected.">selectConstraint</a> and <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#ae5548219f2292a8da641c857ae698d8f">mouseMove</a>).  </dd>
+<dd><a class="anchor" id="_todo000072"></a>There is a lot of duplicated code shared between the different Gizmos (rotate, translate, scale). This is due to the fact that they all have Render Objects in xyz directions, and which can be selected with the same logic. An alternative would be to have an intermediate class , e.g. <code>XYZGizmo</code> which performs all the generic operations (e.g. render object coloring in <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#a6ad53eca5654b426a0b467ab716a2704" title="Called when one of the drawables of the gizmo has been selected.">selectConstraint</a> and <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#ae5548219f2292a8da641c857ae698d8f">mouseMove</a>).  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1GizmoManager.html#a5c2e1214324db2600d7c4e9d9e6145d8">Ra::Gui::GizmoManager::handleMouseMoveEvent</a>  (QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key, const <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is -z in camer...">Core::Asset::Camera</a> &amp;cam)</dt>
-<dd><a class="anchor" id="_todo000072"></a>what about if someone start a motion with a key, and then release it while moving the mouse ?  </dd>
+<dd><a class="anchor" id="_todo000074"></a>what about if someone start a motion with a key, and then release it while moving the mouse ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a929548f74f967115fc31200370b45933">Ra::Gui::KeyMappingManager::addAction</a>  (const std::string &amp;context, const std::string &amp;keyString, const std::string &amp;modifiersString, const std::string &amp;buttonsString, const std::string &amp;wheelString, const std::string &amp;actionString)</dt>
-<dd><a class="anchor" id="_todo000069"></a>write the configuration in the configFile to be later reused or modified ?  </dd>
+<dd><a class="anchor" id="_todo000070"></a>write the configuration in the configFile to be later reused or modified ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1TimelineScrollArea.html#a95371ce8b334da3e792663d9f7f48e84">Ra::Gui::TimelineScrollArea::stepChanged</a>  (Scalar step)</dt>
-<dd><a class="anchor" id="_todo000065"></a>use keymapping manager here Emitted when zoomed in/out or resized.  </dd>
+<dd><a class="anchor" id="_todo000066"></a>use keymapping manager here Emitted when zoomed in/out or resized.  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a8a75d252e06bcec380a3ac7354a1febd">Ra::Gui::TrackballCameraManipulator::resetCamera</a>  () override</dt>
+<dd><a class="anchor" id="_todo000075"></a>get rid of these light stuff  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#af99c80d12a451e71c935f28987d93c77">Ra::Gui::Viewer::handleMousePressEvent</a>  (QMouseEvent *event, <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html" title="Result of a PickingQuery.">Ra::Engine::Rendering::Renderer::PickingResult</a> &amp;result)</dt>
-<dd><a class="anchor" id="_todo000075"></a>something like explained here  </dd>
+<dd><a class="anchor" id="_todo000077"></a>something like explained here if under mouse objects grabs the action, just send it to the object so we need to have something like grabber = renderobject(ro id)-&gt;getMouseManipulator if(grabber &amp;&amp; grabber-&gt;handleEvent(event, buttons, modifiers, key){ context = grabber-&gt;getContext currentGrabber = grabber (we need to store it for mouse move)  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">Ra::Gui::Viewer::m_renderers</a>  </dt>
-<dd><a class="anchor" id="_todo000076"></a>make the following private: Owning pointer to the renderers.  </dd>
-<dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#af993e161d72ea7e41a3bc49a9671a74e">Ra::Gui::Viewer::showEvent</a>  (QShowEvent *ev) override</dt>
-<dd><a class="anchor" id="_todo000074"></a>remove this commented code when camera init in ctr is tested on other arch.  </dd>
+<dd><a class="anchor" id="_todo000081"></a>make the following private: Owning pointer to the renderers.  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a78e290eb25f91ffbc7dbd0c58d8b9ca6">Ra::Gui::Viewer::mouseMoveEvent</a>  (QMouseEvent *event) override</dt>
+<dd><a class="anchor" id="_todo000079"></a>propagateToParent  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a3f65773027030ac179e755dfc3454121">Ra::Gui::Viewer::mouseReleaseEvent</a>  (QMouseEvent *event) override</dt>
+<dd><a class="anchor" id="_todo000078"></a>propagateToParent  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d">Ra::Gui::Viewer::startRendering</a>  (const Scalar dt)</dt>
-<dd><a class="anchor" id="_todo000073"></a>FIXME : move this outside of the rendering loop. must be done once per renderer ... if there is no light on the renderer, add the head light attached to the camera ...  </dd>
+<dd><a class="anchor" id="_todo000076"></a>FIXME : move this outside of the rendering loop. must be done once per renderer ... if there is no light on the renderer, add the head light attached to the camera ...  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#ac15a6f178cfdcbfbfccaba8959973463">Ra::Gui::Viewer::wheelEvent</a>  (QWheelEvent *event) override</dt>
+<dd><a class="anchor" id="_todo000080"></a>propagateToParent  </dd>
 <dt>Member <a class="el" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a162728fbf071166be8abacfc2b83dde0">Ra::IO::AssimpCameraDataLoader::loadCameraData</a>  (const aiScene *scene, const aiCamera &amp;camera, <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is -z in camer...">Core::Asset::Camera</a> &amp;data)</dt>
-<dd><a class="anchor" id="_todo000077"></a>tmp test <a class="el" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> frame = loadCameraFrame( scene, rootMatrix, data );  </dd>
+<dd><a class="anchor" id="_todo000082"></a>tmp test <a class="el" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> frame = loadCameraFrame( scene, rootMatrix, data );  </dd>
 <dt>Member <a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a015c0e61580e9cf1b72ae9751844df68">Ra::IO::AssimpGeometryDataLoader::fetchVertices</a>  (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data)</dt>
-<dd><a class="anchor" id="_todo000078"></a>have something like template &lt;typename I, typename TYPE, int DIM&gt; void fetchVectorData( size_t sz, const I&amp; input, <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt;Eigen::Matrix&lt;TYPE, DIM, 1&gt;&gt;&amp; output ) { const auto size = int( sz ); output.resize( sz ); </dd>
+<dd><a class="anchor" id="_todo000083"></a>have something like template &lt;typename I, typename TYPE, int DIM&gt; void fetchVectorData( size_t sz, const I&amp; input, <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt;Eigen::Matrix&lt;TYPE, DIM, 1&gt;&gt;&amp; output ) { const auto size = int( sz ); output.resize( sz ); </dd>
 <dt>Class <a class="el" href="classRa_1_1IO_1_1FileManager.html">Ra::IO::FileManager&lt; DATA, Binary &gt;</a>  </dt>
-<dd><a class="anchor" id="_todo000079"></a>reimplement in <a class="el" href="namespaceRa_1_1IO.html">IO</a>  </dd>
+<dd><a class="anchor" id="_todo000084"></a>reimplement in <a class="el" href="namespaceRa_1_1IO.html">IO</a>  </dd>
 <dt>Class <a class="el" href="classRa_1_1IO_1_1OBJFileManager.html">Ra::IO::OBJFileManager</a>  </dt>
-<dd><a class="anchor" id="_todo000080"></a>reimplement in <a class="el" href="namespaceRa_1_1IO.html">IO</a>  </dd>
+<dd><a class="anchor" id="_todo000085"></a>reimplement in <a class="el" href="namespaceRa_1_1IO.html">IO</a>  </dd>
 <dt>Class <a class="el" href="classRa_1_1IO_1_1OFFFileManager.html">Ra::IO::OFFFileManager</a>  </dt>
-<dd><a class="anchor" id="_todo000081"></a>reimplement in <a class="el" href="namespaceRa_1_1IO.html">IO</a>  </dd>
+<dd><a class="anchor" id="_todo000086"></a>reimplement in <a class="el" href="namespaceRa_1_1IO.html">IO</a>  </dd>
 <dt>Member <a class="el" href="classRa_1_1IO_1_1TinyPlyFileLoader.html#a3eaa892e32c345381130b8cd0c0a5872">Ra::IO::TinyPlyFileLoader::loadFile</a>  (const std::string &amp;filename) override</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000082"></a>merge with non standard attributes when all will be stored as Attribs in GeometryData </p>
-<p class="enddd"><a class="anchor" id="_todo000083"></a>, when all vertex attribs are managed through the attrib manager, add here  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000087"></a>merge with non standard attributes when all will be stored as Attribs in GeometryData </p>
+<p class="enddd"><a class="anchor" id="_todo000088"></a>, when all vertex attribs are managed through the attrib manager, add here  </p>
 </dd>
 <dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a860bb59fee16633501bc63271fe397ab">Ra::Plugins::RadiumPluginInterface::getMenu</a>  ()=0</dt>
-<dd><a class="anchor" id="_todo000085"></a>Find a better name ?  </dd>
+<dd><a class="anchor" id="_todo000090"></a>Find a better name ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a460d1df9a097719b389d6571904be142">Ra::Plugins::RadiumPluginInterface::getWidget</a>  ()=0</dt>
-<dd><a class="anchor" id="_todo000084"></a>Find a better name for this ? </dd>
+<dd><a class="anchor" id="_todo000089"></a>Find a better name for this ? </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -252,7 +262,7 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed May 26 2021 13:40:54 for Radium Engine by
+    <li class="footer">Generated on Thu May 27 2021 09:56:37 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

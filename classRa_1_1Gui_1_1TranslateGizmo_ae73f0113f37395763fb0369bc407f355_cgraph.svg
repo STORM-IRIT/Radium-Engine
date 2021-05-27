@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 829;
+var viewWidth = 658;
 var viewHeight = 186;
 var sectionId = 'dynsection-3';
 </script>
@@ -54,7 +54,7 @@ var sectionId = 'dynsection-3';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>Ra::Gui::TranslateGizmo::mouseMove</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-182 825,-182 825,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-182 654,-182 654,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
@@ -81,19 +81,19 @@ var sectionId = 'dynsection-3';
 <path fill="none" stroke="midnightblue" d="M134.21,-73.24C142.59,-74.47 151.22,-75.74 159.76,-76.99"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="159.32,-80.47 169.73,-78.46 160.34,-73.54 159.32,-80.47"/>
 </g>
-<!-- Node11 -->
-<g id="node11" class="node">
-<title>Node11</title>
-<g id="a_node11"><a xlink:href="classRa_1_1Gui_1_1Gizmo.html#a609064fa341157eae19e5a760e5044c2" target="_top" xlink:title="Find a mouse&#45;designed point on a 3D plane.">
+<!-- Node10 -->
+<g id="node10" class="node">
+<title>Node10</title>
+<g id="a_node10"><a xlink:href="classRa_1_1Gui_1_1Gizmo.html#a609064fa341157eae19e5a760e5044c2" target="_top" xlink:title="Find a mouse&#45;designed point on a 3D plane.">
 <polygon fill="white" stroke="black" points="170,-24.5 170,-54.5 308,-54.5 308,-24.5 170,-24.5"/>
 <text text-anchor="start" x="178" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Gizmo::findPoint</text>
 <text text-anchor="middle" x="239" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">OnPlane</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node11 -->
-<g id="edge10" class="edge">
-<title>Node1&#45;&gt;Node11</title>
+<!-- Node1&#45;&gt;Node10 -->
+<g id="edge9" class="edge">
+<title>Node1&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M134.21,-54.15C142.59,-52.97 151.22,-51.75 159.76,-50.55"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="160.31,-54 169.73,-49.14 159.33,-47.07 160.31,-54"/>
 </g>
@@ -129,35 +129,35 @@ var sectionId = 'dynsection-3';
 <path fill="none" stroke="midnightblue" d="M308.37,-78.88C316.76,-77.7 325.37,-76.48 333.88,-75.29"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="334.37,-78.75 343.78,-73.89 333.39,-71.82 334.37,-78.75"/>
 </g>
-<!-- Node8 -->
-<g id="node8" class="node">
-<title>Node8</title>
-<g id="a_node8"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" target="_top" xlink:title="Return the up vector.">
+<!-- Node7 -->
+<g id="node7" class="node">
+<title>Node7</title>
+<g id="a_node7"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" target="_top" xlink:title="Return the up vector.">
 <polygon fill="white" stroke="black" points="344,-98.5 344,-128.5 479,-128.5 479,-98.5 344,-98.5"/>
 <text text-anchor="start" x="352" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="411.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getUpVector</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node8 -->
-<g id="edge7" class="edge">
-<title>Node2&#45;&gt;Node8</title>
+<!-- Node2&#45;&gt;Node7 -->
+<g id="edge6" class="edge">
+<title>Node2&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M308.37,-98.52C316.76,-99.75 325.37,-101.02 333.88,-102.26"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="333.38,-105.73 343.78,-103.72 334.4,-98.8 333.38,-105.73"/>
 </g>
-<!-- Node9 -->
-<g id="node9" class="node">
-<title>Node9</title>
-<g id="a_node9"><a xlink:href="namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" target="_top" xlink:title="Intersect a ray with an infinite plane defined by point A and normal.">
+<!-- Node8 -->
+<g id="node8" class="node">
+<title>Node8</title>
+<g id="a_node8"><a xlink:href="namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" target="_top" xlink:title="Intersect a ray with an infinite plane defined by point A and normal.">
 <polygon fill="white" stroke="black" points="355,-0.5 355,-30.5 468,-30.5 468,-0.5 355,-0.5"/>
 <text text-anchor="start" x="363" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="middle" x="411.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RayCastPlane</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node9 -->
-<g id="edge8" class="edge">
-<title>Node2&#45;&gt;Node9</title>
+<!-- Node2&#45;&gt;Node8 -->
+<g id="edge7" class="edge">
+<title>Node2&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M285.63,-73.42C293.23,-70.43 300.94,-67.09 308,-63.5 325.14,-54.79 326.83,-48.16 344,-39.5 347.48,-37.75 351.11,-36.06 354.81,-34.45"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="356.2,-37.66 364.1,-30.61 353.52,-31.2 356.2,-37.66"/>
 </g>
@@ -180,10 +180,10 @@ var sectionId = 'dynsection-3';
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#acc2a5fbb0968d977b698f53d94fe0fc2" target="_top" xlink:title="Return the point on the screen plane (near plane) represented by screen coordinates pix.">
+<g id="a_node6"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a64dc74dc61ceafce1b143f93c16f88f0" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="515,-95.5 515,-125.5 650,-125.5 650,-95.5 515,-95.5"/>
 <text text-anchor="start" x="523" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
-<text text-anchor="middle" x="582.5" y="-102.5" font-family="Helvetica,sans-Serif" font-size="10.00">::unProject</text>
+<text text-anchor="middle" x="582.5" y="-102.5" font-family="Helvetica,sans-Serif" font-size="10.00">::unProjectFromScreen</text>
 </a>
 </g>
 </g>
@@ -193,46 +193,30 @@ var sectionId = 'dynsection-3';
 <path fill="none" stroke="midnightblue" d="M467.84,-79.56C483.38,-83.79 500.43,-88.43 516.48,-92.8"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="515.76,-96.23 526.33,-95.48 517.6,-89.48 515.76,-96.23"/>
 </g>
-<!-- Node7 -->
-<g id="node7" class="node">
-<title>Node7</title>
-<g id="a_node7"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a86f275275519c56c2c88af1e1fc928bb" target="_top" xlink:title="Return the Z Near plane distance from the camera.">
-<polygon fill="white" stroke="black" points="686,-95.5 686,-125.5 821,-125.5 821,-95.5 686,-95.5"/>
-<text text-anchor="start" x="694" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
-<text text-anchor="middle" x="753.5" y="-102.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getZNear</text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge6" class="edge">
-<title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M650.29,-110.5C658.62,-110.5 667.19,-110.5 675.66,-110.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="675.92,-114 685.92,-110.5 675.92,-107 675.92,-114"/>
-</g>
-<!-- Node10 -->
-<g id="node10" class="node">
-<title>Node10</title>
-<g id="a_node10"><a xlink:href="namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" target="_top" xlink:title=" ">
+<!-- Node9 -->
+<g id="node9" class="node">
+<title>Node9</title>
+<g id="a_node9"><a xlink:href="namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="537.5,-6 537.5,-25 627.5,-25 627.5,-6 537.5,-6"/>
 <text text-anchor="middle" x="582.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">OpenMesh::dot</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node10 -->
-<g id="edge9" class="edge">
-<title>Node9&#45;&gt;Node10</title>
+<!-- Node8&#45;&gt;Node9 -->
+<g id="edge8" class="edge">
+<title>Node8&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M468.31,-15.5C487.21,-15.5 508.28,-15.5 527.07,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="527.25,-19 537.25,-15.5 527.25,-12 527.25,-19"/>
 </g>
-<!-- Node11&#45;&gt;Node4 -->
-<g id="edge11" class="edge">
-<title>Node11&#45;&gt;Node4</title>
+<!-- Node10&#45;&gt;Node4 -->
+<g id="edge10" class="edge">
+<title>Node10&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M308.37,-49.52C316.76,-50.75 325.37,-52.02 333.88,-53.26"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="333.38,-56.73 343.78,-54.72 334.4,-49.8 333.38,-56.73"/>
 </g>
-<!-- Node11&#45;&gt;Node9 -->
-<g id="edge12" class="edge">
-<title>Node11&#45;&gt;Node9</title>
+<!-- Node10&#45;&gt;Node8 -->
+<g id="edge11" class="edge">
+<title>Node10&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M308.37,-29.88C320.45,-28.18 333.01,-26.41 345.02,-24.72"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="345.54,-28.18 354.95,-23.32 344.56,-21.25 345.54,-28.18"/>
 </g>

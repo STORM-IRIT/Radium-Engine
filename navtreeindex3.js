@@ -1,7 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"Log_8hpp.html#a6c6bb5efb42799004bfb0e047598c185":[10,0,3,0,7,13,4],
-"Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff":[10,0,3,0,7,13,5],
 "Log_8hpp.html#ad0de4260ab1f1fe62f457d2a1299e536":[10,0,3,0,7,13,3],
 "Log_8hpp.html#ad7538d961d008c77173d308106df52c8":[10,0,3,0,7,13,7],
 "Log_8hpp.html#af356995a5aa68a868197746fe85f38ba":[10,0,3,0,7,13,6],
@@ -191,12 +189,12 @@ var NAVTREEINDEX3 =
 "PlainMaterial_8hpp_source.html":[10,0,3,1,0,17],
 "PluginContext_8hpp.html":[10,0,3,4,0],
 "PluginContext_8hpp_source.html":[10,0,3,4,0],
-"PointLight_8cpp.html":[10,0,3,1,2,39],
-"PointLight_8cpp_source.html":[10,0,3,1,2,39],
-"PointLight_8hpp.html":[10,0,3,1,2,40],
-"PointLight_8hpp_source.html":[10,0,3,1,2,40],
-"PointLight_8inl.html":[10,0,3,1,2,41],
-"PointLight_8inl_source.html":[10,0,3,1,2,41],
+"PointLight_8cpp.html":[10,0,3,1,2,38],
+"PointLight_8cpp_source.html":[10,0,3,1,2,38],
+"PointLight_8hpp.html":[10,0,3,1,2,39],
+"PointLight_8hpp_source.html":[10,0,3,1,2,39],
+"PointLight_8inl.html":[10,0,3,1,2,40],
+"PointLight_8inl_source.html":[10,0,3,1,2,40],
 "PolyLine_8cpp.html":[10,0,3,0,3,26],
 "PolyLine_8cpp_source.html":[10,0,3,0,3,26],
 "PolyLine_8hpp.html":[10,0,3,0,3,27],
@@ -249,5 +247,7 @@ var NAVTREEINDEX3 =
 "RaPluginBase_8hpp_source.html":[10,0,3,4,3],
 "RadiumEngine_8cpp.html":[10,0,3,1,5],
 "RadiumEngine_8cpp.html#a7c2980d8b8dbd863a5d995e7572cb3cf":[10,0,3,1,5,0],
-"RadiumEngine_8cpp_source.html":[10,0,3,1,5]
+"RadiumEngine_8cpp_source.html":[10,0,3,1,5],
+"RadiumEngine_8hpp.html":[10,0,3,1,6],
+"RadiumEngine_8hpp_source.html":[10,0,3,1,6]
 };

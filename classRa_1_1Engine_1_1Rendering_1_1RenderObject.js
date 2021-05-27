@@ -28,6 +28,7 @@ var classRa_1_1Engine_1_1Rendering_1_1RenderObject =
     [ "isXRay", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ab59df2ead0a645488d3669d07545569c", null ],
     [ "render", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a676f4e9e17938dca3b6740c43cd3a964", null ],
     [ "render", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aaa1a6ae10e11f4cb31bb340c3349a055", null ],
+    [ "setLifetime", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aa19c4f2fbf6840856b0041e3a56686fd", null ],
     [ "setLocalTransform", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aba50d86374651850f903909a1ce0850d", null ],
     [ "setLocalTransform", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a854a52959e785430e0e81ed9c7ae2c0d", null ],
     [ "setMaterial", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aea01582e625ea544466c8c10d825a0c4", null ],

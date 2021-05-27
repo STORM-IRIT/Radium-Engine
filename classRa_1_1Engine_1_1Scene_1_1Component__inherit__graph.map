@@ -1,6 +1,6 @@
 <map id="Ra::Engine::Scene::Component" name="Ra::Engine::Scene::Component">
 <area shape="rect" id="node1" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="721,5,943,391"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraComponent.html" title="A Camera is an Engine Component storing a Camera object." alt="" coords="5,629,189,1425"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraComponent.html" title=" " alt="" coords="5,915,189,1139"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1DebugComponent.html" title="Component for debug drawing." alt="" coords="214,967,378,1088"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html" title="Abstract interface of a geometric compoennet in the Engine." alt="" coords="402,945,601,1110"/>
 <area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="625,915,813,1139"/>

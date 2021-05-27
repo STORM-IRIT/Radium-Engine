@@ -92,69 +92,30 @@ var sectionId = 'dynsection-0';
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html" target="_top" xlink:title="A Camera is an Engine Component storing a Camera object.">
-<polygon fill="white" stroke="black" points="0,-424.5 0,-1020.5 138,-1020.5 138,-424.5 0,-424.5"/>
-<text text-anchor="start" x="8" y="-1008.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
-<text text-anchor="middle" x="69" y="-997.5" font-family="Helvetica,sans-Serif" font-size="10.00">CameraComponent</text>
-<polyline fill="none" stroke="black" points="0,-990.5 138,-990.5 "/>
-<text text-anchor="start" x="8" y="-978.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_camera</text>
-<text text-anchor="start" x="8" y="-967.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_RO</text>
-<polyline fill="none" stroke="black" points="0,-960.5 138,-960.5 "/>
-<text text-anchor="start" x="8" y="-948.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CameraComponent()</text>
-<text text-anchor="start" x="8" y="-937.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~CameraComponent()</text>
-<text text-anchor="start" x="8" y="-926.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ initialize()</text>
-<text text-anchor="start" x="8" y="-915.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ show()</text>
-<text text-anchor="start" x="8" y="-904.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFrame()</text>
-<text text-anchor="start" x="8" y="-893.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setFrame()</text>
-<text text-anchor="start" x="8" y="-882.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getPosition()</text>
-<text text-anchor="start" x="8" y="-871.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setPosition()</text>
-<text text-anchor="start" x="8" y="-860.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getDirection()</text>
-<text text-anchor="start" x="8" y="-849.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDirection()</text>
-<text text-anchor="start" x="8" y="-838.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getUpVector()</text>
-<text text-anchor="start" x="8" y="-827.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setUpVector()</text>
-<text text-anchor="start" x="8" y="-816.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRightVector()</text>
-<text text-anchor="start" x="8" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ applyTransform()</text>
-<text text-anchor="start" x="8" y="-794.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateTransform()</text>
-<text text-anchor="start" x="8" y="-783.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getViewMatrix()</text>
-<text text-anchor="start" x="8" y="-772.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getProjMatrix()</text>
-<text text-anchor="start" x="8" y="-761.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateProjMatrix()</text>
-<text text-anchor="start" x="8" y="-750.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRayFromScreen()</text>
-<text text-anchor="start" x="8" y="-739.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ project()</text>
-<text text-anchor="start" x="8" y="-728.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unProject()</text>
-<text text-anchor="start" x="8" y="-717.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getType()</text>
-<text text-anchor="start" x="8" y="-706.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setType()</text>
-<text text-anchor="start" x="8" y="-695.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFOV()</text>
-<text text-anchor="start" x="8" y="-684.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setFOV()</text>
-<text text-anchor="start" x="8" y="-673.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getZoomFactor()</text>
-<text text-anchor="start" x="8" y="-662.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setZoomFactor()</text>
-<text text-anchor="start" x="8" y="-651.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ duplicate()</text>
-<text text-anchor="start" x="8" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ fitZRange()</text>
-<text text-anchor="start" x="8" y="-629.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCamera()</text>
-<text text-anchor="start" x="8" y="-618.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCamera()</text>
-<text text-anchor="start" x="8" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRenderObject()</text>
-<text text-anchor="start" x="8" y="-596.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getZNear()</text>
-<text text-anchor="start" x="8" y="-585.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setZNear()</text>
-<text text-anchor="start" x="8" y="-574.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getZFar()</text>
-<text text-anchor="start" x="8" y="-563.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setZFar()</text>
-<text text-anchor="start" x="8" y="-552.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getWidth()</text>
-<text text-anchor="start" x="8" y="-541.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getHeight()</text>
-<text text-anchor="start" x="8" y="-530.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAspect()</text>
-<text text-anchor="start" x="8" y="-519.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ resize()</text>
-<text text-anchor="start" x="8" y="-508.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getZNear()</text>
-<text text-anchor="start" x="8" y="-497.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setZNear()</text>
-<text text-anchor="start" x="8" y="-486.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getZFar()</text>
-<text text-anchor="start" x="8" y="-475.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setZFar()</text>
-<text text-anchor="start" x="8" y="-464.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getWidth()</text>
-<text text-anchor="start" x="8" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getHeight()</text>
-<text text-anchor="start" x="8" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAspect()</text>
-<text text-anchor="start" x="8" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00">* resize()</text>
+<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="0,-639 0,-806 138,-806 138,-639 0,-639"/>
+<text text-anchor="start" x="8" y="-794" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="middle" x="69" y="-783" font-family="Helvetica,sans-Serif" font-size="10.00">CameraComponent</text>
+<polyline fill="none" stroke="black" points="0,-776 138,-776 "/>
+<text text-anchor="start" x="8" y="-764" font-family="Helvetica,sans-Serif" font-size="10.00"># m_camera</text>
+<text text-anchor="start" x="8" y="-753" font-family="Helvetica,sans-Serif" font-size="10.00"># m_RO</text>
+<polyline fill="none" stroke="black" points="0,-746 138,-746 "/>
+<text text-anchor="start" x="8" y="-734" font-family="Helvetica,sans-Serif" font-size="10.00">+ CameraComponent()</text>
+<text text-anchor="start" x="8" y="-723" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~CameraComponent()</text>
+<text text-anchor="start" x="8" y="-712" font-family="Helvetica,sans-Serif" font-size="10.00">+ initialize()</text>
+<text text-anchor="start" x="8" y="-701" font-family="Helvetica,sans-Serif" font-size="10.00">+ show()</text>
+<text text-anchor="start" x="8" y="-690" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateTransform()</text>
+<text text-anchor="start" x="8" y="-679" font-family="Helvetica,sans-Serif" font-size="10.00">+ duplicate()</text>
+<text text-anchor="start" x="8" y="-668" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCamera()</text>
+<text text-anchor="start" x="8" y="-657" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCamera()</text>
+<text text-anchor="start" x="8" y="-646" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRenderObject()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M526.93,-1335.13C418.44,-1320.16 241.93,-1278.63 147,-1164 113.13,-1123.1 91.79,-1072.62 78.7,-1020.61"/>
+<path fill="none" stroke="midnightblue" d="M526.93,-1335.13C418.44,-1320.16 241.93,-1278.63 147,-1164 63.16,-1062.76 56.08,-902.85 60.92,-806.09"/>
 <polygon fill="none" stroke="midnightblue" points="526.52,-1338.61 536.89,-1336.46 527.44,-1331.67 526.52,-1338.61"/>
 </g>
 <!-- Node3 -->

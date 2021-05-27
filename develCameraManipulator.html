@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">cfcf1fabfeb35790c03291a370a0c7dcfc6d2e03</span>
+   &#160;<span id="projectnumber">935ef31e119152d9d7560951fdd4f07a295ac94c</span>
    </div>
   </td>
  </tr>
@@ -186,25 +186,21 @@ Extending/Specializing an existing CameraManipulator</h1>
 <div class="line">                                       <span class="keyword">const</span> Qt::MouseButtons&amp; buttons,</div>
 <div class="line">                                       <span class="keyword">const</span> Qt::KeyboardModifiers&amp; modifiers,</div>
 <div class="line">                                       <span class="keywordtype">int</span> key ) {</div>
-<div class="line">        <span class="keywordtype">bool</span> handled = <span class="keyword">false</span>;</div>
 <div class="line">        m_lastMouseX = <span class="keyword">event</span>-&gt;pos().x();</div>
 <div class="line">        m_lastMouseY = <span class="keyword">event</span>-&gt;pos().y();</div>
 <div class="line"> </div>
-<div class="line">        <span class="keyword">auto</span> action = Ra::Gui::KeyMappingManager::getInstance()-&gt;getAction(</div>
-<div class="line">            <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">Ra::Gui::TrackballCameraManipulator::getContext</a>(), buttons, modifiers, key, <span class="keyword">false</span> );</div>
+<div class="line">        m_currentAction = Ra::Gui::KeyMappingManager::getInstance()-&gt;getAction(</div>
+<div class="line">            <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">Ra::Gui::TrackballCameraManipulator::TrackballCameraMapping::getContext</a>(),</div>
+<div class="line">            buttons,</div>
+<div class="line">            modifiers,</div>
+<div class="line">            key,</div>
+<div class="line">            <span class="keyword">false</span> );</div>
 <div class="line"> </div>
-<div class="line">        <span class="keywordflow">if</span> ( action == TRACKBALLCAMERA_PAN )</div>
-<div class="line">        {</div>
-<div class="line">            m_cameraPanMode = <span class="keyword">true</span>;</div>
-<div class="line">            handled         = <span class="keyword">true</span>;</div>
-<div class="line">        }</div>
-<div class="line">        <span class="keywordflow">if</span> ( action == TRACKBALLCAMERA_ZOOM )</div>
-<div class="line">        {</div>
-<div class="line">            m_cameraZoomMode = <span class="keyword">true</span>;</div>
-<div class="line">            handled          = <span class="keyword">true</span>;</div>
-<div class="line">        }</div>
+<div class="line">        <span class="comment">// ignore rotate</span></div>
+<div class="line">        <span class="keywordflow">if</span> ( m_currentAction == TRACKBALLCAMERA_ROTATE )</div>
+<div class="line">        { m_currentAction = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a>(); }</div>
 <div class="line"> </div>
-<div class="line">        <span class="keywordflow">return</span> handled;</div>
+<div class="line">        <span class="keywordflow">return</span> m_currentAction.isValid();</div>
 <div class="line">    }</div>
 <div class="line">};</div>
 </div><!-- fragment --> <h1><a class="anchor" id="autotoc_md58"></a>
@@ -220,12 +216,13 @@ Using a CameraManipulator</h1>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt; FlightCameraManipulator &gt;</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Gui_html_afa4c7a727b010be2aa0fe037e9faccf4"><div class="ttname"><a href="namespaceRa_1_1Gui.html#afa4c7a727b010be2aa0fe037e9faccf4">Ra::Gui::FlightCameraKeyMapping</a></div><div class="ttdeci">Ra::Gui::KeyMappingManageable&lt; FlightCameraManipulator &gt; FlightCameraKeyMapping</div><div class="ttdoc">[Implement KeyMappingManageable]</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00022">FlightCameraManipulator.cpp:22</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html_a771f93efd49538950e3cb9e57e46fbaf"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a></div><div class="ttdeci">static constexpr Index Invalid()</div><div class="ttdef"><b>Definition:</b> <a href="Index_8inl_source.html#l00029">Index.inl:29</a></div></div>
 <div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a22954323f435085f355701781f846cda"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">Ra::Gui::KeyMappingManageable&lt; TrackballCameraManipulator &gt;::getContext</a></div><div class="ttdeci">static KeyMappingManager::Context getContext()</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00200">KeyMappingManager.hpp:200</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html">Ra::Gui::FlightCameraManipulator</a></div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8hpp_source.html#l00013">FlightCameraManipulator.hpp:13</a></div></div>
 <div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
-<div class="ttc" id="aFlightCameraManipulator_8hpp_html_a548a2cdef611b0b5977e76ddc6f4cb3f"><div class="ttname"><a href="FlightCameraManipulator_8hpp.html#a548a2cdef611b0b5977e76ddc6f4cb3f">KeyMappingFlightManipulator</a></div><div class="ttdeci">#define KeyMappingFlightManipulator</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8hpp_source.html#l00078">FlightCameraManipulator.hpp:78</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_a7a6555b6bf0c1ad891b915c18366fba4"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a7a6555b6bf0c1ad891b915c18366fba4">Ra::Gui::TrackballCameraManipulator::handleMousePressEvent</a></div><div class="ttdeci">bool handleMousePressEvent(QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8cpp_source.html#l00124">TrackballCameraManipulator.cpp:124</a></div></div>
+<div class="ttc" id="aFlightCameraManipulator_8hpp_html_a548a2cdef611b0b5977e76ddc6f4cb3f"><div class="ttname"><a href="FlightCameraManipulator_8hpp.html#a548a2cdef611b0b5977e76ddc6f4cb3f">KeyMappingFlightManipulator</a></div><div class="ttdeci">#define KeyMappingFlightManipulator</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8hpp_source.html#l00081">FlightCameraManipulator.hpp:81</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_a7a6555b6bf0c1ad891b915c18366fba4"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a7a6555b6bf0c1ad891b915c18366fba4">Ra::Gui::TrackballCameraManipulator::handleMousePressEvent</a></div><div class="ttdeci">bool handleMousePressEvent(QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8cpp_source.html#l00112">TrackballCameraManipulator.cpp:112</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">Ra::Gui::TrackballCameraManipulator</a></div><div class="ttdoc">A Trackball manipulator for Cameras.</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00012">TrackballCameraManipulator.hpp:12</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
 <div class="ttc" id="anamespaceOpenMesh_html_a8205f789ce08919bc11c58383574596c"><div class="ttname"><a href="namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c">OpenMesh::norm</a></div><div class="ttdeci">Derived::Scalar norm(Eigen::MatrixBase&lt; Derived &gt; const &amp;v1)</div><div class="ttdef"><b>Definition:</b> <a href="OpenMesh_8hpp_source.html#l00022">OpenMesh.hpp:22</a></div></div>
@@ -233,7 +230,7 @@ Using a CameraManipulator</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
-    <li class="footer">Generated on Wed May 26 2021 13:40:54 for Radium Engine by
+    <li class="footer">Generated on Thu May 27 2021 09:56:37 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

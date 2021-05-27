@@ -1,6 +1,6 @@
 <map id="Ra::Gui::Viewer::keyPressEvent" name="Ra::Gui::Viewer::keyPressEvent">
 <area shape="rect" id="node1" title=" " alt="" coords="5,296,193,337"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#a30900e66057a8fe9b013cb1fddf0af33" title=" " alt="" coords="241,267,440,308"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#ab1d2a64be8ffde526df5ec78af532413" title=" " alt="" coords="241,267,440,308"/>
 <area shape="rect" id="node17" href="$namespaceRa_1_1Gui.html#ad78f1f51a1a408c30fdf27708a73fb71" title="set the key corresponding to" alt="" coords="265,333,416,359"/>
 <area shape="rect" id="node3" href="$namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815" title="return the last, still pressed, key code, &#45;1 if no key currently pressed" alt="" coords="529,93,670,119"/>
 <area shape="rect" id="node4" href="$classRa_1_1Gui_1_1Viewer.html#afd8a96b35fbe97e88218e99d02bddee7" title=" " alt="" coords="502,143,697,170"/>
