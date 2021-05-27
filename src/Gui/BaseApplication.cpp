@@ -89,6 +89,7 @@ BaseApplication::BaseApplication( int& argc,
     parser.addHelpOption();
     parser.addVersionOption();
 
+    //! [Command line arguments]
     QCommandLineOption fpsOpt(
         QStringList {"r", "framerate", "fps"},
         "Control the application framerate, 0 to disable it (and run as fast as possible).",
@@ -125,6 +126,12 @@ BaseApplication::BaseApplication( int& argc,
                                "foo.bar" );
     QCommandLineOption recordOpt( QStringList {"s", "recordFrames"}, "Enable snapshot recording." );
 
+    QCommandLineOption datapathOpt( QStringList {"d", "data", "export"},
+                                    "Set the default data path and store it in the settings.",
+                                    "folder",
+                                    "./" );
+    //! [Command line arguments]
+
     parser.addOptions( {fpsOpt,
                         pluginOpt,
                         pluginLoadOpt,
@@ -133,10 +140,27 @@ BaseApplication::BaseApplication( int& argc,
                         camOpt,
                         maxThreadsOpt,
                         numFramesOpt,
-                        recordOpt} );
+                        recordOpt,
+                        datapathOpt} );
+
     if ( !parser.parse( this->arguments() ) )
     { LOG( logWARNING ) << "Command line parsing failed due to unsupported or missing options"; }
-
+    if ( parser.isSet( datapathOpt ) )
+    {
+        auto p = parser.value( datapathOpt ).toStdString();
+        Ra::Core::Resources::pushDataPath( p );
+        QSettings settings;
+        settings.setValue( "data_path", p.c_str() );
+    }
+    else
+    {
+        QSettings settings;
+        if ( settings.contains( "data_path" ) )
+        {
+            auto p = settings.value( "data_path" ).toString().toStdString();
+            Ra::Core::Resources::pushDataPath( p );
+        }
+    }
     if ( parser.isSet( fpsOpt ) ) m_targetFPS = parser.value( fpsOpt ).toUInt();
     if ( parser.isSet( pluginOpt ) ) m_pluginPath = parser.value( pluginOpt ).toStdString();
     if ( parser.isSet( numFramesOpt ) ) m_numFrames = parser.value( numFramesOpt ).toUInt();
@@ -152,13 +176,13 @@ BaseApplication::BaseApplication( int& argc,
         std::tm* startTm      = std::localtime( &startTime );
         std::stringstream ssTp;
         ssTp << std::put_time( startTm, "%Y%m%d-%H%M%S" );
-        m_exportFoldername = ssTp.str();
+        m_exportFoldername = Ra::Core::Resources::getDataPath() + "/" + ssTp.str();
     }
 
     QDir().mkdir( m_exportFoldername.c_str() );
 
     // Boilerplate print.
-    LOG( logINFO ) << "*** Radium Engine Main App  ***";
+    LOG( logINFO ) << "*** Radium Engine Base Application  ***";
     std::stringstream config;
 #if defined( CORE_DEBUG )
     config << "Debug Build ";
@@ -185,7 +209,6 @@ BaseApplication::BaseApplication( int& argc,
 #else
     config << "single precision";
 #endif
-
     LOG( logINFO ) << config.str();
 
     config.str( std::string() );
@@ -198,6 +221,22 @@ BaseApplication::BaseApplication( int& argc,
     LOG( logINFO ) << "Qt Version: " << qVersion();
 
     LOG( logINFO ) << "Max Thread: " << m_maxThreads;
+
+    LOG( logINFO ) << "Output data path : " << Ra::Core::Resources::getDataPath();
+
+#ifdef OS_MACOS
+    {
+        // Note on QSettings on macOS :
+        // macOS, since Maverick, cache the application settings and when changing the settings file
+        // outside of the application, one need to wait for the cache to being reloaded (reboot or
+        // wait a given duration). To force reload of QSettings, use `defaults read
+        // settingfile.plist` source :
+        // https://nethack.ch/2014/03/30/quick-tip-flush-os-x-mavericks-plist-file-cache/ That's why
+        // we display the QSettings filename here ...
+        QSettings settings;
+        LOG( logINFO ) << "Settings file : " << settings.fileName().toStdString();
+    }
+#endif
 
     // Create the instance of the keymapping manager, before creating
     // Qt main windows, which may throw events on Microsoft Windows
