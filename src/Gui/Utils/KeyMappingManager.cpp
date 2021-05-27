@@ -472,11 +472,7 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
         m_actionNameToIndex[contextIndex][actionString] = actionIndex;
     }
     else
-    {
-        LOG( logERROR ) << "Action " << actionString << " has already been inserted to index for "
-                        << context;
-        actionIndex = actionItr->second;
-    }
+    { actionIndex = actionItr->second; }
 
     Qt::KeyboardModifiers modifiersValue = getQtModifiersValue( modifiersString );
     auto keyValue                        = m_metaEnumKey.keyToValue( keyString.c_str() );

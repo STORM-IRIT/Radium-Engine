@@ -245,6 +245,11 @@ void RenderObject::hasExpired() {
     m_component->notifyRenderObjectExpired( m_idx );
 }
 
+void RenderObject::setLifetime( int t ) {
+    m_lifetime    = t;
+    m_hasLifetime = true;
+}
+
 void RenderObject::render( const Data::RenderParameters& lightParams,
                            const Data::ViewingParameters& viewParams,
                            const Data::ShaderProgram* shader,

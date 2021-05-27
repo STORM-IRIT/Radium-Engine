@@ -22,15 +22,7 @@ CameraManipulator::CameraManipulator( const CameraManipulator& other ) :
     m_camera( other.m_camera ),
     m_light( other.m_light ) {}
 
-CameraManipulator::CameraManipulator() :
-    m_cameraSensitivity( 1.0_ra ),
-    m_quickCameraModifier( 1._ra ),
-    m_wheelSpeedModifier( 0.02_ra ),
-    m_targetedAabbVolume( 0.0_ra ),
-    m_mapCameraBahaviourToAabb( false ),
-    m_target( 0_ra, 0_ra, 0_ra ),
-    m_camera( nullptr ),
-    m_light( nullptr ) {
+CameraManipulator::CameraManipulator() {
 
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
@@ -38,18 +30,6 @@ CameraManipulator::CameraManipulator() :
 }
 
 CameraManipulator::~CameraManipulator() {}
-
-void CameraManipulator::resizeViewport( uint width, uint height ) {
-    m_camera->setViewport( Scalar( width ), Scalar( height ) );
-}
-
-Core::Matrix4 CameraManipulator::getProjMatrix() const {
-    return m_camera->getProjMatrix();
-}
-
-Core::Matrix4 CameraManipulator::getViewMatrix() const {
-    return m_camera->getViewMatrix();
-}
 
 void CameraManipulator::setCameraSensitivity( Scalar sensitivity ) {
     m_cameraSensitivity = sensitivity;
@@ -69,14 +49,6 @@ void CameraManipulator::setCameraZNear( Scalar zNear ) {
 
 void CameraManipulator::setCameraZFar( Scalar zFar ) {
     m_camera->setZFar( zFar );
-}
-
-void CameraManipulator::setCamera( Core::Asset::Camera* camera ) {
-    if ( !camera ) return;
-    auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
-        Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-    *cameraManager->getActiveCamera() = *camera;
-    updateCamera();
 }
 
 void CameraManipulator::updateCamera() {}

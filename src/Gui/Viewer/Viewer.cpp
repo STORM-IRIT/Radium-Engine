@@ -53,6 +53,8 @@
 #include <Gui/Viewer/Gizmo/GizmoManager.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
+#include <QApplication>
+
 namespace Ra {
 namespace Gui {
 
@@ -359,7 +361,7 @@ bool Viewer::changeRenderer( int index ) {
         LOG( logINFO ) << "[Viewer] Set active renderer: " << m_currentRenderer->getRendererName();
 
         // resize camera viewport since the one in show event might have 0x0
-        m_camera->resizeViewport( width(), height() );
+        m_camera->getCamera()->setViewport( width(), height() );
 
         doneCurrent();
         emit rendererReady();
@@ -421,16 +423,6 @@ void Viewer::initializeRenderer( Engine::Rendering::Renderer* renderer ) {
 #endif
     renderer->initialize( width(), height() );
     renderer->setBackgroundColor( m_backgroundColor );
-    // resize camera viewport since it might be 0x0
-    // Why this line ?TODO -- Move this at the right place
-    // m_camera->resizeViewport( width(), height() );
-    // do this only when the renderer has something to render and that there is no lights
-    /*
-    if ( m_camera->hasLightAttached() )
-    {
-        renderer->addLight( m_camera->getLight() );
-    }
-    */
     renderer->lockRendering();
 }
 
@@ -518,31 +510,31 @@ Viewer::getPickingMode( const KeyMappingManager::KeyMappingAction& action ) cons
     return Engine::Rendering::Renderer::NONE;
 }
 
+void Viewer::propagateEventToParent( QEvent* event ) {
+    event->ignore();
+    if ( !isTopLevel() ) { QApplication::sendEvent( parent(), event ); }
+}
+
 void Viewer::keyPressEvent( QKeyEvent* event ) {
-
-    if ( !m_glInitialized.load() )
-    {
-        event->ignore();
-        return;
-    }
     keyPressed( event->key() );
-    if ( event->isAutoRepeat() ) return;
-
-    handleKeyPressEvent( event );
-
-    emit needUpdate();
+    if ( !m_glInitialized.load() || event->isAutoRepeat() || !handleKeyPressEvent( event ) )
+        propagateEventToParent( event );
+    else
+        emit needUpdate();
 }
 
 void Viewer::keyReleaseEvent( QKeyEvent* event ) {
     keyReleased( event->key() );
-    m_camera->handleKeyReleaseEvent( event );
-    emit needUpdate();
+    if ( !m_camera->handleKeyReleaseEvent( event ) )
+        propagateEventToParent( event );
+    else
+        emit needUpdate();
 }
 
 void Viewer::mousePressEvent( QMouseEvent* event ) {
     if ( !m_glInitialized.load() )
     {
-        event->ignore();
+        propagateEventToParent( event );
         return;
     }
 
@@ -590,19 +582,19 @@ void Viewer::wheelEvent( QWheelEvent* event ) {
 
 void Viewer::showEvent( QShowEvent* ev ) {
     WindowQt::showEvent( ev );
-    /// \todo remove this commented code when camera init in ctr is tested on other arch.
 
-    m_camera->resizeViewport( width(), height() );
+    m_camera->getCamera()->setViewport( width(), height() );
 
     emit needUpdate();
 }
 
-void Viewer::handleKeyPressEvent( QKeyEvent* event ) {
+bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
 
-    auto keyMap    = KeyMappingManager::getInstance();
-    auto buttons   = Qt::NoButton;
-    auto modifiers = event->modifiers();
-    auto key       = activeKey();
+    auto keyMap       = KeyMappingManager::getInstance();
+    auto buttons      = Qt::NoButton;
+    auto modifiers    = event->modifiers();
+    auto key          = activeKey();
+    bool eventCatched = false;
 
     // Is keymapping something of the viewer only ?
     // or should be dispatched to all receivers ?
@@ -613,11 +605,13 @@ void Viewer::handleKeyPressEvent( QKeyEvent* event ) {
     auto actionViewer =
         keyMap->getAction( keyMap->getContext( "ViewerContext" ), buttons, modifiers, key );
 
-    if ( actionCamera.isValid() ) { m_camera->handleKeyPressEvent( event, actionCamera ); }
+    if ( actionCamera.isValid() )
+    { eventCatched = m_camera->handleKeyPressEvent( event, actionCamera ); }
 
     if ( actionGizmo.isValid() )
     {
         // m_gizmoManager->handleKeyPressEvent( event, action );
+        // eventCatched = true;
     }
 
     if ( actionViewer.isValid() )
@@ -625,12 +619,16 @@ void Viewer::handleKeyPressEvent( QKeyEvent* event ) {
 
         if ( actionViewer == VIEWER_TOGGLE_WIREFRAME ) { m_currentRenderer->toggleWireframe(); }
         else if ( actionViewer == VIEWER_RELOAD_SHADERS )
-        { reloadShaders(); }
+        {
+            reloadShaders();
+            eventCatched = true;
+        }
         else if ( actionViewer == VIEWER_PICKING_MULTI_CIRCLE )
         {
             m_isBrushPickingEnabled = !m_isBrushPickingEnabled;
             m_currentRenderer->setBrushRadius( m_isBrushPickingEnabled ? m_brushRadius : 0 );
             emit toggleBrushPicking( m_isBrushPickingEnabled );
+            eventCatched = true;
         }
         else if ( actionViewer == VIEWER_SWITCH_CAMERA )
         {
@@ -642,24 +640,29 @@ void Viewer::handleKeyPressEvent( QKeyEvent* event ) {
                 idx %= cameraManager->count();
                 cameraManager->activate( idx );
                 m_camera->updateCamera();
+                eventCatched = true;
             }
             idx++;
         }
         else if ( actionViewer == VIEWER_CAMERA_FIT_SCENE )
-        { fitCamera(); }
+        {
+            fitCamera();
+            eventCatched = true;
+        }
     }
+    return eventCatched;
 }
 
 void Viewer::handleMousePressEvent( QMouseEvent* event,
                                     Ra::Engine::Rendering::Renderer::PickingResult& result ) {
 
     ///\todo something like explained here
-    // if under mouse objects grabs the action, just send it to the object
-    // so we need to have something like
-    // grabber  = renderobject(ro id)->getMouseManipulator
-    // if(grabber && grabber->handleEvent(event, buttons, modifiers, key){
-    // context = grabber->getContext
-    // currentGrabber = grabber (we need to store it for mouse move)
+    /// if under mouse objects grabs the action, just send it to the object
+    /// so we need to have something like
+    /// grabber  = renderobject(ro id)->getMouseManipulator
+    /// if(grabber && grabber->handleEvent(event, buttons, modifiers, key){
+    /// context = grabber->getContext
+    /// currentGrabber = grabber (we need to store it for mouse move)
 
     // for now just handle one active context
     m_activeContext = -1;
@@ -775,7 +778,7 @@ void Viewer::handleWheelEvent( QWheelEvent* event ) {
         m_currentRenderer->setBrushRadius( m_brushRadius );
     }
     else
-    { m_camera->handleWheelEvent( event ); }
+    { m_camera->handleWheelEvent( event, buttons, modifiers, key ); }
 }
 
 Ra::Engine::Rendering::Renderer::PickingResult Viewer::pickAtPosition( Core::Vector2 position ) {

@@ -10,13 +10,20 @@
             action="TRACKBALLCAMERA_PAN"/>
     <keymap context="CameraContext" key="" modifiers="ControlModifier" buttons="MiddleButton"
             action="TRACKBALLCAMERA_ZOOM"/>
-    <keymap context="CameraContext" key="Key_A" modifiers="" buttons="" action="TRACKBALLCAMERA_ROTATE_AROUND"/>
+    <keymap context="CameraContext" key="" modifiers="AltModifier,ControlModifier" buttons="MiddleButton"
+            action="TRACKBALLCAMERA_MOVE_FORWARD"/>
+    <keymap context="CameraContext" key="" modifiers="ControlModifier" buttons="" wheel="true"
+            action="TRACKBALLCAMERA_ZOOM"/>
+    <keymap context="CameraContext" key="" modifiers="" buttons="" wheel="true"
+            action="TRACKBALLCAMERA_MOVE_FORWARD"/>
+    <keymap context="CameraContext" key="Key_T" modifiers="" buttons="" action="TRACKBALLCAMERA_PROJ_MODE"/>
 
     <keymap context="FlightManipulatorContext" key="" modifiers="" buttons="MiddleButton" action="FLIGHTMODECAMERA_ROTATE"/>
     <keymap context="FlightManipulatorContext" key="" modifiers="ShiftModifier" buttons="MiddleButton"
             action="FLIGHTMODECAMERA_PAN"/>
     <keymap context="FlightManipulatorContext" key="" modifiers="ControlModifier" buttons="MiddleButton"
             action="FLIGHTMODECAMERA_ZOOM"/>
+    <keymap context="FlightManipulatorContext" key="" modifiers="" buttons="" wheel="true"            action="FLIGHTMODECAMERA_ZOOM"/>
     <keymap context="FlightManipulatorContext" key="Key_A" modifiers="" buttons="" action="FLIGHTMODECAMERA_ROTATE_AROUND"/>
 
     <keymap context="GizmoContext" key="" modifiers="" buttons="LeftButton" action="GIZMOMANAGER_MANIPULATION"/>

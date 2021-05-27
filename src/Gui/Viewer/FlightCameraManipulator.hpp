@@ -33,7 +33,10 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
                                const Qt::MouseButtons& buttons,
                                const Qt::KeyboardModifiers& modifiers,
                                int key ) override;
-    bool handleWheelEvent( QWheelEvent* event ) override;
+    bool handleWheelEvent( QWheelEvent* event,
+                           const Qt::MouseButtons& buttons,
+                           const Qt::KeyboardModifiers& modifiers,
+                           int key ) override;
 
     bool handleKeyPressEvent( QKeyEvent* event,
                               const KeyMappingManager::KeyMappingAction& action ) override;
