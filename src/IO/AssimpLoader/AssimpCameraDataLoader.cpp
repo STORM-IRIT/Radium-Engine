@@ -97,7 +97,7 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
 }
 
 Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
-                                                       const Core::Matrix4& parentFrame,
+                                                       const Core::Matrix4& /*parentFrame*/,
                                                        const aiCamera& cameraNode,
                                                        Camera& data ) const {
     // old version
@@ -130,7 +130,7 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
     return frame;
 }
 
-void AssimpCameraDataLoader::fetchName( const aiCamera& camera, Camera& data ) const {
+void AssimpCameraDataLoader::fetchName( const aiCamera& camera, Camera& ) const {
     std::string name = assimpToCore( camera.mName );
     //   data.setName( name );
 }
