@@ -25,6 +25,8 @@ Camera& Camera::operator=( const Camera& rhs ) {
     m_fov        = rhs.getFOV();
     m_zNear      = rhs.getZNear();
     m_zFar       = rhs.getZFar();
+    m_xmag       = rhs.m_xmag;
+    m_ymag       = rhs.m_ymag;
     setViewport( rhs.getWidth(), rhs.getHeight() );
     return *this;
 }
@@ -64,27 +66,18 @@ void Camera::applyTransform( const Core::Transform& T ) {
 }
 
 void Camera::updateProjMatrix() {
-
     switch ( m_projType )
     {
     case ProjType::ORTHOGRAPHIC: {
-        const Scalar dx = m_zoomFactor * .5_ra;
-        const Scalar dy = dx / m_aspect;
-        const Scalar l  = -dx; // left
-        const Scalar r  = dx;  // right
-        const Scalar t  = dy;  // top
-        const Scalar b  = -dy; // bottom
-        m_projMatrix    = ortho( l, r, b, t, m_zNear, m_zFar );
+        const Scalar r = m_xmag * m_zoomFactor;
+        const Scalar t = m_ymag * m_zoomFactor / m_aspect;
+        m_projMatrix   = ortho( -r, r, -t, t, m_zNear, m_zFar );
     }
     break;
 
     case ProjType::PERSPECTIVE: {
-        Scalar r     = m_zNear * std::tan( m_fov / 2_ra );
-        Scalar l     = -r;
-        Scalar t     = r / m_aspect;
-        Scalar b     = -t;
-        m_projMatrix = frustum( l, r, b, t, m_zNear, m_zFar );
-        m_projMatrix = perspective( m_aspect, m_fov, m_zNear, m_zFar );
+        Scalar fov   = std::clamp( m_zoomFactor * m_fov, 0.001_ra, Math::Pi - 0.1_ra );
+        m_projMatrix = perspective( m_aspect, fov, m_zNear, m_zFar );
     }
     break;
 
@@ -129,13 +122,14 @@ Core::Matrix4 Camera::ortho( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, S
     Core::Matrix4 projMatrix;
     projMatrix.setZero();
 
-    Core::Vector3 tr( -( r + l ) / ( r - l ), -( t + b ) / ( t - b ), -( ( f + n ) / ( f - n ) ) );
+    Core::Vector4 tr(
+        -( r + l ) / ( r - l ), -( t + b ) / ( t - b ), -( f + n ) / ( f - n ), 1_ra );
 
     projMatrix.setIdentity();
     projMatrix.coeffRef( 0, 0 )    = 2_ra / ( r - l );
     projMatrix.coeffRef( 1, 1 )    = 2_ra / ( t - b );
     projMatrix.coeffRef( 2, 2 )    = 2_ra / ( n - f );
-    projMatrix.block<3, 1>( 0, 3 ) = tr;
+    projMatrix.block<4, 1>( 0, 3 ) = tr;
 
     return projMatrix;
 }
@@ -188,36 +182,41 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
 
 Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     // Ray starts from the camera's current position.
-    return Core::Ray::Through( getPosition(), unProject( pix ) );
+    return Core::Ray::Through( getPosition(), unProjectFromScreen( pix ) );
 }
 
-Core::Vector3 Camera::project( const Core::Vector3& p ) const {
+Core::Vector3 Camera::projectToNDC( const Core::Vector3& p ) const {
     Core::Vector4 point   = Core::Vector4::Ones();
     point.head<3>()       = p;
     Core::Vector4 vpPoint = getProjMatrix() * getViewMatrix() * point;
     vpPoint               = vpPoint / vpPoint.w();
+    return vpPoint.head<3>();
+}
+
+Core::Vector3 Camera::projectToScreen( const Core::Vector3& p ) const {
+    Core::Vector3 vpPoint = projectToNDC( p );
     return Core::Vector3( getWidth() * 0.5_ra * ( 1_ra + vpPoint.x() ),
                           getHeight() * 0.5_ra * ( 1_ra - vpPoint.y() ),
-                          vpPoint.z() );
+                          vpPoint.z() * .5_ra + .5_ra );
 }
 
-Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
-    return unProject( Vector3 {pix.x(), pix.y(), -getZNear()} );
+Core::Vector3 Camera::unProjectFromScreen( const Core::Vector2& pix ) const {
+    return unProjectFromScreen( Vector3 {pix.x(), pix.y(), 0_ra} );
 }
 
-Core::Vector3 Camera::unProject( const Core::Vector3& pix ) const {
-    const Scalar localX = ( 2_ra * pix.x() ) / getWidth() - 1_ra;
-    // Y is "inverted" (goes downwards)
-    const Scalar localY = -( 2_ra * pix.y() ) / getHeight() + 1_ra;
+Core::Vector3 Camera::unProjectFromScreen( const Core::Vector3& pix ) const {
+    Core::Vector3 ndc {pix.cwiseProduct( Core::Vector3( 2_ra, -2_ra, 2_ra ) )
+                           .cwiseQuotient( Core::Vector3( getWidth(), getHeight(), 1_ra ) ) +
+                       Core::Vector3 {-1_ra, 1_ra, -1_ra}};
+    return unProjectFromNDC( ndc );
+}
 
-    // Multiply the point in screen space by the inverted projection matrix
-    // and then by the inverted view matrix ( = m_frame) to get it in world space.
-    // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
-    const Core::Vector4 localPoint( localX, localY, pix.z(), 1_ra );
-    const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint;
+Core::Vector3 Camera::unProjectFromNDC( const Core::Vector3& ndc ) const {
+    Core::Vector4 localPoint4;
+    localPoint4 << ndc, 1_ra;
+    const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint4;
     return getFrame() * ( unproj.head<3>() / unproj.w() );
 }
-
 } // namespace Asset
 } // namespace Core
 } // namespace Ra

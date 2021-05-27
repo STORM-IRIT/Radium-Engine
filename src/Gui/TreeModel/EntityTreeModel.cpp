@@ -5,6 +5,8 @@
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/Entity.hpp>
 
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 
 using Ra::Engine::Scene::ItemEntry;
@@ -15,6 +17,8 @@ namespace Gui {
 void ItemModel::buildModel() {
     m_rootItem.reset( new EngineTreeItem );
     m_rootItem->m_parent = nullptr;
+
+    auto roManager = m_engine->getRenderObjectManager();
     for ( const auto& ent : m_engine->getEntityManager()->getEntities() )
     {
         EngineTreeItem* entityItem = new EngineTreeItem;
@@ -32,6 +36,7 @@ void ItemModel::buildModel() {
                     EngineTreeItem* roItem = new EngineTreeItem;
                     roItem->m_entry        = ItemEntry( ent, comp.get(), roIdx );
                     roItem->m_parent       = componentItem;
+                    roItem->setChecked( roManager->getRenderObject( roIdx )->isVisible() );
                     componentItem->m_children.emplace_back( roItem );
                 }
                 entityItem->m_children.emplace_back( componentItem );
@@ -72,6 +77,8 @@ QModelIndex ItemModel::findEntryIndex( const ItemEntry& entry ) const {
 void ItemModel::addItem( const Engine::Scene::ItemEntry& ent ) {
     CORE_ASSERT( ent.isValid(), "Inserting invalid entry" );
     CORE_ASSERT( !findEntryIndex( ent ).isValid(), "Entry already in model" );
+    auto roManager = m_engine->getRenderObjectManager();
+
     if ( !findEntryIndex( ent ).isValid() )
     {
         TreeItem* parentItem;
@@ -93,7 +100,31 @@ void ItemModel::addItem( const Engine::Scene::ItemEntry& ent ) {
         EngineTreeItem* childItem = new EngineTreeItem;
         childItem->m_entry        = ent;
         childItem->m_parent       = parentItem;
-        int row                   = int( parentItem->m_children.size() );
+        if ( ent.isRoNode() )
+        {
+            childItem->setChecked( roManager->getRenderObject( ent.m_roIndex )->isVisible() );
+            // update parent checkbox if every ro aren't visible
+            bool checked = roManager->getRenderObject( ent.m_roIndex )->isVisible();
+            auto pent    = static_cast<EngineTreeItem*>( parentItem )->m_entry.m_component;
+            for ( const auto& roIdx : pent->getRenderObjects() )
+            {
+                checked = checked || roManager->getRenderObject( roIdx )->isVisible();
+            }
+
+            parentItem->setChecked( checked );
+        }
+        else if ( ent.isComponentNode() )
+        {
+            //
+            bool checked = false;
+            for ( const auto& roIdx : ent.m_component->getRenderObjects() )
+            {
+                checked = checked || roManager->getRenderObject( roIdx )->isVisible();
+            }
+            childItem->setChecked( checked );
+        }
+
+        int row = int( parentItem->m_children.size() );
         beginInsertRows( parentIdx, row, row );
         parentItem->m_children.emplace_back( childItem );
         endInsertRows();
