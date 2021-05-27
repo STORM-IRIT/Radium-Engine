@@ -30,26 +30,26 @@ class RA_CORE_API Camera
     /// Where Y is the up vector and -Z is the direction vector.
     inline Core::Transform getFrame() const;
 
-    /// Set the frame of the camera to 'frame'
+    /// Set the frame of the camera to \b frame.
     inline void setFrame( const Core::Transform& frame );
 
     /// Return the position.
     inline Core::Vector3 getPosition() const;
 
-    /// Set the position of the camera to 'position'.
+    /// Set the position of the camera to \b position.
     inline void setPosition( const Core::Vector3& position );
 
     /// Return the direction the camera is looking at.
     inline Core::Vector3 getDirection() const;
 
-    /// Set the direction of the camera to 'direction'.
+    /// Set the direction of the camera to \b direction.
     /// The other vectors will be rotated accordingly.
     void setDirection( const Core::Vector3& direction );
 
     /// Return the up vector.
     inline Core::Vector3 getUpVector() const;
 
-    /// Set the up vector of the camera to 'upVector'.
+    /// Set the up vector of the camera to \b upVector.
     /// The other vectors will be rotated accordingly.
     inline void setUpVector( const Core::Vector3& upVector );
 
@@ -69,17 +69,21 @@ class RA_CORE_API Camera
     /// Return the screen coordinates + depth of the given point p (in world coordinates).
     Core::Vector3 projectToScreen( const Core::Vector3& p ) const;
 
-    /// return NDC cordinate in the view NDC cube [-1,1]^3
+    /// Return NDC cordinate in the view NDC cube \f$ [-1,1]^3 \f$
     Core::Vector3 projectToNDC( const Core::Vector3& p ) const;
 
-    /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
-    /// use z = 0 (near plane)
+    /// Return the 3D point in world space corresponding to screen coordinates pix.
+    /// pix.x() and pix.y() are in pixel coordinates \f$ \in [0, getWidth()] \times [0, getHeight()]
+    /// \f$. The returned point lies on z near plane.
     Core::Vector3 unProjectFromScreen( const Core::Vector2& pix ) const;
+
     /// Return the 3D point in world space corresponding to screen pixels pix.x(), pix.y(), at depth
     /// pix.z()
     /// x and y are in pixel coordinates (from (0,0) to width,height, z is in 0, 1 (0 near, 1 far
     /// plane)
     Core::Vector3 unProjectFromScreen( const Core::Vector3& pix ) const;
+
+    /// Return the 3D point in world space corresponding to NDC cube \f$ [-1,1]^3 \f$  point pix.
     Core::Vector3 unProjectFromNDC( const Core::Vector3& pix ) const;
 
     //
@@ -89,13 +93,13 @@ class RA_CORE_API Camera
     /// Return the projection type.
     inline ProjType getType() const;
 
-    /// Set the projection type to 'projectionType'.
+    /// Set the projection type to \b projectionType.
     inline void setType( const ProjType& projectionType );
 
     /// Return the zoom factor.
     inline Scalar getZoomFactor() const;
 
-    /// Set the zoom factor to 'zoomFactor'.
+    /// Set the zoom factor to \b zoomFactor.
     inline void setZoomFactor( const Scalar& zoomFactor );
 
     /// Return the horizontal Field Of View.
@@ -120,18 +124,20 @@ class RA_CORE_API Camera
     /// Update the projection matrix according to the current parameters.
     void updateProjMatrix();
 
+    /// set projection to \b projMatrix.
+    /// \see perspective(), ortho().
     inline void setProjMatrix( Core::Matrix4 projMatrix );
 
     /// Return the Z Near plane distance from the camera.
     inline Scalar getZNear() const;
 
-    /// Set the Z Near plane distance to 'zNear'.
+    /// Set the Z Near plane distance to  \b zNear.
     inline void setZNear( Scalar zNear );
 
     /// Return the Z Far plane distance from the camera.
     inline Scalar getZFar() const;
 
-    /// Set the Z Far plane distance to 'zFar'.
+    /// Set the Z Far plane distance to \b zFar.
     inline void setZFar( Scalar zFar );
 
     /// Return the width of the viewport.
@@ -175,7 +181,8 @@ class RA_CORE_API Camera
     /// \see perspective()
     /// Implements the algorithm described here
     /// https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix
-    /// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml
+    /// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml adapted to our
+    /// representation of camera
     /// \param l : left
     /// \param r : right
     /// \param b : bottom
@@ -185,9 +192,10 @@ class RA_CORE_API Camera
     static Core::Matrix4 frustum( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f );
 
     /// \brief Build a projection matrix from the parameters of the view volume
-    /// Implements the algorithm described here
+    /// Implements the algorithms described here
     /// https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/orthographic-projection-matrix
-    /// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml
+    /// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml adapted to our
+    /// representation of camera
     /// \param l : left
     /// \param r : right
     /// \param b : bottom
