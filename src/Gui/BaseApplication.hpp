@@ -40,10 +40,14 @@ class RA_GUI_API BaseApplication : public QApplication
     };
 
     /** Setup the application, create main window and main connections.
+     *
      * \param argc from main()
      * \param argv from main()
-     * \param applicationName
-     * \param organizationName
+     * \param applicationName Name of the application (used to store settings)
+     * \param organizationName Name of the organization (used to store settings)
+     *
+     * The arguments managed from the command line are the following :
+     * \snippet Gui/BaseApplication.cpp Command line arguments
      */
     BaseApplication( int& argc,
                      char** argv,
