@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">935ef31e119152d9d7560951fdd4f07a295ac94c</span>
+   &#160;<span id="projectnumber">2157e09f361a2ef5e28b91ad9fe9bb705ea03595</span>
    </div>
   </td>
  </tr>
@@ -90,58 +90,22 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Ra::Core::Resources Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ab95f03e3ca56365db3cfbb3aa0e376b4"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">searchPath</a> (const std::string &amp;pattern, const std::string &amp;system, void *libSymbol)</td></tr>
-<tr class="separator:ab95f03e3ca56365db3cfbb3aa0e376b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90bbf2a2d93d6d69d393a46d4488a300"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a> (const fs::path &amp;path)</td></tr>
-<tr class="separator:a90bbf2a2d93d6d69d393a46d4488a300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af434c5b44164970395428b4a00e7729c"><td class="memItemLeft" align="right" valign="top">optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">getRadiumResourcesPath</a> ()</td></tr>
-<tr class="separator:af434c5b44164970395428b4a00e7729c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cb536c70ed3e05e6ed8c0da51670cb2"><td class="memItemLeft" align="right" valign="top">optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">getRadiumPluginsPath</a> ()</td></tr>
-<tr class="separator:a3cb536c70ed3e05e6ed8c0da51670cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49a62b95fba90756b4c2777238c2e032"><td class="memItemLeft" align="right" valign="top">optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">getBasePath</a> ()</td></tr>
-<tr class="memdesc:a49a62b95fba90756b4c2777238c2e032"><td class="mdescLeft">&#160;</td><td class="mdescRight">this one is always found, use optional for consistency ?  <a href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">More...</a><br /></td></tr>
-<tr class="separator:a49a62b95fba90756b4c2777238c2e032"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad157b4daee76752dc0af8d042619cf6c"><td class="memItemLeft" align="right" valign="top">optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">getResourcesPath</a> (void *symbol, const std::string &amp;pattern)</td></tr>
-<tr class="separator:ad157b4daee76752dc0af8d042619cf6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
+
+<p><a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> paths, plugins paths and data paths management for Radium.  
+<a href="namespaceRa_1_1Core_1_1Resources.html#details">More...</a></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="namespaceRa_1_1Core_1_1Resources.html">Resources</a> management for Radium. This namespace contains functions, classes and utilities for resource management. <a class="el" href="namespaceRa_1_1Core_1_1Resources.html">Resources</a> are :</p><ul>
+<div class="textblock"><p><a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> paths, plugins paths and data paths management for Radium. </p>
+<p>This namespace contains functions, classes and utilities for resource management. <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> are :</p><ul>
 <li>configuration file (ui, keymapping, ...)</li>
 <li>default shaders</li>
 <li>...</li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000020">Todo:</a></b></dt><dd>ensure that resources are installed or linked in the parent directory of the libRadiumCore dynamic library.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000021">Todo:</a></b></dt><dd>Generalize the locator such that one can find an offsetted directory from a dynamic library containing an arbitrary symbol. (easy with cpplocate) </dd></dl>
+<p>This namespace also contains functions allowing to set and access paths to store data generated by Radium applications, plugins or libraries in a portable way. If not set, the default data path is the working directory of the application. For <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html" title="This class contains the main application logic. It owns the engine and the GUI.">Gui::BaseApplication</a> derived applications, and for plugins, the default data path can be set using command line parameter and is stored in the application settings. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a206dc5c82ced974ba84956de4cb8cd26">Gui::BaseApplication::BaseApplication</a> </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a90bbf2a2d93d6d69d393a46d4488a300"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90bbf2a2d93d6d69d393a46d4488a300">&#9670;&nbsp;</a></span>clean()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">fs::path Ra::Core::Resources::clean </td>
-          <td>(</td>
-          <td class="paramtype">const fs::path &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00022">22</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
-
-</div>
-</div>
 <a id="a49a62b95fba90756b4c2777238c2e032"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a49a62b95fba90756b4c2777238c2e032">&#9670;&nbsp;</a></span>getBasePath()</h2>
 
@@ -158,17 +122,32 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>this one is always found, use optional for consistency ? </p>
+<p>Get the path of the current executable.</p>
 <dl class="section return"><dt>Returns</dt><dd>the path prefix to access the current executable (always found) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00047">47</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Resources_a49a62b95fba90756b4c2777238c2e032_cgraph.svg" width="363" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00054">54</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+
 </div>
 </div>
+<a id="a291182009b81d19abfa8b7fff7cbbfb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a291182009b81d19abfa8b7fff7cbbfb7">&#9670;&nbsp;</a></span>getDataPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::string Ra::Core::Resources::getDataPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the current data path. </p>
+<p>If an application's data path was not pushed before the call of this function, the default value, corresponding to the current working directory is returned. Otherwise, the last path pushed using a call to <a class="el" href="namespaceRa_1_1Core_1_1Resources.html#ad6fb8d46cb6a7f05ceae06d2498fca31" title="Push a new data path.">pushDataPath()</a> is returned. </p>
+
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00071">71</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -186,18 +165,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Radium plugins are located in the <a class="el" href="namespaceRa_1_1Plugins.html">Plugins</a> directory, searched from Radium lib location. </p><dl class="section return"><dt>Returns</dt><dd>the path to access Radium <a class="el" href="namespaceRa_1_1Plugins.html">Plugins</a>. empty string if not found </dd></dl>
+
+<p>Get the path of Radium embedded plugins. </p>
+<p>Radium embedded plugins are located in the <a class="el" href="namespaceRa_1_1Plugins.html">Plugins</a> directory, searched from Radium lib location. </p><dl class="section return"><dt>Returns</dt><dd>the path to access Radium <a class="el" href="namespaceRa_1_1Plugins.html">Plugins</a>. empty string if not found </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>the pattern searched is "Plugins/lib" since it's the basic resources dir. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00038">38</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Resources_a3cb536c70ed3e05e6ed8c0da51670cb2_cgraph.svg" width="387" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00045">45</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -215,23 +188,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Radium resources are located in the <a class="el" href="namespaceRa_1_1Core_1_1Resources.html">Resources</a> directory, searched from Radium lib location. </p><dl class="section return"><dt>Returns</dt><dd>the path to access Radium <a class="el" href="namespaceRa_1_1Core_1_1Resources.html">Resources</a> if found, otherwise !has_value </dd></dl>
+
+<p>Get the path of Radium internal resources. </p>
+<p>Radium resources are located in the <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> directory, searched from Radium lib location. </p><dl class="section return"><dt>Returns</dt><dd>the path to access Radium <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> if found, otherwise !has_value </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>the pattern searched is "Resources/Shaders" since it's the basic resources dir. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00029">29</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Resources_af434c5b44164970395428b4a00e7729c_cgraph.svg" width="407" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00036">36</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad157b4daee76752dc0af8d042619cf6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad157b4daee76752dc0af8d042619cf6c">&#9670;&nbsp;</a></span>getResourcesPath()</h2>
+<a id="ae666024acf0e64bda7b94f972af68aef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae666024acf0e64bda7b94f972af68aef">&#9670;&nbsp;</a></span>getResourcesPath()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,53 +222,61 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Search for an accessible <a class="el" href="namespaceRa_1_1Core_1_1Resources.html">Resources</a> (or pattern if given) directory in the current executable (or symbol if != nullptr) path or its parents. </p><dl class="section return"><dt>Returns</dt><dd>the pattern path of the dynamic library or exec that contains the given symbol if found, otherwise !has_value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00051">51</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Resources_ad157b4daee76752dc0af8d042619cf6c_cgraph.svg" width="363" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p>Search for general resource path. </p>
+<p>Search for an accessible <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> (or pattern if given) directory in the current executable (or symbol if != nullptr) path or its parents. </p><dl class="section return"><dt>Returns</dt><dd>the pattern path of the dynamic library or exec that contains the given symbol if found, otherwise !has_value </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00058">58</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab95f03e3ca56365db3cfbb3aa0e376b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab95f03e3ca56365db3cfbb3aa0e376b4">&#9670;&nbsp;</a></span>searchPath()</h2>
+<a id="a3456875ec7483fef97c3d5a8444fed6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3456875ec7483fef97c3d5a8444fed6a">&#9670;&nbsp;</a></span>popDataPath()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">fs::path Ra::Core::Resources::searchPath </td>
+          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::string Ra::Core::Resources::popDataPath </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>pattern</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>system</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>libSymbol</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00016">16</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p>Pop the current data path. </p>
+<p>The returned data path is removed from the data path stack and will not be available anymore for <a class="el" href="namespaceRa_1_1Core_1_1Resources.html#a291182009b81d19abfa8b7fff7cbbfb7" title="Get the current data path.">getDataPath()</a>. </p><dl class="section return"><dt>Returns</dt><dd>the popped data path. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00076">76</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad6fb8d46cb6a7f05ceae06d2498fca31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6fb8d46cb6a7f05ceae06d2498fca31">&#9670;&nbsp;</a></span>pushDataPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> void Ra::Core::Resources::pushDataPath </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>datapath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Push a new data path. </p>
+<p>The pushed data path will be returned by getDataPath until it is popped. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">datapath</td><td>the data path to set as current </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00083">83</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -311,7 +286,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html">Resources</a></li>
-    <li class="footer">Generated on Thu May 27 2021 09:56:37 for Radium Engine by
+    <li class="footer">Generated on Thu May 27 2021 15:30:22 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
