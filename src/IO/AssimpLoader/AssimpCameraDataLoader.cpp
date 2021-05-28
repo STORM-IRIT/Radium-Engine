@@ -68,7 +68,7 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
     Core::Matrix4 rootMatrix;
     rootMatrix = Core::Matrix4::Identity();
     /// \todo tmp test    Core::Matrix4 frame  = loadCameraFrame( scene, rootMatrix, data );
-    Core::Matrix4 frame  = loadCameraFrame( scene, rootMatrix, camera, data );
+    Core::Matrix4 frame  = loadCameraFrame( scene, rootMatrix, camera );
     Core::Vector3 pos    = assimpToCore( camera.mPosition );
     Core::Vector3 lookAt = -assimpToCore( camera.mLookAt ).normalized();
     Core::Vector3 up     = assimpToCore( camera.mUp ).normalized();
@@ -98,8 +98,7 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
 
 Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
                                                        const Core::Matrix4& /*parentFrame*/,
-                                                       const aiCamera& cameraNode,
-                                                       Camera& data ) const {
+                                                       const aiCamera& cameraNode ) const {
     // old version
     //    Core::Matrix4 oldVersionFrame;
     //    {

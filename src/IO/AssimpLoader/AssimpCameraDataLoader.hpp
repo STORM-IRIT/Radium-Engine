@@ -52,8 +52,7 @@ class RA_IO_API AssimpCameraDataLoader : public Core::Asset::DataLoader<Core::As
     /// Return the Camera transformation, in world space, for \p data from \p the scene.
     Core::Matrix4 loadCameraFrame( const aiScene* scene,
                                    const Core::Matrix4& parentFrame,
-                                   const aiCamera& node,
-                                   Core::Asset::Camera& data ) const;
+                                   const aiCamera& node ) const;
 };
 
 } // namespace IO
