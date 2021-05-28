@@ -338,8 +338,13 @@ class RA_ENGINE_API Renderer
      */
     virtual std::unique_ptr<uchar[]> grabFrame( size_t& w, size_t& h ) const;
 
-    /// return the value of the depth buffer under pixel (x,y)
-    ///
+    /**
+     * Read the depth value from depth buffer.
+     * Need to be overridden to take fbo into account.
+     * \return the value of the depth buffer under pixel (x,y) read from m_depthTexture
+     * depth value is in "screen space" [0,1]
+     * \see https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glReadPixels.xhtml
+     */
     virtual Scalar getDepth( int x, int y );
     PickingResult doPickingNow( const PickingQuery& query,
                                 const Data::ViewingParameters& renderData );
