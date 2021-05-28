@@ -117,20 +117,20 @@ endmacro()
 
 macro(setup_coverage_targets ENABLE_COVERAGE LCOV_REMOVES)
     if(ENABLE_COVERAGE)
-        add_custom_target(lcov-init
+        add_custom_target(lcov_init
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --initial --capture --directory ${CMAKE_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/init.info
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --remove ${CMAKE_BINARY_DIR}/init.info ${LCOV_REMOVES} --output-file ${CMAKE_BINARY_DIR}/init.info
             BYPRODUCTS ${CMAKE_BINARY_DIR}/init.info)
-        add_custom_target(lcov-zerocounter
+        add_custom_target(lcov_zerocounter
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --zerocounter --directory ${CMAKE_BINARY_DIR})
-        add_custom_target(lcov-capture
+        add_custom_target(lcov_capture
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --capture --directory . --output-file  ${CMAKE_BINARY_DIR}/coverage.info
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --remove coverage.info  ${LCOV_REMOVES} --output-file  ${CMAKE_BINARY_DIR}/coverage.info
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} -a ${CMAKE_BINARY_DIR}/init.info -a ${CMAKE_BINARY_DIR}/coverage.info -o ${CMAKE_BINARY_DIR}/total.info
             BYPRODUCTS ${CMAKE_BINARY_DIR}/total.info)
-        add_custom_target(lcov-list
+        add_custom_target(lcov_list
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --list ${CMAKE_BINARY_DIR}/total.info)
-        add_custom_target(lcov
+        add_custom_target(coverage_lcov
             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all --parallel
             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-init --parallel
             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-zerocounter --parallel
@@ -141,7 +141,7 @@ macro(setup_coverage_targets ENABLE_COVERAGE LCOV_REMOVES)
 
         find_program(GENHTML_BIN genhtml)
         if(GENHTML_BIN)
-            add_custom_target(lcov-report
+            add_custom_target(coverage_report
                 COMMAND ${GENHTML_BIN} -o ${CMAKE_BINARY_DIR}/lcov total.info)
         endif()
     endif()
