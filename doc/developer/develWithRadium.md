@@ -50,7 +50,7 @@ It's propably on your system repositories, for Debian for instance `sudo apt ins
 
 You can generate [`lcov`](http://ltp.sourceforge.net/coverage/lcov.php) output files to check tests coverage.
 To this end, both `RADIUM_ENABLE_TESTING=ON` and `RADIUM_ENABLE_COVERAGE=ON` have to be passed to cmake, works on Linux in Debug.
-Then the target `lcov-capture` builds and run all the necessary steps and produce a file `total.info` in your build dir.
+Then the target `coverage_lcov` builds and run all the necessary steps and produce a file `total.info` in your build dir.
 Please check CMakeLists.txt for the detailed steps, and `lcov documentation` for further processing of `total.info` to generate an html report.
 
 Here are the example commands to run test and generate report.
@@ -62,8 +62,8 @@ RADIUM_SOURCE=path/to/radium/main/CMakeLists.txt
 
 # in you build path
 cmake -DCMAKE_BUILD_TYPE=Debug -DRADIUM_ENABLE_COVERAGE=ON -C ${RADIUM_CONFIG} ${RADIUM_SOURCE}
-make lcov #build everything, with coverage enable, run test, perform analysis
-make lcov-report # generate html report
+make coverage_lcov #build everything, with coverage enable, run test, perform analysis
+make coverage_report # generate html report
 ```
 output report is `./lcov/index.html`.
 
