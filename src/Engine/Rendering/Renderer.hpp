@@ -340,7 +340,8 @@ class RA_ENGINE_API Renderer
 
     /**
      * Read the depth value from depth buffer.
-     * Need to be overridden to take fbo into account.
+     * Need to be overridden to take fbo into account. This version reads the whole depth texture
+     * back.
      * \return the value of the depth buffer under pixel (x,y) read from m_depthTexture
      * depth value is in "screen space" [0,1]
      * \see https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glReadPixels.xhtml

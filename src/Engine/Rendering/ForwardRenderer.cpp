@@ -27,6 +27,8 @@
 
 #include <map>
 
+#include <globjects/Texture.h>
+
 namespace Ra {
 using namespace Core;
 using namespace Core::Utils; // log
@@ -781,9 +783,9 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
 }
 
 Scalar ForwardRenderer::getDepth( int x, int y ) {
-    Scalar depth;
+    float depth;
     m_fbo->readPixels( {x, y, 1, 1}, GL_DEPTH_COMPONENT, GL_FLOAT, &depth );
-    return depth;
+    return Scalar {depth};
 }
 
 void ForwardRenderer::updateShadowMaps() {
