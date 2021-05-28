@@ -46,7 +46,9 @@ On PR, code coverage analysis is performed through a github action with help of 
 
 You can run such analysis on your own (on linux system, not tested on other plateform) using lcov.
 First install `lcov`, `sed` and `xmllint` for the tests.
-It's propably on your system repositories, for Debian for instance `sudo apt install lcov libxml2-utils`.
+It's probably on your system repositories, e.g.:
+ - for Debian: `sudo apt install lcov libxml2-utils`
+ - on MacOS: `brew install lcov libxml2`
 
 You can generate [`lcov`](http://ltp.sourceforge.net/coverage/lcov.php) output files to check tests coverage.
 To this end, both `RADIUM_ENABLE_TESTING=ON` and `RADIUM_ENABLE_COVERAGE=ON` have to be passed to cmake, works on Linux in Debug.
@@ -68,7 +70,9 @@ make coverage_report # generate html report
 output report is `./lcov/index.html`.
 
 `lcov` is quite slow to process files, [`fastcov`](https://github.com/RPGillespie6/fastcov/blob/master/fastcov.py) is a parallel alternative.
-To install fastcov: `pip3 install fastcov`
+To install fastcov: `pip3 install fastcov`.
+
+Note: fastcov is currently supported by GNU gcov only, so we enable it only on UNIX systems, excluding MacOS. See more details at: https://github.com/RPGillespie6/fastcov/issues/36.
 
 and to run the analysis:
 ```bash
