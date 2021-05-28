@@ -199,7 +199,9 @@ if(ENABLE_COVERAGE)
     set(LCOV_REMOVES "'/usr/*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'")
     setup_coverage_targets(${ENABLE_COVERAGE} "${LCOV_REMOVES}")
 
-    if(FASTCOV_PATH)
+    # Fastcov is not supported with gcov llvm: disabling for MacOS
+    # Source: https://github.com/RPGillespie6/fastcov/issues/36
+    if(UNIX AND NOT APPLE AND FASTCOV_PATH)
         setup_target_for_coverage_fastcov(NAME coverage_fastcov
             EXECUTABLE ctest -j $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
             DEPENDENCIES RadiumLibs RadiumExampleApps unittests integration
