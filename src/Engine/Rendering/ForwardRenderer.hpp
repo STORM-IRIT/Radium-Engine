@@ -28,7 +28,7 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
 
     std::string getRendererName() const override { return "Forward Renderer"; }
     bool buildRenderTechnique( RenderObject* ro ) const override;
-    virtual Scalar getDepth( int x, int y ) override;
+    Scalar getDepth( int x, int y ) override;
 
   protected:
     void initializeInternal() override;
