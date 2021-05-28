@@ -85,7 +85,7 @@ macro(setup_coverage)
         set(RADIUM_ENABLE_TESTING "ON")
         set(ENABLE_COVERAGE "ON")
     else()
-        message( FATAL_ERROR "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not activable, only supported in DEBUG with GCC.")
+        message( FATAL_ERROR "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not available, only supported in DEBUG with GCC (i.e. GNU/Debug). Current configuration is ${CMAKE_CXX_COMPILER_ID}/${CMAKE_BUILD_TYPE}")
     endif()
 endmacro()
 
