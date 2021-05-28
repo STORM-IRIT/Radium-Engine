@@ -19,6 +19,8 @@
 
 #include <globjects/Framebuffer.h>
 
+#include <globjects/Texture.h>
+
 #include <algorithm>
 #include <iostream>
 
@@ -720,9 +722,11 @@ int Renderer::buildAllRenderTechniques() const {
     return 0;
 }
 
-Scalar Renderer::getDepth( int, int ) {
-    CORE_ASSERT( false, "Renderer::getDepth() not implemented, must be overriden" );
-    return 0_ra;
+Scalar Renderer::getDepth( int x, int y ) {
+    float depth;
+    //    m_fbo->readPixels( {x, y, 1, 1}, GL_DEPTH_COMPONENT, GL_FLOAT, &depth );
+    m_depthTexture->texture()->subImage2D( 0, x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth );
+    return Scalar {depth};
 }
 
 } // namespace Rendering
