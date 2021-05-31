@@ -44,9 +44,10 @@ void AssimpCameraDataLoader::loadData( const aiScene* scene,
     data.reserve( CameraSize );
     for ( uint CameraId = 0; CameraId < CameraSize; ++CameraId )
     {
-        Camera* CameraComponent = new Camera();
-        loadCameraData( scene, *( scene->mCameras[CameraId] ), *CameraComponent );
-        data.push_back( std::unique_ptr<Camera>( CameraComponent ) );
+        Camera* camera = new Camera();
+        loadCameraData( scene, *( scene->mCameras[CameraId] ), *camera );
+        ///\todo process camera name to feed component name
+        data.push_back( std::unique_ptr<Camera>( camera ) );
     }
 
     if ( m_verbose ) { LOG( logINFO ) << "Camera Loading end.\n"; }
@@ -63,11 +64,8 @@ uint AssimpCameraDataLoader::sceneCameraSize( const aiScene* scene ) const {
 void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
                                              const aiCamera& camera,
                                              Camera& data ) {
-    fetchName( camera, data );
-
     Core::Matrix4 rootMatrix;
-    rootMatrix = Core::Matrix4::Identity();
-    /// \todo tmp test    Core::Matrix4 frame  = loadCameraFrame( scene, rootMatrix, data );
+    rootMatrix           = Core::Matrix4::Identity();
     Core::Matrix4 frame  = loadCameraFrame( scene, rootMatrix, camera );
     Core::Vector3 pos    = assimpToCore( camera.mPosition );
     Core::Vector3 lookAt = -assimpToCore( camera.mLookAt ).normalized();
@@ -87,8 +85,9 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
     data.setFrame( Core::Transform {view * frame} );
 
     data.setType( Camera::ProjType::PERSPECTIVE ); // default value since not in aiCamera
-    // assimp doc state mHorizontalFOV is half angle, but it is not, at least for collada,
-    // see  https://github.com/assimp/assimp/issues/2256 https://github.com/assimp/assimp/pull/3912
+    // assimp doc (the version we used, updated in assimp master) state mHorizontalFOV is half
+    // angle, but it is not, at least for collada, see  https://github.com/assimp/assimp/issues/2256
+    // https://github.com/assimp/assimp/pull/3912
     data.setFOV( camera.mHorizontalFOV );
     data.setZNear( camera.mClipPlaneNear );
     data.setZFar( camera.mClipPlaneFar );
@@ -127,11 +126,6 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
     // if ( frame != oldVersionFrame ) { LOG( logWARNING ) << "frame computation update failed!"; }
 
     return frame;
-}
-
-void AssimpCameraDataLoader::fetchName( const aiCamera& camera, Camera& ) const {
-    std::string name = assimpToCore( camera.mName );
-    //   data.setName( name );
 }
 
 } // namespace IO
