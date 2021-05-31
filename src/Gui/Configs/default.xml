@@ -4,18 +4,19 @@
 <keymap context="context" action="action" buttons="QButton" modifier="QModifier" key="QKey" wheel="boolean"/>
 -->
 <keymaps>
-  <keymap context="CameraContext" action="TRACKBALLCAMERA_ROTATE" key="" modifiers="" buttons="MiddleButton"/>
-  <keymap context="CameraContext" action="TRACKBALLCAMERA_PAN" key="" modifiers="ShiftModifier" buttons="MiddleButton"/>
-  <keymap context="CameraContext" action="TRACKBALLCAMERA_ZOOM" key="" modifiers="ControlModifier" buttons="MiddleButton"/>
-  <keymap context="CameraContext" action="TRACKBALLCAMERA_MOVE_FORWARD" key="" modifiers="AltModifier,ControlModifier" buttons="MiddleButton"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_ROTATE" key="" modifiers="" buttons="LeftButton"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_PAN" key="" modifiers="ShiftModifier" buttons="LeftButton"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_ZOOM" key="" modifiers="ControlModifier" buttons="LeftButton"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_MOVE_FORWARD" key="" modifiers="AltModifier,ControlModifier" buttons="LeftButton"/>
   <keymap context="CameraContext" action="TRACKBALLCAMERA_ZOOM" key="" modifiers="ControlModifier" buttons="" wheel="true"/>
   <keymap context="CameraContext" action="TRACKBALLCAMERA_MOVE_FORWARD" key="" modifiers="" buttons="" wheel="true"/>
-  <keymap context="CameraContext" action="TRACKBALLCAMERA_PROJ_MODE" key="Key_T" modifiers="" buttons=""/>
-  <keymap context="CameraContext" action="ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS" key="Key_B" modifiers="" buttons=""/>
-  <keymap context="CameraContext" action="ROTATEAROUND_SET_PIVOT" key="Key_V" modifiers="" buttons=""/>
-  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ROTATE" key="" modifiers="" buttons="MiddleButton"/>
-  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_PAN" key="" modifiers="ShiftModifier" buttons="MiddleButton"/>
-  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ZOOM" key="" modifiers="ControlModifier" buttons="MiddleButton"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_PROJ_MODE" key="Key_T" modifiers="AltModifier" buttons=""/>
+  <keymap context="CameraContext" action="ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS" key="Key_B" modifiers="AltModifier" buttons=""/>
+  <keymap context="CameraContext" action="ROTATEAROUND_SET_PIVOT" key="Key_V" modifiers="AltModifier" buttons=""/>
+  <keymap context="CameraContext" action="CAMERA_TOGGLE_QUICK" key="Key_S" modifiers="AltModifier" buttons=""/>
+  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ROTATE" key="" modifiers="" buttons="LeftButton"/>
+  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_PAN" key="" modifiers="ShiftModifier" buttons="LeftButton"/>
+  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ZOOM" key="" modifiers="ControlModifier" buttons="LeftButton"/>
   <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ZOOM" key="" modifiers="" buttons="" wheel="true"/>
   <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ROTATE_AROUND" key="Key_A" modifiers="" buttons=""/>
   <keymap context="GizmoContext" action="GIZMOMANAGER_MANIPULATION" key="" modifiers="" buttons="LeftButton"/>
@@ -31,7 +32,7 @@
   <keymap context="ViewerContext" action="VIEWER_CAMERA_FIT_SCENE" key="Key_F" modifiers="AltModifier" buttons=""/>
   <keymap context="ViewerContext" action="VIEWER_TOGGLE_WIREFRAME" key="Key_Z" modifiers="" buttons=""/>
   <keymap context="ViewerContext" action="VIEWER_RAYCAST" key="Key_R" modifiers="AltModifier" buttons="LeftButton"/>
-  <keymap context="ViewerContext" action="VIEWER_RELOAD_SHADERS" key="Key_R" modifiers="" buttons=""/>
+  <keymap context="ViewerContext" action="VIEWER_RELOAD_SHADERS" key="Key_R" modifiers="CtrlModifier" buttons=""/>
   <keymap context="ViewerContext" action="VIEWER_SCALE_BRUSH" key="" modifiers="ShiftModifier" buttons="" wheel="true"/>
     <keymap context="ViewerContext" action="VIEWER_HELP" buttons="" modifiers="" key="Key_F1" />
 </keymaps>
