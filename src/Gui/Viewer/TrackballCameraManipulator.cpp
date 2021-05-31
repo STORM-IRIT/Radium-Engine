@@ -351,12 +351,7 @@ void TrackballCameraManipulator::handleCameraZoom( Scalar dx, Scalar dy ) {
 }
 
 void TrackballCameraManipulator::handleCameraZoom( Scalar z ) {
-    const Scalar epsIn  = 0.1_ra;
-    const Scalar epsOut = 3.1_ra;
-    Scalar zoom =
-        std::clamp( m_camera->getZoomFactor() - z * m_cameraSensitivity * m_quickCameraModifier,
-                    epsIn,
-                    epsOut );
+    Scalar zoom = m_camera->getZoomFactor() - z * m_cameraSensitivity * m_quickCameraModifier;
     m_camera->setZoomFactor( zoom );
 }
 
