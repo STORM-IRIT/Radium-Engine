@@ -19,13 +19,7 @@ KeyMappingManager::KeyMappingManager() :
     auto resourcesRootDir {optionalPath.value_or( "[[Default resrouces path not found]]" )};
 
     ///\todo how to check here ?
-    m_defaultConfigFile = resourcesRootDir +
-#ifndef OS_MACOS
-                          std::string( "Configs/default.xml" )
-#else
-                          std::string( "Configs/macos.xml" )
-#endif
-        ;
+    m_defaultConfigFile = resourcesRootDir + std::string( "Configs/default.xml" );
 
     QSettings settings;
     QString keyMappingFilename =
