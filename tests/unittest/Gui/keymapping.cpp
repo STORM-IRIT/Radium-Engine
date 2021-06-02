@@ -65,13 +65,7 @@ TEST_CASE( "Gui/Utils/KeyMappingManager", "[Gui][Gui/Utils][KeyMappingManager]" 
     auto optionalPath {Core::Resources::getRadiumResourcesPath()};
     auto resourcesRootDir {optionalPath.value_or( "[[Default resrouces path not found]]" )};
     ///\todo how to check here ?
-    auto defaultConfigFile = resourcesRootDir +
-#ifndef OS_MACOS
-                             std::string( "Configs/default.xml" )
-#else
-                             std::string( "Configs/macos.xml" )
-#endif
-        ;
+    auto defaultConfigFile = resourcesRootDir + std::string( "Configs/default.xml" );
 
     SECTION( "key mapping file load" ) {
         REQUIRE( defaultConfigFile == mgr->getLoadedFilename() );
