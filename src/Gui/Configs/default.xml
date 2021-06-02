@@ -30,7 +30,7 @@
   <keymap context="ViewerContext" action="VIEWER_PICKING_MULTI_CIRCLE" key="Key_C" modifiers="" buttons=""/>
   <keymap context="ViewerContext" action="VIEWER_SWITCH_CAMERA" key="Key_C" modifiers="AltModifier" buttons=""/>
   <keymap context="ViewerContext" action="VIEWER_CAMERA_FIT_SCENE" key="Key_F" modifiers="AltModifier" buttons=""/>
-  <keymap context="ViewerContext" action="VIEWER_TOGGLE_WIREFRAME" key="Key_Z" modifiers="" buttons=""/>
+  <keymap context="ViewerContext" action="VIEWER_TOGGLE_WIREFRAME" key="Key_W" modifiers="" buttons=""/>
   <keymap context="ViewerContext" action="VIEWER_RAYCAST" key="Key_R" modifiers="AltModifier" buttons="LeftButton"/>
   <keymap context="ViewerContext" action="VIEWER_RELOAD_SHADERS" key="Key_R" modifiers="CtrlModifier" buttons=""/>
   <keymap context="ViewerContext" action="VIEWER_SCALE_BRUSH" key="" modifiers="ShiftModifier" buttons="" wheel="true"/>
