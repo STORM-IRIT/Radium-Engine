@@ -780,5 +780,17 @@ void BaseApplication::clearPluginDirectories() {
     settings.setValue( "plugins/paths", QStringList() );
 }
 
+void BaseApplication::editSettings() {
+    QMessageBox notYetImplemented;
+    notYetImplemented.setText( "Settings editor is not yet available !" );
+    notYetImplemented.exec();
+}
+
+std::string BaseApplication::getHelpText() const {
+    std::string helpText {"<h1>BaseApplication command line parameters</h1><\n>"};
+    helpText += "<p>Not yet written.</p><br/><\n>";
+    return helpText;
+}
+
 } // namespace Gui
 } // namespace Ra
