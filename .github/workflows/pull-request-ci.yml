@@ -7,7 +7,8 @@ defaults:
 on:
   pull_request:
     branches:
-      - master
+      - release-candidate
+
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
 
@@ -75,4 +76,3 @@ jobs:
         run: |
           cd build/Radium-Engine
           cmake --build . --parallel --config Release --target check
-

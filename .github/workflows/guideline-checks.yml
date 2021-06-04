@@ -3,11 +3,11 @@ name: Guideline Checks
 on:
   pull_request:
     branches:
-      - master
+      - release-candidate
   push:
     branches:
       - master
-
+      - release-candidate
 jobs:
   hitory:
     if: ${{ github.event_name != 'push' }}
