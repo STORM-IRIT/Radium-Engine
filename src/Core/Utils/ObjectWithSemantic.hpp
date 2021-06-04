@@ -6,6 +6,12 @@
 namespace Ra {
 namespace Core {
 namespace Utils {
+/// \brief Object associated with one or multiple semantic names
+///
+/// Holds a static collection of names (#SemanticNameCollection) that are defined by the inheriting
+/// class when calling the protected constructor.
+/// Provides #hasSemantic to test if one object has a given semantic name, as well as #shareSemantic
+/// and #sameSemantics to compare different objects.
 class RA_CORE_API ObjectWithSemantic
 {
   public:
@@ -16,6 +22,8 @@ class RA_CORE_API ObjectWithSemantic
 
     inline explicit ObjectWithSemantic( const ObjectWithSemantic& other ) :
         m_names( other.m_names ) {}
+
+    virtual inline ~ObjectWithSemantic() = default;
 
     inline bool hasSemantic( const SemanticName& name ) const {
         return m_names.find( name ) != m_names.end();
