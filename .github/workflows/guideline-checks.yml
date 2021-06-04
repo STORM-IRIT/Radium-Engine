@@ -9,7 +9,7 @@ on:
       - master
       - release-candidate
 jobs:
-  hitory:
+  history:
     if: ${{ github.event_name != 'push' }}
     name: Check linear history
     runs-on: ubuntu-latest
