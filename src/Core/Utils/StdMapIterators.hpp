@@ -48,6 +48,7 @@ struct map_keys {
     };
 
     map_keys( map_t& x ) : x_( x ) {}
+    virtual inline ~map_keys() = default;
 
     iterator begin() { return iterator( x_.begin() ); }
     iterator end() { return iterator( x_.end() ); }
