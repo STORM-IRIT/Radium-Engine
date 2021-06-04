@@ -7,6 +7,7 @@ namespace Gui {
 AboutDialog::AboutDialog( QWidget* parent ) : QDialog( parent ), ui( new Ui::AboutDialog ) {
     ui->setupUi( this );
     ui->radiumText->setFocusPolicy( Qt::NoFocus );
+    ui->radiumText->setSource( QUrl( "qrc:/about.html" ) );
     auto btn = ui->aboutbuttons->button( QDialogButtonBox::Close );
     btn->setFocus();
     btn->setAutoDefault( true );

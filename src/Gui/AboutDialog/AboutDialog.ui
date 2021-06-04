@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>595</width>
+    <width>666</width>
     <height>300</height>
    </rect>
   </property>
@@ -34,10 +34,11 @@
      <property name="enabled">
       <bool>true</bool>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="acceptDrops">
       <bool>false</bool>
@@ -57,24 +58,14 @@
      <property name="lineWidth">
       <number>0</number>
      </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
      <property name="sizeAdjustPolicy">
       <enum>QAbstractScrollArea::AdjustToContents</enum>
-     </property>
-     <property name="html">
-      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.SF NS Text'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;
-&lt;tr&gt;
-&lt;td&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:Icons/RadiumIcon.png&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td style=&quot; padding-left:10; padding-right:10; padding-top:10; padding-bottom:10;&quot;&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Roboto','sans-serif'; font-size:12pt; font-weight:600;&quot;&gt;Radium Engine&lt;/span&gt;&lt;span style=&quot; font-family:'Roboto','sans-serif'; font-size:12pt;&quot;&gt;&lt;br /&gt;Storm-IRIT, CNRS-Université de Toulouse &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Roboto','sans-serif'; font-size:12pt;&quot;&gt;github &lt;/span&gt;&lt;a href=&quot;https://github.com/STORM-IRIT/Radium-Engine/&quot;&gt;&lt;span style=&quot; font-family:'Roboto','sans-serif'; font-size:12pt; text-decoration: underline; color:#ff7800;&quot;&gt;https://github.com/STORM-IRIT/Radium-Engine&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Roboto','sans-serif'; font-size:12pt;&quot;&gt;&lt;br /&gt;doc &lt;/span&gt;&lt;a href=&quot;https://storm-irit.github.io/Radium-Engine/&quot;&gt;&lt;span style=&quot; font-family:'Roboto','sans-serif'; font-size:12pt; text-decoration: underline; color:#ff7800;&quot;&gt;https://storm-irit.github.io/Radium-Engine/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="placeholderText">
-      <string/>
      </property>
      <property name="openExternalLinks">
       <bool>true</bool>
@@ -87,7 +78,7 @@ p, li { white-space: pre-wrap; }
       <string/>
      </property>
      <property name="styleSheet">
-      <string notr="true">    border: none; background:#416d83; padding:8px</string>
+      <string notr="true">border: none; background:#416d83; padding:8px</string>
      </property>
      <property name="locale">
       <locale language="English" country="UnitedStates"/>
@@ -105,9 +96,6 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../QtResources/RadiumQtResources.qrc"/>
- </resources>
  <connections>
   <connection>
    <sender>aboutbuttons</sender>
