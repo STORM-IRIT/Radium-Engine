@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - master
+      - release-candidate
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
 
@@ -82,7 +83,7 @@ jobs:
           cd build/Radium-Engine
           cmake --build . --parallel --config ${{ matrix.build-type }} --target check
       - name: Update badge on merge (failure)
-        if: ${{ failure() }}
+        if: ${{ failure() && github.ref == 'refs/heads/master'  }}
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_BADGES_TOKEN }}
@@ -94,7 +95,7 @@ jobs:
           logoColor: white
           color: CC1B1B
       - name: Update badge on merge (success)
-        if: ${{ success() }}
+        if: ${{ success() && github.ref == 'refs/heads/master'  }}
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_BADGES_TOKEN }}
