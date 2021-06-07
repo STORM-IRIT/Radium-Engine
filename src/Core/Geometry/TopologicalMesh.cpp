@@ -213,8 +213,8 @@ void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Contai
     }
 }
 
-template <typename T, typename U>
-void moveContainerToMesh( IndexedGeometry<U>& out,
+template <typename T>
+void moveContainerToMesh( Ra::Core::Geometry::MultiIndexedGeometry& out,
                           const std::vector<std::string>& names,
                           AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) {
     for ( size_t i = 0; i < wedgeAttribData.size(); ++i )
@@ -397,7 +397,7 @@ PolyMesh TopologicalMesh::toPolyMesh() {
     return out;
 }
 
-void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& out ) {
+void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeometry& out ) {
     TriangleMesh::PointAttribHandle::Container wedgePosition;
     AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(
         m_wedges.m_floatAttribNames.size() );
@@ -440,13 +440,13 @@ void TopologicalMesh::updateTriangleMeshNormals(
     }
 }
 
-void TopologicalMesh::updateTriangleMeshNormals( Ra::Core::Geometry::TriangleMesh& out ) {
+void TopologicalMesh::updateTriangleMeshNormals( Ra::Core::Geometry::MultiIndexedGeometry& out ) {
     auto& normals = out.normalsWithLock();
     updateTriangleMeshNormals( normals );
     out.normalsUnlock();
 }
 
-void TopologicalMesh::update( const Ra::Core::Geometry::TriangleMesh& triMesh ) {
+void TopologicalMesh::update( const Ra::Core::Geometry::MultiIndexedGeometry& triMesh ) {
     for ( size_t i = 0; i < triMesh.vertices().size(); ++i )
     {
         WedgeData wd;
@@ -468,7 +468,7 @@ void TopologicalMesh::update( const Ra::Core::Geometry::TriangleMesh& triMesh ) 
     }
 }
 
-void TopologicalMesh::updatePositions( const Ra::Core::Geometry::TriangleMesh& triMesh ) {
+void TopologicalMesh::updatePositions( const Ra::Core::Geometry::MultiIndexedGeometry& triMesh ) {
     updatePositions( triMesh.vertices() );
 }
 
@@ -482,12 +482,63 @@ void TopologicalMesh::updatePositions(
     }
 }
 
-void TopologicalMesh::updateNormals( const Ra::Core::Geometry::TriangleMesh& triMesh ) {
+void TopologicalMesh::updateNormals( const Ra::Core::Geometry::MultiIndexedGeometry& triMesh ) {
     auto& normals = triMesh.normals();
 
     for ( size_t i = 0; i < triMesh.vertices().size(); ++i )
     {
         m_wedges.setWedgeAttrib<Normal>( i, m_normalsIndex, normals[i] );
+    }
+}
+
+void TopologicalMesh::updateWedgeNormals() {
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
+        return;
+    }
+    //    update_face_normals();
+    FaceIter f_it( faces_sbegin() ), f_end( faces_end() );
+    for ( ; f_it != f_end; ++f_it )
+    {
+        auto fv_it     = this->cfv_iter( *f_it );
+        const auto& p0 = point( *fv_it );
+        ++fv_it;
+        const auto& p1 = point( *fv_it );
+        ++fv_it;
+        const auto& p2 = point( *fv_it );
+        ++fv_it;
+        const Normal n = Ra::Core::Geometry::triangleNormal( p0, p1, p2 );
+        set_normal( *f_it, n );
+    }
+
+    for ( auto& w : m_wedges.m_data )
+    {
+        w.getWedgeData().m_vector3Attrib[m_normalsIndex] = Normal {0_ra, 0_ra, 0_ra};
+    }
+
+    for ( auto v_itr = vertices_begin(), stop = vertices_end(); v_itr != stop; ++v_itr )
+    {
+        for ( ConstVertexFaceIter f_itr = cvf_iter( *v_itr ); f_itr.is_valid(); ++f_itr )
+        {
+            for ( const auto& widx : m_vertexFaceWedgesWithSameNormals[v_itr->idx()][f_itr->idx()] )
+            {
+                m_wedges.m_data[widx].getWedgeData().m_vector3Attrib[m_normalsIndex] +=
+                    normal( *f_itr );
+            }
+        }
+    }
+
+    for ( auto& w : m_wedges.m_data )
+    {
+        w.getWedgeData().m_vector3Attrib[m_normalsIndex].normalize();
+    }
+}
+
+void TopologicalMesh::copyPointsPositionToWedges() {
+    for ( auto& w : m_wedges.m_data )
+    {
+        w.m_wedgeData.m_position = point( w.m_wedgeData.m_vertexHandle );
     }
 }
 

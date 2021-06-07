@@ -25,6 +25,7 @@ set( core_sources
     Geometry/CatmullClarkSubdivider.cpp
     Geometry/deprecated/TopologicalMesh.cpp
     Geometry/HeatDiffusion.cpp
+    Geometry/IndexedGeometry.cpp
     Geometry/Laplacian.cpp
     Geometry/LoopSubdivider.cpp
     Geometry/MeshPrimitives.cpp
@@ -96,6 +97,7 @@ set( core_headers
     Geometry/DistanceQueries.hpp
     Geometry/Frustum.hpp
     Geometry/HeatDiffusion.hpp
+    Geometry/IndexedGeometry.hpp
     Geometry/Laplacian.hpp
     Geometry/LoopSubdivider.hpp
     Geometry/MeshPrimitives.hpp
@@ -129,10 +131,12 @@ set( core_headers
     Utils/Index.hpp
     Utils/IndexMap.hpp
     Utils/Log.hpp
+    Utils/ObjectWithSemantic.hpp
     Utils/Observable.hpp
     Utils/Singleton.hpp
     Utils/StackTrace.hpp
     Utils/StdFilesystem.hpp
+    Utils/StdMapIterators.hpp
     Utils/StdOptional.hpp
     Utils/StdUtils.hpp
     Utils/StringUtils.hpp
@@ -158,6 +162,7 @@ set( core_inlines
     Geometry/Curve2D.inl
     Geometry/deprecated/TopologicalMesh.inl
     Geometry/DistanceQueries.inl
+    Geometry/IndexedGeometry.inl
     Geometry/MeshPrimitives.inl
     Geometry/PolyLine.inl
     Geometry/Spline.inl

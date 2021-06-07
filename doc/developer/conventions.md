@@ -91,6 +91,8 @@ everything else.
 * getters and setter should have a consistent name with the variable.
 
 # Non-negociable
-* No exceptions, no  RTTI, no dynamic cast, no gotos.
+* Exceptions are forbidden, except when mimicking or using `std` containers (e.g., by throwing `std::out_of_range`).
+In any cases, exceptions must be used in exceptional cases, and should not be used as an event system.
+* No gotos.
 
 

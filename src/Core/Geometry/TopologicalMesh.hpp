@@ -75,7 +75,18 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
      */
     template <typename MeshIndex>
-    explicit TopologicalMesh( const Ra::Core::Geometry::IndexedGeometry<MeshIndex>& mesh );
+    explicit TopologicalMesh( [[deprecated(
+        "Use MultiIndexedGeometry instead" )]] const Ra::Core::Geometry::IndexedGeometry<MeshIndex>&
+                                  mesh );
+
+    /**
+     * \brief Convenience constructor
+     * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
+     * @todo, when MultiIndexedGeometry will be operational, will this replace the above ?
+     */
+    explicit TopologicalMesh(
+        const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
+        const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType& layerKey );
 
     /**
      * Construct a topological mesh from a triangle mesh.
@@ -90,15 +101,37 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      *
      */
     template <typename MeshIndex, typename NonManifoldFaceCommand>
-    explicit TopologicalMesh( const Ra::Core::Geometry::IndexedGeometry<MeshIndex>& mesh,
+    explicit TopologicalMesh( [[deprecated( "Use MultiIndexedGeometry instead" )]] const Ra::Core::
+                                  Geometry::IndexedGeometry<MeshIndex>& mesh,
                               NonManifoldFaceCommand command );
 
-    template <typename T>
-    void initWithWedge( const Ra::Core::Geometry::IndexedGeometry<T>& mesh );
-    template <typename T, typename NonManifoldFaceCommand>
-    void initWithWedge( const Ra::Core::Geometry::IndexedGeometry<T>& mesh,
-                        NonManifoldFaceCommand command );
+    /**
+     * Construct a topological mesh from a triangle mesh.
+     * This operation merges vertex with same position, but keeps vertex
+     * attributes on halfedges, so that TriangleMesh vertices with the same 3D
+     * position are represented only once in the topological mesh.
+     * \note This is a costly operation.
+     *
+     * \tparam NonManifoldFaceCommand Command executed when non-manifold faces are
+     * found. API and default implementation:
+     * \snippet Core/Geometry/TopologicalMesh.cpp Default command implementation
+     * @todo, when MultiIndexedGeometry will be operational, will this replace the above ?
+     *
+     */
+    template <typename NonManifoldFaceCommand>
+    explicit TopologicalMesh(
+        const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
+        const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType& layerKey,
+        NonManifoldFaceCommand command );
 
+    inline void
+    initWithWedge( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
+                   const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType& layerKey );
+
+    template <typename NonManifoldFaceCommand>
+    void initWithWedge( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
+                        const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType& layerKey,
+                        NonManifoldFaceCommand command );
     /**
      * Return a triangleMesh from the topological mesh.
      * \note This is a costly operation.
@@ -120,13 +153,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
      * same topology.
      */
-    void updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& mesh );
-    void updateTriangleMeshNormals( Ra::Core::Geometry::TriangleMesh& mesh );
+    void updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeometry& mesh );
+    void updateTriangleMeshNormals( Ra::Core::Geometry::MultiIndexedGeometry& mesh );
     void updateTriangleMeshNormals( AttribArrayGeometry::NormalAttribHandle::Container& normals );
 
-    void update( const Ra::Core::Geometry::TriangleMesh& mesh );
-    void updateNormals( const Ra::Core::Geometry::TriangleMesh& mesh );
-    void updatePositions( const Ra::Core::Geometry::TriangleMesh& mesh );
+    void update( const Ra::Core::Geometry::MultiIndexedGeometry& mesh );
+    void updateNormals( const Ra::Core::Geometry::MultiIndexedGeometry& mesh );
+    void updatePositions( const Ra::Core::Geometry::MultiIndexedGeometry& mesh );
     void updatePositions( const AttribArrayGeometry::PointAttribHandle::Container& vertices );
     // import other version of halfedge_handle method
     using base::halfedge_handle;
@@ -171,6 +204,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     void updateWedgeNormals();
     ///@}
+
+    /// update wedge's position to correspond to current point position, which might not be the case
+    /// if point(handle) = something; has been used.
+    void copyPointsPositionToWedges();
     /**
      * \name Topological operations
      */
@@ -529,27 +566,27 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     };
 
     // internal function to build Core Mesh attribs correspondance to wedge attribs.
-    template <typename T>
-    class InitWedgeAttribs
+    class InitWedgeAttribsFromMultiIndexedGeometry
     {
       public:
-        InitWedgeAttribs( TopologicalMesh* topo,
-                          const Ra::Core::Geometry::IndexedGeometry<T>& triMesh ) :
+        InitWedgeAttribsFromMultiIndexedGeometry(
+            TopologicalMesh* topo,
+            const Ra::Core::Geometry::MultiIndexedGeometry& triMesh ) :
             m_topo( topo ), m_triMesh( triMesh ) {}
         void operator()( AttribBase* attr ) const;
 
       private:
         TopologicalMesh* m_topo;
-        const Ra::Core::Geometry::IndexedGeometry<T>& m_triMesh;
+        const Ra::Core::Geometry::MultiIndexedGeometry& m_triMesh;
     };
 
     //! [Default command implementation]
-    template <typename T>
+    /// \todo add layerKey
     struct DefaultNonManifoldFaceCommand {
         /// \brief details string is printed along with the message
         DefaultNonManifoldFaceCommand( const std::string& details = {} ) : m_details {details} {}
         /// \brief Initalize with input Ra::Core::Geometry::TriangleMesh
-        inline void initialize( const Ra::Core::Geometry::IndexedGeometry<T>& ) {}
+        inline void initialize( const Ra::Core::Geometry::MultiIndexedGeometry& ) {}
         /// \brief Process non-manifold face
         inline void process( const std::vector<TopologicalMesh::VertexHandle>& /*face_vhandles*/ ) {
             LOG( logWARNING ) << "Invalid face handle returned : face not added " + m_details;
@@ -563,13 +600,15 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
 
-    template <typename U, typename T>
-    inline void copyAttribToWedgeData( const Ra::Core::Geometry::IndexedGeometry<U>& mesh,
+    /// @todo when MultiIndexView will be operational, remove the IndexedGeometry<U> version above
+    template <typename T>
+    inline void copyAttribToWedgeData( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
                                        unsigned int vindex,
                                        const std::vector<AttribHandle<T>>& attrHandleVec,
                                        VectorArray<T>* to );
-    template <typename T>
-    inline void copyMeshToWedgeData( const Ra::Core::Geometry::IndexedGeometry<T>& mesh,
+
+    /// @todo when MultiIndexView will be operational, remove the IndexedGeometry<T> version above
+    inline void copyMeshToWedgeData( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
                                      unsigned int vindex,
                                      const std::vector<AttribHandle<Scalar>>& wprop_float,
                                      const std::vector<AttribHandle<Vector2>>& wprop_vec2,
