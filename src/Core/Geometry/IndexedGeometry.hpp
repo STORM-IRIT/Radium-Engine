@@ -19,9 +19,14 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
                                            public Utils::ObjectWithSemantic
 {
   public:
-    /// these ctor and assignement operators do not copy observers
+    /// \brief Copy constructor
+    /// \note Do not copy observers
     inline explicit GeometryIndexLayerBase( const GeometryIndexLayerBase& other );
+    /// \brief Assignment operator
+    /// \copydetails GeometryIndexLayerBase(const GeometryIndexLayerBase&)
     inline GeometryIndexLayerBase& operator=( const GeometryIndexLayerBase& other );
+    /// \brief Move assignment operator
+    /// \copydetails GeometryIndexLayerBase(const GeometryIndexLayerBase&)
     inline GeometryIndexLayerBase& operator=( GeometryIndexLayerBase&& other );
     virtual ~GeometryIndexLayerBase();
 
@@ -38,6 +43,8 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     virtual size_t size() = 0;
 
   protected:
+    /// \brief Hidden constructor that must be called by inheriting classes to define the object
+    ///        semantics.
     template <class... SemanticNames>
     inline GeometryIndexLayerBase( SemanticNames... names ) : ObjectWithSemantic( names... ) {}
 };
@@ -179,7 +186,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     ///
     /// Convenience function.
     /// \param semanticName layer one semantic associated with the layer
-    /// \complexity \f$ O(N) \f$, with \f$ N \f$ the number of semantic names in the collection
+    /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of semantic names in the collection
     bool containsLayer( const LayerSemantic& semanticName ) const;
 
     //////////////////////////////////////////////////////////////////////
@@ -210,7 +217,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     ///
     /// Convenience function.
     /// \param semanticName layer one semantic associated with the layer
-    /// \complexity \f$ O(N) \f$, with \f$ N \f$ the number of semantic names in the collection
+    /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of semantic names in the collection
     size_t countLayers( const LayerSemantic& semanticName ) const;
 
     //////////////////////////////////////////////////////////////////////
@@ -244,7 +251,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     ///
     /// Convenience function.
     /// \param semanticName layer one semantic associated with the layer
-    /// \complexity \f$ O(N) \f$, with \f$ N \f$ the number of semantic names in the collection
+    /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of semantic names in the collection
     /// \return The layer and its LayerKey (to be used with getLayer, getLayerWithLock, unlockLayer)
     /// \throws std::out_of_range
     std::pair<LayerKeyType, const GeometryIndexLayerBase&>
@@ -289,7 +296,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// Convenience function.
     /// \see getLayerWithLock( const LayerKeyType& ) for details about locks
     /// \param semanticName layer one semantic associated with the layer
-    /// \complexity \f$ O(N) \f$, with \f$ N \f$ the number of semantic names in the collection
+    /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of semantic names in the collection
     /// \return The layer and its LayerKey (to be used with getLayer, getLayerWithLock, unlockLayer)
     /// \throws std::out_of_range
     std::pair<LayerKeyType, GeometryIndexLayerBase&>
@@ -334,7 +341,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// Convenience function.
     /// \see getLayerWithLock( const LayerKeyType& ) for details about locks
     /// \param semanticName layer one semantic associated with the layer
-    /// \complexity \f$ O(N) \f$, with \f$ N \f$ the number of semantic names in the collection
+    /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of semantic names in the collection
     /// \throws std::out_of_range
     void unlockFirstLayerOccurrence( const LayerSemantic& semanticName );
 
