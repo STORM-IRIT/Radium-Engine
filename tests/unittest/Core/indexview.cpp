@@ -1,13 +1,113 @@
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 #include <catch2/catch.hpp>
 
-TEST_CASE( "Core/Geometry/TriangleMesh", "[Core][Core/Geometry][TriangleMesh]" ) {
+struct CustomTriangleIndexLayer : public Ra::Core::Geometry::TriangleIndexLayer {
+    inline CustomTriangleIndexLayer() :
+        Ra::Core::Geometry::TriangleIndexLayer( staticSemanticName ) {}
+    static constexpr const char* staticSemanticName = "CustomSemantic";
+};
+
+TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeometry]" ) {
     using Ra::Core::Vector3;
+    using Ra::Core::Geometry::AttribArrayGeometry;
+    using Ra::Core::Geometry::MultiIndexedGeometry;
+    using Ra::Core::Geometry::PointCloudIndexLayer;
+    using Ra::Core::Geometry::TriangleIndexLayer;
     using Ra::Core::Geometry::TriangleMesh;
-    using Vec3AttribHandle = Ra::Core::Utils::AttribHandle<Vector3>;
+    using Ra::Core::Utils::ObjectWithSemantic;
+
+    // Store keys of the layers that should be in the geometry
+    std::set<MultiIndexedGeometry::LayerKeyType> keys;
 
     TriangleMesh mesh = Ra::Core::Geometry::makeBox();
+
+    // copy AttribArrayGeometry;
+    MultiIndexedGeometry geo( mesh );
+
+    // Create triangle Layer
+    ObjectWithSemantic::SemanticNameCollection tilSemantics;
+    {
+        // TriangleMesh is a MultiIndexedGeometry, so the layer has already
+        // been added
+        REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
+        auto [key, layer] = geo.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
+        keys.insert( key );
+        tilSemantics = layer.semantics();
+    }
+
+    ObjectWithSemantic::SemanticNameCollection pilSemantics;
+    {
+        //! [Creating and adding pointcloud layer]
+        auto pil = std::make_unique<PointCloudIndexLayer>();
+        // fill indices as linspace
+        pil->linearIndices( geo );
+        // optional: save semantics for later
+        pilSemantics = pil->semantics();
+        // insert with default name
+        bool layerAdded = geo.addLayer( std::move( pil ) );
+        //! [Creating and adding pointcloud layer]
+        REQUIRE( layerAdded );
+
+        keys.insert( {pilSemantics, ""} );
+    }
+
+    REQUIRE( geo.containsLayer( tilSemantics ) );
+    REQUIRE( geo.containsLayer( pilSemantics ) );
+    REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
+    REQUIRE( geo.containsLayer( PointCloudIndexLayer::staticSemanticName ) );
+
+    REQUIRE( geo.countLayers( tilSemantics ) == 1 );
+    REQUIRE( geo.countLayers( pilSemantics ) == 1 );
+    REQUIRE( geo.countLayers( TriangleIndexLayer::staticSemanticName ) == 1 );
+    REQUIRE( geo.countLayers( PointCloudIndexLayer::staticSemanticName ) == 1 );
+
+    ObjectWithSemantic::SemanticNameCollection cilSemantics;
+    auto cil          = std::make_unique<CustomTriangleIndexLayer>();
+    cil->collection() = mesh.getIndices();
+    cilSemantics      = cil->semantics();
+
+    REQUIRE( !geo.containsLayer( cilSemantics ) );
+    REQUIRE( geo.countLayers( cilSemantics ) == 0 );
+
+    REQUIRE( geo.addLayer( std::move( cil ) ) );
+    keys.insert( {cilSemantics, ""} );
+
+    REQUIRE( geo.containsLayer( cilSemantics ) );
+    REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
+    REQUIRE( geo.containsLayer( PointCloudIndexLayer::staticSemanticName ) );
+    REQUIRE( geo.containsLayer( CustomTriangleIndexLayer::staticSemanticName ) );
+
+    REQUIRE( geo.countLayers( tilSemantics ) == 1 );
+    REQUIRE( geo.countLayers( pilSemantics ) == 1 );
+    REQUIRE( geo.countLayers( cilSemantics ) == 1 );
+    REQUIRE( geo.countLayers( TriangleIndexLayer::staticSemanticName ) == 2 );
+    REQUIRE( geo.countLayers( PointCloudIndexLayer::staticSemanticName ) == 1 );
+    REQUIRE( geo.countLayers( CustomTriangleIndexLayer::staticSemanticName ) == 1 );
+
+    // Check layer keys iterator: we should traverse all keys
+    REQUIRE( keys.size() != 0 );
+    //! [Iterating over layer keys]
+    for ( const auto& k : geo.layerKeys() )
+    {
+        REQUIRE( keys.erase( k ) == 1 );
+        REQUIRE( geo.countLayers( k ) == 1 );
+    }
+    //! [Iterating over layer keys]
+    REQUIRE( keys.size() == 0 );
+}
+
+TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes", "[Core][Core/Geometry][IndexedGeometry]" ) {
+    using Ra::Core::Vector3;
+    using Ra::Core::Geometry::AttribArrayGeometry;
+    using Ra::Core::Geometry::MultiIndexedGeometry;
+    using Ra::Core::Geometry::PointCloudIndexLayer;
+    using Ra::Core::Geometry::TriangleIndexLayer;
+    using Ra::Core::Geometry::TriangleMesh;
+    using Ra::Core::Utils::ObjectWithSemantic;
+    using Vec3AttribHandle = AttribArrayGeometry::Vec3AttribHandle;
+
+    MultiIndexedGeometry mesh( Ra::Core::Geometry::makeBox() );
 
     // base attributes are automatically added
     auto h_pos = mesh.getAttribHandle<Vector3>( "in_position" );
@@ -57,9 +157,9 @@ TEST_CASE( "Core/Geometry/TriangleMesh", "[Core][Core/Geometry][TriangleMesh]" )
     REQUIRE( !mesh.isValid( invalid ) );
 
     // Test attribute copy
-    const auto v0         = mesh.vertices()[0];
-    TriangleMesh meshCopy = mesh;
-    meshCopy.copyAllAttributes( mesh );
+    const auto v0 = mesh.vertices()[0];
+    TriangleMesh meshCopy;
+    meshCopy.copy( mesh );
     REQUIRE( mesh.vertices()[0].isApprox( v0 ) );
     meshCopy.verticesWithLock()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
     meshCopy.verticesUnlock();
@@ -153,7 +253,8 @@ TEST_CASE( "Core/Geometry/TriangleMesh", "[Core][Core/Geometry][TriangleMesh]" )
     REQUIRE( m2.getAttrib( handle2 ).data() == newData );
 }
 
-TEST_CASE( "Core/Geometry/TriangleMesh/CopyAllAttributes", "[Core][Core/Geometry][TriangleMesh]" ) {
+TEST_CASE( "Core/Geometry/IndexedGeometry/CopyAllAttributes",
+           "[Core][Core/Geometry][IndexedGeometry]" ) {
     using Ra::Core::Vector2;
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TriangleMesh;

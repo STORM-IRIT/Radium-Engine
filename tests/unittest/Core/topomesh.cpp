@@ -523,7 +523,7 @@ void test_poly() {
     polyMesh.setIndices( {quad, hepta, degen, degen2} );
 
     TopologicalMesh topologicalMesh;
-    topologicalMesh.initWithWedge( polyMesh );
+    topologicalMesh.initWithWedge( polyMesh, polyMesh.getLayerKey() );
     auto newMesh = topologicalMesh.toPolyMesh();
     REQUIRE( isSameMeshWedge( newMesh, polyMesh ) );
 }
@@ -585,7 +585,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
     SECTION( "Non manifold faces" ) {
         struct MyNonManifoldCommand {
             explicit inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
-            inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
+            inline void initialize( const MultiIndexedGeometry& ) {}
             inline void process( const std::vector<TopologicalMesh::VertexHandle>& ) {
                 LOG( logINFO ) << "Non Manifold face found";
                 nonManifoldFaces++;
@@ -727,7 +727,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
             explicit inline MyNonManifoldCommand(
                 std::vector<std::vector<TopologicalMesh::VertexHandle>>& faulty ) :
                 m_faulty( faulty ) {}
-            inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
+            inline void initialize( const MultiIndexedGeometry& ) {}
             inline void process( const std::vector<TopologicalMesh::VertexHandle>& face_vhandles ) {
                 m_faulty.push_back( face_vhandles );
                 nonManifoldFaces++;
@@ -1100,8 +1100,10 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
     auto addMergeScene = [findHalfedge]( const Vector3Array& points,
                                          const Vector4Array& colors,
                                          const Vector3uArray& indices,
-                                         Vector3 from,
-                                         Vector3 to ) {
+                                         const Vector3& inFrom,
+                                         const Vector3& inTo ) {
+        Vector3 from {inFrom};
+        Vector3 to {inTo};
         TriangleMesh mesh1;
         TopologicalMesh topo1;
         optional<TopologicalMesh::HalfedgeHandle> optHe;
@@ -1289,5 +1291,61 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
     }
     SECTION( "boundary with flat face wedges" ) {
         addSplitScene( points2, colors2, indices4, points1[5], points1[2] );
+    }
+}
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/Updates", "[Core][Core/Geometry][TopologicalMesh]" ) {
+    using Ra::Core::Vector3;
+    using Ra::Core::Geometry::TopologicalMesh;
+    using Ra::Core::Geometry::TriangleMesh;
+
+    auto testConverter = []( TriangleMesh mesh ) {
+        auto topologicalMesh = TopologicalMesh( mesh );
+        auto& vertices       = mesh.verticesWithLock();
+        for ( auto& v : vertices )
+        {
+            v = TriangleMesh::Point( 0_ra, 1_ra, 2_ra );
+        }
+        mesh.verticesUnlock();
+
+        // update topo mesh positions from mesh
+        topologicalMesh.updatePositions( mesh.vertices() );
+        for ( auto itr = topologicalMesh.vertices_begin(); itr != topologicalMesh.vertices_end();
+              ++itr )
+        {
+            REQUIRE(
+                topologicalMesh.point( *itr ).isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
+            // modify for next test.
+            topologicalMesh.point( *itr ) = TopologicalMesh::Point( 3_ra, 4_ra, 5_ra );
+        }
+
+        // the other way round
+        topologicalMesh.updateTriangleMesh( mesh );
+
+        // not update since wedges are not updated yet
+        for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr )
+        {
+
+            REQUIRE( itr->isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
+        }
+
+        topologicalMesh.copyPointsPositionToWedges();
+        topologicalMesh.updateTriangleMesh( mesh );
+
+        // not update since wedges are not updated yet
+        for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr )
+        {
+
+            REQUIRE( itr->isApprox( TriangleMesh::Point( 3_ra, 4_ra, 5_ra ) ) );
+        }
+    };
+
+    SECTION( "Closed mesh" ) {
+        testConverter( Ra::Core::Geometry::makeBox() );
+        testConverter( Ra::Core::Geometry::makeSharpBox() );
+    }
+
+    SECTION( "Mesh with boundaries" ) {
+        testConverter( Ra::Core::Geometry::makePlaneGrid( 2, 2 ) );
     }
 }

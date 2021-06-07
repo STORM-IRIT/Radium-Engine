@@ -15,7 +15,8 @@ add_executable(unittests
     Core/containers.cpp
     Core/distance.cpp
     Core/indexmap.cpp
-    Core/mesh.cpp
+    Core/indexview.cpp
+    Core/mapiterators.cpp
     Core/observer.cpp
     Core/obb.cpp
     Core/polyline.cpp
