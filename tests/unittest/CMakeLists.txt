@@ -29,14 +29,17 @@ add_executable(unittests
     )
 
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
-target_link_libraries(unittests PRIVATE Catch2 Core Gui)
+target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Gui)
+
 add_dependencies(unittests Catch2 Core)
 target_include_directories(unittests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
+include(../external/Catch2/src/Catch2_download/contrib/Catch.cmake)
+
+catch_discover_tests(unittests WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
 find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
-
 
 if(Qt5Core_VERSION VERSION_LESS 5.5)
     message(FATAL_ERROR "Qt5 or superior required (found ${Qt5Core_VERSION}).")
@@ -62,9 +65,3 @@ add_custom_target(run_unittests_verbose
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMAND $<TARGET_FILE:unittests> -s -a -r=compact
     DEPENDS unittests)
-
-
-# Add unit test to CTest suite as one of the tests
-add_test(NAME "catch_unit_tests"
-    COMMAND $<TARGET_FILE:unittests>
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

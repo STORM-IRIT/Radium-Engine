@@ -27,11 +27,11 @@ add_test(NAME integration_${INTEGRATION_TEST}_save_output
  
 add_test(NAME integration_${INTEGRATION_TEST}_compare_to_ref
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
-    COMMAND ${CMAKE_COMMAND} -E compare_files ${CMAKE_CURRENT_BINARY_DIR}/output.txt ${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.txt)
+    COMMAND ${CMAKE_COMMAND} -E compare_files ${CMAKE_CURRENT_BINARY_DIR}/output.txt ${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.txt
+    )
+set_tests_properties(integration_${INTEGRATION_TEST}_compare_to_ref PROPERTIES DEPENDS integration_${INTEGRATION_TEST}_save_output)
 
 add_dependencies(integration integration_${INTEGRATION_TEST})
-
-
 
 
 set(INTEGRATION_TEST KeyMappingManager)

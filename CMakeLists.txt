@@ -143,12 +143,16 @@ endif()
 messageInfo("Git Changeset: ${GIT_CHANGESET}")
 
 messageEnd()
+
 set(ENABLE_COVERAGE "")
 mark_as_advanced(ENABLE_COVERAGE)
 if(RADIUM_ENABLE_COVERAGE)
     include(coverageFunc)
     #sets ENABLE_COVERAGE to ON if ok
     setup_coverage()
+    
+    include(CodeCoverage)
+    append_coverage_compiler_flags()
 endif(RADIUM_ENABLE_COVERAGE)
 
 #------------------------------------------------------------------------------
@@ -194,6 +198,15 @@ endif ()
 if(ENABLE_COVERAGE)
     set(LCOV_REMOVES "'/usr/*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'")
     setup_coverage_targets(${ENABLE_COVERAGE} "${LCOV_REMOVES}")
+
+    # Fastcov is not supported with gcov llvm: disabling for MacOS
+    # Source: https://github.com/RPGillespie6/fastcov/issues/36
+    if(UNIX AND NOT APPLE AND FASTCOV_PATH)
+        setup_target_for_coverage_fastcov(NAME coverage_fastcov
+            EXECUTABLE ctest -j $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
+            DEPENDENCIES RadiumLibs RadiumExampleApps unittests integration
+            EXCLUDE "/usr/" "external" "install" "/Catch2/" "_autogen/" "build" "mocs")
+    endif()
 endif()
 
 # Packaging stuff (deb, rpm, windows installer)
