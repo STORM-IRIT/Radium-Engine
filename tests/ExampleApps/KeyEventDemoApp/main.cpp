@@ -11,6 +11,10 @@
 // include the render object interface to access object properties
 #include <Engine/Rendering/RenderObjectManager.hpp>
 
+// include the KeyMappingManager
+#include <Gui/Utils/KeyMappingManager.hpp>
+#include <Gui/Utils/Keyboard.hpp>
+
 // include Qt components
 #include <QKeyEvent>
 
@@ -20,39 +24,79 @@
 class DemoWindow : public Ra::Gui::SimpleWindow
 {
     Q_OBJECT
+
   public:
     /// Reuse the SimpleWindow constructors
     using Ra::Gui::SimpleWindow::SimpleWindow;
 
+    explicit DemoWindow( uint w = 800, uint h = 640, QWidget* parent = nullptr ) :
+        Ra::Gui::SimpleWindow::SimpleWindow( w, h, parent ) {
+        //! [Initialize KeyEvent context and actions for demo window]
+        auto keyMappingMngr = Ra::Gui::KeyMappingManager::getInstance();
+        m_demoContext       = keyMappingMngr->addContext( "CustomKeymappingDemo" );
+        DEMO_COLORUP =
+            keyMappingMngr->addAction( m_demoContext, "DEMO_COLORUP", "Key_F1", "", "", "false" );
+        DEMO_COLORDOWN =
+            keyMappingMngr->addAction( m_demoContext, "DEMO_COLORDOWN", "Key_F2", "", "", "false" );
+        if ( m_demoContext.isInvalid() || DEMO_COLORUP.isInvalid() || DEMO_COLORDOWN.isInvalid() )
+        {
+            LOG( Ra::Core::Utils::logERROR ) << "Error : invalid context or actions for custom"
+                                                "key mapping : context ["
+                                             << m_demoContext
+                                             << "], "
+                                                "Color Up ["
+                                             << DEMO_COLORUP
+                                             << "], "
+                                                "Color Down ["
+                                             << DEMO_COLORDOWN << "]";
+        }
+        //! [Initialize KeyEvent context and actions for demo window]
+    }
     /// Set the object to colorize
     void colorize( std::shared_ptr<Ra::Engine::Rendering::RenderObject> o ) { m_obj = o; }
 
     //! [Manage KeyEvent reaching the window]
     /// Custom Key event management method
     void keyPressEvent( QKeyEvent* event ) override {
-        switch ( event->key() )
+        auto keyMap    = Ra::Gui::KeyMappingManager::getInstance();
+        auto buttons   = Qt::NoButton;
+        auto modifiers = event->modifiers();
+        auto key       = Ra::Gui::activeKey();
+
+        auto action = keyMap->getAction( m_demoContext, buttons, modifiers, key );
+
+        if ( action == DEMO_COLORUP )
         {
-        case Qt::Key_F1: {
             auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
                 m_obj->getMesh()->getAbstractGeometry() );
             m_colIdx = ( m_colIdx + 1 ) % 10;
             mesh.colorize( m_colors[m_colIdx] );
         }
-        break;
-        case Qt::Key_F2: {
+        else if ( action == DEMO_COLORDOWN )
+        {
             auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
                 m_obj->getMesh()->getAbstractGeometry() );
             m_colIdx = ( m_colIdx + 9 ) % 10;
             mesh.colorize( m_colors[m_colIdx] );
         }
-        break;
-        default:
-            break;
-        }
     }
     //! [Manage KeyEvent reaching the window]
   private:
-    std::shared_ptr<Ra::Engine::Rendering::RenderObject> m_obj;
+    //! [KeyEvent for demo window]
+    Ra::Gui::KeyMappingManager::Context m_demoContext {};
+
+#define KeyMappingDemo        \
+    KMA_VALUE( DEMO_COLORUP ) \
+    KMA_VALUE( DEMO_COLORDOWN )
+
+#define KMA_VALUE( x ) static Ra::Gui::KeyMappingManager::KeyMappingAction x;
+    KeyMappingDemo
+#undef KMA_VALUE
+
+        //! [KeyEvent for demo window]
+
+        std::shared_ptr<Ra::Engine::Rendering::RenderObject>
+            m_obj;
     std::array<Ra::Core::Utils::Color, 10> m_colors {Ra::Core::Utils::Color::Green(),
                                                      Ra::Core::Utils::Color::Blue(),
                                                      Ra::Core::Utils::Color::Yellow(),
@@ -66,10 +110,14 @@ class DemoWindow : public Ra::Gui::SimpleWindow
     int m_colIdx {0};
 };
 
-/**
- * Define a factory that set instanciate the Demonstration Window
- */
-class DemoWindowFactory : public Ra::Gui::BaseApplication::WindowFactory
+#define KMA_VALUE( x ) Ra::Gui::KeyMappingManager::KeyMappingAction DemoWindow::x;
+KeyMappingDemo
+#undef KMA_VALUE
+
+    /**
+     * Define a factory that set instanciate the Demonstration Window
+     */
+    class DemoWindowFactory : public Ra::Gui::BaseApplication::WindowFactory
 {
   public:
     ~DemoWindowFactory() = default;
