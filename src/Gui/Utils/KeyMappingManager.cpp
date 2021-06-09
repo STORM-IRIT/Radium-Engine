@@ -59,39 +59,99 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
     return KeyMappingManager::KeyMappingAction();
 }
 
+KeyMappingManager::KeyMappingAction
+KeyMappingManager::addAction( const Context& context,
+                              const std::string& actionName,
+                              const std::string& keyString,
+                              const std::string& modifiersString,
+                              const std::string& buttonsString,
+                              const std::string& wheelString ) {
+    if ( context.isInvalid() ) { return KeyMappingManager::KeyMappingAction(); }
+
+    Ra::Core::Utils::Index actionIndex;
+    auto actionItr = m_actionNameToIndex[context].find( actionName );
+    if ( actionItr != m_actionNameToIndex[context].end() )
+    { return KeyMappingManager::KeyMappingAction(); }
+
+    Qt::KeyboardModifiers modifiersValue = getQtModifiersValue( modifiersString );
+    auto keyValue                        = m_metaEnumKey.keyToValue( keyString.c_str() );
+    auto buttonsValue                    = getQtMouseButtonsValue( buttonsString );
+    auto wheel                           = wheelString.compare( "true" ) == 0;
+
+    if ( keyValue == -1 && buttonsValue == Qt::NoButton && !wheel )
+    {
+        LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionName
+                        << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
+        LOG( logERROR ) << "Trying to load default configuration...";
+        return KeyMappingManager::KeyMappingAction();
+    }
+
+    actionIndex                              = m_actionNameToIndex[context].size();
+    m_actionNameToIndex[context][actionName] = actionIndex;
+    bindKeyToAction(
+        context, MouseBinding {buttonsValue, modifiersValue, keyValue, wheel}, actionIndex );
+    return actionIndex;
+}
+
 void KeyMappingManager::addAction( const std::string& context,
                                    const std::string& keyString,
                                    const std::string& modifiersString,
                                    const std::string& buttonsString,
                                    const std::string& wheelString,
-                                   const std::string& actionString ) {
+                                   const std::string& actionString,
+                                   bool saveToConfigFile ) {
     loadConfigurationMappingInternal(
         context, keyString, modifiersString, buttonsString, wheelString, actionString );
+    if ( saveToConfigFile )
+    {
+        QDomElement domElement   = m_domDocument.documentElement();
+        QDomElement elementToAdd = m_domDocument.createElement( "keymap" );
+        elementToAdd.setAttribute( "context", context.c_str() );
+        elementToAdd.setAttribute( "key", keyString.c_str() );
+        elementToAdd.setAttribute( "modifiers", modifiersString.c_str() );
+        elementToAdd.setAttribute( "buttons", buttonsString.c_str() );
+        if ( !wheelString.empty() ) { elementToAdd.setAttribute( "wheel", wheelString.c_str() ); }
+        elementToAdd.setAttribute( "action", actionString.c_str() );
 
-    QDomElement domElement   = m_domDocument.documentElement();
-    QDomElement elementToAdd = m_domDocument.createElement( "keymap" );
-    elementToAdd.setAttribute( "context", context.c_str() );
-    elementToAdd.setAttribute( "key", keyString.c_str() );
-    elementToAdd.setAttribute( "modifiers", modifiersString.c_str() );
-    elementToAdd.setAttribute( "buttons", buttonsString.c_str() );
-    if ( !wheelString.empty() ) { elementToAdd.setAttribute( "wheel", wheelString.c_str() ); }
-    elementToAdd.setAttribute( "action", actionString.c_str() );
-
-    QString xmlAction;
-    QTextStream s( &xmlAction );
-    s << elementToAdd;
+        QString xmlAction;
+        QTextStream s( &xmlAction );
+        s << elementToAdd;
 #if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
-    QString xmlActionChopped = xmlAction;
-    xmlActionChopped.chop( 1 );
-    LOG( logDEBUG ) << "KeyMappingManager : adding The action  " << xmlActionChopped.toStdString();
+        QString xmlActionChopped = xmlAction;
+        xmlActionChopped.chop( 1 );
+        LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
+                        << xmlActionChopped.toStdString();
 
 #else
-    LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
-                    << xmlAction.chopped( 1 ).toStdString();
+        LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
+                        << xmlAction.chopped( 1 ).toStdString();
 #endif
 
-    domElement.appendChild( elementToAdd );
-    saveConfiguration();
+        domElement.appendChild( elementToAdd );
+        saveConfiguration();
+    }
+}
+
+KeyMappingManager::Context KeyMappingManager::addContext( const std::string& contextName ) {
+    Ra::Core::Utils::Index contextIndex;
+
+    auto contextItr = m_contextNameToIndex.find( contextName );
+    if ( contextItr == m_contextNameToIndex.end() )
+    {
+        contextIndex                      = m_contextNameToIndex.size();
+        m_contextNameToIndex[contextName] = contextIndex;
+        m_actionNameToIndex.emplace_back();
+        m_mappingAction.emplace_back();
+
+        CORE_ASSERT( m_actionNameToIndex.size() == size_t( contextIndex + 1 ),
+                     "Corrupted actionName DB" );
+        CORE_ASSERT( m_mappingAction.size() == size_t( contextIndex + 1 ),
+                     "Corrupted mappingAction DB" );
+    }
+    else
+        contextIndex = contextItr->second;
+
+    return contextIndex;
 }
 
 KeyMappingManager::Context KeyMappingManager::getContext( const std::string& contextName ) {
@@ -441,22 +501,7 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
                                                           const std::string& wheelString,
                                                           const std::string& actionString ) {
 
-    Ra::Core::Utils::Index contextIndex;
-    auto contextItr = m_contextNameToIndex.find( context );
-    if ( contextItr == m_contextNameToIndex.end() )
-    {
-        contextIndex                  = m_contextNameToIndex.size();
-        m_contextNameToIndex[context] = contextIndex;
-        m_actionNameToIndex.emplace_back();
-        m_mappingAction.emplace_back();
-
-        CORE_ASSERT( m_actionNameToIndex.size() == size_t( contextIndex + 1 ),
-                     "Corrupted actionName DB" );
-        CORE_ASSERT( m_mappingAction.size() == size_t( contextIndex + 1 ),
-                     "Corrupted mappingAction DB" );
-    }
-    else
-        contextIndex = contextItr->second;
+    Ra::Core::Utils::Index contextIndex = addContext( context );
 
     Ra::Core::Utils::Index actionIndex;
     auto actionItr = m_actionNameToIndex[contextIndex].find( actionString );
