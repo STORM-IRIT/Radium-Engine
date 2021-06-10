@@ -54,7 +54,8 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
                                                    int key,
                                                    bool wheel = false );
 
-    /// Add a given action to the mapping system.
+    /// \brief Add a given action within a possibly non existing context (also created in this case)
+    /// to the mapping system.
     /// This allow to define default behavior when some KeyMappingManageable object is not
     /// parameterized in the application config file. The action is added to the current config file
     /// so that it will remain for subsequent usage.
@@ -78,9 +79,8 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
                     const std::string& actionString,
                     bool saveToConfigFile = true );
 
-    /// Add a given action to the mapping system.
-    /// This allow to define custom behavior when some KeyMappingManageable object is not
-    /// parameterized in the application config file.
+    /// Add a given action to an existing context in the mapping system.
+    /// This allow to define custom actions without the need of a KeyMappingManageable object.
     /// This method do not add the action in the config file
     /// @param context the context of the action.
     /// @param actionName represents the KeyMappingAction enum's value you want to
@@ -92,7 +92,8 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// specified, separated by commas as in "ControlModifier,ShiftModifier".
     /// @param buttonsString represents the button to trigger the event (e.g. LeftButton).
     /// @param wheelString if true, it's a wheel event !
-    /// @return an invalid action if context is not valid, or if actionName has  not been created.
+    /// @return an invalid action if context is not valid, or if actionName has not been created due
+    /// to already existing one.
     // (i,e action.isInvalid())
     KeyMappingAction addAction( const Context& context,
                                 const std::string& actionName,

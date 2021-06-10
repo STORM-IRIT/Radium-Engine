@@ -68,7 +68,6 @@ KeyMappingManager::addAction( const Context& context,
                               const std::string& wheelString ) {
     if ( context.isInvalid() ) { return KeyMappingManager::KeyMappingAction(); }
 
-    Ra::Core::Utils::Index actionIndex;
     auto actionItr = m_actionNameToIndex[context].find( actionName );
     if ( actionItr != m_actionNameToIndex[context].end() )
     { return KeyMappingManager::KeyMappingAction(); }
@@ -86,7 +85,7 @@ KeyMappingManager::addAction( const Context& context,
         return KeyMappingManager::KeyMappingAction();
     }
 
-    actionIndex                              = m_actionNameToIndex[context].size();
+    Ra::Core::Utils::Index actionIndex       = m_actionNameToIndex[context].size();
     m_actionNameToIndex[context][actionName] = actionIndex;
     bindKeyToAction(
         context, MouseBinding {buttonsValue, modifiersValue, keyValue, wheel}, actionIndex );
