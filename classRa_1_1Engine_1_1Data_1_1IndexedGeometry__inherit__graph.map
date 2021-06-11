@@ -1,5 +1,5 @@
 <map id="Ra::Engine::Data::IndexedGeometry&lt; T &gt;" name="Ra::Engine::Data::IndexedGeometry&lt; T &gt;">
-<area shape="rect" id="node1" title="A CoreGeometry, with indices." alt="" coords="231,1309,433,1445"/>
+<area shape="rect" id="node1" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="231,1309,433,1445"/>
 <area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="5,1523,211,1673"/>
 <area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="235,1523,440,1673"/>
 <area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="468,1523,673,1673"/>

@@ -1,7 +1,7 @@
 <map id="Ra::Core::Geometry::deprecated::TopologicalMesh::TopologicalMesh" name="Ra::Core::Geometry::deprecated::TopologicalMesh::TopologicalMesh">
 <area shape="rect" id="node1" title=" " alt="" coords="5,187,224,243"/>
 <area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#aebe4f9163305d76dec2fc1b8c34d68fb" title=" " alt="" coords="274,5,490,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" title="read only access to indices" alt="" coords="272,71,492,112"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" title=" " alt="" coords="272,71,492,112"/>
 <area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="540,155,759,211"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="299,267,465,323"/>
 <area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a3c89f6613d2c5254f7ced890bcd54881" title=" " alt="" coords="273,187,491,243"/>

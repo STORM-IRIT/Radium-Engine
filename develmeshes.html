@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">e9f465b5e6d590366e4d805389d407e858652e03</span>
+   &#160;<span id="projectnumber">c2a53dcbe272ef08de5dadf147e853ec29323489</span>
    </div>
   </td>
  </tr>
@@ -108,7 +108,7 @@ Geometry types</h1>
 <p>There is three kind of geometry representation included in radium source :</p><ol type="1">
 <li><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Ra::Core::Geometry</a>::*, which handles geometry data and connectivity as a indexed vertex array. Each vertex is a unique set of position, normal, and other attributes. If indexed, faces are defined with VectorXui, where X is 1 for point, 2 for lines, 3 for triangles, and N for polygons. See inheritance diagram of <a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a> :<ul>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html">Ra::Core::Geometry::IndexedGeometry</a></li>
+<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="A single layer MultiIndexedGeometry. This class actually provide compatibility with old geometry with...">Ra::Core::Geometry::IndexedGeometry</a></li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1LineStrip.html">Ra::Core::Geometry::LineStrip</a> *</li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1PointCloud.html">Ra::Core::Geometry::PointCloud</a> *</li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html">Ra::Core::Geometry::IndexedPointCloud</a> *</li>
@@ -123,7 +123,7 @@ Geometry types</h1>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a></li>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.">Ra::Engine::Data::CoreGeometryDisplayable</a></li>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1PointCloud.html" title="A PointCloud without indices.">Ra::Engine::Data::PointCloud</a> *</li>
-<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="A CoreGeometry, with indices.">Ra::Engine::Data::IndexedGeometry</a></li>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices.">Ra::Engine::Data::IndexedGeometry</a></li>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html">Ra::Engine::Data::IndexedAttribArrayDisplayable</a></li>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh.">Ra::Engine::Data::LineMesh</a> *</li>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Ra::Engine::Data::Mesh</a> *</li>
@@ -164,42 +164,7 @@ Mesh creation</h1>
 <li><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a36eee2128af8869a7dafebb8fc60690f">Ra::Core::Utils::Attrib::getDataWithLock</a> to get a writable reference to the data array</li>
 <li>Ra::Core::Utils::Attrib::unlock to release the writable reference</li>
 </ul>
-<p>For instance </p><div class="fragment"><div class="line">    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a>;</div>
-<div class="line">    TriangleMesh m;</div>
-<div class="line">    TriangleMesh::PointAttribHandle::Container vertices;</div>
-<div class="line">    TriangleMesh::NormalAttribHandle::Container normals;</div>
-<div class="line">    TriangleMesh::IndexContainerType indices;</div>
-<div class="line"> </div>
-<div class="line">    vertices.push_back( {0, 0, 0} );</div>
-<div class="line">    vertices.push_back( {1, 0, 0} );</div>
-<div class="line">    vertices.push_back( {0, 2, 0} );</div>
-<div class="line">    normals.push_back( {0, 0, 1} );</div>
-<div class="line">    normals.push_back( {0, 0, 1} );</div>
-<div class="line">    normals.push_back( {0, 0, 1} );</div>
-<div class="line"> </div>
-<div class="line">    m.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a">setVertices</a>( std::move( vertices ) );</div>
-<div class="line">    m.setNormals( std::move( normals ) );</div>
-<div class="line"> </div>
-<div class="line">    m.setIndices( {{0, 1, 2}} );</div>
-<div class="line"> </div>
-<div class="line">    <span class="keyword">auto</span> handle1  = m.addAttrib&lt;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&gt;( <span class="stringliteral">&quot;vector3_attrib&quot;</span> );</div>
-<div class="line">    <span class="keyword">auto</span>&amp; attrib1 = m.getAttrib( handle1 );</div>
-<div class="line">    <span class="keyword">auto</span>&amp; buf     = attrib1.getDataWithLock();</div>
-<div class="line"> </div>
-<div class="line">    buf.reserve( 3 );</div>
-<div class="line">    buf.push_back( {1, 1, 1} );</div>
-<div class="line">    buf.push_back( {2, 2, 2} );</div>
-<div class="line">    buf.push_back( {3, 3, 3} );</div>
-<div class="line">    attrib1.unlock();</div>
-<div class="line"> </div>
-<div class="line">    <span class="keyword">auto</span> handle2  = m.addAttrib&lt;<span class="keywordtype">float</span>&gt;( <span class="stringliteral">&quot;float_attrib&quot;</span> );</div>
-<div class="line">    <span class="keyword">auto</span>&amp; attrib2 = m.getAttrib( handle2 );</div>
-<div class="line">    attrib2.setData( {1.f, 2.f, 3.f} );</div>
-<div class="line"> </div>
-<div class="line">    TriangleMesh m2;</div>
-<div class="line">    m2.copyBaseGeometry( m );</div>
-<div class="line">    m2.copyAttributes( m, handle1 );</div>
-</div><!-- fragment --><p> Other examples are provided in <a class="el" href="DrawPrimitives_8cpp.html">DrawPrimitives.cpp</a></p>
+<p>For instance </p><div class="fragment"></div><!-- fragment --><p> Other examples are provided in <a class="el" href="DrawPrimitives_8cpp.html">DrawPrimitives.cpp</a></p>
 <h2><a class="anchor" id="wedges"></a>
 Wedges</h2>
 <div class="image">
@@ -237,14 +202,12 @@ Halfedge collapse and wedge.</div></div>
     </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_a887411177386edbcdc35d0c6bf78a83a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a">Ra::Core::Geometry::AttribArrayGeometry::setVertices</a></div><div class="ttdeci">void setVertices(PointAttribHandle::Container &amp;&amp;vertices)</div><div class="ttdoc">Set vertices.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00092">TriangleMesh.inl:92</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TriangleMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00277">TriangleMesh.hpp:277</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Mon Jun 7 2021 13:11:12 for Radium Engine by
+    <li class="footer">Generated on Fri Jun 11 2021 10:13:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

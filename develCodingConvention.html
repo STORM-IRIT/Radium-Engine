@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">e9f465b5e6d590366e4d805389d407e858652e03</span>
+   &#160;<span id="projectnumber">c2a53dcbe272ef08de5dadf147e853ec29323489</span>
    </div>
   </td>
  </tr>
@@ -95,18 +95,18 @@ $(document).ready(function(){initNavTree('develCodingConvention.html',''); initR
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md69">Code style</a></li>
-<li class="level1"><a href="#autotoc_md70">Headers</a></li>
-<li class="level1"><a href="#autotoc_md71">Functions</a></li>
-<li class="level1"><a href="#autotoc_md72">Scope and names</a></li>
-<li class="level1"><a href="#autotoc_md73">Variables</a></li>
-<li class="level1"><a href="#autotoc_md74">Scalar types</a></li>
-<li class="level1"><a href="#autotoc_md75">Class design</a></li>
-<li class="level1"><a href="#autotoc_md76">Non-negociable</a></li>
+<ul><li class="level1"><a href="#autotoc_md68">Code style</a></li>
+<li class="level1"><a href="#autotoc_md69">Headers</a></li>
+<li class="level1"><a href="#autotoc_md70">Functions</a></li>
+<li class="level1"><a href="#autotoc_md71">Scope and names</a></li>
+<li class="level1"><a href="#autotoc_md72">Variables</a></li>
+<li class="level1"><a href="#autotoc_md73">Scalar types</a></li>
+<li class="level1"><a href="#autotoc_md74">Class design</a></li>
+<li class="level1"><a href="#autotoc_md75">Non-negociable</a></li>
 </ul>
 </div>
 <div class="textblock"><p>Mainly inspired by <a href="https://google-styleguide.googlecode.com/svn/trunk/cppguide.html">https://google-styleguide.googlecode.com/svn/trunk/cppguide.html</a></p>
-<h1><a class="anchor" id="autotoc_md69"></a>
+<h1><a class="anchor" id="autotoc_md68"></a>
 Code style</h1>
 <p>Please follow the scripts/clang-format coding style (tested <code>with clang-format 9.0</code>). We also provide a pre commit hook that checks the committed files are correctly formatted. To install both hooks and clang-format, simply run <code>./scripts/install-scripts-linux.sh</code> on linux, or adapt to your OS.</p>
 <ul>
@@ -123,7 +123,7 @@ Code style</h1>
 <li>line length should be kept at 80 (soft limit) and not exceed 120 (hard limit)</li>
 <li>no need for () for a return statement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md70"></a>
+<h1><a class="anchor" id="autotoc_md69"></a>
 Headers</h1>
 <ul>
 <li>Every .cpp must have an associated .hpp file</li>
@@ -138,14 +138,14 @@ Headers</h1>
 <li>Keep headers in order : Class header, system libraries, other libraries, other headers from project.</li>
 <li>forward declare as much as you can</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md71"></a>
+<h1><a class="anchor" id="autotoc_md70"></a>
 Functions</h1>
 <ul>
 <li>use const reference or value to pass input parameters</li>
 <li>use references for passing output parameters</li>
 <li>output parameters appear last.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md72"></a>
+<h1><a class="anchor" id="autotoc_md71"></a>
 Scope and names</h1>
 <ul>
 <li>use anonymous namespaces for file local variables / functions. no classes with only static functions !</li>
@@ -155,7 +155,7 @@ Scope and names</h1>
 <li>declare pointers and ref attached to their type : <code>void* a</code>, <code>const Foo&amp; bar</code></li>
 <li>macros and defined constants should be in capitals.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md73"></a>
+<h1><a class="anchor" id="autotoc_md72"></a>
 Variables</h1>
 <ul>
 <li>declarations should always be made on separate lines; (no <code>int a, b, c;</code>)</li>
@@ -164,7 +164,7 @@ Variables</h1>
 <li>use C++11 <code>nullptr</code> for null pointers.</li>
 <li>use <code>auto</code> only when it helps readability.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md74"></a>
+<h1><a class="anchor" id="autotoc_md73"></a>
 Scalar types</h1>
 <ul>
 <li>Radium defines a default type <code>Scalar</code>, set either as <code>float</code> or <code>double</code> depending on the cmake option <code>RADIUM_WITH_DOUBLE_PRECISION</code></li>
@@ -172,7 +172,7 @@ Scalar types</h1>
 <li>Radium offers operators to create <code>Scalar</code> from integer and floating point numbers: always use <code><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar()</a></code> or <code>_ra</code> suffix when defining numbers from literals (e.g. <code>auto a = .5_ra;</code>, <code>Scalar b = a * Scalar( 2 );</code> or <code>Scalar c = a / 2_ra;</code>).</li>
 <li>Equality between Scalar values needs to be computed using <code>Ra::almost_equals</code> (see <a class="el" href="CoreMacros_8hpp.html">CoreMacros.hpp</a>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md75"></a>
+<h1><a class="anchor" id="autotoc_md74"></a>
 Class design</h1>
 <ul>
 <li>Constructors should be trival. All complex work goes in an <code><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#aee60cb09fb64ad0d55bb9af3d9707b48">init()</a></code> function</li>
@@ -197,10 +197,11 @@ Class design</h1>
 <li>avoid <code>mutable</code></li>
 <li>getters and setter should have a consistent name with the variable.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md76"></a>
+<h1><a class="anchor" id="autotoc_md75"></a>
 Non-negociable</h1>
 <ul>
-<li>No exceptions, no RTTI, no dynamic cast, no gotos. </li>
+<li>Exceptions are forbidden, except when mimicking or using <code>std</code> containers (e.g., by throwing <code>std::out_of_range</code>). In any cases, exceptions must be used in exceptional cases, and should not be used as an event system.</li>
+<li>No gotos. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -209,7 +210,7 @@ Non-negociable</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Mon Jun 7 2021 13:11:12 for Radium Engine by
+    <li class="footer">Generated on Fri Jun 11 2021 10:13:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

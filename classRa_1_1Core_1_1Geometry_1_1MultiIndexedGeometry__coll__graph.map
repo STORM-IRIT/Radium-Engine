@@ -1,0 +1,8 @@
+<map id="Ra::Core::Geometry::MultiIndexedGeometry" name="Ra::Core::Geometry::MultiIndexedGeometry">
+<area shape="rect" id="node1" title="AbstractGeometry with per&#45;vertex attributes and layers of indices. Each layer represents a different ..." alt="" coords="86,1293,351,1869"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title=" " alt="" coords="5,580,200,1244"/>
+<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="14,292,191,531"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title=" " alt="" coords="225,873,450,951"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="228,307,447,516"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="239,5,436,229"/>
+</map>

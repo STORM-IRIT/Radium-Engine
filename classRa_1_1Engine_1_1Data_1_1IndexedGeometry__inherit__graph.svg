@@ -58,7 +58,7 @@ var sectionId = 'dynsection-0';
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="A CoreGeometry, with indices.">
+<g id="a_node1"><a xlink:title="An engine mesh owning CoreGeometry, with indices.">
 <polygon fill="#bfbfbf" stroke="black" points="169.5,-277.5 169.5,-378.5 320.5,-378.5 320.5,-277.5 169.5,-277.5"/>
 <text text-anchor="start" x="177.5" y="-366.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
 <text text-anchor="middle" x="245" y="-355.5" font-family="Helvetica,sans-Serif" font-size="10.00">Geometry&lt; T &gt;</text>

@@ -30,6 +30,9 @@ var dir_ff87cf903db18af0fdb6c342683ece25 =
     ] ],
     [ "IndexMap.inl", "IndexMap_8inl.html", null ],
     [ "Log.hpp", "Log_8hpp.html", "Log_8hpp" ],
+    [ "ObjectWithSemantic.hpp", "ObjectWithSemantic_8hpp.html", [
+      [ "ObjectWithSemantic", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic" ]
+    ] ],
     [ "Observable.hpp", "Observable_8hpp.html", [
       [ "Observable", "classRa_1_1Core_1_1Utils_1_1Observable.html", "classRa_1_1Core_1_1Utils_1_1Observable" ],
       [ "ObservableVoid", "classRa_1_1Core_1_1Utils_1_1ObservableVoid.html", null ]
@@ -38,6 +41,12 @@ var dir_ff87cf903db18af0fdb6c342683ece25 =
     [ "StackTrace.cpp", "StackTrace_8cpp.html", "StackTrace_8cpp" ],
     [ "StackTrace.hpp", "StackTrace_8hpp.html", "StackTrace_8hpp" ],
     [ "StdFilesystem.hpp", "StdFilesystem_8hpp.html", null ],
+    [ "StdMapIterators.hpp", "StdMapIterators_8hpp.html", [
+      [ "map_keys", "structRa_1_1Core_1_1Utils_1_1map__keys.html", "structRa_1_1Core_1_1Utils_1_1map__keys" ],
+      [ "iterator", "structRa_1_1Core_1_1Utils_1_1map__keys_1_1iterator.html", "structRa_1_1Core_1_1Utils_1_1map__keys_1_1iterator" ],
+      [ "map_values", "structRa_1_1Core_1_1Utils_1_1map__values.html", "structRa_1_1Core_1_1Utils_1_1map__values" ],
+      [ "iterator", "structRa_1_1Core_1_1Utils_1_1map__values_1_1iterator.html", "structRa_1_1Core_1_1Utils_1_1map__values_1_1iterator" ]
+    ] ],
     [ "StdOptional.hpp", "StdOptional_8hpp.html", null ],
     [ "StdUtils.hpp", "StdUtils_8hpp.html", "StdUtils_8hpp" ],
     [ "StringUtils.cpp", "StringUtils_8cpp.html", "StringUtils_8cpp" ],

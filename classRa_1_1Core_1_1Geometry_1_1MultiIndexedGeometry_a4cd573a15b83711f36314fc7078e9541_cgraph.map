@@ -1,0 +1,10 @@
+<map id="Ra::Core::Geometry::MultiIndexedGeometry::operator=" name="Ra::Core::Geometry::MultiIndexedGeometry::operator=">
+<area shape="rect" id="node1" title=" " alt="" coords="5,49,184,105"/>
+<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="507,5,663,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="232,57,429,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a6ba5cb884c4d2878102a07d644067ebf" title=" " alt="" coords="247,123,414,179"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda" title="clear all attribs, invalidate handles." alt="" coords="477,115,693,157"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f" title=" " alt="" coords="477,181,693,222"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51" title="Read&#45;only acccess to the attribute content." alt="" coords="770,147,929,189"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="741,213,957,254"/>
+</map>

@@ -120,7 +120,7 @@
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" target="_top" xlink:title="A CoreGeometry, with indices.">
+<g id="a_node9"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" target="_top" xlink:title="An engine mesh owning CoreGeometry, with indices.">
 <polygon fill="white" stroke="black" points="220.5,-277.5 220.5,-378.5 371.5,-378.5 371.5,-277.5 220.5,-277.5"/>
 <text text-anchor="start" x="228.5" y="-366.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
 <text text-anchor="middle" x="296" y="-355.5" font-family="Helvetica,sans-Serif" font-size="10.00">Geometry&lt; T &gt;</text>

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">e9f465b5e6d590366e4d805389d407e858652e03</span>
+   &#160;<span id="projectnumber">c2a53dcbe272ef08de5dadf147e853ec29323489</span>
    </div>
   </td>
  </tr>
@@ -105,6 +105,8 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Geometry.html',
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceRa_1_1Core_1_1Geometry_1_1deprecated"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry_1_1deprecated.html">deprecated</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Core_1_1Geometry_1_1IndexLayerType"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry_1_1IndexLayerType.html">IndexLayerType</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -124,13 +126,22 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1Frustum.html">Frustum</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html">GeometryIndexLayer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typed index collection.  <a href="structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html">GeometryIndexLayerBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for index collections stored in <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a>.  <a href="classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1hash__vec.html">hash_vec</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html">IndexedGeometry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single layer <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a>. This class actually provide compatibility with old geometry with a main layer. Main layer contains indices of a specific type (point, line, triangle, poly). Derived classes explicit the kind of indices of the main layer. Since <a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="A single layer MultiIndexedGeometry. This class actually provide compatibility with old geometry with...">IndexedGeometry</a> is a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a>, one can add index layer on the fly.  <a href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html">IndexedPointCloud</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Line.html">Line</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html">LineIndexLayer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1LineMesh.html">LineMesh</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,13 +155,20 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html">LoopSubdivider</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">MultiIndexedGeometry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">AbstractGeometry</a> with per-vertex attributes and layers of indices. Each layer represents a different topology or indexing logic, e.g. triangle/line/quad meshes, point-clouds.  <a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Obb.html">Obb</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An oriented bounding box.  <a href="classRa_1_1Core_1_1Geometry_1_1Obb.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1PointCloud.html">PointCloud</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html">PointCloudIndexLayer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput.html">PointToTriangleOutput</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure holding the result of a point-to triangle distance query.  <a href="structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html">PolyIndexLayer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">PolyLine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,6 +187,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html">TopologicalMeshTraits</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html">TriangleIndexLayer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -389,9 +409,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a74f2221e7c53c4927ef7da96cf5fc884"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a74f2221e7c53c4927ef7da96cf5fc884"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a74f2221e7c53c4927ef7da96cf5fc884">copyWedgeDataToAttribContainer</a> (<a class="el" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector</a>&lt; typename <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib</a>&lt; T &gt;::Container &gt; &amp;c, const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; &amp;wd)</td></tr>
 <tr class="separator:a74f2221e7c53c4927ef7da96cf5fc884"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67dd170fa636a6aaa6efecc3e359966d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:a67dd170fa636a6aaa6efecc3e359966d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a67dd170fa636a6aaa6efecc3e359966d">moveContainerToMesh</a> (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html">IndexedGeometry</a>&lt; U &gt; &amp;out, const std::vector&lt; std::string &gt; &amp;names, <a class="el" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector</a>&lt; typename <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib</a>&lt; T &gt;::Container &gt; &amp;wedgeAttribData)</td></tr>
-<tr class="separator:a67dd170fa636a6aaa6efecc3e359966d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1956ba067a7f2ed2e9054455fce87c1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad1956ba067a7f2ed2e9054455fce87c1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#ad1956ba067a7f2ed2e9054455fce87c1">moveContainerToMesh</a> (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a> &amp;out, const std::vector&lt; std::string &gt; &amp;names, <a class="el" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector</a>&lt; typename <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib</a>&lt; T &gt;::Container &gt; &amp;wedgeAttribData)</td></tr>
+<tr class="separator:ad1956ba067a7f2ed2e9054455fce87c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17110e2c83f72420d5b07e308f7f321e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a17110e2c83f72420d5b07e308f7f321e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a17110e2c83f72420d5b07e308f7f321e">interpolate</a> (const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; &amp;in1, const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; &amp;in2, <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; &amp;out, const <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> alpha)</td></tr>
 <tr class="separator:a17110e2c83f72420d5b07e308f7f321e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1296,7 +1316,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00495">495</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00546">546</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -2267,18 +2287,18 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 
 </div>
 </div>
-<a id="a67dd170fa636a6aaa6efecc3e359966d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67dd170fa636a6aaa6efecc3e359966d">&#9670;&nbsp;</a></span>moveContainerToMesh()</h2>
+<a id="ad1956ba067a7f2ed2e9054455fce87c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1956ba067a7f2ed2e9054455fce87c1">&#9670;&nbsp;</a></span>moveContainerToMesh()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename U &gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void Ra::Core::Geometry::moveContainerToMesh </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html">IndexedGeometry</a>&lt; U &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a> &amp;&#160;</td>
           <td class="paramname"><em>out</em>, </td>
         </tr>
         <tr>
@@ -2307,7 +2327,7 @@ template&lt;typename T , typename U &gt; </div>
 <div id="dynsection-30-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-30-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a67dd170fa636a6aaa6efecc3e359966d_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ad1956ba067a7f2ed2e9054455fce87c1_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -4024,7 +4044,7 @@ template&lt;typename T , typename U &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Geometry</a></li>
-    <li class="footer">Generated on Mon Jun 7 2021 13:11:12 for Radium Engine by
+    <li class="footer">Generated on Fri Jun 11 2021 10:13:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

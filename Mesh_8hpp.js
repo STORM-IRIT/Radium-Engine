@@ -9,6 +9,8 @@ var Mesh_8hpp =
     [ "CoreGeometryDisplayable", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable" ],
     [ "PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", "classRa_1_1Engine_1_1Data_1_1PointCloud" ],
     [ "IndexedGeometry", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry" ],
+    [ "MultiIndexedGeometry", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry" ],
+    [ "KeyHash", "structRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry_1_1KeyHash.html", "structRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry_1_1KeyHash" ],
     [ "LineMesh", "classRa_1_1Engine_1_1Data_1_1LineMesh.html", "classRa_1_1Engine_1_1Data_1_1LineMesh" ],
     [ "Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", "classRa_1_1Engine_1_1Data_1_1Mesh" ],
     [ "PolyMesh", "classRa_1_1Engine_1_1Data_1_1PolyMesh.html", "classRa_1_1Engine_1_1Data_1_1PolyMesh" ],

@@ -1,0 +1,7 @@
+<map id="Ra::Core::Geometry::MultiIndexedGeometry::clear" name="Ra::Core::Geometry::MultiIndexedGeometry::clear">
+<area shape="rect" id="node1" title="Erases all data, making the geometry empty." alt="" coords="5,71,184,127"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a75f68d38992c5b5554ce6ebd852fac5f" title="Erases all data, making the AttribArrayGeometry empty." alt="" coords="247,6,414,62"/>
+<area shape="rect" id="node4" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="507,71,663,127"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="232,137,429,179"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda" title="clear all attribs, invalidate handles." alt="" coords="477,5,693,47"/>
+</map>

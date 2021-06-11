@@ -85,7 +85,7 @@ var sectionId = 'dynsection-2';
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" target="_top" xlink:title="read only access to indices">
+<g id="a_node3"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="165,-121 165,-151 330,-151 330,-121 165,-121"/>
 <text text-anchor="start" x="173" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="middle" x="247.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry::getIndices</text>

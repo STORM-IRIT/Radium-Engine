@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">e9f465b5e6d590366e4d805389d407e858652e03</span>
+   &#160;<span id="projectnumber">c2a53dcbe272ef08de5dadf147e853ec29323489</span>
    </div>
   </td>
  </tr>
@@ -110,6 +110,8 @@ $(document).ready(function(){initNavTree('Mesh_8hpp.html',''); initResizable(); 
 <code>#include &lt;array&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;<a class="el" href="ObjectWithSemantic_8hpp_source.html">Core/Utils/ObjectWithSemantic.hpp</a>&gt;</code><br />
+<code>#include &lt;iterator&gt;</code><br />
 <code>#include &lt;<a class="el" href="Mesh_8inl_source.html">Engine/Data/Mesh.inl</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for Mesh.hpp:</div>
@@ -152,7 +154,11 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classRa_1_1Engine_1_1Data_1_1PointCloud.html" title="A PointCloud without indices.">PointCloud</a> without indices.  <a href="classRa_1_1Engine_1_1Data_1_1PointCloud.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">Ra::Engine::Data::IndexedGeometry&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A CoreGeometry, with indices.  <a href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An engine mesh owning CoreGeometry, with indices.  <a href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html">Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry_1_1KeyHash.html">Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;::KeyHash</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html">Ra::Engine::Data::LineMesh</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh.">LineMesh</a>, own a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1LineMesh.html">Core::Geometry::LineMesh</a>.  <a href="classRa_1_1Engine_1_1Data_1_1LineMesh.html#details">More...</a><br /></td></tr>
@@ -201,7 +207,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="Mesh_8hpp.html">Mesh.hpp</a></li>
-    <li class="footer">Generated on Mon Jun 7 2021 13:11:11 for Radium Engine by
+    <li class="footer">Generated on Fri Jun 11 2021 10:13:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

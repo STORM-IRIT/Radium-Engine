@@ -1,14 +1,15 @@
 var searchData=
 [
-  ['scalar_5849',['Scalar',['../CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498',1,'CoreMacros.hpp']]],
-  ['scalarparameter_5850',['ScalarParameter',['../classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af14f5dc8ff60c2bcbfd3bbacfdd37ec7',1,'Ra::Engine::Data::RenderParameters']]],
-  ['scalarsparameter_5851',['ScalarsParameter',['../classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aadb2637a0746fb94361a31fa450747bd',1,'Ra::Engine::Data::RenderParameters']]],
-  ['seconds_5852',['Seconds',['../classRa_1_1Core_1_1Utils_1_1Chrono.html#a634b08e9771d0741c6f41577bc469f00',1,'Ra::Core::Utils::Chrono']]],
-  ['setter_5853',['Setter',['../structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a06292bfe7ce6eb822834273ae0a60fce',1,'Ra::Engine::Scene::ComponentMessenger::CallbackTypes::Setter()'],['../structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a3250161f710458872f86c0de86d95f46',1,'Ra::Engine::Scene::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::Setter()']]],
-  ['shaderprogramptr_5854',['ShaderProgramPtr',['../namespaceRa_1_1Engine_1_1Data.html#a63859c67d3d36ad1b057b416b238bf0e',1,'Ra::Engine::Data']]],
-  ['singleweight_5855',['SingleWeight',['../namespaceRa_1_1Core_1_1Animation.html#a9d77b2c2cee7d0de78a691e219276359',1,'Ra::Core::Animation']]],
-  ['size_5ftype_5856',['size_type',['../classRa_1_1Core_1_1AlignedAllocator.html#a3b4b24a8befa2d9382faa1e7a063c9e6',1,'Ra::Core::AlignedAllocator']]],
-  ['smart_5fpointer_5ftype_5857',['smart_pointer_type',['../classRa_1_1Core_1_1Utils_1_1AttribManager.html#a79e17063a4c7326e7e270ab027bb58f8',1,'Ra::Core::Utils::AttribManager']]],
-  ['spacetype_5858',['SpaceType',['../SkeletonComponent_8cpp.html#aadb76de7b42eeb77ddeb3e786a8950bd',1,'SpaceType():&#160;SkeletonComponent.cpp'],['../SkinningComponent_8cpp.html#aa0ca876419bcaeddab410a56c2a00cba',1,'SpaceType():&#160;SkinningComponent.cpp']]],
-  ['sparse_5859',['Sparse',['../namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423',1,'Ra::Core']]]
+  ['radiummaterialptr_5966',['RadiumMaterialPtr',['../namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a006896056d0249dcd2aabd1ca6203ecf',1,'Ra::Engine::Data::EngineMaterialConverters']]],
+  ['ray_5967',['Ray',['../namespaceRa_1_1Core.html#aa1af54f519852558e5553bba1e4a068a',1,'Ra::Core']]],
+  ['rayd_5968',['Rayd',['../namespaceRa_1_1Core.html#a61934a97bc03c4e8556fb62798670c00',1,'Ra::Core']]],
+  ['rayf_5969',['Rayf',['../namespaceRa_1_1Core.html#a17b55ea900e7a42cd57be0e0646f5da6',1,'Ra::Core']]],
+  ['readwrite_5970',['ReadWrite',['../structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a69156f044994d1cbcf666dbe97360acf',1,'Ra::Engine::Scene::ComponentMessenger::CallbackTypes::ReadWrite()'],['../structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a4eee0e46f6bbaebefa08a5aa87f280cb',1,'Ra::Engine::Scene::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::ReadWrite()']]],
+  ['realiterator_5ft_5971',['realiterator_t',['../structRa_1_1Core_1_1Utils_1_1map__keys_1_1iterator.html#a1e4004f2a728f7fc6acf4b251dd31066',1,'Ra::Core::Utils::map_keys::iterator::realiterator_t()'],['../structRa_1_1Core_1_1Utils_1_1map__values_1_1iterator.html#aa91a850f388743f3c3d4b4d5b3350a5a',1,'Ra::Core::Utils::map_values::iterator::realiterator_t()']]],
+  ['reference_5972',['reference',['../classRa_1_1Core_1_1AlignedAllocator.html#ac4f1ad87f49afe24e23cba265853d283',1,'Ra::Core::AlignedAllocator']]],
+  ['refpose_5973',['RefPose',['../namespaceRa_1_1Core_1_1Animation.html#aac25bf2c8ceeed957deccee3d89d846d',1,'Ra::Core::Animation']]],
+  ['relativepose_5974',['RelativePose',['../namespaceRa_1_1Core_1_1Animation.html#affe0bf876395bf39e177d5484441a139',1,'Ra::Core::Animation']]],
+  ['rendermeshtype_5975',['RenderMeshType',['../classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#a90ff36c9ac94f6f5a9556da76aac0b8f',1,'Ra::Engine::Scene::SurfaceMeshComponent']]],
+  ['renderobjectptr_5976',['RenderObjectPtr',['../classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2dbcea680a2cabb126009ce2ffa3fbe1',1,'Ra::Engine::Rendering::Renderer']]],
+  ['restpose_5977',['RestPose',['../namespaceRa_1_1Core_1_1Animation.html#abae9cd5d9ecaa84d5d8a24e4a127943a',1,'Ra::Core::Animation']]]
 ];

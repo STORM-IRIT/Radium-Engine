@@ -12,6 +12,7 @@ var namespaceRa_1_1Engine_1_1Data =
     [ "LineMesh", "classRa_1_1Engine_1_1Data_1_1LineMesh.html", "classRa_1_1Engine_1_1Data_1_1LineMesh" ],
     [ "Material", "classRa_1_1Engine_1_1Data_1_1Material.html", "classRa_1_1Engine_1_1Data_1_1Material" ],
     [ "Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", "classRa_1_1Engine_1_1Data_1_1Mesh" ],
+    [ "MultiIndexedGeometry", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry" ],
     [ "PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", "classRa_1_1Engine_1_1Data_1_1PlainMaterial" ],
     [ "PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", "classRa_1_1Engine_1_1Data_1_1PointCloud" ],
     [ "PolyMesh", "classRa_1_1Engine_1_1Data_1_1PolyMesh.html", "classRa_1_1Engine_1_1Data_1_1PolyMesh" ],

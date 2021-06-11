@@ -249,7 +249,7 @@
 <!-- Node18 -->
 <g id="node18" class="node">
 <title>Node18</title>
-<g id="a_node18"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" target="_top" xlink:title="read only access to indices">
+<g id="a_node18"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="399,-394.5 399,-424.5 564,-424.5 564,-394.5 399,-394.5"/>
 <text text-anchor="start" x="407" y="-412.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="middle" x="481.5" y="-401.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry::getIndices</text>
