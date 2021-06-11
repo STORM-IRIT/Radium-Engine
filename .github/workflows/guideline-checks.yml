@@ -29,7 +29,7 @@ jobs:
         run: |
               echo **CHECK LINEAR HISTORY FAIL**
               echo
-              echo Please rebase on current up to date master,
+              echo Please rebase on current up to date release-candidate,
               echo "without merge commits (e.g. you can squash them)."
   format:
     name: Check format
