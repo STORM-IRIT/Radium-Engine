@@ -457,8 +457,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         glBlendFuncSeparate( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO );
         GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
 
-        for ( const auto& ro : m_fancyRenderObjects )
-        {
+        auto drawWireframe = [this, &renderData]( const auto& ro ) {
             std::shared_ptr<Data::Displayable> wro;
 
             WireMap::iterator it = m_wireframes.find( ro.get() );
@@ -507,6 +506,15 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                     GL_CHECK_ERROR;
                 }
             }
+        };
+
+        for ( const auto& ro : m_fancyRenderObjects )
+        {
+            drawWireframe( ro );
+        }
+        for ( const auto& ro : m_transparentRenderObjects )
+        {
+            drawWireframe( ro );
         }
     }
 
