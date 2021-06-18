@@ -617,7 +617,11 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
     if ( actionViewer.isValid() )
     {
 
-        if ( actionViewer == VIEWER_TOGGLE_WIREFRAME ) { m_currentRenderer->toggleWireframe(); }
+        if ( actionViewer == VIEWER_TOGGLE_WIREFRAME )
+        {
+            m_currentRenderer->toggleWireframe();
+            eventCatched = true;
+        }
         else if ( actionViewer == VIEWER_RELOAD_SHADERS )
         {
             reloadShaders();
