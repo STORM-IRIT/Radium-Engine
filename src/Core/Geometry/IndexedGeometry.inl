@@ -80,6 +80,7 @@ inline GeometryIndexLayerBase* GeometryIndexLayer<T>::clone() {
 
 // MultiIndexedGeometry
 inline MultiIndexedGeometry::~MultiIndexedGeometry() {
+    detachAll();
     clear();
 }
 
