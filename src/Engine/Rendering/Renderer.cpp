@@ -723,9 +723,9 @@ int Renderer::buildAllRenderTechniques() const {
 }
 
 Scalar Renderer::getDepth( int x, int y ) {
-    std::vector<float> buffer( m_width * m_height );
-    m_depthTexture->texture()->getImage( 0, GL_DEPTH_COMPONENT, GL_FLOAT, buffer.data() );
-    return Scalar {buffer[y * m_width + x]};
+    float depth;
+    m_pickingFbo->readPixels( {x, y, 1, 1}, GL_DEPTH_COMPONENT, GL_FLOAT, &depth );
+    return Scalar {depth};
 }
 
 } // namespace Rendering
