@@ -18,6 +18,8 @@
 // include Qt components
 #include <QKeyEvent>
 
+#include <Gui/Viewer/Viewer.hpp>
+
 /**
  * Simple custom windows for custom KeyEvent demonstration
  */
@@ -32,53 +34,42 @@ class DemoWindow : public Ra::Gui::SimpleWindow
     explicit DemoWindow( uint w = 800, uint h = 640, QWidget* parent = nullptr ) :
         Ra::Gui::SimpleWindow::SimpleWindow( w, h, parent ) {
         //! [Initialize KeyEvent context and actions for demo window]
-        auto keyMappingMngr = Ra::Gui::KeyMappingManager::getInstance();
-        m_demoContext       = keyMappingMngr->addContext( "CustomKeymappingDemo" );
-        DEMO_COLORUP =
-            keyMappingMngr->addAction( m_demoContext, "DEMO_COLORUP", "Key_F1", "", "", "false" );
-        DEMO_COLORDOWN =
-            keyMappingMngr->addAction( m_demoContext, "DEMO_COLORDOWN", "Key_F2", "", "", "false" );
-        if ( m_demoContext.isInvalid() || DEMO_COLORUP.isInvalid() || DEMO_COLORDOWN.isInvalid() )
+        //! [Initialize KeyEvent context and actions for demo window]
+    }
+    void configure() override {
+
+        DEMO_COLORUP = getViewer()->addKeyPressEventAction(
+            "DEMO_COLORUP", "Key_F1", "", "", "false", [this]( QKeyEvent* event ) {
+                this->colorup( event );
+            } );
+        //        DEMO_COLORDOWN =
+        //            getViewer()->addKeyPressEventAction( "DEMO_COLORDOWN", "Key_F2", "", "",
+        //            "false", colordown );
+        if ( DEMO_COLORUP.isInvalid() || DEMO_COLORDOWN.isInvalid() )
         {
             LOG( Ra::Core::Utils::logERROR ) << "Error : invalid context or actions for custom"
-                                                "key mapping : context ["
-                                             << m_demoContext
-                                             << "], "
-                                                "Color Up ["
-                                             << DEMO_COLORUP
+                                             << "Color Up [" << DEMO_COLORUP
                                              << "], "
                                                 "Color Down ["
                                              << DEMO_COLORDOWN << "]";
         }
-        //! [Initialize KeyEvent context and actions for demo window]
     }
     /// Set the object to colorize
     void colorize( std::shared_ptr<Ra::Engine::Rendering::RenderObject> o ) { m_obj = o; }
 
     //! [Manage KeyEvent reaching the window]
     /// Custom Key event management method
-    void keyPressEvent( QKeyEvent* event ) override {
-        auto keyMap    = Ra::Gui::KeyMappingManager::getInstance();
-        auto buttons   = Qt::NoButton;
-        auto modifiers = event->modifiers();
-        auto key       = Ra::Gui::activeKey();
-
-        auto action = keyMap->getAction( m_demoContext, buttons, modifiers, key );
-
-        if ( action == DEMO_COLORUP )
-        {
-            auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
-                m_obj->getMesh()->getAbstractGeometry() );
-            m_colIdx = ( m_colIdx + 1 ) % 10;
-            mesh.colorize( m_colors[m_colIdx] );
-        }
-        else if ( action == DEMO_COLORDOWN )
-        {
-            auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
-                m_obj->getMesh()->getAbstractGeometry() );
-            m_colIdx = ( m_colIdx + 9 ) % 10;
-            mesh.colorize( m_colors[m_colIdx] );
-        }
+    void colorup( QKeyEvent* event ) {
+        auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
+            m_obj->getMesh()->getAbstractGeometry() );
+        m_colIdx = ( m_colIdx + 1 ) % 10;
+        mesh.colorize( m_colors[m_colIdx] );
+    }
+    void colordown( QKeyEvent* event ) {
+        auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
+            m_obj->getMesh()->getAbstractGeometry() );
+        m_colIdx = ( m_colIdx + 9 ) % 10;
+        mesh.colorize( m_colors[m_colIdx] );
     }
     //! [Manage KeyEvent reaching the window]
   private:
