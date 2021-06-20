@@ -81,7 +81,7 @@ KeyMappingManager::addAction( const Context& context,
     {
         LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionName
                         << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
-        LOG( logERROR ) << "Trying to load default configuration...";
+        LOG( logERROR ) << "addAction ignored !";
         return KeyMappingManager::KeyMappingAction();
     }
 
