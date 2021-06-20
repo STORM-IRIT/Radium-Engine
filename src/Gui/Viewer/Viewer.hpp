@@ -147,14 +147,23 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// get the currently used background color
     const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
-    void addKeyPressEventAction( const std::string& keyString,
-                                 const std::string& modifiersString,
-                                 const std::string& buttonsString,
-                                 const std::string& wheelString,
-                                 const std::string& actionString ) {
+    KeyMappingManager::KeyMappingAction
+    addKeyPressEventAction( const std::string& actionName,
+                            const std::string& keyString,
+                            const std::string& modifiersString,
+                            const std::string& buttonsString,
+                            const std::string& wheelString,
+                            std::function<void( QKeyEvent* )> callback ) {
         auto keyMappingManager = KeyMappingManager::getInstance();
-        keyMappingManager->addAction(
-            getContext(), modifiersString, buttonsString, wheelString, actionString );
+        auto actionIndex = keyMappingManager->addAction( KeyMappingManageable<Viewer>::getContext(),
+                                                         actionName,
+                                                         keyString,
+                                                         modifiersString,
+                                                         buttonsString,
+                                                         wheelString );
+        std::cout << " add action " << actionIndex << "\n";
+        m_customKeyPressEventActions.insert( {actionIndex, callback} );
+        return actionIndex;
     }
 
     ///@}
@@ -288,6 +297,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     GizmoManager* m_gizmoManager;
 
     Core::Utils::Color m_backgroundColor {Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
+
+    std::map<Core::Utils::Index, std::function<void( QKeyEvent* )>> m_customKeyPressEventActions;
 
     KeyMappingManager::Context m_activeContext {};
 #define KeyMappingViewer                     \

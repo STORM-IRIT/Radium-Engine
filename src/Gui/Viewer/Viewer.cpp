@@ -615,14 +615,12 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
 
     if ( actionCamera.isValid() )
     { eventCatched = m_camera->handleKeyPressEvent( event, actionCamera ); }
-
-    if ( actionGizmo.isValid() )
+    else if ( actionGizmo.isValid() )
     {
         // m_gizmoManager->handleKeyPressEvent( event, action );
         // eventCatched = true;
     }
-
-    if ( actionViewer.isValid() )
+    else if ( actionViewer.isValid() )
     {
 
         if ( actionViewer == VIEWER_TOGGLE_WIREFRAME )
@@ -666,6 +664,15 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
             displayHelpDialog();
             eventCatched = true;
             requestActivate();
+        }
+        else
+        {
+            auto itr = m_customKeyPressEventActions.find( actionViewer );
+            if ( itr != m_customKeyPressEventActions.end() )
+            {
+                itr->second( event );
+                eventCatched = true;
+            }
         }
     }
     return eventCatched;
