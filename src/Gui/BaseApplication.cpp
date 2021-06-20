@@ -380,6 +380,8 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
         }
     }
 
+    m_mainWindow->configure();
+
     m_lastFrameStart = Core::Utils::Clock::now();
 
     connect( m_frameTimer, &QTimer::timeout, this, &BaseApplication::updateRadiumFrameIfNeeded );
