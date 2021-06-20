@@ -155,13 +155,13 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
                             const std::string& wheelString,
                             std::function<void( QKeyEvent* )> callback ) {
         auto keyMappingManager = KeyMappingManager::getInstance();
-        auto actionIndex = keyMappingManager->addAction( KeyMappingManageable<Viewer>::getContext(),
-                                                         actionName,
+        auto actionIndex       = keyMappingManager->addAction( "ViewerContext",
                                                          keyString,
                                                          modifiersString,
                                                          buttonsString,
-                                                         wheelString );
-        std::cout << " add action " << actionIndex << "\n";
+                                                         wheelString,
+                                                         actionName,
+                                                         false );
         m_customKeyPressEventActions.insert( {actionIndex, callback} );
         return actionIndex;
     }

@@ -70,37 +70,13 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// \param actionString represents the KeyMappingAction enum's value you want to
     /// trigger.
     /// \param saveToConfigFile set it to true (the default) to save the action on the config file.
-
-    void addAction( const std::string& context,
-                    const std::string& keyString,
-                    const std::string& modifiersString,
-                    const std::string& buttonsString,
-                    const std::string& wheelString,
-                    const std::string& actionString,
-                    bool saveToConfigFile = true );
-
-    /// Add a given action to an existing context in the mapping system.
-    /// This allow to define custom actions without the need of a KeyMappingManageable object.
-    /// This method do not add the action in the config file
-    /// @param context the context of the action.
-    /// @param actionName represents the KeyMappingAction enum's value you want to
-    /// trigger.
-    /// @param keyString  represents the key that needs to be pressed to trigger the event
-    /// (ie Key_Z, for example), "" or "-1" corresponds to no key needed.
-    /// @param modifiersString represents the modifier used along with key or mouse button `
-    /// (needs to be a Qt::Modifier enum value) to trigger the action. Multiples modifiers can be
-    /// specified, separated by commas as in "ControlModifier,ShiftModifier".
-    /// @param buttonsString represents the button to trigger the event (e.g. LeftButton).
-    /// @param wheelString if true, it's a wheel event !
-    /// @return an invalid action if context is not valid, or if actionName has not been created due
-    /// to already existing one.
-    // (i,e action.isInvalid())
-    KeyMappingAction addAction( const Context& context,
-                                const std::string& actionName,
-                                const std::string& keyString,
-                                const std::string& modifiersString,
-                                const std::string& buttonsString,
-                                const std::string& wheelString );
+    KeyMappingManager::KeyMappingAction addAction( const std::string& context,
+                                                   const std::string& keyString,
+                                                   const std::string& modifiersString,
+                                                   const std::string& buttonsString,
+                                                   const std::string& wheelString,
+                                                   const std::string& actionString,
+                                                   bool saveToConfigFile = true );
 
     /// \brief Creates the context index for the given context name.
     /// If the context already exist, return the existing index. If not, the context is created
@@ -188,12 +164,12 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 
     void loadConfigurationInternal();
     void loadConfigurationTagsInternal( QDomElement& node );
-    void loadConfigurationMappingInternal( const std::string& context,
-                                           const std::string& keyString,
-                                           const std::string& modifiersString,
-                                           const std::string& buttonsString,
-                                           const std::string& wheelString,
-                                           const std::string& actionString );
+    KeyMappingAction loadConfigurationMappingInternal( const std::string& context,
+                                                       const std::string& keyString,
+                                                       const std::string& modifiersString,
+                                                       const std::string& buttonsString,
+                                                       const std::string& wheelString,
+                                                       const std::string& actionString );
 
     /// Return KeyboardModifiers described in modifierString, multiple modifiers
     /// are comma separated in the modifiers string, as in
