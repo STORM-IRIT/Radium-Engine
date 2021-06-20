@@ -53,6 +53,8 @@ class RA_GUI_API MainWindowInterface : public QMainWindow
     virtual void addRenderer( const std::string& name,
                               std::shared_ptr<Engine::Rendering::Renderer> e ) = 0;
 
+    /// finalize configuration once engine viewer and connection are set.
+    virtual void configure() {};
   public slots:
     /**
      * Called when a scene is ready to display to parameterize the application window and the
