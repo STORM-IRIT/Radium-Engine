@@ -147,6 +147,16 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// get the currently used background color
     const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
+    void addKeyPressEventAction( const std::string& keyString,
+                                 const std::string& modifiersString,
+                                 const std::string& buttonsString,
+                                 const std::string& wheelString,
+                                 const std::string& actionString ) {
+        auto keyMappingManager = KeyMappingManager::getInstance();
+        keyMappingManager->addAction(
+            getContext(), modifiersString, buttonsString, wheelString, actionString );
+    }
+
     ///@}
 
     Scalar getDepthUnderMouse() const { return m_depthUnderMouse; }
