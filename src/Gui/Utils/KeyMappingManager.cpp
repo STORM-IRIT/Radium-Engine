@@ -60,46 +60,14 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
 }
 
 KeyMappingManager::KeyMappingAction
-KeyMappingManager::addAction( const Context& context,
-                              const std::string& actionName,
+KeyMappingManager::addAction( const std::string& context,
                               const std::string& keyString,
                               const std::string& modifiersString,
                               const std::string& buttonsString,
-                              const std::string& wheelString ) {
-    if ( context.isInvalid() ) { return KeyMappingManager::KeyMappingAction(); }
-
-    auto actionItr = m_actionNameToIndex[context].find( actionName );
-    if ( actionItr != m_actionNameToIndex[context].end() )
-    { return KeyMappingManager::KeyMappingAction(); }
-
-    Qt::KeyboardModifiers modifiersValue = getQtModifiersValue( modifiersString );
-    auto keyValue                        = m_metaEnumKey.keyToValue( keyString.c_str() );
-    auto buttonsValue                    = getQtMouseButtonsValue( buttonsString );
-    auto wheel                           = wheelString.compare( "true" ) == 0;
-
-    if ( keyValue == -1 && buttonsValue == Qt::NoButton && !wheel )
-    {
-        LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionName
-                        << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
-        LOG( logERROR ) << "addAction ignored !";
-        return KeyMappingManager::KeyMappingAction();
-    }
-
-    Ra::Core::Utils::Index actionIndex       = m_actionNameToIndex[context].size();
-    m_actionNameToIndex[context][actionName] = actionIndex;
-    bindKeyToAction(
-        context, MouseBinding {buttonsValue, modifiersValue, keyValue, wheel}, actionIndex );
-    return actionIndex;
-}
-
-void KeyMappingManager::addAction( const std::string& context,
-                                   const std::string& keyString,
-                                   const std::string& modifiersString,
-                                   const std::string& buttonsString,
-                                   const std::string& wheelString,
-                                   const std::string& actionString,
-                                   bool saveToConfigFile ) {
-    loadConfigurationMappingInternal(
+                              const std::string& wheelString,
+                              const std::string& actionString,
+                              bool saveToConfigFile ) {
+    auto actionIndex = loadConfigurationMappingInternal(
         context, keyString, modifiersString, buttonsString, wheelString, actionString );
     if ( saveToConfigFile )
     {
@@ -129,6 +97,7 @@ void KeyMappingManager::addAction( const std::string& context,
         domElement.appendChild( elementToAdd );
         saveConfiguration();
     }
+    return actionIndex;
 }
 
 KeyMappingManager::Context KeyMappingManager::addContext( const std::string& contextName ) {
@@ -441,7 +410,7 @@ void KeyMappingManager::saveNode( QXmlStreamWriter& stream, const QDomNode& domN
 }
 
 void KeyMappingManager::loadConfigurationInternal() {
-    ///\todo maybe find a better way to handle laod and reload.
+    ///\todo maybe find a better way to handle load and reload.
     /// -> do not clear m_contextNameToIndex m_actionNameToIndex so the keep their index values ...
     m_contextNameToIndex.clear();
     m_actionNameToIndex.clear();
@@ -493,12 +462,13 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
     }
 }
 
-void KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
-                                                          const std::string& keyString,
-                                                          const std::string& modifiersString,
-                                                          const std::string& buttonsString,
-                                                          const std::string& wheelString,
-                                                          const std::string& actionString ) {
+KeyMappingManager::KeyMappingAction
+KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
+                                                     const std::string& keyString,
+                                                     const std::string& modifiersString,
+                                                     const std::string& buttonsString,
+                                                     const std::string& wheelString,
+                                                     const std::string& actionString ) {
 
     Ra::Core::Utils::Index contextIndex = addContext( context );
 
@@ -521,7 +491,6 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
     {
         LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionString
                         << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
-        LOG( logERROR ) << "Trying to load default configuration...";
     }
     else
     {
@@ -529,6 +498,7 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
                          MouseBinding {buttonsValue, modifiersValue, keyValue, wheel},
                          actionIndex );
     }
+    return actionIndex;
 }
 
 Qt::KeyboardModifiers KeyMappingManager::getQtModifiersValue( const std::string& modifierString ) {
