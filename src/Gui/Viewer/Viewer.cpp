@@ -444,8 +444,9 @@ bool Viewer::initializeGL() {
 
     createGizmoManager();
 
-    emit glInitialized();
     m_glInitialized = true;
+
+    emit glInitialized();
 
     if ( m_renderers.empty() )
     {
