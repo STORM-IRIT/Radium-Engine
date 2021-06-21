@@ -491,6 +491,8 @@ class RA_ENGINE_API Renderer
 
     Core::Utils::Color m_backgroundColor {Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
     void preparePicking( const Data::ViewingParameters& renderData );
+
+    bool m_initialized {false};
 };
 
 } // namespace Rendering
