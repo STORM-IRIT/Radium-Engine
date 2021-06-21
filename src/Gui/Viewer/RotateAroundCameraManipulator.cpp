@@ -12,7 +12,7 @@ using namespace Ra::Core::Utils;
 using RotateAroundCameraMapping = KeyMappingManageable<RotateAroundCameraManipulator>;
 
 #define KMA_VALUE( XX ) KeyMappingManager::KeyMappingAction RotateAroundCameraManipulator::XX;
-KeyMappingRotateAroundCamera;
+KeyMappingRotateAroundCamera
 #undef KMA_VALUE
 
 void RotateAroundCameraManipulator::configureKeyMapping_impl() {
