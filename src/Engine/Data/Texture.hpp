@@ -31,7 +31,7 @@ namespace Data {
  * class/function.
  *
  *  When a texture is created, no OpenGL initialisation is realized. The user must first call
- * initializeGL before being able to use this texture in an OpenGL operation. initializeGL
+ * initializeGL before being able to use this texture in an OpenGL operation.
  *
  *  MipMap representation of the texture is automatically generated as soon as the minFilter
  * parameter is something else than GL_LINEAR or GL_NEAREST
