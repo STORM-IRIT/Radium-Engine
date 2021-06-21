@@ -83,7 +83,7 @@ void WindowQt::initialize() {
     {
         makeCurrent();
 
-        m_glInitialized = initializeGL();
+        initializeGL();
 
         doneCurrent();
     }
@@ -139,7 +139,9 @@ bool WindowQt::event( QEvent* event ) {
 }*/
 
 bool WindowQt::initializeGL() {
-    return false;
+    // this simple window do not init GL
+    m_glInitialized = false;
+    return m_glInitialized;
 }
 
 void WindowQt::cleanupGL() {

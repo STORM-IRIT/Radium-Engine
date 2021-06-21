@@ -474,7 +474,7 @@ bool Viewer::initializeGL() {
 
     if ( m_currentRenderer == nullptr ) { changeRenderer( 0 ); }
 
-    return true;
+    return m_glInitialized;
 }
 
 void Viewer::resizeGL( QResizeEvent* event ) {
