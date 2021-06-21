@@ -722,10 +722,9 @@ int Renderer::buildAllRenderTechniques() const {
     return 0;
 }
 
-Scalar Renderer::getDepth( int x, int y ) {
-    float depth;
-    m_pickingFbo->readPixels( {x, y, 1, 1}, GL_DEPTH_COMPONENT, GL_FLOAT, &depth );
-    return Scalar {depth};
+Scalar Renderer::getDepth( int, int ) {
+    LOG( logERROR ) << "call to not implemented Renderer::getDepth (return -1) , please override";
+    return -1_ra;
 }
 
 } // namespace Rendering
