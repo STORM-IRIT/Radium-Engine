@@ -67,10 +67,9 @@ using ViewerMapping = KeyMappingManageable<Viewer>;
 KeyMappingViewer
 #undef KMA_VALUE
 
-    // Register all keymapings related to the viewer and its managed functionalities (Trackball
-    // camera, Gizmo, ..)
-    void
-    Viewer::setupKeyMappingCallbacks() {
+// Register all keymapings related to the viewer and its managed functionalities (Trackball
+// camera, Gizmo, ..)
+void Viewer::setupKeyMappingCallbacks() {
     auto keyMappingManager = KeyMappingManager::getInstance();
 
     // Add default manipulator listener

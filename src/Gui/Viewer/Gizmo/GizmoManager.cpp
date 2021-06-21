@@ -20,8 +20,7 @@ using GizmoMapping = KeyMappingManageable<GizmoManager>;
 KeyMappingGizmo
 #undef KMA_VALUE
 
-    void
-    GizmoManager::configureKeyMapping_impl() {
+void GizmoManager::configureKeyMapping_impl() {
     GizmoMapping::setContext( Gui::KeyMappingManager::getInstance()->getContext( "GizmoContext" ) );
     if ( GizmoMapping::getContext().isInvalid() )
     {
@@ -44,7 +43,7 @@ bool GizmoManager::isValidAction( const Gui::KeyMappingManager::KeyMappingAction
 #define KMA_VALUE( XX ) res = ( XX == action ) || res;
     KeyMappingGizmo
 #undef KMA_VALUE
-        return res;
+    return res;
 }
 
 /*

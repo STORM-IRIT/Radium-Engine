@@ -28,8 +28,7 @@ namespace Gui {
 KeyMappingCamera
 #undef KMA_VALUE
 
-    void
-    TrackballCameraManipulator::configureKeyMapping_impl() {
+void TrackballCameraManipulator::configureKeyMapping_impl() {
 
     TrackballCameraMapping::setContext(
         KeyMappingManager::getInstance()->getContext( "CameraContext" ) );
