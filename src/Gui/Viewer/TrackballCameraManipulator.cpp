@@ -53,6 +53,9 @@ TrackballCameraManipulator::TrackballCameraManipulator() : CameraManipulator() {
 
 TrackballCameraManipulator::TrackballCameraManipulator( const CameraManipulator& other ) :
     CameraManipulator( other ) {
+    m_referenceFrame = m_camera->getFrame();
+    m_referenceFrame.translation() =
+        m_camera->getPosition() + m_distFromCenter * m_camera->getDirection();
     m_distFromCenter = ( m_referenceFrame.translation() - m_camera->getPosition() ).norm();
     updatePhiTheta();
 }
