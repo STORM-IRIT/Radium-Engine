@@ -63,11 +63,15 @@ QOpenGLContext* WindowQt::context() {
 }
 
 void WindowQt::makeCurrent() {
-    m_context->makeCurrent( this );
+    if ( QOpenGLContext::currentContext() != m_context.get() ) { m_context->makeCurrent( this ); }
+    else
+    { ++m_contextActivationNumber; }
 }
 
 void WindowQt::doneCurrent() {
-    m_context->doneCurrent();
+    if ( m_contextActivationNumber == 0 ) { m_context->doneCurrent(); }
+    else
+    { --m_contextActivationNumber; }
 }
 
 void WindowQt::resizeEvent( QResizeEvent* event ) {
@@ -82,9 +86,7 @@ void WindowQt::initialize() {
     if ( !m_glInitialized.load() )
     {
         makeCurrent();
-
         initializeGL();
-
         doneCurrent();
     }
 }
