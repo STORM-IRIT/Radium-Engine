@@ -88,6 +88,9 @@ class RA_GUI_API WindowQt : public QWindow
   protected:
     static WindowQt* s_getProcAddressHelper;
     static glbinding::ProcAddress getProcAddress( const char* name );
+
+  private:
+    int m_contextActivationNumber {0};
 };
 
 } // namespace Gui
