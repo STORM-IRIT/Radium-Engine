@@ -145,21 +145,22 @@ Engine::Rendering::Renderer* Viewer::getRenderer() {
 }
 
 int Viewer::addRenderer( const std::shared_ptr<Engine::Rendering::Renderer>& e ) {
-    // initial state and lighting (deferred if GL is not ready yet)
+    m_renderers.push_back( e );
+
+    // initialize the renderer (deferred if GL is not ready yet)
     if ( m_glInitialized.load() )
     {
-        LOG( logINFO ) << "[Viewer] New Renderer (" << e->getRendererName() << ") added.";
         makeCurrent();
         initializeRenderer( e.get() );
+        LOG( logINFO ) << "[Viewer] New Renderer (" << e->getRendererName() << ") added.";
         doneCurrent();
     }
     else
     {
         LOG( logINFO ) << "[Viewer] New Renderer (" << e->getRendererName()
                        << ") added with deferred init.";
+        m_pendingRenderers.push_back( e );
     }
-
-    m_renderers.push_back( e );
 
     return m_renderers.size() - 1;
 }
@@ -360,7 +361,7 @@ bool Viewer::changeRenderer( int index ) {
         LOG( logINFO ) << "[Viewer] Set active renderer: " << m_currentRenderer->getRendererName();
 
         // resize camera viewport since the one in show event might have 0x0
-        m_camera->getCamera()->setViewport( width(), height() );
+        if ( m_camera ) { m_camera->getCamera()->setViewport( width(), height() ); }
 
         doneCurrent();
         emit rendererReady();
@@ -427,6 +428,8 @@ void Viewer::initializeRenderer( Engine::Rendering::Renderer* renderer ) {
 
 bool Viewer::initializeGL() {
     globjects::init( getProcAddress );
+    // mark openGL as initialized
+    m_glInitialized = true;
 
     LOG( logINFO ) << "*** Radium Engine OpenGL context ***";
     LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::aux::ContextInfo::renderer();
@@ -436,33 +439,13 @@ bool Viewer::initializeGL() {
     LOG( logINFO ) << "GLSL                 : "
                    << gl::glGetString( gl::GLenum( GL_SHADING_LANGUAGE_VERSION ) );
 
-    // emit the signal so that the application might initialize the OpenGL part of the Engine
+    LOG( logINFO ) << "*** Radium Engine Viewer ***";
+
+    // emit the signal so that the client will initialize the OpenGL part of the Engine
+    // and custom OpenGL properties
     emit requestEngineOpenGLInitialization();
 
     // Configure the viewer services
-    LOG( logINFO ) << "*** Radium Engine Viewer ***";
-
-    createGizmoManager();
-
-    m_glInitialized = true;
-
-    emit glInitialized();
-
-    if ( m_renderers.empty() )
-    {
-        LOG( logINFO ) << "[Viewer] No renderer added, adding default (Forward Renderer)";
-        std::shared_ptr<Ra::Engine::Rendering::Renderer> e(
-            new Ra::Engine::Rendering::ForwardRenderer() );
-        addRenderer( e );
-    }
-    else
-    {
-        // initialize renderers already added
-        for ( auto& rptr : m_renderers )
-        {
-            initializeRenderer( rptr.get() );
-        }
-    }
     // create default camera interface : trackball
     m_camera = std::make_unique<TrackballCameraManipulator>();
     m_camera->getCamera()->setViewport( width(), height() );
@@ -471,6 +454,29 @@ bool Viewer::initializeGL() {
     headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
 
     m_camera->attachLight( headlight );
+
+    // Initialize renderers added to the viewer before initializeGL
+    for ( auto& rptr : m_pendingRenderers )
+    {
+        initializeRenderer( rptr.get() );
+    }
+    m_pendingRenderers.clear();
+
+    // create the gizmo manager (Ui)
+    createGizmoManager();
+
+    // Signal that OpenGL is initialized
+    emit glInitialized();
+
+    // If no renderer was added before that (either by slots on requestEngineOpenGLInitialization
+    // or on glInitialized), add default forward renderer
+    if ( m_renderers.empty() )
+    {
+        LOG( logINFO ) << "[Viewer] No renderer added, adding default (Forward Renderer)";
+        std::shared_ptr<Ra::Engine::Rendering::Renderer> e(
+            new Ra::Engine::Rendering::ForwardRenderer() );
+        addRenderer( e );
+    }
 
     if ( m_currentRenderer == nullptr ) { changeRenderer( 0 ); }
 
