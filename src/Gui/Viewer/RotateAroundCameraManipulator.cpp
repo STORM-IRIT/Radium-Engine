@@ -67,20 +67,14 @@ bool RotateAroundCameraManipulator::handleMouseMoveEvent(
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();
 
-    if ( event->modifiers().testFlag( Qt::AltModifier ) ) { m_quickCameraModifier = 10.0_ra; }
-    else
-    { m_quickCameraModifier = 2.0_ra; }
-
     if ( m_currentAction == TRACKBALLCAMERA_ROTATE )
-    { handleCameraRotate( event->pos().x(), event->pos().y() ); }
+        handleCameraRotate( event->pos().x(), event->pos().y() );
     else if ( m_currentAction == TRACKBALLCAMERA_PAN )
         handleCameraPan( dx, dy );
     else if ( m_currentAction == TRACKBALLCAMERA_ZOOM )
         handleCameraZoom( dx, dy );
     else if ( m_currentAction == TRACKBALLCAMERA_MOVE_FORWARD )
         handleCameraMoveForward( dx, dy );
-    //    { handleCameraForward( Ra::Core::Math::sign( dx ) * ( std::abs( dx ) + std::abs( dy ) ) );
-    //    }
 
     m_prevMouseX = m_lastMouseX;
     m_prevMouseY = m_lastMouseY;
@@ -95,7 +89,7 @@ bool RotateAroundCameraManipulator::handleMouseMoveEvent(
 }
 
 bool RotateAroundCameraManipulator::handleKeyPressEvent(
-    QKeyEvent* /*event*/,
+    QKeyEvent* event,
     const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) {
 
     if ( action == ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS )
@@ -103,13 +97,13 @@ bool RotateAroundCameraManipulator::handleKeyPressEvent(
         alignOnClosestAxis();
         return true;
     }
-    if ( action == ROTATEAROUND_SET_PIVOT )
+    else if ( action == ROTATEAROUND_SET_PIVOT )
     {
         setPivotFromPixel( m_lastMouseX, m_lastMouseY );
         return true;
     }
 
-    return false;
+    return TrackballCameraManipulator::handleKeyPressEvent( event, action );
 }
 
 void RotateAroundCameraManipulator::setPivot( Ra::Core::Vector3 pivot ) {
