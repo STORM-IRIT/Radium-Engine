@@ -23,7 +23,7 @@ void RotateAroundCameraManipulator::configureKeyMapping_impl() {
     {
         LOG( logINFO )
             << "CameraContext not defined (maybe the configuration file do not contains it)";
-        LOG( logERROR ) << "CameraContext all keymapping invalide !";
+        LOG( logERROR ) << "CameraContext all keymapping invalid !";
         return;
     }
 
@@ -48,7 +48,6 @@ void rotateAroundPoint( Ra::Core::Asset::Camera* cam,
     Ra::Core::Vector3 trans = point + inverseCamRotateAround * ( t - point );
     cam->setPosition( trans );
     target = cam->getPosition() + l * cam->getDirection();
-    return;
 }
 
 RotateAroundCameraManipulator::RotateAroundCameraManipulator( const CameraManipulator& cm,
@@ -176,7 +175,7 @@ Scalar RotateAroundCameraManipulator::projectOnBall( Scalar x, Scalar y ) {
     const Scalar size_limit = size2 * 0.5;
 
     const Scalar d = x * x + y * y;
-    return d < size_limit ? sqrt( size2 - d ) : size_limit / sqrt( d );
+    return d < size_limit ? std::sqrt( size2 - d ) : size_limit / std::sqrt( d );
 }
 
 Ra::Core::Quaternion
@@ -192,14 +191,16 @@ RotateAroundCameraManipulator::deformedBallQuaternion( Scalar x, Scalar y, Scala
     // Approximation of rotation angle
     // Should be divided by the projectOnBall size, but it is 1.0
     Ra::Core::Vector3 axis = p2.cross( p1 );
+
     if ( axis.norm() > 10_ra * Ra::Core::Math::machineEps )
     {
         const Scalar angle =
-            5.0 * asin( sqrt( axis.squaredNorm() / p1.squaredNorm() / p2.squaredNorm() ) );
-
+            5.0_ra *
+            std::asin( std::sqrt( axis.squaredNorm() / p1.squaredNorm() / p2.squaredNorm() ) );
         return Ra::Core::Quaternion( Ra::Core::AngleAxis( angle, axis.normalized() ) );
     }
-    return Ra::Core::Quaternion {0_ra, 0_ra, 0_ra, 1_ra};
+    return Ra::Core::Quaternion {
+        Ra::Core::AngleAxis( 0_ra, Ra::Core::Vector3( 0_ra, 0_ra, 1_ra ) )};
 }
 
 void RotateAroundCameraManipulator::handleCameraForward( Scalar z ) {
