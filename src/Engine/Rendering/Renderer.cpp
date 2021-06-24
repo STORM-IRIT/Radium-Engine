@@ -232,6 +232,8 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
 } // namespace Engine
 
 void Renderer::render( const Data::ViewingParameters& data ) {
+    if ( !m_initialized ) return;
+
     CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
 
     std::lock_guard<std::mutex> renderLock( m_renderMutex );
@@ -611,11 +613,13 @@ void Renderer::notifyRenderObjectsRenderingInternal() {
 }
 
 void Renderer::resize( uint w, uint h ) {
-    m_width  = w;
-    m_height = h;
-
-    if ( w != 0 && h != 0 )
+    // never init zero sized texture/fbo since fbo do not consider them as complete
+    // not initilialized ? init texture
+    // then only init if size is different than current
+    if ( ( w != 0 && h != 0 ) && ( !m_initialized || ( w != m_width || h != m_height ) ) )
     {
+        m_width  = w;
+        m_height = h;
         m_depthTexture->resize( m_width, m_height );
         m_pickingTexture->resize( m_width, m_height );
         m_fancyTexture->resize( m_width, m_height );
@@ -630,6 +634,8 @@ void Renderer::resize( uint w, uint h ) {
         }
         m_pickingFbo->unbind();
         resizeInternal();
+        GL_CHECK_ERROR;
+        m_initialized = true;
     }
 }
 

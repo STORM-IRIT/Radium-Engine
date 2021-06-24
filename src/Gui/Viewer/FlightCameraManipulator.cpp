@@ -25,8 +25,7 @@ using FlightCameraKeyMapping = Ra::Gui::KeyMappingManageable<FlightCameraManipul
 KeyMappingFlightManipulator
 #undef KMA_VALUE
 
-    void
-    Gui::FlightCameraManipulator::configureKeyMapping_impl() {
+void Gui::FlightCameraManipulator::configureKeyMapping_impl() {
 
     FlightCameraKeyMapping::setContext(
         Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" ) );
