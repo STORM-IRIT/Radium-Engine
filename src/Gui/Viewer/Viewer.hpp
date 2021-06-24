@@ -256,6 +256,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     ///\todo make the following  private:
     /// Owning pointer to the renderers.
     std::vector<std::shared_ptr<Engine::Rendering::Renderer>> m_renderers;
+    std::vector<std::shared_ptr<Engine::Rendering::Renderer>> m_pendingRenderers;
     Engine::Rendering::Renderer* m_currentRenderer;
 
     /// Owning Pointer to the feature picking manager.

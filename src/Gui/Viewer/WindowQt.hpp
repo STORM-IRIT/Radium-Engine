@@ -39,13 +39,19 @@ class RA_GUI_API WindowQt : public QWindow
     virtual void leaveEvent( QEvent* event );
 
     /**
-     * Make the OpenGL context associated with the viewer the current context.
+     * Make this->context() the current context.
+     * This function is made reentrant thanks to an internal counter that count how many time the
+     * context has been asked to be activated.
+     * If the context have already been made current with a previous call to makeCurrent, this
+     * function increase an internal counter by one so that doneCurrent do not release the context.
      */
-
     void makeCurrent();
 
     /**
-     * Reset the current OpenGL context that is no more the one associated with the viewer.
+     * Release this->context().
+     * This results in no context being current in the current thread.
+     * In case a context has been made current multiple times, this function just deacrease the
+     * internal counter by one. \see makeCurrent()
      */
     void doneCurrent();
 
@@ -88,6 +94,9 @@ class RA_GUI_API WindowQt : public QWindow
   protected:
     static WindowQt* s_getProcAddressHelper;
     static glbinding::ProcAddress getProcAddress( const char* name );
+
+  private:
+    int m_contextActivationCount {0};
 };
 
 } // namespace Gui
