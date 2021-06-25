@@ -782,12 +782,6 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
     return true;
 }
 
-Scalar ForwardRenderer::getDepth( int x, int y ) {
-    float depth;
-    m_fbo->readPixels( {x, y, 1, 1}, GL_DEPTH_COMPONENT, GL_FLOAT, &depth );
-    return Scalar {depth};
-}
-
 void ForwardRenderer::updateShadowMaps() {
     // Radium V2 : implement shadow mapping
 }
