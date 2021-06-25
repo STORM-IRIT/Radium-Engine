@@ -131,6 +131,9 @@ class RA_ENGINE_API Renderer
         inline Core::Utils::Index getRoIdx() const;
         inline void setMode( PickingMode mode );
         inline PickingMode getMode() const;
+        //
+        inline Scalar getDepth() const;
+        inline void setDepth( Scalar depth );
 
       private:
         /// Picking mode of the query
@@ -143,6 +146,7 @@ class RA_ENGINE_API Renderer
         ///
         /// \note Set as mutable to be able to call removeDuplicatedIndices() in const context.
         mutable std::vector<std::tuple<int, int, int>> m_indices;
+        Scalar m_depth;
     };
 
   public:
@@ -345,7 +349,6 @@ class RA_ENGINE_API Renderer
      * space" [0,1] \see
      * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glReadPixels.xhtml
      */
-    virtual Scalar getDepth( int x, int y );
     PickingResult doPickingNow( const PickingQuery& query,
                                 const Data::ViewingParameters& renderData );
 

@@ -211,19 +211,100 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
 
     m_pickingFbo->bind();
 
-    preparePicking( renderData );
+    // mouais
 
-    // Now read the Picking Texture to address the Picking Requests.
-    GL_ASSERT( glReadBuffer( GL_COLOR_ATTACHMENT0 ) );
+    // preparePicking( renderData );
+
+    GL_ASSERT( glDepthMask( GL_TRUE ) );
+    GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
+    GL_ASSERT( glDrawBuffers( 1, buffers ) );
+
+    float clearDepth = 1.0;
+    int clearColor[] = {-1, -1, -1, -1};
+
+    GL_ASSERT( glClearBufferiv( GL_COLOR, 0, clearColor ) );
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+
+    splitRenderQueuesForPicking( renderData );
+
+    // First draw Geometry Objects
+    GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
+    GL_ASSERT( glDepthFunc( GL_LESS ) );
+
+    renderForPicking( renderData, m_pickingShaders, m_fancyRenderObjectsPicking );
+    ////////////////// save depth
+    float depth;
+    m_pickingFbo->readPixels( {static_cast<int>( query.m_screenCoords.x() ),
+                               static_cast<int>( query.m_screenCoords.y() ),
+                               1,
+                               1},
+                              GL_DEPTH_COMPONENT,
+                              GL_FLOAT,
+                              &depth );
+    result.setDepth( depth );
+
+    /////////////////////////
+
+    // Then draw debug objects
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+    if ( m_drawDebug )
+    { renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking ); }
+
+    // Then draw xrayed objects on top of normal objects
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+    if ( m_drawDebug )
+    { renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking ); }
+
+    // Finally draw ui stuff on top of everything
+    // these have a different way to compute the transform matrices
+    // FIXME (florian): find a way to use renderForPicking()!
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+    for ( uint i = 0; i < m_pickingShaders.size(); ++i )
+    {
+        m_pickingShaders[i]->bind();
+        m_pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
+        m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
+
+        for ( const auto& ro : m_uiRenderObjectsPicking[i] )
+        {
+            if ( ro->isVisible() && ro->isPickable() )
+            {
+                m_pickingShaders[i]->setUniform( "objectId", ro->getIndex().getValue() );
+
+                Core::Matrix4 M  = ro->getTransformAsMatrix();
+                Core::Matrix4 MV = renderData.viewMatrix * M;
+                Scalar d         = MV.block<3, 1>( 0, 3 ).norm();
+
+                Core::Matrix4 S = Core::Matrix4::Identity();
+                S( 0, 0 ) = S( 1, 1 ) = S( 2, 2 ) = d;
+
+                M               = M * S;
+                Core::Matrix4 N = M.inverse().transpose();
+
+                m_pickingShaders[i]->setUniform( "transform.model", M );
+                m_pickingShaders[i]->setUniform( "transform.worldNormal", N );
+
+                // render
+                ro->getMesh()->render( m_pickingShaders[i] );
+            }
+        }
+    }
+
+    ///////////////////////
 
     int pick[4];
 
-    GL_ASSERT( glReadPixels(
-        query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
+    // Now read the Picking Texture to address the Picking Requests.
+    m_pickingFbo->readPixels( {static_cast<int>( query.m_screenCoords.x() ),
+                               static_cast<int>( query.m_screenCoords.y() ),
+                               1,
+                               1},
+                              GL_COLOR_ATTACHMENT0,
+                              GL_RGBA_INTEGER,
+                              pick );
     result.setRoIdx( pick[0] ); // RO idx
     result.addIndex( {pick[2], pick[1], pick[3]} );
     result.setMode( query.m_mode );
-
     m_pickingFbo->unbind();
 
     ///////
@@ -506,6 +587,7 @@ void Renderer::preparePicking( const Data::ViewingParameters& renderData ) {
     GL_ASSERT( glDepthFunc( GL_LESS ) );
 
     renderForPicking( renderData, m_pickingShaders, m_fancyRenderObjectsPicking );
+    // save depth
 
     // Then draw debug objects
     GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
@@ -720,11 +802,6 @@ int Renderer::buildAllRenderTechniques() const {
         }
     }
     return 0;
-}
-
-Scalar Renderer::getDepth( int, int ) {
-    LOG( logERROR ) << "call to not implemented Renderer::getDepth (return -1) , please override";
-    return -1_ra;
 }
 
 } // namespace Rendering

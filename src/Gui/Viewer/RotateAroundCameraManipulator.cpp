@@ -111,7 +111,7 @@ void RotateAroundCameraManipulator::setPivot( Ra::Core::Vector3 pivot ) {
 
 void RotateAroundCameraManipulator::setPivotFromPixel( Scalar x, Scalar y ) {
     m_viewer->makeCurrent();
-    Scalar z = m_viewer->getRenderer()->getDepth( x, m_viewer->height() - y );
+    Scalar z = m_viewer->getDepthUnderMouse();
     setPivot( m_camera->unProjectFromScreen( Ra::Core::Vector3( x, y, z ) ) );
     m_viewer->doneCurrent();
 }

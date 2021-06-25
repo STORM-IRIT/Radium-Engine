@@ -547,7 +547,8 @@ void Viewer::mousePressEvent( QMouseEvent* event ) {
     m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
 
     // get what's under the mouse
-    auto result = pickAtPosition( {event->x(), height() - event->y()} );
+    auto result       = pickAtPosition( {event->x(), height() - event->y()} );
+    m_depthUnderMouse = result.getDepth();
 
     handleMousePressEvent( event, result );
     emit needUpdate();
@@ -567,7 +568,8 @@ void Viewer::mouseMoveEvent( QMouseEvent* event ) {
 
     m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
 
-    auto result = pickAtPosition( {event->x(), height() - event->y()} );
+    auto result       = pickAtPosition( {event->x(), height() - event->y()} );
+    m_depthUnderMouse = result.getDepth();
 
     handleMouseMoveEvent( event, result );
     emit needUpdate();
