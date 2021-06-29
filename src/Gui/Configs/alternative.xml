@@ -23,4 +23,5 @@
     <keymap context="ViewerContext" key="Key_R" modifiers="" buttons="RightButton" action="VIEWER_RAYCAST"/>
     <keymap context="ViewerContext" key="" modifiers="ShiftModifier" buttons="" wheel="true"
             action="VIEWER_SCALE_BRUSH"/>
+    <keymap context="ViewerContext" action="VIEWER_HELP" buttons="" modifiers="" key="Key_F1" />
 </keymaps>

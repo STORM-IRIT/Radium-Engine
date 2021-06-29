@@ -181,6 +181,9 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     void enableDebugDraw( int enabled );
     void setBackgroundColor( const Core::Utils::Color& background );
 
+    // Display help dialog about Viewer key-bindings
+    void displayHelpDialog();
+
   private slots:
     /// These slots are connected to the base class signals to properly handle
     /// concurrent access to the renderer.
@@ -285,7 +288,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     KMA_VALUE( VIEWER_RELOAD_SHADERS )       \
     KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )     \
     KMA_VALUE( VIEWER_SWITCH_CAMERA )        \
-    KMA_VALUE( VIEWER_CAMERA_FIT_SCENE )
+    KMA_VALUE( VIEWER_CAMERA_FIT_SCENE )     \
+    KMA_VALUE( VIEWER_HELP )
 
 #define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
     KeyMappingViewer
