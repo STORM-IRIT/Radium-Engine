@@ -58,6 +58,7 @@ class RA_GUI_API SimpleWindow : public Ra::Gui::MainWindowInterface
     /// Cleanup resources.
     void cleanup() override;
 
+    // Display help dialog about Viewer key-bindings
     void displayHelpDialog() override;
 
   signals:

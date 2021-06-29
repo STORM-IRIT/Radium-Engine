@@ -72,13 +72,7 @@ void SimpleWindow::cleanup() {
 void SimpleWindow::createConnections() {}
 
 void SimpleWindow::displayHelpDialog() {
-    QMessageBox helpDialog;
-    auto kmappingMngr = Gui::KeyMappingManager::getInstance();
-    std::string keyMappingHelp {"<h1> UI action mapping </h1><\n>"};
-    keyMappingHelp += kmappingMngr->getHelpText();
-    keyMappingHelp += "<br/><\n>";
-    helpDialog.setText( keyMappingHelp.c_str() );
-    helpDialog.exec();
+    m_viewer->displayHelpDialog();
 }
 
 } // namespace Gui
