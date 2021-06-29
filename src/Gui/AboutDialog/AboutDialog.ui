@@ -23,49 +23,16 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background:#385e71; color:white</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="sizeConstraint">
     <enum>QLayout::SetNoConstraint</enum>
    </property>
    <item>
-    <widget class="QTextBrowser" name="radiumText">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="acceptDrops">
-      <bool>false</bool>
-     </property>
-     <property name="autoFillBackground">
-      <bool>true</bool>
-     </property>
-     <property name="locale">
-      <locale language="English" country="UnitedStates"/>
-     </property>
-     <property name="inputMethodHints">
-      <set>Qt::ImhNone</set>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
-     </property>
-     <property name="lineWidth">
-      <number>0</number>
-     </property>
-     <property name="verticalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-     <property name="sizeAdjustPolicy">
-      <enum>QAbstractScrollArea::AdjustToContents</enum>
+    <widget class="QLabel" name="radiumText">
+     <property name="text">
+      <string>TextLabel</string>
      </property>
      <property name="openExternalLinks">
       <bool>true</bool>
@@ -78,7 +45,7 @@
       <string/>
      </property>
      <property name="styleSheet">
-      <string notr="true">border: none; background:#416d83; padding:8px</string>
+      <string notr="true"/>
      </property>
      <property name="locale">
       <locale language="English" country="UnitedStates"/>
@@ -96,6 +63,7 @@
    </item>
   </layout>
  </widget>
+ <resources/>
  <connections>
   <connection>
    <sender>aboutbuttons</sender>

@@ -1,5 +1,6 @@
 #include "ui_AboutDialog.h"
 #include <Gui/AboutDialog/AboutDialog.hpp>
+#include <QFile>
 #include <QPushButton>
 
 namespace Ra {
@@ -7,7 +8,13 @@ namespace Gui {
 AboutDialog::AboutDialog( QWidget* parent ) : QDialog( parent ), ui( new Ui::AboutDialog ) {
     ui->setupUi( this );
     ui->radiumText->setFocusPolicy( Qt::NoFocus );
-    ui->radiumText->setSource( QUrl( "qrc:/about.html" ) );
+    auto file = QFile( ":/about.html" );
+    if ( file.open( QIODevice::ReadOnly | QIODevice::Text ) )
+    {
+        auto text = file.readAll();
+        std::cerr << text.toStdString();
+        ui->radiumText->setText( text );
+    }
     auto btn = ui->aboutbuttons->button( QDialogButtonBox::Close );
     btn->setFocus();
     btn->setAutoDefault( true );
