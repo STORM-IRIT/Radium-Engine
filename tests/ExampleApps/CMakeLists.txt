@@ -129,3 +129,7 @@ else()
             "glfw3 not found : disabling Radium Headless demo. Install glfw >3.2 or set glfw3_DIR to a suitable directory to enable this demo."
     )
 endif()
+
+add_subdirectory(VolumeDemoApp)
+add_dependencies(${PROJECT_NAME} VolumeDemoApp)
+add_run_and_debug_targets(VolumeDemoApp)
