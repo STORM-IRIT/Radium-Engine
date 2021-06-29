@@ -39,11 +39,11 @@ class DemoWindow : public Ra::Gui::SimpleWindow
     void configure() override {
 
         DEMO_COLORUP = getViewer()->addKeyPressEventAction(
-            "DEMO_COLORUP", "Key_F1", "", "", "false", [this]( QKeyEvent* event ) {
+            "DEMO_COLORUP", "Key_U", "", "", "false", [this]( QKeyEvent* event ) {
                 this->colorup( event );
             } );
         DEMO_COLORDOWN = getViewer()->addKeyPressEventAction(
-            "DEMO_COLORDOWN", "Key_F2", "", "", "false", [this]( QKeyEvent* event ) {
+            "DEMO_COLORDOWN", "Key_D", "", "", "false", [this]( QKeyEvent* event ) {
                 this->colordown( event );
             } );
         if ( DEMO_COLORUP.isInvalid() || DEMO_COLORDOWN.isInvalid() )
