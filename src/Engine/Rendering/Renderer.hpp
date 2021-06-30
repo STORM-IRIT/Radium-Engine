@@ -132,6 +132,9 @@ class RA_ENGINE_API Renderer
         inline void setMode( PickingMode mode );
         inline PickingMode getMode() const;
         //
+
+        /// return depth read during picking query (only done during doPickinNow())
+        ///\todo fixup for all picking query, \todo improve picking.
         inline Scalar getDepth() const;
         inline void setDepth( Scalar depth );
 

@@ -210,11 +210,10 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
     // 3. Do picking if needed
 
     m_pickingFbo->bind();
-
-    // mouais
-
+    /// \todo Fixup prepare picking to take pixel position and rendering window, and read depth in
+    /// it.
     // preparePicking( renderData );
-
+    // here is preparePicking code + save depth
     GL_ASSERT( glDepthMask( GL_TRUE ) );
     GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
     GL_ASSERT( glDrawBuffers( 1, buffers ) );
@@ -232,7 +231,7 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
     GL_ASSERT( glDepthFunc( GL_LESS ) );
 
     renderForPicking( renderData, m_pickingShaders, m_fancyRenderObjectsPicking );
-    ////////////////// save depth
+    ////////////////// added save depth //////////////////////////////////////
     float depth;
     m_pickingFbo->readPixels( {static_cast<int>( query.m_screenCoords.x() ),
                                static_cast<int>( query.m_screenCoords.y() ),
@@ -243,17 +242,17 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
                               &depth );
     result.setDepth( depth );
 
-    /////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-    // Then draw debug objects
-    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     if ( m_drawDebug )
-    { renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking ); }
-
-    // Then draw xrayed objects on top of normal objects
-    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
-    if ( m_drawDebug )
-    { renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking ); }
+    {
+        // Then draw debug objects
+        GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+        renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking );
+        // Then draw xrayed objects on top of normal objects
+        GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+        renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking );
+    }
 
     // Finally draw ui stuff on top of everything
     // these have a different way to compute the transform matrices
@@ -587,17 +586,17 @@ void Renderer::preparePicking( const Data::ViewingParameters& renderData ) {
     GL_ASSERT( glDepthFunc( GL_LESS ) );
 
     renderForPicking( renderData, m_pickingShaders, m_fancyRenderObjectsPicking );
-    // save depth
 
-    // Then draw debug objects
-    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     if ( m_drawDebug )
-    { renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking ); }
+    {
+        // Then draw debug objects
+        GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+        renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking );
 
-    // Then draw xrayed objects on top of normal objects
-    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
-    if ( m_drawDebug )
-    { renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking ); }
+        // Then draw xrayed objects on top of normal objects
+        GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+        renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking );
+    }
 
     // Finally draw ui stuff on top of everything
     // these have a different way to compute the transform matrices
