@@ -554,6 +554,7 @@ std::string KeyMappingManager::getHelpText() {
         contextString = contextString.substr( 0, end );
         text << "<h2>" << contextString << "</h2>\n";
 
+        text << "<table>\n";
         for ( const auto& action : m_mappingAction[context.second] )
         {
             const auto& binding     = action.first;
@@ -565,17 +566,32 @@ std::string KeyMappingManager::getHelpText() {
                               [&actionIndex]( const auto& a ) { return a.second == actionIndex; } );
             if ( actionName != actionNames.end() )
             {
-                text << actionName->first << ": ";
+                text << "<tr><td>";
+                text << "<b> " << actionName->first << "</b> ";
+                text << "</td><td>";
                 if ( binding.m_buttons != Qt::NoButton )
-                    text << enumNamesFromMouseButtons( binding.m_buttons ) << " ";
+                    text << "[" << enumNamesFromMouseButtons( binding.m_buttons ) << "] ";
+                if ( binding.m_wheel ) text << " [Wheel] ";
                 if ( binding.m_modifiers != Qt::NoModifier )
-                    text << enumNamesFromKeyboardModifiers( binding.m_modifiers ) << " ";
+                {
+
+                    std::string modifierString {"Modifier"};
+                    auto modifiers = enumNamesFromKeyboardModifiers( binding.m_modifiers );
+                    auto found     = modifiers.find( modifierString );
+                    while ( found != std::string::npos )
+                    {
+                        modifiers.erase( found, modifierString.length() );
+                        found = modifiers.find( modifierString, found );
+                    }
+                    text << "[" << modifiers << "] ";
+                }
                 if ( binding.m_key != -1 )
-                    text << "key: " << char( binding.m_key ) << "[" << binding.m_key << "]";
-                if ( binding.m_wheel ) text << " WheelEvent ";
-                text << "<br/><\n>";
+                    text << "[key: " << QKeySequence( binding.m_key ).toString().toStdString()
+                         << "] ";
+                text << "</td></tr>\n";
             }
         }
+        text << "</table>\n";
     }
     return text.str();
 }
