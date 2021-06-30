@@ -2,22 +2,20 @@
 
 #include <Gui/RaGui.hpp>
 
-#include <atomic>
-#include <memory>
-
-#include <QWindow>
-
-#include <QThread>
-
 #include <Core/CoreMacros.hpp>
 #include <Core/Types.hpp>
-
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/Renderer.hpp>
-
 #include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/WindowQt.hpp>
+
+#include <atomic>
+#include <memory>
+
+#include <QMessageBox>
+#include <QThread>
+#include <QWindow>
 
 // Forward declarations
 class QOpenGLContext;
@@ -254,6 +252,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     Ra::Engine::Rendering::Renderer::PickingResult pickAtPosition( Core::Vector2 position );
 
     void propagateEventToParent( QEvent* event );
+
+    std::unique_ptr<QMessageBox> m_helpDialog {nullptr};
 
   protected:
     ///\todo make the following  private:

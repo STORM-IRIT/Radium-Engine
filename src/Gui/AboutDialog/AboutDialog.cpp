@@ -12,7 +12,6 @@ AboutDialog::AboutDialog( QWidget* parent ) : QDialog( parent ), ui( new Ui::Abo
     if ( file.open( QIODevice::ReadOnly | QIODevice::Text ) )
     {
         auto text = file.readAll();
-        std::cerr << text.toStdString();
         ui->radiumText->setText( text );
     }
     auto btn = ui->aboutbuttons->button( QDialogButtonBox::Close );

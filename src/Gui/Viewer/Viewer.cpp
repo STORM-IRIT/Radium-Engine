@@ -20,7 +20,6 @@
 
 #include <QOpenGLContext>
 
-#include <QMessageBox>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QTimer>
@@ -661,7 +660,11 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
             eventCatched = true;
         }
         else if ( actionViewer == VIEWER_HELP )
-        { displayHelpDialog(); }
+        {
+            displayHelpDialog();
+            eventCatched = true;
+            requestActivate();
+        }
     }
     return eventCatched;
 }
@@ -823,13 +826,16 @@ bool Viewer::prepareDisplay() {
 }
 
 void Viewer::displayHelpDialog() {
-    QMessageBox helpDialog;
+    if ( !m_helpDialog ) { m_helpDialog.reset( new QMessageBox() ); }
     auto kmappingMngr = Gui::KeyMappingManager::getInstance();
     std::string keyMappingHelp {"<h1> UI action mapping </h1><\n>"};
     keyMappingHelp += kmappingMngr->getHelpText();
-    keyMappingHelp += "<br/><\n>";
-    helpDialog.setText( keyMappingHelp.c_str() );
-    helpDialog.exec();
+    keyMappingHelp += "<br/>\n";
+    m_helpDialog->setText( keyMappingHelp.c_str() );
+    m_helpDialog->setModal( false );
+    m_helpDialog->show();
+    m_helpDialog->raise();
+    m_helpDialog->activateWindow();
 }
 } // namespace Gui
 } // namespace Ra
