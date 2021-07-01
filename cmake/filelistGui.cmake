@@ -1,6 +1,6 @@
 set( gui_sources
-    BaseApplication.cpp
     AboutDialog/AboutDialog.cpp
+    BaseApplication.cpp
     RadiumWindow/SimpleWindow.cpp
     SelectionManager/SelectionManager.cpp
     SkeletonBasedAnimation/SkeletonBasedAnimationUI.cpp
@@ -30,9 +30,9 @@ set( gui_sources
 )
 
 set( gui_headers
+    AboutDialog/AboutDialog.hpp
     BaseApplication.hpp
     MainWindowInterface.hpp
-    AboutDialog/AboutDialog.hpp
     RadiumWindow/SimpleWindowFactory.hpp
     RadiumWindow/SimpleWindow.hpp
     RaGui.hpp
