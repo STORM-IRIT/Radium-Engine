@@ -15,6 +15,15 @@ echo "-- output vars prefiex with [${LOWBASE}]"
 echo "-- output file is           [${OUTPUT}]"
 
 rm "${OUTPUT}"
+
+echo  "# ----------------------------------------------------" >> ${OUTPUT}
+echo  "# ---------- DO NOT EDIT -----------------------------" >> ${OUTPUT}
+echo  "# ----------------------------------------------------" >> ${OUTPUT}
+echo  "# This file is autogenerate from a script:" >> ${OUTPUT}
+echo  "# run form scripts directory" >> ${OUTPUT}
+echo  "# $0 ${BASE}" >> ${OUTPUT}
+echo  "# ----------------------------------------------------" >> ${OUTPUT}
+
 if [ "$BASE" != "IO" ]; then
     echo  "set( ${LOWBASE}_sources" >> ${OUTPUT}
     find  ../src/${BASE}/ -name \*.cpp | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> ${OUTPUT}

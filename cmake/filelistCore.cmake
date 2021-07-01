@@ -1,3 +1,10 @@
+# ----------------------------------------------------
+# ---------- DO NOT EDIT -----------------------------
+# ----------------------------------------------------
+# This file is autogenerate from a script:
+# run form scripts directory
+# ./generateFilelistForModule.sh Core
+# ----------------------------------------------------
 set( core_sources
     Animation/BulgeCorrection.cpp
     Animation/Cage.cpp
