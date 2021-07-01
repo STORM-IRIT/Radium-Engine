@@ -1,24 +1,11 @@
-div.vertical_centering {
-    display: inline-block;
-    vertical-align: middle;
-}
 body,h1,h2,h3,h4,h5 {
     font-family: sans-serif;
     line-height: 1.5;
-    color: white;
-}
-p {
-    white-space: nowrap;
-}
-a {
-    color: #ffe330;
 }
 .radium_engine {
-    color:#ff811e;
-    font-family: Fantasy;
-    font-variant: small-caps;
-    font-weight: bold;
-    font-size: x-large;
+  font-size: 32px;
+  font-variant: small-caps;
+  font-weight: bold;
 }
 table {
     border: none;
