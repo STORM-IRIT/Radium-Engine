@@ -828,7 +828,7 @@ bool Viewer::prepareDisplay() {
 void Viewer::displayHelpDialog() {
     if ( !m_helpDialog ) { m_helpDialog.reset( new QMessageBox() ); }
     auto kmappingMngr = Gui::KeyMappingManager::getInstance();
-    std::string keyMappingHelp {"<h1> UI action mapping </h1><\n>"};
+    std::string keyMappingHelp {"<h1> UI action mapping </h1>\n"};
     keyMappingHelp += kmappingMngr->getHelpText();
     keyMappingHelp += "<br/>\n";
     m_helpDialog->setText( keyMappingHelp.c_str() );
