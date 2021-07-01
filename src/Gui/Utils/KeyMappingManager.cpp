@@ -567,7 +567,7 @@ std::string KeyMappingManager::getHelpText() {
             if ( actionName != actionNames.end() )
             {
                 text << "<tr><td>";
-                text << "<b> " << actionName->first << "</b> ";
+                text << "<b>" << actionName->first << "</b>";
                 text << "</td><td>";
                 if ( binding.m_buttons != Qt::NoButton )
                     text << "[" << enumNamesFromMouseButtons( binding.m_buttons ) << "] ";
