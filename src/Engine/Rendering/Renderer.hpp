@@ -131,6 +131,12 @@ class RA_ENGINE_API Renderer
         inline Core::Utils::Index getRoIdx() const;
         inline void setMode( PickingMode mode );
         inline PickingMode getMode() const;
+        //
+
+        /// return depth read during picking query (only done during doPickinNow())
+        ///\todo fixup for all picking query, \todo improve picking.
+        inline Scalar getDepth() const;
+        inline void setDepth( Scalar depth );
 
       private:
         /// Picking mode of the query
@@ -143,6 +149,7 @@ class RA_ENGINE_API Renderer
         ///
         /// \note Set as mutable to be able to call removeDuplicatedIndices() in const context.
         mutable std::vector<std::tuple<int, int, int>> m_indices;
+        Scalar m_depth;
     };
 
   public:
@@ -338,6 +345,13 @@ class RA_ENGINE_API Renderer
      */
     virtual std::unique_ptr<uchar[]> grabFrame( size_t& w, size_t& h ) const;
 
+    /**
+     * Read the depth value from m_pickingFbo depth buffer.
+     * Need to be overridden to take rendering fbo into account in your own renderer.
+     * \return the value of the depth buffer under pixel (x,y) return depth value is in "screen
+     * space" [0,1] \see
+     * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glReadPixels.xhtml
+     */
     PickingResult doPickingNow( const PickingQuery& query,
                                 const Data::ViewingParameters& renderData );
 

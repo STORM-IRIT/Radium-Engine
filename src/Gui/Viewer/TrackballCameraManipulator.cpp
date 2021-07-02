@@ -53,6 +53,9 @@ TrackballCameraManipulator::TrackballCameraManipulator() : CameraManipulator() {
 
 TrackballCameraManipulator::TrackballCameraManipulator( const CameraManipulator& other ) :
     CameraManipulator( other ) {
+    m_referenceFrame = m_camera->getFrame();
+    m_referenceFrame.translation() =
+        m_camera->getPosition() + m_distFromCenter * m_camera->getDirection();
     m_distFromCenter = ( m_referenceFrame.translation() - m_camera->getPosition() ).norm();
     updatePhiTheta();
 }
@@ -129,10 +132,6 @@ bool TrackballCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
     Scalar dx = ( event->pos().x() - m_lastMouseX ) / m_camera->getWidth();
     Scalar dy = ( event->pos().y() - m_lastMouseY ) / m_camera->getHeight();
 
-    if ( event->modifiers().testFlag( Qt::AltModifier ) ) { m_quickCameraModifier = 10.0_ra; }
-    else
-    { m_quickCameraModifier = 2.0_ra; }
-
     if ( m_currentAction == TRACKBALLCAMERA_ROTATE )
         handleCameraRotate( dx, dy );
     else if ( m_currentAction == TRACKBALLCAMERA_PAN )
@@ -155,8 +154,8 @@ bool TrackballCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
 }
 
 bool TrackballCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
-    m_currentAction       = KeyMappingManager::KeyMappingAction::Invalid();
-    m_quickCameraModifier = 1.0_ra;
+    m_currentAction = KeyMappingManager::KeyMappingAction::Invalid();
+
     return true;
 }
 
@@ -195,12 +194,20 @@ bool TrackballCameraManipulator::handleKeyPressEvent(
     QKeyEvent* /*event*/,
     const KeyMappingManager::KeyMappingAction& action ) {
 
-    using ProjType = Ra::Core::Asset::Camera::ProjType;
+    static bool quick = false;
+    using ProjType    = Ra::Core::Asset::Camera::ProjType;
     if ( action == TRACKBALLCAMERA_PROJ_MODE )
     {
         m_camera->setType( m_camera->getType() == ProjType::ORTHOGRAPHIC ? ProjType::PERSPECTIVE
                                                                          : ProjType::ORTHOGRAPHIC );
         return true;
+    }
+    else if ( action == CAMERA_TOGGLE_QUICK )
+    {
+        quick = !quick;
+        if ( quick ) { m_quickCameraModifier = 10.0_ra; }
+        else
+        { m_quickCameraModifier = 1.0_ra; }
     }
 
     return false;
@@ -351,12 +358,7 @@ void TrackballCameraManipulator::handleCameraZoom( Scalar dx, Scalar dy ) {
 }
 
 void TrackballCameraManipulator::handleCameraZoom( Scalar z ) {
-    const Scalar epsIn  = 0.1_ra;
-    const Scalar epsOut = 3.1_ra;
-    Scalar zoom =
-        std::clamp( m_camera->getZoomFactor() - z * m_cameraSensitivity * m_quickCameraModifier,
-                    epsIn,
-                    epsOut );
+    Scalar zoom = m_camera->getZoomFactor() - z * m_cameraSensitivity * m_quickCameraModifier;
     m_camera->setZoomFactor( zoom );
 }
 

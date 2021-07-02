@@ -1,47 +1,38 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-
+<!--	Radium KeyMappingManager configuration file	-->
 <!--
-<keymap key="" modifiers="" buttons="" action="" />
+<keymap context="context" action="action" buttons="QButton" modifier="QModifier" key="QKey" wheel="boolean"/>
 -->
-
 <keymaps>
-    <keymap context="CameraContext" key="" modifiers="" buttons="MiddleButton" action="TRACKBALLCAMERA_ROTATE"/>
-    <keymap context="CameraContext" key="" modifiers="ShiftModifier" buttons="MiddleButton"
-            action="TRACKBALLCAMERA_PAN"/>
-    <keymap context="CameraContext" key="" modifiers="ControlModifier" buttons="MiddleButton"
-            action="TRACKBALLCAMERA_ZOOM"/>
-    <keymap context="CameraContext" key="" modifiers="AltModifier,ControlModifier" buttons="MiddleButton"
-            action="TRACKBALLCAMERA_MOVE_FORWARD"/>
-    <keymap context="CameraContext" key="" modifiers="ControlModifier" buttons="" wheel="true"
-            action="TRACKBALLCAMERA_ZOOM"/>
-    <keymap context="CameraContext" key="" modifiers="" buttons="" wheel="true"
-            action="TRACKBALLCAMERA_MOVE_FORWARD"/>
-    <keymap context="CameraContext" key="Key_T" modifiers="" buttons="" action="TRACKBALLCAMERA_PROJ_MODE"/>
-
-    <keymap context="FlightManipulatorContext" key="" modifiers="" buttons="MiddleButton" action="FLIGHTMODECAMERA_ROTATE"/>
-    <keymap context="FlightManipulatorContext" key="" modifiers="ShiftModifier" buttons="MiddleButton"
-            action="FLIGHTMODECAMERA_PAN"/>
-    <keymap context="FlightManipulatorContext" key="" modifiers="ControlModifier" buttons="MiddleButton"
-            action="FLIGHTMODECAMERA_ZOOM"/>
-    <keymap context="FlightManipulatorContext" key="" modifiers="" buttons="" wheel="true"            action="FLIGHTMODECAMERA_ZOOM"/>
-    <keymap context="FlightManipulatorContext" key="Key_A" modifiers="" buttons="" action="FLIGHTMODECAMERA_ROTATE_AROUND"/>
-
-    <keymap context="GizmoContext" key="" modifiers="" buttons="LeftButton" action="GIZMOMANAGER_MANIPULATION"/>
-    <keymap context="GizmoContext" key="" modifiers="ControlModifier" buttons="LeftButton" action="GIZMOMANAGER_STEP"/>
-    <keymap context="GizmoContext" key="" modifiers="ShiftModifier" buttons="LeftButton" action="GIZMOMANAGER_WHOLE"/>
-    <keymap context="GizmoContext" key="" modifiers="ControlModifier,ShiftModifier" buttons="LeftButton"
-            action="GIZMOMANAGER_STEP_WHOLE"/>
-    <keymap context="ViewerContext" key="" modifiers="" buttons="RightButton" action="VIEWER_PICKING"/>
-    <keymap context="ViewerContext" key="Key_V" modifiers="" buttons="RightButton" action="VIEWER_PICKING_VERTEX"/>
-    <keymap context="ViewerContext" key="Key_E" modifiers="" buttons="RightButton" action="VIEWER_PICKING_EDGE"/>
-    <keymap context="ViewerContext" key="Key_T" modifiers="" buttons="RightButton" action="VIEWER_PICKING_TRIANGLE"/>
-    <keymap context="ViewerContext" key="Key_C" modifiers="" buttons="" action="VIEWER_PICKING_MULTI_CIRCLE"/>
-    <keymap context="ViewerContext" key="Key_C" modifiers="AltModifier" buttons="" action="VIEWER_SWITCH_CAMERA"/>
-    <keymap context="ViewerContext" key="Key_F" modifiers="AltModifier" buttons="" action="VIEWER_CAMERA_FIT_SCENE"/>
-    <keymap context="ViewerContext" key="Key_Z" modifiers="" buttons="" action="VIEWER_TOGGLE_WIREFRAME"/>
-    <keymap context="ViewerContext" key="Key_R" modifiers="AltModifier" buttons="LeftButton" action="VIEWER_RAYCAST"/>
-    <keymap context="ViewerContext" key="Key_R" modifiers="" buttons="" action="VIEWER_RELOAD_SHADERS"/>
-    <keymap context="ViewerContext" key="" modifiers="ShiftModifier" buttons="" wheel="true"
-            action="VIEWER_SCALE_BRUSH"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_ROTATE" key="" modifiers="" buttons="LeftButton"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_PAN" key="" modifiers="ShiftModifier" buttons="LeftButton"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_ZOOM" key="" modifiers="ControlModifier" buttons="LeftButton"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_MOVE_FORWARD" key="" modifiers="AltModifier,ControlModifier" buttons="LeftButton"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_ZOOM" key="" modifiers="ControlModifier" buttons="" wheel="true"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_MOVE_FORWARD" key="" modifiers="" buttons="" wheel="true"/>
+  <keymap context="CameraContext" action="TRACKBALLCAMERA_PROJ_MODE" key="Key_T" modifiers="AltModifier" buttons=""/>
+  <keymap context="CameraContext" action="ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS" key="Key_B" modifiers="AltModifier" buttons=""/>
+  <keymap context="CameraContext" action="ROTATEAROUND_SET_PIVOT" key="Key_V" modifiers="AltModifier" buttons=""/>
+  <keymap context="CameraContext" action="CAMERA_TOGGLE_QUICK" key="Key_S" modifiers="AltModifier" buttons=""/>
+  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ROTATE" key="" modifiers="" buttons="LeftButton"/>
+  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_PAN" key="" modifiers="ShiftModifier" buttons="LeftButton"/>
+  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ZOOM" key="" modifiers="ControlModifier" buttons="LeftButton"/>
+  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ZOOM" key="" modifiers="" buttons="" wheel="true"/>
+  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ROTATE_AROUND" key="Key_A" modifiers="" buttons=""/>
+  <keymap context="GizmoContext" action="GIZMOMANAGER_MANIPULATION" key="" modifiers="" buttons="LeftButton"/>
+  <keymap context="GizmoContext" action="GIZMOMANAGER_STEP" key="" modifiers="ControlModifier" buttons="LeftButton"/>
+  <keymap context="GizmoContext" action="GIZMOMANAGER_WHOLE" key="" modifiers="ShiftModifier" buttons="LeftButton"/>
+  <keymap context="GizmoContext" action="GIZMOMANAGER_STEP_WHOLE" key="" modifiers="ControlModifier,ShiftModifier" buttons="LeftButton"/>
+  <keymap context="ViewerContext" action="VIEWER_PICKING" key="" modifiers="" buttons="RightButton"/>
+  <keymap context="ViewerContext" action="VIEWER_PICKING_VERTEX" key="Key_V" modifiers="" buttons="RightButton"/>
+  <keymap context="ViewerContext" action="VIEWER_PICKING_EDGE" key="Key_E" modifiers="" buttons="RightButton"/>
+  <keymap context="ViewerContext" action="VIEWER_PICKING_TRIANGLE" key="Key_T" modifiers="" buttons="RightButton"/>
+  <keymap context="ViewerContext" action="VIEWER_PICKING_MULTI_CIRCLE" key="Key_C" modifiers="" buttons=""/>
+  <keymap context="ViewerContext" action="VIEWER_SWITCH_CAMERA" key="Key_C" modifiers="AltModifier" buttons=""/>
+  <keymap context="ViewerContext" action="VIEWER_CAMERA_FIT_SCENE" key="Key_F" modifiers="AltModifier" buttons=""/>
+  <keymap context="ViewerContext" action="VIEWER_TOGGLE_WIREFRAME" key="Key_W" modifiers="" buttons=""/>
+  <keymap context="ViewerContext" action="VIEWER_RAYCAST" key="Key_R" modifiers="AltModifier" buttons="LeftButton"/>
+  <keymap context="ViewerContext" action="VIEWER_RELOAD_SHADERS" key="Key_R" modifiers="CtrlModifier" buttons=""/>
+  <keymap context="ViewerContext" action="VIEWER_SCALE_BRUSH" key="" modifiers="ShiftModifier" buttons="" wheel="true"/>
     <keymap context="ViewerContext" action="VIEWER_HELP" buttons="" modifiers="" key="Key_F1" />
 </keymaps>

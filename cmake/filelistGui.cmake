@@ -31,6 +31,7 @@ set( gui_sources
     Viewer/Gizmo/RotateGizmo.cpp
     Viewer/Gizmo/ScaleGizmo.cpp
     Viewer/Gizmo/TranslateGizmo.cpp
+    Viewer/RotateAroundCameraManipulator.cpp
     Viewer/TrackballCameraManipulator.cpp
     Viewer/Viewer.cpp
     Viewer/WindowQt.cpp
@@ -67,6 +68,7 @@ set( gui_headers
     Viewer/Gizmo/RotateGizmo.hpp
     Viewer/Gizmo/ScaleGizmo.hpp
     Viewer/Gizmo/TranslateGizmo.hpp
+    Viewer/RotateAroundCameraManipulator.hpp
     Viewer/TrackballCameraManipulator.hpp
     Viewer/Viewer.hpp
     Viewer/WindowQt.hpp
