@@ -2,22 +2,20 @@
 
 #include <Gui/RaGui.hpp>
 
-#include <atomic>
-#include <memory>
-
-#include <QWindow>
-
-#include <QThread>
-
 #include <Core/CoreMacros.hpp>
 #include <Core/Types.hpp>
-
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/Renderer.hpp>
-
 #include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/WindowQt.hpp>
+
+#include <atomic>
+#include <memory>
+
+#include <QMessageBox>
+#include <QThread>
+#include <QWindow>
 
 // Forward declarations
 class QOpenGLContext;
@@ -181,6 +179,9 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     void enableDebugDraw( int enabled );
     void setBackgroundColor( const Core::Utils::Color& background );
 
+    // Display help dialog about Viewer key-bindings
+    void displayHelpDialog();
+
   private slots:
     /// These slots are connected to the base class signals to properly handle
     /// concurrent access to the renderer.
@@ -252,6 +253,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     void propagateEventToParent( QEvent* event );
 
+    std::unique_ptr<QMessageBox> m_helpDialog {nullptr};
+
   protected:
     ///\todo make the following  private:
     /// Owning pointer to the renderers.
@@ -285,7 +288,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     KMA_VALUE( VIEWER_RELOAD_SHADERS )       \
     KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )     \
     KMA_VALUE( VIEWER_SWITCH_CAMERA )        \
-    KMA_VALUE( VIEWER_CAMERA_FIT_SCENE )
+    KMA_VALUE( VIEWER_CAMERA_FIT_SCENE )     \
+    KMA_VALUE( VIEWER_HELP )
 
 #define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
     KeyMappingViewer

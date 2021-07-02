@@ -26,6 +26,7 @@
     <keymap context="ViewerContext" action="VIEWER_RAYCAST" buttons="LeftButton" modifiers="" key="Key_R"/>
     <keymap context="ViewerContext" action="VIEWER_SCALE_BRUSH" buttons="" modifiers="ShiftModifier" key="" wheel="true"/>
     <keymap context="ViewerContext" action="VIEWER_RELOAD_SHADERS" buttons="" modifiers="ControlModifier" key="Key_R" />
+    <keymap context="ViewerContext" action="VIEWER_HELP" buttons="" modifiers="" key="Key_F1" />
 
     <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ROTATE" buttons="LeftButton" modifiers=""
             key=""/>

@@ -71,5 +71,9 @@ void SimpleWindow::cleanup() {
 
 void SimpleWindow::createConnections() {}
 
+void SimpleWindow::displayHelpDialog() {
+    m_viewer->displayHelpDialog();
+}
+
 } // namespace Gui
 } // namespace Ra

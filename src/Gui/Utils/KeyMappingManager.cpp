@@ -544,6 +544,58 @@ KeyMappingManager::~KeyMappingManager() {
     if ( m_file->isOpen() ) { m_file->close(); }
 }
 
+std::string KeyMappingManager::getHelpText() {
+    //    return m_domDocument.toString().toStdString();
+    std::ostringstream text;
+    for ( const auto& context : m_contextNameToIndex )
+    {
+        std::string contextString {context.first};
+        auto end      = contextString.find( "Context" );
+        contextString = contextString.substr( 0, end );
+        text << "<h2>" << contextString << "</h2>\n";
+
+        text << "<table>\n";
+        for ( const auto& action : m_mappingAction[context.second] )
+        {
+            const auto& binding     = action.first;
+            const auto& actionIndex = action.second;
+            const auto& actionNames = m_actionNameToIndex[context.second];
+            const auto& actionName =
+                std::find_if( actionNames.begin(),
+                              actionNames.end(),
+                              [&actionIndex]( const auto& a ) { return a.second == actionIndex; } );
+            if ( actionName != actionNames.end() )
+            {
+                text << "<tr><td>";
+                text << "<b>" << actionName->first << "</b>";
+                text << "</td><td>";
+                if ( binding.m_buttons != Qt::NoButton )
+                    text << "[" << enumNamesFromMouseButtons( binding.m_buttons ) << "] ";
+                if ( binding.m_wheel ) text << " [Wheel] ";
+                if ( binding.m_modifiers != Qt::NoModifier )
+                {
+
+                    std::string modifierString {"Modifier"};
+                    auto modifiers = enumNamesFromKeyboardModifiers( binding.m_modifiers );
+                    auto found     = modifiers.find( modifierString );
+                    while ( found != std::string::npos )
+                    {
+                        modifiers.erase( found, modifierString.length() );
+                        found = modifiers.find( modifierString, found );
+                    }
+                    text << "[" << modifiers << "] ";
+                }
+                if ( binding.m_key != -1 )
+                    text << "[key: " << QKeySequence( binding.m_key ).toString().toStdString()
+                         << "] ";
+                text << "</td></tr>\n";
+            }
+        }
+        text << "</table>\n";
+    }
+    return text.str();
+}
+
 #define TEST_BUTTON_STRING( BUTTON ) \
     if ( buttons & Qt::BUTTON )      \
     {                                \

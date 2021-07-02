@@ -659,6 +659,12 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
             fitCamera();
             eventCatched = true;
         }
+        else if ( actionViewer == VIEWER_HELP )
+        {
+            displayHelpDialog();
+            eventCatched = true;
+            requestActivate();
+        }
     }
     return eventCatched;
 }
@@ -819,5 +825,17 @@ bool Viewer::prepareDisplay() {
     return false;
 }
 
+void Viewer::displayHelpDialog() {
+    if ( !m_helpDialog ) { m_helpDialog.reset( new QMessageBox() ); }
+    auto kmappingMngr = Gui::KeyMappingManager::getInstance();
+    std::string keyMappingHelp {"<h1> UI action mapping </h1>\n"};
+    keyMappingHelp += kmappingMngr->getHelpText();
+    keyMappingHelp += "<br/>\n";
+    m_helpDialog->setText( keyMappingHelp.c_str() );
+    m_helpDialog->setModal( false );
+    m_helpDialog->show();
+    m_helpDialog->raise();
+    m_helpDialog->activateWindow();
+}
 } // namespace Gui
 } // namespace Ra

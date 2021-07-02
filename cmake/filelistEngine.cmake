@@ -1,3 +1,10 @@
+# ----------------------------------------------------
+# ---------- DO NOT EDIT -----------------------------
+# ----------------------------------------------------
+# This file is autogenerate from a script:
+# run form scripts directory
+# ./generateFilelistForModule.sh Engine
+# ----------------------------------------------------
 set( engine_sources
     Data/BlinnPhongMaterial.cpp
     Data/DrawPrimitives.cpp

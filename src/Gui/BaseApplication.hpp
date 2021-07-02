@@ -129,8 +129,17 @@ class RA_GUI_API BaseApplication : public QApplication
 
     const std::string& getExportFolderName() const { return m_exportFoldername; }
 
+    /// Allow the user to register a specific plugin directory for the application
     void addPluginDirectory( const std::string& pluginDir );
+    /// Remove all registered plugin directories (except the default Radium Bundle one)
     void clearPluginDirectories();
+
+    /// Open the QSetting editor for the current application
+    /// \todo implement the editor
+    void editSettings();
+
+    /// Get the html formatted help text
+    virtual std::string getHelpText() const;
 
   signals:
     /// Fired when the engine has just started, before the frame timer is set.

@@ -53,10 +53,13 @@ class RA_GUI_API SimpleWindow : public Ra::Gui::MainWindowInterface
      * Called when a scene is ready to display to parameterize the application window and the
      * viewer.
      */
-    virtual void prepareDisplay() override;
+    void prepareDisplay() override;
 
     /// Cleanup resources.
-    virtual void cleanup() override;
+    void cleanup() override;
+
+    // Display help dialog about Viewer key-bindings
+    void displayHelpDialog() override;
 
   signals:
     /// Emitted when frame must be updated

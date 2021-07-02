@@ -101,6 +101,9 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// @param callbackId the Id, returned by addListener, of the Observer to be removed.
     void removeListener( int callbackId );
 
+    /// Return a string corresponding to the current dom document.
+    std::string getHelpText();
+
     /// return a string of enum names from mouse buttons, comma separated,
     /// without space
     static std::string enumNamesFromMouseButtons( const Qt::MouseButtons& buttons );
