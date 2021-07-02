@@ -148,6 +148,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
     ///@}
+
+    Scalar getDepthUnderMouse() const { return m_depthUnderMouse; }
   signals:
     /// Emitted when GL context is ready and the engine OpenGL part must be initialized.
     /// Renderers might be added here using addRenderer.
@@ -253,6 +255,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     void propagateEventToParent( QEvent* event );
 
+    Scalar m_depthUnderMouse;
     std::unique_ptr<QMessageBox> m_helpDialog {nullptr};
 
   protected:

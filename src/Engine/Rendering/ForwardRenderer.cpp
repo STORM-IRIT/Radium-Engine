@@ -27,6 +27,8 @@
 
 #include <map>
 
+#include <globjects/Texture.h>
+
 namespace Ra {
 using namespace Core;
 using namespace Core::Utils; // log

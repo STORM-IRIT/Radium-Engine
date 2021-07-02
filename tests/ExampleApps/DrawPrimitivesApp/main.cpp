@@ -5,6 +5,7 @@
 #include <QOpenGLContext>
 
 #include <Engine/Scene/EntityManager.hpp>
+#include <Gui/Viewer/RotateAroundCameraManipulator.hpp>
 
 #include <minimalapp.hpp>
 #include <minimalradium.hpp>
@@ -42,8 +43,15 @@ int main( int argc, char* argv[] ) {
 
     // prepare the viewer to render the scene (i.e. build RenderTechniques for the active renderer)
     app.m_viewer->prepareDisplay();
+    auto keyMappingManager = Ra::Gui::KeyMappingManager::getInstance();
+    // Add default manipulator listener
+    keyMappingManager->addListener(
+        Ra::Gui::RotateAroundCameraManipulator::thisKeyMapping::configureKeyMapping );
 
     // Start the app.
     app.m_frame_timer->start();
+    app.m_viewer->setCameraManipulator( new Ra::Gui::RotateAroundCameraManipulator(
+        *( app.m_viewer->getCameraManipulator() ), app.m_viewer.get() ) );
+
     return app.exec();
 }

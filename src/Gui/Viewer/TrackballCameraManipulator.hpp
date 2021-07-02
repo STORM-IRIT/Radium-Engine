@@ -113,12 +113,14 @@ class RA_GUI_API TrackballCameraManipulator
     void clampThetaPhi();
 
   protected:
-#define KeyMappingCamera                   \
-    KMA_VALUE( TRACKBALLCAMERA_ROTATE )    \
-    KMA_VALUE( TRACKBALLCAMERA_PAN )       \
-    KMA_VALUE( TRACKBALLCAMERA_ZOOM )      \
-    KMA_VALUE( TRACKBALLCAMERA_PROJ_MODE ) \
-    KMA_VALUE( TRACKBALLCAMERA_MOVE_FORWARD )
+    ///\todo move CAMERA_ to CameraManipulator, will be done soon ;)
+#define KeyMappingCamera                      \
+    KMA_VALUE( TRACKBALLCAMERA_ROTATE )       \
+    KMA_VALUE( TRACKBALLCAMERA_PAN )          \
+    KMA_VALUE( TRACKBALLCAMERA_ZOOM )         \
+    KMA_VALUE( TRACKBALLCAMERA_PROJ_MODE )    \
+    KMA_VALUE( TRACKBALLCAMERA_MOVE_FORWARD ) \
+    KMA_VALUE( CAMERA_TOGGLE_QUICK )
 
 #define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
     KeyMappingCamera

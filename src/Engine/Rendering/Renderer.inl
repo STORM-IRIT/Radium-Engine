@@ -44,6 +44,14 @@ inline Renderer::PickingMode Renderer::PickingResult::getMode() const {
     return m_mode;
 }
 
+inline Scalar Renderer::PickingResult::getDepth() const {
+    return m_depth;
+}
+
+inline void Renderer::PickingResult::setDepth( Scalar depth ) {
+    m_depth = depth;
+}
+
 inline const Renderer::TimerData& Renderer::getTimerData() const {
     return m_timerData;
 }
@@ -108,6 +116,7 @@ inline void Renderer::setBackgroundColor( const Core::Utils::Color& color ) {
 inline const Core::Utils::Color& Renderer::getBackgroundColor() const {
     return m_backgroundColor;
 }
+
 } // namespace Rendering
 } // namespace Engine
 } // namespace Ra
