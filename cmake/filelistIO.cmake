@@ -1,3 +1,10 @@
+# ----------------------------------------------------
+# ---------- DO NOT EDIT -----------------------------
+# ----------------------------------------------------
+# This file is autogenerate from a script:
+# run form scripts directory
+# ./generateFilelistForModule.sh IO
+# ----------------------------------------------------
 set( io_sources
     CameraLoader/CameraLoader.cpp
 )
