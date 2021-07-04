@@ -120,7 +120,12 @@ if(IO_FOUND)
         TARGET PROPERTY RADIUM_IO_USE_TINYPLY BRIEF_DOCS "Radium::IO has tinyply support."
         FULL_DOCS "Identify if Radium::IO was compiled with tinyply support."
     )
-    include("${CMAKE_CURRENT_LIST_DIR}/IOTargets.cmake")
+    define_property(TARGET
+        PROPERTY RADIUM_IO_HAS_VOLUMES
+        BRIEF_DOCS "Radium::IO has volume loader support."
+        FULL_DOCS "Identify if Radium::IO was compiled with volume loader support."
+    )
+    include("${CMAKE_CURRENT_LIST_DIR}/IOTargets.cmake" )
 
     # Detect if library has been compiled using assimp and tinyply
     get_target_property(deps Radium::IO INTERFACE_LINK_LIBRARIES)
