@@ -27,7 +27,8 @@ add_executable(
     Core/topomesh.cpp
     Engine/signalmanager.cpp
     Gui/keymapping.cpp
-)
+    IO/volumeloader.cpp
+    )
 
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
 target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Gui)
