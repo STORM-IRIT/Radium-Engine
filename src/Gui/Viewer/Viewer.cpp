@@ -530,11 +530,11 @@ void Viewer::keyPressEvent( QKeyEvent* event ) {
 }
 
 void Viewer::keyReleaseEvent( QKeyEvent* event ) {
-    keyReleased( event->key() );
-    if ( !m_camera->handleKeyReleaseEvent( event ) )
+    if ( !m_glInitialized.load() || !handleKeyReleaseEvent( event ) )
         propagateEventToParent( event );
     else
         emit needUpdate();
+    keyReleased( event->key() );
 }
 
 void Viewer::mousePressEvent( QMouseEvent* event ) {
@@ -667,12 +667,40 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
         }
         else
         {
-            auto itr = m_customKeyPressEventActions.find( actionViewer );
-            if ( itr != m_customKeyPressEventActions.end() )
+            auto itr = m_customKeyEventActions[KeyEventType::KeyPressed].find( actionViewer );
+            if ( itr != m_customKeyEventActions[KeyEventType::KeyPressed].end() )
             {
                 itr->second( event );
                 eventCatched = true;
             }
+        }
+    }
+    return eventCatched;
+}
+
+bool Viewer::handleKeyReleaseEvent( QKeyEvent* event ) {
+    auto keyMap       = KeyMappingManager::getInstance();
+    auto buttons      = Qt::NoButton;
+    auto modifiers    = event->modifiers();
+    auto key          = activeKey();
+    bool eventCatched = false;
+
+    // Is keymapping something of the viewer only ?
+    // or should be dispatched to all receivers ?
+    auto actionCamera =
+        keyMap->getAction( keyMap->getContext( "CameraContext" ), buttons, modifiers, key );
+    auto actionViewer =
+        keyMap->getAction( keyMap->getContext( "ViewerContext" ), buttons, modifiers, key );
+
+    if ( actionCamera.isValid() )
+    { eventCatched = m_camera->handleKeyReleaseEvent( event, actionCamera ); }
+    else if ( actionViewer.isValid() )
+    {
+        auto itr = m_customKeyEventActions[KeyEventType::KeyReleased].find( actionViewer );
+        if ( itr != m_customKeyEventActions[KeyEventType::KeyReleased].end() )
+        {
+            itr->second( event );
+            eventCatched = true;
         }
     }
     return eventCatched;
@@ -846,5 +874,44 @@ void Viewer::displayHelpDialog() {
     m_helpDialog->raise();
     m_helpDialog->activateWindow();
 }
+
+KeyMappingManager::KeyMappingAction
+Viewer::addKeyPressEventAction( const std::string& actionName,
+                                const std::string& keyString,
+                                const std::string& modifiersString,
+                                const std::string& buttonsString,
+                                const std::string& wheelString,
+                                std::function<void( QKeyEvent* )> callback ) {
+    auto keyMappingManager = KeyMappingManager::getInstance();
+    auto actionIndex       = keyMappingManager->addAction( "ViewerContext",
+                                                     keyString,
+                                                     modifiersString,
+                                                     buttonsString,
+                                                     wheelString,
+                                                     actionName,
+                                                     false );
+    m_customKeyEventActions[KeyEventType::KeyPressed].insert( {actionIndex, callback} );
+    return actionIndex;
+}
+
+KeyMappingManager::KeyMappingAction
+Viewer::addKeyReleaseEventAction( const std::string& actionName,
+                                  const std::string& keyString,
+                                  const std::string& modifiersString,
+                                  const std::string& buttonsString,
+                                  const std::string& wheelString,
+                                  std::function<void( QKeyEvent* )> callback ) {
+    auto keyMappingManager = KeyMappingManager::getInstance();
+    auto actionIndex       = keyMappingManager->addAction( "ViewerContext",
+                                                     keyString,
+                                                     modifiersString,
+                                                     buttonsString,
+                                                     wheelString,
+                                                     actionName,
+                                                     false );
+    m_customKeyEventActions[KeyEventType::KeyReleased].insert( {actionIndex, callback} );
+    return actionIndex;
+}
+
 } // namespace Gui
 } // namespace Ra

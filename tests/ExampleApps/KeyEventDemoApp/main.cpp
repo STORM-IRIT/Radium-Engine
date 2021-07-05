@@ -46,13 +46,20 @@ class DemoWindow : public Ra::Gui::SimpleWindow
             "DEMO_COLORDOWN", "Key_D", "", "", "false", [this]( QKeyEvent* event ) {
                 this->colordown( event );
             } );
+        DEMO_COLORRESET = getViewer()->addKeyReleaseEventAction(
+            "DEMO_COLORRESET", "Key_O", "", "", "false", [this]( QKeyEvent* event ) {
+                this->colorreset( event );
+            } );
         if ( DEMO_COLORUP.isInvalid() || DEMO_COLORDOWN.isInvalid() )
         {
             LOG( Ra::Core::Utils::logERROR ) << "Error : invalid context or actions for custom"
                                              << "Color Up [" << DEMO_COLORUP
                                              << "], "
                                                 "Color Down ["
-                                             << DEMO_COLORDOWN << "]";
+                                             << DEMO_COLORDOWN
+                                             << "], "
+                                                "Color Reset ["
+                                             << DEMO_COLORRESET << "]";
         }
     }
     /// Set the object to colorize
@@ -72,6 +79,12 @@ class DemoWindow : public Ra::Gui::SimpleWindow
         m_colIdx = ( m_colIdx + 9 ) % 10;
         mesh.colorize( m_colors[m_colIdx] );
     }
+    void colorreset( QKeyEvent* ) {
+        auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
+            m_obj->getMesh()->getAbstractGeometry() );
+        m_colIdx = 0;
+        mesh.colorize( m_colors[m_colIdx] );
+    }
     //! [Manage KeyEvent reaching the window]
   private:
     //! [KeyEvent for demo window]
@@ -79,6 +92,7 @@ class DemoWindow : public Ra::Gui::SimpleWindow
 
     Ra::Gui::KeyMappingManager::KeyMappingAction DEMO_COLORUP;
     Ra::Gui::KeyMappingManager::KeyMappingAction DEMO_COLORDOWN;
+    Ra::Gui::KeyMappingManager::KeyMappingAction DEMO_COLORRESET;
 
     std::shared_ptr<Ra::Engine::Rendering::RenderObject> m_obj;
     std::array<Ra::Core::Utils::Color, 10> m_colors {Ra::Core::Utils::Color::Green(),

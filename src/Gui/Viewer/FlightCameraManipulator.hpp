@@ -40,7 +40,8 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
 
     bool handleKeyPressEvent( QKeyEvent* event,
                               const KeyMappingManager::KeyMappingAction& action ) override;
-    bool handleKeyReleaseEvent( QKeyEvent* event ) override;
+    bool handleKeyReleaseEvent( QKeyEvent* event,
+                                const KeyMappingManager::KeyMappingAction& action ) override;
 
     void toggleRotateAround();
     void updateCamera() override;
