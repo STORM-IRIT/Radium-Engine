@@ -213,7 +213,9 @@ bool TrackballCameraManipulator::handleKeyPressEvent(
     return false;
 }
 
-bool TrackballCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
+bool TrackballCameraManipulator::handleKeyReleaseEvent(
+    QKeyEvent* /*e*/,
+    const KeyMappingManager::KeyMappingAction& /* action */ ) {
     return false;
 }
 

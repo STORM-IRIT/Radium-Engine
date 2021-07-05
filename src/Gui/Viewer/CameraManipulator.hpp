@@ -69,7 +69,8 @@ class RA_GUI_API CameraManipulator : public QObject
     virtual bool handleKeyPressEvent( QKeyEvent* event,
                                       const KeyMappingManager::KeyMappingAction& action ) = 0;
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
+    virtual bool handleKeyReleaseEvent( QKeyEvent* event,
+                                        const KeyMappingManager::KeyMappingAction& action ) = 0;
 
     /// Pointer access to the camera.
     const Core::Asset::Camera* getCamera() const { return m_camera; }

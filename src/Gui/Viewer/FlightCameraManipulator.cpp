@@ -223,7 +223,9 @@ bool Gui::FlightCameraManipulator::handleKeyPressEvent(
     return false;
 }
 
-bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
+bool Gui::FlightCameraManipulator::handleKeyReleaseEvent(
+    QKeyEvent* /*e*/,
+    const KeyMappingManager::KeyMappingAction& /* action */ ) {
     return false;
 }
 
