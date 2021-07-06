@@ -282,6 +282,14 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
                      const std::string& wheelString,
                      std::function<void( QKeyEvent* )> callback );
 
+    std::tuple<KeyMappingManager::KeyMappingAction,
+               KeyMappingManager::KeyMappingAction,
+               KeyMappingManager::KeyMappingAction>
+    getComponentActions( const Qt::MouseButtons& buttons,
+                         const Qt::KeyboardModifiers& modifiers,
+                         int key,
+                         bool wheel );
+
     Scalar m_depthUnderMouse;
     std::unique_ptr<QMessageBox> m_helpDialog {nullptr};
 

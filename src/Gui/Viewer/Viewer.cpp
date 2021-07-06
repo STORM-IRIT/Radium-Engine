@@ -596,22 +596,32 @@ void Viewer::showEvent( QShowEvent* ev ) {
     emit needUpdate();
 }
 
-bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
+std::tuple<KeyMappingManager::KeyMappingAction,
+           KeyMappingManager::KeyMappingAction,
+           KeyMappingManager::KeyMappingAction>
+Viewer::getComponentActions( const Qt::MouseButtons& buttons,
+                             const Qt::KeyboardModifiers& modifiers,
+                             int key,
+                             bool wheel ) {
+    auto keyMap = KeyMappingManager::getInstance();
 
-    auto keyMap       = KeyMappingManager::getInstance();
-    auto buttons      = Qt::NoButton;
-    auto modifiers    = event->modifiers();
-    auto key          = activeKey();
+    auto actionCamera =
+        keyMap->getAction( keyMap->getContext( "CameraContext" ), buttons, modifiers, key, wheel );
+    auto actionGizmo =
+        keyMap->getAction( keyMap->getContext( "GizmoContext" ), buttons, modifiers, key, wheel );
+    auto actionViewer =
+        keyMap->getAction( keyMap->getContext( "ViewerContext" ), buttons, modifiers, key, wheel );
+    return {actionCamera, actionGizmo, actionViewer};
+}
+
+bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
     bool eventCatched = false;
+
+    auto [actionCamera, actionGizmo, actionViewer] =
+        getComponentActions( Qt::NoButton, event->modifiers(), activeKey(), false );
 
     // Is keymapping something of the viewer only ?
     // or should be dispatched to all receivers ?
-    auto actionCamera =
-        keyMap->getAction( keyMap->getContext( "CameraContext" ), buttons, modifiers, key );
-    auto actionGizmo =
-        keyMap->getAction( keyMap->getContext( "GizmoContext" ), buttons, modifiers, key );
-    auto actionViewer =
-        keyMap->getAction( keyMap->getContext( "ViewerContext" ), buttons, modifiers, key );
 
     if ( actionCamera.isValid() )
     { eventCatched = m_camera->handleKeyPressEvent( event, actionCamera ); }
@@ -679,18 +689,12 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
 }
 
 bool Viewer::handleKeyReleaseEvent( QKeyEvent* event ) {
-    auto keyMap       = KeyMappingManager::getInstance();
-    auto buttons      = Qt::NoButton;
-    auto modifiers    = event->modifiers();
-    auto key          = activeKey();
     bool eventCatched = false;
 
     // Is keymapping something of the viewer only ?
     // or should be dispatched to all receivers ?
-    auto actionCamera =
-        keyMap->getAction( keyMap->getContext( "CameraContext" ), buttons, modifiers, key );
-    auto actionViewer =
-        keyMap->getAction( keyMap->getContext( "ViewerContext" ), buttons, modifiers, key );
+    auto [actionCamera, actionGizmo, actionViewer] =
+        getComponentActions( Qt::NoButton, event->modifiers(), activeKey(), false );
 
     if ( actionCamera.isValid() )
     { eventCatched = m_camera->handleKeyReleaseEvent( event, actionCamera ); }
