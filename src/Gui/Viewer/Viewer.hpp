@@ -273,6 +273,15 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     void propagateEventToParent( QEvent* event );
 
+    KeyMappingManager::KeyMappingAction
+    addCustomAction( int index,
+                     const std::string& actionName,
+                     const std::string& keyString,
+                     const std::string& modifiersString,
+                     const std::string& buttonsString,
+                     const std::string& wheelString,
+                     std::function<void( QKeyEvent* )> callback );
+
     Scalar m_depthUnderMouse;
     std::unique_ptr<QMessageBox> m_helpDialog {nullptr};
 

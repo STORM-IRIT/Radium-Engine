@@ -882,16 +882,13 @@ Viewer::addKeyPressEventAction( const std::string& actionName,
                                 const std::string& buttonsString,
                                 const std::string& wheelString,
                                 std::function<void( QKeyEvent* )> callback ) {
-    auto keyMappingManager = KeyMappingManager::getInstance();
-    auto actionIndex       = keyMappingManager->addAction( "ViewerContext",
-                                                     keyString,
-                                                     modifiersString,
-                                                     buttonsString,
-                                                     wheelString,
-                                                     actionName,
-                                                     false );
-    m_customKeyEventActions[KeyEventType::KeyPressed].insert( {actionIndex, callback} );
-    return actionIndex;
+    return addCustomAction( KeyEventType::KeyPressed,
+                            actionName,
+                            keyString,
+                            modifiersString,
+                            buttonsString,
+                            wheelString,
+                            callback );
 }
 
 KeyMappingManager::KeyMappingAction
@@ -901,6 +898,23 @@ Viewer::addKeyReleaseEventAction( const std::string& actionName,
                                   const std::string& buttonsString,
                                   const std::string& wheelString,
                                   std::function<void( QKeyEvent* )> callback ) {
+    return addCustomAction( KeyEventType::KeyReleased,
+                            actionName,
+                            keyString,
+                            modifiersString,
+                            buttonsString,
+                            wheelString,
+                            callback );
+}
+
+KeyMappingManager::KeyMappingAction
+Viewer::addCustomAction( int index,
+                         const std::string& actionName,
+                         const std::string& keyString,
+                         const std::string& modifiersString,
+                         const std::string& buttonsString,
+                         const std::string& wheelString,
+                         std::function<void( QKeyEvent* )> callback ) {
     auto keyMappingManager = KeyMappingManager::getInstance();
     auto actionIndex       = keyMappingManager->addAction( "ViewerContext",
                                                      keyString,
@@ -909,7 +923,7 @@ Viewer::addKeyReleaseEventAction( const std::string& actionName,
                                                      wheelString,
                                                      actionName,
                                                      false );
-    m_customKeyEventActions[KeyEventType::KeyReleased].insert( {actionIndex, callback} );
+    m_customKeyEventActions[index].insert( {actionIndex, callback} );
     return actionIndex;
 }
 
