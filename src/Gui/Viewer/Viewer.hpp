@@ -298,10 +298,10 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     Core::Utils::Color m_backgroundColor {Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 
     /// Name of the customisable key actions
-    enum KeyEventType { KeyPressed = 0, KeyReleased };
+    enum KeyEventType { KeyPressed = 0, KeyReleased, KeyEventTypeCount };
     /// Array of custom key event handler
     /// Index is KeyEventType
-    std::array<std::map<Core::Utils::Index, std::function<void( QKeyEvent* )>>, 2>
+    std::array<std::map<Core::Utils::Index, std::function<void( QKeyEvent* )>>, KeyEventTypeCount>
         m_customKeyEventActions;
 
     KeyMappingManager::Context m_activeContext {};
