@@ -68,7 +68,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// \param wheelString if true, it's a wheel event !
     /// \param actionString represents the KeyMappingAction enum's value you want to
     /// trigger.
-    /// \param saveToConfigFile set it to true (the default) to save the action on the config file.
+    /// \param saveToConfigFile request to save the action on the config file (true by default).
     KeyMappingManager::KeyMappingAction addAction( const std::string& context,
                                                    const std::string& keyString,
                                                    const std::string& modifiersString,
