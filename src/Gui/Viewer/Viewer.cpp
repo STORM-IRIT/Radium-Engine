@@ -677,14 +677,15 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
         }
         else
         {
-            auto itr = m_customActions[KeyEventType::KeyPressed].find( actionViewer );
-            if ( itr != m_customActions[KeyEventType::KeyPressed].end() )
+            auto itr = m_customKeyActions[KeyEventType::KeyPressed].find( actionViewer );
+            if ( itr != m_customKeyActions[KeyEventType::KeyPressed].end() )
             {
                 itr->second( event );
                 eventCatched = true;
             }
         }
     }
+
     return eventCatched;
 }
 
@@ -700,8 +701,8 @@ bool Viewer::handleKeyReleaseEvent( QKeyEvent* event ) {
     { eventCatched = m_camera->handleKeyReleaseEvent( event, actionCamera ); }
     else if ( actionViewer.isValid() )
     {
-        auto itr = m_customActions[KeyEventType::KeyReleased].find( actionViewer );
-        if ( itr != m_customActions[KeyEventType::KeyReleased].end() )
+        auto itr = m_customKeyActions[KeyEventType::KeyReleased].find( actionViewer );
+        if ( itr != m_customKeyActions[KeyEventType::KeyReleased].end() )
         {
             itr->second( event );
             eventCatched = true;
@@ -927,7 +928,7 @@ Viewer::addCustomAction( int index,
                                                      wheelString,
                                                      actionName,
                                                      false );
-    m_customActions[index].insert( {actionIndex, callback} );
+    m_customKeyActions[index].insert( {actionIndex, callback} );
     return actionIndex;
 }
 
