@@ -223,12 +223,6 @@ bool Gui::FlightCameraManipulator::handleKeyPressEvent(
     return false;
 }
 
-bool Gui::FlightCameraManipulator::handleKeyReleaseEvent(
-    QKeyEvent* /*e*/,
-    const KeyMappingManager::KeyMappingAction& /* action */ ) {
-    return false;
-}
-
 void Gui::FlightCameraManipulator::setCameraPosition( const Core::Vector3& position ) {
     if ( position == m_target )
     {

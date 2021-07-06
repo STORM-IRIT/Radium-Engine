@@ -71,6 +71,42 @@ void CameraManipulator::attachLight( Engine::Scene::Light* light ) {
 KeyMappingManager::Context Gui::CameraManipulator::mappingContext() {
     return Gui::KeyMappingManager::Context();
 }
+/// @return true if the event has been taken into account, false otherwise
+bool CameraManipulator::handleMousePressEvent( QMouseEvent*,
+                                               const Qt::MouseButtons&,
+                                               const Qt::KeyboardModifiers&,
+                                               int ) {
+    return false;
+}
+/// @return true if the event has been taken into account, false otherwise
+bool CameraManipulator::handleMouseReleaseEvent( QMouseEvent* ) {
+    return false;
+}
+/// @return true if the event has been taken into, false otherwise
+bool CameraManipulator::handleMouseMoveEvent( QMouseEvent*,
+                                              const Qt::MouseButtons&,
+                                              const Qt::KeyboardModifiers&,
+                                              int ) {
+    return false;
+}
+/// @return true if the event has been taken into account, false otherwise
+bool CameraManipulator::handleWheelEvent( QWheelEvent*,
+                                          const Qt::MouseButtons&,
+                                          const Qt::KeyboardModifiers&,
+                                          int ) {
+    return false;
+}
+
+/// @return true if the event has been taken into account, false otherwise
+bool CameraManipulator::handleKeyPressEvent( QKeyEvent*,
+                                             const KeyMappingManager::KeyMappingAction& ) {
+    return false;
+}
+/// @return true if the event has been taken into account, false otherwise
+bool CameraManipulator::handleKeyReleaseEvent( QKeyEvent*,
+                                               const KeyMappingManager::KeyMappingAction& ) {
+    return false;
+}
 
 } // namespace Gui
 } // namespace Ra
