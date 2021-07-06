@@ -319,7 +319,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// Array of custom key event handler
     /// Index is KeyEventType
     std::array<std::map<Core::Utils::Index, std::function<void( QKeyEvent* )>>, KeyEventTypeCount>
-        m_customActions;
+        m_customKeyActions;
 
     KeyMappingManager::Context m_activeContext {};
 #define KeyMappingViewer                     \
