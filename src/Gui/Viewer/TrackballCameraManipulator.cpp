@@ -213,12 +213,6 @@ bool TrackballCameraManipulator::handleKeyPressEvent(
     return false;
 }
 
-bool TrackballCameraManipulator::handleKeyReleaseEvent(
-    QKeyEvent* /*e*/,
-    const KeyMappingManager::KeyMappingAction& /* action */ ) {
-    return false;
-}
-
 void TrackballCameraManipulator::setCameraPosition( const Core::Vector3& position ) {
     if ( position == m_referenceFrame.translation() )
     {
