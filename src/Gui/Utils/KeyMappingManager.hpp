@@ -59,7 +59,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// This allow to define default behavior when some KeyMappingManageable object is not
     /// parameterized in the application config file. The action can be added to the current config
     /// file so that it will remain for subsequent usage. \param context the context of the action
-    /// \param keyString  represents the key that needs to be pressed to trigger the event
+    /// \param keyString represents the key that needs to be pressed to trigger the event
     /// (ie Key_Z, for example), "" or "-1" corresponds to no key needed.
     /// \param modifiersString represents the modifier used along with key or mouse button `
     /// (needs to be a Qt::Modifier enum value) to trigger the action. Multiples modifiers can be
