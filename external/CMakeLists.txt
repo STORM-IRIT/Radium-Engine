@@ -19,6 +19,9 @@ else()
   # We can use include() and find_package() for our scripts in there
   list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
 
+  # Check compiler version
+  include(compilerVersion)
+
   # Changing the default value for CMAKE_BUILD_PARALLEL_LEVEL
   if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
       include(ProcessorCount)
