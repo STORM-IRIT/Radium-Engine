@@ -81,8 +81,8 @@ inline const char* glErrorString( gl::GLenum err ) {
                 const char* errBuf = glErrorString( err );                                       \
                 LOG( Ra::Core::Utils::logERROR )                                                 \
                     << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", " << STRINGIFY( x ) \
-                    << ") : " << errBuf << "(" << err << " : 0x" << std::hex << err << std::dec  \
-                    << ").";                                                                     \
+                    << ") : " << errBuf << "(" << err << " : 0x" << std::hex << int( err )       \
+                    << std::dec << ").";                                                         \
                 BREAKPOINT( 0 );                                                                 \
             }                                                                                    \
         }
