@@ -294,12 +294,13 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
     int pick[4];
 
     // Now read the Picking Texture to address the Picking Requests.
-    m_pickingFbo->readPixels( {static_cast<int>( query.m_screenCoords.x() ),
+    m_pickingFbo->readPixels( GL_COLOR_ATTACHMENT0,
+                              {static_cast<int>( query.m_screenCoords.x() ),
                                static_cast<int>( query.m_screenCoords.y() ),
                                1,
                                1},
-                              GL_COLOR_ATTACHMENT0,
                               GL_RGBA_INTEGER,
+                              GL_INT,
                               pick );
     result.setRoIdx( pick[0] ); // RO idx
     result.addIndex( {pick[2], pick[1], pick[3]} );
