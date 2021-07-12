@@ -47,24 +47,25 @@
 #   endif
 #elif defined(__APPLE__) || defined(__MACH__) // ------------------------ Mac OS
 #   define OS_MACOS
-#   if defined(__i386__)
-#       define ARCH_X86
-#   elif defined(__x86_64__) || defined (__x86_64)
-#       define ARCH_X64
-#   else
-#   error unsupported arch
-#endif
 #elif defined(__linux__) || defined (__CYGWIN__) // ---------------------- Linux
 #   define OS_LINUX
+#else
+    #error unsupported OS
+#endif
+
+// Check arch for macos and linux
+#if defined (OS_MACOS) || defined(OS_LINUX)
 #   if defined(__i386__)
 #       define ARCH_X86
 #   elif defined(__x86_64__) || defined (__x86_64)
 #       define ARCH_X64
+#   elif defined(__arm__) || defined (__arm)
+#       define ARCH_ARM32
+#   elif defined(__aarch64__) || defined(__aarch64)
+#       define ARCH_ARM64
 #   else
 #       error unsupported arch
 #   endif
-#else
-    #error unsupported OS
 #endif
 
 // Todo : endianness, pointer sixe
@@ -170,7 +171,8 @@
 // This macro will trigger a breakpoint where it is placed. With MSVC a dialog
 // will ask you if you want to launch the debugger.
 #if defined (COMPILER_GCC) || defined (COMPILER_CLANG)
-    #define BREAKPOINT(ARG) asm volatile ("int $3")
+#define BREAKPOINT(ARG) __builtin_trap();
+//asm volatile ("int $3")
 #elif defined (COMPILER_MSVC)
     #define BREAKPOINT(ARG) __debugbreak()
 #else
