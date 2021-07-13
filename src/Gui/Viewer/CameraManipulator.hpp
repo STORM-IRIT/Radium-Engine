@@ -51,25 +51,26 @@ class RA_GUI_API CameraManipulator : public QObject
     virtual bool handleMousePressEvent( QMouseEvent* event,
                                         const Qt::MouseButtons& buttons,
                                         const Qt::KeyboardModifiers& modifiers,
-                                        int key ) = 0;
+                                        int key );
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMouseReleaseEvent( QMouseEvent* event ) = 0;
+    virtual bool handleMouseReleaseEvent( QMouseEvent* event );
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleMouseMoveEvent( QMouseEvent* event,
                                        const Qt::MouseButtons& buttons,
                                        const Qt::KeyboardModifiers& modifiers,
-                                       int key ) = 0;
+                                       int key );
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleWheelEvent( QWheelEvent* event,
                                    const Qt::MouseButtons& buttons,
                                    const Qt::KeyboardModifiers& modifiers,
-                                   int key ) = 0;
+                                   int key );
 
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleKeyPressEvent( QKeyEvent* event,
-                                      const KeyMappingManager::KeyMappingAction& action ) = 0;
+                                      const KeyMappingManager::KeyMappingAction& action );
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
+    virtual bool handleKeyReleaseEvent( QKeyEvent* event,
+                                        const KeyMappingManager::KeyMappingAction& action );
 
     /// Pointer access to the camera.
     const Core::Asset::Camera* getCamera() const { return m_camera; }

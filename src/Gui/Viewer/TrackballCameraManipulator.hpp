@@ -47,7 +47,6 @@ class RA_GUI_API TrackballCameraManipulator
 
     bool handleKeyPressEvent( QKeyEvent* event,
                               const KeyMappingManager::KeyMappingAction& action ) override;
-    bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
     void toggleRotateAround();
     void updateCamera() override;
