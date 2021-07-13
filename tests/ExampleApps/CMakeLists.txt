@@ -111,3 +111,4 @@ configure_radium_app(NAME CustomCameraManipulator)
 addRunAndDebugTargets(CustomCameraManipulator)
 
 add_subdirectory(PickingDemoApp)
+add_subdirectory(KeyEventDemoApp)

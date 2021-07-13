@@ -72,5 +72,40 @@ KeyMappingManager::Context Gui::CameraManipulator::mappingContext() {
     return Gui::KeyMappingManager::Context();
 }
 
+bool CameraManipulator::handleMousePressEvent( QMouseEvent*,
+                                               const Qt::MouseButtons&,
+                                               const Qt::KeyboardModifiers&,
+                                               int ) {
+    return false;
+}
+
+bool CameraManipulator::handleMouseReleaseEvent( QMouseEvent* ) {
+    return false;
+}
+
+bool CameraManipulator::handleMouseMoveEvent( QMouseEvent*,
+                                              const Qt::MouseButtons&,
+                                              const Qt::KeyboardModifiers&,
+                                              int ) {
+    return false;
+}
+
+bool CameraManipulator::handleWheelEvent( QWheelEvent*,
+                                          const Qt::MouseButtons&,
+                                          const Qt::KeyboardModifiers&,
+                                          int ) {
+    return false;
+}
+
+bool CameraManipulator::handleKeyPressEvent( QKeyEvent*,
+                                             const KeyMappingManager::KeyMappingAction& ) {
+    return false;
+}
+
+bool CameraManipulator::handleKeyReleaseEvent( QKeyEvent*,
+                                               const KeyMappingManager::KeyMappingAction& ) {
+    return false;
+}
+
 } // namespace Gui
 } // namespace Ra

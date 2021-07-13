@@ -147,6 +147,23 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// get the currently used background color
     const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
+    /// Add a custom event handler on keyPressed event
+    KeyMappingManager::KeyMappingAction
+    addKeyPressEventAction( const std::string& actionName,
+                            const std::string& keyString,
+                            const std::string& modifiersString,
+                            const std::string& buttonsString,
+                            const std::string& wheelString,
+                            std::function<void( QKeyEvent* )> callback );
+
+    /// Add a custom event handler on keyRelease event
+    KeyMappingManager::KeyMappingAction
+    addKeyReleaseEventAction( const std::string& actionName,
+                              const std::string& keyString,
+                              const std::string& modifiersString,
+                              const std::string& buttonsString,
+                              const std::string& wheelString,
+                              std::function<void( QKeyEvent* )> callback );
     ///@}
 
     Scalar getDepthUnderMouse() const { return m_depthUnderMouse; }
@@ -237,6 +254,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// derived classes.
     ///@{
     virtual bool handleKeyPressEvent( QKeyEvent* event );
+    virtual bool handleKeyReleaseEvent( QKeyEvent* event );
     virtual void handleMousePressEvent( QMouseEvent* event,
                                         Ra::Engine::Rendering::Renderer::PickingResult& result );
     virtual void handleMouseReleaseEvent( QMouseEvent* event );
@@ -254,6 +272,23 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     Ra::Engine::Rendering::Renderer::PickingResult pickAtPosition( Core::Vector2 position );
 
     void propagateEventToParent( QEvent* event );
+
+    KeyMappingManager::KeyMappingAction
+    addCustomAction( int index,
+                     const std::string& actionName,
+                     const std::string& keyString,
+                     const std::string& modifiersString,
+                     const std::string& buttonsString,
+                     const std::string& wheelString,
+                     std::function<void( QKeyEvent* )> callback );
+
+    std::tuple<KeyMappingManager::KeyMappingAction,
+               KeyMappingManager::KeyMappingAction,
+               KeyMappingManager::KeyMappingAction>
+    getComponentActions( const Qt::MouseButtons& buttons,
+                         const Qt::KeyboardModifiers& modifiers,
+                         int key,
+                         bool wheel );
 
     Scalar m_depthUnderMouse;
     std::unique_ptr<QMessageBox> m_helpDialog {nullptr};
@@ -278,6 +313,13 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     GizmoManager* m_gizmoManager;
 
     Core::Utils::Color m_backgroundColor {Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
+
+    /// Name of the customisable key actions
+    enum KeyEventType { KeyPressed = 0, KeyReleased, KeyEventTypeCount };
+    /// Array of custom key event handler
+    /// Index is KeyEventType
+    std::array<std::map<Core::Utils::Index, std::function<void( QKeyEvent* )>>, KeyEventTypeCount>
+        m_customKeyActions;
 
     KeyMappingManager::Context m_activeContext {};
 #define KeyMappingViewer                     \

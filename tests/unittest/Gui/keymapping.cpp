@@ -199,4 +199,24 @@ TEST_CASE( "Gui/Utils/KeyMappingManager", "[Gui][Gui/Utils][KeyMappingManager]" 
         REQUIRE( Dummy::TEST2 != test2Idx );
         REQUIRE( Dummy::TEST2 == test2Idx2 );
     }
+
+    SECTION( "Custom context and actions" ) {
+        auto nonExistingcontext = mgr->getContext( "Keymapping::CustomContext" );
+        REQUIRE( nonExistingcontext.isInvalid() );
+        auto customContext = mgr->addContext( "Keymapping::CustomContext" );
+        REQUIRE( customContext.isValid() );
+        auto replicateContext = mgr->addContext( "Keymapping::CustomContext" );
+        REQUIRE( replicateContext == customContext );
+        auto customAction = mgr->addAction(
+            "Keymapping::CustomContext", "CustomAction", "Key_F1", "", "", "", false );
+        REQUIRE( customAction.isValid() );
+        auto customActionDuplicate = mgr->addAction(
+            "Keymapping::CustomContext", "CustomAction", "Key_F1", "", "", "", false );
+        REQUIRE( customActionDuplicate.isValid() );
+        REQUIRE( customActionDuplicate == customAction );
+        auto customActionOtherBinding = mgr->addAction(
+            "Keymapping::CustomContext", "CustomAction", "Key_F2", "", "", "", false );
+        REQUIRE( customActionOtherBinding.isValid() );
+        REQUIRE( customActionOtherBinding == customAction );
+    }
 }
