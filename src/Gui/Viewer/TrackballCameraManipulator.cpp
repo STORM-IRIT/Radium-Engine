@@ -30,9 +30,8 @@ KeyMappingCamera
 
 void TrackballCameraManipulator::configureKeyMapping_impl() {
 
-    TrackballCameraMapping::setContext(
-        KeyMappingManager::getInstance()->getContext( "CameraContext" ) );
-    if ( TrackballCameraMapping::getContext().isInvalid() )
+    KeyMapping::setContext( KeyMappingManager::getInstance()->getContext( "CameraContext" ) );
+    if ( KeyMapping::getContext().isInvalid() )
     {
         LOG( logINFO )
             << "CameraContext not defined (maybe the configuration file do not contains it)";
@@ -40,9 +39,8 @@ void TrackballCameraManipulator::configureKeyMapping_impl() {
         return;
     }
 
-#define KMA_VALUE( XX )                                                                          \
-    XX = KeyMappingManager::getInstance()->getActionIndex( TrackballCameraMapping::getContext(), \
-                                                           #XX );
+#define KMA_VALUE( XX ) \
+    XX = KeyMappingManager::getInstance()->getActionIndex( KeyMapping::getContext(), #XX );
     KeyMappingCamera
 #undef KMA_VALUE
 }
@@ -111,6 +109,10 @@ Core::Transform::ConstTranslationPart TrackballCameraManipulator::getTrackballCe
     return m_referenceFrame.translation();
 }
 
+KeyMappingManager::Context TrackballCameraManipulator::mappingContext() {
+    return KeyMapping::getContext();
+}
+
 bool TrackballCameraManipulator::handleMousePressEvent( QMouseEvent* event,
                                                         const Qt::MouseButtons& buttons,
                                                         const Qt::KeyboardModifiers& modifiers,
@@ -119,7 +121,7 @@ bool TrackballCameraManipulator::handleMousePressEvent( QMouseEvent* event,
     m_lastMouseY    = event->pos().y();
     m_phiDir        = -Core::Math::signNZ( m_theta );
     m_currentAction = KeyMappingManager::getInstance()->getAction(
-        TrackballCameraMapping::getContext(), buttons, modifiers, key, false );
+        KeyMapping::getContext(), buttons, modifiers, key, false );
 
     return m_currentAction.isValid();
 }
@@ -166,7 +168,7 @@ bool TrackballCameraManipulator::handleWheelEvent( QWheelEvent* event,
 
 ) {
     auto action = KeyMappingManager::getInstance()->getAction(
-        TrackballCameraMapping::getContext(), buttons, modifiers, key, true );
+        KeyMapping::getContext(), buttons, modifiers, key, true );
 
     if ( action == TRACKBALLCAMERA_MOVE_FORWARD )
     {
