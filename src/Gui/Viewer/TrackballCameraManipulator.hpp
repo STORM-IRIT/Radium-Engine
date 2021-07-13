@@ -17,7 +17,7 @@ class RA_GUI_API TrackballCameraManipulator
     friend class KeyMappingManageable<TrackballCameraManipulator>;
 
   public:
-    using TrackballCameraMapping = KeyMappingManageable<TrackballCameraManipulator>;
+    using KeyMapping = KeyMappingManageable<TrackballCameraManipulator>;
 
     /// Default constructor
     TrackballCameraManipulator();
@@ -62,6 +62,8 @@ class RA_GUI_API TrackballCameraManipulator
     /// Return the trackball center.
     /// \note doesn't modify the camera.
     const Core::Transform::ConstTranslationPart getTrackballCenter() const;
+
+    KeyMappingManager::Context mappingContext() override;
 
   public slots:
     void setCameraPosition( const Core::Vector3& position ) override;

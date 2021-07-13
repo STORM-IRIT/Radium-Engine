@@ -9,7 +9,6 @@ namespace Ra {
 namespace Gui {
 
 using namespace Ra::Core::Utils;
-using RotateAroundCameraMapping = KeyMappingManageable<RotateAroundCameraManipulator>;
 
 #define KMA_VALUE( XX ) KeyMappingManager::KeyMappingAction RotateAroundCameraManipulator::XX;
 KeyMappingRotateAroundCamera
@@ -18,8 +17,8 @@ KeyMappingRotateAroundCamera
 void RotateAroundCameraManipulator::configureKeyMapping_impl() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
 
-    thisKeyMapping::setContext( KeyMappingManager::getInstance()->getContext( "CameraContext" ) );
-    if ( thisKeyMapping::getContext().isInvalid() )
+    KeyMapping::setContext( KeyMappingManager::getInstance()->getContext( "CameraContext" ) );
+    if ( KeyMapping::getContext().isInvalid() )
     {
         LOG( logINFO )
             << "CameraContext not defined (maybe the configuration file do not contains it)";
@@ -27,7 +26,7 @@ void RotateAroundCameraManipulator::configureKeyMapping_impl() {
         return;
     }
 
-#define KMA_VALUE( XX ) XX = keyMappingManager->getActionIndex( thisKeyMapping::getContext(), #XX );
+#define KMA_VALUE( XX ) XX = keyMappingManager->getActionIndex( KeyMapping::getContext(), #XX );
     KeyMappingRotateAroundCamera
 #undef KMA_VALUE
 }
@@ -160,6 +159,10 @@ void RotateAroundCameraManipulator::alignOnClosestAxis() {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
+}
+
+KeyMappingManager::Context RotateAroundCameraManipulator::mappingContext() {
+    return KeyMapping::getContext();
 }
 
 void RotateAroundCameraManipulator::handleCameraRotate( Scalar x, Scalar y ) {

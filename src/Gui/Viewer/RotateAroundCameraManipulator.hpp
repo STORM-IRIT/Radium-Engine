@@ -11,10 +11,7 @@ class RA_GUI_API RotateAroundCameraManipulator
     friend class Ra::Gui::KeyMappingManageable<RotateAroundCameraManipulator>;
 
   public:
-    using base           = Ra::Gui::TrackballCameraManipulator;
-    using baseKeyMapping = Ra::Gui::KeyMappingManageable<base>;
-    using thisKeyMapping = Ra::Gui::KeyMappingManageable<RotateAroundCameraManipulator>;
-
+    using KeyMapping = KeyMappingManageable<RotateAroundCameraManipulator>;
     RotateAroundCameraManipulator( const CameraManipulator& cm, Ra::Gui::Viewer* viewer );
 
     /// @copydoc TrackballCameraManipulator::handleMouseMoveEvent()
@@ -33,6 +30,8 @@ class RA_GUI_API RotateAroundCameraManipulator
     /// Align the camera direction and up vector with the closest world axis.
     /// Keep m_target at the same  screen coordinates.
     void alignOnClosestAxis();
+
+    KeyMappingManager::Context mappingContext() override;
 
   protected:
     virtual void handleCameraRotate( Scalar dx, Scalar dy ) override;
