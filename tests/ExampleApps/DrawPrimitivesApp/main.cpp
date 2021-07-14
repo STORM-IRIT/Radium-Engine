@@ -46,7 +46,7 @@ int main( int argc, char* argv[] ) {
     auto keyMappingManager = Ra::Gui::KeyMappingManager::getInstance();
     // Add default manipulator listener
     keyMappingManager->addListener(
-        Ra::Gui::RotateAroundCameraManipulator::thisKeyMapping::configureKeyMapping );
+        Ra::Gui::RotateAroundCameraManipulator::KeyMapping::configureKeyMapping );
 
     // Start the app.
     app.m_frame_timer->start();
