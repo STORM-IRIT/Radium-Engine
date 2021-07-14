@@ -26,6 +26,28 @@ Depending on you needs, you may want to:
    - If you want to contribute to the application or plugins developments, fetch and compile the **Radium Apps** and **Radium Official Plugins** respectively.
    - If you want to write your own application of plugin, checkout the [HelloRadium](https://github.com/STORM-IRIT/Radium-Apps/tree/fix-compilation/HelloRadium) and **Radium Plugins Example** projects.
 
+## Reference
+
+If you use Radium-Engine for your research and publication, or simply want to refer/cite Radium Engine, please use the following
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5101334.svg)](https://doi.org/10.5281/zenodo.5101334)
+
+```
+@software{RadiumEngine,
+  author       = {Charly Mourglia and Valentin Roussellet and
+                  Loïc Barthe and Nicolas Mellado and
+                  Mathias Paulin and David Vanderhaeghe and others},
+  title        = {Radium-Engine},
+  month        = jul,
+  year         = 2021,
+  note         = {https://storm-irit.github.io/Radium-Engine/},
+  publisher    = {Zenodo},
+  version      = {doi-1.0.0},
+  doi          = {10.5281/zenodo.5101334},
+  url          = {https://doi.org/10.5281/zenodo.5101334}
+}
+```
+
 ## Badges
 [![source format badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/nmellado/0e76e93f56eba8a7b28d6a0116873d85/raw/format.json)](https://github.com/STORM-IRIT/Radium-Engine/actions?query=workflow%3A%22Compile+and+Test+Radium+libraries%22)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/faf8701c9fb142f7b6215871ec40c5fe)](https://app.codacy.com/app/STORM/Radium-Engine?utm_source=github.com&utm_medium=referral&utm_content=STORM-IRIT/Radium-Engine&utm_campaign=Badge_Grade_Dashboard)
