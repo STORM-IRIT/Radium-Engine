@@ -723,7 +723,7 @@ void Viewer::handleMousePressEvent( QMouseEvent* event,
     /// currentGrabber = grabber (we need to store it for mouse move)
 
     // for now just handle one active context
-    m_activeContext = -1;
+    m_activeContext.setInvalid();
 
     auto keyMap = KeyMappingManager::getInstance();
     //! [event dispatch]
@@ -782,7 +782,7 @@ void Viewer::handleMouseReleaseEvent( QMouseEvent* event ) {
     { m_camera->handleMouseReleaseEvent( event ); }
     if ( m_activeContext == GizmoManager::getContext() )
     { m_gizmoManager->handleMouseReleaseEvent( event ); }
-    m_activeContext = -1;
+    m_activeContext.setInvalid();
 }
 
 void Viewer::handleMouseMoveEvent( QMouseEvent* event,

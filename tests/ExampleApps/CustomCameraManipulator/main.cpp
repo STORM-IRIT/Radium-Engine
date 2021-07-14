@@ -32,7 +32,7 @@ class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
         m_lastMouseY = event->pos().y();
 
         m_currentAction = Ra::Gui::KeyMappingManager::getInstance()->getAction(
-            Ra::Gui::TrackballCameraManipulator::TrackballCameraMapping::getContext(),
+            Ra::Gui::TrackballCameraManipulator::KeyMapping::getContext(),
             buttons,
             modifiers,
             key,
