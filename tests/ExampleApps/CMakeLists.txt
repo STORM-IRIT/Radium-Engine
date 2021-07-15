@@ -115,3 +115,5 @@ add_subdirectory(KeyEventDemoApp)
 
 add_subdirectory(EntityAnimationDemo)
 addRunAndDebugTargets(EntityAnimationDemo)
+
+add_subdirectory(RadiumHeadless)
