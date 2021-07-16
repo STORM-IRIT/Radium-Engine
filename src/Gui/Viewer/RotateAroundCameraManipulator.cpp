@@ -62,9 +62,6 @@ bool RotateAroundCameraManipulator::handleMouseMoveEvent(
     Scalar dx = ( event->pos().x() - m_lastMouseX ) / m_camera->getWidth();
     Scalar dy = ( event->pos().y() - m_lastMouseY ) / m_camera->getHeight();
 
-    m_lastMouseX = event->pos().x();
-    m_lastMouseY = event->pos().y();
-
     if ( m_currentAction == TRACKBALLCAMERA_ROTATE )
         handleCameraRotate( event->pos().x(), event->pos().y() );
     else if ( m_currentAction == TRACKBALLCAMERA_PAN )
@@ -74,8 +71,8 @@ bool RotateAroundCameraManipulator::handleMouseMoveEvent(
     else if ( m_currentAction == TRACKBALLCAMERA_MOVE_FORWARD )
         handleCameraMoveForward( dx, dy );
 
-    m_prevMouseX = m_lastMouseX;
-    m_prevMouseY = m_lastMouseY;
+    m_lastMouseX = event->pos().x();
+    m_lastMouseY = event->pos().y();
 
     if ( m_light != nullptr )
     {
@@ -184,8 +181,8 @@ Scalar RotateAroundCameraManipulator::projectOnBall( Scalar x, Scalar y ) {
 Ra::Core::Quaternion
 RotateAroundCameraManipulator::deformedBallQuaternion( Scalar x, Scalar y, Scalar cx, Scalar cy ) {
     // Points on the deformed ball
-    Scalar px = m_cameraSensitivity * ( m_prevMouseX - cx ) / m_camera->getWidth();
-    Scalar py = m_cameraSensitivity * ( cy - m_prevMouseY ) / m_camera->getHeight();
+    Scalar px = m_cameraSensitivity * ( m_lastMouseX - cx ) / m_camera->getWidth();
+    Scalar py = m_cameraSensitivity * ( cy - m_lastMouseY ) / m_camera->getHeight();
     Scalar dx = m_cameraSensitivity * ( x - cx ) / m_camera->getWidth();
     Scalar dy = m_cameraSensitivity * ( cy - y ) / m_camera->getHeight();
 
