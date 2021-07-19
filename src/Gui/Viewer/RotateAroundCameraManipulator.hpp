@@ -44,8 +44,6 @@ class RA_GUI_API RotateAroundCameraManipulator
     Scalar projectOnBall( Scalar x, Scalar y );
 
   private:
-    Scalar m_prevMouseX {0.0_ra};
-    Scalar m_prevMouseY {0.0_ra};
     Ra::Core::Vector3 m_pivot {0.0_ra, 0.0_ra, 0.0_ra};
 
     Ra::Gui::Viewer* m_viewer;
