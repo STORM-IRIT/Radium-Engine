@@ -1,3 +1,4 @@
+#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Engine/Data/Mesh.hpp>
 
 #include <numeric>
@@ -148,6 +149,318 @@ void AttribArrayDisplayable::setDirty( const Ra::Core::Geometry::MeshAttrib& typ
         m_dataDirty[itr->second] = true;
 
     m_isDirty = true;
+}
+////////////////  MultiIndexedGeometry  ///////////////////////////////
+
+GeometryDisplayable::GeometryDisplayable( const std::string& name,
+                                          typename Core::Geometry::MultiIndexedGeometry&& geom ) :
+    base( name ) {
+    loadGeometry( std::move( geom ) );
+}
+
+GeometryDisplayable::~GeometryDisplayable() {}
+
+void triangulate( Core::Geometry::TriangleIndexLayer& out,
+                  const Core::Geometry::PolyIndexLayer& in ) {
+    out.collection().clear();
+    out.collection().reserve( in.collection().size() );
+    for ( const auto& face : in.collection() ) {
+        if ( face.size() == 3 ) { out.collection().push_back( face ); }
+        else {
+            /// simple sew triangulation
+            int minus { int( face.size() ) - 1 };
+            int plus { 0 };
+            while ( plus + 1 < minus ) {
+                if ( ( plus - minus ) % 2 ) {
+                    out.collection().emplace_back( face[plus], face[plus + 1], face[minus] );
+                    ++plus;
+                }
+                else {
+                    out.collection().emplace_back( face[minus], face[plus], face[minus - 1] );
+                    --minus;
+                }
+            }
+        }
+    }
+}
+
+void triangulate( Core::Geometry::TriangleIndexLayer& out,
+                  const Core::Geometry::QuadIndexLayer& in ) {
+    out.collection().clear();
+    out.collection().reserve( 2 * in.getSize() );
+    // assume quads are convex
+    for ( const auto& face : in.collection() ) {
+        out.collection().emplace_back( face[0], face[1], face[2] );
+        out.collection().emplace_back( face[0], face[2], face[3] );
+    }
+}
+
+void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh ) {
+    m_geomLayers.clear();
+    m_geom = std::move( mesh );
+    setupCoreMeshObservers();
+
+    /// \todo check if other layer ? at least triangulate
+    if ( m_geom.containsLayer( Core::Geometry::TriangleIndexLayer::staticSemanticName ) ) {
+        auto [key, layer] = m_geom.getFirstLayerOccurrence(
+            Core::Geometry::TriangleIndexLayer::staticSemanticName );
+        addRenderLayer( key, AttribArrayDisplayable::RM_TRIANGLES );
+    }
+    else if ( m_geom.containsLayer( Core::Geometry::QuadIndexLayer::staticSemanticName ) ) {
+        auto [key, layer] =
+            m_geom.getFirstLayerOccurrence( Core::Geometry::QuadIndexLayer::staticSemanticName );
+
+        const auto& quadLayer =
+            dynamic_cast<const Core::Geometry::QuadIndexLayer&>( m_geom.getLayer( key ) );
+
+        auto triangleLayer = std::make_unique<Core::Geometry::TriangleIndexLayer>();
+        triangulate( *triangleLayer, quadLayer );
+        auto layerAdded = m_geom.addLayer( std::move( triangleLayer ), false, "triangulation" );
+        if ( !layerAdded.first ) { LOG( logERROR ) << "failed to add triangleLayer"; }
+        else {
+            LayerKeyType triangleKey = { triangleLayer->semantics(), "triangulation" };
+            addRenderLayer( triangleKey, AttribArrayDisplayable::RM_TRIANGLES );
+        }
+    }
+    else if ( m_geom.containsLayer( Core::Geometry::PolyIndexLayer::staticSemanticName ) ) {
+        auto [key, layer] =
+            m_geom.getFirstLayerOccurrence( Core::Geometry::PolyIndexLayer::staticSemanticName );
+
+        const auto& polyLayer =
+            dynamic_cast<const Core::Geometry::QuadIndexLayer&>( m_geom.getLayer( key ) );
+
+        auto triangleLayer = std::make_unique<Core::Geometry::TriangleIndexLayer>();
+        triangulate( *triangleLayer, polyLayer );
+        auto layerAdded = m_geom.addLayer( std::move( triangleLayer ), false, "triangulation" );
+        if ( !layerAdded.first ) { LOG( logERROR ) << "failed to add triangleLayer"; }
+        else {
+            LayerKeyType triangleKey = { triangleLayer->semantics(), "triangulation" };
+            addRenderLayer( triangleKey, AttribArrayDisplayable::RM_TRIANGLES );
+        }
+    }
+    m_isDirty = true;
+}
+
+void GeometryDisplayable::setupCoreMeshObservers() {
+    int idx = 0;
+    m_dataDirty.resize( m_geom.vertexAttribs().getNumAttribs() );
+    m_vbos.resize( m_geom.vertexAttribs().getNumAttribs() );
+    // here capture ref to idx to propagate idx incrementation
+    m_geom.vertexAttribs().for_each_attrib( [&idx, this]( Ra::Core::Utils::AttribBase* b ) {
+        auto name              = b->getName();
+        m_handleToBuffer[name] = idx;
+        m_dataDirty[idx]       = true;
+
+        // create a identity translation if name is not already translated.
+        addToTranslationTable( name );
+
+        b->attach( AttribObserver( this, idx ) );
+        ++idx;
+    } );
+
+    // add an observer on attrib manipulation.
+    m_geom.vertexAttribs().attachMember( this, &GeometryDisplayable::addAttribObserver );
+    m_isDirty = true;
+}
+
+void GeometryDisplayable::addToTranslationTable( const std::string& name ) {
+    auto it = m_translationTableMeshToShader.find( name );
+    if ( it == m_translationTableMeshToShader.end() ) {
+        m_translationTableMeshToShader[name] = name;
+        m_translationTableShaderToMesh[name] = name;
+    }
+}
+
+void GeometryDisplayable::addAttribObserver( const std::string& name ) {
+    // this observer is called each time an attrib is added or removed from m_mesh
+    auto attrib = m_geom.getAttribBase( name );
+    // if attrib not nullptr, then it's an attrib add, so attach an observer to it
+
+    if ( attrib ) {
+        auto itr = m_handleToBuffer.find( name );
+        if ( itr == m_handleToBuffer.end() ) {
+            m_handleToBuffer[name] = m_dataDirty.size();
+
+            addToTranslationTable( name );
+
+            m_dataDirty.push_back( true );
+            m_vbos.emplace_back( nullptr );
+        }
+        auto idx = m_handleToBuffer[name];
+        attrib->attach( AttribObserver( this, idx ) );
+    }
+    // else it's an attrib remove, do nothing, cleanup will be done in updateGL()
+    else {
+    }
+}
+
+void GeometryDisplayable::setAttribNameCorrespondence( const std::string& meshAttribName,
+                                                       const std::string& shaderAttribName ) {
+
+    // clean previously set translation
+
+    auto it1 = std::find_if( m_translationTableShaderToMesh.begin(),
+                             m_translationTableShaderToMesh.end(),
+                             [&meshAttribName]( const TranslationTable::value_type& p ) {
+                                 return p.second == meshAttribName;
+                             } );
+
+    if ( it1 != m_translationTableShaderToMesh.end() ) m_translationTableShaderToMesh.erase( it1 );
+
+    auto it2 = std::find_if( m_translationTableMeshToShader.begin(),
+                             m_translationTableMeshToShader.end(),
+                             [&shaderAttribName]( const TranslationTable::value_type& p ) {
+                                 return p.second == shaderAttribName;
+                             } );
+
+    if ( it2 != m_translationTableMeshToShader.end() ) m_translationTableMeshToShader.erase( it2 );
+
+    m_translationTableShaderToMesh[shaderAttribName] = meshAttribName;
+    m_translationTableMeshToShader[meshAttribName]   = shaderAttribName;
+}
+
+bool GeometryDisplayable::addRenderLayer( LayerKeyType key, base::MeshRenderMode renderMode ) {
+    if ( !m_geom.containsLayer( key ) ) return false;
+    auto it = m_geomLayers.find( key );
+    if ( it != m_geomLayers.end() ) return false;
+
+    m_activeLayerKey = key;
+    auto& l          = m_geomLayers.insert( { m_activeLayerKey, LayerEntryType() } ).first->second;
+
+    l.observerId = -1;
+    l.renderMode = renderMode;
+
+    return true;
+}
+
+bool GeometryDisplayable::removeRenderLayer( LayerKeyType key ) {
+    auto it = m_geomLayers.find( key );
+    if ( it == m_geomLayers.end() ) return false;
+
+    // the layer might have already been deleted
+    if ( m_geom.containsLayer( key ) ) {
+        auto& geomLayer = m_geom.getLayerWithLock( key );
+        geomLayer.detach( it->second.observerId );
+        m_geom.unlockLayer( key );
+    }
+    it->second.vao.reset();
+    m_geomLayers.erase( it );
+
+    return true;
+}
+
+void GeometryDisplayable::updateGL() {
+    if ( m_isDirty ) {
+
+        const auto& abstractLayer = m_geom.getLayerWithLock( m_activeLayerKey );
+        using LayerType           = Ra::Core::Geometry::TriangleIndexLayer;
+        const auto& triangleLayer = dynamic_cast<const LayerType&>( abstractLayer );
+        // create vao
+        auto& l = m_geomLayers[m_activeLayerKey];
+        if ( !l.vao ) { l.vao = globjects::VertexArray::create(); }
+
+        auto& vbo = l.indices;
+        if ( !vbo.buffer ) {
+            vbo.buffer      = globjects::Buffer::create();
+            vbo.dirty       = true;
+            vbo.numElements = triangleLayer.getSize() * triangleLayer.getNumberOfComponents();
+        }
+
+        // upload data to gpu
+        if ( vbo.dirty ) {
+            vbo.buffer->setData( static_cast<gl::GLsizeiptr>( triangleLayer.getSize() *
+                                                              sizeof( LayerType::IndexType ) ),
+                                 triangleLayer.collection().data(),
+                                 GL_STATIC_DRAW );
+            vbo.dirty = false;
+        }
+        m_geom.unlockLayer( m_activeLayerKey );
+
+        l.vao->bind();
+        l.vao->bindElementBuffer( vbo.buffer.get() );
+        l.vao->unbind();
+        GL_CHECK_ERROR;
+
+        auto func = [this]( Ra::Core::Utils::AttribBase* b ) {
+            auto idx = m_handleToBuffer[b->getName()];
+
+            if ( m_dataDirty[idx] ) {
+                if ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }
+                m_vbos[idx]->setData( b->getBufferSize(), b->dataPtr(), GL_DYNAMIC_DRAW );
+                m_dataDirty[idx] = false;
+            }
+        };
+
+        m_geom.vertexAttribs().for_each_attrib( func );
+
+        // cleanup removed attrib
+        for ( auto buffer : m_handleToBuffer ) {
+            // do not remove name from handleToBuffer to keep index ...
+            // we could also update handleToBuffer, m_vbos, m_dataDirty
+            if ( !m_geom.hasAttrib( buffer.first ) && m_vbos[buffer.second] ) {
+                m_vbos[buffer.second].reset( nullptr );
+                m_dataDirty[buffer.second] = false;
+            }
+        }
+
+        GL_CHECK_ERROR;
+        m_isDirty = false;
+    }
+}
+
+void GeometryDisplayable::render( const ShaderProgram* prog ) {
+    if ( m_geomLayers[m_activeLayerKey].vao ) {
+        m_geomLayers[m_activeLayerKey].vao->bind();
+        autoVertexAttribPointer( prog );
+        m_geomLayers[m_activeLayerKey].vao->drawElements(
+            static_cast<GLenum>( base::m_renderMode ),
+            GLsizei( m_geomLayers[m_activeLayerKey].indices.numElements ),
+            GL_UNSIGNED_INT,
+            nullptr );
+        m_geomLayers[m_activeLayerKey].vao->unbind();
+        GL_CHECK_ERROR;
+    }
+}
+
+void GeometryDisplayable::autoVertexAttribPointer( const ShaderProgram* prog ) {
+
+    auto glprog           = prog->getProgramObject();
+    gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
+
+    for ( GLint idx = 0; idx < attribCount; ++idx ) {
+        const gl::GLsizei bufSize = 256;
+        gl::GLchar name[bufSize];
+        gl::GLsizei length;
+        gl::GLint size;
+        gl::GLenum type;
+        glprog->getActiveAttrib( idx, bufSize, &length, &size, &type, name );
+        auto loc = glprog->getAttributeLocation( name );
+
+        auto attribName = m_translationTableShaderToMesh[name];
+        auto attrib     = m_geom.getAttribBase( attribName );
+
+        if ( attrib && attrib->getSize() > 0 ) {
+            m_geomLayers[m_activeLayerKey].vao->enable( loc );
+            auto binding = m_geomLayers[m_activeLayerKey].vao->binding( idx );
+
+            binding->setAttribute( loc );
+            CORE_ASSERT( m_vbos[m_handleToBuffer[attribName]].get(), "vbo is nullptr" );
+#ifdef CORE_USE_DOUBLE
+            binding->setBuffer( m_vbos[m_handleToBuffer[attribName]].get(),
+                                0,
+                                attrib->getNumberOfComponents() * sizeof( float ) );
+#else
+
+            binding->setBuffer(
+                m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib->getStride() );
+#endif
+            binding->setFormat( attrib->getNumberOfComponents(), GL_SCALAR );
+        }
+        else {
+            m_geomLayers[m_activeLayerKey].vao->disable( loc );
+        }
+    }
+    GL_CHECK_ERROR;
 }
 
 Ra::Core::Utils::optional<gl::GLuint> AttribArrayDisplayable::getVaoHandle() {
