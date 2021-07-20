@@ -68,8 +68,7 @@ void Entity::removeComponent( const std::string& name ) {
 }
 
 void Entity::swapTransformBuffers() {
-    if ( m_transformChanged )
-    {
+    if ( m_transformChanged ) {
         m_transform        = m_doubleBufferedTransform;
         m_transformChanged = false;
         m_transformationObservers.notify( this );
@@ -77,12 +76,10 @@ void Entity::swapTransformBuffers() {
 }
 
 Core::Aabb Entity::computeAabb() {
-    if ( !m_isAabbValid )
-    {
+    if ( !m_isAabbValid ) {
         Core::Aabb aabb;
 
-        for ( const auto& component : m_components )
-        {
+        for ( const auto& component : m_components ) {
             // transform is applied in ro aabb computation ...
             aabb.extend( component->computeAabb() );
         }

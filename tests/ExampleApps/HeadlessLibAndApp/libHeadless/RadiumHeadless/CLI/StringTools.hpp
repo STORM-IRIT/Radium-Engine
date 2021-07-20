@@ -47,13 +47,13 @@ inline std::vector<std::string> split( const std::string& s, char delim ) {
     std::vector<std::string> elems;
     // Check to see if empty string, give consistent result
     if ( s.empty() ) { elems.emplace_back(); }
-    else
-    {
+    else {
         std::stringstream ss;
         ss.str( s );
         std::string item;
-        while ( std::getline( ss, item, delim ) )
-        { elems.push_back( item ); }
+        while ( std::getline( ss, item, delim ) ) {
+            elems.push_back( item );
+        }
     }
     return elems;
 }
@@ -65,8 +65,9 @@ std::string join( const T& v, std::string delim = "," ) {
     auto beg = std::begin( v );
     auto end = std::end( v );
     if ( beg != end ) s << *beg++;
-    while ( beg != end )
-    { s << delim << *beg++; }
+    while ( beg != end ) {
+        s << delim << *beg++;
+    }
     return s.str();
 }
 
@@ -80,11 +81,9 @@ std::string join( const T& v, Callable func, std::string delim = "," ) {
     auto beg = std::begin( v );
     auto end = std::end( v );
     auto loc = s.tellp();
-    while ( beg != end )
-    {
+    while ( beg != end ) {
         auto nloc = s.tellp();
-        if ( nloc > loc )
-        {
+        if ( nloc > loc ) {
             s << delim;
             loc = nloc;
         }
@@ -97,8 +96,7 @@ std::string join( const T& v, Callable func, std::string delim = "," ) {
 template <typename T>
 std::string rjoin( const T& v, std::string delim = "," ) {
     std::ostringstream s;
-    for ( std::size_t start = 0; start < v.size(); start++ )
-    {
+    for ( std::size_t start = 0; start < v.size(); start++ ) {
         if ( start > 0 ) s << delim;
         s << v[v.size() - start - 1];
     }
@@ -161,10 +159,8 @@ inline std::string trim_copy( const std::string& str ) {
 
 /// remove quotes at the front and back of a string either '"' or '\''
 inline std::string& remove_quotes( std::string& str ) {
-    if ( str.length() > 1 && ( str.front() == '"' || str.front() == '\'' ) )
-    {
-        if ( str.front() == str.back() )
-        {
+    if ( str.length() > 1 && ( str.front() == '"' || str.front() == '\'' ) ) {
+        if ( str.front() == str.back() ) {
             str.pop_back();
             str.erase( str.begin(), str.begin() + 1 );
         }
@@ -185,11 +181,9 @@ inline std::ostream& format_help( std::ostream& out,
                                   std::size_t wid ) {
     name = "  " + name;
     out << std::setw( static_cast<int>( wid ) ) << std::left << name;
-    if ( !description.empty() )
-    {
+    if ( !description.empty() ) {
         if ( name.length() >= wid ) out << "\n" << std::setw( static_cast<int>( wid ) ) << "";
-        for ( const char c : description )
-        {
+        for ( const char c : description ) {
             out.put( c );
             if ( c == '\n' ) { out << std::setw( static_cast<int>( wid ) ) << ""; }
         }
@@ -201,15 +195,14 @@ inline std::ostream& format_help( std::ostream& out,
 /// Print subcommand aliases
 inline std::ostream&
 format_aliases( std::ostream& out, const std::vector<std::string>& aliases, std::size_t wid ) {
-    if ( !aliases.empty() )
-    {
+    if ( !aliases.empty() ) {
         out << std::setw( static_cast<int>( wid ) ) << "     aliases: ";
         bool front = true;
-        for ( const auto& alias : aliases )
-        {
+        for ( const auto& alias : aliases ) {
             if ( !front ) { out << ", "; }
-            else
-            { front = false; }
+            else {
+                front = false;
+            }
             out << alias;
         }
         out << "\n";
@@ -270,8 +263,7 @@ inline std::string find_and_replace( std::string str, std::string from, std::str
 
     std::size_t start_pos = 0;
 
-    while ( ( start_pos = str.find( from, start_pos ) ) != std::string::npos )
-    {
+    while ( ( start_pos = str.find( from, start_pos ) ) != std::string::npos ) {
         str.replace( start_pos, from.length(), to );
         start_pos += to.length();
     }
@@ -286,11 +278,9 @@ inline bool has_default_flag_values( const std::string& flags ) {
 
 inline void remove_default_flag_values( std::string& flags ) {
     auto loc = flags.find_first_of( '{' );
-    while ( loc != std::string::npos )
-    {
+    while ( loc != std::string::npos ) {
         auto finish = flags.find_first_of( "},", loc + 1 );
-        if ( ( finish != std::string::npos ) && ( flags[finish] == '}' ) )
-        {
+        if ( ( finish != std::string::npos ) && ( flags[finish] == '}' ) ) {
             flags.erase( flags.begin() + static_cast<std::ptrdiff_t>( loc ),
                          flags.begin() + static_cast<std::ptrdiff_t>( finish ) + 1 );
         }
@@ -306,18 +296,15 @@ inline std::ptrdiff_t find_member( std::string name,
                                    bool ignore_case       = false,
                                    bool ignore_underscore = false ) {
     auto it = std::end( names );
-    if ( ignore_case )
-    {
-        if ( ignore_underscore )
-        {
+    if ( ignore_case ) {
+        if ( ignore_underscore ) {
             name = detail::to_lower( detail::remove_underscore( name ) );
             it   = std::find_if(
                 std::begin( names ), std::end( names ), [&name]( std::string local_name ) {
                     return detail::to_lower( detail::remove_underscore( local_name ) ) == name;
                 } );
         }
-        else
-        {
+        else {
             name = detail::to_lower( name );
             it   = std::find_if(
                 std::begin( names ), std::end( names ), [&name]( std::string local_name ) {
@@ -325,16 +312,16 @@ inline std::ptrdiff_t find_member( std::string name,
                 } );
         }
     }
-    else if ( ignore_underscore )
-    {
+    else if ( ignore_underscore ) {
         name = detail::remove_underscore( name );
         it   = std::find_if(
             std::begin( names ), std::end( names ), [&name]( std::string local_name ) {
                 return detail::remove_underscore( local_name ) == name;
             } );
     }
-    else
-    { it = std::find( std::begin( names ), std::end( names ), name ); }
+    else {
+        it = std::find( std::begin( names ), std::end( names ), name );
+    }
 
     return ( it != std::end( names ) ) ? ( it - std::begin( names ) ) : ( -1 );
 }
@@ -345,8 +332,9 @@ inline std::ptrdiff_t find_member( std::string name,
 template <typename Callable>
 inline std::string find_and_modify( std::string str, std::string trigger, Callable modify ) {
     std::size_t start_pos = 0;
-    while ( ( start_pos = str.find( trigger, start_pos ) ) != std::string::npos )
-    { start_pos = modify( str, start_pos ); }
+    while ( ( start_pos = str.find( trigger, start_pos ) ) != std::string::npos ) {
+        start_pos = modify( str, start_pos );
+    }
     return str;
 }
 
@@ -364,48 +352,41 @@ inline std::vector<std::string> split_up( std::string str, char delimiter = '\0'
     std::vector<std::string> output;
     bool embeddedQuote = false;
     char keyChar       = ' ';
-    while ( !str.empty() )
-    {
-        if ( delims.find_first_of( str[0] ) != std::string::npos )
-        {
+    while ( !str.empty() ) {
+        if ( delims.find_first_of( str[0] ) != std::string::npos ) {
             keyChar  = str[0];
             auto end = str.find_first_of( keyChar, 1 );
-            while ( ( end != std::string::npos ) && ( str[end - 1] == '\\' ) )
-            { // deal with escaped quotes
+            while ( ( end != std::string::npos ) &&
+                    ( str[end - 1] == '\\' ) ) { // deal with escaped quotes
                 end           = str.find_first_of( keyChar, end + 1 );
                 embeddedQuote = true;
             }
-            if ( end != std::string::npos )
-            {
+            if ( end != std::string::npos ) {
                 output.push_back( str.substr( 1, end - 1 ) );
                 if ( end + 2 < str.size() ) { str = str.substr( end + 2 ); }
-                else
-                { str.clear(); }
+                else {
+                    str.clear();
+                }
             }
-            else
-            {
+            else {
                 output.push_back( str.substr( 1 ) );
                 str = "";
             }
         }
-        else
-        {
+        else {
             auto it = std::find_if( std::begin( str ), std::end( str ), find_ws );
-            if ( it != std::end( str ) )
-            {
+            if ( it != std::end( str ) ) {
                 std::string value = std::string( str.begin(), it );
                 output.push_back( value );
                 str = std::string( it + 1, str.end() );
             }
-            else
-            {
+            else {
                 output.push_back( str );
                 str = "";
             }
         }
         // transform any embedded quotes into the regular character
-        if ( embeddedQuote )
-        {
+        if ( embeddedQuote ) {
             output.back() = find_and_replace(
                 output.back(), std::string( "\\" ) + keyChar, std::string( 1, keyChar ) );
             embeddedQuote = false;
@@ -421,11 +402,9 @@ inline std::vector<std::string> split_up( std::string str, char delimiter = '\0'
 /// Can't use Regex, or this would be a subs.
 inline std::string fix_newlines( const std::string& leader, std::string input ) {
     std::string::size_type n = 0;
-    while ( n != std::string::npos && n < input.size() )
-    {
+    while ( n != std::string::npos && n < input.size() ) {
         n = input.find( '\n', n );
-        if ( n != std::string::npos )
-        {
+        if ( n != std::string::npos ) {
             input = input.substr( 0, n + 1 ) + leader + input.substr( n + 1 );
             n += leader.size();
         }
@@ -440,11 +419,9 @@ inline std::string fix_newlines( const std::string& leader, std::string input ) 
 /// find_and_modify function.
 inline std::size_t escape_detect( std::string& str, std::size_t offset ) {
     auto next = str[offset + 1];
-    if ( ( next == '\"' ) || ( next == '\'' ) || ( next == '`' ) )
-    {
+    if ( ( next == '\"' ) || ( next == '\'' ) || ( next == '`' ) ) {
         auto astart = str.find_last_of( "-/ \"\'`", offset - 1 );
-        if ( astart != std::string::npos )
-        {
+        if ( astart != std::string::npos ) {
             if ( str[astart] == ( ( str[offset] == '=' ) ? '-' : '/' ) )
                 str[offset] = ' '; // interpret this as a space so the split_up works properly
         }
@@ -454,11 +431,9 @@ inline std::size_t escape_detect( std::string& str, std::size_t offset ) {
 
 /// Add quotes if the string contains spaces
 inline std::string& add_quotes_if_needed( std::string& str ) {
-    if ( ( str.front() != '"' && str.front() != '\'' ) || str.front() != str.back() )
-    {
+    if ( ( str.front() != '"' && str.front() != '\'' ) || str.front() != str.back() ) {
         char quote = str.find( '"' ) < str.find( '\'' ) ? '\'' : '"';
-        if ( str.find( ' ' ) != std::string::npos )
-        {
+        if ( str.find( ' ' ) != std::string::npos ) {
             str.insert( 0, 1, quote );
             str.append( 1, quote );
         }

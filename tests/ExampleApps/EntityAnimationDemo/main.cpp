@@ -42,8 +42,7 @@ class EntityAnimationSystem : public Scene::System
 
         // get the entity of the first component
         auto t = info.m_animationTime;
-        for ( auto e : m_animatedEntities )
-        {
+        for ( auto e : m_animatedEntities ) {
             // Transform the entity
             q->registerTask( new Ra::Core::FunctionTask(
                 [e, t]() {

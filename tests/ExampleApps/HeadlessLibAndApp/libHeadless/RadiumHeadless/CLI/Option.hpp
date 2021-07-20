@@ -386,22 +386,19 @@ class Option : public OptionBase<Option>
 
     /// Set the number of expected arguments
     Option* expected( int value ) {
-        if ( value < 0 )
-        {
+        if ( value < 0 ) {
             expected_min_ = -value;
             if ( expected_max_ < expected_min_ ) { expected_max_ = expected_min_; }
             allow_extra_args_ = true;
             flag_like_        = false;
         }
-        else if ( value == detail::expected_max_vector_size )
-        {
+        else if ( value == detail::expected_max_vector_size ) {
             expected_min_     = 1;
             expected_max_     = detail::expected_max_vector_size;
             allow_extra_args_ = true;
             flag_like_        = false;
         }
-        else
-        {
+        else {
             expected_min_ = value;
             expected_max_ = value;
             flag_like_    = ( expected_min_ == 0 );
@@ -414,13 +411,11 @@ class Option : public OptionBase<Option>
         if ( value_min < 0 ) { value_min = -value_min; }
 
         if ( value_max < 0 ) { value_max = detail::expected_max_vector_size; }
-        if ( value_max < value_min )
-        {
+        if ( value_max < value_min ) {
             expected_min_ = value_max;
             expected_max_ = value_min;
         }
-        else
-        {
+        else {
             expected_max_ = value_max;
             expected_min_ = value_min;
         }
@@ -501,20 +496,21 @@ class Option : public OptionBase<Option>
     }
     /// Get a named Validator
     Validator* get_validator( const std::string& Validator_name = "" ) {
-        for ( auto& Validator : validators_ )
-        {
+        for ( auto& Validator : validators_ ) {
             if ( Validator_name == Validator.get_name() ) { return &Validator; }
         }
-        if ( ( Validator_name.empty() ) && ( !validators_.empty() ) )
-        { return &( validators_.front() ); }
+        if ( ( Validator_name.empty() ) && ( !validators_.empty() ) ) {
+            return &( validators_.front() );
+        }
         throw OptionNotFound( std::string { "Validator " } + Validator_name + " Not Found" );
     }
 
     /// Get a Validator by index NOTE: this may not be the order of definition
     Validator* get_validator( int index ) {
         // This is an signed int so that it is not equivalent to a pointer.
-        if ( index >= 0 && index < static_cast<int>( validators_.size() ) )
-        { return &( validators_[static_cast<decltype( validators_ )::size_type>( index )] ); }
+        if ( index >= 0 && index < static_cast<int>( validators_.size() ) ) {
+            return &( validators_[static_cast<decltype( validators_ )::size_type>( index )] );
+        }
         throw OptionNotFound( "Validator index is not valid" );
     }
 
@@ -599,24 +595,22 @@ class Option : public OptionBase<Option>
     /// You are never expected to add an argument to the template here.
     template <typename T = App>
     Option* ignore_case( bool value = true ) {
-        if ( !ignore_case_ && value )
-        {
+        if ( !ignore_case_ && value ) {
             ignore_case_ = value;
             auto* parent = static_cast<T*>( parent_ );
-            for ( const Option_p& opt : parent->options_ )
-            {
+            for ( const Option_p& opt : parent->options_ ) {
                 if ( opt.get() == this ) { continue; }
                 auto& omatch = opt->matching_name( *this );
-                if ( !omatch.empty() )
-                {
+                if ( !omatch.empty() ) {
                     ignore_case_ = false;
                     throw OptionAlreadyAdded( "adding ignore case caused a name conflict with " +
                                               omatch );
                 }
             }
         }
-        else
-        { ignore_case_ = value; }
+        else {
+            ignore_case_ = value;
+        }
         return this;
     }
 
@@ -627,35 +621,33 @@ class Option : public OptionBase<Option>
     template <typename T = App>
     Option* ignore_underscore( bool value = true ) {
 
-        if ( !ignore_underscore_ && value )
-        {
+        if ( !ignore_underscore_ && value ) {
             ignore_underscore_ = value;
             auto* parent       = static_cast<T*>( parent_ );
-            for ( const Option_p& opt : parent->options_ )
-            {
+            for ( const Option_p& opt : parent->options_ ) {
                 if ( opt.get() == this ) { continue; }
                 auto& omatch = opt->matching_name( *this );
-                if ( !omatch.empty() )
-                {
+                if ( !omatch.empty() ) {
                     ignore_underscore_ = false;
                     throw OptionAlreadyAdded(
                         "adding ignore underscore caused a name conflict with " + omatch );
                 }
             }
         }
-        else
-        { ignore_underscore_ = value; }
+        else {
+            ignore_underscore_ = value;
+        }
         return this;
     }
 
     /// Take the last argument if given multiple times (or another policy)
     Option* multi_option_policy( MultiOptionPolicy value = MultiOptionPolicy::Throw ) {
-        if ( value != multi_option_policy_ )
-        {
+        if ( value != multi_option_policy_ ) {
             if ( multi_option_policy_ == MultiOptionPolicy::Throw &&
-                 expected_max_ == detail::expected_max_vector_size && expected_min_ > 1 )
-            { // this bizarre condition is to maintain backwards compatibility
-              // with the previous behavior of expected_ with vectors
+                 expected_max_ == detail::expected_max_vector_size &&
+                 expected_min_ >
+                     1 ) { // this bizarre condition is to maintain backwards compatibility
+                           // with the previous behavior of expected_ with vectors
                 expected_max_ = expected_min_;
             }
             multi_option_policy_  = value;
@@ -771,32 +763,30 @@ class Option : public OptionBase<Option>
     ) const {
         if ( get_group().empty() ) return {}; // Hidden
 
-        if ( all_options )
-        {
+        if ( all_options ) {
 
             std::vector<std::string> name_list;
 
             /// The all list will never include a positional unless asked or that's the only name.
-            if ( ( positional && ( !pname_.empty() ) ) || ( snames_.empty() && lnames_.empty() ) )
-            { name_list.push_back( pname_ ); }
-            if ( ( get_items_expected() == 0 ) && ( !fnames_.empty() ) )
-            {
-                for ( const std::string& sname : snames_ )
-                {
+            if ( ( positional && ( !pname_.empty() ) ) || ( snames_.empty() && lnames_.empty() ) ) {
+                name_list.push_back( pname_ );
+            }
+            if ( ( get_items_expected() == 0 ) && ( !fnames_.empty() ) ) {
+                for ( const std::string& sname : snames_ ) {
                     name_list.push_back( "-" + sname );
-                    if ( check_fname( sname ) )
-                    { name_list.back() += "{" + get_flag_value( sname, "" ) + "}"; }
+                    if ( check_fname( sname ) ) {
+                        name_list.back() += "{" + get_flag_value( sname, "" ) + "}";
+                    }
                 }
 
-                for ( const std::string& lname : lnames_ )
-                {
+                for ( const std::string& lname : lnames_ ) {
                     name_list.push_back( "--" + lname );
-                    if ( check_fname( lname ) )
-                    { name_list.back() += "{" + get_flag_value( lname, "" ) + "}"; }
+                    if ( check_fname( lname ) ) {
+                        name_list.back() += "{" + get_flag_value( lname, "" ) + "}";
+                    }
                 }
             }
-            else
-            {
+            else {
                 for ( const std::string& sname : snames_ )
                     name_list.push_back( "-" + sname );
 
@@ -827,19 +817,16 @@ class Option : public OptionBase<Option>
     /// Process the callback
     void run_callback() {
 
-        if ( current_option_state_ == option_state::parsing )
-        {
+        if ( current_option_state_ == option_state::parsing ) {
             _validate_results( results_ );
             current_option_state_ = option_state::validated;
         }
 
-        if ( current_option_state_ < option_state::reduced )
-        {
+        if ( current_option_state_ < option_state::reduced ) {
             _reduce_results( proc_results_, results_ );
             current_option_state_ = option_state::reduced;
         }
-        if ( current_option_state_ >= option_state::reduced )
-        {
+        if ( current_option_state_ >= option_state::reduced ) {
             current_option_state_ = option_state::callback_run;
             if ( !( callback_ ) ) { return; }
             const results_t& send_results = proc_results_.empty() ? results_ : proc_results_;
@@ -857,9 +844,8 @@ class Option : public OptionBase<Option>
         for ( const std::string& lname : lnames_ )
             if ( other.check_lname( lname ) ) return lname;
 
-        if ( ignore_case_ || ignore_underscore_ )
-        { // We need to do the inverse, in case we are
-          // ignore_case or ignore underscore
+        if ( ignore_case_ || ignore_underscore_ ) { // We need to do the inverse, in case we are
+                                                    // ignore_case or ignore underscore
             for ( const std::string& sname : other.snames_ )
                 if ( check_sname( sname ) ) return sname;
             for ( const std::string& lname : other.lnames_ )
@@ -876,25 +862,21 @@ class Option : public OptionBase<Option>
         if ( name.length() > 2 && name[0] == '-' && name[1] == '-' )
             return check_lname( name.substr( 2 ) );
         if ( name.length() > 1 && name.front() == '-' ) return check_sname( name.substr( 1 ) );
-        if ( !pname_.empty() )
-        {
+        if ( !pname_.empty() ) {
             std::string local_pname = pname_;
             std::string local_name  = name;
-            if ( ignore_underscore_ )
-            {
+            if ( ignore_underscore_ ) {
                 local_pname = detail::remove_underscore( local_pname );
                 local_name  = detail::remove_underscore( local_name );
             }
-            if ( ignore_case_ )
-            {
+            if ( ignore_case_ ) {
                 local_pname = detail::to_lower( local_pname );
                 local_name  = detail::to_lower( local_name );
             }
             if ( local_name == local_pname ) { return true; }
         }
 
-        if ( !envname_.empty() )
-        {
+        if ( !envname_.empty() ) {
             // this needs to be the original since envname_ shouldn't match on case insensitivity
             return ( name == envname_ );
         }
@@ -926,55 +908,50 @@ class Option : public OptionBase<Option>
         static const std::string falseString { "false" };
         static const std::string emptyString { "{}" };
         // check for disable flag override_
-        if ( disable_flag_override_ )
-        {
-            if ( !( ( input_value.empty() ) || ( input_value == emptyString ) ) )
-            {
+        if ( disable_flag_override_ ) {
+            if ( !( ( input_value.empty() ) || ( input_value == emptyString ) ) ) {
                 auto default_ind =
                     detail::find_member( name, fnames_, ignore_case_, ignore_underscore_ );
-                if ( default_ind >= 0 )
-                {
+                if ( default_ind >= 0 ) {
                     // We can static cast this to std::size_t because it is more than 0 in this
                     // block
                     if ( default_flag_values_[static_cast<std::size_t>( default_ind )].second !=
-                         input_value )
-                    { throw( ArgumentMismatch::FlagOverride( name ) ); }
+                         input_value ) {
+                        throw( ArgumentMismatch::FlagOverride( name ) );
+                    }
                 }
-                else
-                {
-                    if ( input_value != trueString )
-                    { throw( ArgumentMismatch::FlagOverride( name ) ); }
+                else {
+                    if ( input_value != trueString ) {
+                        throw( ArgumentMismatch::FlagOverride( name ) );
+                    }
                 }
             }
         }
         auto ind = detail::find_member( name, fnames_, ignore_case_, ignore_underscore_ );
-        if ( ( input_value.empty() ) || ( input_value == emptyString ) )
-        {
-            if ( flag_like_ )
-            {
+        if ( ( input_value.empty() ) || ( input_value == emptyString ) ) {
+            if ( flag_like_ ) {
                 return ( ind < 0 ) ? trueString
                                    : default_flag_values_[static_cast<std::size_t>( ind )].second;
             }
-            else
-            {
+            else {
                 return ( ind < 0 ) ? default_str_
                                    : default_flag_values_[static_cast<std::size_t>( ind )].second;
             }
         }
         if ( ind < 0 ) { return input_value; }
-        if ( default_flag_values_[static_cast<std::size_t>( ind )].second == falseString )
-        {
-            try
-            {
+        if ( default_flag_values_[static_cast<std::size_t>( ind )].second == falseString ) {
+            try {
                 auto val = detail::to_flag_value( input_value );
                 return ( val == 1 ) ? falseString
                                     : ( val == ( -1 ) ? trueString : std::to_string( -val ) );
             }
-            catch ( const std::invalid_argument& )
-            { return input_value; }
+            catch ( const std::invalid_argument& ) {
+                return input_value;
+            }
         }
-        else
-        { return input_value; }
+        else {
+            return input_value;
+        }
     }
 
     /// Puts a result at the end
@@ -993,8 +970,9 @@ class Option : public OptionBase<Option>
 
     /// Puts a result at the end
     Option* add_result( std::vector<std::string> s ) {
-        for ( auto& str : s )
-        { _add_result( std::move( str ), results_ ); }
+        for ( auto& str : s ) {
+            _add_result( std::move( str ), results_ );
+        }
         current_option_state_ = option_state::parsing;
         return this;
     }
@@ -1005,15 +983,12 @@ class Option : public OptionBase<Option>
     /// Get a copy of the results
     results_t reduced_results() const {
         results_t res = proc_results_.empty() ? results_ : proc_results_;
-        if ( current_option_state_ < option_state::reduced )
-        {
-            if ( current_option_state_ == option_state::parsing )
-            {
+        if ( current_option_state_ < option_state::reduced ) {
+            if ( current_option_state_ == option_state::parsing ) {
                 res = results_;
                 _validate_results( res );
             }
-            if ( !res.empty() )
-            {
+            if ( !res.empty() ) {
                 results_t extra;
                 _reduce_results( extra, res );
                 if ( !extra.empty() ) { res = std::move( extra ); }
@@ -1027,18 +1002,14 @@ class Option : public OptionBase<Option>
     void results( T& output ) const {
         bool retval;
         if ( current_option_state_ >= option_state::reduced ||
-             ( results_.size() == 1 && validators_.empty() ) )
-        {
+             ( results_.size() == 1 && validators_.empty() ) ) {
             const results_t& res = ( proc_results_.empty() ) ? results_ : proc_results_;
             retval               = detail::lexical_conversion<T, T>( res, output );
         }
-        else
-        {
+        else {
             results_t res;
-            if ( results_.empty() )
-            {
-                if ( !default_str_.empty() )
-                {
+            if ( results_.empty() ) {
+                if ( !default_str_.empty() ) {
                     // _add_results takes an rvalue only
                     _add_result( std::string( default_str_ ), res );
                     _validate_results( res );
@@ -1046,11 +1017,13 @@ class Option : public OptionBase<Option>
                     _reduce_results( extra, res );
                     if ( !extra.empty() ) { res = std::move( extra ); }
                 }
-                else
-                { res.emplace_back(); }
+                else {
+                    res.emplace_back();
+                }
             }
-            else
-            { res = reduced_results(); }
+            else {
+                res = reduced_results();
+            }
             retval = detail::lexical_conversion<T, T>( res, output );
         }
         if ( !retval ) { throw ConversionError( get_name(), results_ ); }
@@ -1087,41 +1060,38 @@ class Option : public OptionBase<Option>
 
     /// Set a custom option size
     Option* type_size( int option_type_size ) {
-        if ( option_type_size < 0 )
-        {
+        if ( option_type_size < 0 ) {
             // this section is included for backwards compatibility
             type_size_max_ = -option_type_size;
             type_size_min_ = -option_type_size;
             expected_max_  = detail::expected_max_vector_size;
         }
-        else
-        {
+        else {
             type_size_max_ = option_type_size;
-            if ( type_size_max_ < detail::expected_max_vector_size )
-            { type_size_min_ = option_type_size; }
-            else
-            { inject_separator_ = true; }
+            if ( type_size_max_ < detail::expected_max_vector_size ) {
+                type_size_min_ = option_type_size;
+            }
+            else {
+                inject_separator_ = true;
+            }
             if ( type_size_max_ == 0 ) required_ = false;
         }
         return this;
     }
     /// Set a custom option type size range
     Option* type_size( int option_type_size_min, int option_type_size_max ) {
-        if ( option_type_size_min < 0 || option_type_size_max < 0 )
-        {
+        if ( option_type_size_min < 0 || option_type_size_max < 0 ) {
             // this section is included for backwards compatibility
             expected_max_        = detail::expected_max_vector_size;
             option_type_size_min = ( std::abs )( option_type_size_min );
             option_type_size_max = ( std::abs )( option_type_size_max );
         }
 
-        if ( option_type_size_min > option_type_size_max )
-        {
+        if ( option_type_size_min > option_type_size_max ) {
             type_size_max_ = option_type_size_min;
             type_size_min_ = option_type_size_max;
         }
-        else
-        {
+        else {
             type_size_min_ = option_type_size_min;
             type_size_max_ = option_type_size_max;
         }
@@ -1159,22 +1129,18 @@ class Option : public OptionBase<Option>
         auto old_option_state = current_option_state_;
         results_t old_results { std::move( results_ ) };
         results_.clear();
-        try
-        {
+        try {
             add_result( val_str );
-            if ( run_callback_for_default_ )
-            {
+            if ( run_callback_for_default_ ) {
                 run_callback(); // run callback sets the state we need to reset it again
                 current_option_state_ = option_state::parsing;
             }
-            else
-            {
+            else {
                 _validate_results( results_ );
                 current_option_state_ = old_option_state;
             }
         }
-        catch ( const CLI::Error& )
-        {
+        catch ( const CLI::Error& ) {
             // this should be done
             results_              = std::move( old_results );
             current_option_state_ = old_option_state;
@@ -1188,10 +1154,8 @@ class Option : public OptionBase<Option>
     /// Get the full typename for this option
     std::string get_type_name() const {
         std::string full_type_name = type_name_();
-        if ( !validators_.empty() )
-        {
-            for ( auto& Validator : validators_ )
-            {
+        if ( !validators_.empty() ) {
+            for ( auto& Validator : validators_ ) {
                 std::string vtype = Validator.get_description();
                 if ( !vtype.empty() ) { full_type_name += ":" + vtype; }
             }
@@ -1203,23 +1167,18 @@ class Option : public OptionBase<Option>
     /// Run the results through the Validators
     void _validate_results( results_t& res ) const {
         // Run the Validators (can change the string)
-        if ( !validators_.empty() )
-        {
-            if ( type_size_max_ > 1 )
-            { // in this context index refers to the index in the type
+        if ( !validators_.empty() ) {
+            if ( type_size_max_ > 1 ) { // in this context index refers to the index in the type
                 int index = 0;
                 if ( get_items_expected_max() < static_cast<int>( res.size() ) &&
-                     multi_option_policy_ == CLI::MultiOptionPolicy::TakeLast )
-                {
+                     multi_option_policy_ == CLI::MultiOptionPolicy::TakeLast ) {
                     // create a negative index for the earliest ones
                     index = get_items_expected_max() - static_cast<int>( res.size() );
                 }
 
-                for ( std::string& result : res )
-                {
+                for ( std::string& result : res ) {
                     if ( detail::is_separator( result ) && type_size_max_ != type_size_min_ &&
-                         index >= 0 )
-                    {
+                         index >= 0 ) {
                         index = 0; // reset index for variable size chunks
                         continue;
                     }
@@ -1229,17 +1188,14 @@ class Option : public OptionBase<Option>
                     ++index;
                 }
             }
-            else
-            {
+            else {
                 int index = 0;
                 if ( expected_max_ < static_cast<int>( res.size() ) &&
-                     multi_option_policy_ == CLI::MultiOptionPolicy::TakeLast )
-                {
+                     multi_option_policy_ == CLI::MultiOptionPolicy::TakeLast ) {
                     // create a negative index for the earliest ones
                     index = expected_max_ - static_cast<int>( res.size() );
                 }
-                for ( std::string& result : res )
-                {
+                for ( std::string& result : res ) {
                     auto err_msg = _validate( result, index );
                     ++index;
                     if ( !err_msg.empty() ) throw ValidationError( get_name(), err_msg );
@@ -1258,8 +1214,7 @@ class Option : public OptionBase<Option>
 
         res.clear();
         // Operation depends on the policy setting
-        switch ( multi_option_policy_ )
-        {
+        switch ( multi_option_policy_ ) {
         case MultiOptionPolicy::TakeAll:
             break;
         case MultiOptionPolicy::TakeLast: {
@@ -1267,28 +1222,23 @@ class Option : public OptionBase<Option>
             std::size_t trim_size = std::min<std::size_t>(
                 static_cast<std::size_t>( std::max<int>( get_items_expected_max(), 1 ) ),
                 original.size() );
-            if ( original.size() != trim_size )
-            {
+            if ( original.size() != trim_size ) {
                 res.assign( original.end() - static_cast<results_t::difference_type>( trim_size ),
                             original.end() );
             }
-        }
-        break;
+        } break;
         case MultiOptionPolicy::TakeFirst: {
             std::size_t trim_size = std::min<std::size_t>(
                 static_cast<std::size_t>( std::max<int>( get_items_expected_max(), 1 ) ),
                 original.size() );
-            if ( original.size() != trim_size )
-            {
+            if ( original.size() != trim_size ) {
                 res.assign( original.begin(),
                             original.begin() +
                                 static_cast<results_t::difference_type>( trim_size ) );
             }
-        }
-        break;
+        } break;
         case MultiOptionPolicy::Join:
-            if ( results_.size() > 1 )
-            {
+            if ( results_.size() > 1 ) {
                 res.push_back( detail::join(
                     original, std::string( 1, ( delimiter_ == '\0' ) ? '\n' : delimiter_ ) ) );
             }
@@ -1299,13 +1249,11 @@ class Option : public OptionBase<Option>
             auto num_max = static_cast<std::size_t>( get_items_expected_max() );
             if ( num_min == 0 ) { num_min = 1; }
             if ( num_max == 0 ) { num_max = 1; }
-            if ( original.size() < num_min )
-            {
+            if ( original.size() < num_min ) {
                 throw ArgumentMismatch::AtLeast(
                     get_name(), static_cast<int>( num_min ), original.size() );
             }
-            if ( original.size() > num_max )
-            {
+            if ( original.size() > num_max ) {
                 throw ArgumentMismatch::AtMost(
                     get_name(), static_cast<int>( num_max ), original.size() );
             }
@@ -1317,20 +1265,19 @@ class Option : public OptionBase<Option>
     // Run a result through the Validators
     std::string _validate( std::string& result, int index ) const {
         std::string err_msg;
-        if ( result.empty() && expected_min_ == 0 )
-        {
+        if ( result.empty() && expected_min_ == 0 ) {
             // an empty with nothing expected is allowed
             return err_msg;
         }
-        for ( const auto& vali : validators_ )
-        {
+        for ( const auto& vali : validators_ ) {
             auto v = vali.get_application_index();
-            if ( v == -1 || v == index )
-            {
-                try
-                { err_msg = vali( result ); }
-                catch ( const ValidationError& err )
-                { err_msg = err.what(); }
+            if ( v == -1 || v == index ) {
+                try {
+                    err_msg = vali( result );
+                }
+                catch ( const ValidationError& err ) {
+                    err_msg = err.what();
+                }
                 if ( !err_msg.empty() ) break;
             }
         }
@@ -1341,36 +1288,30 @@ class Option : public OptionBase<Option>
     /// Add a single result to the result set, taking into account delimiters
     int _add_result( std::string&& result, std::vector<std::string>& res ) const {
         int result_count = 0;
-        if ( allow_extra_args_ && !result.empty() && result.front() == '[' && result.back() == ']' )
-        { // this is now a vector string likely from the default or user entry
+        if ( allow_extra_args_ && !result.empty() && result.front() == '[' &&
+             result.back() ==
+                 ']' ) { // this is now a vector string likely from the default or user entry
             result.pop_back();
 
-            for ( auto& var : CLI::detail::split( result.substr( 1 ), ',' ) )
-            {
+            for ( auto& var : CLI::detail::split( result.substr( 1 ), ',' ) ) {
                 if ( !var.empty() ) { result_count += _add_result( std::move( var ), res ); }
             }
             return result_count;
         }
-        if ( delimiter_ == '\0' )
-        {
+        if ( delimiter_ == '\0' ) {
             res.push_back( std::move( result ) );
             ++result_count;
         }
-        else
-        {
-            if ( ( result.find_first_of( delimiter_ ) != std::string::npos ) )
-            {
-                for ( const auto& var : CLI::detail::split( result, delimiter_ ) )
-                {
-                    if ( !var.empty() )
-                    {
+        else {
+            if ( ( result.find_first_of( delimiter_ ) != std::string::npos ) ) {
+                for ( const auto& var : CLI::detail::split( result, delimiter_ ) ) {
+                    if ( !var.empty() ) {
                         res.push_back( var );
                         ++result_count;
                     }
                 }
             }
-            else
-            {
+            else {
                 res.push_back( std::move( result ) );
                 ++result_count;
             }

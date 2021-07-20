@@ -70,8 +70,7 @@ class Timer
 
         start_        = clock::now();
         std::size_t n = 0;
-        do
-        {
+        do {
             f();
             std::chrono::duration<double> elapsed = clock::now() - start_;
             total_time                            = elapsed.count();
