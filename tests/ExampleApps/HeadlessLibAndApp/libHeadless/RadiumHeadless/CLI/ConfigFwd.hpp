@@ -62,7 +62,7 @@ class Config
 
     /// Parse a config file, throw an error (ParseError:ConfigParseError or FileError) on failure
     std::vector<ConfigItem> from_file( const std::string& name ) {
-        std::ifstream input {name};
+        std::ifstream input { name };
         if ( !input.good() ) throw FileError::Missing( name );
 
         return from_config( input );

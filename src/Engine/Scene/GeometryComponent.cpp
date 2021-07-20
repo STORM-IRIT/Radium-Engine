@@ -191,7 +191,7 @@ Ra::Core::Geometry::PointCloud* PointCloudComponent::getPointCloudRw() {
 VolumeComponent::VolumeComponent( const std::string& name,
                                   Entity* entity,
                                   const Ra::Core::Asset::VolumeData* data ) :
-    Component( name, entity ), m_displayVolume {nullptr} {
+    Component( name, entity ), m_displayVolume { nullptr } {
     generateVolumeRender( data );
 }
 

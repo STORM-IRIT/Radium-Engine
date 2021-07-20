@@ -56,28 +56,28 @@ class OptionBase
     std::string group_ = std::string( "Options" );
 
     /// True if this is a required option
-    bool required_ {false};
+    bool required_ { false };
 
     /// Ignore the case when matching (option, not value)
-    bool ignore_case_ {false};
+    bool ignore_case_ { false };
 
     /// Ignore underscores when matching (option, not value)
-    bool ignore_underscore_ {false};
+    bool ignore_underscore_ { false };
 
     /// Allow this option to be given in a configuration file
-    bool configurable_ {true};
+    bool configurable_ { true };
 
     /// Disable overriding flag values with '=value'
-    bool disable_flag_override_ {false};
+    bool disable_flag_override_ { false };
 
     /// Specify a delimiter character for vector arguments
-    char delimiter_ {'\0'};
+    char delimiter_ { '\0' };
 
     /// Automatically capture default value
-    bool always_capture_default_ {false};
+    bool always_capture_default_ { false };
 
     /// Policy for handling multiple arguments beyond the expected Max
-    MultiOptionPolicy multi_option_policy_ {MultiOptionPolicy::Throw};
+    MultiOptionPolicy multi_option_policy_ { MultiOptionPolicy::Throw };
 
     /// Copy the contents to another similar class (one based on OptionBase)
     template <typename T>
@@ -280,7 +280,7 @@ class Option : public OptionBase<Option>
     /// A human readable type value, set when App creates this
     ///
     /// This is a lambda function so "types" can be dynamic, such as when a set prints its contents.
-    std::function<std::string()> type_name_ {[]() { return std::string(); }};
+    std::function<std::string()> type_name_ { []() { return std::string(); } };
 
     /// Run this function to capture a default (ignore if empty)
     std::function<std::string()> default_function_ {};
@@ -291,14 +291,14 @@ class Option : public OptionBase<Option>
 
     /// The number of arguments that make up one option. max is the nominal type size, min is the
     /// minimum number of strings
-    int type_size_max_ {1};
+    int type_size_max_ { 1 };
     /// The minimum number of arguments an option should be expecting
-    int type_size_min_ {1};
+    int type_size_min_ { 1 };
 
     /// The minimum number of expected values
-    int expected_min_ {1};
+    int expected_min_ { 1 };
     /// The maximum number of expected values
-    int expected_max_ {1};
+    int expected_max_ { 1 };
 
     /// A list of Validators to run on each value parsed
     std::vector<Validator> validators_ {};
@@ -314,7 +314,7 @@ class Option : public OptionBase<Option>
     ///@{
 
     /// link back up to the parent App for fallthrough
-    App* parent_ {nullptr};
+    App* parent_ { nullptr };
 
     /// Options store a callback to do all the work
     callback_t callback_ {};
@@ -335,15 +335,15 @@ class Option : public OptionBase<Option>
         callback_run = 6, //!< the callback has been executed
     };
     /// Whether the callback has run (needed for INI parsing)
-    option_state current_option_state_ {option_state::parsing};
+    option_state current_option_state_ { option_state::parsing };
     /// Specify that extra args beyond type_size_max should be allowed
-    bool allow_extra_args_ {false};
+    bool allow_extra_args_ { false };
     /// Specify that the option should act like a flag vs regular option
-    bool flag_like_ {false};
+    bool flag_like_ { false };
     /// Control option to run the callback to set the default
-    bool run_callback_for_default_ {false};
+    bool run_callback_for_default_ { false };
     /// flag indicating a separator needs to be injected after each argument call
-    bool inject_separator_ {false};
+    bool inject_separator_ { false };
     ///@}
 
     /// Making an option by hand is not defined, it must be made by the App class
@@ -507,7 +507,7 @@ class Option : public OptionBase<Option>
         }
         if ( ( Validator_name.empty() ) && ( !validators_.empty() ) )
         { return &( validators_.front() ); }
-        throw OptionNotFound( std::string {"Validator "} + Validator_name + " Not Found" );
+        throw OptionNotFound( std::string { "Validator " } + Validator_name + " Not Found" );
     }
 
     /// Get a Validator by index NOTE: this may not be the order of definition
@@ -858,7 +858,8 @@ class Option : public OptionBase<Option>
             if ( other.check_lname( lname ) ) return lname;
 
         if ( ignore_case_ || ignore_underscore_ )
-        { // We need to do the inverse, in case we are ignore_case or ignore underscore
+        { // We need to do the inverse, in case we are
+          // ignore_case or ignore underscore
             for ( const std::string& sname : other.snames_ )
                 if ( check_sname( sname ) ) return sname;
             for ( const std::string& lname : other.lnames_ )
@@ -921,9 +922,9 @@ class Option : public OptionBase<Option>
     /// Get the value that goes for a flag, nominally gets the default value but allows for
     /// overrides if not disabled
     std::string get_flag_value( const std::string& name, std::string input_value ) const {
-        static const std::string trueString {"true"};
-        static const std::string falseString {"false"};
-        static const std::string emptyString {"{}"};
+        static const std::string trueString { "true" };
+        static const std::string falseString { "false" };
+        static const std::string emptyString { "{}" };
         // check for disable flag override_
         if ( disable_flag_override_ )
         {
@@ -993,9 +994,7 @@ class Option : public OptionBase<Option>
     /// Puts a result at the end
     Option* add_result( std::vector<std::string> s ) {
         for ( auto& str : s )
-        {
-            _add_result( std::move( str ), results_ );
-        }
+        { _add_result( std::move( str ), results_ ); }
         current_option_state_ = option_state::parsing;
         return this;
     }
@@ -1158,7 +1157,7 @@ class Option : public OptionBase<Option>
     Option* default_val( const X& val ) {
         std::string val_str   = detail::to_string( val );
         auto old_option_state = current_option_state_;
-        results_t old_results {std::move( results_ )};
+        results_t old_results { std::move( results_ ) };
         results_.clear();
         try
         {

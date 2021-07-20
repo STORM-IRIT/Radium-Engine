@@ -43,7 +43,7 @@ class FormatterBase
     ///@{
 
     /// The width of the first column
-    std::size_t column_width_ {30};
+    std::size_t column_width_ { 30 };
 
     /// @brief The required help printout labels (user changeable)
     /// Values are Needs, Excludes, etc.

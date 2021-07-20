@@ -25,9 +25,7 @@ inline std::string Formatter::make_group( std::string group,
 
     out << "\n" << group << ":\n";
     for ( const Option* opt : opts )
-    {
-        out << make_option( opt, is_positional );
-    }
+    { out << make_option( opt, is_positional ); }
 
     return out.str();
 }
