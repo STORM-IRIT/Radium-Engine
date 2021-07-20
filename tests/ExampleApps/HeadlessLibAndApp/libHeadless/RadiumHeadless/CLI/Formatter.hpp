@@ -24,8 +24,9 @@ inline std::string Formatter::make_group( std::string group,
     std::stringstream out;
 
     out << "\n" << group << ":\n";
-    for ( const Option* opt : opts )
-    { out << make_option( opt, is_positional ); }
+    for ( const Option* opt : opts ) {
+        out << make_option( opt, is_positional );
+    }
 
     return out.str();
 }
@@ -44,8 +45,7 @@ inline std::string Formatter::make_groups( const App* app, AppFormatMode mode ) 
     std::vector<std::string> groups = app->get_groups();
 
     // Options
-    for ( const std::string& group : groups )
-    {
+    for ( const std::string& group : groups ) {
         std::vector<const Option*> opts =
             app->get_options( [app, mode, &group]( const Option* opt ) {
                 return opt->get_group() == group            // Must be in the right group
@@ -54,8 +54,7 @@ inline std::string Formatter::make_groups( const App* app, AppFormatMode mode ) 
                             || ( app->get_help_ptr() != opt // Ignore help pointer
                                  && app->get_help_all_ptr() != opt ) ); // Ignore help all pointer
             } );
-        if ( !group.empty() && !opts.empty() )
-        {
+        if ( !group.empty() && !opts.empty() ) {
             out << make_group( group, false, opts );
 
             if ( group != groups.back() ) out << "\n";
@@ -70,30 +69,24 @@ inline std::string Formatter::make_description( const App* app ) const {
     auto min_options = app->get_require_option_min();
     auto max_options = app->get_require_option_max();
     if ( app->get_required() ) { desc += " REQUIRED "; }
-    if ( ( max_options == min_options ) && ( min_options > 0 ) )
-    {
+    if ( ( max_options == min_options ) && ( min_options > 0 ) ) {
         if ( min_options == 1 ) { desc += " \n[Exactly 1 of the following options is required]"; }
-        else
-        {
+        else {
             desc += " \n[Exactly " + std::to_string( min_options ) +
                     "options from the following list are required]";
         }
     }
-    else if ( max_options > 0 )
-    {
-        if ( min_options > 0 )
-        {
+    else if ( max_options > 0 ) {
+        if ( min_options > 0 ) {
             desc += " \n[Between " + std::to_string( min_options ) + " and " +
                     std::to_string( max_options ) + " of the follow options are required]";
         }
-        else
-        {
+        else {
             desc += " \n[At most " + std::to_string( max_options ) +
                     " of the following options are allowed]";
         }
     }
-    else if ( min_options > 0 )
-    {
+    else if ( min_options > 0 ) {
         desc += " \n[At least " + std::to_string( min_options ) +
                 " of the following options are required]";
     }
@@ -117,8 +110,7 @@ inline std::string Formatter::make_usage( const App* app, std::string name ) con
         app->get_options( []( const Option* opt ) { return opt->get_positional(); } );
 
     // Print out positionals if any are left
-    if ( !positionals.empty() )
-    {
+    if ( !positionals.empty() ) {
         // Convert to help names
         std::vector<std::string> positional_names( positionals.size() );
         std::transform( positionals.begin(),
@@ -133,8 +125,7 @@ inline std::string Formatter::make_usage( const App* app, std::string name ) con
     if ( !app->get_subcommands( []( const CLI::App* subc ) {
                  return ( ( !subc->get_disabled() ) && ( !subc->get_name().empty() ) );
              } )
-              .empty() )
-    {
+              .empty() ) {
         out << " " << ( app->get_require_subcommand_min() == 0 ? "[" : "" )
             << get_label( app->get_require_subcommand_max() < 2 ||
                                   app->get_require_subcommand_min() > 1
@@ -162,8 +153,7 @@ Formatter::make_help( const App* app, std::string name, AppFormatMode mode ) con
     if ( mode == AppFormatMode::Sub ) return make_expanded( app );
 
     std::stringstream out;
-    if ( ( app->get_name().empty() ) && ( app->get_parent() != nullptr ) )
-    {
+    if ( ( app->get_name().empty() ) && ( app->get_parent() != nullptr ) ) {
         if ( app->get_group() != "Subcommands" ) { out << app->get_group() << ':'; }
     }
 
@@ -184,10 +174,8 @@ inline std::string Formatter::make_subcommands( const App* app, AppFormatMode mo
 
     // Make a list in definition order of the groups seen
     std::vector<std::string> subcmd_groups_seen;
-    for ( const App* com : subcommands )
-    {
-        if ( com->get_name().empty() )
-        {
+    for ( const App* com : subcommands ) {
+        if ( com->get_name().empty() ) {
             if ( !com->get_group().empty() ) { out << make_expanded( com ); }
             continue;
         }
@@ -202,19 +190,16 @@ inline std::string Formatter::make_subcommands( const App* app, AppFormatMode mo
     }
 
     // For each group, filter out and print subcommands
-    for ( const std::string& group : subcmd_groups_seen )
-    {
+    for ( const std::string& group : subcmd_groups_seen ) {
         out << "\n" << group << ":\n";
         std::vector<const App*> subcommands_group =
             app->get_subcommands( [&group]( const App* sub_app ) {
                 return detail::to_lower( sub_app->get_group() ) == detail::to_lower( group );
             } );
-        for ( const App* new_com : subcommands_group )
-        {
+        for ( const App* new_com : subcommands_group ) {
             if ( new_com->get_name().empty() ) continue;
             if ( mode != AppFormatMode::All ) { out << make_subcommand( new_com ); }
-            else
-            {
+            else {
                 out << new_com->help( new_com->get_name(), AppFormatMode::Sub );
                 out << "\n";
             }
@@ -236,8 +221,9 @@ inline std::string Formatter::make_expanded( const App* sub ) const {
     out << sub->get_display_name( true ) << "\n";
 
     out << make_description( sub );
-    if ( sub->get_name().empty() && !sub->get_aliases().empty() )
-    { detail::format_aliases( out, sub->get_aliases(), column_width_ + 2 ); }
+    if ( sub->get_name().empty() && !sub->get_aliases().empty() ) {
+        detail::format_aliases( out, sub->get_aliases(), column_width_ + 2 );
+    }
     out << make_positionals( sub );
     out << make_groups( sub, AppFormatMode::Sub );
     out << make_subcommands( sub, AppFormatMode::Sub );
@@ -260,10 +246,8 @@ inline std::string Formatter::make_option_opts( const Option* opt ) const {
     std::stringstream out;
 
     if ( !opt->get_option_text().empty() ) { out << " " << opt->get_option_text(); }
-    else
-    {
-        if ( opt->get_type_size() != 0 )
-        {
+    else {
+        if ( opt->get_type_size() != 0 ) {
             if ( !opt->get_type_name().empty() ) out << " " << get_label( opt->get_type_name() );
             if ( !opt->get_default_str().empty() ) out << "=" << opt->get_default_str();
             if ( opt->get_expected_max() == detail::expected_max_vector_size )
@@ -275,14 +259,12 @@ inline std::string Formatter::make_option_opts( const Option* opt ) const {
         }
         if ( !opt->get_envname().empty() )
             out << " (" << get_label( "Env" ) << ":" << opt->get_envname() << ")";
-        if ( !opt->get_needs().empty() )
-        {
+        if ( !opt->get_needs().empty() ) {
             out << " " << get_label( "Needs" ) << ":";
             for ( const Option* op : opt->get_needs() )
                 out << " " << op->get_name();
         }
-        if ( !opt->get_excludes().empty() )
-        {
+        if ( !opt->get_excludes().empty() ) {
             out << " " << get_label( "Excludes" ) << ":";
             for ( const Option* op : opt->get_excludes() )
                 out << " " << op->get_name();

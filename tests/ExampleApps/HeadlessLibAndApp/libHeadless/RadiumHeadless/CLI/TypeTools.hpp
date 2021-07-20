@@ -376,8 +376,7 @@ std::string to_string( T&& variable ) {
     std::vector<std::string> defaults;
     auto cval = variable.begin();
     auto end  = variable.end();
-    while ( cval != end )
-    {
+    while ( cval != end ) {
         defaults.emplace_back( CLI::detail::to_string( *cval ) );
         ++cval;
     }
@@ -960,12 +959,11 @@ inline std::int64_t to_flag_value( std::string val ) {
     if ( val == falseString ) { return -1; }
     val = detail::to_lower( val );
     std::int64_t ret;
-    if ( val.size() == 1 )
-    {
-        if ( val[0] >= '1' && val[0] <= '9' )
-        { return ( static_cast<std::int64_t>( val[0] ) - '0' ); }
-        switch ( val[0] )
-        {
+    if ( val.size() == 1 ) {
+        if ( val[0] >= '1' && val[0] <= '9' ) {
+            return ( static_cast<std::int64_t>( val[0] ) - '0' );
+        }
+        switch ( val[0] ) {
         case '0':
         case 'f':
         case 'n':
@@ -983,10 +981,12 @@ inline std::int64_t to_flag_value( std::string val ) {
         return ret;
     }
     if ( val == trueString || val == "on" || val == "yes" || val == "enable" ) { ret = 1; }
-    else if ( val == falseString || val == "off" || val == "no" || val == "disable" )
-    { ret = -1; }
-    else
-    { ret = std::stoll( val ); }
+    else if ( val == falseString || val == "off" || val == "no" || val == "disable" ) {
+        ret = -1;
+    }
+    else {
+        ret = std::stoll( val );
+    }
     return ret;
 }
 
@@ -1004,8 +1004,7 @@ template <typename T,
           enable_if_t<classify_object<T>::value == object_category::char_value, detail::enabler> =
               detail::dummy>
 bool lexical_cast( const std::string& input, T& output ) {
-    if ( input.size() == 1 )
-    {
+    if ( input.size() == 1 ) {
         output = static_cast<T>( input[0] );
         return true;
     }
@@ -1017,16 +1016,15 @@ template <typename T,
           enable_if_t<classify_object<T>::value == object_category::boolean_value,
                       detail::enabler> = detail::dummy>
 bool lexical_cast( const std::string& input, T& output ) {
-    try
-    {
+    try {
         auto out = to_flag_value( input );
         output   = ( out > 0 );
         return true;
     }
-    catch ( const std::invalid_argument& )
-    { return false; }
-    catch ( const std::out_of_range& )
-    {
+    catch ( const std::invalid_argument& ) {
+        return false;
+    }
+    catch ( const std::out_of_range& ) {
         // if the number is out of the range of a 64 bit value then it is still a number and for
         // this purpose is still valid all we care about the sign
         output = ( input[0] != '-' );
@@ -1056,29 +1054,24 @@ bool lexical_cast( const std::string& input, T& output ) {
     auto str1   = input;
     bool worked = false;
     auto nloc   = str1.find_last_of( "+-" );
-    if ( nloc != std::string::npos && nloc > 0 )
-    {
+    if ( nloc != std::string::npos && nloc > 0 ) {
         worked = detail::lexical_cast( str1.substr( 0, nloc ), x );
         str1   = str1.substr( nloc );
         if ( str1.back() == 'i' || str1.back() == 'j' ) str1.pop_back();
         worked = worked && detail::lexical_cast( str1, y );
     }
-    else
-    {
-        if ( str1.back() == 'i' || str1.back() == 'j' )
-        {
+    else {
+        if ( str1.back() == 'i' || str1.back() == 'j' ) {
             str1.pop_back();
             worked = detail::lexical_cast( str1, y );
             x      = XC { 0 };
         }
-        else
-        {
+        else {
             worked = detail::lexical_cast( str1, x );
             y      = XC { 0 };
         }
     }
-    if ( worked )
-    {
+    if ( worked ) {
         output = T { x, y };
         return worked;
     }
@@ -1121,8 +1114,7 @@ template <typename T,
                       detail::enabler> = detail::dummy>
 bool lexical_cast( const std::string& input, T& output ) {
     typename T::value_type val;
-    if ( lexical_cast( input, val ) )
-    {
+    if ( lexical_cast( input, val ) ) {
         output = val;
         return true;
     }
@@ -1136,8 +1128,7 @@ template <typename T,
                       detail::enabler> = detail::dummy>
 bool lexical_cast( const std::string& input, T& output ) {
     typename T::value_type val;
-    if ( lexical_cast( input, val ) )
-    {
+    if ( lexical_cast( input, val ) ) {
         output = T { val };
         return true;
     }
@@ -1150,16 +1141,13 @@ template <typename T,
                       detail::enabler> = detail::dummy>
 bool lexical_cast( const std::string& input, T& output ) {
     int val;
-    if ( integral_conversion( input, val ) )
-    {
+    if ( integral_conversion( input, val ) ) {
         output = T( val );
         return true;
     }
-    else
-    {
+    else {
         double dval;
-        if ( lexical_cast( input, dval ) )
-        {
+        if ( lexical_cast( input, dval ) ) {
             output = T { dval };
             return true;
         }
@@ -1173,8 +1161,7 @@ template <typename T,
                       detail::enabler> = detail::dummy>
 bool lexical_cast( const std::string& input, T& output ) {
     int val;
-    if ( integral_conversion( input, val ) )
-    {
+    if ( integral_conversion( input, val ) ) {
         output = T( val );
         return true;
     }
@@ -1187,8 +1174,7 @@ template <typename T,
                       detail::enabler> = detail::dummy>
 bool lexical_cast( const std::string& input, T& output ) {
     double val;
-    if ( lexical_cast( input, val ) )
-    {
+    if ( lexical_cast( input, val ) ) {
         output = T { val };
         return true;
     }
@@ -1202,8 +1188,7 @@ template <typename T,
                       detail::enabler> = detail::dummy>
 bool lexical_cast( const std::string& input, T& output ) {
     int val;
-    if ( integral_conversion( input, val ) )
-    {
+    if ( integral_conversion( input, val ) ) {
 #ifdef _MSC_VER
 #    pragma warning( push )
 #    pragma warning( disable : 4800 )
@@ -1259,8 +1244,7 @@ template <typename AssignTo,
                           classify_object<AssignTo>::value != object_category::string_constructible,
                       detail::enabler> = detail::dummy>
 bool lexical_assign( const std::string& input, AssignTo& output ) {
-    if ( input.empty() )
-    {
+    if ( input.empty() ) {
         output = AssignTo {};
         return true;
     }
@@ -1276,8 +1260,7 @@ template <typename AssignTo,
                           classify_object<AssignTo>::value == object_category::wrapper_value,
                       detail::enabler> = detail::dummy>
 bool lexical_assign( const std::string& input, AssignTo& output ) {
-    if ( input.empty() )
-    {
+    if ( input.empty() ) {
         typename AssignTo::value_type emptyVal {};
         output = emptyVal;
         return true;
@@ -1295,14 +1278,12 @@ template <typename AssignTo,
                           std::is_assignable<AssignTo&, int>::value,
                       detail::enabler> = detail::dummy>
 bool lexical_assign( const std::string& input, AssignTo& output ) {
-    if ( input.empty() )
-    {
+    if ( input.empty() ) {
         output = 0;
         return true;
     }
     int val;
-    if ( lexical_cast( input, val ) )
-    {
+    if ( lexical_cast( input, val ) ) {
         output = val;
         return true;
     }
@@ -1332,8 +1313,7 @@ template <typename AssignTo,
 bool lexical_assign( const std::string& input, AssignTo& output ) {
     ConvertTo val {};
     bool parse_result = input.empty() ? true : lexical_cast<ConvertTo>( input, val );
-    if ( parse_result )
-    {
+    if ( parse_result ) {
         output = AssignTo( val ); // use () form of constructor to allow some implicit conversions
     }
     return parse_result;
@@ -1362,8 +1342,9 @@ bool lexical_conversion( const std::vector<std ::string>& strings, AssignTo& out
     typename std::remove_const<typename std::tuple_element<0, ConvertTo>::type>::type v1;
     typename std::tuple_element<1, ConvertTo>::type v2;
     bool retval = lexical_assign<decltype( v1 ), decltype( v1 )>( strings[0], v1 );
-    if ( strings.size() > 1 )
-    { retval = retval && lexical_assign<decltype( v2 ), decltype( v2 )>( strings[1], v2 ); }
+    if ( strings.size() > 1 ) {
+        retval = retval && lexical_assign<decltype( v2 ), decltype( v2 )>( strings[1], v2 );
+    }
     if ( retval ) { output = AssignTo { v1, v2 }; }
     return retval;
 }
@@ -1377,8 +1358,7 @@ template <
                 detail::enabler> = detail::dummy>
 bool lexical_conversion( const std::vector<std ::string>& strings, AssignTo& output ) {
     output.erase( output.begin(), output.end() );
-    for ( const auto& elem : strings )
-    {
+    for ( const auto& elem : strings ) {
         typename AssignTo::value_type out;
         bool retval = lexical_assign<typename AssignTo::value_type, typename ConvertTo::value_type>(
             elem, out );
@@ -1394,8 +1374,7 @@ template <class AssignTo,
           enable_if_t<is_complex<ConvertTo>::value, detail::enabler> = detail::dummy>
 bool lexical_conversion( const std::vector<std::string>& strings, AssignTo& output ) {
 
-    if ( strings.size() >= 2 && !strings[1].empty() )
-    {
+    if ( strings.size() >= 2 && !strings[1].empty() ) {
         using XC2 = typename wrapped_type<ConvertTo, double>::type;
         XC2 x { 0.0 }, y { 0.0 };
         auto str1 = strings[1];
@@ -1404,8 +1383,9 @@ bool lexical_conversion( const std::vector<std::string>& strings, AssignTo& outp
         if ( worked ) { output = ConvertTo { x, y }; }
         return worked;
     }
-    else
-    { return lexical_assign<AssignTo, ConvertTo>( strings[0], output ); }
+    else {
+        return lexical_assign<AssignTo, ConvertTo>( strings[0], output );
+    }
 }
 
 /// Conversion to a vector type using a particular single type as the conversion type
@@ -1419,8 +1399,7 @@ bool lexical_conversion( const std::vector<std ::string>& strings, AssignTo& out
     bool retval = true;
     output.clear();
     output.reserve( strings.size() );
-    for ( const auto& elem : strings )
-    {
+    for ( const auto& elem : strings ) {
 
         output.emplace_back();
         retval = retval &&
@@ -1472,8 +1451,7 @@ template <
                 detail::enabler> = detail::dummy>
 bool lexical_conversion( const std::vector<std ::string>& strings, AssignTo& output ) {
 
-    if ( strings.size() > 1 || ( !strings.empty() && !( strings.front().empty() ) ) )
-    {
+    if ( strings.size() > 1 || ( !strings.empty() && !( strings.front().empty() ) ) ) {
         ConvertTo val;
         auto retval = lexical_conversion<ConvertTo, ConvertTo>( strings, val );
         output      = AssignTo { val };
@@ -1526,8 +1504,7 @@ tuple_type_conversion( std::vector<std::string>& strings, AssignTo& output ) {
     const std::size_t mx_count { subtype_count<ConvertTo>::value };
     const std::size_t mx { ( std::max )( mx_count, strings.size() ) };
 
-    while ( index < mx )
-    {
+    while ( index < mx ) {
         if ( is_separator( strings[index] ) ) { break; }
         ++index;
     }
@@ -1548,8 +1525,7 @@ tuple_conversion( std::vector<std::string> strings, AssignTo& output ) {
         typename std::conditional<is_tuple_like<ConvertTo>::value,
                                   typename std::tuple_element<I, ConvertTo>::type,
                                   ConvertTo>::type;
-    if ( !strings.empty() )
-    {
+    if ( !strings.empty() ) {
         retval =
             retval &&
             tuple_type_conversion<typename std::tuple_element<I, AssignTo>::type, ConvertToElement>(
@@ -1568,18 +1544,19 @@ template <
                 detail::enabler>>
 bool lexical_conversion( std::vector<std::string> strings, AssignTo& output ) {
     output.clear();
-    while ( !strings.empty() )
-    {
+    while ( !strings.empty() ) {
 
         typename std::remove_const<
             typename std::tuple_element<0, typename ConvertTo::value_type>::type>::type v1;
         typename std::tuple_element<1, typename ConvertTo::value_type>::type v2;
         bool retval = tuple_type_conversion<decltype( v1 ), decltype( v1 )>( strings, v1 );
-        if ( !strings.empty() )
-        { retval = retval && tuple_type_conversion<decltype( v2 ), decltype( v2 )>( strings, v2 ); }
+        if ( !strings.empty() ) {
+            retval = retval && tuple_type_conversion<decltype( v2 ), decltype( v2 )>( strings, v2 );
+        }
         if ( retval ) { output.insert( output.end(), typename AssignTo::value_type { v1, v2 } ); }
-        else
-        { return false; }
+        else {
+            return false;
+        }
     }
     return ( !output.empty() );
 }
@@ -1618,16 +1595,15 @@ bool lexical_conversion( const std::vector<std ::string>& strings, AssignTo& out
     std::size_t icount { 0 };
     std::size_t xcm { type_count<ConvertTo>::value };
     auto ii_max = strings.size();
-    while ( ii < ii_max )
-    {
+    while ( ii < ii_max ) {
         temp.push_back( strings[ii] );
         ++ii;
         ++icount;
-        if ( icount == xcm || is_separator( temp.back() ) || ii == ii_max )
-        {
+        if ( icount == xcm || is_separator( temp.back() ) || ii == ii_max ) {
             if ( static_cast<int>( xcm ) > type_count_min<ConvertTo>::value &&
-                 is_separator( temp.back() ) )
-            { temp.pop_back(); }
+                 is_separator( temp.back() ) ) {
+                temp.pop_back();
+            }
             typename AssignTo::value_type temp_out;
             retval =
                 retval &&
@@ -1649,15 +1625,13 @@ template <typename AssignTo,
                           std::is_assignable<ConvertTo&, ConvertTo>::value,
                       detail::enabler> = detail::dummy>
 bool lexical_conversion( const std::vector<std::string>& strings, AssignTo& output ) {
-    if ( strings.empty() || strings.front().empty() )
-    {
+    if ( strings.empty() || strings.front().empty() ) {
         output = ConvertTo {};
         return true;
     }
     typename ConvertTo::value_type val;
     if ( lexical_conversion<typename ConvertTo::value_type, typename ConvertTo::value_type>(
-             strings, val ) )
-    {
+             strings, val ) ) {
         output = ConvertTo { val };
         return true;
     }
@@ -1672,15 +1646,13 @@ template <typename AssignTo,
                       detail::enabler> = detail::dummy>
 bool lexical_conversion( const std::vector<std::string>& strings, AssignTo& output ) {
     using ConvertType = typename ConvertTo::value_type;
-    if ( strings.empty() || strings.front().empty() )
-    {
+    if ( strings.empty() || strings.front().empty() ) {
         output = ConvertType {};
         return true;
     }
     ConvertType val;
     if ( lexical_conversion<typename ConvertTo::value_type, typename ConvertTo::value_type>(
-             strings, val ) )
-    {
+             strings, val ) ) {
         output = val;
         return true;
     }
@@ -1696,8 +1668,9 @@ bool lexical_conversion( const std::vector<std::string>& strings, AssignTo& outp
 template <typename T, enable_if_t<std::is_unsigned<T>::value, detail::enabler> = detail::dummy>
 void sum_flag_vector( const std::vector<std::string>& flags, T& output ) {
     std::int64_t count { 0 };
-    for ( auto& flag : flags )
-    { count += detail::to_flag_value( flag ); }
+    for ( auto& flag : flags ) {
+        count += detail::to_flag_value( flag );
+    }
     output = ( count > 0 ) ? static_cast<T>( count ) : T { 0 };
 }
 
@@ -1710,8 +1683,9 @@ void sum_flag_vector( const std::vector<std::string>& flags, T& output ) {
 template <typename T, enable_if_t<std::is_signed<T>::value, detail::enabler> = detail::dummy>
 void sum_flag_vector( const std::vector<std::string>& flags, T& output ) {
     std::int64_t count { 0 };
-    for ( auto& flag : flags )
-    { count += detail::to_flag_value( flag ); }
+    for ( auto& flag : flags ) {
+        count += detail::to_flag_value( flag );
+    }
     output = static_cast<T>( count );
 }
 
@@ -1733,8 +1707,9 @@ template <typename T,
               detail::dummy>
 void sum_flag_vector( const std::vector<std::string>& flags, T& output ) {
     std::int64_t count { 0 };
-    for ( auto& flag : flags )
-    { count += detail::to_flag_value( flag ); }
+    for ( auto& flag : flags ) {
+        count += detail::to_flag_value( flag );
+    }
     std::string out = detail::to_string( count );
     lexical_cast( out, output );
 }
