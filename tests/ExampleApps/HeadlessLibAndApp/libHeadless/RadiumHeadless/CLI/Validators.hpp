@@ -78,20 +78,20 @@ class Validator
 {
   protected:
     /// This is the description function, if empty the description_ will be used
-    std::function<std::string()> desc_function_ {[]() { return std::string {}; }};
+    std::function<std::string()> desc_function_ { []() { return std::string {}; } };
 
     /// This is the base function that is to be called.
     /// Returns a string error message if validation fails.
     std::function<std::string( std::string& )> func_ {
-        []( std::string& ) { return std::string {}; }};
+        []( std::string& ) { return std::string {}; } };
     /// The name for search purposes of the Validator
     std::string name_ {};
     /// A Validator will only apply to an indexed value (-1 is all elements)
     int application_index_ = -1;
     /// Enable for Validator to allow it to be disabled if need be
-    bool active_ {true};
+    bool active_ { true };
     /// specify that a validator should not modify the input
-    bool non_modifying_ {false};
+    bool non_modifying_ { false };
 
   public:
     Validator() = default;
@@ -406,9 +406,7 @@ class IPV4Validator : public Validator
         func_ = []( std::string& ip_addr ) {
             auto result = CLI::detail::split( ip_addr, '.' );
             if ( result.size() != 4 )
-            {
-                return std::string( "Invalid IPV4 address must have four parts (" ) + ip_addr + ')';
-            }
+            { return std::string( "Invalid IPV4 address must have four parts (" ) + ip_addr + ')'; }
             int num;
             for ( const auto& var : result )
             {
@@ -578,7 +576,7 @@ std::string generate_map( const T& map, bool key_only = false ) {
     out.append( detail::join(
         detail::smart_deref( map ),
         [key_only]( const iteration_type_t& v ) {
-            std::string res {detail::to_string( detail::pair_adaptor<element_t>::first( v ) )};
+            std::string res { detail::to_string( detail::pair_adaptor<element_t>::first( v ) ) };
 
             if ( !key_only )
             {
@@ -616,7 +614,7 @@ auto search( const T& set, const V& val )
         std::begin( setref ), std::end( setref ), [&val]( decltype( *std::begin( setref ) ) v ) {
             return ( detail::pair_adaptor<element_t>::first( v ) == val );
         } );
-    return {( it != std::end( setref ) ), it};
+    return { ( it != std::end( setref ) ), it };
 }
 
 /// A search function that uses the built in find function
@@ -627,7 +625,7 @@ auto search( const T& set, const V& val )
     -> std::pair<bool, decltype( std::begin( detail::smart_deref( set ) ) )> {
     auto& setref = detail::smart_deref( set );
     auto it      = setref.find( val );
-    return {( it != std::end( setref ) ), it};
+    return { ( it != std::end( setref ) ), it };
 }
 
 /// A search function with a filter function
@@ -642,11 +640,11 @@ auto search( const T& set, const V& val, const std::function<V( V )>& filter_fun
     auto& setref = detail::smart_deref( set );
     auto it      = std::find_if(
         std::begin( setref ), std::end( setref ), [&]( decltype( *std::begin( setref ) ) v ) {
-            V a {detail::pair_adaptor<element_t>::first( v )};
+            V a { detail::pair_adaptor<element_t>::first( v ) };
             a = filter_function( a );
             return ( a == val );
         } );
-    return {( it != std::end( setref ) ), it};
+    return { ( it != std::end( setref ) ), it };
 }
 
 // the following suggestion was made by Nikita Ofitserov(@himikof)
@@ -994,11 +992,9 @@ class AsNumberWithUnit : public Validator
             auto unit_begin = input.end();
             while ( unit_begin > input.begin() &&
                     std::isalpha( *( unit_begin - 1 ), std::locale() ) )
-            {
-                --unit_begin;
-            }
+            { --unit_begin; }
 
-            std::string unit {unit_begin, input.end()};
+            std::string unit { unit_begin, input.end() };
             input.resize( static_cast<std::size_t>( std::distance( input.begin(), unit_begin ) ) );
             detail::trim( input );
 
@@ -1133,7 +1129,7 @@ class AsSizeValue : public AsNumberWithUnit
         result_t k         = 1;
         result_t ki        = 1;
         m["b"]             = 1;
-        for ( std::string p : {"k", "m", "g", "t", "p", "e"} )
+        for ( std::string p : { "k", "m", "g", "t", "p", "e" } )
         {
             k *= k_factor;
             ki *= ki_factor;

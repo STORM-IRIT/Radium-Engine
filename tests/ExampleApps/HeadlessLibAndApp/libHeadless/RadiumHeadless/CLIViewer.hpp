@@ -30,11 +30,11 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
   public:
     struct ViewerParameters {
         /// Load animation system at startup
-        bool m_animationEnable {false};
+        bool m_animationEnable { false };
         /// Size of the image
-        std::array<int, 2> m_size {512, 512};
+        std::array<int, 2> m_size { 512, 512 };
         /// image name prefix
-        std::string m_imgPrefix {"frame"};
+        std::string m_imgPrefix { "frame" };
     };
 
   private:
@@ -46,16 +46,16 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     std::shared_ptr<Ra::Engine::Rendering::Renderer> m_renderer;
 
     /// The camera for rendering
-    Ra::Core::Asset::Camera* m_camera {nullptr};
+    Ra::Core::Asset::Camera* m_camera { nullptr };
 
     /// The application parameters
     ViewerParameters m_parameters;
 
     /// is the engine initialized ?
-    bool m_engineInitialized {false};
+    bool m_engineInitialized { false };
 
     /// is the window shown ?
-    bool m_exposedWindow {false};
+    bool m_exposedWindow { false };
 
   public:
     /// Base constructor.

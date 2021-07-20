@@ -93,7 +93,7 @@ inline std::vector<std::string> generate_parents( const std::string& section, st
     {
         if ( section.find( '.' ) != std::string::npos ) { parents = detail::split( section, '.' ); }
         else
-        { parents = {section}; }
+        { parents = { section }; }
     }
     if ( name.find( '.' ) != std::string::npos )
     {
@@ -106,9 +106,7 @@ inline std::vector<std::string> generate_parents( const std::string& section, st
 
     // clean up quotes on the parents
     for ( auto& parent : parents )
-    {
-        detail::remove_quotes( parent );
-    }
+    { detail::remove_quotes( parent ); }
     return parents;
 }
 
@@ -237,19 +235,17 @@ inline std::vector<ConfigItem> ConfigBase::from_config( std::istream& input ) co
                       item.find_first_of( ' ' ) != std::string::npos )
             { items_buffer = detail::split_up( item ); }
             else
-            { items_buffer = {item}; }
+            { items_buffer = { item }; }
         }
         else
         {
             name         = detail::trim_copy( line );
-            items_buffer = {"true"};
+            items_buffer = { "true" };
         }
         if ( name.find( '.' ) == std::string::npos ) { detail::remove_quotes( name ); }
         // clean up quotes on the items
         for ( auto& it : items_buffer )
-        {
-            detail::remove_quotes( it );
-        }
+        { detail::remove_quotes( it ); }
 
         std::vector<std::string> parents = detail::generate_parents( section, name );
 

@@ -92,30 +92,30 @@ class App
     std::string description_ {};
 
     /// If true, allow extra arguments (ie, don't throw an error). INHERITABLE
-    bool allow_extras_ {false};
+    bool allow_extras_ { false };
 
     /// If ignore, allow extra arguments in the ini file (ie, don't throw an error). INHERITABLE
     /// if error error on an extra argument, and if capture feed it to the app
-    config_extras_mode allow_config_extras_ {config_extras_mode::ignore};
+    config_extras_mode allow_config_extras_ { config_extras_mode::ignore };
 
     ///  If true, return immediately on an unrecognized option (implies allow_extras) INHERITABLE
-    bool prefix_command_ {false};
+    bool prefix_command_ { false };
 
     /// If set to true the name was automatically generated from the command line vs a user set name
-    bool has_automatic_name_ {false};
+    bool has_automatic_name_ { false };
 
     /// If set to true the subcommand is required to be processed and used, ignored for main app
-    bool required_ {false};
+    bool required_ { false };
 
     /// If set to true the subcommand is disabled and cannot be used, ignored for main app
-    bool disabled_ {false};
+    bool disabled_ { false };
 
     /// Flag indicating that the pre_parse_callback has been triggered
-    bool pre_parse_called_ {false};
+    bool pre_parse_called_ { false };
 
     /// Flag indicating that the callback for the subcommand should be executed immediately on parse
     /// completion which is before help or ini files are processed. INHERITABLE
-    bool immediate_callback_ {false};
+    bool immediate_callback_ { false };
 
     /// This is a function that runs prior to the start of parsing
     std::function<void( std::size_t )> pre_parse_callback_ {};
@@ -146,20 +146,20 @@ class App
     std::function<std::string()> footer_callback_ {};
 
     /// A pointer to the help flag if there is one INHERITABLE
-    Option* help_ptr_ {nullptr};
+    Option* help_ptr_ { nullptr };
 
     /// A pointer to the help all flag if there is one INHERITABLE
-    Option* help_all_ptr_ {nullptr};
+    Option* help_all_ptr_ { nullptr };
 
     /// A pointer to a version flag if there is one
-    Option* version_ptr_ {nullptr};
+    Option* version_ptr_ { nullptr };
 
     /// This is the formatter for help printing. Default provided. INHERITABLE (same pointer)
-    std::shared_ptr<FormatterBase> formatter_ {new Formatter()};
+    std::shared_ptr<FormatterBase> formatter_ { new Formatter() };
 
     /// The error message printing function INHERITABLE
     std::function<std::string( const App*, const Error& e )> failure_message_ {
-        FailureMessage::simple};
+        FailureMessage::simple };
 
     ///@}
     /// @name Parsing
@@ -203,14 +203,14 @@ class App
     std::vector<App_p> subcommands_ {};
 
     /// If true, the program name is not case sensitive INHERITABLE
-    bool ignore_case_ {false};
+    bool ignore_case_ { false };
 
     /// If true, the program should ignore underscores INHERITABLE
-    bool ignore_underscore_ {false};
+    bool ignore_underscore_ { false };
 
     /// Allow subcommand fallthrough, so that parent commands can collect commands after subcommand.
     /// INHERITABLE
-    bool fallthrough_ {false};
+    bool fallthrough_ { false };
 
     /// Allow '/' for options for Windows like options. Defaults to true on Windows, false
     /// otherwise. INHERITABLE
@@ -222,44 +222,44 @@ class App
 #endif
     };
     /// specify that positional arguments come at the end of the argument sequence not inheritable
-    bool positionals_at_end_ {false};
+    bool positionals_at_end_ { false };
 
     enum class startup_mode : char { stable, enabled, disabled };
     /// specify the startup mode for the app
     /// stable=no change, enabled= startup enabled, disabled=startup disabled
-    startup_mode default_startup {startup_mode::stable};
+    startup_mode default_startup { startup_mode::stable };
 
     /// if set to true the subcommand can be triggered via configuration files INHERITABLE
-    bool configurable_ {false};
+    bool configurable_ { false };
 
     /// If set to true positional options are validated before assigning INHERITABLE
-    bool validate_positionals_ {false};
+    bool validate_positionals_ { false };
 
     /// indicator that the subcommand is silent and won't show up in subcommands list
     /// This is potentially useful as a modifier subcommand
-    bool silent_ {false};
+    bool silent_ { false };
 
     /// Counts the number of times this command/subcommand was parsed
-    std::uint32_t parsed_ {0U};
+    std::uint32_t parsed_ { 0U };
 
     /// Minimum required subcommands (not inheritable!)
-    std::size_t require_subcommand_min_ {0};
+    std::size_t require_subcommand_min_ { 0 };
 
     /// Max number of subcommands allowed (parsing stops after this number). 0 is unlimited
     /// INHERITABLE
-    std::size_t require_subcommand_max_ {0};
+    std::size_t require_subcommand_max_ { 0 };
 
     /// Minimum required options (not inheritable!)
-    std::size_t require_option_min_ {0};
+    std::size_t require_option_min_ { 0 };
 
     /// Max number of options allowed. 0 is unlimited (not inheritable)
-    std::size_t require_option_max_ {0};
+    std::size_t require_option_max_ { 0 };
 
     /// A pointer to the parent if this is a subcommand
-    App* parent_ {nullptr};
+    App* parent_ { nullptr };
 
     /// The group membership INHERITABLE
-    std::string group_ {"Subcommands"};
+    std::string group_ { "Subcommands" };
 
     /// Alias names for the subcommand
     std::vector<std::string> aliases_ {};
@@ -269,10 +269,10 @@ class App
     ///@{
 
     /// Pointer to the config option
-    Option* config_ptr_ {nullptr};
+    Option* config_ptr_ { nullptr };
 
     /// This is the formatter for help printing. Default provided. INHERITABLE (same pointer)
-    std::shared_ptr<Config> config_formatter_ {new ConfigTOML()};
+    std::shared_ptr<Config> config_formatter_ { new ConfigTOML() };
 
     ///@}
 
@@ -600,7 +600,7 @@ class App
                         std::string option_description    = "",
                         bool defaulted                    = false,
                         std::function<std::string()> func = {} ) {
-        Option myopt {option_name, option_description, option_callback, this};
+        Option myopt { option_name, option_description, option_callback, this };
 
         if ( std::find_if(
                  std::begin( options_ ), std::end( options_ ), [&myopt]( const Option_p& v ) {
@@ -927,7 +927,7 @@ class App
                        std::string flag_description = "" ) {
 
         CLI::callback_t fun = [function]( const CLI::results_t& res ) {
-            bool trigger {false};
+            bool trigger { false };
             auto result = CLI::detail::lexical_cast( res[0], trigger );
             if ( result && trigger ) { function(); }
             return result;
@@ -996,16 +996,16 @@ class App
                     {
                         str1.pop_back();
                         worked = detail::lexical_cast( str1, y );
-                        x      = XC {0};
+                        x      = XC { 0 };
                     }
                     else
                     {
                         worked = detail::lexical_cast( str1, x );
-                        y      = XC {0};
+                        y      = XC { 0 };
                     }
                 }
             }
-            if ( worked ) variable = T {x, y};
+            if ( worked ) variable = T { x, y };
             return worked;
         };
 
@@ -1199,17 +1199,14 @@ class App
     /// Get a count of all the arguments processed in options and subcommands, this excludes
     /// arguments which were treated as extras.
     std::size_t count_all() const {
-        std::size_t cnt {0};
+        std::size_t cnt { 0 };
         for ( auto& opt : options_ )
-        {
-            cnt += opt->count();
-        }
+        { cnt += opt->count(); }
         for ( auto& sub : subcommands_ )
-        {
-            cnt += sub->count_all();
-        }
+        { cnt += sub->count_all(); }
         if ( !get_name().empty() )
-        { // for named subcommands add the number of times the subcommand was called
+        { // for named subcommands add the number of times the subcommand
+          // was called
             cnt += parsed_;
         }
         return cnt;
@@ -1318,13 +1315,9 @@ class App
         missing_.clear();
         parsed_subcommands_.clear();
         for ( const Option_p& opt : options_ )
-        {
-            opt->clear();
-        }
+        { opt->clear(); }
         for ( const App_p& subc : subcommands_ )
-        {
-            subc->clear();
-        }
+        { subc->clear(); }
     }
 
     /// Parses the command line - throws errors.
@@ -1936,9 +1929,7 @@ class App
     std::vector<std::string> remaining( bool recurse = false ) const {
         std::vector<std::string> miss_list;
         for ( const std::pair<detail::Classifier, std::string>& miss : missing_ )
-        {
-            miss_list.push_back( std::get<1>( miss ) );
-        }
+        { miss_list.push_back( std::get<1>( miss ) ); }
         // Get from a subcommand that may allow extras
         if ( recurse )
         {
@@ -1950,9 +1941,7 @@ class App
                     {
                         for ( const std::pair<detail::Classifier, std::string>& miss :
                               sub->missing_ )
-                        {
-                            miss_list.push_back( std::get<1>( miss ) );
-                        }
+                        { miss_list.push_back( std::get<1>( miss ) ); }
                     }
                 }
             }
@@ -1988,9 +1977,7 @@ class App
         if ( recurse )
         {
             for ( const App_p& sub : subcommands_ )
-            {
-                remaining_options += sub->remaining_size( recurse );
-            }
+            { remaining_options += sub->remaining_size( recurse ); }
         }
         return remaining_options;
     }
@@ -2019,7 +2006,7 @@ class App
             if ( pcount - pcount_req > 1 ) { throw InvalidError( name_ ); }
         }
 
-        std::size_t nameless_subs {0};
+        std::size_t nameless_subs { 0 };
         for ( const App_p& app : subcommands_ )
         {
             app->_validate();
@@ -2074,9 +2061,7 @@ class App
         if ( !final_mode && parse_complete_callback_ ) { parse_complete_callback_(); }
         // run the callbacks for the received subcommands
         for ( App* subc : get_subcommands() )
-        {
-            subc->run_callback( true );
-        }
+        { subc->run_callback( true ); }
         // now run callbacks for option_groups
         for ( auto& subc : subcommands_ )
         {
@@ -2115,7 +2100,7 @@ class App
         {
             if ( dummy1[0] >= '0' && dummy1[0] <= '9' )
             {
-                if ( get_option_no_throw( std::string {'-', dummy1[0]} ) == nullptr )
+                if ( get_option_no_throw( std::string { '-', dummy1[0] } ) == nullptr )
                 { return detail::Classifier::NONE; }
             }
             return detail::Classifier::SHORT;
@@ -2253,7 +2238,7 @@ class App
     /// Verify required options and cross requirements. Subcommands too (only if selected).
     void _process_requirements() {
         // check excludes
-        bool excluded {false};
+        bool excluded { false };
         std::string excluder;
         for ( auto& opt : exclude_options_ )
         {
@@ -2279,7 +2264,7 @@ class App
         }
 
         // check excludes
-        bool missing_needed {false};
+        bool missing_needed { false };
         std::string missing_need;
         for ( auto& opt : need_options_ )
         {
@@ -2481,9 +2466,7 @@ class App
         bool positional_only = false;
 
         while ( !args.empty() )
-        {
-            _parse_single( args, positional_only );
-        }
+        { _parse_single( args, positional_only ); }
         _process();
 
         // Throw error if any items are left over (depending on settings)
@@ -2899,8 +2882,8 @@ class App
         {
             auto tmax = op->get_type_size_max();
             max_num   = detail::checked_multiply( tmax, op->get_expected_min() )
-                          ? tmax
-                          : detail::expected_max_vector_size;
+                            ? tmax
+                            : detail::expected_max_vector_size;
         }
         // Make sure we always eat the minimum for unlimited vectors
         int collected    = 0; // total number of arguments collected
@@ -3011,9 +2994,7 @@ class App
         auto fallthrough_parent = parent_;
         while ( ( fallthrough_parent->parent_ != nullptr ) &&
                 ( fallthrough_parent->get_name().empty() ) )
-        {
-            fallthrough_parent = fallthrough_parent->parent_;
-        }
+        { fallthrough_parent = fallthrough_parent->parent_; }
         return fallthrough_parent;
     }
 
@@ -3173,9 +3154,7 @@ inline void TriggerOn( App* trigger_app, std::vector<App*> apps_to_enable ) {
 
     trigger_app->preparse_callback( [apps_to_enable]( std::size_t ) {
         for ( auto& app : apps_to_enable )
-        {
-            app->disabled( false );
-        }
+        { app->disabled( false ); }
     } );
 }
 
@@ -3196,20 +3175,18 @@ inline void TriggerOff( App* trigger_app, std::vector<App*> apps_to_enable ) {
 
     trigger_app->preparse_callback( [apps_to_enable]( std::size_t ) {
         for ( auto& app : apps_to_enable )
-        {
-            app->disabled();
-        }
+        { app->disabled(); }
     } );
 }
 
 /// Helper function to mark an option as deprecated
 inline void deprecate_option( Option* opt, const std::string& replacement = "" ) {
-    Validator deprecate_warning {[opt, replacement]( std::string& ) {
+    Validator deprecate_warning { [opt, replacement]( std::string& ) {
                                      std::cout << opt->get_name() << " is deprecated please use '"
                                                << replacement << "' instead\n";
                                      return std::string();
                                  },
-                                 "DEPRECATED"};
+                                  "DEPRECATED" };
     deprecate_warning.application_index( 0 );
     opt->check( deprecate_warning );
     if ( !replacement.empty() )
@@ -3251,12 +3228,12 @@ inline void retire_option( App* app, Option* opt ) {
             ->expected( option_copy->get_expected_min(), option_copy->get_expected_max() )
             ->allow_extra_args( option_copy->get_allow_extra_args() );
 
-    Validator retired_warning {[opt2]( std::string& ) {
+    Validator retired_warning { [opt2]( std::string& ) {
                                    std::cout << "WARNING " << opt2->get_name()
                                              << " is retired and has no effect\n";
                                    return std::string();
                                },
-                               ""};
+                                "" };
     retired_warning.application_index( 0 );
     opt2->check( retired_warning );
 }
@@ -3279,12 +3256,12 @@ inline void retire_option( App* app, const std::string& option_name ) {
                     ->type_name( "RETIRED" )
                     ->expected( 0, 1 )
                     ->default_str( "RETIRED" );
-    Validator retired_warning {[opt2]( std::string& ) {
+    Validator retired_warning { [opt2]( std::string& ) {
                                    std::cout << "WARNING " << opt2->get_name()
                                              << " is retired and has no effect\n";
                                    return std::string();
                                },
-                               ""};
+                                "" };
     retired_warning.application_index( 0 );
     opt2->check( retired_warning );
 }

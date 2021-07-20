@@ -40,7 +40,7 @@ using enums::operator<<;
 namespace detail {
 /// a constant defining an expected max vector size defined to be a big number that could be
 /// multiplied by 4 and not produce overflow for some expected uses
-constexpr int expected_max_vector_size {1 << 29};
+constexpr int expected_max_vector_size { 1 << 29 };
 // Based on http://stackoverflow.com/questions/236129/split-a-string-in-c
 /// Split a string by a delim
 inline std::vector<std::string> split( const std::string& s, char delim ) {
@@ -53,9 +53,7 @@ inline std::vector<std::string> split( const std::string& s, char delim ) {
         ss.str( s );
         std::string item;
         while ( std::getline( ss, item, delim ) )
-        {
-            elems.push_back( item );
-        }
+        { elems.push_back( item ); }
     }
     return elems;
 }
@@ -68,9 +66,7 @@ std::string join( const T& v, std::string delim = "," ) {
     auto end = std::end( v );
     if ( beg != end ) s << *beg++;
     while ( beg != end )
-    {
-        s << delim << *beg++;
-    }
+    { s << delim << *beg++; }
     return s.str();
 }
 
@@ -350,9 +346,7 @@ template <typename Callable>
 inline std::string find_and_modify( std::string str, std::string trigger, Callable modify ) {
     std::size_t start_pos = 0;
     while ( ( start_pos = str.find( trigger, start_pos ) ) != std::string::npos )
-    {
-        start_pos = modify( str, start_pos );
-    }
+    { start_pos = modify( str, start_pos ); }
     return str;
 }
 

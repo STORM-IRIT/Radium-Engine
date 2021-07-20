@@ -71,7 +71,7 @@ enum class ExitCodes {
 class Error : public std::runtime_error
 {
     int actual_exit_code;
-    std::string error_name {"Error"};
+    std::string error_name { "Error" };
 
   public:
     int get_exit_code() const { return actual_exit_code; }

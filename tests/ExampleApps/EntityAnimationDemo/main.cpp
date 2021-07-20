@@ -49,7 +49,7 @@ class EntityAnimationSystem : public Scene::System
                 [e, t]() {
                     Transform T = e->getTransform();
                     T.translate(
-                        Vector3 {std::cos( t ) * 0.025_ra, -std::sin( t ) * 0.025_ra, 0_ra} );
+                        Vector3 { std::cos( t ) * 0.025_ra, -std::sin( t ) * 0.025_ra, 0_ra } );
                     e->setTransform( T );
                 },
                 "move" ) );
@@ -104,7 +104,7 @@ int main( int argc, char* argv[] ) {
         //! [Create the engine entity for the fixed component]
 
         //! [Creating the cube]
-        auto cube = Geometry::makeSharpBox( {0.5f, 0.5f, 0.5f}, Utils::Color::Green() );
+        auto cube = Geometry::makeSharpBox( { 0.5f, 0.5f, 0.5f }, Utils::Color::Green() );
         //! [Creating the Cube]
 
         //! [Create a geometry component with the cube]
@@ -118,7 +118,7 @@ int main( int argc, char* argv[] ) {
     {
         //! [Create the animated entity ]
         auto e = app.m_engine->getEntityManager()->createEntity( "Animated entity" );
-        Transform transform( Translation {1, 1, 0} );
+        Transform transform( Translation { 1, 1, 0 } );
         e->setTransform( transform );
         e->swapTransformBuffers();
         //! [Create the animated entity ]
@@ -129,14 +129,15 @@ int main( int argc, char* argv[] ) {
 
         //! [attach components to the animated entity ]
         // an animated yellow cube
-        auto cube = Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f}, Ra::Core::Utils::Color::Yellow() );
+        auto cube =
+            Geometry::makeSharpBox( { 0.1f, 0.1f, 0.1f }, Ra::Core::Utils::Color::Yellow() );
         new Scene::TriangleMeshComponent( "Fixed cube geometry", e, std::move( cube ), nullptr );
 
         // an animated camera, thay is not the one active at startup. Use key '0' to activate
         auto camera = new Scene::CameraComponent( e, "Animated Camera" );
         camera->initialize();
-        camera->getCamera()->setPosition( Vector3 {0.5, 0, 0} );
-        camera->getCamera()->setDirection( Vector3 {-1, 0, 0} );
+        camera->getCamera()->setPosition( Vector3 { 0.5, 0, 0 } );
+        camera->getCamera()->setDirection( Vector3 { -1, 0, 0 } );
         camera->show( true );
         cameraManager->addCamera( camera );
         //! [attach components to the animated entity ]
@@ -148,8 +149,8 @@ int main( int argc, char* argv[] ) {
         auto e      = app.m_engine->getEntityManager()->createEntity( "Fixed Camera" );
         auto camera = new Scene::CameraComponent( e, "Camera" );
         camera->initialize();
-        camera->getCamera()->setPosition( Vector3 {0, 0, 5} );
-        camera->getCamera()->setDirection( Vector3 {0, 0, -1} );
+        camera->getCamera()->setPosition( Vector3 { 0, 0, 5 } );
+        camera->getCamera()->setDirection( Vector3 { 0, 0, -1 } );
         camera->show( true );
         cameraManager->addCamera( camera );
         cameraManager->activate( cameraManager->getCameraIndex( camera ) );

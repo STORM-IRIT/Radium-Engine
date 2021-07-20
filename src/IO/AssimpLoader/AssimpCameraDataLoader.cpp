@@ -83,7 +83,7 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
     view.block<3, 1>( 0, 2 ) = lookAt;
     view.block<3, 1>( 0, 3 ) = pos;
     view.block<1, 3>( 0, 0 ) *= -1_ra;
-    data.setFrame( Core::Transform {view * frame} );
+    data.setFrame( Core::Transform { view * frame } );
 
     data.setType( Camera::ProjType::PERSPECTIVE ); // default value since not in aiCamera
     // assimp doc (the version we used, updated in assimp master) state mHorizontalFOV is half
