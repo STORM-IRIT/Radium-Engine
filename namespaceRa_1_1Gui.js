@@ -1,5 +1,6 @@
 var namespaceRa_1_1Gui =
 [
+    [ "AboutDialog", "classRa_1_1Gui_1_1AboutDialog.html", "classRa_1_1Gui_1_1AboutDialog" ],
     [ "BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html", "classRa_1_1Gui_1_1BaseApplication" ],
     [ "CameraManipulator", "classRa_1_1Gui_1_1CameraManipulator.html", "classRa_1_1Gui_1_1CameraManipulator" ],
     [ "EngineTreeItem", "classRa_1_1Gui_1_1EngineTreeItem.html", "classRa_1_1Gui_1_1EngineTreeItem" ],
@@ -12,6 +13,7 @@ var namespaceRa_1_1Gui =
     [ "KeyMappingManager", "classRa_1_1Gui_1_1KeyMappingManager.html", "classRa_1_1Gui_1_1KeyMappingManager" ],
     [ "MainWindowInterface", "classRa_1_1Gui_1_1MainWindowInterface.html", "classRa_1_1Gui_1_1MainWindowInterface" ],
     [ "PickingManager", "classRa_1_1Gui_1_1PickingManager.html", "classRa_1_1Gui_1_1PickingManager" ],
+    [ "RotateAroundCameraManipulator", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html", "classRa_1_1Gui_1_1RotateAroundCameraManipulator" ],
     [ "RotateGizmo", "classRa_1_1Gui_1_1RotateGizmo.html", "classRa_1_1Gui_1_1RotateGizmo" ],
     [ "ScaleGizmo", "classRa_1_1Gui_1_1ScaleGizmo.html", "classRa_1_1Gui_1_1ScaleGizmo" ],
     [ "SelectionManager", "classRa_1_1Gui_1_1SelectionManager.html", "classRa_1_1Gui_1_1SelectionManager" ],

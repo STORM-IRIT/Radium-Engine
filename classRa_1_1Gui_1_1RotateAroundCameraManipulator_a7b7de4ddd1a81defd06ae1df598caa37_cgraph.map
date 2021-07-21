@@ -1,0 +1,6 @@
+<map id="Ra::Gui::RotateAroundCameraManipulator::handleCameraForward" name="Ra::Gui::RotateAroundCameraManipulator::handleCameraForward">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,260,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="308,5,488,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="308,71,488,112"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="536,5,716,47"/>
+</map>

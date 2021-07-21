@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c2a53dcbe272ef08de5dadf147e853ec29323489</span>
+   &#160;<span id="projectnumber">e22754d0abe192207fd946509cbd63c4f9e52dd4</span>
    </div>
   </td>
  </tr>
@@ -102,6 +102,8 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Gui.html',''); initResi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1AboutDialog.html">AboutDialog</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html">BaseApplication</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class contains the main application logic. It owns the engine and the GUI.  <a href="classRa_1_1Gui_1_1BaseApplication.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +130,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1MainWindowInterface.html">MainWindowInterface</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1PickingManager.html">PickingManager</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html">RotateAroundCameraManipulator</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1RotateGizmo.html">RotateGizmo</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classRa_1_1Gui_1_1RotateGizmo.html" title="A RotateGizmo manipulates the rotational part of a transformation.">RotateGizmo</a> manipulates the rotational part of a transformation.  <a href="classRa_1_1Gui_1_1RotateGizmo.html#details">More...</a><br /></td></tr>
@@ -197,6 +201,8 @@ Functions</h2></td></tr>
 <tr class="separator:a284a7353da7c360f6ff24c07ebb3f815"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6430f87946fe8122845adcb028aec0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Gui.html#ad6430f87946fe8122845adcb028aec0d">RA_SINGLETON_IMPLEMENTATION</a> (<a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">KeyMappingManager</a>)</td></tr>
 <tr class="separator:ad6430f87946fe8122845adcb028aec0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af700170a11bac7ea17cbb990588f0732"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Gui.html#af700170a11bac7ea17cbb990588f0732">rotateAroundPoint</a> (<a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a> *cam, <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a> &amp;target, <a class="el" href="namespaceRa_1_1Core.html#a9432b21630bd343df3fe4f7effdd654f">Ra::Core::Quaternion</a> &amp;rotation, const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a> &amp;point)</td></tr>
+<tr class="separator:af700170a11bac7ea17cbb990588f0732"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60f600b001702a110cf0c76914aeef34"><td class="memItemLeft" align="right" valign="top">QSurfaceFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Gui.html#a60f600b001702a110cf0c76914aeef34">defaultFormat</a> ()</td></tr>
 <tr class="separator:a60f600b001702a110cf0c76914aeef34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -405,6 +411,56 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="af700170a11bac7ea17cbb990588f0732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af700170a11bac7ea17cbb990588f0732">&#9670;&nbsp;</a></span>rotateAroundPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Gui::rotateAroundPoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a> *&#160;</td>
+          <td class="paramname"><em>cam</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a> &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a9432b21630bd343df3fe4f7effdd654f">Ra::Core::Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>rotation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a> &amp;&#160;</td>
+          <td class="paramname"><em>point</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RotateAroundCameraManipulator_8cpp_source.html#l00034">34</a> of file <a class="el" href="RotateAroundCameraManipulator_8cpp_source.html">RotateAroundCameraManipulator.cpp</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Gui_af700170a11bac7ea17cbb990588f0732_cgraph.svg" width="100%" height="583"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="aac984534075ae8028f3c18b328cccaaa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aac984534075ae8028f3c18b328cccaaa">&#9670;&nbsp;</a></span>defaultSystemPriority</h2>
@@ -426,7 +482,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00056">56</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00058">58</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -450,7 +506,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00053">53</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00055">55</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -492,7 +548,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Gui.html">Gui</a></li>
-    <li class="footer">Generated on Fri Jun 11 2021 10:13:02 for Radium Engine by
+    <li class="footer">Generated on Wed Jul 21 2021 12:55:35 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

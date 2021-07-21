@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c2a53dcbe272ef08de5dadf147e853ec29323489</span>
+   &#160;<span id="projectnumber">e22754d0abe192207fd946509cbd63c4f9e52dd4</span>
    </div>
   </td>
  </tr>
@@ -186,7 +186,7 @@ Configuring the plugin</h1>
 Using the Plugin</h1>
 <p>Any application that inherits from <code><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html" title="This class contains the main application logic. It owns the engine and the GUI.">Ra::Gui::BaseApplication</a></code> could use any Plugin developed using the Radium Engine. As plugins are Qt objects that implement specific interface, it is also permitted to have any Qt Application to use plugins. Meanwhile, the following documentation is related to the Radium BaseApplication derived applications.</p>
 <p>If the plugin is installed in the Radium Bundle directory, it will be automatically loaded by any plugin-aware application. Recall that, when developing a plugin, the installation in the Radium bundle directory is not always permitted nor efficient.</p>
-<p>It could then be useful to use the Plugin from its own installation directory or directly from its build-tree. To do that, the application could register the plugin directory location by calling the <code><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc">Ra::Gui::BaseApplication::addPluginDirectory( const std::string&amp; pluginDir )</a>;</code> method that will record, in the QSettings file associated with the application, the directory in which the Radium Engine will look for plugins. Once this directory is registered, any plugin that will be found in this directory will be loaded at each application startup if the build type of the plugin is compatible with the build type of the application (release, debug, ...). If the plugin location that is registered correspond to the build tree location of the plugin, there is no need to install it.</p>
+<p>It could then be useful to use the Plugin from its own installation directory or directly from its build-tree. To do that, the application could register the plugin directory location by calling the <code><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc" title="Allow the user to register a specific plugin directory for the application.">Ra::Gui::BaseApplication::addPluginDirectory( const std::string&amp; pluginDir )</a>;</code> method that will record, in the QSettings file associated with the application, the directory in which the Radium Engine will look for plugins. Once this directory is registered, any plugin that will be found in this directory will be loaded at each application startup if the build type of the plugin is compatible with the build type of the application (release, debug, ...). If the plugin location that is registered correspond to the build tree location of the plugin, there is no need to install it.</p>
 <p>Note that the main Radium demonstration application (<code>main-app</code>) offer a menu entry (<code>File/Plugins/Add plugin path</code>) that call the registration method once the user has selected a plugin location. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -195,7 +195,7 @@ Using the Plugin</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Fri Jun 11 2021 10:13:01 for Radium Engine by
+    <li class="footer">Generated on Wed Jul 21 2021 12:55:34 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

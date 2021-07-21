@@ -53,7 +53,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" target="_top" xlink:title="Set the frame of the camera to &#39;frame&#39;.">
+<g id="a_node4"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" target="_top" xlink:title="Set the frame of the camera to frame.">
 <polygon fill="white" stroke="black" points="221,-39 221,-69 356,-69 356,-39 221,-39"/>
 <text text-anchor="start" x="229" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="288.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">::setFrame</text>

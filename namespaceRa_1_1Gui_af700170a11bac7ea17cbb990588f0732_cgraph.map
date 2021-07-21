@@ -1,0 +1,10 @@
+<map id="Ra::Gui::rotateAroundPoint" name="Ra::Gui::rotateAroundPoint">
+<area shape="rect" id="node1" title=" " alt="" coords="5,170,200,196"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="476,46,656,88"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="704,17,884,58"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="248,97,428,138"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="248,162,428,204"/>
+<area shape="rect" id="node6" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title=" " alt="" coords="271,228,405,255"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to position." alt="" coords="248,280,428,321"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="257,346,419,372"/>
+</map>

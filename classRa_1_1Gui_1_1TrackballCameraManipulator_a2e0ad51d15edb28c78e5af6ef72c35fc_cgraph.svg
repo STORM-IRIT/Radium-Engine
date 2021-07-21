@@ -179,7 +179,7 @@ var sectionId = 'dynsection-4';
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" target="_top" xlink:title="Set the frame of the camera to &#39;frame&#39;.">
+<g id="a_node11"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" target="_top" xlink:title="Set the frame of the camera to frame.">
 <polygon fill="white" stroke="black" points="187.5,-49.5 187.5,-79.5 322.5,-79.5 322.5,-49.5 187.5,-49.5"/>
 <text text-anchor="start" x="195.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="255" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setFrame</text>
@@ -195,7 +195,7 @@ var sectionId = 'dynsection-4';
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
-<g id="a_node12"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" target="_top" xlink:title="Set the position of the camera to &#39;position&#39;.">
+<g id="a_node12"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" target="_top" xlink:title="Set the position of the camera to position.">
 <polygon fill="white" stroke="black" points="187.5,-372.5 187.5,-402.5 322.5,-402.5 322.5,-372.5 187.5,-372.5"/>
 <text text-anchor="start" x="195.5" y="-390.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="255" y="-379.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setPosition</text>

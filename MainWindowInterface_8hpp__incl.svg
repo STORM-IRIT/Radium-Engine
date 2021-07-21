@@ -59,11 +59,11 @@ var sectionId = 'dynsection-0';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="252.5,-235.5 252.5,-287.5 449.5,-287.5 449.5,-235.5 252.5,-235.5"/>
-<text text-anchor="start" x="260.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="260.5" y="-264.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="260.5" y="-253.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/MainWindow</text>
-<text text-anchor="middle" x="351" y="-242.5" font-family="Helvetica,sans-Serif" font-size="10.00">Interface.hpp</text>
+<polygon fill="#bfbfbf" stroke="black" points="304.5,-235.5 304.5,-287.5 501.5,-287.5 501.5,-235.5 304.5,-235.5"/>
+<text text-anchor="start" x="312.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="312.5" y="-264.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="312.5" y="-253.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/MainWindow</text>
+<text text-anchor="middle" x="403" y="-242.5" font-family="Helvetica,sans-Serif" font-size="10.00">Interface.hpp</text>
 </a>
 </g>
 </g>
@@ -79,8 +79,8 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M313.69,-235.45C298.17,-225.03 280.71,-213.31 267.42,-204.38"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="269.2,-201.36 258.95,-198.7 265.3,-207.18 269.2,-201.36"/>
+<path fill="none" stroke="midnightblue" d="M347.21,-235.45C322.51,-224.36 294.54,-211.8 274.27,-202.7"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="275.55,-199.43 264.99,-198.53 272.68,-205.82 275.55,-199.43"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
@@ -94,23 +94,38 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node14 -->
 <g id="edge14" class="edge">
 <title>Node1&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M351,-235.45C351,-226.73 351,-217.1 351,-208.96"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="354.5,-208.7 351,-198.7 347.5,-208.7 354.5,-208.7"/>
+<path fill="none" stroke="midnightblue" d="M384.52,-235.45C377.5,-225.93 369.68,-215.33 363.36,-206.76"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="366.17,-204.67 357.41,-198.7 360.53,-208.82 366.17,-204.67"/>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
 <g id="a_node15"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="413,-179.5 413,-198.5 471,-198.5 471,-179.5 413,-179.5"/>
-<text text-anchor="middle" x="442" y="-186.5" font-family="Helvetica,sans-Serif" font-size="10.00">memory</text>
+<polygon fill="white" stroke="#bfbfbf" points="413,-179.5 413,-198.5 499,-198.5 499,-179.5 413,-179.5"/>
+<text text-anchor="middle" x="456" y="-186.5" font-family="Helvetica,sans-Serif" font-size="10.00">QMessageBox</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node15 -->
 <g id="edge15" class="edge">
 <title>Node1&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M383.34,-235.45C396.53,-225.23 411.33,-213.76 422.77,-204.9"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="425.01,-207.59 430.78,-198.7 420.73,-202.05 425.01,-207.59"/>
+<path fill="none" stroke="midnightblue" d="M421.84,-235.45C428.99,-225.93 436.96,-215.33 443.4,-206.76"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="446.25,-208.79 449.46,-198.7 440.66,-204.59 446.25,-208.79"/>
+</g>
+<!-- Node16 -->
+<g id="node16" class="node">
+<title>Node16</title>
+<g id="a_node16"><a xlink:title=" ">
+<polygon fill="white" stroke="#bfbfbf" points="517,-179.5 517,-198.5 575,-198.5 575,-179.5 517,-179.5"/>
+<text text-anchor="middle" x="546" y="-186.5" font-family="Helvetica,sans-Serif" font-size="10.00">memory</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node16 -->
+<g id="edge16" class="edge">
+<title>Node1&#45;&gt;Node16</title>
+<path fill="none" stroke="midnightblue" d="M453.82,-235.45C476,-224.51 501.09,-212.14 519.49,-203.07"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="521.28,-206.09 528.7,-198.53 518.19,-199.81 521.28,-206.09"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">

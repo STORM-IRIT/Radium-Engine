@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c2a53dcbe272ef08de5dadf147e853ec29323489</span>
+   &#160;<span id="projectnumber">e22754d0abe192207fd946509cbd63c4f9e52dd4</span>
    </div>
   </td>
  </tr>
@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8hpp_source
 <div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a65bd68fb31f11b6808fb16a0602d6476">   17</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a>&lt;<a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">TrackballCameraManipulator</a>&gt;;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a2fc79fc08d2e470b78e6d706414249ca">   20</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">TrackballCameraMapping</a> = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable&lt;TrackballCameraManipulator&gt;</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a02cc1184f6a81c2bff9f044262fbc084">   20</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMapping</a> = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable&lt;TrackballCameraManipulator&gt;</a>;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">TrackballCameraManipulator</a>();</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
@@ -138,74 +138,76 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8hpp_source
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span> handleKeyPressEvent( QKeyEvent* event,</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                              <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::KeyMappingAction</a>&amp; action ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">bool</span> handleKeyReleaseEvent( QKeyEvent* event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> toggleRotateAround();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> updateCamera() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> setTrackballRadius( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> rad );</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> getTrackballRadius() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">const</span> Core::Transform::ConstTranslationPart getTrackballCenter() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> setCameraPosition( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>&amp; position ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> setCameraTarget( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>&amp; target ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> fitScene( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a>&amp; aabb ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> resetCamera() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraRotate( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy );</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraPan( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy );</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraZoom( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy );</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraZoom( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> z );</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraMoveForward( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy );</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraMoveForward( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> z );</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> updatePhiTheta();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">// the center of the trackball is defined by the m_referenceFrame.translation()</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a56c21d2c8c450a41d7db95cc869dc5d0">   89</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_lastMouseX {0_ra};</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a6adc3a15bef8e2b4b0fccbeaadda6461">   92</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_lastMouseY {0_ra};</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a421bcdd8baa1ce2ee1238645e29a4213">   99</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_phi {0_ra};</div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a945dbcee8033e57edfbe6a778d650098">  100</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_theta {0_ra};</div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64">  102</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_phiDir {1_ra};</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552">  105</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552">m_referenceFrame</a>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#aec03675d675074abd0e41d3dee92d01b">  108</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_distFromCenter {0_ra};</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">bool</span> checkIntegrity( <span class="keyword">const</span> std::string&amp; mess ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> configureKeyMapping_impl();</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> clampThetaPhi();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="TrackballCameraManipulator_8hpp.html#a56af1d16eac22675e71b7b5cd1ac645d">  116</a></span>&#160;<span class="preprocessor">#define KeyMappingCamera                   \</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_ROTATE )    \</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_PAN )       \</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_ZOOM )      \</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_PROJ_MODE ) \</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_MOVE_FORWARD )</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="TrackballCameraManipulator_8hpp.html#ab1478fa43039cf1b62157b0375df9960">  123</a></span>&#160;<span class="preprocessor">#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <a class="code" href="TrackballCameraManipulator_8hpp.html#a56af1d16eac22675e71b7b5cd1ac645d">KeyMappingCamera</a></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;};</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> toggleRotateAround();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> updateCamera() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> setTrackballRadius( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> rad );</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> getTrackballRadius() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> Core::Transform::ConstTranslationPart getTrackballCenter() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::Context</a> mappingContext() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> setCameraPosition( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>&amp; position ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> setCameraTarget( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>&amp; target ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> fitScene( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a>&amp; aabb ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> resetCamera() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraRotate( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy );</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraPan( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy );</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraZoom( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy );</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraZoom( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> z );</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraMoveForward( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy );</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraMoveForward( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> z );</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> updatePhiTheta();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment">// the center of the trackball is defined by the m_referenceFrame.translation()</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a56c21d2c8c450a41d7db95cc869dc5d0">   90</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_lastMouseX {0_ra};</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a6adc3a15bef8e2b4b0fccbeaadda6461">   93</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_lastMouseY {0_ra};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a421bcdd8baa1ce2ee1238645e29a4213">  100</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_phi {0_ra};</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a945dbcee8033e57edfbe6a778d650098">  101</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_theta {0_ra};</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64">  103</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_phiDir {1_ra};</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552">  106</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552">m_referenceFrame</a>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#aec03675d675074abd0e41d3dee92d01b">  109</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_distFromCenter {0_ra};</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">bool</span> checkIntegrity( <span class="keyword">const</span> std::string&amp; mess ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> configureKeyMapping_impl();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> clampThetaPhi();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="TrackballCameraManipulator_8hpp.html#a56af1d16eac22675e71b7b5cd1ac645d">  118</a></span>&#160;<span class="preprocessor">#define KeyMappingCamera                      \</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_ROTATE )       \</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_PAN )          \</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_ZOOM )         \</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_PROJ_MODE )    \</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">    KMA_VALUE( TRACKBALLCAMERA_MOVE_FORWARD ) \</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">    KMA_VALUE( CAMERA_TOGGLE_QUICK )</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="TrackballCameraManipulator_8hpp.html#ab1478fa43039cf1b62157b0375df9960">  126</a></span>&#160;<span class="preprocessor">#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="TrackballCameraManipulator_8hpp.html#a56af1d16eac22675e71b7b5cd1ac645d">KeyMappingCamera</a></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;};</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aCameraManipulator_8hpp_html"><div class="ttname"><a href="CameraManipulator_8hpp.html">CameraManipulator.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00197">KeyMappingManager.hpp:197</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00208">KeyMappingManager.hpp:208</a></div></div>
 <div class="ttc" id="aRaGui_8hpp_html"><div class="ttname"><a href="RaGui_8hpp.html">RaGui.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00082">Types.hpp:82</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1CameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1CameraManipulator.html">Ra::Gui::CameraManipulator</a></div><div class="ttdoc">The CameraManipulator class is the generic class for camera manipulators.</div><div class="ttdef"><b>Definition:</b> <a href="CameraManipulator_8hpp_source.html#l00029">CameraManipulator.hpp:29</a></div></div>
@@ -214,16 +216,16 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8hpp_source
 <div class="ttc" id="aCameraComponent_8hpp_html"><div class="ttname"><a href="CameraComponent_8hpp.html">CameraComponent.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_a90a70ef24ee43f56981aea3f28d7d552"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552">Ra::Gui::TrackballCameraManipulator::m_referenceFrame</a></div><div class="ttdeci">Core::Transform m_referenceFrame</div><div class="ttdoc">initial frame of the camera, centered on target, to compute angles.</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00105">TrackballCameraManipulator.hpp:105</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_a90a70ef24ee43f56981aea3f28d7d552"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552">Ra::Gui::TrackballCameraManipulator::m_referenceFrame</a></div><div class="ttdeci">Core::Transform m_referenceFrame</div><div class="ttdoc">initial frame of the camera, centered on target, to compute angles.</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00106">TrackballCameraManipulator.hpp:106</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">Ra::Gui::TrackballCameraManipulator</a></div><div class="ttdoc">A Trackball manipulator for Cameras.</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00012">TrackballCameraManipulator.hpp:12</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
-<div class="ttc" id="aTrackballCameraManipulator_8hpp_html_a56af1d16eac22675e71b7b5cd1ac645d"><div class="ttname"><a href="TrackballCameraManipulator_8hpp.html#a56af1d16eac22675e71b7b5cd1ac645d">KeyMappingCamera</a></div><div class="ttdeci">#define KeyMappingCamera</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00116">TrackballCameraManipulator.hpp:116</a></div></div>
+<div class="ttc" id="aTrackballCameraManipulator_8hpp_html_a56af1d16eac22675e71b7b5cd1ac645d"><div class="ttname"><a href="TrackballCameraManipulator_8hpp.html#a56af1d16eac22675e71b7b5cd1ac645d">KeyMappingCamera</a></div><div class="ttdeci">#define KeyMappingCamera</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00118">TrackballCameraManipulator.hpp:118</a></div></div>
 <div class="ttc" id="aCamera_8hpp_html"><div class="ttname"><a href="Camera_8hpp.html">Camera.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="TrackballCameraManipulator_8hpp.html">TrackballCameraManipulator.hpp</a></li>
-    <li class="footer">Generated on Fri Jun 11 2021 10:13:01 for Radium Engine by
+    <li class="footer">Generated on Wed Jul 21 2021 12:55:33 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,0 +1,4 @@
+<map id="Ra::Gui::Viewer::handleKeyReleaseEvent" name="Ra::Gui::Viewer::handleKeyReleaseEvent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815" title="return the last, still pressed, key code, &#45;1 if no key currently pressed" alt="" coords="252,13,393,39"/>
+</map>

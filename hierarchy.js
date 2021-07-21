@@ -222,8 +222,13 @@ var hierarchy =
     [ "Ra::Gui::KeyMappingManageable< GizmoManager >", "classRa_1_1Gui_1_1KeyMappingManageable.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],
+    [ "Ra::Gui::KeyMappingManageable< RotateAroundCameraManipulator >", "classRa_1_1Gui_1_1KeyMappingManageable.html", [
+      [ "Ra::Gui::RotateAroundCameraManipulator", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html", null ]
+    ] ],
     [ "Ra::Gui::KeyMappingManageable< TrackballCameraManipulator >", "classRa_1_1Gui_1_1KeyMappingManageable.html", [
-      [ "Ra::Gui::TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html", null ]
+      [ "Ra::Gui::TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html", [
+        [ "Ra::Gui::RotateAroundCameraManipulator", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html", null ]
+      ] ]
     ] ],
     [ "Ra::Gui::KeyMappingManageable< Viewer >", "classRa_1_1Gui_1_1KeyMappingManageable.html", [
       [ "Ra::Gui::Viewer", "classRa_1_1Gui_1_1Viewer.html", null ]
@@ -304,6 +309,7 @@ var hierarchy =
       [ "Ra::Gui::BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html", null ]
     ] ],
     [ "QDialog", "classQDialog.html", [
+      [ "Ra::Gui::AboutDialog", "classRa_1_1Gui_1_1AboutDialog.html", null ],
       [ "Ra::Gui::HelpDialog", "classRa_1_1Gui_1_1HelpDialog.html", null ],
       [ "Ra::Gui::Timeline", "classRa_1_1Gui_1_1Timeline.html", null ]
     ] ],

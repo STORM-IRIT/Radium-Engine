@@ -269,7 +269,7 @@ var sectionId = 'dynsection-3';
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
-<g id="a_node13"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#aaab8e9948fcf6982eff3735bc6c7f231" target="_top" xlink:title="return NDC cordinate in the view NDC cube [&#45;1,1]^3">
+<g id="a_node13"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#aaab8e9948fcf6982eff3735bc6c7f231" target="_top" xlink:title="Return NDC cordinate in the view NDC cube .">
 <polygon fill="white" stroke="black" points="339,-88 339,-118 474,-118 474,-88 339,-88"/>
 <text text-anchor="start" x="347" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="406.5" y="-95" font-family="Helvetica,sans-Serif" font-size="10.00">::projectToNDC</text>

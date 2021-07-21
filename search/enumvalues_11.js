@@ -1,15 +1,21 @@
 var searchData=
 [
-  ['tetra_5fmesh_6214',['TETRA_MESH',['../classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a9d4e27e140431894028e1efba1a1156d',1,'Ra::Core::Asset::GeometryData']]],
-  ['tex_5falpha_6215',['TEX_ALPHA',['../classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051af70fd3001230c6e4e91cfaaf2511ec80',1,'Ra::Engine::Data::BlinnPhongMaterial']]],
-  ['tex_5fcolor_6216',['TEX_COLOR',['../classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443af2e72971d1a56bed90820211c1de68cd',1,'Ra::Engine::Data::SimpleMaterial']]],
-  ['tex_5fdiffuse_6217',['TEX_DIFFUSE',['../classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051a89973fd8ef06d7eb5f87f2621f2216d3',1,'Ra::Engine::Data::BlinnPhongMaterial']]],
-  ['tex_5fmask_6218',['TEX_MASK',['../classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443a4bbc89a0522d99089f467286bb0892c5',1,'Ra::Engine::Data::SimpleMaterial']]],
-  ['tex_5fnormal_6219',['TEX_NORMAL',['../classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051a3b2c1e0cee884307abd16f5314730785',1,'Ra::Engine::Data::BlinnPhongMaterial']]],
-  ['tex_5fshininess_6220',['TEX_SHININESS',['../classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051a31e1bff70809aa40854257cc5fde004a',1,'Ra::Engine::Data::BlinnPhongMaterial']]],
-  ['tex_5fspecular_6221',['TEX_SPECULAR',['../classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051a3714156b5121103dfd94466850e27129',1,'Ra::Engine::Data::BlinnPhongMaterial']]],
-  ['top_6222',['TOP',['../structRa_1_1Core_1_1Geometry_1_1Frustum.html#a5050dc3bf542051b8bb3a299d45bbff8ae2ea805d3724bc6ac416ab3ec9b9ce39',1,'Ra::Core::Geometry::Frustum']]],
-  ['translation_6223',['TRANSLATION',['../classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055caa1791576dbb4a62b9862d8d5c428a46a',1,'Ra::Gui::GizmoManager']]],
-  ['tri_5fmesh_6224',['TRI_MESH',['../classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a2cf0967daa553d39d8e9f58968e8ccbb',1,'Ra::Core::Asset::GeometryData']]],
-  ['triangle_6225',['TRIANGLE',['../classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6bead0b64ccb1957895223db324bd89438c8',1,'Ra::Engine::Rendering::Renderer']]]
+  ['scale_6264',['SCALE',['../classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055ca62b5dc971b69003fb3d9eb109b850016',1,'Ra::Gui::GizmoManager']]],
+  ['selection_6265',['SELECTION',['../classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a93b683b426147e5292df2f5f28b22cbeac00f39972101a695805bb0493ae86864',1,'Ra::Engine::Rendering::Renderer']]],
+  ['shadertype_5fcompute_6266',['ShaderType_COMPUTE',['../namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aad9386ba51a1972b71f8fb3c241505461',1,'Ra::Engine::Data']]],
+  ['shadertype_5fcount_6267',['ShaderType_COUNT',['../namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aae505d7dfe51f053217ba42d8996db147',1,'Ra::Engine::Data']]],
+  ['shadertype_5ffragment_6268',['ShaderType_FRAGMENT',['../namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aae7dbcc0003f1362e8584f516c5ebddab',1,'Ra::Engine::Data']]],
+  ['shadertype_5fgeometry_6269',['ShaderType_GEOMETRY',['../namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa2958a1e82afde512a71ad84e1c5db247',1,'Ra::Engine::Data']]],
+  ['shadertype_5ftess_5fcontrol_6270',['ShaderType_TESS_CONTROL',['../namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa2ddd0425c32af53c006a6d1e7686bd35',1,'Ra::Engine::Data']]],
+  ['shadertype_5ftess_5fevaluation_6271',['ShaderType_TESS_EVALUATION',['../namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa4409473bd8bd22f415d0548ae9b1e344',1,'Ra::Engine::Data']]],
+  ['shadertype_5fvertex_6272',['ShaderType_VERTEX',['../namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa8bbdcc8ba9b8e142121b67d0b22697fb',1,'Ra::Engine::Data']]],
+  ['size_6273',['SIZE',['../classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8a666b8af1b0c53e3de336c7f2b3958d69',1,'Ra::Core::Geometry::Curve2D']]],
+  ['skeleton_6274',['SKELETON',['../classRa_1_1Core_1_1Asset_1_1HandleData.html#a2cc9bdddd2a8a9966c0e5afb38090a7ea51e777accf1e07dea3551e2481f20a21',1,'Ra::Core::Asset::HandleData']]],
+  ['spline_6275',['SPLINE',['../classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8a02bdb13979499fd49786ddc96da2d1f7',1,'Ra::Core::Geometry::Curve2D']]],
+  ['spot_6276',['SPOT',['../classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02a2e9788ad471003e2ae8a74c6cb169bb3',1,'Ra::Engine::Scene::Light']]],
+  ['spot_5flight_6277',['SPOT_LIGHT',['../classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca33dbd75f340ef4de8cdd4f99568b50b5',1,'Ra::Core::Asset::LightData']]],
+  ['standard_6278',['STANDARD',['../classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a781b95ed9ba0c8fc4357b53e263c7427a74af5ffdb7a2c754cbfd526ee64d3011',1,'Ra::Engine::Scene::SkinningComponent']]],
+  ['stbs_6279',['STBS',['../classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a781b95ed9ba0c8fc4357b53e263c7427aa69402594446eac74d84416b275b59e0',1,'Ra::Engine::Scene::SkinningComponent']]],
+  ['stbs_5fdqs_6280',['STBS_DQS',['../classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca087d81c6a76432530677554855627fa6',1,'Ra::Engine::Scene::SkinningComponent']]],
+  ['stbs_5flbs_6281',['STBS_LBS',['../classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7cae13e313d416d532439b17c6bb25d2a51',1,'Ra::Engine::Scene::SkinningComponent']]]
 ];

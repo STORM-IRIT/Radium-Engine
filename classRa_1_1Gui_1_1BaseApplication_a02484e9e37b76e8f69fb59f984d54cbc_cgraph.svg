@@ -58,7 +58,7 @@ var sectionId = 'dynsection-3';
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="Allow the user to register a specific plugin directory for the application.">
 <polygon fill="#bfbfbf" stroke="black" points="0,-112.5 0,-142.5 137,-142.5 137,-112.5 0,-112.5"/>
 <text text-anchor="start" x="8" y="-130.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::BaseApplication</text>
 <text text-anchor="middle" x="68.5" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addPluginDirectory</text>

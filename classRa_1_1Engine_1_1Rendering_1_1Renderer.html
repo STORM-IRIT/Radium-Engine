@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c2a53dcbe272ef08de5dadf147e853ec29323489</span>
+   &#160;<span id="projectnumber">e22754d0abe192207fd946509cbd63c4f9e52dd4</span>
    </div>
   </td>
  </tr>
@@ -398,7 +398,7 @@ Protected Attributes</h2></td></tr>
 <p>Abstract rendere constructor</p>
 <p>could be called without openGL context. Call initialize once the openGL rendering context is available before using the renderer </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00042">42</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00044">44</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -458,7 +458,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00692">692</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00782">782</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -492,7 +492,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00083">83</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00091">91</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -512,7 +512,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loops over all available renderobjects and, build the associated render technique using buildRenderTechnique(RenderObject *ro) </p><dl class="section return"><dt>Returns</dt><dd>the number of render objects initialized </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00704">704</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00794">794</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -621,7 +621,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00636">636</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00726">726</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -650,14 +650,18 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Read the depth value from m_pickingFbo depth buffer. Need to be overridden to take rendering fbo into account in your own renderer. </p><dl class="section return"><dt>Returns</dt><dd>the value of the depth buffer under pixel (x,y) return depth value is in "screen
+space" [0,1] </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glReadPixels.xhtml">https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glReadPixels.xhtml</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000063">Todo:</a></b></dt><dd>Fixup prepare picking to take pixel position and rendering window, and read depth in it. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00186">186</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00188">188</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Rendering_1_1Renderer_a2036f1562342dcf9837705e41fa51145_cgraph.svg" width="434" height="227"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Rendering_1_1Renderer_a2036f1562342dcf9837705e41fa51145_cgraph.svg" width="434" height="358"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -693,7 +697,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00075">75</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00083">83</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -727,7 +731,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00079">79</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00087">87</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -761,7 +765,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00067">67</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00075">75</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -791,7 +795,7 @@ Protected Attributes</h2></td></tr>
 <p>Return the names of renderer available textures. </p>
 <dl class="section return"><dt>Returns</dt><dd>A vector of strings, containing the name of the different textures </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00643">643</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00733">733</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -818,7 +822,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00108">108</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00116">116</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -846,7 +850,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the currently displayed texture </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00051">51</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00059">59</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -874,7 +878,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the vector of picking queries. Queries in the returned vector correspond to results in the return vector by the function <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab8bd7377df698283d3f916cb53d90be5">getPickingResults()</a>. </p><dl class="section return"><dt>Returns</dt><dd>Queries results </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00091">91</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00099">99</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -902,7 +906,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the vector of picking results. Results in the returned vector correspond to queries in the return vector by the function <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac42e4205ffd8ebb7aa736b78da26dae1">getPickingQueries()</a>. </p><dl class="section return"><dt>Returns</dt><dd>Queries results </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00087">87</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00095">95</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -960,7 +964,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Extract the timings from las render </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00047">47</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00055">55</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -1006,7 +1010,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the pixel array </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00657">657</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00747">747</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -1035,7 +1039,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Tell if the renderer has an usable light. </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00697">697</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00787">787</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1068,7 +1072,7 @@ Protected Attributes</h2></td></tr>
 <p>Initialize renderer. </p>
 <p>For internal resources management in a filesystem</p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00051">51</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00053">53</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -1133,7 +1137,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Lock rendering. Usefull if there is multithread update of the rendering data </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00055">55</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00063">63</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -1200,7 +1204,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Reload, recompile and relink all shaders and programmed internally used by the renderer. </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00653">653</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00743">743</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -1250,7 +1254,7 @@ render the final texture in the right framebuffer* </li>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>* What "render in the right buffer" means, is that, for example, when using QOpenGLWidget, Qt binds its own framebuffer before calling updateGL() method. So, <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a027cf22a1f9f48ea9f7dd7fae7108856" title="Tell the renderer it needs to render. This method does the following steps :">render()</a> takes that into account by saving an eventual bound framebuffer, and restores it before drawing the last final texture. If no framebuffer was bound, it draws into GL_BACK. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00234">234</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00317">317</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -1333,7 +1337,7 @@ render the final texture in the right framebuffer* </li>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00613">613</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00699">699</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1399,7 +1403,7 @@ render the final texture in the right framebuffer* </li>
 
 <p>Update the background color (does not trigger a redraw) </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00104">104</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00112">112</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -1427,7 +1431,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00100">100</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00108">108</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -1455,7 +1459,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00095">95</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00103">103</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -1483,7 +1487,7 @@ render the final texture in the right framebuffer* </li>
 </div><div class="memdoc">
 <p>Toggle debug rendering </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00071">71</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00079">79</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -1511,7 +1515,7 @@ render the final texture in the right framebuffer* </li>
 </div><div class="memdoc">
 <p>Toggle the fill/wireframe rendering mode </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00063">63</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00071">71</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -1569,7 +1573,7 @@ render the final texture in the right framebuffer* </li>
 </div><div class="memdoc">
 <p>Unlock the rendering. </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00059">59</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00067">67</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -1628,7 +1632,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00450">450</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00464">464</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1654,7 +1658,7 @@ render the final texture in the right framebuffer* </li>
 
 <p>Depth texture : might be attached to the main framebuffer. </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00463">463</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00477">477</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1683,7 +1687,7 @@ render the final texture in the right framebuffer* </li>
 <dd>
 <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a7a5fb96999f9627f2f4c1fa7948d95f4" title="Final color texture : might be attached to the main framebuffer.">m_fancyTexture</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00441">441</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00455">455</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1707,7 +1711,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00457">457</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00471">471</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1731,7 +1735,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00449">449</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00463">463</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1757,7 +1761,7 @@ render the final texture in the right framebuffer* </li>
 
 <p>Final color texture : might be attached to the main framebuffer. </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00465">465</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00479">479</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1781,7 +1785,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00420">420</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00434">434</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1806,7 +1810,7 @@ render the final texture in the right framebuffer* </li>
 </div><div class="memdoc">
 <p>A renderer could define several LightManager (for instance, one for point light, one other for infinite light ...) </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00445">445</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00459">459</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1830,7 +1834,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00459">459</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00473">473</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1854,7 +1858,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00455">455</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00469">469</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1881,7 +1885,7 @@ render the final texture in the right framebuffer* </li>
 <dd>
 <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr">https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00432">432</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00446">446</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1905,7 +1909,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00447">447</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00461">461</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1931,7 +1935,7 @@ render the final texture in the right framebuffer* </li>
 
 <p>Textures exposed in the texture section box to be displayed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00467">467</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00481">481</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1958,7 +1962,7 @@ render the final texture in the right framebuffer* </li>
 <dd>
 <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr">https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00426">426</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00440">440</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1982,7 +1986,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00452">452</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00466">466</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2006,7 +2010,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00419">419</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00433">433</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2030,7 +2034,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00458">458</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00472">472</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2054,7 +2058,7 @@ render the final texture in the right framebuffer* </li>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00451">451</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Renderer_8hpp_source.html#l00465">465</a> of file <a class="el" href="Renderer_8hpp_source.html">Renderer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2069,7 +2073,7 @@ render the final texture in the right framebuffer* </li>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html">Rendering</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Renderer</a></li>
-    <li class="footer">Generated on Fri Jun 11 2021 10:13:02 for Radium Engine by
+    <li class="footer">Generated on Wed Jul 21 2021 12:55:35 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

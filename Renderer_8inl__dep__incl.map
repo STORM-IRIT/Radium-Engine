@@ -1,18 +1,19 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Rendering/Renderer.inl" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Rendering/Renderer.inl">
-<area shape="rect" id="node1" title=" " alt="" coords="712,5,911,76"/>
-<area shape="rect" id="node2" href="$Renderer_8hpp.html" title=" " alt="" coords="712,124,911,195"/>
-<area shape="rect" id="node3" href="$ForwardRenderer_8hpp.html" title=" " alt="" coords="286,243,521,313"/>
-<area shape="rect" id="node6" href="$Viewer_8cpp.html" title=" " alt="" coords="568,361,791,432"/>
-<area shape="rect" id="node7" href="$Renderer_8cpp.html" title=" " alt="" coords="595,243,793,313"/>
-<area shape="rect" id="node8" href="$FrameTimerData_8hpp.html" title=" " alt="" coords="1376,243,1623,313"/>
-<area shape="rect" id="node13" href="$Viewer_8hpp.html" title=" " alt="" coords="817,243,1040,313"/>
-<area shape="rect" id="node15" href="$PickingManager_8hpp.html" title=" " alt="" coords="1065,243,1273,313"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1059,5,1257,76"/>
+<area shape="rect" id="node2" href="$Renderer_8hpp.html" title=" " alt="" coords="1059,124,1257,195"/>
+<area shape="rect" id="node3" href="$ForwardRenderer_8hpp.html" title=" " alt="" coords="473,243,707,313"/>
+<area shape="rect" id="node6" href="$Viewer_8cpp.html" title=" " alt="" coords="263,361,485,432"/>
+<area shape="rect" id="node7" href="$Renderer_8cpp.html" title=" " alt="" coords="1820,243,2019,313"/>
+<area shape="rect" id="node8" href="$FrameTimerData_8hpp.html" title=" " alt="" coords="1549,243,1796,313"/>
+<area shape="rect" id="node13" href="$Viewer_8hpp.html" title=" " alt="" coords="1047,243,1269,313"/>
+<area shape="rect" id="node15" href="$RotateAroundCameraManipulator_8cpp.html" title=" " alt="" coords="1344,361,1615,432"/>
+<area shape="rect" id="node16" href="$PickingManager_8hpp.html" title=" " alt="" coords="814,243,1022,313"/>
 <area shape="rect" id="node4" href="$ForwardRenderer_8cpp.html" title=" " alt="" coords="5,361,239,432"/>
-<area shape="rect" id="node5" href="$SimpleWindow_8cpp.html" title=" " alt="" coords="263,361,543,432"/>
-<area shape="rect" id="node9" href="$BaseApplication_8hpp.html" title=" " alt="" coords="1344,369,1655,425"/>
-<area shape="rect" id="node12" href="$FrameTimerData_8cpp.html" title=" " alt="" coords="1679,361,1925,432"/>
-<area shape="rect" id="node10" href="$BaseApplication_8cpp.html" title=" " alt="" coords="848,487,1159,543"/>
-<area shape="rect" id="node11" href="$SimpleWindowFactory_8hpp.html" title=" " alt="" coords="1359,480,1639,551"/>
-<area shape="rect" id="node14" href="$CameraManipulator_8cpp.html" title=" " alt="" coords="864,361,1087,432"/>
-<area shape="rect" id="node16" href="$PickingManager_8cpp.html" title=" " alt="" coords="1111,361,1319,432"/>
+<area shape="rect" id="node5" href="$SimpleWindow_8cpp.html" title=" " alt="" coords="510,361,790,432"/>
+<area shape="rect" id="node9" href="$BaseApplication_8hpp.html" title=" " alt="" coords="1639,369,1949,425"/>
+<area shape="rect" id="node12" href="$FrameTimerData_8cpp.html" title=" " alt="" coords="1973,361,2220,432"/>
+<area shape="rect" id="node10" href="$BaseApplication_8cpp.html" title=" " alt="" coords="1235,487,1545,543"/>
+<area shape="rect" id="node11" href="$SimpleWindowFactory_8hpp.html" title=" " alt="" coords="1654,480,1934,551"/>
+<area shape="rect" id="node14" href="$CameraManipulator_8cpp.html" title=" " alt="" coords="1047,361,1269,432"/>
+<area shape="rect" id="node17" href="$PickingManager_8cpp.html" title=" " alt="" coords="814,361,1022,432"/>
 </map>

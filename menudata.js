@@ -216,6 +216,7 @@ var menudata={children:[
 {text:"f",url:"functions_eval.html#index_f"},
 {text:"g",url:"functions_eval.html#index_g"},
 {text:"h",url:"functions_eval.html#index_h"},
+{text:"k",url:"functions_eval.html#index_k"},
 {text:"l",url:"functions_eval.html#index_l"},
 {text:"m",url:"functions_eval.html#index_m"},
 {text:"n",url:"functions_eval.html#index_n"},

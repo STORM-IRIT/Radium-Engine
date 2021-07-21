@@ -193,32 +193,34 @@ var sectionId = 'dynsection-0';
 <g id="node25" class="node">
 <title>Node25</title>
 <g id="a_node25"><a xlink:href="classRa_1_1Gui_1_1KeyMappingManager.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1097.5,-609 1097.5,-809 1310.5,-809 1310.5,-609 1097.5,-609"/>
-<text text-anchor="middle" x="1204" y="-797" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::KeyMappingManager</text>
-<polyline fill="none" stroke="black" points="1097.5,-790 1310.5,-790 "/>
-<text text-anchor="middle" x="1204" y="-778" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="1097.5,-771 1310.5,-771 "/>
-<text text-anchor="start" x="1105.5" y="-759" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadConfiguration()</text>
-<text text-anchor="start" x="1105.5" y="-748" font-family="Helvetica,sans-Serif" font-size="10.00">+ saveConfiguration()</text>
-<text text-anchor="start" x="1105.5" y="-737" font-family="Helvetica,sans-Serif" font-size="10.00">+ reloadConfiguration()</text>
-<text text-anchor="start" x="1105.5" y="-726" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLoadedFilename()</text>
-<text text-anchor="start" x="1105.5" y="-715" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAction()</text>
-<text text-anchor="start" x="1105.5" y="-704" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAction()</text>
+<polygon fill="white" stroke="black" points="1097.5,-598 1097.5,-820 1310.5,-820 1310.5,-598 1097.5,-598"/>
+<text text-anchor="middle" x="1204" y="-808" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::KeyMappingManager</text>
+<polyline fill="none" stroke="black" points="1097.5,-801 1310.5,-801 "/>
+<text text-anchor="middle" x="1204" y="-789" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="1097.5,-782 1310.5,-782 "/>
+<text text-anchor="start" x="1105.5" y="-770" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadConfiguration()</text>
+<text text-anchor="start" x="1105.5" y="-759" font-family="Helvetica,sans-Serif" font-size="10.00">+ saveConfiguration()</text>
+<text text-anchor="start" x="1105.5" y="-748" font-family="Helvetica,sans-Serif" font-size="10.00">+ reloadConfiguration()</text>
+<text text-anchor="start" x="1105.5" y="-737" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLoadedFilename()</text>
+<text text-anchor="start" x="1105.5" y="-726" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAction()</text>
+<text text-anchor="start" x="1105.5" y="-715" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAction()</text>
+<text text-anchor="start" x="1105.5" y="-704" font-family="Helvetica,sans-Serif" font-size="10.00">+ addContext()</text>
 <text text-anchor="start" x="1105.5" y="-693" font-family="Helvetica,sans-Serif" font-size="10.00">+ getContext()</text>
 <text text-anchor="start" x="1105.5" y="-682" font-family="Helvetica,sans-Serif" font-size="10.00">+ getActionIndex()</text>
 <text text-anchor="start" x="1105.5" y="-671" font-family="Helvetica,sans-Serif" font-size="10.00">+ getActionName()</text>
 <text text-anchor="start" x="1105.5" y="-660" font-family="Helvetica,sans-Serif" font-size="10.00">+ getContextName()</text>
 <text text-anchor="start" x="1105.5" y="-649" font-family="Helvetica,sans-Serif" font-size="10.00">+ addListener()</text>
 <text text-anchor="start" x="1105.5" y="-638" font-family="Helvetica,sans-Serif" font-size="10.00">+ removeListener()</text>
-<text text-anchor="start" x="1105.5" y="-627" font-family="Helvetica,sans-Serif" font-size="10.00">+ enumNamesFromMouseButtons()</text>
-<text text-anchor="start" x="1105.5" y="-616" font-family="Helvetica,sans-Serif" font-size="10.00">+ enumNamesFromKeyboardModifiers()</text>
+<text text-anchor="start" x="1105.5" y="-627" font-family="Helvetica,sans-Serif" font-size="10.00">+ getHelpText()</text>
+<text text-anchor="start" x="1105.5" y="-616" font-family="Helvetica,sans-Serif" font-size="10.00">+ enumNamesFromMouseButtons()</text>
+<text text-anchor="start" x="1105.5" y="-605" font-family="Helvetica,sans-Serif" font-size="10.00">+ enumNamesFromKeyboardModifiers()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node25 -->
 <g id="edge32" class="edge">
 <title>Node1&#45;&gt;Node25</title>
-<path fill="none" stroke="midnightblue" d="M1043.16,-957.59C1059.6,-948.69 1075.82,-937.86 1089,-925 1122.1,-892.7 1147.89,-848.81 1166.58,-809.11"/>
+<path fill="none" stroke="midnightblue" d="M1043.16,-957.59C1059.6,-948.69 1075.82,-937.86 1089,-925 1119.07,-895.66 1143.11,-856.75 1161.27,-820.11"/>
 <polygon fill="none" stroke="midnightblue" points="1041.27,-954.62 1034.02,-962.34 1044.5,-960.84 1041.27,-954.62"/>
 </g>
 <!-- Node2 -->

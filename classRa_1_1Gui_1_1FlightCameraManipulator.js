@@ -10,7 +10,6 @@ var classRa_1_1Gui_1_1FlightCameraManipulator =
     [ "handleCameraZoom", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a78d619d0a43b8e48b11fbb3ddac4f4f0", null ],
     [ "handleCameraZoom", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a8374cb4ffbb7f36a5710b464338ba827", null ],
     [ "handleKeyPressEvent", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a1f649f61d539fa71619568384e593de6", null ],
-    [ "handleKeyReleaseEvent", "classRa_1_1Gui_1_1FlightCameraManipulator.html#adf5a04a075650c4b8361014f2c2665b2", null ],
     [ "handleMouseMoveEvent", "classRa_1_1Gui_1_1FlightCameraManipulator.html#ac64128737b53c1b4cb73d332e1ad400f", null ],
     [ "handleMousePressEvent", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a72d41d98ffd65898a011f2622d122924", null ],
     [ "handleMouseReleaseEvent", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a7a2af4c47adc7cb51abec2a397b010f8", null ],

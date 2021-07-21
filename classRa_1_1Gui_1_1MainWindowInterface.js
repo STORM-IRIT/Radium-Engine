@@ -5,6 +5,8 @@ var classRa_1_1Gui_1_1MainWindowInterface =
     [ "addRenderer", "classRa_1_1Gui_1_1MainWindowInterface.html#a8e165508d5a3f067abe21d4bbb70f82a", null ],
     [ "cleanup", "classRa_1_1Gui_1_1MainWindowInterface.html#a7d913b03e3a629084734631e284c1ad4", null ],
     [ "closed", "classRa_1_1Gui_1_1MainWindowInterface.html#a30bfe56aad86da4e1c084243551857ec", null ],
+    [ "configure", "classRa_1_1Gui_1_1MainWindowInterface.html#ad6e127c8db07bb0d9aff61efbeaa619f", null ],
+    [ "displayHelpDialog", "classRa_1_1Gui_1_1MainWindowInterface.html#a8d72976c2b50858ab1608c18001690ee", null ],
     [ "getSelectionManager", "classRa_1_1Gui_1_1MainWindowInterface.html#acd2bd13f8df4dfc219b0cd3152813b01", null ],
     [ "getTimeline", "classRa_1_1Gui_1_1MainWindowInterface.html#a599d957047c1b5b56e9beae3f05cdbc6", null ],
     [ "getViewer", "classRa_1_1Gui_1_1MainWindowInterface.html#a0e1597c5b741d3244d9c40360ddad67f", null ],

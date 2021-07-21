@@ -371,7 +371,7 @@ var sectionId = 'dynsection-12';
 <!-- Node16 -->
 <g id="node16" class="node">
 <title>Node16</title>
-<g id="a_node16"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" target="_top" xlink:title="Set the frame of the camera to &#39;frame&#39;.">
+<g id="a_node16"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" target="_top" xlink:title="Set the frame of the camera to frame.">
 <polygon fill="white" stroke="black" points="458,-197.5 458,-227.5 593,-227.5 593,-197.5 458,-197.5"/>
 <text text-anchor="start" x="466" y="-215.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="525.5" y="-204.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setFrame</text>

@@ -5,8 +5,8 @@
 <area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="1011,39,1191,81"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a67f5d41f4d6814ffd247f6975feea06e" title=" " alt="" coords="526,134,706,175"/>
 <area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="543,317,689,358"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to &#39;frame&#39;." alt="" coords="526,382,706,423"/>
-<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to &#39;position&#39;." alt="" coords="526,69,706,110"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="526,382,706,423"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to position." alt="" coords="526,69,706,110"/>
 <area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="543,447,689,489"/>
 <area shape="rect" id="node12" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592" title="Update the polar coordinates of the Camera w.r.t. the trackball center." alt="" coords="511,251,721,293"/>
 <area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="776,69,956,110"/>

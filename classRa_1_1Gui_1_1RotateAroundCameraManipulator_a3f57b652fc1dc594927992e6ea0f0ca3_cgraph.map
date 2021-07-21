@@ -1,0 +1,13 @@
+<map id="Ra::Gui::RotateAroundCameraManipulator::alignOnClosestAxis" name="Ra::Gui::RotateAroundCameraManipulator::alignOnClosestAxis">
+<area shape="rect" id="node1" title=" " alt="" coords="5,223,240,264"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="516,5,696,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="288,340,468,381"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="744,252,924,293"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="516,92,696,133"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a67f5d41f4d6814ffd247f6975feea06e" title=" " alt="" coords="288,92,468,133"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="305,405,451,447"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to position." alt="" coords="288,223,468,264"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="305,471,451,512"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a902febbc9ff356e3af2b62b1679ec338" title=" " alt="" coords="288,157,468,199"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="516,191,696,232"/>
+</map>

@@ -54,7 +54,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a65d905f243266d94686d652bc5f37906" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a65d905f243266d94686d652bc5f37906" target="_top" xlink:title="Return the 3D point in world space corresponding to NDC cube &#160;point pix.">
 <polygon fill="white" stroke="black" points="171,-24.5 171,-54.5 306,-54.5 306,-24.5 171,-24.5"/>
 <text text-anchor="start" x="179" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="238.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::unProjectFromNDC</text>

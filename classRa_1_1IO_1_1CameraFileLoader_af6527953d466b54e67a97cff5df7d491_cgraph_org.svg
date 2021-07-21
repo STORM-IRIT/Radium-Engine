@@ -38,7 +38,7 @@
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
-<g id="a_node8"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" target="_top" xlink:title="Set the frame of the camera to &#39;frame&#39;.">
+<g id="a_node8"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" target="_top" xlink:title="Set the frame of the camera to frame.">
 <polygon fill="white" stroke="black" points="176,-245.5 176,-275.5 311,-275.5 311,-245.5 176,-245.5"/>
 <text text-anchor="start" x="184" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="243.5" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setFrame</text>
@@ -54,7 +54,7 @@
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ab3aba6e1ced1cc6e560c00bf9402a72c" target="_top" xlink:title="Set the projection type to &#39;projectionType&#39;.">
+<g id="a_node9"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#ab3aba6e1ced1cc6e560c00bf9402a72c" target="_top" xlink:title="Set the projection type to projectionType.">
 <polygon fill="white" stroke="black" points="176,-196.5 176,-226.5 311,-226.5 311,-196.5 176,-196.5"/>
 <text text-anchor="start" x="184" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="243.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setType</text>
@@ -86,7 +86,7 @@
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a74ae04c9a3018609a6468eaa59928ee5" target="_top" xlink:title="Set the Z Far plane distance to &#39;zFar&#39;.">
+<g id="a_node11"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a74ae04c9a3018609a6468eaa59928ee5" target="_top" xlink:title="Set the Z Far plane distance to zFar.">
 <polygon fill="white" stroke="black" points="176,-98.5 176,-128.5 311,-128.5 311,-98.5 176,-98.5"/>
 <text text-anchor="start" x="184" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="243.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setZFar</text>
@@ -102,7 +102,7 @@
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
-<g id="a_node12"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a717cfcf775ed10b6f323a02434336a85" target="_top" xlink:title="Set the Z Near plane distance to &#39;zNear&#39;.">
+<g id="a_node12"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a717cfcf775ed10b6f323a02434336a85" target="_top" xlink:title="Set the Z Near plane distance to zNear.">
 <polygon fill="white" stroke="black" points="176,-49.5 176,-79.5 311,-79.5 311,-49.5 176,-49.5"/>
 <text text-anchor="start" x="184" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="243.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setZNear</text>
@@ -118,7 +118,7 @@
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
-<g id="a_node13"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a7ceb08c02e98b235ca29ac671f263364" target="_top" xlink:title="Set the zoom factor to &#39;zoomFactor&#39;.">
+<g id="a_node13"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a7ceb08c02e98b235ca29ac671f263364" target="_top" xlink:title="Set the zoom factor to zoomFactor.">
 <polygon fill="white" stroke="black" points="176,-0.5 176,-30.5 311,-30.5 311,-0.5 176,-0.5"/>
 <text text-anchor="start" x="184" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="243.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setZoomFactor</text>
@@ -165,7 +165,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" target="_top" xlink:title="Build a projection matrix from the parameters of the view volume Implements the algorithm described h...">
+<g id="a_node5"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" target="_top" xlink:title="Build a projection matrix from the parameters of the view volume Implements the algorithms described ...">
 <polygon fill="white" stroke="black" points="518,-120.5 518,-150.5 653,-150.5 653,-120.5 518,-120.5"/>
 <text text-anchor="start" x="526" y="-138.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="585.5" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">::ortho</text>

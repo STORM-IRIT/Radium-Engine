@@ -6,6 +6,7 @@ var classRa_1_1Gui_1_1SimpleWindow =
     [ "~SimpleWindow", "classRa_1_1Gui_1_1SimpleWindow.html#ac9a3f85c16764c0ad0c5ac0e7b9b8039", null ],
     [ "addRenderer", "classRa_1_1Gui_1_1SimpleWindow.html#a8e188aa07e9801e8325b22200c6d0fb3", null ],
     [ "cleanup", "classRa_1_1Gui_1_1SimpleWindow.html#afb364095657253688e894e2f73f69eb0", null ],
+    [ "displayHelpDialog", "classRa_1_1Gui_1_1SimpleWindow.html#adbc6945b5f1d4dd2f44e213275e3a2ce", null ],
     [ "frameUpdate", "classRa_1_1Gui_1_1SimpleWindow.html#a588a1198153ac30b59fa71d4c52e8f49", null ],
     [ "getSelectionManager", "classRa_1_1Gui_1_1SimpleWindow.html#af8a4ad369e359471e0f9387f4c1180ac", null ],
     [ "getTimeline", "classRa_1_1Gui_1_1SimpleWindow.html#a9667c435e11b2b2d251275cd81cc3e9b", null ],

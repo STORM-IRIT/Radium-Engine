@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a717cfcf775ed10b6f323a02434336a85" target="_top" xlink:title="Set the Z Near plane distance to &#39;zNear&#39;.">
+<g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a717cfcf775ed10b6f323a02434336a85" target="_top" xlink:title="Set the Z Near plane distance to zNear.">
 <polygon fill="white" stroke="black" points="191,-66.5 191,-96.5 326,-96.5 326,-66.5 191,-66.5"/>
 <text text-anchor="start" x="199" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="258.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setZNear</text>
@@ -69,7 +69,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" target="_top" xlink:title="Build a projection matrix from the parameters of the view volume Implements the algorithm described h...">
+<g id="a_node5"><a xlink:href="classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" target="_top" xlink:title="Build a projection matrix from the parameters of the view volume Implements the algorithms described ...">
 <polygon fill="white" stroke="black" points="533,-88.5 533,-118.5 668,-118.5 668,-88.5 533,-88.5"/>
 <text text-anchor="start" x="541" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Asset::Camera</text>
 <text text-anchor="middle" x="600.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">::ortho</text>

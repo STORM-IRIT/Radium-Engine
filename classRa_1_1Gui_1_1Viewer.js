@@ -1,10 +1,18 @@
 var classRa_1_1Gui_1_1Viewer =
 [
+    [ "KeyEventType", "classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2", [
+      [ "KeyPressed", "classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2a38d1d3c8b412529d1c8d145d49b5f4d7", null ],
+      [ "KeyReleased", "classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2a8b2537370657210713d3a42e9176d420", null ],
+      [ "KeyEventTypeCount", "classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2aa52bf5f38283ff938eec66c9216ef5a4", null ]
+    ] ],
     [ "Viewer", "classRa_1_1Gui_1_1Viewer.html#a8efe6dc9d27d1d12ee869f8a1cc4ed44", null ],
     [ "~Viewer", "classRa_1_1Gui_1_1Viewer.html#abec0b72d4b2e3a9719bb9de750384886", null ],
+    [ "addKeyPressEventAction", "classRa_1_1Gui_1_1Viewer.html#a19ed9658b803270f1cecaeee8638f0c5", null ],
+    [ "addKeyReleaseEventAction", "classRa_1_1Gui_1_1Viewer.html#a5d6c705b42d6aaf13833ceccc2e3a5e8", null ],
     [ "addRenderer", "classRa_1_1Gui_1_1Viewer.html#a5a23e360fb4500aeea04e83e2a5c8f36", null ],
     [ "changeRenderer", "classRa_1_1Gui_1_1Viewer.html#a94ca6b2d9205f3affdc98703e5d22a13", null ],
     [ "createGizmoManager", "classRa_1_1Gui_1_1Viewer.html#abcb7e8020ac7d36903b98cf4cbcaa350", null ],
+    [ "displayHelpDialog", "classRa_1_1Gui_1_1Viewer.html#a22429271e63cab2b0fca00f805b39637", null ],
     [ "displayTexture", "classRa_1_1Gui_1_1Viewer.html#a95f21aff0c6225ee8c23f052dea180ba", null ],
     [ "enableDebug", "classRa_1_1Gui_1_1Viewer.html#a519658b33494eb2128f90fd6c478992e", null ],
     [ "enableDebugDraw", "classRa_1_1Gui_1_1Viewer.html#a1735d8ab17f76727c1505fcc9ec6b416", null ],
@@ -14,6 +22,7 @@ var classRa_1_1Gui_1_1Viewer =
     [ "getBackgroundColor", "classRa_1_1Gui_1_1Viewer.html#a22ff1a85dd722cacf8607970ab7e8054", null ],
     [ "getCameraManipulator", "classRa_1_1Gui_1_1Viewer.html#ac8bfa139c95713d812dd52f7e509fa66", null ],
     [ "getContext", "classRa_1_1Gui_1_1Viewer.html#a12da0e6456afc0e7a13a85636ec852d8", null ],
+    [ "getDepthUnderMouse", "classRa_1_1Gui_1_1Viewer.html#a3f48aa1735b58664c3b3ed3e6505f225", null ],
     [ "getGizmoManager", "classRa_1_1Gui_1_1Viewer.html#abfd1b41c074766822a5a0578542db00d", null ],
     [ "getPickingManager", "classRa_1_1Gui_1_1Viewer.html#a6066c952ba53278ad3d4d35dac78d6ab", null ],
     [ "getPickingMode", "classRa_1_1Gui_1_1Viewer.html#ab383cc0114fb06a7694cf6e6e644ea75", null ],
@@ -23,6 +32,7 @@ var classRa_1_1Gui_1_1Viewer =
     [ "glInitialized", "classRa_1_1Gui_1_1Viewer.html#a8e1e9d1346dcf767bec5b743a2dd8802", null ],
     [ "grabFrame", "classRa_1_1Gui_1_1Viewer.html#ab3854bf1c656d1f6bf7e12e61251e9dc", null ],
     [ "handleKeyPressEvent", "classRa_1_1Gui_1_1Viewer.html#ab1d2a64be8ffde526df5ec78af532413", null ],
+    [ "handleKeyReleaseEvent", "classRa_1_1Gui_1_1Viewer.html#acdefe264339866ffc4de6cc50162d19f", null ],
     [ "handleMouseMoveEvent", "classRa_1_1Gui_1_1Viewer.html#a587512c405c7aa219ac119c41f841517", null ],
     [ "handleMousePressEvent", "classRa_1_1Gui_1_1Viewer.html#af99c80d12a451e71c935f28987d93c77", null ],
     [ "handleMouseReleaseEvent", "classRa_1_1Gui_1_1Viewer.html#a4c4e7539f7a0a060d64cc6c374a98035", null ],
@@ -58,8 +68,10 @@ var classRa_1_1Gui_1_1Viewer =
     [ "m_brushRadius", "classRa_1_1Gui_1_1Viewer.html#af283d5cb030a69f14cb602a7e199bae6", null ],
     [ "m_camera", "classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f", null ],
     [ "m_currentRenderer", "classRa_1_1Gui_1_1Viewer.html#ad85783f5b9a617b5cdfafa5d78cb1f39", null ],
+    [ "m_customKeyActions", "classRa_1_1Gui_1_1Viewer.html#aba07b78b7fdf3b92d6d77f78ade687f0", null ],
     [ "m_gizmoManager", "classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268", null ],
     [ "m_isBrushPickingEnabled", "classRa_1_1Gui_1_1Viewer.html#ac5ab9f7f6742ded2ee39e6e0463a0100", null ],
+    [ "m_pendingRenderers", "classRa_1_1Gui_1_1Viewer.html#a2a8ea2cb4e7c2a608dff2be695201c24", null ],
     [ "m_pickingManager", "classRa_1_1Gui_1_1Viewer.html#a342ea1c814555d28a3fb4e226a9263a5", null ],
     [ "m_renderers", "classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8", null ]
 ];

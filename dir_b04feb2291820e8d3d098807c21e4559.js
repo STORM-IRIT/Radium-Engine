@@ -7,6 +7,8 @@ var dir_b04feb2291820e8d3d098807c21e4559 =
     ] ],
     [ "FlightCameraManipulator.cpp", "FlightCameraManipulator_8cpp.html", "FlightCameraManipulator_8cpp" ],
     [ "FlightCameraManipulator.hpp", "FlightCameraManipulator_8hpp.html", "FlightCameraManipulator_8hpp" ],
+    [ "RotateAroundCameraManipulator.cpp", "RotateAroundCameraManipulator_8cpp.html", "RotateAroundCameraManipulator_8cpp" ],
+    [ "RotateAroundCameraManipulator.hpp", "RotateAroundCameraManipulator_8hpp.html", "RotateAroundCameraManipulator_8hpp" ],
     [ "TrackballCameraManipulator.cpp", "TrackballCameraManipulator_8cpp.html", "TrackballCameraManipulator_8cpp" ],
     [ "TrackballCameraManipulator.hpp", "TrackballCameraManipulator_8hpp.html", "TrackballCameraManipulator_8hpp" ],
     [ "Viewer.cpp", "Viewer_8cpp.html", "Viewer_8cpp" ],

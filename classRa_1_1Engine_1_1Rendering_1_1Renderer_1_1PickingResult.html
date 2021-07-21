@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c2a53dcbe272ef08de5dadf147e853ec29323489</span>
+   &#160;<span id="projectnumber">e22754d0abe192207fd946509cbd63c4f9e52dd4</span>
    </div>
   </td>
  </tr>
@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Rendering_1_1Rend
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult__coll__graph.svg" width="224" height="220"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult__coll__graph.svg" width="224" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
@@ -136,6 +136,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a51e9e58968d5f7ae8daba34ac6daab0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accfff6d301a7b7dc033bde32c4d06f36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6be">PickingMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#accfff6d301a7b7dc033bde32c4d06f36">getMode</a> () const</td></tr>
 <tr class="separator:accfff6d301a7b7dc033bde32c4d06f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05e94a878ff10059a17c89b24e5ddd2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a05e94a878ff10059a17c89b24e5ddd2b">getDepth</a> () const</td></tr>
+<tr class="separator:a05e94a878ff10059a17c89b24e5ddd2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a236a577bd417833eafbfd29bb517babc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a236a577bd417833eafbfd29bb517babc">setDepth</a> (<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> depth)</td></tr>
+<tr class="separator:a236a577bd417833eafbfd29bb517babc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Result of a <a class="el" href="structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html">PickingQuery</a>. </p>
@@ -213,6 +217,36 @@ Public Member Functions</h2></td></tr>
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult_a146f96584686a9971d6a7592e24486da_cgraph.svg" width="610" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
+
+</div>
+</div>
+<a id="a05e94a878ff10059a17c89b24e5ddd2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e94a878ff10059a17c89b24e5ddd2b">&#9670;&nbsp;</a></span>getDepth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> Ra::Engine::Rendering::Renderer::PickingResult::getDepth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>return depth read during picking query (only done during doPickinNow()) </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000064">Todo:</a></b></dt><dd><p class="startdd">fixup for all picking query, </p>
+<p class="enddd">improve picking. </p>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00047">47</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
 
 </div>
 </div>
@@ -358,6 +392,34 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a236a577bd417833eafbfd29bb517babc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a236a577bd417833eafbfd29bb517babc">&#9670;&nbsp;</a></span>setDepth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Rendering::Renderer::PickingResult::setDepth </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
+          <td class="paramname"><em>depth</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Renderer_8inl_source.html#l00051">51</a> of file <a class="el" href="Renderer_8inl_source.html">Renderer.inl</a>.</p>
+
+</div>
+</div>
 <a id="a51e9e58968d5f7ae8daba34ac6daab0b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a51e9e58968d5f7ae8daba34ac6daab0b">&#9670;&nbsp;</a></span>setMode()</h2>
 
@@ -424,7 +486,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html">Rendering</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Renderer</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">PickingResult</a></li>
-    <li class="footer">Generated on Fri Jun 11 2021 10:13:02 for Radium Engine by
+    <li class="footer">Generated on Wed Jul 21 2021 12:55:35 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

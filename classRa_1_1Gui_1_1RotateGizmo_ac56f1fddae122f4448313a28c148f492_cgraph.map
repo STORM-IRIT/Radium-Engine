@@ -12,7 +12,7 @@
 <area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="685,71,865,112"/>
 <area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a64dc74dc61ceafce1b143f93c16f88f0" title=" " alt="" coords="685,5,865,47"/>
 <area shape="rect" id="node9" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="715,139,835,166"/>
-<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aaab8e9948fcf6982eff3735bc6c7f231" title="return NDC cordinate in the view NDC cube [&#45;1,1]^3" alt="" coords="457,263,637,304"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aaab8e9948fcf6982eff3735bc6c7f231" title="Return NDC cordinate in the view NDC cube ." alt="" coords="457,263,637,304"/>
 <area shape="rect" id="node14" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aa461c56f0e95754cfb18d0616247d848" title="Return the projection matrix." alt="" coords="685,296,865,337"/>
 <area shape="rect" id="node15" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a51abd4fb7ab7b51f3255f2f5f20c9bc1" title=" " alt="" coords="685,231,865,272"/>
 <area shape="rect" id="node16" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="913,231,1093,272"/>
