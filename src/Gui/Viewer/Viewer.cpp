@@ -229,6 +229,7 @@ void Viewer::startRendering( const Scalar dt ) {
 void Viewer::swapBuffers() {
     if ( isExposed() ) { m_context->swapBuffers( this ); }
     doneCurrent();
+    emit renderCompleted();
 }
 
 void Viewer::processPicking() {

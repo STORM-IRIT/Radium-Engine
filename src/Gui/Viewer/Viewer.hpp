@@ -181,6 +181,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     void needUpdate();
 
+    void renderCompleted();
+
   public slots:
     /// Tell the renderer to reload all shaders.
     void reloadShaders();
