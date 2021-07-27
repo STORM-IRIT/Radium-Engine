@@ -3,6 +3,8 @@
 
 #include <Engine/Rendering/ForwardRenderer.hpp>
 
+#include <Core/Resources/Resources.hpp>
+
 #ifdef ADD_ASSIMP_LOADER
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
@@ -41,7 +43,12 @@ int main( int argc, const char* argv[] ) {
     //! [Bind the OpenGLContext if needed]
 
     //! [Setup the Scene to render]
-    if ( viewer.getDataFileName().empty() ) { viewer.setDataFileName( "Assets/astroboy.dae" ); }
+    if ( viewer.getDataFileName().empty() )
+    {
+        auto rp              = Ra::Core::Resources::getResourcesPath();
+        std::string filename = *rp + "/Demos/Assets/astroboy.dae";
+        viewer.setDataFileName( filename );
+    }
     viewer.compileScene();
     //! [Setup the Scene to render]
 
