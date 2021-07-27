@@ -116,5 +116,5 @@ add_subdirectory(KeyEventDemoApp)
 add_subdirectory(EntityAnimationDemo)
 addRunAndDebugTargets(EntityAnimationDemo)
 
-add_subdirectory(RadiumHeadless)
+add_subdirectory(HeadlessLibAndApp)
 add_dependencies(${PROJECT_NAME} Headless HeadlessDemo)
