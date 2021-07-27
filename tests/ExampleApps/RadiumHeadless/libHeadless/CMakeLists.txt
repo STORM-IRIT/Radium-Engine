@@ -13,16 +13,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}" CACHE PATH
         "Install path prefix, prepended onto install directories." FORCE)
-    message("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
+    message("Set install prefix to ${CMAKE_INSTALL_PREFIX} for project ${PROJECT_NAME}.")
     set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT False)
 endif ()
-
-set(libName Headless)
 
 #-----------------------------------------------------------------------------------
 #       lib headless configuration
 #-----------------------------------------------------------------------------------
-message(STATUS "Configuring library ${PROJECT_NAME}::${libName}")
+set(libName Headless)
+set(namespaceName Radium)
+message(STATUS "Configuring library ${namespaceName}::${libName}")
 
 # Radium components : IO is not mandatory and should be removed once verified
 if (NOT IN_RADIUM_BUILD_TREE)
@@ -89,7 +89,7 @@ configure_radium_library(
     TARGET ${libName}
     FILES "${${libName}_headers}"
     TARGET_DIR .
-    NAMESPACE ${PROJECT_NAME}
-    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
+    NAMESPACE ${namespaceName}
+    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${namespaceName}
     PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
 )

@@ -117,3 +117,4 @@ add_subdirectory(EntityAnimationDemo)
 addRunAndDebugTargets(EntityAnimationDemo)
 
 add_subdirectory(RadiumHeadless)
+add_dependencies(${PROJECT_NAME} HeadlessDemo)
