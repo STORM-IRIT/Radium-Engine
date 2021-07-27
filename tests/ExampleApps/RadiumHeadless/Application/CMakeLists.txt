@@ -59,4 +59,8 @@ target_compile_options(${PROJECT_NAME}
 
 configure_radium_app(
     NAME ${PROJECT_NAME}
+    PREFIX Demos
+    RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Assets
 )
+
+addRunAndDebugTargets(${PROJECT_NAME})
