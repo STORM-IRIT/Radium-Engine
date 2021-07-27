@@ -226,7 +226,7 @@ if (RADIUM_ENABLE_TESTING)
     enable_testing()
     include(CTest)
     add_subdirectory(tests)
-    add_dependencies(RadiumLibs CoreExampleApp RadiumExampleApps)
+    add_dependencies(RadiumExampleApps RadiumLibs)
 endif ()
 
 if(ENABLE_COVERAGE)
