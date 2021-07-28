@@ -109,9 +109,15 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
      */
     void addDataLoader( Ra::Core::Asset::FileLoaderInterface* loader );
 
-    /** Instantiate the scene.
-     * This method load the optionally given datafile from the command line using the available
-     * loader (if any) and prepare the scene to be displayed.
+    /**
+     * Loads the scene from the datafile given at the command line or set using setDataFileName
+     * using the available loader (if any).
+     */
+    void loadScene();
+
+    /** Instantiate the scene and prepare the rendering.
+     * This method set the camera either using default camera or using the first one (at index 0)
+     * from the engine's camera manager and prepare all render techniques for the active renderer.
      */
     void compileScene();
 
