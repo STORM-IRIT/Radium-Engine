@@ -122,9 +122,11 @@ void CLIViewer::addDataLoader( Ra::Core::Asset::FileLoaderInterface* loader ) {
     m_engine->registerFileLoader( std::shared_ptr<Ra::Core::Asset::FileLoaderInterface>( loader ) );
 }
 
-void CLIViewer::compileScene() {
+void CLIViewer::loadScene() {
     m_engine->loadFile( m_dataFile );
+}
 
+void CLIViewer::compileScene() {
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Ra::Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
 
@@ -147,7 +149,10 @@ void CLIViewer::compileScene() {
         m_camera->setZFar( zfar );
     }
     else
-    { m_camera = cameraManager->getActiveCamera(); }
+    {
+        cameraManager->activate( 0 );
+        m_camera = cameraManager->getActiveCamera();
+    }
 
     if ( m_renderer )
     {
