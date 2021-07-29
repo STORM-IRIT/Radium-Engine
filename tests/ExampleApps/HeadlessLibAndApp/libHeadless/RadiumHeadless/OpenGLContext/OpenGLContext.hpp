@@ -13,9 +13,6 @@ struct GLFWwindow;
 class OpenGLContext
 {
   public:
-
-    enum class EventMode : int { POLL = 0, WAIT, TIMEOUT, NUM_MODES };
-
     /** @defgroup context OpenGL context management
      *  These methods allow to create and manipulate an openGLContext.
      *  Using this function, the openGL context created is an offscreen context with no exposed
@@ -47,6 +44,10 @@ class OpenGLContext
      *  OpenGL Context
      *  @{
      */
+    /** Identify the event processing method wheen the window is exposed.
+     *
+     */
+    enum class EventMode : int { POLL = 0, WAIT, TIMEOUT, NUM_MODES };
     /// Show the window
     void show( EventMode mode, float delay );
     /// Hide the window
