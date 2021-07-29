@@ -37,6 +37,12 @@ SkeletonBasedAnimationSystem::SkeletonBasedAnimationSystem() : System(), m_xrayO
     }
 }
 
+SkeletonBasedAnimationSystem::~SkeletonBasedAnimationSystem() {
+    SkeletonComponent::s_boneMesh.reset();
+    SkeletonComponent::s_boneMaterial.reset();
+    SkeletonComponent::s_boneRenderTechnique.reset();
+}
+
 // System Interface
 
 void SkeletonBasedAnimationSystem::generateTasks( Core::TaskQueue* taskQueue,

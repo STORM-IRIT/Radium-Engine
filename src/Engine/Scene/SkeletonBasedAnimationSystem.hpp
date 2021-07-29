@@ -17,6 +17,8 @@ class RA_ENGINE_API SkeletonBasedAnimationSystem : public System
     /// Create a new animation system
     SkeletonBasedAnimationSystem();
 
+    ~SkeletonBasedAnimationSystem();
+
     SkeletonBasedAnimationSystem( const SkeletonBasedAnimationSystem& ) = delete;
     SkeletonBasedAnimationSystem& operator=( const SkeletonBasedAnimationSystem& ) = delete;
 
