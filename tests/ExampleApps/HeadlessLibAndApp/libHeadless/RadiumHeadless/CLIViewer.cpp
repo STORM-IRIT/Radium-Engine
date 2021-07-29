@@ -19,10 +19,8 @@ using namespace Ra::Core::Utils;
 constexpr int defaultSystemPriority = 1000;
 
 CLIViewer::CLIViewer() : CLIBaseApplication(), m_glContext {} {
-    cmdline_parser.add_option( "-s,--size", m_parameters.m_size, "Size of the computed image." )
-        ->delimiter( 'x' );
-    cmdline_parser.add_flag(
-        "-a,--animation", m_parameters.m_animationEnable, "Enable Radium Animation system." );
+    add_option( "-s,--size", m_parameters.m_size, "Size of the computed image." )->delimiter( 'x' );
+    add_flag( "-a,--animation", m_parameters.m_animationEnable, "Enable Radium Animation system." );
 }
 
 CLIViewer::~CLIViewer() {
@@ -35,7 +33,7 @@ CLIViewer::~CLIViewer() {
     }
 }
 
-const CLIViewer::ViewerParameters& CLIViewer::getViewerParameters() const {
+const CLIViewer::ViewerParameters& CLIViewer::getCommandLineParameters() const {
     return m_parameters;
 }
 
@@ -78,6 +76,10 @@ int CLIViewer::init( int argc, const char* argv[] ) {
     m_glContext.makeCurrent();
     m_engine->initializeGL();
     m_glContext.doneCurrent();
+
+    // register listeners on the OpenGL Context
+    m_glContext.resizeListener().attach(
+        [this]( int width, int height ) { resize( width, height ); } );
     // Init is OK
     return 0;
 }
@@ -85,9 +87,9 @@ int CLIViewer::init( int argc, const char* argv[] ) {
 int CLIViewer::oneFrame( float timeStep ) {
     if ( m_parameters.m_animationEnable )
     {
-        auto animationsystem = dynamic_cast<Ra::Engine::Scene::SkeletonBasedAnimationSystem*>(
+        auto animationSystem = dynamic_cast<Ra::Engine::Scene::SkeletonBasedAnimationSystem*>(
             m_engine->getSystem( "SkeletonBasedAnimationSystem" ) );
-        if ( animationsystem ) { animationsystem->toggleSkeleton( false ); }
+        if ( animationSystem ) { animationSystem->toggleSkeleton( false ); }
         m_engine->setConstantTimeStep( timeStep );
         m_engine->step();
     }
@@ -118,7 +120,7 @@ void CLIViewer::setRenderer( Ra::Engine::Rendering::Renderer* renderer ) {
     m_glContext.doneCurrent();
 }
 
-void CLIViewer::addDataLoader( Ra::Core::Asset::FileLoaderInterface* loader ) {
+void CLIViewer::addDataFileLoader( Ra::Core::Asset::FileLoaderInterface* loader ) {
     m_engine->registerFileLoader( std::shared_ptr<Ra::Core::Asset::FileLoaderInterface>( loader ) );
 }
 
@@ -127,38 +129,9 @@ void CLIViewer::loadScene() {
 }
 
 void CLIViewer::compileScene() {
-    auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
-        Ra::Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-
-    if ( cameraManager->count() == 0 )
-    {
-        setDefaultCamera();
-        auto aabb      = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
-        Scalar f       = m_camera->getFOV();
-        Scalar a       = m_camera->getAspect();
-        const Scalar r = ( aabb.max() - aabb.min() ).norm() / 2_ra;
-        const Scalar x = r / std::sin( f / 2_ra );
-        const Scalar y = r / std::sin( f * a / 2_ra );
-        Scalar d       = std::max( std::max( x, y ), 0.001_ra );
-
-        m_camera->setPosition(
-            Ra::Core::Vector3( aabb.center().x(), aabb.center().y(), aabb.center().z() + d ) );
-        m_camera->setDirection( Ra::Core::Vector3( 0_ra, 0_ra, -1_ra ) );
-        Scalar zfar =
-            std::max( d + ( aabb.max().z() - aabb.min().z() ) * 2_ra, m_camera->getZFar() );
-        m_camera->setZFar( zfar );
-    }
-    else
-    {
-        cameraManager->activate( 0 );
-        m_camera = cameraManager->getActiveCamera();
-    }
-
     if ( m_renderer )
     {
-
         m_renderer->buildAllRenderTechniques();
-
         if ( !m_renderer->hasLight() )
         {
             auto headlight = new Ra::Engine::Scene::DirectionalLight(
@@ -182,13 +155,37 @@ void CLIViewer::bindOpenGLContext( bool on ) {
     { m_glContext.doneCurrent(); }
 }
 
-void CLIViewer::setDefaultCamera() {
-    // Todo : better management of a camera (from a loaded one, allowing the caller to give its
-    // camera ?
-    m_camera = new Ra::Core::Asset::Camera( m_parameters.m_size[0], m_parameters.m_size[1] );
-    m_camera->setFOV( 60.0_ra * Ra::Core::Math::toRad );
-    m_camera->setZNear( 0.1_ra );
-    m_camera->setZFar( 100_ra );
+void CLIViewer::setCamera( Ra::Core::Utils::Index camIdx ) {
+    auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+        Ra::Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+
+    if ( camIdx.isInvalid() || cameraManager->count() <= size_t( camIdx ) )
+    {
+        m_camera = new Ra::Core::Asset::Camera( m_parameters.m_size[0], m_parameters.m_size[1] );
+        m_camera->setFOV( 60.0_ra * Ra::Core::Math::toRad );
+        m_camera->setZNear( 0.1_ra );
+        m_camera->setZFar( 100_ra );
+
+        auto aabb      = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
+        Scalar f       = m_camera->getFOV();
+        Scalar a       = m_camera->getAspect();
+        const Scalar r = ( aabb.max() - aabb.min() ).norm() / 2_ra;
+        const Scalar x = r / std::sin( f / 2_ra );
+        const Scalar y = r / std::sin( f * a / 2_ra );
+        Scalar d       = std::max( std::max( x, y ), 0.001_ra );
+
+        m_camera->setPosition(
+            Ra::Core::Vector3( aabb.center().x(), aabb.center().y(), aabb.center().z() + d ) );
+        m_camera->setDirection( Ra::Core::Vector3( 0_ra, 0_ra, -1_ra ) );
+        Scalar zfar =
+            std::max( d + ( aabb.max().z() - aabb.min().z() ) * 2_ra, m_camera->getZFar() );
+        m_camera->setZFar( zfar );
+    }
+    else
+    {
+        cameraManager->activate( camIdx );
+        m_camera = cameraManager->getActiveCamera();
+    }
 }
 
 void CLIViewer::setImageNamePrefix( std::string s ) {
@@ -206,14 +203,14 @@ void CLIViewer::showWindow( bool on, OpenGLContext::EventMode mode, float delay 
     { m_glContext.hide(); }
 }
 
-void CLIViewer::swapBuffers() {
-    m_glContext.swapbuffers();
-}
-
-void CLIViewer::waitForClose() {
-    m_glContext.waitForClose();
-}
-
 void CLIViewer::renderLoop( std::function<void( float )> render ) {
     m_glContext.renderLoop( render );
+}
+
+void CLIViewer::resize( int width, int height ) {
+    if ( m_renderer )
+    {
+        m_renderer->resize( width, height );
+        m_camera->setViewport( width, height );
+    }
 }

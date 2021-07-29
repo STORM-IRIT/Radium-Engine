@@ -3,6 +3,8 @@
 #include <RadiumHeadless/Headless.hpp>
 #include <RadiumHeadless/OpenGLContext/OpenGLContext.hpp>
 
+#include <Core/Utils/Index.hpp>
+
 #include <functional>
 
 namespace Ra {
@@ -79,21 +81,10 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     int init( int argc, const char* argv[] ) override;
 
     /**
-     * Run the application.
-     *  This application compute one image of the scene attached to the engine for the given time
+     * Render one frame of the scene attached to the engine for the given time
      * stamp.
      *
-     * @return 0 if the application was correctly ran or an application dependant error code if
-     * something went wrong.
-     */
-    int run( float timeStep = 1.f / 60.f ) override { return oneFrame( timeStep ); }
-
-    /**
-     * Run the application.
-     *  This application compute one image of the scene attached to the engine for the given time
-     * stamp.
-     *
-     * @return 0 if the application was correctly ran or an application dependant error code if
+     * @return 0 if the image was correctly computed or an application dependant error code if
      * something went wrong.
      */
     int oneFrame( float timeStep = 1.f / 60.f );
@@ -107,7 +98,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     /**
      * Add a data loader to the engine
      */
-    void addDataLoader( Ra::Core::Asset::FileLoaderInterface* loader );
+    void addDataFileLoader( Ra::Core::Asset::FileLoaderInterface* loader );
 
     /**
      * Loads the scene from the datafile given at the command line or set using setDataFileName
@@ -116,8 +107,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     void loadScene();
 
     /** Instantiate the scene and prepare the rendering.
-     * This method set the camera either using default camera or using the first one (at index 0)
-     * from the engine's camera manager and prepare all render techniques for the active renderer.
+     * This method prepare all render techniques for the active renderer.
      */
     void compileScene();
 
@@ -129,16 +119,18 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     /** Activate/deactivate the OpenGL context */
     void bindOpenGLContext( bool on = true );
 
-    /** Define a default camera */
-    void setDefaultCamera();
+    /** Define the cq;erq to be used for rendering.
+     * This method set the camera either using default camera or using the first one (at index 0)
+     * from the engine's camera manager and  */
+    void setCamera( Ra::Core::Utils::Index camIdx = 0 );
 
     /** Set the image prefix ("frame" by default) */
     void setImageNamePrefix( std::string s );
 
-    /** get the actual parameter set of the application */
-    const ViewerParameters& getViewerParameters() const;
+    /** Get the current viewer command line parameters parameters */
+    const ViewerParameters& getCommandLineParameters() const;
 
-    /** grab the laste rendered frame */
+    /** grab the last rendered frame */
     std::unique_ptr<unsigned char[]> grabFrame( size_t& w, size_t& h ) const;
 
     /** show/hide the opengl window */
@@ -146,11 +138,9 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
                      OpenGLContext::EventMode mode = OpenGLContext::EventMode::POLL,
                      float delay                   = 1.f / 60.f );
 
-    /** swaps the opengl buffer on window */
-    void swapBuffers();
-
-    /** When a window is shown, wait for its closing by the user */
-    void waitForClose();
-
+    /** If a window is shown, launch the interactive render loop */
     void renderLoop( std::function<void( float )> render );
+
+  private:
+    void resize( int width, int height );
 };

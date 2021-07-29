@@ -1,4 +1,7 @@
 #pragma once
+
+#include <Core/Utils/Observable.hpp>
+
 #include <array>
 #include <functional>
 #include <string>
@@ -23,7 +26,8 @@ class OpenGLContext
      * Create an offscreen openGl context.
      * The created context has the following properties
      *  - OpenGL version requested : >= 4.1
-     *  - OpenGL consstext profile : Core Profile
+     *  - OpenGL context profile : Core Profile
+     *  The created context is associated with a hidden window that can be shown later.
      * @param size
      */
     explicit OpenGLContext( const std::array<int, 2>& size = {1, 1} );
@@ -54,16 +58,30 @@ class OpenGLContext
     void hide();
     /// Resize the window
     void resize( const std::array<int, 2>& size );
-    /// Swap back/front buffers
-    void swapbuffers();
-    /// Wait for the user to close the window
-    void waitForClose();
     /// loop on events and execute the functor render after each event
     void renderLoop( std::function<void( float )> render );
-    /** @} */
 
+    /// Give access to the resize event observer collection so that client can add Observer to this
+    /// event
+    Ra::Core::Utils::Observable<int, int>& resizeListener() { return m_resizers; }
+
+    /** @} */
   private:
-    GLFWwindow* m_offscreenContext {nullptr};
+    GLFWwindow* m_glfwContext {nullptr};
+    /** \addtogroup window
+     *  @{
+     */
+    /// Process the pending events according to the window show mode
+    bool processEvents();
+
+    /// Resize callback
+    void resizeFrameBuffer( int width, int height );
+
+    Ra::Core::Utils::Observable<int, int> m_resizers;
+
+    /// Event processing mode
     EventMode m_mode {EventMode::POLL};
+    /// Timeout delay for event processing
     float m_delay {1.f / 60.f};
+    /** @} */
 };

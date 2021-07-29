@@ -66,7 +66,10 @@ class HEADLESS_API CLIBaseApplication
      * @return 0 if the application was correctly ran or an application dependant error code if
      * something went wrong.
      */
-    virtual int run( float timeStep = 0 ) = 0;
+    virtual int run( float timeStep = 0 ) {
+        (void)timeStep;
+        return 0;
+    }
 
     /**
      * Get the filename given using the option --file <filename> or -f <filename>
