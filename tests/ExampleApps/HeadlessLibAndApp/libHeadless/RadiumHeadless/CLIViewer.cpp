@@ -195,12 +195,12 @@ void CLIViewer::setImageNamePrefix( std::string s ) {
     m_parameters.m_imgPrefix = std::move( s );
 }
 
-void CLIViewer::showWindow( bool on ) {
+void CLIViewer::showWindow( bool on, OpenGLContext::EventMode mode, float delay ) {
     m_exposedWindow = on;
     if ( m_exposedWindow )
     {
         m_glContext.resize( m_parameters.m_size );
-        m_glContext.show();
+        m_glContext.show( mode, delay );
     }
     else
     { m_glContext.hide(); }
@@ -212,4 +212,8 @@ void CLIViewer::swapBuffers() {
 
 void CLIViewer::waitForClose() {
     m_glContext.waitForClose();
+}
+
+void CLIViewer::renderLoop( std::function<void( float )> render ) {
+    m_glContext.renderLoop( render );
 }

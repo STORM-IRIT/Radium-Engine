@@ -15,18 +15,11 @@
 int main( int argc, const char* argv[] ) {
     //! [Creating the viewer with custom psarameters]
     bool showWindow {false};
-    bool usercontrolWindows {false};
     CLIViewer viewer;
-    auto winOpt = viewer.add_flag( "-w,--window", showWindow, "Map the viewer window." );
-    viewer
-        .add_flag( "-i,--interactive",
-                   usercontrolWindows,
-                   "Wait for the user to close window before exiting." )
-        ->needs( winOpt );
+    viewer.add_flag( "-w,--window", showWindow, "Map the viewer window." );
     //! [Creating the viewer with custom parameters]
 
     //! [Configuring the viewer : initialize OpenGL and the Engine]
-
     if ( int code = viewer.init( argc, argv ) ) { return code; }
     auto viewerParameters = viewer.getViewerParameters();
     //! [Configuring the viewer : initialize OpenGL and the Engine]
@@ -61,42 +54,43 @@ int main( int argc, const char* argv[] ) {
         stbi_write_png( filename.c_str(), w, h, 4, writtenPixels.get(), w * 4 * sizeof( uchar ) );
     };
 
-    if ( showWindow ) { viewer.showWindow(); }
+    auto render = [&viewer]( float time_step ) { viewer.oneFrame( time_step ); };
 
-    if ( viewerParameters.m_animationEnable )
+    if ( showWindow )
     {
-        // compute 2s of animation at 60fps
-        for ( int i = 0; i < 120; ++i )
+        if ( viewerParameters.m_animationEnable )
+        { viewer.showWindow( true, OpenGLContext::EventMode::TIMEOUT ); }
+        else
+        { viewer.showWindow( true, OpenGLContext::EventMode::WAIT ); }
+        viewer.renderLoop( render );
+        viewer.showWindow( false );
+    }
+    else
+    {
+        if ( viewerParameters.m_animationEnable )
         {
-            viewer.oneFrame( i );
-
-            if ( showWindow ) { viewer.swapBuffers(); }
-            else
+            // compute 2s of animation at 30fps
+            float duration = 2;
+            float fps      = 30;
+            for ( int i = 0; i < duration * fps; ++i )
             {
+                render( 1.f / fps );
                 auto filename = viewerParameters.m_imgPrefix + std::to_string( i ) + ".png";
                 saveFrame( filename );
             }
         }
-    }
-    else
-    {
-        // compute one picture
-        viewer.oneFrame();
-
-        if ( showWindow ) { viewer.swapBuffers(); }
         else
         {
+            // compute one picture
+            render( 0 );
             auto filename = viewerParameters.m_imgPrefix + ".png";
             saveFrame( filename );
         }
     }
-
-    if ( usercontrolWindows ) { viewer.waitForClose(); }
     //! [Running the application]
 
     //! [Unbind the OpenGLContext when no more needed]
     viewer.bindOpenGLContext( false );
     //! [Unbind the OpenGLContext when no more needed]
-
     return 0;
 }

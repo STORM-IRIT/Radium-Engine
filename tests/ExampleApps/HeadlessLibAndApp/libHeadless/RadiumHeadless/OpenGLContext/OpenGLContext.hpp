@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
+#include <functional>
 #include <string>
-
 struct GLFWwindow;
 
 /**
@@ -13,6 +13,9 @@ struct GLFWwindow;
 class OpenGLContext
 {
   public:
+
+    enum class EventMode : int { POLL = 0, WAIT, TIMEOUT, NUM_MODES };
+
     /** @defgroup context OpenGL context management
      *  These methods allow to create and manipulate an openGLContext.
      *  Using this function, the openGL context created is an offscreen context with no exposed
@@ -45,7 +48,7 @@ class OpenGLContext
      *  @{
      */
     /// Show the window
-    void show();
+    void show( EventMode mode, float delay );
     /// Hide the window
     void hide();
     /// Resize the window
@@ -54,8 +57,12 @@ class OpenGLContext
     void swapbuffers();
     /// Wait for the user to close the window
     void waitForClose();
+    /// loop on events and execute the functor render after each event
+    void renderLoop( std::function<void( float )> render );
     /** @} */
 
   private:
     GLFWwindow* m_offscreenContext {nullptr};
+    EventMode m_mode {EventMode::POLL};
+    float m_delay {1.f / 60.f};
 };

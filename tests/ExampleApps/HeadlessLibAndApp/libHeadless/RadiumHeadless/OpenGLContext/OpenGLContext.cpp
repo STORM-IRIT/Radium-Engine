@@ -43,8 +43,9 @@ OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
     }
     if ( m_offscreenContext == nullptr )
     {
-        globjects::critical() << "Context creation failed. Terminate execution.";
+        std::cerr << "OpenGL context creation failed. Terminate execution.";
         glfwTerminate();
+        std::exit( -1 );
     }
     else
     {
@@ -83,8 +84,14 @@ std::string OpenGLContext::getInfo() const {
     return infoText.str();
 }
 
-void OpenGLContext::show() {
+void OpenGLContext::show( EventMode mode, float delay ) {
+    m_mode  = mode;
+    m_delay = delay;
     glfwShowWindow( m_offscreenContext );
+    // glfwSwapInterval(1);
+    int width, height;
+    glfwGetFramebufferSize( m_offscreenContext, &width, &height );
+    glViewport( 0, 0, width, height );
 }
 
 void OpenGLContext::hide() {
@@ -97,12 +104,41 @@ void OpenGLContext::resize( const std::array<int, 2>& size ) {
 
 void OpenGLContext::swapbuffers() {
     glfwSwapBuffers( m_offscreenContext );
-    glfwPollEvents();
+    switch ( m_mode )
+    {
+    case EventMode::POLL:
+        glfwPollEvents();
+        break;
+    case EventMode::WAIT:
+        glfwWaitEvents();
+        break;
+    case EventMode::TIMEOUT:
+        glfwWaitEventsTimeout( m_delay );
+        break;
+    default:
+        glfwPollEvents();
+        break;
+    }
 }
 
 void OpenGLContext::waitForClose() {
     while ( !glfwWindowShouldClose( m_offscreenContext ) )
     {
-        glfwPollEvents();
+        glfwWaitEvents();
+    }
+}
+
+void OpenGLContext::renderLoop( std::function<void( float )> render ) {
+    double prevFrameDate = glfwGetTime();
+    double curFrameDate;
+    while ( !glfwWindowShouldClose( m_offscreenContext ) )
+    {
+        int width, height;
+        glfwGetFramebufferSize( m_offscreenContext, &width, &height );
+        glViewport( 0, 0, width, height );
+        curFrameDate = glfwGetTime();
+        render( curFrameDate - prevFrameDate );
+        prevFrameDate = curFrameDate;
+        swapbuffers();
     }
 }

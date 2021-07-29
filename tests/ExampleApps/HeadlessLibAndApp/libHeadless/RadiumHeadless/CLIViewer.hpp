@@ -142,11 +142,15 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     std::unique_ptr<unsigned char[]> grabFrame( size_t& w, size_t& h ) const;
 
     /** show/hide the opengl window */
-    void showWindow( bool on = true );
+    void showWindow( bool on                       = true,
+                     OpenGLContext::EventMode mode = OpenGLContext::EventMode::POLL,
+                     float delay                   = 1.f / 60.f );
 
     /** swaps the opengl buffer on window */
     void swapBuffers();
 
     /** When a window is shown, wait for its closing by the user */
     void waitForClose();
+
+    void renderLoop( std::function<void( float )> render );
 };
