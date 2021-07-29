@@ -175,12 +175,8 @@ int main( int argc, char* argv[] ) {
         //! [Create the engine entity for the fixed component]
 
         //! [Creating the cube]
-        auto cube = Geometry::makeSharpBox( {0.5f, 0.5f, 0.5f} );
-        //! [Creating the cube]
-
-        //! [Colorize the Cube]
-        cube.addAttrib( "in_color", Vector4Array {cube.vertices().size(), Utils::Color::Green()} );
-        //! [Colorize the Cube]
+        auto cube = Geometry::makeSharpBox( {0.5f, 0.5f, 0.5f}, Utils::Color::Green() );
+        //! [Creating the Cube]
 
         //! [Create a geometry component with the cube]
         auto c = new Scene::TriangleMeshComponent(
@@ -193,13 +189,8 @@ int main( int argc, char* argv[] ) {
     //! [Create the demo animated components]
     {
         //! [Creating the cube]
-        auto cube = Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} );
-        //! [Creating the cube]
-
-        //! [Colorize the Cube]
-        cube.addAttrib( "in_color",
-                        Vector4Array {cube.vertices().size(), Ra::Core::Utils::Color::Yellow()} );
-        //! [Colorize the Cube]
+        auto cube = Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f}, Ra::Core::Utils::Color::Yellow() );
+        //! [Creating the Cube]
 
         //! [Create the engine entity for the cube]
         auto e = app.m_engine->getEntityManager()->createEntity( "Moving Cube" );
