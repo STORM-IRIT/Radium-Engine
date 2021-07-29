@@ -38,10 +38,10 @@ OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
         glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 1 );
         glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, true );
         glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
-        m_offscreenContext =
+        m_glfwContext =
             glfwCreateWindow( size[0], size[1], "Radium CommandLine Context", nullptr, nullptr );
     }
-    if ( m_offscreenContext == nullptr )
+    if ( m_glfwContext == nullptr )
     {
         std::cerr << "OpenGL context creation failed. Terminate execution.";
         glfwTerminate();
@@ -51,23 +51,29 @@ OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
     {
         // Initialize globjects (internally initializes glbinding, and registers the current
         // context)
-        glfwMakeContextCurrent( m_offscreenContext );
+        glfwMakeContextCurrent( m_glfwContext );
         globjects::init( []( const char* name ) { return glfwGetProcAddress( name ); } );
+        glfwSetWindowUserPointer( m_glfwContext, this );
+        auto resizeCB = []( GLFWwindow* window, int width, int height ) {
+            auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
+            context->resizeFrameBuffer( width, height );
+        };
+        glfwSetFramebufferSizeCallback( m_glfwContext, resizeCB );
     }
 }
 OpenGLContext::~OpenGLContext() {
     glfwTerminate();
 }
 void OpenGLContext::makeCurrent() const {
-    if ( m_offscreenContext ) { glfwMakeContextCurrent( m_offscreenContext ); }
+    if ( m_glfwContext ) { glfwMakeContextCurrent( m_glfwContext ); }
 }
 
 void OpenGLContext::doneCurrent() const {
-    if ( m_offscreenContext ) { glfwMakeContextCurrent( nullptr ); }
+    if ( m_glfwContext ) { glfwMakeContextCurrent( nullptr ); }
 }
 
 bool OpenGLContext::isValid() const {
-    return m_offscreenContext != nullptr;
+    return m_glfwContext != nullptr;
 }
 
 std::string OpenGLContext::getInfo() const {
@@ -87,23 +93,18 @@ std::string OpenGLContext::getInfo() const {
 void OpenGLContext::show( EventMode mode, float delay ) {
     m_mode  = mode;
     m_delay = delay;
-    glfwShowWindow( m_offscreenContext );
-    // glfwSwapInterval(1);
-    int width, height;
-    glfwGetFramebufferSize( m_offscreenContext, &width, &height );
-    glViewport( 0, 0, width, height );
+    glfwShowWindow( m_glfwContext );
 }
 
 void OpenGLContext::hide() {
-    glfwHideWindow( m_offscreenContext );
+    glfwHideWindow( m_glfwContext );
 }
 
 void OpenGLContext::resize( const std::array<int, 2>& size ) {
-    glfwSetWindowSize( m_offscreenContext, size[0], size[1] );
+    glfwSetWindowSize( m_glfwContext, size[0], size[1] );
 }
 
-void OpenGLContext::swapbuffers() {
-    glfwSwapBuffers( m_offscreenContext );
+bool OpenGLContext::processEvents() {
     switch ( m_mode )
     {
     case EventMode::POLL:
@@ -119,26 +120,29 @@ void OpenGLContext::swapbuffers() {
         glfwPollEvents();
         break;
     }
+    return true;
 }
 
-void OpenGLContext::waitForClose() {
-    while ( !glfwWindowShouldClose( m_offscreenContext ) )
-    {
-        glfwWaitEvents();
-    }
+void OpenGLContext::resizeFrameBuffer( int width, int height ) {
+    glViewport( 0, 0, width, height );
+    m_resizers.notify( width, height );
 }
 
 void OpenGLContext::renderLoop( std::function<void( float )> render ) {
     double prevFrameDate = glfwGetTime();
     double curFrameDate;
-    while ( !glfwWindowShouldClose( m_offscreenContext ) )
+
+    int width, height;
+    glfwGetFramebufferSize( m_glfwContext, &width, &height );
+    glViewport( 0, 0, width, height );
+
+    while ( !glfwWindowShouldClose( m_glfwContext ) )
     {
-        int width, height;
-        glfwGetFramebufferSize( m_offscreenContext, &width, &height );
-        glViewport( 0, 0, width, height );
         curFrameDate = glfwGetTime();
         render( curFrameDate - prevFrameDate );
         prevFrameDate = curFrameDate;
-        swapbuffers();
+
+        glfwSwapBuffers( m_glfwContext );
+        processEvents();
     }
 }

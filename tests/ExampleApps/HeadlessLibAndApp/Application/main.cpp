@@ -13,7 +13,7 @@
 #include <stb/stb_image_write.h>
 
 int main( int argc, const char* argv[] ) {
-    //! [Creating the viewer with custom psarameters]
+    //! [Creating the viewer with custom parameters]
     bool showWindow {false};
     CLIViewer viewer;
     viewer.add_flag( "-w,--window", showWindow, "Map the viewer window." );
@@ -21,13 +21,13 @@ int main( int argc, const char* argv[] ) {
 
     //! [Configuring the viewer : initialize OpenGL and the Engine]
     if ( int code = viewer.init( argc, argv ) ) { return code; }
-    auto viewerParameters = viewer.getViewerParameters();
+    auto viewerParameters = viewer.getCommandLineParameters();
     //! [Configuring the viewer : initialize OpenGL and the Engine]
 
     //! [Populating the viewer with needed services]
     viewer.setRenderer( new Ra::Engine::Rendering::ForwardRenderer() );
 #ifdef ADD_ASSIMP_LOADER
-    viewer.addDataLoader( new Ra::IO::AssimpFileLoader() );
+    viewer.addDataFileLoader( new Ra::IO::AssimpFileLoader() );
 #endif
     //! [Populating the viewer with needed services]
 
@@ -44,6 +44,7 @@ int main( int argc, const char* argv[] ) {
     }
     viewer.loadScene();
     viewer.compileScene();
+    viewer.setCamera();
     //! [Setup the Scene to render]
 
     //! [Running the application]
