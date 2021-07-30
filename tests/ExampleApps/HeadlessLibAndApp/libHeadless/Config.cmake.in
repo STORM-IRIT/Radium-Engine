@@ -27,7 +27,7 @@ if ( NOT Radium_FOUND)
     find_dependency(Radium COMPONENTS Core Engine IO REQUIRED)
 endif()
 if (NOT glfw3_FOUND)
-    find_dependency(glfw3 3.3 REQUIRED)
+    find_dependency(glfw3 3.2 REQUIRED)
 endif()
 
 if (Headless_FOUND)
