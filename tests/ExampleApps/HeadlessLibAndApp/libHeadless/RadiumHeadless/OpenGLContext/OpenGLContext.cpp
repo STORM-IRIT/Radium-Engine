@@ -124,7 +124,7 @@ bool OpenGLContext::processEvents() {
 }
 
 void OpenGLContext::resizeFrameBuffer( int width, int height ) {
-    glViewport( 0, 0, width, height );
+    gl::glViewport( 0, 0, width, height );
     m_resizers.notify( width, height );
 }
 
