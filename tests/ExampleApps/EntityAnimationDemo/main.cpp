@@ -22,7 +22,7 @@
 #include <Gui/Viewer/CameraManipulator.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
-// To terminate the demo after 4 seconds
+// To terminate the demo after a given time
 #include <QTimer>
 
 using namespace Ra;
@@ -84,6 +84,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Add usefull custom key events]
     auto callback = [cameraManager]( QKeyEvent* event ) {
+        // Convert ascii code to camera index
         cameraManager->activate( event->key() - '0' );
     };
     app.m_mainWindow->getViewer()->addKeyPressEventAction(
@@ -97,7 +98,7 @@ int main( int argc, char* argv[] ) {
     app.m_engine->registerSystem( "Simple animation system", animationSystem );
     //! [Create the demo animation system]
 
-    //! [Create the demo fixed component]
+    //! [Create the demo fixed entity/component]
     {
         //! [Create the engine entity for the fixed component]
         auto e = app.m_engine->getEntityManager()->createEntity( "Fixed cube" );
@@ -112,7 +113,7 @@ int main( int argc, char* argv[] ) {
             "Fixed cube geometry", e, std::move( cube ), nullptr );
         //! [Create a geometry component with the cube]
     }
-    //! [Create the demo fixed component]
+    //! [Create the demo fixed entity/component]
 
     //! [Create the demo animated entity/components]
     {
