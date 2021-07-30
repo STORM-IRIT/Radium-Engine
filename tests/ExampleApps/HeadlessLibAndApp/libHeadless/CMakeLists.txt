@@ -30,7 +30,7 @@ if (NOT IN_RADIUM_BUILD_TREE)
     set(DEFAULT_COMPILE_OPTIONS)
 endif()
 
-find_package(glfw3 3.3 REQUIRED)
+find_package(glfw3 3.2 REQUIRED)
 
 set(CLI11_headers
     RadiumHeadless/CLI/App.hpp
