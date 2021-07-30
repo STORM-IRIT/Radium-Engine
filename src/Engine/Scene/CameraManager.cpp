@@ -122,7 +122,7 @@ void CameraManager::registerComponent( const Entity* entity, Component* componen
     /// register the manager to the entity's transformationObservers to update
     /// active camera data on entity's transformation changes
     auto idx = getCameraIndex( reinterpret_cast<CameraComponent*>( component ) );
-    const_cast<Entity*>( entity )->transformationObservers().attach( [this, idx]( const Entity* ) {
+    entity->transformationObservers().attach( [this, idx]( const Entity* ) {
         if ( idx == m_activeIndex ) { updateActiveCameraData(); }
     } );
 }
