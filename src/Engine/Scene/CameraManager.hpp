@@ -87,7 +87,10 @@ class RA_ENGINE_API CameraManager : public System
     Core::Utils::Index getActiveCameraIndex() const { return m_activeIndex; }
 
     /// reset the active camera data to default camera
-    void resetActiveCamera() { m_activeCamera = defaultCamera; }
+    void resetActiveCamera() {
+        m_activeCamera = defaultCamera;
+        m_activeIndex  = -1;
+    }
 
   protected:
     /** Inherited method marked as final to ensure correct memory management

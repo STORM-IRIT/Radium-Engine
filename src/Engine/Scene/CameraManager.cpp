@@ -50,8 +50,8 @@ void CameraManager::activate( Core::Utils::Index index ) {
 
 void CameraManager::updateActiveCameraData() {
     // save current size
-    auto width  = m_activeCamera.getWidth();
-    auto height = m_activeCamera.getHeight();
+    auto width                  = m_activeCamera.getWidth();
+    auto height                 = m_activeCamera.getHeight();
     auto camComp                = getCamera( m_activeIndex );
     m_activeCamera              = *camComp->getCamera();
     Core::Transform localFrame  = m_activeCamera.getFrame();
@@ -117,6 +117,13 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
 void CameraManager::registerComponent( const Entity* entity, Component* component ) {
     System::registerComponent( entity, component );
     m_data->add( reinterpret_cast<CameraComponent*>( component ) );
+    /// register the manager to the entity's transformationObservers to update
+    /// active camera data on entity's transformation changes
+    auto idx = getCameraIndex( reinterpret_cast<CameraComponent*>( component ) );
+    const_cast<Entity*>( entity )->transformationObservers().attach(
+        [this, idx]( const Entity* ) {
+            if ( idx == m_activeIndex ) { updateActiveCameraData(); }
+        } );
 }
 
 void CameraManager::unregisterComponent( const Entity* entity, Component* component ) {
