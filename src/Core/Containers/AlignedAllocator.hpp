@@ -3,8 +3,6 @@
 
 #ifdef _WIN32
 #    include <malloc.h>
-#else
-#    include <mm_malloc.h>
 #endif
 #include <cstddef>
 #include <cstdint>
@@ -17,6 +15,8 @@ namespace Core {
  * Adapted from https://gist.github.com/donny-dont/1471329
  * Modified from the Mallocator from Stephan T. Lavavej.
  * <http://blogs.msdn.com/b/vcblog/archive/2008/08/28/the-mallocator.aspx>
+ * July 2021: use aligned_alloc (c++11) instead of platform-dependant mm_malloc
+ *
  */
 template <typename T, std::size_t Alignment>
 class AlignedAllocator
@@ -87,8 +87,11 @@ class AlignedAllocator
         // be thrown in the case of integer overflow.
         CORE_ASSERT( n <= max_size(), "Integer overflow" );
 
-        // Mallocator wraps malloc().
+#ifdef _WIN32
         void* const pv = _mm_malloc( n * sizeof( T ), Alignment );
+#else
+        void* const pv = aligned_alloc( Alignment, n * sizeof( T ) );
+#endif
 
         // Allocators should throw std::bad_alloc in the case of memory allocation failure.
         CORE_ASSERT( pv != NULL, " Bad alloc" );
@@ -98,7 +101,13 @@ class AlignedAllocator
         return static_cast<T*>( pv );
     }
 
-    void deallocate( T* const p, const std::size_t /*n*/ ) const { _mm_free( p ); }
+    void deallocate( T* const p, const std::size_t /*n*/ ) const {
+#ifdef _WIN32
+        _mm_free( p );
+#else
+        free( p );
+#endif
+    }
 
     // The following will be the same for all allocators that ignore hints.
     template <typename U>
