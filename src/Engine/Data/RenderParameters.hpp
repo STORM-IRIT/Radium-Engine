@@ -86,11 +86,14 @@ class RA_ENGINE_API RenderParameters final
      */
     template <typename T>
     class UniformBindableSet final
-        : public std::map<
-              std::string,
-              T,
-              std::less<std::string>,
-              Core::AlignedAllocator<std::pair<const std::string, T>, EIGEN_MAX_ALIGN_BYTES>>
+        : public std::
+              map<std::string, T, std::less<std::string>
+                  /*,
+                  // TODO, verify if we need an aligned allocator here as it generates a segfault
+                  // due to PR #809
+                  Core::AlignedAllocator<std::pair<const std::string, T>, EIGEN_MAX_ALIGN_BYTES>
+                  */
+                  >
     {
       public:
         /** Bind the whole parameter set to the corresponding shader uniforms
