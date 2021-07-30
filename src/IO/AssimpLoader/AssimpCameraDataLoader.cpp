@@ -82,6 +82,7 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
     view.block<3, 1>( 0, 1 ) = up;
     view.block<3, 1>( 0, 2 ) = lookAt;
     view.block<3, 1>( 0, 3 ) = pos;
+    view.block<1, 3>( 0, 0 ) *= -1_ra;
     data.setFrame( Core::Transform {view * frame} );
 
     data.setType( Camera::ProjType::PERSPECTIVE ); // default value since not in aiCamera
@@ -96,24 +97,11 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
 }
 
 Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
-                                                       const Core::Matrix4& /*parentFrame*/,
+                                                       const Core::Matrix4&,
                                                        const aiCamera& cameraNode ) const {
-    // old version
-    //    Core::Matrix4 oldVersionFrame;
-    //    {
-    //        aiNode* node = scene->mRootNode->FindNode( cameraNode.mName );
-    //        auto t0      = Core::Matrix4::NullaryExpr(
-    //            [&scene]( int i, int j ) { return scene->mRootNode->mTransformation[i][j]; } );
-    //        auto t1 = Core::Matrix4::NullaryExpr(
-    //            [&node]( int i, int j ) { return node->mTransformation[i][j]; } );
-    //
-    //        oldVersionFrame = parentFrame * t0 * t1;
-    //    }
-
     aiNode* node = scene->mRootNode->FindNode( cameraNode.mName );
     Core::Matrix4 frame;
     frame.setIdentity();
-
     while ( node != nullptr )
     {
         frame = Core::Matrix4::NullaryExpr(
@@ -121,10 +109,6 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
                 frame;
         node = node->mParent;
     }
-
-    // to test old vs new
-    // if ( frame != oldVersionFrame ) { LOG( logWARNING ) << "frame computation update failed!"; }
-
     return frame;
 }
 
