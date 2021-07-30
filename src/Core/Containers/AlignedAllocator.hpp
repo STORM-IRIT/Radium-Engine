@@ -3,7 +3,7 @@
 
 #ifdef _WIN32
 #    include <malloc.h>
-#elif not ( defined ARCH_ARM32 || defined ARCH_ARM64 )
+#elif not( defined ARCH_ARM32 || defined ARCH_ARM64 )
 #    include <mm_malloc.h>
 #endif
 #include <cstddef>
@@ -89,7 +89,7 @@ class AlignedAllocator
         // be thrown in the case of integer overflow.
         CORE_ASSERT( n <= max_size(), "Integer overflow" );
 
-#if defined _WIN32 || not ( defined ARCH_ARM32 || defined ARCH_ARM64 )
+#if defined _WIN32 || not( defined ARCH_ARM32 || defined ARCH_ARM64 )
         void* const pv = _mm_malloc( n * sizeof( T ), Alignment );
 #else
         void* const pv = aligned_alloc( Alignment, n * sizeof( T ) );
@@ -104,7 +104,7 @@ class AlignedAllocator
     }
 
     void deallocate( T* const p, const std::size_t /*n*/ ) const {
-#if defined _WIN32 || not ( defined ARCH_ARM32 || defined ARCH_ARM64 )
+#if defined _WIN32 || not( defined ARCH_ARM32 || defined ARCH_ARM64 )
         _mm_free( p );
 #else
         free( p );
