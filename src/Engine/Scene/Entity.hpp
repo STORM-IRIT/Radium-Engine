@@ -44,7 +44,7 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
     void swapTransformBuffers();
 
     /// get a ref to transformation observers to add/remove an observer
-    inline Core::Utils::Observable<const Entity*>& transformationObservers();
+    inline Core::Utils::Observable<const Entity*>& transformationObservers() const;
 
     // Components
     /// Add a component to the given entity. Component ownership is transfered to the entity.
@@ -82,7 +82,8 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
     Core::Aabb m_aabb;
 
     /// Listeners on Entity Transformation changes
-    Core::Utils::Observable<const Entity*> m_transformationObservers;
+    mutable Core::Utils::Observable<const Entity*> m_transformationObservers;
+
     ///\todo add an index;
 };
 

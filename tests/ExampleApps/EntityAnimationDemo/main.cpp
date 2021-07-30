@@ -30,67 +30,6 @@ using namespace Ra::Core;
 using namespace Ra::Engine;
 
 /* ---------------------------------------------------------------------------------------------- */
-/*                      Custom window with some key events to switch from camera                  */
-/* ---------------------------------------------------------------------------------------------- */
-/**
- * Simple custom windows for custom KeyEvent demonstration
- */
-class DemoWindow : public Ra::Gui::SimpleWindow
-{
-    Q_OBJECT
-
-  public:
-    /// Reuse the SimpleWindow constructors
-    using Ra::Gui::SimpleWindow::SimpleWindow;
-
-    explicit DemoWindow( uint w = 800, uint h = 640, QWidget* parent = nullptr ) :
-        Ra::Gui::SimpleWindow::SimpleWindow( w, h, parent ) {}
-
-    //! [Configure Custom KeyEvent for the window]
-    void configure() override {
-        // <alt>+F will switch to default camera
-        // <alt>+C will toggle on cameras
-        // these customs events are only here for demonstration purposse.
-        // events expressed for an apple french keyboard
-        getViewer()->addKeyPressEventAction(
-            "switchCam0", "Key_0", "ShiftModifier", "", "false", [this]( QKeyEvent* event ) {
-                this->switchCamera( event );
-            } );
-        getViewer()->addKeyPressEventAction(
-            "switchCam1", "Key_1", "ShiftModifier", "", "false", [this]( QKeyEvent* event ) {
-                this->switchCamera( event );
-            } );
-    }
-    //! [Configure Custom KeyEvent for the window]
-
-    //! [Manage Custom KeyEvent reaching the window]
-    void switchCamera( QKeyEvent* e ) {
-        auto cameraManager = static_cast<Scene::DefaultCameraManager*>(
-            Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-        // Activating a camera require 2 things :
-        // ask the camera manager to activate the camera
-        cameraManager->activate( e->key() - '0' );
-        // ask the CameraManipulator to update its camera info
-        getViewer()->getCameraManipulator()->updateCamera();
-    }
-    //! [Manage Custom KeyEvent reaching the window]
-};
-
-/**
- * Define a factory that instantiates the Demonstration Window
- */
-class DemoWindowFactory : public Ra::Gui::BaseApplication::WindowFactory
-{
-  public:
-    ~DemoWindowFactory() = default;
-    inline Ra::Gui::MainWindowInterface* createMainWindow() const override {
-        auto window = new DemoWindow();
-        return window;
-    }
-};
-#include "main.moc"
-
-/* ---------------------------------------------------------------------------------------------- */
 /*                           Simple animation system to move an entity                            */
 /* ---------------------------------------------------------------------------------------------- */
 //! [Define a simple animation system]
@@ -121,6 +60,7 @@ class EntityAnimationSystem : public Scene::System
   private:
     std::vector<Scene::Entity*> m_animatedEntities;
 };
+//! [Define a simple animation system]
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                             main function that build the demo scene                            */
@@ -128,7 +68,7 @@ class EntityAnimationSystem : public Scene::System
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
     Gui::BaseApplication app( argc, argv );
-    app.initialize( DemoWindowFactory {} );
+    app.initialize( Ra::Gui::SimpleWindowFactory {} );
     //! [Creating the application]
 
     //![Parameterize the Engine  time loop]
@@ -141,6 +81,19 @@ int main( int argc, char* argv[] ) {
     auto cameraManager = static_cast<Scene::DefaultCameraManager*>(
         app.m_engine->getSystem( "DefaultCameraManager" ) );
     //! [Cache the camera manager]
+
+    //! [Add usefull custom key events]
+    app.m_mainWindow->getViewer()->addKeyPressEventAction(
+        "switchCam0", "Key_0", "ShiftModifier", "", "false", [cameraManager]( QKeyEvent* event ) {
+            cameraManager->activate( event->key() - '0' );
+            ;
+        } );
+    app.m_mainWindow->getViewer()->addKeyPressEventAction(
+        "switchCam1", "Key_1", "ShiftModifier", "", "false", [cameraManager]( QKeyEvent* event ) {
+            cameraManager->activate( event->key() - '0' );
+            ;
+        } );
+    //! [Add usefull custom key events]
 
     //! [Create the camera animation system demonstrator]
     auto animationSystem = new EntityAnimationSystem;
