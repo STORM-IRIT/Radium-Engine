@@ -83,16 +83,13 @@ int main( int argc, char* argv[] ) {
     //! [Cache the camera manager]
 
     //! [Add usefull custom key events]
+    auto callback = [cameraManager]( QKeyEvent* event ) {
+        cameraManager->activate( event->key() - '0' );
+    };
     app.m_mainWindow->getViewer()->addKeyPressEventAction(
-        "switchCam0", "Key_0", "ShiftModifier", "", "false", [cameraManager]( QKeyEvent* event ) {
-            cameraManager->activate( event->key() - '0' );
-            ;
-        } );
+        "switchCam0", "Key_0", "ShiftModifier", "", "false", callback );
     app.m_mainWindow->getViewer()->addKeyPressEventAction(
-        "switchCam1", "Key_1", "ShiftModifier", "", "false", [cameraManager]( QKeyEvent* event ) {
-            cameraManager->activate( event->key() - '0' );
-            ;
-        } );
+        "switchCam1", "Key_1", "ShiftModifier", "", "false", callback );
     //! [Add usefull custom key events]
 
     //! [Create the camera animation system demonstrator]
