@@ -113,5 +113,5 @@ addRunAndDebugTargets(CustomCameraManipulator)
 add_subdirectory(PickingDemoApp)
 add_subdirectory(KeyEventDemoApp)
 
-add_subdirectory(CameraAnimationDemo)
-addRunAndDebugTargets(CameraAnimationDemo)
+add_subdirectory(EntityAnimationDemo)
+addRunAndDebugTargets(EntityAnimationDemo)

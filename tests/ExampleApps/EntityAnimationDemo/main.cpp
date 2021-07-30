@@ -95,52 +95,31 @@ class DemoWindowFactory : public Ra::Gui::BaseApplication::WindowFactory
 /* ---------------------------------------------------------------------------------------------- */
 //! [Define a simple animation system]
 /// This system will be added to the engine.
-/// Every frame it will add a task to update the transformation of the first component's entity.
-/// If a camera is attached to the entity and is active, a second task that update the camera is
-/// added to the task queue.
-class CameraAnimationSystem : public Scene::System
+/// Every frame it will add a task to update the transformation of the attached entities.
+class EntityAnimationSystem : public Scene::System
 {
   public:
-    explicit CameraAnimationSystem( Scene::DefaultCameraManager* cameraManager ) :
-        m_cameraManager {cameraManager} {}
+    void addEntity( Scene::Entity* e ) { m_animatedEntities.push_back( e ); }
 
     virtual void generateTasks( TaskQueue* q, const FrameInfo& info ) override {
 
         // get the entity of the first component
-        auto e = const_cast<Scene::Entity*>( m_components[0].first );
         auto t = info.m_animationTime;
-
-        // Transform the entity
-        auto t1 = q->registerTask( new Ra::Core::FunctionTask(
-            [e, t]() {
-                Transform T = e->getTransform();
-                T.translate( Vector3 {std::cos( t ) * 0.025, -std::sin( t ) * 0.025, 0_ra} );
-                e->setTransform( T );
-            },
-            "move" ) );
-
-        // find if a camera is attached to the entity to update its data
-        auto found =
-            std::find_if( e->getComponents().begin(), e->getComponents().end(), []( auto& p ) {
-                return dynamic_cast<Scene::CameraComponent*>( p.get() ) != nullptr;
-            } );
-        if ( found != e->getComponents().end() )
+        for ( auto e : m_animatedEntities )
         {
-            // if the attached camera component is active, update it
-            auto cameraIndex = m_cameraManager->getCameraIndex(
-                static_cast<Scene::CameraComponent*>( found->get() ) );
-            if ( cameraIndex == m_cameraManager->getActiveCameraIndex() )
-            {
-                auto t2 = q->registerTask( new Ra::Core::FunctionTask(
-                    [this, cameraIndex]() { this->m_cameraManager->updateActiveCameraData(); },
-                    "update" ) );
-                q->addDependency( t1, t2 );
-            }
+            // Transform the entity
+            q->registerTask( new Ra::Core::FunctionTask(
+                [e, t]() {
+                    Transform T = e->getTransform();
+                    T.translate( Vector3 {std::cos( t ) * 0.025, -std::sin( t ) * 0.025, 0_ra} );
+                    e->setTransform( T );
+                },
+                "move" ) );
         }
     }
 
   private:
-    Scene::DefaultCameraManager* m_cameraManager;
+    std::vector<Scene::Entity*> m_animatedEntities;
 };
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -164,7 +143,7 @@ int main( int argc, char* argv[] ) {
     //! [Cache the camera manager]
 
     //! [Create the camera animation system demonstrator]
-    auto animationSystem = new CameraAnimationSystem( cameraManager );
+    auto animationSystem = new EntityAnimationSystem;
     app.m_engine->registerSystem( "Simple animation system", animationSystem );
     //! [Create the demo animation system]
 
@@ -182,43 +161,37 @@ int main( int argc, char* argv[] ) {
         auto c = new Scene::TriangleMeshComponent(
             "Fixed cube geometry", e, std::move( cube ), nullptr );
         //! [Create a geometry component with the cube]
-
     }
     //! [Create the demo fixed component]
 
-    //! [Create the demo animated components]
+    //! [Create the demo animated entity/components]
     {
-        //! [Creating the cube]
-        auto cube = Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f}, Ra::Core::Utils::Color::Yellow() );
-        //! [Creating the Cube]
-
-        //! [Create the engine entity for the cube]
-        auto e = app.m_engine->getEntityManager()->createEntity( "Moving Cube" );
+        //! [Create the animated entity ]
+        auto e = app.m_engine->getEntityManager()->createEntity( "Animated entity" );
         Transform transform( Translation {1, 1, 0} );
         e->setTransform( transform );
         e->swapTransformBuffers();
-        //! [Create the engine entity for the cube]
+        //! [Create the animated entity ]
 
-        //! [Create a geometry component with the cube]
-        auto c = new Scene::TriangleMeshComponent(
-            "Fixed cube geometry", e, std::move( cube ), nullptr );
-        //! [Create a geometry component with the cube]
+        //! [Register the entity to the animation system ]
+        animationSystem->addEntity( e );
+        //! [Register the entity to the animation system ]
 
-        //! [Register the entity/component association to the animation system ]
-        animationSystem->addComponent( e, c );
-        //! [Register the entity/component association to the animation system ]
+        //! [attach components to the animated entity ]
+        // an animated yellow cube
+        auto cube = Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f}, Ra::Core::Utils::Color::Yellow() );
+        new Scene::TriangleMeshComponent( "Fixed cube geometry", e, std::move( cube ), nullptr );
 
-        //! [Create the animated camera]
-        // The animated camera is not the one active at startup. Use key '0' to activate
+        // an animated camera, thay is not the one active at startup. Use key '0' to activate
         auto camera = new Scene::CameraComponent( e, "Animated Camera" );
         camera->initialize();
         camera->getCamera()->setPosition( Vector3 {0.5, 0, 0} );
         camera->getCamera()->setDirection( Vector3 {-1, 0, 0} );
         camera->show( true );
         cameraManager->addCamera( camera );
-        //! [Create the animated camera]
+        //! [attach components to the animated entity ]
     }
-    //! [Create the demo animated components]
+    //! [Create the demo animated entity/components]
 
     //! [Create the fixed reference camera]
     {

@@ -3,7 +3,7 @@ if (APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif (APPLE)
 
-project(CameraAnimationDemo VERSION 1.0.0)
+project(EntityAnimationDemo VERSION 1.0.0)
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
