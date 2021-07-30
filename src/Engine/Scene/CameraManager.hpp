@@ -1,4 +1,5 @@
 #pragma once
+#include <Core/Utils/Observable.hpp>
 
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/CameraStorage.hpp>
@@ -90,6 +91,12 @@ class RA_ENGINE_API CameraManager : public System
     void resetActiveCamera() {
         m_activeCamera = defaultCamera;
         m_activeIndex  = -1;
+        m_activeCameraObservers.notify( m_activeIndex );
+    }
+
+    /// get a ref to active camera observers to add/remove an observer
+    inline Core::Utils::Observable<Core::Utils::Index>& activeCameraObservers() {
+        return m_activeCameraObservers;
     }
 
   protected:
@@ -115,6 +122,9 @@ class RA_ENGINE_API CameraManager : public System
 
     /// active camera index
     Core::Utils::Index m_activeIndex;
+
+    /// Observers on active camera changes
+    Core::Utils::Observable<Core::Utils::Index> m_activeCameraObservers;
 };
 
 } // namespace Scene

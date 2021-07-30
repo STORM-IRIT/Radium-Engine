@@ -59,6 +59,8 @@ void CameraManager::updateActiveCameraData() {
     m_activeCamera.setFrame( globalFrame );
     m_activeCamera.setViewport( width, height );
     m_activeCamera.updateProjMatrix();
+    // notify observers on the change of the active camera data
+    m_activeCameraObservers.notify( m_activeIndex );
 }
 
 Ra::Core::Utils::Index CameraManager::getCameraIndex( const CameraComponent* cam ) {
@@ -120,10 +122,9 @@ void CameraManager::registerComponent( const Entity* entity, Component* componen
     /// register the manager to the entity's transformationObservers to update
     /// active camera data on entity's transformation changes
     auto idx = getCameraIndex( reinterpret_cast<CameraComponent*>( component ) );
-    const_cast<Entity*>( entity )->transformationObservers().attach(
-        [this, idx]( const Entity* ) {
-            if ( idx == m_activeIndex ) { updateActiveCameraData(); }
-        } );
+    const_cast<Entity*>( entity )->transformationObservers().attach( [this, idx]( const Entity* ) {
+        if ( idx == m_activeIndex ) { updateActiveCameraData(); }
+    } );
 }
 
 void CameraManager::unregisterComponent( const Entity* entity, Component* component ) {
