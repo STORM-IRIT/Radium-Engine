@@ -14,12 +14,10 @@
 // include the task animation interface
 #include <Core/Tasks/Task.hpp>
 
-// include the Camera and default camera manager interface
-#include <Engine/Scene/CameraComponent.hpp>
-#include <Engine/Scene/DefaultCameraManager.hpp>
+// include the camera manager interface
+#include <Engine/Scene/CameraManager.hpp>
 
-// include the viewer to activate the camera
-#include <Gui/Viewer/CameraManipulator.hpp>
+// include the viewer to add key event
 #include <Gui/Viewer/Viewer.hpp>
 
 // To terminate the demo after a given time
@@ -50,7 +48,8 @@ class EntityAnimationSystem : public Scene::System
             q->registerTask( new Ra::Core::FunctionTask(
                 [e, t]() {
                     Transform T = e->getTransform();
-                    T.translate( Vector3 {std::cos( t ) * 0.025, -std::sin( t ) * 0.025, 0_ra} );
+                    T.translate(
+                        Vector3 {std::cos( t ) * 0.025_ra, -std::sin( t ) * 0.025_ra, 0_ra} );
                     e->setTransform( T );
                 },
                 "move" ) );
@@ -78,8 +77,8 @@ int main( int argc, char* argv[] ) {
     //![Parameterize the Engine  time loop]
 
     //! [Cache the camera manager]
-    auto cameraManager = static_cast<Scene::DefaultCameraManager*>(
-        app.m_engine->getSystem( "DefaultCameraManager" ) );
+    auto cameraManager =
+        static_cast<Scene::CameraManager*>( app.m_engine->getSystem( "DefaultCameraManager" ) );
     //! [Cache the camera manager]
 
     //! [Add usefull custom key events]
@@ -153,11 +152,7 @@ int main( int argc, char* argv[] ) {
         camera->getCamera()->setDirection( Vector3 {0, 0, -1} );
         camera->show( true );
         cameraManager->addCamera( camera );
-        // Activating a camera require 2 things :
-        // ask the camera manager to activate the camera
         cameraManager->activate( cameraManager->getCameraIndex( camera ) );
-        // ask the CameraManipulator to update its camera info
-        app.m_mainWindow->getViewer()->getCameraManipulator()->updateCamera();
     }
     //! [Create the fixed reference camera]
 
