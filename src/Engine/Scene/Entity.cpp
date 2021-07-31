@@ -18,6 +18,7 @@ Entity::Entity( const std::string& name ) :
 Entity::~Entity() {
     // Ensure components are deleted before the entity for consistent
     // ordering of signals.
+    m_transformationObservers.detachAll();
     m_components.clear();
     RadiumEngine::getInstance()->getSignalManager()->fireEntityDestroyed( ItemEntry( this ) );
 }
@@ -71,6 +72,7 @@ void Entity::swapTransformBuffers() {
     {
         m_transform        = m_doubleBufferedTransform;
         m_transformChanged = false;
+        m_transformationObservers.notify( this );
     }
 }
 

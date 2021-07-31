@@ -128,8 +128,6 @@ void Viewer::resetToDefaultCamera() {
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
     cameraManager->resetActiveCamera();
-    m_camera->updateCamera();
-    m_camera->getCamera()->setViewport( width(), height() );
 }
 
 GizmoManager* Viewer::getGizmoManager() {
@@ -455,6 +453,14 @@ bool Viewer::initializeGL() {
 
     m_camera->attachLight( headlight );
 
+    // Register to the camera manager active camera changes
+    auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+        Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+    cameraManager->activeCameraObservers().attach( [this]( Core::Utils::Index idx ) {
+        m_camera->updateCamera();
+        m_camera->getCamera()->setViewport( width(), height() );
+    } );
+
     // Initialize renderers added to the viewer before initializeGL
     for ( auto& rptr : m_pendingRenderers )
     {
@@ -659,7 +665,6 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
             {
                 idx %= cameraManager->count();
                 cameraManager->activate( idx );
-                m_camera->updateCamera();
                 eventCatched = true;
             }
             idx++;

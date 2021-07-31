@@ -1,4 +1,5 @@
 #pragma once
+#include <Core/Utils/Observable.hpp>
 
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/CameraStorage.hpp>
@@ -49,25 +50,24 @@ class RA_ENGINE_API CameraManager : public System
     virtual void initialize();
 
     /// activate camera at index given its index.
-    /// index-th camera data is copied to the "default camera" at index 0.
-    /// width and height of camera 0 is kept during this process, since it's likely to be screen
-    /// size, while index-th camera width height might be something else.
+    /// index-th camera data is copied to the "active camera" stored explicitly by the manager.
+    /// width and height of previous active camera is kept during this process, since it's likely
+    /// to be screen size, while index-th camera width height might be something else.
+    /// When a camera is activated, the frame of the active camera is computed to take the
+    /// entity's transformation into account.
     /// \param index: camera's index to activate, if invalid or out of bound, activation is ignored.
     void activate( Core::Utils::Index index );
+
+    /// update the active camera data
+    void updateActiveCameraData();
 
     //
     // Calls for the Renderer
     //
 
     /**
-     * @brief Number of Cameras.
-     * This is still a work in progress. The idea is to make it possible for a
-     * CameraManager to tell it has only one Camera, for example if it wants to send
-     * a lot of sources at once in a single RenderParams, let's say a texture.
+     * @brief Number of managed Cameras.
      */
-    // I dont' get the idea of texture camera storage here, event if it's possible for some kind of
-    // multi view synthesis, the camera manager manages Components, do this idea of texture means
-    // the components share some data where the know how to read/write the chunk ? (dlyr.)
     virtual size_t count() const;
 
     //
@@ -81,8 +81,23 @@ class RA_ENGINE_API CameraManager : public System
     /// can be tweaked after ctor and before initalization, or for any kind of reset.
     static Ra::Core::Asset::Camera defaultCamera;
 
+    /// Get the pointer on the active camera data
     Ra::Core::Asset::Camera* getActiveCamera() { return &m_activeCamera; }
-    void resetActiveCamera() { m_activeCamera = defaultCamera; }
+
+    /// Get the index of the currently active camera
+    Core::Utils::Index getActiveCameraIndex() const { return m_activeIndex; }
+
+    /// reset the active camera data to default camera
+    void resetActiveCamera() {
+        m_activeCamera = defaultCamera;
+        m_activeIndex  = -1;
+        m_activeCameraObservers.notify( m_activeIndex );
+    }
+
+    /// get a ref to active camera observers to add/remove an observer
+    inline Core::Utils::Observable<Core::Utils::Index>& activeCameraObservers() {
+        return m_activeCameraObservers;
+    }
 
   protected:
     /** Inherited method marked as final to ensure correct memory management
@@ -104,6 +119,12 @@ class RA_ENGINE_API CameraManager : public System
 
     /// active camera data, active camera hasn't any component just pure data.
     Ra::Core::Asset::Camera m_activeCamera;
+
+    /// active camera index
+    Core::Utils::Index m_activeIndex;
+
+    /// Observers on active camera changes
+    Core::Utils::Observable<Core::Utils::Index> m_activeCameraObservers;
 };
 
 } // namespace Scene

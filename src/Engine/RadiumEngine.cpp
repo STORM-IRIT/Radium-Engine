@@ -61,8 +61,9 @@ void RadiumEngine::initialize() {
 
     auto cameraManager = new Scene::DefaultCameraManager();
     cameraManager->initialize();
-    Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultCameraManager",
-                                                             cameraManager );
+    // register the CameraManager so that it is always activated after all other systems
+    Ra::Engine::RadiumEngine::getInstance()->registerSystem(
+        "DefaultCameraManager", cameraManager, std::numeric_limits<int>::min() );
 
     m_loadingState = false;
 }
