@@ -9,6 +9,7 @@
 
 #include <Core/Types.hpp>
 #include <Core/Utils/IndexedObject.hpp>
+#include <Core/Utils/Observable.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -41,6 +42,9 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
     const Core::Matrix4& getTransformAsMatrix() const;
 
     void swapTransformBuffers();
+
+    /// get a ref to transformation observers to add/remove an observer
+    inline Core::Utils::Observable<const Entity*>& transformationObservers() const;
 
     // Components
     /// Add a component to the given entity. Component ownership is transfered to the entity.
@@ -76,6 +80,9 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
 
     bool m_isAabbValid {false};
     Core::Aabb m_aabb;
+
+    /// Listeners on Entity Transformation changes
+    mutable Core::Utils::Observable<const Entity*> m_transformationObservers;
 
     ///\todo add an index;
 };

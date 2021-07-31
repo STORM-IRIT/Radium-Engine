@@ -38,6 +38,10 @@ inline uint Entity::getNumComponents() const {
     return uint( m_components.size() );
 }
 
+inline Core::Utils::Observable<const Entity*>& Entity::transformationObservers() const {
+    return m_transformationObservers;
+}
+
 } // namespace Scene
 } // namespace Engine
 } // namespace Ra
