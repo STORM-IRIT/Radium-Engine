@@ -111,10 +111,17 @@ configure_radium_app(NAME CustomCameraManipulator)
 addRunAndDebugTargets(CustomCameraManipulator)
 
 add_subdirectory(PickingDemoApp)
+add_dependencies(${PROJECT_NAME} PickingDemoApp)
+addRunAndDebugTargets(PickingDemoApp)
+
 add_subdirectory(KeyEventDemoApp)
+add_dependencies(${PROJECT_NAME} KeyEventDemoApp)
+addRunAndDebugTargets(KeyEventDemoApp)
 
 add_subdirectory(EntityAnimationDemo)
+add_dependencies(${PROJECT_NAME} EntityAnimationDemo)
 addRunAndDebugTargets(EntityAnimationDemo)
 
 add_subdirectory(HeadlessLibAndApp)
 add_dependencies(${PROJECT_NAME} Headless HeadlessDemo)
+addRunAndDebugTargets(HeadlessDemo)

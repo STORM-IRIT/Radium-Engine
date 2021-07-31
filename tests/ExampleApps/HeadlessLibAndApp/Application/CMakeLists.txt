@@ -62,5 +62,3 @@ configure_radium_app(
     PREFIX Demos
     RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Assets
 )
-
-addRunAndDebugTargets(${PROJECT_NAME})
