@@ -388,7 +388,7 @@ function(install_target_resources)
     # compute where to link the resources in the buildtree (as in a bundle : ${CMAKE_CURRENT_BINARY_DIR}/../Resources
     # also set RESOURCES_DESTINATION_DIR
     if (${TARGET_TYPE} STREQUAL "EXECUTABLE")
-        if (APPLE)
+        if (APPLE AND IsMacBundle)
             set(RESOURCES_DESTINATION_DIR "bin/${ARGS_TARGET}.app/Contents/Resources/")
             set(RESOURCES_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}.app/Contents/Resources)
             install(CODE "
