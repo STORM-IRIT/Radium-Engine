@@ -12,7 +12,6 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 # Enable helpfull warnings and C++17 for all files
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 # Project setup, versioning stuff here, change when changing the version
 # Note: keep the project name lower case only for easy linux packaging support
 project (radiumproject VERSION 1.0.0)
@@ -192,7 +191,7 @@ if (RADIUM_ENABLE_TESTING)
     enable_testing()
     include(CTest)
     add_subdirectory(tests)
-    add_dependencies(RadiumLibs CoreExampleApp RadiumExampleApps)
+    add_dependencies(RadiumExampleApps RadiumLibs)
 endif ()
 
 if(ENABLE_COVERAGE)
