@@ -49,10 +49,13 @@ FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
 
     if ( !fileData->isInitialized() ) { return nullptr; }
 
-    const aiScene* scene = m_importer.ReadFile(
-        fileData->getFileName(),
-        aiProcess_GenSmoothNormals | aiProcess_SortByPType | aiProcess_FixInfacingNormals |
-            aiProcess_CalcTangentSpace | aiProcess_GenUVCoords );
+    /*
+     * TODO : allow user to parameterize assimp process on loaded meshes
+     */
+    const aiScene* scene =
+        m_importer.ReadFile( fileData->getFileName(),
+                             aiProcess_GenSmoothNormals | aiProcess_SortByPType |
+                                 aiProcess_CalcTangentSpace | aiProcess_GenUVCoords );
 
     if ( scene == nullptr )
     {
