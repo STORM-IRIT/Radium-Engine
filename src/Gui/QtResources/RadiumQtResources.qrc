@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="">
-        <file>Icons/RadiumIcon.png</file>
-        <file>about.html</file>
-        <file>radium_engine.css</file>
-    </qresource>
-</RCC>
