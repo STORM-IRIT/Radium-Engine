@@ -1,6 +1,7 @@
 var classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem =
 [
     [ "SkeletonBasedAnimationSystem", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#acd5e22d9848af14d06e33620a84bb4e4", null ],
+    [ "~SkeletonBasedAnimationSystem", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#aae4974ffd67f4cbe56bc4d40d8970a1f", null ],
     [ "SkeletonBasedAnimationSystem", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#a0409355fb303beb3397679bb9265c457", null ],
     [ "enforceUpdate", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#aed4ce8eacdd0404be8b01948d7a21820", null ],
     [ "generateTasks", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#ae5b707dccf07a57b033d2a47640e57b3", null ],

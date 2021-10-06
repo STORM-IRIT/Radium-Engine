@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">e22754d0abe192207fd946509cbd63c4f9e52dd4</span>
+   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
    </div>
   </td>
  </tr>
@@ -177,57 +177,41 @@ $(document).ready(function(){initNavTree('AssimpCameraDataLoader_8cpp_source.htm
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    view.block&lt;3, 1&gt;( 0, 1 ) = up;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    view.block&lt;3, 1&gt;( 0, 2 ) = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad79b708fb40ed130ff8031d709b78504">lookAt</a>;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    view.block&lt;3, 1&gt;( 0, 3 ) = pos;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3">setFrame</a>( <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> {view * frame} );</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#ab3aba6e1ced1cc6e560c00bf9402a72c">setType</a>( Camera::ProjType::PERSPECTIVE ); <span class="comment">// default value since not in aiCamera</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="comment">// assimp doc (the version we used, updated in assimp master) state mHorizontalFOV is half</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">// angle, but it is not, at least for collada, see  https://github.com/assimp/assimp/issues/2256</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="comment">// https://github.com/assimp/assimp/pull/3912</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#ae2ee8411aa3a9d8ba5380b9c9ee3dfda">setFOV</a>( camera.mHorizontalFOV );</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a717cfcf775ed10b6f323a02434336a85">setZNear</a>( camera.mClipPlaneNear );</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a74ae04c9a3018609a6468eaa59928ee5">setZFar</a>( camera.mClipPlaneFar );</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a7ceb08c02e98b235ca29ac671f263364">setZoomFactor</a>( 1.0 ); <span class="comment">// default value since not in aiCamera</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6">setViewport</a>( camera.mAspect, 1_ra );</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a908bd4ea76affdbd03f003998ddcbaf9">   98</a></span>&#160;<a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> <a class="code" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a908bd4ea76affdbd03f003998ddcbaf9">AssimpCameraDataLoader::loadCameraFrame</a>( <span class="keyword">const</span> aiScene* scene,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                                       <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a>&amp; <span class="comment">/*parentFrame*/</span>,</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                                                       <span class="keyword">const</span> aiCamera&amp; cameraNode )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">// old version</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">//    Core::Matrix4 oldVersionFrame;</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">//    {</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">//        aiNode* node = scene-&gt;mRootNode-&gt;FindNode( cameraNode.mName );</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">//        auto t0      = Core::Matrix4::NullaryExpr(</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">//            [&amp;scene]( int i, int j ) { return scene-&gt;mRootNode-&gt;mTransformation[i][j]; } );</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">//        auto t1 = Core::Matrix4::NullaryExpr(</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">//            [&amp;node]( int i, int j ) { return node-&gt;mTransformation[i][j]; } );</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">//        oldVersionFrame = parentFrame * t0 * t1;</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">//    }</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    aiNode* node = scene-&gt;mRootNode-&gt;FindNode( cameraNode.mName );</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> frame;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    frame.setIdentity();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">while</span> ( node != <span class="keyword">nullptr</span> )</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        frame = Core::Matrix4::NullaryExpr(</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                    [&amp;node]( <span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j ) { <span class="keywordflow">return</span> node-&gt;mTransformation[i][j]; } ) *</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                frame;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        node = node-&gt;mParent;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="comment">// to test old vs new</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="comment">// if ( frame != oldVersionFrame ) { LOG( logWARNING ) &lt;&lt; &quot;frame computation update failed!&quot;; }</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> frame;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <span class="comment">// namespace IO</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    view.block&lt;1, 3&gt;( 0, 0 ) *= -1_ra;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3">setFrame</a>( <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> {view * frame} );</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#ab3aba6e1ced1cc6e560c00bf9402a72c">setType</a>( Camera::ProjType::PERSPECTIVE ); <span class="comment">// default value since not in aiCamera</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">// assimp doc (the version we used, updated in assimp master) state mHorizontalFOV is half</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="comment">// angle, but it is not, at least for collada, see  https://github.com/assimp/assimp/issues/2256</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">// https://github.com/assimp/assimp/pull/3912</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#ae2ee8411aa3a9d8ba5380b9c9ee3dfda">setFOV</a>( camera.mHorizontalFOV );</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a717cfcf775ed10b6f323a02434336a85">setZNear</a>( camera.mClipPlaneNear );</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a74ae04c9a3018609a6468eaa59928ee5">setZFar</a>( camera.mClipPlaneFar );</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a7ceb08c02e98b235ca29ac671f263364">setZoomFactor</a>( 1.0 ); <span class="comment">// default value since not in aiCamera</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    data.<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6">setViewport</a>( camera.mAspect, 1_ra );</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a908bd4ea76affdbd03f003998ddcbaf9">   99</a></span>&#160;<a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> <a class="code" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a908bd4ea76affdbd03f003998ddcbaf9">AssimpCameraDataLoader::loadCameraFrame</a>( <span class="keyword">const</span> aiScene* scene,</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                                                       <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a>&amp;,</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                                       <span class="keyword">const</span> aiCamera&amp; cameraNode )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    aiNode* node = scene-&gt;mRootNode-&gt;FindNode( cameraNode.mName );</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> frame;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    frame.setIdentity();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">while</span> ( node != <span class="keyword">nullptr</span> )</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        frame = Core::Matrix4::NullaryExpr(</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                    [&amp;node]( <span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j ) { <span class="keywordflow">return</span> node-&gt;mTransformation[i][j]; } ) *</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                frame;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        node = node-&gt;mParent;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> frame;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace IO</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
+<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">Ra::Core::Utils::logINFO</a></div><div class="ttdeci">@ logINFO</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00018">Log.hpp:18</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html_a7ceb08c02e98b235ca29ac671f263364"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html#a7ceb08c02e98b235ca29ac671f263364">Ra::Core::Asset::Camera::setZoomFactor</a></div><div class="ttdeci">void setZoomFactor(const Scalar &amp;zoomFactor)</div><div class="ttdoc">Set the zoom factor to zoomFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8inl_source.html#l00079">Camera.inl:79</a></div></div>
@@ -245,7 +229,7 @@ $(document).ready(function(){initNavTree('AssimpCameraDataLoader_8cpp_source.htm
 <div class="ttc" id="aAssimpCameraDataLoader_8hpp_html"><div class="ttname"><a href="AssimpCameraDataLoader_8hpp.html">AssimpCameraDataLoader.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1AssimpCameraDataLoader_html_aa7331bf02b443ab48bfcb2c0f606710c"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#aa7331bf02b443ab48bfcb2c0f606710c">Ra::IO::AssimpCameraDataLoader::sceneHasCamera</a></div><div class="ttdeci">bool sceneHasCamera(const aiScene *scene) const</div><div class="ttdoc">Return true if the given scene has camera data.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpCameraDataLoader_8cpp_source.html#l00056">AssimpCameraDataLoader.cpp:56</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a></div><div class="ttdoc">Camera class storing the Camera frame and the projection properties The view direction is -z in camer...</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8hpp_source.html#l00015">Camera.hpp:15</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpCameraDataLoader_html_a908bd4ea76affdbd03f003998ddcbaf9"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a908bd4ea76affdbd03f003998ddcbaf9">Ra::IO::AssimpCameraDataLoader::loadCameraFrame</a></div><div class="ttdeci">Core::Matrix4 loadCameraFrame(const aiScene *scene, const Core::Matrix4 &amp;parentFrame, const aiCamera &amp;node) const</div><div class="ttdoc">Return the Camera transformation, in world space, for data from the scene.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpCameraDataLoader_8cpp_source.html#l00098">AssimpCameraDataLoader.cpp:98</a></div></div>
+<div class="ttc" id="aclassRa_1_1IO_1_1AssimpCameraDataLoader_html_a908bd4ea76affdbd03f003998ddcbaf9"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a908bd4ea76affdbd03f003998ddcbaf9">Ra::IO::AssimpCameraDataLoader::loadCameraFrame</a></div><div class="ttdeci">Core::Matrix4 loadCameraFrame(const aiScene *scene, const Core::Matrix4 &amp;parentFrame, const aiCamera &amp;node) const</div><div class="ttdoc">Return the Camera transformation, in world space, for data from the scene.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpCameraDataLoader_8cpp_source.html#l00099">AssimpCameraDataLoader.cpp:99</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html_ac5e49d14a044ec5c39666cab662f3ba3"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3">Ra::Core::Asset::Camera::setFrame</a></div><div class="ttdeci">void setFrame(const Core::Transform &amp;frame)</div><div class="ttdoc">Set the frame of the camera to frame.</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8inl_source.html#l00013">Camera.inl:13</a></div></div>
 <div class="ttc" id="aAssimpWrapper_8hpp_html"><div class="ttname"><a href="AssimpWrapper_8hpp.html">AssimpWrapper.hpp</a></div></div>
@@ -262,7 +246,7 @@ $(document).ready(function(){initNavTree('AssimpCameraDataLoader_8cpp_source.htm
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_7788c5f37a81918c772c9185f759a19f.html">AssimpLoader</a></li><li class="navelem"><a class="el" href="AssimpCameraDataLoader_8cpp.html">AssimpCameraDataLoader.cpp</a></li>
-    <li class="footer">Generated on Wed Jul 21 2021 12:55:33 for Radium Engine by
+    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

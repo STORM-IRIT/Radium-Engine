@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a0b184fce71ffadd4a5f37df92b695cb3" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a0b184fce71ffadd4a5f37df92b695cb3" target="_top" xlink:title="reset the active camera data to default camera">
 <polygon fill="white" stroke="black" points="169,-0.5 169,-41.5 328,-41.5 328,-0.5 169,-0.5"/>
 <text text-anchor="start" x="177" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
 <text text-anchor="start" x="177" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">CameraManager::resetActive</text>

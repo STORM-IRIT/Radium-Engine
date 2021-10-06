@@ -1,16 +1,11 @@
 var NAVTREEINDEX8 =
 {
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#adbf1d073d8cd74e84bb06275b8b9f4f3":[9,0,2,0,2,8,23],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#adcff5c75183311f4377368c01d32e531":[9,0,2,0,2,8,25],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#adecd896759aa64c31e07559d158ead31":[9,0,2,0,2,8,31],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae1380c755066e114a74c184af2333bca":[9,0,2,0,2,8,30],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae1b25ab30e733b01341f876105ddadfb":[9,0,2,0,2,8,2],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae5bd93fb5c9da1e296da6779b3f8c7a9":[9,0,2,0,2,8,42],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#aeb7536aea83b47979e224d935d6c17f1":[9,0,2,0,2,8,32],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#af2915cec9f0eda10e9469bf26fd755af":[9,0,2,0,2,8,37],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#af703576ee787bd2a97d2ed4d382fbe74":[9,0,2,0,2,8,60],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#afa535d43ac2a7b1ed60315a900af802d":[9,0,2,0,2,8,59],
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#affa3c95847ddaf8ef9c0353d0bdfa6ca":[9,0,2,0,2,8,50],
+"classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae5bd93fb5c9da1e296da6779b3f8c7a9":[9,0,2,0,2,8,39],
+"classRa_1_1Core_1_1Asset_1_1GeometryData.html#aeb7536aea83b47979e224d935d6c17f1":[9,0,2,0,2,8,29],
+"classRa_1_1Core_1_1Asset_1_1GeometryData.html#af2915cec9f0eda10e9469bf26fd755af":[9,0,2,0,2,8,34],
+"classRa_1_1Core_1_1Asset_1_1GeometryData.html#af703576ee787bd2a97d2ed4d382fbe74":[9,0,2,0,2,8,56],
+"classRa_1_1Core_1_1Asset_1_1GeometryData.html#afa535d43ac2a7b1ed60315a900af802d":[9,0,2,0,2,8,55],
+"classRa_1_1Core_1_1Asset_1_1GeometryData.html#affa3c95847ddaf8ef9c0353d0bdfa6ca":[9,0,2,0,2,8,46],
 "classRa_1_1Core_1_1Asset_1_1HandleData.html":[9,0,2,0,2,11],
 "classRa_1_1Core_1_1Asset_1_1HandleData.html#a07203553c9efa628e9169c2af546e494":[9,0,2,0,2,11,22],
 "classRa_1_1Core_1_1Asset_1_1HandleData.html#a1189e767e22ef4bb93527a724630cc56":[9,0,2,0,2,11,34],
@@ -249,5 +244,10 @@ var NAVTREEINDEX8 =
 "classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8":[9,0,2,0,4,8,1],
 "classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8a02bdb13979499fd49786ddc96da2d1f7":[9,0,2,0,4,8,1,2],
 "classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8a666b8af1b0c53e3de336c7f2b3958d69":[9,0,2,0,4,8,1,3],
-"classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8a7168ea907cc187d3fb74400e6995ab92":[9,0,2,0,4,8,1,0]
+"classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8a7168ea907cc187d3fb74400e6995ab92":[9,0,2,0,4,8,1,0],
+"classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8ae676bd455e0c75dd94906c5c64948d85":[9,0,2,0,4,8,1,1],
+"classRa_1_1Core_1_1Geometry_1_1Curve2D.html#aeed58c1d1a26b075000a395f16f85dbf":[9,0,2,0,4,8,5],
+"classRa_1_1Core_1_1Geometry_1_1Curve2D.html#af46ffa37ffa63f4d241a23ac3b0c9704":[9,0,2,0,4,8,2],
+"classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html":[9,0,2,0,4,11],
+"classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html#a1070e9be9b41dc13f163793dbcbbcde1":[9,0,2,0,4,11,2]
 };

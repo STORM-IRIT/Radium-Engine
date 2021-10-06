@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">e22754d0abe192207fd946509cbd63c4f9e52dd4</span>
+   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
    </div>
   </td>
  </tr>
@@ -163,6 +163,9 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 <li>getActiveCamera()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a">Ra::Engine::Scene::CameraManager</a>
 </li>
+<li>getActiveCameraIndex()
+: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a3577b0a8f0203749200dcc6bb7d512f4">Ra::Engine::Scene::CameraManager</a>
+</li>
 <li>getAnimation()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a88bfaf8b0c3de753319158bfd54d428a">Ra::Engine::Scene::SkeletonComponent</a>
 </li>
@@ -270,9 +273,6 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 </li>
 <li>getColor()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a096a128f4431048712ef7fbb5ed78e56">Ra::Engine::Scene::Light</a>
-</li>
-<li>getColors()
-: <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a0db79e4c77ed3009dc40d81e260c635e">Ra::Core::Asset::GeometryData</a>
 </li>
 <li>getComponent()
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html#aea3874a232fda33c61d182cb84577d88">Ra::Core::Asset::HandleData</a>
@@ -583,7 +583,7 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 </li>
 <li>getMesh()
 : <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#aa6d84d3870c1bba037a581d86e4d2171">Ra::Engine::RadiumEngine</a>
-, <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a7290c1b0c230486c1d10685053611027">Ra::Engine::Rendering::RenderObject</a>
+, <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a46af679003e88d8bd0d3eb1677fa3690">Ra::Engine::Rendering::RenderObject</a>
 </li>
 <li>getMeshName()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#aa4ba7bc665b94e9374e7582de6de7730">Ra::Engine::Scene::SkinningComponent</a>
@@ -658,11 +658,11 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 </li>
 <li>getParameters()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#aaee09d32ae7e803e4cbdd13869a21adc">Ra::Engine::Data::RawShaderMaterial</a>
-, <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ab18a41ad288a780a3ab302203aa6e731">Ra::Engine::Data::ShaderParameterProvider</a>
+, <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ad7da3601a26ed84cc50fe7036f4c0dd9">Ra::Engine::Data::ShaderParameterProvider</a>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html#af04c46b3dd84cf17e340a6b1d9f5b420">Ra::Engine::Data::Texture</a>
 </li>
 <li>getParameterSet()
-: <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e">Ra::Engine::Data::RenderParameters</a>
+: <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae005d82f1311363657a20405db1ce8bf">Ra::Engine::Data::RenderParameters</a>
 </li>
 <li>getParametersProvider()
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2dcfdb2e3b96bf8c5f1e2310cdec5afe">Ra::Engine::Rendering::RenderTechnique</a>
@@ -729,7 +729,7 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a79e1631d8cc94ca6430572a0bc38d076">Ra::Core::Asset::Camera</a>
 </li>
 <li>getRenderer()
-: <a class="el" href="classRa_1_1Gui_1_1Viewer.html#aa494c3894be5858ef29cd48bf67d9e96">Ra::Gui::Viewer</a>
+: <a class="el" href="classRa_1_1Gui_1_1Viewer.html#afc6e445d0f1225ebfea8f7236da1df0c">Ra::Gui::Viewer</a>
 </li>
 <li>getRendererName()
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#ad260e2baa88757930a7f610ee26a5d12">Ra::Engine::Rendering::ForwardRenderer</a>
@@ -775,7 +775,7 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html#af590a75472c842932ad2122ac2288be1">Ra::Engine::Scene::SpotLight</a>
 </li>
 <li>getRenderTechnique()
-: <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a9e6d3b69b161fa67a59f41269b37266b">Ra::Engine::Rendering::RenderObject</a>
+: <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a227614044bc14f4ee03de697bba67643">Ra::Engine::Rendering::RenderObject</a>
 </li>
 <li>getResourcesDir()
 : <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#aa2584c15750fd8403df49d8b7fdaf902">Ra::Engine::RadiumEngine</a>
@@ -882,7 +882,7 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#afdb1d67866fa6dc2a0c390452aaf0f40">Ra::Engine::Scene::ComponentMessenger</a>
 </li>
 <li>getTexCoords()
-: <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a401dc38d3ba67efbb915efcf6e30cc6a">Ra::Core::Asset::GeometryData</a>
+: <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#adcff5c75183311f4377368c01d32e531">Ra::Core::Asset::GeometryData</a>
 </li>
 <li>getTexture()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#aa8e89544b5da028dda7e38896dc27213">Ra::Engine::Data::BlinnPhongMaterial</a>
@@ -1067,7 +1067,7 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 : <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a>
 </li>
 <li>Grid()
-: <a class="el" href="classRa_1_1Core_1_1Grid.html#a45ed0e29c52d152177c621b50562744e">Ra::Core::Grid&lt; T, D &gt;</a>
+: <a class="el" href="classRa_1_1Core_1_1Grid.html#a2ab7a387c2d40371b25f5dd7562ae5e6">Ra::Core::Grid&lt; T, D &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -1075,7 +1075,7 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 21 2021 12:55:35 for Radium Engine by
+    <li class="footer">Generated on Wed Oct 6 2021 07:19:22 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

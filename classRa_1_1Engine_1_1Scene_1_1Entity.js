@@ -18,5 +18,6 @@ var classRa_1_1Engine_1_1Scene_1_1Entity =
     [ "rename", "classRa_1_1Engine_1_1Scene_1_1Entity.html#a6deed5766e610abecf7846ac1c949c03", null ],
     [ "setTransform", "classRa_1_1Engine_1_1Scene_1_1Entity.html#a156f49ae49c70958055f6f24bd1323c9", null ],
     [ "setTransform", "classRa_1_1Engine_1_1Scene_1_1Entity.html#a3d2c816d8383d6967fd283839a9485ff", null ],
-    [ "swapTransformBuffers", "classRa_1_1Engine_1_1Scene_1_1Entity.html#adb8d7310c4f4036229d03f087cf05f56", null ]
+    [ "swapTransformBuffers", "classRa_1_1Engine_1_1Scene_1_1Entity.html#adb8d7310c4f4036229d03f087cf05f56", null ],
+    [ "transformationObservers", "classRa_1_1Engine_1_1Scene_1_1Entity.html#a534acbd29f5dc60bcea54c7a826bc92f", null ]
 ];
