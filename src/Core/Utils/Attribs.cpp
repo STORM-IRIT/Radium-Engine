@@ -7,7 +7,7 @@ namespace Core {
 namespace Utils {
 
 AttribBase::~AttribBase() {
-    notify();
+    detachAll();
 }
 
 template <>
