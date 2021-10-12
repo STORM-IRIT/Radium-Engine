@@ -36,6 +36,7 @@ set(CLI11_headers
     RadiumHeadless/CLI/App.hpp
     RadiumHeadless/CLI/CLI.hpp
     RadiumHeadless/CLI/Config.hpp
+    RadiumHeadless/CLI/ConfigFwd.hpp
     RadiumHeadless/CLI/Error.hpp
     RadiumHeadless/CLI/Formatter.hpp
     RadiumHeadless/CLI/FormatterFwd.hpp
