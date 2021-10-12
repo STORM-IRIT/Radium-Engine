@@ -254,7 +254,6 @@ void setupLineMesh( std::shared_ptr<Data::LineMesh>& disp, CoreGeometry& core ) 
         auto handle = core.template getAttribHandle<typename CoreGeometry::Point>(
             Data::Mesh::getAttribName( Data::Mesh::VERTEX_POSITION ) );
         core.vertexAttribs().getAttrib( handle ).attach( VerticesUpdater( disp, core ) );
-
         core.attach( IndicesUpdater( disp, core ) );
     }
     else
