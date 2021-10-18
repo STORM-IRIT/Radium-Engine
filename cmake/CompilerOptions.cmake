@@ -26,6 +26,8 @@ set(RA_DEFAULT_PROJECT_OPTIONS
     Off
     CXX_STANDARD
     17
+    CXX_STANDARD_REQUIRED
+    ON
     LINKER_LANGUAGE
     "CXX"
     VERSION
@@ -135,7 +137,7 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHE
         >
         # Required for CMake < 3.1; should be removed if minimum required CMake version is raised.
         $<$<VERSION_LESS:${CMAKE_VERSION},3.1>:
-        -std=c++11
+        -std=c++17
         >
     )
 endif()
