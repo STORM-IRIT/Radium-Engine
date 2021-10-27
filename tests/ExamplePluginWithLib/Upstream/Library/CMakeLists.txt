@@ -50,18 +50,12 @@ message(
         " Configure library ${PROJECT_NAME} for insertion into Radium exosystem at ${CMAKE_INSTALL_PREFIX}"
 )
 configure_radium_library(
-    TARGET
-    ${PROJECT_NAME}
-    TARGET_DIR
-    ${PROJECT_NAME}
-    NAMESPACE
-    ${PROJECT_NAME}
-    PACKAGE_DIR
-    ${CMAKE_INSTALL_PREFIX}/lib/cmake
-    PACKAGE_CONFIG
-    ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}-Config.cmake.in
-    FILES
-    "${public_headers}"
+    TARGET ${PROJECT_NAME}
+    TARGET_DIR ${PROJECT_NAME}
+    NAMESPACE ${PROJECT_NAME}
+    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
+    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}-Config.cmake.in
+    FILES "${public_headers}"
 )
 
 install_target_resources(

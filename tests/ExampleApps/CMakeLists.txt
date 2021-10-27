@@ -71,7 +71,7 @@ add_dependencies(${PROJECT_NAME} DrawPrimitivesDemo)
 message(STATUS "Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(
     NAME DrawPrimitivesDemo RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/DrawPrimitivesApp/Assets" PREFIX
-    "DrawPrimitivesApp"
+                                      "DrawPrimitivesApp"
 )
 add_run_and_debug_targets(DrawPrimitiveDemo)
 
