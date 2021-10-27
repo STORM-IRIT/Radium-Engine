@@ -70,16 +70,11 @@ target_compile_options(${libName} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTE
 
 # configure the component "Headless" of pacakges "RadiumHeadless"
 configure_radium_library(
-    TARGET
-    ${libName}
-    FILES
-    "${${libName}_headers}"
-    TARGET_DIR
-    .
-    NAMESPACE
-    ${namespaceName}
-    PACKAGE_DIR
-    ${CMAKE_INSTALL_PREFIX}/lib/cmake/${namespaceName}
+    TARGET ${libName}
+    FILES "${${libName}_headers}"
+    TARGET_DIR .
+    NAMESPACE ${namespaceName}
+    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${namespaceName}
 )
 
 # configure the package "RadiumHeadless"

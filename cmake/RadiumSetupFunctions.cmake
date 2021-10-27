@@ -92,8 +92,8 @@ function(configure_cmdline_radium_app)
                            "for ${ARGS_NAME} "
             )
             install_target_resources(
-                TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation} RESOURCES_INSTALL_DIR
-                ${ARGS_PREFIX}
+                TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation}
+                RESOURCES_INSTALL_DIR ${ARGS_PREFIX}
             )
         endforeach()
     endif()
@@ -271,8 +271,8 @@ function(configure_bundled_radium_app)
                            "for ${ARGS_NAME} "
             )
             install_target_resources(
-                TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation} RESOURCES_INSTALL_DIR
-                ${ARGS_PREFIX}
+                TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation}
+                RESOURCES_INSTALL_DIR ${ARGS_PREFIX}
             )
         endforeach()
     endif()
@@ -650,8 +650,8 @@ function(configure_windows_radium_app)
                            "for ${ARGS_NAME} "
             )
             install_target_resources(
-                TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation} RESOURCES_INSTALL_DIR
-                ${ARGS_PREFIX}
+                TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation}
+                RESOURCES_INSTALL_DIR ${ARGS_PREFIX}
             )
         endforeach()
     endif()
@@ -843,9 +843,9 @@ function(configure_radium_plugin)
                            "${resLocation} for ${ARGS_NAME} "
             )
             install_plugin_resources(
-                TARGET ${ARGS_NAME} DIRECTORY ${resLocation} BUILD_LOCATION
-                ${CMAKE_CURRENT_BINARY_DIR}/Plugins/Resources/${ARGS_NAME} INSTALL_LOCATION
-                ${${ARGS_NAME}_INSTALL_DIR}
+                TARGET ${ARGS_NAME} DIRECTORY ${resLocation}
+                BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Plugins/Resources/${ARGS_NAME}
+                INSTALL_LOCATION ${${ARGS_NAME}_INSTALL_DIR}
             )
         endforeach()
     endif()
@@ -975,8 +975,8 @@ function(configure_radium_library)
     )
     if(ARGS_PACKAGE_CONFIG)
         configure_radium_package(
-            NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG} PACKAGE_DIR
-            ${ARGS_PACKAGE_DIR}
+            NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
+            PACKAGE_DIR ${ARGS_PACKAGE_DIR}
         )
     endif()
     foreach(file ${ARGS_FILES})
