@@ -62,17 +62,17 @@ set(_supported_components Core)
 
 include("${CMAKE_CURRENT_LIST_DIR}/CoreTargets.cmake")
 
-macro(checkOptionalTarget TARGET)
+macro(check_optional_target TARGET)
     if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/${TARGET}Targets.cmake")
         list(APPEND _supported_components ${TARGET})
     endif()
 endmacro()
 
 # Check available library targets
-checkoptionaltarget(Engine)
-checkoptionaltarget(IO)
-checkoptionaltarget(PluginBase)
-checkoptionaltarget(Gui)
+check_optional_target(Engine)
+check_optional_target(IO)
+check_optional_target(PluginBase)
+check_optional_target(Gui)
 
 # Check the user request matches the available library targets
 set(Radium_FOUND True)
