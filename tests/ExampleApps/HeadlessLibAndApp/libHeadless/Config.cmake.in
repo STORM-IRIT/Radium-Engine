@@ -22,8 +22,12 @@ foreach(_comp ${RadiumHeadless_FIND_COMPONENTS})
 endforeach()
 
 #------------------------------------------------------------------------------------------------------------
+
 include(CMakeFindDependencyMacro)
 if ( NOT Radium_FOUND)
+    if ( NOT DEFINED Radium_DIR )
+        set( Radium_DIR ${CMAKE_CURRENT_LIST_DIR} )
+    endif()
     find_dependency(Radium COMPONENTS Core Engine IO REQUIRED)
 endif()
 if (NOT glfw3_FOUND)

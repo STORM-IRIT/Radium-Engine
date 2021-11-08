@@ -36,6 +36,7 @@ set(CLI11_headers
     RadiumHeadless/CLI/App.hpp
     RadiumHeadless/CLI/CLI.hpp
     RadiumHeadless/CLI/Config.hpp
+    RadiumHeadless/CLI/ConfigFwd.hpp
     RadiumHeadless/CLI/Error.hpp
     RadiumHeadless/CLI/Formatter.hpp
     RadiumHeadless/CLI/FormatterFwd.hpp
@@ -85,11 +86,18 @@ target_compile_options(${libName}
     INTERFACE
 )
 
+#configure the component "Headless" of pacakges "RadiumHeadless"
 configure_radium_library(
     TARGET ${libName}
     FILES "${${libName}_headers}"
     TARGET_DIR .
     NAMESPACE ${namespaceName}
+    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${namespaceName}
+)
+
+# configure the package "RadiumHeadless"
+configure_radium_package(
+    NAME "Radium${libName}"
     PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${namespaceName}
     PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
 )
