@@ -72,7 +72,7 @@ void RenderTechnique::setParametersProvider(
         }
     }
     // add the provider specific properties to the configuration
-    addPassProperties( provider->getPropertyList() );
+    addPassProperties( provider->getPropertyList(), pass );
 }
 
 void RenderTechnique::addPassProperties( const std::list<std::string>& props,
