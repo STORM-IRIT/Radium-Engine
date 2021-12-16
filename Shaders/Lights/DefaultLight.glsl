@@ -48,7 +48,7 @@ vec3 spotLightDirection( Light light, vec3 position ) {
 }
 
 float directionalLightAttenuation( Light light ) {
-    return 1.0f;
+    return 1.f;
 }
 
 float pointLightAttenuation( Light light, vec3 position ) {
@@ -56,7 +56,7 @@ float pointLightAttenuation( Light light, vec3 position ) {
     float attenuation = light.point.attenuation.constant + light.point.attenuation.linear * d +
                         light.point.attenuation.quadratic * d * d;
 
-    return 1 / attenuation;
+    return 1.f / attenuation;
 }
 
 float spotLightAttenuation( Light light, vec3 position ) {
@@ -127,7 +127,7 @@ vec3 getLightDirection( Light light, vec3 position ) {
     case 2:
         return spotLightDirection( light, position );
     default:
-        return vec3( 0 );
+        return vec3( 0.f );
     }
 }
 
@@ -141,7 +141,7 @@ vec3 lightContributionFrom( Light light, vec3 position ) {
     case 2:
         return spotLightAttenuation( light, position ) * light.color.xyz;
     default:
-        return vec3( 0.0f );
+        return vec3( 0.f );
     }
 }
 
