@@ -17,6 +17,10 @@
 #include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/LightManager.hpp>
 
+// temporary fix for issue #837
+#include <Engine/Scene/GeometryComponent.hpp>
+
+
 #include <globjects/Framebuffer.h>
 
 #include <globjects/Texture.h>
@@ -473,7 +477,13 @@ void Renderer::renderForPicking(
                 Core::Matrix4 N = M.inverse().transpose();
                 pickingShaders[i]->setUniform( "transform.model", M );
                 pickingShaders[i]->setUniform( "transform.worldNormal", N );
-
+                // hack to pick point cloud (issue ##837)
+                auto pointCloud = dynamic_cast<Scene::PointCloudComponent*>( ro->getComponent() );
+                if ( pointCloud )
+                {
+                    pickingShaders[i]->setUniform( "pointCloudSplatRadius",
+                                                   pointCloud->getSplatSize() / 2.f );
+                }
                 // render
                 ro->getMesh()->render( pickingShaders[i] );
             }
