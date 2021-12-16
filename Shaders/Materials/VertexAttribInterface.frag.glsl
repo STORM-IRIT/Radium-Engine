@@ -1,3 +1,5 @@
+#ifndef RADIUM_VERTEXATTRIBINTERFACE_GLSL
+#define RADIUM_VERTEXATTRIBINTERFACE_GLSL
 /*****
  *
  *   Implementation of the interface to acces interpolated attributes from vertex attributes.
@@ -75,3 +77,5 @@ vec3 getPerVertexTexCoord() {
 vec4 getPerVertexBaseColor() {
     return vec4( in_vertexcolor, 1.0 );
 }
+
+#endif
