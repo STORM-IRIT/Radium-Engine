@@ -20,7 +20,6 @@
 // temporary fix for issue #837
 #include <Engine/Scene/GeometryComponent.hpp>
 
-
 #include <globjects/Framebuffer.h>
 
 #include <globjects/Texture.h>
