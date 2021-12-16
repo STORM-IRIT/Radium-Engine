@@ -33,15 +33,16 @@ vec3 getWorldSpaceNormal() {
 vec3 getWorldSpaceTangent() {
     if ( length( in_tangent.xyz ) < 0.0001 )
     { // Spec GLSL : vector not set -> (0, 0, 0, 1)
-        if ( length (in_texcoord.xy) < 0.0001 ) {
-            return normalize( dFdx( in_position ) );
-        } else {
-            vec3 uv_dx = dFdx(in_texcoord);
-            vec3 uv_dy = dFdy(in_texcoord);
-            vec3 t = (uv_dy.t * dFdx(getWorldSpacePosition().xyz) - uv_dx.t * dFdy(getWorldSpacePosition().xyz)) /
-            (uv_dx.s * uv_dy.t - uv_dy.s * uv_dx.t);
+        if ( length( in_texcoord.xy ) < 0.0001 ) { return normalize( dFdx( in_position ) ); }
+        else
+        {
+            vec3 uv_dx = dFdx( in_texcoord );
+            vec3 uv_dy = dFdy( in_texcoord );
+            vec3 t     = ( uv_dy.t * dFdx( getWorldSpacePosition().xyz ) -
+                       uv_dx.t * dFdy( getWorldSpacePosition().xyz ) ) /
+                     ( uv_dx.s * uv_dy.t - uv_dy.s * uv_dx.t );
             vec3 ng = getWorldSpaceNormal();
-            return normalize(t - ng * dot(ng, t));
+            return normalize( t - ng * dot( ng, t ) );
         }
     }
     else
@@ -49,15 +50,16 @@ vec3 getWorldSpaceTangent() {
 }
 #else
 vec3 getWorldSpaceTangent() {
-    if ( length (in_texcoord.xy) < 0.0001 ) {
-        return normalize( dFdx( in_position ) );
-    } else {
-        vec3 uv_dx = dFdx(in_texcoord);
-        vec3 uv_dy = dFdy(in_texcoord);
-        vec3 t = (uv_dy.t * dFdx(getWorldSpacePosition().xyz) - uv_dx.t * dFdy(getWorldSpacePosition().xyz)) /
-        (uv_dx.s * uv_dy.t - uv_dy.s * uv_dx.t);
+    if ( length( in_texcoord.xy ) < 0.0001 ) { return normalize( dFdx( in_position ) ); }
+    else
+    {
+        vec3 uv_dx = dFdx( in_texcoord );
+        vec3 uv_dy = dFdy( in_texcoord );
+        vec3 t     = ( uv_dy.t * dFdx( getWorldSpacePosition().xyz ) -
+                   uv_dx.t * dFdy( getWorldSpacePosition().xyz ) ) /
+                 ( uv_dx.s * uv_dy.t - uv_dy.s * uv_dx.t );
         vec3 ng = getWorldSpaceNormal();
-        return normalize(t - ng * dot(ng, t));
+        return normalize( t - ng * dot( ng, t ) );
     }
 }
 #endif
