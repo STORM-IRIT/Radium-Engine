@@ -62,8 +62,8 @@ if(DOXYGEN_FOUND)
     find_package(Git QUIET)
     if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git")
         execute_process(
-            COMMAND ${GIT_EXECUTABLE} rev-parse HEAD WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-            OUTPUT_VARIABLE GIT_CHANGESET
+            COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} OUTPUT_VARIABLE GIT_CHANGESET
         )
         if(GIT_CHANGESET)
             # remove new line sometime appearing in git changeset
@@ -109,6 +109,10 @@ if(DOXYGEN_FOUND)
     set(DOXYGEN_HTML_COLORSTYLE_GAMMA "160")
     set(DOXYGEN_HTML_TIMESTAMP "YES")
     set(DOXYGEN_HTML_DYNAMIC_SECTIONS "YES")
+    set(DOXYGEN_HTML_EXTRA_STYLESHEET
+        "${CMAKE_CURRENT_SOURCE_DIR}/../external/doxygen-awesome-css/doxygen-awesome.css"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../external/doxygen-awesome-css/doxygen-awesome-sidebar-only.css"
+    )
     set(DOXYGEN_DOCSET_BUNDLE_ID "com.storm-irit.RadiumEngine")
     set(DOXYGEN_DOCSET_PUBLISHER_NAME "IRIT")
     set(DOXYGEN_GENERATE_TREEVIEW "YES")
