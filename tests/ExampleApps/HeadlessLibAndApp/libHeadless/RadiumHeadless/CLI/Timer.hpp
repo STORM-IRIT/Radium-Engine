@@ -44,7 +44,7 @@ class Timer
     time_point start_;
 
     /// This is the number of times cycles (print divides by this number)
-    std::size_t cycles {1};
+    std::size_t cycles { 1 };
 
   public:
     /// Standard print function, this one is set by default
@@ -70,8 +70,7 @@ class Timer
 
         start_        = clock::now();
         std::size_t n = 0;
-        do
-        {
+        do {
             f();
             std::chrono::duration<double> elapsed = clock::now() - start_;
             total_time                            = elapsed.count();

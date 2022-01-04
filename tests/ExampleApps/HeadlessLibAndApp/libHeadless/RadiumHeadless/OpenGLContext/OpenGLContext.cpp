@@ -29,8 +29,7 @@ static void error( int errnum, const char* errmsg ) {
 
 OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
     // initialize openGL
-    if ( glfwInit() )
-    {
+    if ( glfwInit() ) {
         glfwSetErrorCallback( error );
         glfwDefaultWindowHints();
         glfwWindowHint( GLFW_VISIBLE, false );
@@ -41,14 +40,12 @@ OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
         m_glfwContext =
             glfwCreateWindow( size[0], size[1], "Radium CommandLine Context", nullptr, nullptr );
     }
-    if ( m_glfwContext == nullptr )
-    {
+    if ( m_glfwContext == nullptr ) {
         std::cerr << "OpenGL context creation failed. Terminate execution.";
         glfwTerminate();
         std::exit( -1 );
     }
-    else
-    {
+    else {
         // Initialize globjects (internally initializes glbinding, and registers the current
         // context)
         glfwMakeContextCurrent( m_glfwContext );
@@ -105,8 +102,7 @@ void OpenGLContext::resize( const std::array<int, 2>& size ) {
 }
 
 bool OpenGLContext::processEvents() {
-    switch ( m_mode )
-    {
+    switch ( m_mode ) {
     case EventMode::POLL:
         glfwPollEvents();
         break;
@@ -136,8 +132,7 @@ void OpenGLContext::renderLoop( std::function<void( float )> render ) {
     glfwGetFramebufferSize( m_glfwContext, &width, &height );
     glViewport( 0, 0, width, height );
 
-    while ( !glfwWindowShouldClose( m_glfwContext ) )
-    {
+    while ( !glfwWindowShouldClose( m_glfwContext ) ) {
         curFrameDate = glfwGetTime();
         render( curFrameDate - prevFrameDate );
         prevFrameDate = curFrameDate;

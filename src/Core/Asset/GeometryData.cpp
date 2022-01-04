@@ -25,8 +25,7 @@ GeometryData::~GeometryData() {}
 void GeometryData::displayInfo() const {
     using namespace Core::Utils; // log
     std::string type;
-    switch ( m_type )
-    {
+    switch ( m_type ) {
     case UNKNOWN:
         type = "UNKNOWN";
         break;

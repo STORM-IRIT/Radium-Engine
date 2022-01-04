@@ -24,8 +24,7 @@ CLIViewer::CLIViewer() : CLIBaseApplication(), m_glContext {} {
 }
 
 CLIViewer::~CLIViewer() {
-    if ( m_engineInitialized )
-    {
+    if ( m_engineInitialized ) {
         m_glContext.makeCurrent();
         m_renderer.reset();
         m_engine->cleanup();
@@ -38,13 +37,14 @@ const CLIViewer::ViewerParameters& CLIViewer::getCommandLineParameters() const {
 }
 
 int CLIViewer::init( int argc, const char* argv[] ) {
-    try
-    { cmdline_parser.parse( argc, argv ); }
-    catch ( const CLI::ParseError& e )
-    { return cmdline_parser.exit( e ) + 1; }
+    try {
+        cmdline_parser.parse( argc, argv );
+    }
+    catch ( const CLI::ParseError& e ) {
+        return cmdline_parser.exit( e ) + 1;
+    }
     // Do the init
-    if ( !m_glContext.isValid() )
-    {
+    if ( !m_glContext.isValid() ) {
         LOG( logERROR ) << "Invalid openglContext, the application can't run";
         return 1;
     }
@@ -63,8 +63,7 @@ int CLIViewer::init( int argc, const char* argv[] ) {
     m_engine->registerSystem(
         "GeometrySystem", new Ra::Engine::Scene::GeometrySystem, defaultSystemPriority );
 
-    if ( m_parameters.m_animationEnable )
-    {
+    if ( m_parameters.m_animationEnable ) {
         // Register the SkeletonBasedAnimationSystem converting loaded assets to
         // skeletons and skinning data
         m_engine->registerSystem( "SkeletonBasedAnimationSystem",
@@ -85,8 +84,7 @@ int CLIViewer::init( int argc, const char* argv[] ) {
 }
 
 int CLIViewer::oneFrame( float timeStep ) {
-    if ( m_parameters.m_animationEnable )
-    {
+    if ( m_parameters.m_animationEnable ) {
         auto animationSystem = dynamic_cast<Ra::Engine::Scene::SkeletonBasedAnimationSystem*>(
             m_engine->getSystem( "SkeletonBasedAnimationSystem" ) );
         if ( animationSystem ) { animationSystem->toggleSkeleton( false ); }
@@ -101,7 +99,7 @@ int CLIViewer::oneFrame( float timeStep ) {
     tasks.flushTaskQueue();
 
     Ra::Engine::Data::ViewingParameters data {
-        m_camera->getViewMatrix(), m_camera->getProjMatrix(), timeStep};
+        m_camera->getViewMatrix(), m_camera->getProjMatrix(), timeStep };
     m_renderer->render( data );
 
     return 0;
@@ -129,11 +127,9 @@ void CLIViewer::loadScene() {
 }
 
 void CLIViewer::compileScene() {
-    if ( m_renderer )
-    {
+    if ( m_renderer ) {
         m_renderer->buildAllRenderTechniques();
-        if ( !m_renderer->hasLight() )
-        {
+        if ( !m_renderer->hasLight() ) {
             auto headlight = new Ra::Engine::Scene::DirectionalLight(
                 Ra::Engine::Scene::SystemEntity::getInstance(), "headlight" );
             headlight->setColor( Ra::Core::Utils::Color::Grey( 2.0_ra ) );
@@ -151,16 +147,16 @@ void CLIViewer::openGlAddOns( std::function<void()> f ) {
 
 void CLIViewer::bindOpenGLContext( bool on ) {
     if ( on ) { m_glContext.makeCurrent(); }
-    else
-    { m_glContext.doneCurrent(); }
+    else {
+        m_glContext.doneCurrent();
+    }
 }
 
 void CLIViewer::setCamera( Ra::Core::Utils::Index camIdx ) {
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Ra::Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
 
-    if ( camIdx.isInvalid() || cameraManager->count() <= size_t( camIdx ) )
-    {
+    if ( camIdx.isInvalid() || cameraManager->count() <= size_t( camIdx ) ) {
         m_camera = new Ra::Core::Asset::Camera( m_parameters.m_size[0], m_parameters.m_size[1] );
         m_camera->setFOV( 60.0_ra * Ra::Core::Math::toRad );
         m_camera->setZNear( 0.1_ra );
@@ -181,8 +177,7 @@ void CLIViewer::setCamera( Ra::Core::Utils::Index camIdx ) {
             std::max( d + ( aabb.max().z() - aabb.min().z() ) * 2_ra, m_camera->getZFar() );
         m_camera->setZFar( zfar );
     }
-    else
-    {
+    else {
         cameraManager->activate( camIdx );
         m_camera = cameraManager->getActiveCamera();
     }
@@ -194,13 +189,13 @@ void CLIViewer::setImageNamePrefix( std::string s ) {
 
 void CLIViewer::showWindow( bool on, OpenGLContext::EventMode mode, float delay ) {
     m_exposedWindow = on;
-    if ( m_exposedWindow )
-    {
+    if ( m_exposedWindow ) {
         m_glContext.resize( m_parameters.m_size );
         m_glContext.show( mode, delay );
     }
-    else
-    { m_glContext.hide(); }
+    else {
+        m_glContext.hide();
+    }
 }
 
 void CLIViewer::renderLoop( std::function<void( float )> render ) {
@@ -208,8 +203,7 @@ void CLIViewer::renderLoop( std::function<void( float )> render ) {
 }
 
 void CLIViewer::resize( int width, int height ) {
-    if ( m_renderer )
-    {
+    if ( m_renderer ) {
         m_renderer->resize( width, height );
         m_camera->setViewport( width, height );
     }
