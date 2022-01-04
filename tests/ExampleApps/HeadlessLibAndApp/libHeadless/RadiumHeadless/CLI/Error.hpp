@@ -71,7 +71,7 @@ enum class ExitCodes {
 class Error : public std::runtime_error
 {
     int actual_exit_code;
-    std::string error_name {"Error"};
+    std::string error_name { "Error" };
 
   public:
     int get_exit_code() const { return actual_exit_code; }
@@ -266,16 +266,14 @@ class RequiredError : public ParseError
                                  const std::string& option_list ) {
         if ( ( min_option == 1 ) && ( max_option == 1 ) && ( used == 0 ) )
             return RequiredError( "Exactly 1 option from [" + option_list + "]" );
-        if ( ( min_option == 1 ) && ( max_option == 1 ) && ( used > 1 ) )
-        {
+        if ( ( min_option == 1 ) && ( max_option == 1 ) && ( used > 1 ) ) {
             return RequiredError( "Exactly 1 option from [" + option_list + "] is required and " +
                                       std::to_string( used ) + " were given",
                                   ExitCodes::RequiredError );
         }
         if ( ( min_option == 1 ) && ( used == 0 ) )
             return RequiredError( "At least 1 option from [" + option_list + "]" );
-        if ( used < min_option )
-        {
+        if ( used < min_option ) {
             return RequiredError( "Requires at least " + std::to_string( min_option ) +
                                       " options used and only " + std::to_string( used ) +
                                       "were given from [" + option_list + "]",

@@ -78,20 +78,20 @@ class Validator
 {
   protected:
     /// This is the description function, if empty the description_ will be used
-    std::function<std::string()> desc_function_ {[]() { return std::string {}; }};
+    std::function<std::string()> desc_function_ { []() { return std::string {}; } };
 
     /// This is the base function that is to be called.
     /// Returns a string error message if validation fails.
     std::function<std::string( std::string& )> func_ {
-        []( std::string& ) { return std::string {}; }};
+        []( std::string& ) { return std::string {}; } };
     /// The name for search purposes of the Validator
     std::string name_ {};
     /// A Validator will only apply to an indexed value (-1 is all elements)
     int application_index_ = -1;
     /// Enable for Validator to allow it to be disabled if need be
-    bool active_ {true};
+    bool active_ { true };
     /// specify that a validator should not modify the input
-    bool non_modifying_ {false};
+    bool non_modifying_ { false };
 
   public:
     Validator() = default;
@@ -114,15 +114,14 @@ class Validator
     /// users (CLI11 uses the member `func` directly)
     std::string operator()( std::string& str ) const {
         std::string retstring;
-        if ( active_ )
-        {
-            if ( non_modifying_ )
-            {
+        if ( active_ ) {
+            if ( non_modifying_ ) {
                 std::string value = str;
                 retstring         = func_( value );
             }
-            else
-            { retstring = func_( str ); }
+            else {
+                retstring = func_( str );
+            }
         }
         return retstring;
     }
@@ -261,8 +260,9 @@ class Validator
 
         newval.func_ = [f1, dfunc1]( std::string& test ) -> std::string {
             std::string s1 = f1( test );
-            if ( s1.empty() )
-            { return std::string( "check " ) + dfunc1() + " succeeded improperly"; }
+            if ( s1.empty() ) {
+                return std::string( "check " ) + dfunc1() + " succeeded improperly";
+            }
             return std::string {};
         };
         newval.active_            = active_;
@@ -305,8 +305,7 @@ inline path_type check_path( const char* file ) noexcept {
     std::error_code ec;
     auto stat = std::filesystem::status( file, ec );
     if ( ec ) { return path_type::nonexistent; }
-    switch ( stat.type() )
-    {
+    switch ( stat.type() ) {
     case std::filesystem::file_type::none:
     case std::filesystem::file_type::not_found:
         return path_type::nonexistent;
@@ -328,12 +327,14 @@ inline path_type check_path( const char* file ) noexcept {
 inline path_type check_path( const char* file ) noexcept {
 #    if defined( _MSC_VER )
     struct __stat64 buffer;
-    if ( _stat64( file, &buffer ) == 0 )
-    { return ( ( buffer.st_mode & S_IFDIR ) != 0 ) ? path_type::directory : path_type::file; }
+    if ( _stat64( file, &buffer ) == 0 ) {
+        return ( ( buffer.st_mode & S_IFDIR ) != 0 ) ? path_type::directory : path_type::file;
+    }
 #    else
     struct stat buffer;
-    if ( stat( file, &buffer ) == 0 )
-    { return ( ( buffer.st_mode & S_IFDIR ) != 0 ) ? path_type::directory : path_type::file; }
+    if ( stat( file, &buffer ) == 0 ) {
+        return ( ( buffer.st_mode & S_IFDIR ) != 0 ) ? path_type::directory : path_type::file;
+    }
 #    endif
     return path_type::nonexistent;
 }
@@ -345,10 +346,12 @@ class ExistingFileValidator : public Validator
     ExistingFileValidator() : Validator( "FILE" ) {
         func_ = []( std::string& filename ) {
             auto path_result = check_path( filename.c_str() );
-            if ( path_result == path_type::nonexistent )
-            { return "File does not exist: " + filename; }
-            if ( path_result == path_type::directory )
-            { return "File is actually a directory: " + filename; }
+            if ( path_result == path_type::nonexistent ) {
+                return "File does not exist: " + filename;
+            }
+            if ( path_result == path_type::directory ) {
+                return "File is actually a directory: " + filename;
+            }
             return std::string();
         };
     }
@@ -361,10 +364,12 @@ class ExistingDirectoryValidator : public Validator
     ExistingDirectoryValidator() : Validator( "DIR" ) {
         func_ = []( std::string& filename ) {
             auto path_result = check_path( filename.c_str() );
-            if ( path_result == path_type::nonexistent )
-            { return "Directory does not exist: " + filename; }
-            if ( path_result == path_type::file )
-            { return "Directory is actually a file: " + filename; }
+            if ( path_result == path_type::nonexistent ) {
+                return "Directory does not exist: " + filename;
+            }
+            if ( path_result == path_type::file ) {
+                return "Directory is actually a file: " + filename;
+            }
             return std::string();
         };
     }
@@ -377,8 +382,9 @@ class ExistingPathValidator : public Validator
     ExistingPathValidator() : Validator( "PATH(existing)" ) {
         func_ = []( std::string& filename ) {
             auto path_result = check_path( filename.c_str() );
-            if ( path_result == path_type::nonexistent )
-            { return "Path does not exist: " + filename; }
+            if ( path_result == path_type::nonexistent ) {
+                return "Path does not exist: " + filename;
+            }
             return std::string();
         };
     }
@@ -391,8 +397,9 @@ class NonexistentPathValidator : public Validator
     NonexistentPathValidator() : Validator( "PATH(non-existing)" ) {
         func_ = []( std::string& filename ) {
             auto path_result = check_path( filename.c_str() );
-            if ( path_result != path_type::nonexistent )
-            { return "Path already exists: " + filename; }
+            if ( path_result != path_type::nonexistent ) {
+                return "Path already exists: " + filename;
+            }
             return std::string();
         };
     }
@@ -405,17 +412,16 @@ class IPV4Validator : public Validator
     IPV4Validator() : Validator( "IPV4" ) {
         func_ = []( std::string& ip_addr ) {
             auto result = CLI::detail::split( ip_addr, '.' );
-            if ( result.size() != 4 )
-            {
+            if ( result.size() != 4 ) {
                 return std::string( "Invalid IPV4 address must have four parts (" ) + ip_addr + ')';
             }
             int num;
-            for ( const auto& var : result )
-            {
+            for ( const auto& var : result ) {
                 bool retval = detail::lexical_cast( var, num );
                 if ( !retval ) { return std::string( "Failed parsing number (" ) + var + ')'; }
-                if ( num < 0 || num > 255 )
-                { return std::string( "Each IP number must be between 0 and 255 " ) + var; }
+                if ( num < 0 || num > 255 ) {
+                    return std::string( "Each IP number must be between 0 and 255 " ) + var;
+                }
             }
             return std::string();
         };
@@ -449,8 +455,7 @@ class TypeValidator : public Validator
     explicit TypeValidator( const std::string& validator_name ) : Validator( validator_name ) {
         func_ = []( std::string& input_string ) {
             auto val = DesiredType();
-            if ( !detail::lexical_cast( input_string, val ) )
-            {
+            if ( !detail::lexical_cast( input_string, val ) ) {
                 return std::string( "Failed parsing " ) + input_string + " as a " +
                        detail::type_name<DesiredType>();
             }
@@ -474,8 +479,7 @@ class Range : public Validator
     template <typename T>
     Range( T min, T max, const std::string& validator_name = std::string {} ) :
         Validator( validator_name ) {
-        if ( validator_name.empty() )
-        {
+        if ( validator_name.empty() ) {
             std::stringstream out;
             out << detail::type_name<T>() << " in [" << min << " - " << max << "]";
             description( out.str() );
@@ -523,8 +527,9 @@ class Bound : public Validator
         func_ = [min, max]( std::string& input ) {
             T val;
             bool converted = detail::lexical_cast( input, val );
-            if ( !converted )
-            { return std::string( "Value " ) + input + " could not be converted"; }
+            if ( !converted ) {
+                return std::string( "Value " ) + input + " could not be converted";
+            }
             if ( val < min )
                 input = detail::to_string( min );
             else if ( val > max )
@@ -578,10 +583,9 @@ std::string generate_map( const T& map, bool key_only = false ) {
     out.append( detail::join(
         detail::smart_deref( map ),
         [key_only]( const iteration_type_t& v ) {
-            std::string res {detail::to_string( detail::pair_adaptor<element_t>::first( v ) )};
+            std::string res { detail::to_string( detail::pair_adaptor<element_t>::first( v ) ) };
 
-            if ( !key_only )
-            {
+            if ( !key_only ) {
                 res.append( "->" );
                 res += detail::to_string( detail::pair_adaptor<element_t>::second( v ) );
             }
@@ -616,7 +620,7 @@ auto search( const T& set, const V& val )
         std::begin( setref ), std::end( setref ), [&val]( decltype( *std::begin( setref ) ) v ) {
             return ( detail::pair_adaptor<element_t>::first( v ) == val );
         } );
-    return {( it != std::end( setref ) ), it};
+    return { ( it != std::end( setref ) ), it };
 }
 
 /// A search function that uses the built in find function
@@ -627,7 +631,7 @@ auto search( const T& set, const V& val )
     -> std::pair<bool, decltype( std::begin( detail::smart_deref( set ) ) )> {
     auto& setref = detail::smart_deref( set );
     auto it      = setref.find( val );
-    return {( it != std::end( setref ) ), it};
+    return { ( it != std::end( setref ) ), it };
 }
 
 /// A search function with a filter function
@@ -642,11 +646,11 @@ auto search( const T& set, const V& val, const std::function<V( V )>& filter_fun
     auto& setref = detail::smart_deref( set );
     auto it      = std::find_if(
         std::begin( setref ), std::end( setref ), [&]( decltype( *std::begin( setref ) ) v ) {
-            V a {detail::pair_adaptor<element_t>::first( v )};
+            V a { detail::pair_adaptor<element_t>::first( v ) };
             a = filter_function( a );
             return ( a == val );
         } );
-    return {( it != std::end( setref ) ), it};
+    return { ( it != std::end( setref ) ), it };
 }
 
 // the following suggestion was made by Nikita Ofitserov(@himikof)
@@ -656,10 +660,12 @@ auto search( const T& set, const V& val, const std::function<V( V )>& filter_fun
 template <typename T>
 inline typename std::enable_if<std::is_signed<T>::value, T>::type overflowCheck( const T& a,
                                                                                  const T& b ) {
-    if ( ( a > 0 ) == ( b > 0 ) )
-    { return ( ( std::numeric_limits<T>::max )() / ( std::abs )( a ) < ( std::abs )( b ) ); }
-    else
-    { return ( ( std::numeric_limits<T>::min )() / ( std::abs )( a ) > -( std::abs )( b ) ); }
+    if ( ( a > 0 ) == ( b > 0 ) ) {
+        return ( ( std::numeric_limits<T>::max )() / ( std::abs )( a ) < ( std::abs )( b ) );
+    }
+    else {
+        return ( ( std::numeric_limits<T>::min )() / ( std::abs )( a ) > -( std::abs )( b ) );
+    }
 }
 /// Do a check for overflow on unsigned numbers
 template <typename T>
@@ -671,13 +677,13 @@ inline typename std::enable_if<!std::is_signed<T>::value, T>::type overflowCheck
 /// Performs a *= b; if it doesn't cause integer overflow. Returns false otherwise.
 template <typename T>
 typename std::enable_if<std::is_integral<T>::value, bool>::type checked_multiply( T& a, T b ) {
-    if ( a == 0 || b == 0 || a == 1 || b == 1 )
-    {
+    if ( a == 0 || b == 0 || a == 1 || b == 1 ) {
         a *= b;
         return true;
     }
-    if ( a == ( std::numeric_limits<T>::min )() || b == ( std::numeric_limits<T>::min )() )
-    { return false; }
+    if ( a == ( std::numeric_limits<T>::min )() || b == ( std::numeric_limits<T>::min )() ) {
+        return false;
+    }
     if ( overflowCheck( a, b ) ) { return false; }
     a *= b;
     return true;
@@ -735,17 +741,14 @@ class IsMember : public Validator
         // It stores a copy of the set pointer-like, so shared_ptr will stay alive
         func_ = [set, filter_fn]( std::string& input ) {
             local_item_t b;
-            if ( !detail::lexical_cast( input, b ) )
-            {
+            if ( !detail::lexical_cast( input, b ) ) {
                 throw ValidationError( input ); // name is added later
             }
             if ( filter_fn ) { b = filter_fn( b ); }
             auto res = detail::search( set, b, filter_fn );
-            if ( res.first )
-            {
+            if ( res.first ) {
                 // Make sure the version in the input string is identical to the one in the set
-                if ( filter_fn )
-                {
+                if ( filter_fn ) {
                     input = detail::value_string(
                         detail::pair_adaptor<element_t>::first( *( res.second ) ) );
                 }
@@ -815,16 +818,14 @@ class Transformer : public Validator
 
         func_ = [mapping, filter_fn]( std::string& input ) {
             local_item_t b;
-            if ( !detail::lexical_cast( input, b ) )
-            {
+            if ( !detail::lexical_cast( input, b ) ) {
                 return std::string();
                 // there is no possible way we can match anything in the mapping if we can't convert
                 // so just return
             }
             if ( filter_fn ) { b = filter_fn( b ); }
             auto res = detail::search( mapping, b, filter_fn );
-            if ( res.first )
-            {
+            if ( res.first ) {
                 input =
                     detail::value_string( detail::pair_adaptor<element_t>::second( *res.second ) );
             }
@@ -899,19 +900,16 @@ class CheckedTransformer : public Validator
         func_ = [mapping, tfunc, filter_fn]( std::string& input ) {
             local_item_t b;
             bool converted = detail::lexical_cast( input, b );
-            if ( converted )
-            {
+            if ( converted ) {
                 if ( filter_fn ) { b = filter_fn( b ); }
                 auto res = detail::search( mapping, b, filter_fn );
-                if ( res.first )
-                {
+                if ( res.first ) {
                     input = detail::value_string(
                         detail::pair_adaptor<element_t>::second( *res.second ) );
                     return std::string {};
                 }
             }
-            for ( const auto& v : detail::smart_deref( mapping ) )
-            {
+            for ( const auto& v : detail::smart_deref( mapping ) ) {
                 auto output_string =
                     detail::value_string( detail::pair_adaptor<element_t>::second( v ) );
                 if ( output_string == input ) { return std::string(); }
@@ -993,22 +991,20 @@ class AsNumberWithUnit : public Validator
             // Find split position between number and prefix
             auto unit_begin = input.end();
             while ( unit_begin > input.begin() &&
-                    std::isalpha( *( unit_begin - 1 ), std::locale() ) )
-            {
+                    std::isalpha( *( unit_begin - 1 ), std::locale() ) ) {
                 --unit_begin;
             }
 
-            std::string unit {unit_begin, input.end()};
+            std::string unit { unit_begin, input.end() };
             input.resize( static_cast<std::size_t>( std::distance( input.begin(), unit_begin ) ) );
             detail::trim( input );
 
-            if ( opts & UNIT_REQUIRED && unit.empty() )
-            { throw ValidationError( "Missing mandatory unit" ); }
+            if ( opts & UNIT_REQUIRED && unit.empty() ) {
+                throw ValidationError( "Missing mandatory unit" );
+            }
             if ( opts & CASE_INSENSITIVE ) { unit = detail::to_lower( unit ); }
-            if ( unit.empty() )
-            {
-                if ( !detail::lexical_cast( input, num ) )
-                {
+            if ( unit.empty() ) {
+                if ( !detail::lexical_cast( input, num ) ) {
                     throw ValidationError( std::string( "Value " ) + input +
                                            " could not be converted to " +
                                            detail::type_name<Number>() );
@@ -1019,34 +1015,31 @@ class AsNumberWithUnit : public Validator
 
             // find corresponding factor
             auto it = mapping.find( unit );
-            if ( it == mapping.end() )
-            {
+            if ( it == mapping.end() ) {
                 throw ValidationError( unit +
                                        " unit not recognized. "
                                        "Allowed values: " +
                                        detail::generate_map( mapping, true ) );
             }
 
-            if ( !input.empty() )
-            {
+            if ( !input.empty() ) {
                 bool converted = detail::lexical_cast( input, num );
-                if ( !converted )
-                {
+                if ( !converted ) {
                     throw ValidationError( std::string( "Value " ) + input +
                                            " could not be converted to " +
                                            detail::type_name<Number>() );
                 }
                 // perform safe multiplication
                 bool ok = detail::checked_multiply( num, it->second );
-                if ( !ok )
-                {
+                if ( !ok ) {
                     throw ValidationError(
                         detail::to_string( num ) + " multiplied by " + unit +
                         " factor would cause number overflow. Use smaller value." );
                 }
             }
-            else
-            { num = static_cast<Number>( it->second ); }
+            else {
+                num = static_cast<Number>( it->second );
+            }
 
             input = detail::to_string( num );
 
@@ -1059,22 +1052,19 @@ class AsNumberWithUnit : public Validator
     /// Update mapping for CASE_INSENSITIVE mode.
     template <typename Number>
     static void validate_mapping( std::map<std::string, Number>& mapping, Options opts ) {
-        for ( auto& kv : mapping )
-        {
+        for ( auto& kv : mapping ) {
             if ( kv.first.empty() ) { throw ValidationError( "Unit must not be empty." ); }
-            if ( !detail::isalpha( kv.first ) )
-            { throw ValidationError( "Unit must contain only letters." ); }
+            if ( !detail::isalpha( kv.first ) ) {
+                throw ValidationError( "Unit must contain only letters." );
+            }
         }
 
         // make all units lowercase if CASE_INSENSITIVE
-        if ( opts & CASE_INSENSITIVE )
-        {
+        if ( opts & CASE_INSENSITIVE ) {
             std::map<std::string, Number> lower_mapping;
-            for ( auto& kv : mapping )
-            {
+            for ( auto& kv : mapping ) {
                 auto s = detail::to_lower( kv.first );
-                if ( lower_mapping.count( s ) )
-                {
+                if ( lower_mapping.count( s ) ) {
                     throw ValidationError(
                         std::string(
                             "Several matching lowercase unit representations are found: " ) +
@@ -1092,8 +1082,9 @@ class AsNumberWithUnit : public Validator
         std::stringstream out;
         out << detail::type_name<Number>() << ' ';
         if ( opts & UNIT_REQUIRED ) { out << name; }
-        else
-        { out << '[' << name << ']'; }
+        else {
+            out << '[' << name << ']';
+        }
         return out.str();
     }
 };
@@ -1120,8 +1111,9 @@ class AsSizeValue : public AsNumberWithUnit
     /// (see https://en.wikipedia.org/wiki/Binary_prefix).
     explicit AsSizeValue( bool kb_is_1000 ) : AsNumberWithUnit( get_mapping( kb_is_1000 ) ) {
         if ( kb_is_1000 ) { description( "SIZE [b, kb(=1000b), kib(=1024b), ...]" ); }
-        else
-        { description( "SIZE [b, kb(=1024b), ...]" ); }
+        else {
+            description( "SIZE [b, kb(=1024b), ...]" );
+        }
     }
 
   private:
@@ -1133,8 +1125,7 @@ class AsSizeValue : public AsNumberWithUnit
         result_t k         = 1;
         result_t ki        = 1;
         m["b"]             = 1;
-        for ( std::string p : {"k", "m", "g", "t", "p", "e"} )
-        {
+        for ( std::string p : { "k", "m", "g", "t", "p", "e" } ) {
             k *= k_factor;
             ki *= ki_factor;
             m[p]        = k;
@@ -1147,13 +1138,11 @@ class AsSizeValue : public AsNumberWithUnit
 
     /// Cache calculated mapping
     static std::map<std::string, result_t> get_mapping( bool kb_is_1000 ) {
-        if ( kb_is_1000 )
-        {
+        if ( kb_is_1000 ) {
             static auto m = init_mapping( true );
             return m;
         }
-        else
-        {
+        else {
             static auto m = init_mapping( false );
             return m;
         }
@@ -1170,11 +1159,9 @@ inline std::pair<std::string, std::string> split_program_name( std::string comma
     std::pair<std::string, std::string> vals;
     trim( commandline );
     auto esp = commandline.find_first_of( ' ', 1 );
-    while ( detail::check_path( commandline.substr( 0, esp ).c_str() ) != path_type::file )
-    {
+    while ( detail::check_path( commandline.substr( 0, esp ).c_str() ) != path_type::file ) {
         esp = commandline.find_first_of( ' ', esp + 1 );
-        if ( esp == std::string::npos )
-        {
+        if ( esp == std::string::npos ) {
             // if we have reached the end and haven't found a valid file just assume the first
             // argument is the program name
             esp = commandline.find_first_of( ' ', 1 );

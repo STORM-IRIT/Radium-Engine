@@ -14,7 +14,7 @@
 
 int main( int argc, const char* argv[] ) {
     //! [Creating the viewer with custom parameters]
-    bool showWindow {false};
+    bool showWindow { false };
     CLIViewer viewer;
     viewer.add_flag( "-w,--window", showWindow, "Map the viewer window." );
     //! [Creating the viewer with custom parameters]
@@ -36,8 +36,7 @@ int main( int argc, const char* argv[] ) {
     //! [Bind the OpenGLContext if needed]
 
     //! [Setup the Scene to render]
-    if ( viewer.getDataFileName().empty() )
-    {
+    if ( viewer.getDataFileName().empty() ) {
         auto rp              = Ra::Core::Resources::getResourcesPath();
         std::string filename = *rp + "/Demos/Assets/radium-logo.dae";
         viewer.setDataFileName( filename );
@@ -57,31 +56,28 @@ int main( int argc, const char* argv[] ) {
 
     auto render = [&viewer]( float time_step ) { viewer.oneFrame( time_step ); };
 
-    if ( showWindow )
-    {
-        if ( viewerParameters.m_animationEnable )
-        { viewer.showWindow( true, OpenGLContext::EventMode::TIMEOUT ); }
-        else
-        { viewer.showWindow( true, OpenGLContext::EventMode::WAIT ); }
+    if ( showWindow ) {
+        if ( viewerParameters.m_animationEnable ) {
+            viewer.showWindow( true, OpenGLContext::EventMode::TIMEOUT );
+        }
+        else {
+            viewer.showWindow( true, OpenGLContext::EventMode::WAIT );
+        }
         viewer.renderLoop( render );
         viewer.showWindow( false );
     }
-    else
-    {
-        if ( viewerParameters.m_animationEnable )
-        {
+    else {
+        if ( viewerParameters.m_animationEnable ) {
             // compute 2s of animation at 30fps
             float duration = 2;
             float fps      = 30;
-            for ( int i = 0; i < duration * fps; ++i )
-            {
+            for ( int i = 0; i < duration * fps; ++i ) {
                 render( 1.f / fps );
                 auto filename = viewerParameters.m_imgPrefix + std::to_string( i ) + ".png";
                 saveFrame( filename );
             }
         }
-        else
-        {
+        else {
             // compute one picture
             render( 0 );
             auto filename = viewerParameters.m_imgPrefix + ".png";

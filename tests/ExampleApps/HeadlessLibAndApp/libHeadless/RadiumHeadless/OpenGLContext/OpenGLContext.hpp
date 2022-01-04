@@ -30,7 +30,7 @@ class OpenGLContext
      *  The created context is associated with a hidden window that can be shown later.
      * @param size
      */
-    explicit OpenGLContext( const std::array<int, 2>& size = {1, 1} );
+    explicit OpenGLContext( const std::array<int, 2>& size = { 1, 1 } );
     /// destructor
     ~OpenGLContext();
     /// make the context active
@@ -67,7 +67,7 @@ class OpenGLContext
 
     /** @} */
   private:
-    GLFWwindow* m_glfwContext {nullptr};
+    GLFWwindow* m_glfwContext { nullptr };
     /** \addtogroup window
      *  @{
      */
@@ -80,8 +80,8 @@ class OpenGLContext
     Ra::Core::Utils::Observable<int, int> m_resizers;
 
     /// Event processing mode
-    EventMode m_mode {EventMode::POLL};
+    EventMode m_mode { EventMode::POLL };
     /// Timeout delay for event processing
-    float m_delay {1.f / 60.f};
+    float m_delay { 1.f / 60.f };
     /** @} */
 };

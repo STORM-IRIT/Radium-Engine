@@ -11,7 +11,7 @@ class HEADLESS_API CLIBaseApplication
 
   protected:
     /// The data file to manage
-    std::string m_dataFile = {""};
+    std::string m_dataFile = { "" };
 
     /** Command-line parameters parser.
      * All derived applications will share parameters --help and --file <scene_file>.
