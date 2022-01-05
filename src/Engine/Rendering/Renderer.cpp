@@ -478,8 +478,7 @@ void Renderer::renderForPicking(
                 pickingShaders[i]->setUniform( "transform.worldNormal", N );
                 // hack to pick point cloud (issue ##837)
                 auto pointCloud = dynamic_cast<Scene::PointCloudComponent*>( ro->getComponent() );
-                if ( pointCloud )
-                {
+                if ( pointCloud ) {
                     pickingShaders[i]->setUniform( "pointCloudSplatRadius",
                                                    pointCloud->getSplatSize() / 2.f );
                 }
