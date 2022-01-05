@@ -68,8 +68,7 @@ void main() {
     uv[2] = vec2( +1, -1 );
     uv[3] = vec2( +1, +1 );
 
-    for ( int idx = 0; idx < 4; ++idx )
-    {
+    for ( int idx = 0; idx < 4; ++idx ) {
         gl_Position   = transform.proj * transform.view * vec4( point[idx], 1 );
         out_position  = point[idx];
         out_normal    = normal;
