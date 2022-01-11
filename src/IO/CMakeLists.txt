@@ -51,8 +51,8 @@ if(RADIUM_IO_TINYPLY)
     target_link_libraries(${ra_io_target} PUBLIC tinyply)
 endif(RADIUM_IO_TINYPLY)
 
-if(RADIUM_IO_VOLUME)
-    set_target_properties(${ra_io_target} PROPERTIES RADIUM_IO_HAS_VOLUMES ${RADIUM_IO_VOLUME})
+if(RADIUM_IO_VOLUMES)
+    set_target_properties(${ra_io_target} PROPERTIES RADIUM_IO_HAS_VOLUMES ${RADIUM_IO_VOLUMES})
 endif()
 
 add_dependencies(${ra_io_target} Core)

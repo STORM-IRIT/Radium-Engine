@@ -27,7 +27,8 @@ set(test_src
     Gui/keymapping.cpp
 )
 
-if(RADIUM_IO_VOLUMES)
+get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
+if(${HAS_VOLUMES})
     message(STATUS "Compiling Volume loader unit test")
     list(APPEND test_src IO/volumeloader.cpp)
 endif()
