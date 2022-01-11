@@ -87,7 +87,9 @@ void VolumeGrid::computeGradients() {
                 s1( 2 ) = sample( {i, j, k - 1} );
                 s2( 2 ) = sample( {i, j, k + 1} );
                 IndexType idx {i, j, k};
-                m_gradient[*linearIndex( idx )] = s2 - s1;
+                Vector3 grad = s2 - s1;
+                Vector4 grad_dens { grad[0], grad[1], grad[2], sample( {i, j, k} ) };
+                m_gradient[*linearIndex( idx )] = grad_dens;
             }
         }
     }
