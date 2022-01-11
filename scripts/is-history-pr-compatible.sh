@@ -12,7 +12,7 @@ gitismerge () {
 }
 
 if [ `git rev-parse origin/release-candidate` != `git merge-base origin/release-candidate HEAD` ]; then
-    echo "Please rebase your branch with \"rebase origin/master\" ";
+    echo "Please rebase your branch with \"rebase origin/release-candidate\" ";
     exit 1
 else
     ko=""
