@@ -187,7 +187,8 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
     using Container = std::vector<ValueType>;
 
     // For now, assume that AbstractDiscreteVolume::ValueType is Scalar
-    using Gradientcontainer = std::vector<Vector3>;
+    // vector4 : gradient and density
+    using Gradientcontainer = std::vector<Vector4>;
 
   public:
     inline VolumeGrid( const ValueType& defaultValue = ValueType( 0. ) ) :
