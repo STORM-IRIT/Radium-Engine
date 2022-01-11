@@ -136,11 +136,9 @@ bool raymarch( Material volume,
     // The ray marching loop
     bool hit = false;
     float t  = 0;
-    for ( ;; )
-    {
+    for ( ;; ) {
         float density = texture( volume.density, p ).r;
-        if ( density > 0 )
-        {
+        if ( density > 0 ) {
             hit = true;
             // Compute Transmission
             tr *= exp( -density * sigma_t );

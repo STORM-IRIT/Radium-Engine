@@ -8,10 +8,10 @@ namespace IO {
 /**
  * \brief Loads density grid for volume data.
  * This loader support 2 file formats for density grid data
- *   - PVM file format from The Volume Library at http://schorsch.efi.fh-nuernberg.de/data/volume/
- *   - Custom file format (derived from pbrt heterogeneous media definition) with the following
- *   properties
- *      sigma_a [ RGB values of the absorption coefficient ] units are mm-1
+ *   - PVM file format (extension .pvm) from The Volume Library at
+ * http://schorsch.efi.fh-nuernberg.de/data/volume/
+ *   - Custom file format (extension .vol, derived from pbrt heterogeneous media definition) with
+ * the following properties sigma_a [ RGB values of the absorption coefficient ] units are mm-1
  *      sigma_s [ RGB values of the scattering coefficient ] units are mm-1
  *      size [ w h d : 3 ints that gives the size of the grid ]
  *      density [ w*h*d white space separated floating point values defining the density ]

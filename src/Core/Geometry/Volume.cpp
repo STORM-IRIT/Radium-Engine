@@ -72,23 +72,20 @@ void VolumeGrid::computeGradients() {
     m_gradient.resize( m_data.size() );
 
 #pragma omp parallel for
-    for ( int k = 0; k < size().z(); ++k )
-    {
-        for ( int j = 0; j < size().y(); ++j )
-        {
-            for ( int i = 0; i < size().x(); ++i )
-            {
+    for ( int k = 0; k < size().z(); ++k ) {
+        for ( int j = 0; j < size().y(); ++j ) {
+            for ( int i = 0; i < size().x(); ++i ) {
                 Vector3 s1;
                 Vector3 s2;
-                s1( 0 ) = sample( {i - 1, j, k} );
-                s2( 0 ) = sample( {i + 1, j, k} );
-                s1( 1 ) = sample( {i, j - 1, k} );
-                s2( 1 ) = sample( {i, j + 1, k} );
-                s1( 2 ) = sample( {i, j, k - 1} );
-                s2( 2 ) = sample( {i, j, k + 1} );
-                IndexType idx {i, j, k};
+                s1( 0 ) = sample( { i - 1, j, k } );
+                s2( 0 ) = sample( { i + 1, j, k } );
+                s1( 1 ) = sample( { i, j - 1, k } );
+                s2( 1 ) = sample( { i, j + 1, k } );
+                s1( 2 ) = sample( { i, j, k - 1 } );
+                s2( 2 ) = sample( { i, j, k + 1 } );
+                IndexType idx { i, j, k };
                 Vector3 grad = s2 - s1;
-                Vector4 grad_dens { grad[0], grad[1], grad[2], sample( {i, j, k} ) };
+                Vector4 grad_dens { grad[0], grad[1], grad[2], sample( { i, j, k } ) };
                 m_gradient[*linearIndex( idx )] = grad_dens;
             }
         }

@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.13)
 
 # ------------------------------------------------------------------------------
 # Policies and global parameters for CMake
@@ -276,6 +276,7 @@ message_setting("RADIUM_GENERATE_LIB_PLUGINBASE")
 message_setting("RADIUM_GIT_UPDATE_SUBMODULE")
 message_setting("RADIUM_IO_ASSIMP")
 message_setting("RADIUM_IO_TINYPLY")
+message_setting("RADIUM_IO_VOLUMES")
 message_setting("RADIUM_IO_DEPRECATED")
 message_setting("RADIUM_SKIP_CORE_EXTERNAL")
 message_setting("RADIUM_SKIP_ENGINE_EXTERNAL")

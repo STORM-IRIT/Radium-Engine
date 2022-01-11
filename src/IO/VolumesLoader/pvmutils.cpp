@@ -115,19 +115,16 @@ inline void DDS_loadbits( unsigned char* data, unsigned int size ) {
 inline unsigned int DDS_readbits( unsigned int bits ) {
     unsigned int value;
 
-    if ( bits < DDS_bufsize )
-    {
+    if ( bits < DDS_bufsize ) {
         DDS_bufsize -= bits;
         value = DDS_shiftr( DDS_buffer, DDS_bufsize );
     }
-    else
-    {
+    else {
         value = DDS_shiftl( DDS_buffer, bits - DDS_bufsize );
 
         if ( DDS_cachepos >= DDS_cachesize )
             DDS_buffer = 0;
-        else
-        {
+        else {
             DDS_buffer = *( (unsigned int*)&DDS_cache[DDS_cachepos] );
             if ( DDS_ISINTEL ) DDS_swapuint( &DDS_buffer );
             DDS_cachepos += 4;
@@ -154,8 +151,7 @@ void DDS_deinterleave( unsigned char* data,
 
     if ( skip <= 1 ) return;
 
-    if ( block == 0 )
-    {
+    if ( block == 0 ) {
         if ( ( data2 = (unsigned char*)malloc( bytes ) ) == nullptr ) MEMERROR();
 
         if ( !restore )
@@ -169,16 +165,13 @@ void DDS_deinterleave( unsigned char* data,
 
         memcpy( data, data2, bytes );
     }
-    else
-    {
+    else {
         if ( ( data2 = (unsigned char*)malloc(
                    ( bytes < skip * block ) ? bytes : skip * block ) ) == nullptr )
             MEMERROR();
 
-        if ( !restore )
-        {
-            for ( k = 0; k < bytes / skip / block; k++ )
-            {
+        if ( !restore ) {
+            for ( k = 0; k < bytes / skip / block; k++ ) {
                 for ( ptr = data2, i = 0; i < skip; i++ )
                     for ( j = i; j < skip * block; j += skip )
                         *ptr++ = data[k * skip * block + j];
@@ -192,10 +185,8 @@ void DDS_deinterleave( unsigned char* data,
 
             memcpy( data + k * skip * block, data2, bytes - k * skip * block );
         }
-        else
-        {
-            for ( k = 0; k < bytes / skip / block; k++ )
-            {
+        else {
+            for ( k = 0; k < bytes / skip / block; k++ ) {
                 for ( ptr = data + k * skip * block, i = 0; i < skip; i++ )
                     for ( j = i; j < skip * block; j += skip )
                         data2[j] = *ptr++;
@@ -246,12 +237,10 @@ void DDS_decode( unsigned char* chunk,
     ptr1 = ptr2 = nullptr;
     cnt = act = 0;
 
-    while ( ( cnt1 = DDS_readbits( DDS_RL ) ) != 0 )
-    {
+    while ( ( cnt1 = DDS_readbits( DDS_RL ) ) != 0 ) {
         bits = DDS_decode( DDS_readbits( 3 ) );
 
-        for ( cnt2 = 0; cnt2 < cnt1; cnt2++ )
-        {
+        for ( cnt2 = 0; cnt2 < cnt1; cnt2++ ) {
             if ( strip == 1 || cnt <= strip )
                 act += DDS_readbits( bits ) - ( 1 << bits ) / 2;
             else
@@ -263,15 +252,12 @@ void DDS_decode( unsigned char* chunk,
             while ( act > 255 )
                 act -= 256;
 
-            if ( ( cnt & ( DDS_BLOCKSIZE - 1 ) ) == 0 )
-            {
-                if ( ptr1 == nullptr )
-                {
+            if ( ( cnt & ( DDS_BLOCKSIZE - 1 ) ) == 0 ) {
+                if ( ptr1 == nullptr ) {
                     if ( ( ptr1 = (unsigned char*)malloc( DDS_BLOCKSIZE ) ) == nullptr ) MEMERROR();
                     ptr2 = ptr1;
                 }
-                else
-                {
+                else {
                     if ( ( ptr1 = (unsigned char*)realloc( ptr1, cnt + DDS_BLOCKSIZE ) ) ==
                          nullptr )
                         MEMERROR();
@@ -301,10 +287,8 @@ unsigned char* readRAWfiled( FILE* file, unsigned int* bytes ) {
     data = nullptr;
     cnt  = 0;
 
-    do
-    {
-        if ( data == nullptr )
-        {
+    do {
+        if ( data == nullptr ) {
             if ( ( data = (unsigned char*)malloc( DDS_BLOCKSIZE ) ) == nullptr ) MEMERROR();
         }
         else if ( ( data = (unsigned char*)realloc( data, cnt + DDS_BLOCKSIZE ) ) == nullptr )
@@ -314,8 +298,7 @@ unsigned char* readRAWfiled( FILE* file, unsigned int* bytes ) {
         cnt += blkcnt;
     } while ( blkcnt == DDS_BLOCKSIZE );
 
-    if ( cnt == 0 )
-    {
+    if ( cnt == 0 ) {
         free( data );
         return nullptr;
     }
@@ -356,20 +339,17 @@ unsigned char* readDDSfile( const char* filename, unsigned int* bytes ) {
     if ( ( file = fopen( filename, "rb" ) ) == nullptr ) return nullptr;
 
     for ( cnt = 0; DDS_ID[cnt] != '\0'; cnt++ )
-        if ( fgetc( file ) != DDS_ID[cnt] )
-        {
+        if ( fgetc( file ) != DDS_ID[cnt] ) {
             fclose( file );
             version = 0;
             break;
         }
 
-    if ( version == 0 )
-    {
+    if ( version == 0 ) {
         if ( ( file = fopen( filename, "rb" ) ) == nullptr ) return nullptr;
 
         for ( cnt = 0; DDS_ID2[cnt] != '\0'; cnt++ )
-            if ( fgetc( file ) != DDS_ID2[cnt] )
-            {
+            if ( fgetc( file ) != DDS_ID2[cnt] ) {
                 fclose( file );
                 return nullptr;
             }
@@ -420,8 +400,7 @@ unsigned char* readPVMvolume( const char* filename,
     if ( ( data = (unsigned char*)realloc( data, datasize + 1 ) ) == nullptr ) MEMERROR();
     data[datasize] = '\0';
 
-    if ( strncmp( (char*)data, "PVM\n", 4 ) != 0 )
-    {
+    if ( strncmp( (char*)data, "PVM\n", 4 ) != 0 ) {
         if ( strncmp( (char*)data, "PVM2\n", 5 ) == 0 )
             version = 2;
         else if ( strncmp( (char*)data, "PVM3\n", 5 ) == 0 )
@@ -437,8 +416,7 @@ unsigned char* readPVMvolume( const char* filename,
             ERRORMSG();
         ptr = (unsigned char*)strchr( (char*)ptr, '\n' ) + 1;
     }
-    else
-    {
+    else {
         ptr = &data[4];
         while ( *ptr == '#' )
             while ( *ptr++ != '\n' )
@@ -448,8 +426,7 @@ unsigned char* readPVMvolume( const char* filename,
         if ( *width < 1 || *height < 1 || *depth < 1 ) ERRORMSG();
     }
 
-    if ( scalex != nullptr && scaley != nullptr && scalez != nullptr )
-    {
+    if ( scalex != nullptr && scaley != nullptr && scalez != nullptr ) {
         *scalex = sx;
         *scaley = sy;
         *scalez = sz;
@@ -487,31 +464,27 @@ unsigned char* readPVMvolume( const char* filename,
     memcpy( volume, ptr, ( *width ) * ( *height ) * ( *depth ) * numc + len1 + len2 + len3 + len4 );
     free( data );
 
-    if ( desc != nullptr )
-    {
+    if ( desc != nullptr ) {
         if ( len1 > 1 )
             *desc = volume + ( *width ) * ( *height ) * ( *depth ) * numc;
         else
             *desc = nullptr;
     }
-    if ( courtesy != nullptr )
-    {
+    if ( courtesy != nullptr ) {
         if ( len2 > 1 )
             *courtesy = volume + ( *width ) * ( *height ) * ( *depth ) * numc + len1;
         else
             *courtesy = nullptr;
     }
 
-    if ( parameter != nullptr )
-    {
+    if ( parameter != nullptr ) {
         if ( len3 > 1 )
             *parameter = volume + ( *width ) * ( *height ) * ( *depth ) * numc + len1 + len2;
         else
             *parameter = nullptr;
     }
 
-    if ( comment != nullptr )
-    {
+    if ( comment != nullptr ) {
         if ( len4 > 1 )
             *comment = volume + ( *width ) * ( *height ) * ( *depth ) * numc + len1 + len2 + len3;
         else

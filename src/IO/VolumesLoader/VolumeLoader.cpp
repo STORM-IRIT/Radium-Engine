@@ -16,14 +16,14 @@ namespace IO {
 using namespace Ra::Core;
 using namespace Ra::Core::Utils;
 
-static const std::string volFileExtension {"vol"};
-static const std::string pvmFileExtension {"pvm"};
+static const std::string volFileExtension { "vol" };
+static const std::string pvmFileExtension { "pvm" };
 
 VolumeLoader::VolumeLoader()  = default;
 VolumeLoader::~VolumeLoader() = default;
 
 std::vector<std::string> VolumeLoader::getFileExtensions() const {
-    return {{"*." + volFileExtension}, {"*." + pvmFileExtension}};
+    return { { "*." + volFileExtension }, { "*." + pvmFileExtension } };
 }
 
 bool VolumeLoader::handleFileExtension( const std::string& extension ) const {
@@ -40,8 +40,7 @@ Ra::Core::Utils::Color readColor( std::ifstream& input, std::string& name ) {
 }
 
 bool checkExpected( const std::string& expected, const std::string& found ) {
-    if ( expected != found )
-    {
+    if ( expected != found ) {
         LOG( logWARNING ) << "\tVolumeLoader : unexpected volume attribute " << found << " : "
                           << expected << " was expected";
         return false;
@@ -52,8 +51,7 @@ bool checkExpected( const std::string& expected, const std::string& found ) {
 Ra::Core::Asset::FileData* VolumeLoader::loadVolFile( const std::string& filename ) {
     LOG( logINFO ) << "VolumeLoader : loading vol (pbrt based) file " << filename;
     std::ifstream input( filename );
-    if ( input.is_open() )
-    {
+    if ( input.is_open() ) {
         auto fileData = new Ra::Core::Asset::FileData( filename );
         std::string attribname;
         auto sigma_a = readColor( input, attribname );
@@ -69,8 +67,7 @@ Ra::Core::Asset::FileData* VolumeLoader::loadVolFile( const std::string& filenam
 
         input >> attribname >> beg;
         if ( !checkExpected( "density", attribname ) ) { return nullptr; }
-        if ( beg != '[' )
-        {
+        if ( beg != '[' ) {
             LOG( logWARNING ) << "\tVolumeLoader : unexpected start of density gri delimiter "
                               << beg;
             return nullptr;
@@ -78,7 +75,7 @@ Ra::Core::Asset::FileData* VolumeLoader::loadVolFile( const std::string& filenam
         LOG( logINFO ) << "\tVolumeLoader : reading a volume of size " << sx << "x" << sy << "x"
                        << sz;
 
-        Ra::Core::Vector3 voxelSize {1_ra, 1_ra, 1_ra};
+        Ra::Core::Vector3 voxelSize { 1_ra, 1_ra, 1_ra };
         auto density = new Geometry::VolumeGrid();
         density->setSize( Vector3i( sx, sy, sz ) );
         density->setBinSize( voxelSize );
@@ -89,8 +86,7 @@ Ra::Core::Asset::FileData* VolumeLoader::loadVolFile( const std::string& filenam
         } );
 
         input >> end;
-        if ( end != ']' )
-        {
+        if ( end != ']' ) {
             LOG( logWARNING ) << "\tVolumeLoader : unexpected end of density grid delimiter "
                               << end;
             return nullptr;
@@ -133,10 +129,9 @@ Ra::Core::Asset::FileData* VolumeLoader::loadPvmFile( const std::string& filenam
                                      &courtesy,
                                      &parameter,
                                      &comment );
-    if ( volumeData )
-    {
+    if ( volumeData ) {
         {
-            unsigned char empty[1] {'\0'};
+            unsigned char empty[1] { '\0' };
             LOG( logINFO ) << "VolumeLoader : \n\tpvm (The Volume Library) file " << filename
                            << " \n\twidth = " << width << " \n\theight = " << height
                            << " \n\tdepth = " << depth << " \n\tbyte per voxel = " << bytePerVoxel
@@ -156,10 +151,9 @@ Ra::Core::Asset::FileData* VolumeLoader::loadPvmFile( const std::string& filenam
         auto density = new Geometry::VolumeGrid();
         density->setSize( Vector3i( width, height, depth ) );
         density->setBinSize(
-            Ra::Core::Vector3 {Scalar( scalex ), Scalar( scaley ), Scalar( scalez )} );
+            Ra::Core::Vector3 { Scalar( scalex ), Scalar( scaley ), Scalar( scalez ) } );
 
-        switch ( bytePerVoxel )
-        {
+        switch ( bytePerVoxel ) {
         case 1: {
             fillRadiumVolume( density, volumeData );
             break;
@@ -200,8 +194,9 @@ Ra::Core::Asset::FileData* VolumeLoader::loadPvmFile( const std::string& filenam
 Ra::Core::Asset::FileData* VolumeLoader::loadFile( const std::string& filename ) {
     std::string extension = filename.substr( filename.find_last_of( '.' ) + 1 );
     if ( extension.compare( volFileExtension ) == 0 ) { return loadVolFile( filename ); }
-    else if ( extension.compare( pvmFileExtension ) == 0 )
-    { return loadPvmFile( filename ); }
+    else if ( extension.compare( pvmFileExtension ) == 0 ) {
+        return loadPvmFile( filename );
+    }
     LOG( logWARNING ) << "VolumeLoader : unsupported file format : " << filename;
     return nullptr;
 }
