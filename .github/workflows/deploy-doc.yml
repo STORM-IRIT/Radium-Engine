@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@master
         with:
           path: src/Radium-Engine
+          submodules: recursive
       - name: Install packages
         run : |
           sudo apt-get install doxygen graphviz
