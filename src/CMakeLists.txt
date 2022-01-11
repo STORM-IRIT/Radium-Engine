@@ -60,7 +60,8 @@ file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in "")
 
 cat(../cmake/CompilerVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in)
 cat(../cmake/Config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in)
-if(RADIUM_IO_VOLUMES)
+get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
+if(${HAS_VOLUMES})
     file(
         APPEND ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in
         "if(IO_FOUND)
