@@ -4,9 +4,7 @@
 # For testing on the function/class level.
 
 # -----------------------------------------------------------------------------
-
-add_executable(
-    unittests
+set(test_src
     unittest.cpp
     unittestUtils.hpp
     Core/algebra.cpp
@@ -27,8 +25,14 @@ add_executable(
     Core/topomesh.cpp
     Engine/signalmanager.cpp
     Gui/keymapping.cpp
-    IO/volumeloader.cpp
-    )
+)
+
+if(RADIUM_IO_VOLUMES)
+    message(STATUS "Compiling Volume loader unit test")
+    list(APPEND test_src IO/volumeloader.cpp)
+endif()
+
+add_executable(unittests ${test_src})
 
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
 target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Gui)

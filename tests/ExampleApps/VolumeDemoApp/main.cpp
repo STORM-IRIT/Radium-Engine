@@ -31,27 +31,27 @@ int main( int argc, char* argv[] ) {
         k -= sz / 2;
         Scalar d = ( std::sqrt( i * i + j * j + k * k ) - r ) / r;
         if ( d > 0 ) { return 0_ra; }
-        else
-        { return -d; }
+        else {
+            return -d;
+        }
     };
-    for ( int i = 0; i < sx; ++i )
-    {
-        for ( int j = 0; j < sy; ++j )
-        {
-            for ( int k = 0; k < sz; ++k )
-            { data[i + sx * ( j + sy * k )] = densityField( i, j, k, 50 ); }
+    for ( int i = 0; i < sx; ++i ) {
+        for ( int j = 0; j < sy; ++j ) {
+            for ( int k = 0; k < sz; ++k ) {
+                data[i + sx * ( j + sy * k )] = densityField( i, j, k, 50 );
+            }
         }
     }
-    auto volume     = new Ra::Core::Asset::VolumeData( "DemoVolume" );
-    volume->volume  = density;
+    auto volume    = new Ra::Core::Asset::VolumeData( "DemoVolume" );
+    volume->volume = density;
 
     // from measured media at https://github.com/mmp/pbrt-v3/blob/master/src/core/medium.cpp
     // unit :  mm-1
-/*
-    // Skin2
-    volume->sigma_s = Ra::Core::Utils::Color{ 1.09_ra, 1.59_ra, 1.79_ra};
-    volume->sigma_a = Ra::Core::Utils::Color{ 0.013_ra, 0.070_ra, 0.145_ra};
-*/
+    /*
+        // Skin2
+        volume->sigma_s = Ra::Core::Utils::Color{ 1.09_ra, 1.59_ra, 1.79_ra};
+        volume->sigma_a = Ra::Core::Utils::Color{ 0.013_ra, 0.070_ra, 0.145_ra};
+    */
     /*
     // Skin1
     volume->sigma_s = Ra::Core::Utils::Color{ 0.74_ra, 0.88_ra, 1.01_ra};
@@ -67,15 +67,15 @@ int main( int argc, char* argv[] ) {
     volume->sigma_s = Ra::Core::Utils::Color{ 1.7982e-05_ra, 1.3758e-05_ra, 1.2023e-05_ra };
     volume->sigma_a = Ra::Core::Utils::Color{ 0.010782_ra, 0.011855_ra, 0.023997_ra };
     */
-/*
-    // As the scene unit is meter, multiply by 1000
-    volume->sigma_s *= 1000;
-    volume->sigma_a *= 1000;
-*/
+    /*
+        // As the scene unit is meter, multiply by 1000
+        volume->sigma_s *= 1000;
+        volume->sigma_a *= 1000;
+    */
 
     // keep default absorption/diffusion  coeffficients : default to Air
 
-    Scalar maxDim   = std::max( std::max( sx, sy ), sz );
+    Scalar maxDim = std::max( std::max( sx, sy ), sz );
     Ra::Core::Vector3 p0( 0, 0, 0 );
     Ra::Core::Vector3 p1( sx, sy, sz );
     volume->boundingBox    = Ra::Core::Aabb( p0, p1 );
@@ -98,13 +98,13 @@ int main( int argc, char* argv[] ) {
     //! [Register the entity/component association to the geometry system ]
 
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox( {0.5f, 0.5f, 1.f} );
+    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.5f, 0.5f, 1.f } );
     //! [Creating the cube]
 
     //! [Colorize the Cube]
     cube.addAttrib(
         "in_color",
-        Ra::Core::Vector4Array {cube.vertices().size(), Ra::Core::Utils::Color::White()} );
+        Ra::Core::Vector4Array { cube.vertices().size(), Ra::Core::Utils::Color::White() } );
     //! [Colorize the Cube]
 
     //! [Create the engine entity for the cube]
@@ -119,7 +119,6 @@ int main( int argc, char* argv[] ) {
     //! [Register the entity/component association to the geometry system ]
     geometrySystem->addComponent( ce, cc );
     //! [Register the entity/component association to the geometry system ]
-
 
     //! [Tell the window that something is to be displayed]
     app.m_mainWindow->prepareDisplay();

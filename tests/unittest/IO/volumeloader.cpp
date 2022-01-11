@@ -22,15 +22,15 @@ TEST_CASE( "IO/VolumesLoader", "[IO]" ) {
         auto supportedFiles = loader.getFileExtensions();
 
         auto support_vol = std::find(
-            std::begin( supportedFiles ), std::end( supportedFiles ), std::string {"*.vol"} );
+            std::begin( supportedFiles ), std::end( supportedFiles ), std::string { "*.vol" } );
         REQUIRE( support_vol != std::end( supportedFiles ) );
 
         auto support_pvm = std::find(
-            std::begin( supportedFiles ), std::end( supportedFiles ), std::string {"*.pvm"} );
+            std::begin( supportedFiles ), std::end( supportedFiles ), std::string { "*.pvm" } );
         REQUIRE( support_pvm != std::end( supportedFiles ) );
 
         auto support_openvdb = std::find(
-            std::begin( supportedFiles ), std::end( supportedFiles ), std::string {"*.vdb"} );
+            std::begin( supportedFiles ), std::end( supportedFiles ), std::string { "*.vdb" } );
         REQUIRE( support_openvdb == std::end( supportedFiles ) );
 
         auto handle_vol = loader.handleFileExtension( "pvm" );
@@ -67,6 +67,8 @@ TEST_CASE( "IO/VolumesLoader", "[IO]" ) {
         REQUIRE( ( Math::areApproxEqual( binsize[0], 1_ra ) &&
                    Math::areApproxEqual( binsize[1], 1_ra ) &&
                    Math::areApproxEqual( binsize[2], 1_ra ) ) );
+        auto hasGradient = volumeData->hasGradients();
+        REQUIRE( hasGradient == false );
         delete volumeData;
         delete loadedFile;
     }
@@ -91,6 +93,10 @@ TEST_CASE( "IO/VolumesLoader", "[IO]" ) {
         REQUIRE( ( Math::areApproxEqual( binsize[0], 1._ra ) &&
                    Math::areApproxEqual( binsize[1], 1._ra ) &&
                    Math::areApproxEqual( binsize[2], 1.4_ra ) ) );
+
+        volumeData->computeGradients();
+        auto hasGradient = volumeData->hasGradients();
+        REQUIRE( hasGradient == true );
         delete volumeData;
         delete loadedFile;
     }
