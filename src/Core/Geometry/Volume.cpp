@@ -61,20 +61,21 @@ Aabb AbstractDiscreteVolume::computeAabb() const {
 
 VolumeGrid::ValueType VolumeGrid::sample( const IndexType& i ) {
     IndexType idx {
-        std::clamp( i.x(), 0, size().x() ),
-        std::clamp( i.y(), 0, size().y() ),
-        std::clamp( i.z(), 0, size().z() ),
+        std::clamp( i.x(), 0, size().x() - 1 ),
+        std::clamp( i.y(), 0, size().y() - 1 ),
+        std::clamp( i.z(), 0, size().z() - 1 ),
     };
     return m_data[*linearIndex( idx )];
 }
 
 void VolumeGrid::computeGradients() {
     m_gradient.resize( m_data.size() );
+    auto s = size();
 
-#pragma omp parallel for
-    for ( int k = 0; k < size().z(); ++k ) {
-        for ( int j = 0; j < size().y(); ++j ) {
-            for ( int i = 0; i < size().x(); ++i ) {
+#pragma omp parallel for default(none) shared(m_gradient) firstprivate(s)
+    for ( int k = 0; k < s.z(); ++k ) {
+        for ( int j = 0; j < s.y(); ++j ) {
+            for ( int i = 0; i < s.x(); ++i ) {
                 Vector3 s1;
                 Vector3 s2;
                 s1( 0 ) = sample( { i - 1, j, k } );
