@@ -73,6 +73,37 @@ if(DOXYGEN_FOUND)
         set(GIT_CHANGESET "")
     endif()
 
+    # Get awesome css
+    set(RADIUM_DOXYGEN_AWESOME_CSS_ROOT
+        "${CMAKE_CURRENT_SOURCE_DIR}/../external/doxygen-awesome-css"
+    )
+    set(RADIUM_DOXYGEN_AWESOME_CSS "${RADIUM_DOXYGEN_AWESOME_CSS_ROOT}/doxygen-awesome.css")
+    set(USE_AWESOME_CSS YES)
+    if(NOT EXISTS "${RADIUM_DOXYGEN_AWESOME_CSS}")
+        set(USE_AWESOME_CSS OFF)
+        if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git")
+            execute_process(
+                COMMAND ${GIT_EXECUTABLE} submodule update --init ${RADIUM_DOXYGEN_AWESOME_CSS_ROOT}
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} RESULT_VARIABLE GIT_SUBMOD_RESULT
+            )
+            if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+                message(
+                    FATAL_ERROR
+                        "git submodule update --init ${DOXYGEN_AWESOME_CSS_ROOT} failed with ${GIT_SUBMOD_RESULT}, please checkout submodules"
+                )
+            else()
+                set(USE_AWESOME_CSS YES)
+            endif()
+            set(RADIUM_DOXYGEN_AWESOME_CSS
+                "${RADIUM_DOXYGEN_AWESOME_CSS}"
+                "${RADIUM_DOXYGEN_AWESOME_CSS_ROOT}/doxygen-awesome-sidebar-only.css"
+            )
+        else()
+            set(RADIUM_DOXYGEN_AWESOME_CSS "")
+        endif()
+    endif()
+    message(STATUS "Use Doxygen Awesome CSS?                  ${USE_AWESOME_CSS}")
+
     set(RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
 
     # be nice with IDE: add .md files
@@ -109,10 +140,7 @@ if(DOXYGEN_FOUND)
     set(DOXYGEN_HTML_COLORSTYLE_GAMMA "160")
     set(DOXYGEN_HTML_TIMESTAMP "YES")
     set(DOXYGEN_HTML_DYNAMIC_SECTIONS "YES")
-    set(DOXYGEN_HTML_EXTRA_STYLESHEET
-        "${CMAKE_CURRENT_SOURCE_DIR}/../external/doxygen-awesome-css/doxygen-awesome.css"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../external/doxygen-awesome-css/doxygen-awesome-sidebar-only.css"
-    )
+    set(DOXYGEN_HTML_EXTRA_STYLESHEET ${RADIUM_DOXYGEN_AWESOME_CSS})
     set(DOXYGEN_DOCSET_BUNDLE_ID "com.storm-irit.RadiumEngine")
     set(DOXYGEN_DOCSET_PUBLISHER_NAME "IRIT")
     set(DOXYGEN_GENERATE_TREEVIEW "YES")
