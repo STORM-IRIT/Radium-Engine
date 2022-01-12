@@ -156,7 +156,7 @@ generate the cmake packages and bundle applications with their dependencies (on 
 
 Note that installation requires write access on the installation directory.
 
-## Building note for Microsoft Windows with Visual Studio
+## Integration with Visual Studio (Microsoft Windows)
 
 ### Supported versions of MSVC
 Radium requires MSVC 2019 or superior, as it relies on:
@@ -211,7 +211,7 @@ To fix it, edit `CMakeSettings.json`, such that
   ]
 }
 ~~~
-*Note*: it is strongly encouraged to use `/` separators in your path, instead of `\\`. See https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u
+\note It is strongly encouraged to use `/` separators in your path, instead of `\\`. See https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u
 *Note*: When compiling the dependencies you may hit the max path length fixed by Microsoft OS (260 characters). To fix this, you might need to change the path of your build dir to shorten it, or to change the limit on your system, see: https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later
 
 ### Compilation

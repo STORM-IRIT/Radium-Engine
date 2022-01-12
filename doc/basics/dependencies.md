@@ -9,7 +9,7 @@ Radium relies on several external libraries to load files or to represent some d
 * [doc] Doxygen-awesome-css
 * stb_image
 
-We developed a series of tools to fetch and compile easily these dependencies easily, except for
+We developed a series of tools to fetch and compile these dependencies easily, except for
 Qt, which needs to be installed and passed to cmake through the variable `Qt5_DIR` (see documentation at
 https://doc.qt.io/qt-5.12/cmake-manual.html#getting-started).
 
