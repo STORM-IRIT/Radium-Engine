@@ -92,9 +92,8 @@ if(DOXYGEN_FOUND)
             else()
                 set(USE_AWESOME_CSS TRUE)
             endif()
-            set(DOXYGEN_AWESOME_CSS
-                "${DOXYGEN_AWESOME_CSS}"
-                "${CMAKE_CURRENT_SOURCE_DIR}/../external/doxygen-awesome-css/doxygen-awesome-sidebar-only.css"
+            set(DOXYGEN_AWESOME_CSS "${DOXYGEN_AWESOME_CSS}"
+                                    "${DOXYGEN_AWESOME_CSS_ROOT}/doxygen-awesome-sidebar-only.css"
             )
         else()
             set(DOXYGEN_AWESOME_CSS "")
