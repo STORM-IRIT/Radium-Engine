@@ -1,7 +1,7 @@
 \mainpage
 
 Radium is a research 3D Engine for rendering, animation and processing.
-Devopped and maintained by the [STORM research group](https://www.irit.fr/STORM/site/).
+Developed and maintained by the [STORM research group](https://www.irit.fr/STORM/site/).
 
 The source code is hosted on github: https://github.com/STORM-IRIT/Radium-Engine
 
@@ -37,5 +37,5 @@ See [this presentation](https://docs.google.com/presentation/d/12W2KXY7ctJXFIelm
 
 The documentation is structured as follow:
  - @ref basicsmanual : how to compile Radium and use it in your own project.
- - @ref conceptsmanual : high level concepts use in Radium Engine
  - @ref develmanual : general topics (e.g. coding conventions) and description of the concepts found in the API of Radium.
+- @ref conceptsmanual : high level concepts used in Radium Engine

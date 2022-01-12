@@ -12,11 +12,8 @@ Radium offers several cmake functions to configure and build your extension.
 - \subpage cmakeutilities
 - \subpage develplugin
 - \subpage apps
-
-
 - \subpage develWithRadium
 - \subpage develCodingConvention
-- \subpage develbuildchain
 - \subpage api
 - \subpage develoldmanual
 
