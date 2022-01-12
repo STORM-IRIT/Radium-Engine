@@ -69,6 +69,7 @@ TEST_CASE( "IO/VolumesLoader", "[IO]" ) {
                    Math::areApproxEqual( binsize[2], 1_ra ) ) );
         auto hasGradient = volumeData->hasGradients();
         REQUIRE( hasGradient == false );
+        LOG( logINFO ) << "deleting volume.";
         delete volumeData;
         delete loadedFile;
     }
@@ -94,9 +95,12 @@ TEST_CASE( "IO/VolumesLoader", "[IO]" ) {
                    Math::areApproxEqual( binsize[1], 1._ra ) &&
                    Math::areApproxEqual( binsize[2], 1.4_ra ) ) );
 
+        LOG( logINFO ) << "computing gradients for data/Lobster.pvm.";
         volumeData->computeGradients();
         auto hasGradient = volumeData->hasGradients();
         REQUIRE( hasGradient == true );
+
+        LOG( logINFO ) << "deleting volume.";
         delete volumeData;
         delete loadedFile;
     }
