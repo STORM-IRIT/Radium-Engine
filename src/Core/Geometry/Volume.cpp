@@ -72,7 +72,7 @@ void VolumeGrid::computeGradients() {
     m_gradient.resize( m_data.size() );
     auto s = size();
 
-#pragma omp parallel for default(none) shared(m_gradient) firstprivate(s)
+#pragma omp parallel for firstprivate( s )
     for ( int k = 0; k < s.z(); ++k ) {
         for ( int j = 0; j < s.y(); ++j ) {
             for ( int i = 0; i < s.x(); ++i ) {
