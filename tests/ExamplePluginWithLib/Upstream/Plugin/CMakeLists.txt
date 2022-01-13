@@ -25,8 +25,8 @@ endif()
 message(STATUS "Searching for package Radium")
 find_package(Radium REQUIRED Core Engine PluginBase)
 
-find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
-set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets)
+find_qt_package(COMPONENTS Core Widgets REQUIRED)
+set(Qt_LIBRARIES Qt::Core Qt::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} # Moc
@@ -44,7 +44,7 @@ add_library(${PROJECT_NAME} SHARED ${sources} ${headers})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_EXPORTS)
 
 target_link_libraries(
-    ${PROJECT_NAME} Radium::Core Radium::Engine Radium::PluginBase ${Qt5_LIBRARIES}
+    ${PROJECT_NAME} Radium::Core Radium::Engine Radium::PluginBase ${Qt_LIBRARIES}
     ExampleLibraryUpstream
 )
 
