@@ -166,16 +166,21 @@ if(IO_FOUND)
 
 endif()
 
+# Load Radium qt functions
+if(PluginBase_FOUND OR Gui_FOUND)
+    include(${CMAKE_CURRENT_LIST_DIR}/QtFunctions.cmake)
+endif()
+
 if(PluginBase_FOUND)
-    find_dependency(Qt5 COMPONENTS Core REQUIRED)
-    get_target_property(QtCore_Dll Qt5::Core LOCATION)
+    find_qt_dependency(COMPONENTS Core REQUIRED)
+    get_target_property(QtCore_Dll Qt::Core LOCATION)
     get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
     include("${CMAKE_CURRENT_LIST_DIR}/PluginBaseTargets.cmake")
 endif()
 
 if(Gui_FOUND)
-    find_dependency(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
-    get_target_property(QtCore_Dll Qt5::Core LOCATION)
+    find_qt_dependency(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+    get_target_property(QtCore_Dll Qt::Core LOCATION)
     get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
     include("${CMAKE_CURRENT_LIST_DIR}/GuiTargets.cmake")
 endif()

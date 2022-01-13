@@ -100,7 +100,7 @@ function(configure_cmdline_radium_app)
 endfunction()
 
 # internal Utility function to install Qt internal plugins into a macosX bundle
-macro(install_qt5_plugin _qt_plugin_name _qt_plugins_var _destination)
+macro(install_qt_plugin _qt_plugin_name _qt_plugins_var _destination)
     get_target_property(_qt_plugin_path "${_qt_plugin_name}" LOCATION)
     if(EXISTS "${_qt_plugin_path}")
         get_filename_component(_qt_plugin_file "${_qt_plugin_path}" NAME)
@@ -110,7 +110,7 @@ macro(install_qt5_plugin _qt_plugin_name _qt_plugins_var _destination)
         install(FILES "${_qt_plugin_path}" DESTINATION "${_qt_plugin_dest}")
         set(${_qt_plugins_var} "${${_qt_plugins_var}};${_qt_plugin_dest}/${_qt_plugin_file}")
     else()
-        message(FATAL_ERROR "[install_qt5_plugin] QT plugin ${_qt_plugin_name} not found")
+        message(FATAL_ERROR "[install_qt_plugin] QT plugin ${_qt_plugin_name} not found")
     endif()
 endmacro()
 
@@ -188,16 +188,16 @@ function(configure_bundled_radium_app)
     # install qtPlugins (QPA plugin name found here https://doc.qt.io/qt-5/qpa.html) needed to fixup
     # the bundle
     get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-    list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
-    if(NOT QTCOREIDX EQUAL -1)
+    list(FIND IsUsingQt "Qt::Gui" QTGUIIDX)
+    if(NOT QTGUIIDX EQUAL -1)
         message(STATUS "[configure_bundled_radium_app] installing Qt plugins for ${ARGS_NAME}.")
         # Find the list of plugins needed for a macos Qt app and add them here
-        install_qt5_plugin(
-            "Qt5::QCocoaIntegrationPlugin" INSTALLED_QT_PLUGINS
+        install_qt_plugin(
+            "Qt::QCocoaIntegrationPlugin" INSTALLED_QT_PLUGINS
             "${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/"
         )
-        install_qt5_plugin(
-            "Qt5::QMacStylePlugin" INSTALLED_QT_PLUGINS
+        install_qt_plugin(
+            "Qt::QMacStylePlugin" INSTALLED_QT_PLUGINS
             "${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/"
         )
     endif()
@@ -635,7 +635,7 @@ function(configure_windows_radium_app)
 
     # deploy qt
     get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-    list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
+    list(FIND IsUsingQt "Qt::Core" QTCOREIDX)
     if(NOT QTCOREIDX EQUAL -1)
         message(STATUS "[configure_windows_radium_app] Preparing call to WinDeployQT"
                        "for application ${ARGS_NAME}"
@@ -704,7 +704,7 @@ function(configure_radium_app)
     else()
         configure_cmdline_radium_app(${ARGN})
         get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-        list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
+        list(FIND IsUsingQt "Qt::Core" QTCOREIDX)
         if(NOT QTCOREIDX EQUAL -1)
             message(
                 STATUS "[configure_radium_app] Deploying QT is not yet supported for application"
