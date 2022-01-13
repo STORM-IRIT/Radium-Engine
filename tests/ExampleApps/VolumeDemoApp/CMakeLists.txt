@@ -51,6 +51,9 @@ add_executable(
     ${PROJECT_NAME} MACOSX_BUNDLE ${app_sources} ${app_headers} ${app_uis} ${app_resources}
 )
 
+target_compile_definitions(
+    ${PROJECT_NAME} PRIVATE DEMO_FILE="${CMAKE_CURRENT_SOURCE_DIR}/../../unittest/data/Lobster.pvm"
+)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 target_include_directories(
     ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc

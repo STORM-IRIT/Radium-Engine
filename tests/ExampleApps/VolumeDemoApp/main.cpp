@@ -16,6 +16,7 @@ int main( int argc, char* argv[] ) {
     app.initialize( Ra::Gui::SimpleWindowFactory {} );
     //! [Creating the application]
 
+#ifndef DEMO_FILE
     //! [Creating the Volume]
     auto density = new Ra::Core::Geometry::VolumeGrid();
     int sx       = 100;
@@ -96,7 +97,6 @@ int main( int argc, char* argv[] ) {
     auto geometrySystem = app.m_engine->getSystem( "GeometrySystem" );
     geometrySystem->addComponent( e, c );
     //! [Register the entity/component association to the geometry system ]
-
     //! [Creating the cube]
     auto cube = Ra::Core::Geometry::makeSharpBox( { 0.5f, 0.5f, 1.f } );
     //! [Creating the cube]
@@ -123,12 +123,51 @@ int main( int argc, char* argv[] ) {
     //! [Tell the window that something is to be displayed]
     app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
+#else
+    app.loadFile( DEMO_FILE );
+    auto entities          = app.m_engine->getEntityManager()->getEntities();
+    auto e                 = entities[entities.size() - 1];
+    Ra::Core::Transform tr = Ra::Core::Transform::Identity();
+    tr.rotate(
+        Ra::Core::AngleAxis( -Ra::Core::Math::PiDiv2, Ra::Core::Vector3 { 1_ra, 0_ra, 0_ra } ) );
+    tr.translate( Ra::Core::Vector3 { 0_ra, 0_ra, 0.35_ra } );
+    e->setTransform( tr );
+
+    auto geometrySystem = app.m_engine->getSystem( "GeometrySystem" );
+    //! [Creating the cube]
+    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.5f, 0.25f, 0.5f } );
+    //! [Creating the cube]
+
+    //! [Colorize the Cube]
+    cube.addAttrib(
+        "in_color",
+        Ra::Core::Vector4Array { cube.vertices().size(), Ra::Core::Utils::Color::White() } );
+    //! [Colorize the Cube]
+
+    //! [Create the engine entity for the cube]
+    auto ce = app.m_engine->getEntityManager()->createEntity( "Green cube" );
+    //! [Create the engine entity for the cube]
+
+    //! [Create a geometry component with the cube]
+    auto cc =
+        new Ra::Engine::Scene::TriangleMeshComponent( "Cube Mesh", ce, std::move( cube ), nullptr );
+    //! [Create a geometry component with the cube]
+
+    //! [Register the entity/component association to the geometry system ]
+    geometrySystem->addComponent( ce, cc );
+    //! [Register the entity/component association to the geometry system ]
+
+    //! [Tell the window that something is to be displayed]
+    app.m_mainWindow->prepareDisplay();
+    //! [Tell the window that something is to be displayed]
+
+#endif
 
     // terminate the app after 8 second (approximatively). Camera can be moved using mouse moves.
     auto close_timer = new QTimer( &app );
     close_timer->setInterval( 8000 );
     QObject::connect( close_timer, &QTimer::timeout, [&app]() { app.appNeedsToQuit(); } );
-    close_timer->start();
+    // close_timer->start();
 
     return app.exec();
 }
