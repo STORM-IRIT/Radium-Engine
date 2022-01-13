@@ -27,8 +27,8 @@ endif()
 
 # Radium and Qt stuff
 find_package(Radium REQUIRED Core Engine PluginBase)
-find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
-set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets)
+find_qt_package(COMPONENTS Core Widgets REQUIRED)
+set(Qt_LIBRARIES Qt::Core Qt::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} # Moc

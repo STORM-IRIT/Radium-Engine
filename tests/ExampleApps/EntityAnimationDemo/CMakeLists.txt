@@ -19,8 +19,8 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 
 # ------------------------------------------------------------------------------
-find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
-set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets)
+find_qt_package(COMPONENTS Core Widgets REQUIRED)
+set(Qt_LIBRARIES Qt::Core Qt::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -35,7 +35,7 @@ set(app_sources main.cpp)
 add_executable(${PROJECT_NAME} ${app_sources})
 
 target_link_libraries(
-    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::IO Radium::Gui ${Qt5_LIBRARIES}
+    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::IO Radium::Gui ${Qt_LIBRARIES}
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)

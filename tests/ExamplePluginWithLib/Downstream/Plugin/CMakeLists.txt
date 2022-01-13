@@ -16,7 +16,7 @@ add_library(${PROJECT_NAME} SHARED ${sources} ${headers})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_EXPORTS)
 
 target_link_libraries(
-    ${PROJECT_NAME} Radium::Core Radium::Engine Radium::PluginBase ${Qt5_LIBRARIES}
+    ${PROJECT_NAME} Radium::Core Radium::Engine Radium::PluginBase ${Qt_LIBRARIES}
     ExampleLibraryUpstream::ExampleLibraryUpstream
 )
 
