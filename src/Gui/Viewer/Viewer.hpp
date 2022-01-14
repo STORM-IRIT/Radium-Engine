@@ -181,6 +181,13 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     void needUpdate();
 
+    /// Event sent after a mouse press event has been processed, but before emitting needUpdate()
+    void onMousePress( QMouseEvent* event );
+    /// Event sent after a mouse release event has been processed, but before emitting needUpdate()
+    void onMouseRelease( QMouseEvent* event );
+    /// Event sent after a mouse move event has been processed, but before emitting needUpdate()
+    void onMouseMove( QMouseEvent* event );
+
   public slots:
     /// Tell the renderer to reload all shaders.
     void reloadShaders();

@@ -541,11 +541,13 @@ void Viewer::mousePressEvent( QMouseEvent* event ) {
     m_depthUnderMouse = result.getDepth();
 
     handleMousePressEvent( event, result );
+    emit onMousePress( event );
     emit needUpdate();
 }
 
 void Viewer::mouseReleaseEvent( QMouseEvent* event ) {
     handleMouseReleaseEvent( event );
+    emit onMouseRelease( event );
     emit needUpdate();
 }
 
@@ -561,6 +563,7 @@ void Viewer::mouseMoveEvent( QMouseEvent* event ) {
     m_depthUnderMouse = result.getDepth();
 
     handleMouseMoveEvent( event, result );
+    emit onMouseMove( event );
     emit needUpdate();
 }
 
