@@ -16,6 +16,7 @@ int main( int argc, char* argv[] ) {
     app.initialize( Ra::Gui::SimpleWindowFactory {} );
     //! [Creating the application]
 
+// DEMO_FILE is set during configure time by cmake and defines the file to load in the demo
 #ifndef DEMO_FILE
     //! [Creating the Volume]
     auto density = new Ra::Core::Geometry::VolumeGrid();
@@ -43,40 +44,10 @@ int main( int argc, char* argv[] ) {
             }
         }
     }
+
     auto volume    = new Ra::Core::Asset::VolumeData( "DemoVolume" );
     volume->volume = density;
-
-    // from measured media at https://github.com/mmp/pbrt-v3/blob/master/src/core/medium.cpp
-    // unit :  mm-1
-    /*
-        // Skin2
-        volume->sigma_s = Ra::Core::Utils::Color{ 1.09_ra, 1.59_ra, 1.79_ra};
-        volume->sigma_a = Ra::Core::Utils::Color{ 0.013_ra, 0.070_ra, 0.145_ra};
-    */
-    /*
-    // Skin1
-    volume->sigma_s = Ra::Core::Utils::Color{ 0.74_ra, 0.88_ra, 1.01_ra};
-    volume->sigma_a = Ra::Core::Utils::Color{ 0.032_ra, 0.17_ra, 0.48_ra};
-    */
-    /*
-    // Ketchup
-    volume->sigma_s = Ra::Core::Utils::Color{ 0.18_ra, 0.07_ra, 0.03_ra};
-    volume->sigma_a = Ra::Core::Utils::Color{ 0.061_ra, 0.97_ra, 1.45_ra};
-    */
-    /*
-    // Chardonnay
-    volume->sigma_s = Ra::Core::Utils::Color{ 1.7982e-05_ra, 1.3758e-05_ra, 1.2023e-05_ra };
-    volume->sigma_a = Ra::Core::Utils::Color{ 0.010782_ra, 0.011855_ra, 0.023997_ra };
-    */
-    /*
-        // As the scene unit is meter, multiply by 1000
-        volume->sigma_s *= 1000;
-        volume->sigma_a *= 1000;
-    */
-
-    // keep default absorption/diffusion  coeffficients : default to Air
-
-    Scalar maxDim = std::max( std::max( sx, sy ), sz );
+    Scalar maxDim  = std::max( std::max( sx, sy ), sz );
     Ra::Core::Vector3 p0( 0, 0, 0 );
     Ra::Core::Vector3 p1( sx, sy, sz );
     volume->boundingBox    = Ra::Core::Aabb( p0, p1 );
@@ -108,7 +79,7 @@ int main( int argc, char* argv[] ) {
     //! [Colorize the Cube]
 
     //! [Create the engine entity for the cube]
-    auto ce = app.m_engine->getEntityManager()->createEntity( "Green cube" );
+    auto ce = app.m_engine->getEntityManager()->createEntity( "White cube" );
     //! [Create the engine entity for the cube]
 
     //! [Create a geometry component with the cube]
@@ -130,12 +101,12 @@ int main( int argc, char* argv[] ) {
     Ra::Core::Transform tr = Ra::Core::Transform::Identity();
     tr.rotate(
         Ra::Core::AngleAxis( -Ra::Core::Math::PiDiv2, Ra::Core::Vector3 { 1_ra, 0_ra, 0_ra } ) );
-    tr.translate( Ra::Core::Vector3 { 0_ra, 0_ra, 0.35_ra } );
+    tr.translate( Ra::Core::Vector3 { 0_ra, 0_ra, 0.125_ra } );
     e->setTransform( tr );
 
     auto geometrySystem = app.m_engine->getSystem( "GeometrySystem" );
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.5f, 0.25f, 0.5f } );
+    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.5_ra, 0.05_ra, 0.5_ra } );
     //! [Creating the cube]
 
     //! [Colorize the Cube]
@@ -145,7 +116,7 @@ int main( int argc, char* argv[] ) {
     //! [Colorize the Cube]
 
     //! [Create the engine entity for the cube]
-    auto ce = app.m_engine->getEntityManager()->createEntity( "Green cube" );
+    auto ce = app.m_engine->getEntityManager()->createEntity( "White cube" );
     //! [Create the engine entity for the cube]
 
     //! [Create a geometry component with the cube]
