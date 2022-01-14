@@ -183,12 +183,12 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
   public:
     using ValueType = AbstractDiscreteVolume::ValueType;
     using IndexType = AbstractDiscreteVolume::IndexType;
+    // Stores the 3 partial derivatives of the density if the 3 first components and the density as
+    // fourth component.
+    using GradientType = Eigen::Matrix<ValueType, 4, 1>;
 
-    using Container = std::vector<ValueType>;
-
-    // For now, assume that AbstractDiscreteVolume::ValueType is Scalar
-    // vector4 : gradient and density
-    using Gradientcontainer = std::vector<Vector4>;
+    using Container         = std::vector<ValueType>;
+    using GradientContainer = std::vector<GradientType>;
 
   public:
     inline VolumeGrid( const ValueType& defaultValue = ValueType( 0. ) ) :
@@ -219,9 +219,9 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
     void computeGradients();
 
     /// Direct access to the managed gradients
-    inline const Gradientcontainer& gradient() const { return m_gradient; }
+    inline const GradientContainer& gradient() const { return m_gradient; }
     /// Direct access, with modification allowed to the managed gradients
-    inline Gradientcontainer& gradient() { return m_gradient; }
+    inline GradientContainer& gradient() { return m_gradient; }
 
   protected:
     /// Get the function value a given position p
@@ -247,7 +247,7 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
 
     ValueType m_defaultValue;
     Container m_data;
-    Gradientcontainer m_gradient;
+    GradientContainer m_gradient;
 }; // class VolumeGrid
 
 /** Discrete volume data with sparse storage
