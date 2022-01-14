@@ -76,8 +76,8 @@ void VolumeGrid::computeGradients() {
     for ( int k = 0; k < s.z(); ++k ) {
         for ( int j = 0; j < s.y(); ++j ) {
             for ( int i = 0; i < s.x(); ++i ) {
-                Vector3 s1;
-                Vector3 s2;
+                Eigen::Matrix<ValueType, 3, 1> s1;
+                Eigen::Matrix<ValueType, 3, 1> s2;
                 s1( 0 ) = sample( { i - 1, j, k } );
                 s2( 0 ) = sample( { i + 1, j, k } );
                 s1( 1 ) = sample( { i, j - 1, k } );
@@ -85,9 +85,9 @@ void VolumeGrid::computeGradients() {
                 s1( 2 ) = sample( { i, j, k - 1 } );
                 s2( 2 ) = sample( { i, j, k + 1 } );
                 IndexType idx { i, j, k };
-                Vector3 grad = s2 - s1;
-                Vector4 grad_dens { grad[0], grad[1], grad[2], sample( { i, j, k } ) };
-                m_gradient[*linearIndex( idx )] = grad_dens;
+                Eigen::Matrix<ValueType, 3, 1> gradient = s2 - s1;
+                m_gradient[*linearIndex( idx )]         = {
+                    gradient[0], gradient[1], gradient[2], sample( { i, j, k } ) };
             }
         }
     }
