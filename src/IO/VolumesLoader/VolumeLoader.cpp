@@ -148,10 +148,11 @@ Ra::Core::Asset::FileData* VolumeLoader::loadPvmFile( const std::string& filenam
                 return Scalar( d ) / std::numeric_limits<decltype( d )>::max();
             } );
         };
+        Ra::Core::Vector3 binSize { Scalar( scalex ), Scalar( scaley ), Scalar( scalez ) };
+        Ra::Core::Vector3i gridSize { int( width ), int( height ), int( depth ) };
         auto density = new Geometry::VolumeGrid();
-        density->setSize( Vector3i( width, height, depth ) );
-        density->setBinSize(
-            Ra::Core::Vector3 { Scalar( scalex ), Scalar( scaley ), Scalar( scalez ) } );
+        density->setSize( gridSize );
+        density->setBinSize( binSize );
 
         switch ( bytePerVoxel ) {
         case 1: {
@@ -175,12 +176,12 @@ Ra::Core::Asset::FileData* VolumeLoader::loadPvmFile( const std::string& filenam
         LOG( logINFO ) << "\tVolumeLoader : done reading";
 
         auto volume = new Asset::VolumeData( filename.substr( filename.find_last_of( '/' ) + 1 ) );
-        volume->volume = density;
-        Scalar maxDim  = std::max( std::max( width, height ), depth );
-        Ra::Core::Vector3 p0( 0, 0, 0 );
-        Ra::Core::Vector3 p1( width * scalex, height * scaley, depth * scalez );
+        volume->volume         = density;
+        Scalar maxDim          = std::max( std::max( width, height ), depth );
+        Ra::Core::Vector3 p0   = Vector3::Zero();
+        Ra::Core::Vector3 p1   = gridSize.cast<Scalar>().cwiseProduct( binSize );
         volume->boundingBox    = Aabb( p0, p1 );
-        volume->densityToModel = Eigen::Scaling( scalex, scaley, scalez );
+        volume->densityToModel = Eigen::Scaling( binSize );
         volume->modelToWorld   = Eigen::Scaling( 1_ra / maxDim ) * Translation( p1 * -0.5 );
 
         auto fileData = new Ra::Core::Asset::FileData( filename );
