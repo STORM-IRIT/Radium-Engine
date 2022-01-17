@@ -60,6 +60,15 @@ file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in "")
 
 cat(../cmake/CompilerVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in)
 cat(../cmake/Config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in)
+get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
+if(${HAS_VOLUMES})
+    file(
+        APPEND ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in
+        "if(IO_FOUND)
+          set_target_properties( Radium::IO PROPERTIES RADIUM_IO_HAS_VOLUMES TRUE)
+         endif()"
+    )
+endif()
 # -----------------------------------------------------------------------------------
 # Generate cmake package
 configure_radium_package(
