@@ -3,9 +3,10 @@ list(APPEND CMAKE_MESSAGE_INDENT "[${ra_io_target}] ")
 
 project(${ra_io_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 
-option(RADIUM_IO_DEPRECATED "Provide depricated loaders (to be removed without notice)" ON)
+option(RADIUM_IO_DEPRECATED "Provide deprecated loaders (to be removed without notice)" ON)
 option(RADIUM_IO_ASSIMP "Provide loaders based on Assimp library" ON)
 option(RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library" ON)
+option(RADIUM_IO_VOLUMES "Provide loader for volume pvm file format" ON)
 
 include(filelistIO)
 
@@ -49,6 +50,10 @@ endif(RADIUM_IO_ASSIMP)
 if(RADIUM_IO_TINYPLY)
     target_link_libraries(${ra_io_target} PUBLIC tinyply)
 endif(RADIUM_IO_TINYPLY)
+
+if(RADIUM_IO_VOLUMES)
+    set_target_properties(${ra_io_target} PROPERTIES RADIUM_IO_HAS_VOLUMES ${RADIUM_IO_VOLUMES})
+endif()
 
 add_dependencies(${ra_io_target} Core)
 target_link_libraries(${ra_io_target} PUBLIC Core)

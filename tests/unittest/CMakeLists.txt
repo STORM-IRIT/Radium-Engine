@@ -4,9 +4,7 @@
 # For testing on the function/class level.
 
 # -----------------------------------------------------------------------------
-
-add_executable(
-    unittests
+set(test_src
     unittest.cpp
     unittestUtils.hpp
     Core/algebra.cpp
@@ -28,6 +26,14 @@ add_executable(
     Engine/signalmanager.cpp
     Gui/keymapping.cpp
 )
+
+get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
+if(${HAS_VOLUMES})
+    message(STATUS "Compiling Volume loader unit test")
+    list(APPEND test_src IO/volumeloader.cpp)
+endif()
+
+add_executable(unittests ${test_src})
 
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
 target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Gui)

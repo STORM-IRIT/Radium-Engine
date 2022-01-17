@@ -52,11 +52,11 @@ class RA_CORE_API AbstractVolume : public AbstractGeometry
     ~AbstractVolume()                                  = default;
 
     /// Return the type of geometry.
-    inline VolumeStorageType getType() const;
+    inline VolumeStorageType getType() const { return m_type; }
 
   protected:
     /// Set the type of geometry.
-    inline void setType( const VolumeStorageType& type );
+    inline void setType( const VolumeStorageType& type ) { m_type = type; }
 
   public:
     /** Get the function value at a given position p
@@ -183,8 +183,12 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
   public:
     using ValueType = AbstractDiscreteVolume::ValueType;
     using IndexType = AbstractDiscreteVolume::IndexType;
+    // Stores the 3 partial derivatives of the density if the 3 first components and the density as
+    // fourth component.
+    using GradientType = Eigen::Matrix<ValueType, 4, 1>;
 
-    using Container = std::vector<ValueType>;
+    using Container         = std::vector<ValueType>;
+    using GradientContainer = std::vector<GradientType>;
 
   public:
     inline VolumeGrid( const ValueType& defaultValue = ValueType( 0. ) ) :
@@ -198,7 +202,7 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
 
     /// Direct access to the managed data
     inline const Container& data() const { return m_data; }
-    /// Direct access, with modification alllowed to the managed data
+    /// Direct access, with modification allowed to the managed data
     inline Container& data() { return m_data; }
 
     /// Add a value to all bins
@@ -207,6 +211,17 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
             v += value;
         }
     }
+
+    /// Test if gradients are defined
+    bool hasGradients() const { return m_data.size() == m_gradient.size(); }
+
+    /// Generate gradients from data
+    void computeGradients();
+
+    /// Direct access to the managed gradients
+    inline const GradientContainer& gradient() const { return m_gradient; }
+    /// Direct access, with modification allowed to the managed gradients
+    inline GradientContainer& gradient() { return m_gradient; }
 
   protected:
     /// Get the function value a given position p
@@ -227,8 +242,12 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
     }
 
   private:
+    /// sample the volume at (i, j, k) with "clamp to border" behavior
+    ValueType sample( const IndexType& i );
+
     ValueType m_defaultValue;
     Container m_data;
+    GradientContainer m_gradient;
 }; // class VolumeGrid
 
 /** Discrete volume data with sparse storage
