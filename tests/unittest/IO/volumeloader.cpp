@@ -93,7 +93,12 @@ TEST_CASE( "IO/VolumesLoader", "[IO]" ) {
         auto binsize = volumeData->binSize();
         REQUIRE( ( Math::areApproxEqual( binsize[0], 1._ra ) &&
                    Math::areApproxEqual( binsize[1], 1._ra ) &&
-                   Math::areApproxEqual( binsize[2], 1.4_ra ) ) );
+                   // if Scalar = double, since reader use float, increase epsilon by float/double
+                   // epsilon ratio (test hack ;))
+                   Math::areApproxEqual( binsize[2],
+                                         1.4_ra,
+                                         Scalar { std::numeric_limits<float>::epsilon() /
+                                                  std::numeric_limits<Scalar>::epsilon() } ) ) );
 
         LOG( logINFO ) << "computing gradients for data/Lobster.pvm.";
         volumeData->computeGradients();
