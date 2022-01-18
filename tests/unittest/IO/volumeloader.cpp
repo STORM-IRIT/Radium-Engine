@@ -98,7 +98,7 @@ TEST_CASE( "IO/VolumesLoader", "[IO]" ) {
                    Math::areApproxEqual( binsize[2],
                                          1.4_ra,
                                          Scalar { std::numeric_limits<float>::epsilon() /
-                                                  std::numeric_limits<double>::epsilon() } ) ) );
+                                                  std::numeric_limits<Scalar>::epsilon() } ) ) );
 
         LOG( logINFO ) << "computing gradients for data/Lobster.pvm.";
         volumeData->computeGradients();
