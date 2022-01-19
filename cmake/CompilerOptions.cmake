@@ -17,17 +17,22 @@ endif()
 # Project options
 #
 
+# define these globally, will be used for externals also.
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 set(RA_DEFAULT_PROJECT_OPTIONS
     DEBUG_POSTFIX
     "d"
     POSITION_INDEPENDENT_CODE
     ON
     CXX_EXTENSIONS
-    Off
+    ${CMAKE_CXX_EXTENSIONS}
     CXX_STANDARD
-    17
+    ${CMAKE_CXX_STANDARD}
     CXX_STANDARD_REQUIRED
-    ON
+    ${CMAKE_CXX_STANDARD_REQUIRED}
     LINKER_LANGUAGE
     "CXX"
     VERSION
