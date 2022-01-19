@@ -745,8 +745,10 @@ std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
                 (uchar)std::clamp( float( pixels[in + 1] * 255.f ), float( 0 ), float( 255 ) );
             writtenPixels[ou + 2] =
                 (uchar)std::clamp( float( pixels[in + 2] * 255.f ), float( 0 ), float( 255 ) );
-            writtenPixels[ou + 3] =
-                (uchar)std::clamp( float( pixels[in + 3] * 255.f ), float( 0 ), float( 255 ) );
+            if ( pixels[in + 3] > 0.f ) { writtenPixels[ou + 3] = 255; }
+            else {
+                writtenPixels[ou + 3] = 0;
+            }
         }
     }
     w = tex->width();

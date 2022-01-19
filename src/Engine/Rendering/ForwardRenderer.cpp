@@ -272,7 +272,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
     else {
         glDisable( GL_POLYGON_OFFSET_FILL );
     }
-    static const auto clearZeros = Core::Utils::Color::Black().cast<GL_SCALAR_PLAIN>().eval();
+    static const auto clearZeros = Core::Utils::Color::Alpha().cast<GL_SCALAR_PLAIN>().eval();
     static const auto clearOnes  = Core::Utils::Color::White().cast<GL_SCALAR_PLAIN>().eval();
     static const float clearDepth { 1.0f };
 
