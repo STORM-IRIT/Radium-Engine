@@ -14,16 +14,16 @@ if(NOT CMAKE_PROJECT_NAME STREQUAL ${RADIUM_DEPENDENCIES_PROJECT_NAME})
 else()
     set(CMAKE_DISABLE_SOURCE_CHANGES ON)
     set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-    set(CMAKE_CXX_STANDARD 17)
-    set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-    project(${RADIUM_DEPENDENCIES_PROJECT_NAME} VERSION 1.0.0)
 
     # We can use include() and find_package() for our scripts in there
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
 
+    # Get default options (CMAKE_CXX_*)
+    include(CompilerOptions)
     # Check compiler version
     include(CompilerVersion)
+
+    project(${RADIUM_DEPENDENCIES_PROJECT_NAME} VERSION 1.0.0)
 
     # Changing the default value for CMAKE_BUILD_PARALLEL_LEVEL
     if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
