@@ -27,7 +27,7 @@ if(NOT DEFINED Eigen3_DIR)
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF
-                   "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
+                   -DEIGEN_BUILD_DOC=OFF "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals Eigen3)
 else()
