@@ -16,8 +16,8 @@ $ cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.x/gcc_64
 
 On windows, using cmake-gui you can use the "add entry" button, adding `CMAKE_PREFIX_PATH`
 as a string to point to the Qt directory (for example in the default installation :
-`C:/Qt/5.6/msvc2015_64` )
+`C:/Qt/5.15/msvc2019_64` )
 
 # Crash when starting main application on windows
-This is usally caused by missing dlls.
+This is usually caused by missing dlls.
 With Visual Studio, you may need to copy the Qt dlls to Radium bin folder `Bundle-MSVC\bin` or `Bundle-MSVC-Debug\bin`.

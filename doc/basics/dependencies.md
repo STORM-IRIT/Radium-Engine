@@ -5,13 +5,13 @@ Radium relies on several external libraries to load files or to represent some d
 * [Core] Eigen, OpenMesh
 * [Engine] glm, globjects, glbindings
 * [IO] Assimp
-* [Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 recommended)
+* [Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 at least, Qt6 support is experimental)
 * [doc] Doxygen-awesome-css
 * stb_image
 
 We developed a series of tools to fetch and compile these dependencies easily, except for
-Qt, which needs to be installed and passed to cmake through the variable `Qt5_DIR` (see documentation at
-https://doc.qt.io/qt-5.12/cmake-manual.html#getting-started).
+Qt, which needs to be installed and passed to cmake through the variables `Qt5_DIR` OR `Qt6_DIR` (see documentation at
+https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started).
 
 # Dependencies management systems
 
