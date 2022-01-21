@@ -296,7 +296,6 @@ bool KeyMappingManager::saveConfiguration( const std::string& inFilename ) {
     QXmlStreamWriter stream( &saveTo );
     stream.setAutoFormatting( true );
     stream.setAutoFormattingIndent( 4 );
-    stream.setCodec( "ISO 8859-1" );
     stream.writeStartDocument();
     stream.writeComment( "\tRadium KeyMappingManager configuration file\t" );
     stream.writeComment(
@@ -507,10 +506,7 @@ Qt::MouseButtons KeyMappingManager::getQtMouseButtonsValue( const std::string& k
     else if ( keyString == "RightButton" ) {
         key = Qt::RightButton;
     }
-    else if ( keyString == "MidButton" ) {
-        key = Qt::MidButton;
-    }
-    else if ( keyString == "MiddleButton" ) {
+    else if ( keyString == "MidButton" || keyString == "MiddleButton" ) {
         key = Qt::MiddleButton;
     }
     else if ( keyString == "XButton1" ) {
