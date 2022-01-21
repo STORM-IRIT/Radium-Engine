@@ -19,9 +19,12 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", icon: "Windows"}
-          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc-10", cxx: "g++-10", icon: "Linux" }
-          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", icon: "Apple" }
+          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", icon: "Windows", qtversion: "5.15.1"}
+          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", icon: "Windows", qtversion: "6.2.0"}
+          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc-10", cxx: "g++-10", icon: "Linux", qtversion: "5.15.1" }
+          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc-10", cxx: "g++-10", icon: "Linux", qtversion: "6.2.0" }
+          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", icon: "Apple", qtversion: "5.15.1" }
+          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", icon: "Apple", qtversion: "6.2.0" }
     steps:
       - uses: seanmiddleditch/gha-setup-ninja@master
       - name: Add msbuild to PATH
@@ -32,11 +35,12 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ../Qt
-          key: ${{ matrix.config.name }}-QtCache
+          key: ${{ matrix.config.name }}-QtCache-${{ matrix.config.qtversion }}
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          version: ${{ matrix.config.qtversion }}
       - name: Install dep Linux
         if: runner.os == 'Linux'
         run: sudo apt-get install -y libglfw3-dev
