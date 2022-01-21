@@ -1,7 +1,6 @@
 #include "ui_Timeline.h"
 #include <Gui/Timeline/Timeline.hpp>
 
-#include <QDesktopWidget>
 #include <QEvent>
 #include <QMessageBox>
 #include <QPainter>
