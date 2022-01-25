@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -147,7 +148,7 @@ $(document).ready(function(){initNavTree('FileManager_8hpp_source.html',''); ini
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> resetLog();                             <span class="comment">// Reset the log string.</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> saveLog( <span class="keyword">const</span> std::string&amp; filename ); <span class="comment">// Save the log into a text file.</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::string m_log {<span class="stringliteral">&quot;&quot;</span>};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::string m_log { <span class="stringliteral">&quot;&quot;</span> };</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;};</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace IO</span></div>
@@ -157,10 +158,10 @@ $(document).ready(function(){initNavTree('FileManager_8hpp_source.html',''); ini
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a43682ad19e567fc448cccffbbc710fd4"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a43682ad19e567fc448cccffbbc710fd4">Ra::IO::FileManager::save</a></div><div class="ttdeci">bool save(const std::string &amp;filename, const DATA &amp;data, const bool SAVE_LOG_FILE=false)</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00047">FileManager.inl:47</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a9c1a5bca6d142f7f4a0812c1995d5f4b"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a9c1a5bca6d142f7f4a0812c1995d5f4b">Ra::IO::FileManager::addLogEntry</a></div><div class="ttdeci">void addLogEntry(const std::string &amp;text)</div><div class="ttdoc">LOG.</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00085">FileManager.inl:85</a></div></div>
+<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a43682ad19e567fc448cccffbbc710fd4"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a43682ad19e567fc448cccffbbc710fd4">Ra::IO::FileManager::save</a></div><div class="ttdeci">bool save(const std::string &amp;filename, const DATA &amp;data, const bool SAVE_LOG_FILE=false)</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00046">FileManager.inl:46</a></div></div>
+<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a9c1a5bca6d142f7f4a0812c1995d5f4b"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a9c1a5bca6d142f7f4a0812c1995d5f4b">Ra::IO::FileManager::addLogEntry</a></div><div class="ttdeci">void addLogEntry(const std::string &amp;text)</div><div class="ttdoc">LOG.</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00084">FileManager.inl:84</a></div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a705a74e954b1567a5096e7a82c54dab8"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a705a74e954b1567a5096e7a82c54dab8">Ra::IO::FileManager::~FileManager</a></div><div class="ttdeci">virtual ~FileManager()=default</div><div class="ttdoc">DESTRUCTOR.</div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a3945ecf84f505c8ab5a21521642aaf1e"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a3945ecf84f505c8ab5a21521642aaf1e">Ra::IO::FileManager::log</a></div><div class="ttdeci">std::string log() const</div><div class="ttdoc">LOG.</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00080">FileManager.inl:80</a></div></div>
+<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a3945ecf84f505c8ab5a21521642aaf1e"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a3945ecf84f505c8ab5a21521642aaf1e">Ra::IO::FileManager::log</a></div><div class="ttdeci">std::string log() const</div><div class="ttdoc">LOG.</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00079">FileManager.inl:79</a></div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a87ebdf961e743bc6630d96c1d0a5fba9a90acb4ee0050c81cd98b6900a0b98904"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a87ebdf961e743bc6630d96c1d0a5fba9a90acb4ee0050c81cd98b6900a0b98904">Ra::IO::FileManager::LogEntry_Warning</a></div><div class="ttdeci">@ LogEntry_Warning</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8hpp_source.html#l00024">FileManager.hpp:24</a></div></div>
 <div class="ttc" id="aFileManager_8inl_html"><div class="ttname"><a href="FileManager_8inl.html">FileManager.inl</a></div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html">Ra::IO::FileManager</a></div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8hpp_source.html#l00018">FileManager.hpp:18</a></div></div>
@@ -171,14 +172,14 @@ $(document).ready(function(){initNavTree('FileManager_8hpp_source.html',''); ini
 <div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a84f034e1aa546df8d286b5ee97c1ba49"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a84f034e1aa546df8d286b5ee97c1ba49">Ra::IO::FileManager::FileManager</a></div><div class="ttdeci">FileManager()=default</div><div class="ttdoc">CONSTRUCTOR.</div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a75ad31d1ac2f55e4a80f4cf80301cbac"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a75ad31d1ac2f55e4a80f4cf80301cbac">Ra::IO::FileManager::exportData</a></div><div class="ttdeci">virtual bool exportData(std::ostream &amp;file, const DATA &amp;data)=0</div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a6cd1a2916e9aa3aca07ab68dd3d2de01"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a6cd1a2916e9aa3aca07ab68dd3d2de01">Ra::IO::FileManager::load</a></div><div class="ttdeci">bool load(const std::string &amp;filename, DATA &amp;data, const bool SAVE_LOG_FILE=false)</div><div class="ttdoc">INTERFACE.</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00011">FileManager.inl:11</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a2b788483f09e07553e4cb4ca768063b4"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a2b788483f09e07553e4cb4ca768063b4">Ra::IO::FileManager::addLogErrorEntry</a></div><div class="ttdeci">void addLogErrorEntry(const std::string &amp;text)</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00095">FileManager.inl:95</a></div></div>
+<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a2b788483f09e07553e4cb4ca768063b4"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a2b788483f09e07553e4cb4ca768063b4">Ra::IO::FileManager::addLogErrorEntry</a></div><div class="ttdeci">void addLogErrorEntry(const std::string &amp;text)</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00094">FileManager.inl:94</a></div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a87ebdf961e743bc6630d96c1d0a5fba9"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a87ebdf961e743bc6630d96c1d0a5fba9">Ra::IO::FileManager&lt; Core::Geometry::TriangleMesh &gt;::LogEntryType</a></div><div class="ttdeci">LogEntryType</div><div class="ttdoc">ENUM.</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8hpp_source.html#l00022">FileManager.hpp:22</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a8bf10853e266493eb606a37f85fa0277"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a8bf10853e266493eb606a37f85fa0277">Ra::IO::FileManager::addLogWarningEntry</a></div><div class="ttdeci">void addLogWarningEntry(const std::string &amp;text)</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00090">FileManager.inl:90</a></div></div>
+<div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html_a8bf10853e266493eb606a37f85fa0277"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html#a8bf10853e266493eb606a37f85fa0277">Ra::IO::FileManager::addLogWarningEntry</a></div><div class="ttdeci">void addLogWarningEntry(const std::string &amp;text)</div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8inl_source.html#l00089">FileManager.inl:89</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_01a8c2f0fadc2dca82cf84211ec91544.html">deprecated</a></li><li class="navelem"><a class="el" href="FileManager_8hpp.html">FileManager.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

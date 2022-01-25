@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -153,36 +154,36 @@ $(document).ready(function(){initNavTree('TimelineScrollArea_8hpp_source.html','
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html#a878c6f73f830b0ff054bc0ddf1ef9232">mouseMoveEvent</a>( QMouseEvent* event ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">int</span> m_mousePosX {0}; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">int</span> m_sliderPos {0}; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">int</span> m_mousePosX { 0 }; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">int</span> m_sliderPos { 0 }; </div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_maxDuration {20_ra}; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">int</span> m_nbInterval {0};         </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_step {1};            </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_pixPerSec {10};      </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">int</span> m_zero {20};              </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_maxDuration { 20_ra }; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">int</span> m_nbInterval { 0 };         </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_step { 1 };            </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> m_pixPerSec { 10 };      </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">int</span> m_zero { 20 };              </div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> s_nbSteps = 13;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="classfloat.html">Scalar</a> s_steps[s_nbSteps] = {0.01_ra,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                                  0.02_ra,</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                                                  0.05_ra,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                                  0.1_ra,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                                  0.2_ra,</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                                  0.5_ra,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                                  1.0_ra,</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                  2.0_ra,</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                                  5.0_ra,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                  10.0_ra,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                                  20.0_ra,</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                                  50.0_ra,</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                                  100.0_ra};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="classfloat.html">Scalar</a> s_steps[s_nbSteps] = { 0.01_ra,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                                   0.02_ra,</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                                                   0.05_ra,</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                                   0.1_ra,</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                                   0.2_ra,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                                   0.5_ra,</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                                   1.0_ra,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                   2.0_ra,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                                   5.0_ra,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                   10.0_ra,</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                                   20.0_ra,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                                   50.0_ra,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                                   100.0_ra };</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace Ra::Gui</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_af1495298a9ee98175c7a721ae818c36c"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#af1495298a9ee98175c7a721ae818c36c">Ra::Gui::TimelineScrollArea::mousePressEvent</a></div><div class="ttdeci">void mousePressEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00174">TimelineScrollArea.cpp:174</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_af1495298a9ee98175c7a721ae818c36c"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#af1495298a9ee98175c7a721ae818c36c">Ra::Gui::TimelineScrollArea::mousePressEvent</a></div><div class="ttdeci">void mousePressEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00172">TimelineScrollArea.cpp:172</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_ae6010b1c3d99325e5d882b62019ab431"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#ae6010b1c3d99325e5d882b62019ab431">Ra::Gui::TimelineScrollArea::getStep</a></div><div class="ttdeci">Scalar getStep()</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00054">TimelineScrollArea.cpp:54</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_abb6b07bfbaf0c12f9403e40a85568ad1"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#abb6b07bfbaf0c12f9403e40a85568ad1">Ra::Gui::TimelineScrollArea::durationIncrement</a></div><div class="ttdeci">void durationIncrement()</div><div class="ttdoc">Emitted when [up_arrow] is pressed.</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a95371ce8b334da3e792663d9f7f48e84"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a95371ce8b334da3e792663d9f7f48e84">Ra::Gui::TimelineScrollArea::stepChanged</a></div><div class="ttdeci">void stepChanged(Scalar step)</div></div>
@@ -196,7 +197,7 @@ $(document).ready(function(){initNavTree('TimelineScrollArea_8hpp_source.html','
 <div class="ttc" id="aCoreMacros_8hpp_html"><div class="ttname"><a href="CoreMacros_8hpp.html">CoreMacros.hpp</a></div></div>
 <div class="ttc" id="aclassQScrollArea_html"><div class="ttname"><a href="classQScrollArea.html">QScrollArea</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_aff721d96144d68abf4e640cef560a375"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#aff721d96144d68abf4e640cef560a375">Ra::Gui::TimelineScrollArea::TimelineScrollArea</a></div><div class="ttdeci">TimelineScrollArea(QWidget *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00013">TimelineScrollArea.cpp:13</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a878c6f73f830b0ff054bc0ddf1ef9232"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a878c6f73f830b0ff054bc0ddf1ef9232">Ra::Gui::TimelineScrollArea::mouseMoveEvent</a></div><div class="ttdeci">void mouseMoveEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00187">TimelineScrollArea.cpp:187</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a878c6f73f830b0ff054bc0ddf1ef9232"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a878c6f73f830b0ff054bc0ddf1ef9232">Ra::Gui::TimelineScrollArea::mouseMoveEvent</a></div><div class="ttdeci">void mouseMoveEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00184">TimelineScrollArea.cpp:184</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a2f1861b40ad218b677664b41fbc79a1f"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a2f1861b40ad218b677664b41fbc79a1f">Ra::Gui::TimelineScrollArea::wheelEvent</a></div><div class="ttdeci">void wheelEvent(QWheelEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00127">TimelineScrollArea.cpp:127</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a065d3c3702d57ebf3ba438640a9081a3"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a065d3c3702d57ebf3ba438640a9081a3">Ra::Gui::TimelineScrollArea::togglePlayPause</a></div><div class="ttdeci">void togglePlayPause()</div><div class="ttdoc">Emitted when [space] is pressed.</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_aff44f6ab44ec746ea6e106725df080fe"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#aff44f6ab44ec746ea6e106725df080fe">Ra::Gui::TimelineScrollArea::durationDecrement</a></div><div class="ttdeci">void durationDecrement()</div><div class="ttdoc">Emitted when [down_arrow] is pressed.</div></div>
@@ -204,7 +205,7 @@ $(document).ready(function(){initNavTree('TimelineScrollArea_8hpp_source.html','
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_ab5de24629ff8ac5f142313bc977b372d"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#ab5de24629ff8ac5f142313bc977b372d">Ra::Gui::TimelineScrollArea::onDrawRuler</a></div><div class="ttdeci">void onDrawRuler(int width)</div><div class="ttdoc">Force redraw with the given width.</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00058">TimelineScrollArea.cpp:58</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a466d6b550f8298d4bd7d7a7b3798d969"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a466d6b550f8298d4bd7d7a7b3798d969">Ra::Gui::TimelineScrollArea::previousKeyFrame</a></div><div class="ttdeci">void previousKeyFrame()</div><div class="ttdoc">Emitted when [left_arrow] is pressed or [shift] + [wheel-up].</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_ad4116ecdbcb2a9290397a092ef37fa45"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#ad4116ecdbcb2a9290397a092ef37fa45">Ra::Gui::TimelineScrollArea::undo</a></div><div class="ttdeci">void undo()</div><div class="ttdoc">Emitted when [crtl] + [z] / [u] key is pressed.</div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a5ef278fea12b02e0a3ad742fc03674bf"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a5ef278fea12b02e0a3ad742fc03674bf">Ra::Gui::TimelineScrollArea::mouseReleaseEvent</a></div><div class="ttdeci">void mouseReleaseEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00183">TimelineScrollArea.cpp:183</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a5ef278fea12b02e0a3ad742fc03674bf"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a5ef278fea12b02e0a3ad742fc03674bf">Ra::Gui::TimelineScrollArea::mouseReleaseEvent</a></div><div class="ttdeci">void mouseReleaseEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00180">TimelineScrollArea.cpp:180</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_af9d3580015e2efb17754058a32ef2945"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#af9d3580015e2efb17754058a32ef2945">Ra::Gui::TimelineScrollArea::nextKeyFrame</a></div><div class="ttdeci">void nextKeyFrame()</div><div class="ttdoc">Emitted when [right_arrow] is pressed or [shift] + [wheel-down].</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html_a0d9a8b0ec45e130ef777963274d06192"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html#a0d9a8b0ec45e130ef777963274d06192">Ra::Gui::TimelineScrollArea::setMaxDuration</a></div><div class="ttdeci">void setMaxDuration(Scalar duration)</div><div class="ttdoc">Set the end of the Timeline's playzone.</div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8cpp_source.html#l00042">TimelineScrollArea.cpp:42</a></div></div>
 <div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
@@ -214,7 +215,7 @@ $(document).ready(function(){initNavTree('TimelineScrollArea_8hpp_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><a class="el" href="TimelineScrollArea_8hpp.html">TimelineScrollArea.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

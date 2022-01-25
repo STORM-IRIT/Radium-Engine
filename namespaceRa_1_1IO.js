@@ -12,5 +12,6 @@ var namespaceRa_1_1IO =
     [ "memory_stream", "structRa_1_1IO_1_1memory__stream.html", "structRa_1_1IO_1_1memory__stream" ],
     [ "OBJFileManager", "classRa_1_1IO_1_1OBJFileManager.html", "classRa_1_1IO_1_1OBJFileManager" ],
     [ "OFFFileManager", "classRa_1_1IO_1_1OFFFileManager.html", "classRa_1_1IO_1_1OFFFileManager" ],
-    [ "TinyPlyFileLoader", "classRa_1_1IO_1_1TinyPlyFileLoader.html", "classRa_1_1IO_1_1TinyPlyFileLoader" ]
+    [ "TinyPlyFileLoader", "classRa_1_1IO_1_1TinyPlyFileLoader.html", "classRa_1_1IO_1_1TinyPlyFileLoader" ],
+    [ "VolumeLoader", "classRa_1_1IO_1_1VolumeLoader.html", "classRa_1_1IO_1_1VolumeLoader" ]
 ];

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['radium_20basics_6436',['Radium Basics',['../basicsmanual.html',1,'']]],
-  ['radium_20concepts_6437',['Radium Concepts',['../conceptsmanual.html',1,'']]],
-  ['radium_20build_20chain_6438',['Radium Build Chain',['../develbuildchain.html',1,'develmanual']]],
-  ['rendering_20pipeline_6439',['Rendering pipeline',['../develrendering.html',1,'engine']]]
+  ['radium_20compilation_20instructions_6557',['Radium Compilation instructions',['../basicsCompileRadium.html',1,'basicsmanual']]],
+  ['radium_20basics_6558',['Radium Basics',['../basicsmanual.html',1,'']]],
+  ['radium_20concepts_6559',['Radium Concepts',['../conceptsmanual.html',1,'']]],
+  ['radium_20dependencies_20management_6560',['Radium Dependencies Management',['../dependenciesmanagement.html',1,'basicsmanual']]],
+  ['rendering_20pipeline_6561',['Rendering pipeline',['../develrendering.html',1,'engine']]]
 ];

@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -95,25 +96,25 @@ $(document).ready(function(){initNavTree('develanimation.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md44">Animation in Radium</a><ul><li class="level2"><a href="#autotoc_md45">Using KeyFramedValue to animate data</a></li>
-<li class="level2"><a href="#autotoc_md46">Character Animation</a></li>
+<ul><li class="level1"><a href="#autotoc_md45">Animation in Radium</a><ul><li class="level2"><a href="#autotoc_md46">Using KeyFramedValue to animate data</a></li>
+<li class="level2"><a href="#autotoc_md47">Character Animation</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md44"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md45"></a>
 Animation in Radium</h1>
 <p>The Radium Engine provides a set of classes dedicated to animation, which can be found in <code>Core/Animation</code>.</p>
 <p>In Radium, the animation of any data can be done through the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code> template. It stores the data keyframes, i.e. time-value couples, which are interpolated when the value for a given time is requested.</p>
-<h2><a class="anchor" id="autotoc_md45"></a>
+<h2><a class="anchor" id="autotoc_md46"></a>
 Using KeyFramedValue to animate data</h2>
 <p>There are two ways data can be animated using <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>:</p><ul>
 <li>When the data is directly specified as a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>. In this case, particular values at specific times can be specified to create the animation keyframes, and then used when requested: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValue_8hpp.html">Core/Animation/KeyFramedValue.hpp</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValueInterpolators_8hpp.html">Core/Animation/KeyFramedValueInterpolators.hpp</a>&gt;</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keyword">struct </span>MyStruct {</div>
 <div class="line">        MyStruct() :</div>
-<div class="line">            m_nonAnimatedData {2_ra},   <span class="comment">// initialize the non animated data as 2</span></div>
-<div class="line">            m_animatedData {1_ra, 0_ra} <span class="comment">// creating the animated data with value 0 at time 1</span></div>
+<div class="line">            m_nonAnimatedData { 2_ra },   <span class="comment">// initialize the non animated data as 2</span></div>
+<div class="line">            m_animatedData { 1_ra, 0_ra } <span class="comment">// creating the animated data with value 0 at time 1</span></div>
 <div class="line">        {</div>
 <div class="line">            m_animatedData.insertKeyFrame( 3_ra, 2_ra ); <span class="comment">// adding a keyframe with value 2 at time 3</span></div>
 <div class="line">        }</div>
@@ -138,7 +139,7 @@ Using KeyFramedValue to animate data</h2>
 <div class="line">    <span class="keyword">struct </span>MyStructAnimator {</div>
 <div class="line">        MyStructAnimator( MyStruct&amp; s ) {</div>
 <div class="line">            <span class="comment">// create the keyframes for the data</span></div>
-<div class="line">            <span class="keyword">auto</span> frames = <span class="keyword">new</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue&lt;Scalar&gt;</a> {0_ra, 0_ra};</div>
+<div class="line">            <span class="keyword">auto</span> frames = <span class="keyword">new</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue&lt;Scalar&gt;</a> { 0_ra, 0_ra };</div>
 <div class="line">            frames-&gt;<a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236">insertKeyFrame</a>( 4_ra, 4_ra );</div>
 <div class="line">            <span class="comment">// create the controller</span></div>
 <div class="line">            m_controller.m_value   = frames;</div>
@@ -176,7 +177,7 @@ Using KeyFramedValue to animate data</h2>
 <div class="line"> </div>
 </div><!-- fragment --> </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md46"></a>
+<h2><a class="anchor" id="autotoc_md47"></a>
 Character Animation</h2>
 <h3>Character Animation Basics</h3>
 <p>In order to animate a digital character, one may choose from two main animation techniques:</p><ul>
@@ -216,14 +217,14 @@ Character Animation</h2>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValueController_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValueController_8hpp_source.html#l00016">KeyFramedValueController.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00062">KeyFramedValue.hpp:62</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html_a7607a8855a37987dc11a5aa826c8a236"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236">Ra::Core::Animation::KeyFramedValue::insertKeyFrame</a></div><div class="ttdeci">void insertKeyFrame(const Scalar &amp;t, const VALUE_TYPE &amp;frame)</div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00117">KeyFramedValue.hpp:117</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html_a7607a8855a37987dc11a5aa826c8a236"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236">Ra::Core::Animation::KeyFramedValue::insertKeyFrame</a></div><div class="ttdeci">void insertKeyFrame(const Scalar &amp;t, const VALUE_TYPE &amp;frame)</div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00116">KeyFramedValue.hpp:116</a></div></div>
 <div class="ttc" id="aKeyFramedValueController_8hpp_html"><div class="ttname"><a href="KeyFramedValueController_8hpp.html">KeyFramedValueController.hpp</a></div></div>
 <div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:21 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:57:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

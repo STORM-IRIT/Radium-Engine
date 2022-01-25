@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -115,43 +116,42 @@ $(document).ready(function(){initNavTree('SimpleMaterial_8cpp_source.html',''); 
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.color&quot;</span>, <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a7952c720bee62a0035f814f56fac8717">m_color</a> );</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.perVertexColor&quot;</span>, <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#af42767eb5f9fb9e8b28eeeb86a11244b">m_perVertexColor</a> );</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* tex = <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#accda5c85bc9f61813b53acbae2ba70a1">getTexture</a>( <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443af2e72971d1a56bed90820211c1de68cd">SimpleMaterial::TextureSemantic::TEX_COLOR</a> );</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">if</span> ( tex != <span class="keyword">nullptr</span> )</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.color&quot;</span>, tex );</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.hasColor&quot;</span>, 1 );</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    { <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.hasColor&quot;</span>, 0 ); }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">if</span> ( tex != <span class="keyword">nullptr</span> ) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.color&quot;</span>, tex );</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.hasColor&quot;</span>, 1 );</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.hasColor&quot;</span>, 0 );</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    tex = <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#accda5c85bc9f61813b53acbae2ba70a1">getTexture</a>( <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443a4bbc89a0522d99089f467286bb0892c5">SimpleMaterial::TextureSemantic::TEX_MASK</a> );</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> ( tex != <span class="keyword">nullptr</span> )</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.mask&quot;</span>, tex );</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.hasMask&quot;</span>, 1 );</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    { <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.hasMask&quot;</span>, 0 ); }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> ( tex != <span class="keyword">nullptr</span> ) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.mask&quot;</span>, tex );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.hasMask&quot;</span>, 1 );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a>.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;material.tex.hasMask&quot;</span>, 0 );</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a10d18365a6ea94692a1097a7a2f49b57">   39</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a10d18365a6ea94692a1097a7a2f49b57">SimpleMaterial::updateGL</a>() {</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> ( !<a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">m_isDirty</a> ) { <span class="keywordflow">return</span>; }</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// Load textures</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">Data::TextureManager</a>* texManager = RadiumEngine::getInstance()-&gt;getTextureManager();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; tex : m_pendingTextures )</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="comment">// ask to convert color textures from sRGB to Linear RGB</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">bool</span> tolinear         = ( tex.first == <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443af2e72971d1a56bed90820211c1de68cd">TextureSemantic::TEX_COLOR</a> );</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">auto</span> texture          = texManager-&gt;<a class="code" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a59b5fb2a6870ae9423829a3401e4b4b6">getOrLoadTexture</a>( tex.second, tolinear );</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        m_textures[tex.first] = texture;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// as all the pending textures where initialized, clear the pending textures list</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    m_pendingTextures.clear();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">m_isDirty</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    updateRenderingParameters();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; tex : m_pendingTextures ) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="comment">// ask to convert color textures from sRGB to Linear RGB</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">bool</span> tolinear         = ( tex.first == <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443af2e72971d1a56bed90820211c1de68cd">TextureSemantic::TEX_COLOR</a> );</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">auto</span> texture          = texManager-&gt;<a class="code" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a59b5fb2a6870ae9423829a3401e4b4b6">getOrLoadTexture</a>( tex.second, tolinear );</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        m_textures[tex.first] = texture;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// as all the pending textures where initialized, clear the pending textures list</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    m_pendingTextures.clear();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">m_isDirty</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    updateRenderingParameters();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html_a7952c720bee62a0035f814f56fac8717"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a7952c720bee62a0035f814f56fac8717">Ra::Engine::Data::SimpleMaterial::m_color</a></div><div class="ttdeci">Core::Utils::Color m_color</div><div class="ttdoc">The base color of the material.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8hpp_source.html#l00073">SimpleMaterial.hpp:73</a></div></div>
@@ -174,12 +174,12 @@ $(document).ready(function(){initNavTree('SimpleMaterial_8cpp_source.html',''); 
 <div class="ttc" id="aSimpleMaterial_8hpp_html"><div class="ttname"><a href="SimpleMaterial_8hpp.html">SimpleMaterial.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html_a10d18365a6ea94692a1097a7a2f49b57"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a10d18365a6ea94692a1097a7a2f49b57">Ra::Engine::Data::SimpleMaterial::updateGL</a></div><div class="ttdeci">void updateGL() override final</div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8cpp_source.html#l00039">SimpleMaterial.cpp:39</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00023">Material.hpp:23</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1TextureManager_html_a59b5fb2a6870ae9423829a3401e4b4b6"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a59b5fb2a6870ae9423829a3401e4b4b6">Ra::Engine::Data::TextureManager::getOrLoadTexture</a></div><div class="ttdeci">Texture * getOrLoadTexture(const TextureParameters &amp;texParameters, bool linearize=false)</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00115">TextureManager.cpp:115</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1TextureManager_html_a59b5fb2a6870ae9423829a3401e4b4b6"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a59b5fb2a6870ae9423829a3401e4b4b6">Ra::Engine::Data::TextureManager::getOrLoadTexture</a></div><div class="ttdeci">Texture * getOrLoadTexture(const TextureParameters &amp;texParameters, bool linearize=false)</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00105">TextureManager.cpp:105</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="SimpleMaterial_8cpp.html">SimpleMaterial.cpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

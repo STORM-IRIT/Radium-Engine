@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -290,10 +291,10 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:aa7f501997064fb803d0a0b5759c087e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#aa7f501997064fb803d0a0b5759c087e0">m_isAboutToQuit</a></td></tr>
 <tr class="memdesc:aa7f501997064fb803d0a0b5759c087e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the applicatioon is about to quit. prevent to use resources that are being released.  <a href="classRa_1_1Gui_1_1BaseApplication.html#aa7f501997064fb803d0a0b5759c087e0">More...</a><br /></td></tr>
 <tr class="separator:aa7f501997064fb803d0a0b5759c087e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38c902dc0cceb147d8a007a8a9ae5011"><td class="memItemLeft" align="right" valign="top">std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a38c902dc0cceb147d8a007a8a9ae5011">m_isUpdateNeeded</a> {true}</td></tr>
+<tr class="memitem:a38c902dc0cceb147d8a007a8a9ae5011"><td class="memItemLeft" align="right" valign="top">std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a38c902dc0cceb147d8a007a8a9ae5011">m_isUpdateNeeded</a> { true }</td></tr>
 <tr class="memdesc:a38c902dc0cceb147d8a007a8a9ae5011"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true update the viewer frame next time.  <a href="classRa_1_1Gui_1_1BaseApplication.html#a38c902dc0cceb147d8a007a8a9ae5011">More...</a><br /></td></tr>
 <tr class="separator:a38c902dc0cceb147d8a007a8a9ae5011"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d29083479f7f8723ee6b7a3a7484395"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="classint.html">int</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a4d29083479f7f8723ee6b7a3a7484395">m_continuousUpdateRequest</a> {1}</td></tr>
+<tr class="memitem:a4d29083479f7f8723ee6b7a3a7484395"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="classint.html">int</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a4d29083479f7f8723ee6b7a3a7484395">m_continuousUpdateRequest</a> { 1 }</td></tr>
 <tr class="memdesc:a4d29083479f7f8723ee6b7a3a7484395"><td class="mdescLeft">&#160;</td><td class="mdescRight">If counter is &gt;= 0, continuously update viewer frame.  <a href="classRa_1_1Gui_1_1BaseApplication.html#a4d29083479f7f8723ee6b7a3a7484395">More...</a><br /></td></tr>
 <tr class="separator:a4d29083479f7f8723ee6b7a3a7484395"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3669c1322ea51ab79a39c477de5cdf93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Plugins_1_1Context.html">Plugins::Context</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a3669c1322ea51ab79a39c477de5cdf93">m_pluginContext</a></td></tr>
@@ -354,42 +355,43 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <p>The arguments managed from the command line are the following : </p><div class="fragment"><div class="line">    QCommandLineOption fpsOpt(</div>
-<div class="line">        QStringList {<span class="stringliteral">&quot;r&quot;</span>, <span class="stringliteral">&quot;framerate&quot;</span>, <span class="stringliteral">&quot;fps&quot;</span>},</div>
+<div class="line">        QStringList { <span class="stringliteral">&quot;r&quot;</span>, <span class="stringliteral">&quot;framerate&quot;</span>, <span class="stringliteral">&quot;fps&quot;</span> },</div>
 <div class="line">        <span class="stringliteral">&quot;Control the application framerate, 0 to disable it (and run as fast as possible).&quot;</span>,</div>
 <div class="line">        <span class="stringliteral">&quot;number&quot;</span>,</div>
 <div class="line">        <span class="stringliteral">&quot;60&quot;</span> );</div>
 <div class="line">    QCommandLineOption maxThreadsOpt(</div>
-<div class="line">        QStringList {<span class="stringliteral">&quot;m&quot;</span>, <span class="stringliteral">&quot;maxthreads&quot;</span>, <span class="stringliteral">&quot;max-threads&quot;</span>},</div>
+<div class="line">        QStringList { <span class="stringliteral">&quot;m&quot;</span>, <span class="stringliteral">&quot;maxthreads&quot;</span>, <span class="stringliteral">&quot;max-threads&quot;</span> },</div>
 <div class="line">        <span class="stringliteral">&quot;Control the maximum number of threads. 0 will set to the number of cores available&quot;</span>,</div>
 <div class="line">        <span class="stringliteral">&quot;number&quot;</span>,</div>
 <div class="line">        <span class="stringliteral">&quot;0&quot;</span> );</div>
 <div class="line">    QCommandLineOption numFramesOpt(</div>
-<div class="line">        QStringList {<span class="stringliteral">&quot;n&quot;</span>, <span class="stringliteral">&quot;numframes&quot;</span>}, <span class="stringliteral">&quot;Run for a fixed number of frames.&quot;</span>, <span class="stringliteral">&quot;number&quot;</span>, <span class="stringliteral">&quot;0&quot;</span> );</div>
-<div class="line">    QCommandLineOption pluginOpt( QStringList {<span class="stringliteral">&quot;p&quot;</span>, <span class="stringliteral">&quot;plugins&quot;</span>, <span class="stringliteral">&quot;pluginsPath&quot;</span>},</div>
+<div class="line">        QStringList { <span class="stringliteral">&quot;n&quot;</span>, <span class="stringliteral">&quot;numframes&quot;</span> }, <span class="stringliteral">&quot;Run for a fixed number of frames.&quot;</span>, <span class="stringliteral">&quot;number&quot;</span>, <span class="stringliteral">&quot;0&quot;</span> );</div>
+<div class="line">    QCommandLineOption pluginOpt( QStringList { <span class="stringliteral">&quot;p&quot;</span>, <span class="stringliteral">&quot;plugins&quot;</span>, <span class="stringliteral">&quot;pluginsPath&quot;</span> },</div>
 <div class="line">                                  <span class="stringliteral">&quot;Set the path to the plugin dlls.&quot;</span>,</div>
 <div class="line">                                  <span class="stringliteral">&quot;folder&quot;</span>,</div>
 <div class="line">                                  <span class="stringliteral">&quot;Plugins&quot;</span> );</div>
 <div class="line">    QCommandLineOption pluginLoadOpt(</div>
-<div class="line">        QStringList {<span class="stringliteral">&quot;l&quot;</span>, <span class="stringliteral">&quot;load&quot;</span>, <span class="stringliteral">&quot;loadPlugin&quot;</span>},</div>
+<div class="line">        QStringList { <span class="stringliteral">&quot;l&quot;</span>, <span class="stringliteral">&quot;load&quot;</span>, <span class="stringliteral">&quot;loadPlugin&quot;</span> },</div>
 <div class="line">        <span class="stringliteral">&quot;Only load plugin with the given name (filename without the extension). If this option is &quot;</span></div>
 <div class="line">        <span class="stringliteral">&quot;not used, all plugins in the plugins folder will be loaded. &quot;</span>,</div>
 <div class="line">        <span class="stringliteral">&quot;name&quot;</span> );</div>
-<div class="line">    QCommandLineOption pluginIgnoreOpt( QStringList {<span class="stringliteral">&quot;i&quot;</span>, <span class="stringliteral">&quot;ignore&quot;</span>, <span class="stringliteral">&quot;ignorePlugin&quot;</span>},</div>
+<div class="line">    QCommandLineOption pluginIgnoreOpt( QStringList { <span class="stringliteral">&quot;i&quot;</span>, <span class="stringliteral">&quot;ignore&quot;</span>, <span class="stringliteral">&quot;ignorePlugin&quot;</span> },</div>
 <div class="line">                                        <span class="stringliteral">&quot;Ignore plugins with the given name. If the name appears &quot;</span></div>
 <div class="line">                                        <span class="stringliteral">&quot;within both load and ignore options, it will be ignored.&quot;</span>,</div>
 <div class="line">                                        <span class="stringliteral">&quot;name&quot;</span> );</div>
-<div class="line">    QCommandLineOption fileOpt( QStringList {<span class="stringliteral">&quot;f&quot;</span>, <span class="stringliteral">&quot;file&quot;</span>, <span class="stringliteral">&quot;scene&quot;</span>},</div>
+<div class="line">    QCommandLineOption fileOpt( QStringList { <span class="stringliteral">&quot;f&quot;</span>, <span class="stringliteral">&quot;file&quot;</span>, <span class="stringliteral">&quot;scene&quot;</span> },</div>
 <div class="line">                                <span class="stringliteral">&quot;Open a scene file at startup.&quot;</span>,</div>
 <div class="line">                                <span class="stringliteral">&quot;file name&quot;</span>,</div>
 <div class="line">                                <span class="stringliteral">&quot;foo.bar&quot;</span> );</div>
 <div class="line"> </div>
-<div class="line">    QCommandLineOption camOpt( QStringList {<span class="stringliteral">&quot;c&quot;</span>, <span class="stringliteral">&quot;camera&quot;</span>, <span class="stringliteral">&quot;cam&quot;</span>},</div>
+<div class="line">    QCommandLineOption camOpt( QStringList { <span class="stringliteral">&quot;c&quot;</span>, <span class="stringliteral">&quot;camera&quot;</span>, <span class="stringliteral">&quot;cam&quot;</span> },</div>
 <div class="line">                               <span class="stringliteral">&quot;Open a camera file at startup&quot;</span>,</div>
 <div class="line">                               <span class="stringliteral">&quot;file name&quot;</span>,</div>
 <div class="line">                               <span class="stringliteral">&quot;foo.bar&quot;</span> );</div>
-<div class="line">    QCommandLineOption recordOpt( QStringList {<span class="stringliteral">&quot;s&quot;</span>, <span class="stringliteral">&quot;recordFrames&quot;</span>}, <span class="stringliteral">&quot;Enable snapshot recording.&quot;</span> );</div>
+<div class="line">    QCommandLineOption recordOpt( QStringList { <span class="stringliteral">&quot;s&quot;</span>, <span class="stringliteral">&quot;recordFrames&quot;</span> },</div>
+<div class="line">                                  <span class="stringliteral">&quot;Enable snapshot recording.&quot;</span> );</div>
 <div class="line"> </div>
-<div class="line">    QCommandLineOption datapathOpt( QStringList {<span class="stringliteral">&quot;d&quot;</span>, <span class="stringliteral">&quot;data&quot;</span>, <span class="stringliteral">&quot;export&quot;</span>},</div>
+<div class="line">    QCommandLineOption datapathOpt( QStringList { <span class="stringliteral">&quot;d&quot;</span>, <span class="stringliteral">&quot;data&quot;</span>, <span class="stringliteral">&quot;export&quot;</span> },</div>
 <div class="line">                                    <span class="stringliteral">&quot;Set the default data path and store it in the settings.&quot;</span>,</div>
 <div class="line">                                    <span class="stringliteral">&quot;folder&quot;</span>,</div>
 <div class="line">                                    <span class="stringliteral">&quot;./&quot;</span> );</div>
@@ -397,7 +399,7 @@ Protected Attributes</h2></td></tr>
 <p>[Command line arguments]</p>
 <p>[Command line arguments]</p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00060">60</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00062">62</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -432,7 +434,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00576">576</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00569">569</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -489,7 +491,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Allow the user to register a specific plugin directory for the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00767">767</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00740">740</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -524,7 +526,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00542">542</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00537">537</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -551,7 +553,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00199">199</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00198">198</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -572,7 +574,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Remove all registered plugin directories (except the default Radium Bundle one) </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00780">780</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00752">752</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -601,7 +603,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Create signal / slots connections. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00412">412</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00409">409</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -629,7 +631,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Open the QSetting editor for the current application </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000076">Todo:</a></b></dt><dd>implement the editor </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00785">785</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00757">757</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -661,7 +663,7 @@ Protected Attributes</h2></td></tr>
 </ul>
 <p>The default implementation also configure the time system according to the user requested frame rate (app command line argument -framerate) or to the default 60fps. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00392">392</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00389">389</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -690,7 +692,7 @@ Protected Attributes</h2></td></tr>
 
 <p>slot called when the OpenGL need to be initialized </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00407">407</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00404">404</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -718,7 +720,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00466">466</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00462">462</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -828,7 +830,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Get the html formatted help text. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00791">791</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00763">763</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -914,7 +916,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>slot called once the application window and its OpenGL services are ready. TODO : rename this to be more representative of post opengl &amp; gui operations </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00547">547</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00542">542</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -970,7 +972,7 @@ Protected Attributes</h2></td></tr>
 
 <p>check wheter someone ask for update </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00216">216</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00215">215</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1023,7 +1025,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00446">446</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00443">443</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -1068,7 +1070,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Load plugins from the specified folder. If loadList is empty, attempts to load all DLLs in the folder (except those on the ignore list) If loadList contains names it will only look for DLLs in that folder with the given name. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00585">585</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00578">578</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -1104,7 +1106,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00191">191</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00190">190</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1125,7 +1127,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Advance the engine for one frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00470">470</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00466">466</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -1160,7 +1162,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00569">569</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00562">562</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1250,7 +1252,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00193">193</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00192">192</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1280,7 +1282,7 @@ Protected Attributes</h2></td></tr>
 
 <p>if b is true, then update anyway. If b is false, update on request only </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00219">219</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00218">218</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1308,7 +1310,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00559">559</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00552">552</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -1336,7 +1338,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00563">563</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00556">556</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -1372,7 +1374,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00763">763</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00736">736</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -1400,7 +1402,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00759">759</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00732">732</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -1427,7 +1429,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00428">428</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00425">425</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1557,7 +1559,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::atomic&lt;<a class="el" href="classint.html">int</a>&gt; Ra::Gui::BaseApplication::m_continuousUpdateRequest {1}</td>
+          <td class="memname">std::atomic&lt;<a class="el" href="classint.html">int</a>&gt; Ra::Gui::BaseApplication::m_continuousUpdateRequest { 1 }</td>
         </tr>
       </table>
   </td>
@@ -1569,7 +1571,7 @@ Protected Attributes</h2></td></tr>
 
 <p>If counter is &gt;= 0, continuously update viewer frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00276">276</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00275">275</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1587,7 +1589,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Instance of the radium engine. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00227">227</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00226">226</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1613,7 +1615,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Name of the folder where exported data goes. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00260">260</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00259">259</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1637,7 +1639,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00249">249</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00248">248</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1661,7 +1663,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00248">248</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00247">247</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1687,7 +1689,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Timer to wake us up at every frame start. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00243">243</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00242">242</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1713,7 +1715,7 @@ Protected Attributes</h2></td></tr>
 
 <p>True if the applicatioon is about to quit. prevent to use resources that are being released. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00270">270</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00269">269</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1727,7 +1729,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::atomic_bool Ra::Gui::BaseApplication::m_isUpdateNeeded {true}</td>
+          <td class="memname">std::atomic_bool Ra::Gui::BaseApplication::m_isUpdateNeeded { true }</td>
         </tr>
       </table>
   </td>
@@ -1739,7 +1741,7 @@ Protected Attributes</h2></td></tr>
 
 <p>If true update the viewer frame next time. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00273">273</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00272">272</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1765,7 +1767,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Time since the last frame start. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00246">246</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00245">245</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1783,7 +1785,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Application main window and GUI root class. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00224">224</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00223">223</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1807,7 +1809,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00251">251</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00250">250</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1831,7 +1833,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00250">250</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00249">249</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1857,7 +1859,7 @@ Protected Attributes</h2></td></tr>
 
 <p><a class="el" href="namespaceRa_1_1Plugins.html">Plugins</a> that need to be initialized once OpenGL is ready. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00237">237</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00236">236</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1881,7 +1883,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00279">279</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00278">278</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1905,7 +1907,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00278">278</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00277">277</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1929,7 +1931,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00253">253</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00252">252</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1955,7 +1957,7 @@ Protected Attributes</h2></td></tr>
 
 <p>If true, use the wall clock to advance the engine. If false, use a fixed time step. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00256">256</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00255">255</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -1981,7 +1983,7 @@ Protected Attributes</h2></td></tr>
 
 <p>If true, dump each frame to a PNG file. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00263">263</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00262">262</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -2007,7 +2009,7 @@ Protected Attributes</h2></td></tr>
 
 <p>If true, print the task graph;. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00267">267</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00266">266</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -2033,7 +2035,7 @@ Protected Attributes</h2></td></tr>
 
 <p>If true, print the detailed timings of each frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00265">265</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00264">264</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -2051,7 +2053,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Number of frames per second to generate. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00233">233</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00232">232</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -2069,7 +2071,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Task queue for processing tasks. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00230">230</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00229">229</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -2093,7 +2095,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00252">252</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00251">251</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -2119,7 +2121,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Pointer to OpenGL <a class="el" href="classRa_1_1Gui_1_1Viewer.html">Viewer</a> for render call (belongs to MainWindow). </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00240">240</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00239">239</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -2133,7 +2135,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Gui.html">Gui</a></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html">BaseApplication</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:22 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:57:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

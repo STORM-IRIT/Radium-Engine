@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -103,27 +104,25 @@ $(document).ready(function(){initNavTree('TimelineSlider_8cpp_source.html',''); 
 <div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineSlider.html#af3ad12d5b4efb5bacfe55b5abc161ea4">    7</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#af3ad12d5b4efb5bacfe55b5abc161ea4">TimelineSlider::TimelineSlider</a>( QWidget* parent ) : <a class="code" href="classQLabel.html">QLabel</a>( parent ) {}</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineSlider.html#a76cee7e6d997d8f479e1654e4c3173c7">    9</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#a76cee7e6d997d8f479e1654e4c3173c7">TimelineSlider::mousePressEvent</a>( QMouseEvent* event ) {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">if</span> ( event-&gt;button() == Qt::LeftButton )</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        m_clicked = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        emit <a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#a5db0a7cbfab209a759b00f09f029911d">slide</a>( event-&gt;x() );</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    }</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineSlider.html#a33e68c6a27a35e749eca0b859a52ec49">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#a33e68c6a27a35e749eca0b859a52ec49">TimelineSlider::mouseReleaseEvent</a>( QMouseEvent* event ) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> ( event-&gt;button() == Qt::LeftButton )</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        setStyleSheet( <span class="stringliteral">&quot;background-color: gray&quot;</span> );</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        m_clicked = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineSlider.html#ad6ba72411623a838c69463e8c7943823">   26</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#ad6ba72411623a838c69463e8c7943823">TimelineSlider::mouseMoveEvent</a>( QMouseEvent* event ) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">if</span> ( m_clicked ) { emit <a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#a5db0a7cbfab209a759b00f09f029911d">slide</a>( event-&gt;x() ); }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace Ra::Gui</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">if</span> ( event-&gt;button() == Qt::LeftButton ) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        m_clicked = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        emit <a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#a5db0a7cbfab209a759b00f09f029911d">slide</a>( event-&gt;x() );</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    }</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineSlider.html#a33e68c6a27a35e749eca0b859a52ec49">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#a33e68c6a27a35e749eca0b859a52ec49">TimelineSlider::mouseReleaseEvent</a>( QMouseEvent* event ) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> ( event-&gt;button() == Qt::LeftButton ) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        setStyleSheet( <span class="stringliteral">&quot;background-color: gray&quot;</span> );</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        m_clicked = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineSlider.html#ad6ba72411623a838c69463e8c7943823">   24</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#ad6ba72411623a838c69463e8c7943823">TimelineSlider::mouseMoveEvent</a>( QMouseEvent* event ) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> ( m_clicked ) { emit <a class="code" href="classRa_1_1Gui_1_1TimelineSlider.html#a5db0a7cbfab209a759b00f09f029911d">slide</a>( event-&gt;x() ); }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace Ra::Gui</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_1_1Gui_html"><div class="ttname"><a href="namespaceRa_1_1Gui.html">Ra::Gui</a></div><div class="ttdef"><b>Definition:</b> <a href="AboutDialog_8cpp_source.html#l00007">AboutDialog.cpp:7</a></div></div>
@@ -131,14 +130,14 @@ $(document).ready(function(){initNavTree('TimelineSlider_8cpp_source.html',''); 
 <div class="ttc" id="aTimelineSlider_8hpp_html"><div class="ttname"><a href="TimelineSlider_8hpp.html">TimelineSlider.hpp</a></div></div>
 <div class="ttc" id="aclassQLabel_html"><div class="ttname"><a href="classQLabel.html">QLabel</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineSlider_html_af3ad12d5b4efb5bacfe55b5abc161ea4"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineSlider.html#af3ad12d5b4efb5bacfe55b5abc161ea4">Ra::Gui::TimelineSlider::TimelineSlider</a></div><div class="ttdeci">TimelineSlider(QWidget *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="TimelineSlider_8cpp_source.html#l00007">TimelineSlider.cpp:7</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineSlider_html_a33e68c6a27a35e749eca0b859a52ec49"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineSlider.html#a33e68c6a27a35e749eca0b859a52ec49">Ra::Gui::TimelineSlider::mouseReleaseEvent</a></div><div class="ttdeci">void mouseReleaseEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineSlider_8cpp_source.html#l00017">TimelineSlider.cpp:17</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineSlider_html_a33e68c6a27a35e749eca0b859a52ec49"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineSlider.html#a33e68c6a27a35e749eca0b859a52ec49">Ra::Gui::TimelineSlider::mouseReleaseEvent</a></div><div class="ttdeci">void mouseReleaseEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineSlider_8cpp_source.html#l00016">TimelineSlider.cpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineSlider_html_a76cee7e6d997d8f479e1654e4c3173c7"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineSlider.html#a76cee7e6d997d8f479e1654e4c3173c7">Ra::Gui::TimelineSlider::mousePressEvent</a></div><div class="ttdeci">void mousePressEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineSlider_8cpp_source.html#l00009">TimelineSlider.cpp:9</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineSlider_html_ad6ba72411623a838c69463e8c7943823"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineSlider.html#ad6ba72411623a838c69463e8c7943823">Ra::Gui::TimelineSlider::mouseMoveEvent</a></div><div class="ttdeci">void mouseMoveEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineSlider_8cpp_source.html#l00026">TimelineSlider.cpp:26</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineSlider_html_ad6ba72411623a838c69463e8c7943823"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineSlider.html#ad6ba72411623a838c69463e8c7943823">Ra::Gui::TimelineSlider::mouseMoveEvent</a></div><div class="ttdeci">void mouseMoveEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineSlider_8cpp_source.html#l00024">TimelineSlider.cpp:24</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><a class="el" href="TimelineSlider_8cpp.html">TimelineSlider.cpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

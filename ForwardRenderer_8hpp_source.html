@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -156,16 +157,16 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8hpp_source.html','');
 <div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#aa4f521097c432e4c2eb251c82e415340">   67</a></span>&#160;    std::unique_ptr&lt;globjects::Framebuffer&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#aa4f521097c432e4c2eb251c82e415340">m_volumeFbo</a>;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a99646f3232b21de3ac683486f0322472">   69</a></span>&#160;    std::vector&lt;RenderObjectPtr&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a99646f3232b21de3ac683486f0322472">m_transparentRenderObjects</a>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a774ca340a80cc13e8ed90ad48f4ec7d8">   70</a></span>&#160;    <span class="keywordtype">size_t</span> m_fancyTransparentCount {0};</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a774ca340a80cc13e8ed90ad48f4ec7d8">   70</a></span>&#160;    <span class="keywordtype">size_t</span> m_fancyTransparentCount { 0 };</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 <div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a97836f97c8b8673ae4203226e4ec5810">   72</a></span>&#160;    std::vector&lt;RenderObjectPtr&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a97836f97c8b8673ae4203226e4ec5810">m_volumetricRenderObjects</a>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#ae739238d68cc4b68c2f0c371c99ec8e8">   73</a></span>&#160;    <span class="keywordtype">size_t</span> m_fancyVolumetricCount {0};</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#ae739238d68cc4b68c2f0c371c99ec8e8">   73</a></span>&#160;    <span class="keywordtype">size_t</span> m_fancyVolumetricCount { 0 };</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a085eacc9976d512dc70de510935e393b">   75</a></span>&#160;    <span class="keywordtype">size_t</span> m_pingPongSize {0};</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a085eacc9976d512dc70de510935e393b">   75</a></span>&#160;    <span class="keywordtype">size_t</span> m_pingPongSize { 0 };</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
 <div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a8611fb9e2f7e153b19ef8a3553fd8c34">   77</a></span>&#160;    std::array&lt;std::unique_ptr&lt;Data::Texture&gt;, RendererTexture_Count&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a8611fb9e2f7e153b19ef8a3553fd8c34">m_textures</a>;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a066148b603bf27b6b410c5e9cd515e79">   79</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">size_t</span> ShadowMapSize {1024};</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a066148b603bf27b6b410c5e9cd515e79">   79</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">size_t</span> ShadowMapSize { 1024 };</div>
 <div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a0a031a708daef43b10de3b5deaec6527">   80</a></span>&#160;    std::vector&lt;std::shared_ptr&lt;Data::Texture&gt;&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a0a031a708daef43b10de3b5deaec6527">m_shadowMaps</a>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a1f54b27e3ff8544b8cbd22acb2360d09">   81</a></span>&#160;    std::vector&lt;Core::Matrix4&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a1f54b27e3ff8544b8cbd22acb2360d09">m_lightMatrices</a>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
@@ -211,7 +212,7 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8hpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="ForwardRenderer_8hpp.html">ForwardRenderer.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

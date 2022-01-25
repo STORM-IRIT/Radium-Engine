@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -168,6 +169,15 @@ Signals</h2></td></tr>
 <tr class="memitem:a41551eb5214f8b3b79ce5248e9dd4b3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#a41551eb5214f8b3b79ce5248e9dd4b3b">needUpdate</a> ()</td></tr>
 <tr class="memdesc:a41551eb5214f8b3b79ce5248e9dd4b3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when the corresponding key is released (see keyReleaseEvent)  <a href="classRa_1_1Gui_1_1Viewer.html#a41551eb5214f8b3b79ce5248e9dd4b3b">More...</a><br /></td></tr>
 <tr class="separator:a41551eb5214f8b3b79ce5248e9dd4b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3db7ed1e5682bd84d67c22281eb53d0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#a3db7ed1e5682bd84d67c22281eb53d0e">onMousePress</a> (QMouseEvent *event)</td></tr>
+<tr class="memdesc:a3db7ed1e5682bd84d67c22281eb53d0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event sent after a mouse press event has been processed, but before emitting <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a41551eb5214f8b3b79ce5248e9dd4b3b" title="Emitted when the corresponding key is released (see keyReleaseEvent)">needUpdate()</a>  <a href="classRa_1_1Gui_1_1Viewer.html#a3db7ed1e5682bd84d67c22281eb53d0e">More...</a><br /></td></tr>
+<tr class="separator:a3db7ed1e5682bd84d67c22281eb53d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa73cf0f805417d2ddf458d73b163b81"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#aaa73cf0f805417d2ddf458d73b163b81">onMouseRelease</a> (QMouseEvent *event)</td></tr>
+<tr class="memdesc:aaa73cf0f805417d2ddf458d73b163b81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event sent after a mouse release event has been processed, but before emitting <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a41551eb5214f8b3b79ce5248e9dd4b3b" title="Emitted when the corresponding key is released (see keyReleaseEvent)">needUpdate()</a>  <a href="classRa_1_1Gui_1_1Viewer.html#aaa73cf0f805417d2ddf458d73b163b81">More...</a><br /></td></tr>
+<tr class="separator:aaa73cf0f805417d2ddf458d73b163b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf4e392035ada48c6f13af74c82ef58f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#acf4e392035ada48c6f13af74c82ef58f">onMouseMove</a> (QMouseEvent *event)</td></tr>
+<tr class="memdesc:acf4e392035ada48c6f13af74c82ef58f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event sent after a mouse move event has been processed, but before emitting <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a41551eb5214f8b3b79ce5248e9dd4b3b" title="Emitted when the corresponding key is released (see keyReleaseEvent)">needUpdate()</a>  <a href="classRa_1_1Gui_1_1Viewer.html#acf4e392035ada48c6f13af74c82ef58f">More...</a><br /></td></tr>
+<tr class="separator:acf4e392035ada48c6f13af74c82ef58f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -360,7 +370,7 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:abef7fd908618c0300a19f3437f6df268"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268">m_gizmoManager</a></td></tr>
 <tr class="memdesc:abef7fd908618c0300a19f3437f6df268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owning (<a class="el" href="classQObject.html">QObject</a> child) pointer to gizmo manager.  <a href="classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268">More...</a><br /></td></tr>
 <tr class="separator:abef7fd908618c0300a19f3437f6df268"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c9efc93971f69ed8f3554ec45b43cfe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#a1c9efc93971f69ed8f3554ec45b43cfe">m_backgroundColor</a> {<a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22">Core::Utils::Color::Grey</a>( 0.0392_ra, 0_ra )}</td></tr>
+<tr class="memitem:a1c9efc93971f69ed8f3554ec45b43cfe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#a1c9efc93971f69ed8f3554ec45b43cfe">m_backgroundColor</a> { <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22">Core::Utils::Color::Grey</a>( 0.0392_ra, 0_ra ) }</td></tr>
 <tr class="separator:a1c9efc93971f69ed8f3554ec45b43cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba07b78b7fdf3b92d6d77f78ade687f0"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::map&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>, std::function&lt; void(QKeyEvent *)&gt; &gt;, <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2aa52bf5f38283ff938eec66c9216ef5a4">KeyEventTypeCount</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#aba07b78b7fdf3b92d6d77f78ade687f0">m_customKeyActions</a></td></tr>
 <tr class="separator:aba07b78b7fdf3b92d6d77f78ade687f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -436,7 +446,7 @@ Additional Inherited Members</h2></td></tr>
 <tr><td class="fieldname"><a id="a29251f309d1429c09062056f4bfa8cb2aa52bf5f38283ff938eec66c9216ef5a4"></a>KeyEventTypeCount&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00318">318</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00325">325</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -467,7 +477,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00098">98</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00097">97</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -496,7 +506,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00107">107</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00106">106</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -561,7 +571,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Add a custom event handler on keyPressed event. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00889">889</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00862">862</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -617,7 +627,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Add a custom event handler on keyRelease event. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00905">905</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00878">878</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -649,7 +659,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><a class="code" href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">m_camera</a>-&gt;attachLight( light );</div>
 </div><!-- fragment --> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00145">145</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00143">143</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -687,7 +697,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Set the renderer. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00345">345</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00336">336</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -724,7 +734,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>create gizmos </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00412">412</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00402">402</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -751,7 +761,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00875">875</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00848">848</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -781,7 +791,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Set the final display texture. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00333">333</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00324">324</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -808,7 +818,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00304">304</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00296">296</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -838,7 +848,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Toggle the debug drawing. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00377">377</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00367">367</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -876,7 +886,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Toggle the post-process effetcs. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00373">373</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00363">363</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -903,7 +913,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00269">269</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00259">259</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -933,7 +943,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Moves the camera so that the whole scene is visible. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00255">255</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00245">245</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -983,7 +993,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Access to camera interface. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00122">122</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00120">120</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1060,7 +1070,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Access to gizmo manager. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00133">133</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00131">131</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1081,7 +1091,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Access to the feature picking manager. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00166">166</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00162">162</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1109,7 +1119,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00505">505</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00493">493</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1149,7 +1159,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Read-only access to renderer. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00137">137</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00135">135</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1170,7 +1180,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns the names of the different registred renderers. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00276">276</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00267">267</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1217,7 +1227,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Write the current frame as an image. Supports either BMP or PNG file names. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00287">287</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00277">277</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -1253,7 +1263,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00623">623</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00608">608</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1289,7 +1299,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00697">697</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00672">672</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -1335,7 +1345,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00793">793</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00767">767</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -1384,7 +1394,7 @@ Additional Inherited Members</h2></td></tr>
 <p>[event dispatch]</p>
 <p>[event dispatch]</p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00719">719</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00693">693</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -1420,7 +1430,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00785">785</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00757">757</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -1456,7 +1466,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00827">827</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00800">800</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
@@ -1495,7 +1505,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a44dcba0a79c9be83bb96b5bb0db1ab01">Ra::Gui::WindowQt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00427">427</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00417">417</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1533,7 +1543,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Initialize renderer internal state + configure lights. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00416">416</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00406">406</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
@@ -1569,7 +1579,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00530">530</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00515">515</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -1605,7 +1615,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00538">538</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00523">523</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-19-summary" class="dynsummary" style="display:block;">
@@ -1642,7 +1652,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000090">Todo:</a></b></dt><dd>propagateToParent </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00568">568</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00554">554</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">
@@ -1679,7 +1689,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>We intercept the mouse events in this widget to get the coordinates of the mouse in screen space. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00546">546</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00531">531</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-21-summary" class="dynsummary" style="display:block;">
@@ -1716,7 +1726,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000089">Todo:</a></b></dt><dd>propagateToParent </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00563">563</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00548">548</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-22-summary" class="dynsummary" style="display:block;">
@@ -1755,6 +1765,90 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="acf4e392035ada48c6f13af74c82ef58f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf4e392035ada48c6f13af74c82ef58f">&#9670;&nbsp;</a></span>onMouseMove</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Gui::Viewer::onMouseMove </td>
+          <td>(</td>
+          <td class="paramtype">QMouseEvent *&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Event sent after a mouse move event has been processed, but before emitting <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a41551eb5214f8b3b79ce5248e9dd4b3b" title="Emitted when the corresponding key is released (see keyReleaseEvent)">needUpdate()</a> </p>
+
+</div>
+</div>
+<a id="a3db7ed1e5682bd84d67c22281eb53d0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3db7ed1e5682bd84d67c22281eb53d0e">&#9670;&nbsp;</a></span>onMousePress</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Gui::Viewer::onMousePress </td>
+          <td>(</td>
+          <td class="paramtype">QMouseEvent *&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Event sent after a mouse press event has been processed, but before emitting <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a41551eb5214f8b3b79ce5248e9dd4b3b" title="Emitted when the corresponding key is released (see keyReleaseEvent)">needUpdate()</a> </p>
+
+</div>
+</div>
+<a id="aaa73cf0f805417d2ddf458d73b163b81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa73cf0f805417d2ddf458d73b163b81">&#9670;&nbsp;</a></span>onMouseRelease</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Gui::Viewer::onMouseRelease </td>
+          <td>(</td>
+          <td class="paramtype">QMouseEvent *&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Event sent after a mouse release event has been processed, but before emitting <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a41551eb5214f8b3b79ce5248e9dd4b3b" title="Emitted when the corresponding key is released (see keyReleaseEvent)">needUpdate()</a> </p>
+
+</div>
+</div>
 <a id="a02c5ab9153a9701e8f14589a4589f284"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02c5ab9153a9701e8f14589a4589f284">&#9670;&nbsp;</a></span>prepareDisplay()</h2>
 
@@ -1779,7 +1873,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Prepare the viewer to display a scene. This will ask the renderer to build its specific OenGL related objects and set the camera to its default state </p><dl class="section return"><dt>Returns</dt><dd>true if the scene is ready to display. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00859">859</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00832">832</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-23-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-23-summary" class="dynsummary" style="display:block;">
@@ -1808,7 +1902,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Emits signals corresponding to picking requests. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00232">232</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00224">224</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-24-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-24-summary" class="dynsummary" style="display:block;">
@@ -1845,7 +1939,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Tell the renderer to reload all shaders. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00320">320</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00311">311</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-25-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-25-summary" class="dynsummary" style="display:block;">
@@ -1925,7 +2019,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00126">126</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00124">124</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-26" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-26-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-26-summary" class="dynsummary" style="display:block;">
@@ -1965,7 +2059,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a8562ae7db9d5118c81cbbbaa063617c5">Ra::Gui::WindowQt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00492">492</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00480">480</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-27" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-27-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-27-summary" class="dynsummary" style="display:block;">
@@ -2029,7 +2123,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00381">381</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00371">371</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2051,7 +2145,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Set the current camera interface. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00118">118</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00116">116</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2116,7 +2210,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00597">597</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00582">582</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-29" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-29-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-29-summary" class="dynsummary" style="display:block;">
@@ -2147,7 +2241,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Start rendering (potentially asynchronously in a separate thread) </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000087">Todo:</a></b></dt><dd>FIXME : move this outside of the rendering loop. must be done once per renderer ... if there is no light on the renderer, add the head light attached to the camera ... </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00177">177</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00173">173</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-30" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-30-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-30-summary" class="dynsummary" style="display:block;">
@@ -2176,7 +2270,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Blocks until rendering is finished. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00227">227</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00219">219</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-31" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-31-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-31-summary" class="dynsummary" style="display:block;">
@@ -2234,7 +2328,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Update the internal viewer state to the (application) time dt. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00170">170</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00166">166</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-32" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-32-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-32-summary" class="dynsummary" style="display:block;">
@@ -2271,7 +2365,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000091">Todo:</a></b></dt><dd>propagateToParent </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00584">584</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00570">570</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-33" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-33-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-33-summary" class="dynsummary" style="display:block;">
@@ -2329,7 +2423,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00324">324</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00331">331</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2343,7 +2437,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> Ra::Gui::Viewer::m_backgroundColor {<a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22">Core::Utils::Color::Grey</a>( 0.0392_ra, 0_ra )}</td>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> Ra::Gui::Viewer::m_backgroundColor { <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22">Core::Utils::Color::Grey</a>( 0.0392_ra, 0_ra ) }</td>
         </tr>
       </table>
   </td>
@@ -2353,7 +2447,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00315">315</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00322">322</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2377,7 +2471,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00307">307</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00314">314</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2403,7 +2497,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Owning pointer to the camera. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00310">310</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00317">317</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2427,7 +2521,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00301">301</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00308">308</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2452,7 +2546,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Array of custom key event handler Index is KeyEventType </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00322">322</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00329">329</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2478,7 +2572,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Owning (<a class="el" href="classQObject.html">QObject</a> child) pointer to gizmo manager. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00313">313</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00320">320</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2502,7 +2596,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00306">306</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00313">313</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2526,7 +2620,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00300">300</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00307">307</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2552,7 +2646,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Owning Pointer to the feature picking manager. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00304">304</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00311">311</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2577,7 +2671,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000092">Todo:</a></b></dt><dd>make the following private: Owning pointer to the renderers. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00299">299</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00306">306</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -2587,17 +2681,17 @@ Additional Inherited Members</h2></td></tr>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a5a23e360fb4500aeea04e83e2a5c8f36"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a5a23e360fb4500aeea04e83e2a5c8f36">Ra::Gui::Viewer::addRenderer</a></div><div class="ttdeci">int addRenderer(const std::shared_ptr&lt; Engine::Rendering::Renderer &gt; &amp;e)</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00145">Viewer.cpp:145</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a5a23e360fb4500aeea04e83e2a5c8f36"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a5a23e360fb4500aeea04e83e2a5c8f36">Ra::Gui::Viewer::addRenderer</a></div><div class="ttdeci">int addRenderer(const std::shared_ptr&lt; Engine::Rendering::Renderer &gt; &amp;e)</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00143">Viewer.cpp:143</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:53</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a0522b4876b6a6e84ba5c8e40f66b714f"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">Ra::Gui::Viewer::m_camera</a></div><div class="ttdeci">std::unique_ptr&lt; CameraManipulator &gt; m_camera</div><div class="ttdoc">Owning pointer to the camera.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00310">Viewer.hpp:310</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1Renderer_html_a1937407357a05fef64bd1f0bafa50492"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1937407357a05fef64bd1f0bafa50492">Ra::Engine::Rendering::Renderer::initialize</a></div><div class="ttdeci">void initialize(uint width, uint height)</div><div class="ttdoc">Initialize renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00053">Renderer.cpp:53</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a94ca6b2d9205f3affdc98703e5d22a13"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a94ca6b2d9205f3affdc98703e5d22a13">Ra::Gui::Viewer::changeRenderer</a></div><div class="ttdeci">bool changeRenderer(int index)</div><div class="ttdoc">Set the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00345">Viewer.cpp:345</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aa494c3894be5858ef29cd48bf67d9e96"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aa494c3894be5858ef29cd48bf67d9e96">Ra::Gui::Viewer::getRenderer</a></div><div class="ttdeci">const Engine::Rendering::Renderer * getRenderer() const</div><div class="ttdoc">Read-only access to renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00137">Viewer.cpp:137</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a0522b4876b6a6e84ba5c8e40f66b714f"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">Ra::Gui::Viewer::m_camera</a></div><div class="ttdeci">std::unique_ptr&lt; CameraManipulator &gt; m_camera</div><div class="ttdoc">Owning pointer to the camera.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00317">Viewer.hpp:317</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1Renderer_html_a1937407357a05fef64bd1f0bafa50492"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1937407357a05fef64bd1f0bafa50492">Ra::Engine::Rendering::Renderer::initialize</a></div><div class="ttdeci">void initialize(uint width, uint height)</div><div class="ttdoc">Initialize renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00056">Renderer.cpp:56</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a94ca6b2d9205f3affdc98703e5d22a13"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a94ca6b2d9205f3affdc98703e5d22a13">Ra::Gui::Viewer::changeRenderer</a></div><div class="ttdeci">bool changeRenderer(int index)</div><div class="ttdoc">Set the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00336">Viewer.cpp:336</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aa494c3894be5858ef29cd48bf67d9e96"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aa494c3894be5858ef29cd48bf67d9e96">Ra::Gui::Viewer::getRenderer</a></div><div class="ttdeci">const Engine::Rendering::Renderer * getRenderer() const</div><div class="ttdoc">Read-only access to renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00135">Viewer.cpp:135</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Gui.html">Gui</a></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Viewer</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:22 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:57:02 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

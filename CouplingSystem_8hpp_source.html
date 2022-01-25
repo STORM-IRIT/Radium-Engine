@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -150,29 +151,27 @@ $(document).ready(function(){initNavTree('CouplingSystem_8hpp_source.html',''); 
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Functor&gt;</div>
 <div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#accd92b301d3ea2c65f07ec39bff4f29b">  110</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#accd92b301d3ea2c65f07ec39bff4f29b">conditionnaldispatch</a>( Functor f, <span class="keywordtype">bool</span> abortWhenInvalid = <span class="keyword">true</span> ) {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; s : m_systems )</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span> ( !f( s ) &amp;&amp; abortWhenInvalid ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Functor&gt;</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#a5b7bb7630074c85c5318c18ce9d207b8">  120</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#a5b7bb7630074c85c5318c18ce9d207b8">conditionnaldispatch</a>( Functor f, <span class="keywordtype">bool</span> abortWhenInvalid = <span class="keyword">true</span> )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : m_systems )</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            <span class="keywordflow">if</span> ( !f( s ) &amp;&amp; abortWhenInvalid ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    std::vector&lt;std::unique_ptr&lt;BaseAbstractSystem&gt;&gt; m_systems;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;};</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; s : m_systems ) {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">if</span> ( !f( s ) &amp;&amp; abortWhenInvalid ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Functor&gt;</div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#a5b7bb7630074c85c5318c18ce9d207b8">  119</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#a5b7bb7630074c85c5318c18ce9d207b8">conditionnaldispatch</a>( Functor f, <span class="keywordtype">bool</span> abortWhenInvalid = <span class="keyword">true</span> )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : m_systems ) {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">if</span> ( !f( s ) &amp;&amp; abortWhenInvalid ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    std::vector&lt;std::unique_ptr&lt;BaseAbstractSystem&gt;&gt; m_systems;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;};</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem_html_a2db84b190d8ff43b5b462d830db5d014"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#a2db84b190d8ff43b5b462d830db5d014">Ra::Engine::Scene::BaseCouplingSystem::generateTasks</a></div><div class="ttdeci">void generateTasks(Core::TaskQueue *taskQueue, const Engine::FrameInfo &amp;frameInfo) override</div><div class="ttdef"><b>Definition:</b> <a href="CouplingSystem_8hpp_source.html#l00056">CouplingSystem.hpp:56</a></div></div>
@@ -193,12 +192,12 @@ $(document).ready(function(){initNavTree('CouplingSystem_8hpp_source.html',''); 
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00019">FileData.hpp:19</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:22</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem_html_a706300e8767ead36c2f4517e9803993f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#a706300e8767ead36c2f4517e9803993f">Ra::Engine::Scene::BaseCouplingSystem::handleAssetLoading</a></div><div class="ttdeci">void handleAssetLoading(Entity *entity, const Core::Asset::FileData *data) override</div><div class="ttdef"><b>Definition:</b> <a href="CouplingSystem_8hpp_source.html#l00062">CouplingSystem.hpp:62</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem_html_a5b7bb7630074c85c5318c18ce9d207b8"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#a5b7bb7630074c85c5318c18ce9d207b8">Ra::Engine::Scene::BaseCouplingSystem::conditionnaldispatch</a></div><div class="ttdeci">bool conditionnaldispatch(Functor f, bool abortWhenInvalid=true) const</div><div class="ttdef"><b>Definition:</b> <a href="CouplingSystem_8hpp_source.html#l00120">CouplingSystem.hpp:120</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem_html_a5b7bb7630074c85c5318c18ce9d207b8"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#a5b7bb7630074c85c5318c18ce9d207b8">Ra::Engine::Scene::BaseCouplingSystem::conditionnaldispatch</a></div><div class="ttdeci">bool conditionnaldispatch(Functor f, bool abortWhenInvalid=true) const</div><div class="ttdef"><b>Definition:</b> <a href="CouplingSystem_8hpp_source.html#l00119">CouplingSystem.hpp:119</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="CouplingSystem_8hpp.html">CouplingSystem.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

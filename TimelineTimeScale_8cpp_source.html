@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -109,28 +110,26 @@ $(document).ready(function(){initNavTree('TimelineTimeScale_8cpp_source.html',''
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineTimeScale.html#a254823f2b9c52dc33a607e71cf0df842">   15</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineTimeScale.html#a254823f2b9c52dc33a607e71cf0df842">TimelineTimeScale::paintEvent</a>( QPaintEvent* event ) {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">if</span> ( m_scrollArea == <span class="keyword">nullptr</span> )</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        QFrame::paintEvent( event );</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    QPainter painter( <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    painter.setRenderHint( QPainter::Antialiasing );</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    painter.drawText( 0, 11, <span class="stringliteral">&quot;sec&quot;</span> );</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> pixPerSec = m_scrollArea-&gt;<a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html#af53301af105f5723ae4e189843f62810">getPixPerSec</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> step      = m_scrollArea-&gt;<a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html#ae6010b1c3d99325e5d882b62019ab431">getStep</a>();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 1; i &lt; m_scrollArea-&gt;<a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html#a5219225b035be7330394bd310bff5334">getNbInterval</a>(); i++ )</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">int</span> x        = <a class="code" href="classint.html">int</a>( pixPerSec * step * i );</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        QString time = QString::number( <span class="keywordtype">double</span>( ( i - 1 ) * step ) );</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordtype">int</span> dec      = time.size() * 6 / 2;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        painter.drawText( x - dec, 11, time );</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace Ra::Gui</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">if</span> ( m_scrollArea == <span class="keyword">nullptr</span> ) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        QFrame::paintEvent( event );</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    QPainter painter( <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    painter.setRenderHint( QPainter::Antialiasing );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    painter.drawText( 0, 11, <span class="stringliteral">&quot;sec&quot;</span> );</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> pixPerSec = m_scrollArea-&gt;<a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html#af53301af105f5723ae4e189843f62810">getPixPerSec</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="classfloat.html">Scalar</a> step      = m_scrollArea-&gt;<a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html#ae6010b1c3d99325e5d882b62019ab431">getStep</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 1; i &lt; m_scrollArea-&gt;<a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html#a5219225b035be7330394bd310bff5334">getNbInterval</a>(); i++ ) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">int</span> x        = <a class="code" href="classint.html">int</a>( pixPerSec * step * i );</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        QString time = QString::number( <span class="keywordtype">double</span>( ( i - 1 ) * step ) );</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">int</span> dec      = time.size() * 6 / 2;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        painter.drawText( x - dec, 11, time );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace Ra::Gui</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassQFrame_html"><div class="ttname"><a href="classQFrame.html">QFrame</a></div></div>
@@ -150,7 +149,7 @@ $(document).ready(function(){initNavTree('TimelineTimeScale_8cpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><a class="el" href="TimelineTimeScale_8cpp.html">TimelineTimeScale.cpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

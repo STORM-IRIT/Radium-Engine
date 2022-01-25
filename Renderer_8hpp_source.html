@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -194,8 +195,8 @@ $(document).ready(function(){initNavTree('Renderer_8hpp_source.html',''); initRe
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">void</span> setDepth( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> depth );</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;      <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6be">PickingMode</a> m_mode {<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6bea72c43458f8c70ac42accfdfc1f64c910">Engine::Rendering::Renderer::RO</a>};</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> m_roIdx {<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Core::Utils::Index::Invalid</a>()};</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6be">PickingMode</a> m_mode { <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6bea72c43458f8c70ac42accfdfc1f64c910">Engine::Rendering::Renderer::RO</a> };</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> m_roIdx { <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Core::Utils::Index::Invalid</a>() };</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keyword">mutable</span> std::vector&lt;std::tuple&lt;int, int, int&gt;&gt; m_indices;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_depth;</div>
@@ -318,20 +319,20 @@ $(document).ready(function(){initNavTree('Renderer_8hpp_source.html',''); initRe
 <div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    <span class="keywordtype">void</span> notifyRenderObjectsRenderingInternal();</div>
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00433"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afd545cce7c8d137eefc8cd20a08648fd">  433</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> m_width {0};</div>
-<div class="line"><a name="l00434"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a920bab4d58e0cd84cd689fc8d0b11b2c">  434</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> m_height {0};</div>
+<div class="line"><a name="l00433"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afd545cce7c8d137eefc8cd20a08648fd">  433</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> m_width { 0 };</div>
+<div class="line"><a name="l00434"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a920bab4d58e0cd84cd689fc8d0b11b2c">  434</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> m_height { 0 };</div>
 <div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160; </div>
-<div class="line"><a name="l00440"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a0169520252358b4d5c1e077484e4e72c">  440</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">Data::ShaderProgramManager</a>* m_shaderProgramManager {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00440"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a0169520252358b4d5c1e077484e4e72c">  440</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">Data::ShaderProgramManager</a>* m_shaderProgramManager { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160; </div>
-<div class="line"><a name="l00446"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a99b137c8e6a5b2098d120aa408eb01a1">  446</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html">RenderObjectManager</a>* m_renderObjectManager {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00446"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a99b137c8e6a5b2098d120aa408eb01a1">  446</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html">RenderObjectManager</a>* m_renderObjectManager { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    <span class="comment">//                It would make more sense if we are able to show the</span></div>
 <div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    <span class="comment">//                debugged texture in its own viewport.</span></div>
-<div class="line"><a name="l00455"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a872a19c5d3eacd259f3c0e46561e42cf">  455</a></span>&#160;<span class="comment"></span>    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Data::Texture</a>* m_displayedTexture {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00455"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a872a19c5d3eacd259f3c0e46561e42cf">  455</a></span>&#160;<span class="comment"></span>    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Data::Texture</a>* m_displayedTexture { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160; </div>
 <div class="line"><a name="l00459"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5ecf944928821ae312c7297d548356d3">  459</a></span>&#160;    std::vector&lt;Ra::Engine::Scene::LightManager*&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5ecf944928821ae312c7297d548356d3">m_lightmanagers</a>;</div>
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160; </div>
-<div class="line"><a name="l00461"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ad325b155e3b1b8c0863b9c76fdbb7c1b">  461</a></span>&#160;    <span class="keywordtype">bool</span> m_renderQueuesUpToDate {<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00461"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ad325b155e3b1b8c0863b9c76fdbb7c1b">  461</a></span>&#160;    <span class="keywordtype">bool</span> m_renderQueuesUpToDate { <span class="keyword">false</span> };</div>
 <div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
 <div class="line"><a name="l00463"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#adacb6bce3d2e9de3a3569481350816c4">  463</a></span>&#160;    std::vector&lt;RenderObjectPtr&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#adacb6bce3d2e9de3a3569481350816c4">m_fancyRenderObjects</a>;</div>
 <div class="line"><a name="l00464"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a670358fcd003828b561120abe34c8266">  464</a></span>&#160;    std::vector&lt;RenderObjectPtr&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a670358fcd003828b561120abe34c8266">m_debugRenderObjects</a>;</div>
@@ -341,9 +342,9 @@ $(document).ready(function(){initNavTree('Renderer_8hpp_source.html',''); initRe
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="comment">// Simple quad mesh, used to render the final image</span></div>
 <div class="line"><a name="l00469"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a4aff0ea4f466f0b461642fcc64aa9853">  469</a></span>&#160;    std::unique_ptr&lt;Data::Displayable&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a4aff0ea4f466f0b461642fcc64aa9853">m_quadMesh</a>;</div>
 <div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160; </div>
-<div class="line"><a name="l00471"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1b0da4588cd7bdfe63f4bb3f8b23e7b7">  471</a></span>&#160;    <span class="keywordtype">bool</span> m_drawDebug {<span class="keyword">true</span>};          <span class="comment">// Should we render debug stuff ?</span></div>
-<div class="line"><a name="l00472"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ad6bab24f0560b4a4cf9423a92332e582">  472</a></span>&#160;    <span class="keywordtype">bool</span> m_wireframe {<span class="keyword">false</span>};         <span class="comment">// Are we rendering in &quot;real&quot; wireframe mode</span></div>
-<div class="line"><a name="l00473"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab2baf3d6c8478d9af5918a45393c68a2">  473</a></span>&#160;    <span class="keywordtype">bool</span> m_postProcessEnabled {<span class="keyword">true</span>}; <span class="comment">// Should we do post processing ?</span></div>
+<div class="line"><a name="l00471"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1b0da4588cd7bdfe63f4bb3f8b23e7b7">  471</a></span>&#160;    <span class="keywordtype">bool</span> m_drawDebug { <span class="keyword">true</span> };          <span class="comment">// Should we render debug stuff ?</span></div>
+<div class="line"><a name="l00472"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ad6bab24f0560b4a4cf9423a92332e582">  472</a></span>&#160;    <span class="keywordtype">bool</span> m_wireframe { <span class="keyword">false</span> };         <span class="comment">// Are we rendering in &quot;real&quot; wireframe mode</span></div>
+<div class="line"><a name="l00473"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab2baf3d6c8478d9af5918a45393c68a2">  473</a></span>&#160;    <span class="keywordtype">bool</span> m_postProcessEnabled { <span class="keyword">true</span> }; <span class="comment">// Should we do post processing ?</span></div>
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160; </div>
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    <span class="comment">// derived class could use the already created textures</span></div>
 <div class="line"><a name="l00477"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac385c64ebba4f5de0b51fb9ab7a31d16">  477</a></span>&#160;<span class="comment"></span>    std::unique_ptr&lt;Data::Texture&gt; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac385c64ebba4f5de0b51fb9ab7a31d16">m_depthTexture</a>;</div>
@@ -358,7 +359,7 @@ $(document).ready(function(){initNavTree('Renderer_8hpp_source.html',''); initRe
 <div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160; </div>
 <div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;    <span class="comment">// PICKING STUFF</span></div>
 <div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a84720deb241ea9ebbf1160b46a42beb9">Ra::Core::Vector2</a> m_mousePosition;</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    <span class="keywordtype">float</span> m_brushRadius {0};</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    <span class="keywordtype">float</span> m_brushRadius { 0 };</div>
 <div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    std::unique_ptr&lt;globjects::Framebuffer&gt; m_pickingFbo;</div>
 <div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;    std::unique_ptr&lt;Data::Texture&gt; m_pickingTexture;</div>
 <div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
@@ -373,10 +374,10 @@ $(document).ready(function(){initNavTree('Renderer_8hpp_source.html',''); initRe
 <div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    std::vector&lt;PickingQuery&gt; m_lastFramePickingQueries;</div>
 <div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    std::vector&lt;PickingResult&gt; m_pickingResults;</div>
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160; </div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_backgroundColor {<a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22">Core::Utils::Color::Grey</a>( 0.0392_ra, 0_ra )};</div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_backgroundColor { <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22">Core::Utils::Color::Grey</a>( 0.0392_ra, 0_ra ) };</div>
 <div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="keywordtype">void</span> preparePicking( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">Data::ViewingParameters</a>&amp; renderData );</div>
 <div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160; </div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    <span class="keywordtype">bool</span> m_initialized {<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    <span class="keywordtype">bool</span> m_initialized { <span class="keyword">false</span> };</div>
 <div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;};</div>
 <div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
 <div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;} <span class="comment">// namespace Rendering</span></div>
@@ -447,7 +448,7 @@ $(document).ready(function(){initNavTree('Renderer_8hpp_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="Renderer_8hpp.html">Renderer.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

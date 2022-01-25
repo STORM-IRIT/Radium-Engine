@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -118,7 +119,7 @@ $(document).ready(function(){initNavTree('HandleData_8hpp_source.html',''); init
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#ad4130f42ebc10ade71bd60588a58003e">   27</a></span>&#160;    std::string <a class="code" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#ad4130f42ebc10ade71bd60588a58003e">m_name</a>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#ac01a9f670105af2c515b8072a6da7d5e">   30</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> m_frame {Core::Transform::Identity()};</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#ac01a9f670105af2c515b8072a6da7d5e">   30</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> m_frame { Core::Transform::Identity() };</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#a15b12f701bb7101734eeb59cd3cbfe29">   33</a></span>&#160;    std::map&lt;std::string, Core::Transform&gt; <a class="code" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html#a15b12f701bb7101734eeb59cd3cbfe29">m_bindMatrices</a>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
@@ -210,11 +211,11 @@ $(document).ready(function(){initNavTree('HandleData_8hpp_source.html',''); init
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    HandleType m_type;</div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> m_frame {Core::Transform::Identity()};</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> m_frame { Core::Transform::Identity() };</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordtype">bool</span> m_endNode {<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordtype">bool</span> m_endNode { <span class="keyword">false</span> };</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> m_vertexSize {0};</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> m_vertexSize { 0 };</div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    std::map&lt;std::string, uint&gt; m_nameTable;</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
@@ -255,7 +256,7 @@ $(document).ready(function(){initNavTree('HandleData_8hpp_source.html',''); init
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="HandleData_8hpp.html">HandleData.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:19 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:58 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

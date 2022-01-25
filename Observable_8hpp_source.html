@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -118,69 +119,68 @@ $(document).ready(function(){initNavTree('Observable_8hpp_source.html',''); init
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a817ec0cc8b11da60ced6fc2c5800ad3f">~Observable</a>()                      = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">   46</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">copyObserversTo</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&amp; other )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; o : m_observers )</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            other.<a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( o.second );</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">   55</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observer</a> observer ) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        m_observers.insert( {++m_currentId, observer} );</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> m_currentId;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">   64</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">attachMember</a>( T* <span class="keywordtype">object</span>, <span class="keywordtype">void</span> ( T::*observer )( Args... ) ) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( bind( observer, <span class="keywordtype">object</span> ) );</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">   68</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">notify</a>( Args... p )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; o : m_observers )</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            o.second( std::forward&lt;Args&gt;( p )... );</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">   74</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">detachAll</a>() { m_observers.clear(); }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">   78</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">detach</a>( <span class="keywordtype">int</span> observerId ) { m_observers.erase( observerId ); }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="comment">// from https://stackoverflow.com/questions/21192659/variadic-templates-and-stdbind</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::function&lt;R( Args... )&gt; bind( R ( T::*f )( Args... ), U p ) {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">return</span> [p, f]( Args... args ) -&gt; R { <span class="keywordflow">return</span> ( p-&gt;*f )( args... ); };</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    std::map&lt;int, Observer&gt; m_observers;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">int</span> m_currentId {0};</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">   91</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">ObservableVoid</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&lt;&gt;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;{};</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace Utils</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; o : m_observers ) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            other.<a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( o.second );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">   54</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observer</a> observer ) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        m_observers.insert( { ++m_currentId, observer } );</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> m_currentId;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">   63</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">attachMember</a>( T* <span class="keywordtype">object</span>, <span class="keywordtype">void</span> ( T::*observer )( Args... ) ) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( bind( observer, <span class="keywordtype">object</span> ) );</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">   67</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">notify</a>( Args... p )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; o : m_observers )</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            o.second( std::forward&lt;Args&gt;( p )... );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">   73</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">detachAll</a>() { m_observers.clear(); }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">   77</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">detach</a>( <span class="keywordtype">int</span> observerId ) { m_observers.erase( observerId ); }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="comment">// from https://stackoverflow.com/questions/21192659/variadic-templates-and-stdbind</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    std::function&lt;R( Args... )&gt; bind( R ( T::*f )( Args... ), U p ) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> [p, f]( Args... args ) -&gt; R { <span class="keywordflow">return</span> ( p-&gt;*f )( args... ); };</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    std::map&lt;int, Observer&gt; m_observers;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">int</span> m_currentId { 0 };</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">   90</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">ObservableVoid</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&lt;&gt;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;{};</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">// namespace Utils</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4e8b57fbe22d3aaafb71938a3db2a207"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">Ra::Core::Utils::Observable::detachAll</a></div><div class="ttdeci">void detachAll()</div><div class="ttdoc">Detach all observers.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00074">Observable.hpp:74</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4e8b57fbe22d3aaafb71938a3db2a207"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">Ra::Core::Utils::Observable::detachAll</a></div><div class="ttdeci">void detachAll()</div><div class="ttdoc">Detach all observers.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00073">Observable.hpp:73</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4851931d5bedb5e17121a0ff806a9f6d"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">Ra::Core::Utils::Observable::attach</a></div><div class="ttdeci">int attach(Observer observer)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00055">Observable.hpp:55</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4851931d5bedb5e17121a0ff806a9f6d"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">Ra::Core::Utils::Observable::attach</a></div><div class="ttdeci">int attach(Observer observer)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00054">Observable.hpp:54</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a817ec0cc8b11da60ced6fc2c5800ad3f"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a817ec0cc8b11da60ced6fc2c5800ad3f">Ra::Core::Utils::Observable::~Observable</a></div><div class="ttdeci">virtual ~Observable()=default</div></div>
 <div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4b2542963e7be1fd2f306420cbe36b11"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4b2542963e7be1fd2f306420cbe36b11">Ra::Core::Utils::Observable::Observable</a></div><div class="ttdeci">Observable()=default</div><div class="ttdoc">Default constructor ... do nothing ;)</div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a5b2d48be6db6b982ac70610c526d3870"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Ra::Core::Utils::Observable&lt; const std::string &amp; &gt;::Observer</a></div><div class="ttdeci">std::function&lt; void(Args...)&gt; Observer</div><div class="ttdoc">Observer functor type.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00037">Observable.hpp:37</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a93c242f277f524f8f60d2a0e910efc2b"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">Ra::Core::Utils::Observable::attachMember</a></div><div class="ttdeci">int attachMember(T *object, void(T::*observer)(Args...))</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00064">Observable.hpp:64</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a7e5fe761726d56a51f95192eb6555f8f"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">Ra::Core::Utils::Observable::notify</a></div><div class="ttdeci">void notify(Args... p) const</div><div class="ttdoc">Notify (i.e. call) each attached observer with argument p.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00068">Observable.hpp:68</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a93c242f277f524f8f60d2a0e910efc2b"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">Ra::Core::Utils::Observable::attachMember</a></div><div class="ttdeci">int attachMember(T *object, void(T::*observer)(Args...))</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00063">Observable.hpp:63</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a7e5fe761726d56a51f95192eb6555f8f"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">Ra::Core::Utils::Observable::notify</a></div><div class="ttdeci">void notify(Args... p) const</div><div class="ttdoc">Notify (i.e. call) each attached observer with argument p.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00067">Observable.hpp:67</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_ad350a9161840df5089517360cc3a3b17"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">Ra::Core::Utils::Observable::copyObserversTo</a></div><div class="ttdeci">void copyObserversTo(Observable &amp;other) const</div><div class="ttdoc">explicit copy of all attached observers the other Observable</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00046">Observable.hpp:46</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a></div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00033">Observable.hpp:33</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a88d70b5bc3b4a783bbcc02eddcc56507"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">Ra::Core::Utils::Observable::detach</a></div><div class="ttdeci">void detach(int observerId)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00078">Observable.hpp:78</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a88d70b5bc3b4a783bbcc02eddcc56507"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">Ra::Core::Utils::Observable::detach</a></div><div class="ttdeci">void detach(int observerId)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00077">Observable.hpp:77</a></div></div>
 <div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_aa755a5614695dfcc4f656178567b9086"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#aa755a5614695dfcc4f656178567b9086">Ra::Core::Utils::Observable::operator=</a></div><div class="ttdeci">Observable &amp; operator=(const Observable &amp;)=delete</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ObservableVoid_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">Ra::Core::Utils::ObservableVoid</a></div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00091">Observable.hpp:91</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ObservableVoid_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">Ra::Core::Utils::ObservableVoid</a></div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00090">Observable.hpp:90</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="Observable_8hpp.html">Observable.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:58 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

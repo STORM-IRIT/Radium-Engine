@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -118,9 +119,9 @@ $(document).ready(function(){initNavTree('Light_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02a2e9788ad471003e2ae8a74c6cb169bb3">   29</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">LightType</a> { DIRECTIONAL = 0, POINT, <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02a2e9788ad471003e2ae8a74c6cb169bb3">SPOT</a>, POLYGONAL };</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html">   36</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html">Attenuation</a> {</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a1310d6dfd9df2b6c6d923fa61e67e73f">   37</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> constant {1};</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a5c3937f6b97223c2a6b57ecc76b966ae">   38</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> linear {0};</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a6beef8226d33156dbbe499ba8fe9173f">   39</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> quadratic {0};</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a1310d6dfd9df2b6c6d923fa61e67e73f">   37</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> constant { 1 };</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a5c3937f6b97223c2a6b57ecc76b966ae">   38</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> linear { 0 };</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a6beef8226d33156dbbe499ba8fe9173f">   39</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> quadratic { 0 };</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html">Attenuation</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    };</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
@@ -148,7 +149,7 @@ $(document).ready(function(){initNavTree('Light_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_color = <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81">Core::Utils::Color::White</a>();</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    LightType m_type {LightType::DIRECTIONAL};</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    LightType m_type { LightType::DIRECTIONAL };</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;} <span class="comment">// namespace Scene</span></div>
@@ -180,7 +181,7 @@ $(document).ready(function(){initNavTree('Light_8hpp_source.html',''); initResiz
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="Light_8hpp.html">Light.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

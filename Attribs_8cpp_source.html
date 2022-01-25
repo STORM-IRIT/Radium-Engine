@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -103,7 +104,7 @@ $(document).ready(function(){initNavTree('Attribs_8cpp_source.html',''); initRes
 <div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html">    7</a></span>&#160;<span class="keyword">namespace </span>Utils {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#a229448de41b2243652f151d7635e78e3">    9</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#a229448de41b2243652f151d7635e78e3">AttribBase::~AttribBase</a>() {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">notify</a>();</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">detachAll</a>();</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
@@ -126,69 +127,63 @@ $(document).ready(function(){initNavTree('Attribs_8cpp_source.html',''); initRes
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f">   32</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f">AttribManager::copyAllAttributes</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">AttribManager</a>&amp; m ) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; attr : m.m_attribs )</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">if</span> ( attr == <span class="keyword">nullptr</span> ) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> ( attr-&gt;isFloat() )</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keyword">auto</span> h = addAttrib&lt;Scalar&gt;( attr-&gt;getName() );</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a>( h ).setData( <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib&lt;Scalar&gt;</a>*<span class="keyword">&gt;</span>( attr.get() )-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">data</a>() );</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( attr-&gt;isVector2() )</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">auto</span> h = addAttrib&lt;Vector2&gt;( attr-&gt;getName() );</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a>( h ).setData( <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib&lt;Vector2&gt;</a>*<span class="keyword">&gt;</span>( attr.get() )-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">data</a>() );</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( attr-&gt;isVector3() )</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keyword">auto</span> h = addAttrib&lt;Vector3&gt;( attr-&gt;getName() );</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a>( h ).setData( <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib&lt;Vector3&gt;</a>*<span class="keyword">&gt;</span>( attr.get() )-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">data</a>() );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; attr : m.m_attribs ) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> ( attr == <span class="keyword">nullptr</span> ) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">if</span> ( attr-&gt;isFloat() ) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keyword">auto</span> h = addAttrib&lt;Scalar&gt;( attr-&gt;getName() );</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a>( h ).setData( <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib&lt;Scalar&gt;</a>*<span class="keyword">&gt;</span>( attr.get() )-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">data</a>() );</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( attr-&gt;isVector2() ) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keyword">auto</span> h = addAttrib&lt;Vector2&gt;( attr-&gt;getName() );</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a>( h ).setData( <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib&lt;Vector2&gt;</a>*<span class="keyword">&gt;</span>( attr.get() )-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">data</a>() );</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( attr-&gt;isVector3() ) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keyword">auto</span> h = addAttrib&lt;Vector3&gt;( attr-&gt;getName() );</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a>( h ).setData( <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib&lt;Vector3&gt;</a>*<span class="keyword">&gt;</span>( attr.get() )-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">data</a>() );</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( attr-&gt;isVector4() ) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keyword">auto</span> h = addAttrib&lt;Vector4&gt;( attr-&gt;getName() );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a>( h ).setData( <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib&lt;Vector4&gt;</a>*<span class="keyword">&gt;</span>( attr.get() )-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">data</a>() );</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( attr-&gt;isVector4() )</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keyword">auto</span> h = addAttrib&lt;Vector4&gt;( attr-&gt;getName() );</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a>( h ).setData( <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib&lt;Vector4&gt;</a>*<span class="keyword">&gt;</span>( attr.get() )-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">data</a>() );</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Warning, copy of mesh attribute &quot;</span> &lt;&lt; attr-&gt;getName()</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                              &lt;&lt; <span class="stringliteral">&quot; type is not supported (only float, vec2, vec3 nor vec4 are &quot;</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                 <span class="stringliteral">&quot;supported) [from AttribManager::copyAllAttribute()]&quot;</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5">   63</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5">AttribManager::hasSameAttribs</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">AttribManager</a>&amp; other ) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">// one way</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; attr : m_attribsIndex )</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">if</span> ( other.m_attribsIndex.find( attr.first ) == other.m_attribsIndex.cend() )</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// the other way</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; attr : other.m_attribsIndex )</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">if</span> ( m_attribsIndex.find( attr.first ) == m_attribsIndex.cend() ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace Utils</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Warning, copy of mesh attribute &quot;</span> &lt;&lt; attr-&gt;getName()</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                              &lt;&lt; <span class="stringliteral">&quot; type is not supported (only float, vec2, vec3 nor vec4 are &quot;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                 <span class="stringliteral">&quot;supported) [from AttribManager::copyAllAttribute()]&quot;</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5">   58</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5">AttribManager::hasSameAttribs</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">AttribManager</a>&amp; other ) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// one way</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; attr : m_attribsIndex ) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span> ( other.m_attribsIndex.find( attr.first ) == other.m_attribsIndex.cend() ) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">// the other way</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; attr : other.m_attribsIndex ) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">if</span> ( m_attribsIndex.find( attr.first ) == m_attribsIndex.cend() ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace Utils</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4e8b57fbe22d3aaafb71938a3db2a207"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">Ra::Core::Utils::Observable&lt;&gt;::detachAll</a></div><div class="ttdeci">void detachAll()</div><div class="ttdoc">Detach all observers.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00073">Observable.hpp:73</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribBase_html_a229448de41b2243652f151d7635e78e3"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#a229448de41b2243652f151d7635e78e3">Ra::Core::Utils::AttribBase::~AttribBase</a></div><div class="ttdeci">virtual ~AttribBase()</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00009">Attribs.cpp:9</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_ae0cb7281ec72606a5392602b4ea50d2c"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Ra::Core::Utils::AttribManager::getAttrib</a></div><div class="ttdeci">Attrib&lt; T &gt; &amp; getAttrib(const AttribHandle&lt; T &gt; &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8inl_source.html#l00203">Attribs.inl:203</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_ae0cb7281ec72606a5392602b4ea50d2c"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Ra::Core::Utils::AttribManager::getAttrib</a></div><div class="ttdeci">Attrib&lt; T &gt; &amp; getAttrib(const AttribHandle&lt; T &gt; &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8inl_source.html#l00201">Attribs.inl:201</a></div></div>
 <div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_a8ee04a8a449c7c935cc2574e1187ea39"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a8ee04a8a449c7c935cc2574e1187ea39">Ra::Core::Utils::AttribManager::~AttribManager</a></div><div class="ttdeci">~AttribManager() override</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00023">Attribs.cpp:23</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Attrib_html_a4179dd4435a6d89f2ab3cadace7fca51"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">Ra::Core::Utils::Attrib::data</a></div><div class="ttdeci">const Container &amp; data() const</div><div class="ttdoc">Read-only acccess to the attribute content.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8inl_source.html#l00084">Attribs.inl:84</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_a406dc2c2d82a535130d7af3c388c7f8f"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f">Ra::Core::Utils::AttribManager::copyAllAttributes</a></div><div class="ttdeci">void copyAllAttributes(const AttribManager &amp;m)</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00032">Attribs.cpp:32</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_ae99bb77d3d29e9d99b4bcc257919ecda"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda">Ra::Core::Utils::AttribManager::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">clear all attribs, invalidate handles.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00027">Attribs.cpp:27</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a7e5fe761726d56a51f95192eb6555f8f"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">Ra::Core::Utils::Observable&lt;&gt;::notify</a></div><div class="ttdeci">void notify(Args... p) const</div><div class="ttdoc">Notify (i.e. call) each attached observer with argument p.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00068">Observable.hpp:68</a></div></div>
 <div class="ttc" id="aAttribs_8hpp_html"><div class="ttname"><a href="Attribs_8hpp.html">Attribs.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Attrib_html_a46f11d578e15c96981aff15dfb9fea7b"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a46f11d578e15c96981aff15dfb9fea7b">Ra::Core::Utils::Attrib::getElementSize</a></div><div class="ttdeci">size_t getElementSize() const override</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8inl_source.html#l00139">Attribs.inl:139</a></div></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_a191ecf090eaf0b6d52ed390938e1e0c5"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5">Ra::Core::Utils::AttribManager::hasSameAttribs</a></div><div class="ttdeci">bool hasSameAttribs(const AttribManager &amp;other)</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00063">Attribs.cpp:63</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_a191ecf090eaf0b6d52ed390938e1e0c5"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5">Ra::Core::Utils::AttribManager::hasSameAttribs</a></div><div class="ttdeci">bool hasSameAttribs(const AttribManager &amp;other)</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00058">Attribs.cpp:58</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">Ra::Core::Utils::AttribManager</a></div><div class="ttdoc">The AttribManager provides attributes management by handles.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00215">Attribs.hpp:215</a></div></div>
 <div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
@@ -197,7 +192,7 @@ $(document).ready(function(){initNavTree('Attribs_8cpp_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="Attribs_8cpp.html">Attribs.cpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:58 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

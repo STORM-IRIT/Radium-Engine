@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -113,7 +114,7 @@ $(document).ready(function(){initNavTree('EntityManager_8cpp_source.html',''); i
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">auto</span>&amp; ent = m_entities[idx];</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    ent-&gt;setIndex( idx );</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( ent.get() == SystemEntity::getInstance(), <span class="stringliteral">&quot;Invalid singleton instanciation&quot;</span> );</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    m_entitiesName.insert( {ent-&gt;getName(), ent-&gt;getIndex()} );</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    m_entitiesName.insert( { ent-&gt;getName(), ent-&gt;getIndex() } );</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    RadiumEngine::getInstance()-&gt;getSignalManager()-&gt;fireEntityCreated(</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>( SystemEntity::getInstance() ) );</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
@@ -130,119 +131,112 @@ $(document).ready(function(){initNavTree('EntityManager_8cpp_source.html',''); i
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    ent-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#ae049f9a31cf501d8f426121493c9bf54">setIndex</a>( idx );</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::string entityName = name;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( name.empty() )</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        entityName = <span class="stringliteral">&quot;Entity_&quot;</span> + std::to_string( idx.getValue() );</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        ent-&gt;rename( entityName );</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordtype">int</span> i           = 1;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">bool</span> mustRename = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">while</span> ( entityExists( entityName ) )</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Entity `&quot;</span> &lt;&lt; entityName &lt;&lt; <span class="stringliteral">&quot;` already exists&quot;</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            entityName = name + <span class="stringliteral">&quot;_&quot;</span> + std::to_string( i++ );</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            mustRename = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> ( mustRename ) { ent-&gt;rename( entityName ); }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    m_entitiesName.insert( {ent-&gt;getName(), idx} );</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    RadiumEngine::getInstance()-&gt;getSignalManager()-&gt;fireEntityCreated( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>( ent.get() ) );</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> ent.get();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a11639733918487b58dbe9862b4cc9ca4">   60</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a11639733918487b58dbe9862b4cc9ca4">EntityManager::entityExists</a>( <span class="keyword">const</span> std::string&amp; name )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> m_entitiesName.find( name ) != m_entitiesName.end();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a92762788c66f3baab981563a1c89e542">   64</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a92762788c66f3baab981563a1c89e542">EntityManager::removeEntity</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> idx ) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( idx.<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1">isValid</a>() &amp;&amp; m_entities.contains( idx ),</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                 <span class="stringliteral">&quot;Trying to remove an entity that has not been added to the manager.&quot;</span> );</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">auto</span>&amp; ent        = m_entities[idx];</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::string name = ent-&gt;getName();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    m_entities.remove( idx );</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    m_entitiesName.erase( name );</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aa9e642187084e6131ef67c93df40a2fe">   74</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a92762788c66f3baab981563a1c89e542">EntityManager::removeEntity</a>( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity ) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    removeEntity( entity-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a4c1e2cbb7ba93d4ef2edf23b693cc643">getIndex</a>() );</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( name.empty() ) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        entityName = <span class="stringliteral">&quot;Entity_&quot;</span> + std::to_string( idx.getValue() );</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        ent-&gt;rename( entityName );</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">int</span> i           = 1;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">bool</span> mustRename = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">while</span> ( entityExists( entityName ) ) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Entity `&quot;</span> &lt;&lt; entityName &lt;&lt; <span class="stringliteral">&quot;` already exists&quot;</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            entityName = name + <span class="stringliteral">&quot;_&quot;</span> + std::to_string( i++ );</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            mustRename = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> ( mustRename ) { ent-&gt;rename( entityName ); }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    m_entitiesName.insert( { ent-&gt;getName(), idx } );</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    RadiumEngine::getInstance()-&gt;getSignalManager()-&gt;fireEntityCreated( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>( ent.get() ) );</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> ent.get();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a11639733918487b58dbe9862b4cc9ca4">   57</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a11639733918487b58dbe9862b4cc9ca4">EntityManager::entityExists</a>( <span class="keyword">const</span> std::string&amp; name )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> m_entitiesName.find( name ) != m_entitiesName.end();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a92762788c66f3baab981563a1c89e542">   61</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a92762788c66f3baab981563a1c89e542">EntityManager::removeEntity</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> idx ) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( idx.<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1">isValid</a>() &amp;&amp; m_entities.contains( idx ),</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                 <span class="stringliteral">&quot;Trying to remove an entity that has not been added to the manager.&quot;</span> );</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">auto</span>&amp; ent        = m_entities[idx];</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::string name = ent-&gt;getName();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    m_entities.remove( idx );</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    m_entitiesName.erase( name );</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aa9e642187084e6131ef67c93df40a2fe">   71</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a92762788c66f3baab981563a1c89e542">EntityManager::removeEntity</a>( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity ) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    removeEntity( entity-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a4c1e2cbb7ba93d4ef2edf23b693cc643">getIndex</a>() );</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aea455fa482927b9d0794dd2de9a05509">   75</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aea455fa482927b9d0794dd2de9a05509">EntityManager::getEntity</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> idx )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( idx.<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1">isValid</a>(), <span class="stringliteral">&quot;Trying to access an invalid component.&quot;</span> );</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aea455fa482927b9d0794dd2de9a05509">   78</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aea455fa482927b9d0794dd2de9a05509">EntityManager::getEntity</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> idx )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( idx.<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1">isValid</a>(), <span class="stringliteral">&quot;Trying to access an invalid component.&quot;</span> );</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* ent = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">if</span> ( m_entities.contains( idx ) ) { ent = m_entities[idx].get(); }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* ent = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span> ( m_entities.contains( idx ) ) { ent = m_entities[idx].get(); }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> ent;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> ent;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#af6718889d269e336e2ebe6ef9637035f">   88</a></span>&#160;std::vector&lt;Entity*&gt; <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#af6718889d269e336e2ebe6ef9637035f">EntityManager::getEntities</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    std::vector&lt;Entity*&gt; entities;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    entities.resize( m_entities.size() );</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    std::transform( m_entities.begin(), m_entities.end(), entities.begin(), []( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a> ) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        return e.get();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    } );</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#af6718889d269e336e2ebe6ef9637035f">   85</a></span>&#160;std::vector&lt;Entity*&gt; <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#af6718889d269e336e2ebe6ef9637035f">EntityManager::getEntities</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    std::vector&lt;Entity*&gt; entities;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    entities.resize( m_entities.size() );</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    std::transform( m_entities.begin(), m_entities.end(), entities.begin(), []( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a> ) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        return e.get();</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    } );</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">return</span> entities;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">return</span> entities;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aa35c04e77aa8e6ae1e036ea6af2d2b6c">   98</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aea455fa482927b9d0794dd2de9a05509">EntityManager::getEntity</a>( <span class="keyword">const</span> std::string&amp; name )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">auto</span> idx = m_entitiesName.find( name );</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">if</span> ( idx == m_entitiesName.end() )</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Trying to access an invalid entity (named: &quot;</span> + name + <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">return</span> m_entities.at( idx-&gt;second ).get();</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a853f4f74845b1c91a4f65461c9c56da6">  108</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a853f4f74845b1c91a4f65461c9c56da6">EntityManager::swapBuffers</a>() {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a> : m_entities )</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a>-&gt;swapTransformBuffers();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a2cb7129a73668e0df71044425dcc3ed1">  115</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a2cb7129a73668e0df71044425dcc3ed1">EntityManager::deleteEntities</a>() {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    std::vector&lt;Core::Utils::Index&gt; indices;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    indices.reserve( m_entities.size() - 1 );</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 1; i &lt; m_entities.size(); ++i )</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        indices.push_back( m_entities.index( i ) );</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; idx : indices )</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        removeEntity( idx );</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aa35c04e77aa8e6ae1e036ea6af2d2b6c">   95</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aea455fa482927b9d0794dd2de9a05509">EntityManager::getEntity</a>( <span class="keyword">const</span> std::string&amp; name )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">auto</span> idx = m_entitiesName.find( name );</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> ( idx == m_entitiesName.end() ) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Trying to access an invalid entity (named: &quot;</span> + name + <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> m_entities.at( idx-&gt;second ).get();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a853f4f74845b1c91a4f65461c9c56da6">  104</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a853f4f74845b1c91a4f65461c9c56da6">EntityManager::swapBuffers</a>() {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a> : m_entities ) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a>-&gt;swapTransformBuffers();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a2cb7129a73668e0df71044425dcc3ed1">  110</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a2cb7129a73668e0df71044425dcc3ed1">EntityManager::deleteEntities</a>() {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    std::vector&lt;Core::Utils::Index&gt; indices;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    indices.reserve( m_entities.size() - 1 );</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 1; i &lt; m_entities.size(); ++i ) {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        indices.push_back( m_entities.index( i ) );</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; idx : indices ) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        removeEntity( idx );</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a0ede53a6cf2ad0bf46a86ab14d8d56e5"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a0ede53a6cf2ad0bf46a86ab14d8d56e5">Ra::Engine::Scene::EntityManager::~EntityManager</a></div><div class="ttdeci">virtual ~EntityManager()</div><div class="ttdoc">DESTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00025">EntityManager.cpp:25</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_aea455fa482927b9d0794dd2de9a05509"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aea455fa482927b9d0794dd2de9a05509">Ra::Engine::Scene::EntityManager::getEntity</a></div><div class="ttdeci">Entity * getEntity(Core::Utils::Index idx) const</div><div class="ttdoc">Get an entity given its index.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00078">EntityManager.cpp:78</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_aea455fa482927b9d0794dd2de9a05509"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#aea455fa482927b9d0794dd2de9a05509">Ra::Engine::Scene::EntityManager::getEntity</a></div><div class="ttdeci">Entity * getEntity(Core::Utils::Index idx) const</div><div class="ttdoc">Get an entity given its index.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00075">EntityManager.cpp:75</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html_ac1a3e02d77abd15c2a307673f5b67fa1"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1">Ra::Core::Utils::Index::isValid</a></div><div class="ttdeci">constexpr bool isValid() const</div><div class="ttdoc">VALID.</div><div class="ttdef"><b>Definition:</b> <a href="Index_8inl_source.html#l00018">Index.inl:18</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_ab73d91d8e192021db807ea382d2baf3f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#ab73d91d8e192021db807ea382d2baf3f">Ra::Engine::Scene::EntityManager::EntityManager</a></div><div class="ttdeci">EntityManager()</div><div class="ttdoc">CONSTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00015">EntityManager.cpp:15</a></div></div>
 <div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
 <div class="ttc" id="aSignalManager_8hpp_html"><div class="ttname"><a href="SignalManager_8hpp.html">SignalManager.hpp</a></div></div>
 <div class="ttc" id="aEntityManager_8hpp_html"><div class="ttname"><a href="EntityManager_8hpp.html">EntityManager.hpp</a></div></div>
 <div class="ttc" id="aRadiumEngine_8hpp_html"><div class="ttname"><a href="RadiumEngine_8hpp.html">RadiumEngine.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_af6718889d269e336e2ebe6ef9637035f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#af6718889d269e336e2ebe6ef9637035f">Ra::Engine::Scene::EntityManager::getEntities</a></div><div class="ttdeci">std::vector&lt; Entity * &gt; getEntities() const</div><div class="ttdoc">Get all entities from the manager. This might be usefull to be able to display and navigate through t...</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00088">EntityManager.cpp:88</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_af6718889d269e336e2ebe6ef9637035f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#af6718889d269e336e2ebe6ef9637035f">Ra::Engine::Scene::EntityManager::getEntities</a></div><div class="ttdeci">std::vector&lt; Entity * &gt; getEntities() const</div><div class="ttdoc">Get all entities from the manager. This might be usefull to be able to display and navigate through t...</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00085">EntityManager.cpp:85</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html_ae049f9a31cf501d8f426121493c9bf54"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#ae049f9a31cf501d8f426121493c9bf54">Ra::Core::Utils::IndexedObject::setIndex</a></div><div class="ttdeci">void setIndex(const Index &amp;idx)</div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00021">IndexedObject.hpp:21</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a92762788c66f3baab981563a1c89e542"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a92762788c66f3baab981563a1c89e542">Ra::Engine::Scene::EntityManager::removeEntity</a></div><div class="ttdeci">void removeEntity(Core::Utils::Index idx)</div><div class="ttdoc">Remove an entity given its index. Also deletes the pointer.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00064">EntityManager.cpp:64</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a92762788c66f3baab981563a1c89e542"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a92762788c66f3baab981563a1c89e542">Ra::Engine::Scene::EntityManager::removeEntity</a></div><div class="ttdeci">void removeEntity(Core::Utils::Index idx)</div><div class="ttdoc">Remove an entity given its index. Also deletes the pointer.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00061">EntityManager.cpp:61</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00349">CoreMacros.hpp:349</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a853f4f74845b1c91a4f65461c9c56da6"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a853f4f74845b1c91a4f65461c9c56da6">Ra::Engine::Scene::EntityManager::swapBuffers</a></div><div class="ttdeci">void swapBuffers()</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00108">EntityManager.cpp:108</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a853f4f74845b1c91a4f65461c9c56da6"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a853f4f74845b1c91a4f65461c9c56da6">Ra::Engine::Scene::EntityManager::swapBuffers</a></div><div class="ttdeci">void swapBuffers()</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00104">EntityManager.cpp:104</a></div></div>
 <div class="ttc" id="aSystemDisplay_8hpp_html"><div class="ttname"><a href="SystemDisplay_8hpp.html">SystemDisplay.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a11639733918487b58dbe9862b4cc9ca4"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a11639733918487b58dbe9862b4cc9ca4">Ra::Engine::Scene::EntityManager::entityExists</a></div><div class="ttdeci">bool entityExists(const std::string &amp;name) const</div><div class="ttdoc">Check wether an entity with a given name exists or not.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00060">EntityManager.cpp:60</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a2cb7129a73668e0df71044425dcc3ed1"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a2cb7129a73668e0df71044425dcc3ed1">Ra::Engine::Scene::EntityManager::deleteEntities</a></div><div class="ttdeci">void deleteEntities()</div><div class="ttdoc">Removes all entities.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00115">EntityManager.cpp:115</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a11639733918487b58dbe9862b4cc9ca4"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a11639733918487b58dbe9862b4cc9ca4">Ra::Engine::Scene::EntityManager::entityExists</a></div><div class="ttdeci">bool entityExists(const std::string &amp;name) const</div><div class="ttdoc">Check wether an entity with a given name exists or not.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00057">EntityManager.cpp:57</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a2cb7129a73668e0df71044425dcc3ed1"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a2cb7129a73668e0df71044425dcc3ed1">Ra::Engine::Scene::EntityManager::deleteEntities</a></div><div class="ttdeci">void deleteEntities()</div><div class="ttdoc">Removes all entities.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00110">EntityManager.cpp:110</a></div></div>
 <div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:22</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">Ra::Core::Utils::logDEBUG</a></div><div class="ttdeci">@ logDEBUG</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00019">Log.hpp:19</a></div></div>
@@ -255,7 +249,7 @@ $(document).ready(function(){initNavTree('EntityManager_8cpp_source.html',''); i
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="EntityManager_8cpp.html">EntityManager.cpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

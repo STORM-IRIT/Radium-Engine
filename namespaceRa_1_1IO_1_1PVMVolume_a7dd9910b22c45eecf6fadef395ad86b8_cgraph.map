@@ -1,0 +1,7 @@
+<map id="Ra::IO::PVMVolume::readPVMvolume" name="Ra::IO::PVMVolume::readPVMvolume">
+<area shape="rect" id="node1" title="Loads a volume in pvm format. See The Volume Library at http://schorsch.efi.fh&#45;nuernberg...." alt="" coords="5,39,160,80"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1IO_1_1PVMVolume.html#ab81dd19785b55136176ade7654c79d3a" title=" " alt="" coords="208,5,363,47"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1IO_1_1PVMVolume.html#a72ed0cdd0737e9134242110151780387" title=" " alt="" coords="208,71,363,112"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1IO_1_1PVMVolume.html#a24944f9f0cd6b39cbd540ef2623fc12a" title=" " alt="" coords="411,5,565,47"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1IO_1_1PVMVolume.html#a418d27076a3bcb4b172789a7c66b8f7e" title=" " alt="" coords="411,71,565,112"/>
+</map>

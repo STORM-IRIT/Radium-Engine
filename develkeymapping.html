@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -95,13 +96,13 @@ $(document).ready(function(){initNavTree('develkeymapping.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md84">Usage</a></li>
-<li class="level1"><a href="#autotoc_md85">Implementation note</a></li>
-<li class="level1"><a href="#autotoc_md86">Key mapping and inheritence.</a></li>
-<li class="level1"><a href="#autotoc_md87">Limits</a></li>
+<ul><li class="level1"><a href="#autotoc_md78">Usage</a></li>
+<li class="level1"><a href="#autotoc_md79">Implementation note</a></li>
+<li class="level1"><a href="#autotoc_md80">Key mapping and inheritence.</a></li>
+<li class="level1"><a href="#autotoc_md81">Limits</a></li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md84"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md78"></a>
 Usage</h1>
 <p>You first need to add into every configuration file (located in the <code>install_dir/Configs/</code> folder) an entry which will bind your action to a key. This file as an only <code>keymaps</code> node, with <code>keymap</code> per binding.</p>
 <div class="fragment"><div class="line">&lt;<span class="keywordtype">keymaps</span>&gt;</div>
@@ -165,7 +166,7 @@ Usage</h1>
 <div class="line">    KeyMappingMyClass</div>
 <div class="line"><span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"><span class="preprocessor">}</span></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md85"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md79"></a>
 Implementation note</h1>
 <p>The viewer is the main entry point to dispatch key and mouse event. The idea is that at a key press or mouse press event, the viewer is capable of determining which class will receive the events.</p>
 <p>For instance see <code><a class="el" href="Viewer_8cpp.html">Viewer.cpp</a></code> <code>Viewer::mousePressEvent</code>: </p><div class="fragment"><div class="line">    <span class="keyword">auto</span> buttons   = <span class="keyword">event</span>-&gt;buttons();</div>
@@ -173,17 +174,16 @@ Implementation note</h1>
 <div class="line">    <span class="keyword">auto</span> key       = <a class="code" href="namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815">activeKey</a>();</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// nothing under mouse ? juste move the camera ...</span></div>
-<div class="line">    <span class="keywordflow">if</span> ( result.getRoIdx().isInvalid() )</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">if</span> ( m_camera-&gt;handleMousePressEvent( event, buttons, modifiers, key ) )</div>
-<div class="line">        { m_activeContext = m_camera-&gt;mappingContext(); }</div>
-<div class="line">        <span class="keywordflow">else</span></div>
-<div class="line">        {</div>
+<div class="line">    <span class="keywordflow">if</span> ( result.getRoIdx().isInvalid() ) {</div>
+<div class="line">        <span class="keywordflow">if</span> ( m_camera-&gt;handleMousePressEvent( event, buttons, modifiers, key ) ) {</div>
+<div class="line">            m_activeContext = m_camera-&gt;mappingContext();</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span> {</div>
 <div class="line">            <span class="comment">// should not pass here, since viewerContext is only for valid picking ...</span></div>
 <div class="line">            m_activeContext = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">KeyMappingManageable::getContext</a>();</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md86"></a>
+</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md80"></a>
 Key mapping and inheritence.</h1>
 <p>If you want to define a derived class that inherits a base class with key mapping, and you want to have key mapping management in this derived, you have to consider the following implementation details:</p>
 <ul>
@@ -207,7 +207,7 @@ Key mapping and inheritence.</h1>
 <div class="line"><span class="keywordtype">void</span>  MyViewer::setupKeyMappingCallbacks() {</div>
 <div class="line">    <span class="comment">// Setup keymapping for base</span></div>
 <div class="line">    base::setupKeyMappingCallbacks();</div>
-<div class="line">    </div>
+<div class="line"> </div>
 <div class="line">    <span class="comment">// then extend</span></div>
 <div class="line">    <span class="keyword">auto</span> keyMappingManager = Gui::KeyMappingManager::getInstance();</div>
 <div class="line">    keyMappingManager-&gt;addListener( thisKeyMapping::configureKeyMapping );</div>
@@ -223,12 +223,12 @@ Key mapping and inheritence.</h1>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#define KMA_VALUE( XX ) XX = keyMappingManager-&gt;getActionIndex( thisKeyMapping::m_keyMappingContext, #XX );</span></div>
-<div class="line">    </div>
+<div class="line"> </div>
 <div class="line">    KeyMappingMyViewer</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"><span class="preprocessor">}</span></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md87"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md81"></a>
 Limits</h1>
 <ul>
 <li>Multiple keys/buttons are not yet implemented. </li>
@@ -250,7 +250,7 @@ Limits</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:21 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:57:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

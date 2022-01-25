@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -112,7 +113,7 @@ $(document).ready(function(){initNavTree('MaterialConverters_8cpp_source.html','
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">   23</a></span>&#160;    <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5a45ee7e1366b9abd85ae8701e9239b7">   25</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5a45ee7e1366b9abd85ae8701e9239b7">registerMaterialConverter</a>( <span class="keyword">const</span> std::string&amp; name, <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa4e33bcdb11c18d70375f4e7dcd4c487">ConverterFunction</a> converter ) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>.insert( {name, converter} );</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>.insert( { name, converter } );</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">return</span> result.second;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
@@ -123,7 +124,7 @@ $(document).ready(function(){initNavTree('MaterialConverters_8cpp_source.html','
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5da8719516e84ff6d9976207a8940021">   35</a></span>&#160;std::pair&lt;bool, ConverterFunction&gt; <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5da8719516e84ff6d9976207a8940021">getMaterialConverter</a>( <span class="keyword">const</span> std::string&amp; name ) {</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">auto</span> search = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>.find( name );</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( search != <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>.end() ) { <span class="keywordflow">return</span> {<span class="keyword">true</span>, search-&gt;second}; }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( search != <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>.end() ) { <span class="keywordflow">return</span> { <span class="keyword">true</span>, search-&gt;second }; }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">auto</span> result = std::make_pair( <span class="keyword">false</span>, [name]( <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">AssetMaterialPtr</a> ) -&gt; <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">RadiumMaterialPtr</a> {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">logERROR</a> ) &lt;&lt; <span class="stringliteral">&quot;Required material converter &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; not found!&quot;</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
@@ -160,7 +161,7 @@ $(document).ready(function(){initNavTree('MaterialConverters_8cpp_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="MaterialConverters_8cpp.html">MaterialConverters.cpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

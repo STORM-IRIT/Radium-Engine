@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['ndebug_6373',['NDEBUG',['../CoreMacros_8hpp.html#a8de3ed741dadc9c979a4ff17c0a9116e',1,'CoreMacros.hpp']]]
+  ['log_6488',['LOG',['../Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff',1,'Log.hpp']]],
+  ['log_5fand_5freturn_6489',['LOG_AND_RETURN',['../Timeline_8cpp.html#ae5618b96dcfd76c80d533650d7646ad5',1,'Timeline.cpp']]]
 ];

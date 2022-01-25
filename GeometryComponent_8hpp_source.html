@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -175,7 +176,7 @@ $(document).ready(function(){initNavTree('GeometryComponent_8hpp_source.html',''
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">// directly hold a reference to the displayMesh to simplify accesses in handlers</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    std::shared_ptr&lt;RenderMeshType&gt; m_displayMesh {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    std::shared_ptr&lt;RenderMeshType&gt; m_displayMesh { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
 <div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Scene.html#a9624e226178bd3bd140293f4e2ce3a5b">  101</a></span>&#160;<span class="keyword">using</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html">TriangleMeshComponent</a> = <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html">SurfaceMeshComponent&lt;Ra::Core::Geometry::TriangleMesh&gt;</a>;</div>
@@ -222,9 +223,9 @@ $(document).ready(function(){initNavTree('GeometryComponent_8hpp_source.html',''
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="comment">// directly hold a reference to the displayMesh to simplify accesses in handlers</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    std::shared_ptr&lt;Data::PointCloud&gt; m_displayMesh {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    std::shared_ptr&lt;Data::PointCloud&gt; m_displayMesh { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="comment">// The diameter of the splat when rendered</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">float</span> m_splatSize {0.0025f};</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">float</span> m_splatSize { 0.0025f };</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;};</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">/*-----------------------------------------------------------------------------------------------*/</span></div>
@@ -258,7 +259,7 @@ $(document).ready(function(){initNavTree('GeometryComponent_8hpp_source.html',''
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a> m_volumeIndex {};</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    std::string m_contentName {};</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    std::shared_ptr&lt;Data::VolumeObject&gt; m_displayVolume {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    std::shared_ptr&lt;Data::VolumeObject&gt; m_displayVolume { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;};</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;} <span class="comment">// namespace Scene</span></div>
@@ -268,13 +269,13 @@ $(document).ready(function(){initNavTree('GeometryComponent_8hpp_source.html',''
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="GeometryComponent_8inl.html">Engine/Scene/GeometryComponent.inl</a>&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent_html_abe501a91b9548f61c20cf6c6cd84158b"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#abe501a91b9548f61c20cf6c6cd84158b">Ra::Engine::Scene::SurfaceMeshComponent::setupIO</a></div><div class="ttdeci">void setupIO(const std::string &amp;id) override</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8inl_source.html#l00105">GeometryComponent.inl:105</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent_html_abe501a91b9548f61c20cf6c6cd84158b"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#abe501a91b9548f61c20cf6c6cd84158b">Ra::Engine::Scene::SurfaceMeshComponent::setupIO</a></div><div class="ttdeci">void setupIO(const std::string &amp;id) override</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8inl_source.html#l00103">GeometryComponent.inl:103</a></div></div>
 <div class="ttc" id="aGeometryComponent_8inl_html"><div class="ttname"><a href="GeometryComponent_8inl.html">GeometryComponent.inl</a></div></div>
 <div class="ttc" id="aTriangleMesh_8hpp_html"><div class="ttname"><a href="TriangleMesh_8hpp.html">TriangleMesh.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00082">Types.hpp:82</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent_html_a9f0572e3e0c85c0f40801d05a04495d7"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#a9f0572e3e0c85c0f40801d05a04495d7">Ra::Engine::Scene::SurfaceMeshComponent::getCoreGeometry</a></div><div class="ttdeci">const CoreMeshType &amp; getCoreGeometry() const</div><div class="ttdoc">Returns the current display geometry.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8inl_source.html#l00092">GeometryComponent.inl:92</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent_html_a9f0572e3e0c85c0f40801d05a04495d7"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#a9f0572e3e0c85c0f40801d05a04495d7">Ra::Engine::Scene::SurfaceMeshComponent::getCoreGeometry</a></div><div class="ttdeci">const CoreMeshType &amp; getCoreGeometry() const</div><div class="ttdoc">Returns the current display geometry.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8inl_source.html#l00090">GeometryComponent.inl:90</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1PointCloudComponent_html_a2a3de49b8a1b3b39a0069c6151909dc7"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html#a2a3de49b8a1b3b39a0069c6151909dc7">Ra::Engine::Scene::PointCloudComponent::setSplatSize</a></div><div class="ttdeci">void setSplatSize(float s)</div><div class="ttdoc">set the splat size for rendering</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00133">GeometryComponent.hpp:133</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VolumeObject_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VolumeObject.html">Ra::Engine::Data::VolumeObject</a></div><div class="ttdef"><b>Definition:</b> <a href="VolumeObject_8hpp_source.html#l00022">VolumeObject.hpp:22</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
@@ -282,7 +283,7 @@ $(document).ready(function(){initNavTree('GeometryComponent_8hpp_source.html',''
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent_html_a90ff36c9ac94f6f5a9556da76aac0b8f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#a90ff36c9ac94f6f5a9556da76aac0b8f">Ra::Engine::Scene::SurfaceMeshComponent::RenderMeshType</a></div><div class="ttdeci">typename Data::RenderMeshType::getType&lt; CoreMeshType &gt;::Type RenderMeshType</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00061">GeometryComponent.hpp:61</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Asset_1_1VolumeData_html"><div class="ttname"><a href="structRa_1_1Core_1_1Asset_1_1VolumeData.html">Ra::Core::Asset::VolumeData</a></div><div class="ttdef"><b>Definition:</b> <a href="VolumeData_8hpp_source.html#l00018">VolumeData.hpp:18</a></div></div>
 <div class="ttc" id="aVolume_8hpp_html"><div class="ttname"><a href="Volume_8hpp.html">Volume.hpp</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType.html">Ra::Engine::Data::RenderMeshType::getType</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00525">Mesh.hpp:525</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType.html">Ra::Engine::Data::RenderMeshType::getType</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00519">Mesh.hpp:519</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractVolume_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">Ra::Core::Geometry::AbstractVolume</a></div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00030">Volume.hpp:30</a></div></div>
 <div class="ttc" id="aComponent_8hpp_html"><div class="ttname"><a href="Component_8hpp.html">Component.hpp</a></div></div>
 <div class="ttc" id="aVolumeData_8hpp_html"><div class="ttname"><a href="VolumeData_8hpp.html">VolumeData.hpp</a></div></div>
@@ -293,7 +294,7 @@ $(document).ready(function(){initNavTree('GeometryComponent_8hpp_source.html',''
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent_html_a60bf1b77020fe79a2b516be2375a5d3b"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#a60bf1b77020fe79a2b516be2375a5d3b">Ra::Engine::Scene::SurfaceMeshComponent::SurfaceMeshComponent</a></div><div class="ttdeci">SurfaceMeshComponent(const std::string &amp;name, Entity *entity, const Ra::Core::Asset::GeometryData *data)</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8inl_source.html#l00019">GeometryComponent.inl:19</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent_html_ae1f68e7512a013896eeda6d927cd787a"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#ae1f68e7512a013896eeda6d927cd787a">Ra::Engine::Scene::SurfaceMeshComponent::~SurfaceMeshComponent</a></div><div class="ttdeci">~SurfaceMeshComponent() override=default</div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1PointCloud_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1PointCloud.html">Ra::Engine::Data::PointCloud</a></div><div class="ttdoc">A PointCloud without indices.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00318">Mesh.hpp:318</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1PointCloud_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1PointCloud.html">Ra::Engine::Data::PointCloud</a></div><div class="ttdoc">A PointCloud without indices.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00316">Mesh.hpp:316</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1PointCloudComponent_html_a883cb92a5e34b3e9a29a9105053931c3"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html#a883cb92a5e34b3e9a29a9105053931c3">Ra::Engine::Scene::PointCloudComponent::getSplatSize</a></div><div class="ttdeci">float getSplatSize() const</div><div class="ttdoc">get the splat size for rendering</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00136">GeometryComponent.hpp:136</a></div></div>
 <div class="ttc" id="aGeometryData_8hpp_html"><div class="ttname"><a href="GeometryData_8hpp.html">GeometryData.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1MaterialData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">Ra::Core::Asset::MaterialData</a></div><div class="ttdoc">represent material data loaded by a file loader. Material data must be identified by a unique name....</div><div class="ttdef"><b>Definition:</b> <a href="MaterialData_8hpp_source.html#l00039">MaterialData.hpp:39</a></div></div>
@@ -304,13 +305,13 @@ $(document).ready(function(){initNavTree('GeometryComponent_8hpp_source.html',''
 <div class="ttc" id="aMesh_8hpp_html"><div class="ttname"><a href="Mesh_8hpp.html">Mesh.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1GeometryComponent_html_a6a67aad3c426265dcfaa9c5c5f34f1dd"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html#a6a67aad3c426265dcfaa9c5c5f34f1dd">Ra::Engine::Scene::GeometryComponent::GeometryComponent</a></div><div class="ttdeci">GeometryComponent(const std::string &amp;name, Entity *entity)</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00022">GeometryComponent.hpp:22</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1VolumeComponent_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html">Ra::Engine::Scene::VolumeComponent</a></div><div class="ttdoc">Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00167">GeometryComponent.hpp:167</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent_html_ad64af82a3048c025d4f6d77483b3e625"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#ad64af82a3048c025d4f6d77483b3e625">Ra::Engine::Scene::SurfaceMeshComponent::getDisplayable</a></div><div class="ttdeci">RenderMeshType * getDisplayable()</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8inl_source.html#l00099">GeometryComponent.inl:99</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent_html_ad64af82a3048c025d4f6d77483b3e625"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html#ad64af82a3048c025d4f6d77483b3e625">Ra::Engine::Scene::SurfaceMeshComponent::getDisplayable</a></div><div class="ttdeci">RenderMeshType * getDisplayable()</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8inl_source.html#l00097">GeometryComponent.inl:97</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1GeometryComponent_html_afe39de2269d9d71e7a564c0640310842"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html#afe39de2269d9d71e7a564c0640310842">Ra::Engine::Scene::GeometryComponent::initialize</a></div><div class="ttdeci">void initialize() override</div><div class="ttdoc">Pure virtual method to be overridden by any component. When this method is called you are guaranteed ...</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00026">GeometryComponent.hpp:26</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="GeometryComponent_8hpp.html">GeometryComponent.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

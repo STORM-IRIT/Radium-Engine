@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -107,9 +108,9 @@ $(document).ready(function(){initNavTree('Entity_8cpp_source.html',''); initResi
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a365ef84270768d09514df1ebc65d4de6">   12</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a365ef84270768d09514df1ebc65d4de6">Entity::Entity</a>( <span class="keyword">const</span> std::string&amp; name ) :</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    Core::Utils::<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html">IndexedObject</a>(),</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    m_transform {Core::Transform::Identity()},</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    m_doubleBufferedTransform {Core::Transform::Identity()},</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    m_name {name} {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    m_transform { Core::Transform::Identity() },</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    m_doubleBufferedTransform { Core::Transform::Identity() },</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    m_name { name } {}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a9991ebb57ae77035fc8739ca071adb11">   18</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a9991ebb57ae77035fc8739ca071adb11">Entity::~Entity</a>() {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// Ensure components are deleted before the entity for consistent</span></div>
@@ -164,42 +165,39 @@ $(document).ready(function(){initNavTree('Entity_8cpp_source.html',''); initResi
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
 <div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#adb8d7310c4f4036229d03f087cf05f56">   70</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#adb8d7310c4f4036229d03f087cf05f56">Entity::swapTransformBuffers</a>() {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> ( m_transformChanged )</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        m_transform        = m_doubleBufferedTransform;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        m_transformChanged = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        m_transformationObservers.notify( <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a1a891d00c80a0172278fd68626600786">   79</a></span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a1a891d00c80a0172278fd68626600786">Entity::computeAabb</a>() {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span> ( !m_isAabbValid )</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> aabb;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; component : m_components )</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="comment">// transform is applied in ro aabb computation ...</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            aabb.extend( component-&gt;computeAabb() );</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        m_aabb        = aabb;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        m_isAabbValid = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> ( m_transformChanged ) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        m_transform        = m_doubleBufferedTransform;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        m_transformChanged = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        m_transformationObservers.notify( <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a1a891d00c80a0172278fd68626600786">   78</a></span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a1a891d00c80a0172278fd68626600786">Entity::computeAabb</a>() {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span> ( !m_isAabbValid ) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> aabb;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; component : m_components ) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="comment">// transform is applied in ro aabb computation ...</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            aabb.extend( component-&gt;computeAabb() );</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        m_aabb        = aabb;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        m_isAabbValid = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">return</span> m_aabb;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">return</span> m_aabb;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aed744089160c610607ce47a06f2edef5">   97</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aed744089160c610607ce47a06f2edef5">Entity::invalidateAabb</a>() {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    m_isAabbValid = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aed744089160c610607ce47a06f2edef5">   94</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aed744089160c610607ce47a06f2edef5">Entity::invalidateAabb</a>() {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    m_isAabbValid = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_aed744089160c610607ce47a06f2edef5"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aed744089160c610607ce47a06f2edef5">Ra::Engine::Scene::Entity::invalidateAabb</a></div><div class="ttdeci">void invalidateAabb()</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8cpp_source.html#l00097">Entity.cpp:97</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_aed744089160c610607ce47a06f2edef5"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aed744089160c610607ce47a06f2edef5">Ra::Engine::Scene::Entity::invalidateAabb</a></div><div class="ttdeci">void invalidateAabb()</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8cpp_source.html#l00094">Entity.cpp:94</a></div></div>
 <div class="ttc" id="aLinearAlgebra_8hpp_html"><div class="ttname"><a href="LinearAlgebra_8hpp.html">LinearAlgebra.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
@@ -215,7 +213,7 @@ $(document).ready(function(){initNavTree('Entity_8cpp_source.html',''); initResi
 <div class="ttc" id="aComponent_8hpp_html"><div class="ttname"><a href="Component_8hpp.html">Component.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a66854efd74c5507e9b15f998ccda8f96"><div class="ttname"><a href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Ra::Core::Aabb</a></div><div class="ttdeci">Eigen::AlignedBox&lt; Scalar, 3 &gt; Aabb</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00086">Types.hpp:86</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00349">CoreMacros.hpp:349</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_a1a891d00c80a0172278fd68626600786"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a1a891d00c80a0172278fd68626600786">Ra::Engine::Scene::Entity::computeAabb</a></div><div class="ttdeci">virtual Core::Aabb computeAabb()</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8cpp_source.html#l00079">Entity.cpp:79</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_a1a891d00c80a0172278fd68626600786"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a1a891d00c80a0172278fd68626600786">Ra::Engine::Scene::Entity::computeAabb</a></div><div class="ttdeci">virtual Core::Aabb computeAabb()</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8cpp_source.html#l00078">Entity.cpp:78</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a60e3234670ccfb680405445f06d2854e"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e">Ra::Engine::Scene::Component::getName</a></div><div class="ttdeci">virtual const std::string &amp; getName() const</div><div class="ttdoc">Return the component's name.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8inl_source.html#l00016">Component.inl:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_a3ca3bcd93a56efca0b1d2d1c1f288c23"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a3ca3bcd93a56efca0b1d2d1c1f288c23">Ra::Engine::Scene::Entity::getComponent</a></div><div class="ttdeci">Component * getComponent(const std::string &amp;name)</div><div class="ttdoc">Get component with a given name.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8cpp_source.html#l00040">Entity.cpp:40</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_a365ef84270768d09514df1ebc65d4de6"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a365ef84270768d09514df1ebc65d4de6">Ra::Engine::Scene::Entity::Entity</a></div><div class="ttdeci">EIGEN_MAKE_ALIGNED_OPERATOR_NEW Entity(const std::string &amp;name=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8cpp_source.html#l00012">Entity.cpp:12</a></div></div>
@@ -225,7 +223,7 @@ $(document).ready(function(){initNavTree('Entity_8cpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="Entity_8cpp.html">Entity.cpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

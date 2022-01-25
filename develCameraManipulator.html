@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -95,14 +96,14 @@ $(document).ready(function(){initNavTree('develCameraManipulator.html',''); init
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md55">Implementing a CameraManipulator</a></li>
-<li class="level1"><a href="#autotoc_md56">Extending/Specializing an existing CameraManipulator</a></li>
-<li class="level1"><a href="#autotoc_md57">Using a CameraManipulator</a></li>
+<ul><li class="level1"><a href="#autotoc_md48">Implementing a CameraManipulator</a></li>
+<li class="level1"><a href="#autotoc_md49">Extending/Specializing an existing CameraManipulator</a></li>
+<li class="level1"><a href="#autotoc_md50">Using a CameraManipulator</a></li>
 </ul>
 </div>
 <div class="textblock"><p>The Radium Engine provides some classes that allow to extend the way one might interact with a camera in an application.</p>
 <p>The class <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> defines the general interface for camera manipulator. All manipulators have common properties that allow to switch from one manipulator to one other without disturbing the visual and interactive behavior of the application.</p>
-<h1><a class="anchor" id="autotoc_md55"></a>
+<h1><a class="anchor" id="autotoc_md48"></a>
 Implementing a CameraManipulator</h1>
 <p>In order to extend the set of <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> available in Radium or to develop a dedicated <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> for a <code><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></code>-based application, programmers are intended to do the following, demonstrated by the class <code>FlightCameraManipulator</code>.</p>
 <ol type="1">
@@ -134,8 +135,7 @@ Implementing a CameraManipulator</h1>
 <div class="line"> </div>
 <div class="line">    FlightCameraKeyMapping::setContext(</div>
 <div class="line">        Gui::KeyMappingManager::getInstance()-&gt;getContext( <span class="stringliteral">&quot;FlightManipulatorContext&quot;</span> ) );</div>
-<div class="line">    <span class="keywordflow">if</span> ( FlightCameraKeyMapping::getContext().isInvalid() )</div>
-<div class="line">    {</div>
+<div class="line">    <span class="keywordflow">if</span> ( FlightCameraKeyMapping::getContext().isInvalid() ) {</div>
 <div class="line">        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;FlightManipulatorContext not defined (maybe the &quot;</span></div>
 <div class="line">                                              <span class="stringliteral">&quot;configuration file do not contains it). Adding &quot;</span></div>
 <div class="line">                                              <span class="stringliteral">&quot;default configuration for FlightManipulatorContext.&quot;</span>;</div>
@@ -169,7 +169,7 @@ Implementing a CameraManipulator</h1>
 </div><!-- fragment --></li>
 <li>Implement the inherited abstract method according to the wanted behavior of the <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code></li>
 </ol>
-<h1><a class="anchor" id="autotoc_md56"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 Extending/Specializing an existing CameraManipulator</h1>
 <p>The example application <code>CustomCameraManipulator</code> Demonstrate how to extend an existing manipulator and specialize its behavior for a given context. In the following code, the <code><a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras.">Ra::Gui::TrackballCameraManipulator</a></code> class is used to define a simple pan and zoom manipulator, simply by ignoring rotation events:</p>
 <div class="fragment"><div class="line"><span class="comment">// Add simple Camera Manipulator with only translation and zoom</span></div>
@@ -196,13 +196,14 @@ Extending/Specializing an existing CameraManipulator</h1>
 <div class="line">            <span class="keyword">false</span> );</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// ignore rotate</span></div>
-<div class="line">        <span class="keywordflow">if</span> ( m_currentAction == TRACKBALLCAMERA_ROTATE )</div>
-<div class="line">        { m_currentAction = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a>(); }</div>
+<div class="line">        <span class="keywordflow">if</span> ( m_currentAction == TRACKBALLCAMERA_ROTATE ) {</div>
+<div class="line">            m_currentAction = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a>();</div>
+<div class="line">        }</div>
 <div class="line"> </div>
 <div class="line">        <span class="keywordflow">return</span> m_currentAction.isValid();</div>
 <div class="line">    }</div>
 <div class="line">};</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md57"></a>
+</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md50"></a>
 Using a CameraManipulator</h1>
 <p>Using a <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> in a <code><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></code>-based application is quite straightforward.</p>
 <p>If one wants to set a first camera manipulator to a viewer </p><div class="fragment"><div class="line">myViewer-&gt;setCameraManipulator(</div>
@@ -221,7 +222,7 @@ Using a CameraManipulator</h1>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html">Ra::Gui::FlightCameraManipulator</a></div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8hpp_source.html#l00013">FlightCameraManipulator.hpp:13</a></div></div>
 <div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
 <div class="ttc" id="aFlightCameraManipulator_8hpp_html_a548a2cdef611b0b5977e76ddc6f4cb3f"><div class="ttname"><a href="FlightCameraManipulator_8hpp.html#a548a2cdef611b0b5977e76ddc6f4cb3f">KeyMappingFlightManipulator</a></div><div class="ttdeci">#define KeyMappingFlightManipulator</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8hpp_source.html#l00080">FlightCameraManipulator.hpp:80</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_a7a6555b6bf0c1ad891b915c18366fba4"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a7a6555b6bf0c1ad891b915c18366fba4">Ra::Gui::TrackballCameraManipulator::handleMousePressEvent</a></div><div class="ttdeci">bool handleMousePressEvent(QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8cpp_source.html#l00116">TrackballCameraManipulator.cpp:116</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_a7a6555b6bf0c1ad891b915c18366fba4"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a7a6555b6bf0c1ad891b915c18366fba4">Ra::Gui::TrackballCameraManipulator::handleMousePressEvent</a></div><div class="ttdeci">bool handleMousePressEvent(QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8cpp_source.html#l00113">TrackballCameraManipulator.cpp:113</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">Ra::Gui::TrackballCameraManipulator</a></div><div class="ttdoc">A Trackball manipulator for Cameras.</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00012">TrackballCameraManipulator.hpp:12</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
 <div class="ttc" id="anamespaceOpenMesh_html_a8205f789ce08919bc11c58383574596c"><div class="ttname"><a href="namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c">OpenMesh::norm</a></div><div class="ttdeci">Derived::Scalar norm(Eigen::MatrixBase&lt; Derived &gt; const &amp;v1)</div><div class="ttdef"><b>Definition:</b> <a href="OpenMesh_8hpp_source.html#l00022">OpenMesh.hpp:22</a></div></div>
@@ -229,7 +230,7 @@ Using a CameraManipulator</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:21 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:57:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

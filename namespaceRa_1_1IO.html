@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -91,13 +92,20 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1IO.html',''); initResiz
 
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Ra::IO Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceRa_1_1IO_1_1PVMVolume"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO_1_1PVMVolume.html">PVMVolume</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpAnimationDataLoader.html">AssimpAnimationDataLoader</a></td></tr>
@@ -126,6 +134,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1OFFFileManager.html">OFFFileManager</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1TinyPlyFileLoader.html">TinyPlyFileLoader</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1VolumeLoader.html">VolumeLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads density grid for volume data. This loader support 2 file formats for density grid data.  <a href="classRa_1_1IO_1_1VolumeLoader.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -159,6 +170,17 @@ Functions</h2></td></tr>
 <tr class="memitem:a3ed915daf74c8fa1a7f164baf4e12869"><td class="memTemplParams" colspan="2">template&lt;typename ContainerType &gt; </td></tr>
 <tr class="memitem:a3ed915daf74c8fa1a7f164baf4e12869"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#a3ed915daf74c8fa1a7f164baf4e12869">copyBufferToContainer</a> (const std::shared_ptr&lt; tinyply::PlyData &gt; &amp;buffer, ContainerType &amp;container)</td></tr>
 <tr class="separator:a3ed915daf74c8fa1a7f164baf4e12869"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8e4be9c84e05bf9058ccdf8529d9093"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Ra::Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#ad8e4be9c84e05bf9058ccdf8529d9093">readColor</a> (std::ifstream &amp;input, std::string &amp;name)</td></tr>
+<tr class="separator:ad8e4be9c84e05bf9058ccdf8529d9093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16e0985f6e096e1f25c9b80cdcde5a9e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#a16e0985f6e096e1f25c9b80cdcde5a9e">checkExpected</a> (const std::string &amp;expected, const std::string &amp;found)</td></tr>
+<tr class="separator:a16e0985f6e096e1f25c9b80cdcde5a9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a70057cb9eb22e208c7ce739e550d72ec"><td class="memItemLeft" align="right" valign="top">static const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#a70057cb9eb22e208c7ce739e550d72ec">volFileExtension</a> { &quot;vol&quot; }</td></tr>
+<tr class="separator:a70057cb9eb22e208c7ce739e550d72ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3603c4bddbb383304c19001adf6acfca"><td class="memItemLeft" align="right" valign="top">static const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#a3603c4bddbb383304c19001adf6acfca">pvmFileExtension</a> { &quot;pvm&quot; }</td></tr>
+<tr class="separator:a3603c4bddbb383304c19001adf6acfca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="af8045c69f144e30c226515389d41bcd9"></a>
@@ -185,7 +207,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00049">49</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00047">47</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
 
 </div>
 </div>
@@ -213,7 +235,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00053">53</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00051">51</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
 
 </div>
 </div>
@@ -297,7 +319,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00057">57</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00055">55</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
 
 </div>
 </div>
@@ -341,7 +363,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00040">40</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00038">38</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -415,7 +437,37 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00066">66</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AssimpWrapper_8hpp_source.html#l00064">64</a> of file <a class="el" href="AssimpWrapper_8hpp_source.html">AssimpWrapper.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a16e0985f6e096e1f25c9b80cdcde5a9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16e0985f6e096e1f25c9b80cdcde5a9e">&#9670;&nbsp;</a></span>checkExpected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::IO::checkExpected </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>expected</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>found</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="VolumeLoader_8cpp_source.html#l00042">42</a> of file <a class="el" href="VolumeLoader_8cpp_source.html">VolumeLoader.cpp</a>.</p>
 
 </div>
 </div>
@@ -453,7 +505,7 @@ template&lt;typename DataType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00080">80</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00079">79</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
 
 </div>
 </div>
@@ -491,7 +543,7 @@ template&lt;typename DataType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00092">92</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00090">90</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
 
 </div>
 </div>
@@ -523,7 +575,7 @@ template&lt;typename ContainerType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00104">104</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00101">101</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
 
 </div>
 </div>
@@ -583,13 +635,92 @@ template&lt;typename ContainerType &gt; </div>
 
 </div>
 </div>
+<a id="ad8e4be9c84e05bf9058ccdf8529d9093"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e4be9c84e05bf9058ccdf8529d9093">&#9670;&nbsp;</a></span>readColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Ra::Core::Utils::Color</a> Ra::IO::readColor </td>
+          <td>(</td>
+          <td class="paramtype">std::ifstream &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="VolumeLoader_8cpp_source.html#l00034">34</a> of file <a class="el" href="VolumeLoader_8cpp_source.html">VolumeLoader.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a3603c4bddbb383304c19001adf6acfca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3603c4bddbb383304c19001adf6acfca">&#9670;&nbsp;</a></span>pvmFileExtension</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string Ra::IO::pvmFileExtension { &quot;pvm&quot; }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="VolumeLoader_8cpp_source.html#l00020">20</a> of file <a class="el" href="VolumeLoader_8cpp_source.html">VolumeLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a70057cb9eb22e208c7ce739e550d72ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70057cb9eb22e208c7ce739e550d72ec">&#9670;&nbsp;</a></span>volFileExtension</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string Ra::IO::volFileExtension { &quot;vol&quot; }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="VolumeLoader_8cpp_source.html#l00019">19</a> of file <a class="el" href="VolumeLoader_8cpp_source.html">VolumeLoader.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1IO.html">IO</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:22 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:57:02 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -11,7 +11,7 @@ var classRa_1_1Core_1_1Geometry_1_1AbstractVolume =
     [ "AbstractVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a8b1d600ed6b003b9205aed068b4dc3f1", null ],
     [ "~AbstractVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a2357fb5bb1679a8d843375f9b9a2939b", null ],
     [ "displayInfo", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a6c591df007bdb41c6e7ad3f044dc0902", null ],
-    [ "getType", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#adc8b852adb335c6f3827d2f69f226540", null ],
+    [ "getType", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#af47a833432339c14be0c735b0e9b7d91", null ],
     [ "getValue", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a8e02217c5c7d32419d37a74b88f1cd96", null ],
     [ "isDense", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a3896192c57de6b205245e97f15be2736", null ],
     [ "isDiscrete", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#aa0dd0324c3b7b655ea24dec3cbe44311", null ],

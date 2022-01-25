@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -113,22 +114,21 @@ $(document).ready(function(){initNavTree('FrameTimerData_8cpp_source.html',''); 
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        ostream &lt;&lt; <span class="stringliteral">&quot;\ttasks: &quot;</span> &lt;&lt; taStart &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; taEnd &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; taEnd - taStart &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        ostream &lt;&lt; <span class="stringliteral">&quot;\t{&quot;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; tData : <a class="code" href="structRa_1_1FrameTimerData.html#af2e3864dbbedbe09a6fd0d60a09813a1">taskData</a> )</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keywordtype">long</span> tadaStart = <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#ad4680945a5efebfe2b7b320e9e2a9a61">Ra::Core::Utils::getIntervalMicro</a>( <a class="code" href="structRa_1_1FrameTimerData.html#ac68bb5a6a090d353a60f556122fd4f95">frameStart</a>, tData.start );</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <span class="keywordtype">long</span> tadaEnd   = <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#ad4680945a5efebfe2b7b320e9e2a9a61">Ra::Core::Utils::getIntervalMicro</a>( <a class="code" href="structRa_1_1FrameTimerData.html#ac68bb5a6a090d353a60f556122fd4f95">frameStart</a>, tData.end );</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            ostream &lt;&lt; <span class="stringliteral">&quot;\t\t&quot;</span> &lt;&lt; tData.taskName &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; tData.threadId &lt;&lt; <span class="stringliteral">&quot;): &quot;</span> &lt;&lt; tadaStart</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; tadaEnd &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; tadaEnd - tadaStart &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        ostream &lt;&lt; <span class="stringliteral">&quot;\t}&quot;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        ostream &lt;&lt; <span class="stringliteral">&quot;\trender: &quot;</span> &lt;&lt; reStart &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; reEnd &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; reEnd - reStart &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    ostream &lt;&lt; <span class="stringliteral">&quot;}&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    ostream &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; tData : <a class="code" href="structRa_1_1FrameTimerData.html#af2e3864dbbedbe09a6fd0d60a09813a1">taskData</a> ) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            <span class="keywordtype">long</span> tadaStart = <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#ad4680945a5efebfe2b7b320e9e2a9a61">Ra::Core::Utils::getIntervalMicro</a>( <a class="code" href="structRa_1_1FrameTimerData.html#ac68bb5a6a090d353a60f556122fd4f95">frameStart</a>, tData.start );</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keywordtype">long</span> tadaEnd   = <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#ad4680945a5efebfe2b7b320e9e2a9a61">Ra::Core::Utils::getIntervalMicro</a>( <a class="code" href="structRa_1_1FrameTimerData.html#ac68bb5a6a090d353a60f556122fd4f95">frameStart</a>, tData.end );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            ostream &lt;&lt; <span class="stringliteral">&quot;\t\t&quot;</span> &lt;&lt; tData.taskName &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; tData.threadId &lt;&lt; <span class="stringliteral">&quot;): &quot;</span> &lt;&lt; tadaStart</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; tadaEnd &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; tadaEnd - tadaStart &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        ostream &lt;&lt; <span class="stringliteral">&quot;\t}&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        ostream &lt;&lt; <span class="stringliteral">&quot;\trender: &quot;</span> &lt;&lt; reStart &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; reEnd &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; reEnd - reStart &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    ostream &lt;&lt; <span class="stringliteral">&quot;}&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    ostream &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructRa_1_1FrameTimerData_html_a5ec2bafbc1d43e2161124b23ab19a1f6"><div class="ttname"><a href="structRa_1_1FrameTimerData.html#a5ec2bafbc1d43e2161124b23ab19a1f6">Ra::FrameTimerData::numFrame</a></div><div class="ttdeci">uint numFrame</div><div class="ttdef"><b>Definition:</b> <a href="FrameTimerData_8hpp_source.html#l00017">FrameTimerData.hpp:17</a></div></div>
@@ -148,7 +148,7 @@ $(document).ready(function(){initNavTree('FrameTimerData_8cpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_da97eec9491dc31fa09aed195cee77be.html">TimerData</a></li><li class="navelem"><a class="el" href="FrameTimerData_8cpp.html">FrameTimerData.cpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

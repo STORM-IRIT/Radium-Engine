@@ -22,10 +22,10 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" target="_top" xlink:title="Notify (i.e. call) each attached observer with argument p.">
+<g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207" target="_top" xlink:title="Detach all observers.">
 <polygon fill="white" stroke="black" points="179,-0.5 179,-30.5 327,-30.5 327,-0.5 179,-0.5"/>
 <text text-anchor="start" x="187" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
-<text text-anchor="middle" x="253" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt;&gt;::notify</text>
+<text text-anchor="middle" x="253" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt;&gt;::detachAll</text>
 </a>
 </g>
 </g>

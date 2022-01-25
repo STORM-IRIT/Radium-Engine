@@ -24,6 +24,7 @@
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ebebc29d889a9d32e0637e425e589e403d8edef8</span>
+   &#160;<span id="projectnumber">bc7aee4</span>
    </div>
   </td>
  </tr>
@@ -244,7 +245,7 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    std::unique_ptr&lt;Data::ShaderProgramManager&gt; m_shaderProgramManager;</div>
 <div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    std::unique_ptr&lt;Core::Asset::FileData&gt; m_loadedFile;</div>
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordtype">bool</span> m_loadingState {<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordtype">bool</span> m_loadingState { <span class="keyword">false</span> };</div>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    std::string m_resourcesRootDir;</div>
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
@@ -252,7 +253,7 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    {</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;      <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        FboAndViewport( <span class="keywordtype">int</span> fbo, std::array&lt;int, 4&gt;&amp;&amp; viewport ) :</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            m_fbo {fbo}, m_viewport {viewport} {}</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            m_fbo { fbo }, m_viewport { viewport } {}</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        <span class="keywordtype">int</span> m_fbo;</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        std::array&lt;int, 4&gt; m_viewport;</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    };</div>
@@ -262,20 +263,20 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    <span class="keyword">struct </span>TimeData {</div>
 <div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        <span class="keywordtype">void</span> updateTime( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dt );</div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_dt {1_ra / 60_ra}; </div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_startTime {0_ra};  </div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_endTime {1_ra};    </div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_time {0_ra};       </div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        <span class="keywordtype">bool</span> m_play {<span class="keyword">false</span>};        </div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        <span class="keywordtype">bool</span> m_singleStep {<span class="keyword">true</span>};   </div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        <span class="keywordtype">bool</span> m_realTime {<span class="keyword">false</span>};    </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        <span class="keywordtype">bool</span> m_forwardBackward {<span class="keyword">false</span>}; </div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        <span class="keywordtype">bool</span> m_isBackward {<span class="keyword">false</span>};      </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_dt { 1_ra / 60_ra }; </div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_startTime { 0_ra };  </div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_endTime { 1_ra };    </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_time { 0_ra };       </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        <span class="keywordtype">bool</span> m_play { <span class="keyword">false</span> };        </div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        <span class="keywordtype">bool</span> m_singleStep { <span class="keyword">true</span> };   </div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        <span class="keywordtype">bool</span> m_realTime { <span class="keyword">false</span> }; </div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        <span class="keywordtype">bool</span> m_forwardBackward { <span class="keyword">false</span> }; </div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        <span class="keywordtype">bool</span> m_isBackward { <span class="keyword">false</span> };      </div>
 <div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    };</div>
 <div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    TimeData m_timeData;</div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    std::unique_ptr&lt;globjects::State&gt; m_openglState {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    std::unique_ptr&lt;globjects::State&gt; m_openglState { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;};</div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;} <span class="comment">// namespace Engine</span></div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;} <span class="comment">// namespace Ra</span></div>
@@ -308,7 +309,7 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="RadiumEngine_8hpp.html">RadiumEngine.hpp</a></li>
-    <li class="footer">Generated on Wed Oct 6 2021 07:19:20 for Radium Engine by
+    <li class="footer">Generated on Tue Jan 25 2022 12:56:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
