@@ -5,6 +5,18 @@ on:
     branches: [ master, release-candidate ]
 
 jobs:
+  deploy-doc-index:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout remote head
+        uses: actions/checkout@master
+      - name: Deploy Doc
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          publish_dir: 'doc/index'
+          keep_files: true
+
   deploy-doc:
     runs-on: ubuntu-20.04
     steps:
