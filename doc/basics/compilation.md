@@ -14,6 +14,7 @@ See also our Continuous Integration system at https://github.com/STORM-IRIT/Radi
 Minimal requirements
 * OpenGL 4.1+ / GLSL 410+
 * CMake 3.15.7+
+* Qt5 (minimal version 5.14) or Qt6 (experimental)
 
 # Build instructions
 If not already done, follow instructions at \ref dependenciesmanagement.
@@ -150,6 +151,7 @@ $ cmake .. -DQt5_DIR=........ -DCMAKE_BUILD_TYPE=.......
 $ make
 $ make install
 ~~~
+\note Qt6 support is experimental. To enable it, replace `-DQt5_DIR=path/to/qt5` by `-DQt6_DIR=path/to/qt6`.
 
 \note Running the `install` target is recommended as it will copy all the radium related library in the same place,
 generate the cmake packages and bundle applications with their dependencies (on macos and windows).
@@ -169,8 +171,7 @@ Qt 5.15+ is distributed with binaries precompiled with MSVC 2019, but Qt binarie
 
 ### Qt Dependency
 
-*Qt* distributes precompiled libraries for VS 2017 - 64 bits (tested with 5.10 and 5.12).
-If using earlier versions of Qt (5.5)  or a different toolset you may have to compile Qt yourself.
+Use precompiled libraries for VS 2017 or 2019 - 64 bits (minimal version required: 5.14).
 You will probably have to manually point cmake to the Qt folder.
 
 ### Getting started with Visual Studio
@@ -193,7 +194,7 @@ To fix it, edit `CMakeSettings.json`, such that
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
       "installRoot": "C:/Users/XXX/Dev/Radium-install",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DRADIUM_UPDATE_VERSION=OFF",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     },
@@ -204,7 +205,7 @@ To fix it, edit `CMakeSettings.json`, such that
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
       "installRoot": "C:/Users/XXX/Dev/Radium-installdbg",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DRADIUM_UPDATE_VERSION=OFF",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     }

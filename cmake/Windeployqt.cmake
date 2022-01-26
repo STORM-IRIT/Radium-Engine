@@ -20,10 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-find_package(Qt5 COMPONENTS Core REQUIRED)
+include(QtFunctions)
+find_qt_package(COMPONENTS Core REQUIRED)
 
 # Retrieve the absolute path to qmake and then use that path to find the windeployqt binary
-get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
+get_target_property(_qmake_executable Qt::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
 find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
 
@@ -38,6 +39,11 @@ endif()
 # Qt runtime to the specified directory
 function(windeployqt target directory)
 
+    set(QT_OPTIONS "")
+    if(Qt5_FOUND)
+        set(QT_OPTIONS ${QT_OPTIONS} --no-angle)
+    endif()
+
     # execute windeployqt in a tmp directory after build
     add_custom_command(
         TARGET ${target}
@@ -48,8 +54,8 @@ function(windeployqt target directory)
                 "${CMAKE_CURRENT_BINARY_DIR}/windeployqt-${target}"
         COMMAND
             "${WINDEPLOYQT_EXECUTABLE}" --dir "${CMAKE_CURRENT_BINARY_DIR}/windeployqt-${target}"
-            --verbose 0 --no-compiler-runtime --no-translations --no-angle --release --no-opengl-sw
-            "$<TARGET_FILE:${target}>"
+            --verbose 0 --no-compiler-runtime --no-translations --release --no-opengl-sw
+            ${QT_OPTIONS} "$<TARGET_FILE:${target}>"
         COMMENT "Run WinQTDeploy on ${target}"
         USES_TERMINAL COMMAND_EXPAND_LISTS
     )

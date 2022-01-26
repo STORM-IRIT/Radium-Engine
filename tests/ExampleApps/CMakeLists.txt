@@ -15,8 +15,8 @@ set(IN_RADIUM_BUILD_TREE TRUE)
 if(MSVC OR MSVC_IDE OR MINGW)
     # must find the Qt installation directory. This will be set by RadiumConfig.cmake after install
     # TODO : find a way to that more efficiently
-    find_dependency(Qt5 COMPONENTS Core REQUIRED)
-    add_imported_dir(FROM Qt5::Core TO QtDlls_location)
+    find_qt_dependency(COMPONENTS Core REQUIRED)
+    add_imported_dir(FROM Qt::Core TO QtDlls_location)
 endif()
 
 include(RadiumSetupFunctions)
@@ -27,14 +27,14 @@ configure_radium_app(NAME CoreExampleApp)
 add_dependencies(${PROJECT_NAME} CoreExampleApp)
 add_run_and_debug_targets(CoreExampleApp)
 
-find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 find_package(OpenGL REQUIRED)
 set(CMAKE_AUTOMOC ON)
 add_executable(HelloRadium MACOSX_BUNDLE HelloRadium/main.cpp)
 target_include_directories(HelloRadium PRIVATE HelloRadium)
 target_link_libraries(
-    HelloRadium PUBLIC Radium::Core Radium::Engine Radium::Gui Qt5::Core Qt5::Widgets Qt5::OpenGL
-                       Qt5::Xml OpenGL::GL
+    HelloRadium PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets Qt::OpenGL
+                       Qt::Xml OpenGL::GL
 )
 add_dependencies(${PROJECT_NAME} HelloRadium)
 message(STATUS "Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
@@ -44,8 +44,8 @@ add_run_and_debug_targets(HelloRadium)
 add_executable(SimpleSimulationApp MACOSX_BUNDLE SimpleSimulationApp/main.cpp)
 target_include_directories(SimpleSimulationApp PRIVATE SimpleSimulationApp)
 target_link_libraries(
-    SimpleSimulationApp PUBLIC Radium::Core Radium::Engine Radium::Gui Qt5::Core Qt5::Widgets
-                               Qt5::OpenGL Qt5::Xml OpenGL::GL
+    SimpleSimulationApp PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
+                               Qt::OpenGL Qt::Xml OpenGL::GL
 )
 add_dependencies(${PROJECT_NAME} SimpleSimulationApp)
 message(STATUS "Installing SimpleSimulationApp into ${CMAKE_INSTALL_PREFIX}")
@@ -59,8 +59,8 @@ add_executable(
 )
 target_include_directories(DrawPrimitivesDemo PRIVATE DrawPrimitivesApp)
 target_link_libraries(
-    DrawPrimitivesDemo PUBLIC Radium::Core Radium::Engine Radium::Gui Qt5::Core Qt5::Widgets
-                              Qt5::OpenGL Qt5::Xml OpenGL::GL
+    DrawPrimitivesDemo PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
+                              Qt::OpenGL Qt::Xml OpenGL::GL
 )
 get_target_property(USE_ASSIMP IO IO_ASSIMP)
 if(${USE_ASSIMP})
@@ -78,8 +78,8 @@ add_run_and_debug_targets(DrawPrimitiveDemo)
 add_executable(SimpleAnimationApp MACOSX_BUNDLE SimpleAnimationApp/main.cpp)
 target_include_directories(SimpleAnimationApp PRIVATE SimpleAnimationApp)
 target_link_libraries(
-    SimpleAnimationApp PUBLIC Radium::Core Radium::Engine Radium::Gui Qt5::Core Qt5::Widgets
-                              Qt5::OpenGL Qt5::Xml OpenGL::GL
+    SimpleAnimationApp PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
+                              Qt::OpenGL Qt::Xml OpenGL::GL
 )
 add_dependencies(${PROJECT_NAME} SimpleAnimationApp)
 message(STATUS "Installing SimpleAnimationApp into ${CMAKE_INSTALL_PREFIX}")
@@ -88,8 +88,8 @@ add_run_and_debug_targets(SimpleAnimationApp)
 
 add_executable(RawShaderMaterial MACOSX_BUNDLE RawShaderMaterial/main.cpp)
 target_link_libraries(
-    RawShaderMaterial PUBLIC Radium::Core Radium::Engine Radium::Gui Qt5::Core Qt5::Widgets
-                             Qt5::OpenGL Qt5::Xml OpenGL::GL
+    RawShaderMaterial PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
+                             Qt::OpenGL Qt::Xml OpenGL::GL
 )
 add_dependencies(${PROJECT_NAME} RawShaderMaterial)
 message(STATUS "Installing RawShaderMaterial into ${CMAKE_INSTALL_PREFIX}")
@@ -98,8 +98,8 @@ add_run_and_debug_targets(RawShaderMaterial)
 
 add_executable(CustomCameraManipulator MACOSX_BUNDLE CustomCameraManipulator/main.cpp)
 target_link_libraries(
-    CustomCameraManipulator PUBLIC Radium::Core Radium::Engine Radium::Gui Qt5::Core Qt5::Widgets
-                                   Qt5::OpenGL Qt5::Xml OpenGL::GL
+    CustomCameraManipulator PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
+                                   Qt::OpenGL Qt::Xml OpenGL::GL
 )
 add_dependencies(${PROJECT_NAME} CustomCameraManipulator)
 message(STATUS "Installing CustomCameraManipulator into ${CMAKE_INSTALL_PREFIX}")

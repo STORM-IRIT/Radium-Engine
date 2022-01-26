@@ -52,14 +52,14 @@ find_program(SED_EXECUTABLE sed)
 
 if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
     find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
-    find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+    find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
-    set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
+    set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
 
     # KeyMappingManager saveConfiguration tests
     add_executable(integration_${INTEGRATION_TEST} ${INTEGRATION_TEST}/main.cpp)
     target_link_libraries(
-        integration_${INTEGRATION_TEST} PUBLIC Core Gui PRIVATE std::filesystem ${Qt5_LIBRARIES}
+        integration_${INTEGRATION_TEST} PUBLIC Core Gui PRIVATE std::filesystem ${Qt_LIBRARIES}
     )
     target_compile_definitions(
         integration_${INTEGRATION_TEST}
@@ -102,7 +102,7 @@ else()
 endif()
 
 find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
-find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
 macro(generate_includes _name)
     include(filelist${_name})
@@ -123,10 +123,10 @@ configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/includes.cpp.in" "${CMAKE_CURRENT_BINARY_DIR}/includes.cpp"
 )
 
-set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
+set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
 add_executable(integration_includes "${CMAKE_CURRENT_BINARY_DIR}/includes.cpp")
 target_link_libraries(
-    integration_includes PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt5_LIBRARIES}
+    integration_includes PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt_LIBRARIES}
 )
 target_compile_definitions(
     integration_includes

@@ -31,9 +31,11 @@ Example CMakeLists.txt setup to compile a Radium plugin:
  # Use installed Radium environment
  find_package(Radium REQUIRED Core Engine PluginBase)
 
- # Find and configure Qt environment (Radium requires Qt >= 5.1)
- find_package(Qt5 COMPONENTS Core REQUIRED)
- set(Qt5_LIBRARIES Qt5::Core)
+ # Find and configure Qt environment using versionless targets (Radium requires Qt >= 5.15)
+ # https://doc.qt.io/qt-6/cmake-qt5-and-qt6-compatibility.html
+ # find_qt_package is provided by Radium
+ find_qt_package(COMPONENTS Core REQUIRED)
+ set(Qt_LIBRARIES Qt::Core)
  set(CMAKE_AUTOMOC ON)
  set(CMAKE_AUTORCC ON)
 
@@ -51,7 +53,7 @@ Example CMakeLists.txt setup to compile a Radium plugin:
 
  target_link_libraries(${PROJECT_NAME} PUBLIC
                        Radium::Core Radium::Engine Radium::PluginBase
-                       ${Qt5_LIBRARIES} )
+                       ${Qt_LIBRARIES} )
 
  # Configure the plugin deployment using the Radium configuration tool
  configure_radium_plugin( NAME ${PROJECT_NAME} )
@@ -75,7 +77,7 @@ configure_radium_plugin(
 
 -   `NAME nameOfTheTargetOtInstall`. This parameter, mandatory, will configure how to install the target
     `nameOfTheTargetOtInstall`. This target must correspond to a configured target such the one obtained by
-    `target_link_libraries(nameOfTheTargetOtInstall PUBLIC Radium::Core Radium::Engine Radium::PluginBase ${Qt5_LIBRARIES} )`
+    `target_link_libraries(nameOfTheTargetOtInstall PUBLIC Radium::Core Radium::Engine Radium::PluginBase ${Qt_LIBRARIES} )`
 
 -   `RESOURCES ListOfResourcesDirectory`. This parameter, optional, will install several resources, needed by the plugin for its correct execution,
     so that the Radium resource locator system will be able to find them.

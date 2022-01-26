@@ -29,8 +29,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ///////////////////////////////
-find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
-set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets)
+find_qt_package(COMPONENTS Core Widgets REQUIRED)
+set(Qt_LIBRARIES Qt::Core Qt::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -43,7 +43,7 @@ set(app_sources main.cpp)
 set(app_headers)
 
 set(app_uis)
-qt5_wrap_ui(app_uis_moc ${app_uis})
+qt_wrap_ui(app_uis_moc ${app_uis})
 
 set(app_resources)
 
@@ -61,7 +61,7 @@ target_include_directories(
 )
 
 target_link_libraries(
-    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui Radium::IO ${Qt5_LIBRARIES}
+    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui Radium::IO ${Qt_LIBRARIES}
 )
 
 configure_radium_app(NAME ${PROJECT_NAME})

@@ -4,7 +4,7 @@ This example illustrates how to use a library shipped from another plugin (shoul
 ## Configure
 `cmake -DRadium_DIR=/pathToInstalledRadium/lib/cmake/Radium/ -DExampleLibraryUpstream_DIR=/pathToInstalledUpstreamLibrary ..`
 
-If Qt5 package is not found, add the option `-DQt5_DIR=/pathToInstalledQt5/lib/cmake/Qt5` to the cmake command.
+If Qt package is not found, add the option `-DQt5_DIR=/pathToInstalledQt5/lib/cmake/Qt5` to the cmake command.
 
 ## Compile
 ```bash
