@@ -65,8 +65,28 @@ inline bool GeometryIndexLayer<T>::operator==( const GeometryIndexLayerBase& oth
 }
 
 template <typename T>
-inline size_t GeometryIndexLayer<T>::size() {
+inline size_t GeometryIndexLayer<T>::size() const {
     return m_collection.size();
+}
+
+template <typename T>
+inline size_t GeometryIndexLayer<T>::numberOfComponent() const {
+    return IndexType::RowsAtCompileTime;
+}
+
+template <typename T>
+inline size_t GeometryIndexLayer<T>::getBufferSize() const {
+    return m_collection.size() * sizeof( IndexType );
+}
+
+template <typename T>
+inline int GeometryIndexLayer<T>::getStride() const {
+    return sizeof( IndexType );
+}
+
+template <typename T>
+inline const void* GeometryIndexLayer<T>::dataPtr() const {
+    return m_collection.data();
 }
 
 template <typename T>
