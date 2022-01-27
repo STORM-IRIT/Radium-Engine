@@ -396,7 +396,7 @@ void Timeline::onMovingKeyFrames( size_t first, Scalar offset ) {
     }
 }
 
-void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) {
+void Timeline::on_comboBox_attribute_currentTextChanged( const QString& arg1 ) {
     onClearKeyFrames();
     std::vector<Ra::Core::Animation::KeyFramedValueController> list;
     const QStringList names = arg1.split( "::" );

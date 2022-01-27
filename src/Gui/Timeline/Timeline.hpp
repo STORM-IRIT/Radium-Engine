@@ -242,9 +242,9 @@ class RA_GUI_API Timeline : public QDialog
     void onMovingKeyFrames( size_t first, Scalar offset );
 
     /*!
-     * \brief on_comboBox_attribute_currentIndexChanged set the current keyframe
+     * \brief on_comboBox_attribute_currentTextChanged set the current keyframe
      */
-    void on_comboBox_attribute_currentIndexChanged( const QString& arg1 );
+    void on_comboBox_attribute_currentTextChanged( const QString& arg1 );
 
     /*!
      * \brief on_pushButton_editAttribute_clicked make the keyframe editor pop up
