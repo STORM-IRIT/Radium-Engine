@@ -4,7 +4,7 @@ ci:
   skip: [clang-format]
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
     hooks:
     -   id: trailing-whitespace
         exclude: ^tests/.*/data/.*$
@@ -18,7 +18,7 @@ repos:
     -   id: cmake-format
 #    -   id: cmake-lint
 -   repo: https://github.com/pocc/pre-commit-hooks
-    rev: v1.1.1
+    rev: v1.3.5
     hooks:
       - id: clang-format
         args: [--style=file, -i]
