@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-include(QtFunctions)
+include(${CMAKE_CURRENT_LIST_DIR}/QtFunctions.cmake)
 find_qt_package(COMPONENTS Core REQUIRED)
 
 # Retrieve the absolute path to qmake and then use that path to find the windeployqt binary
