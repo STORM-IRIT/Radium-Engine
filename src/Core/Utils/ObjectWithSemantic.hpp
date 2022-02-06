@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Core/RaCore.hpp>
+
 #include <cstdarg>
 #include <set>
 
@@ -21,7 +23,7 @@ class RA_CORE_API ObjectWithSemantic
     using SemanticNameCollection = std::set<SemanticName>;
 
     inline explicit ObjectWithSemantic( const ObjectWithSemantic& other ) :
-        m_names( other.m_names ) {}
+        m_names { other.m_names } {}
 
     virtual inline ~ObjectWithSemantic() = default;
 
@@ -54,9 +56,10 @@ class RA_CORE_API ObjectWithSemantic
 
   protected:
     template <class... SemanticNames>
-    inline ObjectWithSemantic( SemanticNames... names ) : m_names( { names... } ) {}
+    inline ObjectWithSemantic( SemanticNames... names ) : m_names { names... } {}
 
-    inline ObjectWithSemantic( const SemanticNameCollection& otherNames ) : m_names( otherNames ) {}
+    inline ObjectWithSemantic( const SemanticNameCollection& otherNames ) :
+        m_names { otherNames } {}
 
   private:
     SemanticNameCollection m_names;
