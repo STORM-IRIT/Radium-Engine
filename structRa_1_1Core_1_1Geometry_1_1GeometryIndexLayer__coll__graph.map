@@ -1,8 +1,0 @@
-<map id="Ra::Core::Geometry::GeometryIndexLayer&lt; T &gt;" name="Ra::Core::Geometry::GeometryIndexLayer&lt; T &gt;">
-<area shape="rect" id="node1" title="Typed index collection." alt="" coords="133,1083,338,1263"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="122,824,349,1033"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title=" " alt="" coords="5,624,231,701"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="9,292,227,501"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="19,5,217,229"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="255,551,450,775"/>
-</map>
