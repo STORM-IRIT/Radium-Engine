@@ -2,9 +2,21 @@ name: Deploy documentation to gh-pages
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, release-candidate ]
 
 jobs:
+  deploy-doc-index:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout remote head
+        uses: actions/checkout@master
+      - name: Deploy Doc
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          publish_dir: 'doc/index'
+          keep_files: true
+
   deploy-doc:
     runs-on: ubuntu-20.04
     steps:
@@ -32,8 +44,12 @@ jobs:
         run: |
           cd build/Radium-Engine
           sed -i 's/object type="image\/svg+xml" data/img src/g ; s/>codecov<\/object/ alt="codecov" class="inline"\//g' html/index.html
+      - name: Git branch name
+        id: git-branch-name
+        uses: EthanSK/git-branch-name-action@v1
       - name: Deploy Doc
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
           publish_dir: 'build/Radium-Engine/html'
+          destination_dir: ${{ env.GIT_BRANCH_NAME }}
