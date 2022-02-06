@@ -65,12 +65,12 @@ inline bool GeometryIndexLayer<T>::operator==( const GeometryIndexLayerBase& oth
 }
 
 template <typename T>
-inline size_t GeometryIndexLayer<T>::size() const {
+inline size_t GeometryIndexLayer<T>::getSize() const {
     return m_collection.size();
 }
 
 template <typename T>
-inline size_t GeometryIndexLayer<T>::numberOfComponent() const {
+inline size_t GeometryIndexLayer<T>::getNumberOfComponents() const {
     return IndexType::RowsAtCompileTime;
 }
 

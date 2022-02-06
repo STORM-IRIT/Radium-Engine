@@ -4,6 +4,7 @@
 
 #include <Core/Geometry/TriangleMesh.hpp>
 
+#include <Core/Utils/ContainerIntrospectionInterface.hpp>
 #include <Core/Utils/ObjectWithSemantic.hpp>
 #include <Core/Utils/StdMapIterators.hpp>
 
@@ -16,7 +17,8 @@ namespace Geometry {
 ///
 /// \brief Base class for index collections stored in MultiIndexedGeometry
 class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
-                                           public Utils::ObjectWithSemantic
+                                           public Utils::ObjectWithSemantic,
+                                           public Utils::ContainerIntrospectionInterface
 {
   public:
     /// \brief Copy constructor
@@ -39,22 +41,6 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
 
     /// \brief Compare if two layers have the same content
     virtual inline bool operator==( const GeometryIndexLayerBase& other ) const;
-    /// \return the number of index (i.e. "faces") contained in the layer.
-    virtual size_t size() const = 0;
-
-    /// \return the number of components of one index (i.e. faces)
-    virtual size_t numberOfComponent() const = 0;
-
-    /// \return the size in byte of the layer container
-    virtual size_t getBufferSize() const = 0;
-
-    /// \return the stride, in bytes, from one attribute address to the next one.
-    /// \warning it's meaningful only if the attrib do not contain heap
-    /// allocated data.
-    virtual int getStride() const = 0;
-
-    /// \return a const pointer to the raw data
-    virtual const void* dataPtr() const = 0;
 
   protected:
     /// \brief Hidden constructor that must be called by inheriting classes to define the object
@@ -77,11 +63,11 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     /// \warning Does not account for elements permutations
     inline bool operator==( const GeometryIndexLayerBase& other ) const final;
 
-    inline size_t size() const override final;
+    inline size_t getSize() const override final;
 
     inline GeometryIndexLayerBase* clone() override final;
 
-    inline size_t numberOfComponent() const override final;
+    inline size_t getNumberOfComponents() const override final;
 
     inline size_t getBufferSize() const override final;
 

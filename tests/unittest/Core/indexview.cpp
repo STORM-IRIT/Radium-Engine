@@ -208,16 +208,16 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes", "[Core][Core/Geometry][In
     auto& attribM2_1 = m2.getAttrib( handle1 );
     auto& attribM2_2 = m2.getAttrib( handle2 );
     REQUIRE( attribM2_1.getSize() == 3 );
-    REQUIRE( attribM2_1.getElementSize() == 3 );
+    REQUIRE( attribM2_1.getNumberOfComponents() == 3 );
     REQUIRE( attribM2_1.getStride() == sizeof( Vector3 ) );
     REQUIRE( attribM2_1.getBufferSize() == 3 * sizeof( Vector3 ) );
     attribM2_1.resize( 10 );
     REQUIRE( attribM2_1.getSize() == 10 );
-    REQUIRE( attribM2_1.getElementSize() == 3 );
+    REQUIRE( attribM2_1.getNumberOfComponents() == 3 );
     REQUIRE( attribM2_1.getStride() == sizeof( Vector3 ) );
     REQUIRE( attribM2_1.getBufferSize() == 10 * sizeof( Vector3 ) );
     REQUIRE( attribM2_2.getSize() == 3 );
-    REQUIRE( attribM2_2.getElementSize() == 1 );
+    REQUIRE( attribM2_2.getNumberOfComponents() == 1 );
     REQUIRE( attribM2_2.getStride() == sizeof( float ) );
     REQUIRE( attribM2_2.getBufferSize() == 3 * sizeof( float ) );
 
