@@ -1,0 +1,246 @@
+html {
+    /* primary theme color. This will affect the entire websites color scheme: links, arrows, labels, ... */
+    --primary-color: #1779c4;
+    --primary-dark-color: #00559f;
+    --primary-light-color: #7aabd6;
+    --primary-lighter-color: #cae1f1;
+    --primary-lightest-color: #e9f1f8;
+
+    /* page base colors */
+    --page-background-color: white;
+    --page-foreground-color: #2c3e50;
+    --page-secondary-foreground-color: #67727e;
+
+    /* color for all separators on the website: hr, borders, ... */
+    --separator-color: #dedede;
+
+    /* border radius for all rounded components. Will affect many components, like dropdowns, memitems, codeblocks, ... */
+    --border-radius-large: 8px;
+    --border-radius-small: 4px;
+    --border-radius-medium: 6px;
+
+    /* default spacings. Most compontest reference these values for spacing, to provide uniform spacing on the page. */
+    --spacing-small: 5px;
+    --spacing-medium: 10px;
+    --spacing-large: 16px;
+
+    /* default box shadow used for raising an element above the normal content. Used in dropdowns, Searchresult, ... */
+    --box-shadow: 0 2px 10px 0 rgba(0,0,0,.1);
+
+    --odd-color: rgba(0,0,0,.03);
+
+    /* font-families. will affect all text on the website
+     * font-family: the normal font for text, headlines, menus
+     * font-family-monospace: used for preformatted text in memtitle, code, fragments
+     */
+    --font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    --font-family-monospace: source-code-pro,Menlo,Monaco,Consolas,Courier New,monospace;
+
+    /* font sizes */
+    --page-font-size: 15.6px;
+    --navigation-font-size: 14.4px;
+    --code-font-size: 14.4px; /* affects code, fragment */
+    --title-font-size: 22px;
+
+    /* content text properties. These only affect the page content, not the navigation or any other ui elements */
+    --content-line-height: 27px;
+    /* The content is centered and constraint in it's width. To make the content fill the whole page, set the variable to auto.*/
+    --content-maxwidth: 1000px;
+
+    /* colors for various content boxes: @warning, @note, @deprecated @bug */
+    --warning-color: #fca49b;
+    --warning-color-dark: #b61825;
+    --warning-color-darker: #75070f;
+    --note-color: rgba(255,229,100,.3);
+    --note-color-dark: #c39900;
+    --note-color-darker: #8d7400;
+    --deprecated-color: rgb(214, 216, 224);
+    --deprecated-color-dark: #5b6269;
+    --deprecated-color-darker: #43454a;
+    --bug-color: rgb(246, 208, 178);
+    --bug-color-dark: #a53a00;
+    --bug-color-darker: #5b1d00;
+    --invariant-color: #b7f8d0;
+    --invariant-color-dark: #00ba44;
+    --invariant-color-darker: #008622;
+
+    /* blockquote colors */
+    --blockquote-background: #f5f5f5;
+    --blockquote-foreground: #727272;
+
+    /* table colors */
+    --tablehead-background: #f1f1f1;
+    --tablehead-foreground: var(--page-foreground-color);
+
+    /* menu-display: block | none
+     * Visibility of the top navigation on screens >= 768px. On smaller screen the menu is always visible.
+     * `GENERATE_TREEVIEW` MUST be enabled!
+     */
+    --menu-display: block;
+
+    --menu-focus-foreground: var(--page-background-color);
+    --menu-focus-background: var(--primary-color);
+    --menu-selected-background: rgba(0,0,0,.05);
+
+
+    --header-background: var(--page-background-color);
+    --header-foreground: var(--page-foreground-color);
+
+    /* searchbar colors */
+    --searchbar-background: var(--side-nav-background);
+    --searchbar-foreground: var(--page-foreground-color);
+
+    /* searchbar size
+     * (`searchbar-width` is only applied on screens >= 768px.
+     * on smaller screens the searchbar will always fill the entire screen width) */
+    --searchbar-height: 33px;
+    --searchbar-width: 210px;
+
+    /* code block colors */
+    --code-background: #f5f5f5;
+    --code-foreground: var(--page-foreground-color);
+
+    /* fragment colors */
+    --fragment-background: #282c34;
+    --fragment-foreground: #ffffff;
+    --fragment-keyword: #cc99cd;
+    --fragment-keywordtype: #ab99cd;
+    --fragment-keywordflow: #e08000;
+    --fragment-token: #7ec699;
+    --fragment-comment: #999999;
+    --fragment-link: #98c0e3;
+    --fragment-preprocessor: #65cabe;
+    --fragment-linenumber-color: #cccccc;
+    --fragment-linenumber-background: #35393c;
+    --fragment-linenumber-border: #1f1f1f;
+    --fragment-lineheight: 20px;
+
+    /* sidebar navigation (treeview) colors */
+    --side-nav-background: #fbfbfb;
+    --side-nav-foreground: var(--page-foreground-color);
+    --side-nav-arrow-opacity: 0;
+    --side-nav-arrow-hover-opacity: 0.9;
+
+    /* height of an item in any tree / collapsable table */
+    --tree-item-height: 30px;
+
+    --darkmode-toggle-button-icon: '☀️'
+}
+
+@media screen and (max-width: 767px) {
+    html {
+        --page-font-size: 16px;
+        --navigation-font-size: 16px;
+        --code-font-size: 15px; /* affects code, fragment */
+        --title-font-size: 22px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not(.light-mode) {
+        color-scheme: dark;
+
+        --primary-color: #1982d2;
+        --primary-dark-color: #5ca8e2;
+        --primary-light-color: #4779ac;
+        --primary-lighter-color: #191e21;
+        --primary-lightest-color: #191a1c;
+
+        --box-shadow: 0 2px 10px 0 rgba(0,0,0,.35);
+
+        --odd-color: rgba(0,0,0,.1);
+
+        --menu-selected-background: rgba(0,0,0,.4);
+
+        --page-background-color: #1C1D1F;
+        --page-foreground-color: #d2dbde;
+        --page-secondary-foreground-color: #859399;
+        --separator-color: #000000;
+        --side-nav-background: #252628;
+
+        --code-background: #2a2c2f;
+
+        --tablehead-background: #2a2c2f;
+
+        --blockquote-background: #1f2022;
+        --blockquote-foreground: #77848a;
+
+        --warning-color: #b61825;
+        --warning-color-dark: #510a02;
+        --warning-color-darker: #f5b1aa;
+        --note-color: rgb(255, 183, 0);
+        --note-color-dark: #9f7300;
+        --note-color-darker: #645b39;
+        --deprecated-color: rgb(88, 90, 96);
+        --deprecated-color-dark: #262e37;
+        --deprecated-color-darker: #a0a5b0;
+        --bug-color: rgb(248, 113, 0);
+        --bug-color-dark: #812a00;
+        --bug-color-darker: #ffd3be;
+
+        --darkmode-toggle-button-icon: '🌛';
+    }
+}
+
+/* dark mode variables are defined twice, to support both the dark-mode without and with doxygen-awesome-darkmode-toggle.js */
+html.dark-mode {
+    color-scheme: dark;
+
+    --primary-color: #1982d2;
+    --primary-dark-color: #5ca8e2;
+    --primary-light-color: #4779ac;
+    --primary-lighter-color: #191e21;
+    --primary-lightest-color: #191a1c;
+
+    --box-shadow: 0 2px 10px 0 rgba(0,0,0,.35);
+
+    --odd-color: rgba(0,0,0,.1);
+
+    --menu-selected-background: rgba(0,0,0,.4);
+
+    --page-background-color: #1C1D1F;
+    --page-foreground-color: #d2dbde;
+    --page-secondary-foreground-color: #859399;
+    --separator-color: #000000;
+    --side-nav-background: #252628;
+
+    --code-background: #2a2c2f;
+
+    --tablehead-background: #2a2c2f;
+
+    --blockquote-background: #1f2022;
+    --blockquote-foreground: #77848a;
+
+    --warning-color: #b61825;
+    --warning-color-dark: #510a02;
+    --warning-color-darker: #f5b1aa;
+    --note-color: rgb(255, 183, 0);
+    --note-color-dark: #9f7300;
+    --note-color-darker: #645b39;
+    --deprecated-color: rgb(88, 90, 96);
+    --deprecated-color-dark: #262e37;
+    --deprecated-color-darker: #a0a5b0;
+    --bug-color: rgb(248, 113, 0);
+    --bug-color-dark: #812a00;
+    --bug-color-darker: #ffd3be;
+
+    --darkmode-toggle-button-icon: '🌛';
+}
+
+body {
+    color: var(--page-foreground-color);
+    background-color: var(--page-background-color);
+    font-size: var(--page-font-size);
+}
+
+
+
+a:link, a:visited, a:hover, a:focus, a:active {
+    color: var(--primary-color) !important;
+    font-weight: 500;
+}
+
+.wrapper{
+  width: 80%;
+  margin: auto;
+ }
