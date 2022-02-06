@@ -1,0 +1,4 @@
+<map id="Ra::Engine::Scene::EntityManager::removeEntity" name="Ra::Engine::Scene::EntityManager::removeEntity">
+<area shape="rect" id="node1" title="Remove an entity given its index. Also deletes the pointer." alt="" coords="5,5,219,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="267,5,425,47"/>
+</map>

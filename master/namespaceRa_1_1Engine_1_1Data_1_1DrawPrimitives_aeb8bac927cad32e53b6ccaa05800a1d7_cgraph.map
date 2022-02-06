@@ -1,0 +1,4 @@
+<map id="Ra::Engine::Data::DrawPrimitives::OBB" name="Ra::Engine::Data::DrawPrimitives::OBB">
+<area shape="rect" id="node1" title="Display a wireframe OBB." alt="" coords="5,13,280,39"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1Obb.html#ae30ba377e6fc93e47ed264f21740961c" title="Returns the position of the ith corner of the OBB ( world space )" alt="" coords="328,5,479,47"/>
+</map>

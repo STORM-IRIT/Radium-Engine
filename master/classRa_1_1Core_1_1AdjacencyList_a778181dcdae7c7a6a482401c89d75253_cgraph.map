@@ -1,0 +1,4 @@
+<map id="Ra::Core::AdjacencyList::isLeaf" name="Ra::Core::AdjacencyList::isLeaf">
+<area shape="rect" id="node1" title="Return true if the node is a leaf node." alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="228,5,403,47"/>
+</map>

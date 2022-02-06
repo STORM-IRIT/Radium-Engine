@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Scene::SkeletonComponent::getTransform" name="Ra::Engine::Scene::SkeletonComponent::getTransform">
+<area shape="rect" id="node1" title="Get the transform associated with the given RO index key." alt="" coords="5,39,252,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a143609e3224721a4f7e151ee9514534d" title="Returns true if a transform can be edited with the render object index given as a key." alt="" coords="300,5,509,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759" title=" " alt="" coords="329,71,481,112"/>
+</map>

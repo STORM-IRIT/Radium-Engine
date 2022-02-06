@@ -1,0 +1,23 @@
+<map id="Ra::Gui::RotateAroundCameraManipulator::handleKeyPressEvent" name="Ra::Gui::RotateAroundCameraManipulator::handleKeyPressEvent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,585,253,627"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a3f57b652fc1dc594927992e6ea0f0ca3" title=" " alt="" coords="308,287,543,328"/>
+<area shape="rect" id="node13" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#a21bfdf8a04a9846e34ae3abdfb71a5ab" title=" " alt="" coords="301,585,549,627"/>
+<area shape="rect" id="node16" href="$classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#af119063bb629c98481c0fe20f1b122d9" title="Set &#39;m_pivot&#39; world coordinate from screen coordinates &#39;x&#39; and &#39;y&#39;." alt="" coords="313,780,538,821"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="863,421,1043,463"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="616,5,796,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="1091,407,1271,448"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="863,253,1043,295"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a67f5d41f4d6814ffd247f6975feea06e" title=" " alt="" coords="616,384,796,425"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="633,71,779,112"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to position." alt="" coords="616,319,796,360"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="633,136,779,177"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a902febbc9ff356e3af2b62b1679ec338" title=" " alt="" coords="616,253,796,295"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="863,331,1043,372"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ad4b69eb9e3053659f6913684aceca6fa" title="Return the projection type." alt="" coords="616,552,796,593"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ab3aba6e1ced1cc6e560c00bf9402a72c" title="Set the projection type to projectionType." alt="" coords="616,617,796,659"/>
+<area shape="rect" id="node17" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="630,879,782,920"/>
+<area shape="rect" id="node18" href="$classRa_1_1Gui_1_1Viewer.html#a3f48aa1735b58664c3b3ed3e6505f225" title=" " alt="" coords="611,944,801,985"/>
+<area shape="rect" id="node19" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="630,683,782,724"/>
+<area shape="rect" id="node20" href="$classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a5bc0758a1edc9f6824ff695481b59db9" title=" " alt="" coords="597,748,815,789"/>
+<area shape="rect" id="node21" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a64dc74dc61ceafce1b143f93c16f88f0" title=" " alt="" coords="616,813,796,855"/>
+</map>

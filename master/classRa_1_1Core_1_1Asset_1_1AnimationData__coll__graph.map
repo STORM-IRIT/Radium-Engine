@@ -1,0 +1,18 @@
+<map id="Ra::Core::Asset::AnimationData" name="Ra::Core::Asset::AnimationData">
+<area shape="rect" id="node1" title=" " alt="" coords="87,2001,314,2328"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="5,1701,201,1823"/>
+<area shape="rect" id="node3" title="STL class." alt="" coords="59,1262,145,1339"/>
+<area shape="rect" id="node9" href="$structRa_1_1Core_1_1Asset_1_1HandleAnimation.html" title=" " alt="" coords="273,1600,515,1677"/>
+<area shape="rect" id="node4" title="STL class." alt="" coords="33,704,171,796"/>
+<area shape="rect" id="node5" href="$classfloat.html" title=" " alt="" coords="141,1854,191,1931"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html" title=" " alt="" coords="170,1064,399,1537"/>
+<area shape="rect" id="node7" title=" " alt="" coords="196,711,259,789"/>
+<area shape="rect" id="node8" title=" " alt="" coords="293,1847,495,1939"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="433,1071,667,1530"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html" title=" " alt="" coords="520,285,719,451"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="439,513,667,987"/>
+<area shape="rect" id="node12" title=" " alt="" coords="309,329,495,407"/>
+<area shape="rect" id="node13" title=" " alt="" coords="359,145,445,223"/>
+<area shape="rect" id="node14" title="STL class." alt="" coords="568,145,697,223"/>
+<area shape="rect" id="node15" title=" " alt="" coords="613,5,652,83"/>
+</map>

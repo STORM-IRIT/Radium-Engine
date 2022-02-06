@@ -1,0 +1,11 @@
+<map id="Ra::Core::Geometry::CatmullClarkSubdivider::prepare" name="Ra::Core::Geometry::CatmullClarkSubdivider::prepare">
+<area shape="rect" id="node1" title=" " alt="" coords="5,245,189,301"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a7a0c534ac15da7dc3e4c07627b143d79" title=" " alt="" coords="237,205,456,261"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="237,285,456,341"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a33aacc50dc2de71748ef7992115a5ed8" title=" " alt="" coords="504,5,723,61"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#ad17e4abf0f5c9a7f1ff25badaca3cf88" title=" " alt="" coords="504,85,723,141"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a3055f5b695c770af0b6ca3c3c566503d" title=" " alt="" coords="504,165,723,221"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a8883fedd70a8b0cde2ffe1ee5eb975bc" title=" " alt="" coords="504,245,723,301"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a93dd725e26a93ba606cbffe113c3e671" title=" " alt="" coords="504,325,723,381"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a8de03afcea2e0b23e9f368b0bc3f4611" title=" " alt="" coords="504,405,723,461"/>
+</map>

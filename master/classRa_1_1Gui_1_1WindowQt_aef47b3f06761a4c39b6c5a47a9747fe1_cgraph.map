@@ -1,0 +1,9 @@
+<map id="Ra::Gui::WindowQt::screenChanged" name="Ra::Gui::WindowQt::screenChanged">
+<area shape="rect" id="node1" title=" " alt="" coords="5,100,157,141"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html#a2643ef1e4f027f6967dc0dd362cf21dc" title=" " alt="" coords="205,100,357,141"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="605,5,757,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1WindowQt.html#a44dfd5a3bfdc9a9c285a6ccbd681999a" title=" " alt="" coords="405,71,557,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="605,136,757,177"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1WindowQt.html#a8562ae7db9d5118c81cbbbaa063617c5" title="Resize the OpenGL related part of the Window." alt="" coords="405,188,557,229"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1WindowQt.html#a44dcba0a79c9be83bb96b5bb0db1ab01" title="Initialize the openGL related part of the Window." alt="" coords="605,71,757,112"/>
+</map>

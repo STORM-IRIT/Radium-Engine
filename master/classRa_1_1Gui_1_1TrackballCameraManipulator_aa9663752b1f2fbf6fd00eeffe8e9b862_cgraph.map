@@ -1,0 +1,8 @@
+<map id="Ra::Gui::TrackballCameraManipulator::handleCameraPan" name="Ra::Gui::TrackballCameraManipulator::handleCameraPan">
+<area shape="rect" id="node1" title=" " alt="" coords="5,104,232,145"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="280,5,460,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a717adf25995d1f6a978fb4e0c30f9cec" title=" " alt="" coords="280,71,460,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="280,136,460,177"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="289,202,451,229"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="508,5,688,47"/>
+</map>

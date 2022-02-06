@@ -1,0 +1,4 @@
+<map id="Ra::Engine::Scene::DebugComponent" name="Ra::Engine::Scene::DebugComponent">
+<area shape="rect" id="node1" title="Component for debug drawing." alt="" coords="34,439,198,560"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="5,5,227,391"/>
+</map>

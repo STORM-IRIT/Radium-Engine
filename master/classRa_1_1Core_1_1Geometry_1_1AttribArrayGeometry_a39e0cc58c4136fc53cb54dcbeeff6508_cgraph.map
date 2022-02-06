@@ -1,0 +1,7 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::copyAttributes" name="Ra::Core::Geometry::AttribArrayGeometry::copyAttributes">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,172,127"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac6bb36601ef78ccc0997134b5a2df7f0" title="Base copy, does nothing." alt="" coords="220,5,436,47"/>
+<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="250,71,406,127"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="245,151,411,207"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="484,159,700,200"/>
+</map>

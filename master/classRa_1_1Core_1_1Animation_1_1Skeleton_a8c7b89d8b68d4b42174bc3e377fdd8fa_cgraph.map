@@ -1,0 +1,6 @@
+<map id="Ra::Core::Animation::Skeleton::getBonePoints" name="Ra::Core::Animation::Skeleton::getBonePoints">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,193,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1AdjacencyList.html#afb228941d27a01e44071d404e8b58aa4" title=" " alt="" coords="241,5,416,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253" title="Return true if the node is a leaf node." alt="" coords="241,71,416,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="464,71,639,112"/>
+</map>

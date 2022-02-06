@@ -1,0 +1,12 @@
+<map id="Ra::Engine::Scene::ItemEntry::isValid" name="Ra::Engine::Scene::ItemEntry::isValid">
+<area shape="rect" id="node1" title="Returns true if the item represents any valid object." alt="" coords="5,173,152,215"/>
+<area shape="rect" id="node2" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="451,47,661,88"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a11639733918487b58dbe9862b4cc9ca4" title="Check wether an entity with a given name exists or not." alt="" coords="200,43,403,84"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ae3edd3941dd9eee4cb1988318e47a4ca" title=" " alt="" coords="214,370,389,426"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee" title=" " alt="" coords="205,173,398,215"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd" title=" " alt="" coords="228,239,375,280"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6" title="Manager getters." alt="" coords="203,304,399,345"/>
+<area shape="rect" id="node10" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4" title="Returns true if the item represents a render object." alt="" coords="224,108,379,149"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID." alt="" coords="709,47,868,88"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="477,213,635,255"/>
+</map>

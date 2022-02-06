@@ -1,0 +1,17 @@
+<map id="Ra::Gui::TrackballCameraManipulator::TrackballCameraManipulator" name="Ra::Gui::TrackballCameraManipulator::TrackballCameraManipulator">
+<area shape="rect" id="node1" title="Default constructor." alt="" coords="5,215,223,271"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#a8a75d252e06bcec380a3ac7354a1febd" title=" " alt="" coords="271,222,463,263"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="776,134,956,175"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="1011,39,1191,81"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a67f5d41f4d6814ffd247f6975feea06e" title=" " alt="" coords="526,134,706,175"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="543,317,689,358"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="526,382,706,423"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to position." alt="" coords="526,69,706,110"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="543,447,689,489"/>
+<area shape="rect" id="node12" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592" title="Update the polar coordinates of the Camera w.r.t. the trackball center." alt="" coords="511,251,721,293"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="776,69,956,110"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="776,199,956,241"/>
+<area shape="rect" id="node13" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="769,330,963,371"/>
+<area shape="rect" id="node14" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="806,396,926,423"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a717adf25995d1f6a978fb4e0c30f9cec" title=" " alt="" coords="776,265,956,306"/>
+</map>

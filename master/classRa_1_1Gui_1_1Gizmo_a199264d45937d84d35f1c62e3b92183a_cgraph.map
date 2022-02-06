@@ -1,0 +1,10 @@
+<map id="Ra::Gui::Gizmo::~Gizmo" name="Ra::Gui::Gizmo::~Gizmo">
+<area shape="rect" id="node1" title=" " alt="" coords="5,78,185,105"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#ac7d9c1724b1e2d41df8155f4aae08919" title="Remove the render object from the component." alt="" coords="233,71,476,112"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a32a4bfb4e9b24644d680db3852099ff3" title="Shortcut to access the render object manager." alt="" coords="541,5,709,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a9dadff3e36e369d3922214f770076dc1" title=" " alt="" coords="524,71,727,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a596adc9933b3c9089e61ddde477aa7c6" title=" " alt="" coords="538,137,713,193"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#aed744089160c610607ce47a06f2edef5" title=" " alt="" coords="779,71,945,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ae3edd3941dd9eee4cb1988318e47a4ca" title=" " alt="" coords="775,137,949,193"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="997,144,1156,185"/>
+</map>

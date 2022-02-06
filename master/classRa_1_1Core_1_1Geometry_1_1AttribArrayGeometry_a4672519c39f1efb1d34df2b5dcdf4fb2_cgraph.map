@@ -1,0 +1,8 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::computeAabb" name="Ra::Core::Geometry::AttribArrayGeometry::computeAabb">
+<area shape="rect" id="node1" title="Compute bounding box." alt="" coords="5,125,172,181"/>
+<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a324dfab0d40a3794e27bf4d42e8e94c5" title=" " alt="" coords="225,5,381,61"/>
+<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a8b5f4f6093971b1691e92ab5d65cea05" title=" " alt="" coords="225,85,381,141"/>
+<area shape="rect" id="node4" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a5279cc29d76310a739c2764308b9c9d2" title=" " alt="" coords="225,165,381,221"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="220,245,387,301"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="435,253,651,294"/>
+</map>

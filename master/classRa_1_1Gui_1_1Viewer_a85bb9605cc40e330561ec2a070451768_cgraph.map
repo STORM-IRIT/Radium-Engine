@@ -1,0 +1,15 @@
+<map id="Ra::Gui::Viewer::mousePressEvent" name="Ra::Gui::Viewer::mousePressEvent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,250,215,291"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#af99c80d12a451e71c935f28987d93c77" title=" " alt="" coords="263,217,480,258"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a656403dc954519f25c9ea13a24a7b4a1" title=" " alt="" coords="265,282,477,323"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815" title="return the last, still pressed, key code, &#45;1 if no key currently pressed" alt="" coords="576,5,717,32"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2bc66a85ebe6a406ac48ce578a057d9d" title=" " alt="" coords="536,57,757,98"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda" title=" " alt="" coords="528,122,765,163"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1Viewer.html#abfd1b41c074766822a5a0578542db00d" title="Access to gizmo manager." alt="" coords="550,187,743,229"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1Viewer.html#ab383cc0114fb06a7694cf6e6e644ea75" title=" " alt="" coords="529,253,764,280"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a91c5f8e143970f59f04c264a7870049e" title=" " alt="" coords="554,304,739,360"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1GizmoManager.html#ab63207c7a3d7afb2dfd735ecf5bd3005" title="Callback when a drawable is picked." alt="" coords="559,385,735,426"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID." alt="" coords="567,450,726,491"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1Index.html#af5e8b5a559bc791db0fe2c020740e21a" title=" " alt="" coords="567,515,726,557"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1Gizmo.html#a6ad53eca5654b426a0b467ab716a2704" title="Called when one of the drawables of the gizmo has been selected." alt="" coords="813,392,1047,419"/>
+</map>

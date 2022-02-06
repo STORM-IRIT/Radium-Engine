@@ -1,0 +1,11 @@
+<map id="Ra::Gui::BaseApplication::createConnections" name="Ra::Gui::BaseApplication::createConnections">
+<area shape="rect" id="node1" title="Create signal / slots connections." alt="" coords="5,136,188,177"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1BaseApplication.html#a9576c0542f29e5929e0efd229cf3f1d9" title=" " alt="" coords="236,5,419,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1BaseApplication.html#a4f8e0209256e00daa18315b201bc3df1" title=" " alt="" coords="236,71,419,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d" title="call deinitializeGL if needed, with context activated" alt="" coords="251,136,403,177"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1BaseApplication.html#afb15f30d1be4f32933204782cc797d43" title="slot called when the OpenGL need to be initialized" alt="" coords="236,201,419,243"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1BaseApplication.html#a6c00e85efcad67823ec51dad9d3a0d98" title=" " alt="" coords="236,267,419,308"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c" title="DeInitialize the OpenGL." alt="" coords="467,71,619,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="467,136,619,177"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="467,201,619,243"/>
+</map>

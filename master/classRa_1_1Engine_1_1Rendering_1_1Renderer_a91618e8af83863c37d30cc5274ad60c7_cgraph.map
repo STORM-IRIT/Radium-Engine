@@ -1,0 +1,8 @@
+<map id="Ra::Engine::Rendering::Renderer::grabFrame" name="Ra::Engine::Rendering::Renderer::grabFrame">
+<area shape="rect" id="node1" title=" " alt="" coords="5,123,172,164"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422" title="Bind the texture to enable its use in a shader." alt="" coords="234,5,421,47"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="244,71,411,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6d0b36b4cca4646de24d1691d929d6c0" title=" " alt="" coords="220,123,435,164"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a581ce6e7e5a42451ffda65d4de48f270" title=" " alt="" coords="234,188,421,229"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a84a003d44d99296a324a4855d18b9587" title=" " alt="" coords="234,253,421,295"/>
+</map>

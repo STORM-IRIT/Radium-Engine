@@ -1,0 +1,12 @@
+<map id="Ra::Gui::TrackballCameraManipulator::handleWheelEvent" name="Ra::Gui::TrackballCameraManipulator::handleWheelEvent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,225,236,266"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda" title=" " alt="" coords="286,5,523,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="315,86,495,127"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="315,151,495,193"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#a1a32a812f552b3a424539018ef3681fa" title=" " alt="" coords="285,217,524,273"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#acd8502e9842b5f79c47a6288c3f7fecd" title=" " alt="" coords="284,298,525,339"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="331,363,478,405"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="331,429,478,470"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="573,269,727,296"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title=" " alt="" coords="775,269,949,296"/>
+</map>

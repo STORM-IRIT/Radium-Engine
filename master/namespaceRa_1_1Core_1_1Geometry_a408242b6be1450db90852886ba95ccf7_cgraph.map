@@ -1,0 +1,5 @@
+<map id="Ra::Core::Geometry::cotangentWeightLaplacian" name="Ra::Core::Geometry::cotangentWeightLaplacian">
+<area shape="rect" id="node1" title="WARNING: THIS IMPLEMENTATION IS FASTER THAN DOING L = D &#45; A." alt="" coords="5,23,208,65"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a8667e211f2182821346ba4bcfe07b053" title=" " alt="" coords="256,5,419,32"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="256,56,419,83"/>
+</map>

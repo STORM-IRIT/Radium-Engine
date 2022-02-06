@@ -1,0 +1,6 @@
+<map id="Ra::Gui::Viewer::processPicking" name="Ra::Gui::Viewer::processPicking">
+<area shape="rect" id="node1" title="Emits signals corresponding to picking requests." alt="" coords="5,71,185,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac42e4205ffd8ebb7aa736b78da26dae1" title=" " alt="" coords="233,5,448,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab8bd7377df698283d3f916cb53d90be5" title=" " alt="" coords="234,71,447,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1PickingManager.html#ad0c8c3cd60c98c814796941670884c8e" title=" " alt="" coords="250,136,431,177"/>
+</map>

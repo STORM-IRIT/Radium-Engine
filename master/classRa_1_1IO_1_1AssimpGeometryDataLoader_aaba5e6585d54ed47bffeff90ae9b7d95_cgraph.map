@@ -1,0 +1,5 @@
+<map id="Ra::IO::AssimpGeometryDataLoader::fetchBitangents" name="Ra::IO::AssimpGeometryDataLoader::fetchBitangents">
+<area shape="rect" id="node1" title="Fill data with the vertex bitangent vectors from mesh." alt="" coords="5,27,219,69"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title=" " alt="" coords="284,5,444,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a1e3871c31bed0bd00be8d06c3452581d" title="Return the list of vertex bitangent vectors." alt="" coords="267,57,461,98"/>
+</map>

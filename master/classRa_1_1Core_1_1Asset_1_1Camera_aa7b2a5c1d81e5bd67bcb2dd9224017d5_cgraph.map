@@ -1,0 +1,10 @@
+<map id="Ra::Core::Asset::Camera::fitZRange" name="Ra::Core::Asset::Camera::fitZRange">
+<area shape="rect" id="node1" title="Fit the Z&#45;range of the camera to the scene&#39;s aabb. This will maximize z&#45;buffer precision." alt="" coords="5,71,185,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="233,5,413,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="233,71,413,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="233,136,413,177"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="468,55,635,82"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" title="Build a projection matrix from the parameters of the view volume Implements the algorithms described ..." alt="" coords="461,107,641,148"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="689,143,852,170"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="461,224,641,265"/>
+</map>

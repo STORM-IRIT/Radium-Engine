@@ -1,0 +1,4 @@
+<map id="Ra::Gui::GizmoManager::handlePickingResult" name="Ra::Gui::GizmoManager::handlePickingResult">
+<area shape="rect" id="node1" title="Callback when a drawable is picked." alt="" coords="5,5,181,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo.html#a6ad53eca5654b426a0b467ab716a2704" title="Called when one of the drawables of the gizmo has been selected." alt="" coords="229,13,463,39"/>
+</map>

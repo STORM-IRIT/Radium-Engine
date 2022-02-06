@@ -1,0 +1,6 @@
+<map id="Ra::Core::Geometry::RayCastCylinder" name="Ra::Core::Geometry::RayCastCylinder">
+<area shape="rect" id="node1" title="Intersect a ray with a cylinder with a and b as caps centers and given radius." alt="" coords="5,27,156,69"/>
+<area shape="rect" id="node2" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="415,5,535,32"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" title="Intersect a ray with an infinite plane defined by point A and normal." alt="" coords="210,27,361,69"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="204,93,367,120"/>
+</map>

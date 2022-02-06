@@ -1,0 +1,9 @@
+<map id="Ra::IO::TinyPlyFileLoader::loadFile" name="Ra::IO::TinyPlyFileLoader::loadFile">
+<area shape="rect" id="node1" title="Try to load file, returns nullptr in case of failure." alt="" coords="5,155,189,197"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1IO.html#a3ed915daf74c8fa1a7f164baf4e12869" title=" " alt="" coords="237,5,453,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1FileData.html#a048f704e4b2e73566b222495658923bf" title=" " alt="" coords="254,57,437,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1FileData.html#a7b6450bf1f52dadbaa412026505fa617" title="QUERY." alt="" coords="254,122,437,163"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1FileData.html#a335d1fa7dae37b8297caa6f749d8b52e" title=" " alt="" coords="254,187,437,229"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1IO.html#aa1ce9d4e01a51f9464c1f05767584b18" title=" " alt="" coords="259,253,432,280"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1FileData.html#a3b7b46ecc6949a7f86e3160c04cda9bb" title=" " alt="" coords="254,305,437,346"/>
+</map>

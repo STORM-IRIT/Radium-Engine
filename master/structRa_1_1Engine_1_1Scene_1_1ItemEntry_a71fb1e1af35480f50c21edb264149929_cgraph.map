@@ -1,0 +1,11 @@
+<map id="Ra::Engine::Scene::ItemEntry::isSelectable" name="Ra::Engine::Scene::ItemEntry::isSelectable">
+<area shape="rect" id="node1" title="Returns true if the item can be selected." alt="" coords="5,116,177,157"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a4c1e2cbb7ba93d4ef2edf23b693cc643" title=" " alt="" coords="236,5,411,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#abe7be820a363366c0a5f2f5f45212f59" title=" " alt="" coords="236,71,411,127"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6" title="Manager getters." alt="" coords="225,152,421,193"/>
+<area shape="rect" id="node7" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4" title="Returns true if the item represents a render object." alt="" coords="246,217,401,259"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ae3edd3941dd9eee4cb1988318e47a4ca" title=" " alt="" coords="487,78,662,134"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="728,119,887,160"/>
+<area shape="rect" id="node8" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="469,217,680,259"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID." alt="" coords="728,217,887,259"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Scene::SystemEntity::dbgCmp" name="Ra::Engine::Scene::SystemEntity::dbgCmp">
+<area shape="rect" id="node1" title="Access the debug component." alt="" coords="5,39,176,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#a3ca3bcd93a56efca0b1d2d1c1f288c23" title="Get component with a given name." alt="" coords="248,5,411,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#aa850a524cb43c5f0e6e66db099b08bdf" title=" " alt="" coords="224,71,435,112"/>
+</map>

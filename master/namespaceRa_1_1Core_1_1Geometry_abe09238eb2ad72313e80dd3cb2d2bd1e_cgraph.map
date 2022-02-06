@@ -1,0 +1,14 @@
+<map id="Ra::Core::Geometry::makeSharpBox" name="Ra::Core::Geometry::makeSharpBox">
+<area shape="rect" id="node1" title="Create an axis&#45;aligned cubic mesh." alt="" coords="5,173,156,214"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a252d9466c6cb8dba0c76f322cbe99f8b" title="Check that the MultiIndexedGeometry is well built, asserting when it is not." alt="" coords="224,5,403,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a3a3a1458f93f23c7c8663bc3d52f7841" title=" " alt="" coords="230,85,397,141"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title=" " alt="" coords="204,326,423,367"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a646faabae9b936589fe03d8a9d2002e9" title="Set normals." alt="" coords="230,245,397,301"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices." alt="" coords="230,165,397,221"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59" title=" " alt="" coords="495,5,662,61"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="495,85,662,141"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="735,93,951,134"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="495,312,662,368"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="471,246,687,287"/>
+<area shape="rect" id="node12" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="501,165,657,221"/>
+</map>

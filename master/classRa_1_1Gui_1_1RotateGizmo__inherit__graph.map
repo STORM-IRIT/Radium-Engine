@@ -1,0 +1,4 @@
+<map id="Ra::Gui::RotateGizmo" name="Ra::Gui::RotateGizmo">
+<area shape="rect" id="node1" title="A RotateGizmo manipulates the rotational part of a transformation." alt="" coords="21,380,184,531"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo.html" title=" " alt="" coords="5,5,200,332"/>
+</map>

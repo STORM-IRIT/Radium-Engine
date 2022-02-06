@@ -1,0 +1,4 @@
+<map id="Ra::Engine::Scene::UiComponent" name="Ra::Engine::Scene::UiComponent">
+<area shape="rect" id="node1" title="Component for UI drawing." alt="" coords="43,439,189,545"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="5,5,227,391"/>
+</map>

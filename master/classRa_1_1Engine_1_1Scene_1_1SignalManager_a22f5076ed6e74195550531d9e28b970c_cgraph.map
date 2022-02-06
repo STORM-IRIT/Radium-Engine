@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Scene::SignalManager::fireRenderObjectRemoved" name="Ra::Engine::Scene::SignalManager::fireRenderObjectRemoved">
+<area shape="rect" id="node1" title="Notifies all observers of a render object removal." alt="" coords="5,31,241,87"/>
+<area shape="rect" id="node2" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4" title="Returns true if the item represents a render object." alt="" coords="289,39,444,80"/>
+<area shape="rect" id="node3" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="492,5,703,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="518,71,677,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID." alt="" coords="751,5,909,47"/>
+</map>

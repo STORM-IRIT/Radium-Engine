@@ -1,0 +1,12 @@
+<map id="Ra::Core::Animation::Skeleton::setTransform" name="Ra::Core::Animation::Skeleton::setTransform">
+<area shape="rect" id="node1" title=" " alt="" coords="5,137,184,179"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1AdjacencyList.html#afb228941d27a01e44071d404e8b58aa4" title=" " alt="" coords="499,36,673,77"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a8c7b89d8b68d4b42174bc3e377fdd8fa" title=" " alt="" coords="247,39,435,80"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1AdjacencyList.html#a45d58d25c05abf04f4f6526ef3ae5a26" title=" " alt="" coords="499,232,673,273"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5b8b7122faf6e4c0313bf3946ce0a801" title=" " alt="" coords="235,104,448,145"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a02a967e5692d4d1f70d3d42638143727" title=" " alt="" coords="232,169,451,211"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3" title=" " alt="" coords="265,287,417,328"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253" title="Return true if the node is a leaf node." alt="" coords="499,101,673,143"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="721,135,896,176"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1AdjacencyList.html#a9bf4ac88fdea50ef9916b641617d4827" title="Return true if a node is a root node." alt="" coords="499,167,673,208"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Ra::Engine::Scene::CameraManager::unregisterComponent" name="Ra::Engine::Scene::CameraManager::unregisterComponent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,284,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1System.html#adc55c303d8378bee461f1f14f385100e" title=" " alt="" coords="332,39,552,80"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#aaaac457b6b1c62d618f626c9c6771ad2" title="Return the entity the component belongs to." alt="" coords="605,5,769,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#ad938ddceb5b48fc2c0ba6ef699ac3cfa" title="Set the system to which the component belongs." alt="" coords="600,71,775,112"/>
+</map>

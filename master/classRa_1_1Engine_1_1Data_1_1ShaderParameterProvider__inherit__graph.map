@@ -1,0 +1,12 @@
+<map id="Ra::Engine::Data::ShaderParameterProvider" name="Ra::Engine::Data::ShaderParameterProvider">
+<area shape="rect" id="node1" title=" " alt="" coords="589,5,813,156"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="360,204,552,443"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html" title=" " alt="" coords="577,263,826,384"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html" title=" " alt="" coords="850,226,1051,421"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title=" " alt="" coords="5,491,216,773"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html" title=" " alt="" coords="240,520,451,744"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title=" " alt="" coords="475,542,658,722"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" title=" " alt="" coords="683,498,891,766"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title=" " alt="" coords="339,821,551,957"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="575,829,799,950"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Ra::IO::AssimpGeometryDataLoader::loadMaterial" name="Ra::IO::AssimpGeometryDataLoader::loadMaterial">
+<area shape="rect" id="node1" title="Fill data with the Material data from material." alt="" coords="5,27,219,69"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title=" " alt="" coords="284,5,444,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4df3ae33c97163e9f31cc2f59e9a8374" title="Set the MaterialData for the object." alt="" coords="267,57,461,98"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::clear" name="Ra::Core::Geometry::AttribArrayGeometry::clear">
+<area shape="rect" id="node1" title="Erases all data, making the AttribArrayGeometry empty." alt="" coords="5,35,172,91"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda" title="clear all attribs, invalidate handles." alt="" coords="220,5,436,47"/>
+<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="250,71,406,127"/>
+</map>

@@ -1,0 +1,22 @@
+<map id="Ra::Gui::TrackballCameraManipulator::handleMouseMoveEvent" name="Ra::Gui::TrackballCameraManipulator::handleMouseMoveEvent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,407,273,448"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="355,5,535,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a627f8c3e741a1d0f305886f1d8375de3" title="Return the height of the viewport." alt="" coords="355,71,535,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="844,159,1024,200"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2b2f8b09a65409166a96b9bb30e3ee20" title="Return the width of the viewport." alt="" coords="355,407,535,448"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#a1a32a812f552b3a424539018ef3681fa" title=" " alt="" coords="325,538,564,594"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#aa9663752b1f2fbf6fd00eeffe8e9b862" title=" " alt="" coords="331,276,558,317"/>
+<area shape="rect" id="node14" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#abb2d7eddd3a1d067d79d8963125dbb48" title=" " alt="" coords="321,341,568,383"/>
+<area shape="rect" id="node17" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#acd8502e9842b5f79c47a6288c3f7fecd" title=" " alt="" coords="324,472,565,513"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="365,619,524,660"/>
+<area shape="rect" id="node19" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="371,684,518,725"/>
+<area shape="rect" id="node20" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="371,749,518,791"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="629,553,783,579"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title=" " alt="" coords="847,553,1021,579"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="616,188,796,229"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a717adf25995d1f6a978fb4e0c30f9cec" title=" " alt="" coords="616,319,796,360"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="616,253,796,295"/>
+<area shape="rect" id="node13" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="625,385,787,411"/>
+<area shape="rect" id="node15" href="$namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8" title=" " alt="" coords="632,435,780,462"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="616,487,796,528"/>
+</map>

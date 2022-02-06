@@ -1,0 +1,12 @@
+<map id="Ra::Engine::Data::BlinnPhongMaterial::registerMaterial" name="Ra::Engine::Data::BlinnPhongMaterial::registerMaterial">
+<area shape="rect" id="node1" title=" " alt="" coords="5,203,216,245"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="301,5,483,61"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" title=" " alt="" coords="301,85,483,141"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a96117e0c746c30ea97cda45c0e82c3a2" title=" " alt="" coords="287,166,497,207"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#a67b629b682664ad298fb629180d6a359" title=" " alt="" coords="295,232,489,288"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5a45ee7e1366b9abd85ae8701e9239b7" title=" " alt="" coords="289,312,495,368"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452" title=" " alt="" coords="264,393,520,434"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ada1d8dcd8956d77a89ad351ae305de92" title=" " alt="" coords="577,13,760,54"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1Material.html#a99184fa8c3c787b18737bea7dd1e1a1f" title=" " alt="" coords="573,166,765,207"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="568,393,769,434"/>
+</map>

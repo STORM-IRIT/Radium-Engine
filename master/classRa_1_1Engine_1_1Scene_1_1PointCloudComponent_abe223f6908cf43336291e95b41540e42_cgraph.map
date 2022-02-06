@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Scene::PointCloudComponent::setupIO" name="Ra::Engine::Scene::PointCloudComponent::setupIO">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,172,87"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#aaaac457b6b1c62d618f626c9c6771ad2" title="Return the entity the component belongs to." alt="" coords="248,5,412,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html#abedeb5c4cc9dba8c7a60518dc676d5c6" title=" " alt="" coords="220,71,440,112"/>
+</map>

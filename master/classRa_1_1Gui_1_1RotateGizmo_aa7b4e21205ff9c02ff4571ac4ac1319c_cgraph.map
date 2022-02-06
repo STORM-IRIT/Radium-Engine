@@ -1,0 +1,16 @@
+<map id="Ra::Gui::RotateGizmo::RotateGizmo" name="Ra::Gui::RotateGizmo::RotateGizmo">
+<area shape="rect" id="node1" title=" " alt="" coords="5,176,168,217"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo.html#a78438f02ada2e62660101858196aec71" title="add a render object to display the Gizmo" alt="" coords="222,41,419,83"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1Gizmo.html#a66277d3ca6c92b29f0335e490b334cc4" title=" " alt="" coords="216,111,425,152"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1RotateGizmo.html#ae2bb91bda019135fbd93be06fa1fdb62" title="Called every time the underlying transform may have changed." alt="" coords="239,176,402,217"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a815c49137e348ae161fb3762f8c5b1ab" title="Release lock on vertices positions." alt="" coords="237,242,404,298"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a7f57cb8c0c0a79c2c69bffe5b8a20357" title=" " alt="" coords="237,322,404,378"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c" title="Add a new render object to the component. This adds the RO to the manager for drawing." alt="" coords="473,37,691,79"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a32a4bfb4e9b24644d680db3852099ff3" title="Shortcut to access the render object manager." alt="" coords="756,5,924,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a9dadff3e36e369d3922214f770076dc1" title=" " alt="" coords="739,71,941,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#aed744089160c610607ce47a06f2edef5" title=" " alt="" coords="989,71,1155,112"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" title=" " alt="" coords="491,103,673,159"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1Gizmo.html#a75595aa737702bdda5306e8421c98dc5" title="read access to the gizmo render objects id" alt="" coords="509,183,655,210"/>
+<area shape="rect" id="node11" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="501,234,663,261"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="474,307,690,348"/>
+</map>

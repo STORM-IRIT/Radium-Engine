@@ -1,0 +1,4 @@
+<map id="Ra::Core::Math::saturate" name="Ra::Core::Math::saturate">
+<area shape="rect" id="node1" title="Clamps the value between 0 and 1." alt="" coords="5,5,185,32"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="233,5,400,32"/>
+</map>

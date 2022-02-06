@@ -1,0 +1,4 @@
+<map id="Ra::Gui::KeyMappingManager::addListener" name="Ra::Gui::KeyMappingManager::addListener">
+<area shape="rect" id="node1" title="Add a callback, triggered when configuration is load or reloaded." alt="" coords="5,5,220,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d" title=" " alt="" coords="268,5,465,47"/>
+</map>

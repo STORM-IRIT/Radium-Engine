@@ -1,0 +1,4 @@
+<map id="Ra::Gui::Viewer::enablePostProcess" name="Ra::Gui::Viewer::enablePostProcess">
+<area shape="rect" id="node1" title="Toggle the post&#45;process effetcs." alt="" coords="5,5,208,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a4087e3192218b75f636bbf11d35f502f" title=" " alt="" coords="256,5,475,47"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Ra::IO::AssimpGeometryDataLoader::fetchVertices" name="Ra::IO::AssimpGeometryDataLoader::fetchVertices">
+<area shape="rect" id="node1" title="Fill data with the vertices from mesh." alt="" coords="5,27,219,69"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title=" " alt="" coords="284,5,444,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a343a1ef88bb043988108858b6c6de313" title="Return the list of vertices." alt="" coords="267,57,461,98"/>
+</map>

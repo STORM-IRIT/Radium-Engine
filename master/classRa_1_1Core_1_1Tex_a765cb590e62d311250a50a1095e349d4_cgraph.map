@@ -1,0 +1,5 @@
+<map id="Ra::Core::Tex::fetch" name="Ra::Core::Tex::fetch">
+<area shape="rect" id="node1" title="Tri&#45;linear interpolation of the grid values at position v." alt="" coords="5,42,153,69"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#a17110e2c83f72420d5b07e308f7f321e" title=" " alt="" coords="205,5,356,47"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#aa3b8bd54c48c000e4881728aec39ee7d" title="Component&#45;wise trunc() function on a floating&#45;point vector." alt="" coords="201,71,360,98"/>
+</map>

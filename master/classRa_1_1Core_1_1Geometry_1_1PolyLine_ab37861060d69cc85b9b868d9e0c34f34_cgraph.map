@@ -1,0 +1,4 @@
+<map id="Ra::Core::Geometry::PolyLine::setPoints" name="Ra::Core::Geometry::PolyLine::setPoints">
+<area shape="rect" id="node1" title="Update the points of the polyline." alt="" coords="5,5,159,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a947ec2636d3ec6f98828787645f05f05" title="Update the precomputed values after new points have been set." alt="" coords="207,5,357,47"/>
+</map>

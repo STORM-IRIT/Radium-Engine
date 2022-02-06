@@ -1,0 +1,4 @@
+<map id="Ra::IO::AssimpGeometryDataLoader::sceneHasGeometry" name="Ra::IO::AssimpGeometryDataLoader::sceneHasGeometry">
+<area shape="rect" id="node1" title="Return true if the given scene has geometry data." alt="" coords="5,5,219,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5d494bbdf71dd227648375b2c59d74a8" title="Return the number of AssImp geometry data in the given scene." alt="" coords="267,5,480,47"/>
+</map>

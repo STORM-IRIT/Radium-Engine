@@ -1,0 +1,18 @@
+<map id="Ra::Engine::Scene::SkeletonComponent::handleSkeletonLoading" name="Ra::Engine::Scene::SkeletonComponent::handleSkeletonLoading">
+<area shape="rect" id="node1" title="Create the skeleton from the given data." alt="" coords="5,319,267,375"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Asset.html#af3efc17e534a434b98a1a0bca354eff7" title=" " alt="" coords="315,242,541,269"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119" title="Acces to the name of the asset." alt="" coords="330,293,526,335"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759" title=" " alt="" coords="352,359,504,400"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c68c776ddd42eff4a3f5b880a39667d" title=" " alt="" coords="339,424,517,465"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#aab9ea2ec9b36591fb082ccee84171367" title=" " alt="" coords="617,5,769,47"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#af1dfd12eba28ffeb3cce0c489fe786f8" title=" " alt="" coords="589,71,796,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a137536338beb29e1044d72dc31027f77" title=" " alt="" coords="589,136,796,177"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#afb51938492c7b41091319d9bcb296978" title=" " alt="" coords="589,201,796,243"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#aea7fbe6c7fc46024a667f3364b7385c1" title=" " alt="" coords="589,267,796,308"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e" title=" " alt="" coords="605,332,780,373"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a24e42a775486b21072e824ed0d83846e" title=" " alt="" coords="589,397,796,439"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3" title=" " alt="" coords="617,463,769,504"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1AdjacencyList.html#ae842bd4174073b36bbe9b63b5a86b4b3" title="Return the index of the added leaf." alt="" coords="844,5,1019,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="1067,5,1241,47"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html#a669862596d63a98a032123f739fc989a" title=" " alt="" coords="855,332,1007,373"/>
+</map>

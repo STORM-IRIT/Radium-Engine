@@ -1,0 +1,12 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="5,163,188,204"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="251,111,443,138"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html" title=" " alt="" coords="236,163,457,204"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html" title=" " alt="" coords="246,228,447,269"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title=" " alt="" coords="505,5,716,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html" title=" " alt="" coords="505,71,716,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title=" " alt="" coords="519,136,702,177"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" title=" " alt="" coords="507,201,715,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title=" " alt="" coords="770,107,982,148"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="764,173,988,199"/>
+</map>
