@@ -466,6 +466,7 @@ struct getType<Vector1ui> {
 
 /**
  * \brief A single layer MultiIndexedGeometry.
+ *
  * This class actually provide compatibility with old geometry with a main layer.
  * Main layer contains indices of a specific type (point, line, triangle, poly).
  * Derived classes explicit the kind of indices of the main layer.
