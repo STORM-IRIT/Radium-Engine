@@ -1,0 +1,6 @@
+<map id="Ra::Engine::Scene::Entity::addComponent" name="Ra::Engine::Scene::Entity::addComponent">
+<area shape="rect" id="node1" title="Add a component to the given entity. Component ownership is transfered to the entity." alt="" coords="5,71,172,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#a3ca3bcd93a56efca0b1d2d1c1f288c23" title="Get component with a given name." alt="" coords="221,5,384,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e" title="Return the component&#39;s name." alt="" coords="220,71,385,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#ad44b5414496c676d53ca19f74c937bd3" title="Set entity the component is part of. This method is called by the entity." alt="" coords="221,136,384,177"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Ra::Gui::SelectionManager::currentItem" name="Ra::Gui::SelectionManager::currentItem">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,200,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1ItemModel.html#abb97db6db07348c4303cf54cd2734ceb" title=" " alt="" coords="272,37,419,79"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1SelectionManager.html#aa377708ea2b68d031b452915e144dc5a" title=" " alt="" coords="248,103,443,144"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1TreeModel.html#a40eebac048f0264815de6a0b5f3b6f53" title="Get the tree item corresponding to the given index." alt="" coords="491,5,635,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1TreeModel.html#ae833e6cbc0023636e3cf93e828c4bdf7" title=" " alt="" coords="491,71,635,112"/>
+</map>

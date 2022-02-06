@@ -1,0 +1,62 @@
+<map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/IO/AssimpLoader/AssimpFileLoader.cpp" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/IO/AssimpLoader/AssimpFileLoader.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="3917,5,4179,76"/>
+<area shape="rect" id="node2" href="$AssimpFileLoader_8hpp.html" title=" " alt="" coords="79,363,286,404"/>
+<area shape="rect" id="node11" title=" " alt="" coords="3971,765,4051,792"/>
+<area shape="rect" id="node15" href="$FileData_8hpp.html" title=" " alt="" coords="2680,124,2859,151"/>
+<area shape="rect" id="node52" href="$StringUtils_8hpp.html" title=" " alt="" coords="668,534,855,561"/>
+<area shape="rect" id="node53" title=" " alt="" coords="4827,124,4989,151"/>
+<area shape="rect" id="node54" title=" " alt="" coords="5013,124,5136,151"/>
+<area shape="rect" id="node55" href="$AssimpAnimationDataLoader_8hpp.html" title=" " alt="" coords="3869,363,4120,404"/>
+<area shape="rect" id="node57" href="$AssimpCameraDataLoader_8hpp.html" title=" " alt="" coords="4144,363,4379,404"/>
+<area shape="rect" id="node58" href="$AssimpGeometryDataLoader_8hpp.html" title=" " alt="" coords="4402,363,4651,404"/>
+<area shape="rect" id="node59" href="$AssimpHandleDataLoader_8hpp.html" title=" " alt="" coords="3513,363,3743,404"/>
+<area shape="rect" id="node60" href="$AssimpLightDataLoader_8hpp.html" title=" " alt="" coords="3795,273,4011,315"/>
+<area shape="rect" id="node3" title=" " alt="" coords="75,452,231,479"/>
+<area shape="rect" id="node4" href="$FileLoaderInterface_8hpp.html" title=" " alt="" coords="394,534,643,561"/>
+<area shape="rect" id="node14" href="$RaIO_8hpp.html" title=" " alt="" coords="3892,452,3991,479"/>
+<area shape="rect" id="node5" title=" " alt="" coords="252,616,311,643"/>
+<area shape="rect" id="node6" title=" " alt="" coords="1170,616,1233,643"/>
+<area shape="rect" id="node7" href="$RaCore_8hpp.html" title=" " alt="" coords="1803,616,1933,643"/>
+<area shape="rect" id="node8" href="$CoreMacros_8hpp.html" title=" " alt="" coords="2927,691,3089,717"/>
+<area shape="rect" id="node9" title=" " alt="" coords="2884,765,2953,792"/>
+<area shape="rect" id="node10" title=" " alt="" coords="2977,765,3039,792"/>
+<area shape="rect" id="node12" title=" " alt="" coords="1849,765,1924,792"/>
+<area shape="rect" id="node13" title=" " alt="" coords="3063,765,3127,792"/>
+<area shape="rect" id="node16" title=" " alt="" coords="4169,534,4247,561"/>
+<area shape="rect" id="node17" href="$FileData_8inl.html" title=" " alt="" coords="1913,199,2084,225"/>
+<area shape="rect" id="node18" href="$AnimationData_8hpp.html" title=" " alt="" coords="941,281,1163,307"/>
+<area shape="rect" id="node32" href="$Log_8hpp.html" title=" " alt="" coords="879,534,1020,561"/>
+<area shape="rect" id="node35" href="$Camera_8hpp.html" title=" " alt="" coords="2651,370,2826,397"/>
+<area shape="rect" id="node38" href="$GeometryData_8hpp.html" title=" " alt="" coords="2055,281,2275,307"/>
+<area shape="rect" id="node45" href="$HandleData_8hpp.html" title=" " alt="" coords="1173,370,1374,397"/>
+<area shape="rect" id="node47" href="$LightData_8hpp.html" title=" " alt="" coords="1699,370,1885,397"/>
+<area shape="rect" id="node51" href="$VolumeData_8hpp.html" title=" " alt="" coords="2423,370,2627,397"/>
+<area shape="rect" id="node19" href="$KeyFramedValue_8hpp.html" title=" " alt="" coords="2851,363,3051,404"/>
+<area shape="rect" id="node28" href="$AnimationTime_8hpp.html" title=" " alt="" coords="2708,452,2932,479"/>
+<area shape="rect" id="node30" href="$AssetData_8hpp.html" title=" " alt="" coords="814,452,1005,479"/>
+<area shape="rect" id="node31" href="$AnimationData_8inl.html" title=" " alt="" coords="413,370,627,397"/>
+<area shape="rect" id="node20" title=" " alt="" coords="2303,534,2353,561"/>
+<area shape="rect" id="node21" title=" " alt="" coords="3825,452,3868,479"/>
+<area shape="rect" id="node22" href="$Math_8hpp.html" title=" " alt="" coords="3045,534,3200,561"/>
+<area shape="rect" id="node24" href="$Types_8hpp.html" title=" " alt="" coords="3527,452,3649,479"/>
+<area shape="rect" id="node23" title=" " alt="" coords="3080,616,3165,643"/>
+<area shape="rect" id="node25" title=" " alt="" coords="3375,534,3467,561"/>
+<area shape="rect" id="node26" title=" " alt="" coords="3225,534,3351,561"/>
+<area shape="rect" id="node27" title=" " alt="" coords="3543,534,3649,561"/>
+<area shape="rect" id="node29" title=" " alt="" coords="2573,534,2632,561"/>
+<area shape="rect" id="node33" title=" " alt="" coords="953,616,1012,643"/>
+<area shape="rect" id="node34" title=" " alt="" coords="1036,616,1103,643"/>
+<area shape="rect" id="node36" href="$Observable_8hpp.html" title=" " alt="" coords="2111,452,2303,479"/>
+<area shape="rect" id="node37" href="$Camera_8inl.html" title=" " alt="" coords="3234,452,3401,479"/>
+<area shape="rect" id="node39" href="$VectorArray_8hpp.html" title=" " alt="" coords="1855,452,2087,479"/>
+<area shape="rect" id="node41" href="$Attribs_8hpp.html" title=" " alt="" coords="2085,370,2246,397"/>
+<area shape="rect" id="node42" href="$Index_8hpp.html" title=" " alt="" coords="2428,452,2583,479"/>
+<area shape="rect" id="node43" href="$MaterialData_8hpp.html" title=" " alt="" coords="805,370,1014,397"/>
+<area shape="rect" id="node44" href="$GeometryData_8inl.html" title=" " alt="" coords="3125,370,3337,397"/>
+<area shape="rect" id="node40" href="$AlignedStdVector_8hpp.html" title=" " alt="" coords="1449,527,1649,568"/>
+<area shape="rect" id="node46" href="$HandleData_8inl.html" title=" " alt="" coords="1029,452,1222,479"/>
+<area shape="rect" id="node48" href="$Color_8hpp.html" title=" " alt="" coords="3007,452,3158,479"/>
+<area shape="rect" id="node50" href="$LightData_8inl.html" title=" " alt="" coords="1551,452,1729,479"/>
+<area shape="rect" id="node49" title=" " alt="" coords="2899,534,2971,561"/>
+<area shape="rect" id="node56" href="$DataLoader_8hpp.html" title=" " alt="" coords="4109,452,4307,479"/>
+</map>

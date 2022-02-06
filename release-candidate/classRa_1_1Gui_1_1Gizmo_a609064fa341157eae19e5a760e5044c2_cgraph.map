@@ -1,0 +1,8 @@
+<map id="Ra::Gui::Gizmo::findPointOnPlane" name="Ra::Gui::Gizmo::findPointOnPlane">
+<area shape="rect" id="node1" title="Find a mouse&#45;designed point on a 3D plane." alt="" coords="5,100,189,141"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a79e1631d8cc94ca6430572a0bc38d076" title=" " alt="" coords="237,67,417,108"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" title="Intersect a ray with an infinite plane defined by point A and normal." alt="" coords="252,132,403,173"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="465,5,645,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a64dc74dc61ceafce1b143f93c16f88f0" title=" " alt="" coords="465,71,645,112"/>
+<area shape="rect" id="node6" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="495,139,615,166"/>
+</map>

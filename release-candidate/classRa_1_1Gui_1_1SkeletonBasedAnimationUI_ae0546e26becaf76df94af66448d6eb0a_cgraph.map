@@ -1,0 +1,15 @@
+<map id="Ra::Gui::SkeletonBasedAnimationUI::postLoadFile" name="Ra::Gui::SkeletonBasedAnimationUI::postLoadFile">
+<area shape="rect" id="node1" title="Registers the animation keyframes int the timeline." alt="" coords="5,169,245,211"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a88bfaf8b0c3de753319158bfd54d428a" title="Return the i &#45;th animation." alt="" coords="293,5,543,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#a84c220ea552c63202359423e123758b8" title=" " alt="" coords="333,71,503,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1Timeline.html#a5e3d3516b07e5a9c0e4142062bc64949" title="onChangeEnd change end in timeline." alt="" coords="347,136,489,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1Timeline.html#a11e5b2660d6c0dd995d82d2f890fda07" title="onChangeStart change start in timeline." alt="" coords="347,201,489,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1Timeline.html#ac6ec7a3145e199e3de1de67ea7bd15a0" title=" " alt="" coords="327,267,509,308"/>
+<area shape="rect" id="node13" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="785,406,948,433"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd" title=" " alt="" coords="793,128,940,169"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1Timeline.html#a4f36c4d5bbf6005a10f4b19f2879ee60" title=" " alt="" coords="591,267,733,308"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e" title="Return the component&#39;s name." alt="" coords="784,193,949,235"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a170dcf7c25367d3922bc4335e57aef4b" title=" " alt="" coords="781,259,952,315"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" title=" " alt="" coords="787,340,946,381"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" title="CONSTRUCTOR." alt="" coords="1000,340,1159,381"/>
+</map>

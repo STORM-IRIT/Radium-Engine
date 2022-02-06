@@ -1,0 +1,16 @@
+<map id="Ra::Core::Geometry::TopologicalMesh::triangulate" name="Ra::Core::Geometry::TopologicalMesh::triangulate">
+<area shape="rect" id="node1" title=" " alt="" coords="5,264,223,305"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Scene.html#a065a86e926a88bd772aa9e87d0858b26" title=" " alt="" coords="271,264,417,305"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abd7dec57cb8e2189a5f53564dde91496" title=" " alt="" coords="492,46,659,102"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="758,151,925,207"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" title=" " alt="" coords="465,388,685,429"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="758,298,925,354"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title=" " alt="" coords="466,453,685,495"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a646faabae9b936589fe03d8a9d2002e9" title="Set normals." alt="" coords="492,257,659,313"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices." alt="" coords="492,126,659,182"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f" title=" " alt="" coords="733,5,949,47"/>
+<area shape="rect" id="node7" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="763,71,919,127"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51" title="Read&#45;only acccess to the attribute content." alt="" coords="1026,5,1185,47"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="997,159,1213,200"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="733,232,949,273"/>
+</map>

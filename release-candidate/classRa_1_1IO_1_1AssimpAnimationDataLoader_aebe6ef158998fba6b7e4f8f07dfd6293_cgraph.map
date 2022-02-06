@@ -1,0 +1,26 @@
+<map id="Ra::IO::AssimpAnimationDataLoader::loadAnimationData" name="Ra::IO::AssimpAnimationDataLoader::loadAnimationData">
+<area shape="rect" id="node1" title="KEY FRAME." alt="" coords="5,548,220,589"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#a2fd298ecce8aa6a3bc951b4ef2b14c36" title=" " alt="" coords="277,71,473,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#ac1fbf58707a86fb1de042632a3d8f9b0" title=" " alt="" coords="268,548,483,589"/>
+<area shape="rect" id="node18" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#ae74ab8122612fa2f4264a0d7bb67d5a8" title="NAME." alt="" coords="268,675,483,716"/>
+<area shape="rect" id="node20" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a613aa15b88bec1218b7078b6de2353dd" title="TIME." alt="" coords="268,289,483,331"/>
+<area shape="rect" id="node24" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a9179b9b54341520c9925633795318f77" title=" " alt="" coords="268,740,483,781"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a898a89c655528ebc3892a4739d3a3689" title=" " alt="" coords="543,5,739,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a05706a4836ec061b36cb49d7ab04f9cc" title=" " alt="" coords="543,71,739,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a415893c202f05c72db0ca782b0da7b9d" title=" " alt="" coords="543,580,739,621"/>
+<area shape="rect" id="node8" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a652fe809115e90cbf6c254454f14ce49" title=" " alt="" coords="531,711,751,752"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#ad5e1d378aa4ff5039b8e738651e7b79a" title=" " alt="" coords="543,449,739,491"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#a858346531804acd4cd5e88cc15f8b63c" title=" " alt="" coords="543,515,739,556"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#a135a614f6ec89a8bf63d6496d074833a" title=" " alt="" coords="543,645,739,687"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#af71f668049bf4cdd1d54d8a496f931f8" title=" " alt="" coords="543,384,739,425"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="828,573,991,599"/>
+<area shape="rect" id="node9" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="813,384,1006,425"/>
+<area shape="rect" id="node10" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title=" " alt="" coords="829,850,989,877"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a9f68af7750684a100f2fd3ca9d6bd131" title=" " alt="" coords="829,784,989,825"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236" title=" " alt="" coords="805,623,1013,679"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#aa70c88426aca120abdb7fd61ee95688e" title=" " alt="" coords="799,703,1020,759"/>
+<area shape="rect" id="node19" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#ad73e13ac16296d39c830255b0a5888a3" title=" " alt="" coords="543,828,739,869"/>
+<area shape="rect" id="node21" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a885a9b6ea9485d5fcbf9c47009bf8d79" title=" " alt="" coords="543,319,739,360"/>
+<area shape="rect" id="node22" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a14af25876f8e122d4d1c8eb8dccd636a" title=" " alt="" coords="543,136,739,177"/>
+<area shape="rect" id="node23" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae3b9cee02a035e89ce06f938e9f756d9" title=" " alt="" coords="543,201,739,243"/>
+</map>

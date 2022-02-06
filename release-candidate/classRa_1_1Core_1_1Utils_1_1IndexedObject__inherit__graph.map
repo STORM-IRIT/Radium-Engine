@@ -1,0 +1,6 @@
+<map id="Ra::Core::Utils::IndexedObject" name="Ra::Core::Utils::IndexedObject">
+<area shape="rect" id="node1" title=" " alt="" coords="151,5,325,156"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html" title=" " alt="" coords="5,204,231,1425"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="254,629,465,1000"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1SystemEntity.html" title=" " alt="" coords="286,1473,433,1609"/>
+</map>

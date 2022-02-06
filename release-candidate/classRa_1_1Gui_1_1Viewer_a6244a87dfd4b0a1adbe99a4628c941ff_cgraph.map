@@ -1,0 +1,6 @@
+<map id="Ra::Gui::Viewer::keyReleaseEvent" name="Ra::Gui::Viewer::keyReleaseEvent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,35,211,76"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#acdefe264339866ffc4de6cc50162d19f" title=" " alt="" coords="259,5,457,47"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Gui.html#ae0c43d828f25e6242e118ada5e2d7896" title="set the key corresponding to" alt="" coords="278,71,438,98"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815" title="return the last, still pressed, key code, &#45;1 if no key currently pressed" alt="" coords="505,13,647,39"/>
+</map>

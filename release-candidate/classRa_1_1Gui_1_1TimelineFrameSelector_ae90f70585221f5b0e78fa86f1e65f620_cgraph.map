@@ -1,0 +1,10 @@
+<map id="Ra::Gui::TimelineFrameSelector::setTimelineUi" name="Ra::Gui::TimelineFrameSelector::setTimelineUi">
+<area shape="rect" id="node1" title="Registers the Timeline&#39;s UI for update." alt="" coords="5,165,233,207"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1TimelineFrameSelector.html#a0ef43032c588d16ee502c924a868697c" title=" " alt="" coords="281,5,509,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1TimelineFrameSelector.html#a2f9fc4fb8ac6e0ee369ac7306f039e45" title=" " alt="" coords="281,71,509,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1TimelineFrameSelector.html#a26c08457e157014c365a508c12da2b3a" title=" " alt="" coords="281,253,509,295"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1TimelineFrameSelector.html#ac362efb871a042ef2e9285b3f669ef37" title=" " alt="" coords="557,201,785,243"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1TimelineFrameSelector.html#a56b3df107bae34145166d19c347c7b1c" title=" " alt="" coords="557,292,785,333"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1TimelineFrameSelector.html#aa880dc582d310e06ffc14d0dc883f6e5" title=" " alt="" coords="281,136,509,177"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="590,137,753,163"/>
+</map>

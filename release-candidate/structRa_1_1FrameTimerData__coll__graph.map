@@ -1,0 +1,12 @@
+<map id="Ra::FrameTimerData" name="Ra::FrameTimerData">
+<area shape="rect" id="node1" title="This struct holds all timings for one frame of the engine." alt="" coords="194,747,351,824"/>
+<area shape="rect" id="node2" href="$structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html" title=" " alt="" coords="125,476,292,568"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,147,164,224"/>
+<area shape="rect" id="node5" href="$structRa_1_1Core_1_1TaskQueue_1_1TimerData.html" title="Record of a task&#39;s start and end time." alt="" coords="379,360,535,452"/>
+<area shape="rect" id="node4" title=" " alt="" coords="379,592,572,684"/>
+<area shape="rect" id="node6" href="$classint.html" title=" " alt="" coords="343,147,381,224"/>
+<area shape="rect" id="node7" title="STL class." alt="" coords="441,147,528,224"/>
+<area shape="rect" id="node8" title="STL class." alt="" coords="415,5,554,97"/>
+<area shape="rect" id="node9" title="STL class." alt="" coords="559,367,688,445"/>
+<area shape="rect" id="node10" title=" " alt="" coords="604,147,643,224"/>
+</map>

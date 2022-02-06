@@ -1,0 +1,20 @@
+<map id="Ra::Gui::ItemModel::addItem" name="Ra::Gui::ItemModel::addItem">
+<area shape="rect" id="node1" title=" " alt="" coords="5,377,152,419"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1ItemModel.html#a758fff0416978ca83fa7c907ee05ab0c" title=" " alt="" coords="237,159,384,200"/>
+<area shape="rect" id="node4" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a4f2df708e8ee83f1bad37287d0a81916" title="Returns true if the item represents any valid object." alt="" coords="484,209,631,251"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6" title="Manager getters." alt="" coords="702,399,898,440"/>
+<area shape="rect" id="node13" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4" title="Returns true if the item represents a render object." alt="" coords="723,333,877,375"/>
+<area shape="rect" id="node14" href="$classRa_1_1Gui_1_1TreeModel.html#a40eebac048f0264815de6a0b5f3b6f53" title="Get the tree item corresponding to the given index." alt="" coords="239,377,383,419"/>
+<area shape="rect" id="node15" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a044d1a2e0cbfb4f5891bf367e96308b7" title=" " alt="" coords="200,443,421,484"/>
+<area shape="rect" id="node16" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a85e1716f224d07767e16ebfbd38c0d00" title="Returns true if the item represents a component." alt="" coords="693,533,907,575"/>
+<area shape="rect" id="node17" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#abb75bfc7efa4859df709265ab8982712" title="Returns true if the item represents an entity." alt="" coords="469,484,645,525"/>
+<area shape="rect" id="node18" href="$classRa_1_1Gui_1_1TreeItem.html#a759654769c039301a51d8cecae7db630" title=" " alt="" coords="239,611,382,652"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1TreeItem.html#a1bb89b916eed440cb23de1bff8327e00" title=" " alt="" coords="486,144,629,185"/>
+<area shape="rect" id="node5" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="955,475,1165,516"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a11639733918487b58dbe9862b4cc9ca4" title="Check wether an entity with a given name exists or not." alt="" coords="699,136,901,177"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ae3edd3941dd9eee4cb1988318e47a4ca" title=" " alt="" coords="713,202,887,258"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee" title=" " alt="" coords="703,5,897,47"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd" title=" " alt="" coords="727,71,873,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID." alt="" coords="1213,504,1372,545"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="981,272,1139,313"/>
+</map>

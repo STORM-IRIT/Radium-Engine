@@ -1,0 +1,13 @@
+<map id="Ra::Gui::Viewer::changeRenderer" name="Ra::Gui::Viewer::changeRenderer">
+<area shape="rect" id="node1" title="Set the renderer." alt="" coords="5,245,241,271"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a7042ea2839f794059ca7a97f75118afe" title=" " alt="" coords="289,41,553,83"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="345,107,497,148"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a305a4ebf52a2d2642245155eab3099dc" title="Get the name of the renderer, e.g to be displayed in the UI." alt="" coords="313,172,529,213"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abbb35a6ba5e765ce56848af6d235cf8f" title=" " alt="" coords="326,237,517,279"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="345,303,497,344"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a314e31247fa616d1cbb02143cd42019f" title="Resize the viewport and all the screen textures, fbos. This function must be overrided as soon as som..." alt="" coords="339,368,504,409"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a176af03a142928fb672ec7063efab174" title=" " alt="" coords="318,433,525,475"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6e1b35d72acf4f5a7a1ab6fa9a146a1e" title=" " alt="" coords="601,5,841,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a9280b3e44e311a6c3724e02f5d02a944" title=" " alt="" coords="625,71,818,127"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac804ffc9a0b4f71c02610ce930fd5c65" title=" " alt="" coords="628,368,815,409"/>
+</map>

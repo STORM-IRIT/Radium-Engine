@@ -1,0 +1,8 @@
+<map id="Ra::Gui::RotateAroundCameraManipulator::setPivotFromPixel" name="Ra::Gui::RotateAroundCameraManipulator::setPivotFromPixel">
+<area shape="rect" id="node1" title="Set &#39;m_pivot&#39; world coordinate from screen coordinates &#39;x&#39; and &#39;y&#39;." alt="" coords="5,136,231,177"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="311,5,463,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html#a3f48aa1735b58664c3b3ed3e6505f225" title=" " alt="" coords="292,71,483,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="311,136,463,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a5bc0758a1edc9f6824ff695481b59db9" title=" " alt="" coords="279,201,496,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a64dc74dc61ceafce1b143f93c16f88f0" title=" " alt="" coords="297,267,477,308"/>
+</map>

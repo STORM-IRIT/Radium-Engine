@@ -1,0 +1,12 @@
+<map id="Ra::Gui::TrackballCameraManipulator::TrackballCameraManipulator" name="Ra::Gui::TrackballCameraManipulator::TrackballCameraManipulator">
+<area shape="rect" id="node1" title=" " alt="" coords="5,92,223,148"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="536,19,716,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="286,34,466,75"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="286,99,466,141"/>
+<area shape="rect" id="node5" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title=" " alt="" coords="309,165,443,192"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592" title="Update the polar coordinates of the Camera w.r.t. the trackball center." alt="" coords="271,217,481,258"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="529,129,723,170"/>
+<area shape="rect" id="node8" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="566,195,686,221"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a717adf25995d1f6a978fb4e0c30f9cec" title=" " alt="" coords="536,246,716,287"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="536,311,716,353"/>
+</map>

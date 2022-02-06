@@ -1,0 +1,7 @@
+<map id="Ra::Gui::TrackballCameraManipulator::handleCameraMoveForward" name="Ra::Gui::TrackballCameraManipulator::handleCameraMoveForward">
+<area shape="rect" id="node1" title=" " alt="" coords="5,86,244,142"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="292,5,472,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="520,35,700,76"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="292,123,472,164"/>
+<area shape="rect" id="node5" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title=" " alt="" coords="315,189,449,215"/>
+</map>

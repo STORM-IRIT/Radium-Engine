@@ -1,0 +1,7 @@
+<map id="Ra::Gui::ScaleGizmo::selectConstraint" name="Ra::Gui::ScaleGizmo::selectConstraint">
+<area shape="rect" id="node1" title="Called when one of the drawables of the gizmo has been selected." alt="" coords="5,89,160,131"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a6190ecfbb984d25ff72d80e45a59e9e9" title="Set the state of the controler to false." alt="" coords="211,5,413,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Gizmo.html#ad9d1c38f9ce6bc77e087517c2292a926" title="Returns the controler (ShaderParametersProvider) associated to the given gizmo component." alt="" coords="208,71,416,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1Gizmo.html#a75595aa737702bdda5306e8421c98dc5" title="read access to the gizmo render objects id" alt="" coords="239,122,385,149"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8" title="Set the state of the controler to true." alt="" coords="211,173,413,215"/>
+</map>

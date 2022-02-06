@@ -1,0 +1,4 @@
+<map id="Ra::IO::AssimpGeometryDataLoader::fetchType" name="Ra::IO::AssimpGeometryDataLoader::fetchType">
+<area shape="rect" id="node1" title="Fill data with the GeometryType from mesh." alt="" coords="5,5,219,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a7b0ddcd9c27162449300a1fd69b491a6" title="Set the type of geometry." alt="" coords="267,5,461,47"/>
+</map>

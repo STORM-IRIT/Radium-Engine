@@ -1,0 +1,13 @@
+<map id="Ra::Gui::BaseApplication::recordFrame" name="Ra::Gui::BaseApplication::recordFrame">
+<area shape="rect" id="node1" title=" " alt="" coords="5,93,188,135"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#ab3854bf1c656d1f6bf7e12e61251e9dc" title="Write the current frame as an image. Supports either BMP or PNG file names." alt="" coords="236,101,436,127"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="502,5,654,47"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Utils.html#aad2a7bedc49e227d0503794d76acbfea" title=" " alt="" coords="484,71,672,98"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a91618e8af83863c37d30cc5274ad60c7" title=" " alt="" coords="495,123,661,164"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="502,188,654,229"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422" title="Bind the texture to enable its use in a shader." alt="" coords="734,5,921,47"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="744,71,911,98"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6d0b36b4cca4646de24d1691d929d6c0" title=" " alt="" coords="720,123,935,164"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a581ce6e7e5a42451ffda65d4de48f270" title=" " alt="" coords="734,188,921,229"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a84a003d44d99296a324a4855d18b9587" title=" " alt="" coords="734,253,921,295"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="Ra::Engine::Data::VaoIndices" name="Ra::Engine::Data::VaoIndices">
+<area shape="rect" id="node1" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="296,5,504,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="5,375,211,525"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="528,375,733,525"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="277,375,483,525"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html" title=" " alt="" coords="878,176,1082,283"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="299,161,501,297"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="8,575,208,667"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1PolyMesh.html" title=" " alt="" coords="530,575,731,667"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="293,575,467,667"/>
+</map>

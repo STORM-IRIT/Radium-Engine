@@ -1,0 +1,5 @@
+<map id="Ra::Gui::FlightCameraManipulator::handleCameraZoom" name="Ra::Gui::FlightCameraManipulator::handleCameraZoom">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,248,47"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="296,13,449,39"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title=" " alt="" coords="497,13,672,39"/>
+</map>

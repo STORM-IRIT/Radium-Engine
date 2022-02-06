@@ -1,0 +1,5 @@
+<map id="Ra::Core::TaskQueue::~TaskQueue" name="Ra::Core::TaskQueue::~TaskQueue">
+<area shape="rect" id="node1" title="Destructor. Waits for all the threads and safely deletes them." alt="" coords="5,35,161,76"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f" title="Erases all tasks. Will assert if tasks are unprocessed." alt="" coords="213,5,369,47"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="209,71,372,98"/>
+</map>

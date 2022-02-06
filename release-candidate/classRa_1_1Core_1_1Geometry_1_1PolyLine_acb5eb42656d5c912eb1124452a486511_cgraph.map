@@ -1,0 +1,10 @@
+<map id="Ra::Core::Geometry::PolyLine::project" name="Ra::Core::Geometry::PolyLine::project">
+<area shape="rect" id="node1" title=" " alt="" coords="5,90,156,131"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a8667e211f2182821346ba4bcfe07b053" title=" " alt="" coords="227,5,389,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aae02568a84d24193c5f129f4dd60933c" title=" " alt="" coords="204,57,412,98"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#a749ee9e81862ef200b0b7540cc1f16bc" title=" " alt="" coords="233,122,383,163"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="227,188,389,215"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67" title="Get the total length of the line ." alt="" coords="468,57,619,98"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="460,127,627,153"/>
+<area shape="rect" id="node7" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="483,177,603,204"/>
+</map>

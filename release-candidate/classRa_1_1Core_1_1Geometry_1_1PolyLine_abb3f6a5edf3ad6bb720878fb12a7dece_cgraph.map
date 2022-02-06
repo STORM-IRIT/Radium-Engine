@@ -1,0 +1,8 @@
+<map id="Ra::Core::Geometry::PolyLine::squaredDistance" name="Ra::Core::Geometry::PolyLine::squaredDistance">
+<area shape="rect" id="node1" title="Return the squared distance between the line and a given point p." alt="" coords="5,53,208,94"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#aeea8bbe4e358200b7cedea4f628ae3b4" title=" " alt="" coords="256,53,407,94"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#a749ee9e81862ef200b0b7540cc1f16bc" title=" " alt="" coords="461,23,611,65"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="455,89,617,116"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="665,5,832,32"/>
+<area shape="rect" id="node5" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="689,56,809,83"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="Ra::Engine::Scene::System" name="Ra::Engine::Scene::System">
+<area shape="rect" id="node1" title=" " alt="" coords="337,5,549,215"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="5,263,220,692"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html" title=" " alt="" coords="245,409,423,545"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html" title=" " alt="" coords="448,351,660,604"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html" title=" " alt="" coords="684,329,955,626"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager.html" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="11,740,214,861"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1DefaultLightManager.html" title="DefaultLightManager. A simple Light Manager with a list of lights." alt="" coords="462,740,646,861"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Ra::Gui::TrackballCameraManipulator::setTrackballRadius" name="Ra::Gui::TrackballCameraManipulator::setTrackballRadius">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,236,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="284,5,464,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="284,71,464,112"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Ra::Core::Utils::AttribBase::unlock" name="Ra::Core::Utils::AttribBase::unlock">
+<area shape="rect" id="node1" title="Unlock data so another one can gain write access." alt="" coords="5,39,196,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#ab22c128cebb433e0e28f6ec40353e60f" title=" " alt="" coords="244,39,435,80"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#a030ebd538261b64958f73b9fb949c17c" title=" " alt="" coords="486,5,677,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="483,71,680,112"/>
+</map>

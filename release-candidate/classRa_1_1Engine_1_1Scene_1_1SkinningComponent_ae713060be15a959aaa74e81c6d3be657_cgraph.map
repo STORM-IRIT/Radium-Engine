@@ -1,0 +1,26 @@
+<map id="Ra::Engine::Scene::SkinningComponent::initialize" name="Ra::Engine::Scene::SkinningComponent::initialize">
+<area shape="rect" id="node1" title="Pure virtual method to be overridden by any component. When this method is called you are guaranteed ..." alt="" coords="5,577,223,618"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59" title=" " alt="" coords="830,5,997,61"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a25adccb0a28277580c023e2cd4adb0b0" title=" " alt="" coords="297,496,463,552"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title=" " alt="" coords="271,577,489,618"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a377baa027aad5620615d0f876a5698e0" title=" " alt="" coords="297,643,463,699"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a06951f0641b03be8d47e2762f75d1f6e" title=" " alt="" coords="285,723,475,765"/>
+<area shape="rect" id="node12" href="$namespaceRa_1_1Engine_1_1Scene.html#a065a86e926a88bd772aa9e87d0858b26" title=" " alt="" coords="307,297,453,338"/>
+<area shape="rect" id="node24" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81" title=" " alt="" coords="285,789,475,830"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="1069,234,1285,275"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#af89047a2747bc4e08144bbb3477e1d8e" title="findAttrib Grab an attribute handler by name." alt="" coords="539,526,755,567"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="571,592,724,619"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title=" " alt="" coords="826,592,1001,619"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#acf143d6db7f6e39edb18ed21d45b3317" title="contains Check if an attribute with the given name exists." alt="" coords="539,650,755,691"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abd7dec57cb8e2189a5f53564dde91496" title=" " alt="" coords="564,445,731,501"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="830,351,997,407"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" title=" " alt="" coords="537,263,757,305"/>
+<area shape="rect" id="node19" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="830,103,997,159"/>
+<area shape="rect" id="node20" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title=" " alt="" coords="538,329,757,370"/>
+<area shape="rect" id="node21" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a646faabae9b936589fe03d8a9d2002e9" title="Set normals." alt="" coords="564,103,731,159"/>
+<area shape="rect" id="node23" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices." alt="" coords="564,183,731,239"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f" title=" " alt="" coords="805,449,1021,490"/>
+<area shape="rect" id="node16" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="835,263,991,319"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51" title="Read&#45;only acccess to the attribute content." alt="" coords="1098,449,1257,490"/>
+<area shape="rect" id="node22" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="805,187,1021,229"/>
+</map>

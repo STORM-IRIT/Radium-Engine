@@ -1,0 +1,18 @@
+<map id="Ra::Gui::Viewer::handleKeyPressEvent" name="Ra::Gui::Viewer::handleKeyPressEvent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,221,204,263"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815" title="return the last, still pressed, key code, &#45;1 if no key currently pressed" alt="" coords="293,46,434,73"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html#a22429271e63cab2b0fca00f805b39637" title=" " alt="" coords="275,97,452,139"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1Viewer.html#afd8a96b35fbe97e88218e99d02bddee7" title=" " alt="" coords="266,163,461,190"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1Viewer.html#a78eef04365913a9a5b1d956a96533471" title="Tell the renderer to reload all shaders." alt="" coords="252,254,475,281"/>
+<area shape="rect" id="node15" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6692e8a17eba9e0ff13f967f83b98d1f" title=" " alt="" coords="264,305,463,347"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a8e993ca967216531820c6f8ab87dda20" title=" " alt="" coords="260,371,467,412"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1Viewer.html#abe554bf67788b02cc920d395f1329212" title="Moves the camera so that the whole scene is visible." alt="" coords="529,5,723,47"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1Viewer.html#ac8bfa139c95713d812dd52f7e509fa66" title="Access to camera interface." alt="" coords="525,71,727,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5" title="Reset the Camera settings to default values." alt="" coords="523,136,729,177"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="550,201,702,243"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abbb35a6ba5e765ce56848af6d235cf8f" title=" " alt="" coords="531,267,721,308"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="550,332,702,373"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a8a6ba85153511c0d158246af630027e5" title=" " alt="" coords="531,397,721,439"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a176af03a142928fb672ec7063efab174" title=" " alt="" coords="523,463,729,504"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#aead39c6f80671dcd10102c572da40bc1" title=" " alt="" coords="777,390,1023,446"/>
+</map>

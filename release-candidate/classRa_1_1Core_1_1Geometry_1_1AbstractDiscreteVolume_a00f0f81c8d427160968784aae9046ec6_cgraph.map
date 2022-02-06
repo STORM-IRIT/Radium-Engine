@@ -1,0 +1,6 @@
+<map id="Ra::Core::Geometry::AbstractDiscreteVolume::computeAabb" name="Ra::Core::Geometry::AbstractDiscreteVolume::computeAabb">
+<area shape="rect" id="node1" title="Compute the aabb of the volume." alt="" coords="5,85,192,141"/>
+<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a324dfab0d40a3794e27bf4d42e8e94c5" title=" " alt="" coords="240,5,396,61"/>
+<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a8b5f4f6093971b1691e92ab5d65cea05" title=" " alt="" coords="240,85,396,141"/>
+<area shape="rect" id="node4" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a5279cc29d76310a739c2764308b9c9d2" title=" " alt="" coords="240,165,396,221"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html" title=" " alt="" coords="5,74,201,115"/>
+<area shape="rect" id="node2" href="$classRa_1_1IO_1_1AssimpFileLoader.html" title="This class loads scenes containing MESHES only (not point&#45;clouds)" alt="" coords="251,5,435,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1IO_1_1CameraFileLoader.html" title=" " alt="" coords="249,56,436,83"/>
+<area shape="rect" id="node4" href="$classRa_1_1IO_1_1TinyPlyFileLoader.html" title=" " alt="" coords="251,107,435,133"/>
+<area shape="rect" id="node5" href="$classRa_1_1IO_1_1VolumeLoader.html" title="Loads density grid for volume data. This loader support 2 file formats for density grid data." alt="" coords="261,157,424,184"/>
+</map>

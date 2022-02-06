@@ -1,0 +1,15 @@
+<map id="Ra::IO::OFFFileManager::importData" name="Ra::IO::OFFFileManager::importData">
+<area shape="rect" id="node1" title=" " alt="" coords="5,166,180,207"/>
+<area shape="rect" id="node2" href="$classRa_1_1IO_1_1FileManager.html#a2b788483f09e07553e4cb4ca768063b4" title=" " alt="" coords="238,5,437,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a7d3a56c1b5ba3a13fc074beeb8a3734f" title="Erases all data, making the geometry empty." alt="" coords="248,85,427,141"/>
+<area shape="rect" id="node8" href="$classRa_1_1IO_1_1OFFFileManager.html#af4009cbdb7ba4fa80adbcb2e5ef6efb3" title="HEADER." alt="" coords="250,166,425,207"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title=" " alt="" coords="228,231,447,273"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices." alt="" coords="254,297,421,353"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a75f68d38992c5b5554ce6ebd852fac5f" title="Erases all data, making the AttribArrayGeometry empty." alt="" coords="519,24,686,80"/>
+<area shape="rect" id="node6" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="789,93,945,149"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="504,155,701,197"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda" title="clear all attribs, invalidate handles." alt="" coords="759,27,975,69"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="495,299,711,341"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="519,365,686,421"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="759,373,975,414"/>
+</map>

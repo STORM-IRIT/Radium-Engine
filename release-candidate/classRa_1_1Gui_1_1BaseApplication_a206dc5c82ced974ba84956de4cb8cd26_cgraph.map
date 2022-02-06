@@ -1,0 +1,6 @@
+<map id="Ra::Gui::BaseApplication::BaseApplication" name="Ra::Gui::BaseApplication::BaseApplication">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,188,112"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Resources.html#a291182009b81d19abfa8b7fff7cbbfb7" title="Get the current data path." alt="" coords="251,5,403,47"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Resources.html#ad6fb8d46cb6a7f05ceae06d2498fca31" title="Push a new data path." alt="" coords="251,71,403,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1BaseApplication.html#ac588202aba7f0f7b826ca46dba16d9ec" title=" " alt="" coords="236,136,419,177"/>
+</map>

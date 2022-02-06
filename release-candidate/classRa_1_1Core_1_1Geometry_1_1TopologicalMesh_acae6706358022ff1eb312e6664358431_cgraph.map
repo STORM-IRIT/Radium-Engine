@@ -1,0 +1,10 @@
+<map id="Ra::Core::Geometry::TopologicalMesh::toLineMesh" name="Ra::Core::Geometry::TopologicalMesh::toLineMesh">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,227,112"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#a74f2221e7c53c4927ef7da96cf5fc884" title=" " alt="" coords="275,5,524,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title=" " alt="" coords="290,71,509,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices." alt="" coords="316,137,483,193"/>
+<area shape="rect" id="node5" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="602,63,758,119"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="572,144,788,185"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="597,210,763,266"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="836,217,1052,259"/>
+</map>

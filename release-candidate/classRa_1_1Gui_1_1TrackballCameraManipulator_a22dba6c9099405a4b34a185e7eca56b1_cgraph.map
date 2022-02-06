@@ -1,0 +1,10 @@
+<map id="Ra::Gui::TrackballCameraManipulator::handleCameraZoom" name="Ra::Gui::TrackballCameraManipulator::handleCameraZoom">
+<area shape="rect" id="node1" title=" " alt="" coords="5,54,247,95"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ab604541c4cfec629bbf4597d839694d2" title="Return the zoom factor." alt="" coords="295,21,475,62"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a7ceb08c02e98b235ca29ac671f263364" title="Set the zoom factor to zoomFactor." alt="" coords="295,86,475,127"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="523,86,703,127"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="757,5,924,32"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" title="Build a projection matrix from the parameters of the view volume Implements the algorithms described ..." alt="" coords="751,57,931,98"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="979,93,1141,120"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="751,174,931,215"/>
+</map>

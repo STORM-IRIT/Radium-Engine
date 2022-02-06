@@ -1,0 +1,6 @@
+<map id="Ra::Gui::Viewer::fitCamera" name="Ra::Gui::Viewer::fitCamera">
+<area shape="rect" id="node1" title=" " alt="" coords="5,78,200,105"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#abe554bf67788b02cc920d395f1329212" title="Moves the camera so that the whole scene is visible." alt="" coords="254,5,449,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html#ac8bfa139c95713d812dd52f7e509fa66" title="Access to camera interface." alt="" coords="250,71,453,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5" title="Reset the Camera settings to default values." alt="" coords="248,136,455,177"/>
+</map>

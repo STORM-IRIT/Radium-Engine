@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Data::SimpleMaterial" name="Ra::Engine::Data::SimpleMaterial">
+<area shape="rect" id="node1" title=" " alt="" coords="140,491,323,671"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title=" " alt="" coords="5,719,217,855"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="241,726,465,847"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="135,204,327,443"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="119,5,343,156"/>
+</map>

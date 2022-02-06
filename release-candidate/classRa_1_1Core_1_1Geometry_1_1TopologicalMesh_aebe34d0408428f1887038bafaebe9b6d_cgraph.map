@@ -1,0 +1,6 @@
+<map id="Ra::Core::Geometry::TopologicalMesh::updateTriangleMeshNormals" name="Ra::Core::Geometry::TopologicalMesh::updateTriangleMeshNormals">
+<area shape="rect" id="node1" title=" " alt="" coords="5,45,248,101"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a71452620a83df6e6f6b995a503dc8a52" title="Release lock on vertices normals." alt="" coords="296,5,463,61"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a365e4d1e66fb093b775a17562408126c" title=" " alt="" coords="296,85,463,141"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="511,53,727,94"/>
+</map>

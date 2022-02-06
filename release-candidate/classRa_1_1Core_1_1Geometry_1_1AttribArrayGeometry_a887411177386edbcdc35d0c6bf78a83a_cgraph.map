@@ -1,0 +1,7 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::setVertices" name="Ra::Core::Geometry::AttribArrayGeometry::setVertices">
+<area shape="rect" id="node1" title="Set vertices." alt="" coords="5,79,172,135"/>
+<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a573def11b92bfa63c15dfddec792b450" title=" " alt="" coords="250,5,406,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="220,86,436,127"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="245,152,411,208"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="484,159,700,201"/>
+</map>

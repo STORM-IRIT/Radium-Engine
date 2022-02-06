@@ -1,0 +1,7 @@
+<map id="Ra::Gui::RotateAroundCameraManipulator::deformedBallQuaternion" name="Ra::Gui::RotateAroundCameraManipulator::deformedBallQuaternion">
+<area shape="rect" id="node1" title=" " alt="" coords="5,90,273,131"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4" title=" " alt="" coords="349,5,511,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a627f8c3e741a1d0f305886f1d8375de3" title="Return the height of the viewport." alt="" coords="340,57,520,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2b2f8b09a65409166a96b9bb30e3ee20" title="Return the width of the viewport." alt="" coords="340,122,520,163"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a7a2194f43959e3206606317f58fce26a" title=" " alt="" coords="321,187,539,229"/>
+</map>

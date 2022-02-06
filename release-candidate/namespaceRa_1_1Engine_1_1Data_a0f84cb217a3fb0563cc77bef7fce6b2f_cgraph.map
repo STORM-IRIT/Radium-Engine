@@ -1,0 +1,16 @@
+<map id="Ra::Engine::Data::createCoreMeshFromGeometryData" name="Ra::Engine::Data::createCoreMeshFromGeometryData">
+<area shape="rect" id="node1" title="create a TriangleMesh, PolyMesh or other Core::*Mesh from GeometryData" alt="" coords="5,397,221,439"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac0639140eb38750d87d3c3dd9df1bc10" title="Access to the attrib manager." alt="" coords="291,5,486,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad22c7cbacae9e25437341a8a42c5b5bd" title=" " alt="" coords="269,71,508,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a1e3871c31bed0bd00be8d06c3452581d" title="Return the list of vertex bitangent vectors." alt="" coords="291,136,486,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab6a1417d3aea242d4be51240e8c662a5" title=" " alt="" coords="291,201,486,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2efe57cb294fc84bec35d413d16a69a5" title="Return the list of vertex normals." alt="" coords="291,267,486,308"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2e735dfcbd47f18f28072b989b3a9224" title="Return the list of vertex tangent vectors." alt="" coords="291,332,486,373"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a401dc38d3ba67efbb915efcf6e30cc6a" title="Return the list of vertex texture coordinates." alt="" coords="291,397,486,439"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a343a1ef88bb043988108858b6c6de313" title="Return the list of vertices." alt="" coords="291,463,486,504"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab6d428e893d8214e7d25cfe8302d6e39" title="Return the number of vertices." alt="" coords="291,528,486,569"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae1380c755066e114a74c184af2333bca" title="Return true if the object has vertex bitangent vectors." alt="" coords="291,593,486,635"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac6a98d1d64d63da77c59b9e9c9b87112" title="Return true if the object has vertex normals." alt="" coords="291,659,486,700"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#af2915cec9f0eda10e9469bf26fd755af" title="Return true if the object has vertex tangent vectors." alt="" coords="291,724,486,765"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4613a77be8c92ae9d1ea906b0d9b5d9d" title="Return true if the object has vertex texture coordinates." alt="" coords="283,789,494,831"/>
+</map>

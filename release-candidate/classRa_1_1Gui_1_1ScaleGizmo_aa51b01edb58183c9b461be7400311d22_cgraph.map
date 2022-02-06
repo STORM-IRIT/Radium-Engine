@@ -1,0 +1,5 @@
+<map id="Ra::Gui::ScaleGizmo::updateTransform" name="Ra::Gui::ScaleGizmo::updateTransform">
+<area shape="rect" id="node1" title="Called every time the underlying transform may have changed." alt="" coords="5,23,160,65"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo.html#a75595aa737702bdda5306e8421c98dc5" title="read access to the gizmo render objects id" alt="" coords="216,5,363,32"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="208,56,371,83"/>
+</map>

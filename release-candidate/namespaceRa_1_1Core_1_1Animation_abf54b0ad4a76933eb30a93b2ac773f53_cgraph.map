@@ -1,0 +1,16 @@
+<map id="Ra::Core::Animation::computeDQSTBS" name="Ra::Core::Animation::computeDQSTBS">
+<area shape="rect" id="node1" title="Computes the per&#45;vertex STBS dual quaternion." alt="" coords="5,187,157,229"/>
+<area shape="rect" id="node2" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="239,5,359,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a8c7b89d8b68d4b42174bc3e377fdd8fa" title=" " alt="" coords="205,57,393,98"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759" title=" " alt="" coords="223,122,375,163"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1DualQuaternion.html#aac90a90e6f101b43c2dc8e304f1ff186" title=" " alt="" coords="206,187,393,229"/>
+<area shape="rect" id="node10" href="$namespaceRa_1_1Core_1_1Animation.html#a03d7eb179bf339237a3e5b06d6d06100" title=" " alt="" coords="223,253,375,294"/>
+<area shape="rect" id="node12" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="223,319,376,345"/>
+<area shape="rect" id="node14" href="$namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0" title=" " alt="" coords="213,369,385,396"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1AdjacencyList.html#afb228941d27a01e44071d404e8b58aa4" title=" " alt="" coords="441,25,616,66"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253" title="Return true if the node is a leaf node." alt="" coords="441,90,616,131"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="664,90,839,131"/>
+<area shape="rect" id="node9" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title=" " alt="" coords="462,195,595,221"/>
+<area shape="rect" id="node11" href="$namespaceRa_1_1Core_1_1Animation.html#a44a3a0320649edf2829268bf80555800" title=" " alt="" coords="453,253,605,294"/>
+<area shape="rect" id="node13" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title=" " alt="" coords="441,319,616,345"/>
+</map>

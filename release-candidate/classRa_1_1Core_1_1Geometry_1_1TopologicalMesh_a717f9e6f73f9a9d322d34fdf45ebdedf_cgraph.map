@@ -1,0 +1,4 @@
+<map id="Ra::Core::Geometry::TopologicalMesh::isFeatureVertex" name="Ra::Core::Geometry::TopologicalMesh::isFeatureVertex">
+<area shape="rect" id="node1" title="true if more than one wedge arount vertex vh, false if only one wedge" alt="" coords="5,5,212,61"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f" title=" " alt="" coords="260,5,469,61"/>
+</map>

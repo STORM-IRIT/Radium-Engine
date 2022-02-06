@@ -1,0 +1,7 @@
+<map id="Ra::Core::Geometry::AbstractDiscreteVolume" name="Ra::Core::Geometry::AbstractDiscreteVolume">
+<area shape="rect" id="node1" title=" " alt="" coords="72,652,287,979"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html" title="Discrete volume data storing values in a regular grid." alt="" coords="5,1027,172,1368"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html" title=" " alt="" coords="196,1078,347,1317"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html" title=" " alt="" coords="99,292,260,604"/>
+<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="91,5,268,244"/>
+</map>

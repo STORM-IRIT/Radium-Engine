@@ -1,0 +1,6 @@
+<map id="Ra::Gui::PickingManager::clear" name="Ra::Gui::PickingManager::clear">
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,187,54"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a146f96584686a9971d6a7592e24486da" title="Reset query to default." alt="" coords="235,5,420,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" title=" " alt="" coords="468,13,627,54"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" title="CONSTRUCTOR." alt="" coords="675,13,833,54"/>
+</map>

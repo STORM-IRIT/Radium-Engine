@@ -1,0 +1,13 @@
+<map id="Ra::Gui::SkeletonBasedAnimationUI::selectionChanged" name="Ra::Gui::SkeletonBasedAnimationUI::selectionChanged">
+<area shape="rect" id="node1" title=" " alt="" coords="5,343,245,385"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a36868833e751c9cf5cd89c96cbebeb6f" title="Return the number of animations." alt="" coords="302,5,551,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#af723935866c4508bb098d7e6fb445487" title="Return the index of the animation to play." alt="" coords="296,86,557,127"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#ae200ce8c2d20dd867aa4337eb829ef60" title="Returns the map from RO index to bone index." alt="" coords="319,152,534,208"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#a84c220ea552c63202359423e123758b8" title=" " alt="" coords="341,233,512,274"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a54ab1d8df1523780292cd4f3df6f1a49" title="Returns the manipulation scheme for the Skeleton." alt="" coords="293,299,560,355"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#aadf5b499e42535d8dd7e4d5a5fc25d24" title="Return animation speed factor." alt="" coords="315,379,538,421"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#af5019b602ab73ea90bdea645f7b6713c" title="Return true is animation auto repeat is on, false otherwise." alt="" coords="303,445,551,486"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a54989f8584cc21b843865b9c1109ccdc" title="Return true is animation ping&#45;pong is on, false otherwise." alt="" coords="311,510,543,551"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a1373de48b1145a757e5084c3546b6b1f" title="Return true if the skeleton is displayed." alt="" coords="313,576,540,632"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#aa8a61a85c5424e6833596fb431c30cb1" title="Return true if bones are displayed in xray mode, false otherwise." alt="" coords="325,657,528,698"/>
+</map>

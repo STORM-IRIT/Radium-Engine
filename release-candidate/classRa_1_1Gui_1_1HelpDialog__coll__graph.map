@@ -1,0 +1,4 @@
+<map id="Ra::Gui::HelpDialog" name="Ra::Gui::HelpDialog">
+<area shape="rect" id="node1" title="Dialog to display navigation/interaction controls." alt="" coords="5,131,155,237"/>
+<area shape="rect" id="node2" href="$classQDialog.html" title=" " alt="" coords="43,5,117,83"/>
+</map>
