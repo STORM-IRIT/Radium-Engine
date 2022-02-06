@@ -65,7 +65,10 @@ class A
   public:
     void f() { m_a++; }
     void f2( int a ) { m_a = a; }
-    void f3( int a, int b ) { m_a = a; }
+    void f3( int a, int b ) {
+        m_a = a;
+        m_b = b;
+    }
     static void g() { m_b++; }
     static void g2( int b ) { m_b = b; }
 
