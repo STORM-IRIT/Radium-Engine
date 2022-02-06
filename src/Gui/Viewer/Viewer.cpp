@@ -446,7 +446,7 @@ bool Viewer::initializeGL() {
     // Register to the camera manager active camera changes
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-    cameraManager->activeCameraObservers().attach( [this]( Core::Utils::Index idx ) {
+    cameraManager->activeCameraObservers().attach( [this]( Core::Utils::Index /*idx*/ ) {
         m_camera->updateCamera();
         m_camera->getCamera()->setViewport( width(), height() );
     } );
