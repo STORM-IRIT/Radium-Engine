@@ -99,9 +99,6 @@ inline void LightData::displayInfo() const {
     using namespace Core::Utils; // log
     std::string type;
     switch ( m_type ) {
-    case UNKNOWN:
-        type = "UNKNOWN";
-        break;
     case POINT_LIGHT:
         type = "POINT LIGHT";
         break;
@@ -113,6 +110,10 @@ inline void LightData::displayInfo() const {
         break;
     case AREA_LIGHT:
         type = "AREA LIGHT";
+        break;
+    case UNKNOWN:
+    default:
+        type = "UNKNOWN";
         break;
     }
     LOG( logINFO ) << "======== LIGHT INFO ========";
