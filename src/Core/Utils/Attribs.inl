@@ -131,12 +131,12 @@ bool Attrib<T>::isType() {
 // user wants to have a specific attrib precision, while Radium Scalar is the other precision.
 // Do we need to specialize for all floating point types ?
 template <>
-RA_CORE_API size_t Attrib<float>::getElementSize() const;
+RA_CORE_API size_t Attrib<float>::getNumberOfComponents() const;
 template <>
-RA_CORE_API size_t Attrib<double>::getElementSize() const;
+RA_CORE_API size_t Attrib<double>::getNumberOfComponents() const;
 // template specialization defined in header.
 template <typename T>
-size_t Attrib<T>::getElementSize() const {
+size_t Attrib<T>::getNumberOfComponents() const {
     return Attrib<T>::Container::Vector::RowsAtCompileTime;
 }
 
