@@ -136,13 +136,13 @@ void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer( const ShaderProg
 #ifdef CORE_USE_DOUBLE
             binding->setBuffer( m_vbos[m_handleToBuffer[attribName]].get(),
                                 0,
-                                attrib->getElementSize() * sizeof( float ) );
+                                attrib->getNumberOfComponents() * sizeof( float ) );
 #else
 
             binding->setBuffer(
                 m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib->getStride() );
 #endif
-            binding->setFormat( attrib->getElementSize(), GL_SCALAR );
+            binding->setFormat( attrib->getNumberOfComponents(), GL_SCALAR );
         }
         else {
             m_vao->disable( loc );
@@ -264,13 +264,13 @@ void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const Shade
 #ifdef CORE_USE_DOUBLE
             binding->setBuffer( m_vbos[m_handleToBuffer[attribName]].get(),
                                 0,
-                                attrib->getElementSize() * sizeof( float ) );
+                                attrib->getNumberOfComponents() * sizeof( float ) );
 #else
 
             binding->setBuffer(
                 m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib->getStride() );
 #endif
-            binding->setFormat( attrib->getElementSize(), GL_SCALAR );
+            binding->setFormat( attrib->getNumberOfComponents(), GL_SCALAR );
         }
         else {
             m_vao->disable( loc );
@@ -347,7 +347,7 @@ void CoreGeometryDisplayable<CoreGeometry>::updateGL() {
                 if ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }
 
                 auto stride      = b->getStride();
-                auto eltSize     = b->getElementSize();
+                auto eltSize     = b->getNumberOfComponents();
                 auto size        = b->getSize();
                 auto data        = std::make_unique<float[]>( size * eltSize );
                 const void* ptr  = b->dataPtr();

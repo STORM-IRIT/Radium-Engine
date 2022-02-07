@@ -3,6 +3,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/ContainerIntrospectionInterface.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Core/Utils/Observable.hpp>
 
@@ -22,7 +23,7 @@ class Attrib;
 /**
  * AttribBase is the base class for attributes of all type.
  */
-class RA_CORE_API AttribBase : public ObservableVoid
+class RA_CORE_API AttribBase : public ObservableVoid, public ContainerIntrospectionInterface
 {
   public:
     inline explicit AttribBase( const std::string& name );
@@ -38,25 +39,6 @@ class RA_CORE_API AttribBase : public ObservableVoid
 
     /// Resize the attribute's array.
     virtual void resize( size_t s ) = 0;
-
-    /// Return the number of elements in the attribute array
-    virtual size_t getSize() const = 0;
-
-    /// Return the number of components of one element (i.e. for
-    /// glVertexAttribPointer size value)
-    /// \see https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glVertexAttribPointer.xhtml
-    /// \todo rename getNumberOfComponent ?
-    virtual size_t getElementSize() const = 0;
-
-    /// return the size in byte of the container
-    virtual size_t getBufferSize() const = 0;
-
-    /// Return the stride, in bytes, from one attribute address to the next one.
-    /// This is use for glVertexAttribPointer.
-    /// \warning it's meaningful only if the attrib do not contain heap
-    /// allocated data. Such attrib could not be easily sent to the GPU, and
-    /// getStride is meaningless.
-    virtual int getStride() const = 0;
 
     /// Return true if *this and \p rhs have the same name.
     bool inline operator==( const AttribBase& rhs );
@@ -80,9 +62,6 @@ class RA_CORE_API AttribBase : public ObservableVoid
 
     /// Return true if the attribute content is of Vector4 type, false otherwise.
     virtual bool isVector4() const = 0;
-
-    /// Return a void * on the attrib data
-    virtual const void* dataPtr() const = 0;
 
     /// Return true if data is locked, i.e. has been locked for write access with
     /// getDataWithlock() (defined in subclass Attrib). Double lock is prohebited, so when finished,
@@ -136,7 +115,7 @@ class Attrib : public AttribBase
 
     size_t getSize() const override;
 
-    size_t getElementSize() const override;
+    size_t getNumberOfComponents() const override;
     int getStride() const override;
     size_t getBufferSize() const override;
     bool isFloat() const override;
