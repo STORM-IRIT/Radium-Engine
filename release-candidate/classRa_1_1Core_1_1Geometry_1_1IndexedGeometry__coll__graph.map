@@ -1,5 +1,5 @@
 <map id="Ra::Core::Geometry::IndexedGeometry&lt; T &gt;" name="Ra::Core::Geometry::IndexedGeometry&lt; T &gt;">
-<area shape="rect" id="node1" title="A single layer MultiIndexedGeometry. This class actually provide compatibility with old geometry with..." alt="" coords="127,1919,311,2099"/>
+<area shape="rect" id="node1" title="A single layer MultiIndexedGeometry." alt="" coords="127,1919,311,2099"/>
 <area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per&#45;vertex attributes and layers of indices. Each layer represents a different ..." alt="" coords="86,1293,351,1869"/>
 <area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title=" " alt="" coords="5,580,200,1244"/>
 <area shape="rect" id="node4" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="14,292,191,531"/>

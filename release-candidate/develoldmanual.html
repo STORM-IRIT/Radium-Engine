@@ -35,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b37a928</span>
+   &#160;<span id="projectnumber">3e86878</span>
    </div>
   </td>
  </tr>
@@ -96,27 +96,27 @@ $(document).ready(function(){initNavTree('develoldmanual.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md93">Source code organization</a><ul><li class="level2"><a href="#autotoc_md94">Import and export</a></li>
+<ul><li class="level1"><a href="#autotoc_md92">Source code organization</a><ul><li class="level2"><a href="#autotoc_md93">Import and export</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md95">Core Libs</a></li>
-<li class="level1"><a href="#autotoc_md96">Engine Object Model</a><ul><li class="level2"><a href="#autotoc_md97">Entities</a></li>
-<li class="level2"><a href="#autotoc_md98">Systems and Components</a></li>
-<li class="level2"><a href="#autotoc_md99">Frame and Tasks</a></li>
-<li class="level2"><a href="#autotoc_md100">Rendering</a></li>
-<li class="level2"><a href="#autotoc_md101">ItemEntry : Handles to engine objects</a></li>
-<li class="level2"><a href="#autotoc_md102">Object manipulation and editable transforms</a></li>
-<li class="level2"><a href="#autotoc_md103">The system Entity and Debug Display</a></li>
+<li class="level1"><a href="#autotoc_md94">Core Libs</a></li>
+<li class="level1"><a href="#autotoc_md95">Engine Object Model</a><ul><li class="level2"><a href="#autotoc_md96">Entities</a></li>
+<li class="level2"><a href="#autotoc_md97">Systems and Components</a></li>
+<li class="level2"><a href="#autotoc_md98">Frame and Tasks</a></li>
+<li class="level2"><a href="#autotoc_md99">Rendering</a></li>
+<li class="level2"><a href="#autotoc_md100">ItemEntry : Handles to engine objects</a></li>
+<li class="level2"><a href="#autotoc_md101">Object manipulation and editable transforms</a></li>
+<li class="level2"><a href="#autotoc_md102">The system Entity and Debug Display</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md104">The plugin framework</a><ul><li class="level2"><a href="#autotoc_md105">Requirements</a></li>
-<li class="level2"><a href="#autotoc_md106">Default plugins</a></li>
+<li class="level1"><a href="#autotoc_md103">The plugin framework</a><ul><li class="level2"><a href="#autotoc_md104">Requirements</a></li>
+<li class="level2"><a href="#autotoc_md105">Default plugins</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>pick relevant part, update and move to corresponding page </dd></dl>
-<h1><a class="anchor" id="autotoc_md93"></a>
+<h1><a class="anchor" id="autotoc_md92"></a>
 Source code organization</h1>
 <ul>
 <li><code>src</code> contains the main source code of the engine libs<ul>
@@ -130,10 +130,10 @@ Source code organization</h1>
 <li><code>Applications</code> contains applications build with the engine. Currently it contains a minimal example application and the full-fledged <code>main-app</code></li>
 <li><code>3rdPartyLibs</code> contains any library dependency. CMake will automatically look in this folder to find the libraries if they are not installed on your system.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md94"></a>
+<h2><a class="anchor" id="autotoc_md93"></a>
 Import and export</h2>
 <p>Core and Engine (and the plugins) are compiled as dynamic libraries, therefore you must be careful about which symbols need exporting, especially on Windows. Every module has a specific header file (<code><a class="el" href="RaCore_8hpp.html">RaCore.hpp</a></code> for Core) which must be included first in all other headers of the module. In particular it defines the <code>*_API</code> macros which help exporting and importing symbols on Windows.</p>
-<h1><a class="anchor" id="autotoc_md95"></a>
+<h1><a class="anchor" id="autotoc_md94"></a>
 Core Libs</h1>
 <p><code>Core</code> contains most of the basic code on which the rest of the software is built.</p><ul>
 <li><code><a class="el" href="CoreMacros_8hpp.html">CoreMacros.hpp</a></code> has definitions of basic types, build configuration and useful macros.</li>
@@ -146,9 +146,9 @@ Core Libs</h1>
 <li><code>Tasks</code> contains the definition for the basic Tasks system and the task queue.</li>
 <li><code>Utils</code> contains generic utilities such as a Singleton template.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md96"></a>
+<h1><a class="anchor" id="autotoc_md95"></a>
 Engine Object Model</h1>
-<h2><a class="anchor" id="autotoc_md97"></a>
+<h2><a class="anchor" id="autotoc_md96"></a>
 Entities</h2>
 <p><em>Entities</em> are the base object manipulated by the engine. You can think of them as "game objects", something that represent an object in the scene. Entity data include a world space to object space transform and a list of <em>Components</em></p>
 <p>The entity's role is only to hold together this transform and the list of components. The entity uses double buffering to prevent transforms from being updated more than once per frame.</p>
@@ -157,28 +157,28 @@ Entities</h2>
 <div class="line">transform.translation = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>( 42, 13, 37 );</div>
 <div class="line">entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a3d2c816d8383d6967fd283839a9485ff">setTransform</a>( transform );</div>
 <div class="line">entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#adb8d7310c4f4036229d03f087cf05f56">swapTransformBuffers</a>();</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md98"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md97"></a>
 Systems and Components</h2>
 <p>Each <em>Component</em> represent an aspect of an <em>Entity</em> to a particular engine subsystem. For example, an animated character may have a skeleton(animation component), a high-resolution mesh (display component) and simplified convex shape for collision detection (physics component).</p>
 <p>Each Component is related to a <em>System</em>. The Engine loads several Systems (statically or from a plugin) and they keep the Components of all Entities in the scene updated.</p>
 <p>For example, an Entity may have a Physics Component (which represent its collision shape), and the engine's corresponding Physics System will update its position according to the physics engine's result.</p>
-<h2><a class="anchor" id="autotoc_md99"></a>
+<h2><a class="anchor" id="autotoc_md98"></a>
 Frame and Tasks</h2>
 <p>At each frame, the main loop first starts the renderer, then each System is given the opportunity to add <em>Tasks</em> to the task queue. Tasks are processed in parallel during every frame. They can have dependencies between them (e.g. the physics update can wait for the animation update to complete).</p>
 <p>A Task must implement the interface <code>Core::Task</code> which defines a <code>process()</code> function which will be called when the task is executed. However for most cases, it is usually convenient to use a <code>FunctionTask</code> which takes an instance of <code>std::function</code> (which will be called by the <code>process()</code> method). Calling an object's member function in a task is thus easily achieved by using <code>std::bind()</code> to create the function object.</p>
 <p>When a task is added, the task queue assumes ownership of the task and returns a <code>TaskID</code> which identifies the task.</p>
 <p>Dependencies between tasks can be specified either as <em>immediate</em> dependencies or <em>pending</em> dependencies. Immediate dependencies are dependencies between tasks which are already present in the task queue. Adding a dependency with <code>TaskkQueue::addDependency()</code> takes two arguments, the predecessor and the successor task, and the task queue will ensure that the successor task must be executed after all its predecessors have finished. In <code>addDependency()</code>, tasks can be identified with either a <code>TaskID</code> or a name; at least one of the arguments must be a <code>TaskID</code>. If a name is given, <em>all</em> tasks matching with the name will be added as dependencies.</p>
 <p>Since the order in which the systems are called is unspecified, a system may want to add a dependency to a task that is not yet present. Pending dependencies solve this problem by specifying a dependency between a <code>TaskID</code>and a name (which may not be present in the task queue). Pending dependencies are resolved just before the task queue starts executing all tasks.</p>
-<h2><a class="anchor" id="autotoc_md100"></a>
+<h2><a class="anchor" id="autotoc_md99"></a>
 Rendering</h2>
 <p>Each Component may have some <em>RenderObjects</em> (aka Drawable) which are (usually) OpenGL objects. When a Component has changed it needs to tell its drawable to update their internal data (such as OpenGL VBOs). Render objects are stored together by the <em>render object manager</em> for efficiency, thus components only store an index to reference their render objects.</p>
 <p>The Render Objects are drawn by the <em>Renderer</em> which may live in a separated thread. Each frame it grabs all the drawable (which should be double-buffered in case we are mid-VBO update) and calls <code>draw()</code> on them.</p>
 <p>(TODO : a nice class schema).</p>
-<h2><a class="anchor" id="autotoc_md101"></a>
+<h2><a class="anchor" id="autotoc_md100"></a>
 ItemEntry : Handles to engine objects</h2>
 <p>The structure <code>ItemEntry</code> acts as a general identifier for all three levels of engine objects (entities, components and render objects) by storing a handle to the three objects (a pointer or an index for render objects). An entry representing an entity will have its entity handle set and the other two invalid; an entry representing a component will have the component handle set and the entity handle set to the entity owning the component. Similarly a render object entry will have all three handles sets . Any other combination is invalid.</p>
 <p>Item entries are mainly used to harmonize the interface to manipulate objects in the GUI.</p>
-<h2><a class="anchor" id="autotoc_md102"></a>
+<h2><a class="anchor" id="autotoc_md101"></a>
 Object manipulation and editable transforms</h2>
 <p>Components have an interface through which transforms can be edited with three functions :</p><ul>
 <li><code>canEdit()</code></li>
@@ -186,15 +186,15 @@ Object manipulation and editable transforms</h2>
 <li><code>setTransform()</code></li>
 </ul>
 <p>Each of these functions takes a render object index as argument, as sometimes a component exposes multiple objects whose transform can be edited. Function <code>canEdit()</code> tells whether a given idnex can be used as a handle for the other two functions.</p>
-<h2><a class="anchor" id="autotoc_md103"></a>
+<h2><a class="anchor" id="autotoc_md102"></a>
 The system Entity and Debug Display</h2>
 <p>One Entity is always created when the engine starts, called the System Entity. Implemented as a singleton, this entity acts as a special object that the engine can use internally to display elements not related to any other Entity. The System Entity is fixed to the world and cannot be moved.</p>
 <p>In particular it is expected that UI elements (e.g. Gizmos) should be attached to the UI component. The Debug Component is useful to display debug primitives which can be useful for graphic debugging. A series of macros <code>RA_DISPLAY_...</code> are defined to conveniently add basic display objects such as points, vectors, lines or 3D frames from anywhere in the code. A compile-time switch (<code>RA_DISABLE_DEBUG_DISPLAY</code>) can be activated to disable this feature.</p>
-<h1><a class="anchor" id="autotoc_md104"></a>
+<h1><a class="anchor" id="autotoc_md103"></a>
 The plugin framework</h1>
 <p>Entities and components have been designed so that the engine is modular in terms of features. It is expected that most interesting works will be done by Systems defined in <em>Plugins</em>. Each plugin can define its System (and the corresponding Components).</p>
 <p>We use a compile-time plugins loading mechanism. When running <code>cmake</code>, it will list the contents of the <code>src/Plugins/</code> directory and add them to be compiled with the project, and automatically generate the code to include the plugins Systems in the main application.</p>
-<h2><a class="anchor" id="autotoc_md105"></a>
+<h2><a class="anchor" id="autotoc_md104"></a>
 Requirements</h2>
 <p>For this automated build to work the plugins are required to follow these requirements</p><ul>
 <li>The plugin code must be in a sub-folder of the <code>src/Plugins/</code> directory.</li>
@@ -206,7 +206,7 @@ Requirements</h2>
 </ul>
 </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md106"></a>
+<h2><a class="anchor" id="autotoc_md105"></a>
 Default plugins</h2>
 <p>See the structure of the default plugins for an example of a working plugin. So far three default plugin exist:</p><ul>
 <li><em>Animation</em> handles an animation skeleton and can play keyframe animations.</li>
@@ -225,7 +225,7 @@ Default plugins</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Sun Feb 6 2022 14:56:54 for Radium Engine by
+    <li class="footer">Generated on Mon Feb 7 2022 07:48:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -151,7 +151,7 @@ var sectionId = 'dynsection-1';
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title="A single layer MultiIndexedGeometry. This class actually provide compatibility with old geometry with...">
+<g id="a_node9"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title="A single layer MultiIndexedGeometry.">
 <polygon fill="white" stroke="black" points="176,-288.5 176,-422.5 314,-422.5 314,-288.5 176,-288.5"/>
 <text text-anchor="start" x="184" y="-410.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="middle" x="245" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; T &gt;</text>

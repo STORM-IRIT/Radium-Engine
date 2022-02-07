@@ -35,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b37a928</span>
+   &#160;<span id="projectnumber">3e86878</span>
    </div>
   </td>
  </tr>
@@ -96,15 +96,15 @@ $(document).ready(function(){initNavTree('basicsCompileRadium.html',''); initRes
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md11">Supported compiler and platforms</a></li>
-<li class="level1"><a href="#autotoc_md12">Build instructions</a><ul><li class="level2"><a href="#autotoc_md13">Folder structure</a></li>
-<li class="level2"><a href="#autotoc_md14">Command line instructions for building (on windows, mac and linux)</a></li>
-<li class="level2"><a href="#autotoc_md15">Integration with Visual Studio (Microsoft Windows)</a></li>
+<ul><li class="level1"><a href="#autotoc_md10">Supported compiler and platforms</a></li>
+<li class="level1"><a href="#autotoc_md11">Build instructions</a><ul><li class="level2"><a href="#autotoc_md12">Folder structure</a></li>
+<li class="level2"><a href="#autotoc_md13">Command line instructions for building (on windows, mac and linux)</a></li>
+<li class="level2"><a href="#autotoc_md14">Integration with Visual Studio (Microsoft Windows)</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md11"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md10"></a>
 Supported compiler and platforms</h1>
 <p>The following platforms and tool chains have been tested and should work :</p>
 <ul>
@@ -118,12 +118,12 @@ Supported compiler and platforms</h1>
 <li>CMake 3.15.7+</li>
 <li>Qt5 (minimal version 5.14) or Qt6 (experimental)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Build instructions</h1>
 <p>If not already done, follow instructions at <a class="el" href="dependenciesmanagement.html">Radium Dependencies Management</a>.</p>
 <p>Radium follows a standard cmake structure, so any IDE supporting cmake should be able to configure and build it.</p>
 <dl class="section note"><dt>Note</dt><dd>We strongly recommend to have dedicated build and install directories for each build type (Release, Debug). Remember that compiling Radium in Debug mode needs to have the dependencies compiled and installed in Debug mode (due to a limitation in assimp).</dd></dl>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Folder structure</h2>
 <p>Radium-Engine relies on CMake build-chain on all supported platforms. In most cases, building should be pretty straightforward, provided that cmake can locate the dependencies.</p>
 <h3>Installation directory</h3>
@@ -209,7 +209,7 @@ Folder structure</h2>
 <ul>
 <li>When enabled using <code>RADIUM_GENERATE_LIB_***</code>, each library has a compilation target: <code>Core</code>, <code>Engine</code>, ...</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Command line instructions for building (on windows, mac and linux)</h2>
 <p>Out-of source builds are mandatory, we recommend to follow the usual sequence:</p>
 <div class="fragment"><div class="line">$ mkdir build</div>
@@ -221,7 +221,7 @@ Command line instructions for building (on windows, mac and linux)</h2>
 <dd>
 Running the <code>install</code> target is recommended as it will copy all the radium related library in the same place, generate the cmake packages and bundle applications with their dependencies (on macos and windows).</dd></dl>
 <p>Note that installation requires write access on the installation directory.</p>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Integration with Visual Studio (Microsoft Windows)</h2>
 <h3>Supported versions of MSVC</h3>
 <p>Radium requires MSVC 2019 or superior, as it relies on:</p><ul>
@@ -269,7 +269,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Sun Feb 6 2022 14:56:54 for Radium Engine by
+    <li class="footer">Generated on Mon Feb 7 2022 07:48:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

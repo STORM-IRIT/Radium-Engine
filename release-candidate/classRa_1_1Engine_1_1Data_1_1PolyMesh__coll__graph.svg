@@ -814,7 +814,7 @@ var sectionId = 'dynsection-1';
 <!-- Node32 -->
 <g id="node32" class="node">
 <title>Node32</title>
-<g id="a_node32"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title="A single layer MultiIndexedGeometry. This class actually provide compatibility with old geometry with...">
+<g id="a_node32"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title="A single layer MultiIndexedGeometry.">
 <polygon fill="white" stroke="black" points="1509.5,-1420.5 1509.5,-1554.5 1647.5,-1554.5 1647.5,-1420.5 1509.5,-1420.5"/>
 <text text-anchor="start" x="1517.5" y="-1542.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="middle" x="1578.5" y="-1531.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; T &gt;</text>

@@ -35,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b37a928</span>
+   &#160;<span id="projectnumber">3e86878</span>
    </div>
   </td>
  </tr>
@@ -96,33 +96,33 @@ $(document).ready(function(){initNavTree('develWithRadium.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md69">Radium libraries</a></li>
-<li class="level1"><a href="#autotoc_md70">Pre commit hook</a></li>
-<li class="level1"><a href="#autotoc_md71">Radium test suite</a><ul><li class="level2"><a href="#autotoc_md72">Preliminaries</a></li>
-<li class="level2"><a href="#autotoc_md73">How to write tests</a></li>
+<ul><li class="level1"><a href="#autotoc_md68">Radium libraries</a></li>
+<li class="level1"><a href="#autotoc_md69">Pre commit hook</a></li>
+<li class="level1"><a href="#autotoc_md70">Radium test suite</a><ul><li class="level2"><a href="#autotoc_md71">Preliminaries</a></li>
+<li class="level2"><a href="#autotoc_md72">How to write tests</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md74">Code coverage</a></li>
+<li class="level1"><a href="#autotoc_md73">Code coverage</a></li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md69"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md68"></a>
 Radium libraries</h1>
 <p>Direct contributions to master are closed. We defer merge to master after our radium based projects (public or private) CI tests. To this end, please select release_candidate as a base branch of your pull requests.</p>
-<h1><a class="anchor" id="autotoc_md70"></a>
+<h1><a class="anchor" id="autotoc_md69"></a>
 Pre commit hook</h1>
 <p>We provide a configuration file for <a href="https://pre-commit.com/">pre-commit</a>. Please install and use it, e.g. </p><div class="fragment"><div class="line">pip install pre-commit</div>
 <div class="line">pre-commit install</div>
 </div><!-- fragment --><p>This hook will check several formatting convention and cleanup your files' style on each commit. If some checks fail, it might have update automatically your code (hence just add again the modified file to your commit) or needs manual intervention. These script are also added as CI github check (to show any problems in case you have troubles to install the hook script).</p>
-<h1><a class="anchor" id="autotoc_md71"></a>
+<h1><a class="anchor" id="autotoc_md70"></a>
 Radium test suite</h1>
-<h2><a class="anchor" id="autotoc_md72"></a>
+<h2><a class="anchor" id="autotoc_md71"></a>
 Preliminaries</h2>
 <p>Radium testing is done using two tools:</p><ul>
 <li>CTest: the test system by CMake. It provides compilation, running and basic reporting mechanisms for tests.</li>
 <li>Continuous Integration system: github action and codecov.io. We use these services to call CTest on several platforms (windows, ubuntu and MacOs) with several compilers, and validate any change made to the main repository.</li>
 </ul>
 <p>As a Radium contributor, and in most cases, you will have to work only with CTest, and let the CI system run your tests automatically. In this section we describe how to write a new test, how to insert it in the testing suite, and how to validate your results on your computer and the CI systems.</p>
-<h2><a class="anchor" id="autotoc_md73"></a>
+<h2><a class="anchor" id="autotoc_md72"></a>
 How to write tests</h2>
 <p>There is two kind of tests, integration test and unit test. Tests are run with the <code>check</code> target and it's variant (<code>check_verbose</code>, <code>test</code>, <code>run_unittests</code>, <code>run_unittests_verbose</code>) or directly with <code>ctest</code>. Calling <code>make test</code> or running <code>ctest</code> only perform testing, without build anything (e.g. if the code base is changed), due to CMake way of working.</p>
 <ul>
@@ -154,7 +154,7 @@ How to write tests</h2>
 <div class="line">        REQUIRE( obb.toAabb().isApprox( aabb ) );</div>
 <div class="line">    }</div>
 <div class="line">}</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md74"></a>
+</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md73"></a>
 Code coverage</h1>
 <p>On PR, code coverage analysis is performed through a github action with help of codecov.io report.</p>
 <p>You can run such analysis on your own (on linux system, not tested on other plateform) using lcov. First install <code>lcov</code>, <code>sed</code> and <code>xmllint</code> for the tests. It's probably on your system repositories, e.g.:</p><ul>
@@ -197,7 +197,7 @@ Code coverage</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Sun Feb 6 2022 14:56:54 for Radium Engine by
+    <li class="footer">Generated on Mon Feb 7 2022 07:48:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

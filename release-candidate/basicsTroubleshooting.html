@@ -35,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b37a928</span>
+   &#160;<span id="projectnumber">3e86878</span>
    </div>
   </td>
  </tr>
@@ -95,14 +95,14 @@ $(document).ready(function(){initNavTree('basicsTroubleshooting.html',''); initR
 <div class="title">Troubleshooting </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md24"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md23"></a>
 Qt cmake errors</h1>
 <p>In case you run into an error like </p><div class="fragment"><div class="line">By not providing &quot;FindQt5Widgets.cmake&quot; in CMAKE_MODULE_PATH this project</div>
 <div class="line">has asked CMake to find a package configuration file provided by</div>
 <div class="line">&quot;Qt5Widgets&quot;, but CMake did not find one.</div>
 </div><!-- fragment --><p>you need to set <code>CMAKE_PREFIX_PATH</code>, pointing to the Qt root dir of your commpiler. For example on linux with gcc : </p><div class="fragment"><div class="line">$ cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.x/gcc_64</div>
 </div><!-- fragment --><p>On windows, using cmake-gui you can use the "add entry" button, adding <code>CMAKE_PREFIX_PATH</code> as a string to point to the Qt directory (for example in the default installation : <code>C:/Qt/5.15/msvc2019_64</code> )</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Crash when starting main application on windows</h1>
 <p>This is usually caused by missing dlls. With Visual Studio, you may need to copy the Qt dlls to Radium bin folder <code>Bundle-MSVC\bin</code> or <code>Bundle-MSVC-Debug\bin</code>. </p>
 </div></div><!-- contents -->
@@ -112,7 +112,7 @@ Crash when starting main application on windows</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Sun Feb 6 2022 14:56:54 for Radium Engine by
+    <li class="footer">Generated on Mon Feb 7 2022 07:48:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

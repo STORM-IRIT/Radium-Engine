@@ -7,6 +7,5 @@ var classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase =
     [ "clone", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html#ad1e04df9972836dec5998e9e70d530be", null ],
     [ "operator=", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html#aff73f56e9739e9f31addd37f4688913e", null ],
     [ "operator=", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html#ae6fb1d9472e090ac1536b2b2765658d3", null ],
-    [ "operator==", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html#ab28753c05e6405a731f11286fad24387", null ],
-    [ "size", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html#a48451aeaa8619c30d584c40ef0a579b1", null ]
+    [ "operator==", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html#ab28753c05e6405a731f11286fad24387", null ]
 ];
