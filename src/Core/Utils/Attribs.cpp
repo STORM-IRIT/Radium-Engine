@@ -11,12 +11,12 @@ AttribBase::~AttribBase() {
 }
 
 template <>
-size_t Attrib<float>::getElementSize() const {
+size_t Attrib<float>::getNumberOfComponents() const {
     return 1;
 }
 
 template <>
-size_t Attrib<double>::getElementSize() const {
+size_t Attrib<double>::getNumberOfComponents() const {
     return 1;
 }
 

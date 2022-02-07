@@ -26,7 +26,6 @@ void GeometrySystem::handleAssetLoading( Entity* entity,
         Component* comp { nullptr };
         std::string componentName = "GEOM_" + entity->getName() + std::to_string( id++ );
         switch ( data->getType() ) {
-
         case Ra::Core::Asset::GeometryData::POINT_CLOUD:
             comp = new PointCloudComponent( componentName, entity, data );
             break;
@@ -43,6 +42,7 @@ void GeometrySystem::handleAssetLoading( Entity* entity,
         case Ra::Core::Asset::GeometryData::TETRA_MESH:
         case Ra::Core::Asset::GeometryData::HEX_MESH:
         case Ra::Core::Asset::GeometryData::UNKNOWN:
+        default:
             CORE_ASSERT( false, "unsupported geometry" );
         }
         registerComponent( entity, comp );

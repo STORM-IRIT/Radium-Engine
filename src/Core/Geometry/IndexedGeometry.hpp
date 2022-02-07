@@ -4,6 +4,7 @@
 
 #include <Core/Geometry/TriangleMesh.hpp>
 
+#include <Core/Utils/ContainerIntrospectionInterface.hpp>
 #include <Core/Utils/ObjectWithSemantic.hpp>
 #include <Core/Utils/StdMapIterators.hpp>
 
@@ -16,7 +17,8 @@ namespace Geometry {
 ///
 /// \brief Base class for index collections stored in MultiIndexedGeometry
 class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
-                                           public Utils::ObjectWithSemantic
+                                           public Utils::ObjectWithSemantic,
+                                           public Utils::ContainerIntrospectionInterface
 {
   public:
     /// \brief Copy constructor
@@ -39,8 +41,6 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
 
     /// \brief Compare if two layers have the same content
     virtual inline bool operator==( const GeometryIndexLayerBase& other ) const;
-    /// \return the number of index (i.e. "faces") contained in the layer.
-    virtual size_t size() = 0;
 
   protected:
     /// \brief Hidden constructor that must be called by inheriting classes to define the object
@@ -63,9 +63,19 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     /// \warning Does not account for elements permutations
     inline bool operator==( const GeometryIndexLayerBase& other ) const final;
 
-    inline size_t size() override;
+    inline size_t getSize() const override final;
 
-    inline GeometryIndexLayerBase* clone() override;
+    inline GeometryIndexLayerBase* clone() override final;
+
+    inline size_t getNumberOfComponents() const override final;
+
+    inline size_t getBufferSize() const override final;
+
+    /// \warning it's meaningful only if the attrib do not contain heap
+    /// allocated data.
+    inline int getStride() const override final;
+
+    inline const void* dataPtr() const override final;
 
   protected:
     template <class... SemanticNames>
@@ -456,6 +466,7 @@ struct getType<Vector1ui> {
 
 /**
  * \brief A single layer MultiIndexedGeometry.
+ *
  * This class actually provide compatibility with old geometry with a main layer.
  * Main layer contains indices of a specific type (point, line, triangle, poly).
  * Derived classes explicit the kind of indices of the main layer.
