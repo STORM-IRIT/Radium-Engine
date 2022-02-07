@@ -5,9 +5,13 @@
 # run form scripts directory
 # ./generateFilelistForModule.sh IO
 # ----------------------------------------------------
-set(io_sources CameraLoader/CameraLoader.cpp)
+set(io_sources CameraLoader/CameraLoader.cpp VolumesLoader/pvmutils.cpp
+               VolumesLoader/VolumeLoader.cpp
+)
 
-set(io_headers CameraLoader/CameraLoader.hpp RaIO.hpp)
+set(io_headers CameraLoader/CameraLoader.hpp RaIO.hpp VolumesLoader/pvmutils.hpp
+               VolumesLoader/VolumeLoader.hpp
+)
 
 set(io_inlines)
 
@@ -51,7 +55,6 @@ if(RADIUM_IO_TINYPLY)
 
     list(APPEND io_headers TinyPlyLoader/TinyPlyFileLoader.hpp)
 endif(RADIUM_IO_TINYPLY)
-
 if(RADIUM_IO_VOLUMES)
     list(APPEND io_sources VolumesLoader/pvmutils.cpp VolumesLoader/VolumeLoader.cpp)
 
