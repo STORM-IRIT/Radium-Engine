@@ -1,4 +1,5 @@
 #pragma once
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -9,7 +10,7 @@ namespace Utils {
 /// This API allows to parse and copy contained element, or send/map to GPU buffer, given a generic
 /// pointer to the container. Typical usage are shown in Ra::Core::Utils::Attrib or
 /// Ra::Core::Geometry::IndexedGeometry This "interface" do not contain any data.
-class ContainerIntrospectionInterface
+class RA_CORE_API ContainerIntrospectionInterface
 {
   public:
     /// only needed for correct abstract dtor call.

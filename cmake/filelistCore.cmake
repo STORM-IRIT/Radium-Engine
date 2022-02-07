@@ -134,6 +134,7 @@ set(core_headers
     Utils/Chronometer.hpp
     Utils/CircularIndex.hpp
     Utils/Color.hpp
+    Utils/ContainerIntrospectionInterface.hpp
     Utils/IndexedObject.hpp
     Utils/Index.hpp
     Utils/IndexMap.hpp
