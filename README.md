@@ -30,6 +30,7 @@ Depending on you needs, you may want to:
 
 If you use Radium-Engine for your research and publication, or simply want to refer/cite Radium Engine, please use the following
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/374bd173d03946a9b54c3c6bbd8cd589)](https://app.codacy.com/gh/STORM-IRIT/Radium-Engine?utm_source=github.com&utm_medium=referral&utm_content=STORM-IRIT/Radium-Engine&utm_campaign=Badge_Grade_Settings)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5101334.svg)](https://doi.org/10.5281/zenodo.5101334)
 
 ```
