@@ -32,6 +32,8 @@ endif()
 
 set(app_sources main.cpp)
 
+# to install the app as a redistribuable bundle on macos, add MACOSX_BUNDLE when calling
+# add_executable
 add_executable(${PROJECT_NAME} ${app_sources})
 
 target_link_libraries(
