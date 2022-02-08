@@ -89,7 +89,7 @@ function(configure_cmdline_radium_app)
     if(ARGS_RESOURCES)
         foreach(resLocation ${ARGS_RESOURCES})
             message(STATUS "[configure_cmdline_radium_app] Installing resources ${resLocation}"
-                           "for ${ARGS_NAME} "
+                           " for ${ARGS_NAME} "
             )
             install_target_resources(
                 TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation}
@@ -185,29 +185,25 @@ function(configure_bundled_radium_app)
         endif()
     endforeach()
     list(REMOVE_DUPLICATES depsRsc)
-    # install qtPlugins (QPA plugin name found here https://doc.qt.io/qt-5/qpa.html) needed to fixup
-    # the bundle
+
+    # prepare to deploy using either macdeployQt or fixup-bundle
     get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-    list(FIND IsUsingQt "Qt::Gui" QTGUIIDX)
-    if(NOT QTGUIIDX EQUAL -1)
-        message(STATUS "[configure_bundled_radium_app] installing Qt plugins for ${ARGS_NAME}.")
-        # Find the list of plugins needed for a macos Qt app and add them here
-        install_qt_plugin(
-            "Qt::QCocoaIntegrationPlugin" INSTALLED_QT_PLUGINS
-            "${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/"
-        )
-        install_qt_plugin(
-            "Qt::QMacStylePlugin" INSTALLED_QT_PLUGINS
-            "${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/"
-        )
+    list(FIND IsUsingQt "Qt::Core" QTCoreIdx)
+    list(FIND IsUsingRadiumGui "Radium::Gui" RadiumGuiIdx)
+    if(NOT ((QTCoreIdx EQUAL -1) AND (RadiumGuiIdx EQUAL -1)))
+        set(DeployWithQt TRUE)
+        # Retrieve the absolute path to qmake and then use that path to find the macdeployqt binary
+        get_target_property(_qmake_executable Qt::qmake IMPORTED_LOCATION)
+        get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
+        find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
     endif()
+
     # install dependencies and fixup the bundle
     if(ARGS_USE_PLUGINS)
+        # plugins are only supported using Qt, deploy only with macdeployqt
         install(
             CODE "
         message(STATUS \"Installing ${ARGS_NAME} with plugins\")
-        include(BundleUtilities)
-        set(BU_CHMOD_BUNDLE_ITEMS TRUE)
         set(instRsc ${depsRsc})
         foreach( rsc \${instRsc})
             file(COPY \${rsc}
@@ -220,47 +216,36 @@ function(configure_bundled_radium_app)
             file(MAKE_DIRECTORY
                  \"${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib\")
         endif()
-        file(GLOB RadiumAvailablePlugins
-                RELATIVE ${RADIUM_PLUGINS_DIR}/lib/
-                ${RADIUM_PLUGINS_DIR}/lib/*.dylib )
-        set(InstalledPlugins)
-        foreach (plugin \${RadiumAvailablePlugins})
-            list( APPEND InstalledPlugins
-                  ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\${plugin} )
-        endforeach ()
-        fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app
-                      \"\${InstalledPlugins};${INSTALLED_QT_PLUGINS}\"
-\"${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\")
-        # fix rpath for plugins that use helper libs (can't load helper.dylib)
-        foreach(helper \${InstalledPlugins} )
-            # get the name (.dylib) of the helper
-            get_filename_component(FileHelper \${helper} NAME )
-            # change the LC_LOAD_DYLIB path of the helper in any plugin that uses it
-            foreach(plugin \${InstalledPlugins} )
-                if (NOT \${plugin} STREQUAL \${helper})
-                    execute_process(COMMAND
-                                   ${CMAKE_INSTALL_NAME_TOOL}
-                                   -change @executable_path/../Frameworks/\${FileHelper}
-                                   @loader_path/\${FileHelper} \${plugin})
-                endif()
-            endforeach()
-        endforeach()
+        execute_process(COMMAND
+            ${MACDEPLOYQT_EXECUTABLE}
+            ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app
+            -libpath=${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/ -always-overwrite
+        )
         "
         )
     else()
         install(
             CODE "
             message(STATUS \"Installing ${ARGS_NAME} without plugins\")
-            include(BundleUtilities)
-            set(BU_CHMOD_BUNDLE_ITEMS TRUE)
             set(instRsc ${depsRsc})
             foreach( rsc \${instRsc})
                 file(COPY \${rsc}
                      DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
             endforeach()
-            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app
-                        \"${INSTALLED_QT_PLUGINS}\"
-                        \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
+            set( useQtDeploy  ${DeployWithQt})
+            if( useQtDeploy )
+                message(STATUS \"Deploying ${ARGS_NAME} using ${MACDEPLOYQT_EXECUTABLE}\")
+                execute_process(COMMAND
+                    ${MACDEPLOYQT_EXECUTABLE} ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app -always-overwrite
+                )
+            else()
+                message(STATUS \"Deploying ${ARGS_NAME} using fixup_bundle\")
+                include(BundleUtilities)
+                set(BU_CHMOD_BUNDLE_ITEMS TRUE)
+                fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app
+                            \"\"
+                            \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
+            endif()
             "
         )
     endif()
@@ -647,7 +632,7 @@ function(configure_windows_radium_app)
     if(ARGS_RESOURCES)
         foreach(resLocation ${ARGS_RESOURCES})
             message(STATUS "[configure_cmdline_radium_app] Installing resources ${resLocation}"
-                           "for ${ARGS_NAME} "
+                           " for ${ARGS_NAME} "
             )
             install_target_resources(
                 TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation}
