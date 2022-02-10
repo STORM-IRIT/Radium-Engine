@@ -64,9 +64,10 @@ get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
 if(${HAS_VOLUMES})
     file(
         APPEND ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in
-        "if(IO_FOUND)
+        "# Set IO_VOLUME support
+        if(IO_FOUND)
           set_target_properties( Radium::IO PROPERTIES RADIUM_IO_HAS_VOLUMES TRUE)
-         endif()"
+        endif()"
     )
 endif()
 # -----------------------------------------------------------------------------------
