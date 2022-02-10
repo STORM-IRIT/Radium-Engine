@@ -189,7 +189,7 @@ function(configure_bundled_radium_app)
     # prepare to deploy using either macdeployQt or fixup-bundle
     get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
     list(FIND IsUsingQt "Qt::Core" QTCoreIdx)
-    list(FIND IsUsingRadiumGui "Radium::Gui" RadiumGuiIdx)
+    list(FIND IsUsingQt "Radium::Gui" RadiumGuiIdx)
     if(NOT ((QTCoreIdx EQUAL -1) AND (RadiumGuiIdx EQUAL -1)))
         set(DeployWithQt TRUE)
         # Retrieve the absolute path to qmake and then use that path to find the macdeployqt binary
@@ -675,7 +675,7 @@ function(configure_radium_app)
     endif()
     # configure the application
     message(STATUS "[configure_radium_app] Configuring application ${ARGS_NAME}"
-                   "for being relocatable after installation."
+                   " for being relocatable after installation."
     )
     if(APPLE)
         get_target_property(IsMacBundle ${ARGS_NAME} MACOSX_BUNDLE)
@@ -692,7 +692,7 @@ function(configure_radium_app)
         list(FIND IsUsingQt "Qt::Core" QTCOREIDX)
         if(NOT QTCOREIDX EQUAL -1)
             message(
-                STATUS "[configure_radium_app] Deploying QT is not yet supported for application"
+                STATUS "[configure_radium_app] Deploying QT is not yet supported for application "
                        "${ARGS_NAME} on ${CMAKE_SYSTEM_NAME}"
             )
         endif()
