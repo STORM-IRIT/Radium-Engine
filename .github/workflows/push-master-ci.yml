@@ -13,6 +13,36 @@ env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
 
 jobs:
+  upgrade-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Read VERSION
+        id: read
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./VERSION
+      - name: trim VERSION
+        id: set
+        run: |
+          echo "::set-output name=version::${{ steps.read.outputs.content }}"
+          [[ "${{ github.ref_name }}" == "master" ]] && echo "::set-output name=fragment::feature" || echo "::set-output name=fragment::bug"
+      - name: Bump release version
+        id: bump_version
+        uses: christian-draeger/increment-semantic-version@1.0.2
+        with:
+          current-version: "${{ steps.set.outputs.version }}"
+          version-fragment: "${{ steps.set.outputs.fragment }}"
+      - name: Store new version
+        run: |
+          echo ${{ steps.bump_version.outputs.next-version }} > VERSION
+      - name: Commit new VERSION file
+        uses: EndBug/add-and-commit@v8 # You can change this to use a specific version.
+        with:
+          add: 'VERSION'
+          default_author: github_actions
+          message: 'bump version'
+
   build:
     runs-on: ${{ matrix.config.os }}
     strategy:
