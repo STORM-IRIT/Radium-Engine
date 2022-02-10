@@ -30,7 +30,9 @@ add_run_and_debug_targets(CoreExampleApp)
 find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 find_package(OpenGL REQUIRED)
 set(CMAKE_AUTOMOC ON)
-add_executable(HelloRadium MACOSX_BUNDLE HelloRadium/main.cpp)
+
+# All demo applications are installed as cmdline applications
+add_executable(HelloRadium HelloRadium/main.cpp)
 target_include_directories(HelloRadium PRIVATE HelloRadium)
 target_link_libraries(
     HelloRadium PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets Qt::OpenGL
@@ -41,7 +43,7 @@ message(STATUS "Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME HelloRadium)
 add_run_and_debug_targets(HelloRadium)
 
-add_executable(SimpleSimulationApp MACOSX_BUNDLE SimpleSimulationApp/main.cpp)
+add_executable(SimpleSimulationApp SimpleSimulationApp/main.cpp)
 target_include_directories(SimpleSimulationApp PRIVATE SimpleSimulationApp)
 target_link_libraries(
     SimpleSimulationApp PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
@@ -52,6 +54,7 @@ message(STATUS "Installing SimpleSimulationApp into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME SimpleSimulationApp)
 add_run_and_debug_targets(SimpleSimluationApp)
 
+# On macos, DrawPrimitivesDemo is the only example of a distribuable app bundle
 add_executable(
     DrawPrimitivesDemo MACOSX_BUNDLE
     DrawPrimitivesApp/main.cpp DrawPrimitivesApp/minimalapp.cpp DrawPrimitivesApp/minimalapp.hpp
@@ -75,7 +78,7 @@ configure_radium_app(
 )
 add_run_and_debug_targets(DrawPrimitiveDemo)
 
-add_executable(SimpleAnimationApp MACOSX_BUNDLE SimpleAnimationApp/main.cpp)
+add_executable(SimpleAnimationApp SimpleAnimationApp/main.cpp)
 target_include_directories(SimpleAnimationApp PRIVATE SimpleAnimationApp)
 target_link_libraries(
     SimpleAnimationApp PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
@@ -86,7 +89,7 @@ message(STATUS "Installing SimpleAnimationApp into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME SimpleAnimationApp)
 add_run_and_debug_targets(SimpleAnimationApp)
 
-add_executable(RawShaderMaterial MACOSX_BUNDLE RawShaderMaterial/main.cpp)
+add_executable(RawShaderMaterial RawShaderMaterial/main.cpp)
 target_link_libraries(
     RawShaderMaterial PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
                              Qt::OpenGL Qt::Xml OpenGL::GL
@@ -96,7 +99,7 @@ message(STATUS "Installing RawShaderMaterial into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME RawShaderMaterial)
 add_run_and_debug_targets(RawShaderMaterial)
 
-add_executable(CustomCameraManipulator MACOSX_BUNDLE CustomCameraManipulator/main.cpp)
+add_executable(CustomCameraManipulator CustomCameraManipulator/main.cpp)
 target_link_libraries(
     CustomCameraManipulator PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
                                    Qt::OpenGL Qt::Xml OpenGL::GL

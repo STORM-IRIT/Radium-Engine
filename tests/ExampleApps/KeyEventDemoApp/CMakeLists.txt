@@ -48,9 +48,9 @@ qt_wrap_ui(app_uis_moc ${app_uis})
 
 set(app_resources)
 
-add_executable(
-    ${PROJECT_NAME} MACOSX_BUNDLE ${app_sources} ${app_headers} ${app_uis} ${app_resources}
-)
+# to install the app as a redistribuable bundle on macos, add MACOSX_BUNDLE when calling
+# add_executable
+add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_resources})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 target_include_directories(
