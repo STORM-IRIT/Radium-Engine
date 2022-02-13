@@ -13,10 +13,9 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 # ~~~
 # Note: keep the project name lower case only for easy linux packaging support
 # ~~~
+file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" INPUT_RADIUM_VERSION)
+project(radiumproject VERSION ${INPUT_RADIUM_VERSION})
 
-project(radiumproject VERSION 1.0.0)
-
-set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST) # read hostname to VERSION_HOST
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
@@ -255,7 +254,7 @@ install(FILES README.md DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
 
 message_title(" Final overview for ${PROJECT_NAME} ")
 message_info(
-    "Version:               ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} ${VERSION_TYPE} @ ${VERSION_HOST}"
+    "Version:               ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} @ ${VERSION_HOST}"
 )
 message_info("Install prefix: ")
 message_info("  ${CMAKE_INSTALL_PREFIX}")
