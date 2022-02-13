@@ -48,7 +48,7 @@ jobs:
         with:
           add: 'VERSION'
           default_author: github_actions
-          message: 'Update version to ${{ steps.increment.outputs.next-version }}'
+          message: 'Update version to ${{ steps.increment.outputs.next-version }} [skip ci]'
 
   build:
     runs-on: ${{ matrix.config.os }}
