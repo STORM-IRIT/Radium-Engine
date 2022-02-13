@@ -59,20 +59,6 @@ if(DOXYGEN_FOUND)
     set(RADIUM_DOC_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/)
     set(RADIUM_MAIN_DOC_FILE ${CMAKE_CURRENT_SOURCE_DIR}/main.md)
 
-    find_package(Git QUIET)
-    if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git")
-        execute_process(
-            COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} OUTPUT_VARIABLE GIT_CHANGESET
-        )
-        if(GIT_CHANGESET)
-            # remove new line sometime appearing in git changeset
-            string(REGEX REPLACE "\n$" "" GIT_CHANGESET "${GIT_CHANGESET}")
-        endif()
-    else()
-        set(GIT_CHANGESET "")
-    endif()
-
     # Get awesome css
     set(RADIUM_DOXYGEN_AWESOME_CSS_ROOT
         "${CMAKE_CURRENT_SOURCE_DIR}/../external/doxygen-awesome-css"
@@ -104,7 +90,9 @@ if(DOXYGEN_FOUND)
     endif()
     message(STATUS "Use Doxygen Awesome CSS?                  ${USE_AWESOME_CSS}")
 
-    set(RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
+    # set RADIUM_PROJECT_NUMBER from VERSION file
+    file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/../VERSION" INPUT_RADIUM_VERSION)
+    set(RADIUM_PROJECT_NUMBER ${INPUT_RADIUM_VERSION})
 
     # be nice with IDE: add .md files
     file(GLOB_RECURSE md_files ${CMAKE_CURRENT_SOURCE_DIR}/*/*.md)
