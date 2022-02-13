@@ -9,6 +9,7 @@ on:
     branches:
       - master
       - release-candidate
+      - rc-test
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
 
