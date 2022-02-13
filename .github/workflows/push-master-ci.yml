@@ -20,6 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.COMMIT_VERSION_TOKEN }}
       - name: Read VERSION file
         id: read
         uses: juliangruber/read-file-action@v1
@@ -45,7 +47,7 @@ jobs:
         with:
           add: 'VERSION'
           default_author: github_actions
-          message: 'Update version to ${{ steps.increment.outputs.next-version }}'
+          message: 'Update version to ${{ steps.increment.outputs.next-version }} [skip ci]'
 
   build:
     runs-on: ${{ matrix.config.os }}
