@@ -1,0 +1,59 @@
+name: increase version
+
+on:
+  workflow_call:
+    secrets:
+      token:
+        description: 'Token to commit file on protected branches'
+        required: true
+    outputs:
+      new-sha:
+        description: "git sha of new commit"
+        value: ${{ jobs.increase-version-number.outputs.new-sha }}
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  ext-dir: $GITHUB_WORKSPACE/external/install/
+
+jobs:
+  increase-version-number:
+      # VERSION is made of 3 fragments: version.feature.bug (e.g. 1.7.8)
+    # a push on release-candidate increase bug fragment  (e.g. 1.7.8 -> 1.7.9)
+    # a push on master increase feature fragment (e.g. 1.7.8 -> 1.8.0)
+    runs-on: ubuntu-latest
+    outputs:
+      new-sha: ${{ steps.commit.outputs.commit_long_sha }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.token }}
+      - name: Read VERSION file
+        id: read
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./VERSION
+      - name: Trim version string and set fragment name according to branch name
+        id: set
+        run: |
+          # this echo remove \n from steps.read.outputs.content
+          echo "::set-output name=version::${{ steps.read.outputs.content }}"
+          [[ "${{ github.ref_name }}" == "master" ]] && echo "::set-output name=fragment::feature" || echo "::set-output name=fragment::bug"
+      - name: Increase version
+        id: increment
+        uses: christian-draeger/increment-semantic-version@1.0.2
+        with:
+          current-version: "${{ steps.set.outputs.version }}"
+          version-fragment: "${{ steps.set.outputs.fragment }}"
+      - name: Store new version in VERSION file
+        run: |
+          echo ${{ steps.increment.outputs.next-version }} > VERSION
+      - name: Commit new VERSION file
+        uses: EndBug/add-and-commit@v8
+        id: commit
+        with:
+          add: 'VERSION'
+          default_author: github_actions
+          message: 'Update version to ${{ steps.increment.outputs.next-version }} [skip ci]'
