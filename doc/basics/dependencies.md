@@ -32,14 +32,16 @@ _outside Radium-Engine source dir_.
 \warning If you try to build and install external as a subdir of Radium-Engine source, cmake configuration will fail.
 
 ## Configuration and compilation of the dependencies
-Configure and build the cmake project:
+Create installation directory, configure and build the cmake project:
 ~~~{.bash}
+mkdir /path/to/external/installDir/Release
 mkdir BuildRadiumDependencies && cd BuildRadiumDependencies
-cmake -DCMAKE_INSTALL_PREFIX=/path/to/external/install /path/to/Radium-Engine/external -DCMAKE_BUILD_TYPE=Release
+cmake -DCMAKE_INSTALL_PREFIX=/path/to/external/installDir/Release /path/to/Radium-Engine/external -DCMAKE_BUILD_TYPE=Release
 make .
 ~~~
 
 If not given on the command line, the installation directory is set by default to `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}`.
+\warning The default installation directory will not work if `{CMAKE_CURRENT_BINARY_DIR}` is a subdirectory of the Radium folder.
 
 Then, to compile Radium-Engine, you have to indicate where cmake can find each dependency, as detailed next.
 
