@@ -35,7 +35,8 @@ _outside Radium-Engine source dir_.
 Create installation directory, configure and build the cmake project:
 ~~~{.bash}
 mkdir /path/to/external/installDir/Release
-mkdir BuildRadiumDependencies && cd BuildRadiumDependencies
+mkdir BuildRadiumDependencies
+cd BuildRadiumDependencies
 cmake -DCMAKE_INSTALL_PREFIX=/path/to/external/installDir/Release /path/to/Radium-Engine/external -DCMAKE_BUILD_TYPE=Release
 make .
 ~~~
