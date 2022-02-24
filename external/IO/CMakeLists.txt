@@ -17,7 +17,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
-add_custom_target(IOExternals)
+add_custom_target(IOExternals ALL)
 
 if(RADIUM_IO_ASSIMP)
     if(NOT DEFINED assimp_DIR)
