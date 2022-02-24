@@ -31,6 +31,9 @@ jobs:
         precision:
           - { name: "double", value: "ON" }
           - { name: "float", value: "OFF"}
+        qtversion:
+          - { name: "qt5", value: "5.15.1"}
+          - { name: "qt6", value: "6.2.0"}
     steps:
       - uses: seanmiddleditch/gha-setup-ninja@master
       - name: Add msbuild to PATH
@@ -41,11 +44,12 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ../Qt
-          key: ${{ matrix.config.name }}-QtCache
+          key: ${{ matrix.config.name }}-QtCache-${{ matrix.qtversion.value }}
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          version: ${{ matrix.qtversion.value }}
       - name: Install dep Linux
         if: runner.os == 'Linux'
         run: sudo apt-get install -y libglfw3-dev
@@ -53,13 +57,13 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install glfw
       - name: Install dep windows checkout
-        if: runner.os == 'windows'
+        if: runner.os == 'Windows'
         uses: actions/checkout@v2
         with:
           repository: glfw/glfw
           ref: 3.3.4
           path: glfw
-      - name: Install dep windows Config/Build static library
+      - name: Install dep windows Config/Build shared library
         if: runner.os == 'Windows'
         run: |
           mkdir $GITHUB_WORKSPACE/glfw_install/
