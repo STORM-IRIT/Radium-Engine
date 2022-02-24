@@ -63,7 +63,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           mkdir $GITHUB_WORKSPACE/glfw_install/
-          cmake -S glfw -B glfw/build-shared -G "Visual Studio 16 2019" -DBUILD_SHARED_LIBS=OFF -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/glfw_install/
+          cmake -S glfw -B glfw/build-shared -G "Visual Studio 17 2022" -DBUILD_SHARED_LIBS=OFF -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/glfw_install/
           cmake --build glfw/build-shared --parallel --config Release
           cmake --build glfw/build-shared --target install --config Release
           echo "glfw-path=-Dglfw3_DIR=\$GITHUB_WORKSPACE/glfw_install/lib/cmake/glfw3/" >> $GITHUB_ENV
