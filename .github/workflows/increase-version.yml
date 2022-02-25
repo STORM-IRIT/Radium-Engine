@@ -1,4 +1,15 @@
 name: increase version
+# this workflow update version file
+
+# TRIGGERED BY
+# - push-master-ci.yml
+# - push-rc-ci.yml
+
+# VERSION is made of 3 fragments: version.feature.bug (e.g. 1.7.8)
+# a push on release-candidate increase bug fragment  (e.g. 1.7.8 -> 1.7.9)
+# a push on master increase feature fragment (e.g. 1.7.8 -> 1.8.0)
+
+
 
 on:
   workflow_call:
@@ -20,9 +31,6 @@ env:
 
 jobs:
   increase-version-number:
-      # VERSION is made of 3 fragments: version.feature.bug (e.g. 1.7.8)
-    # a push on release-candidate increase bug fragment  (e.g. 1.7.8 -> 1.7.9)
-    # a push on master increase feature fragment (e.g. 1.7.8 -> 1.8.0)
     runs-on: ubuntu-latest
     outputs:
       new-sha: ${{ steps.commit.outputs.commit_long_sha }}

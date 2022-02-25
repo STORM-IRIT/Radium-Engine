@@ -1,4 +1,10 @@
-name: CI
+name: build
+# This workflow builds radium lib
+
+# TRIGGERED BY
+# - push-master-ci.yml
+# - push-rc-ci.yml
+
 
 defaults:
   run:

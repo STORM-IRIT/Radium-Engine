@@ -1,4 +1,7 @@
 name: Deploy documentation to gh-pages
+# TRIGGERED BY
+# - push-master-ci.yml
+# - push-rc-ci.yml
 
 on:
   workflow_call:
