@@ -33,6 +33,12 @@ class RA_GUI_API RotateAroundCameraManipulator
 
     KeyMappingManager::Context mappingContext() override;
 
+  public slots:
+    void fitScene( const Core::Aabb& aabb ) override {
+        TrackballCameraManipulator::fitScene( aabb );
+        setPivot( aabb.center() );
+    }
+
   protected:
     virtual void handleCameraRotate( Scalar dx, Scalar dy ) override;
     virtual void handleCameraForward( Scalar z );
