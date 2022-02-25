@@ -292,8 +292,9 @@ function(install_plugin_resources)
     get_filename_component(rsc_dir ${ARGS_DIRECTORY} NAME)
     set(buildtree_dir ${ARGS_BUILD_LOCATION})
     # installing resources in the buildtree (link if available, copy if not)
-    message(STATUS "[install_plugin_resources] Linking resources directory ${ARGS_DIRECTORY}"
-                   "for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}"
+    message(
+        STATUS
+            "[install_plugin_resources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}"
     )
     file(MAKE_DIRECTORY "${buildtree_dir}")
     if(MSVC OR MSVC_IDE OR MINGW)
@@ -460,8 +461,7 @@ ${CMAKE_INSTALL_PREFIX}/${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${
     # installing resources in the buildtree (link if available, copy if not)
     message(
         STATUS
-            "[install_target_resources] BINARY_DIR Linking resources directory ${ARGS_RESOURCES_DIR}"
-            "for target ${ARGS_TARGET} into ${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}"
+            "[install_target_resources] BINARY_DIR Linking resources directory ${ARGS_RESOURCES_DIR} for target ${ARGS_TARGET} into ${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}"
     )
     file(MAKE_DIRECTORY "${RESOURCES_BINARY_DIR}")
     if(MSVC OR MSVC_IDE OR MINGW)
@@ -494,8 +494,9 @@ ${CMAKE_INSTALL_PREFIX}/${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${
     endif()
 
     # install resource for application or shared library
-    message(STATUS "[install_target_resources] Installing resources for target ${ARGS_TARGET}"
-                   "into Resources/${RESOURCES_INSTALL_DIR}/${RESOURCES_LAST_DIR}"
+    message(
+        STATUS
+            "[install_target_resources] Installing resources for target ${ARGS_TARGET} into Resources/${RESOURCES_INSTALL_DIR}/${RESOURCES_LAST_DIR}"
     )
 
     if(${TARGET_TYPE} STREQUAL "EXECUTABLE" OR ${TARGET_TYPE} STREQUAL "SHARED_LIBRARY")
