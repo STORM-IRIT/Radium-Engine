@@ -19,12 +19,12 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", icon: "Windows", qtversion: "5.15.1"}
-          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", icon: "Windows", qtversion: "6.2.0"}
-          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc-10", cxx: "g++-10", icon: "Linux", qtversion: "5.15.1" }
-          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc-10", cxx: "g++-10", icon: "Linux", qtversion: "6.2.0" }
-          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", icon: "Apple", qtversion: "5.15.1" }
-          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", icon: "Apple", qtversion: "6.2.0" }
+          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", icon: "Windows" }
+          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc-10", cxx: "g++-10", icon: "Linux" }
+          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", icon: "Apple" }
+        qtversion:
+          - { name: "qt5", value: "5.15.1"}
+          - { name: "qt6", value: "6.2.0"}
     steps:
       - uses: seanmiddleditch/gha-setup-ninja@master
       - name: Add msbuild to PATH
@@ -35,12 +35,12 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ../Qt
-          key: ${{ matrix.config.name }}-QtCache-${{ matrix.config.qtversion }}
+          key: ${{ matrix.config.name }}-QtCache-${{ matrix.qtversion.value }}
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
-          version: ${{ matrix.config.qtversion }}
+          version: ${{ matrix.qtversion.value }}
       - name: Install dep Linux
         if: runner.os == 'Linux'
         run: sudo apt-get install -y libglfw3-dev
@@ -48,17 +48,17 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install glfw
       - name: Install dep windows checkout
-        if: runner.os == 'windows'
+        if: runner.os == 'Windows'
         uses: actions/checkout@v2
         with:
           repository: glfw/glfw
           ref: 3.3.4
           path: glfw
       - name: Install dep windows Config/Build shared library
-        if: runner.os == 'windows'
+        if: runner.os == 'Windows'
         run: |
           mkdir $GITHUB_WORKSPACE/glfw_install/
-          cmake -S glfw -B glfw/build-shared -G "Visual Studio 16 2019" -DBUILD_SHARED_LIBS=OFF -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/glfw_install/
+          cmake -S glfw -B glfw/build-shared -G "Visual Studio 17 2022" -DBUILD_SHARED_LIBS=OFF -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/glfw_install/
           cmake --build glfw/build-shared --parallel --config Release
           cmake --build glfw/build-shared --target install --config Release
           echo "glfw-path=-Dglfw3_DIR=\$GITHUB_WORKSPACE/glfw_install/lib/cmake/glfw3/" >> $GITHUB_ENV
