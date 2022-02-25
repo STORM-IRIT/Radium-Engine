@@ -1,4 +1,9 @@
 name: Code coverage
+# This Workflow compute test code coverage and send the result to covecov
+
+# TRIGGERED BY
+# - push-master-ci.yml
+# - push-rc-ci.yml
 
 defaults:
   run:

@@ -1,5 +1,10 @@
 name: Notify master update to Radium-Releases
 
+# This workflow trigger an code-update-event sent to Radium-Releases
+
+# TRIGGERED BY
+# - push-master-ci.yml
+
 on:
   workflow_call:
     inputs:
