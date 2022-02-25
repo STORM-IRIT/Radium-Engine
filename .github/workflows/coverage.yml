@@ -1,4 +1,9 @@
 name: Code coverage
+# This Workflow compute test code coverage and send the result to covecov
+
+# TRIGGERED BY
+# - push-master-ci.yml
+# - push-rc-ci.yml
 
 defaults:
   run:
@@ -8,9 +13,8 @@ on:
   pull_request:
     branches:
       - release-candidate
-  push:
-    branches:
-      - master
+  workflow_call:
+
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
 

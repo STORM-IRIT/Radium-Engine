@@ -1,8 +1,13 @@
 name: Deploy documentation to gh-pages
+# TRIGGERED BY
+# - push-master-ci.yml
+# - push-rc-ci.yml
 
 on:
-  push:
-    branches: [ master, release-candidate ]
+  workflow_call:
+    secrets:
+       REPO_ACCESS_TOKEN:
+         required: true
 
 jobs:
   deploy-doc-index:
@@ -29,6 +34,8 @@ jobs:
         with:
           path: src/Radium-Engine
           submodules: recursive
+      - name: pull updated repo (e.g. with new VERSION)
+        run: git -C src/Radium-Engine pull origin ${{ github.event.ref }}
       - name: Install packages
         run : |
           sudo apt-get install doxygen graphviz
