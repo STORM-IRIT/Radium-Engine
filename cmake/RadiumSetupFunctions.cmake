@@ -567,6 +567,17 @@ function(configure_windows_radium_app)
         endif()
     endforeach()
     list(REMOVE_DUPLICATES depsRsc)
+
+    # deploy qt
+    get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
+    list(FIND IsUsingQt "Qt::Core" QTCOREIDX)
+    if(NOT QTCOREIDX EQUAL -1)
+        message(STATUS "[configure_windows_radium_app] Preparing call to WinDeployQT"
+                       "for application ${ARGS_NAME}"
+        )
+        windeployqt(${ARGS_NAME} bin)
+    endif()
+
     # install Radium plugins
     if(ARGS_USE_PLUGINS)
         install(
@@ -617,16 +628,6 @@ function(configure_windows_radium_app)
     endif()
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         install(FILES $<TARGET_PDB_FILE:${ARGS_NAME}> DESTINATION bin)
-    endif()
-
-    # deploy qt
-    get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-    list(FIND IsUsingQt "Qt::Core" QTCOREIDX)
-    if(NOT QTCOREIDX EQUAL -1)
-        message(STATUS "[configure_windows_radium_app] Preparing call to WinDeployQT"
-                       "for application ${ARGS_NAME}"
-        )
-        windeployqt(${ARGS_NAME} bin)
     endif()
 
     # Configure the application own resources installation
