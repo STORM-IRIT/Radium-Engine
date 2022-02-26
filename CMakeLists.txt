@@ -20,7 +20,7 @@ site_name(VERSION_HOST) # read hostname to VERSION_HOST
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
 # Sets the Radium_VERSION* variables such that all components built in the Radium-buildtree are able
-# to access them. Client applications, libraries and pluginq will access these variable after their
+# to access them. Client applications, libraries and plugins will access these variable after their
 # find_package(Radium) ...
 set(Radium_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 set(Radium_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
