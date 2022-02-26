@@ -80,5 +80,5 @@ configure_radium_library(
 # configure the package "RadiumHeadless"
 configure_radium_package(
     NAME "Radium${libName}" PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${namespaceName}
-    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in PACKAGE_VERSION ${RADIUM_VERSION}
 )
