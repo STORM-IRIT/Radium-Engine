@@ -9,6 +9,11 @@ else()
     project(RadiumHeadless VERSION 1.0.1)
 endif()
 
+set(${PROJECT_NAME}_VERSION ${PROJECT_VERSION} PARENT_SCOPE)
+set(${PROJECT_NAME}_VERSION_MAJOR ${PROJECT_VERSION_MAJOR} PARENT_SCOPE)
+set(${PROJECT_NAME}_VERSION_MINOR ${PROJECT_VERSION_MINOR} PARENT_SCOPE)
+set(${PROJECT_NAME}_VERSION_PATCH ${PROJECT_VERSION_PATCH} PARENT_SCOPE)
+
 if(NOT CMAKE_BUILD_TYPE)
     message_info("No CMAKE_BUILD_TYPE, using default CMAKE_BUILD_TYPE=Release")
     set(CMAKE_BUILD_TYPE "Release")
@@ -32,7 +37,6 @@ endif()
 # -----------------------------------------------------------------------------------
 set(libName Headless)
 set(namespaceName Radium)
-message(STATUS "Configuring library ${namespaceName}::${libName}")
 
 # Radium components : IO is not mandatory and should be removed once verified
 if(NOT IN_RADIUM_BUILD_TREE)
@@ -40,7 +44,6 @@ if(NOT IN_RADIUM_BUILD_TREE)
     message(STATUS "Found Radium version ${Radium_VERSION}")
     set(DEFAULT_COMPILE_OPTIONS)
 endif()
-message(STATUS "Compiling library ${libName} version ${PROJECT_VERSION}")
 
 find_package(glfw3 3.2 REQUIRED)
 

@@ -4,9 +4,9 @@ if(APPLE)
 endif(APPLE)
 
 if(IN_RADIUM_BUILD_TREE)
-    project(HeadlessDemo VERSION ${Radium_VERSION})
+    project(HeadlessLibAndApp VERSION ${Radium_VERSION})
 else()
-    project(HeadlessDemo VERSION 1.0.1)
+    project(HeadlessLibAndApp VERSION 1.0.1)
 endif()
 # To prevent installation ordering issue and make the library installed before the application, so
 # that fixup_bundle will success on windows, we have to define libraries and executable in different
@@ -16,4 +16,5 @@ endif()
 add_subdirectory(libHeadless)
 
 # configure, build and install the demo application for Radium headless
+set(IN_LIBHEADLESS_BUILD_TREE TRUE)
 add_subdirectory(Application)
