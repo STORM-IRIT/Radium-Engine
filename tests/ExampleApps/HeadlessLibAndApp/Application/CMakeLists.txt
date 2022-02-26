@@ -3,7 +3,16 @@ if(APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
-project(HeadlessDemo VERSION 1.0.0)
+if(IN_RADIUM_BUILD_TREE)
+    project(HeadlessDemo VERSION ${Radium_VERSION})
+else()
+    project(HeadlessDemo VERSION 1.0.1)
+endif()
+
+if(NOT CMAKE_BUILD_TYPE)
+    message_info("No CMAKE_BUILD_TYPE, using default CMAKE_BUILD_TYPE=Release")
+    set(CMAKE_BUILD_TYPE "Release")
+endif()
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
