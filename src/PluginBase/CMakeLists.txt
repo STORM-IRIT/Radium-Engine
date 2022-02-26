@@ -1,7 +1,7 @@
 set(ra_pluginbase_target PluginBase)
 list(APPEND CMAKE_MESSAGE_INDENT "[${ra_pluginbase_target}] ")
 
-project(${ra_pluginbase_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
+project(${ra_pluginbase_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
 include(filelistPluginBase)
 

@@ -74,7 +74,7 @@ endif()
 # Generate cmake package
 configure_radium_package(
     NAME Radium PACKAGE_CONFIG ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in
-                               PACKAGE_VERSION ${RADIUM_VERSION}
+                               PACKAGE_VERSION ${Radium_VERSION}
 )
 
 # install general scripts
