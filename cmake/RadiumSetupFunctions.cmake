@@ -879,25 +879,9 @@ function(configure_radium_package)
             DESTINATION ${ARGS_PACKAGE_DIR}
     )
     if(ARGS_PACKAGE_VERSION)
-        string(REGEX MATCH "^([0-9]+)\\.([0-9]+)\\.([0-9]+)" TARGET_VERSION_MATCH
-                     ${ARGS_PACKAGE_VERSION}
-        )
-        set(package_VERSION ${CMAKE_MATCH_0})
-        set(package_VERSION_MAJOR ${CMAKE_MATCH_1})
-        set(package_VERSION_MINOR ${CMAKE_MATCH_2})
-        set(package_VERSION_PATCH ${CMAKE_MATCH_3})
         write_basic_package_version_file(
-            "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake" VERSION ${package_VERSION}
-            COMPATIBILITY SameMajorVersion
-        )
-        file(
-            APPEND ${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake
-            "
-            set(${ARGS_NAME}_VERSION ${package_VERSION})
-            set(${ARGS_NAME}_VERSION_MAJOR ${package_VERSION_MAJOR})
-            set(${ARGS_NAME}_VERSION_MINOR ${package_VERSION_MINOR})
-            set(${ARGS_NAME}_VERSION_PATCH ${package_VERSION_PATCH})
-            "
+            "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake"
+            VERSION ${ARGS_PACKAGE_VERSION} COMPATIBILITY SameMajorVersion
         )
         install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake"
                 DESTINATION ${ARGS_PACKAGE_DIR}
