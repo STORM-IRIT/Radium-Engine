@@ -3,7 +3,16 @@ if(APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
-project(RadiumHeadless VERSION 1.0.0)
+if(IN_RADIUM_BUILD_TREE)
+    project(RadiumHeadless VERSION ${Radium_VERSION})
+else()
+    project(RadiumHeadless VERSION 1.0.1)
+endif()
+
+if(NOT CMAKE_BUILD_TYPE)
+    message_info("No CMAKE_BUILD_TYPE, using default CMAKE_BUILD_TYPE=Release")
+    set(CMAKE_BUILD_TYPE "Release")
+endif()
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
@@ -28,8 +37,10 @@ message(STATUS "Configuring library ${namespaceName}::${libName}")
 # Radium components : IO is not mandatory and should be removed once verified
 if(NOT IN_RADIUM_BUILD_TREE)
     find_package(Radium REQUIRED Core Engine IO)
+    message(STATUS "Found Radium version ${Radium_VERSION}")
     set(DEFAULT_COMPILE_OPTIONS)
 endif()
+message(STATUS "Compiling library ${libName} version ${PROJECT_VERSION}")
 
 find_package(glfw3 3.2 REQUIRED)
 
@@ -80,5 +91,5 @@ configure_radium_library(
 # configure the package "RadiumHeadless"
 configure_radium_package(
     NAME "Radium${libName}" PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${namespaceName}
-    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in PACKAGE_VERSION ${RADIUM_VERSION}
+    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in PACKAGE_VERSION ${PROJECT_VERSION}
 )
