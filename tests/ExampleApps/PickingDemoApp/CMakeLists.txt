@@ -9,7 +9,7 @@ endif(APPLE)
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
-project(PickingDemoApp VERSION 0.0.1)
+project(PickingDemoApp VERSION 1.0.0)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
@@ -29,15 +29,16 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ///////////////////////////////
+
+if(NOT IN_RADIUM_BUILD_TREE)
+    find_package(Radium REQUIRED Core Engine Gui PluginBase IO)
+endif()
+
 find_qt_package(COMPONENTS Core Widgets REQUIRED)
 set(Qt_LIBRARIES Qt::Core Qt::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-if(NOT IN_RADIUM_BUILD_TREE)
-    find_package(Radium REQUIRED Core Engine Gui PluginBase IO)
-endif()
 
 set(app_sources main.cpp)
 set(app_headers)

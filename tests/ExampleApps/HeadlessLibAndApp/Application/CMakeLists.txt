@@ -3,11 +3,7 @@ if(APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
-if(IN_LIBHEADLESS_BUILD_TREE)
-    project(HeadlessDemo VERSION ${RadiumHeadless_VERSION})
-else()
-    project(HeadlessDemo VERSION 1.0.0)
-endif()
+project(HeadlessDemo VERSION 1.0.2)
 
 if(NOT CMAKE_BUILD_TYPE)
     message_info("No CMAKE_BUILD_TYPE, using default CMAKE_BUILD_TYPE=Release")
@@ -28,9 +24,11 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 
 if(NOT IN_LIBHEADLESS_BUILD_TREE)
+    # package RadiumHeadless will import its Radium dependencies
     find_package(RadiumHeadless REQUIRED)
 elseif(NOT IN_RADIUM_BUILD_TREE)
-    # need this to import Radium dependencies
+    # need this to import Radium dependencies if not using the package RadiumHeadless but the
+    # subdirectory
     find_package(Radium REQUIRED Core Engine IO)
 endif()
 

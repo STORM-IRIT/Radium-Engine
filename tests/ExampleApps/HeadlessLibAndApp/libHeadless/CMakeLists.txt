@@ -3,12 +3,10 @@ if(APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
-if(IN_RADIUM_BUILD_TREE)
-    project(RadiumHeadless VERSION ${Radium_VERSION})
-else()
-    project(RadiumHeadless VERSION 1.0.1)
-endif()
+project(RadiumHeadless VERSION 1.0.2)
 
+# Defines the RadiumHeadless version in the parent scope so that one can use this lib doing
+# add_subdirectory(...) and access RadiumHeadless_VERSION
 set(${PROJECT_NAME}_VERSION ${PROJECT_VERSION} PARENT_SCOPE)
 set(${PROJECT_NAME}_VERSION_MAJOR ${PROJECT_VERSION_MAJOR} PARENT_SCOPE)
 set(${PROJECT_NAME}_VERSION_MINOR ${PROJECT_VERSION_MINOR} PARENT_SCOPE)
