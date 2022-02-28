@@ -1,5 +1,6 @@
 var NAVTREEINDEX19 =
 {
+"classRa_1_1Plugins_1_1RadiumPluginInterface.html#a6feecf052a9c12e6f85b07e3eaaf0a9a":[9,0,2,4,1,7],
 "classRa_1_1Plugins_1_1RadiumPluginInterface.html#a75254b6686888a26e57ddfc83d85d372":[9,0,2,4,1,5],
 "classRa_1_1Plugins_1_1RadiumPluginInterface.html#a860bb59fee16633501bc63271fe397ab":[9,0,2,4,1,10],
 "classRa_1_1Plugins_1_1RadiumPluginInterface.html#ac67c90cbc774815037521ec11b9fdbc5":[9,0,2,4,1,3],
@@ -192,8 +193,8 @@ var NAVTREEINDEX19 =
 "forwardRenderer.html#autotoc_md36":[3,3,3],
 "forwardRenderer.html#autotoc_md37":[3,3,4],
 "forwardRenderer.html#autotoc_md38":[3,3,5],
-"functions.html":[9,3,0,0],
 "functions.html":[9,3,0],
+"functions.html":[9,3,0,0],
 "functions__.html":[9,3,0,1],
 "functions_a.html":[9,3,0,2],
 "functions_b.html":[9,3,0,3],
@@ -246,8 +247,7 @@ var NAVTREEINDEX19 =
 "functions_type.html":[9,3,3],
 "functions_u.html":[9,3,0,21],
 "functions_v.html":[9,3,0,22],
-"functions_vars.html":[9,3,2,0],
 "functions_vars.html":[9,3,2],
-"functions_vars_b.html":[9,3,2,1],
-"functions_vars_c.html":[9,3,2,2]
+"functions_vars.html":[9,3,2,0],
+"functions_vars_b.html":[9,3,2,1]
 };

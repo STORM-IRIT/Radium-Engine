@@ -1,5 +1,6 @@
 var NAVTREEINDEX18 =
 {
+"classRa_1_1Gui_1_1TreeModel.html#a1eb09233eaa80360d944f5c1d73aa65b":[9,0,2,2,29,10],
 "classRa_1_1Gui_1_1TreeModel.html#a3d5ee0d1658837c54a1ec9379edce84f":[9,0,2,2,29,0],
 "classRa_1_1Gui_1_1TreeModel.html#a40eebac048f0264815de6a0b5f3b6f53":[9,0,2,2,29,7],
 "classRa_1_1Gui_1_1TreeModel.html#a5219b6c7fe3bb01a42c86578087d106f":[9,0,2,2,29,15],
@@ -248,6 +249,5 @@ var NAVTREEINDEX18 =
 "classRa_1_1Plugins_1_1RadiumPluginInterface.html#a3fe610032c1dbb240e179b139d00624f":[9,0,2,4,1,1],
 "classRa_1_1Plugins_1_1RadiumPluginInterface.html#a460d1df9a097719b389d6571904be142":[9,0,2,4,1,11],
 "classRa_1_1Plugins_1_1RadiumPluginInterface.html#a4f25e725a265ba2d82ce3972acf64185":[9,0,2,4,1,2],
-"classRa_1_1Plugins_1_1RadiumPluginInterface.html#a60fb20080ecfa1fd75acf4b9389cd141":[9,0,2,4,1,8],
-"classRa_1_1Plugins_1_1RadiumPluginInterface.html#a6feecf052a9c12e6f85b07e3eaaf0a9a":[9,0,2,4,1,7]
+"classRa_1_1Plugins_1_1RadiumPluginInterface.html#a60fb20080ecfa1fd75acf4b9389cd141":[9,0,2,4,1,8]
 };

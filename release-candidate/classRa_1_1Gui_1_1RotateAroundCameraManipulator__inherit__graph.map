@@ -1,5 +1,5 @@
 <map id="Ra::Gui::RotateAroundCameraManipulator" name="Ra::Gui::RotateAroundCameraManipulator">
-<area shape="rect" id="node1" title=" " alt="" coords="362,1619,627,1872"/>
+<area shape="rect" id="node1" title=" " alt="" coords="362,1619,627,1887"/>
 <area shape="rect" id="node2" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras." alt="" coords="283,1037,528,1569"/>
 <area shape="rect" id="node3" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="5,189,261,853"/>
 <area shape="rect" id="node4" href="$classQObject.html" title=" " alt="" coords="96,27,171,105"/>

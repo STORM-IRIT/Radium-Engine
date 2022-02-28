@@ -1,5 +1,6 @@
 var NAVTREEINDEX21 =
 {
+"structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html#a2268e2356ebd9ef3350a34cac5ce7f0c":[9,0,2,0,2,12,0,0],
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html#a38cf3dc0637a1148edd36d6ee439bcde":[9,0,2,0,2,12,0,3],
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html#a6956e77a25e3050ce9d05eeb488a0902":[9,0,2,0,2,12,0,1],
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html#ad3471c3933841ed2fb4a2c1c6b9f695c":[9,0,2,0,2,12,0,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX21 =
 "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a4eee0e46f6bbaebefa08a5aa87f280cb":[9,0,2,1,2,5,1,1],
 "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a57352b9b58750b5b1371cd41f2364bee":[9,0,2,1,2,5,1,0],
 "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#af818660a41fe4f5e755edc2ca68f725a":[9,0,2,1,2,5,1,3],
-"structRa_1_1Engine_1_1Scene_1_1ItemEntry.html":[9,0,2,1,2,16],
-"structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0":[9,0,2,1,2,16,11]
+"structRa_1_1Engine_1_1Scene_1_1ItemEntry.html":[9,0,2,1,2,16]
 };
