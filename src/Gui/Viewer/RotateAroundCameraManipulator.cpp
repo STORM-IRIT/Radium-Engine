@@ -154,6 +154,11 @@ KeyMappingManager::Context RotateAroundCameraManipulator::mappingContext() {
     return KeyMapping::getContext();
 }
 
+void RotateAroundCameraManipulator::fitScene( const Core::Aabb& aabb ) {
+    TrackballCameraManipulator::fitScene( aabb );
+    setPivot( aabb.center() );
+}
+
 void RotateAroundCameraManipulator::handleCameraRotate( Scalar x, Scalar y ) {
     Ra::Core::Vector3 trans  = m_camera->projectToScreen( m_pivot );
     Ra::Core::Quaternion rot = deformedBallQuaternion( x, y, trans[0], trans[1] );
