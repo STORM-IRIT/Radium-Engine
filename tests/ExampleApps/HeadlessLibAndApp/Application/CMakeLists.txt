@@ -5,23 +5,26 @@ endif(APPLE)
 
 project(HeadlessDemo VERSION 1.0.2)
 
+# ------------------------------------------------------------------------------
+# set wanted application defaults for cmake settings
 if(NOT CMAKE_BUILD_TYPE)
-    message_info("No CMAKE_BUILD_TYPE, using default CMAKE_BUILD_TYPE=Release")
-    set(CMAKE_BUILD_TYPE "Release")
+    set(CMAKE_BUILD_TYPE Release)
 endif()
-
-set(CMAKE_DISABLE_SOURCE_CHANGES ON)
-set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+# Set default install location to installed-<Compiler_ID> folder in build dir we do not want to
+# install to /usr by default
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}"
+    set(CMAKE_INSTALL_PREFIX
+        "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}"
         CACHE PATH "Install path prefix, prepended onto install directories." FORCE
     )
-    message("Set install prefix to ${CMAKE_INSTALL_PREFIX} for project ${PROJECT_NAME}.")
-    set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT False)
+    message("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
 endif()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+
+# ------------------------------------------------------------------------------
 
 if(NOT IN_LIBHEADLESS_BUILD_TREE)
     # package RadiumHeadless will import its Radium dependencies
