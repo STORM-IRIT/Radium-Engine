@@ -852,13 +852,14 @@ endfunction()
 #
 # * PACKAGE_DIR : The directory in which the cmake package config file will be installed (default
 #   <prefix>/lib/cmake/Radium)
+# * PACKAGE_VERSION : The package version number
 #
 function(configure_radium_package)
     # parse and verify args
     cmake_parse_arguments(
         ARGS
         "" # no options
-        "NAME;PACKAGE_DIR;PACKAGE_CONFIG" # one value args
+        "NAME;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION" # one value args
         "" # no multivalued args
         ${ARGN}
     )
@@ -877,6 +878,15 @@ function(configure_radium_package)
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}Config.cmake"
             DESTINATION ${ARGS_PACKAGE_DIR}
     )
+    if(ARGS_PACKAGE_VERSION)
+        write_basic_package_version_file(
+            "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake"
+            VERSION ${ARGS_PACKAGE_VERSION} COMPATIBILITY SameMajorVersion
+        )
+        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake"
+                DESTINATION ${ARGS_PACKAGE_DIR}
+        )
+    endif()
 endfunction()
 
 # This function configures the `<TARGET>` according to Radium requisite (exported target, namespace,
@@ -891,13 +901,14 @@ endfunction()
 # * PACKAGE_DIR : The directory in which the cmake package config file will be installed (default
 #   <prefix>/lib/cmake/Radium)
 # * PACKAGE_CONFIG : If given, a configure script, to be used by `find_package`, will be generated.
+# * PACKAGE_VERSION : If given, with PACKAGE_CONFIG also given, generates also a cmake version file.
 #
 function(configure_radium_library)
     # parse and verify args
     cmake_parse_arguments(
         ARGS
         "" # no options
-        "TARGET;TARGET_DIR;NAMESPACE;PACKAGE_DIR;PACKAGE_CONFIG" # one value args
+        "TARGET;TARGET_DIR;NAMESPACE;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION" # one value args
         "FILES" # list of directories containing the resources to install - optional
         ${ARGN}
     )
@@ -944,10 +955,6 @@ function(configure_radium_library)
         INCLUDES
         DESTINATION include
     )
-    write_basic_package_version_file(
-        "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_TARGET}ConfigVersion.cmake" VERSION ${RADIUM_VERSION}
-        COMPATIBILITY AnyNewerVersion
-    )
     # export for build tree
     export(TARGETS ${ARGS_TARGET} NAMESPACE ${ARGS_NAMESPACE}::
            FILE "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_TARGET}Targets.cmake"
@@ -961,10 +968,17 @@ function(configure_radium_library)
             NAMESPACE ${ARGS_NAMESPACE}:: DESTINATION ${ARGS_PACKAGE_DIR}
     )
     if(ARGS_PACKAGE_CONFIG)
-        configure_radium_package(
-            NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
-            PACKAGE_DIR ${ARGS_PACKAGE_DIR}
-        )
+        if(ARGS_PACKAGE_VERSION)
+            configure_radium_package(
+                NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
+                PACKAGE_DIR ${ARGS_PACKAGE_DIR} PACKAGE_VERSION ${ARGS_PACKAGE_VERSION}
+            )
+        else()
+            configure_radium_package(
+                NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
+                PACKAGE_DIR ${ARGS_PACKAGE_DIR}
+            )
+        endif()
     endif()
     foreach(file ${ARGS_FILES})
         get_filename_component(file_dir ${file} DIRECTORY)

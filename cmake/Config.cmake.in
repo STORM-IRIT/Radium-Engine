@@ -111,7 +111,8 @@ if(Engine_FOUND)
     include("${CMAKE_CURRENT_LIST_DIR}/EngineTargets.cmake")
 endif()
 
-if(IO_FOUND)
+# Setup Io as standalone package or dependency of Gui
+if(IO_FOUND OR Gui_FOUND)
     define_property(
         TARGET PROPERTY RADIUM_IO_USE_ASSIMP BRIEF_DOCS "Radium::IO has assimp support."
         FULL_DOCS "Identify if Radium::IO was compiled with assimp support."
@@ -166,12 +167,9 @@ if(IO_FOUND)
 
 endif()
 
-# Load Radium qt functions
+# Setup PluginBase as standalone package or dependency of Gui
 if(PluginBase_FOUND OR Gui_FOUND)
     include(${CMAKE_CURRENT_LIST_DIR}/QtFunctions.cmake)
-endif()
-
-if(PluginBase_FOUND)
     find_qt_dependency(COMPONENTS Core REQUIRED)
     include("${CMAKE_CURRENT_LIST_DIR}/PluginBaseTargets.cmake")
 endif()

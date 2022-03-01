@@ -3,7 +3,7 @@ if(APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
-project(HeadlessDemo VERSION 1.0.0)
+project(HeadlessLibAndApp VERSION 1.0.2)
 
 # To prevent installation ordering issue and make the library installed before the application, so
 # that fixup_bundle will success on windows, we have to define libraries and executable in different
@@ -13,4 +13,5 @@ project(HeadlessDemo VERSION 1.0.0)
 add_subdirectory(libHeadless)
 
 # configure, build and install the demo application for Radium headless
+set(IN_LIBHEADLESS_BUILD_TREE TRUE)
 add_subdirectory(Application)
