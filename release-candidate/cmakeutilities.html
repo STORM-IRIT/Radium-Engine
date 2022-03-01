@@ -35,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.0.4</span>
+   &#160;<span id="projectnumber">1.0.5</span>
    </div>
   </td>
  </tr>
@@ -190,12 +190,13 @@ Extending Radium through libraries</h2>
 <h3><a class="anchor" id="configure_radium_library"></a>
 configure_radium_library</h3>
 <div class="fragment"><div class="line">configure_radium_library(</div>
-<div class="line">    TARGET targetName               # Name of the target to configure as a Radium Library</div>
-<div class="line">    FILES file1[file2[file3 ...]]   # list of headers to install</div>
-<div class="line">    [TARGET_DIR directoryName]      # Name of the directory where files are installed (default &lt;prefix&gt;/include/&lt;TARGET&gt;)</div>
-<div class="line">    [NAMESPACE NameSpace]           # Namespace of the imported target (default Radium)</div>
-<div class="line">    [PACKAGE_CONFIG file.cmake.in]  # name of the configure script model for the given target</div>
-<div class="line">    [PACKAGE_DIR packageDirName]    # Name of the directory where the cmake config file will be installed (default &lt;prefix&gt;/lib/cmake/Radium)</div>
+<div class="line">    TARGET targetName                   # Name of the target to configure as a Radium Library</div>
+<div class="line">    FILES file1[file2[file3 ...]]       # list of headers to install</div>
+<div class="line">    [TARGET_DIR directoryName]          # Name of the directory where files are installed (default &lt;prefix&gt;/include/&lt;TARGET&gt;)</div>
+<div class="line">    [NAMESPACE NameSpace]               # Namespace of the imported target (default Radium)</div>
+<div class="line">    [PACKAGE_CONFIG file.cmake.in]      # name of the configure script model for the given target</div>
+<div class="line">    [PACKAGE_VERSION major.minor.patch] # version number of the target</div>
+<div class="line">    [PACKAGE_DIR packageDirName]        # Name of the directory where the cmake config file will be installed (default &lt;prefix&gt;/lib/cmake/Radium)</div>
 <div class="line">)</div>
 </div><!-- fragment --><p>This cmake function configures the <code>&lt;TARGET&gt;</code> for installation and for further import in client project using <code>find_package(&lt;TARGET&gt;)</code>. In order to use the library either through an imported target from an installed binary or as a project target in another component on the same build tree, this function defines an alias target with the same name as the imported one. This function also defines the symbol <code>&lt;TARGET&gt;</code>_EXPORTS so that, it could be used to allow symbol import/export from dynamic library.</p>
 <p>This function takes the following parameters:</p>
@@ -213,6 +214,8 @@ configure_radium_library</h3>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>&lt;PACKAGE_CONFIG&gt;</code> </td><td class="markdownTableBodyNone">If given, a configure script, to be used by <code>find_package</code>, will be generated. If not, only the exported targets will be generated.  </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>&lt;PACKAGE_VERSION&gt;</code> </td><td class="markdownTableBodyNone">If given when the <code>&lt;PACKAGE_CONFIG&gt;</code> option also given, a cmake version file, used by <code>find_package</code>, will be generated.  </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>&lt;PACKAGE_DIR&gt;</code> </td><td class="markdownTableBodyNone">If given, the cmake configuration script <code>&lt;TARGET&gt;Config.cmake</code> searched by <code>find_package(&lt;TARGET&gt;)</code> will be installed in the directory <code>${CMAKE_INSTALL_PREFIX}/&lt;PACKAGE_DIR&gt;</code>. If not, the configure script will be installed in the directory <code>&lt;${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium</code>.  </td></tr>
 </table>
 <p>Note that the parameters <code>&lt;PACKAGE_CONFIG&gt;</code> and <code>&lt;PACKAGE_DIR&gt;</code> could be omitted as the associated cmake package module could be generated using the function <a href="#configure_radium_package"><code>configure_radium_package</code></a> documented below. If these parameters are given here, they will be forwarded to this function.</p>
@@ -331,6 +334,7 @@ configure_radium_package</h3>
 <div class="fragment"><div class="line">configure_radium_package(</div>
 <div class="line">    NAME packageName                # The name of the package to install</div>
 <div class="line">    PACKAGE_CONFIG configFile.in    # The package configuration file</div>
+<div class="line">    [PACKAGE_VERSION]               # The package version number (with format &quot;major.minor.patch&quot;)</div>
 <div class="line">    [PACKAGE_DIR packageDirName]    # Name of the directory where the cmake config file will be installed (default &lt;prefix&gt;/lib/cmake/Radium)</div>
 <div class="line">)</div>
 </div><!-- fragment --><p>This cmake function configures the package <code>packageName</code> for installation and for further import in client project using <code>find_package(&lt;TARGET&gt;)</code>.</p>
@@ -343,10 +347,13 @@ configure_radium_package</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>&lt;PACKAGE_CONFIG&gt; configFile.in</code> </td><td class="markdownTableBodyNone">The configure script to be used by <code>find_package</code>.  </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>&lt;PACKAGE_VERSION&gt; major.minor.patch</code> </td><td class="markdownTableBodyNone">If given, the version of the installed package  </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>&lt;PACKAGE_DIR&gt; packageDirName</code> </td><td class="markdownTableBodyNone">If given, the cmake configuration script <code>&lt;TARGET&gt;Config.cmake</code> searched by <code>find_package(&lt;TARGET&gt;)</code> will be installed in the directory <code>${CMAKE_INSTALL_PREFIX}/&lt;PACKAGE_DIR&gt;</code>. If not, the configure script will be installed in the directory <code>&lt;${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium</code>.  </td></tr>
 </table>
-<p>This function is called implicitly, when defining a single component package, when the parameters <code>&lt;PACKAGE_CONFIG&gt;</code> and <code>&lt;PACKAGE_DIR&gt;</code> are given to the library configuration function <a href="#configure_radium_library"><code>configure_radium_library</code></a>.</p>
+<p>This function is called implicitly, when defining a single component package, when the parameters <code>&lt;PACKAGE_CONFIG&gt;</code> and <code>&lt;PACKAGE_DIR&gt;</code>, with optional <code>PACKAGE_VERSION</code>, are given to the library configuration function <a href="#configure_radium_library"><code>configure_radium_library</code></a>.</p>
 <p>This function also allows defining multi-component packages for selective import using the <code>find_package(packageName [COMPONENTS comp1 comp2 ...]</code> command when called explicitly with an appropriate <code>PACKAGE_CONFIG</code> parameter.</p>
+<p>If the optional <code>&lt;PACKAGE_VERSION&gt;</code> parameter is given, a cmake version file is generated, using the <code>SameMajorVersion</code> compatibility policy, that exports the cmake variables <code>&lt;NAME&gt;_VERSION</code> , <code>&lt;NAME&gt;_VERSION_MAJOR</code>, <code>&lt;NAME&gt;_VERSION_MINOR</code> and <code>&lt;NAME&gt;_VERSION_PATCH</code>.</p>
 <h3><a class="anchor" id="radium_exported_resources"></a>
 radium_exported_resources</h3>
 <div class="fragment"><div class="line">radium_exported_resources(</div>
@@ -641,7 +648,7 @@ Configuring an application plugin</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Mon Feb 28 2022 21:25:02 for Radium Engine by
+    <li class="footer">Generated on Tue Mar 1 2022 10:27:47 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
