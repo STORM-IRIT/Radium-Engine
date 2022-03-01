@@ -91,8 +91,8 @@ if(DOXYGEN_FOUND)
     message(STATUS "Use Doxygen Awesome CSS?                  ${USE_AWESOME_CSS}")
 
     # set RADIUM_PROJECT_NUMBER from VERSION file
-    file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/../VERSION" INPUT_RADIUM_VERSION)
-    set(RADIUM_PROJECT_NUMBER ${INPUT_RADIUM_VERSION})
+    file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/../VERSION" INPUT_Radium_VERSION)
+    set(RADIUM_PROJECT_NUMBER ${INPUT_Radium_VERSION})
 
     # be nice with IDE: add .md files
     file(GLOB_RECURSE md_files ${CMAKE_CURRENT_SOURCE_DIR}/*/*.md)

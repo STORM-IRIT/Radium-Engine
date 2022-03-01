@@ -3,139 +3,76 @@
 
 project(RadiumExampleApps)
 
-# short convenience target from cmake/cleanCpppExtensions.cpp
+# short convenience target
 add_custom_target(${PROJECT_NAME})
 
-# These variable are normally set by the find_package(Radium) for client applications
-set(RADIUM_ROOT_DIR "${CMAKE_INSTALL_PREFIX}/")
-set(RADIUM_RESOURCES_DIR "${CMAKE_INSTALL_PREFIX}/Resources/Radium")
-set(RADIUM_PLUGINS_DIR "${CMAKE_INSTALL_PREFIX}/Plugins")
-set(IN_RADIUM_BUILD_TREE TRUE)
-
-if(MSVC OR MSVC_IDE OR MINGW)
-    # must find the Qt installation directory. This will be set by RadiumConfig.cmake after install
-    # TODO : find a way to that more efficiently
-    find_qt_dependency(COMPONENTS Core REQUIRED)
-    add_imported_dir(FROM Qt::Core TO QtDlls_location)
+# Test if this cmake project is included and built in the Radium project build tree
+if(${CMAKE_PROJECT_NAME} STREQUAL "radiumproject")
+    # Configure in_project build ... These variable are normally set by the find_package(Radium) for
+    # client applications
+    set(RADIUM_ROOT_DIR "${CMAKE_INSTALL_PREFIX}/")
+    set(RADIUM_RESOURCES_DIR "${CMAKE_INSTALL_PREFIX}/Resources/Radium")
+    set(RADIUM_PLUGINS_DIR "${CMAKE_INSTALL_PREFIX}/Plugins")
+    # This allow to compile the example apps without searching the Radium package when building the
+    # demos in the Radium buildtree
+    set(IN_RADIUM_BUILD_TREE TRUE)
 endif()
 
-include(RadiumSetupFunctions)
-
-add_executable(CoreExampleApp CoreExampleApp/main.cpp)
-target_link_libraries(CoreExampleApp PUBLIC Radium::Core)
-configure_radium_app(NAME CoreExampleApp)
+# CoreExampleApp
+add_subdirectory(CoreExampleApp)
 add_dependencies(${PROJECT_NAME} CoreExampleApp)
-add_run_and_debug_targets(CoreExampleApp)
 
-find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
-find_package(OpenGL REQUIRED)
-set(CMAKE_AUTOMOC ON)
-
-# All demo applications are installed as cmdline applications
-add_executable(HelloRadium HelloRadium/main.cpp)
-target_include_directories(HelloRadium PRIVATE HelloRadium)
-target_link_libraries(
-    HelloRadium PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets Qt::OpenGL
-                       Qt::Xml OpenGL::GL
-)
-add_dependencies(${PROJECT_NAME} HelloRadium)
-message(STATUS "Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
-configure_radium_app(NAME HelloRadium)
-add_run_and_debug_targets(HelloRadium)
-
-add_executable(SimpleSimulationApp SimpleSimulationApp/main.cpp)
-target_include_directories(SimpleSimulationApp PRIVATE SimpleSimulationApp)
-target_link_libraries(
-    SimpleSimulationApp PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
-                               Qt::OpenGL Qt::Xml OpenGL::GL
-)
-add_dependencies(${PROJECT_NAME} SimpleSimulationApp)
-message(STATUS "Installing SimpleSimulationApp into ${CMAKE_INSTALL_PREFIX}")
-configure_radium_app(NAME SimpleSimulationApp)
-add_run_and_debug_targets(SimpleSimluationApp)
-
-# On macos, DrawPrimitivesDemo is the only example of a distribuable app bundle
-add_executable(
-    DrawPrimitivesDemo MACOSX_BUNDLE
-    DrawPrimitivesApp/main.cpp DrawPrimitivesApp/minimalapp.cpp DrawPrimitivesApp/minimalapp.hpp
-    DrawPrimitivesApp/minimalradium.cpp DrawPrimitivesApp/minimalradium.hpp
-)
-target_include_directories(DrawPrimitivesDemo PRIVATE DrawPrimitivesApp)
-target_link_libraries(
-    DrawPrimitivesDemo PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
-                              Qt::OpenGL Qt::Xml OpenGL::GL
-)
-get_target_property(USE_ASSIMP IO IO_ASSIMP)
-if(${USE_ASSIMP})
-    target_compile_definitions(DrawPrimitivesDemo PRIVATE "-DIO_USE_ASSIMP")
-endif()
-
-add_dependencies(${PROJECT_NAME} DrawPrimitivesDemo)
-message(STATUS "Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
-configure_radium_app(
-    NAME DrawPrimitivesDemo RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/DrawPrimitivesApp/Assets" PREFIX
-                                      "DrawPrimitivesApp"
-)
-add_run_and_debug_targets(DrawPrimitiveDemo)
-
-add_executable(SimpleAnimationApp SimpleAnimationApp/main.cpp)
-target_include_directories(SimpleAnimationApp PRIVATE SimpleAnimationApp)
-target_link_libraries(
-    SimpleAnimationApp PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
-                              Qt::OpenGL Qt::Xml OpenGL::GL
-)
-add_dependencies(${PROJECT_NAME} SimpleAnimationApp)
-message(STATUS "Installing SimpleAnimationApp into ${CMAKE_INSTALL_PREFIX}")
-configure_radium_app(NAME SimpleAnimationApp)
-add_run_and_debug_targets(SimpleAnimationApp)
-
-add_executable(RawShaderMaterial RawShaderMaterial/main.cpp)
-target_link_libraries(
-    RawShaderMaterial PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
-                             Qt::OpenGL Qt::Xml OpenGL::GL
-)
-add_dependencies(${PROJECT_NAME} RawShaderMaterial)
-message(STATUS "Installing RawShaderMaterial into ${CMAKE_INSTALL_PREFIX}")
-configure_radium_app(NAME RawShaderMaterial)
-add_run_and_debug_targets(RawShaderMaterial)
-
-add_executable(CustomCameraManipulator CustomCameraManipulator/main.cpp)
-target_link_libraries(
-    CustomCameraManipulator PUBLIC Radium::Core Radium::Engine Radium::Gui Qt::Core Qt::Widgets
-                                   Qt::OpenGL Qt::Xml OpenGL::GL
-)
+# CustomCameraManipulator
+add_subdirectory(CustomCameraManipulator)
 add_dependencies(${PROJECT_NAME} CustomCameraManipulator)
-message(STATUS "Installing CustomCameraManipulator into ${CMAKE_INSTALL_PREFIX}")
-configure_radium_app(NAME CustomCameraManipulator)
-add_run_and_debug_targets(CustomCameraManipulator)
 
-add_subdirectory(PickingDemoApp)
-add_dependencies(${PROJECT_NAME} PickingDemoApp)
-add_run_and_debug_targets(PickingDemoApp)
+# DrawPrimitivesDemo
+add_subdirectory(DrawPrimitivesDemo)
+add_dependencies(${PROJECT_NAME} DrawPrimitivesDemo)
 
-add_subdirectory(KeyEventDemoApp)
-add_dependencies(${PROJECT_NAME} KeyEventDemoApp)
-add_run_and_debug_targets(KeyEventDemoApp)
-
+# EntityAnimationDemo
 add_subdirectory(EntityAnimationDemo)
 add_dependencies(${PROJECT_NAME} EntityAnimationDemo)
-add_run_and_debug_targets(EntityAnimationDemo)
 
+# HelloRadium
+add_subdirectory(HelloRadium)
+add_dependencies(${PROJECT_NAME} HelloRadium)
+
+# KeyEventDemoApp
+add_subdirectory(KeyEventDemoApp)
+add_dependencies(${PROJECT_NAME} KeyEventDemoApp)
+
+# PickingDemoApp
+add_subdirectory(PickingDemoApp)
+add_dependencies(${PROJECT_NAME} PickingDemoApp)
+
+# RawShaderMaterial
+add_subdirectory(RawShaderMaterial)
+add_dependencies(${PROJECT_NAME} RawShaderMaterial)
+
+# SimpleAnimationApp
+add_subdirectory(SimpleAnimationApp)
+add_dependencies(${PROJECT_NAME} SimpleAnimationApp)
+
+# SimpleSimulationApp
+add_subdirectory(SimpleSimulationApp)
+add_dependencies(${PROJECT_NAME} SimpleSimulationApp)
+
+# VolumeDemoApp
+get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
+if(${HAS_VOLUMES})
+    add_subdirectory(VolumeDemoApp)
+    add_dependencies(${PROJECT_NAME} VolumeDemoApp)
+endif()
+
+# HeadlessLibAndApp
 find_package(glfw3 3.2 QUIET)
 if(glfw3_FOUND)
     add_subdirectory(HeadlessLibAndApp)
     add_dependencies(${PROJECT_NAME} Headless HeadlessDemo)
-    add_run_and_debug_targets(HeadlessDemo)
 else()
     message(
         STATUS
             "glfw3 not found : disabling Radium Headless demo. Install glfw >3.2 or set glfw3_DIR to a suitable directory to enable this demo."
     )
-endif()
-
-get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
-if(${HAS_VOLUMES})
-    add_subdirectory(VolumeDemoApp)
-    add_dependencies(${PROJECT_NAME} VolumeDemoApp)
-    add_run_and_debug_targets(VolumeDemoApp)
 endif()

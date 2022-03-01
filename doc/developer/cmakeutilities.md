@@ -119,12 +119,13 @@ To get relocatable packages, download pre-built binaries here:
 ### configure_radium_library {#configure_radium_library}
 ~~~{.cmake}
 configure_radium_library(
-    TARGET targetName               # Name of the target to configure as a Radium Library
-    FILES file1[file2[file3 ...]]   # list of headers to install
-    [TARGET_DIR directoryName]      # Name of the directory where files are installed (default <prefix>/include/<TARGET>)
-    [NAMESPACE NameSpace]           # Namespace of the imported target (default Radium)
-    [PACKAGE_CONFIG file.cmake.in]  # name of the configure script model for the given target
-    [PACKAGE_DIR packageDirName]    # Name of the directory where the cmake config file will be installed (default <prefix>/lib/cmake/Radium)
+    TARGET targetName                   # Name of the target to configure as a Radium Library
+    FILES file1[file2[file3 ...]]       # list of headers to install
+    [TARGET_DIR directoryName]          # Name of the directory where files are installed (default <prefix>/include/<TARGET>)
+    [NAMESPACE NameSpace]               # Namespace of the imported target (default Radium)
+    [PACKAGE_CONFIG file.cmake.in]      # name of the configure script model for the given target
+    [PACKAGE_VERSION major.minor.patch] # version number of the target
+    [PACKAGE_DIR packageDirName]        # Name of the directory where the cmake config file will be installed (default <prefix>/lib/cmake/Radium)
 )
 ~~~
 This cmake function configures the `<TARGET>` for installation and for further import in client project using
@@ -136,14 +137,15 @@ dynamic library.
 
 This function takes the following parameters:
 
-*Parameter name*   | *Parameter description*
--------------------|--------------------
-`<TARGET>`         | The name of the target to configure
-`<FILES>`          | Expected to be public headers, they will be installed in the include directory of the project installation configuration `${CMAKE_INSTALL_PREFIX}/include`.
-`<TARGET_DIR>`     | Optional. `<FILES>` will be installed into the `${CMAKE_INSTALL_PREFIX}/include/<TARGET_DIR>` directory. If not, the files will be installed into `${CMAKE_INSTALL_PREFIX}/include/<TARGET>` directory.
-`<NAMESPACE>`      | If given, the imported target will be `<NAMESPACE>::<TARGET>`. If not, the imported target will be `Radium::<TARGET>`
-`<PACKAGE_CONFIG>` | If given, a configure script, to be used by `find_package`, will be generated. If not, only the exported targets will be generated.
-`<PACKAGE_DIR>`    | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
+*Parameter name*    | *Parameter description*
+--------------------|--------------------
+`<TARGET>`          | The name of the target to configure
+`<FILES>`           | Expected to be public headers, they will be installed in the include directory of the project installation configuration `${CMAKE_INSTALL_PREFIX}/include`.
+`<TARGET_DIR>`      | Optional. `<FILES>` will be installed into the `${CMAKE_INSTALL_PREFIX}/include/<TARGET_DIR>` directory. If not, the files will be installed into `${CMAKE_INSTALL_PREFIX}/include/<TARGET>` directory.
+`<NAMESPACE>`       | If given, the imported target will be `<NAMESPACE>::<TARGET>`. If not, the imported target will be `Radium::<TARGET>`
+`<PACKAGE_CONFIG>`  | If given, a configure script, to be used by `find_package`, will be generated. If not, only the exported targets will be generated.
+`<PACKAGE_VERSION>` | If given when the `<PACKAGE_CONFIG>` option also given, a cmake version file, used by `find_package`, will be generated.
+`<PACKAGE_DIR>`     | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
 
 Note that the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>` could be omitted as the associated cmake package module
 could be generated using the function [`configure_radium_package`](#configure_radium_package) documented below.
@@ -309,6 +311,7 @@ install_target_resources(
 configure_radium_package(
     NAME packageName                # The name of the package to install
     PACKAGE_CONFIG configFile.in    # The package configuration file
+    [PACKAGE_VERSION]               # The package version number (with format "major.minor.patch")
     [PACKAGE_DIR packageDirName]    # Name of the directory where the cmake config file will be installed (default <prefix>/lib/cmake/Radium)
 )
 ~~~
@@ -316,15 +319,18 @@ This cmake function configures the package `packageName` for installation and fo
 
 This function takes the following parameters:
 
-*Parameter name*                 | *Parameter description*
----------------------------------|--------------------
-`<NAME> packageName`             | The name of the package to configure and install
-`<PACKAGE_CONFIG> configFile.in` | The configure script to be used by `find_package`.
-`<PACKAGE_DIR> packageDirName`   | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
+*Parameter name*                      | *Parameter description*
+--------------------------------------|--------------------
+`<NAME> packageName`                  | The name of the package to configure and install
+`<PACKAGE_CONFIG> configFile.in`      | The configure script to be used by `find_package`.
+`<PACKAGE_VERSION> major.minor.patch` | If given, the version of the installed package
+`<PACKAGE_DIR> packageDirName`        | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
 
-This function is called implicitly, when defining a single component package, when the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>` are given to the library configuration function [`configure_radium_library`](#configure_radium_library).
+This function is called implicitly, when defining a single component package, when the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>`, with optional `PACKAGE_VERSION`, are given to the library configuration function [`configure_radium_library`](#configure_radium_library).
 
 This function also allows defining multi-component packages for selective import using the `find_package(packageName [COMPONENTS comp1 comp2 ...]` command when called explicitly with an appropriate `PACKAGE_CONFIG` parameter.
+
+If the optional `<PACKAGE_VERSION>` parameter is given, a cmake version file is generated, using the `SameMajorVersion` compatibility policy, that exports the cmake variables `<NAME>_VERSION` , `<NAME>_VERSION_MAJOR`, `<NAME>_VERSION_MINOR` and `<NAME>_VERSION_PATCH`.
 
 ### radium_exported_resources {#radium_exported_resources}
 

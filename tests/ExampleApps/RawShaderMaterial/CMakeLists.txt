@@ -6,7 +6,7 @@ if(APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
-project(PickingDemoApp VERSION 1.0.0)
+project(RawShaderMaterial VERSION 1.0.0)
 
 # ------------------------------------------------------------------------------
 # set wanted application defaults for cmake settings

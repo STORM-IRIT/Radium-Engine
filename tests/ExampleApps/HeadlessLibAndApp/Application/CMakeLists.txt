@@ -3,39 +3,57 @@ if(APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
-project(HeadlessDemo VERSION 1.0.0)
+project(HeadlessDemo VERSION 1.0.2)
 
-set(CMAKE_DISABLE_SOURCE_CHANGES ON)
-set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+# ------------------------------------------------------------------------------
+# set wanted application defaults for cmake settings
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+# Set default install location to installed-<Compiler_ID> folder in build dir we do not want to
+# install to /usr by default
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}"
+    set(CMAKE_INSTALL_PREFIX
+        "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}"
         CACHE PATH "Install path prefix, prepended onto install directories." FORCE
     )
-    message("Set install prefix to ${CMAKE_INSTALL_PREFIX} for project ${PROJECT_NAME}.")
-    set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT False)
+    message("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
+endif()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+
+# ------------------------------------------------------------------------------
+
+if(NOT IN_LIBHEADLESS_BUILD_TREE)
+    # package RadiumHeadless will import its Radium dependencies
+    find_package(RadiumHeadless REQUIRED)
+elseif(NOT IN_RADIUM_BUILD_TREE)
+    # need this to import Radium dependencies if not using the package RadiumHeadless but the
+    # subdirectory
+    find_package(Radium REQUIRED Core Engine IO)
 endif()
 
-option(USE_RADIUM_ASSIMP "Use assimp data loader from Radium" ON)
-message(STATUS "Configuring demo application ${PROJECT_NAME}")
+option(USE_RADIUM_IO_ASSIMPLOADER "Use assimp data loader from Radium IO" ON)
+message(
+    STATUS
+        "Configuring demo application ${PROJECT_NAME} with RadiumHeadless ${RadiumHeadless_VERSION} and Radium ${Radium_VERSION}"
+)
 
 set(app_sources main.cpp)
 
 add_executable(${PROJECT_NAME} ${app_sources})
 
-target_link_libraries(
-    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::IO Radium::Headless
-)
+target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Headless)
 
-if(USE_RADIUM_ASSIMP)
+if(USE_RADIUM_IO_ASSIMPLOADER)
     if(IN_RADIUM_BUILD_TREE)
         set(USE_ASSIMP ${RADIUM_IO_ASSIMP})
     else()
-        get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
+        get_target_property(USE_RADIUM_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
     endif()
-    if(${USE_ASSIMP})
+    if(${USE_RADIUM_ASSIMP})
         message(STATUS "[${PROJECT_NAME}] Enabling assimp loader from Radium::IO")
         target_compile_definitions(${PROJECT_NAME} PRIVATE ADD_ASSIMP_LOADER)
     else()
