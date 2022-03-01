@@ -41,9 +41,13 @@ int main( int argc, const char* argv[] ) {
         std::string filename = *rp + "/Demos/Assets/radium-logo.dae";
         viewer.setDataFileName( filename );
     }
+    // load the given scene
     viewer.loadScene();
-    viewer.compileScene();
+    // Activate the first camera on the given scene if any. Create a default camera if needed.
     viewer.setCamera();
+    // Compile the scene.
+    // Must be called after setCamera so that there is a valid camera in the scene.
+    viewer.compileScene();
     //! [Setup the Scene to render]
 
     //! [Running the application]
