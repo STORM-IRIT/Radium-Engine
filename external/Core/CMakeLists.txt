@@ -13,7 +13,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
-add_custom_target(CoreExternals)
+add_custom_target(CoreExternals ALL)
 
 if(NOT DEFINED Eigen3_DIR)
     check_externals_prerequisite()
