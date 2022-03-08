@@ -41,7 +41,11 @@ OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
             glfwCreateWindow( size[0], size[1], "Radium CommandLine Context", nullptr, nullptr );
     }
     if ( m_glfwContext == nullptr ) {
-        std::cerr << "OpenGL context creation failed. Terminate execution.";
+        std::cerr << "OpenGL context creation failed. Terminate execution." << std::endl;
+        const char* description;
+        int code = glfwGetError( &description );
+        std::cerr << "\tError code :" << code << std::endl
+                  << "\t error string : " << description << std::endl;
         glfwTerminate();
         std::exit( -1 );
     }
