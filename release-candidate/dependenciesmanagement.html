@@ -35,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.0.6</span>
+   &#160;<span id="projectnumber">1.0.7</span>
    </div>
   </td>
  </tr>
@@ -127,10 +127,12 @@ Building and installing Radium dependencies once for all</h1>
 <p>We provide a standalone cmake project (<code>external/CMakeLists.txt</code>) to compile and install the Radium dependencies at any location <em>outside Radium-Engine source dir</em>. </p><dl class="section warning"><dt>Warning</dt><dd>If you try to build and install external as a subdir of Radium-Engine source, cmake configuration will fail.</dd></dl>
 <h2><a class="anchor" id="autotoc_md17"></a>
 Configuration and compilation of the dependencies</h2>
-<p>Configure and build the cmake project: </p><div class="fragment"><div class="line">mkdir BuildRadiumDependencies &amp;&amp; cd BuildRadiumDependencies</div>
-<div class="line">cmake -DCMAKE_INSTALL_PREFIX=/path/to/external/install /path/to/Radium-Engine/external -DCMAKE_BUILD_TYPE=Release</div>
+<p>Create installation directory, configure and build the cmake project: </p><div class="fragment"><div class="line">mkdir /path/to/external/installDir/Release</div>
+<div class="line">mkdir BuildRadiumDependencies</div>
+<div class="line">cd BuildRadiumDependencies</div>
+<div class="line">cmake -DCMAKE_INSTALL_PREFIX=/path/to/external/installDir/Release /path/to/Radium-Engine/external -DCMAKE_BUILD_TYPE=Release</div>
 <div class="line">make .</div>
-</div><!-- fragment --><p>If not given on the command line, the installation directory is set by default to <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}</code>.</p>
+</div><!-- fragment --><p>If not given on the command line, the installation directory is set by default to <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}</code>. </p><dl class="section warning"><dt>Warning</dt><dd>The default installation directory will not work if <code>{CMAKE_CURRENT_BINARY_DIR}</code> is a subdirectory of the Radium folder.</dd></dl>
 <p>Then, to compile Radium-Engine, you have to indicate where cmake can find each dependency, as detailed next.</p>
 <h2><a class="anchor" id="autotoc_md18"></a>
 Configuration of Radium</h2>
@@ -265,7 +267,7 @@ User provided external dependencies</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Tue Mar 1 2022 22:10:17 for Radium Engine by
+    <li class="footer">Generated on Tue Mar 8 2022 14:59:45 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
