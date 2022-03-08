@@ -23,7 +23,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
-add_custom_target(EngineExternals)
+add_custom_target(EngineExternals ALL)
 
 if(NOT DEFINED glm_DIR)
     check_externals_prerequisite()
