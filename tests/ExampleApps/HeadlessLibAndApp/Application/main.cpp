@@ -16,7 +16,7 @@ int main( int argc, const char* argv[] ) {
     //! [Creating the viewer with custom parameters]
     bool showWindow { false };
     CLIViewer viewer;
-    viewer.add_flag( "-w,--window", showWindow, "Map the viewer window." );
+    viewer.addFlag( "-w,--window", showWindow, "Map the viewer window." );
     //! [Creating the viewer with custom parameters]
 
     //! [Configuring the viewer : initialize OpenGL and the Engine]

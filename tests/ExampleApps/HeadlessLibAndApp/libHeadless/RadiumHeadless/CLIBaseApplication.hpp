@@ -17,12 +17,12 @@ class HEADLESS_API CLIBaseApplication
      * All derived applications will share parameters --help and --file <scene_file>.
      * Derived classes should extend this parser to add their own parameters
      */
-    CLI::App cmdline_parser;
+    CLI::App m_cmdLineParser;
 
   public:
     /// Base constructor.
     CLIBaseApplication() {
-        cmdline_parser.add_option( "-f,--file", m_dataFile, "Data file to process." )
+        m_cmdLineParser.add_option( "-f,--file", m_dataFile, "Data file to process." )
             ->check( CLI::ExistingFile ); // add ->required() to force user to give a filename;
     };
     /// Base destructor
@@ -32,16 +32,16 @@ class HEADLESS_API CLIBaseApplication
     /// CLI11 directly.
     /// \see https://cliutils.github.io/CLI11/book/chapters/options.html
     template <typename... Args>
-    CLI::Option* add_option( Args&&... args ) {
-        return cmdline_parser.add_option( args... );
+    CLI::Option* addOption( Args&&... args ) {
+        return m_cmdLineParser.add_option( args... );
     }
 
     /// adapter allowing to add a command line flag on an application the same way than using CLI11
     /// directly.
     /// \see https://cliutils.github.io/CLI11/book/chapters/flags.html
     template <typename... Args>
-    CLI::Option* add_flag( Args&&... args ) {
-        return cmdline_parser.add_flag( args... );
+    CLI::Option* addFlag( Args&&... args ) {
+        return m_cmdLineParser.add_flag( args... );
     }
 
     /**
