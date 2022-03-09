@@ -29,3 +29,5 @@ jobs:
     uses: ./.github/workflows/notify-radium-releases.yml
     with:
       ref-sha: "${{ needs.increase-version-number.outputs.new-sha }}"
+    secrets:
+      REPO_DISPATCH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
