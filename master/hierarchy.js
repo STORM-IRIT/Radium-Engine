@@ -86,6 +86,24 @@ var hierarchy =
       [ "Ra::Engine::Scene::VolumeComponent", "classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html", null ]
     ] ],
     [ "Ra::Engine::Scene::ComponentMessenger", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html", null ],
+    [ "Ra::Core::Utils::ContainerIntrospectionInterface", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html", [
+      [ "Ra::Core::Geometry::GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", [
+        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector1ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
+          [ "Ra::Core::Geometry::PointCloudIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html", null ]
+        ] ],
+        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector2ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
+          [ "Ra::Core::Geometry::LineIndexLayer", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html", null ]
+        ] ],
+        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector3ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
+          [ "Ra::Core::Geometry::TriangleIndexLayer", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html", null ]
+        ] ],
+        [ "Ra::Core::Geometry::GeometryIndexLayer< VectorNui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
+          [ "Ra::Core::Geometry::PolyIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html", null ]
+        ] ],
+        [ "Ra::Core::Geometry::GeometryIndexLayer< T >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", null ]
+      ] ],
+      [ "Ra::Core::Utils::AttribBase", "classRa_1_1Core_1_1Utils_1_1AttribBase.html", null ]
+    ] ],
     [ "Ra::Core::Geometry::Curve2D", "classRa_1_1Core_1_1Geometry_1_1Curve2D.html", [
       [ "Ra::Core::Geometry::CubicBezier", "classRa_1_1Core_1_1Geometry_1_1CubicBezier.html", null ],
       [ "Ra::Core::Geometry::Line", "classRa_1_1Core_1_1Geometry_1_1Line.html", null ],
@@ -257,21 +275,7 @@ var hierarchy =
     ] ],
     [ "Ra::Core::Geometry::Obb", "classRa_1_1Core_1_1Geometry_1_1Obb.html", null ],
     [ "Ra::Core::Utils::ObjectWithSemantic", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html", [
-      [ "Ra::Core::Geometry::GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", [
-        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector1ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
-          [ "Ra::Core::Geometry::PointCloudIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html", null ]
-        ] ],
-        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector2ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
-          [ "Ra::Core::Geometry::LineIndexLayer", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html", null ]
-        ] ],
-        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector3ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
-          [ "Ra::Core::Geometry::TriangleIndexLayer", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html", null ]
-        ] ],
-        [ "Ra::Core::Geometry::GeometryIndexLayer< VectorNui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
-          [ "Ra::Core::Geometry::PolyIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html", null ]
-        ] ],
-        [ "Ra::Core::Geometry::GeometryIndexLayer< T >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", null ]
-      ] ]
+      [ "Ra::Core::Geometry::GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", null ]
     ] ],
     [ "Ra::Core::Utils::Observable< Args >", "classRa_1_1Core_1_1Utils_1_1Observable.html", null ],
     [ "Ra::Core::Utils::Observable< const ItemEntry & >", "classRa_1_1Core_1_1Utils_1_1Observable.html", null ],
@@ -410,8 +414,8 @@ var hierarchy =
     [ "Ra::Engine::Data::Texture", "classRa_1_1Engine_1_1Data_1_1Texture.html", null ],
     [ "Ra::Engine::Data::TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html", null ],
     [ "Ra::Engine::Data::TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", null ],
-    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
+    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Gui::TransformEditor", "classRa_1_1Gui_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],

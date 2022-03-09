@@ -23,21 +23,19 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Radium Engine", "index.html", [
-    [ "Badges", "index.html#autotoc_md0", [
-      [ "Badges", "index.html#autotoc_md1", null ]
-    ] ],
-    [ "Overview", "index.html#autotoc_md2", null ],
+    [ "Badges", "index.html#autotoc_md0", null ],
+    [ "Overview", "index.html#autotoc_md1", null ],
     [ "Radium Basics", "basicsmanual.html", "basicsmanual" ],
     [ "Radium Concepts", "conceptsmanual.html", "conceptsmanual" ],
     [ "Developer manual", "develmanual.html", "develmanual" ],
     [ "Licenses", "licenses.html", [
-      [ "Radium contributors", "licenses.html#autotoc_md4", null ],
-      [ "Third-party libraries", "licenses.html#autotoc_md5", [
-        [ "Qt", "licenses.html#autotoc_md6", null ],
-        [ "Eigen", "licenses.html#autotoc_md7", null ],
-        [ "Assimp", "licenses.html#autotoc_md8", null ],
-        [ "STB Image", "licenses.html#autotoc_md9", null ],
-        [ "Additional material", "licenses.html#autotoc_md10", null ]
+      [ "Radium contributors", "licenses.html#autotoc_md3", null ],
+      [ "Third-party libraries", "licenses.html#autotoc_md4", [
+        [ "Qt", "licenses.html#autotoc_md5", null ],
+        [ "Eigen", "licenses.html#autotoc_md6", null ],
+        [ "Assimp", "licenses.html#autotoc_md7", null ],
+        [ "STB Image", "licenses.html#autotoc_md8", null ],
+        [ "Additional material", "licenses.html#autotoc_md9", null ]
       ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
@@ -83,28 +81,28 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AboutDialog_8cpp.html",
-"CoreMacros_8hpp_source.html",
-"GlmAdapters_8hpp.html#a9d768233e2ef98dd9c82e264c6de26fd",
-"LinearAlgebra_8inl_source.html",
-"RaIO_8hpp.html",
-"StdFilesystem_8hpp.html",
-"VertexDistance_8hpp.html#ac2f99c1bb28b692a753cc04c2187036d",
-"classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5b8b7122faf6e4c0313bf3946ce0a801",
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#adcff5c75183311f4377368c01d32e531",
-"classRa_1_1Core_1_1Geometry_1_1Curve2D.html#af46ffa37ffa63f4d241a23ac3b0c9704",
-"classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html#a82f9b735fd1f5c39f49ea36b932a0524",
-"classRa_1_1Core_1_1Utils_1_1Chrono.html#a1b26ba968bdf28a58f80e8d33571a6b0",
-"classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html",
-"classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a64461a22c3587b9ab986c6a577089250",
-"classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aba50d86374651850f903909a1ce0850d",
-"classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html#a1bb3531af4ceaa66f671fcb035a26ebc",
-"classRa_1_1Engine_1_1Scene_1_1System.html#a90717717700965c100968cff0188e244",
-"classRa_1_1Gui_1_1KeyMappingManager.html#add4cdc2ae505cda31e93d288f0613a6e",
-"classRa_1_1Gui_1_1TreeModel.html#a59633f441e1092ec6fd709d60e6ba4d3",
-"classRa_1_1Plugins_1_1RadiumPluginInterface.html#acc10a0721a8fe34cc7e7735250b495c1",
-"functions_vars_h.html",
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html#ad3471c3933841ed2fb4a2c1c6b9f695c",
-"structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b"
+"CoreMacros_8hpp.html#aeaac91b4934c26470b88a6e57072dda3",
+"GlmAdapters_8hpp.html#a947fffea47e3e842b987392f52be488d",
+"LinearAlgebra_8inl.html#adb9d29778c9dd8f53089186aa8bcdfc2",
+"RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773",
+"StackTrace_8hpp.html#a9400558d80e2cc0d9c08c355b56521a6",
+"VertexDistance_8hpp.html",
+"classRa_1_1Core_1_1Animation_1_1Skeleton.html#a54bd8f8d55c878fa0e49c0f1c971f7aa",
+"classRa_1_1Core_1_1Asset_1_1GeometryData.html#adba1271b6ed2c102782533d2f575278f",
+"classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8ae676bd455e0c75dd94906c5c64948d85",
+"classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html#a76aadbdd5e0ccc9b5574acff10e692dc",
+"classRa_1_1Core_1_1Utils_1_1Chrono.html#a4a5f0f26c0d613381fd95a8d187f0e09",
+"classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_1_1AttribObserver.html",
+"classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a55666ee1c7da7725426b5c42872e24f5",
+"classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ab451594c7fe7a31ec9fc3a71fce34440",
+"classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html#ac798e4f349738b813c2e76faf4924754",
+"classRa_1_1Engine_1_1Scene_1_1System.html#a3cc877d882b121438994019728892c9e",
+"classRa_1_1Gui_1_1KeyMappingManager.html#ab0cd628fd3008a5cbf9938d88b64418d",
+"classRa_1_1Gui_1_1TreeModel.html#a1eb09233eaa80360d944f5c1d73aa65b",
+"classRa_1_1Plugins_1_1RadiumPluginInterface.html#a6feecf052a9c12e6f85b07e3eaaf0a9a",
+"functions_vars_c.html",
+"structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html#a2268e2356ebd9ef3350a34cac5ce7f0c",
+"structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

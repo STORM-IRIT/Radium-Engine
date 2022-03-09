@@ -35,7 +35,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">fbea09f</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
   </td>
  </tr>
@@ -410,7 +410,7 @@ Protected Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">AbstractGeometry</a> with per-vertex attributes and layers of indices. Each layer represents a different topology or indexing logic, e.g. triangle/line/quad meshes, point-clouds. </p>
 <p>Multiple layers are useful to share and maintain consistency of per-vertex attributes between different meshes representing the same geometry, e.g., a quad and triangle mesh layers connecting the same set of vertices.</p>
-<h2><a class="anchor" id="autotoc_md120"></a>
+<h2><a class="anchor" id="autotoc_md119"></a>
 Data-structure</h2>
 <p>It is designed as follow:</p><ul>
 <li>Per-vertex attributes are stored as <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a>,</li>
@@ -420,7 +420,7 @@ Data-structure</h2>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry.">GeometryIndexLayerBase</a> for more details about layers, semantics, and custom layers definition. </dd>
 <dd>
 <a class="el" href="structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html">PointCloudIndexLayer</a>, <a class="el" href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html">TriangleIndexLayer</a> for examples of layers</dd></dl>
-<h2><a class="anchor" id="autotoc_md121"></a>
+<h2><a class="anchor" id="autotoc_md120"></a>
 Adding new layers</h2>
 <dl class="section see"><dt>See also</dt><dd>setLayer to add or update an existing layer.</dd></dl>
 <p>Example of adding a <a class="el" href="structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html">PointCloudIndexLayer</a> to an existing <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> <code>geo</code>: </p><div class="fragment"><div class="line">        <span class="keyword">auto</span> pil = std::make_unique&lt;PointCloudIndexLayer&gt;();</div>
@@ -430,7 +430,7 @@ Adding new layers</h2>
 <div class="line">        pilSemantics = pil-&gt;semantics();</div>
 <div class="line">        <span class="comment">// insert with default name</span></div>
 <div class="line">        <span class="keywordtype">bool</span> layerAdded = geo.addLayer( std::move( pil ) );</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md122"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md121"></a>
 Accessing layers</h2>
 <p>Each layer is also associated with a <code>lock</code> state, used to give read-only or to lock write access.</p>
 <p>Layers can be accessed in different ways (see <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a6192bea8770876bd8d0f22e56ac7799e" title="Check if at least one layer with such properties exists.">containsLayer</a>, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a39d57fddddd7dc9003f7ffcc5abe0f36" title="Count the number of layer matching the input parameters.">countLayers</a>, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a6be22f11eba7a83457e81cc50b2cae25" title="Read-only access to a layer.">getFirstLayerOccurrence</a>, and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a09ce4cede90c87b596f0a942d175697e" title="Read-only access to a layer.">getLayer</a>):</p><ul>
@@ -440,7 +440,7 @@ Accessing layers</h2>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Layer ordering is arbitrary and might change each time a new layer is added. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00123">123</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00133">133</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a71c747a7b150f5d22df13cb9b0b63572"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a71c747a7b150f5d22df13cb9b0b63572">&#9670;&nbsp;</a></span>FloatAttribHandle</h2>
@@ -454,7 +454,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00132">132</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00142">142</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -470,7 +470,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00128">128</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00138">138</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -486,7 +486,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00127">127</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00137">137</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -502,7 +502,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00126">126</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00136">136</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -518,7 +518,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00131">131</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00141">141</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -534,7 +534,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00130">130</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00140">140</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -550,7 +550,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00133">133</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00143">143</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -566,7 +566,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00134">134</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00144">144</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -582,7 +582,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00135">135</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00145">145</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -747,7 +747,7 @@ Accessing layers</h2>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00080">80</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00100">100</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -926,7 +926,7 @@ Accessing layers</h2>
 </dl>
 <dl class="section user"><dt>Complexity:</dt><dd>\( O(n) \), with \( n \) the number of layers in the collection </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00086">86</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00106">106</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 
 </div>
 </div>
@@ -1032,7 +1032,7 @@ Accessing layers</h2>
 </dl>
 <dl class="section user"><dt>Complexity:</dt><dd>\( O(n) \), with \( n \) the number of layers in the collection </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00091">91</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00111">111</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -1108,7 +1108,7 @@ Accessing layers</h2>
 </dl>
 <dl class="section user"><dt>Complexity:</dt><dd>\( O(n) \), with \( n \) the number of layers in the collection </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00097">97</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00117">117</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 
 </div>
 </div>
@@ -1214,7 +1214,7 @@ Accessing layers</h2>
 </dl>
 <dl class="section user"><dt>Complexity:</dt><dd>\( O(n) \), with \( n \) the number of layers in the collection </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00102">102</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00122">122</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1411,7 +1411,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00108">108</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00128">128</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 
 </div>
 </div>
@@ -1465,7 +1465,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00113">113</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00133">133</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -1564,7 +1564,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00118">118</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00138">138</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1605,7 +1605,7 @@ Accessing layers</h2>
 <div class="line">        REQUIRE( geo.countLayers( k ) == 1 );</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00130">130</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00150">150</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 
 </div>
 </div>
@@ -1864,7 +1864,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00125">125</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00145">145</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1887,7 +1887,7 @@ Accessing layers</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Geometry</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">MultiIndexedGeometry</a></li>
-    <li class="footer">Generated on Sun Feb 6 2022 14:31:27 for Radium Engine by
+    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

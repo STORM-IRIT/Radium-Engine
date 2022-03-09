@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773":[10,0,3,2,13,0],
+"RaGui_8hpp_source.html":[10,0,3,2,13],
 "RaIO_8hpp.html":[10,0,3,3,5],
 "RaIO_8hpp.html#ae6f06bdce6dc491b76bf7374fae10bad":[10,0,3,3,5,0],
 "RaIO_8hpp_source.html":[10,0,3,3,5],
@@ -200,10 +202,10 @@ var NAVTREEINDEX4 =
 "SimpleWindow_8cpp_source.html":[10,0,3,2,1,0],
 "SimpleWindow_8hpp.html":[10,0,3,2,1,1],
 "SimpleWindow_8hpp_source.html":[10,0,3,2,1,1],
-"Singleton_8hpp.html":[10,0,3,0,7,16],
-"Singleton_8hpp.html#a65cda79436ab720b97318eb42f657cbb":[10,0,3,0,7,16,0],
-"Singleton_8hpp.html#ab39cd756057298304463e7f82f0e8cad":[10,0,3,0,7,16,1],
-"Singleton_8hpp_source.html":[10,0,3,0,7,16],
+"Singleton_8hpp.html":[10,0,3,0,7,17],
+"Singleton_8hpp.html#a65cda79436ab720b97318eb42f657cbb":[10,0,3,0,7,17,0],
+"Singleton_8hpp.html#ab39cd756057298304463e7f82f0e8cad":[10,0,3,0,7,17,1],
+"Singleton_8hpp_source.html":[10,0,3,0,7,17],
 "SkeletonBasedAnimationSystem_8cpp.html":[10,0,3,1,2,43],
 "SkeletonBasedAnimationSystem_8cpp_source.html":[10,0,3,1,2,43],
 "SkeletonBasedAnimationSystem_8hpp.html":[10,0,3,1,2,44],
@@ -244,10 +246,8 @@ var NAVTREEINDEX4 =
 "SpotLight_8hpp_source.html":[10,0,3,1,2,50],
 "SpotLight_8inl.html":[10,0,3,1,2,51],
 "SpotLight_8inl_source.html":[10,0,3,1,2,51],
-"StackTrace_8cpp.html":[10,0,3,0,7,17],
-"StackTrace_8cpp.html#a9400558d80e2cc0d9c08c355b56521a6":[10,0,3,0,7,17,0],
-"StackTrace_8cpp_source.html":[10,0,3,0,7,17],
-"StackTrace_8hpp.html":[10,0,3,0,7,18],
-"StackTrace_8hpp.html#a9400558d80e2cc0d9c08c355b56521a6":[10,0,3,0,7,18,0],
-"StackTrace_8hpp_source.html":[10,0,3,0,7,18]
+"StackTrace_8cpp.html":[10,0,3,0,7,18],
+"StackTrace_8cpp.html#a9400558d80e2cc0d9c08c355b56521a6":[10,0,3,0,7,18,0],
+"StackTrace_8cpp_source.html":[10,0,3,0,7,18],
+"StackTrace_8hpp.html":[10,0,3,0,7,19]
 };

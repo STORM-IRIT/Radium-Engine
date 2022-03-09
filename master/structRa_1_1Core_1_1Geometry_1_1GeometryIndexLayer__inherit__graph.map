@@ -1,16 +1,17 @@
 <map id="Ra::Core::Geometry::GeometryIndexLayer&lt; T &gt;" name="Ra::Core::Geometry::GeometryIndexLayer&lt; T &gt;">
-<area shape="rect" id="node1" title="Typed index collection." alt="" coords="308,1083,513,1263"/>
-<area shape="rect" id="node7" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="8,1325,192,1520"/>
-<area shape="rect" id="node9" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="216,1325,400,1520"/>
-<area shape="rect" id="node11" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="424,1325,608,1520"/>
-<area shape="rect" id="node13" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="632,1325,816,1520"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="297,824,524,1033"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title=" " alt="" coords="181,624,406,701"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="184,292,403,501"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="195,5,392,229"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="431,551,625,775"/>
-<area shape="rect" id="node8" href="$structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title=" " alt="" coords="5,1569,195,1691"/>
-<area shape="rect" id="node10" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title=" " alt="" coords="221,1577,395,1683"/>
-<area shape="rect" id="node12" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title=" " alt="" coords="429,1577,603,1683"/>
-<area shape="rect" id="node14" href="$structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title=" " alt="" coords="637,1577,811,1683"/>
+<area shape="rect" id="node1" title="Typed index collection." alt="" coords="367,1068,584,1307"/>
+<area shape="rect" id="node8" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="5,1369,223,1623"/>
+<area shape="rect" id="node10" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="247,1369,464,1623"/>
+<area shape="rect" id="node12" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="488,1369,705,1623"/>
+<area shape="rect" id="node14" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="729,1369,947,1623"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="362,824,589,1019"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title=" " alt="" coords="128,624,353,701"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="131,292,350,501"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="142,5,339,229"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="378,551,573,775"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="597,580,861,745"/>
+<area shape="rect" id="node9" href="$structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title=" " alt="" coords="19,1672,209,1793"/>
+<area shape="rect" id="node11" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title=" " alt="" coords="269,1679,442,1786"/>
+<area shape="rect" id="node13" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title=" " alt="" coords="510,1679,683,1786"/>
+<area shape="rect" id="node15" href="$structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title=" " alt="" coords="751,1679,925,1786"/>
 </map>

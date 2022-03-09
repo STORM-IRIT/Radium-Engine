@@ -4,6 +4,7 @@ var classRa_1_1Gui_1_1RotateAroundCameraManipulator =
     [ "RotateAroundCameraManipulator", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a46a54bae41e9df6fc100970df67abc3c", null ],
     [ "alignOnClosestAxis", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a3f57b652fc1dc594927992e6ea0f0ca3", null ],
     [ "deformedBallQuaternion", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a3f050c60b94531c943889adb4ef1a8c3", null ],
+    [ "fitScene", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a96aeb07247c3c3e832f21a3b1aeaed51", null ],
     [ "handleCameraForward", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a7b7de4ddd1a81defd06ae1df598caa37", null ],
     [ "handleCameraPan", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a9c699e955b7c7ca95cbbfe499309a063", null ],
     [ "handleCameraRotate", "classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a2a4d0a3bbd85a1ba97b78c047c6b0062", null ],

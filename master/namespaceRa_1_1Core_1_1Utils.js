@@ -7,6 +7,7 @@ var namespaceRa_1_1Core_1_1Utils =
     [ "Chrono", "classRa_1_1Core_1_1Utils_1_1Chrono.html", "classRa_1_1Core_1_1Utils_1_1Chrono" ],
     [ "CircularIndex", "classRa_1_1Core_1_1Utils_1_1CircularIndex.html", "classRa_1_1Core_1_1Utils_1_1CircularIndex" ],
     [ "ColorBase", "classRa_1_1Core_1_1Utils_1_1ColorBase.html", "classRa_1_1Core_1_1Utils_1_1ColorBase" ],
+    [ "ContainerIntrospectionInterface", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface" ],
     [ "FILELog", "classRa_1_1Core_1_1Utils_1_1FILELog.html", null ],
     [ "Index", "classRa_1_1Core_1_1Utils_1_1Index.html", "classRa_1_1Core_1_1Utils_1_1Index" ],
     [ "IndexedObject", "classRa_1_1Core_1_1Utils_1_1IndexedObject.html", "classRa_1_1Core_1_1Utils_1_1IndexedObject" ],
