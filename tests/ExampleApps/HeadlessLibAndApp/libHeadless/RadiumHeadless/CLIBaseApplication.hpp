@@ -18,7 +18,7 @@ class HEADLESS_API CLIBaseApplication
 
   public:
     /// Base constructor.
-    CLIBaseApplication() {};
+    CLIBaseApplication() = default;
     /// Base destructor
     virtual ~CLIBaseApplication() = default;
 
@@ -26,17 +26,13 @@ class HEADLESS_API CLIBaseApplication
     /// CLI11 directly.
     /// \see https://cliutils.github.io/CLI11/book/chapters/options.html
     template <typename... Args>
-    CLI::Option* addOption( Args&&... args ) {
-        return m_cmdLineParser.add_option( args... );
-    }
+    CLI::Option* addOption( Args&&... args );
 
     /// adapter allowing to add a command line flag on an application the same way than using CLI11
     /// directly.
     /// \see https://cliutils.github.io/CLI11/book/chapters/flags.html
     template <typename... Args>
-    CLI::Option* addFlag( Args&&... args ) {
-        return m_cmdLineParser.add_flag( args... );
-    }
+    CLI::Option* addFlag( Args&&... args );
 
     /**
      * Application initialization method.
@@ -48,11 +44,7 @@ class HEADLESS_API CLIBaseApplication
      * @return 0 if the application is correctly initialized or an application dependant error code
      * if something went wrong.
      */
-    virtual int init( int argc, const char* argv[] ) {
-        (void)argc;
-        (void)argv;
-        return 0;
-    }
+    virtual int init( int argc, const char* argv[] );
 
     /**
      * Run the application.
@@ -60,8 +52,7 @@ class HEADLESS_API CLIBaseApplication
      * @return 0 if the application was correctly ran or an application dependant error code if
      * something went wrong.
      */
-    virtual int run( float timeStep = 0 ) {
-        (void)timeStep;
-        return 0;
-    }
+    virtual int run( float timeStep = 0 );
 };
+
+#include "CLIBaseApplication.inl"

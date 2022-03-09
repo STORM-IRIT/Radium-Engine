@@ -14,6 +14,7 @@ class FileLoaderInterface;
 class Camera;
 } // namespace Asset
 } // namespace Core
+
 namespace Engine {
 class RadiumEngine;
 namespace Rendering {
@@ -147,13 +148,15 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     /**
      * Get the filename given using the option --file <filename> or -f <filename>
      */
-    inline std::string getDataFileName() const { return m_dataFile; }
+    inline std::string getDataFileName() const;
 
     /**
      * Set the filename given using the option --file <filename> or -f <filename>
      */
-    inline void setDataFileName( std::string filename ) { m_dataFile = filename; }
+    inline void setDataFileName( std::string filename );
 
   private:
     void resize( int width, int height );
 };
+
+#include "CLIViewer.inl"
