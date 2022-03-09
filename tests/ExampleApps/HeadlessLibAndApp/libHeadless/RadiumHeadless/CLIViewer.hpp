@@ -57,6 +57,9 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     /// is the window shown ?
     bool m_exposedWindow { false };
 
+    /// The data file to manage
+    std::string m_dataFile = { "" };
+
   public:
     /// Base constructor.
     CLIViewer();
@@ -140,6 +143,16 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
 
     /** If a window is shown, launch the interactive render loop */
     void renderLoop( std::function<void( float )> render );
+
+    /**
+     * Get the filename given using the option --file <filename> or -f <filename>
+     */
+    inline std::string getDataFileName() const { return m_dataFile; }
+
+    /**
+     * Set the filename given using the option --file <filename> or -f <filename>
+     */
+    inline void setDataFileName( std::string filename ) { m_dataFile = filename; }
 
   private:
     void resize( int width, int height );
