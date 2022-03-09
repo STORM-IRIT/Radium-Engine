@@ -19,6 +19,8 @@ using namespace Ra::Core::Utils;
 constexpr int defaultSystemPriority = 1000;
 
 CLIViewer::CLIViewer() : CLIBaseApplication(), m_glContext {} {
+    // add ->required() to force user to give a filename;
+    addOption( "-f,--file", m_dataFile, "Data file to process." )->check( CLI::ExistingFile );
     addOption( "-s,--size", m_parameters.m_size, "Size of the computed image." )->delimiter( 'x' );
     addFlag( "-a,--animation", m_parameters.m_animationEnable, "Enable Radium Animation system." );
 }

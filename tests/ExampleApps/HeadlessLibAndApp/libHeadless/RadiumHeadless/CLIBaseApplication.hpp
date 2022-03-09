@@ -10,9 +10,6 @@ class HEADLESS_API CLIBaseApplication
 {
 
   protected:
-    /// The data file to manage
-    std::string m_dataFile = { "" };
-
     /** Command-line parameters parser.
      * All derived applications will share parameters --help and --file <scene_file>.
      * Derived classes should extend this parser to add their own parameters
@@ -21,10 +18,7 @@ class HEADLESS_API CLIBaseApplication
 
   public:
     /// Base constructor.
-    CLIBaseApplication() {
-        m_cmdLineParser.add_option( "-f,--file", m_dataFile, "Data file to process." )
-            ->check( CLI::ExistingFile ); // add ->required() to force user to give a filename;
-    };
+    CLIBaseApplication() {};
     /// Base destructor
     virtual ~CLIBaseApplication() = default;
 
@@ -70,14 +64,4 @@ class HEADLESS_API CLIBaseApplication
         (void)timeStep;
         return 0;
     }
-
-    /**
-     * Get the filename given using the option --file <filename> or -f <filename>
-     */
-    inline std::string getDataFileName() const { return m_dataFile; }
-
-    /**
-     * Set the filename given using the option --file <filename> or -f <filename>
-     */
-    inline void setDataFileName( std::string filename ) { m_dataFile = filename; }
 };
