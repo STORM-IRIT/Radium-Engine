@@ -9,7 +9,7 @@ on:
   workflow_call:
     inputs:
       ref-sha:
-        require: true
+        required: true
         type: string
 jobs:
   build:
