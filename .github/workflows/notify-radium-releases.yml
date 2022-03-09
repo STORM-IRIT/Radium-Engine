@@ -7,10 +7,15 @@ name: Notify master update to Radium-Releases
 
 on:
   workflow_call:
+    secrets:
+      REPO_DISPATCH_TOKEN:
+        description: 'Token to dispatch event'
+        required: true
     inputs:
       ref-sha:
         required: true
         type: string
+
 jobs:
   build:
     runs-on: ubuntu-latest
