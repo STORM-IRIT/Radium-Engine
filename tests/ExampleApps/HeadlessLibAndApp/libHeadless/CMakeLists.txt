@@ -64,14 +64,18 @@ set(CLI11_headers
     RadiumHeadless/CLI/Version.hpp
 )
 
-set(${libName}_sources RadiumHeadless/CLIViewer.cpp RadiumHeadless/OpenGLContext/OpenGLContext.cpp)
+set(${libName}_sources RadiumHeadless/CLIBaseApplication.cpp RadiumHeadless/CLIViewer.cpp
+                       RadiumHeadless/OpenGLContext/OpenGLContext.cpp
+)
 
 set(${libName}_headers
     ${CLI11_headers} RadiumHeadless/CLIBaseApplication.hpp RadiumHeadless/CLIViewer.hpp
     RadiumHeadless/Headless.hpp RadiumHeadless/OpenGLContext/OpenGLContext.hpp
 )
 
-add_library(${libName} SHARED ${${libName}_sources} ${${libName}_headers})
+set(${libName}_inlines RadiumHeadless/CLIBaseApplication.inl RadiumHeadless/CLIViewer.inl)
+
+add_library(${libName} SHARED ${${libName}_sources} ${${libName}_headers} ${${libName}_inlines})
 
 target_include_directories(${libName} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/RadiumHeadless)
 
