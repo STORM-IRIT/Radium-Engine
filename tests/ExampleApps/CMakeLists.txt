@@ -30,6 +30,7 @@ foreach(
     RawShaderMaterial
     SimpleAnimationApp
     SimpleSimulationApp
+    TexturedQuad
 )
     add_subdirectory(${APP})
     add_dependencies(${PROJECT_NAME} ${APP})
