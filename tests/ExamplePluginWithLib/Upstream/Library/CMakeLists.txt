@@ -59,5 +59,5 @@ configure_radium_library(
 )
 
 install_target_resources(
-    TARGET ${PROJECT_NAME} DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/LibraryResources
+    TARGET ${PROJECT_NAME} RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/LibraryResources
 )
