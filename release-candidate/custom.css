@@ -1,0 +1,7 @@
+.arrow {
+  font-size: 100%;
+}
+
+#nav-tree .arrow {
+  opacity: 1;
+}
