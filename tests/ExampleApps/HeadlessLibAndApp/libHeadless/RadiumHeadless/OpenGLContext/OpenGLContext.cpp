@@ -1,4 +1,4 @@
-#include "OpenGLContext.hpp"
+#include <RadiumHeadless/OpenGLContext/OpenGLContext.hpp>
 
 #include <GLFW/glfw3.h>
 
@@ -20,6 +20,8 @@
 
 #include <iostream>
 
+namespace Ra {
+namespace Headless {
 using namespace gl;
 using namespace glbinding;
 
@@ -145,3 +147,6 @@ void OpenGLContext::renderLoop( std::function<void( float )> render ) {
         processEvents();
     }
 }
+
+} // namespace Headless
+} // namespace Ra

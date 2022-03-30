@@ -1,6 +1,5 @@
 #pragma once
 #include <RadiumHeadless/CLIBaseApplication.hpp>
-#include <RadiumHeadless/Headless.hpp>
 #include <RadiumHeadless/OpenGLContext/OpenGLContext.hpp>
 
 #include <Core/Utils/Index.hpp>
@@ -21,8 +20,8 @@ namespace Rendering {
 class Renderer;
 }
 } // namespace Engine
-} // namespace Ra
 
+namespace Headless {
 /**
  * Base class for radium based cmdline application
  */
@@ -36,6 +35,8 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
         std::array<int, 2> m_size { 512, 512 };
         /// image name prefix
         std::string m_imgPrefix { "frame" };
+        /// The data file to manage
+        std::string m_dataFile = { "" };
     };
 
   private:
@@ -57,9 +58,6 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
 
     /// is the window shown ?
     bool m_exposedWindow { false };
-
-    /// The data file to manage
-    std::string m_dataFile = { "" };
 
   public:
     /// Base constructor.
@@ -159,4 +157,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     void resize( int width, int height );
 };
 
-#include "CLIViewer.inl"
+} // namespace Headless
+} // namespace Ra
+
+#include <RadiumHeadless/CLIViewer.inl>

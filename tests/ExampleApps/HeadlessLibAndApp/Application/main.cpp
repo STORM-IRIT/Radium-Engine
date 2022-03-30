@@ -12,6 +12,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb/stb_image_write.h>
 
+using namespace Ra::Headless;
 int main( int argc, const char* argv[] ) {
     //! [Creating the viewer with custom parameters]
     bool showWindow { false };

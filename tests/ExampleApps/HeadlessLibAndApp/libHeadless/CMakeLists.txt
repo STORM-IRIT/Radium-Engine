@@ -86,9 +86,10 @@ target_compile_definitions(${libName} PRIVATE ${libName}_EXPORTS GLFW_INCLUDE_NO
 target_compile_options(${libName} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)
 
 # configure the component "Headless" of pacakges "RadiumHeadless"
+set(installed_headers "${${libName}_headers};${${libName}_inlines}")
 configure_radium_library(
     TARGET ${libName}
-    FILES "${${libName}_headers}"
+    FILES "${installed_headers}"
     TARGET_DIR .
     NAMESPACE ${namespaceName}
     PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${namespaceName}

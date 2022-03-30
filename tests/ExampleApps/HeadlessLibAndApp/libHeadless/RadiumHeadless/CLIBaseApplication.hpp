@@ -2,6 +2,9 @@
 #include <RadiumHeadless/CLI/CLI.hpp>
 #include <RadiumHeadless/Headless.hpp>
 
+namespace Ra {
+
+namespace Headless {
 /**
  * Base class for command line interface Radium application
  *
@@ -54,5 +57,6 @@ class HEADLESS_API CLIBaseApplication
      */
     virtual int run( float timeStep = 0 );
 };
-
-#include "CLIBaseApplication.inl"
+} // namespace Headless
+} // namespace Ra
+#include <RadiumHeadless/CLIBaseApplication.inl>
