@@ -32,6 +32,7 @@ if(NOT IN_LIBHEADLESS_BUILD_TREE)
 elseif(NOT IN_RADIUM_BUILD_TREE)
     # need this to import Radium dependencies if not using the package RadiumHeadless but the
     # subdirectory
+    message(STATUS "[HeadlessDemo] Searching Radium package in ${CMAKE_PREFIX_PATH}")
     find_package(Radium REQUIRED Core Engine IO)
 endif()
 
@@ -49,7 +50,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Headless)
 
 if(USE_RADIUM_IO_ASSIMPLOADER)
     if(IN_RADIUM_BUILD_TREE)
-        set(USE_ASSIMP ${RADIUM_IO_ASSIMP})
+        set(USE_RADIUM_ASSIMP ${RADIUM_IO_ASSIMP})
     else()
         get_target_property(USE_RADIUM_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
     endif()

@@ -7,6 +7,9 @@
 #include <string>
 struct GLFWwindow;
 
+namespace Ra {
+namespace Headless {
+
 /**
  * This class defines GLFW based OpenGL Context.
  * There are two use cases of such a context :
@@ -85,3 +88,6 @@ class OpenGLContext
     float m_delay { 1.f / 60.f };
     /** @} */
 };
+
+} // namespace Headless
+} // namespace Ra
