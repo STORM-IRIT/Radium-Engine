@@ -3,6 +3,8 @@
 #include <Core/Math/Math.hpp> // areApproxEqual
 #include <Core/Types.hpp>
 
+#include <Engine/Data/Mesh.hpp>
+
 #include <array>
 #include <string>
 
@@ -680,6 +682,7 @@ TriangleMesh makePlaneGrid( const uint rows,
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
     TriangleMesh::IndexContainerType indices;
+    Ra::Core::Vector3Array texCoords;
 
     const uint R      = ( rows + 1 );
     const uint C      = ( cols + 1 );
@@ -698,6 +701,9 @@ TriangleMesh makePlaneGrid( const uint rows,
     const Vector3 y = ( 2_ra * halfExts[1] * Y ) / Scalar( rows );
     const Vector3 o = T.translation() - ( halfExts[0] * X ) - ( halfExts[1] * Y );
 
+    const Scalar du = 1_ra / rows;
+    const Scalar dv = 1_ra / cols;
+
     Grid<uint, 2> v( { R, C } );
     for ( uint i = 0; i < R; ++i ) {
         for ( uint j = 0; j < C; ++j ) {
@@ -705,6 +711,7 @@ TriangleMesh makePlaneGrid( const uint rows,
             v.at( { i, j } ) = id;
             vertices[id]     = o + ( i * y ) + ( j * x );
             normals[id]      = Z;
+            texCoords.emplace_back( i * du, j * dv, 0_ra );
         }
     }
 
@@ -719,6 +726,7 @@ TriangleMesh makePlaneGrid( const uint rows,
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
     result.setIndices( std::move( indices ) );
+    result.addAttrib( Ra::Engine::Data::Mesh::getAttribName( Ra::Engine::Data::Mesh::VERTEX_TEXCOORD ), std::move( texCoords ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
