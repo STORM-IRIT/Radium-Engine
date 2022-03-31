@@ -29,6 +29,18 @@ namespace Ra {
 namespace Engine {
 namespace Scene {
 
+template <>
+SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::SurfaceMeshComponent(
+    const std::string& name,
+    Entity* entity,
+    Ra::Core::Geometry::MultiIndexedGeometry&& mesh,
+    Core::Asset::MaterialData* mat ) :
+    GeometryComponent( name, entity ),
+    m_displayMesh( new Data::GeometryDisplayable( name, std::move( mesh ) ) ) {
+    setContentName( name );
+    finalizeROFromGeometry( mat, Core::Transform::Identity() );
+}
+
 void GeometryComponent::setupIO( const std::string& id ) {
     const auto& cm = ComponentMessenger::getInstance();
     auto roOut     = std::bind( &GeometryComponent::roIndexRead, this );
