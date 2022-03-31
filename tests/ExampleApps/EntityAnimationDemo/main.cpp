@@ -107,8 +107,8 @@ int main( int argc, char* argv[] ) {
         //! [Creating the Cube]
 
         //! [Create a geometry component with the cube]
-        auto c = new Scene::TriangleMeshComponent(
-            "Fixed cube geometry", e, std::move( cube ), nullptr );
+        // component ownership is transfered to entity in component ctor
+        new Scene::TriangleMeshComponent( "Fixed cube geometry", e, std::move( cube ), nullptr );
         //! [Create a geometry component with the cube]
     }
     //! [Create the demo fixed entity/component]
