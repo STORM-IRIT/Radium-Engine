@@ -20,57 +20,45 @@ endif()
 find_package(OpenMP QUIET)
 
 # -----------------------------------------------------------------------------------
-# Prepare cmake package
-
-include(CMakePackageConfigHelpers)
-set(ConfigPackageLocation lib/cmake/Radium)
-
-# -----------------------------------------------------------------------------------
-# Include sources
-
-if(RADIUM_GENERATE_LIB_CORE)
-    add_subdirectory(Core)
-endif()
-if(RADIUM_GENERATE_LIB_IO)
-    add_subdirectory(IO)
-endif()
-if(RADIUM_GENERATE_LIB_ENGINE)
-    add_subdirectory(Engine)
-endif()
-if(RADIUM_GENERATE_LIB_GUI)
-    add_subdirectory(Gui)
-endif()
-if(RADIUM_GENERATE_LIB_PLUGINBASE)
-    add_subdirectory(PluginBase)
-endif()
-
-# propagate global to parent
-set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
-
-# -----------------------------------------------------------------------------------
 function(cat IN_FILE OUT_FILE)
     file(READ ${IN_FILE} CONTENTS)
     file(APPEND ${OUT_FILE} "${CONTENTS}")
 endfunction()
 
+# Prepare cmake package
+include(CMakePackageConfigHelpers)
+set(ConfigPackageLocation lib/cmake/Radium)
+
+# -----------------------------------------------------------------------------------
+# Include sources and declare components
+set(PACKAGE_COMPONENTS "")
+if(RADIUM_GENERATE_LIB_CORE)
+    add_subdirectory(Core)
+endif()
+
+if(RADIUM_GENERATE_LIB_ENGINE)
+    add_subdirectory(Engine)
+endif()
+if(RADIUM_GENERATE_LIB_IO)
+    add_subdirectory(IO)
+endif()
+if(RADIUM_GENERATE_LIB_PLUGINBASE)
+    add_subdirectory(PluginBase)
+endif()
+if(RADIUM_GENERATE_LIB_GUI)
+    add_subdirectory(Gui)
+endif()
+
+# -----------------------------------------------------------------------------------
 # Prepare the RadiumConfigTemplate.in file:
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in "")
 
-# Fill the RadiumConfigTemplate.in
+# Set the general header in RadiumConfigTemplate.in
+cat(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/CompilerVersion.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in
+)
+cat(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in)
 
-cat(../cmake/CompilerVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in)
-cat(../cmake/Config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in)
-get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
-if(${HAS_VOLUMES})
-    file(
-        APPEND ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in
-        "# Set IO_VOLUME support
-        if(IO_FOUND)
-          set_target_properties( Radium::IO PROPERTIES RADIUM_IO_HAS_VOLUMES TRUE)
-        endif()"
-    )
-endif()
-# -----------------------------------------------------------------------------------
 # Generate cmake package
 configure_radium_package(
     NAME Radium PACKAGE_CONFIG ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in
@@ -88,6 +76,9 @@ if(MSVC OR MSVC_IDE OR MINGW)
             DESTINATION ${ConfigPackageLocation}
     )
 endif()
+
+# propagate global to parent
+set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
 
 # ---- exampleApp executable setup ----
 

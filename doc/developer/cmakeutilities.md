@@ -1,4 +1,4 @@
-\page cmakeutilities CMake setup
+\page cmakeutilities How to use Radium : cmake configuration and utilities
 [TOC]
 
 As Radium relies on the [CMake](https://cmake.org/documentation/) build and configuration system, this
@@ -17,13 +17,15 @@ library or plugin as a cmake package.
 To integrate the Radium libraries into your build-chain configuration, you have to ask cmake to find the Radium package.
 As for any cmake package, this could be done by adding the following line into your `CMakeLists.txt` file:
 ~~~{.cmake}
-find_package(Radium REQUIRED Core Engine)
+find_package(Radium REQUIRED)
 ~~~
+This request for package Radium will bring all the base components for the package.
+See below how to select only the components you need.
+
 Remember to configure your project by giving the cmake command line option
-`-DRadium_DIR=/path/to/installed/Radium/lib/cmake/Radium` so that the `find_package` command could find the Radium
-package definition.
-Once found, the Radium package defines a cmake target for each requested components (`Core` and `Engine` in the
-example above) in the cmake namespace `Radium`.
+`-DRadium_DIR=/path/to/installed/Radium/lib/cmake/Radium` od `-DCMAKE_PREFIX_PATH=/path/to/installed/Radium/lib/cmake`
+so that the `find_package` command could find the Radium package definition.
+Once found, the Radium package defines a cmake target for each found components in the cmake namespace `Radium`.
 
 When configuring your own target in your `CMakeLists.txt` file, you just need to link with those targets to get access
 to all the public interface of Radium (include search path, libraries, ...), for instance:
@@ -33,25 +35,45 @@ target_link_libraries (myTarget PUBLIC Radium::Core Radium::Engine)
 
 ### Using Radium components
 
-If your application does not need all the radium components, you can select which ones you want among the following :
+If your application does not need all the radium components, you can select which ones you want by using
+~~~{.cmake}
+find_package(Radium REQUIRED COMPONENTS <list of required components>)
+~~~
+
+The Radium base components are :
 - Core : search only for the availability of the target Radium::Core
-- Engine : search only for the availability of the target Radium::Engine
-- Gui : search for the Qt-based Gui toolkit
-- PluginBase : search for the Qt-based plugin development interface
-- IO : search only for the availability of the target Radium::IO
+- Engine : search for the availability of the target Radium::Engine and the following dependency
+  -  Radium::Core
+- Gui : search for the Qt-based Gui toolkit and the following dependencies
+    - Radium::Core
+    - Radium::Engine
+    - Radium::PluginBase
+    - Radium::IO
+- PluginBase : search for the Qt-based plugin development interface  and its dependencies
+    - Radium::Core
+    - Radium::Engine
+    - Radium::Gui
+    - Radium::IO
+- IO : search only for the availability of the target Radium::IO  and its dependency
+    - Radium::Core
 
   On this target, you might also ask for support of several file loaders using the following properties defined on the
   target Radium::IO
-    - RADIUM_IO_USE_ASSIMP : Identify if Radium::IO was compiled with assimp support
-    - RADIUM_IO_USE_TINYPLY : Identify if Radium::IO was compiled with tinyply support.
-      You might use these properties to define compilation macro in your code
-      ~~~{.cmake}
-      get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
-      if (${USE_ASSIMP})
-       target_compile_definitions(yourTarget PRIVATE ADD_ASSIMP_LOADER)
-      endif()
-      ~~~
+  - RADIUM_IO_USE_ASSIMP : Identify if Radium::IO was compiled with assimp support
+  - RADIUM_IO_USE_TINYPLY : Identify if Radium::IO was compiled with tinyply support.
+  You might use these properties to define compilation macro in your code
+  ~~~{.cmake}
+  get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
+  if (${USE_ASSIMP})
+   target_compile_definitions(yourTarget PRIVATE ADD_ASSIMP_LOADER)
+  endif()
+  ~~~
 
+The Radium package also offers some specific components that should be requested explicitly as they are not included
+in the set of base components.
+- Headless : search for the availability of the target Radiumm::Headless and its dependencies
+  - Radium::Core
+  - Radium::Engine
 
 The radium package also defines several cmake functions, described below, that you can use to ease the configuration of
 your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their

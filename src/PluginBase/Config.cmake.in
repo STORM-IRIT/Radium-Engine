@@ -1,0 +1,24 @@
+
+# -------------- Configuration of the Radium PluginBase targets and definitions ------------0---------
+# Setup Gui and check for dependencies
+# TODO : verify if this is needed
+if (PluginBase_FOUND AND NOT TARGET PluginBase)
+    set(Configure_PluginBase ON)
+    # verify dependencies
+    if(NOT Gui_FOUND)
+        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/RadiumGuiConfig.cmake")
+            set(Gui_FOUND TRUE)
+            include(${CMAKE_CURRENT_LIST_DIR}/RadiumGuiConfig.cmake)
+        else()
+            set(Radium_FOUND False)
+            set(Radium_NOT_FOUND_MESSAGE "Radium::Gui : dependency IO not found")
+            set(Configure_PluginBase OFF)
+        endif()
+    endif()
+endif()
+
+if(Configure_PluginBase)
+    include(${CMAKE_CURRENT_LIST_DIR}/QtFunctions.cmake)
+    find_qt_dependency(COMPONENTS Core REQUIRED)
+    include("${CMAKE_CURRENT_LIST_DIR}/PluginBaseTargets.cmake")
+endif()

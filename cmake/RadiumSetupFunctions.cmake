@@ -858,8 +858,8 @@ function(configure_radium_package)
     # parse and verify args
     cmake_parse_arguments(
         ARGS
-        "" # no options
-        "NAME;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION" # one value args
+        "COMPONENT" # no options
+        "NAME;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION;PREFIX" # one value args
         "" # no multivalued args
         ${ARGN}
     )
@@ -872,18 +872,31 @@ function(configure_radium_package)
     if(NOT ARGS_PACKAGE_CONFIG)
         message(FATAL_ERROR "[add_package] You must provide the package config file")
     endif()
-    configure_file(
-        ${ARGS_PACKAGE_CONFIG} "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}Config.cmake" @ONLY
+
+    if(ARGS_PREFIX)
+        set(CONFIG_FILE_NAME "${ARGS_PREFIX}${ARGS_NAME}Config")
+    else()
+        set(CONFIG_FILE_NAME "${ARGS_NAME}Config")
+    endif()
+
+    # if(ARGS_COMPONENT) if(NOT ARGS_PREFIX) set(ARGS_PREFIX Radium) endif() set(CONFIG_FILE_NAME
+    # "${ARGS_PREFIX}${ARGS_NAME}Config") else() set(CONFIG_FILE_NAME "${ARGS_NAME}Config") endif()
+
+    configure_package_config_file(
+        ${ARGS_PACKAGE_CONFIG} "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
+        INSTALL_DESTINATION ${ARGS_PACKAGE_DIR}
     )
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}Config.cmake"
+
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
             DESTINATION ${ARGS_PACKAGE_DIR}
     )
+
     if(ARGS_PACKAGE_VERSION)
         write_basic_package_version_file(
-            "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
             VERSION ${ARGS_PACKAGE_VERSION} COMPATIBILITY SameMajorVersion
         )
-        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake"
+        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
                 DESTINATION ${ARGS_PACKAGE_DIR}
         )
     endif()
@@ -908,7 +921,7 @@ function(configure_radium_library)
     cmake_parse_arguments(
         ARGS
         "" # no options
-        "TARGET;TARGET_DIR;NAMESPACE;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION" # one value args
+        "TARGET;TARGET_DIR;NAMESPACE;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION;" # one value args
         "FILES" # list of directories containing the resources to install - optional
         ${ARGN}
     )
@@ -971,12 +984,13 @@ function(configure_radium_library)
         if(ARGS_PACKAGE_VERSION)
             configure_radium_package(
                 NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
-                PACKAGE_DIR ${ARGS_PACKAGE_DIR} PACKAGE_VERSION ${ARGS_PACKAGE_VERSION}
+                PACKAGE_DIR ${ARGS_PACKAGE_DIR} PACKAGE_VERSION ${ARGS_PACKAGE_VERSION} PREFIX
+                                                ${ARGS_NAMESPACE}
             )
         else()
             configure_radium_package(
                 NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
-                PACKAGE_DIR ${ARGS_PACKAGE_DIR}
+                PACKAGE_DIR ${ARGS_PACKAGE_DIR} PREFIX ${ARGS_NAMESPACE}
             )
         endif()
     endif()
