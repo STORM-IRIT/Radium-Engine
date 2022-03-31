@@ -41,8 +41,8 @@ int main( int argc, char* argv[] ) {
     //! [Create the engine entity for the cube]
 
     //! [Create a geometry component with the cube]
-    auto c =
-        new Ra::Engine::Scene::TriangleMeshComponent( "Cube Mesh", e, std::move( cube ), nullptr );
+    auto c = new Ra::Engine::Scene::GeometryDisplayableComponent(
+        "Cube Mesh", e, std::move( cube ), nullptr );
     //! [Create a geometry component with the cube]
 
     //! [Register the entity/component association to the geometry system ]
