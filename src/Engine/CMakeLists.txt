@@ -48,7 +48,12 @@ target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
 message(STATUS "Configuring library ${ra_engine_target} with standard settings")
 configure_radium_target(${ra_engine_target})
-configure_radium_library(TARGET ${ra_engine_target} FILES "${engine_headers};${engine_inlines}")
+configure_radium_library(
+    TARGET ${ra_engine_target} PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    FILES "${engine_headers};${engine_inlines}"
+)
+set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_engine_target} PARENT_SCOPE)
+
 message(STATUS "installing resources from ${RADIUM_SHADERS_DIR}")
 install_target_resources(
     TARGET ${ra_engine_target} RESOURCES_DIR ${RADIUM_SHADERS_DIR} RESOURCES_INSTALL_DIR "Radium"
