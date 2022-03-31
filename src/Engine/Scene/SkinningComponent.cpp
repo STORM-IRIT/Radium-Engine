@@ -210,10 +210,6 @@ void SkinningComponent::skin() {
         const Vector3Array& bitangents = m_refData.m_referenceMesh.getAttrib( bH ).data();
 
         switch ( m_skinningType ) {
-        case LBS: {
-            linearBlendSkinning( m_refData, tangents, bitangents, m_frameData );
-            break;
-        }
         case DQS: {
             dualQuaternionSkinning( m_refData, tangents, bitangents, m_frameData );
             break;
@@ -228,6 +224,11 @@ void SkinningComponent::skin() {
         }
         case STBS_DQS: {
             dualQuaternionSkinningSTBS( m_refData, tangents, bitangents, m_frameData );
+            break;
+        }
+        case LBS:
+        default: {
+            linearBlendSkinning( m_refData, tangents, bitangents, m_frameData );
             break;
         }
         }
@@ -395,16 +396,17 @@ void SkinningComponent::showWeights( bool on ) {
         const auto size = m_frameData.m_currentPosition.size();
         m_weightsUV.resize( size, Vector3::Zero() );
         switch ( m_weightType ) {
-        case STANDARD: {
-#pragma omp parallel for
-            for ( int i = 0; i < int( size ); ++i ) {
-                m_weightsUV[i][0] = m_refData.m_weights.coeff( i, m_weightBone );
-            }
-        } break;
         case STBS: {
 #pragma omp parallel for
             for ( int i = 0; i < int( size ); ++i ) {
                 m_weightsUV[i][0] = m_refData.m_weightSTBS.coeff( i, m_weightBone );
+            }
+        } break;
+        case STANDARD:
+        default: {
+#pragma omp parallel for
+            for ( int i = 0; i < int( size ); ++i ) {
+                m_weightsUV[i][0] = m_refData.m_weights.coeff( i, m_weightBone );
             }
         } break;
         } // end of switch.
