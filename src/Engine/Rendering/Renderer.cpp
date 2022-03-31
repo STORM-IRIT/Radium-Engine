@@ -235,10 +235,10 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
     renderForPicking( renderData, m_pickingShaders, m_fancyRenderObjectsPicking );
     ////////////////// added save depth //////////////////////////////////////
     float depth;
-    m_pickingFbo->readPixels( { static_cast<int>( query.m_screenCoords.x() ),
-                                static_cast<int>( query.m_screenCoords.y() ),
-                                1,
-                                1 },
+    m_pickingFbo->readPixels( { { static_cast<int>( query.m_screenCoords.x() ),
+                                  static_cast<int>( query.m_screenCoords.y() ),
+                                  1,
+                                  1 } },
                               GL_DEPTH_COMPONENT,
                               GL_FLOAT,
                               &depth );
@@ -293,10 +293,10 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
 
     // Now read the Picking Texture to address the Picking Requests.
     m_pickingFbo->readPixels( GL_COLOR_ATTACHMENT0,
-                              { static_cast<int>( query.m_screenCoords.x() ),
-                                static_cast<int>( query.m_screenCoords.y() ),
-                                1,
-                                1 },
+                              { { static_cast<int>( query.m_screenCoords.x() ),
+                                  static_cast<int>( query.m_screenCoords.y() ),
+                                  1,
+                                  1 } },
                               GL_RGBA_INTEGER,
                               GL_INT,
                               pick );
