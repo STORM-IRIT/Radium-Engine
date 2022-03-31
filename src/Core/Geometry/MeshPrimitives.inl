@@ -16,10 +16,14 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
     TriangleMesh::IndexContainerType indices;
+    Ra::Core::Vector3Array texCoords;
 
     vertices.reserve( 2 + slices * ( stacks - 1 ) );
     normals.reserve( 2 + slices * ( stacks - 1 ) );
     indices.reserve( 2 * slices * ( stacks - 1 ) );
+
+    const Scalar du = 1_ra / slices;
+    const Scalar dv = 1_ra / stacks;
 
     for ( uint u = 0; u < slices; ++u ) {
         const Scalar theta = Scalar( 2 * u ) * Core::Math::Pi / Scalar( slices );
@@ -78,6 +82,7 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
     TriangleMesh::IndexContainerType indices;
+    Ra::Core::Vector3Array texCoords;
 
     vertices.reserve( U * V );
     normals.reserve( V * V );
@@ -108,7 +113,6 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
     result.setIndices( std::move( indices ) );
-
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
