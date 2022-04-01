@@ -78,7 +78,7 @@ endif()
 message(STATUS "Configuring library ${ra_core_target} with standard settings")
 configure_radium_target(${ra_core_target})
 configure_radium_library(
-    TARGET ${ra_core_target} PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    TARGET ${ra_core_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
     FILES "${core_headers};${core_inlines}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_core_target} PARENT_SCOPE)

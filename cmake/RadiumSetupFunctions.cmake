@@ -743,12 +743,16 @@ function(configure_radium_plugin)
     if(CMAKE_BUILD_TYPE MATCHES Debug)
         message(STATUS "[configure_radium_plugin] Plugin compiled with debug info")
         target_compile_definitions(${ARGS_NAME} PUBLIC PLUGIN_IS_COMPILED_WITH_DEBUG_INFO)
-        file(COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataDebug.json"
+        # file(COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataDebug.json" DESTINATION
+        # ${CMAKE_CURRENT_BINARY_DIR} )
+        file(COPY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PluginBase/pluginMetaDataDebug.json"
              DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
         )
         target_sources(${ARGS_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/pluginMetaDataDebug.json")
     else()
-        file(COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataRelease.json"
+        # file(COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataRelease.json" DESTINATION
+        # ${CMAKE_CURRENT_BINARY_DIR} )
+        file(COPY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PluginBase/pluginMetaDataRelease.json"
              DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
         )
         target_sources(
@@ -858,7 +862,7 @@ function(configure_radium_package)
     # parse and verify args
     cmake_parse_arguments(
         ARGS
-        "COMPONENT" # no options
+        "" # no options
         "NAME;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION;PREFIX" # one value args
         "" # no multivalued args
         ${ARGN}
@@ -878,9 +882,6 @@ function(configure_radium_package)
     else()
         set(CONFIG_FILE_NAME "${ARGS_NAME}Config")
     endif()
-
-    # if(ARGS_COMPONENT) if(NOT ARGS_PREFIX) set(ARGS_PREFIX Radium) endif() set(CONFIG_FILE_NAME
-    # "${ARGS_PREFIX}${ARGS_NAME}Config") else() set(CONFIG_FILE_NAME "${ARGS_NAME}Config") endif()
 
     configure_package_config_file(
         ${ARGS_PACKAGE_CONFIG} "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
@@ -920,7 +921,7 @@ function(configure_radium_library)
     # parse and verify args
     cmake_parse_arguments(
         ARGS
-        "" # no options
+        "COMPONENT" # no options
         "TARGET;TARGET_DIR;NAMESPACE;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION;" # one value args
         "FILES" # list of directories containing the resources to install - optional
         ${ARGN}
@@ -974,7 +975,11 @@ function(configure_radium_library)
     )
     # export for the installation tree
     if(NOT ARGS_PACKAGE_DIR)
-        set(ARGS_PACKAGE_DIR lib/cmake/Radium)
+        if(ARGS_COMPONENT)
+            set(ARGS_PACKAGE_DIR lib/cmake/Radium/${ARGS_TARGET_DIR})
+        else()
+            set(ARGS_PACKAGE_DIR lib/cmake/Radium)
+        endif()
     endif()
 
     install(EXPORT ${ARGS_TARGET}Targets FILE ${ARGS_TARGET}Targets.cmake

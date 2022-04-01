@@ -29,15 +29,16 @@ endif("${isSystemDir}" STREQUAL "-1")
 # Configure components
 @PACKAGE_INIT@
 
-set(Radium_supported_components @RADIUM_COMPONENTS@)
 
+# manage components
+set(Radium_supported_components @RADIUM_COMPONENTS@)
 if(Radium_FIND_COMPONENTS)
     # Components are requested, fetch them and their dependencies
     foreach(component ${Radium_FIND_COMPONENTS})
         if(${component} IN_LIST Radium_supported_components)
             set(${component}_FOUND True)
             if(NOT TARGET ${component})
-                include("${CMAKE_CURRENT_LIST_DIR}/Radium${component}Config.cmake")
+                include("${CMAKE_CURRENT_LIST_DIR}/${component}/Radium${component}Config.cmake")
             endif()
         else()
             set(Radium_FOUND False)
@@ -48,11 +49,13 @@ else()
     # No component is requested, fetch only Core
     set(Core_FOUND True)
     if(NOT TARGET Core)
-        include("${CMAKE_CURRENT_LIST_DIR}/RadiumCoreConfig.cmake")
+        include("${CMAKE_CURRENT_LIST_DIR}/Core/RadiumCoreConfig.cmake")
     endif()
 endif()
 
 if(NOT TARGET Core)
+    # Load Radium cmake functions
+    include(${CMAKE_CURRENT_LIST_DIR}/RadiumSetupFunctions.cmake)
     # Compute paths
     get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
     # get up in the directories until we found a "Resources/Radium" subdir TODO : instead of

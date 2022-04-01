@@ -1,8 +1,6 @@
 
 # -------------- Configuration of the Radium Core targets and definitions ------------0---------
 if(NOT TARGET Core)
-    # Load Radium cmake functions
-    include(${CMAKE_CURRENT_LIST_DIR}/RadiumSetupFunctions.cmake)
 
     include(CMakeFindDependencyMacro)
     find_dependency(Threads REQUIRED)
@@ -11,17 +9,17 @@ if(NOT TARGET Core)
     endif()
     # Theses paths reflect the paths founds in RadiumEngine/external/Core/package
     if("@Eigen3_DIR@" STREQUAL "")
-        set(Eigen3_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../@Eigen3_sub_DIR@")
+        set(Eigen3_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../../@Eigen3_sub_DIR@")
     else()
         set(Eigen3_DIR "@Eigen3_DIR@")
     endif()
     if("@OpenMesh_DIR@" STREQUAL "")
-        set(OpenMesh_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../@OpenMesh_sub_DIR@")
+        set(OpenMesh_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../../@OpenMesh_sub_DIR@")
     else()
         set(OpenMesh_DIR "@OpenMesh_DIR@")
     endif()
     if("@cpplocate_DIR@" STREQUAL "")
-        set(cpplocate_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../@cpplocate_sub_DIR@")
+        set(cpplocate_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../../@cpplocate_sub_DIR@")
     else()
         set(cpplocate_DIR "@cpplocate_DIR@")
     endif()
