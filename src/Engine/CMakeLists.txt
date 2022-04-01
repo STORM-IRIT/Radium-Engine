@@ -49,7 +49,7 @@ target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 message(STATUS "Configuring library ${ra_engine_target} with standard settings")
 configure_radium_target(${ra_engine_target})
 configure_radium_library(
-    TARGET ${ra_engine_target} PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    TARGET ${ra_engine_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
     FILES "${engine_headers};${engine_inlines}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_engine_target} PARENT_SCOPE)

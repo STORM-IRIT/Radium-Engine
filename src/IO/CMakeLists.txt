@@ -62,7 +62,7 @@ target_compile_definitions(${ra_io_target} PRIVATE RA_IO_EXPORTS IO_USE_CAMERA_L
 message(STATUS "Configuring library ${ra_io_target} with standard settings")
 configure_radium_target(${ra_io_target})
 configure_radium_library(
-    TARGET ${ra_io_target} PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    TARGET ${ra_io_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
     FILES "${io_headers};${io_inlines}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_io_target} PARENT_SCOPE)
