@@ -126,8 +126,8 @@ TEST_CASE( "Core/Utils/Observable", "[Core][Core/Utils][Observable]" ) {
         ///\todo add more tests with
         // using Observer2 = std::function<void( int )>;
 
-        auto bf  = std::bind( &A::f, &a );
-        auto bf2 = std::bind( &A::f2, &a, std::placeholders::_1 );
+        auto bf = std::bind( &A::f, &a );
+        std::bind( &A::f2, &a, std::placeholders::_1 );
 
         Observer obf         = bf;
         auto& observerTarget = obf.target_type();
