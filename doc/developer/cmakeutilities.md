@@ -19,11 +19,11 @@ As for any cmake package, this could be done by adding the following line into y
 ~~~{.cmake}
 find_package(Radium REQUIRED)
 ~~~
-This find_package request will bring only the Core component from the Radium package.
+This will bring Radium Core component.
 See below how to select the components you need.
 
 Remember to configure your project by giving the cmake command line option
-`-DRadium_DIR=/path/to/installed/Radium/lib/cmake/Radium` od `-DCMAKE_PREFIX_PATH=/path/to/installed/Radium/lib/cmake`
+`-DRadium_DIR=/path/to/installed/Radium/lib/cmake/Radium` or `-DCMAKE_PREFIX_PATH=/path/to/installed/Radium/lib/cmake`
 so that the `find_package` command could find the Radium package definition.
 Once found, the Radium package defines a cmake target for each found components in the cmake namespace `Radium`.
 
@@ -35,7 +35,7 @@ target_link_libraries (myTarget PUBLIC Radium::Core Radium::Engine)
 
 ### Using Radium components
 
-If your application does not need all the radium components, you can select which ones you want by using
+If your application does not need all radium components, you can select which ones you want with
 ~~~{.cmake}
 find_package(Radium REQUIRED COMPONENTS <list of required components>)
 ~~~
@@ -71,11 +71,11 @@ The Radium base components are :
 
 The Radium package also offers some specific components that should be requested explicitly as they are not included
 in the set of base components.
-- Headless : search for the availability of the target Radiumm::Headless and its dependencies
+- Headless : search for the availability of the target Radium::Headless and its dependencies
   - Radium::Core
   - Radium::Engine
 
-The radium package also defines several cmake functions, described below, that you can use to ease the configuration of
+The Radium package also defines several cmake functions, described below, that you can use to ease the configuration of
 your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their
 own build-tree.
 
@@ -359,7 +359,7 @@ This function takes the following parameters:
 `<PACKAGE_CONFIG> configFile.in`      | The configure script to be used by `find_package`.
 `<PACKAGE_VERSION> major.minor.patch` | If given, the version of the installed package
 `<PACKAGE_DIR> packageDirName`        | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
-`<NAME_PREFIX> packagePrefix`                | If given, prefix added to the name of the installed config script `<packagePrefix><packageName>Config.cmake`.
+`<NAME_PREFIX> packagePrefix`         | If given, prefix added to the name of the installed config script `<packagePrefix><packageName>Config.cmake`.
 
 This function is called implicitly, when defining a single component package, when the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>`, with optional `<PACKAGE_VERSION>`, are given to the library configuration function [`configure_radium_library`](#configure_radium_library).
 
