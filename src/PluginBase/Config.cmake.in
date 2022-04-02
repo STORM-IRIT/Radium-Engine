@@ -1,5 +1,5 @@
 
-# -------------- Configuration of the Radium PluginBase targets and definitions ------------0---------
+# -------------- Configuration of Radium PluginBase targets and definitions ---
 # Setup Gui and check for dependencies
 # TODO : verify if this is needed
 if (PluginBase_FOUND AND NOT TARGET PluginBase)
