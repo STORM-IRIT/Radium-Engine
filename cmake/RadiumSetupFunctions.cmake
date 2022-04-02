@@ -853,8 +853,7 @@ endfunction()
 # * PACKAGE_DIR : The directory in which the cmake package config file will be installed (default
 #   <prefix>/lib/cmake/Radium)
 # * PACKAGE_VERSION : The package version number
-# * NAME_PREFIX : Prefix to add to the name of the package wen installing. Useful for package
-#   components
+# * NAME_PREFIX : Prefix added to the package name to install e.g. for package components
 #
 function(configure_radium_package)
     # parse and verify args

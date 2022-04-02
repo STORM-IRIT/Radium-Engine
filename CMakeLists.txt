@@ -190,7 +190,8 @@ set(LocalDependencies)
 
 # Source code
 add_subdirectory(src)
-# to enable find_package in the buildtree for next components
+
+# Enable find_package(RadiumEngine) for the current build.
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR}/src)
 
 # Add this target so that some IDE could propose to build all radium libs and examples at once
