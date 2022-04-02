@@ -743,15 +743,11 @@ function(configure_radium_plugin)
     if(CMAKE_BUILD_TYPE MATCHES Debug)
         message(STATUS "[configure_radium_plugin] Plugin compiled with debug info")
         target_compile_definitions(${ARGS_NAME} PUBLIC PLUGIN_IS_COMPILED_WITH_DEBUG_INFO)
-        # file(COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataDebug.json" DESTINATION
-        # ${CMAKE_CURRENT_BINARY_DIR} )
         file(COPY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PluginBase/pluginMetaDataDebug.json"
              DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
         )
         target_sources(${ARGS_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/pluginMetaDataDebug.json")
     else()
-        # file(COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataRelease.json" DESTINATION
-        # ${CMAKE_CURRENT_BINARY_DIR} )
         file(COPY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PluginBase/pluginMetaDataRelease.json"
              DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
         )
@@ -857,13 +853,15 @@ endfunction()
 # * PACKAGE_DIR : The directory in which the cmake package config file will be installed (default
 #   <prefix>/lib/cmake/Radium)
 # * PACKAGE_VERSION : The package version number
+# * NAME_PREFIX : Prefix to add to the name of the package wen installing. Useful for package
+#   components
 #
 function(configure_radium_package)
     # parse and verify args
     cmake_parse_arguments(
         ARGS
         "" # no options
-        "NAME;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION;PREFIX" # one value args
+        "NAME;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION;NAME_PREFIX" # one value args
         "" # no multivalued args
         ${ARGN}
     )
@@ -877,8 +875,8 @@ function(configure_radium_package)
         message(FATAL_ERROR "[add_package] You must provide the package config file")
     endif()
 
-    if(ARGS_PREFIX)
-        set(CONFIG_FILE_NAME "${ARGS_PREFIX}${ARGS_NAME}Config")
+    if(ARGS_NAME_PREFIX)
+        set(CONFIG_FILE_NAME "${ARGS_NAME_PREFIX}${ARGS_NAME}Config")
     else()
         set(CONFIG_FILE_NAME "${ARGS_NAME}Config")
     endif()
@@ -975,11 +973,10 @@ function(configure_radium_library)
     )
     # export for the installation tree
     if(NOT ARGS_PACKAGE_DIR)
-        if(ARGS_COMPONENT)
-            set(ARGS_PACKAGE_DIR lib/cmake/Radium/${ARGS_TARGET_DIR})
-        else()
-            set(ARGS_PACKAGE_DIR lib/cmake/Radium)
-        endif()
+        set(ARGS_PACKAGE_DIR lib/cmake/Radium)
+    endif()
+    if(ARGS_COMPONENT)
+        set(ARGS_PACKAGE_DIR ${ARGS_PACKAGE_DIR}/${ARGS_TARGET_DIR})
     endif()
 
     install(EXPORT ${ARGS_TARGET}Targets FILE ${ARGS_TARGET}Targets.cmake
@@ -989,13 +986,13 @@ function(configure_radium_library)
         if(ARGS_PACKAGE_VERSION)
             configure_radium_package(
                 NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
-                PACKAGE_DIR ${ARGS_PACKAGE_DIR} PACKAGE_VERSION ${ARGS_PACKAGE_VERSION} PREFIX
+                PACKAGE_DIR ${ARGS_PACKAGE_DIR} PACKAGE_VERSION ${ARGS_PACKAGE_VERSION} NAME_PREFIX
                                                 ${ARGS_NAMESPACE}
             )
         else()
             configure_radium_package(
                 NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
-                PACKAGE_DIR ${ARGS_PACKAGE_DIR} PREFIX ${ARGS_NAMESPACE}
+                PACKAGE_DIR ${ARGS_PACKAGE_DIR} NAME_PREFIX ${ARGS_NAMESPACE}
             )
         endif()
     endif()
