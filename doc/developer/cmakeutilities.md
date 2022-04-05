@@ -457,6 +457,79 @@ where `<prefix>` refer to the base plugin dir into the build tree or the install
 When a plugin is installed and depends on a helper library that embed its own resources, the helper resources are copied into the `<prefix>/Resources` directory so that the helper lib could find its resources as described in the section [`install_target_resources`](#install_target_resources).
 In this hierarchy, a plugin will access to its resources in a way very similar than any other library. Only one level of hierarchy, whose name is the plugin name, will be added.
 
+## Adding a new component in the Radium package
+The Radium distribution is based on several cmake package components.
+A component defines a set of imported targets, as well as properties on these targets (e.g. headers, resources, ...)
+and manage all the dependencies of these targets (dependencies over other components or on external packages).
+
+### Configuring and registering the component targets
+When developing a library that will be made available as a Radium component, the following should be done :
+
+- Add a subdirectory `NewComponent` in the `<Radium_source_dir>/src` that will contain all the source and header files
+related to the component named `NewComponent`.
+- Configure the `CMakeLists.txt` as described in the [Configuring client and extension libraries](#configureLibrary)
+section of this documentation but with the following modifications.
+- In this `CMakeLists.txt` configuration script, configure the main target library by using the `COMPONENT` option of
+the function `configure_radium_library` and add this target to the `RADIUM_COMPONENT` variable :
+~~~cmake
+configure_radium_library(
+    TARGET <NewComponent_Target> COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    FILES "<NewComponentHeaders>"
+)
+set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} <NewComponent_Target> PARENT_SCOPE)
+~~~
+where the `${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in` contains the configuration of the installed component as
+described below.
+- Modify the file `<Radium_source_dir>/src/CMakeLists.txt` to add the subdirectory that contains the component source code
+~~~cmake
+add_subdirectory(NewComponent)
+~~~
+
+From this, when the Radium distribution will be compiled and installed, the `NewComponent`will be integrated in the
+installed Radium distribution.
+
+### Configuring the import script for the components
+In order to make the component available to users when they do a `find_package(Radium COMPONENT NewComponent)` the cmake
+configuration script will be generated when calling `configure_radium_library` (in the `CMakeLists.txt`) from the
+`Config.cmake.in`  file located in the source directory of the component.
+
+This file should contain the following
+~~~cmake
+# Check if the component is requested for import and is not already imported
+if(NewComponent_FOUND and NOT TARGET NewComponent)
+    # This helper variable will be ON if the component targets should be imported
+    set(Configure_NewComponent ON)
+    # check for dependency on other components
+    if(NOT Core_FOUND) # The dependency on Core was not explicitely requested by the user
+        # Include the configuration script fot the dependency if it exists
+        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake")
+            set(Core_FOUND TRUE)
+            include(${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake)
+        else()
+            # If the dependency is not found, generates an error with a clear error message
+            set(Radium_FOUND False)
+            set(Radium_NOT_FOUND_MESSAGE "Radium::NewComponent : dependency Core not found")
+            set(Configure_NewComponent OFF)
+        endif()
+    endif()
+    # .. Do this for all dependencies
+endif()
+
+# Configure the component if needed
+if(Configure_NewComponent)
+    # manage the dependency on external libraries (e.g. to the ExternalDependency package)
+    find_dependency(ExternalDependency REQUIRED)
+    # Specific configuration for windows
+    if(MSVC OR MSVC_IDE OR MINGW)
+        add_imported_dir(FROM ExternalDependency::Target TO RadiumExternalDlls_location)
+    endif()
+    # define the imported targets for the NewComponent
+    include("${CMAKE_CURRENT_LIST_DIR}/NewComponentTargets.cmake")
+endif()
+~~~
+
+You can refer to the configuration of the `Core`, `Engine`, `Gui`, `PluginBase` and `IO`components for more practical
+and complete examples.
 
 # How to write your CMakeLists.txt
 When writing your cmake configuration script `CMakeLists.txt`, you might rely on the following guideline to configure the project `ProjectName`.
@@ -522,7 +595,7 @@ application and will be installed as any application on Linux.
 
 The resources associated to an application are installed using the [`install_target_resources`](#install_target_resources).
 
-## Configuring client and extension libraries
+## Configuring client and extension libraries {#configureLibrary}
 ### Configuring the library target
 An installable library could be used to add functionalities built over the Radium libraries and to make these functionalities available to developers.
 Once installed, a library consists in:
