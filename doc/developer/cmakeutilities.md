@@ -142,7 +142,7 @@ To get relocatable packages, download pre-built binaries here:
 ~~~{.cmake}
 configure_radium_library(
     TARGET targetName                   # Name of the target to configure as a Radium Library
-    FILES file1[file2[file3 ...]]       # list of headers to install
+    FILES [<file1> ...]      # list of headers to install
     COMPONENT                           # Define the library as a component of a multi-component package
     [TARGET_DIR directoryName]          # Name of the directory where files are installed (default <prefix>/include/<TARGET>)
     [NAMESPACE NameSpace]               # Namespace of the imported target (default Radium)
@@ -241,7 +241,7 @@ target_link_libraries(
 The `<COMPONENT>` option allows configuring and installing the library as a cmake component of a more general package
 (e.g. a component of the package `PackageName`).
 In this case, the imported target from the library will be available only if the client search for the meta-package
-using `find_package(PackageName COMPONENTS <TARGET>`.
+using `find_package(PackageName COMPONENTS <TARGET>)`.
 
 A fully functional example on how to configure a library as a component of a more general package is given by
 Radium source code itself. The libraries `Core`, `Engine`, `IO`, `Gui`, and `PluginBase` are configured as
@@ -457,18 +457,16 @@ where `<prefix>` refer to the base plugin dir into the build tree or the install
 When a plugin is installed and depends on a helper library that embed its own resources, the helper resources are copied into the `<prefix>/Resources` directory so that the helper lib could find its resources as described in the section [`install_target_resources`](#install_target_resources).
 In this hierarchy, a plugin will access to its resources in a way very similar than any other library. Only one level of hierarchy, whose name is the plugin name, will be added.
 
-## Adding a new component in the Radium package
+## Adding a new component to the Radium package
 The Radium distribution is based on several cmake package components.
 A component defines a set of imported targets, as well as properties on these targets (e.g. headers, resources, ...)
 and manage all the dependencies of these targets (dependencies over other components or on external packages).
 
-### Configuring and registering the component targets
-When developing a library that will be made available as a Radium component, the following should be done :
+### Configure component's targets
+To create a new Radium component named `NewComponent` (e.g. a new library one can add to a project with `find_package(Radium COMPONENT NewComponent)`), you have to do the following steps :
 
-- Add a subdirectory `NewComponent` in the `<Radium_source_dir>/src` that will contain all the source and header files
-related to the component named `NewComponent`.
-- Configure the `CMakeLists.txt` as described in the [Configuring client and extension libraries](#configureLibrary)
-section of this documentation but with the following modifications.
+- Add a subdirectory `NewComponent` in the `<Radium_source_dir>/src` with component's source and header files
+- Configure the `CMakeLists.txt` as described in the [Configuring client and extension libraries](#configureLibrary).
 - In this `CMakeLists.txt` configuration script, configure the main target library by using the `COMPONENT` option of
 the function `configure_radium_library` and add this target to the `RADIUM_COMPONENT` variable :
 ~~~cmake
@@ -478,22 +476,20 @@ configure_radium_library(
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} <NewComponent_Target> PARENT_SCOPE)
 ~~~
-where the `${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in` contains the configuration of the installed component as
+where `${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in` contains the configuration of the installed component as
 described below.
-- Modify the file `<Radium_source_dir>/src/CMakeLists.txt` to add the subdirectory that contains the component source code
+- Modify `<Radium_source_dir>/src/CMakeLists.txt` to add the subdirectory that contains the component source code
 ~~~cmake
 add_subdirectory(NewComponent)
 ~~~
 
-From this, when the Radium distribution will be compiled and installed, the `NewComponent`will be integrated in the
-installed Radium distribution.
+Hence, Radium compilation and install include `NewComponent`.
 
-### Configuring the import script for the components
-In order to make the component available to users when they do a `find_package(Radium COMPONENT NewComponent)` the cmake
-configuration script will be generated when calling `configure_radium_library` (in the `CMakeLists.txt`) from the
-`Config.cmake.in`  file located in the source directory of the component.
+### Configure component's cmake setup
+During Radium install, cmake generates a configuration file for the component, from `Config.cmake.in`  file located in the source directory of the component. The generation setup is done by `configure_radium_library`.
+This file provides components informations needed by `find_package(Radium COMPONENT NewComponent)`
 
-This file should contain the following
+Here is a simple example of `Config.cmake.in` for the NewComponent example.
 ~~~cmake
 # Check if the component is requested for import and is not already imported
 if(NewComponent_FOUND and NOT TARGET NewComponent)
