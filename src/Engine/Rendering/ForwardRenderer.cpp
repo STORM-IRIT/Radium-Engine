@@ -284,6 +284,9 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
     GL_ASSERT( glClearBufferfv( GL_COLOR, 3, clearZeros.data() ) ); // Clear specular
     GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );       // Clear depth
 
+    // render background objects (eg sky box)
+    renderBackground( renderData );
+
     // Z prepass
     GL_ASSERT( glDepthFunc( GL_LESS ) );
     GL_ASSERT( glDisable( GL_BLEND ) );
