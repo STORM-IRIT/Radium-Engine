@@ -24,6 +24,7 @@ foreach(
     CustomCameraManipulator
     DrawPrimitivesDemo
     EntityAnimationDemo
+    EnvMapDemo
     HelloRadium
     KeyEventDemoApp
     PickingDemoApp
