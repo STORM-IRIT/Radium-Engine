@@ -42,6 +42,7 @@ option(RADIUM_GENERATE_LIB_IO "Include Radium::IO in CMake project" ON)
 option(RADIUM_GENERATE_LIB_ENGINE "Include Radium::Engine in CMake project" ON)
 option(RADIUM_GENERATE_LIB_GUI "Include Radium::Gui in CMake project" ON)
 option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project" ON)
+option(RADIUM_GENERATE_LIB_HEADLESS "Include Radium::Headless in CMake project" ON)
 option(
     RADIUM_UPDATE_VERSION
     "Update version file each time the project is compiled (update compilation time in version.cpp)"

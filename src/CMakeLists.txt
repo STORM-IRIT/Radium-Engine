@@ -49,8 +49,9 @@ if(RADIUM_GENERATE_LIB_GUI)
     add_subdirectory(Gui)
 endif()
 
-# TODO : add RADIUM_GENERATE_LIB_HEADLESS OPTION
-add_subdirectory(Headless)
+if(RADIUM_GENERATE_LIB_HEADLESS)
+    add_subdirectory(Headless)
+endif()
 
 # -----------------------------------------------------------------------------------
 # Prepare the RadiumConfigTemplate.in file:
