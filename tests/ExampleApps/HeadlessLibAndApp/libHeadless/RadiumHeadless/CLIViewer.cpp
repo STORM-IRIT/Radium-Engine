@@ -14,13 +14,18 @@
 #include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
+namespace Ra {
+namespace Headless {
 using namespace Ra::Core::Utils;
 
 constexpr int defaultSystemPriority = 1000;
 
 CLIViewer::CLIViewer() : CLIBaseApplication(), m_glContext {} {
-    add_option( "-s,--size", m_parameters.m_size, "Size of the computed image." )->delimiter( 'x' );
-    add_flag( "-a,--animation", m_parameters.m_animationEnable, "Enable Radium Animation system." );
+    // add ->required() to force user to give a filename;
+    addOption( "-f,--file", m_parameters.m_dataFile, "Data file to process." )
+        ->check( CLI::ExistingFile );
+    addOption( "-s,--size", m_parameters.m_size, "Size of the computed image." )->delimiter( 'x' );
+    addFlag( "-a,--animation", m_parameters.m_animationEnable, "Enable Radium Animation system." );
 }
 
 CLIViewer::~CLIViewer() {
@@ -38,10 +43,10 @@ const CLIViewer::ViewerParameters& CLIViewer::getCommandLineParameters() const {
 
 int CLIViewer::init( int argc, const char* argv[] ) {
     try {
-        cmdline_parser.parse( argc, argv );
+        m_cmdLineParser.parse( argc, argv );
     }
     catch ( const CLI::ParseError& e ) {
-        return cmdline_parser.exit( e ) + 1;
+        return m_cmdLineParser.exit( e ) + 1;
     }
     // Do the init
     if ( !m_glContext.isValid() ) {
@@ -123,7 +128,7 @@ void CLIViewer::addDataFileLoader( Ra::Core::Asset::FileLoaderInterface* loader 
 }
 
 void CLIViewer::loadScene() {
-    m_engine->loadFile( m_dataFile );
+    m_engine->loadFile( m_parameters.m_dataFile );
 }
 
 void CLIViewer::compileScene() {
@@ -208,3 +213,6 @@ void CLIViewer::resize( int width, int height ) {
         m_camera->setViewport( width, height );
     }
 }
+
+} // namespace Headless
+} // namespace Ra

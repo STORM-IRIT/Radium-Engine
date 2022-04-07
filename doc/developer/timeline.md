@@ -53,7 +53,7 @@ They usually are not bound to an *UpdateCallback* function since the object they
 belong to usually calls `Ra::Core::Animation::KeyFramedValue::at` to query the current value.
 
 Example Usage:
-```c++
+```{.cpp}
 using KeyFramedValue = Ra::Core::Animation::KeyFramedValue<Scalar>;
 using KeyFramedValueController = Ra::Core::Animation::KeyFramedValueController;
 
@@ -130,7 +130,7 @@ They are usually bound to an UpdateCallback function since they have to update t
 object's data they are linked to.
 
 Example Usage:
-```c++
+```{.cpp}
 /// Let's say there is a Component class defined as:
 struct MyComponent : public Component {
     MyComponent( const std::string& name, Ra::Engine::Scene::Entity* entity, Scalar value = 0_ra )

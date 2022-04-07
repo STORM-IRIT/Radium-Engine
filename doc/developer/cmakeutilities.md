@@ -1,4 +1,4 @@
-\page cmakeutilities CMake setup
+\page cmakeutilities How to use Radium : cmake configuration and utilities
 [TOC]
 
 As Radium relies on the [CMake](https://cmake.org/documentation/) build and configuration system, this
@@ -17,13 +17,15 @@ library or plugin as a cmake package.
 To integrate the Radium libraries into your build-chain configuration, you have to ask cmake to find the Radium package.
 As for any cmake package, this could be done by adding the following line into your `CMakeLists.txt` file:
 ~~~{.cmake}
-find_package(Radium REQUIRED Core Engine)
+find_package(Radium REQUIRED)
 ~~~
+This will bring Radium Core component.
+See below how to select the components you need.
+
 Remember to configure your project by giving the cmake command line option
-`-DRadium_DIR=/path/to/installed/Radium/lib/cmake/Radium` so that the `find_package` command could find the Radium
-package definition.
-Once found, the Radium package defines a cmake target for each requested components (`Core` and `Engine` in the
-example above) in the cmake namespace `Radium`.
+`-DRadium_DIR=/path/to/installed/Radium/lib/cmake/Radium` or `-DCMAKE_PREFIX_PATH=/path/to/installed/Radium/lib/cmake`
+so that the `find_package` command could find the Radium package definition.
+Once found, the Radium package defines a cmake target for each found components in the cmake namespace `Radium`.
 
 When configuring your own target in your `CMakeLists.txt` file, you just need to link with those targets to get access
 to all the public interface of Radium (include search path, libraries, ...), for instance:
@@ -33,27 +35,44 @@ target_link_libraries (myTarget PUBLIC Radium::Core Radium::Engine)
 
 ### Using Radium components
 
-If your application does not need all the radium components, you can select which ones you want among the following :
+If your application does not need all radium components, you can select which ones you want with
+~~~{.cmake}
+find_package(Radium REQUIRED COMPONENTS <list of required components>)
+~~~
+
+The Radium base components are :
 - Core : search only for the availability of the target Radium::Core
-- Engine : search only for the availability of the target Radium::Engine
-- Gui : search for the Qt-based Gui toolkit
-- PluginBase : search for the Qt-based plugin development interface
-- IO : search only for the availability of the target Radium::IO
+- Engine : search for the availability of the target Radium::Engine and the following dependency
+  -  Radium::Core
+- Gui : search for the Qt-based Gui toolkit and the following dependencies
+    - Radium::Core
+    - Radium::Engine
+    - Radium::PluginBase
+    - Radium::IO
+- PluginBase : search for the Qt-based plugin development interface  and its dependencies
+    - Radium::Core
+    - Radium::Engine
+    - Radium::Gui
+    - Radium::IO
+- IO : search only for the availability of the target Radium::IO  and its dependency
+    - Radium::Core
 
   On this target, you might also ask for support of several file loaders using the following properties defined on the
   target Radium::IO
-    - RADIUM_IO_USE_ASSIMP : Identify if Radium::IO was compiled with assimp support
-    - RADIUM_IO_USE_TINYPLY : Identify if Radium::IO was compiled with tinyply support.
-      You might use these properties to define compilation macro in your code
-      ~~~{.cmake}
-      get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
-      if (${USE_ASSIMP})
-       target_compile_definitions(yourTarget PRIVATE ADD_ASSIMP_LOADER)
-      endif()
-      ~~~
+  - RADIUM_IO_USE_ASSIMP : Identify if Radium::IO was compiled with assimp support
+  - RADIUM_IO_USE_TINYPLY : Identify if Radium::IO was compiled with tinyply support.
+  You might use these properties to define compilation macro in your code
+  ~~~{.cmake}
+  get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
+  if (${USE_ASSIMP})
+   target_compile_definitions(yourTarget PRIVATE ADD_ASSIMP_LOADER)
+  endif()
+  ~~~
 
+The Radium package also offers specific components that should be requested explicitly as they are not included in the set of base components.
+- NONE YET, to be defined.
 
-The radium package also defines several cmake functions, described below, that you can use to ease the configuration of
+The Radium package also defines several cmake functions, described below, that you can use to ease the configuration of
 your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their
 own build-tree.
 
@@ -120,7 +139,8 @@ To get relocatable packages, download pre-built binaries here:
 ~~~{.cmake}
 configure_radium_library(
     TARGET targetName                   # Name of the target to configure as a Radium Library
-    FILES file1[file2[file3 ...]]       # list of headers to install
+    FILES [<file1> ...]      # list of headers to install
+    COMPONENT                           # Define the library as a component of a multi-component package
     [TARGET_DIR directoryName]          # Name of the directory where files are installed (default <prefix>/include/<TARGET>)
     [NAMESPACE NameSpace]               # Namespace of the imported target (default Radium)
     [PACKAGE_CONFIG file.cmake.in]      # name of the configure script model for the given target
@@ -142,6 +162,7 @@ This function takes the following parameters:
 `<TARGET>`          | The name of the target to configure
 `<FILES>`           | Expected to be public headers, they will be installed in the include directory of the project installation configuration `${CMAKE_INSTALL_PREFIX}/include`.
 `<TARGET_DIR>`      | Optional. `<FILES>` will be installed into the `${CMAKE_INSTALL_PREFIX}/include/<TARGET_DIR>` directory. If not, the files will be installed into `${CMAKE_INSTALL_PREFIX}/include/<TARGET>` directory.
+`<COMPONENT>`       | Optional. This option  indicates that the library is to be configured as a component of an englobing multi-component package.
 `<NAMESPACE>`       | If given, the imported target will be `<NAMESPACE>::<TARGET>`. If not, the imported target will be `Radium::<TARGET>`
 `<PACKAGE_CONFIG>`  | If given, a configure script, to be used by `find_package`, will be generated. If not, only the exported targets will be generated.
 `<PACKAGE_VERSION>` | If given when the `<PACKAGE_CONFIG>` option also given, a cmake version file, used by `find_package`, will be generated.
@@ -213,6 +234,15 @@ target_link_libraries(
     MyLib::MyLib
 )
 ~~~
+
+The `<COMPONENT>` option allows configuring and installing the library as a cmake component of a more general package
+(e.g. a component of the package `PackageName`).
+In this case, the imported target from the library will be available only if the client search for the meta-package
+using `find_package(PackageName COMPONENTS <TARGET>)`.
+
+A fully functional example on how to configure a library as a component of a more general package is given by
+Radium source code itself. The libraries `Core`, `Engine`, `IO`, `Gui`, and `PluginBase` are configured as
+components of the meta-package `Radium`.
 
 ### install_target_resources {#install_target_resources}
 ~~~{.cmake}
@@ -313,6 +343,7 @@ configure_radium_package(
     PACKAGE_CONFIG configFile.in    # The package configuration file
     [PACKAGE_VERSION]               # The package version number (with format "major.minor.patch")
     [PACKAGE_DIR packageDirName]    # Name of the directory where the cmake config file will be installed (default <prefix>/lib/cmake/Radium)
+    [NAME_PREFIX prefix]            # Prefix to add before the name of the package. The installed config script will be named <prefix><name>Config.cmake
 )
 ~~~
 This cmake function configures the package `packageName` for installation and for further import in client project using `find_package(<TARGET>)`.
@@ -325,10 +356,12 @@ This function takes the following parameters:
 `<PACKAGE_CONFIG> configFile.in`      | The configure script to be used by `find_package`.
 `<PACKAGE_VERSION> major.minor.patch` | If given, the version of the installed package
 `<PACKAGE_DIR> packageDirName`        | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
+`<NAME_PREFIX> packagePrefix`         | If given, prefix added to the name of the installed config script `<packagePrefix><packageName>Config.cmake`.
 
-This function is called implicitly, when defining a single component package, when the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>`, with optional `PACKAGE_VERSION`, are given to the library configuration function [`configure_radium_library`](#configure_radium_library).
+This function is called implicitly, when defining a single component package, when the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>`, with optional `<PACKAGE_VERSION>`, are given to the library configuration function [`configure_radium_library`](#configure_radium_library).
 
 This function also allows defining multi-component packages for selective import using the `find_package(packageName [COMPONENTS comp1 comp2 ...]` command when called explicitly with an appropriate `PACKAGE_CONFIG` parameter.
+In this case, the parameter `<NAME_PREFIX>` will allow to add multi-component package name as a prefix of the component config script.
 
 If the optional `<PACKAGE_VERSION>` parameter is given, a cmake version file is generated, using the `SameMajorVersion` compatibility policy, that exports the cmake variables `<NAME>_VERSION` , `<NAME>_VERSION_MAJOR`, `<NAME>_VERSION_MINOR` and `<NAME>_VERSION_PATCH`.
 
@@ -421,6 +454,75 @@ where `<prefix>` refer to the base plugin dir into the build tree or the install
 When a plugin is installed and depends on a helper library that embed its own resources, the helper resources are copied into the `<prefix>/Resources` directory so that the helper lib could find its resources as described in the section [`install_target_resources`](#install_target_resources).
 In this hierarchy, a plugin will access to its resources in a way very similar than any other library. Only one level of hierarchy, whose name is the plugin name, will be added.
 
+## Adding a new component to the Radium package
+The Radium distribution is based on several cmake package components.
+A component defines a set of imported targets, as well as properties on these targets (e.g. headers, resources, ...)
+and manage all the dependencies of these targets (dependencies over other components or on external packages).
+
+### Configure component's targets
+To create a new Radium component named `NewComponent` (e.g. a new library one can add to a project with `find_package(Radium COMPONENT NewComponent)`), you have to do the following steps :
+
+- Add a subdirectory `NewComponent` in the `<Radium_source_dir>/src` with component's source and header files
+- Configure the `CMakeLists.txt` as described in the [Configuring client and extension libraries](#configureLibrary).
+- In this `CMakeLists.txt` configuration script, configure the main target library by using the `COMPONENT` option of
+the function `configure_radium_library` and add this target to the `RADIUM_COMPONENT` variable :
+~~~cmake
+configure_radium_library(
+    TARGET <NewComponent_Target> COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    FILES "<NewComponentHeaders>"
+)
+set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} <NewComponent_Target> PARENT_SCOPE)
+~~~
+where `${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in` contains the configuration of the installed component as
+described below.
+- Modify `<Radium_source_dir>/src/CMakeLists.txt` to add the subdirectory that contains the component source code
+~~~cmake
+add_subdirectory(NewComponent)
+~~~
+
+Hence, Radium compilation and install include `NewComponent`.
+
+### Configure component's cmake setup
+During Radium install, cmake generates a configuration file for the component, from `Config.cmake.in`  file located in the source directory of the component. The generation setup is done by `configure_radium_library`.
+This file provides components informations needed by `find_package(Radium COMPONENT NewComponent)`
+
+Here is a simple example of `Config.cmake.in` for the NewComponent example.
+~~~cmake
+# Check if the component is requested for import and is not already imported
+if(NewComponent_FOUND and NOT TARGET NewComponent)
+    # This helper variable will be ON if the component targets should be imported
+    set(Configure_NewComponent ON)
+    # check for dependency on other components
+    if(NOT Core_FOUND) # The dependency on Core was not explicitely requested by the user
+        # Include the configuration script fot the dependency if it exists
+        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake")
+            set(Core_FOUND TRUE)
+            include(${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake)
+        else()
+            # If the dependency is not found, generates an error with a clear error message
+            set(Radium_FOUND False)
+            set(Radium_NOT_FOUND_MESSAGE "Radium::NewComponent : dependency Core not found")
+            set(Configure_NewComponent OFF)
+        endif()
+    endif()
+    # .. Do this for all dependencies
+endif()
+
+# Configure the component if needed
+if(Configure_NewComponent)
+    # manage the dependency on external libraries (e.g. to the ExternalDependency package)
+    find_dependency(ExternalDependency REQUIRED)
+    # Specific configuration for windows
+    if(MSVC OR MSVC_IDE OR MINGW)
+        add_imported_dir(FROM ExternalDependency::Target TO RadiumExternalDlls_location)
+    endif()
+    # define the imported targets for the NewComponent
+    include("${CMAKE_CURRENT_LIST_DIR}/NewComponentTargets.cmake")
+endif()
+~~~
+
+You can refer to the configuration of the `Core`, `Engine`, `Gui`, `PluginBase` and `IO`components for more practical
+and complete examples.
 
 # How to write your CMakeLists.txt
 When writing your cmake configuration script `CMakeLists.txt`, you might rely on the following guideline to configure the project `ProjectName`.
@@ -486,7 +588,7 @@ application and will be installed as any application on Linux.
 
 The resources associated to an application are installed using the [`install_target_resources`](#install_target_resources).
 
-## Configuring client and extension libraries
+## Configuring client and extension libraries {#configureLibrary}
 ### Configuring the library target
 An installable library could be used to add functionalities built over the Radium libraries and to make these functionalities available to developers.
 Once installed, a library consists in:

@@ -743,12 +743,12 @@ function(configure_radium_plugin)
     if(CMAKE_BUILD_TYPE MATCHES Debug)
         message(STATUS "[configure_radium_plugin] Plugin compiled with debug info")
         target_compile_definitions(${ARGS_NAME} PUBLIC PLUGIN_IS_COMPILED_WITH_DEBUG_INFO)
-        file(COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataDebug.json"
+        file(COPY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PluginBase/pluginMetaDataDebug.json"
              DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
         )
         target_sources(${ARGS_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/pluginMetaDataDebug.json")
     else()
-        file(COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataRelease.json"
+        file(COPY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PluginBase/pluginMetaDataRelease.json"
              DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
         )
         target_sources(
@@ -853,13 +853,14 @@ endfunction()
 # * PACKAGE_DIR : The directory in which the cmake package config file will be installed (default
 #   <prefix>/lib/cmake/Radium)
 # * PACKAGE_VERSION : The package version number
+# * NAME_PREFIX : Prefix added to the package name to install e.g. for package components
 #
 function(configure_radium_package)
     # parse and verify args
     cmake_parse_arguments(
         ARGS
         "" # no options
-        "NAME;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION" # one value args
+        "NAME;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION;NAME_PREFIX" # one value args
         "" # no multivalued args
         ${ARGN}
     )
@@ -872,18 +873,28 @@ function(configure_radium_package)
     if(NOT ARGS_PACKAGE_CONFIG)
         message(FATAL_ERROR "[add_package] You must provide the package config file")
     endif()
-    configure_file(
-        ${ARGS_PACKAGE_CONFIG} "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}Config.cmake" @ONLY
+
+    if(ARGS_NAME_PREFIX)
+        set(CONFIG_FILE_NAME "${ARGS_NAME_PREFIX}${ARGS_NAME}Config")
+    else()
+        set(CONFIG_FILE_NAME "${ARGS_NAME}Config")
+    endif()
+
+    configure_package_config_file(
+        ${ARGS_PACKAGE_CONFIG} "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
+        INSTALL_DESTINATION ${ARGS_PACKAGE_DIR}
     )
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}Config.cmake"
+
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
             DESTINATION ${ARGS_PACKAGE_DIR}
     )
+
     if(ARGS_PACKAGE_VERSION)
         write_basic_package_version_file(
-            "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
             VERSION ${ARGS_PACKAGE_VERSION} COMPATIBILITY SameMajorVersion
         )
-        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}ConfigVersion.cmake"
+        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
                 DESTINATION ${ARGS_PACKAGE_DIR}
         )
     endif()
@@ -907,8 +918,8 @@ function(configure_radium_library)
     # parse and verify args
     cmake_parse_arguments(
         ARGS
-        "" # no options
-        "TARGET;TARGET_DIR;NAMESPACE;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION" # one value args
+        "COMPONENT" # no options
+        "TARGET;TARGET_DIR;NAMESPACE;PACKAGE_DIR;PACKAGE_CONFIG;PACKAGE_VERSION;" # one value args
         "FILES" # list of directories containing the resources to install - optional
         ${ARGN}
     )
@@ -963,6 +974,9 @@ function(configure_radium_library)
     if(NOT ARGS_PACKAGE_DIR)
         set(ARGS_PACKAGE_DIR lib/cmake/Radium)
     endif()
+    if(ARGS_COMPONENT)
+        set(ARGS_PACKAGE_DIR ${ARGS_PACKAGE_DIR}/${ARGS_TARGET_DIR})
+    endif()
 
     install(EXPORT ${ARGS_TARGET}Targets FILE ${ARGS_TARGET}Targets.cmake
             NAMESPACE ${ARGS_NAMESPACE}:: DESTINATION ${ARGS_PACKAGE_DIR}
@@ -971,12 +985,13 @@ function(configure_radium_library)
         if(ARGS_PACKAGE_VERSION)
             configure_radium_package(
                 NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
-                PACKAGE_DIR ${ARGS_PACKAGE_DIR} PACKAGE_VERSION ${ARGS_PACKAGE_VERSION}
+                PACKAGE_DIR ${ARGS_PACKAGE_DIR} PACKAGE_VERSION ${ARGS_PACKAGE_VERSION} NAME_PREFIX
+                                                ${ARGS_NAMESPACE}
             )
         else()
             configure_radium_package(
                 NAME ${ARGS_TARGET} PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
-                PACKAGE_DIR ${ARGS_PACKAGE_DIR}
+                PACKAGE_DIR ${ARGS_PACKAGE_DIR} NAME_PREFIX ${ARGS_NAMESPACE}
             )
         endif()
     endif()
