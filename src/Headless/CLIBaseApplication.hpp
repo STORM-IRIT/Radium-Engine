@@ -5,15 +5,21 @@
 namespace Ra {
 namespace Headless {
 /**
- * Base class for command line interface Radium application
+ * Base class for command line interface Radium application.
+ * This class is just a command-line parser (simple wrapper to a CLI::App object).
+ * Derived application should populate the parser using the addOptions() or addFlags methods.
+ * Derived applications can also use the CLI11 API to populate the protected member m_cmdLineParser.
  *
+ * Once the parser is populated, derived application should call the inherited init() method
+ * which only parse the command line and return the result of this parsing.
+ *
+ * @see https://cliutils.github.io/CLI11/book/ for a description of the wrapped commandline parser.
  */
 class HEADLESS_API CLIBaseApplication
 {
 
   protected:
     /** Command-line parameters parser.
-     * All derived applications will share parameters --help and --file <scene_file>.
      * Derived classes should extend this parser to add their own parameters
      */
     CLI::App m_cmdLineParser;
@@ -39,22 +45,17 @@ class HEADLESS_API CLIBaseApplication
     /**
      * Application initialization method.
      *
-     * This method is called by the main function to initialize the application giving the
-     * parameters from the command line.
+     * This method should be called by the derived application to parse the command line.
+     * Overriden method should use the command line parsing result to initialize their internal
+     * state and return 0 if initialization succeeded or an application dependant error code if not.
+     *
      * @param argc number of parameter
      * @param argv array of string representing the parameters
-     * @return 0 if the application is correctly initialized or an application dependant error code
-     * if something went wrong.
+     * @return 0 if the command line parsing success or the parsing error code if something went
+     * wrong (see
+     * https://cliutils.github.io/CLI11/class_c_l_i_1_1_app.html#aac000657ef11647125ba91af38fd7d9c).
      */
     virtual int init( int argc, const char* argv[] );
-
-    /**
-     * Run the application.
-     *
-     * @return 0 if the application was correctly ran or an application dependant error code if
-     * something went wrong.
-     */
-    virtual int run( float timeStep = 0 );
 };
 } // namespace Headless
 } // namespace Ra
