@@ -16,11 +16,12 @@ var NAVTREEINDEX19 =
 "cmakeutilities.html#autotoc_md52":[4,0,0,1],
 "cmakeutilities.html#autotoc_md53":[4,0,0,2],
 "cmakeutilities.html#autotoc_md54":[4,0,0,3],
-"cmakeutilities.html#autotoc_md55":[4,0,1],
-"cmakeutilities.html#autotoc_md56":[4,0,1,0],
-"cmakeutilities.html#autotoc_md57":[4,0,1,1],
-"cmakeutilities.html#autotoc_md58":[4,0,1,2],
+"cmakeutilities.html#autotoc_md55":[4,0,0,4],
+"cmakeutilities.html#autotoc_md56":[4,0,1],
+"cmakeutilities.html#autotoc_md57":[4,0,1,0],
+"cmakeutilities.html#autotoc_md58":[4,0,1,1],
 "cmakeutilities.html#autotoc_md59":[4,0,1,3],
+"cmakeutilities.html#configureLibrary":[4,0,1,2],
 "cmakeutilities.html#configurePackage":[4,0,0,2,2],
 "cmakeutilities.html#configure_radium_app":[4,0,0,1,0],
 "cmakeutilities.html#configure_radium_library":[4,0,0,2,0],
@@ -247,7 +248,6 @@ var NAVTREEINDEX19 =
 "functions_type.html":[9,3,3],
 "functions_u.html":[9,3,0,21],
 "functions_v.html":[9,3,0,22],
-"functions_vars.html":[9,3,2],
 "functions_vars.html":[9,3,2,0],
-"functions_vars_b.html":[9,3,2,1]
+"functions_vars.html":[9,3,2]
 };

@@ -1,6 +1,6 @@
 var develmanual =
 [
-    [ "CMake setup", "cmakeutilities.html", [
+    [ "How to use Radium : cmake configuration and utilities", "cmakeutilities.html", [
       [ "Radium cmake utilities", "cmakeutilities.html#autotoc_md50", [
         [ "Using Radium in your application", "cmakeutilities.html#autotoc_md51", null ],
         [ "Client application configuration", "cmakeutilities.html#autotoc_md52", [
@@ -14,12 +14,13 @@ var develmanual =
         ] ],
         [ "Extending Radium through plugins", "cmakeutilities.html#autotoc_md54", [
           [ "configure_radium_plugin", "cmakeutilities.html#configure_radium_plugin", null ]
-        ] ]
+        ] ],
+        [ "Adding a new component to the Radium package", "cmakeutilities.html#autotoc_md55", null ]
       ] ],
-      [ "How to write your CMakeLists.txt", "cmakeutilities.html#autotoc_md55", [
-        [ "General cmake preamble", "cmakeutilities.html#autotoc_md56", null ],
-        [ "Configuring client application", "cmakeutilities.html#autotoc_md57", null ],
-        [ "Configuring client and extension libraries", "cmakeutilities.html#autotoc_md58", null ],
+      [ "How to write your CMakeLists.txt", "cmakeutilities.html#autotoc_md56", [
+        [ "General cmake preamble", "cmakeutilities.html#autotoc_md57", null ],
+        [ "Configuring client application", "cmakeutilities.html#autotoc_md58", null ],
+        [ "Configuring client and extension libraries", "cmakeutilities.html#configureLibrary", null ],
         [ "Configuring an application plugin", "cmakeutilities.html#autotoc_md59", null ]
       ] ]
     ] ],
