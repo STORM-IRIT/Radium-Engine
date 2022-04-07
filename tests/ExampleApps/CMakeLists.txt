@@ -65,14 +65,7 @@ if(${HAS_VOLUMES})
     add_dependencies(${PROJECT_NAME} VolumeDemoApp)
 endif()
 
-# HeadlessLibAndApp
-find_package(glfw3 3.2 QUIET)
-if(glfw3_FOUND)
-    add_subdirectory(HeadlessLibAndApp)
-    add_dependencies(${PROJECT_NAME} Headless HeadlessDemo)
-else()
-    message(
-        STATUS
-            "glfw3 not found : disabling Radium Headless demo. Install glfw >3.2 or set glfw3_DIR to a suitable directory to enable this demo."
-    )
-endif()
+# HeadlessLibAndApp find_package(glfw3 3.2 QUIET) if(glfw3_FOUND)
+# add_subdirectory(HeadlessLibAndApp) add_dependencies(${PROJECT_NAME} Headless HeadlessDemo) else()
+# message( STATUS "glfw3 not found : disabling Radium Headless demo. Install glfw >3.2 or set
+# glfw3_DIR to a suitable directory to enable this demo." ) endif()
