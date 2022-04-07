@@ -47,11 +47,11 @@ class HEADLESS_API OpenGLContext
     /** @} */
 
     /** @defgroup window Window management from an openGL context
-     *  These methods allow to display and control a simple window associated with the created
-     *  OpenGL Context
+     *  These methods allow to display and interact with a simple window associated with the created
+     *  OpenGL Context.
      *  @{
      */
-    /** Identify the event processing method wheen the window is exposed.
+    /** Identify the event processing method when the window is exposed.
      *
      */
     enum class EventMode : int { POLL = 0, WAIT, TIMEOUT, NUM_MODES };
@@ -64,9 +64,46 @@ class HEADLESS_API OpenGLContext
     /// loop on events and execute the functor render after each event
     void renderLoop( std::function<void( float )> render );
 
-    /// Give access to the resize event observer collection so that client can add Observer to this
-    /// event
+    /// Give access to the resize event observable so that client can add Observer to this
+    /// event.
+    ///
+    /// The parameters sent to the resize listeners are in pixels and correspond to the OpenGL
+    /// Framebuffer size (i.e. the size given to glViewport function)
+    /// @see https://www.glfw.org/docs/latest/window_guide.html#window_fbsize
     Ra::Core::Utils::Observable<int, int>& resizeListener() { return m_resizers; }
+
+    // TODO : give access to the DPI ratio
+    // https://www.glfw.org/docs/latest/window_guide.html#window_scale
+
+    /// Give access to the keyboard event observable so that client can add Observer to this
+    /// event.
+    ///
+    /// The parameters sent to the keyboard listeners are
+    /// the keyboard key, platform-specific scancode, key action and modifier bits.
+    /// @see https://www.glfw.org/docs/latest/input_guide.html#input_keyboard
+    Ra::Core::Utils::Observable<int, int, int, int>& keyboardListener() {
+        return m_keyboardObservers;
+    }
+
+    /// Give access to the mouse event observable so that client can add Observer to this
+    /// event.
+    ///
+    /// The parameters sent to the mouse listeners are
+    /// the mouse button, button action and modifier bits as well as the mouse position
+    /// in pixel unit and in the FrameBuffer space. The origin is at the top left of the
+    /// framebuffer.
+    /// @see https://www.glfw.org/docs/latest/input_guide.html#input_mouse
+    Ra::Core::Utils::Observable<int, int, int, int, int>& mouseListener() {
+        return m_mouseObservers;
+    }
+
+    /// Give access to the scroll event observable so that client can add Observer to this
+    /// event.
+    ///
+    /// The parameters sent to the scroll listeners are two-dimensional scroll offsets
+    /// in pixel unit and in the FrameBuffer space.
+    /// @see https://www.glfw.org/docs/latest/input_guide.html#scrolling
+    Ra::Core::Utils::Observable<int, int>& scrollListener() { return m_scrollObservers; }
 
     /** @} */
   private:
@@ -79,8 +116,23 @@ class HEADLESS_API OpenGLContext
 
     /// Resize callback
     void resizeFrameBuffer( int width, int height );
-
+    /// Resize event observable
     Ra::Core::Utils::Observable<int, int> m_resizers;
+
+    /// Keyboard callback
+    void keyboardEventCalback( int key, int scancode, int action, int mods );
+    /// Keyboard event observable
+    Ra::Core::Utils::Observable<int, int, int, int> m_keyboardObservers;
+
+    /// Mouse callback
+    void mouseEventCalback( int button, int action, int mods, int x, int y );
+    /// Mouse event observable
+    Ra::Core::Utils::Observable<int, int, int, int, int> m_mouseObservers;
+
+    /// Scroll callback
+    void scrollEventCalback( int xoffset, int yoffset );
+    /// Scroll event observable
+    Ra::Core::Utils::Observable<int, int> m_scrollObservers;
 
     /// Event processing mode
     EventMode m_mode { EventMode::POLL };
