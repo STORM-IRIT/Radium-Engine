@@ -69,11 +69,8 @@ The Radium base components are :
   endif()
   ~~~
 
-The Radium package also offers some specific components that should be requested explicitly as they are not included
-in the set of base components.
-- Headless : search for the availability of the target Radium::Headless and its dependencies
-  - Radium::Core
-  - Radium::Engine
+The Radium package also offers specific components that should be requested explicitly as they are not included in the set of base components.
+- NONE YET, to be defined.
 
 The Radium package also defines several cmake functions, described below, that you can use to ease the configuration of
 your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their
