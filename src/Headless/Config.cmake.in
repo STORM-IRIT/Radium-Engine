@@ -1,0 +1,35 @@
+# -------------- Configuration of the Radium Engine targets and definitions ---------------------
+# Setup Headless and check for dependencies
+
+if (Headless_FOUND AND NOT TARGET Headless)
+    set(Configure_Headless ON)
+    # verify dependencies
+    if(NOT Engine_FOUND)
+        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Engine/RadiumEngineConfig.cmake")
+            set(Engine_FOUND TRUE)
+            include(${CMAKE_CURRENT_LIST_DIR}/../Engine/RadiumEngineConfig.cmake)
+        else()
+            set(Radium_FOUND False)
+            set(Radium_NOT_FOUND_MESSAGE "Radium::Headless : dependency Engine not found")
+            set(Configure_Headless OFF)
+        endif()
+    endif()
+    if(NOT IO_FOUND)
+        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../IO/RadiumIOConfig.cmake")
+            set(IO_FOUND TRUE)
+            include(${CMAKE_CURRENT_LIST_DIR}/../IO/RadiumIOConfig.cmake)
+        else()
+            set(Radium_FOUND False)
+            set(Radium_NOT_FOUND_MESSAGE "Radium::Headless : dependency IO not found")
+            set(Configure_Headless OFF)
+        endif()
+    endif()
+endif()
+
+if(Configure_Headless)
+    # find dependency on glfw
+    if (NOT glfw3_FOUND)
+        find_dependency(glfw3 3.2 REQUIRED)
+    endif()
+    include("${CMAKE_CURRENT_LIST_DIR}/HeadlessTargets.cmake")
+endif()
