@@ -12,6 +12,7 @@ project(HeadlessLibAndApp VERSION 1.0.2)
 # configure, build and install the Radium headless library
 add_subdirectory(libHeadless)
 
-# configure, build and install the demo application for Radium headless
-set(IN_LIBHEADLESS_BUILD_TREE TRUE)
+# configure, build and install the demo application for Radium headless to enable find_package in
+# the buildtree for the application
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR}/libHeadless)
 add_subdirectory(Application)

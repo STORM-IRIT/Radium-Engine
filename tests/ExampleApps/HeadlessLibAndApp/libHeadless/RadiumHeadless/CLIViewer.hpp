@@ -1,6 +1,5 @@
 #pragma once
 #include <RadiumHeadless/CLIBaseApplication.hpp>
-#include <RadiumHeadless/Headless.hpp>
 #include <RadiumHeadless/OpenGLContext/OpenGLContext.hpp>
 
 #include <Core/Utils/Index.hpp>
@@ -14,14 +13,15 @@ class FileLoaderInterface;
 class Camera;
 } // namespace Asset
 } // namespace Core
+
 namespace Engine {
 class RadiumEngine;
 namespace Rendering {
 class Renderer;
 }
 } // namespace Engine
-} // namespace Ra
 
+namespace Headless {
 /**
  * Base class for radium based cmdline application
  */
@@ -35,6 +35,8 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
         std::array<int, 2> m_size { 512, 512 };
         /// image name prefix
         std::string m_imgPrefix { "frame" };
+        /// The data file to manage
+        std::string m_dataFile = { "" };
     };
 
   private:
@@ -141,6 +143,21 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     /** If a window is shown, launch the interactive render loop */
     void renderLoop( std::function<void( float )> render );
 
+    /**
+     * Get the filename given using the option --file <filename> or -f <filename>
+     */
+    inline std::string getDataFileName() const;
+
+    /**
+     * Set the filename given using the option --file <filename> or -f <filename>
+     */
+    inline void setDataFileName( std::string filename );
+
   private:
     void resize( int width, int height );
 };
+
+} // namespace Headless
+} // namespace Ra
+
+#include <RadiumHeadless/CLIViewer.inl>

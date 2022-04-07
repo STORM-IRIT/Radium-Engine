@@ -1,0 +1,48 @@
+
+# -------------- Configuration of the Radium Engine targets and definitions ------------0---------
+# Setup Engine and check for dependencies
+
+# TODO : verify if this is needed
+if (Engine_FOUND AND NOT TARGET Engine)
+    set(Configure_Engine ON)
+    # verify dependencies
+    if(NOT Core_FOUND)
+        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake")
+            set(Core_FOUND TRUE)
+            include(${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake)
+        else()
+            set(Radium_FOUND False)
+            set(Radium_NOT_FOUND_MESSAGE "Radium::Engine : dependency Core not found")
+            set(Configure_Engine OFF)
+        endif()
+    endif()
+endif()
+
+# configure Engine component
+if(Configure_Engine)
+    # Theses paths reflect the paths founds in RadiumEngine/external/Engine/package
+    set(_BaseExternalDir_ "${CMAKE_CURRENT_LIST_DIR}/../../../../")
+    if("@glm_DIR@" STREQUAL "")
+        set(glm_DIR "${_BaseExternalDir_}/@glm_sub_DIR@")
+    else()
+        set(glm_DIR "@glm_DIR@")
+    endif()
+    if("@glbinding_DIR@" STREQUAL "")
+        set(glbinding_DIR "${_BaseExternalDir_}/@glbinding_sub_DIR@")
+    else()
+        set(glbinding_DIR "@glbinding_DIR@")
+    endif()
+    if("@globjects_DIR@" STREQUAL "")
+        set(globjects_DIR "${_BaseExternalDir_}/@globjects_sub_DIR@")
+    else()
+        set(globjects_DIR "@globjects_DIR@")
+    endif()
+    find_dependency(glm REQUIRED NO_DEFAULT_PATH)
+    find_dependency(glbinding REQUIRED NO_DEFAULT_PATH)
+    find_dependency(globjects REQUIRED NO_DEFAULT_PATH)
+    if(MSVC OR MSVC_IDE OR MINGW)
+        add_imported_dir(FROM glbinding::glbinding TO RadiumExternalDlls_location)
+        add_imported_dir(FROM globjects::globjects TO RadiumExternalDlls_location)
+    endif()
+    include("${CMAKE_CURRENT_LIST_DIR}/EngineTargets.cmake")
+endif()

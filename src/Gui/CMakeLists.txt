@@ -53,7 +53,12 @@ target_compile_definitions(${ra_gui_target} PRIVATE "-DRA_GUI_EXPORTS")
 
 message(STATUS "Configuring library ${ra_gui_target} with standard settings")
 configure_radium_target(${ra_gui_target})
-configure_radium_library(TARGET ${ra_gui_target} FILES "${gui_headers};${gui_inlines}")
+configure_radium_library(
+    TARGET ${ra_gui_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    FILES "${gui_headers};${gui_inlines}"
+)
+set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_gui_target} PARENT_SCOPE)
+
 message(STATUS "installing resources from Configs")
 install_target_resources(
     TARGET ${ra_gui_target} RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Configs

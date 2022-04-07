@@ -64,14 +64,18 @@ set(CLI11_headers
     RadiumHeadless/CLI/Version.hpp
 )
 
-set(${libName}_sources RadiumHeadless/CLIViewer.cpp RadiumHeadless/OpenGLContext/OpenGLContext.cpp)
+set(${libName}_sources RadiumHeadless/CLIBaseApplication.cpp RadiumHeadless/CLIViewer.cpp
+                       RadiumHeadless/OpenGLContext/OpenGLContext.cpp
+)
 
 set(${libName}_headers
     ${CLI11_headers} RadiumHeadless/CLIBaseApplication.hpp RadiumHeadless/CLIViewer.hpp
     RadiumHeadless/Headless.hpp RadiumHeadless/OpenGLContext/OpenGLContext.hpp
 )
 
-add_library(${libName} SHARED ${${libName}_sources} ${${libName}_headers})
+set(${libName}_inlines RadiumHeadless/CLIBaseApplication.inl RadiumHeadless/CLIViewer.inl)
+
+add_library(${libName} SHARED ${${libName}_sources} ${${libName}_headers} ${${libName}_inlines})
 
 target_include_directories(${libName} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/RadiumHeadless)
 
@@ -82,9 +86,10 @@ target_compile_definitions(${libName} PRIVATE ${libName}_EXPORTS GLFW_INCLUDE_NO
 target_compile_options(${libName} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)
 
 # configure the component "Headless" of pacakges "RadiumHeadless"
+set(installed_headers "${${libName}_headers};${${libName}_inlines}")
 configure_radium_library(
     TARGET ${libName}
-    FILES "${${libName}_headers}"
+    FILES "${installed_headers}"
     TARGET_DIR .
     NAMESPACE ${namespaceName}
     PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${namespaceName}

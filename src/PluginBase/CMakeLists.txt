@@ -29,10 +29,14 @@ target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPO
 message(STATUS "Configuring library ${ra_pluginbase_target} with standard settings")
 configure_radium_target(${ra_pluginbase_target})
 configure_radium_library(
-    TARGET ${ra_pluginbase_target} FILES "${pluginbase_headers};${pluginbase_inlines}"
+    TARGET ${ra_pluginbase_target} COMPONENT
+    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    FILES "${pluginbase_headers};${pluginbase_inlines}"
 )
+set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_pluginbase_target} PARENT_SCOPE)
 
 # install json configuration files
-install(FILES ${pluginbase_json} DESTINATION ${ConfigPackageLocation})
+install(FILES ${pluginbase_json} DESTINATION ${ConfigPackageLocation}/${ra_pluginbase_target})
+file(COPY ${pluginbase_json} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
