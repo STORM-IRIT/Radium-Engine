@@ -23,7 +23,11 @@ class Renderer;
 
 namespace Headless {
 /**
- * Base class for radium based cmdline application
+ * Base class for radium based cmdline application.
+ *
+ * This is the Headless pendant of the Ra::Gui::Viewer class, with only a very little
+ * interaction capabilities.
+ *
  */
 class HEADLESS_API CLIViewer : public CLIBaseApplication
 {
@@ -153,7 +157,8 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
      */
     inline void setDataFileName( std::string filename );
 
-  private:
+  protected:
+    /// Observer of the resize event on the OpenGLContext
     void resize( int width, int height );
 };
 
