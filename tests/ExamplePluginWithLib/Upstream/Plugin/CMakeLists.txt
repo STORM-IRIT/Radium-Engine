@@ -7,7 +7,7 @@ endif()
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
-project(ExampleLibraryUpstreamPlugin VERSION 1.0.0)
+project(UpstreamPlugin VERSION 1.0.0)
 
 if(APPLE)
     cmake_policy(SET CMP0042 NEW)
@@ -23,7 +23,7 @@ endif()
 
 # Radium and Qt stuff
 message(STATUS "Searching for package Radium")
-find_package(Radium REQUIRED Core Engine PluginBase)
+find_package(Radium REQUIRED PluginBase)
 
 find_qt_package(COMPONENTS Core Widgets REQUIRED)
 set(Qt_LIBRARIES Qt::Core Qt::Widgets)
@@ -44,10 +44,9 @@ add_library(${PROJECT_NAME} SHARED ${sources} ${headers})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_EXPORTS)
 
 target_link_libraries(
-    ${PROJECT_NAME} Radium::Core Radium::Engine Radium::PluginBase ${Qt_LIBRARIES}
-    ExampleLibraryUpstream
+    ${PROJECT_NAME} Radium::Core Radium::Engine Radium::PluginBase ${Qt_LIBRARIES} UpstreamLibrary
 )
 
 # -----------------------------------------------------------------------------------
 # Radium plugin configuration : manage package and installation
-configure_radium_plugin(NAME ${PROJECT_NAME} HELPER_LIBS ExampleLibraryUpstream)
+configure_radium_plugin(NAME ${PROJECT_NAME} HELPER_LIBS UpstreamLibrary)
