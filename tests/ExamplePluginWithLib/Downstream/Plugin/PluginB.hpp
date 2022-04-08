@@ -2,10 +2,10 @@
 
 #include <Core/CoreMacros.hpp>
 /// Defines the correct macro to export dll symbols.
-#if defined PluginB_EXPORTS
-#    define PluginB_API DLL_EXPORT
+#if defined DownstreamPlugin_EXPORTS
+#    define DownstreamPlugin_API DLL_EXPORT
 #else
-#    define PluginB_API DLL_IMPORT
+#    define DownstreamPlugin_API DLL_IMPORT
 #endif
 
 #include <PluginBase/RadiumPluginInterface.hpp>
@@ -15,7 +15,7 @@ namespace PluginB_NS {
 /**
  * This plugin call the example library,  compiled from another project when initialized.
  */
-class PluginB_API PluginB : public QObject, Ra::Plugins::RadiumPluginInterface
+class DownstreamPlugin_API PluginB : public QObject, Ra::Plugins::RadiumPluginInterface
 {
     Q_OBJECT
     Q_RADIUM_PLUGIN_METADATA
