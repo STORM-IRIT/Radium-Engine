@@ -28,12 +28,12 @@ class PluginA_API PluginA : public QObject, Ra::Plugins::RadiumPluginInterface
 
     void registerPlugin( const Ra::Plugins::Context& context ) override;
 
-    bool doAddWidget( QString& name ) override { return false; }
+    bool doAddWidget( QString& ) override { return false; }
     QWidget* getWidget() override { return nullptr; }
     bool doAddMenu() override { return false; }
     QMenu* getMenu() override { return nullptr; }
-    bool doAddAction( int& nb ) override { return false; }
-    QAction* getAction( int id ) override { return nullptr; }
+    bool doAddAction( int& ) override { return false; }
+    QAction* getAction( int ) override { return nullptr; }
 };
 
 } // namespace PluginA_NS
