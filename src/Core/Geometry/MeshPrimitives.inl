@@ -7,7 +7,9 @@ namespace Core {
 namespace Geometry {
 
 template <uint U, uint V>
-TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color ) {
+TriangleMesh makeParametricSphere( Scalar radius,
+                                   const Utils::optional<Utils::Color>& color,
+                                   const bool& generateTexCoord ) {
     constexpr uint slices = U;
     constexpr uint stacks = V;
 
@@ -16,10 +18,15 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
     TriangleMesh::IndexContainerType indices;
+    Ra::Core::Vector3Array texCoords;
 
     vertices.reserve( 2 + slices * ( stacks - 1 ) );
     normals.reserve( 2 + slices * ( stacks - 1 ) );
     indices.reserve( 2 * slices * ( stacks - 1 ) );
+    texCoords.reserve( 2 + slices * ( stacks - 1 ) );
+
+    const Scalar du = 1_ra / slices;
+    const Scalar dv = 1_ra / stacks;
 
     for ( uint u = 0; u < slices; ++u ) {
         const Scalar theta = Scalar( 2 * u ) * Core::Math::Pi / Scalar( slices );
@@ -30,6 +37,7 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
                                          radius * std::sin( theta ) * std::sin( phi ),
                                          radius * std::cos( phi ) ) );
             normals.push_back( vertices.back().normalized() );
+            texCoords.emplace_back( u * du, v * dv, 0_ra );
 
             // Regular triangles
             if ( v > 1 ) {
@@ -64,6 +72,7 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
     }
 
     result.setIndices( std::move( indices ) );
+    if ( generateTexCoord ) result.addAttrib( "in_texcoord", std::move( texCoords ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
@@ -73,15 +82,18 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
 template <uint U, uint V>
 TriangleMesh makeParametricTorus( Scalar majorRadius,
                                   Scalar minorRadius,
-                                  const Utils::optional<Utils::Color>& color ) {
+                                  const Utils::optional<Utils::Color>& color,
+                                  const bool& generateTexCoord ) {
     TriangleMesh result;
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
     TriangleMesh::IndexContainerType indices;
+    Ra::Core::Vector3Array texCoords;
 
     vertices.reserve( U * V );
     normals.reserve( V * V );
     indices.reserve( 2 * U * V );
+    texCoords.reserve( U * V );
 
     for ( uint iu = 0; iu < U; ++iu ) {
         Scalar u = Scalar( iu ) * Core::Math::PiMul2 / Scalar( U );
@@ -102,13 +114,14 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
             indices.push_back( Vector3ui( ( ( iu + 1 ) % U ) * V + iv,
                                           ( ( iu + 1 ) % U ) * V + ( ( iv + 1 ) % V ),
                                           iu * V + ( ( iv + 1 ) % V ) ) );
+            texCoords.emplace_back( u, v, 0_ra );
         }
     }
 
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
     result.setIndices( std::move( indices ) );
-
+    if ( generateTexCoord ) result.addAttrib( "in_texcoord", std::move( texCoords ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
