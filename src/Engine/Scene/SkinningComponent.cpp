@@ -38,8 +38,10 @@ namespace Ra {
 namespace Engine {
 namespace Scene {
 
-static std::string tangentName   = Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT );
-static std::string bitangentName = Data::Mesh::getAttribName( Data::Mesh::VERTEX_BITANGENT );
+static std::string tangentName =
+    Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TANGENT];
+static std::string bitangentName =
+    Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_BITANGENT];
 
 TriangleMesh triangulate( const PolyMesh& polyMesh ) {
     TriangleMesh res;
@@ -156,7 +158,7 @@ void SkinningComponent::initialize() {
         m_baseMaterial = ro->getMaterial();
 
         // prepare UV
-        auto attrUV = Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD );
+        auto attrUV = Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TEXCOORD];
         AttribArrayGeometry* geom;
         if ( !m_meshIsPoly ) { geom = const_cast<TriangleMesh*>( m_triMeshWriter() ); }
         else {
@@ -382,7 +384,7 @@ const std::string& SkinningComponent::getSkeletonName() const {
 void SkinningComponent::showWeights( bool on ) {
     m_showingWeights = on;
     auto ro          = getRoMgr()->getRenderObject( *m_renderObjectReader() );
-    auto attrUV      = Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD );
+    auto attrUV      = Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TEXCOORD];
     AttribHandle<Vector3> handle;
 
     AttribArrayGeometry* geom;

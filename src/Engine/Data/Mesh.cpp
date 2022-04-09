@@ -136,8 +136,8 @@ void AttribArrayDisplayable::setDirty( unsigned int index ) {
     }
 }
 
-void AttribArrayDisplayable::setDirty( const AttribArrayDisplayable::MeshData& type ) {
-    auto name = getAttribName( type );
+void AttribArrayDisplayable::setDirty( const Ra::Core::Geometry::MeshData& type ) {
+    auto name = Core::Geometry::getAttribName[type];
     auto itr  = m_handleToBuffer.find( name );
     if ( itr == m_handleToBuffer.end() ) {
         m_handleToBuffer[name] = m_dataDirty.size();
