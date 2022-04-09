@@ -62,7 +62,7 @@ void SurfaceMeshComponent<CoreMeshType>::finalizeROFromGeometry(
         auto mat             = new Data::BlinnPhongMaterial( m_contentName + "_DefaultBPMaterial" );
         mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
         mat->m_perVertexColor = m_displayMesh->getCoreGeometry().hasAttrib(
-            Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ) );
+            Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_COLOR] );
         roMaterial.reset( mat );
     }
     // initialize with a default rendertechique that draws nothing

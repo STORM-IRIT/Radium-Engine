@@ -166,7 +166,8 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
         Core::Geometry::LineMesh geom;
         geom.setVertices( vertices );
         geom.setIndices( std::move( indices ) );
-        geom.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), colors );
+        geom.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_COLOR],
+                        colors );
 
         Data::LineMesh mesh( "temp", std::move( geom ) );
 

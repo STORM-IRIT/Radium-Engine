@@ -6,6 +6,7 @@
 
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
@@ -48,22 +49,6 @@ class RA_ENGINE_API Vao
 class RA_ENGINE_API AttribArrayDisplayable : public Displayable
 {
   public:
-    /// List of standard vertex attributes.
-    /// Corresponding standard vertex attribute names are obtained with getAttribName
-    /// Information which is in the mesh geometry
-    enum MeshData : uint {
-        VERTEX_POSITION,   ///< Vertex positions
-        VERTEX_NORMAL,     ///< Vertex normals
-        VERTEX_TANGENT,    ///< Vertex tangent 1
-        VERTEX_BITANGENT,  ///< Vertex tangent 2
-        VERTEX_TEXCOORD,   ///< U,V  texture coords (last coordinate not used)
-        VERTEX_COLOR,      ///< RGBA color.
-        VERTEX_WEIGHTS,    ///< Skinning weights (not used)
-        VERTEX_WEIGHT_IDX, ///< Associated weight bones
-
-        MAX_DATA
-    };
-
     /// Render mode enum used when render()/
     /// values taken from OpenGL specification
     /// @see https://www.khronos.org/registry/OpenGL/api/GL/glcorearb.h
@@ -107,7 +92,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
 
     /// Use getAttribName to find the corresponding name and call setDirty(const std::string& name).
     /// \param type: the data to set to dirty.
-    void setDirty( const MeshData& type );
+    void setDirty( const Core::Geometry::MeshData& type );
 
     /// \param name: data buffer name to set to dirty
     void setDirty( const std::string& name );
@@ -120,11 +105,6 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     /// This function is called at the start of the rendering.
     /// It will update the necessary openGL buffers.
     void updateGL() override = 0;
-
-    ///@{
-    /// Get the name expected for a given attrib.
-    static inline std::string getAttribName( MeshData type );
-    ///@}
 
     ///@{
     /**  Returns the underlying CoreGeometry as an Core::Geometry::AttribArrayGeometry */
@@ -486,17 +466,17 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
 
     // \todo remove when data will handle all the attributes in a coherent way.
     if ( data->hasTangents() ) {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT ),
+        mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TANGENT],
                         data->getTangents() );
     }
 
     if ( data->hasBiTangents() ) {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_BITANGENT ),
+        mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_BITANGENT],
                         data->getBiTangents() );
     }
 
     if ( data->hasTextureCoordinates() ) {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD ),
+        mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TEXCOORD],
                         data->getTexCoords() );
     }
 
@@ -506,7 +486,7 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
     mesh.vertexAttribs().copyAllAttributes( data->getAttribManager() );
 
     // also this one will be automatically done with the futur behavior
-    //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
+    //        mesh->addData( Ra::Core::Geometry::VERTEX_WEIGHTS, meshData.weights );
 
     mesh.setIndices( std::move( indices ) );
 

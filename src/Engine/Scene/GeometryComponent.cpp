@@ -90,17 +90,17 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
     mesh.setNormals( std::move( normals ) );
 
     if ( data->hasTangents() ) {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT ),
+        mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TANGENT],
                         data->getTangents() );
     }
 
     if ( data->hasBiTangents() ) {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_BITANGENT ),
+        mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_BITANGENT],
                         data->getBiTangents() );
     }
 
     if ( data->hasTextureCoordinates() ) {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD ),
+        mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TEXCOORD],
                         data->getTexCoords() );
     }
 
@@ -130,7 +130,7 @@ void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialDat
         auto mat             = new Data::BlinnPhongMaterial( m_contentName + "_DefaultBPMaterial" );
         mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
         mat->m_perVertexColor = m_displayMesh->getCoreGeometry().hasAttrib(
-            Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ) );
+            Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_COLOR] );
         roMaterial.reset( mat );
     }
     // initialize with a default rendertechique that draws nothing
