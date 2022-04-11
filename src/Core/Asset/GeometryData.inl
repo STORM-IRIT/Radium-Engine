@@ -99,30 +99,46 @@ inline void GeometryData::setPolyhedra( const Container& polyList ) {
     internal::copyData( polyList, m_polyhedron );
 }
 
+// TODO : add a shared_point or kind of to unlock attrib
 inline Vector3Array& GeometryData::getNormals() {
-    return m_normal;
+    auto& attrib = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "normal" ) );
+    auto& normal = attrib.getDataWithLock();
+    return normal;
 }
 
 inline const Vector3Array& GeometryData::getNormals() const {
-    return m_normal;
+    auto handler = m_vertexAttribs.findAttrib<Vector3>( "normal" );
+    auto& normal = m_vertexAttribs.getAttrib( handler ).data();
+    return normal;
 }
 
 template <typename Container>
 inline void GeometryData::setNormals( const Container& normalList ) {
-    internal::copyData( normalList, m_normal );
+    auto& attrib = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "normal" ) );
+    auto& normal = attrib.getDataWithLock();
+    internal::copyData( normalList, normal );
+    attrib.unlock();
 }
 
+// TODO : add a shared_point or kind of to unlock attrib
 inline Vector3Array& GeometryData::getTangents() {
-    return m_tangent;
+    auto& tangent = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "tangent" ) )
+                        .getDataWithLock();
+    return tangent;
 }
 
 inline const Vector3Array& GeometryData::getTangents() const {
-    return m_tangent;
+    auto attriHandler = m_vertexAttribs.findAttrib<Vector3>( "tangent" );
+    auto& tangent     = m_vertexAttribs.getAttrib( attriHandler ).data();
+    return tangent;
 }
 
 template <typename Container>
 inline void GeometryData::setTangents( const Container& tangentList ) {
-    internal::copyData( tangentList, m_tangent );
+    auto& attrib  = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "normal" ) );
+    auto& tangent = attrib.getDataWithLock();
+    internal::copyData( tangentList, tangent );
+    attrib.unlock();
 }
 
 inline Vector3Array& GeometryData::getBiTangents() {
@@ -204,11 +220,15 @@ inline bool GeometryData::hasPolyhedra() const {
 }
 
 inline bool GeometryData::hasNormals() const {
-    return !m_normal.empty();
+    return !m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "normal" ) )
+                .data()
+                .empty();
 }
 
 inline bool GeometryData::hasTangents() const {
-    return !m_tangent.empty();
+    return !m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "tangent" ) )
+                .data()
+                .empty();
 }
 
 inline bool GeometryData::hasBiTangents() const {
