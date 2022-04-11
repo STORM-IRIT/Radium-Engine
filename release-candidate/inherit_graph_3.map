@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classdouble.html" title=" " alt="" coords="5,5,72,32"/>
+<area shape="rect" id="node1" href="$classCLI_1_1App.html" title="Creates a command line program, with very few defaults." alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Option__group.html" title="Extension of App to better manage groups of options." alt="" coords="128,5,265,32"/>
 </map>

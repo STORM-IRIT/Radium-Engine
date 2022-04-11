@@ -1,0 +1,36 @@
+<map id="CLI::Formatter::make_option" name="CLI::Formatter::make_option">
+<area shape="rect" id="node1" title="This prints out an option help line, either positional or optional form." alt="" coords="5,168,164,209"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#a569874f0c04636b7f0e63f40caf6e170" title="Print a two part &quot;help&quot; string." alt="" coords="212,83,387,110"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Formatter.html#acf6c56689b56533dad59f8e1ff71c7ce" title="This is the description. Default: Right column, on new line if left column too large." alt="" coords="220,135,379,176"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Formatter.html#ad29eb726bf961560f0c6419fd74332d0" title="This is the name part of an option, Default: left column." alt="" coords="220,200,379,241"/>
+<area shape="rect" id="node21" href="$classCLI_1_1Formatter.html#a9f11b9ee12c8ccb8bf9670be1b47a3b1" title="This is the options part of the name, Default: combined into left column." alt="" coords="220,568,379,609"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#ad79474a3c1cc8a73b12f80c6e31ee3af" title="Get the description." alt="" coords="447,142,648,169"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#ab84751fbf9037efaed5b64fed17fe57f" title="Gets a comma separated list of names. Will include / prefer the positional name if positional is true..." alt="" coords="464,199,631,226"/>
+<area shape="rect" id="node7" href="$classCLI_1_1Option.html#a4d2329268bae134aa58e704fa61f4b57" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="730,75,869,116"/>
+<area shape="rect" id="node13" href="$classCLI_1_1Option.html#af5677ee4a55c2a85784f64198db6b452" title="True if the option was not passed." alt="" coords="728,141,871,167"/>
+<area shape="rect" id="node14" href="$classCLI_1_1Option.html#a4eb6212ac30a0b139da52d258a3a1790" title=" " alt="" coords="723,192,876,233"/>
+<area shape="rect" id="node17" href="$classCLI_1_1OptionBase.html#a341e7df4c2693312609186f036dd923c" title="Get the group of this option." alt="" coords="708,257,891,299"/>
+<area shape="rect" id="node18" href="$classCLI_1_1Option.html#afe31a608506cbe75d40d6cced342be11" title="The total min number of expected string values to be used." alt="" coords="716,323,883,364"/>
+<area shape="rect" id="node20" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="740,23,859,50"/>
+<area shape="rect" id="node8" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="939,85,1120,111"/>
+<area shape="rect" id="node9" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="1189,89,1317,115"/>
+<area shape="rect" id="node10" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1387,139,1537,166"/>
+<area shape="rect" id="node11" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="1168,38,1339,65"/>
+<area shape="rect" id="node12" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1389,5,1535,47"/>
+<area shape="rect" id="node15" href="$namespaceCLI_1_1detail.html#af45abf683b881127298aa28b3c4e6cf5" title="Convert a flag into an integer value typically binary flags." alt="" coords="1184,191,1323,232"/>
+<area shape="rect" id="node16" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="953,249,1105,275"/>
+<area shape="rect" id="node19" href="$classCLI_1_1Option.html#af87dffed2cb245673312c993e563710e" title="The total min number of expected string values to be used." alt="" coords="946,323,1113,364"/>
+<area shape="rect" id="node22" href="$classCLI_1_1Option.html#a3b8410c5366dbbb6781b37d963677101" title="The default value (for help printing)" alt="" coords="448,423,647,450"/>
+<area shape="rect" id="node23" href="$classCLI_1_1Option.html#a9657b97545e51cdcda8efd61d13b5ab3" title="The environment variable associated to this value." alt="" coords="452,474,643,501"/>
+<area shape="rect" id="node24" href="$classCLI_1_1Option.html#a55c138802ceafe3a9f2a28bf3317029f" title="The set of options excluded." alt="" coords="454,525,641,551"/>
+<area shape="rect" id="node25" href="$classCLI_1_1Option.html#a307543e6e4ddeb6e4ea00438b5b10be3" title="The number of times the option expects to be included." alt="" coords="453,575,642,602"/>
+<area shape="rect" id="node26" href="$classCLI_1_1Option.html#a21133f27201fa12203567cf0ee40c9c5" title="The max number of times the option expects to be included." alt="" coords="435,626,660,653"/>
+<area shape="rect" id="node27" href="$classCLI_1_1Option.html#a19c64a02c22d968e834c2aaf13f98f62" title="The number of times the option expects to be included." alt="" coords="437,677,658,703"/>
+<area shape="rect" id="node28" href="$classCLI_1_1FormatterBase.html#a7e8f9d7896c599f7befd84a9947d4cab" title="Get the current value of a name (REQUIRED, etc.)" alt="" coords="474,728,621,769"/>
+<area shape="rect" id="node29" href="$classCLI_1_1Option.html#a3e5422f3f77257408337fdd3d13d2472" title="The set of options needed." alt="" coords="463,794,631,821"/>
+<area shape="rect" id="node30" href="$classCLI_1_1Option.html#acdba5c0a8eb5d6b7af629f6e810709c5" title=" " alt="" coords="446,845,649,871"/>
+<area shape="rect" id="node31" href="$classCLI_1_1OptionBase.html#aa902dee6da6d7f5b083b1c7d5f9c1308" title="True if this is a required option." alt="" coords="470,896,625,937"/>
+<area shape="rect" id="node32" href="$classCLI_1_1Option.html#a8b8425827ceb852c3cc3f44b9b1c26a4" title="Get the full typename for this option." alt="" coords="446,322,649,349"/>
+<area shape="rect" id="node34" href="$classCLI_1_1Option.html#a88f36e42c1afcf1d4887230cc133f1fa" title="The number of arguments the option expects." alt="" coords="452,373,643,399"/>
+<area shape="rect" id="node33" href="$classCLI_1_1Validator.html#a77c9d0a1f496ccaa4a8ef293a41bca78" title="Generate type description information for the Validator." alt="" coords="731,388,868,429"/>
+</map>

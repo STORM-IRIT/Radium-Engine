@@ -1,0 +1,8 @@
+<map id="Ra::Headless::CLIBaseApplication::init" name="Ra::Headless::CLIBaseApplication::init">
+<area shape="rect" id="node1" title=" " alt="" coords="5,49,245,90"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#aac000657ef11647125ba91af38fd7d9c" title="Print a nice error message and return the exit code." alt="" coords="299,31,407,57"/>
+<area shape="rect" id="node6" href="$classCLI_1_1App.html#a5ddf139d5fe065289aca7b83d5d045d9" title=" " alt="" coords="293,81,412,108"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#a2d6847ad9eec079214a61d834f29e35f" title=" " alt="" coords="460,31,571,57"/>
+<area shape="rect" id="node4" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="648,5,796,32"/>
+<area shape="rect" id="node5" href="$classCLI_1_1App.html#a9371a0fd74e03df61dd751e28a3dfc35" title=" " alt="" coords="619,56,825,83"/>
+</map>

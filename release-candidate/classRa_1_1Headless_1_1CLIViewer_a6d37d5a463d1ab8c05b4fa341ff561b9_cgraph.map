@@ -1,0 +1,22 @@
+<map id="Ra::Headless::CLIViewer::setCamera" name="Ra::Headless::CLIViewer::setCamera">
+<area shape="rect" id="node1" title=" " alt="" coords="5,289,185,331"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ad925b9e05c8f4d90199ff742ff4b2c2e" title="Return the aspect ratio of the viewport." alt="" coords="233,5,413,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac9cdbebb3a89033e760d4d5cd6ac0f26" title=" " alt="" coords="233,71,413,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a0a241c245d4c763ceabfc56bbb8a6dc0" title="Return the Z Far plane distance from the camera." alt="" coords="233,136,413,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID." alt="" coords="244,201,403,243"/>
+<area shape="rect" id="node6" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title=" " alt="" coords="257,267,390,294"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a67f5d41f4d6814ffd247f6975feea06e" title=" " alt="" coords="233,384,413,425"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae2ee8411aa3a9d8ba5380b9c9ee3dfda" title=" " alt="" coords="233,449,413,491"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to position." alt="" coords="233,319,413,360"/>
+<area shape="rect" id="node19" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a74ae04c9a3018609a6468eaa59928ee5" title="Set the Z Far plane distance to zFar." alt="" coords="233,515,413,556"/>
+<area shape="rect" id="node20" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a717cfcf775ed10b6f323a02434336a85" title="Set the Z Near plane distance to zNear." alt="" coords="233,580,413,621"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a417792933af7e89d6774790c28d6ce5f" title=" " alt="" coords="461,319,641,360"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="461,384,641,425"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="461,449,641,491"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="689,319,869,360"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="461,515,641,556"/>
+<area shape="rect" id="node14" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="696,434,863,461"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" title="Build a projection matrix from the parameters of the view volume Implements the algorithms described ..." alt="" coords="689,485,869,527"/>
+<area shape="rect" id="node16" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="917,522,1080,549"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="689,603,869,644"/>
+</map>

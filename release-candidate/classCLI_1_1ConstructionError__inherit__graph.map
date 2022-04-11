@@ -1,0 +1,9 @@
+<map id="CLI::ConstructionError" name="CLI::ConstructionError">
+<area shape="rect" id="node1" title="Construction errors (not in parsing)" alt="" coords="195,425,357,503"/>
+<area shape="rect" id="node5" href="$classCLI_1_1BadNameString.html" title="Thrown on construction of a bad name." alt="" coords="5,551,157,628"/>
+<area shape="rect" id="node6" href="$classCLI_1_1IncorrectConstruction.html" title="Thrown when an option is set to conflicting values (non&#45;vector and multi args, for example)" alt="" coords="181,551,371,628"/>
+<area shape="rect" id="node7" href="$classCLI_1_1OptionAlreadyAdded.html" title="Thrown when an option already exists." alt="" coords="395,551,579,628"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Error.html" title="All errors derive from this one." alt="" coords="207,256,345,377"/>
+<area shape="rect" id="node3" title="STL class." alt="" coords="207,131,345,208"/>
+<area shape="rect" id="node4" title="STL class." alt="" coords="219,5,333,83"/>
+</map>

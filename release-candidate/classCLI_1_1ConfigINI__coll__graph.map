@@ -1,0 +1,13 @@
+<map id="CLI::ConfigINI" name="CLI::ConfigINI">
+<area shape="rect" id="node1" title="ConfigINI generates a &quot;standard&quot; INI compliant output." alt="" coords="94,1207,203,1284"/>
+<area shape="rect" id="node2" href="$classCLI_1_1ConfigBase.html" title="This converter works with INI/TOML files; to write INI files use ConfigINI." alt="" coords="75,1007,222,1157"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Config.html" title="This class provides a converter for configuration files." alt="" coords="31,749,155,885"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,595,180,687"/>
+<area shape="rect" id="node5" href="$structCLI_1_1ConfigItem.html" title="Holds values to load into Options." alt="" coords="175,455,296,532"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="213,160,300,237"/>
+<area shape="rect" id="node8" title=" " alt="" coords="109,300,295,377"/>
+<area shape="rect" id="node7" title="STL class." alt="" coords="187,5,326,97"/>
+<area shape="rect" id="node9" title="STL class." alt="" coords="39,160,168,237"/>
+<area shape="rect" id="node10" title=" " alt="" coords="84,13,123,90"/>
+<area shape="rect" id="node11" href="$classchar.html" title=" " alt="" coords="179,779,230,856"/>
+</map>

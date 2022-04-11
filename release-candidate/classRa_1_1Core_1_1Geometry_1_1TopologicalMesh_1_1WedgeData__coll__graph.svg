@@ -566,12 +566,12 @@ var sectionId = 'dynsection-0';
 <!-- Node22 -->
 <g id="node22" class="node">
 <title>Node22</title>
-<g id="a_node22"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="781,-182.5 781,-239.5 826,-239.5 826,-182.5 781,-182.5"/>
+<g id="a_node22"><a xlink:href="classfriend.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="781,-182.5 781,-239.5 826,-239.5 826,-182.5 781,-182.5"/>
 <text text-anchor="middle" x="803.5" y="-227.5" font-family="Helvetica,sans-Serif" font-size="10.00">friend</text>
-<polyline fill="none" stroke="#bfbfbf" points="781,-220.5 826,-220.5 "/>
+<polyline fill="none" stroke="black" points="781,-220.5 826,-220.5 "/>
 <text text-anchor="middle" x="803.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="781,-201.5 826,-201.5 "/>
+<polyline fill="none" stroke="black" points="781,-201.5 826,-201.5 "/>
 <text text-anchor="middle" x="803.5" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>

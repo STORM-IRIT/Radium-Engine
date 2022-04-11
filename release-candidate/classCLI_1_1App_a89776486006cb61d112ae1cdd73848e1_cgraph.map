@@ -1,0 +1,14 @@
+<map id="CLI::App::count" name="CLI::App::count">
+<area shape="rect" id="node1" title="Counts the number of times the given option was passed." alt="" coords="5,77,124,104"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Option.html#a154543609c45d9c59c69991a08ca272b" title="Count the total number of times an option was passed." alt="" coords="179,52,317,79"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#a947c36b1f8acad786a30d8b26edf4116" title="Get an option by name." alt="" coords="172,103,324,129"/>
+<area shape="rect" id="node4" href="$classCLI_1_1App.html#a965d588ba3c90c8dbd7708bf4dd1f53a" title="Get an option by name (noexcept non&#45;const version)" alt="" coords="372,95,524,137"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Option.html#a6a87a518665bbddf17512edccd962ba3" title="Check a name. Requires &quot;&#45;&quot; or &quot;&#45;&#45;&quot; for short / long, supports positional name." alt="" coords="572,103,755,129"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#a481001137137be0d6a4e5998866d604a" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="803,62,941,103"/>
+<area shape="rect" id="node9" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1437,12,1588,39"/>
+<area shape="rect" id="node11" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1440,157,1585,198"/>
+<area shape="rect" id="node12" href="$classCLI_1_1Option.html#acfa639ba77f034615c7e66028da1fc3b" title="Requires &quot;&#45;&quot; to be removed from string." alt="" coords="803,127,941,169"/>
+<area shape="rect" id="node7" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="989,92,1171,119"/>
+<area shape="rect" id="node8" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="1240,63,1368,89"/>
+<area shape="rect" id="node10" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="1219,164,1389,191"/>
+</map>

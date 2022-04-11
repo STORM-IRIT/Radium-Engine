@@ -1,0 +1,6 @@
+<map id="CLI::Option::get_items_expected_max" name="CLI::Option::get_items_expected_max">
+<area shape="rect" id="node1" title="Get the maximum number of items expected to be returned and used for the callback." alt="" coords="5,35,172,76"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#ac1a57be7d4de9c0552f91b8f16d47aad" title="Performs a *= b; if it doesn&#39;t cause integer overflow. Returns false otherwise." alt="" coords="227,5,375,47"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="220,71,383,98"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#ac96583f0b43752f7fa77a6c24dae4802" title="Do a check for overflow on signed numbers." alt="" coords="431,13,621,39"/>
+</map>

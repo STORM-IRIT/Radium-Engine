@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('TinyPlyFileLoader_8cpp_source.html',''
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structRa_1_1IO_1_1memory__buffer.html#a7465eb7998e7b75af8e185f87b02a916">   37</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="structRa_1_1IO_1_1memory__buffer.html#a7465eb7998e7b75af8e185f87b02a916">size</a>;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structRa_1_1IO_1_1memory__buffer.html#a3f88a81ec996839408e2a5068d35a718">   39</a></span>&#160;    <a class="code" href="structRa_1_1IO_1_1memory__buffer.html#a3f88a81ec996839408e2a5068d35a718">memory_buffer</a>( <span class="keywordtype">char</span> <span class="keyword">const</span>* first_elem, <span class="keywordtype">size_t</span> size_ ) :</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        p_start( const_cast&lt;char*&gt;( first_elem ) ), p_end( p_start + size_ ), size( size_ ) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        p_start( const_cast&lt;<a class="code" href="classchar.html">char</a>*&gt;( first_elem ) ), p_end( p_start + size_ ), size( size_ ) {</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        setg( p_start, p_start, p_end );</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
@@ -290,7 +290,7 @@ $(document).ready(function(){initNavTree('TinyPlyFileLoader_8cpp_source.html',''
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="comment">// a unique name is required by the component messaging system</span></div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> nameId { 0 };</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keyword">auto</span> geometry = std::make_unique&lt;GeometryData&gt;( <span class="stringliteral">&quot;PC_&quot;</span> + std::to_string( ++nameId ),</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keyword">auto</span> geometry = std::make_unique&lt;GeometryData&gt;( <span class="stringliteral">&quot;PC_&quot;</span> + <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( ++nameId ),</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                                                    <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a70c20fd43bb71a0034f5da1aaff3b3d7">GeometryData::POINT_CLOUD</a> );</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    geometry-&gt;setFrame( Core::Transform::Identity() );</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
@@ -409,6 +409,8 @@ $(document).ready(function(){initNavTree('TinyPlyFileLoader_8cpp_source.html',''
 <div class="ttc" id="aclassRa_1_1IO_1_1TinyPlyFileLoader_html_a3eaa892e32c345381130b8cd0c0a5872"><div class="ttname"><a href="classRa_1_1IO_1_1TinyPlyFileLoader.html#a3eaa892e32c345381130b8cd0c0a5872">Ra::IO::TinyPlyFileLoader::loadFile</a></div><div class="ttdeci">Core::Asset::FileData * loadFile(const std::string &amp;filename) override</div><div class="ttdoc">Try to load file, returns nullptr in case of failure.</div><div class="ttdef"><b>Definition:</b> <a href="TinyPlyFileLoader_8cpp_source.html#l00118">TinyPlyFileLoader.cpp:118</a></div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1TinyPlyFileLoader_html_aaf4999273103246612c9bebb902a2968"><div class="ttname"><a href="classRa_1_1IO_1_1TinyPlyFileLoader.html#aaf4999273103246612c9bebb902a2968">Ra::IO::TinyPlyFileLoader::TinyPlyFileLoader</a></div><div class="ttdeci">TinyPlyFileLoader()</div><div class="ttdef"><b>Definition:</b> <a href="TinyPlyFileLoader_8cpp_source.html#l00021">TinyPlyFileLoader.cpp:21</a></div></div>
 <div class="ttc" id="astructRa_1_1IO_1_1memory__buffer_html_a992ae32e7ac1d3e98902f44ba83c4f99"><div class="ttname"><a href="structRa_1_1IO_1_1memory__buffer.html#a992ae32e7ac1d3e98902f44ba83c4f99">Ra::IO::memory_buffer::seekpos</a></div><div class="ttdeci">pos_type seekpos(pos_type pos, std::ios_base::openmode which) override</div><div class="ttdef"><b>Definition:</b> <a href="TinyPlyFileLoader_8cpp_source.html#l00052">TinyPlyFileLoader.cpp:52</a></div></div>
+<div class="ttc" id="anamespaceCLI_1_1detail_html_a0e94052d485636fc9f18c21009026577"><div class="ttname"><a href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">CLI::detail::to_string</a></div><div class="ttdeci">auto to_string(T &amp;&amp;value) -&gt; decltype(std::forward&lt; T &gt;(value))</div><div class="ttdoc">Convert an object to a string (directly forward if this can become a string)</div><div class="ttdef"><b>Definition:</b> <a href="TypeTools_8hpp_source.html#l00336">TypeTools.hpp:336</a></div></div>
+<div class="ttc" id="aclasschar_html"><div class="ttname"><a href="classchar.html">char</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a3b7b46ecc6949a7f86e3160c04cda9bb"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a3b7b46ecc6949a7f86e3160c04cda9bb">Ra::Core::Asset::FileData::setVerbose</a></div><div class="ttdeci">void setVerbose(const bool VERBOSE_MODE)</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8inl_source.html#l00084">FileData.inl:84</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray</a></div><div class="ttdef"><b>Definition:</b> <a href="VectorArray_8hpp_source.html#l00013">VectorArray.hpp:13</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1IO_html_a3ed915daf74c8fa1a7f164baf4e12869"><div class="ttname"><a href="namespaceRa_1_1IO.html#a3ed915daf74c8fa1a7f164baf4e12869">Ra::IO::copyBufferToContainer</a></div><div class="ttdeci">void copyBufferToContainer(const std::shared_ptr&lt; tinyply::PlyData &gt; &amp;buffer, ContainerType &amp;container)</div><div class="ttdef"><b>Definition:</b> <a href="TinyPlyFileLoader_8cpp_source.html#l00101">TinyPlyFileLoader.cpp:101</a></div></div>
@@ -439,7 +441,7 @@ $(document).ready(function(){initNavTree('TinyPlyFileLoader_8cpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_21c87f206f6872de3cc60b97917f3fdd.html">TinyPlyLoader</a></li><li class="navelem"><a class="el" href="TinyPlyFileLoader_8cpp.html">TinyPlyFileLoader.cpp</a></li>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:28 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:13 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,0 +1,6 @@
+<map id="CLI::detail::generate_map" name="CLI::detail::generate_map">
+<area shape="rect" id="node1" title="Generate a string representation of a map." alt="" coords="5,64,195,91"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="259,5,378,32"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#a0c6cf48feae9d909d52e7b4c346cba29" title=" " alt="" coords="252,57,385,98"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="243,123,395,149"/>
+</map>

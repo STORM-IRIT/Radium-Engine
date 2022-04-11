@@ -1,0 +1,6 @@
+<map id="CLI::FailureMessage::help" name="CLI::FailureMessage::help">
+<area shape="rect" id="node1" title="Printout the full help string on error (if this fn is set, the old default for CLI11)" alt="" coords="5,23,156,65"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a2d6847ad9eec079214a61d834f29e35f" title=" " alt="" coords="204,31,315,57"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="392,5,540,32"/>
+<area shape="rect" id="node4" href="$classCLI_1_1App.html#a9371a0fd74e03df61dd751e28a3dfc35" title=" " alt="" coords="363,56,569,83"/>
+</map>

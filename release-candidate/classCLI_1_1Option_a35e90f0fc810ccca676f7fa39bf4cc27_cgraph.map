@@ -1,0 +1,12 @@
+<map id="CLI::Option::Option" name="CLI::Option::Option">
+<area shape="rect" id="node1" title="Making an option by hand is not defined, it must be made by the App class." alt="" coords="5,63,149,90"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#a23ae97bbbd9e400bd94b316dd865cb66" title="Get a vector of short names, one of long names, and a single name." alt="" coords="197,34,364,61"/>
+<area shape="rect" id="node6" href="$namespaceCLI_1_1detail.html#abf817a10b92907070c02b752c37aa09d" title=" " alt="" coords="219,85,342,127"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#a3a05d1129df69e88135e178137b1fd89" title="Verify the first character of an option." alt="" coords="795,7,921,48"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a4274628d24f9e3fbc719284f1db263b8" title="Verify an option name." alt="" coords="429,27,555,68"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#a841371d5dbb0a52f453de4cc1d00cc51" title="Verify following characters of an option." alt="" coords="620,65,747,107"/>
+<area shape="rect" id="node7" href="$namespaceCLI_1_1detail.html#a5c7b00a328b3b2da564794081646c251" title="Make a copy of the string and then trim it." alt="" coords="412,118,572,145"/>
+<area shape="rect" id="node8" href="$namespaceCLI_1_1detail.html#ad394fad44bd6c2a82604abba63224a92" title="Trim whitespace from string." alt="" coords="622,131,745,158"/>
+<area shape="rect" id="node9" href="$namespaceCLI_1_1detail.html#acae078b951ab0e11b84dffe200d0049c" title="Trim whitespace from left of string." alt="" coords="795,106,921,133"/>
+<area shape="rect" id="node10" href="$namespaceCLI_1_1detail.html#aed9338ae7c45f34f8240a31325d8d71c" title="Trim whitespace from right of string." alt="" coords="795,157,921,183"/>
+</map>

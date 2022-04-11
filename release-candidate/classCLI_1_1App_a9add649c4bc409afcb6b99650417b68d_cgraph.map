@@ -1,0 +1,9 @@
+<map id="CLI::App::add_subcommand" name="CLI::App::add_subcommand">
+<area shape="rect" id="node1" title="Add a previously created app as a subcommand." alt="" coords="5,101,208,127"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#aa3cd2a87739421210d0b2a457d38e5bc" title=" " alt="" coords="267,60,435,101"/>
+<area shape="rect" id="node7" href="$classCLI_1_1App.html#a2234b83d2e7e62866e73b3d698426406" title=" " alt="" coords="256,125,445,167"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#a3ba6eb33f3ee9cd1a126385fa44f2c16" title="Check the name, case insensitive and underscore insensitive if set." alt="" coords="493,42,659,69"/>
+<area shape="rect" id="node6" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="502,93,650,119"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="709,5,855,47"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="707,71,857,98"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="CLI::App::add_option" name="CLI::App::add_option">
+<area shape="rect" id="node1" title="Add option for assigning to a variable." alt="" coords="5,115,160,141"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a1f9503a8cdceb4e5b42c9fd4ae6b7b10" title=" " alt="" coords="222,5,377,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Option.html#af75c26433baa09c7c762bfb9eb466215" title="Set the number of expected arguments." alt="" coords="219,56,380,83"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#a3f3097fd90b0cf348f95204fd67bc72e" title=" " alt="" coords="208,107,391,149"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Option.html#addaddebd60f66aaedc13e5fb473db902" title="Set a custom option typestring." alt="" coords="212,173,387,200"/>
+<area shape="rect" id="node7" href="$classCLI_1_1Option.html#a490eba9b24865845a0715e4566dcb6cc" title="Set a custom option size." alt="" coords="218,224,381,251"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#a08c4fc3c4d254ac57a48d5756626a03c" title="Set the type function to run when displayed on this option." alt="" coords="439,173,633,200"/>
+</map>

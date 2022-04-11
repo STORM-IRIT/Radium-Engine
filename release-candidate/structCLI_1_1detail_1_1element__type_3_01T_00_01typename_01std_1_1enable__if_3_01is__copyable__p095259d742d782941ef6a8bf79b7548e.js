@@ -1,0 +1,4 @@
+var structCLI_1_1detail_1_1element__type_3_01T_00_01typename_01std_1_1enable__if_3_01is__copyable__p095259d742d782941ef6a8bf79b7548e =
+[
+    [ "type", "structCLI_1_1detail_1_1element__type_3_01T_00_01typename_01std_1_1enable__if_3_01is__copyable__p095259d742d782941ef6a8bf79b7548e.html#a2967787ab8e8e0e99438a6ed50bea733", null ]
+];

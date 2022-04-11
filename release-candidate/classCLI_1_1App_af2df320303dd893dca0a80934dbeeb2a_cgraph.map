@@ -1,0 +1,8 @@
+<map id="CLI::App::set_version_flag" name="CLI::App::set_version_flag">
+<area shape="rect" id="node1" title="Generate the version string through a callback function." alt="" coords="5,71,195,98"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a289fc3770be292724cd8fcd962db4de5" title="Add option for callback that is triggered with a true flag and takes no arguments." alt="" coords="280,5,419,47"/>
+<area shape="rect" id="node5" href="$classCLI_1_1OptionBase.html#affbb9fb4e20744e377767952507503f0" title="Allow in a configuration file." alt="" coords="243,71,456,98"/>
+<area shape="rect" id="node6" href="$classCLI_1_1App.html#a3058b128735eec0813589b56c5453115" title="Removes an option from the App. Takes an option pointer. Returns true if found and removed." alt="" coords="259,122,440,149"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#af286727de86fce444325681379e2c511" title="Integer conversion." alt="" coords="504,13,676,39"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#af6685ecdb07b40a316035bb4af9b02e6" title="Convert to an unsigned integral." alt="" coords="724,5,869,47"/>
+</map>

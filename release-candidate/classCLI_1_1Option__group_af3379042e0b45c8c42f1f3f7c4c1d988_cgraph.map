@@ -1,0 +1,6 @@
+<map id="CLI::Option_group::add_subcommand" name="CLI::Option_group::add_subcommand">
+<area shape="rect" id="node1" title="Add an existing subcommand to be a member of an option_group." alt="" coords="5,23,151,65"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a31c5906bfb17ef02514367d09c83aa0d" title="Get the parent of this subcommand (or nullptr if master app)" alt="" coords="234,5,387,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#a63c0110a3e63515e3b9b70b7b560d676" title="Check to see if a subcommand is part of this command and get a shared_ptr to it." alt="" coords="199,56,423,83"/>
+<area shape="rect" id="node4" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="471,56,619,83"/>
+</map>

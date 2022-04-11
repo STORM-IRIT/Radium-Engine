@@ -1,0 +1,18 @@
+<map id="CLI::Formatter::make_option_name" name="CLI::Formatter::make_option_name">
+<area shape="rect" id="node1" title="This is the name part of an option, Default: left column." alt="" coords="5,225,164,267"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Option.html#ab84751fbf9037efaed5b64fed17fe57f" title="Gets a comma separated list of names. Will include / prefer the positional name if positional is true..." alt="" coords="212,233,379,259"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Option.html#a4d2329268bae134aa58e704fa61f4b57" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="449,75,587,116"/>
+<area shape="rect" id="node9" href="$classCLI_1_1Option.html#af5677ee4a55c2a85784f64198db6b452" title="True if the option was not passed." alt="" coords="447,141,589,167"/>
+<area shape="rect" id="node10" href="$classCLI_1_1Option.html#a4eb6212ac30a0b139da52d258a3a1790" title=" " alt="" coords="441,192,595,233"/>
+<area shape="rect" id="node13" href="$classCLI_1_1OptionBase.html#a341e7df4c2693312609186f036dd923c" title="Get the group of this option." alt="" coords="427,257,609,299"/>
+<area shape="rect" id="node14" href="$classCLI_1_1Option.html#afe31a608506cbe75d40d6cced342be11" title="The total min number of expected string values to be used." alt="" coords="435,323,601,364"/>
+<area shape="rect" id="node16" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="459,389,577,415"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="657,85,839,111"/>
+<area shape="rect" id="node5" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="908,89,1036,115"/>
+<area shape="rect" id="node6" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1105,139,1256,166"/>
+<area shape="rect" id="node7" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="887,38,1057,65"/>
+<area shape="rect" id="node8" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1108,5,1253,47"/>
+<area shape="rect" id="node11" href="$namespaceCLI_1_1detail.html#af45abf683b881127298aa28b3c4e6cf5" title="Convert a flag into an integer value typically binary flags." alt="" coords="903,191,1041,232"/>
+<area shape="rect" id="node12" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="672,249,824,275"/>
+<area shape="rect" id="node15" href="$classCLI_1_1Option.html#af87dffed2cb245673312c993e563710e" title="The total min number of expected string values to be used." alt="" coords="665,323,831,364"/>
+</map>

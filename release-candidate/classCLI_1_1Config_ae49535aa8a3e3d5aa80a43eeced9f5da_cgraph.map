@@ -1,0 +1,4 @@
+<map id="CLI::Config::from_file" name="CLI::Config::from_file">
+<area shape="rect" id="node1" title="Parse a config file, throw an error (ParseError:ConfigParseError or FileError) on failure." alt="" coords="5,5,163,32"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Config.html#aa1d072db121fac141cb69cb2a32ba642" title="Convert a configuration into an app." alt="" coords="211,5,387,32"/>
+</map>

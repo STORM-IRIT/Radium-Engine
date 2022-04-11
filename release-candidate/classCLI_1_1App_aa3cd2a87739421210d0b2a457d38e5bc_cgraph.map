@@ -1,0 +1,7 @@
+<map id="CLI::App::_compare_subcommand_names" name="CLI::App::_compare_subcommand_names">
+<area shape="rect" id="node1" title=" " alt="" coords="5,60,173,101"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a3ba6eb33f3ee9cd1a126385fa44f2c16" title="Check the name, case insensitive and underscore insensitive if set." alt="" coords="221,42,387,69"/>
+<area shape="rect" id="node5" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="230,93,378,119"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="437,5,583,47"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="435,71,585,98"/>
+</map>

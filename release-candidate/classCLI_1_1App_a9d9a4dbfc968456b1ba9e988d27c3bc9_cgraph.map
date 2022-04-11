@@ -1,0 +1,13 @@
+<map id="CLI::App::operator[]" name="CLI::App::operator[]">
+<area shape="rect" id="node1" title="Shortcut bracket operator for getting a pointer to an option." alt="" coords="5,103,153,129"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a947c36b1f8acad786a30d8b26edf4116" title="Get an option by name." alt="" coords="201,103,353,129"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#a965d588ba3c90c8dbd7708bf4dd1f53a" title="Get an option by name (noexcept non&#45;const version)" alt="" coords="401,95,553,137"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#a6a87a518665bbddf17512edccd962ba3" title="Check a name. Requires &quot;&#45;&quot; or &quot;&#45;&#45;&quot; for short / long, supports positional name." alt="" coords="601,103,784,129"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Option.html#a481001137137be0d6a4e5998866d604a" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="832,62,971,103"/>
+<area shape="rect" id="node8" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1467,12,1617,39"/>
+<area shape="rect" id="node10" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1469,157,1615,198"/>
+<area shape="rect" id="node11" href="$classCLI_1_1Option.html#acfa639ba77f034615c7e66028da1fc3b" title="Requires &quot;&#45;&quot; to be removed from string." alt="" coords="832,127,971,169"/>
+<area shape="rect" id="node6" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="1019,92,1200,119"/>
+<area shape="rect" id="node7" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="1269,63,1397,89"/>
+<area shape="rect" id="node9" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="1248,164,1419,191"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="CLI::App::get_subcommand_ptr" name="CLI::App::get_subcommand_ptr">
+<area shape="rect" id="node1" title="Check to see if a subcommand is part of this command and get a shared_ptr to it." alt="" coords="5,5,229,32"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="277,5,425,32"/>
+</map>

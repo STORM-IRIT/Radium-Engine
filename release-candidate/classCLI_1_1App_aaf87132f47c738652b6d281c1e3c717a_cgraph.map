@@ -1,0 +1,4 @@
+<map id="CLI::App::get_groups" name="CLI::App::get_groups">
+<area shape="rect" id="node1" title="Get the groups available directly from this option (in order)" alt="" coords="5,13,160,39"/>
+<area shape="rect" id="node2" href="$classCLI_1_1OptionBase.html#a341e7df4c2693312609186f036dd923c" title="Get the group of this option." alt="" coords="208,5,363,47"/>
+</map>

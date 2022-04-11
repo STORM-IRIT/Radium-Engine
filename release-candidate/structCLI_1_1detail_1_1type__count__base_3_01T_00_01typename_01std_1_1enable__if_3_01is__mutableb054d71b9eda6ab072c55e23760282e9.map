@@ -1,0 +1,4 @@
+<map id="CLI::detail::type_count_base&lt; T, typename std::enable_if&lt; is_mutable_container&lt; T &gt;::value &gt;::type &gt;" name="CLI::detail::type_count_base&lt; T, typename std::enable_if&lt; is_mutable_container&lt; T &gt;::value &gt;::type &gt;">
+<area shape="rect" id="node1" title="Type count base for containers is the type_count_base of the individual element." alt="" coords="5,145,192,281"/>
+<area shape="rect" id="node2" href="$classint.html" title=" " alt="" coords="79,5,118,83"/>
+</map>

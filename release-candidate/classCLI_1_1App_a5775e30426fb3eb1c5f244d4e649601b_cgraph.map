@@ -1,0 +1,8 @@
+<map id="CLI::App::set_config" name="CLI::App::set_config">
+<area shape="rect" id="node1" title="Set a configuration ini file option, or clear it if no name passed." alt="" coords="5,107,155,133"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a1f9503a8cdceb4e5b42c9fd4ae6b7b10" title=" " alt="" coords="232,5,387,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1OptionBase.html#affbb9fb4e20744e377767952507503f0" title="Allow in a configuration file." alt="" coords="203,56,416,83"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#a446f47a5d6ddf6831defd707394d7c07" title="Set the default value string representation (does not change the contained value)" alt="" coords="224,107,395,133"/>
+<area shape="rect" id="node5" href="$classCLI_1_1App.html#a3058b128735eec0813589b56c5453115" title="Removes an option from the App. Takes an option pointer. Returns true if found and removed." alt="" coords="219,157,400,184"/>
+<area shape="rect" id="node6" href="$classCLI_1_1OptionBase.html#a38c0ea47532de712dd8d9803633383b2" title="Set the option as required." alt="" coords="216,208,403,235"/>
+</map>

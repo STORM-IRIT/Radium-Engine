@@ -59,14 +59,14 @@ var sectionId = 'dynsection-1';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="289,-0.5 289,-79.5 402,-79.5 402,-0.5 289,-0.5"/>
-<text text-anchor="start" x="297" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="345.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LineIndexLayer</text>
-<polyline fill="none" stroke="black" points="289,-49.5 402,-49.5 "/>
-<text text-anchor="middle" x="345.5" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="289,-30.5 402,-30.5 "/>
-<text text-anchor="start" x="297" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineIndexLayer()</text>
-<text text-anchor="start" x="297" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"># LineIndexLayer()</text>
+<polygon fill="#bfbfbf" stroke="black" points="267,-0.5 267,-79.5 380,-79.5 380,-0.5 267,-0.5"/>
+<text text-anchor="start" x="275" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="323.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LineIndexLayer</text>
+<polyline fill="none" stroke="black" points="267,-49.5 380,-49.5 "/>
+<text text-anchor="middle" x="323.5" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="267,-30.5 380,-30.5 "/>
+<text text-anchor="start" x="275" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineIndexLayer()</text>
+<text text-anchor="start" x="275" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"># LineIndexLayer()</text>
 </a>
 </g>
 </g>
@@ -98,8 +98,8 @@ var sectionId = 'dynsection-1';
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M310.88,-117.92C316.95,-104.44 322.84,-91.35 327.99,-79.92"/>
-<polygon fill="none" stroke="midnightblue" points="307.57,-116.75 306.66,-127.31 313.96,-119.63 307.57,-116.75"/>
+<path fill="none" stroke="midnightblue" d="M298.41,-117.54C302.79,-104.19 307.03,-91.24 310.74,-79.92"/>
+<polygon fill="none" stroke="midnightblue" points="295,-116.72 295.21,-127.31 301.65,-118.9 295,-116.72"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -299,23 +299,22 @@ var sectionId = 'dynsection-1';
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
-<g id="a_node10"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="364.5,-188 364.5,-256 488.5,-256 488.5,-188 364.5,-188"/>
-<text text-anchor="start" x="372.5" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00">static constexpr const</text>
-<text text-anchor="middle" x="426.5" y="-233" font-family="Helvetica,sans-Serif" font-size="10.00"> char *</text>
-<polyline fill="none" stroke="#bfbfbf" points="364.5,-226 488.5,-226 "/>
-<text text-anchor="middle" x="426.5" y="-214" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="364.5,-207 488.5,-207 "/>
-<text text-anchor="middle" x="426.5" y="-195" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<g id="a_node10"><a xlink:href="classchar.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="364.5,-193.5 364.5,-250.5 402.5,-250.5 402.5,-193.5 364.5,-193.5"/>
+<text text-anchor="middle" x="383.5" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">char</text>
+<polyline fill="none" stroke="black" points="364.5,-231.5 402.5,-231.5 "/>
+<text text-anchor="middle" x="383.5" y="-219.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="364.5,-212.5 402.5,-212.5 "/>
+<text text-anchor="middle" x="383.5" y="-200.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node10&#45;&gt;Node1 -->
 <g id="edge10" class="edge">
 <title>Node10&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M411.64,-187.99C399.4,-160.78 381.84,-121.77 367.9,-90.77"/>
-<polygon fill="none" stroke="#404040" points="367.86,-90.69 361.75,-86.86 362.94,-79.75 369.05,-83.58 367.86,-90.69"/>
-<text text-anchor="middle" x="431.5" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00"> +staticSemanticName</text>
+<path fill="none" stroke="#404040" d="M375.77,-193.29C370.4,-174.49 362.9,-149.12 355.5,-127 351.6,-115.33 347.13,-102.87 342.81,-91.16"/>
+<polygon fill="none" stroke="#404040" points="342.75,-91 336.9,-86.78 338.55,-79.76 344.4,-83.98 342.75,-91"/>
+<text text-anchor="middle" x="406.5" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00"> +staticSemanticName</text>
 </g>
 </g>
 </svg>

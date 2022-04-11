@@ -1,9 +1,9 @@
 <map id="Ra::Core::Geometry::TopologicalMesh::initWithWedge" name="Ra::Core::Geometry::TopologicalMesh::initWithWedge">
-<area shape="rect" id="node1" title=" " alt="" coords="5,326,203,382"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d352c65cd2c75259cbb92689517ca18" title=" " alt="" coords="279,77,461,119"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#aebe4f9163305d76dec2fc1b8c34d68fb" title=" " alt="" coords="262,143,478,184"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a09ce4cede90c87b596f0a942d175697e" title="Read&#45;only access to a layer." alt="" coords="281,209,459,265"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d" title=" " alt="" coords="269,289,471,345"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,314,203,370"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d352c65cd2c75259cbb92689517ca18" title=" " alt="" coords="279,53,461,95"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#aebe4f9163305d76dec2fc1b8c34d68fb" title=" " alt="" coords="262,119,478,160"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a09ce4cede90c87b596f0a942d175697e" title="Read&#45;only access to a layer." alt="" coords="281,185,459,241"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d" title=" " alt="" coords="269,265,471,321"/>
 <area shape="rect" id="node6" href="$namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa" title=" " alt="" coords="251,369,489,411"/>
 <area shape="rect" id="node22" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="829,446,995,502"/>
 <area shape="rect" id="node24" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="563,543,730,599"/>

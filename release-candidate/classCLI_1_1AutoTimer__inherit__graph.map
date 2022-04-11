@@ -1,0 +1,4 @@
+<map id="CLI::AutoTimer" name="CLI::AutoTimer">
+<area shape="rect" id="node1" title="This class prints out the time upon destruction." alt="" coords="14,277,141,369"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Timer.html" title="This is a simple timer with pretty printing. Creating the timer starts counting." alt="" coords="5,5,149,229"/>
+</map>

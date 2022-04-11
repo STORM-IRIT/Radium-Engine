@@ -1,0 +1,4 @@
+<map id="CLI::Timer::to_string" name="CLI::Timer::to_string">
+<area shape="rect" id="node1" title="This is the main function, it creates a string." alt="" coords="5,5,159,32"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Timer.html#a330db0abf025cb5c3e70a4efcad080b2" title="This formats the numerical value for the time string." alt="" coords="207,5,400,32"/>
+</map>

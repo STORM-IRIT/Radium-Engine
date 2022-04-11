@@ -1,0 +1,13 @@
+<map id="CLI::Formatter::make_usage" name="CLI::Formatter::make_usage">
+<area shape="rect" id="node1" title="This displays the usage line." alt="" coords="5,232,164,273"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#aaf87132f47c738652b6d281c1e3c717a" title="Get the groups available directly from this option (in order)" alt="" coords="238,13,393,39"/>
+<area shape="rect" id="node4" href="$classCLI_1_1FormatterBase.html#a7e8f9d7896c599f7befd84a9947d4cab" title="Get the current value of a name (REQUIRED, etc.)" alt="" coords="242,64,389,105"/>
+<area shape="rect" id="node5" href="$classCLI_1_1App.html#a3bd4bdd8defb6fe47193848d94226a1f" title=" " alt="" coords="236,130,395,157"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#acab7033604b49e314d290b01adea690d" title="True if the argument can be given directly." alt="" coords="219,181,412,207"/>
+<area shape="rect" id="node7" href="$classCLI_1_1App.html#a76fa6784188f97df35ceb6b8207accd2" title="Get the required max subcommand value." alt="" coords="237,232,394,273"/>
+<area shape="rect" id="node8" href="$classCLI_1_1App.html#af990c1f077d815768ca3d2f250d058d9" title="Get the required min subcommand value." alt="" coords="237,297,394,339"/>
+<area shape="rect" id="node9" href="$classCLI_1_1App.html#a9371a0fd74e03df61dd751e28a3dfc35" title=" " alt="" coords="212,363,419,390"/>
+<area shape="rect" id="node10" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="256,414,375,441"/>
+<area shape="rect" id="node11" href="$classCLI_1_1Option.html#a94cc5149d388be946c449e8ee61cd034" title="True if option has at least one non&#45;positional name." alt="" coords="221,465,410,491"/>
+<area shape="rect" id="node3" href="$classCLI_1_1OptionBase.html#a341e7df4c2693312609186f036dd923c" title="Get the group of this option." alt="" coords="467,5,621,47"/>
+</map>

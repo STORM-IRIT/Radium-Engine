@@ -1,0 +1,17 @@
+<map id="CLI::ConfigBase::to_config" name="CLI::ConfigBase::to_config">
+<area shape="rect" id="node1" title="Convert an app into a configuration." alt="" coords="5,233,149,275"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#ac73a25f982318a475fa067b6561c43f5" title=" " alt="" coords="479,183,623,224"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#a6f983b056b683129ec20e53d8c6141ab" title=" " alt="" coords="213,63,389,90"/>
+<area shape="rect" id="node6" href="$classCLI_1_1App.html#ab7637441b1cd7fb2fcf5e7e095e779a7" title="Get the app or subcommand description." alt="" coords="209,114,392,141"/>
+<area shape="rect" id="node7" href="$classCLI_1_1App.html#aaf87132f47c738652b6d281c1e3c717a" title="Get the groups available directly from this option (in order)" alt="" coords="223,13,378,39"/>
+<area shape="rect" id="node9" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="711,443,859,470"/>
+<area shape="rect" id="node10" href="$classCLI_1_1App.html#a3bd4bdd8defb6fe47193848d94226a1f" title=" " alt="" coords="221,266,380,293"/>
+<area shape="rect" id="node11" href="$classCLI_1_1App.html#a31c5906bfb17ef02514367d09c83aa0d" title="Get the parent of this subcommand (or nullptr if master app)" alt="" coords="224,317,377,343"/>
+<area shape="rect" id="node12" href="$classCLI_1_1App.html#a9371a0fd74e03df61dd751e28a3dfc35" title=" " alt="" coords="197,367,404,394"/>
+<area shape="rect" id="node13" href="$classCLI_1_1App.html#ad07c68d1fcede041fa7fed647e5e3d84" title="Check to see if given subcommand was selected." alt="" coords="201,469,400,495"/>
+<area shape="rect" id="node15" href="$namespaceCLI_1_1detail.html#a42001edb494b249cbb3d10c74c60e404" title="Comma separated join, adds quotes if needed." alt="" coords="229,165,372,191"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#af286727de86fce444325681379e2c511" title="Integer conversion." alt="" coords="699,190,871,217"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#af6685ecdb07b40a316035bb4af9b02e6" title="Convert to an unsigned integral." alt="" coords="919,183,1064,224"/>
+<area shape="rect" id="node8" href="$classCLI_1_1OptionBase.html#a341e7df4c2693312609186f036dd923c" title="Get the group of this option." alt="" coords="474,5,629,47"/>
+<area shape="rect" id="node14" href="$classCLI_1_1App.html#acdd12c32ce380240cbc0184b372c0f30" title=" " alt="" coords="452,469,651,495"/>
+</map>

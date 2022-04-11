@@ -1,0 +1,19 @@
+<map id="CLI::retire_option" name="CLI::retire_option">
+<area shape="rect" id="node1" title="Helper function to mark an option as retired." alt="" coords="5,157,139,184"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a1f9503a8cdceb4e5b42c9fd4ae6b7b10" title=" " alt="" coords="200,5,355,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Option.html#a446f47a5d6ddf6831defd707394d7c07" title="Set the default value string representation (does not change the contained value)" alt="" coords="192,56,363,83"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#af75c26433baa09c7c762bfb9eb466215" title="Set the number of expected arguments." alt="" coords="197,107,358,133"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Validator.html#aba763211f1b7c9e9866da767ba731999" title="Get the name of the Validator." alt="" coords="187,157,368,184"/>
+<area shape="rect" id="node6" href="$classCLI_1_1App.html#a965d588ba3c90c8dbd7708bf4dd1f53a" title="Get an option by name (noexcept non&#45;const version)" alt="" coords="201,209,353,250"/>
+<area shape="rect" id="node15" href="$namespaceCLI.html#a77cd1a3639a91dea33a7d144ea476df6" title="Helper function to mark an option as retired." alt="" coords="211,275,344,301"/>
+<area shape="rect" id="node16" href="$classCLI_1_1Option.html#addaddebd60f66aaedc13e5fb473db902" title="Set a custom option typestring." alt="" coords="190,325,365,352"/>
+<area shape="rect" id="node7" href="$classCLI_1_1Option.html#a6a87a518665bbddf17512edccd962ba3" title="Check a name. Requires &quot;&#45;&quot; or &quot;&#45;&#45;&quot; for short / long, supports positional name." alt="" coords="422,216,605,243"/>
+<area shape="rect" id="node8" href="$classCLI_1_1Option.html#a481001137137be0d6a4e5998866d604a" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="659,175,797,217"/>
+<area shape="rect" id="node11" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1293,125,1444,152"/>
+<area shape="rect" id="node13" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1296,270,1441,311"/>
+<area shape="rect" id="node14" href="$classCLI_1_1Option.html#acfa639ba77f034615c7e66028da1fc3b" title="Requires &quot;&#45;&quot; to be removed from string." alt="" coords="659,241,797,282"/>
+<area shape="rect" id="node9" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="845,205,1027,232"/>
+<area shape="rect" id="node10" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="1096,176,1224,203"/>
+<area shape="rect" id="node12" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="1075,277,1245,304"/>
+<area shape="rect" id="node17" href="$classCLI_1_1Option.html#a08c4fc3c4d254ac57a48d5756626a03c" title="Set the type function to run when displayed on this option." alt="" coords="416,325,611,352"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="CLI::detail::trim_copy" name="CLI::detail::trim_copy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,165,57"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#ad394fad44bd6c2a82604abba63224a92" title="Trim whitespace from string." alt="" coords="213,31,336,57"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#acae078b951ab0e11b84dffe200d0049c" title="Trim whitespace from left of string." alt="" coords="384,5,511,32"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#aed9338ae7c45f34f8240a31325d8d71c" title="Trim whitespace from right of string." alt="" coords="384,56,511,83"/>
+</map>

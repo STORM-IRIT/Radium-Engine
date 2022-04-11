@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('EntityManager_8cpp_source.html',''); i
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::string entityName = name;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( name.empty() ) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        entityName = <span class="stringliteral">&quot;Entity_&quot;</span> + std::to_string( idx.getValue() );</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        entityName = <span class="stringliteral">&quot;Entity_&quot;</span> + <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( idx.getValue() );</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        ent-&gt;rename( entityName );</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">else</span> {</div>
@@ -141,7 +141,7 @@ $(document).ready(function(){initNavTree('EntityManager_8cpp_source.html',''); i
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">bool</span> mustRename = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">while</span> ( entityExists( entityName ) ) {</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Entity `&quot;</span> &lt;&lt; entityName &lt;&lt; <span class="stringliteral">&quot;` already exists&quot;</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            entityName = name + <span class="stringliteral">&quot;_&quot;</span> + std::to_string( i++ );</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            entityName = name + <span class="stringliteral">&quot;_&quot;</span> + <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( i++ );</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            mustRename = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        }</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> ( mustRename ) { ent-&gt;rename( entityName ); }</div>
@@ -230,6 +230,7 @@ $(document).ready(function(){initNavTree('EntityManager_8cpp_source.html',''); i
 <div class="ttc" id="aEntityManager_8hpp_html"><div class="ttname"><a href="EntityManager_8hpp.html">EntityManager.hpp</a></div></div>
 <div class="ttc" id="aRadiumEngine_8hpp_html"><div class="ttname"><a href="RadiumEngine_8hpp.html">RadiumEngine.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_af6718889d269e336e2ebe6ef9637035f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#af6718889d269e336e2ebe6ef9637035f">Ra::Engine::Scene::EntityManager::getEntities</a></div><div class="ttdeci">std::vector&lt; Entity * &gt; getEntities() const</div><div class="ttdoc">Get all entities from the manager. This might be usefull to be able to display and navigate through t...</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00085">EntityManager.cpp:85</a></div></div>
+<div class="ttc" id="anamespaceCLI_1_1detail_html_a0e94052d485636fc9f18c21009026577"><div class="ttname"><a href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">CLI::detail::to_string</a></div><div class="ttdeci">auto to_string(T &amp;&amp;value) -&gt; decltype(std::forward&lt; T &gt;(value))</div><div class="ttdoc">Convert an object to a string (directly forward if this can become a string)</div><div class="ttdef"><b>Definition:</b> <a href="TypeTools_8hpp_source.html#l00336">TypeTools.hpp:336</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html_ae049f9a31cf501d8f426121493c9bf54"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#ae049f9a31cf501d8f426121493c9bf54">Ra::Core::Utils::IndexedObject::setIndex</a></div><div class="ttdeci">void setIndex(const Index &amp;idx)</div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00021">IndexedObject.hpp:21</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1EntityManager_html_a92762788c66f3baab981563a1c89e542"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1EntityManager.html#a92762788c66f3baab981563a1c89e542">Ra::Engine::Scene::EntityManager::removeEntity</a></div><div class="ttdeci">void removeEntity(Core::Utils::Index idx)</div><div class="ttdoc">Remove an entity given its index. Also deletes the pointer.</div><div class="ttdef"><b>Definition:</b> <a href="EntityManager_8cpp_source.html#l00061">EntityManager.cpp:61</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00349">CoreMacros.hpp:349</a></div></div>
@@ -250,7 +251,7 @@ $(document).ready(function(){initNavTree('EntityManager_8cpp_source.html',''); i
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="EntityManager_8cpp.html">EntityManager.cpp</a></li>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:27 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:13 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,0 +1,4 @@
+<map id="CLI::detail::type_count&lt; T, typename std::enable_if&lt; is_complex&lt; T &gt;::value &gt;::type &gt;" name="CLI::detail::type_count&lt; T, typename std::enable_if&lt; is_complex&lt; T &gt;::value &gt;::type &gt;">
+<area shape="rect" id="node1" title="Type size for complex since it sometimes looks like a wrapper." alt="" coords="5,145,215,267"/>
+<area shape="rect" id="node2" href="$classint.html" title=" " alt="" coords="91,5,129,83"/>
+</map>

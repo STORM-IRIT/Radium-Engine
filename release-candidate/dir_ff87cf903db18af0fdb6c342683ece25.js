@@ -54,6 +54,6 @@ var dir_ff87cf903db18af0fdb6c342683ece25 =
     [ "StdUtils.hpp", "StdUtils_8hpp.html", "StdUtils_8hpp" ],
     [ "StringUtils.cpp", "StringUtils_8cpp.html", "StringUtils_8cpp" ],
     [ "StringUtils.hpp", "StringUtils_8hpp.html", "StringUtils_8hpp" ],
-    [ "Timer.hpp", "Timer_8hpp.html", "Timer_8hpp" ],
-    [ "Version.hpp", "Version_8hpp.html", "Version_8hpp" ]
+    [ "Timer.hpp", "Core_2Utils_2Timer_8hpp.html", "Core_2Utils_2Timer_8hpp" ],
+    [ "Version.hpp", "Core_2Utils_2Version_8hpp.html", "Core_2Utils_2Version_8hpp" ]
 ];

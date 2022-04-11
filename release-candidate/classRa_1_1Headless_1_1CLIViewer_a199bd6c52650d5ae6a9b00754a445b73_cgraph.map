@@ -1,0 +1,23 @@
+<map id="Ra::Headless::CLIViewer::init" name="Ra::Headless::CLIViewer::init">
+<area shape="rect" id="node1" title="Application initialization method." alt="" coords="5,267,185,308"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d" title=" " alt="" coords="255,5,452,47"/>
+<area shape="rect" id="node3" href="$group__context.html#ga294af2892fbb87ec8bd168ce5ca79353" title="make the context inactive" alt="" coords="245,71,462,112"/>
+<area shape="rect" id="node4" href="$group__context.html#ga935a7352a5ee0ab0f51ecd2dcf1b96bd" title=" " alt="" coords="245,136,462,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85" title=" " alt="" coords="233,201,473,243"/>
+<area shape="rect" id="node11" href="$group__context.html#ga13c2672a6b23eeb6ffe567ca8b473db8" title="Check for validity of the context." alt="" coords="245,267,462,308"/>
+<area shape="rect" id="node12" href="$group__context.html#ga74f9c0ec7ac494ff57d23d2cec737840" title="make the context active" alt="" coords="245,332,462,373"/>
+<area shape="rect" id="node13" href="$group__window.html#gaf9f083ad16a28f01dc9c35df9eb0dd0f" title="Resize the window." alt="" coords="245,397,462,439"/>
+<area shape="rect" id="node14" href="$classRa_1_1Headless_1_1CLIViewer.html#aab5af7cd39e98fe6f423903abf7c42db" title="Observer of the resize event on the OpenGLContext." alt="" coords="263,463,443,504"/>
+<area shape="rect" id="node21" href="$group__window.html#ga3b80dac3018d933382070b7897ebc7dc" title=" " alt="" coords="245,528,462,569"/>
+<area shape="rect" id="node6" href="$classCLI_1_1App.html#aac000657ef11647125ba91af38fd7d9c" title="Print a nice error message and return the exit code." alt="" coords="557,183,665,210"/>
+<area shape="rect" id="node10" href="$classCLI_1_1App.html#a5ddf139d5fe065289aca7b83d5d045d9" title=" " alt="" coords="552,234,671,261"/>
+<area shape="rect" id="node7" href="$classCLI_1_1App.html#a2d6847ad9eec079214a61d834f29e35f" title=" " alt="" coords="784,183,895,210"/>
+<area shape="rect" id="node8" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="1007,158,1155,185"/>
+<area shape="rect" id="node9" href="$classCLI_1_1App.html#a9371a0fd74e03df61dd751e28a3dfc35" title=" " alt="" coords="977,209,1184,235"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6" title="Change the viewport size. Also compute aspectRatio." alt="" coords="521,463,701,504"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="749,463,929,504"/>
+<area shape="rect" id="node17" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="997,382,1164,409"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" title="Build a projection matrix from the parameters of the view volume Implements the algorithms described ..." alt="" coords="991,433,1171,475"/>
+<area shape="rect" id="node19" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="1232,470,1395,497"/>
+<area shape="rect" id="node20" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="991,551,1171,592"/>
+</map>

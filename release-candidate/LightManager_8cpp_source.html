@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -154,7 +154,7 @@ $(document).ready(function(){initNavTree('LightManager_8cpp_source.html',''); in
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; data : lightData ) {</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        std::string componentName =</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="stringliteral">&quot;LIGHT_&quot;</span> + data-&gt;getName() + <span class="stringliteral">&quot; (&quot;</span> + std::to_string( <span class="keywordtype">id</span>++ ) + <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="stringliteral">&quot;LIGHT_&quot;</span> + data-&gt;getName() + <span class="stringliteral">&quot; (&quot;</span> + <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( <span class="keywordtype">id</span>++ ) + <span class="stringliteral">&quot;)&quot;</span>;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Scene::Light</a>* comp = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">switch</span> ( data-&gt;getType() ) {</div>
@@ -255,6 +255,7 @@ $(document).ready(function(){initNavTree('LightManager_8cpp_source.html',''); in
 <div class="ttc" id="aDirLight_8hpp_html"><div class="ttname"><a href="DirLight_8hpp.html">DirLight.hpp</a></div></div>
 <div class="ttc" id="aEntity_8hpp_html"><div class="ttname"><a href="Entity_8hpp.html">Entity.hpp</a></div></div>
 <div class="ttc" id="aRadiumEngine_8hpp_html"><div class="ttname"><a href="RadiumEngine_8hpp.html">RadiumEngine.hpp</a></div></div>
+<div class="ttc" id="anamespaceCLI_1_1detail_html_a0e94052d485636fc9f18c21009026577"><div class="ttname"><a href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">CLI::detail::to_string</a></div><div class="ttdeci">auto to_string(T &amp;&amp;value) -&gt; decltype(std::forward&lt; T &gt;(value))</div><div class="ttdoc">Convert an object to a string (directly forward if this can become a string)</div><div class="ttdef"><b>Definition:</b> <a href="TypeTools_8hpp_source.html#l00336">TypeTools.hpp:336</a></div></div>
 <div class="ttc" id="aFileData_8hpp_html"><div class="ttname"><a href="FileData_8hpp.html">FileData.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1PointLight_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1PointLight.html">Ra::Engine::Scene::PointLight</a></div><div class="ttdef"><b>Definition:</b> <a href="PointLight_8hpp_source.html#l00014">PointLight.hpp:14</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1LightData_html_a737f1c5691156e76c4aaad52b80abecca771a9111952db0d6d1adb4c7287b91f7"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca771a9111952db0d6d1adb4c7287b91f7">Ra::Core::Asset::LightData::POINT_LIGHT</a></div><div class="ttdeci">@ POINT_LIGHT</div><div class="ttdef"><b>Definition:</b> <a href="LightData_8hpp_source.html#l00035">LightData.hpp:35</a></div></div>
@@ -281,7 +282,7 @@ $(document).ready(function(){initNavTree('LightManager_8cpp_source.html',''); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="LightManager_8cpp.html">LightManager.cpp</a></li>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:27 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:13 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

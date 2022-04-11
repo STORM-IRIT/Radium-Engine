@@ -1,0 +1,6 @@
+<map id="CLI::detail::get_names" name="CLI::detail::get_names">
+<area shape="rect" id="node1" title="Get a vector of short names, one of long names, and a single name." alt="" coords="5,5,172,32"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#a3a05d1129df69e88135e178137b1fd89" title="Verify the first character of an option." alt="" coords="569,19,696,61"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#a4274628d24f9e3fbc719284f1db263b8" title="Verify an option name." alt="" coords="220,27,347,69"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a841371d5dbb0a52f453de4cc1d00cc51" title="Verify following characters of an option." alt="" coords="395,78,521,119"/>
+</map>

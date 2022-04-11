@@ -1,0 +1,28 @@
+<map id="CLI::App::add_subcommand" name="CLI::App::add_subcommand">
+<area shape="rect" id="node1" title="Add a subcommand. Inherits INHERITABLE and OptionDefaults, and help flag." alt="" coords="5,356,208,383"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#aaa53fda3b6aa477158ea8b1768342cc0" title="Special private constructor for subcommand." alt="" coords="265,203,373,229"/>
+<area shape="rect" id="node24" href="$namespaceCLI_1_1detail.html#a4274628d24f9e3fbc719284f1db263b8" title="Verify an option name." alt="" coords="256,465,383,506"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Option.html#ad79474a3c1cc8a73b12f80c6e31ee3af" title="Get the description." alt="" coords="431,203,632,229"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#ab84751fbf9037efaed5b64fed17fe57f" title="Gets a comma separated list of names. Will include / prefer the positional name if positional is true..." alt="" coords="448,289,615,316"/>
+<area shape="rect" id="node19" href="$classCLI_1_1App.html#a48b15f921a89e4d7c23fc6c79247d2f7" title="Set a help all flag, replaced the existing one if present." alt="" coords="462,45,601,86"/>
+<area shape="rect" id="node23" href="$classCLI_1_1App.html#abe50e78fd6074cec393102adb9114a14" title="Set a help flag, replace the existing one if present." alt="" coords="447,111,616,137"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Option.html#a4d2329268bae134aa58e704fa61f4b57" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="717,406,856,447"/>
+<area shape="rect" id="node11" href="$classCLI_1_1Option.html#af5677ee4a55c2a85784f64198db6b452" title="True if the option was not passed." alt="" coords="715,289,858,316"/>
+<area shape="rect" id="node12" href="$classCLI_1_1Option.html#a4eb6212ac30a0b139da52d258a3a1790" title=" " alt="" coords="710,223,863,265"/>
+<area shape="rect" id="node15" href="$classCLI_1_1OptionBase.html#a341e7df4c2693312609186f036dd923c" title="Get the group of this option." alt="" coords="695,341,878,382"/>
+<area shape="rect" id="node16" href="$classCLI_1_1Option.html#afe31a608506cbe75d40d6cced342be11" title="The total min number of expected string values to be used." alt="" coords="703,158,870,199"/>
+<area shape="rect" id="node18" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="727,472,846,499"/>
+<area shape="rect" id="node6" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="941,399,1123,425"/>
+<area shape="rect" id="node7" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="1192,387,1320,413"/>
+<area shape="rect" id="node8" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1389,336,1540,363"/>
+<area shape="rect" id="node9" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="1171,488,1341,515"/>
+<area shape="rect" id="node10" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1392,455,1537,497"/>
+<area shape="rect" id="node13" href="$namespaceCLI_1_1detail.html#af45abf683b881127298aa28b3c4e6cf5" title="Convert a flag into an integer value typically binary flags." alt="" coords="1187,270,1325,311"/>
+<area shape="rect" id="node14" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="956,227,1108,253"/>
+<area shape="rect" id="node17" href="$classCLI_1_1Option.html#af87dffed2cb245673312c993e563710e" title="The total min number of expected string values to be used." alt="" coords="949,158,1115,199"/>
+<area shape="rect" id="node20" href="$classCLI_1_1App.html#a8f7500a81c09b8eecc301226e018ddfe" title="Add a flag with no description or variable assignment." alt="" coords="717,5,856,32"/>
+<area shape="rect" id="node21" href="$classCLI_1_1OptionBase.html#affbb9fb4e20744e377767952507503f0" title="Allow in a configuration file." alt="" coords="680,56,893,83"/>
+<area shape="rect" id="node22" href="$classCLI_1_1App.html#a3058b128735eec0813589b56c5453115" title="Removes an option from the App. Takes an option pointer. Returns true if found and removed." alt="" coords="696,107,877,133"/>
+<area shape="rect" id="node25" href="$namespaceCLI_1_1detail.html#a3a05d1129df69e88135e178137b1fd89" title="Verify the first character of an option." alt="" coords="723,523,850,565"/>
+<area shape="rect" id="node26" href="$namespaceCLI_1_1detail.html#a841371d5dbb0a52f453de4cc1d00cc51" title="Verify following characters of an option." alt="" coords="468,523,595,565"/>
+</map>

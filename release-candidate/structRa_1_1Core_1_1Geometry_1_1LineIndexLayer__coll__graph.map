@@ -1,5 +1,5 @@
 <map id="Ra::Core::Geometry::LineIndexLayer" name="Ra::Core::Geometry::LineIndexLayer">
-<area shape="rect" id="node1" title=" " alt="" coords="391,1685,541,1792"/>
+<area shape="rect" id="node1" title=" " alt="" coords="361,1685,512,1792"/>
 <area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="249,1369,467,1623"/>
 <area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="239,824,466,1019"/>
 <area shape="rect" id="node9" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title="Typed index collection." alt="" coords="375,1068,592,1307"/>
@@ -8,5 +8,5 @@
 <area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="19,5,217,229"/>
 <area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="255,551,450,775"/>
 <area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="474,580,738,745"/>
-<area shape="rect" id="node10" title=" " alt="" coords="491,1450,657,1542"/>
+<area shape="rect" id="node10" href="$classchar.html" title=" " alt="" coords="491,1457,542,1535"/>
 </map>

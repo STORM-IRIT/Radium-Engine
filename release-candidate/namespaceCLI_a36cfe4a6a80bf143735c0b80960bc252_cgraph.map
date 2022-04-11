@@ -1,0 +1,32 @@
+<map id="CLI::retire_option" name="CLI::retire_option">
+<area shape="rect" id="node1" title="Helper function to mark an option as retired." alt="" coords="5,367,139,393"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a1f9503a8cdceb4e5b42c9fd4ae6b7b10" title=" " alt="" coords="222,5,377,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Option.html#aa49c5dadba733571b8b92e713347329f" title=" " alt="" coords="231,57,367,98"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#a446f47a5d6ddf6831defd707394d7c07" title="Set the default value string representation (does not change the contained value)" alt="" coords="214,123,385,149"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Option.html#af75c26433baa09c7c762bfb9eb466215" title="Set the number of expected arguments." alt="" coords="219,173,380,200"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#a784f66cb9371753ddeb8df59c85cb490" title="Get the current value of allow extra args." alt="" coords="217,225,381,266"/>
+<area shape="rect" id="node7" href="$classCLI_1_1Option.html#a21133f27201fa12203567cf0ee40c9c5" title="The max number of times the option expects to be included." alt="" coords="187,291,412,317"/>
+<area shape="rect" id="node8" href="$classCLI_1_1Option.html#a19c64a02c22d968e834c2aaf13f98f62" title="The number of times the option expects to be included." alt="" coords="189,341,410,368"/>
+<area shape="rect" id="node9" href="$classCLI_1_1Validator.html#aba763211f1b7c9e9866da767ba731999" title="Get the name of the Validator." alt="" coords="209,392,390,419"/>
+<area shape="rect" id="node10" href="$classCLI_1_1Option.html#ab84751fbf9037efaed5b64fed17fe57f" title="Gets a comma separated list of names. Will include / prefer the positional name if positional is true..." alt="" coords="216,443,383,469"/>
+<area shape="rect" id="node25" href="$classCLI_1_1Option.html#a0c7e5712134a2227301fb50bcc9488c8" title="The maximum number of arguments the option expects." alt="" coords="220,494,379,535"/>
+<area shape="rect" id="node26" href="$classCLI_1_1Option.html#a38a511ab2001c283c06fb31a7ea12501" title="The minimum number of arguments the option expects." alt="" coords="220,559,379,601"/>
+<area shape="rect" id="node27" href="$classCLI_1_1App.html#a3058b128735eec0813589b56c5453115" title="Removes an option from the App. Takes an option pointer. Returns true if found and removed." alt="" coords="209,625,390,652"/>
+<area shape="rect" id="node28" href="$classCLI_1_1Option.html#addaddebd60f66aaedc13e5fb473db902" title="Set a custom option typestring." alt="" coords="212,676,387,703"/>
+<area shape="rect" id="node30" href="$classCLI_1_1Option.html#a490eba9b24865845a0715e4566dcb6cc" title="Set a custom option size." alt="" coords="218,727,381,753"/>
+<area shape="rect" id="node11" href="$classCLI_1_1Option.html#a4d2329268bae134aa58e704fa61f4b57" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="488,341,627,382"/>
+<area shape="rect" id="node17" href="$classCLI_1_1Option.html#af5677ee4a55c2a85784f64198db6b452" title="True if the option was not passed." alt="" coords="486,407,629,433"/>
+<area shape="rect" id="node18" href="$classCLI_1_1Option.html#a4eb6212ac30a0b139da52d258a3a1790" title=" " alt="" coords="481,458,634,499"/>
+<area shape="rect" id="node21" href="$classCLI_1_1OptionBase.html#a341e7df4c2693312609186f036dd923c" title="Get the group of this option." alt="" coords="466,523,649,565"/>
+<area shape="rect" id="node22" href="$classCLI_1_1Option.html#afe31a608506cbe75d40d6cced342be11" title="The total min number of expected string values to be used." alt="" coords="474,589,641,630"/>
+<area shape="rect" id="node24" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="498,289,617,316"/>
+<area shape="rect" id="node12" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="703,352,884,379"/>
+<area shape="rect" id="node13" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="953,355,1081,381"/>
+<area shape="rect" id="node14" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1151,405,1301,432"/>
+<area shape="rect" id="node15" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="932,304,1103,331"/>
+<area shape="rect" id="node16" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1153,271,1299,313"/>
+<area shape="rect" id="node19" href="$namespaceCLI_1_1detail.html#af45abf683b881127298aa28b3c4e6cf5" title="Convert a flag into an integer value typically binary flags." alt="" coords="948,457,1087,498"/>
+<area shape="rect" id="node20" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="717,515,869,541"/>
+<area shape="rect" id="node23" href="$classCLI_1_1Option.html#af87dffed2cb245673312c993e563710e" title="The total min number of expected string values to be used." alt="" coords="710,589,877,630"/>
+<area shape="rect" id="node29" href="$classCLI_1_1Option.html#a08c4fc3c4d254ac57a48d5756626a03c" title="Set the type function to run when displayed on this option." alt="" coords="460,676,655,703"/>
+</map>

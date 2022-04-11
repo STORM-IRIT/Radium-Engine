@@ -129,19 +129,19 @@ var sectionId = 'dynsection-10';
 <path fill="none" stroke="midnightblue" d="M128.41,-147.47C148.78,-142.27 171.77,-136.4 192.85,-131.02"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="193.88,-134.37 202.7,-128.51 192.15,-127.59 193.88,-134.37"/>
 </g>
-<!-- Node16 -->
-<g id="node16" class="node">
-<title>Node16</title>
-<g id="a_node16"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#aa3c57a22f92d756e580fec2523035644" target="_top" xlink:title="Access the UI Component.">
+<!-- Node18 -->
+<g id="node18" class="node">
+<title>Node18</title>
+<g id="a_node18"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#aa3c57a22f92d756e580fec2523035644" target="_top" xlink:title="Access the UI Component.">
 <polygon fill="white" stroke="black" points="203,-49.5 203,-79.5 322,-79.5 322,-49.5 203,-49.5"/>
 <text text-anchor="start" x="211" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
 <text text-anchor="middle" x="262.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">SystemEntity::uiCmp</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node16 -->
-<g id="edge17" class="edge">
-<title>Node1&#45;&gt;Node16</title>
+<!-- Node1&#45;&gt;Node18 -->
+<g id="edge19" class="edge">
+<title>Node1&#45;&gt;Node18</title>
 <path fill="none" stroke="midnightblue" d="M87.02,-147.3C106.72,-130.92 140.25,-105.11 173,-89.5 179.44,-86.43 186.33,-83.67 193.31,-81.21"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="194.48,-84.51 202.86,-78.03 192.27,-77.86 194.48,-84.51"/>
 </g>
@@ -213,141 +213,172 @@ var sectionId = 'dynsection-10';
 <g id="node10" class="node">
 <title>Node10</title>
 <g id="a_node10"><a xlink:href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#ab597fd85376bd86d7e78dc4194e409c2" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="622,-123 622,-164 766,-164 766,-123 622,-123"/>
-<text text-anchor="start" x="630" y="-152" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
-<text text-anchor="start" x="630" y="-141" font-family="Helvetica,sans-Serif" font-size="10.00">::EngineRenderTechniques</text>
-<text text-anchor="middle" x="694" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">::getDefaultTechnique</text>
+<polygon fill="white" stroke="black" points="622,-125 622,-166 766,-166 766,-125 622,-125"/>
+<text text-anchor="start" x="630" y="-154" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="start" x="630" y="-143" font-family="Helvetica,sans-Serif" font-size="10.00">::EngineRenderTechniques</text>
+<text text-anchor="middle" x="694" y="-132" font-family="Helvetica,sans-Serif" font-size="10.00">::getDefaultTechnique</text>
 </a>
 </g>
 </g>
 <!-- Node9&#45;&gt;Node10 -->
 <g id="edge9" class="edge">
 <title>Node9&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M567.29,-125.92C582.09,-127.99 597.37,-130.12 611.96,-132.17"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="611.55,-135.64 621.93,-133.56 612.52,-128.71 611.55,-135.64"/>
+<path fill="none" stroke="midnightblue" d="M567.29,-126.75C582.09,-128.95 597.37,-131.23 611.96,-133.41"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="611.53,-136.88 621.93,-134.9 612.56,-129.96 611.53,-136.88"/>
+</g>
+<!-- Node13 -->
+<g id="node13" class="node">
+<title>Node13</title>
+<g id="a_node13"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="603,-60 603,-101 785,-101 785,-60 603,-60"/>
+<text text-anchor="start" x="611" y="-89" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="start" x="611" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::setParameters</text>
+<text text-anchor="middle" x="694" y="-67" font-family="Helvetica,sans-Serif" font-size="10.00">Provider</text>
+</a>
+</g>
+</g>
+<!-- Node9&#45;&gt;Node13 -->
+<g id="edge12" class="edge">
+<title>Node9&#45;&gt;Node13</title>
+<path fill="none" stroke="midnightblue" d="M567.29,-99.84C575.74,-98.54 584.35,-97.22 592.9,-95.9"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="593.54,-99.34 602.89,-94.36 592.47,-92.42 593.54,-99.34"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="603,-63 603,-104 785,-104 785,-63 603,-63"/>
-<text text-anchor="start" x="611" y="-92" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
-<text text-anchor="start" x="611" y="-81" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::setParameters</text>
-<text text-anchor="middle" x="694" y="-70" font-family="Helvetica,sans-Serif" font-size="10.00">Provider</text>
+<g id="a_node11"><a xlink:href="namespaceCLI_1_1detail.html#aa4b4a0a97c9b07110595765887647385" target="_top" xlink:title="A search function.">
+<polygon fill="white" stroke="black" points="869.5,-151 869.5,-170 973.5,-170 973.5,-151 869.5,-151"/>
+<text text-anchor="middle" x="921.5" y="-158" font-family="Helvetica,sans-Serif" font-size="10.00">CLI::detail::search</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node11 -->
+<!-- Node10&#45;&gt;Node11 -->
 <g id="edge10" class="edge">
-<title>Node9&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M567.29,-101.08C575.74,-99.9 584.35,-98.7 592.9,-97.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="593.47,-100.95 602.89,-96.1 592.5,-94.02 593.47,-100.95"/>
+<title>Node10&#45;&gt;Node11</title>
+<path fill="none" stroke="midnightblue" d="M766.04,-150.23C795.93,-152.21 830.38,-154.51 859.15,-156.42"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="859.26,-159.93 869.47,-157.11 859.73,-152.95 859.26,-159.93"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
-<g id="a_node12"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="821,-68.5 821,-98.5 1022,-98.5 1022,-68.5 821,-68.5"/>
-<text text-anchor="start" x="829" y="-86.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
-<text text-anchor="middle" x="921.5" y="-75.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::addPassProperties</text>
+<g id="a_node12"><a xlink:href="namespaceCLI_1_1detail.html#a0c6cf48feae9d909d52e7b4c346cba29" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1105,-151.5 1105,-181.5 1205,-181.5 1205,-151.5 1105,-151.5"/>
+<text text-anchor="start" x="1113" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">CLI::detail::smart</text>
+<text text-anchor="middle" x="1155" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">_deref</text>
 </a>
 </g>
 </g>
 <!-- Node11&#45;&gt;Node12 -->
 <g id="edge11" class="edge">
 <title>Node11&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M785.1,-83.5C793.56,-83.5 802.2,-83.5 810.82,-83.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="810.92,-87 820.92,-83.5 810.92,-80 810.92,-87"/>
-</g>
-<!-- Node13 -->
-<g id="node13" class="node">
-<title>Node13</title>
-<g id="a_node13"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1058,-117.5 1058,-147.5 1252,-147.5 1252,-117.5 1058,-117.5"/>
-<text text-anchor="start" x="1066" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
-<text text-anchor="middle" x="1155" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::hasConfiguration</text>
-</a>
-</g>
-</g>
-<!-- Node11&#45;&gt;Node13 -->
-<g id="edge15" class="edge">
-<title>Node11&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M785.28,-102.81C797.25,-104.96 809.4,-106.94 821,-108.5 896.38,-118.66 981.98,-124.71 1047.52,-128.19"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1047.69,-131.7 1057.86,-128.73 1048.06,-124.71 1047.69,-131.7"/>
+<path fill="none" stroke="midnightblue" d="M973.59,-161.82C1009.25,-162.75 1056.97,-163.99 1094.37,-164.95"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1094.54,-168.46 1104.63,-165.22 1094.72,-161.46 1094.54,-168.46"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
 <title>Node14</title>
-<g id="a_node14"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" target="_top" xlink:title="VALID.">
-<polygon fill="white" stroke="black" points="1095.5,-19.5 1095.5,-49.5 1214.5,-49.5 1214.5,-19.5 1095.5,-19.5"/>
-<text text-anchor="start" x="1103.5" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Index</text>
-<text text-anchor="middle" x="1155" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">::isValid</text>
+<g id="a_node14"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="821,-54.5 821,-84.5 1022,-84.5 1022,-54.5 821,-54.5"/>
+<text text-anchor="start" x="829" y="-72.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="921.5" y="-61.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::addPassProperties</text>
 </a>
 </g>
 </g>
-<!-- Node11&#45;&gt;Node14 -->
-<g id="edge16" class="edge">
-<title>Node11&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M785.31,-65.02C797.27,-62.95 809.41,-61.03 821,-59.5 912.02,-47.45 1017.87,-40.74 1085.36,-37.38"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1085.63,-40.87 1095.44,-36.89 1085.29,-33.88 1085.63,-40.87"/>
-</g>
-<!-- Node12&#45;&gt;Node13 -->
-<g id="edge12" class="edge">
-<title>Node12&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M993.53,-98.53C1018.75,-103.87 1047.32,-109.92 1073.29,-115.42"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1072.6,-118.85 1083.1,-117.49 1074.04,-112 1072.6,-118.85"/>
-</g>
-<!-- Node12&#45;&gt;Node14 -->
+<!-- Node13&#45;&gt;Node14 -->
 <g id="edge13" class="edge">
-<title>Node12&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M993.53,-68.47C1022.66,-62.3 1056.25,-55.19 1085.15,-49.07"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1086.11,-52.45 1095.16,-46.95 1084.66,-45.6 1086.11,-52.45"/>
+<title>Node13&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M785.1,-76.11C793.56,-75.69 802.2,-75.27 810.82,-74.85"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="811.1,-78.34 820.92,-74.36 810.76,-71.35 811.1,-78.34"/>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
-<g id="a_node15"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1079.5,-68.5 1079.5,-98.5 1230.5,-98.5 1230.5,-68.5 1079.5,-68.5"/>
-<text text-anchor="start" x="1087.5" y="-86.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
-<text text-anchor="middle" x="1155" y="-75.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::setDirty</text>
+<g id="a_node15"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1058,-102.5 1058,-132.5 1252,-132.5 1252,-102.5 1058,-102.5"/>
+<text text-anchor="start" x="1066" y="-120.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="1155" y="-109.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::hasConfiguration</text>
 </a>
 </g>
 </g>
-<!-- Node12&#45;&gt;Node15 -->
+<!-- Node13&#45;&gt;Node15 -->
+<g id="edge17" class="edge">
+<title>Node13&#45;&gt;Node15</title>
+<path fill="none" stroke="midnightblue" d="M785.12,-90.97C797.17,-92.24 809.38,-93.45 821,-94.5 896.6,-101.31 982.02,-107.17 1047.42,-111.27"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1047.54,-114.79 1057.74,-111.92 1047.98,-107.8 1047.54,-114.79"/>
+</g>
+<!-- Node16 -->
+<g id="node16" class="node">
+<title>Node16</title>
+<g id="a_node16"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" target="_top" xlink:title="VALID.">
+<polygon fill="white" stroke="black" points="1095.5,-4.5 1095.5,-34.5 1214.5,-34.5 1214.5,-4.5 1095.5,-4.5"/>
+<text text-anchor="start" x="1103.5" y="-22.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Index</text>
+<text text-anchor="middle" x="1155" y="-11.5" font-family="Helvetica,sans-Serif" font-size="10.00">::isValid</text>
+</a>
+</g>
+</g>
+<!-- Node13&#45;&gt;Node16 -->
+<g id="edge18" class="edge">
+<title>Node13&#45;&gt;Node16</title>
+<path fill="none" stroke="midnightblue" d="M759.85,-59.91C779.33,-54.42 800.88,-49.05 821,-45.5 911.44,-29.56 1017.43,-23.39 1085.11,-21.01"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1085.34,-24.5 1095.22,-20.67 1085.11,-17.5 1085.34,-24.5"/>
+</g>
+<!-- Node14&#45;&gt;Node15 -->
 <g id="edge14" class="edge">
-<title>Node12&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M1022.02,-83.5C1037.65,-83.5 1053.69,-83.5 1068.96,-83.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1069.39,-87 1079.39,-83.5 1069.39,-80 1069.39,-87"/>
+<title>Node14&#45;&gt;Node15</title>
+<path fill="none" stroke="midnightblue" d="M995.11,-84.56C1019.46,-89.6 1046.78,-95.27 1071.81,-100.46"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1071.14,-103.89 1081.64,-102.5 1072.56,-97.04 1071.14,-103.89"/>
+</g>
+<!-- Node14&#45;&gt;Node16 -->
+<g id="edge15" class="edge">
+<title>Node14&#45;&gt;Node16</title>
+<path fill="none" stroke="midnightblue" d="M991.96,-54.5C1021.51,-48.11 1055.89,-40.69 1085.35,-34.33"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1086.11,-37.74 1095.15,-32.21 1084.63,-30.9 1086.11,-37.74"/>
 </g>
 <!-- Node17 -->
 <g id="node17" class="node">
 <title>Node17</title>
-<g id="a_node17"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a3ca3bcd93a56efca0b1d2d1c1f288c23" target="_top" xlink:title="Get component with a given name.">
+<g id="a_node17"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1079.5,-53.5 1079.5,-83.5 1230.5,-83.5 1230.5,-53.5 1079.5,-53.5"/>
+<text text-anchor="start" x="1087.5" y="-71.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="1155" y="-60.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::setDirty</text>
+</a>
+</g>
+</g>
+<!-- Node14&#45;&gt;Node17 -->
+<g id="edge16" class="edge">
+<title>Node14&#45;&gt;Node17</title>
+<path fill="none" stroke="midnightblue" d="M1022.02,-69.07C1037.65,-69 1053.69,-68.93 1068.96,-68.87"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1069.4,-72.37 1079.39,-68.82 1069.37,-65.37 1069.4,-72.37"/>
+</g>
+<!-- Node19 -->
+<g id="node19" class="node">
+<title>Node19</title>
+<g id="a_node19"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a3ca3bcd93a56efca0b1d2d1c1f288c23" target="_top" xlink:title="Get component with a given name.">
 <polygon fill="white" stroke="black" points="416.5,-49.5 416.5,-79.5 538.5,-79.5 538.5,-49.5 416.5,-49.5"/>
 <text text-anchor="start" x="424.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
 <text text-anchor="middle" x="477.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Entity::getComponent</text>
 </a>
 </g>
 </g>
-<!-- Node16&#45;&gt;Node17 -->
-<g id="edge18" class="edge">
-<title>Node16&#45;&gt;Node17</title>
+<!-- Node18&#45;&gt;Node19 -->
+<g id="edge20" class="edge">
+<title>Node18&#45;&gt;Node19</title>
 <path fill="none" stroke="midnightblue" d="M322.27,-64.5C348.25,-64.5 379.02,-64.5 406.21,-64.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="406.44,-68 416.44,-64.5 406.44,-61 406.44,-68"/>
 </g>
-<!-- Node18 -->
-<g id="node18" class="node">
-<title>Node18</title>
-<g id="a_node18"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aa850a524cb43c5f0e6e66db099b08bdf" target="_top" xlink:title=" ">
+<!-- Node20 -->
+<g id="node20" class="node">
+<title>Node20</title>
+<g id="a_node20"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aa850a524cb43c5f0e6e66db099b08bdf" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="398.5,-0.5 398.5,-30.5 556.5,-30.5 556.5,-0.5 398.5,-0.5"/>
 <text text-anchor="start" x="406.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
 <text text-anchor="middle" x="477.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Entity::getTransformAsMatrix</text>
 </a>
 </g>
 </g>
-<!-- Node16&#45;&gt;Node18 -->
-<g id="edge19" class="edge">
-<title>Node16&#45;&gt;Node18</title>
+<!-- Node18&#45;&gt;Node20 -->
+<g id="edge21" class="edge">
+<title>Node18&#45;&gt;Node20</title>
 <path fill="none" stroke="midnightblue" d="M322.27,-50.98C346.73,-45.35 375.42,-38.75 401.38,-32.78"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="402.22,-36.18 411.18,-30.53 400.65,-29.36 402.22,-36.18"/>
 </g>

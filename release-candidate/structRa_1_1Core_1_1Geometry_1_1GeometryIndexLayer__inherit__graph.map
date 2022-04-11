@@ -11,7 +11,7 @@
 <area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="378,551,573,775"/>
 <area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="597,580,861,745"/>
 <area shape="rect" id="node9" href="$structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title=" " alt="" coords="19,1672,209,1793"/>
-<area shape="rect" id="node11" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title=" " alt="" coords="269,1679,442,1786"/>
-<area shape="rect" id="node13" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title=" " alt="" coords="510,1679,683,1786"/>
+<area shape="rect" id="node11" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title=" " alt="" coords="269,1679,442,1786"/>
+<area shape="rect" id="node13" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title=" " alt="" coords="510,1679,683,1786"/>
 <area shape="rect" id="node15" href="$structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title=" " alt="" coords="751,1679,925,1786"/>
 </map>

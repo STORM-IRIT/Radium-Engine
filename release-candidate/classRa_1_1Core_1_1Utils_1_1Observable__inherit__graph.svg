@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 1775;
+var viewWidth = 2266;
 var viewHeight = 1932;
 var sectionId = 'dynsection-0';
 </script>
@@ -54,27 +54,27 @@ var sectionId = 'dynsection-0';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>Ra::Core::Utils::Observable&lt; Args &gt;</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-1928 1770.5,-1928 1770.5,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-1928 2261.5,-1928 2261.5,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="1279.5,-1756.5 1279.5,-1923.5 1427.5,-1923.5 1427.5,-1756.5 1279.5,-1756.5"/>
-<text text-anchor="start" x="1287.5" y="-1911.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
-<text text-anchor="middle" x="1353.5" y="-1900.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Args &gt;</text>
-<polyline fill="none" stroke="black" points="1279.5,-1893.5 1427.5,-1893.5 "/>
-<text text-anchor="middle" x="1353.5" y="-1881.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="1279.5,-1874.5 1427.5,-1874.5 "/>
-<text text-anchor="start" x="1287.5" y="-1862.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="1287.5" y="-1851.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="1287.5" y="-1840.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="1287.5" y="-1829.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
-<text text-anchor="start" x="1287.5" y="-1818.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
-<text text-anchor="start" x="1287.5" y="-1807.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
-<text text-anchor="start" x="1287.5" y="-1796.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
-<text text-anchor="start" x="1287.5" y="-1785.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
-<text text-anchor="start" x="1287.5" y="-1774.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
-<text text-anchor="start" x="1287.5" y="-1763.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
+<polygon fill="#bfbfbf" stroke="black" points="1528.5,-1756.5 1528.5,-1923.5 1676.5,-1923.5 1676.5,-1756.5 1528.5,-1756.5"/>
+<text text-anchor="start" x="1536.5" y="-1911.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
+<text text-anchor="middle" x="1602.5" y="-1900.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Args &gt;</text>
+<polyline fill="none" stroke="black" points="1528.5,-1893.5 1676.5,-1893.5 "/>
+<text text-anchor="middle" x="1602.5" y="-1881.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="1528.5,-1874.5 1676.5,-1874.5 "/>
+<text text-anchor="start" x="1536.5" y="-1862.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1536.5" y="-1851.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1536.5" y="-1840.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="1536.5" y="-1829.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
+<text text-anchor="start" x="1536.5" y="-1818.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
+<text text-anchor="start" x="1536.5" y="-1807.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
+<text text-anchor="start" x="1536.5" y="-1796.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
+<text text-anchor="start" x="1536.5" y="-1785.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
+<text text-anchor="start" x="1536.5" y="-1774.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
+<text text-anchor="start" x="1536.5" y="-1763.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
 </a>
 </g>
 </g>
@@ -103,41 +103,40 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="orange" d="M1270.18,-1798.68C1220.18,-1772.84 1156.42,-1736.93 1104.5,-1698 1099.74,-1694.43 1094.97,-1690.63 1090.25,-1686.69"/>
-<polygon fill="orange" stroke="orange" points="1268.86,-1801.93 1279.35,-1803.38 1272.05,-1795.7 1268.86,-1801.93"/>
-<text text-anchor="middle" x="1173.5" y="-1724.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt;&gt;</text>
+<path fill="none" stroke="orange" d="M1518.36,-1828.12C1415.17,-1811.96 1237.6,-1774.86 1104.5,-1698 1098.58,-1694.58 1092.77,-1690.7 1087.11,-1686.5"/>
+<polygon fill="orange" stroke="orange" points="1518,-1831.6 1528.41,-1829.66 1519.06,-1824.68 1518,-1831.6"/>
+<text text-anchor="middle" x="1190.5" y="-1724.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt;&gt;</text>
 </g>
 <!-- Node26 -->
 <g id="node26" class="node">
 <title>Node26</title>
 <g id="a_node26"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1113.5,-1519.5 1113.5,-1697.5 1261.5,-1697.5 1261.5,-1519.5 1113.5,-1519.5"/>
-<text text-anchor="start" x="1121.5" y="-1685.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
-<text text-anchor="start" x="1121.5" y="-1674.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const Ra::Engine::Scene</text>
-<text text-anchor="middle" x="1187.5" y="-1663.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Entity * &gt;</text>
-<polyline fill="none" stroke="black" points="1113.5,-1656.5 1261.5,-1656.5 "/>
-<text text-anchor="middle" x="1187.5" y="-1644.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="1113.5,-1637.5 1261.5,-1637.5 "/>
-<text text-anchor="start" x="1121.5" y="-1625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="1121.5" y="-1614.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="1121.5" y="-1603.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="1121.5" y="-1592.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
-<text text-anchor="start" x="1121.5" y="-1581.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
-<text text-anchor="start" x="1121.5" y="-1570.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
-<text text-anchor="start" x="1121.5" y="-1559.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
-<text text-anchor="start" x="1121.5" y="-1548.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
-<text text-anchor="start" x="1121.5" y="-1537.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
-<text text-anchor="start" x="1121.5" y="-1526.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
+<polygon fill="white" stroke="black" points="1113.5,-1525 1113.5,-1692 1261.5,-1692 1261.5,-1525 1113.5,-1525"/>
+<text text-anchor="start" x="1121.5" y="-1680" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
+<text text-anchor="middle" x="1187.5" y="-1669" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; int, int, int, int, int &gt;</text>
+<polyline fill="none" stroke="black" points="1113.5,-1662 1261.5,-1662 "/>
+<text text-anchor="middle" x="1187.5" y="-1650" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="1113.5,-1643 1261.5,-1643 "/>
+<text text-anchor="start" x="1121.5" y="-1631" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1121.5" y="-1620" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1121.5" y="-1609" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="1121.5" y="-1598" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
+<text text-anchor="start" x="1121.5" y="-1587" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
+<text text-anchor="start" x="1121.5" y="-1576" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
+<text text-anchor="start" x="1121.5" y="-1565" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
+<text text-anchor="start" x="1121.5" y="-1554" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
+<text text-anchor="start" x="1121.5" y="-1543" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
+<text text-anchor="start" x="1121.5" y="-1532" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node26 -->
 <g id="edge33" class="edge">
 <title>Node1&#45;&gt;Node26</title>
-<path fill="none" stroke="orange" d="M1272.5,-1761.76C1265.76,-1754 1259.31,-1746.02 1253.5,-1738 1244.44,-1725.51 1235.93,-1711.61 1228.22,-1697.69"/>
-<polygon fill="orange" stroke="orange" points="1270.07,-1764.3 1279.33,-1769.45 1275.3,-1759.65 1270.07,-1764.3"/>
-<text text-anchor="start" x="1253.5" y="-1730" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; const Ra::Engine</text>
-<text text-anchor="middle" x="1301.5" y="-1719" font-family="Helvetica,sans-Serif" font-size="10.00">::Scene::Entity * &gt;</text>
+<path fill="none" stroke="orange" d="M1518.75,-1814.24C1448.51,-1791.04 1347.61,-1751.84 1270.5,-1698 1267.48,-1695.89 1264.48,-1693.65 1261.52,-1691.32"/>
+<polygon fill="orange" stroke="orange" points="1517.86,-1817.63 1528.45,-1817.41 1520.03,-1810.98 1517.86,-1817.63"/>
+<text text-anchor="start" x="1329.5" y="-1730" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; int, int, int, int,</text>
+<text text-anchor="middle" x="1373" y="-1719" font-family="Helvetica,sans-Serif" font-size="10.00"> int &gt;</text>
 </g>
 <!-- Node27 -->
 <g id="node27" class="node">
@@ -145,7 +144,7 @@ var sectionId = 'dynsection-0';
 <g id="a_node27"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="1279.5,-1525 1279.5,-1692 1427.5,-1692 1427.5,-1525 1279.5,-1525"/>
 <text text-anchor="start" x="1287.5" y="-1680" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
-<text text-anchor="middle" x="1353.5" y="-1669" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Ra::Core::Utils::Index &gt;</text>
+<text text-anchor="middle" x="1353.5" y="-1669" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; int, int &gt;</text>
 <polyline fill="none" stroke="black" points="1279.5,-1662 1427.5,-1662 "/>
 <text text-anchor="middle" x="1353.5" y="-1650" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="1279.5,-1643 1427.5,-1643 "/>
@@ -165,40 +164,41 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node27 -->
 <g id="edge34" class="edge">
 <title>Node1&#45;&gt;Node27</title>
-<path fill="none" stroke="orange" d="M1353.5,-1746.3C1353.5,-1728.35 1353.5,-1709.66 1353.5,-1692.07"/>
-<polygon fill="orange" stroke="orange" points="1350,-1746.47 1353.5,-1756.47 1357,-1746.47 1350,-1746.47"/>
-<text text-anchor="start" x="1353.5" y="-1730" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Ra::Core::Utils::</text>
-<text text-anchor="middle" x="1399" y="-1719" font-family="Helvetica,sans-Serif" font-size="10.00">Index &gt;</text>
+<path fill="none" stroke="orange" d="M1520.24,-1772.28C1493.01,-1749.37 1462.92,-1723.15 1436.5,-1698 1433.6,-1695.24 1430.68,-1692.4 1427.74,-1689.51"/>
+<polygon fill="orange" stroke="orange" points="1518.3,-1775.23 1528.21,-1778.97 1522.8,-1769.86 1518.3,-1775.23"/>
+<text text-anchor="middle" x="1504.5" y="-1724.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; int, int &gt;</text>
 </g>
 <!-- Node28 -->
 <g id="node28" class="node">
 <title>Node28</title>
 <g id="a_node28"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1445.5,-1525 1445.5,-1692 1593.5,-1692 1593.5,-1525 1445.5,-1525"/>
-<text text-anchor="start" x="1453.5" y="-1680" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
-<text text-anchor="middle" x="1519.5" y="-1669" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const ItemEntry &amp; &gt;</text>
-<polyline fill="none" stroke="black" points="1445.5,-1662 1593.5,-1662 "/>
-<text text-anchor="middle" x="1519.5" y="-1650" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="1445.5,-1643 1593.5,-1643 "/>
-<text text-anchor="start" x="1453.5" y="-1631" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="1453.5" y="-1620" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="1453.5" y="-1609" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="1453.5" y="-1598" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
-<text text-anchor="start" x="1453.5" y="-1587" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
-<text text-anchor="start" x="1453.5" y="-1576" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
-<text text-anchor="start" x="1453.5" y="-1565" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
-<text text-anchor="start" x="1453.5" y="-1554" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
-<text text-anchor="start" x="1453.5" y="-1543" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
-<text text-anchor="start" x="1453.5" y="-1532" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
+<polygon fill="white" stroke="black" points="1445.5,-1519.5 1445.5,-1697.5 1593.5,-1697.5 1593.5,-1519.5 1445.5,-1519.5"/>
+<text text-anchor="start" x="1453.5" y="-1685.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
+<text text-anchor="start" x="1453.5" y="-1674.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const Ra::Engine::Scene</text>
+<text text-anchor="middle" x="1519.5" y="-1663.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Entity * &gt;</text>
+<polyline fill="none" stroke="black" points="1445.5,-1656.5 1593.5,-1656.5 "/>
+<text text-anchor="middle" x="1519.5" y="-1644.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="1445.5,-1637.5 1593.5,-1637.5 "/>
+<text text-anchor="start" x="1453.5" y="-1625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1453.5" y="-1614.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1453.5" y="-1603.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="1453.5" y="-1592.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
+<text text-anchor="start" x="1453.5" y="-1581.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
+<text text-anchor="start" x="1453.5" y="-1570.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
+<text text-anchor="start" x="1453.5" y="-1559.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
+<text text-anchor="start" x="1453.5" y="-1548.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
+<text text-anchor="start" x="1453.5" y="-1537.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
+<text text-anchor="start" x="1453.5" y="-1526.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node28 -->
 <g id="edge35" class="edge">
 <title>Node1&#45;&gt;Node28</title>
-<path fill="none" stroke="orange" d="M1434.17,-1756.43C1439.19,-1750.33 1444.01,-1744.16 1448.5,-1738 1458.86,-1723.79 1468.79,-1707.9 1477.77,-1692.28"/>
-<polygon fill="orange" stroke="orange" points="1431.47,-1754.2 1427.72,-1764.11 1436.83,-1758.7 1431.47,-1754.2"/>
-<text text-anchor="middle" x="1519.5" y="-1724.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; const ItemEntry &amp; &gt;</text>
+<path fill="none" stroke="orange" d="M1569.23,-1747.02C1563.37,-1730.82 1557.29,-1713.99 1551.47,-1697.89"/>
+<polygon fill="orange" stroke="orange" points="1565.96,-1748.26 1572.65,-1756.47 1572.54,-1745.88 1565.96,-1748.26"/>
+<text text-anchor="start" x="1565.5" y="-1730" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; const Ra::Engine</text>
+<text text-anchor="middle" x="1613.5" y="-1719" font-family="Helvetica,sans-Serif" font-size="10.00">::Scene::Entity * &gt;</text>
 </g>
 <!-- Node29 -->
 <g id="node29" class="node">
@@ -206,7 +206,7 @@ var sectionId = 'dynsection-0';
 <g id="a_node29"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="1611.5,-1525 1611.5,-1692 1759.5,-1692 1759.5,-1525 1611.5,-1525"/>
 <text text-anchor="start" x="1619.5" y="-1680" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
-<text text-anchor="middle" x="1685.5" y="-1669" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const std::string &amp; &gt;</text>
+<text text-anchor="middle" x="1685.5" y="-1669" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Ra::Core::Utils::Index &gt;</text>
 <polyline fill="none" stroke="black" points="1611.5,-1662 1759.5,-1662 "/>
 <text text-anchor="middle" x="1685.5" y="-1650" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="1611.5,-1643 1759.5,-1643 "/>
@@ -226,9 +226,100 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node29 -->
 <g id="edge36" class="edge">
 <title>Node1&#45;&gt;Node29</title>
-<path fill="none" stroke="orange" d="M1437.22,-1812.47C1482.43,-1795.61 1537.61,-1770.75 1580.5,-1738 1597.56,-1724.97 1613.58,-1708.65 1627.73,-1692.04"/>
-<polygon fill="orange" stroke="orange" points="1435.91,-1809.22 1427.73,-1815.95 1438.32,-1815.8 1435.91,-1809.22"/>
-<text text-anchor="middle" x="1662" y="-1724.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; const std::string &amp; &gt;</text>
+<path fill="none" stroke="orange" d="M1659.8,-1747.23C1661.12,-1744.15 1662.36,-1741.07 1663.5,-1738 1668.87,-1723.58 1672.94,-1707.75 1676.02,-1692.28"/>
+<polygon fill="orange" stroke="orange" points="1656.56,-1745.9 1655.63,-1756.45 1662.94,-1748.78 1656.56,-1745.9"/>
+<text text-anchor="start" x="1669.5" y="-1730" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Ra::Core::Utils::</text>
+<text text-anchor="middle" x="1715" y="-1719" font-family="Helvetica,sans-Serif" font-size="10.00">Index &gt;</text>
+</g>
+<!-- Node30 -->
+<g id="node30" class="node">
+<title>Node30</title>
+<g id="a_node30"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1777.5,-1525 1777.5,-1692 1925.5,-1692 1925.5,-1525 1777.5,-1525"/>
+<text text-anchor="start" x="1785.5" y="-1680" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
+<text text-anchor="middle" x="1851.5" y="-1669" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const ItemEntry &amp; &gt;</text>
+<polyline fill="none" stroke="black" points="1777.5,-1662 1925.5,-1662 "/>
+<text text-anchor="middle" x="1851.5" y="-1650" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="1777.5,-1643 1925.5,-1643 "/>
+<text text-anchor="start" x="1785.5" y="-1631" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1785.5" y="-1620" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1785.5" y="-1609" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="1785.5" y="-1598" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
+<text text-anchor="start" x="1785.5" y="-1587" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
+<text text-anchor="start" x="1785.5" y="-1576" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
+<text text-anchor="start" x="1785.5" y="-1565" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
+<text text-anchor="start" x="1785.5" y="-1554" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
+<text text-anchor="start" x="1785.5" y="-1543" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
+<text text-anchor="start" x="1785.5" y="-1532" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node30 -->
+<g id="edge37" class="edge">
+<title>Node1&#45;&gt;Node30</title>
+<path fill="none" stroke="orange" d="M1685.55,-1796.32C1712.48,-1780.2 1741.34,-1760.3 1764.5,-1738 1778.57,-1724.45 1791.65,-1708.27 1803.17,-1692.03"/>
+<polygon fill="orange" stroke="orange" points="1683.73,-1793.33 1676.89,-1801.42 1687.28,-1799.37 1683.73,-1793.33"/>
+<text text-anchor="middle" x="1841.5" y="-1724.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; const ItemEntry &amp; &gt;</text>
+</g>
+<!-- Node31 -->
+<g id="node31" class="node">
+<title>Node31</title>
+<g id="a_node31"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1943.5,-1525 1943.5,-1692 2091.5,-1692 2091.5,-1525 1943.5,-1525"/>
+<text text-anchor="start" x="1951.5" y="-1680" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
+<text text-anchor="middle" x="2017.5" y="-1669" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const std::string &amp; &gt;</text>
+<polyline fill="none" stroke="black" points="1943.5,-1662 2091.5,-1662 "/>
+<text text-anchor="middle" x="2017.5" y="-1650" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="1943.5,-1643 2091.5,-1643 "/>
+<text text-anchor="start" x="1951.5" y="-1631" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1951.5" y="-1620" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="1951.5" y="-1609" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="1951.5" y="-1598" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
+<text text-anchor="start" x="1951.5" y="-1587" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
+<text text-anchor="start" x="1951.5" y="-1576" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
+<text text-anchor="start" x="1951.5" y="-1565" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
+<text text-anchor="start" x="1951.5" y="-1554" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
+<text text-anchor="start" x="1951.5" y="-1543" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
+<text text-anchor="start" x="1951.5" y="-1532" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node31 -->
+<g id="edge38" class="edge">
+<title>Node1&#45;&gt;Node31</title>
+<path fill="none" stroke="orange" d="M1686.52,-1822.94C1749.71,-1808.08 1836.41,-1781.56 1902.5,-1738 1921.5,-1725.48 1939.35,-1709.07 1955.06,-1692.18"/>
+<polygon fill="orange" stroke="orange" points="1685.55,-1819.57 1676.59,-1825.23 1687.12,-1826.4 1685.55,-1819.57"/>
+<text text-anchor="middle" x="1986" y="-1724.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; const std::string &amp; &gt;</text>
+</g>
+<!-- Node33 -->
+<g id="node33" class="node">
+<title>Node33</title>
+<g id="a_node33"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="2109.5,-1525 2109.5,-1692 2257.5,-1692 2257.5,-1525 2109.5,-1525"/>
+<text text-anchor="start" x="2117.5" y="-1680" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
+<text text-anchor="middle" x="2183.5" y="-1669" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; int, int, int, int &gt;</text>
+<polyline fill="none" stroke="black" points="2109.5,-1662 2257.5,-1662 "/>
+<text text-anchor="middle" x="2183.5" y="-1650" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="2109.5,-1643 2257.5,-1643 "/>
+<text text-anchor="start" x="2117.5" y="-1631" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="2117.5" y="-1620" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="2117.5" y="-1609" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="2117.5" y="-1598" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
+<text text-anchor="start" x="2117.5" y="-1587" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
+<text text-anchor="start" x="2117.5" y="-1576" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
+<text text-anchor="start" x="2117.5" y="-1565" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
+<text text-anchor="start" x="2117.5" y="-1554" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
+<text text-anchor="start" x="2117.5" y="-1543" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
+<text text-anchor="start" x="2117.5" y="-1532" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node33 -->
+<g id="edge40" class="edge">
+<title>Node1&#45;&gt;Node33</title>
+<path fill="none" stroke="orange" d="M1686.98,-1830.57C1779.12,-1818.97 1929.25,-1792.93 2047.5,-1738 2071.36,-1726.92 2093.74,-1709.98 2113.18,-1692.01"/>
+<polygon fill="orange" stroke="orange" points="1686.36,-1827.12 1676.86,-1831.82 1687.22,-1834.07 1686.36,-1827.12"/>
+<text text-anchor="middle" x="2129" y="-1724.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; int, int, int, int &gt;</text>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -253,28 +344,28 @@ var sectionId = 'dynsection-0';
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" target="_top" xlink:title="Base class for index collections stored in MultiIndexedGeometry.">
-<polygon fill="white" stroke="black" points="410.5,-724.5 410.5,-869.5 580.5,-869.5 580.5,-724.5 410.5,-724.5"/>
-<text text-anchor="start" x="418.5" y="-857.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="495.5" y="-846.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayerBase</text>
-<polyline fill="none" stroke="black" points="410.5,-839.5 580.5,-839.5 "/>
-<text text-anchor="middle" x="495.5" y="-827.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="410.5,-820.5 580.5,-820.5 "/>
-<text text-anchor="start" x="418.5" y="-808.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GeometryIndexLayerBase()</text>
-<text text-anchor="start" x="418.5" y="-797.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="418.5" y="-786.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="418.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~GeometryIndexLayerBase()</text>
-<text text-anchor="start" x="418.5" y="-764.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clone()</text>
-<text text-anchor="start" x="418.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
-<text text-anchor="start" x="418.5" y="-742.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator==()</text>
-<text text-anchor="start" x="418.5" y="-731.5" font-family="Helvetica,sans-Serif" font-size="10.00"># GeometryIndexLayerBase()</text>
+<polygon fill="white" stroke="black" points="489.5,-724.5 489.5,-869.5 659.5,-869.5 659.5,-724.5 489.5,-724.5"/>
+<text text-anchor="start" x="497.5" y="-857.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="574.5" y="-846.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayerBase</text>
+<polyline fill="none" stroke="black" points="489.5,-839.5 659.5,-839.5 "/>
+<text text-anchor="middle" x="574.5" y="-827.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="489.5,-820.5 659.5,-820.5 "/>
+<text text-anchor="start" x="497.5" y="-808.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GeometryIndexLayerBase()</text>
+<text text-anchor="start" x="497.5" y="-797.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="497.5" y="-786.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="497.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~GeometryIndexLayerBase()</text>
+<text text-anchor="start" x="497.5" y="-764.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clone()</text>
+<text text-anchor="start" x="497.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
+<text text-anchor="start" x="497.5" y="-742.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator==()</text>
+<text text-anchor="start" x="497.5" y="-731.5" font-family="Helvetica,sans-Serif" font-size="10.00"># GeometryIndexLayerBase()</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node3&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M975.11,-1230.39C890.85,-1154.42 688.23,-971.76 575.17,-869.83"/>
-<polygon fill="none" stroke="midnightblue" points="972.88,-1233.09 982.65,-1237.19 977.56,-1227.89 972.88,-1233.09"/>
+<path fill="none" stroke="midnightblue" d="M980.31,-1229.7C908.52,-1153.32 737.55,-971.45 642.02,-869.83"/>
+<polygon fill="none" stroke="midnightblue" points="977.95,-1232.3 987.35,-1237.19 983.05,-1227.5 977.95,-1232.3"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
@@ -426,8 +517,8 @@ var sectionId = 'dynsection-0';
 <!-- Node4&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M419.4,-716.8C344.85,-632.88 236.89,-492.6 197.5,-347 194.85,-337.21 194.82,-327.32 196.62,-317.63"/>
-<polygon fill="none" stroke="midnightblue" points="417,-719.38 426.28,-724.5 422.22,-714.71 417,-719.38"/>
+<path fill="none" stroke="midnightblue" d="M481.41,-727.04C384.63,-648.14 241.26,-508.75 197.5,-347 194.85,-337.21 194.82,-327.32 196.62,-317.63"/>
+<polygon fill="none" stroke="midnightblue" points="479.49,-729.99 489.46,-733.55 483.89,-724.54 479.49,-729.99"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
@@ -457,8 +548,8 @@ var sectionId = 'dynsection-0';
 <!-- Node4&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node4&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M402.24,-735.87C337.62,-690.06 253.77,-621.75 199.5,-544 151.54,-475.3 120.55,-384.78 102.42,-317.55"/>
-<polygon fill="none" stroke="midnightblue" points="400.23,-738.74 410.42,-741.63 404.26,-733.01 400.23,-738.74"/>
+<path fill="none" stroke="midnightblue" d="M480.3,-753.79C396.04,-711.67 274.57,-639.5 199.5,-544 147.35,-477.66 116.7,-386.03 99.77,-317.81"/>
+<polygon fill="none" stroke="midnightblue" points="478.84,-756.98 489.36,-758.28 481.95,-750.7 478.84,-756.98"/>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
@@ -488,8 +579,8 @@ var sectionId = 'dynsection-0';
 <!-- Node4&#45;&gt;Node9 -->
 <g id="edge8" class="edge">
 <title>Node4&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M545.66,-715.49C569.99,-672.04 596.85,-616.47 610.5,-563 631.18,-481.95 633.23,-386.52 630.95,-317.59"/>
-<polygon fill="none" stroke="midnightblue" points="542.56,-713.87 540.67,-724.29 548.65,-717.32 542.56,-713.87"/>
+<path fill="none" stroke="midnightblue" d="M584.44,-714.22C589.67,-669.58 595.92,-613.3 600.5,-563 608.05,-480.15 614.57,-385.73 618.89,-317.61"/>
+<polygon fill="none" stroke="midnightblue" points="580.94,-714.09 583.24,-724.43 587.89,-714.91 580.94,-714.09"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
@@ -519,8 +610,8 @@ var sectionId = 'dynsection-0';
 <!-- Node4&#45;&gt;Node11 -->
 <g id="edge10" class="edge">
 <title>Node4&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M540.43,-715.26C588.05,-617.72 646.91,-452.29 572.5,-336 562.21,-319.92 549.04,-329.09 533.5,-318 530.65,-315.97 527.81,-313.83 525,-311.62"/>
-<polygon fill="none" stroke="midnightblue" points="537.16,-713.96 535.86,-724.48 543.44,-717.07 537.16,-713.96"/>
+<path fill="none" stroke="midnightblue" d="M584.39,-714.09C596.6,-598.92 611.33,-396.4 572.5,-336 562.18,-319.94 549.04,-329.09 533.5,-318 530.65,-315.97 527.81,-313.83 525,-311.62"/>
+<polygon fill="none" stroke="midnightblue" points="580.88,-713.96 583.29,-724.27 587.84,-714.71 580.88,-713.96"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
@@ -549,8 +640,8 @@ var sectionId = 'dynsection-0';
 <!-- Node4&#45;&gt;Node13 -->
 <g id="edge12" class="edge">
 <title>Node4&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M473.46,-714.43C459.53,-662.88 441.54,-596.28 427.29,-543.53"/>
-<polygon fill="none" stroke="midnightblue" points="470.11,-715.46 476.1,-724.2 476.87,-713.64 470.11,-715.46"/>
+<path fill="none" stroke="midnightblue" d="M533.86,-715.08C507.93,-663.44 474.31,-596.5 447.71,-543.53"/>
+<polygon fill="none" stroke="midnightblue" points="530.83,-716.84 538.44,-724.2 537.08,-713.7 530.83,-716.84"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
@@ -645,7 +736,7 @@ var sectionId = 'dynsection-0';
 <text text-anchor="middle" x="363.5" y="-339" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector1ui &gt;</text>
 </g>
 <!-- Node13&#45;&gt;Node7 -->
-<g id="edge14" class="edge">
+<g id="edge15" class="edge">
 <title>Node13&#45;&gt;Node7</title>
 <path fill="none" stroke="orange" d="M312.78,-408.18C268.32,-384.1 215.1,-352.39 171.5,-318 168.66,-315.76 165.83,-313.44 163.01,-311.04"/>
 <polygon fill="orange" stroke="orange" points="311.38,-411.4 321.84,-413.05 314.69,-405.23 311.38,-411.4"/>
@@ -659,7 +750,7 @@ var sectionId = 'dynsection-0';
 <text text-anchor="middle" x="550.5" y="-339" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3ui &gt;</text>
 </g>
 <!-- Node13&#45;&gt;Node11 -->
-<g id="edge15" class="edge">
+<g id="edge14" class="edge">
 <title>Node13&#45;&gt;Node11</title>
 <path fill="none" stroke="orange" d="M401.96,-355.09C402.59,-348.61 403.42,-342.2 404.5,-336 405.56,-329.91 406.9,-323.72 408.45,-317.52"/>
 <polygon fill="orange" stroke="orange" points="398.45,-355.07 401.13,-365.32 405.43,-355.63 398.45,-355.07"/>
@@ -883,7 +974,7 @@ var sectionId = 'dynsection-0';
 <text text-anchor="middle" x="1045.5" y="-339" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector1ui &gt;</text>
 </g>
 <!-- Node23&#45;&gt;Node17 -->
-<g id="edge29" class="edge">
+<g id="edge28" class="edge">
 <title>Node23&#45;&gt;Node17</title>
 <path fill="none" stroke="orange" d="M946.55,-379.79C921.9,-350.93 893.84,-318.08 869.87,-290"/>
 <polygon fill="orange" stroke="orange" points="943.92,-382.1 953.07,-387.43 949.24,-377.55 943.92,-382.1"/>
@@ -897,64 +988,64 @@ var sectionId = 'dynsection-0';
 <text text-anchor="middle" x="1311.5" y="-339" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3ui &gt;</text>
 </g>
 <!-- Node23&#45;&gt;Node21 -->
-<g id="edge28" class="edge">
+<g id="edge29" class="edge">
 <title>Node23&#45;&gt;Node21</title>
 <path fill="none" stroke="orange" d="M1069.07,-379.46C1081.01,-364.95 1093.56,-349.91 1105.5,-336 1118.38,-321 1132.44,-305.11 1145.88,-290.15"/>
 <polygon fill="orange" stroke="orange" points="1066.14,-377.51 1062.51,-387.47 1071.56,-381.95 1066.14,-377.51"/>
 <text text-anchor="middle" x="1142" y="-339" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; VectorNui &gt;</text>
 </g>
-<!-- Node30 -->
-<g id="node30" class="node">
-<title>Node30</title>
-<g id="a_node30"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html" target="_top" xlink:title="The AttribManager provides attributes management by handles.">
-<polygon fill="white" stroke="black" points="1604.5,-1050.5 1604.5,-1481.5 1766.5,-1481.5 1766.5,-1050.5 1604.5,-1050.5"/>
-<text text-anchor="middle" x="1685.5" y="-1469.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
-<polyline fill="none" stroke="black" points="1604.5,-1462.5 1766.5,-1462.5 "/>
-<text text-anchor="middle" x="1685.5" y="-1450.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="1604.5,-1443.5 1766.5,-1443.5 "/>
-<text text-anchor="start" x="1612.5" y="-1431.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribManager()</text>
-<text text-anchor="start" x="1612.5" y="-1420.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribManager()</text>
-<text text-anchor="start" x="1612.5" y="-1409.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="1612.5" y="-1398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribManager()</text>
-<text text-anchor="start" x="1612.5" y="-1387.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="1612.5" y="-1376.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AttribManager()</text>
-<text text-anchor="start" x="1612.5" y="-1365.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAttributes()</text>
-<text text-anchor="start" x="1612.5" y="-1354.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAttributes()</text>
-<text text-anchor="start" x="1612.5" y="-1343.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAllAttributes()</text>
-<text text-anchor="start" x="1612.5" y="-1332.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="1612.5" y="-1321.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isValid()</text>
-<text text-anchor="start" x="1612.5" y="-1310.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ contains()</text>
-<text text-anchor="start" x="1612.5" y="-1299.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ findAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1288.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1277.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ removeAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1266.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ hasSameAttribs()</text>
-<text text-anchor="start" x="1612.5" y="-1255.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getNumAttribs()</text>
-<text text-anchor="start" x="1612.5" y="-1244.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1233.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribPtr()</text>
-<text text-anchor="start" x="1612.5" y="-1222.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1211.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribBase()</text>
-<text text-anchor="start" x="1612.5" y="-1200.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribBase()</text>
-<text text-anchor="start" x="1612.5" y="-1189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1167.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ for_each_attrib()</text>
-<text text-anchor="start" x="1612.5" y="-1156.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ for_each_attrib()</text>
-<text text-anchor="start" x="1612.5" y="-1145.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1134.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribPtr()</text>
-<text text-anchor="start" x="1612.5" y="-1123.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1112.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribBase()</text>
-<text text-anchor="start" x="1612.5" y="-1101.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribBase()</text>
-<text text-anchor="start" x="1612.5" y="-1090.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1079.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setAttrib()</text>
-<text text-anchor="start" x="1612.5" y="-1068.5" font-family="Helvetica,sans-Serif" font-size="10.00">* for_each_attrib()</text>
-<text text-anchor="start" x="1612.5" y="-1057.5" font-family="Helvetica,sans-Serif" font-size="10.00">* for_each_attrib()</text>
+<!-- Node32 -->
+<g id="node32" class="node">
+<title>Node32</title>
+<g id="a_node32"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html" target="_top" xlink:title="The AttribManager provides attributes management by handles.">
+<polygon fill="white" stroke="black" points="1936.5,-1050.5 1936.5,-1481.5 2098.5,-1481.5 2098.5,-1050.5 1936.5,-1050.5"/>
+<text text-anchor="middle" x="2017.5" y="-1469.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
+<polyline fill="none" stroke="black" points="1936.5,-1462.5 2098.5,-1462.5 "/>
+<text text-anchor="middle" x="2017.5" y="-1450.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="1936.5,-1443.5 2098.5,-1443.5 "/>
+<text text-anchor="start" x="1944.5" y="-1431.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribManager()</text>
+<text text-anchor="start" x="1944.5" y="-1420.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribManager()</text>
+<text text-anchor="start" x="1944.5" y="-1409.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="1944.5" y="-1398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribManager()</text>
+<text text-anchor="start" x="1944.5" y="-1387.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="1944.5" y="-1376.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AttribManager()</text>
+<text text-anchor="start" x="1944.5" y="-1365.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAttributes()</text>
+<text text-anchor="start" x="1944.5" y="-1354.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAttributes()</text>
+<text text-anchor="start" x="1944.5" y="-1343.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAllAttributes()</text>
+<text text-anchor="start" x="1944.5" y="-1332.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="1944.5" y="-1321.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isValid()</text>
+<text text-anchor="start" x="1944.5" y="-1310.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ contains()</text>
+<text text-anchor="start" x="1944.5" y="-1299.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ findAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1288.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1277.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ removeAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1266.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ hasSameAttribs()</text>
+<text text-anchor="start" x="1944.5" y="-1255.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getNumAttribs()</text>
+<text text-anchor="start" x="1944.5" y="-1244.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1233.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribPtr()</text>
+<text text-anchor="start" x="1944.5" y="-1222.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1211.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribBase()</text>
+<text text-anchor="start" x="1944.5" y="-1200.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribBase()</text>
+<text text-anchor="start" x="1944.5" y="-1189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1167.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ for_each_attrib()</text>
+<text text-anchor="start" x="1944.5" y="-1156.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ for_each_attrib()</text>
+<text text-anchor="start" x="1944.5" y="-1145.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1134.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribPtr()</text>
+<text text-anchor="start" x="1944.5" y="-1123.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1112.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribBase()</text>
+<text text-anchor="start" x="1944.5" y="-1101.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribBase()</text>
+<text text-anchor="start" x="1944.5" y="-1090.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1079.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setAttrib()</text>
+<text text-anchor="start" x="1944.5" y="-1068.5" font-family="Helvetica,sans-Serif" font-size="10.00">* for_each_attrib()</text>
+<text text-anchor="start" x="1944.5" y="-1057.5" font-family="Helvetica,sans-Serif" font-size="10.00">* for_each_attrib()</text>
 </a>
 </g>
 </g>
-<!-- Node29&#45;&gt;Node30 -->
-<g id="edge37" class="edge">
-<title>Node29&#45;&gt;Node30</title>
-<path fill="none" stroke="midnightblue" d="M1685.5,-1514.35C1685.5,-1503.88 1685.5,-1492.92 1685.5,-1481.69"/>
-<polygon fill="none" stroke="midnightblue" points="1682,-1514.64 1685.5,-1524.64 1689,-1514.64 1682,-1514.64"/>
+<!-- Node31&#45;&gt;Node32 -->
+<g id="edge39" class="edge">
+<title>Node31&#45;&gt;Node32</title>
+<path fill="none" stroke="midnightblue" d="M2017.5,-1514.35C2017.5,-1503.88 2017.5,-1492.92 2017.5,-1481.69"/>
+<polygon fill="none" stroke="midnightblue" points="2014,-1514.64 2017.5,-1524.64 2021,-1514.64 2014,-1514.64"/>
 </g>
 </g>
 </svg>

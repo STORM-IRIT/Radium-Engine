@@ -1,0 +1,4 @@
+<map id="CLI::App::get_subcommand" name="CLI::App::get_subcommand">
+<area shape="rect" id="node1" title="Get a pointer to subcommand by index." alt="" coords="5,5,204,32"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="252,5,404,32"/>
+</map>

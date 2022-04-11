@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -123,12 +123,12 @@ $(document).ready(function(){initNavTree('RawShaderMaterial_8cpp_source.html',''
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;std::string RawShaderMaterial::computeKey() {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// Hash the shader source to obtain identification keys</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">auto</span> content = std::to_string( std::size_t( <span class="keyword">this</span> ) );</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">auto</span> content = <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( std::size_t( <span class="keyword">this</span> ) );</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; p : m_shaders ) {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        content += p.second;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        content += std::to_string( std::size_t( <span class="keyword">this</span> ) );</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        content += <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( std::size_t( <span class="keyword">this</span> ) );</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> std::to_string( std::hash&lt;std::string&gt; {}( content ) );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( std::hash&lt;std::string&gt; {}( content ) );</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#a4cb181d533e6f631896cc696d22bc349">   36</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#a4cb181d533e6f631896cc696d22bc349">RawShaderMaterial::registerDefaultTechnique</a>() {</div>
@@ -197,6 +197,7 @@ $(document).ready(function(){initNavTree('RawShaderMaterial_8cpp_source.html',''
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a00918835250fbd8bbe4deae59ecd6dde"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration</a></div><div class="ttdeci">void addConfiguration(const ShaderConfiguration &amp;config)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00016">ShaderConfigFactory.cpp:16</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_a5a45ee7e1366b9abd85ae8701e9239b7"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5a45ee7e1366b9abd85ae8701e9239b7">Ra::Engine::Data::EngineMaterialConverters::registerMaterialConverter</a></div><div class="ttdeci">bool registerMaterialConverter(const std::string &amp;name, ConverterFunction converter)</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00025">MaterialConverters.cpp:25</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">Ra::Engine::Rendering::LIGHTING_OPAQUE</a></div><div class="ttdeci">@ LIGHTING_OPAQUE</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8hpp_source.html#l00037">RenderTechnique.hpp:37</a></div></div>
+<div class="ttc" id="anamespaceCLI_1_1detail_html_a0e94052d485636fc9f18c21009026577"><div class="ttname"><a href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">CLI::detail::to_string</a></div><div class="ttdeci">auto to_string(T &amp;&amp;value) -&gt; decltype(std::forward&lt; T &gt;(value))</div><div class="ttdoc">Convert an object to a string (directly forward if this can become a string)</div><div class="ttdef"><b>Definition:</b> <a href="TypeTools_8hpp_source.html#l00336">TypeTools.hpp:336</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_a07edf6afa24bd87c14434820c6ac9037"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a07edf6afa24bd87c14434820c6ac9037">Ra::Engine::Data::EngineMaterialConverters::removeMaterialConverter</a></div><div class="ttdeci">bool removeMaterialConverter(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00030">MaterialConverters.cpp:30</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques_html_a77c07bfc49d9e946de729cfa7e41944d"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#a77c07bfc49d9e946de729cfa7e41944d">Ra::Engine::Rendering::EngineRenderTechniques::removeDefaultTechnique</a></div><div class="ttdeci">bool removeDefaultTechnique(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00152">RenderTechnique.cpp:152</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a4131d754283ed259edf3def7a8891064"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a4131d754283ed259edf3def7a8891064">Ra::Engine::Data::ShaderConfigurationFactory::removeConfiguration</a></div><div class="ttdeci">bool removeConfiguration(const std::string &amp;configName)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00032">ShaderConfigFactory.cpp:32</a></div></div>
@@ -219,7 +220,7 @@ $(document).ready(function(){initNavTree('RawShaderMaterial_8cpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="RawShaderMaterial_8cpp.html">RawShaderMaterial.cpp</a></li>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:27 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:13 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -125,6 +125,15 @@ $(document).ready(function(){initNavTree('functions_func_d.html',''); initResiza
 <li>DebugRender()
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1DebugRender.html#a651b1728913e325c8978844486b6035f">Ra::Engine::Rendering::DebugRender</a>
 </li>
+<li>default_function()
+: <a class="el" href="classCLI_1_1Option.html#a3693531e3da3574fc03185f759f13a83">CLI::Option</a>
+</li>
+<li>default_str()
+: <a class="el" href="classCLI_1_1Option.html#a446f47a5d6ddf6831defd707394d7c07">CLI::Option</a>
+</li>
+<li>default_val()
+: <a class="el" href="classCLI_1_1Option.html#a4685cebdb75c6bf8ce0095fd08d8b892">CLI::Option</a>
+</li>
 <li>DefaultCameraManager()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager.html#ab251ecc32c9474b6ec55635b7ab03ff2">Ra::Engine::Scene::DefaultCameraManager</a>
 </li>
@@ -155,8 +164,17 @@ $(document).ready(function(){initNavTree('functions_func_d.html',''); initResiza
 <li>deleteTexture()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#aa449683c1667d04ee68900a47fbce7c8">Ra::Engine::Data::TextureManager</a>
 </li>
+<li>delimiter()
+: <a class="el" href="classCLI_1_1OptionBase.html#ad99f5bd0df1e736cd6c3478a77507289">CLI::OptionBase&lt; CRTP &gt;</a>
+, <a class="el" href="classCLI_1_1OptionDefaults.html#a45dbccb3672d4d397e6d3b18897e1c0d">CLI::OptionDefaults</a>
+</li>
 <li>depth()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html#a46e1ae6f03e8c4f575093d1d8910e8ef">Ra::Engine::Data::Texture</a>
+</li>
+<li>description()
+: <a class="el" href="classCLI_1_1App.html#a5c26c64a49536e623739685f42475fc2">CLI::App</a>
+, <a class="el" href="classCLI_1_1Option.html#abe8a53dc9fdeab4d74057891520ac3a7">CLI::Option</a>
+, <a class="el" href="classCLI_1_1Validator.html#a1d62f88b256ae1587a5c9841f5a42c68">CLI::Validator</a>
 </li>
 <li>destroy()
 : <a class="el" href="classRa_1_1Core_1_1AlignedAllocator.html#a7a47797f3788bfb14ffa503af5bf8e31">Ra::Core::AlignedAllocator&lt; T, Alignment &gt;</a>
@@ -181,11 +199,21 @@ $(document).ready(function(){initNavTree('functions_func_d.html',''); initResiza
 <li>DirectionalLight()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html#aa98d470b8ed816c532ca8255d7eb9fcc">Ra::Engine::Scene::DirectionalLight</a>
 </li>
+<li>disable_flag_override()
+: <a class="el" href="classCLI_1_1Option.html#abffc5b37b17b35b72b0489fc022e6e78">CLI::Option</a>
+, <a class="el" href="classCLI_1_1OptionDefaults.html#a8fc246a54dd092621bfb7216807e1490">CLI::OptionDefaults</a>
+</li>
+<li>disabled()
+: <a class="el" href="classCLI_1_1App.html#abafac323b1dac58044509a62938daa9a">CLI::App</a>
+</li>
+<li>disabled_by_default()
+: <a class="el" href="classCLI_1_1App.html#a8aa17ef86c76df64bb67dc87b7e0f4bf">CLI::App</a>
+</li>
 <li>dispatch()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html#a86b5113fbbf64e96b3eb2b14d34264f5">Ra::Engine::Scene::BaseCouplingSystem&lt; _BaseAbstractSystem &gt;</a>
 </li>
 <li>Displayable()
-: <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a8a2f573cc9af8e1f84bd23fb01618492">Ra::Engine::Data::Displayable</a>
+: <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a5b3144a2c631ca3cdb55dd58b1bb4bbd">Ra::Engine::Data::Displayable</a>
 </li>
 <li>displayHelpDialog()
 : <a class="el" href="classRa_1_1Gui_1_1MainWindowInterface.html#a8d72976c2b50858ab1608c18001690ee">Ra::Gui::MainWindowInterface</a>
@@ -229,12 +257,13 @@ $(document).ready(function(){initNavTree('functions_func_d.html',''); initResiza
 </li>
 <li>doneCurrent()
 : <a class="el" href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">Ra::Gui::WindowQt</a>
+, <a class="el" href="group__context.html#ga294af2892fbb87ec8bd168ce5ca79353">Ra::Headless::OpenGLContext</a>
 </li>
 <li>doPickingNow()
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2036f1562342dcf9837705e41fa51145">Ra::Engine::Rendering::Renderer</a>
 </li>
 <li>DualQuaternion()
-: <a class="el" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">Ra::Core::DualQuaternion</a>
+: <a class="el" href="classRa_1_1Core_1_1DualQuaternion.html#a8093cac96392285e4c604e2a9ad36961">Ra::Core::DualQuaternion</a>
 </li>
 <li>duplicate()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html#a03be760151909cb9a1beecba2f82e334">Ra::Engine::Scene::CameraComponent</a>
@@ -258,7 +287,7 @@ $(document).ready(function(){initNavTree('functions_func_d.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:30 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:16 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

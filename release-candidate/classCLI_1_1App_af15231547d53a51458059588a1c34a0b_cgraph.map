@@ -1,0 +1,6 @@
+<map id="CLI::App::_has_remaining_positionals" name="CLI::App::_has_remaining_positionals">
+<area shape="rect" id="node1" title="Count the required remaining positional arguments." alt="" coords="5,57,192,98"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Option.html#a154543609c45d9c59c69991a08ca272b" title="Count the total number of times an option was passed." alt="" coords="268,5,405,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Option.html#af87dffed2cb245673312c993e563710e" title="The total min number of expected string values to be used." alt="" coords="253,57,420,98"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#acab7033604b49e314d290b01adea690d" title="True if the argument can be given directly." alt="" coords="240,123,433,149"/>
+</map>

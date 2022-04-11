@@ -1,0 +1,7 @@
+<map id="CLI::ConversionError" name="CLI::ConversionError">
+<area shape="rect" id="node1" title="Thrown when conversion call back fails, such as when an int fails to coerce to a string." alt="" coords="5,551,160,628"/>
+<area shape="rect" id="node2" href="$classCLI_1_1ParseError.html" title="Anything that can error in Parse." alt="" coords="25,425,141,503"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Error.html" title="All errors derive from this one." alt="" coords="13,256,152,377"/>
+<area shape="rect" id="node4" title="STL class." alt="" coords="13,131,152,208"/>
+<area shape="rect" id="node5" title="STL class." alt="" coords="25,5,140,83"/>
+</map>

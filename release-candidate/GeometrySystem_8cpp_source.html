@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -122,7 +122,7 @@ $(document).ready(function(){initNavTree('GeometrySystem_8cpp_source.html',''); 
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; data : geomData ) {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a>* comp { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        std::string componentName = <span class="stringliteral">&quot;GEOM_&quot;</span> + entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd">getName</a>() + std::to_string( <span class="keywordtype">id</span>++ );</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        std::string componentName = <span class="stringliteral">&quot;GEOM_&quot;</span> + entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd">getName</a>() + <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( <span class="keywordtype">id</span>++ );</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">switch</span> ( data-&gt;getType() ) {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a70c20fd43bb71a0034f5da1aaff3b3d7">Ra::Core::Asset::GeometryData::POINT_CLOUD</a>:</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            comp = <span class="keyword">new</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html">PointCloudComponent</a>( componentName, entity, data );</div>
@@ -151,7 +151,7 @@ $(document).ready(function(){initNavTree('GeometrySystem_8cpp_source.html',''); 
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">id</span> = 0;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; data : volumeData ) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        std::string componentName = <span class="stringliteral">&quot;VOL_&quot;</span> + entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd">getName</a>() + std::to_string( <span class="keywordtype">id</span>++ );</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        std::string componentName = <span class="stringliteral">&quot;VOL_&quot;</span> + entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd">getName</a>() + <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( <span class="keywordtype">id</span>++ );</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">auto</span> comp                 = <span class="keyword">new</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html">VolumeComponent</a>( componentName, entity, data );</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece">registerComponent</a>( entity, comp );</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
@@ -182,6 +182,7 @@ $(document).ready(function(){initNavTree('GeometrySystem_8cpp_source.html',''); 
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05ae10118df9038bb2204318b8ea402459e"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05ae10118df9038bb2204318b8ea402459e">Ra::Core::Asset::GeometryData::HEX_MESH</a></div><div class="ttdeci">@ HEX_MESH</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00045">GeometryData.hpp:45</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Scene_html_a5b2448b254344dc0b6680bac7d7ed80d"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Scene.html#a5b2448b254344dc0b6680bac7d7ed80d">Ra::Engine::Scene::PolyMeshComponent</a></div><div class="ttdeci">SurfaceMeshComponent&lt; Ra::Core::Geometry::PolyMesh &gt; PolyMeshComponent</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00102">GeometryComponent.hpp:102</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1GeometrySystem_html_a3d6055313c807c21dbedf510a5b6986f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#a3d6055313c807c21dbedf510a5b6986f">Ra::Engine::Scene::GeometrySystem::handleAssetLoading</a></div><div class="ttdeci">void handleAssetLoading(Entity *entity, const Ra::Core::Asset::FileData *fileData) override</div><div class="ttdef"><b>Definition:</b> <a href="GeometrySystem_8cpp_source.html#l00019">GeometrySystem.cpp:19</a></div></div>
+<div class="ttc" id="anamespaceCLI_1_1detail_html_a0e94052d485636fc9f18c21009026577"><div class="ttname"><a href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">CLI::detail::to_string</a></div><div class="ttdeci">auto to_string(T &amp;&amp;value) -&gt; decltype(std::forward&lt; T &gt;(value))</div><div class="ttdoc">Convert an object to a string (directly forward if this can become a string)</div><div class="ttdef"><b>Definition:</b> <a href="TypeTools_8hpp_source.html#l00336">TypeTools.hpp:336</a></div></div>
 <div class="ttc" id="aFileData_8hpp_html"><div class="ttname"><a href="FileData_8hpp.html">FileData.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1PointCloudComponent_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html">Ra::Engine::Scene::PointCloudComponent</a></div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00106">GeometryComponent.hpp:106</a></div></div>
 <div class="ttc" id="aComponentMessenger_8hpp_html"><div class="ttname"><a href="ComponentMessenger_8hpp.html">ComponentMessenger.hpp</a></div></div>
@@ -208,7 +209,7 @@ $(document).ready(function(){initNavTree('GeometrySystem_8cpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="GeometrySystem_8cpp.html">GeometrySystem.cpp</a></li>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:27 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:13 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

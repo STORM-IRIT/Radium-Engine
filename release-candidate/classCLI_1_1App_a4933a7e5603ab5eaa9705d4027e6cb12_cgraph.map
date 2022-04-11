@@ -1,0 +1,5 @@
+<map id="CLI::App::count_all" name="CLI::App::count_all">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,148,57"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Option.html#a154543609c45d9c59c69991a08ca272b" title="Count the total number of times an option was passed." alt="" coords="201,5,339,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="196,56,344,83"/>
+</map>

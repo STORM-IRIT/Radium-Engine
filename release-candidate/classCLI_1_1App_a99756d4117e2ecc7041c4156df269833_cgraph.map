@@ -1,0 +1,8 @@
+<map id="CLI::App::add_option_function" name="CLI::App::add_option_function">
+<area shape="rect" id="node1" title="Add option for a callback of a specific type." alt="" coords="5,74,160,115"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a1f9503a8cdceb4e5b42c9fd4ae6b7b10" title=" " alt="" coords="218,5,373,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Option.html#af75c26433baa09c7c762bfb9eb466215" title="Set the number of expected arguments." alt="" coords="215,56,376,83"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#addaddebd60f66aaedc13e5fb473db902" title="Set a custom option typestring." alt="" coords="208,107,383,133"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#a490eba9b24865845a0715e4566dcb6cc" title="Set a custom option size." alt="" coords="214,157,377,184"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Option.html#a08c4fc3c4d254ac57a48d5756626a03c" title="Set the type function to run when displayed on this option." alt="" coords="431,107,625,133"/>
+</map>

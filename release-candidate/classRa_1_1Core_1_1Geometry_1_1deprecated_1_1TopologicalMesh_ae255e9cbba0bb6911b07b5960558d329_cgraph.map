@@ -1,8 +1,8 @@
 <map id="Ra::Core::Geometry::deprecated::TopologicalMesh::propagate_normal_to_halfedges" name="Ra::Core::Geometry::deprecated::TopologicalMesh::propagate_normal_to_halfedges">
-<area shape="rect" id="node1" title=" " alt="" coords="5,275,245,331"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a4b326d0ee4fc163bf8118ee4e1b31ab4" title=" " alt="" coords="293,315,512,371"/>
-<area shape="rect" id="node22" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a3c89f6613d2c5254f7ced890bcd54881" title=" " alt="" coords="293,235,512,291"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="570,239,789,295"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,258,245,314"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a4b326d0ee4fc163bf8118ee4e1b31ab4" title=" " alt="" coords="293,298,512,354"/>
+<area shape="rect" id="node22" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a3c89f6613d2c5254f7ced890bcd54881" title=" " alt="" coords="293,218,512,274"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="570,218,789,274"/>
 <area shape="rect" id="node4" href="$namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa" title=" " alt="" coords="560,323,799,364"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671" title=" " alt="" coords="873,139,1039,195"/>
 <area shape="rect" id="node13" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title=" " alt="" coords="847,352,1065,393"/>

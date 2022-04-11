@@ -1,0 +1,6 @@
+<map id="CLI::detail::search" name="CLI::detail::search">
+<area shape="rect" id="node1" title="A search function with a filter function." alt="" coords="5,71,144,98"/>
+<area shape="rect" id="node2" href="$structCLI_1_1detail_1_1pair__adaptor.html#ab46a8b1544ac182fe15948fe94a75bd6" title="Get the first value (really just the underlying value)" alt="" coords="192,5,369,47"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#aa4b4a0a97c9b07110595765887647385" title="A search function." alt="" coords="211,71,350,98"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a0c6cf48feae9d909d52e7b4c346cba29" title=" " alt="" coords="417,89,551,131"/>
+</map>

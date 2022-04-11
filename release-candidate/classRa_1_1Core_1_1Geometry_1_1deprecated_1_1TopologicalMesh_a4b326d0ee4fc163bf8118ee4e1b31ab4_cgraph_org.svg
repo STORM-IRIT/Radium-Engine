@@ -13,10 +13,10 @@
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="0,-132 0,-173 164,-173 164,-132 0,-132"/>
-<text text-anchor="start" x="8" y="-161" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="start" x="8" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">::deprecated::TopologicalMesh</text>
-<text text-anchor="middle" x="82" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">::normal</text>
+<polygon fill="#bfbfbf" stroke="black" points="0,-141 0,-182 164,-182 164,-141 0,-141"/>
+<text text-anchor="start" x="8" y="-170" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="start" x="8" y="-159" font-family="Helvetica,sans-Serif" font-size="10.00">::deprecated::TopologicalMesh</text>
+<text text-anchor="middle" x="82" y="-148" font-family="Helvetica,sans-Serif" font-size="10.00">::normal</text>
 </a>
 </g>
 </g>
@@ -24,18 +24,18 @@
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="207.5,-160 207.5,-201 371.5,-201 371.5,-160 207.5,-160"/>
-<text text-anchor="start" x="215.5" y="-189" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="start" x="215.5" y="-178" font-family="Helvetica,sans-Serif" font-size="10.00">::deprecated::TopologicalMesh</text>
-<text text-anchor="middle" x="289.5" y="-167" font-family="Helvetica,sans-Serif" font-size="10.00">::halfedge_handle</text>
+<polygon fill="white" stroke="black" points="207.5,-178 207.5,-219 371.5,-219 371.5,-178 207.5,-178"/>
+<text text-anchor="start" x="215.5" y="-207" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="start" x="215.5" y="-196" font-family="Helvetica,sans-Serif" font-size="10.00">::deprecated::TopologicalMesh</text>
+<text text-anchor="middle" x="289.5" y="-185" font-family="Helvetica,sans-Serif" font-size="10.00">::halfedge_handle</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M164.22,-163.57C175.04,-165.04 186.2,-166.56 197.18,-168.06"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="196.82,-171.54 207.2,-169.42 197.76,-164.6 196.82,-171.54"/>
+<path fill="none" stroke="midnightblue" d="M164.22,-176.12C175.04,-178.07 186.2,-180.08 197.18,-182.06"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="196.74,-185.53 207.2,-183.86 197.98,-178.64 196.74,-185.53"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -50,8 +50,14 @@
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M164.22,-141.83C172.61,-140.73 181.19,-139.6 189.74,-138.48"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="190.29,-141.93 199.75,-137.16 189.38,-134.99 190.29,-141.93"/>
+<path fill="none" stroke="midnightblue" d="M164.22,-147.27C173.63,-145.62 183.29,-143.93 192.87,-142.25"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="193.56,-145.69 202.81,-140.51 192.35,-138.79 193.56,-145.69"/>
+</g>
+<!-- Node3&#45;&gt;Node3 -->
+<g id="edge14" class="edge">
+<title>Node3&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M253.6,-140.66C244.94,-150.06 256.91,-159 289.5,-159 309.36,-159 321.56,-155.68 326.1,-150.96"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="329.57,-150.4 325.4,-140.66 322.59,-150.87 329.57,-150.4"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -67,8 +73,8 @@
 <!-- Node3&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node3&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M364.11,-140.69C369.45,-143.43 374.5,-146.67 379,-150.5 407.79,-174.96 387.21,-201.91 415,-227.5 418.17,-230.41 421.64,-233.05 425.31,-235.44"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="423.78,-238.59 434.19,-240.56 427.28,-232.53 423.78,-238.59"/>
+<path fill="none" stroke="midnightblue" d="M333.6,-140.54C349.11,-147.4 365.98,-156.67 379,-168.5 401.73,-189.16 391.29,-207.97 415,-227.5 418.26,-230.18 421.77,-232.63 425.46,-234.88"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="423.86,-237.99 434.31,-239.74 427.23,-231.86 423.86,-237.99"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
@@ -96,7 +102,7 @@
 </g>
 </g>
 <!-- Node3&#45;&gt;Node15 -->
-<g id="edge14" class="edge">
+<g id="edge15" class="edge">
 <title>Node3&#45;&gt;Node15</title>
 <path fill="none" stroke="midnightblue" d="M326.57,-110.45C351.19,-100.54 384.72,-87.72 415,-78.5 423.33,-75.96 432.23,-73.57 440.97,-71.38"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="441.84,-74.78 450.73,-69.02 440.19,-67.97 441.84,-74.78"/>
@@ -112,7 +118,7 @@
 </g>
 </g>
 <!-- Node3&#45;&gt;Node16 -->
-<g id="edge15" class="edge">
+<g id="edge16" class="edge">
 <title>Node3&#45;&gt;Node16</title>
 <path fill="none" stroke="midnightblue" d="M308.82,-110.36C332.19,-91.7 374.45,-60.05 415,-40.5 419.69,-38.24 424.62,-36.13 429.65,-34.17"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="431.21,-37.32 439.39,-30.58 428.79,-30.75 431.21,-37.32"/>
@@ -129,10 +135,10 @@
 </g>
 </g>
 <!-- Node3&#45;&gt;Node17 -->
-<g id="edge16" class="edge">
+<g id="edge17" class="edge">
 <title>Node3&#45;&gt;Node17</title>
-<path fill="none" stroke="midnightblue" d="M347.43,-140.61C357.99,-143.69 368.88,-147.05 379,-150.5 398.67,-157.21 419.85,-165.41 438.71,-173.07"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="437.47,-176.34 448.05,-176.89 440.12,-169.86 437.47,-176.34"/>
+<path fill="none" stroke="midnightblue" d="M333.58,-140.59C360.88,-150.16 396.79,-162.74 427.9,-173.64"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="426.79,-176.96 437.39,-176.96 429.11,-170.35 426.79,-176.96"/>
 </g>
 <!-- Node19 -->
 <g id="node19" class="node">
@@ -146,7 +152,7 @@
 </g>
 </g>
 <!-- Node3&#45;&gt;Node19 -->
-<g id="edge21" class="edge">
+<g id="edge22" class="edge">
 <title>Node3&#45;&gt;Node19</title>
 <path fill="none" stroke="midnightblue" d="M379.27,-130.33C452.49,-134.31 555.05,-139.89 623.17,-143.59"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="623.21,-147.1 633.38,-144.15 623.59,-140.11 623.21,-147.1"/>
@@ -296,7 +302,7 @@
 <polygon fill="midnightblue" stroke="midnightblue" points="818.16,-102 828.16,-98.5 818.16,-95 818.16,-102"/>
 </g>
 <!-- Node17&#45;&gt;Node11 -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>Node17&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M559.52,-216.24C581.16,-222.83 605.58,-230.26 627.66,-236.99"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="626.72,-240.36 637.3,-239.93 628.75,-233.67 626.72,-240.36"/>
@@ -312,13 +318,13 @@
 </g>
 </g>
 <!-- Node17&#45;&gt;Node18 -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>Node17&#45;&gt;Node18</title>
 <path fill="none" stroke="midnightblue" d="M559.52,-199.06C573.88,-199.43 589.46,-199.82 604.77,-200.21"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="604.69,-203.71 614.78,-200.46 604.87,-196.71 604.69,-203.71"/>
 </g>
 <!-- Node17&#45;&gt;Node19 -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>Node17&#45;&gt;Node19</title>
 <path fill="none" stroke="midnightblue" d="M559.52,-181.89C579.79,-176.74 602.51,-170.97 623.46,-165.66"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="624.44,-169.02 633.27,-163.17 622.71,-162.24 624.44,-169.02"/>
@@ -334,7 +340,7 @@
 </g>
 </g>
 <!-- Node19&#45;&gt;Node20 -->
-<g id="edge20" class="edge">
+<g id="edge21" class="edge">
 <title>Node19&#45;&gt;Node20</title>
 <path fill="none" stroke="midnightblue" d="M758.75,-147.5C772.7,-147.5 787.79,-147.5 802.64,-147.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="802.87,-151 812.87,-147.5 802.87,-144 802.87,-151"/>

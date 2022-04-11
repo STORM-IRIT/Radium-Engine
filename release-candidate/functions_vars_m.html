@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -116,6 +116,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_animationData
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a913a4c4bd1e020f35da8651c12533c60">Ra::Core::Asset::FileData</a>
 </li>
+<li>m_animationEnable
+: <a class="el" href="structRa_1_1Headless_1_1CLIViewer_1_1ViewerParameters.html#a6dbd23dddede2ee66e815b5d6ede4ab9">Ra::Headless::CLIViewer::ViewerParameters</a>
+</li>
 <li>m_animationTime
 : <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html#a4ccd81db1c7fcadc3123a93817999674">Ra::Core::Asset::HandleAnimation</a>
 , <a class="el" href="structRa_1_1Engine_1_1FrameInfo.html#a09910b87c87eb70b18d9ea1e74274b9f">Ra::Engine::FrameInfo</a>
@@ -164,6 +167,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_children
 : <a class="el" href="classRa_1_1Gui_1_1TreeItem.html#ae24b2ab2c8007d16a9b1f116db996890">Ra::Gui::TreeItem</a>
+</li>
+<li>m_cmdLineParser
+: <a class="el" href="classRa_1_1Headless_1_1CLIBaseApplication.html#ae146f19fcda600ef75067c31ebb28ece">Ra::Headless::CLIBaseApplication</a>
 </li>
 <li>m_color
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a455b8d6d7581f95e1c8014dad159f3fd">Ra::Core::Asset::LightData</a>
@@ -229,6 +235,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_dataDirty
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a2f029bda2c9e0f228d70e9191ff53094">Ra::Engine::Data::AttribArrayDisplayable</a>
+</li>
+<li>m_dataFile
+: <a class="el" href="structRa_1_1Headless_1_1CLIViewer_1_1ViewerParameters.html#ac92f41c614b6f0da612477102b8e38db">Ra::Headless::CLIViewer::ViewerParameters</a>
 </li>
 <li>m_debugRenderObjects
 : <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a670358fcd003828b561120abe34c8266">Ra::Engine::Rendering::Renderer</a>
@@ -389,6 +398,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_idx
 : <a class="el" href="classRa_1_1Core_1_1Utils_1_1Index.html#aba428bec1c783536e10ad79ca3ebeda7">Ra::Core::Utils::Index</a>
 , <a class="el" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">Ra::Core::Utils::IndexedObject</a>
+</li>
+<li>m_imgPrefix
+: <a class="el" href="structRa_1_1Headless_1_1CLIViewer_1_1ViewerParameters.html#aeb3f81815d5987e4a058d81bc8e9c392">Ra::Headless::CLIViewer::ViewerParameters</a>
 </li>
 <li>m_index
 : <a class="el" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a65a951e28cb61025e1326fc402baf0c2">Ra::Core::Utils::IndexMap&lt; T &gt;</a>
@@ -692,6 +704,7 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_size
 : <a class="el" href="classRa_1_1Core_1_1Grid.html#a0d9cd50f1f4a9ffe702f0f808f9a4f38">Ra::Core::Grid&lt; T, D &gt;</a>
+, <a class="el" href="structRa_1_1Headless_1_1CLIViewer_1_1ViewerParameters.html#addc29a633335a244ffb9c22f4750f9dc">Ra::Headless::CLIViewer::ViewerParameters</a>
 </li>
 <li>m_skeleton
 : <a class="el" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#aa6b1895eb133356c52f0e0bcb2723484">Ra::Core::Animation::SkinningFrameData</a>
@@ -888,8 +901,14 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>minFilter
 : <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a64588b76ed0db08b240c57bee0d7f9ef">Ra::Engine::Data::TextureParameters</a>
 </li>
+<li>missing_
+: <a class="el" href="classCLI_1_1App.html#a664a3162461b3121caf5cae7f65a95e6">CLI::App</a>
+</li>
 <li>modelToWorld
 : <a class="el" href="structRa_1_1Core_1_1Asset_1_1VolumeData.html#a9c9d949f6ae5953a09414a61c8c859df">Ra::Core::Asset::VolumeData</a>
+</li>
+<li>multi_option_policy_
+: <a class="el" href="classCLI_1_1OptionBase.html#a2c5483d3c992baad97beed3de2b82b05">CLI::OptionBase&lt; CRTP &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -897,7 +916,7 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:30 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:16 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

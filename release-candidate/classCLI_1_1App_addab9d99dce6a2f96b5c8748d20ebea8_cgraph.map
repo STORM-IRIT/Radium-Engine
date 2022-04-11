@@ -1,0 +1,18 @@
+<map id="CLI::App::_recognize" name="CLI::App::_recognize">
+<area shape="rect" id="node1" title="Selects a Classifier enum based on the type of the current argument." alt="" coords="5,172,159,198"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a2c9093efb2ffc55224f2acf2239fd5ce" title=" " alt="" coords="207,54,424,81"/>
+<area shape="rect" id="node4" href="$classCLI_1_1App.html#a965d588ba3c90c8dbd7708bf4dd1f53a" title="Get an option by name (noexcept non&#45;const version)" alt="" coords="239,106,391,147"/>
+<area shape="rect" id="node13" href="$namespaceCLI_1_1detail.html#a0de15b0ba0d12c9170d15693477808ed" title=" " alt="" coords="236,172,395,198"/>
+<area shape="rect" id="node15" href="$namespaceCLI_1_1detail.html#a1e6f215bcb727ff49f126ac3e1a13e40" title=" " alt="" coords="254,223,377,264"/>
+<area shape="rect" id="node16" href="$namespaceCLI_1_1detail.html#aadbd2b5b93afe2f10427dd6e32639b0c" title=" " alt="" coords="253,288,378,330"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#a9670591ce14529c3a153c972c76e9eef" title=" " alt="" coords="472,54,681,81"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Option.html#a6a87a518665bbddf17512edccd962ba3" title="Check a name. Requires &quot;&#45;&quot; or &quot;&#45;&#45;&quot; for short / long, supports positional name." alt="" coords="485,113,668,140"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#a481001137137be0d6a4e5998866d604a" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="729,72,868,114"/>
+<area shape="rect" id="node9" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1364,22,1515,49"/>
+<area shape="rect" id="node11" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1367,167,1512,208"/>
+<area shape="rect" id="node12" href="$classCLI_1_1Option.html#acfa639ba77f034615c7e66028da1fc3b" title="Requires &quot;&#45;&quot; to be removed from string." alt="" coords="729,138,868,179"/>
+<area shape="rect" id="node7" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="916,102,1097,129"/>
+<area shape="rect" id="node8" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="1167,73,1295,100"/>
+<area shape="rect" id="node10" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="1145,174,1316,201"/>
+<area shape="rect" id="node14" href="$namespaceCLI_1_1detail.html#a3a05d1129df69e88135e178137b1fd89" title="Verify the first character of an option." alt="" coords="513,223,640,264"/>
+</map>

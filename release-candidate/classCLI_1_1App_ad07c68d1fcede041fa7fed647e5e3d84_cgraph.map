@@ -1,0 +1,5 @@
+<map id="CLI::App::got_subcommand" name="CLI::App::got_subcommand">
+<area shape="rect" id="node1" title="Check to see if given subcommand was selected." alt="" coords="5,5,204,32"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#acdd12c32ce380240cbc0184b372c0f30" title=" " alt="" coords="252,5,451,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="499,5,647,32"/>
+</map>

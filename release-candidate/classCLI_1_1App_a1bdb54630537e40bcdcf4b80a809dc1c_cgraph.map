@@ -1,0 +1,12 @@
+<map id="CLI::App::alias" name="CLI::App::alias">
+<area shape="rect" id="node1" title="Set an alias for the app." alt="" coords="5,117,120,143"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#aa3cd2a87739421210d0b2a457d38e5bc" title=" " alt="" coords="179,44,347,85"/>
+<area shape="rect" id="node7" href="$classCLI_1_1App.html#a2234b83d2e7e62866e73b3d698426406" title=" " alt="" coords="168,109,357,151"/>
+<area shape="rect" id="node8" href="$namespaceCLI_1_1detail.html#a4274628d24f9e3fbc719284f1db263b8" title="Verify an option name." alt="" coords="199,175,326,216"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#a3ba6eb33f3ee9cd1a126385fa44f2c16" title="Check the name, case insensitive and underscore insensitive if set." alt="" coords="405,29,571,55"/>
+<area shape="rect" id="node6" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="414,79,562,106"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="621,5,767,47"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="619,71,769,98"/>
+<area shape="rect" id="node9" href="$namespaceCLI_1_1detail.html#a3a05d1129df69e88135e178137b1fd89" title="Verify the first character of an option." alt="" coords="631,148,757,189"/>
+<area shape="rect" id="node10" href="$namespaceCLI_1_1detail.html#a841371d5dbb0a52f453de4cc1d00cc51" title="Verify following characters of an option." alt="" coords="425,189,551,231"/>
+</map>

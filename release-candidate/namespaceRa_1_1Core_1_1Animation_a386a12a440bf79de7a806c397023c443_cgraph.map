@@ -2,4 +2,5 @@
 <area shape="rect" id="node1" title=" " alt="" coords="5,39,160,80"/>
 <area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#ae18c7b57c072ca801413a45e8944b15d" title="Call std::isnormal on quaternion entries." alt="" coords="208,5,416,47"/>
 <area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Animation.html#a5f77b87a09e5e7bd707190d70e4f4b64" title=" " alt="" coords="225,71,399,112"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="464,78,616,105"/>
 </map>

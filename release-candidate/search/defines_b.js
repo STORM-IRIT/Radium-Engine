@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['on_5fassert_6500',['ON_ASSERT',['../CoreMacros_8hpp.html#ac1c032aad1e007a2b79b7f39b8813919',1,'CoreMacros.hpp']]],
-  ['on_5fdebug_6501',['ON_DEBUG',['../CoreMacros_8hpp.html#a9c3ad12d6e65d878da3ea2ad3a4821ad',1,'CoreMacros.hpp']]]
+  ['ndebug_7838',['NDEBUG',['../CoreMacros_8hpp.html#a8de3ed741dadc9c979a4ff17c0a9116e',1,'CoreMacros.hpp']]]
 ];

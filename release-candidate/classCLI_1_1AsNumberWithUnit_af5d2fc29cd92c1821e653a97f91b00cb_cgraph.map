@@ -1,0 +1,17 @@
+<map id="CLI::AsNumberWithUnit::AsNumberWithUnit" name="CLI::AsNumberWithUnit::AsNumberWithUnit">
+<area shape="rect" id="node1" title=" " alt="" coords="5,216,180,257"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#ac1a57be7d4de9c0552f91b8f16d47aad" title="Performs a *= b; if it doesn&#39;t cause integer overflow. Returns false otherwise." alt="" coords="249,5,397,47"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Validator.html#a1d62f88b256ae1587a5c9841f5a42c68" title="Specify the type string." alt="" coords="229,71,417,98"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#a320e031a5eb12297a140d2d6fc73362a" title="Generate a string representation of a map." alt="" coords="228,122,417,149"/>
+<area shape="rect" id="node8" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="485,181,637,207"/>
+<area shape="rect" id="node9" href="$namespaceCLI_1_1detail.html#ac89ce22647a9f697b800d9c47b9d956f" title="Verify that str consists of letters only." alt="" coords="251,223,394,250"/>
+<area shape="rect" id="node10" href="$namespaceCLI_1_1detail.html#af286727de86fce444325681379e2c511" title="Integer conversion." alt="" coords="237,274,409,301"/>
+<area shape="rect" id="node12" href="$namespaceCLI_1_1detail.html#aed9338ae7c45f34f8240a31325d8d71c" title="Trim whitespace from right of string." alt="" coords="497,354,624,381"/>
+<area shape="rect" id="node13" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="247,375,398,402"/>
+<area shape="rect" id="node14" href="$namespaceCLI_1_1detail.html#ad394fad44bd6c2a82604abba63224a92" title="Trim whitespace from string." alt="" coords="261,426,384,453"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#ac96583f0b43752f7fa77a6c24dae4802" title="Do a check for overflow on signed numbers." alt="" coords="465,13,656,39"/>
+<area shape="rect" id="node6" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="501,63,620,90"/>
+<area shape="rect" id="node7" href="$namespaceCLI_1_1detail.html#a0c6cf48feae9d909d52e7b4c346cba29" title=" " alt="" coords="494,115,627,156"/>
+<area shape="rect" id="node11" href="$namespaceCLI_1_1detail.html#af6685ecdb07b40a316035bb4af9b02e6" title="Convert to an unsigned integral." alt="" coords="488,267,633,308"/>
+<area shape="rect" id="node15" href="$namespaceCLI_1_1detail.html#acae078b951ab0e11b84dffe200d0049c" title="Trim whitespace from left of string." alt="" coords="497,426,624,453"/>
+</map>

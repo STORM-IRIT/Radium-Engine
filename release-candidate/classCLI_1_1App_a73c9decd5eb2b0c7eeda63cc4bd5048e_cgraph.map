@@ -1,0 +1,9 @@
+<map id="CLI::App::_parse_arg" name="CLI::App::_parse_arg">
+<area shape="rect" id="node1" title=" " alt="" coords="5,101,160,127"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#ac1a57be7d4de9c0552f91b8f16d47aad" title="Performs a *= b; if it doesn&#39;t cause integer overflow. Returns false otherwise." alt="" coords="213,5,361,47"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a0de15b0ba0d12c9170d15693477808ed" title=" " alt="" coords="208,71,367,98"/>
+<area shape="rect" id="node6" href="$namespaceCLI_1_1detail.html#a1e6f215bcb727ff49f126ac3e1a13e40" title=" " alt="" coords="226,123,349,164"/>
+<area shape="rect" id="node7" href="$namespaceCLI_1_1detail.html#aadbd2b5b93afe2f10427dd6e32639b0c" title=" " alt="" coords="225,188,350,229"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#ac96583f0b43752f7fa77a6c24dae4802" title="Do a check for overflow on signed numbers." alt="" coords="415,13,605,39"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#a3a05d1129df69e88135e178137b1fd89" title="Verify the first character of an option." alt="" coords="447,123,573,164"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="CLI::detail::type_count_base&lt; T, typename std::enable_if&lt;!is_tuple_like&lt; T &gt;::value &amp;&amp;!is_mutable_container&lt; T &gt;::value &amp;&amp;!std::is_void&lt; T &gt;::value &gt;::type &gt;" name="CLI::detail::type_count_base&lt; T, typename std::enable_if&lt;!is_tuple_like&lt; T &gt;::value &amp;&amp;!is_mutable_container&lt; T &gt;::value &amp;&amp;!std::is_void&lt; T &gt;::value &gt;::type &gt;">
+<area shape="rect" id="node1" title="Type size for regular object types that do not look like a tuple." alt="" coords="5,145,231,296"/>
+<area shape="rect" id="node2" href="$classint.html" title=" " alt="" coords="99,5,137,83"/>
+</map>

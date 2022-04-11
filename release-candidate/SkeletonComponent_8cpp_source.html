@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -401,7 +401,7 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i = 0; i &lt; m_skel.<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3">size</a>(); ++i ) {</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <span class="keywordflow">if</span> ( !m_skel.<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a830e12404b138dced44acd9bb6d3e465">m_graph</a>.<a class="code" href="classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253">isLeaf</a>( i ) &amp;&amp; !m_skel.<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a830e12404b138dced44acd9bb6d3e465">m_graph</a>.<a class="code" href="classRa_1_1Core_1_1AdjacencyList.html#a9bf4ac88fdea50ef9916b641617d4827">isRoot</a>( i ) &amp;&amp;</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;             m_skel.<a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">getLabel</a>( i ).find( <span class="stringliteral">&quot;_$AssimpFbx$_&quot;</span> ) == std::string::npos ) {</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            std::string name = m_skel.<a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">getLabel</a>( i ) + <span class="stringliteral">&quot;_&quot;</span> + std::to_string( i );</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            std::string name = m_skel.<a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">getLabel</a>( i ) + <span class="stringliteral">&quot;_&quot;</span> + <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( i );</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            <span class="keyword">auto</span> ro          = <span class="keyword">new</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Engine::Rendering::RenderObject</a>(</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;                name, <span class="keyword">this</span>, <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Rendering::RenderObjectType::Geometry</a> );</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            ro-&gt;setRenderTechnique( s_boneRenderTechnique );</div>
@@ -575,6 +575,7 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a431d1716fa300515105fdeec7574f95c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Ra::Core::Animation::WeightMatrix</a></div><div class="ttdeci">Ra::Core::Sparse WeightMatrix</div><div class="ttdef"><b>Definition:</b> <a href="HandleWeight_8hpp_source.html#l00034">HandleWeight.hpp:34</a></div></div>
 <div class="ttc" id="aBlinnPhongMaterial_8hpp_html"><div class="ttname"><a href="BlinnPhongMaterial_8hpp.html">BlinnPhongMaterial.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_a646faabae9b936589fe03d8a9d2002e9"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a646faabae9b936589fe03d8a9d2002e9">Ra::Core::Geometry::AttribArrayGeometry::setNormals</a></div><div class="ttdeci">void setNormals(PointAttribHandle::Container &amp;&amp;normals)</div><div class="ttdoc">Set normals.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00103">TriangleMesh.inl:103</a></div></div>
+<div class="ttc" id="anamespaceCLI_1_1detail_html_a0e94052d485636fc9f18c21009026577"><div class="ttname"><a href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">CLI::detail::to_string</a></div><div class="ttdeci">auto to_string(T &amp;&amp;value) -&gt; decltype(std::forward&lt; T &gt;(value))</div><div class="ttdoc">Convert an object to a string (directly forward if this can become a string)</div><div class="ttdef"><b>Definition:</b> <a href="TypeTools_8hpp_source.html#l00336">TypeTools.hpp:336</a></div></div>
 <div class="ttc" id="aKeyFramedValueInterpolators_8hpp_html"><div class="ttname"><a href="KeyFramedValueInterpolators_8hpp.html">KeyFramedValueInterpolators.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Skeleton_html_a5679e1beb544b515c4539ce48a2f2ba3"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3">Ra::Core::Animation::Skeleton::size</a></div><div class="ttdeci">uint size() const override</div><div class="ttdef"><b>Definition:</b> <a href="Skeleton_8hpp_source.html#l00040">Skeleton.hpp:40</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1HandleData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></div><div class="ttdef"><b>Definition:</b> <a href="HandleData_8hpp_source.html#l00042">HandleData.hpp:42</a></div></div>
@@ -645,7 +646,7 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="SkeletonComponent_8cpp.html">SkeletonComponent.cpp</a></li>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:27 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:13 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

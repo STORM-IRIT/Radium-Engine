@@ -1,0 +1,11 @@
+<map id="CLI::App::add_complex" name="CLI::App::add_complex">
+<area shape="rect" id="node1" title="Add a complex number DEPRECATED –use add_option instead." alt="" coords="5,136,176,163"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#a1f9503a8cdceb4e5b42c9fd4ae6b7b10" title=" " alt="" coords="243,5,397,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1OptionBase.html#ad99f5bd0df1e736cd6c3478a77507289" title="Allow in a configuration file." alt="" coords="224,56,416,83"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#af286727de86fce444325681379e2c511" title="Integer conversion." alt="" coords="234,107,406,133"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#a3f3097fd90b0cf348f95204fd67bc72e" title=" " alt="" coords="229,158,411,199"/>
+<area shape="rect" id="node7" href="$classCLI_1_1Option.html#addaddebd60f66aaedc13e5fb473db902" title="Set a custom option typestring." alt="" coords="233,224,407,251"/>
+<area shape="rect" id="node9" href="$classCLI_1_1Option.html#a490eba9b24865845a0715e4566dcb6cc" title="Set a custom option size." alt="" coords="239,275,401,301"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#af6685ecdb07b40a316035bb4af9b02e6" title="Convert to an unsigned integral." alt="" coords="489,99,634,141"/>
+<area shape="rect" id="node8" href="$classCLI_1_1Option.html#a08c4fc3c4d254ac57a48d5756626a03c" title="Set the type function to run when displayed on this option." alt="" coords="464,224,659,251"/>
+</map>

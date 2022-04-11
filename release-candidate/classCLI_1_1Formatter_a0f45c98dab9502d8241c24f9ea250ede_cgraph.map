@@ -1,0 +1,8 @@
+<map id="CLI::Formatter::make_description" name="CLI::Formatter::make_description">
+<area shape="rect" id="node1" title="This displays the description line." alt="" coords="5,122,164,163"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#ab7637441b1cd7fb2fcf5e7e095e779a7" title="Get the app or subcommand description." alt="" coords="212,5,395,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#ac0458768d5cd311ef361e039ce58c45a" title="Get the required max option value." alt="" coords="225,57,382,98"/>
+<area shape="rect" id="node4" href="$classCLI_1_1App.html#a242b3d549b70e9f8785b727703371d40" title="Get the required min option value." alt="" coords="225,122,382,163"/>
+<area shape="rect" id="node5" href="$classCLI_1_1App.html#a74fa8829acfe2311724ecad5bdb91dce" title="Get the status of required." alt="" coords="221,188,386,215"/>
+<area shape="rect" id="node6" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="227,239,379,265"/>
+</map>

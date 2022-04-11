@@ -1,0 +1,6 @@
+<map id="CLI::OptionNotFound" name="CLI::OptionNotFound">
+<area shape="rect" id="node1" title="Thrown when counting a non&#45;existent option." alt="" coords="5,425,160,503"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Error.html" title="All errors derive from this one." alt="" coords="13,256,152,377"/>
+<area shape="rect" id="node3" title="STL class." alt="" coords="13,131,152,208"/>
+<area shape="rect" id="node4" title="STL class." alt="" coords="25,5,140,83"/>
+</map>

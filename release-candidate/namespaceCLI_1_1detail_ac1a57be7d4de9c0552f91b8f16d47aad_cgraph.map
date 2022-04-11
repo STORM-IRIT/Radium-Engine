@@ -1,0 +1,4 @@
+<map id="CLI::detail::checked_multiply" name="CLI::detail::checked_multiply">
+<area shape="rect" id="node1" title="Performs a *= b; if it doesn&#39;t cause integer overflow. Returns false otherwise." alt="" coords="5,5,153,47"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#ac96583f0b43752f7fa77a6c24dae4802" title="Do a check for overflow on signed numbers." alt="" coords="201,13,392,39"/>
+</map>

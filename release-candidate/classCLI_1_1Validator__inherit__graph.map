@@ -1,0 +1,17 @@
+<map id="CLI::Validator" name="CLI::Validator">
+<area shape="rect" id="node1" title="Some validators that are provided." alt="" coords="1152,5,1343,479"/>
+<area shape="rect" id="node2" href="$classCLI_1_1AsNumberWithUnit.html" title=" " alt="" coords="5,549,180,626"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Bound.html" title="Produce a bounded range (factory). Min and max are inclusive." alt="" coords="205,541,295,633"/>
+<area shape="rect" id="node5" href="$classCLI_1_1CheckedTransformer.html" title="translate named items to other or a value set" alt="" coords="320,527,503,648"/>
+<area shape="rect" id="node6" href="$classCLI_1_1CustomValidator.html" title="Class wrapping some of the accessors of Validator." alt="" coords="527,549,685,626"/>
+<area shape="rect" id="node7" href="$classCLI_1_1detail_1_1ExistingDirectoryValidator.html" title="Check for an existing directory (returns error message if check fails)" alt="" coords="709,541,927,633"/>
+<area shape="rect" id="node8" href="$classCLI_1_1detail_1_1ExistingFileValidator.html" title="Check for an existing file (returns error message if check fails)" alt="" coords="951,541,1131,633"/>
+<area shape="rect" id="node9" href="$classCLI_1_1detail_1_1ExistingPathValidator.html" title="Check for an existing path." alt="" coords="1155,541,1340,633"/>
+<area shape="rect" id="node10" href="$classCLI_1_1detail_1_1IPV4Validator.html" title="Validate the given string is a legal ipv4 address." alt="" coords="1364,549,1547,626"/>
+<area shape="rect" id="node11" href="$classCLI_1_1detail_1_1NonexistentPathValidator.html" title="Check for an non&#45;existing path." alt="" coords="1571,541,1783,633"/>
+<area shape="rect" id="node12" href="$classCLI_1_1IsMember.html" title="Verify items are in a set." alt="" coords="1807,527,1922,648"/>
+<area shape="rect" id="node13" href="$classCLI_1_1Range.html" title="Produce a range (factory). Min and max are inclusive." alt="" coords="1946,541,2037,633"/>
+<area shape="rect" id="node14" href="$classCLI_1_1Transformer.html" title="Translate named items to other or a value set." alt="" coords="2061,527,2189,648"/>
+<area shape="rect" id="node15" href="$classCLI_1_1TypeValidator.html" title="Validate the input as a particular type." alt="" coords="2213,534,2351,641"/>
+<area shape="rect" id="node3" href="$classCLI_1_1AsSizeValue.html" title=" " alt="" coords="28,696,157,773"/>
+</map>

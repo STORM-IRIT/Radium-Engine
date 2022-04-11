@@ -379,7 +379,7 @@ var sectionId = 'dynsection-0';
 <!-- Node21 -->
 <g id="node21" class="node">
 <title>Node21</title>
-<g id="a_node21"><a xlink:href="Timer_8hpp.html" target="_top" xlink:title=" ">
+<g id="a_node21"><a xlink:href="Core_2Utils_2Timer_8hpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="658,-168.5 658,-187.5 774,-187.5 774,-168.5 658,-168.5"/>
 <text text-anchor="middle" x="716" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">Core/Utils/Timer.hpp</text>
 </a>

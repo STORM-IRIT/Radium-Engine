@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -242,8 +242,8 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8inl_source.html','');
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                            &lt;&lt; <span class="keyword">typeid</span>( T ).name();</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        }</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">static</span> T dummy;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> dummy;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">static</span> T <a class="code" href="namespaceCLI_1_1detail.html#a01c35a876e2917ffdc1ee618e0c06619">dummy</a>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceCLI_1_1detail.html#a01c35a876e2917ffdc1ee618e0c06619">dummy</a>;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
@@ -693,7 +693,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8inl_source.html','');
 <div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160; </div>
 <div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    command.postProcess( *<span class="keyword">this</span> );</div>
 <div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;    <span class="keywordflow">if</span> ( hasNormals ) {</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;        m_normalsIndex = m_wedges.getWedgeAttribIndex&lt;<a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Normal</a>&gt;( <span class="stringliteral">&quot;in_normal&quot;</span> );</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;        m_normalsIndex = m_wedges.getWedgeAttribIndex&lt;Normal&gt;( <span class="stringliteral">&quot;in_normal&quot;</span> );</div>
 <div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160; </div>
 <div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;        m_vertexFaceWedgesWithSameNormals.clear();</div>
 <div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;        m_vertexFaceWedgesWithSameNormals.resize( n_vertices() );</div>
@@ -709,7 +709,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8inl_source.html','');
 <div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;            <span class="keywordflow">for</span> ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it ) {</div>
 <div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; widx = property( m_wedgeIndexPph, *vh_it );</div>
 <div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;                <span class="keywordflow">if</span> ( widx.isValid() &amp;&amp; !m_wedges.getWedge( widx ).isDeleted() ) {</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;                    <span class="keyword">auto</span> oldNormal = m_wedges.getWedgeData&lt;<a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Normal</a>&gt;( widx, m_normalsIndex );</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;                    <span class="keyword">auto</span> oldNormal = m_wedges.getWedgeData&lt;Normal&gt;( widx, m_normalsIndex );</div>
 <div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;                    normalSharedByWedges[oldNormal].first.insert( face_handle( *vh_it ) );</div>
 <div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;                    normalSharedByWedges[oldNormal].second.insert( widx );</div>
 <div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;                }</div>
@@ -941,6 +941,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8inl_source.html','');
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a90c0fc635f1b2f00e46e727f107809d9"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a90c0fc635f1b2f00e46e727f107809d9">Ra::Core::Geometry::TopologicalMesh::getVec2AttribNames</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; getVec2AttribNames() const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8inl_source.html#l00791">TopologicalMesh.inl:791</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData_html_a2f9d6dd3c46e16b4fbaa14a5904f26bf"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html#a2f9d6dd3c46e16b4fbaa14a5904f26bf">Ra::Core::Geometry::TopologicalMesh::WedgeData::getAttribArray</a></div><div class="ttdeci">VectorArray&lt; T &gt; &amp; getAttribArray()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8inl_source.html#l00085">TopologicalMesh.inl:85</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00349">CoreMacros.hpp:349</a></div></div>
+<div class="ttc" id="anamespaceCLI_1_1detail_html_a01c35a876e2917ffdc1ee618e0c06619"><div class="ttname"><a href="namespaceCLI_1_1detail.html#a01c35a876e2917ffdc1ee618e0c06619">CLI::detail::dummy</a></div><div class="ttdeci">constexpr enabler dummy</div><div class="ttdoc">An instance to use in EnableIf.</div><div class="ttdef"><b>Definition:</b> <a href="TypeTools_8hpp_source.html#l00033">TypeTools.hpp:33</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand.html">Ra::Core::Geometry::deprecated::DefaultNonManifoldFaceCommand</a></div><div class="ttdoc">[Default command implementation]</div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8cpp_source.html#l00056">TopologicalMesh.cpp:56</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a84720deb241ea9ebbf1160b46a42beb9"><div class="ttname"><a href="namespaceRa_1_1Core.html#a84720deb241ea9ebbf1160b46a42beb9">Ra::Core::Vector2</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 2, 1 &gt; Vector2</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00028">Types.hpp:28</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh_html_a34e31901f56eb3811c51e2b0e134e5b2"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a34e31901f56eb3811c51e2b0e134e5b2">Ra::Core::Geometry::deprecated::TopologicalMesh::TopologicalMesh</a></div><div class="ttdeci">TopologicalMesh()</div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8cpp_source.html#l00079">TopologicalMesh.cpp:79</a></div></div>
@@ -984,7 +985,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8inl_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="TopologicalMesh_8inl.html">TopologicalMesh.inl</a></li>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:27 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:12 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

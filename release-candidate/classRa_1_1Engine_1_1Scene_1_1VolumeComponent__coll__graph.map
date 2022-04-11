@@ -1,16 +1,16 @@
 <map id="Ra::Engine::Scene::VolumeComponent" name="Ra::Engine::Scene::VolumeComponent">
-<area shape="rect" id="node1" title="Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject." alt="" coords="325,1792,517,1972"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="310,1401,531,1743"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="49,1049,261,1258"/>
-<area shape="rect" id="node4" title=" " alt="" coords="38,769,241,891"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,343,236,450"/>
-<area shape="rect" id="node6" title="STL class." alt="" coords="260,358,389,435"/>
-<area shape="rect" id="node7" title=" " alt="" coords="305,5,344,83"/>
-<area shape="rect" id="node8" title="STL class." alt="" coords="291,1115,377,1192"/>
-<area shape="rect" id="node9" title="STL class." alt="" coords="265,784,403,876"/>
-<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="402,968,613,1339"/>
-<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="428,755,603,905"/>
-<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title=" " alt="" coords="424,145,607,648"/>
-<area shape="rect" id="node13" href="$classint.html" title=" " alt="" coords="496,5,535,83"/>
-<area shape="rect" id="node14" title=" " alt="" coords="637,1107,807,1199"/>
+<area shape="rect" id="node1" title="Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject." alt="" coords="199,1792,391,1972"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="184,1401,405,1743"/>
+<area shape="rect" id="node3" title=" " alt="" coords="215,784,377,876"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title=" " alt="" coords="59,145,242,648"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="17,755,191,905"/>
+<area shape="rect" id="node5" href="$classint.html" title=" " alt="" coords="131,5,170,83"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="273,358,402,435"/>
+<area shape="rect" id="node9" title=" " alt="" coords="416,769,619,891"/>
+<area shape="rect" id="node7" title=" " alt="" coords="318,5,357,83"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="425,1049,637,1258"/>
+<area shape="rect" id="node10" title=" " alt="" coords="538,343,769,450"/>
+<area shape="rect" id="node11" title="STL class." alt="" coords="666,1115,753,1192"/>
+<area shape="rect" id="node12" title="STL class." alt="" coords="643,784,781,876"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="5,968,216,1339"/>
 </map>

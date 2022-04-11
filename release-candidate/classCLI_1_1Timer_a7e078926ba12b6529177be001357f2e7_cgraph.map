@@ -1,0 +1,5 @@
+<map id="CLI::Timer::time_it" name="CLI::Timer::time_it">
+<area shape="rect" id="node1" title="Time a function by running it multiple times. Target time is the len to target." alt="" coords="5,31,148,57"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Timer.html#a330db0abf025cb5c3e70a4efcad080b2" title="This formats the numerical value for the time string." alt="" coords="196,5,389,32"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="217,56,369,83"/>
+</map>

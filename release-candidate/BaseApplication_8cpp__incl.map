@@ -16,7 +16,7 @@
 <area shape="rect" id="node41" href="$Resources_8hpp.html" title=" " alt="" coords="3040,117,3262,143"/>
 <area shape="rect" id="node43" href="$Task_8hpp.html" title=" " alt="" coords="3566,288,3720,315"/>
 <area shape="rect" id="node45" href="$StringUtils_8hpp.html" title=" " alt="" coords="628,288,815,315"/>
-<area shape="rect" id="node46" href="$Version_8hpp.html" title=" " alt="" coords="86,363,253,389"/>
+<area shape="rect" id="node46" href="$Core_2Utils_2Version_8hpp.html" title=" " alt="" coords="86,363,253,389"/>
 <area shape="rect" id="node47" href="$Texture_8hpp.html" title=" " alt="" coords="3360,288,3542,315"/>
 <area shape="rect" id="node48" href="$TextureManager_8hpp.html" title=" " alt="" coords="3360,206,3598,233"/>
 <area shape="rect" id="node49" href="$RenderObject_8hpp.html" title=" " alt="" coords="2519,288,2775,315"/>
@@ -43,7 +43,7 @@
 <area shape="rect" id="node14" title=" " alt="" coords="1760,363,1838,389"/>
 <area shape="rect" id="node15" title=" " alt="" coords="1042,363,1105,389"/>
 <area shape="rect" id="node16" title=" " alt="" coords="258,206,364,233"/>
-<area shape="rect" id="node17" href="$Timer_8hpp.html" title=" " alt="" coords="328,363,483,389"/>
+<area shape="rect" id="node17" href="$Core_2Utils_2Timer_8hpp.html" title=" " alt="" coords="328,363,483,389"/>
 <area shape="rect" id="node19" href="$FrameTimerData_8hpp.html" title=" " alt="" coords="387,199,587,240"/>
 <area shape="rect" id="node18" href="$RaCore_8hpp.html" title=" " alt="" coords="1159,437,1290,464"/>
 <area shape="rect" id="node27" href="$Renderer_8hpp.html" title=" " alt="" coords="1188,288,1415,315"/>

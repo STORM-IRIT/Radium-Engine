@@ -1,0 +1,10 @@
+<map id="CLI::Option::matching_name" name="CLI::Option::matching_name">
+<area shape="rect" id="node1" title="If options share any of the same names, find it." alt="" coords="5,81,212,108"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Option.html#a481001137137be0d6a4e5998866d604a" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="260,41,399,82"/>
+<area shape="rect" id="node8" href="$classCLI_1_1Option.html#acfa639ba77f034615c7e66028da1fc3b" title="Requires &quot;&#45;&quot; to be removed from string." alt="" coords="260,106,399,147"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="447,81,628,108"/>
+<area shape="rect" id="node4" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="697,5,825,32"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="895,41,1045,68"/>
+<area shape="rect" id="node6" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="676,107,847,133"/>
+<area shape="rect" id="node7" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="897,114,1043,155"/>
+</map>

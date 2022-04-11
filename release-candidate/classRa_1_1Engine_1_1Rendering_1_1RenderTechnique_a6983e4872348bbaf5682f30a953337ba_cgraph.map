@@ -1,5 +1,7 @@
 <map id="Ra::Engine::Rendering::RenderTechnique::createDefaultRenderTechnique" name="Ra::Engine::Rendering::RenderTechnique::createDefaultRenderTechnique">
 <area shape="rect" id="node1" title=" " alt="" coords="5,43,244,99"/>
 <area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#ab597fd85376bd86d7e78dc4194e409c2" title=" " alt="" coords="326,5,518,61"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a72aec5fb40b50e7aca58a0e47736ea14" title=" " alt="" coords="292,86,552,127"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a72aec5fb40b50e7aca58a0e47736ea14" title=" " alt="" coords="292,86,552,127"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#aa4b4a0a97c9b07110595765887647385" title="A search function." alt="" coords="600,20,739,47"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a0c6cf48feae9d909d52e7b4c346cba29" title=" " alt="" coords="787,13,920,54"/>
 </map>

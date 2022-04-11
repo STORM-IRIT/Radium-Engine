@@ -1,0 +1,5 @@
+<map id="CLI::App::check_name" name="CLI::App::check_name">
+<area shape="rect" id="node1" title="Check the name, case insensitive and underscore insensitive if set." alt="" coords="5,42,171,69"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="221,5,367,47"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="219,71,369,98"/>
+</map>

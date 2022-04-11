@@ -1,0 +1,7 @@
+<map id="CLI::App::App" name="CLI::App::App">
+<area shape="rect" id="node1" title="Create a new program. Pass in the same arguments as main(), along with a help string." alt="" coords="5,56,113,83"/>
+<area shape="rect" id="node2" href="$classCLI_1_1App.html#abe50e78fd6074cec393102adb9114a14" title="Set a help flag, replace the existing one if present." alt="" coords="161,56,331,83"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#a8f7500a81c09b8eecc301226e018ddfe" title="Add a flag with no description or variable assignment." alt="" coords="416,5,555,32"/>
+<area shape="rect" id="node4" href="$classCLI_1_1OptionBase.html#affbb9fb4e20744e377767952507503f0" title="Allow in a configuration file." alt="" coords="379,56,592,83"/>
+<area shape="rect" id="node5" href="$classCLI_1_1App.html#a3058b128735eec0813589b56c5453115" title="Removes an option from the App. Takes an option pointer. Returns true if found and removed." alt="" coords="395,107,576,133"/>
+</map>

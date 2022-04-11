@@ -1,0 +1,7 @@
+<map id="CLI::detail::split_program_name" name="CLI::detail::split_program_name">
+<area shape="rect" id="node1" title=" " alt="" coords="5,74,133,115"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#a197be0b62b4d4deef0f5cac600a6b759" title="get the type of the path from a file name" alt="" coords="181,5,351,32"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#acae078b951ab0e11b84dffe200d0049c" title="Trim whitespace from left of string." alt="" coords="399,81,525,108"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#aed9338ae7c45f34f8240a31325d8d71c" title="Trim whitespace from right of string." alt="" coords="399,144,525,171"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#ad394fad44bd6c2a82604abba63224a92" title="Trim whitespace from string." alt="" coords="205,107,327,133"/>
+</map>

@@ -145,7 +145,7 @@ var sectionId = 'dynsection-0';
 <g id="a_node5"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="516,-0.5 516,-90.5 670,-90.5 670,-0.5 516,-0.5"/>
 <text text-anchor="start" x="524" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribHandle</text>
-<text text-anchor="middle" x="593" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4 &gt;</text>
+<text text-anchor="middle" x="593" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Normal &gt;</text>
 <polyline fill="none" stroke="black" points="516,-60.5 670,-60.5 "/>
 <text text-anchor="middle" x="593" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="516,-41.5 670,-41.5 "/>
@@ -160,7 +160,7 @@ var sectionId = 'dynsection-0';
 <title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="orange" d="M538.22,-129.62C546.56,-116.98 555.53,-103.36 563.75,-90.88"/>
 <polygon fill="orange" stroke="orange" points="535.15,-127.92 532.57,-138.2 541,-131.78 535.15,-127.92"/>
-<text text-anchor="middle" x="581.5" y="-112" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector4 &gt;</text>
+<text text-anchor="middle" x="581" y="-112" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Normal &gt;</text>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
@@ -168,7 +168,7 @@ var sectionId = 'dynsection-0';
 <g id="a_node6"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="688,-0.5 688,-90.5 842,-90.5 842,-0.5 688,-0.5"/>
 <text text-anchor="start" x="696" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribHandle</text>
-<text text-anchor="middle" x="765" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Normal &gt;</text>
+<text text-anchor="middle" x="765" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4 &gt;</text>
 <polyline fill="none" stroke="black" points="688,-60.5 842,-60.5 "/>
 <text text-anchor="middle" x="765" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="688,-41.5 842,-41.5 "/>
@@ -183,7 +183,7 @@ var sectionId = 'dynsection-0';
 <title>Node1&#45;&gt;Node6</title>
 <path fill="none" stroke="orange" d="M593.75,-133.92C621.07,-120.27 651.33,-105.08 679,-91 681.85,-89.55 684.74,-88.07 687.67,-86.58"/>
 <polygon fill="orange" stroke="orange" points="591.99,-130.89 584.6,-138.48 595.11,-137.15 591.99,-130.89"/>
-<text text-anchor="middle" x="672" y="-112" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Normal &gt;</text>
+<text text-anchor="middle" x="672.5" y="-112" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector4 &gt;</text>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">

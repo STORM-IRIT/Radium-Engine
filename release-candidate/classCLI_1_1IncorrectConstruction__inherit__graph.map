@@ -1,0 +1,7 @@
+<map id="CLI::IncorrectConstruction" name="CLI::IncorrectConstruction">
+<area shape="rect" id="node1" title="Thrown when an option is set to conflicting values (non&#45;vector and multi args, for example)" alt="" coords="5,551,195,628"/>
+<area shape="rect" id="node2" href="$classCLI_1_1ConstructionError.html" title="Construction errors (not in parsing)" alt="" coords="19,425,181,503"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Error.html" title="All errors derive from this one." alt="" coords="31,256,169,377"/>
+<area shape="rect" id="node4" title="STL class." alt="" coords="31,131,169,208"/>
+<area shape="rect" id="node5" title="STL class." alt="" coords="43,5,157,83"/>
+</map>

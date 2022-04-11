@@ -1,0 +1,5 @@
+<map id="operator&lt;&lt;" name="operator&lt;&lt;">
+<area shape="rect" id="node1" title="This prints out the time if shifted into a std::cout like stream." alt="" coords="5,5,104,32"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Timer.html#a35a7a90b7f96da40dfe4cbfb2f0b4f9e" title="This is the main function, it creates a string." alt="" coords="152,5,305,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Timer.html#a330db0abf025cb5c3e70a4efcad080b2" title="This formats the numerical value for the time string." alt="" coords="353,5,547,32"/>
+</map>

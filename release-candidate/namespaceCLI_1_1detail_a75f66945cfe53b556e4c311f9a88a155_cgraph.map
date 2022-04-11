@@ -1,0 +1,6 @@
+<map id="CLI::detail::generate_set" name="CLI::detail::generate_set">
+<area shape="rect" id="node1" title="Generate a string representation of a set." alt="" coords="5,71,185,98"/>
+<area shape="rect" id="node2" href="$structCLI_1_1detail_1_1pair__adaptor.html#ab46a8b1544ac182fe15948fe94a75bd6" title="Get the first value (really just the underlying value)" alt="" coords="233,5,411,47"/>
+<area shape="rect" id="node3" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="263,71,381,98"/>
+<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#a0c6cf48feae9d909d52e7b4c346cba29" title=" " alt="" coords="255,123,389,164"/>
+</map>

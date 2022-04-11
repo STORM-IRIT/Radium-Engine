@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 731;
+var viewWidth = 908;
 var viewHeight = 150;
 var sectionId = 'dynsection-1';
 </script>
@@ -54,16 +54,16 @@ var sectionId = 'dynsection-1';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Scene/SkeletonBasedAnimationSystem.hpp</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-146 727,-146 727,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-146 904,-146 904,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="249.5,-89.5 249.5,-141.5 481.5,-141.5 481.5,-89.5 249.5,-89.5"/>
-<text text-anchor="start" x="257.5" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="257.5" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="257.5" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
-<text text-anchor="middle" x="365.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SkeletonBasedAnimationSystem.hpp</text>
+<polygon fill="#bfbfbf" stroke="black" points="372.5,-89.5 372.5,-141.5 604.5,-141.5 604.5,-89.5 372.5,-89.5"/>
+<text text-anchor="start" x="380.5" y="-129.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="380.5" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="380.5" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Engine</text>
+<text text-anchor="middle" x="488.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Scene/SkeletonBasedAnimationSystem.hpp</text>
 </a>
 </g>
 </g>
@@ -82,8 +82,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M284,-86.14C252.85,-75.3 217.59,-63.03 187.4,-52.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="282.93,-89.47 293.53,-89.45 285.23,-82.86 282.93,-89.47"/>
+<path fill="none" stroke="midnightblue" d="M371.09,-87.12C323.61,-76.04 269.18,-63.34 222.77,-52.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="370.58,-90.59 381.11,-89.45 372.17,-83.77 370.58,-90.59"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -99,8 +99,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M365.5,-79.16C365.5,-68.21 365.5,-56.55 365.5,-47.08"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="362,-79.34 365.5,-89.34 369,-79.34 362,-79.34"/>
+<path fill="none" stroke="midnightblue" d="M444.69,-83.51C427.53,-71.37 408.36,-57.82 393.19,-47.08"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="442.74,-86.42 452.92,-89.34 446.78,-80.7 442.74,-86.42"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -117,8 +117,26 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M446.09,-86C476.64,-75.19 511.17,-62.98 540.75,-52.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="444.58,-82.82 436.32,-89.45 446.92,-89.42 444.58,-82.82"/>
+<path fill="none" stroke="midnightblue" d="M532.32,-83.5C546.65,-73.37 562.37,-62.25 576,-52.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="530.22,-80.7 524.08,-89.34 534.26,-86.42 530.22,-80.7"/>
+</g>
+<!-- Node5 -->
+<g id="node5" class="node">
+<title>Node5</title>
+<g id="a_node5"><a xlink:href="CLIViewer_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="741,-0.5 741,-52.5 900,-52.5 900,-0.5 741,-0.5"/>
+<text text-anchor="start" x="749" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="749" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="749" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Headless</text>
+<text text-anchor="middle" x="820.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/CLIViewer.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge">
+<title>Node1&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M600.95,-87.03C642.39,-76.68 689.66,-64.6 732.5,-53 735.26,-52.25 738.07,-51.48 740.91,-50.7"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="599.96,-83.67 591.1,-89.49 601.65,-90.47 599.96,-83.67"/>
 </g>
 </g>
 </svg>

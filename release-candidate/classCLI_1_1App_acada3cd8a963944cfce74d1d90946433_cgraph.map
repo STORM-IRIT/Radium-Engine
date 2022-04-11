@@ -1,0 +1,22 @@
+<map id="CLI::App::version" name="CLI::App::version">
+<area shape="rect" id="node1" title="Displays a version string." alt="" coords="5,157,136,183"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Option.html#a80e429009bbbfd863fba2ebd32e8d391" title="Puts a result at the end." alt="" coords="191,81,360,107"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Option.html#abbd36aaff5cdca8b10346bafed51da39" title="Clear the parsed results (mostly for testing)" alt="" coords="209,131,342,158"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#a5d906c9a9cba1e759367e4e9a63a7703" title="Get the current complete results set." alt="" coords="203,182,348,209"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Option.html#ab06eb6c31666a4a003aeb2cf3e5cdcd9" title="Process the callback." alt="" coords="184,233,367,259"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#ab84751fbf9037efaed5b64fed17fe57f" title="Gets a comma separated list of names. Will include / prefer the positional name if positional is true..." alt="" coords="415,233,581,259"/>
+<area shape="rect" id="node7" href="$classCLI_1_1Option.html#a4d2329268bae134aa58e704fa61f4b57" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="651,75,790,116"/>
+<area shape="rect" id="node13" href="$classCLI_1_1Option.html#af5677ee4a55c2a85784f64198db6b452" title="True if the option was not passed." alt="" coords="649,141,792,167"/>
+<area shape="rect" id="node14" href="$classCLI_1_1Option.html#a4eb6212ac30a0b139da52d258a3a1790" title=" " alt="" coords="644,192,797,233"/>
+<area shape="rect" id="node17" href="$classCLI_1_1OptionBase.html#a341e7df4c2693312609186f036dd923c" title="Get the group of this option." alt="" coords="629,257,812,299"/>
+<area shape="rect" id="node18" href="$classCLI_1_1Option.html#afe31a608506cbe75d40d6cced342be11" title="The total min number of expected string values to be used." alt="" coords="637,323,804,364"/>
+<area shape="rect" id="node20" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="661,389,780,415"/>
+<area shape="rect" id="node8" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="860,85,1041,111"/>
+<area shape="rect" id="node9" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="1111,89,1239,115"/>
+<area shape="rect" id="node10" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1308,139,1459,166"/>
+<area shape="rect" id="node11" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="1089,38,1260,65"/>
+<area shape="rect" id="node12" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1311,5,1456,47"/>
+<area shape="rect" id="node15" href="$namespaceCLI_1_1detail.html#af45abf683b881127298aa28b3c4e6cf5" title="Convert a flag into an integer value typically binary flags." alt="" coords="1105,191,1244,232"/>
+<area shape="rect" id="node16" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="875,249,1027,275"/>
+<area shape="rect" id="node19" href="$classCLI_1_1Option.html#af87dffed2cb245673312c993e563710e" title="The total min number of expected string values to be used." alt="" coords="867,323,1034,364"/>
+</map>

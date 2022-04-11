@@ -1,0 +1,4 @@
+var structCLI_1_1detail_1_1type__count_3_01T_00_01typename_01std_1_1enable__if_3_01is__wrapper_3_01Tafeacc1b065a285344dc61402947bdc3 =
+[
+    [ "value", "structCLI_1_1detail_1_1type__count_3_01T_00_01typename_01std_1_1enable__if_3_01is__wrapper_3_01Tafeacc1b065a285344dc61402947bdc3.html#aac99bdce2dde6605150393ed3ec5f448", null ]
+];

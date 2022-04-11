@@ -1,0 +1,4 @@
+<map id="CLI::ignore_underscore" name="CLI::ignore_underscore">
+<area shape="rect" id="node1" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="5,13,176,39"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="224,5,369,47"/>
+</map>

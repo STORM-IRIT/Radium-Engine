@@ -1,7 +1,17 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html" title=" " alt="" coords="5,74,201,115"/>
-<area shape="rect" id="node2" href="$classRa_1_1IO_1_1AssimpFileLoader.html" title="This class loads scenes containing MESHES only (not point&#45;clouds)" alt="" coords="251,5,435,32"/>
-<area shape="rect" id="node3" href="$classRa_1_1IO_1_1CameraFileLoader.html" title=" " alt="" coords="249,56,436,83"/>
-<area shape="rect" id="node4" href="$classRa_1_1IO_1_1TinyPlyFileLoader.html" title=" " alt="" coords="251,107,435,133"/>
-<area shape="rect" id="node5" href="$classRa_1_1IO_1_1VolumeLoader.html" title="Loads density grid for volume data. This loader support 2 file formats for density grid data." alt="" coords="261,157,424,184"/>
+<area shape="rect" id="node1" href="$classCLI_1_1Validator.html" title="Some validators that are provided." alt="" coords="5,347,113,373"/>
+<area shape="rect" id="node2" href="$classCLI_1_1AsNumberWithUnit.html" title=" " alt="" coords="177,5,352,32"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Bound.html" title="Produce a bounded range (factory). Min and max are inclusive." alt="" coords="219,56,310,83"/>
+<area shape="rect" id="node5" href="$classCLI_1_1CheckedTransformer.html" title="translate named items to other or a value set" alt="" coords="173,107,356,133"/>
+<area shape="rect" id="node6" href="$classCLI_1_1CustomValidator.html" title="Class wrapping some of the accessors of Validator." alt="" coords="185,157,344,184"/>
+<area shape="rect" id="node7" href="$classCLI_1_1detail_1_1ExistingDirectoryValidator.html" title="Check for an existing directory (returns error message if check fails)" alt="" coords="161,209,368,250"/>
+<area shape="rect" id="node8" href="$classCLI_1_1detail_1_1ExistingFileValidator.html" title="Check for an existing file (returns error message if check fails)" alt="" coords="179,274,350,315"/>
+<area shape="rect" id="node9" href="$classCLI_1_1detail_1_1ExistingPathValidator.html" title="Check for an existing path." alt="" coords="177,339,352,381"/>
+<area shape="rect" id="node10" href="$classCLI_1_1detail_1_1IPV4Validator.html" title="Validate the given string is a legal ipv4 address." alt="" coords="173,405,356,432"/>
+<area shape="rect" id="node11" href="$classCLI_1_1detail_1_1NonexistentPathValidator.html" title="Check for an non&#45;existing path." alt="" coords="177,457,352,498"/>
+<area shape="rect" id="node12" href="$classCLI_1_1IsMember.html" title="Verify items are in a set." alt="" coords="207,523,322,549"/>
+<area shape="rect" id="node13" href="$classCLI_1_1Range.html" title="Produce a range (factory). Min and max are inclusive." alt="" coords="219,573,310,600"/>
+<area shape="rect" id="node14" href="$classCLI_1_1Transformer.html" title="Translate named items to other or a value set." alt="" coords="201,624,329,651"/>
+<area shape="rect" id="node15" href="$classCLI_1_1TypeValidator.html" title="Validate the input as a particular type." alt="" coords="195,675,334,717"/>
+<area shape="rect" id="node3" href="$classCLI_1_1AsSizeValue.html" title=" " alt="" coords="416,5,545,32"/>
 </map>

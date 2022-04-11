@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -288,7 +288,7 @@ $(document).ready(function(){initNavTree('Timeline_8cpp_source.html',''); initRe
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    }</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; roMngr = Ra::Engine::RadiumEngine::getInstance()-&gt;getRenderObjectManager();</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keyword">const</span> std::string roName =</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        roMngr-&gt;getRenderObject( ent.<a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> )-&gt;getName() + <span class="stringliteral">&quot;_&quot;</span> + std::to_string( ent.<a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> );</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        roMngr-&gt;getRenderObject( ent.<a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> )-&gt;getName() + <span class="stringliteral">&quot;_&quot;</span> + <a class="code" href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">std::to_string</a>( ent.<a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> );</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <a class="code" href="Timeline_8cpp.html#a4c4af1ab843a8e6ecacef2e8c8b0526a">REGISTER_KEYFRAMED_VALUES</a>( m_renderObjectKeyFrames,</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                               ent.<a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a>,</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                               entityName + <span class="stringliteral">&quot;::&quot;</span> + compName + <span class="stringliteral">&quot;::&quot;</span> + roName + <span class="stringliteral">&quot;::&quot;</span> );</div>
@@ -619,6 +619,7 @@ $(document).ready(function(){initNavTree('Timeline_8cpp_source.html',''); initRe
 <div class="ttc" id="aRadiumEngine_8hpp_html"><div class="ttname"><a href="RadiumEngine_8hpp.html">RadiumEngine.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValueBase_html_a670898a9faa41d69a540efbb1db240ee"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a670898a9faa41d69a540efbb1db240ee">Ra::Core::Animation::KeyFramedValueBase::moveKeyFrame</a></div><div class="ttdeci">virtual void moveKeyFrame(size_t i, const Scalar &amp;t)=0</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Timeline_html_ae4d172ef056ede716bfd19694494df89"><div class="ttname"><a href="classRa_1_1Gui_1_1Timeline.html#ae4d172ef056ede716bfd19694494df89">Ra::Gui::Timeline::cursorChanged</a></div><div class="ttdeci">void cursorChanged(Scalar time)</div><div class="ttdoc">cursorChanged is emitted when user move cursor.</div></div>
+<div class="ttc" id="anamespaceCLI_1_1detail_html_a0e94052d485636fc9f18c21009026577"><div class="ttname"><a href="namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577">CLI::detail::to_string</a></div><div class="ttdeci">auto to_string(T &amp;&amp;value) -&gt; decltype(std::forward&lt; T &gt;(value))</div><div class="ttdoc">Convert an object to a string (directly forward if this can become a string)</div><div class="ttdef"><b>Definition:</b> <a href="TypeTools_8hpp_source.html#l00336">TypeTools.hpp:336</a></div></div>
 <div class="ttc" id="aKeyFramedValueInterpolators_8hpp_html"><div class="ttname"><a href="KeyFramedValueInterpolators_8hpp.html">KeyFramedValueInterpolators.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineFrameSelector_html_a309eefda46a478fbbca8e912a63bd763"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a309eefda46a478fbbca8e912a63bd763">Ra::Gui::TimelineFrameSelector::durationChanged</a></div><div class="ttdeci">void durationChanged(Scalar time)</div></div>
 <div class="ttc" id="aComponent_8hpp_html"><div class="ttname"><a href="Component_8hpp.html">Component.hpp</a></div></div>
@@ -670,7 +671,7 @@ $(document).ready(function(){initNavTree('Timeline_8cpp_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><a class="el" href="Timeline_8cpp.html">Timeline.cpp</a></li>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:28 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:13 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

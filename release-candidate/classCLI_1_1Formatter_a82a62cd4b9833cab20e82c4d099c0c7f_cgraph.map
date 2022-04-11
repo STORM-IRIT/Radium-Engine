@@ -1,0 +1,7 @@
+<map id="CLI::Formatter::make_subcommand" name="CLI::Formatter::make_subcommand">
+<area shape="rect" id="node1" title="This prints out a subcommand." alt="" coords="5,49,164,90"/>
+<area shape="rect" id="node2" href="$namespaceCLI_1_1detail.html#a569874f0c04636b7f0e63f40caf6e170" title="Print a two part &quot;help&quot; string." alt="" coords="226,5,401,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#ab7637441b1cd7fb2fcf5e7e095e779a7" title="Get the app or subcommand description." alt="" coords="222,56,405,83"/>
+<area shape="rect" id="node4" href="$classCLI_1_1App.html#aa75309f557d6cdba74b299e4f9e7cfbe" title="Get a display name for an app." alt="" coords="212,107,415,133"/>
+<area shape="rect" id="node5" href="$classCLI_1_1App.html#aa109e6eeffd6ac72c1ec7e5c9c234f21" title="Get the group of this subcommand." alt="" coords="463,107,611,133"/>
+</map>

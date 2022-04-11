@@ -1,0 +1,8 @@
+<map id="CLI::App::_parse_positional" name="CLI::App::_parse_positional">
+<area shape="rect" id="node1" title=" " alt="" coords="5,115,203,141"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Option.html#a80e429009bbbfd863fba2ebd32e8d391" title="Puts a result at the end." alt="" coords="263,5,432,32"/>
+<area shape="rect" id="node3" href="$classCLI_1_1Option.html#a154543609c45d9c59c69991a08ca272b" title="Count the total number of times an option was passed." alt="" coords="279,56,416,83"/>
+<area shape="rect" id="node4" href="$classCLI_1_1Option.html#a784f66cb9371753ddeb8df59c85cb490" title="Get the current value of allow extra args." alt="" coords="265,107,429,149"/>
+<area shape="rect" id="node5" href="$classCLI_1_1Option.html#af87dffed2cb245673312c993e563710e" title="The total min number of expected string values to be used." alt="" coords="264,173,431,214"/>
+<area shape="rect" id="node6" href="$classCLI_1_1Option.html#acab7033604b49e314d290b01adea690d" title="True if the argument can be given directly." alt="" coords="251,239,444,265"/>
+</map>

@@ -13,19 +13,19 @@
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="A single layer MultiIndexedGeometry.">
-<polygon fill="#bfbfbf" stroke="black" points="315,-288.5 315,-422.5 453,-422.5 453,-288.5 315,-288.5"/>
-<text text-anchor="start" x="323" y="-410.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="384" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; T &gt;</text>
-<polyline fill="none" stroke="black" points="315,-392.5 453,-392.5 "/>
-<text text-anchor="middle" x="384" y="-380.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="315,-373.5 453,-373.5 "/>
-<text text-anchor="start" x="323" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="323" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
-<text text-anchor="start" x="323" y="-339.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
-<text text-anchor="start" x="323" y="-328.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
-<text text-anchor="start" x="323" y="-317.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
-<text text-anchor="start" x="323" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
-<text text-anchor="start" x="323" y="-295.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerKey()</text>
+<polygon fill="#bfbfbf" stroke="black" points="314,-288.5 314,-422.5 452,-422.5 452,-288.5 314,-288.5"/>
+<text text-anchor="start" x="322" y="-410.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="383" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; T &gt;</text>
+<polyline fill="none" stroke="black" points="314,-392.5 452,-392.5 "/>
+<text text-anchor="middle" x="383" y="-380.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="314,-373.5 452,-373.5 "/>
+<text text-anchor="start" x="322" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="322" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
+<text text-anchor="start" x="322" y="-339.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
+<text text-anchor="start" x="322" y="-328.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
+<text text-anchor="start" x="322" y="-317.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="322" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="322" y="-295.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerKey()</text>
 </a>
 </g>
 </g>
@@ -52,63 +52,63 @@
 <!-- Node1&#45;&gt;Node8 -->
 <g id="edge7" class="edge">
 <title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="orange" d="M305.78,-311.18C269.31,-290.54 225.55,-265.14 187,-241 184.04,-239.14 181.04,-237.24 178.01,-235.31"/>
-<polygon fill="orange" stroke="orange" points="304.46,-314.46 314.89,-316.33 307.9,-308.36 304.46,-314.46"/>
+<path fill="none" stroke="orange" d="M304.76,-310.89C268.57,-290.29 225.22,-264.99 187,-241 184.04,-239.14 181.04,-237.24 178.02,-235.3"/>
+<polygon fill="orange" stroke="orange" points="303.38,-314.13 313.8,-316.03 306.84,-308.04 303.38,-314.13"/>
 <text text-anchor="middle" x="266" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector1ui &gt;</text>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
 <g id="a_node10"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="196.5,-106.5 196.5,-240.5 375.5,-240.5 375.5,-106.5 196.5,-106.5"/>
-<text text-anchor="start" x="204.5" y="-228.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="286" y="-217.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; VectorNui &gt;</text>
-<polyline fill="none" stroke="black" points="196.5,-210.5 375.5,-210.5 "/>
-<text text-anchor="middle" x="286" y="-198.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="196.5,-191.5 375.5,-191.5 "/>
-<text text-anchor="start" x="204.5" y="-179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="204.5" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
-<text text-anchor="start" x="204.5" y="-157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
-<text text-anchor="start" x="204.5" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
-<text text-anchor="start" x="204.5" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
-<text text-anchor="start" x="204.5" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
-<text text-anchor="start" x="204.5" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerKey()</text>
+<polygon fill="white" stroke="black" points="196,-106.5 196,-240.5 374,-240.5 374,-106.5 196,-106.5"/>
+<text text-anchor="start" x="204" y="-228.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="285" y="-217.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; Vector2ui &gt;</text>
+<polyline fill="none" stroke="black" points="196,-210.5 374,-210.5 "/>
+<text text-anchor="middle" x="285" y="-198.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="196,-191.5 374,-191.5 "/>
+<text text-anchor="start" x="204" y="-179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="204" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
+<text text-anchor="start" x="204" y="-157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
+<text text-anchor="start" x="204" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
+<text text-anchor="start" x="204" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="204" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="204" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerKey()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node10 -->
 <g id="edge9" class="edge">
 <title>Node1&#45;&gt;Node10</title>
-<path fill="none" stroke="orange" d="M343.25,-279.65C336.23,-266.76 328.98,-253.44 322.09,-240.8"/>
-<polygon fill="orange" stroke="orange" points="340.21,-281.39 348.06,-288.5 346.36,-278.04 340.21,-281.39"/>
-<text text-anchor="middle" x="373.5" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; VectorNui &gt;</text>
+<path fill="none" stroke="orange" d="M342.25,-279.65C335.23,-266.76 327.98,-253.44 321.09,-240.8"/>
+<polygon fill="orange" stroke="orange" points="339.21,-281.39 347.06,-288.5 345.36,-278.04 339.21,-281.39"/>
+<text text-anchor="middle" x="372" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2ui &gt;</text>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
 <g id="a_node12"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="394,-106.5 394,-240.5 572,-240.5 572,-106.5 394,-106.5"/>
-<text text-anchor="start" x="402" y="-228.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="483" y="-217.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; Vector2ui &gt;</text>
-<polyline fill="none" stroke="black" points="394,-210.5 572,-210.5 "/>
-<text text-anchor="middle" x="483" y="-198.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="394,-191.5 572,-191.5 "/>
-<text text-anchor="start" x="402" y="-179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="402" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
-<text text-anchor="start" x="402" y="-157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
-<text text-anchor="start" x="402" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
-<text text-anchor="start" x="402" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
-<text text-anchor="start" x="402" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
-<text text-anchor="start" x="402" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerKey()</text>
+<polygon fill="white" stroke="black" points="392.5,-106.5 392.5,-240.5 571.5,-240.5 571.5,-106.5 392.5,-106.5"/>
+<text text-anchor="start" x="400.5" y="-228.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="482" y="-217.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; VectorNui &gt;</text>
+<polyline fill="none" stroke="black" points="392.5,-210.5 571.5,-210.5 "/>
+<text text-anchor="middle" x="482" y="-198.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="392.5,-191.5 571.5,-191.5 "/>
+<text text-anchor="start" x="400.5" y="-179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="400.5" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
+<text text-anchor="start" x="400.5" y="-157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
+<text text-anchor="start" x="400.5" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
+<text text-anchor="start" x="400.5" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="400.5" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="400.5" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerKey()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node12 -->
 <g id="edge11" class="edge">
 <title>Node1&#45;&gt;Node12</title>
-<path fill="none" stroke="orange" d="M425.17,-279.65C432.26,-266.76 439.58,-253.44 446.54,-240.8"/>
-<polygon fill="orange" stroke="orange" points="422.05,-278.05 420.3,-288.5 428.19,-281.42 422.05,-278.05"/>
-<text text-anchor="middle" x="472" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2ui &gt;</text>
+<path fill="none" stroke="orange" d="M424.17,-279.65C431.26,-266.76 438.58,-253.44 445.54,-240.8"/>
+<polygon fill="orange" stroke="orange" points="421.05,-278.05 419.3,-288.5 427.19,-281.42 421.05,-278.05"/>
+<text text-anchor="middle" x="471.5" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; VectorNui &gt;</text>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
@@ -133,228 +133,228 @@
 <!-- Node1&#45;&gt;Node14 -->
 <g id="edge13" class="edge">
 <title>Node1&#45;&gt;Node14</title>
-<path fill="none" stroke="orange" d="M462.22,-311.18C498.69,-290.54 542.45,-265.14 581,-241 583.96,-239.14 586.96,-237.24 589.99,-235.31"/>
-<polygon fill="orange" stroke="orange" points="460.1,-308.36 453.11,-316.33 463.54,-314.46 460.1,-308.36"/>
+<path fill="none" stroke="orange" d="M461.2,-311.48C497.94,-290.8 542.12,-265.29 581,-241 583.96,-239.15 586.97,-237.25 589.99,-235.32"/>
+<polygon fill="orange" stroke="orange" points="459.03,-308.68 452.02,-316.63 462.46,-314.78 459.03,-308.68"/>
 <text text-anchor="middle" x="585" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3ui &gt;</text>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" target="_top" xlink:title="AbstractGeometry with per&#45;vertex attributes and layers of indices. Each layer represents a different ...">
-<polygon fill="white" stroke="black" points="284.5,-460.5 284.5,-891.5 483.5,-891.5 483.5,-460.5 284.5,-460.5"/>
-<text text-anchor="start" x="292.5" y="-879.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="384" y="-868.5" font-family="Helvetica,sans-Serif" font-size="10.00">::MultiIndexedGeometry</text>
-<polyline fill="none" stroke="black" points="284.5,-861.5 483.5,-861.5 "/>
-<text text-anchor="middle" x="384" y="-849.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="284.5,-842.5 483.5,-842.5 "/>
-<text text-anchor="start" x="292.5" y="-830.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
-<text text-anchor="start" x="292.5" y="-819.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
-<text text-anchor="start" x="292.5" y="-808.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
-<text text-anchor="start" x="292.5" y="-797.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
-<text text-anchor="start" x="292.5" y="-786.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
-<text text-anchor="start" x="292.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="292.5" y="-764.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="292.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~MultiIndexedGeometry()</text>
-<text text-anchor="start" x="292.5" y="-742.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="292.5" y="-731.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
-<text text-anchor="start" x="292.5" y="-720.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
-<text text-anchor="start" x="292.5" y="-709.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
-<text text-anchor="start" x="292.5" y="-698.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ containsLayer()</text>
-<text text-anchor="start" x="292.5" y="-687.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ containsLayer()</text>
-<text text-anchor="start" x="292.5" y="-676.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ containsLayer()</text>
-<text text-anchor="start" x="292.5" y="-665.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ containsLayer()</text>
-<text text-anchor="start" x="292.5" y="-654.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ countLayers()</text>
-<text text-anchor="start" x="292.5" y="-643.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ countLayers()</text>
-<text text-anchor="start" x="292.5" y="-632.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ countLayers()</text>
-<text text-anchor="start" x="292.5" y="-621.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ countLayers()</text>
-<text text-anchor="start" x="292.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayer()</text>
-<text text-anchor="start" x="292.5" y="-599.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayer()</text>
-<text text-anchor="start" x="292.5" y="-588.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFirstLayerOccurrence()</text>
-<text text-anchor="start" x="292.5" y="-577.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFirstLayerOccurrence()</text>
-<text text-anchor="start" x="292.5" y="-566.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerWithLock()</text>
-<text text-anchor="start" x="292.5" y="-555.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerWithLock()</text>
-<text text-anchor="start" x="292.5" y="-544.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFirstLayerOccurrenceWithLock()</text>
-<text text-anchor="start" x="292.5" y="-533.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFirstLayerOccurrenceWithLock()</text>
-<text text-anchor="start" x="292.5" y="-522.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unlockLayer()</text>
-<text text-anchor="start" x="292.5" y="-511.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unlockLayer()</text>
-<text text-anchor="start" x="292.5" y="-500.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addLayer()</text>
-<text text-anchor="start" x="292.5" y="-489.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ layerKeys()</text>
-<text text-anchor="start" x="292.5" y="-478.5" font-family="Helvetica,sans-Serif" font-size="10.00"># unlockFirstLayerOccurrence()</text>
-<text text-anchor="start" x="292.5" y="-467.5" font-family="Helvetica,sans-Serif" font-size="10.00"># unlockFirstLayerOccurrence()</text>
+<polygon fill="white" stroke="black" points="283.5,-460.5 283.5,-891.5 482.5,-891.5 482.5,-460.5 283.5,-460.5"/>
+<text text-anchor="start" x="291.5" y="-879.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="383" y="-868.5" font-family="Helvetica,sans-Serif" font-size="10.00">::MultiIndexedGeometry</text>
+<polyline fill="none" stroke="black" points="283.5,-861.5 482.5,-861.5 "/>
+<text text-anchor="middle" x="383" y="-849.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="283.5,-842.5 482.5,-842.5 "/>
+<text text-anchor="start" x="291.5" y="-830.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
+<text text-anchor="start" x="291.5" y="-819.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
+<text text-anchor="start" x="291.5" y="-808.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
+<text text-anchor="start" x="291.5" y="-797.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
+<text text-anchor="start" x="291.5" y="-786.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiIndexedGeometry()</text>
+<text text-anchor="start" x="291.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="291.5" y="-764.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="291.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~MultiIndexedGeometry()</text>
+<text text-anchor="start" x="291.5" y="-742.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="291.5" y="-731.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
+<text text-anchor="start" x="291.5" y="-720.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
+<text text-anchor="start" x="291.5" y="-709.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
+<text text-anchor="start" x="291.5" y="-698.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ containsLayer()</text>
+<text text-anchor="start" x="291.5" y="-687.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ containsLayer()</text>
+<text text-anchor="start" x="291.5" y="-676.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ containsLayer()</text>
+<text text-anchor="start" x="291.5" y="-665.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ containsLayer()</text>
+<text text-anchor="start" x="291.5" y="-654.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ countLayers()</text>
+<text text-anchor="start" x="291.5" y="-643.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ countLayers()</text>
+<text text-anchor="start" x="291.5" y="-632.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ countLayers()</text>
+<text text-anchor="start" x="291.5" y="-621.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ countLayers()</text>
+<text text-anchor="start" x="291.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayer()</text>
+<text text-anchor="start" x="291.5" y="-599.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayer()</text>
+<text text-anchor="start" x="291.5" y="-588.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFirstLayerOccurrence()</text>
+<text text-anchor="start" x="291.5" y="-577.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFirstLayerOccurrence()</text>
+<text text-anchor="start" x="291.5" y="-566.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerWithLock()</text>
+<text text-anchor="start" x="291.5" y="-555.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLayerWithLock()</text>
+<text text-anchor="start" x="291.5" y="-544.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFirstLayerOccurrenceWithLock()</text>
+<text text-anchor="start" x="291.5" y="-533.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFirstLayerOccurrenceWithLock()</text>
+<text text-anchor="start" x="291.5" y="-522.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unlockLayer()</text>
+<text text-anchor="start" x="291.5" y="-511.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unlockLayer()</text>
+<text text-anchor="start" x="291.5" y="-500.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addLayer()</text>
+<text text-anchor="start" x="291.5" y="-489.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ layerKeys()</text>
+<text text-anchor="start" x="291.5" y="-478.5" font-family="Helvetica,sans-Serif" font-size="10.00"># unlockFirstLayerOccurrence()</text>
+<text text-anchor="start" x="291.5" y="-467.5" font-family="Helvetica,sans-Serif" font-size="10.00"># unlockFirstLayerOccurrence()</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M384,-450.15C384,-440.5 384,-431.23 384,-422.54"/>
-<polygon fill="none" stroke="midnightblue" points="380.5,-450.35 384,-460.35 387.5,-450.35 380.5,-450.35"/>
+<path fill="none" stroke="midnightblue" d="M383,-450.15C383,-440.5 383,-431.23 383,-422.54"/>
+<polygon fill="none" stroke="midnightblue" points="379.5,-450.35 383,-460.35 386.5,-450.35 379.5,-450.35"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="224,-929.5 224,-1426.5 370,-1426.5 370,-929.5 224,-929.5"/>
-<text text-anchor="start" x="232" y="-1414.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="297" y="-1403.5" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
-<polyline fill="none" stroke="black" points="224,-1396.5 370,-1396.5 "/>
-<text text-anchor="middle" x="297" y="-1384.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="224,-1377.5 370,-1377.5 "/>
-<text text-anchor="start" x="232" y="-1365.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribArrayGeometry()</text>
-<text text-anchor="start" x="232" y="-1354.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribArrayGeometry()</text>
-<text text-anchor="start" x="232" y="-1343.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribArrayGeometry()</text>
-<text text-anchor="start" x="232" y="-1332.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="232" y="-1321.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="232" y="-1310.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AttribArrayGeometry()</text>
-<text text-anchor="start" x="232" y="-1299.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
-<text text-anchor="start" x="232" y="-1288.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="232" y="-1277.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setVertices()</text>
-<text text-anchor="start" x="232" y="-1266.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setVertices()</text>
-<text text-anchor="start" x="232" y="-1255.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ vertices()</text>
-<text text-anchor="start" x="232" y="-1244.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setNormals()</text>
-<text text-anchor="start" x="232" y="-1233.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setNormals()</text>
-<text text-anchor="start" x="232" y="-1222.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ normals()</text>
-<text text-anchor="start" x="232" y="-1211.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribHandle()</text>
-<text text-anchor="start" x="232" y="-1200.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isValid()</text>
-<text text-anchor="start" x="232" y="-1189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttrib()</text>
-<text text-anchor="start" x="232" y="-1178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribPtr()</text>
-<text text-anchor="start" x="232" y="-1167.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttrib()</text>
-<text text-anchor="start" x="232" y="-1156.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribBase()</text>
-<text text-anchor="start" x="232" y="-1145.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ hasAttrib()</text>
-<text text-anchor="start" x="232" y="-1134.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ removeAttrib()</text>
-<text text-anchor="start" x="232" y="-1123.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clearAttributes()</text>
-<text text-anchor="start" x="232" y="-1112.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyBaseGeometry()</text>
-<text text-anchor="start" x="232" y="-1101.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAttributes()</text>
-<text text-anchor="start" x="232" y="-1090.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAllAttributes()</text>
-<text text-anchor="start" x="232" y="-1079.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ computeAabb()</text>
-<text text-anchor="start" x="232" y="-1068.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ colorize()</text>
-<text text-anchor="start" x="232" y="-1057.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ vertexAttribs()</text>
-<text text-anchor="start" x="232" y="-1046.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ vertexAttribs()</text>
-<text text-anchor="start" x="232" y="-1035.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ verticesWithLock()</text>
-<text text-anchor="start" x="232" y="-1024.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ verticesUnlock()</text>
-<text text-anchor="start" x="232" y="-1013.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ normalsWithLock()</text>
-<text text-anchor="start" x="232" y="-1002.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ normalsUnlock()</text>
-<text text-anchor="start" x="232" y="-991.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAttrib()</text>
-<text text-anchor="start" x="232" y="-980.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAttrib()</text>
-<text text-anchor="start" x="232" y="-969.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAttrib()</text>
-<text text-anchor="start" x="232" y="-958.5" font-family="Helvetica,sans-Serif" font-size="10.00">* addAttrib()</text>
-<text text-anchor="start" x="232" y="-947.5" font-family="Helvetica,sans-Serif" font-size="10.00">* addAttrib()</text>
-<text text-anchor="start" x="232" y="-936.5" font-family="Helvetica,sans-Serif" font-size="10.00">* addAttrib()</text>
+<polygon fill="white" stroke="black" points="223,-929.5 223,-1426.5 369,-1426.5 369,-929.5 223,-929.5"/>
+<text text-anchor="start" x="231" y="-1414.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="296" y="-1403.5" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
+<polyline fill="none" stroke="black" points="223,-1396.5 369,-1396.5 "/>
+<text text-anchor="middle" x="296" y="-1384.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="223,-1377.5 369,-1377.5 "/>
+<text text-anchor="start" x="231" y="-1365.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribArrayGeometry()</text>
+<text text-anchor="start" x="231" y="-1354.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribArrayGeometry()</text>
+<text text-anchor="start" x="231" y="-1343.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribArrayGeometry()</text>
+<text text-anchor="start" x="231" y="-1332.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="231" y="-1321.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="231" y="-1310.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AttribArrayGeometry()</text>
+<text text-anchor="start" x="231" y="-1299.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
+<text text-anchor="start" x="231" y="-1288.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="231" y="-1277.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setVertices()</text>
+<text text-anchor="start" x="231" y="-1266.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setVertices()</text>
+<text text-anchor="start" x="231" y="-1255.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ vertices()</text>
+<text text-anchor="start" x="231" y="-1244.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setNormals()</text>
+<text text-anchor="start" x="231" y="-1233.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setNormals()</text>
+<text text-anchor="start" x="231" y="-1222.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ normals()</text>
+<text text-anchor="start" x="231" y="-1211.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribHandle()</text>
+<text text-anchor="start" x="231" y="-1200.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isValid()</text>
+<text text-anchor="start" x="231" y="-1189.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttrib()</text>
+<text text-anchor="start" x="231" y="-1178.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribPtr()</text>
+<text text-anchor="start" x="231" y="-1167.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttrib()</text>
+<text text-anchor="start" x="231" y="-1156.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribBase()</text>
+<text text-anchor="start" x="231" y="-1145.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ hasAttrib()</text>
+<text text-anchor="start" x="231" y="-1134.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ removeAttrib()</text>
+<text text-anchor="start" x="231" y="-1123.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clearAttributes()</text>
+<text text-anchor="start" x="231" y="-1112.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyBaseGeometry()</text>
+<text text-anchor="start" x="231" y="-1101.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAttributes()</text>
+<text text-anchor="start" x="231" y="-1090.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyAllAttributes()</text>
+<text text-anchor="start" x="231" y="-1079.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ computeAabb()</text>
+<text text-anchor="start" x="231" y="-1068.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ colorize()</text>
+<text text-anchor="start" x="231" y="-1057.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ vertexAttribs()</text>
+<text text-anchor="start" x="231" y="-1046.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ vertexAttribs()</text>
+<text text-anchor="start" x="231" y="-1035.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ verticesWithLock()</text>
+<text text-anchor="start" x="231" y="-1024.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ verticesUnlock()</text>
+<text text-anchor="start" x="231" y="-1013.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ normalsWithLock()</text>
+<text text-anchor="start" x="231" y="-1002.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ normalsUnlock()</text>
+<text text-anchor="start" x="231" y="-991.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAttrib()</text>
+<text text-anchor="start" x="231" y="-980.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAttrib()</text>
+<text text-anchor="start" x="231" y="-969.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addAttrib()</text>
+<text text-anchor="start" x="231" y="-958.5" font-family="Helvetica,sans-Serif" font-size="10.00">* addAttrib()</text>
+<text text-anchor="start" x="231" y="-947.5" font-family="Helvetica,sans-Serif" font-size="10.00">* addAttrib()</text>
+<text text-anchor="start" x="231" y="-936.5" font-family="Helvetica,sans-Serif" font-size="10.00">* addAttrib()</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node2 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M341.85,-919.22C343.45,-910.02 345.05,-900.85 346.64,-891.73"/>
-<polygon fill="none" stroke="midnightblue" points="338.38,-918.75 340.12,-929.2 345.28,-919.95 338.38,-918.75"/>
+<path fill="none" stroke="midnightblue" d="M340.85,-919.22C342.45,-910.02 344.05,-900.85 345.64,-891.73"/>
+<polygon fill="none" stroke="midnightblue" points="337.38,-918.75 339.12,-929.2 344.28,-919.95 337.38,-918.75"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="230.5,-1464.5 230.5,-1642.5 363.5,-1642.5 363.5,-1464.5 230.5,-1464.5"/>
-<text text-anchor="start" x="238.5" y="-1630.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="297" y="-1619.5" font-family="Helvetica,sans-Serif" font-size="10.00">::AbstractGeometry</text>
-<polyline fill="none" stroke="black" points="230.5,-1612.5 363.5,-1612.5 "/>
-<text text-anchor="middle" x="297" y="-1600.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="230.5,-1593.5 363.5,-1593.5 "/>
-<text text-anchor="start" x="238.5" y="-1581.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AbstractGeometry()</text>
-<text text-anchor="start" x="238.5" y="-1570.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AbstractGeometry()</text>
-<text text-anchor="start" x="238.5" y="-1559.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AbstractGeometry()</text>
-<text text-anchor="start" x="238.5" y="-1548.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="238.5" y="-1537.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="238.5" y="-1526.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ computeAabb()</text>
-<text text-anchor="start" x="238.5" y="-1515.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAabbObservable()</text>
-<text text-anchor="start" x="238.5" y="-1504.5" font-family="Helvetica,sans-Serif" font-size="10.00"># isAabbValid()</text>
-<text text-anchor="start" x="238.5" y="-1493.5" font-family="Helvetica,sans-Serif" font-size="10.00"># getAabb()</text>
-<text text-anchor="start" x="238.5" y="-1482.5" font-family="Helvetica,sans-Serif" font-size="10.00"># invalidateAabb()</text>
-<text text-anchor="start" x="238.5" y="-1471.5" font-family="Helvetica,sans-Serif" font-size="10.00"># setAabb()</text>
+<polygon fill="white" stroke="black" points="229.5,-1464.5 229.5,-1642.5 362.5,-1642.5 362.5,-1464.5 229.5,-1464.5"/>
+<text text-anchor="start" x="237.5" y="-1630.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="296" y="-1619.5" font-family="Helvetica,sans-Serif" font-size="10.00">::AbstractGeometry</text>
+<polyline fill="none" stroke="black" points="229.5,-1612.5 362.5,-1612.5 "/>
+<text text-anchor="middle" x="296" y="-1600.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="229.5,-1593.5 362.5,-1593.5 "/>
+<text text-anchor="start" x="237.5" y="-1581.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AbstractGeometry()</text>
+<text text-anchor="start" x="237.5" y="-1570.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AbstractGeometry()</text>
+<text text-anchor="start" x="237.5" y="-1559.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AbstractGeometry()</text>
+<text text-anchor="start" x="237.5" y="-1548.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="237.5" y="-1537.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="237.5" y="-1526.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ computeAabb()</text>
+<text text-anchor="start" x="237.5" y="-1515.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAabbObservable()</text>
+<text text-anchor="start" x="237.5" y="-1504.5" font-family="Helvetica,sans-Serif" font-size="10.00"># isAabbValid()</text>
+<text text-anchor="start" x="237.5" y="-1493.5" font-family="Helvetica,sans-Serif" font-size="10.00"># getAabb()</text>
+<text text-anchor="start" x="237.5" y="-1482.5" font-family="Helvetica,sans-Serif" font-size="10.00"># invalidateAabb()</text>
+<text text-anchor="start" x="237.5" y="-1471.5" font-family="Helvetica,sans-Serif" font-size="10.00"># setAabb()</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node3 -->
 <g id="edge3" class="edge">
 <title>Node4&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M297,-1454.19C297,-1445.29 297,-1436.05 297,-1426.58"/>
-<polygon fill="none" stroke="midnightblue" points="293.5,-1454.46 297,-1464.46 300.5,-1454.46 293.5,-1454.46"/>
+<path fill="none" stroke="midnightblue" d="M296,-1454.19C296,-1445.29 296,-1436.05 296,-1426.58"/>
+<polygon fill="none" stroke="midnightblue" points="292.5,-1454.46 296,-1464.46 299.5,-1454.46 292.5,-1454.46"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="388.5,-1149.5 388.5,-1206.5 557.5,-1206.5 557.5,-1149.5 388.5,-1149.5"/>
-<text text-anchor="middle" x="473" y="-1194.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::ObservableVoid</text>
-<polyline fill="none" stroke="black" points="388.5,-1187.5 557.5,-1187.5 "/>
-<text text-anchor="middle" x="473" y="-1175.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="388.5,-1168.5 557.5,-1168.5 "/>
-<text text-anchor="middle" x="473" y="-1156.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="black" points="387.5,-1149.5 387.5,-1206.5 556.5,-1206.5 556.5,-1149.5 387.5,-1149.5"/>
+<text text-anchor="middle" x="472" y="-1194.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::ObservableVoid</text>
+<polyline fill="none" stroke="black" points="387.5,-1187.5 556.5,-1187.5 "/>
+<text text-anchor="middle" x="472" y="-1175.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="387.5,-1168.5 556.5,-1168.5 "/>
+<text text-anchor="middle" x="472" y="-1156.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node2 -->
 <g id="edge4" class="edge">
 <title>Node5&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M466.32,-1139.46C456.88,-1086.43 438.93,-985.57 422.19,-891.54"/>
-<polygon fill="none" stroke="midnightblue" points="462.89,-1140.17 468.09,-1149.41 469.78,-1138.95 462.89,-1140.17"/>
+<path fill="none" stroke="midnightblue" d="M465.32,-1139.46C455.88,-1086.43 437.93,-985.57 421.19,-891.54"/>
+<polygon fill="none" stroke="midnightblue" points="461.89,-1140.17 467.09,-1149.41 468.78,-1138.95 461.89,-1140.17"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="391,-1475.5 391,-1631.5 555,-1631.5 555,-1475.5 391,-1475.5"/>
-<text text-anchor="middle" x="473" y="-1619.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable&lt;&gt;</text>
-<polyline fill="none" stroke="black" points="391,-1612.5 555,-1612.5 "/>
-<text text-anchor="middle" x="473" y="-1600.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="391,-1593.5 555,-1593.5 "/>
-<text text-anchor="start" x="399" y="-1581.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="399" y="-1570.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="399" y="-1559.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="399" y="-1548.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
-<text text-anchor="start" x="399" y="-1537.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
-<text text-anchor="start" x="399" y="-1526.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
-<text text-anchor="start" x="399" y="-1515.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
-<text text-anchor="start" x="399" y="-1504.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
-<text text-anchor="start" x="399" y="-1493.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
-<text text-anchor="start" x="399" y="-1482.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
+<polygon fill="white" stroke="black" points="390,-1475.5 390,-1631.5 554,-1631.5 554,-1475.5 390,-1475.5"/>
+<text text-anchor="middle" x="472" y="-1619.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable&lt;&gt;</text>
+<polyline fill="none" stroke="black" points="390,-1612.5 554,-1612.5 "/>
+<text text-anchor="middle" x="472" y="-1600.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="390,-1593.5 554,-1593.5 "/>
+<text text-anchor="start" x="398" y="-1581.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="398" y="-1570.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="398" y="-1559.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="398" y="-1548.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
+<text text-anchor="start" x="398" y="-1537.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
+<text text-anchor="start" x="398" y="-1526.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
+<text text-anchor="start" x="398" y="-1515.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
+<text text-anchor="start" x="398" y="-1504.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
+<text text-anchor="start" x="398" y="-1493.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
+<text text-anchor="start" x="398" y="-1482.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node5 -->
 <g id="edge5" class="edge">
 <title>Node6&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M473,-1464.87C473,-1381.38 473,-1260.68 473,-1206.8"/>
-<polygon fill="none" stroke="midnightblue" points="469.5,-1465.11 473,-1475.11 476.5,-1465.11 469.5,-1465.11"/>
+<path fill="none" stroke="midnightblue" d="M472,-1464.87C472,-1381.38 472,-1260.68 472,-1206.8"/>
+<polygon fill="none" stroke="midnightblue" points="468.5,-1465.11 472,-1475.11 475.5,-1465.11 468.5,-1465.11"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="399,-1690.5 399,-1857.5 547,-1857.5 547,-1690.5 399,-1690.5"/>
-<text text-anchor="start" x="407" y="-1845.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
-<text text-anchor="middle" x="473" y="-1834.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Args &gt;</text>
-<polyline fill="none" stroke="black" points="399,-1827.5 547,-1827.5 "/>
-<text text-anchor="middle" x="473" y="-1815.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="399,-1808.5 547,-1808.5 "/>
-<text text-anchor="start" x="407" y="-1796.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="407" y="-1785.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
-<text text-anchor="start" x="407" y="-1774.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="407" y="-1763.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
-<text text-anchor="start" x="407" y="-1752.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
-<text text-anchor="start" x="407" y="-1741.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
-<text text-anchor="start" x="407" y="-1730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
-<text text-anchor="start" x="407" y="-1719.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
-<text text-anchor="start" x="407" y="-1708.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
-<text text-anchor="start" x="407" y="-1697.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
+<polygon fill="white" stroke="black" points="398,-1690.5 398,-1857.5 546,-1857.5 546,-1690.5 398,-1690.5"/>
+<text text-anchor="start" x="406" y="-1845.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
+<text text-anchor="middle" x="472" y="-1834.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Args &gt;</text>
+<polyline fill="none" stroke="black" points="398,-1827.5 546,-1827.5 "/>
+<text text-anchor="middle" x="472" y="-1815.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="398,-1808.5 546,-1808.5 "/>
+<text text-anchor="start" x="406" y="-1796.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="406" y="-1785.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Observable()</text>
+<text text-anchor="start" x="406" y="-1774.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="406" y="-1763.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Observable()</text>
+<text text-anchor="start" x="406" y="-1752.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copyObserversTo()</text>
+<text text-anchor="start" x="406" y="-1741.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attach()</text>
+<text text-anchor="start" x="406" y="-1730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachMember()</text>
+<text text-anchor="start" x="406" y="-1719.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ notify()</text>
+<text text-anchor="start" x="406" y="-1708.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detachAll()</text>
+<text text-anchor="start" x="406" y="-1697.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ detach()</text>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node6 -->
 <g id="edge6" class="edge">
 <title>Node7&#45;&gt;Node6</title>
-<path fill="none" stroke="orange" d="M473,-1679.94C473,-1663.9 473,-1647.38 473,-1631.82"/>
-<polygon fill="orange" stroke="orange" points="469.5,-1680.39 473,-1690.39 476.5,-1680.39 469.5,-1680.39"/>
-<text text-anchor="middle" x="483" y="-1664" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt;&gt;</text>
+<path fill="none" stroke="orange" d="M472,-1679.94C472,-1663.9 472,-1647.38 472,-1631.82"/>
+<polygon fill="orange" stroke="orange" points="468.5,-1680.39 472,-1690.39 475.5,-1680.39 468.5,-1680.39"/>
+<text text-anchor="middle" x="482" y="-1664" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt;&gt;</text>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
@@ -379,42 +379,42 @@
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1PolyMesh.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="229.5,-0.5 229.5,-68.5 342.5,-68.5 342.5,-0.5 229.5,-0.5"/>
-<text text-anchor="start" x="237.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="286" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PolyMesh</text>
-<polyline fill="none" stroke="black" points="229.5,-38.5 342.5,-38.5 "/>
-<text text-anchor="middle" x="286" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="229.5,-19.5 342.5,-19.5 "/>
-<text text-anchor="middle" x="286" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<g id="a_node11"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1LineMesh.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="228.5,-0.5 228.5,-68.5 341.5,-68.5 341.5,-0.5 228.5,-0.5"/>
+<text text-anchor="start" x="236.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="285" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LineMesh</text>
+<polyline fill="none" stroke="black" points="228.5,-38.5 341.5,-38.5 "/>
+<text text-anchor="middle" x="285" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="228.5,-19.5 341.5,-19.5 "/>
+<text text-anchor="middle" x="285" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node10&#45;&gt;Node11 -->
 <g id="edge10" class="edge">
 <title>Node10&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M286,-96.26C286,-86.56 286,-77.07 286,-68.58"/>
-<polygon fill="none" stroke="midnightblue" points="282.5,-96.41 286,-106.41 289.5,-96.41 282.5,-96.41"/>
+<path fill="none" stroke="midnightblue" d="M285,-96.26C285,-86.56 285,-77.07 285,-68.58"/>
+<polygon fill="none" stroke="midnightblue" points="281.5,-96.41 285,-106.41 288.5,-96.41 281.5,-96.41"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
-<g id="a_node13"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1LineMesh.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="426.5,-0.5 426.5,-68.5 539.5,-68.5 539.5,-0.5 426.5,-0.5"/>
-<text text-anchor="start" x="434.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="483" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LineMesh</text>
-<polyline fill="none" stroke="black" points="426.5,-38.5 539.5,-38.5 "/>
-<text text-anchor="middle" x="483" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="426.5,-19.5 539.5,-19.5 "/>
-<text text-anchor="middle" x="483" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<g id="a_node13"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1PolyMesh.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="425.5,-0.5 425.5,-68.5 538.5,-68.5 538.5,-0.5 425.5,-0.5"/>
+<text text-anchor="start" x="433.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="482" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PolyMesh</text>
+<polyline fill="none" stroke="black" points="425.5,-38.5 538.5,-38.5 "/>
+<text text-anchor="middle" x="482" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="425.5,-19.5 538.5,-19.5 "/>
+<text text-anchor="middle" x="482" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node12&#45;&gt;Node13 -->
 <g id="edge12" class="edge">
 <title>Node12&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M483,-96.26C483,-86.56 483,-77.07 483,-68.58"/>
-<polygon fill="none" stroke="midnightblue" points="479.5,-96.41 483,-106.41 486.5,-96.41 479.5,-96.41"/>
+<path fill="none" stroke="midnightblue" d="M482,-96.26C482,-86.56 482,-77.07 482,-68.58"/>
+<polygon fill="none" stroke="midnightblue" points="478.5,-96.41 482,-106.41 485.5,-96.41 478.5,-96.41"/>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">

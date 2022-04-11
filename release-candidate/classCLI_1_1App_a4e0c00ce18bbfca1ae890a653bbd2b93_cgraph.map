@@ -1,0 +1,25 @@
+<map id="CLI::App::_process_requirements" name="CLI::App::_process_requirements">
+<area shape="rect" id="node1" title="Verify required options and cross requirements. Subcommands too (only if selected)." alt="" coords="5,182,145,223"/>
+<area shape="rect" id="node2" href="$classCLI_1_1Option.html#a154543609c45d9c59c69991a08ca272b" title="Count the total number of times an option was passed." alt="" coords="471,8,608,35"/>
+<area shape="rect" id="node3" href="$classCLI_1_1App.html#a4933a7e5603ab5eaa9705d4027e6cb12" title=" " alt="" coords="225,59,368,85"/>
+<area shape="rect" id="node4" href="$classCLI_1_1App.html#ae0ce655e69580d2d8439a0f3c993821c" title="Get the name of the current app." alt="" coords="465,59,613,85"/>
+<area shape="rect" id="node5" href="$classCLI_1_1App.html#aa75309f557d6cdba74b299e4f9e7cfbe" title="Get a display name for an app." alt="" coords="195,165,398,192"/>
+<area shape="rect" id="node7" href="$classCLI_1_1Option.html#ab84751fbf9037efaed5b64fed17fe57f" title="Gets a comma separated list of names. Will include / prefer the positional name if positional is true..." alt="" coords="213,219,380,245"/>
+<area shape="rect" id="node21" href="$namespaceCLI_1_1detail.html#ab351f13ec104e2cba19ec6baf4a552f6" title="Simple function to join a string." alt="" coords="480,473,599,500"/>
+<area shape="rect" id="node22" href="$classCLI_1_1OptionBase.html#aa902dee6da6d7f5b083b1c7d5f9c1308" title="True if this is a required option." alt="" coords="219,321,374,362"/>
+<area shape="rect" id="node23" href="$classCLI_1_1App.html#a9371a0fd74e03df61dd751e28a3dfc35" title=" " alt="" coords="193,387,400,413"/>
+<area shape="rect" id="node6" href="$classCLI_1_1App.html#aa109e6eeffd6ac72c1ec7e5c9c234f21" title="Get the group of this subcommand." alt="" coords="465,109,613,136"/>
+<area shape="rect" id="node8" href="$classCLI_1_1Option.html#a4d2329268bae134aa58e704fa61f4b57" title="Requires &quot;&#45;&#45;&quot; to be removed from string." alt="" coords="470,342,609,383"/>
+<area shape="rect" id="node14" href="$classCLI_1_1Option.html#af5677ee4a55c2a85784f64198db6b452" title="True if the option was not passed." alt="" coords="468,160,611,187"/>
+<area shape="rect" id="node15" href="$classCLI_1_1Option.html#a4eb6212ac30a0b139da52d258a3a1790" title=" " alt="" coords="463,211,616,253"/>
+<area shape="rect" id="node18" href="$classCLI_1_1OptionBase.html#a341e7df4c2693312609186f036dd923c" title="Get the group of this option." alt="" coords="448,277,631,318"/>
+<area shape="rect" id="node19" href="$classCLI_1_1Option.html#afe31a608506cbe75d40d6cced342be11" title="The total min number of expected string values to be used." alt="" coords="456,407,623,449"/>
+<area shape="rect" id="node9" href="$namespaceCLI_1_1detail.html#a356b9c9cc904af2b0a918fd55e86cd9c" title=" " alt="" coords="679,339,860,365"/>
+<area shape="rect" id="node10" href="$namespaceCLI.html#a0c52326d2681814c22aa1a93ce43375e" title="Helper function to allow ignore_case to be passed to IsMember or Transform." alt="" coords="929,257,1057,284"/>
+<area shape="rect" id="node11" href="$namespaceCLI_1_1detail.html#ae83709ec148057ec53df4383645727e9" title="Return a lower case version of a string." alt="" coords="1127,257,1277,284"/>
+<area shape="rect" id="node12" href="$namespaceCLI.html#a111b6f05d21b9b84e7ba933ade79884c" title="Helper function to allow ignore_underscore to be passed to IsMember or Transform." alt="" coords="908,359,1079,385"/>
+<area shape="rect" id="node13" href="$namespaceCLI_1_1detail.html#a5359a7a0e33366a12e15523b100f591a" title="remove underscores from a string" alt="" coords="1129,377,1275,418"/>
+<area shape="rect" id="node16" href="$namespaceCLI_1_1detail.html#af45abf683b881127298aa28b3c4e6cf5" title="Convert a flag into an integer value typically binary flags." alt="" coords="924,191,1063,233"/>
+<area shape="rect" id="node17" href="$namespaceCLI_1_1detail.html#a0e94052d485636fc9f18c21009026577" title="Convert an object to a string (directly forward if this can become a string)" alt="" coords="693,249,845,276"/>
+<area shape="rect" id="node20" href="$classCLI_1_1Option.html#af87dffed2cb245673312c993e563710e" title="The total min number of expected string values to be used." alt="" coords="686,407,853,449"/>
+</map>

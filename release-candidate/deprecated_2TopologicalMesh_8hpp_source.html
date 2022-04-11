@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.7</span>
+   &#160;<span id="projectnumber">1.2.8</span>
    </div>
   </td>
  </tr>
@@ -163,9 +163,9 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">inline</span> HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    [[deprecated]] <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Normal</a>&amp; normal( VertexHandle vh, FaceHandle fh ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    [[deprecated]] <span class="keyword">inline</span> <span class="keyword">const</span> Normal&amp; normal( VertexHandle vh, FaceHandle fh ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    [[deprecated]] <span class="keywordtype">void</span> set_normal( VertexHandle vh, FaceHandle fh, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Normal</a>&amp; n );</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    [[deprecated]] <span class="keywordtype">void</span> set_normal( VertexHandle vh, FaceHandle fh, <span class="keyword">const</span> Normal&amp; n );</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">using</span> base::normal;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">using</span> base::set_normal;</div>
@@ -292,7 +292,7 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                                     std::vector&lt;OpenMesh::HPropHandleT&lt;T&gt;&gt;&amp; pph );</div>
 <div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keywordtype">void</span> split_copy( EdgeHandle _eh, VertexHandle _vh );</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <span class="keywordtype">void</span> split( EdgeHandle _eh, VertexHandle _vh );</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceCLI_1_1detail.html#a9e78d046d8a9c2d6f246bd1e36e57ec6">split</a>( EdgeHandle _eh, VertexHandle _vh );</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    OpenMesh::HPropHandleT&lt;Index&gt; m_inputTriangleMeshIndexPph;</div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    OpenMesh::HPropHandleT&lt;Index&gt; m_outputTriangleMeshIndexPph;</div>
@@ -316,6 +316,7 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits_html_aa21e5108a01cb1028239a6604081a89a"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html#aa21e5108a01cb1028239a6604081a89a">Ra::Core::Geometry::deprecated::TopologicalMeshTraits::Normal</a></div><div class="ttdeci">Ra::Core::Vector3 Normal</div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8hpp_source.html#l00034">TopologicalMesh.hpp:34</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">Ra::Core::Geometry::deprecated::TopologicalMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8hpp_source.html#l00053">TopologicalMesh.hpp:53</a></div></div>
+<div class="ttc" id="anamespaceCLI_1_1detail_html_a9e78d046d8a9c2d6f246bd1e36e57ec6"><div class="ttname"><a href="namespaceCLI_1_1detail.html#a9e78d046d8a9c2d6f246bd1e36e57ec6">CLI::detail::split</a></div><div class="ttdeci">std::vector&lt; std::string &gt; split(const std::string &amp;s, char delim)</div><div class="ttdoc">Split a string by a delim.</div><div class="ttdef"><b>Definition:</b> <a href="StringTools_8hpp_source.html#l00046">StringTools.hpp:46</a></div></div>
 <div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Ra::Core::Utils::AttribBase</a></div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00026">Attribs.hpp:26</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits_html_ad3634a7c4069c16ab1333ff349cf5283"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html#ad3634a7c4069c16ab1333ff349cf5283">Ra::Core::Geometry::deprecated::TopologicalMeshTraits::Point</a></div><div class="ttdeci">Ra::Core::Vector3 Point</div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8hpp_source.html#l00033">TopologicalMesh.hpp:33</a></div></div>
@@ -336,7 +337,7 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="dir_e5ae3a9d3a26873eff00da258d44b53c.html">deprecated</a></li><li class="navelem"><a class="el" href="deprecated_2TopologicalMesh_8hpp.html">TopologicalMesh.hpp</a></li>
-    <li class="footer">Generated on Mon Apr 11 2022 13:54:27 for Radium Engine by
+    <li class="footer">Generated on Mon Apr 11 2022 15:37:12 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
