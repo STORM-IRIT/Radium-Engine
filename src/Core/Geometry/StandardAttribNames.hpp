@@ -9,7 +9,7 @@ namespace Geometry {
 /// List of standard vertex attributes.
 /// Corresponding standard vertex attribute names are obtained with g_attribName
 /// Information which is in the mesh geometry
-enum MeshData : uint {
+enum MeshAttrib : uint {
     VERTEX_POSITION,   ///< Vertex positions
     VERTEX_NORMAL,     ///< Vertex normals
     VERTEX_TANGENT,    ///< Vertex tangent 1
@@ -24,14 +24,14 @@ enum MeshData : uint {
 
 ///@{
 /// Get the name expected for a given attrib.
-static constexpr char const* getAttribName[MeshAttibb::MAX_DATA] = { "in_position",
-                                                                     "in_normal",
-                                                                     "in_tangent",
-                                                                     "in_bitangent",
-                                                                     "in_texcoord",
-                                                                     "in_color",
-                                                                     "in_weight",
-                                                                     "in_weight_idx" };
+static constexpr char const* g_attribName[MeshAttrib::MAX_DATA] = { "in_position",
+                                                                    "in_normal",
+                                                                    "in_tangent",
+                                                                    "in_bitangent",
+                                                                    "in_texcoord",
+                                                                    "in_color",
+                                                                    "in_weight",
+                                                                    "in_weight_idx" };
 ///@}
 
 } // namespace Geometry
