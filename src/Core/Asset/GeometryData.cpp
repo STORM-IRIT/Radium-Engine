@@ -14,8 +14,7 @@ GeometryData::GeometryData( const std::string& name, const GeometryType& type ) 
     m_edge(),
     m_faces(),
     m_polyhedron(),
-    m_normal(),
-    m_tangent(),
+    m_vertexAttribs(),
     m_bitangent(),
     m_texCoord(),
     m_material() {}
@@ -51,14 +50,15 @@ void GeometryData::displayInfo() const {
         type = "HEX MESH";
         break;
     }
+
     LOG( logINFO ) << "======== MESH INFO ========";
     LOG( logINFO ) << " Name           : " << m_name;
     LOG( logINFO ) << " Type           : " << type;
     LOG( logINFO ) << " Vertex #       : " << m_vertex.size();
     LOG( logINFO ) << " Edge #         : " << m_edge.size();
     LOG( logINFO ) << " Face #         : " << m_faces.size();
-    LOG( logINFO ) << " Normal ?       : " << ( ( m_normal.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tangent ?      : " << ( ( m_tangent.empty() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Normal ?       : " << ( ( getNormals().empty() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Tangent ?      : " << ( ( getTangents().empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Bitangent ?    : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( m_texCoord.empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
