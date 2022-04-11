@@ -859,7 +859,7 @@ void MinimalComponent::initialize() {
 
                 mesh.setVertices( points );
                 mesh.addAttrib(
-                    Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::MeshData::VERTEX_COLOR],
+                    Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
                     Vector4Array { colors.begin(), colors.begin() + points.size() } );
                 mesh.setIndices( indices );
                 topo = TopologicalMesh { mesh };
@@ -953,7 +953,7 @@ void MinimalComponent::initialize() {
 
                 mesh.setVertices( points );
                 mesh.addAttrib(
-                    Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::MeshData::VERTEX_COLOR],
+                    Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
                     Vector4Array { colors.begin(), colors.begin() + points.size() } );
                 mesh.setIndices( indices );
 

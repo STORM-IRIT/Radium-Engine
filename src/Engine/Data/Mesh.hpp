@@ -7,6 +7,7 @@
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
@@ -90,9 +91,9 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     /// Mark attrib data as dirty, forcing an update of the OpenGL buffer.
     ///@{
 
-    /// Use getAttribName to find the corresponding name and call setDirty(const std::string& name).
-    /// \param type: the data to set to dirty.
-    void setDirty( const Core::Geometry::MeshData& type );
+    /// Use g_attribName to find the corresponding name and call setDirty(const std::string& name).
+    /// \param type: the data to set to MeshAttrib
+    void setDirty( const Core::Geometry::MeshAttrib& type );
 
     /// \param name: data buffer name to set to dirty
     void setDirty( const std::string& name );
@@ -466,17 +467,17 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
 
     // \todo remove when data will handle all the attributes in a coherent way.
     if ( data->hasTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TANGENT],
+        mesh.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_TANGENT],
                         data->getTangents() );
     }
 
     if ( data->hasBiTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_BITANGENT],
+        mesh.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_BITANGENT],
                         data->getBiTangents() );
     }
 
     if ( data->hasTextureCoordinates() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TEXCOORD],
+        mesh.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_TEXCOORD],
                         data->getTexCoords() );
     }
 

@@ -245,7 +245,7 @@ void setupLineMesh( std::shared_ptr<Data::LineMesh>& disp, CoreGeometry& core ) 
 
         // add observer
         auto handle = core.template getAttribHandle<typename CoreGeometry::Point>(
-            Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_POSITION] );
+            Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_POSITION] );
         core.vertexAttribs().getAttrib( handle ).attach( VerticesUpdater( disp, core ) );
         core.attach( IndicesUpdater( disp, core ) );
     }

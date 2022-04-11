@@ -45,7 +45,7 @@ void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const C
             Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), // Left
             Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), // Floor
             Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), Scalar( 0 ); // Ceil
-        m_mesh.addAttrib( Ra::Core::Geometry::getAttribName[Ra::Core::Geometry::VERTEX_TEXCOORD],
+        m_mesh.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_TEXCOORD],
                           tex_coords );
 
         Core::Geometry::VolumeGrid* grid = static_cast<Core::Geometry::VolumeGrid*>( volume );
