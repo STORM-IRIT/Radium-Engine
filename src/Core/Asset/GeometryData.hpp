@@ -125,7 +125,8 @@ class RA_CORE_API GeometryData : public AssetData
     template <typename Container>
     inline void setPolyhedra( const Container& polyList );
 
-    /// Return the list of vertex normals
+    /// Return the list of vertex normals.
+    /// \note This list must be unlock.
     inline Vector3Array& getNormals();
 
     /// Return the list of vertex normals.
@@ -257,11 +258,15 @@ class RA_CORE_API GeometryData : public AssetData
     /// The list of polyhedra
     VectorNuArray m_polyhedron;
 
+    /// Named attributes
+    /// \todo Move all built-in attributes to m_vertexAttribs
+    Utils::AttribManager m_vertexAttribs;
+
     /// The list of vertex normals.
-    [[deprecated]] Vector3Array m_normal;
+    //[[deprecated]] Vector3Array m_normal;
 
     /// The list of vertex tangent vectors.
-    [[deprecated]] Vector3Array m_tangent;
+    //[[deprecated]] Vector3Array m_tangent;
 
     /// The list of vertex bitangent vectors.
     [[deprecated]] Vector3Array m_bitangent;
@@ -271,10 +276,6 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
-
-    /// Named attributes
-    /// \todo Move all built-in attributes to m_vertexAttribs
-    Utils::AttribManager m_vertexAttribs;
 };
 
 } // namespace Asset
