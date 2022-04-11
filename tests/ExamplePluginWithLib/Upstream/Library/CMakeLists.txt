@@ -17,7 +17,7 @@ if(NOT CMAKE_BUILD_TYPE)
     message("Set default build type to ${CMAKE_BUILD_TYPE}")
 endif()
 
-project(ExampleLibraryUpstream VERSION 1.0.0)
+project(UpstreamLibrary VERSION 1.0.0)
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}"
@@ -36,9 +36,11 @@ set(sources ExampleLibrary.cpp)
 set(public_headers ExampleLibrary.hpp)
 set(headers PrivateHeader.hpp)
 set(resources LibraryResources/welcome.txt)
+set(config Config.cmake.in)
 # Our library project uses these sources and headers.
 add_library(
     ${PROJECT_NAME} SHARED ${sources} ${headers} ${public_headers} ${markdowns} ${resources}
+                           ${config}
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine)
@@ -52,12 +54,12 @@ message(
 configure_radium_library(
     TARGET ${PROJECT_NAME}
     TARGET_DIR ${PROJECT_NAME}
-    NAMESPACE ${PROJECT_NAME}
+    NAMESPACE RadiumDemo
     PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
-    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}-Config.cmake.in
+    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
     FILES "${public_headers}"
 )
 
 install_target_resources(
-    TARGET ${PROJECT_NAME} DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/LibraryResources
+    TARGET ${PROJECT_NAME} RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/LibraryResources
 )
