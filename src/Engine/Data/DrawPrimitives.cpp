@@ -238,8 +238,9 @@ LineMeshPtr CircleArc( const Core::Vector3& center,
 }
 
 MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
-    auto geom      = makeGeodesicSphere( radius, 2 );
-    auto handle    = geom.getAttribHandle<TriangleMesh::Point>( "in_position" );
+    auto geom   = makeGeodesicSphere( radius, 2 );
+    auto handle = geom.getAttribHandle<TriangleMesh::Point>(
+        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION] );
     auto& vertices = geom.getAttrib<TriangleMesh::Point>( handle );
     auto& data     = vertices.getDataWithLock();
 
@@ -272,13 +273,15 @@ MeshPtr Capsule( const Core::Vector3& p1,
     t.pretranslate( trans );
     Matrix3 normalMatrix = t.linear().inverse().transpose();
 
-    auto vertHandle  = geom.getAttribHandle<TriangleMesh::Point>( "in_position" );
+    auto vertHandle = geom.getAttribHandle<TriangleMesh::Point>(
+        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_POSITION] );
     auto& vertAttrib = geom.getAttrib<TriangleMesh::Point>( vertHandle );
     auto& vertData   = vertAttrib.getDataWithLock();
     std::for_each( vertData.begin(), vertData.end(), [t]( Core::Vector3& v ) { v = t * v; } );
     vertAttrib.unlock();
 
-    auto normalHandle  = geom.getAttribHandle<TriangleMesh::Point>( "in_normal" );
+    auto normalHandle = geom.getAttribHandle<TriangleMesh::Point>(
+        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_NORMAL] );
     auto& normalAttrib = geom.getAttrib<TriangleMesh::Point>( normalHandle );
     auto& normalData   = normalAttrib.getDataWithLock();
     std::for_each( normalData.begin(), normalData.end(), [normalMatrix]( Core::Vector3& n ) {

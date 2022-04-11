@@ -17,7 +17,7 @@ namespace Geometry {
 /// Points and Normals, defining the geometry, are always present.
 /// They can be accessed through vertices() and normals().
 /// Other attribs could be added with addAttrib() and accesssed with getAttrib().
-/// \note Attribute names "in_position" "in_normal" are reserved and pre-allocated.
+/// \note Mesh attribute VERTEX_POSITION and VERTEX_NORMAL are reserved and pre-allocated.
 class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 {
   public:
