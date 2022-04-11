@@ -1,4 +1,4 @@
-#include <RadiumHeadless/OpenGLContext/OpenGLContext.hpp>
+#include <Headless/OpenGLContext/OpenGLContext.hpp>
 
 #include <GLFW/glfw3.h>
 
@@ -62,6 +62,31 @@ OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
             context->resizeFrameBuffer( width, height );
         };
         glfwSetFramebufferSizeCallback( m_glfwContext, resizeCB );
+        auto keyCB = []( GLFWwindow* window, int key, int scancode, int action, int mods ) {
+            auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
+            context->keyboardEventCalback( key, scancode, action, mods );
+        };
+        glfwSetKeyCallback( m_glfwContext, keyCB );
+
+        auto mouseCB = []( GLFWwindow* window, int button, int action, int mods ) {
+            auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
+            // see https://www.glfw.org/docs/latest/window_guide.html#window_scale
+            float xscale, yscale;
+            glfwGetWindowContentScale( window, &xscale, &yscale );
+            double xpos, ypos;
+            glfwGetCursorPos( window, &xpos, &ypos );
+            context->mouseEventCalback(
+                button, action, mods, int( xpos / xscale ), int( ypos / yscale ) );
+        };
+        glfwSetMouseButtonCallback( m_glfwContext, mouseCB );
+
+        auto scrollCB = []( GLFWwindow* window, double xoffset, double yoffset ) {
+            auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
+            float xscale, yscale;
+            glfwGetWindowContentScale( window, &xscale, &yscale );
+            context->scrollEventCalback( int( xoffset / xscale ), int( yoffset / yscale ) );
+        };
+        glfwSetScrollCallback( m_glfwContext, scrollCB );
     }
 }
 OpenGLContext::~OpenGLContext() {
@@ -128,6 +153,18 @@ bool OpenGLContext::processEvents() {
 void OpenGLContext::resizeFrameBuffer( int width, int height ) {
     gl::glViewport( 0, 0, width, height );
     m_resizers.notify( width, height );
+}
+
+void OpenGLContext::keyboardEventCalback( int key, int scancode, int action, int mods ) {
+    m_keyboardObservers.notify( key, scancode, action, mods );
+}
+
+void OpenGLContext::mouseEventCalback( int button, int action, int mods, int x, int y ) {
+    m_mouseObservers.notify( button, action, mods, x, y );
+}
+
+void OpenGLContext::scrollEventCalback( int xoffset, int yoffset ) {
+    m_scrollObservers.notify( xoffset, yoffset );
 }
 
 void OpenGLContext::renderLoop( std::function<void( float )> render ) {

@@ -1,6 +1,6 @@
 #pragma once
-#include <RadiumHeadless/CLIBaseApplication.hpp>
-#include <RadiumHeadless/OpenGLContext/OpenGLContext.hpp>
+#include <Headless/CLIBaseApplication.hpp>
+#include <Headless/OpenGLContext/OpenGLContext.hpp>
 
 #include <Core/Utils/Index.hpp>
 
@@ -23,7 +23,11 @@ class Renderer;
 
 namespace Headless {
 /**
- * Base class for radium based cmdline application
+ * Base class for radium based cmdline application.
+ *
+ * This is the Headless pendant of the Ra::Gui::Viewer class, with only a very little
+ * interaction capabilities.
+ *
  */
 class HEADLESS_API CLIViewer : public CLIBaseApplication
 {
@@ -153,11 +157,12 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
      */
     inline void setDataFileName( std::string filename );
 
-  private:
+  protected:
+    /// Observer of the resize event on the OpenGLContext
     void resize( int width, int height );
 };
 
 } // namespace Headless
 } // namespace Ra
 
-#include <RadiumHeadless/CLIViewer.inl>
+#include <Headless/CLIViewer.inl>
