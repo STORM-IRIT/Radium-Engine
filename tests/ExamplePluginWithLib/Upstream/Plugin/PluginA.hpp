@@ -2,10 +2,10 @@
 
 #include <Core/CoreMacros.hpp>
 /// Defines the correct macro to export dll symbols.
-#if defined PluginA_EXPORTS
-#    define PluginA_API DLL_EXPORT
+#if defined UpstreamPlugin_EXPORTS
+#    define UpstreamPlugin_API DLL_EXPORT
 #else
-#    define PluginA_API DLL_IMPORT
+#    define UpstreamPlugin_API DLL_IMPORT
 #endif
 
 #include <PluginBase/RadiumPluginInterface.hpp>
@@ -15,7 +15,7 @@ namespace PluginA_NS {
 /**
  * This plugin just call the example library when initialized.
  */
-class PluginA_API PluginA : public QObject, Ra::Plugins::RadiumPluginInterface
+class UpstreamPlugin_API PluginA : public QObject, Ra::Plugins::RadiumPluginInterface
 {
     Q_OBJECT
     Q_RADIUM_PLUGIN_METADATA
@@ -28,12 +28,12 @@ class PluginA_API PluginA : public QObject, Ra::Plugins::RadiumPluginInterface
 
     void registerPlugin( const Ra::Plugins::Context& context ) override;
 
-    bool doAddWidget( QString& name ) override { return false; }
+    bool doAddWidget( QString& ) override { return false; }
     QWidget* getWidget() override { return nullptr; }
     bool doAddMenu() override { return false; }
     QMenu* getMenu() override { return nullptr; }
-    bool doAddAction( int& nb ) override { return false; }
-    QAction* getAction( int id ) override { return nullptr; }
+    bool doAddAction( int& ) override { return false; }
+    QAction* getAction( int ) override { return nullptr; }
 };
 
 } // namespace PluginA_NS

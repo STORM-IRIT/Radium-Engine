@@ -743,12 +743,12 @@ function(configure_radium_plugin)
     if(CMAKE_BUILD_TYPE MATCHES Debug)
         message(STATUS "[configure_radium_plugin] Plugin compiled with debug info")
         target_compile_definitions(${ARGS_NAME} PUBLIC PLUGIN_IS_COMPILED_WITH_DEBUG_INFO)
-        file(COPY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PluginBase/pluginMetaDataDebug.json"
+        file(COPY "${RADIUM_CONFIG_DIR}/PluginBase/pluginMetaDataDebug.json"
              DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
         )
         target_sources(${ARGS_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/pluginMetaDataDebug.json")
     else()
-        file(COPY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PluginBase/pluginMetaDataRelease.json"
+        file(COPY "${RADIUM_CONFIG_DIR}/PluginBase/pluginMetaDataRelease.json"
              DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
         )
         target_sources(

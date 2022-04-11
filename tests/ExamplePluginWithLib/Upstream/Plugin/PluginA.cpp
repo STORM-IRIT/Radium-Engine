@@ -4,7 +4,7 @@
 
 namespace PluginA_NS {
 
-void PluginA::registerPlugin( const Ra::Plugins::Context& context ) {
+void PluginA::registerPlugin( const Ra::Plugins::Context& ) {
     ExampleLibrary::ExampleMessage( "Registering pluginA" );
 }
 

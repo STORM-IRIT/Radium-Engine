@@ -65,7 +65,7 @@ add_subdirectory(integration)
 # example apps are simple complete application, no test for now. TODO : we can imagine to capture
 # screen output and compare to refs
 add_subdirectory(ExampleApps)
-add_subdirectory(ExamplePluginWithLib EXCLUDE_FROM_ALL)
+add_subdirectory(ExamplePluginWithLib)
 
 # Convenience targets for fast testing, they depends on binaries (so the build is triggered, when
 # sources were changed).
