@@ -49,6 +49,10 @@ if(RADIUM_GENERATE_LIB_GUI)
     add_subdirectory(Gui)
 endif()
 
+if(RADIUM_GENERATE_LIB_HEADLESS)
+    add_subdirectory(Headless)
+endif()
+
 # -----------------------------------------------------------------------------------
 # Prepare the RadiumConfigTemplate.in file:
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in "")

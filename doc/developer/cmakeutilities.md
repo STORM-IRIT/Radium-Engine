@@ -19,7 +19,7 @@ As for any cmake package, this could be done by adding the following line into y
 ~~~{.cmake}
 find_package(Radium REQUIRED)
 ~~~
-This will bring Radium Core component.
+This will bring only Radium Core component.
 See below how to select the components you need.
 
 Remember to configure your project by giving the cmake command line option
@@ -35,12 +35,12 @@ target_link_libraries (myTarget PUBLIC Radium::Core Radium::Engine)
 
 ### Using Radium components
 
-If your application does not need all radium components, you can select which ones you want with
+If your application needs another component than Core, you should select which ones you want with
 ~~~{.cmake}
 find_package(Radium REQUIRED COMPONENTS <list of required components>)
 ~~~
 
-The Radium base components are :
+The Radium components are :
 - Core : search only for the availability of the target Radium::Core
 - Engine : search for the availability of the target Radium::Engine and the following dependency
   -  Radium::Core
@@ -69,8 +69,9 @@ The Radium base components are :
   endif()
   ~~~
 
-The Radium package also offers specific components that should be requested explicitly as they are not included in the set of base components.
-- NONE YET, to be defined.
+- Headless : search for the availability of the target Radium::Headless and its dependencies
+  - Radium::Core
+  - Radium::Engine
 
 The Radium package also defines several cmake functions, described below, that you can use to ease the configuration of
 your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their

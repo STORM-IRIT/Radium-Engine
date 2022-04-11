@@ -1,4 +1,4 @@
-#include <RadiumHeadless/CLIViewer.hpp>
+#include <Headless/CLIViewer.hpp>
 
 #include <Core/Asset/Camera.hpp>
 #include <Core/Asset/FileLoaderInterface.hpp>
@@ -42,13 +42,12 @@ const CLIViewer::ViewerParameters& CLIViewer::getCommandLineParameters() const {
 }
 
 int CLIViewer::init( int argc, const char* argv[] ) {
-    try {
-        m_cmdLineParser.parse( argc, argv );
-    }
-    catch ( const CLI::ParseError& e ) {
-        return m_cmdLineParser.exit( e ) + 1;
-    }
-    // Do the init
+    int parseResult = CLIBaseApplication::init( argc, argv );
+    if ( parseResult != 0 ) {
+        LOG( logERROR ) << "Invalid command line argument, the application can't run";
+        return 1;
+    };
+    // Do the Viewer init
     if ( !m_glContext.isValid() ) {
         LOG( logERROR ) << "Invalid openglContext, the application can't run";
         return 1;

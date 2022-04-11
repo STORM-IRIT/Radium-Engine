@@ -1,4 +1,4 @@
-#include <RadiumHeadless/CLIViewer.hpp>
+#include <Headless/CLIViewer.hpp>
 
 namespace Ra {
 namespace Headless {

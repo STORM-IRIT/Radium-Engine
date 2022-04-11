@@ -1,4 +1,4 @@
-#include <RadiumHeadless/CLIViewer.hpp>
+#include <Headless/CLIViewer.hpp>
 #include <iostream>
 
 #include <Engine/Rendering/ForwardRenderer.hpp>

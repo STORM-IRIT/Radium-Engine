@@ -25,16 +25,7 @@ set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 # ------------------------------------------------------------------------------
-
-if(NOT IN_LIBHEADLESS_BUILD_TREE)
-    # package RadiumHeadless will import its Radium dependencies
-    find_package(RadiumHeadless REQUIRED)
-elseif(NOT IN_RADIUM_BUILD_TREE)
-    # need this to import Radium dependencies if not using the package RadiumHeadless but the
-    # subdirectory
-    message(STATUS "[HeadlessDemo] Searching Radium package in ${CMAKE_PREFIX_PATH}")
-    find_package(Radium REQUIRED Core Engine IO)
-endif()
+find_package(Radium REQUIRED COMPONENTS Headless)
 
 option(USE_RADIUM_IO_ASSIMPLOADER "Use assimp data loader from Radium IO" ON)
 message(
