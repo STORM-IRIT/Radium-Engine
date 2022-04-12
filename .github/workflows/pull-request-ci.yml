@@ -15,3 +15,5 @@ env:
 jobs:
   call-build:
     uses: ./.github/workflows/build-matrix.yml
+    with:
+      build-debug: "false"
