@@ -170,6 +170,7 @@ jobs:
         with:
           path: src/Radium-Engine
       - name: pull updated repo (e.g. with new VERSION)
+        if: ${{ github.event_name == 'push' }}
         run: git -C src/Radium-Engine pull origin ${{ github.event.ref }}
       - name: Cache externals
         id: cache-external
