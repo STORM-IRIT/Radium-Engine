@@ -13,5 +13,5 @@ env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
 
 jobs:
-  build:
+  call-build:
     uses: ./.github/workflows/build-matrix.yml
