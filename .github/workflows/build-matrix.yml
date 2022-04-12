@@ -14,32 +14,114 @@ on:
   workflow_call:
     secrets:
       GIST_BADGES_TOKEN:
-        required: true
+        required: false
       GIST_BADGES_SECRET:
-        required: true
+        required: false
+    inputs:
+      use-double:
+        required: false
+        # boolean are not well handled https://github.com/actions/runner/issues/1483
+        type: string
+        default: "false"
+      windows:
+        required: false
+        type: string
+        default: "true"
+      macos:
+        required: false
+        type: string
+        default: "true"
+      linux:
+        required: false
+        type: string
+        default: "true"
+      build-release:
+        required: false
+        type: string
+        default: "true"
+      build-debug:
+        required: false
+        type: string
+        default: "true"
+      coverage:
+        required: false
+        type: string
+        default: "false"
+      generate-badges:
+        required: false
+        type: string
+        default: "false"
+      qt5:
+        required: false
+        type: string
+        default: "true"
+      qt6:
+        required: false
+        type: string
+        default: "true"
+
 
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
 
 jobs:
+  create-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Set Matrix
+        id: set-matrix
+        run: |
+          matrix=$((
+          echo '{ "config" : ['
+          [[ "true" == "${{ inputs.windows }}" ]] && echo '{ "name": "Windows MSVC", "os": "windows-latest", "cc": "cl.exe", "cxx": "cl.exe", "icon": "Windows"}'
+          [[ "true" == "${{ inputs.windows }}" && "true" == "${{inputs.linux}}" ]] && echo ','
+          [[ "true" == "${{ inputs.linux }}" ]] && echo '{ "name": "Ubuntu gcc", "os": "ubuntu-latest", "cc": "gcc-10", "cxx": "g++-10", "icon": "Linux" }'
+          [[ "true" == "${{ inputs.windows }}" || "true" == "${{inputs.linux}}" ]] && [[ "true" == "${{inputs.macos}}" ]] && echo ','
+          [[ "true" == "${{ inputs.macos }}" ]] && echo '{ "name": "MacOS clang", "os": "macos-latest", "cc": "clang", "cxx": "clang++", "icon": "Apple" }'
+          echo '],'
+          echo '"build-type" : ['
+          [[ "true" == "${{ inputs.build-debug }}" ]] && echo '"Debug"'
+          [[ "true" == "${{ inputs.build-debug }}" && "true" == "${{ inputs.build-release }}" ]] && echo ','
+          [[ "true" == "${{ inputs.build-release }}" ]] && echo '"Release"'
+          echo '],'
+          echo '"precision" : ['
+          echo '{ "name": "float", "value": "OFF"}'
+          [[ "true" == "${{ inputs.use-double }}" ]] && echo ', { "name": "double", "value": "ON" }'
+          echo '],'
+          echo '"qtversion" : ['
+          [[ "true" == "${{ inputs.qt5 }}" ]] && echo '{ "name" : "qt5", "value" : "5.15.1"}'
+          [[ "true" == "${{ inputs.qt5 }}" && "true" == "${{ inputs.qt6 }}" ]] && echo ','
+          [[ "true" == "${{ inputs.qt6 }}" ]] && echo '{ "name" : "qt6", "value" : "6.2.0"}'
+          echo ']'
+          echo "}"
+          ) | jq -c .)
+          echo $matrix
+          echo $matrix | jq .
+          echo "::set-output name=matrix::$matrix"
+
+  check-matrix:
+    runs-on: ubuntu-latest
+    needs: create-matrix
+    steps:
+      - name: Install json2yaml
+        run: |
+          sudo npm install -g json2yaml
+
+      - name: Check matrix definition
+        run: |
+          matrix='${{ needs.create-matrix.outputs.matrix }}'
+          echo $matrix
+          echo $matrix | jq .
+          echo $matrix | json2yaml
+
   build:
+    needs: create-matrix
     runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: false
-      matrix:
-        config:
-          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", icon: "Windows"}
-          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc-10", cxx: "g++-10", icon: "Linux" }
-          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", icon: "Apple" }
-        build-type:
-          - Debug
-          - Release
-        precision:
-          - { name: "double", value: "ON" }
-          - { name: "float", value: "OFF"}
-        qtversion:
-          - { name: "qt5", value: "5.15.1"}
-          - { name: "qt6", value: "6.2.0"}
+      matrix: ${{ fromJSON(needs.create-matrix.outputs.matrix) }}
     steps:
       - uses: seanmiddleditch/gha-setup-ninja@master
       - name: Add msbuild to PATH
@@ -119,27 +201,45 @@ jobs:
         run: |
           cd build/Radium-Engine
           cmake --build . --parallel --config ${{ matrix.build-type }} --target check
+      - name: Extract ref for badges prefix
+        if: always()
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${${{ github.ref }}#refs/heads/})"
+        id: extract_branch
       - name: Update badge on merge (failure)
-        if: ${{ failure() && github.ref == 'refs/heads/master'  }}
+        if: ${{ failure() && inputs.generate-badges == 'true' }}
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_BADGES_TOKEN }}
           gistID: ${{ secrets.GIST_BADGES_SECRET }}
-          filename: "${{ matrix.config.os }}.${{ matrix.build-type }}.${{ matrix.precision.name }}.json"
+          filename: "${{ steps.extract-branch.outputs.branch }}.${{ matrix.config.os }}.${{ matrix.build-type }}.${{ matrix.precision.name }}.json"
           label: CI ${{ matrix.build-type }}  ${{ matrix.precision.name }}
           message: 'falling'
           namedLogo: ${{ matrix.config.icon }}
           logoColor: white
           color: CC1B1B
       - name: Update badge on merge (success)
-        if: ${{ success() && github.ref == 'refs/heads/master'  }}
+        if: ${{ success() && inputs.generate-badges == 'true' }}
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_BADGES_TOKEN }}
           gistID: ${{ secrets.GIST_BADGES_SECRET }}
-          filename: "${{ matrix.config.os }}.${{ matrix.build-type }}.${{ matrix.precision.name }}.json"
+          filename: "${{ steps.extract-branch.outputs.branch }}.${{ matrix.config.os }}.${{ matrix.build-type }}.${{ matrix.precision.name }}.json"
           label: CI ${{ matrix.build-type }}  ${{ matrix.precision.name }}
           message: 'passing'
           namedLogo: ${{ matrix.config.icon }}
           logoColor: white
           color: 1BCC1B
+      - name: Create and upload coverage report
+        if: ${{ inputs.coverage == 'true' }}
+        run: |
+          sudo apt-get install -y lcov libxml2-utils libglfw3-dev
+          cd build/Radium-Engine
+          cmake --build . --config Debug --target lcov_init
+          cmake --build . --config Debug --target lcov_zerocounter
+          cmake --build . --config Debug --target check
+          cmake --build . --config Debug --target lcov_capture
+          # show report for debug
+          cmake --build . --config Debug --target lcov_list
+          # Uploading report to CodeCov
+          bash <(curl -s https://codecov.io/bash) -f total.info -R ../../src/Radium-Engine || echo "Codecov did not collect coverage reports"
