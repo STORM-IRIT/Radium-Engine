@@ -59,6 +59,14 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
     return KeyMappingManager::KeyMappingAction();
 }
 
+std::optional<KeyMappingManager::MouseBinding>
+KeyMappingManager::getBinding( const KeyMappingManager::Context& context,
+                               KeyMappingAction action ) {
+    for ( const auto& [key, value] : m_mappingAction[context] )
+        if ( value == action ) return key;
+    return {};
+}
+
 KeyMappingManager::KeyMappingAction
 KeyMappingManager::addAction( const std::string& context,
                               const std::string& keyString,
