@@ -99,11 +99,18 @@ inline void GeometryData::setPolyhedra( const Container& polyList ) {
     internal::copyData( polyList, m_polyhedron );
 }
 
-// TODO : add a shared_point or kind of to unlock attrib
 inline Vector3Array& GeometryData::getNormals() {
-    auto& attrib = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "normal" ) );
+    auto h = m_vertexAttribs.findAttrib<Vector3>( "normal" );
+    if ( !m_vertexAttribs.isValid( h ) ) { h = m_vertexAttribs.addAttrib<Vector3>( "normal" ); }
+    auto& attrib = m_vertexAttribs.getAttrib( h );
     auto& normal = attrib.getDataWithLock();
+    attribPtr    = &attrib;
     return normal;
+}
+
+inline void GeometryData::unlockData() {
+    attribPtr->unlock();
+    attribPtr = nullptr;
 }
 
 inline const Vector3Array& GeometryData::getNormals() const {
@@ -120,10 +127,12 @@ inline void GeometryData::setNormals( const Container& normalList ) {
     attrib.unlock();
 }
 
-// TODO : add a shared_point or kind of to unlock attrib
 inline Vector3Array& GeometryData::getTangents() {
-    auto& tangent = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "tangent" ) )
-                        .getDataWithLock();
+    auto h = m_vertexAttribs.findAttrib<Vector3>( "tangent" );
+    if ( !m_vertexAttribs.isValid( h ) ) { h = m_vertexAttribs.addAttrib<Vector3>( "tangent" ); }
+    auto& attrib  = m_vertexAttribs.getAttrib( h );
+    auto& tangent = attrib.getDataWithLock();
+    attribPtr     = &attrib;
     return tangent;
 }
 
@@ -142,29 +151,49 @@ inline void GeometryData::setTangents( const Container& tangentList ) {
 }
 
 inline Vector3Array& GeometryData::getBiTangents() {
-    return m_bitangent;
+    auto h = m_vertexAttribs.findAttrib<Vector3>( "biTangent" );
+    if ( !m_vertexAttribs.isValid( h ) ) { h = m_vertexAttribs.addAttrib<Vector3>( "biTangent" ); }
+    auto& attrib    = m_vertexAttribs.getAttrib( h );
+    auto& biTangent = attrib.getDataWithLock();
+    attribPtr       = &attrib;
+    return biTangent;
 }
 
 inline const Vector3Array& GeometryData::getBiTangents() const {
-    return m_bitangent;
+    auto attriHandler = m_vertexAttribs.findAttrib<Vector3>( "biTangent" );
+    auto& biTangent   = m_vertexAttribs.getAttrib( attriHandler ).data();
+    return biTangent;
 }
 
 template <typename Container>
 inline void GeometryData::setBitangents( const Container& bitangentList ) {
-    internal::copyData( bitangentList, m_bitangent );
+    auto& attrib = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "biTangent" ) );
+    auto& biTangent = attrib.getDataWithLock();
+    internal::copyData( bitangentList, biTangent );
+    attrib.unlock();
 }
 
 inline Vector3Array& GeometryData::getTexCoords() {
-    return m_texCoord;
+    auto h = m_vertexAttribs.findAttrib<Vector3>( "texCoord" );
+    if ( !m_vertexAttribs.isValid( h ) ) { h = m_vertexAttribs.addAttrib<Vector3>( "texCoord" ); }
+    auto& attrib   = m_vertexAttribs.getAttrib( h );
+    auto& texCoord = attrib.getDataWithLock();
+    attribPtr      = &attrib;
+    return texCoord;
 }
 
 inline const Vector3Array& GeometryData::getTexCoords() const {
-    return m_texCoord;
+    auto attriHandler = m_vertexAttribs.findAttrib<Vector3>( "texCoord" );
+    auto& texCoord    = m_vertexAttribs.getAttrib( attriHandler ).data();
+    return texCoord;
 }
 
 template <typename Container>
 inline void GeometryData::setTextureCoordinates( const Container& texCoordList ) {
-    internal::copyData( texCoordList, m_texCoord );
+    auto& attrib   = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "texCoord" ) );
+    auto& texCoord = attrib.getDataWithLock();
+    internal::copyData( texCoordList, texCoord );
+    attrib.unlock();
 }
 
 inline const MaterialData& GeometryData::getMaterial() const {
@@ -232,11 +261,15 @@ inline bool GeometryData::hasTangents() const {
 }
 
 inline bool GeometryData::hasBiTangents() const {
-    return !m_bitangent.empty();
+    return !m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "biTangent" ) )
+                .data()
+                .empty();
 }
 
 inline bool GeometryData::hasTextureCoordinates() const {
-    return !m_texCoord.empty();
+    return !m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "texCoord" ) )
+                .data()
+                .empty();
 }
 
 inline bool GeometryData::hasMaterial() const {

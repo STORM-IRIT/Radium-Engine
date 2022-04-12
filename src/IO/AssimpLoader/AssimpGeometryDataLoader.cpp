@@ -208,35 +208,26 @@ void AssimpGeometryDataLoader::fetchPolyhedron( const aiMesh& mesh, GeometryData
 }
 
 void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& data ) const {
-    const int size      = mesh.mNumVertices;
-    auto& attribManager = data.getAttribManager();
-    auto handle         = attribManager.addAttrib<Core::Vector3>( "normal" );
-    auto& attrib        = attribManager.getAttrib( handle );
-    auto& normal        = attrib.getDataWithLock();
-
+    const int size = mesh.mNumVertices;
+    auto& normal   = data.getNormals();
     normal.resize( mesh.mNumVertices, Core::Vector3::Zero() );
 #pragma omp parallel for
     for ( int i = 0; i < size; ++i ) {
         normal[i] = assimpToCore( mesh.mNormals[i] );
         normal[i].normalize();
     }
-    attrib.unlock();
+    data.unlockData();
 }
 
 void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& data ) const {
     const int size = mesh.mNumVertices;
-    // auto& tangent  = data.getTangents();
-    auto& attribManager = data.getAttribManager();
-    auto handle         = attribManager.addAttrib<Core::Vector3>( "tangent" );
-    auto& attrib        = attribManager.getAttrib( handle );
-    auto& tangent       = attrib.getDataWithLock();
-
+    auto& tangent  = data.getTangents();
     tangent.resize( mesh.mNumVertices, Core::Vector3::Zero() );
 #pragma omp parallel for
     for ( int i = 0; i < int( size ); ++i ) {
         tangent[i] = assimpToCore( mesh.mTangents[i] );
     }
-    attrib.unlock();
+    data.unlockData();
 }
 
 void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData& data ) const {
@@ -247,6 +238,7 @@ void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData
     for ( int i = 0; i < size; ++i ) {
         bitangent[i] = assimpToCore( mesh.mBitangents[i] );
     }
+    data.unlockData();
 }
 
 void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
@@ -259,6 +251,7 @@ void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
         // Radium V2 : allow to have several UV channels
         texcoord.at( i ) = assimpToCore( mesh.mTextureCoords[0][i] );
     }
+    data.unlockData();
 }
 
 void AssimpGeometryDataLoader::fetchColors( const aiMesh& mesh, GeometryData& data ) const {
