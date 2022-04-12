@@ -95,7 +95,9 @@ jobs:
           [[ "true" == "${{ inputs.qt5 }}" ]] && echo '{ "name" : "qt5", "value" : "5.15.1"}'
           [[ "true" == "${{ inputs.qt5 }}" && "true" == "${{ inputs.qt6 }}" ]] && echo ','
           [[ "true" == "${{ inputs.qt6 }}" ]] && echo '{ "name" : "qt6", "value" : "6.2.0"}'
-          echo ']'
+          echo '],'
+          echo '"coverage" :'
+          [[ "true" == "${{ inputs.coverage }}" ]] && echo '["ON"]' || echo '["OFF"]'
           echo "}"
           ) | jq -c .)
           echo $matrix
@@ -109,7 +111,6 @@ jobs:
       - name: Install json2yaml
         run: |
           sudo npm install -g json2yaml
-
       - name: Check matrix definition
         run: |
           matrix='${{ needs.create-matrix.outputs.matrix }}'
@@ -143,6 +144,9 @@ jobs:
       - name: Install dep Linux
         if: runner.os == 'Linux'
         run: sudo apt-get install -y libglfw3-dev
+      - name: Install dep coverage
+        if: ${{ inputs.coverage == 'true' }}
+        run: sudo apt-get install -y lcov
       - name: Install dep MacOS
         if: runner.os == 'macOS'
         run: brew install glfw
@@ -190,7 +194,7 @@ jobs:
       - name: Configure Radium
         run: |
           cd build/Radium-Engine
-          cmake ../../src/Radium-Engine -GNinja -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DRADIUM_USE_DOUBLE=${{ matrix.precision.value }} -DCMAKE_INSTALL_PREFIX=../../install/ -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=LAZY -DRADIUM_INSTALL_DOC=OFF -DRADIUM_ENABLE_TESTING=ON -DEigen3_DIR=${{env.ext-dir}}/share/eigen3/cmake/ -DOpenMesh_DIR=${{env.ext-dir}}/share/OpenMesh/cmake/ -Dcpplocate_DIR=${{env.ext-dir}}/share/cpplocate/ -Dglm_DIR=${{env.ext-dir}}/lib/cmake/glm/ -Dglbinding_DIR=${{env.ext-dir}}/share/glbinding/ -Dglobjects_DIR=${{env.ext-dir}}/share/globjects/ -Dstb_DIR=${{env.ext-dir}}/include/stb/ -Dassimp_DIR=${{env.ext-dir}}/lib/cmake/assimp-5.0/ -Dtinyply_DIR=${{env.ext-dir}}/lib/cmake/tinyply/ ${{env.glfw-path}}
+          cmake ../../src/Radium-Engine -GNinja -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DRADIUM_USE_DOUBLE=${{ matrix.precision.value }} -DCMAKE_INSTALL_PREFIX=../../install/ -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=LAZY -DRADIUM_INSTALL_DOC=OFF -DRADIUM_ENABLE_TESTING=ON -DRADIUM_ENABLE_COVERAGE=${{ matrix.coverage }} -DEigen3_DIR=${{ env.ext-dir }}/share/eigen3/cmake/ -DOpenMesh_DIR=${{ env.ext-dir }}/share/OpenMesh/cmake/ -Dcpplocate_DIR=${{ env.ext-dir }}/share/cpplocate/ -Dglm_DIR=${{ env.ext-dir }}/lib/cmake/glm/ -Dglbinding_DIR=${{ env.ext-dir }}/share/glbinding/ -Dglobjects_DIR=${{ env.ext-dir }}/share/globjects/ -Dstb_DIR=${{ env.ext-dir }}/include/stb/ -Dassimp_DIR=${{ env.ext-dir }}/lib/cmake/assimp-5.0/ -Dtinyply_DIR=${{ env.ext-dir }}/lib/cmake/tinyply/ ${{ env.glfw-path }}
       - name: Build Radium
         run: |
           cd build/Radium-Engine
@@ -235,7 +239,6 @@ jobs:
       - name: Create and upload coverage report
         if: ${{ inputs.coverage == 'true' }}
         run: |
-          sudo apt-get install -y lcov libxml2-utils libglfw3-dev
           cd build/Radium-Engine
           cmake --build . --config Debug --target lcov_init
           cmake --build . --config Debug --target lcov_zerocounter
