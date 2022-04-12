@@ -34,9 +34,12 @@ add_dependencies(${PROJECT_NAME} DrawPrimitivesDemo)
 add_subdirectory(EntityAnimationDemo)
 add_dependencies(${PROJECT_NAME} EntityAnimationDemo)
 
-# HeadlessDemo
-add_subdirectory(HeadlessDemo)
-add_dependencies(${PROJECT_NAME} HeadlessDemo)
+# HeadlessDemo headless demo is available only if Radium::headless is available
+find_package(Radium COMPONENTS Headless QUIET)
+if(Radium_FOUND)
+    add_subdirectory(HeadlessDemo)
+    add_dependencies(${PROJECT_NAME} HeadlessDemo)
+endif()
 
 # HelloRadium
 add_subdirectory(HelloRadium)
