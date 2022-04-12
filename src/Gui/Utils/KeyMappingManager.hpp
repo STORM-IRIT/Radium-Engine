@@ -11,6 +11,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/Observable.hpp>
 #include <Core/Utils/Singleton.hpp>
+#include <Core/Utils/StdOptional.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -25,6 +26,37 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     Q_GADGET
 
   public:
+    /// Inner class to store event binding.
+    /// \todo rename to EventBinding, since it stores mouse, wheel or key event.
+    class MouseBinding
+    {
+      public:
+        explicit MouseBinding( Qt::MouseButtons buttons        = Qt::NoButton,
+                               Qt::KeyboardModifiers modifiers = Qt::NoModifier,
+                               int key                         = -1,
+                               bool wheel                      = false ) :
+
+            m_buttons { buttons }, m_modifiers { modifiers }, m_key { key }, m_wheel { wheel } {}
+        bool operator<( const MouseBinding& b ) const {
+            return ( m_buttons < b.m_buttons ) ||
+                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers < b.m_modifiers ) ) ||
+                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
+                     ( m_key < b.m_key ) ) ||
+                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
+                     ( m_key == b.m_key ) && ( m_wheel < b.m_wheel ) );
+        }
+
+        bool isMouseEvent() { return m_buttons != Qt::NoButton; }
+        bool isWheelEvent() { return m_wheel; }
+        bool isKeyEvent() { return !isMouseEvent() && !isWheelEvent(); }
+
+        Qt::MouseButtons m_buttons;
+        Qt::KeyboardModifiers m_modifiers;
+        // only one key
+        int m_key;
+        bool m_wheel;
+    };
+
     using KeyMappingAction = Ra::Core::Utils::Index;
     using Context          = Ra::Core::Utils::Index;
 
@@ -48,11 +80,15 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// \param modifiers are the keyboard modifiers, could be NoModifiers
     /// \param key is the key pressed, could be -1
     /// \param wheel specifies if we consider a wheel event
-    KeyMappingManager::KeyMappingAction getAction( const KeyMappingManager::Context& context,
-                                                   const Qt::MouseButtons& buttons,
-                                                   const Qt::KeyboardModifiers& modifiers,
-                                                   int key,
-                                                   bool wheel = false );
+    KeyMappingAction getAction( const Context& context,
+                                const Qt::MouseButtons& buttons,
+                                const Qt::KeyboardModifiers& modifiers,
+                                int key,
+                                bool wheel = false );
+
+    /// Return, if exists, the event binding associated with a context/action.
+    /// if such binding doesn't exists, the optional does not contain a value.
+    std::optional<MouseBinding> getBinding( const Context& context, KeyMappingAction action );
 
     /// \brief Add a given action within a possibly non existing context (also created in this case)
     /// to the mapping system.
@@ -69,13 +105,13 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// \param actionString represents the KeyMappingAction enum's value you want to
     /// trigger.
     /// \param saveToConfigFile request to save the action on the config file (true by default).
-    KeyMappingManager::KeyMappingAction addAction( const std::string& context,
-                                                   const std::string& keyString,
-                                                   const std::string& modifiersString,
-                                                   const std::string& buttonsString,
-                                                   const std::string& wheelString,
-                                                   const std::string& actionString,
-                                                   bool saveToConfigFile = true );
+    KeyMappingAction addAction( const std::string& context,
+                                const std::string& keyString,
+                                const std::string& modifiersString,
+                                const std::string& buttonsString,
+                                const std::string& wheelString,
+                                const std::string& actionString,
+                                bool saveToConfigFile = true );
 
     /// \brief Creates the context index for the given context name.
     /// If the context already exist, return the existing index. If not, the context is created
@@ -126,34 +162,6 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 
     /// Save an XML node that describes an event/action.
     void saveNode( QXmlStreamWriter& stream, const QDomNode& domNode );
-
-    // Private for now, but may need to be public if we want to customize keymapping configuration
-    // otherwise than by editing the XML configuration file.
-    class MouseBinding
-    {
-      public:
-        explicit MouseBinding( Qt::MouseButtons buttons,
-                               Qt::KeyboardModifiers modifiers = Qt::NoModifier,
-                               int key                         = -1,
-                               bool wheel                      = false ) :
-
-            m_buttons { buttons }, m_modifiers { modifiers }, m_key { key }, m_wheel { wheel } {}
-        bool operator<( const MouseBinding& b ) const {
-            return ( m_buttons < b.m_buttons ) ||
-                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers < b.m_modifiers ) ) ||
-                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
-                     ( m_key < b.m_key ) ) ||
-                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
-                     ( m_key == b.m_key ) && ( m_wheel < b.m_wheel ) );
-        }
-
-        //  private:
-        Qt::MouseButtons m_buttons;
-        Qt::KeyboardModifiers m_modifiers;
-        // only one key
-        int m_key;
-        bool m_wheel;
-    };
 
     /// bind binding to actionIndex, in contextIndex. If replace previously
     /// binded action, with a warning if binding was alreasly present.,
