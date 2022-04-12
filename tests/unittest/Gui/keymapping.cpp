@@ -222,4 +222,29 @@ TEST_CASE( "Gui/Utils/KeyMappingManager", "[Gui][Gui/Utils][KeyMappingManager]" 
         REQUIRE( customActionOtherBinding.isValid() );
         REQUIRE( customActionOtherBinding == customAction );
     }
+
+    SECTION( "Get Binding" ) {
+        mgr->loadConfiguration( "data/keymapping-valid.xml" );
+        // check context
+        auto cameraContext { mgr->getContext( "CameraContext" ) };
+        REQUIRE( cameraContext.isValid() );
+        REQUIRE( mgr->getContextName( cameraContext ) == "CameraContext" );
+
+        // test on action
+        auto validAction { mgr->getAction( cameraContext, Qt::LeftButton, Qt::NoModifier, -1 ) };
+        auto validBinding { mgr->getBinding( cameraContext, validAction ) };
+        REQUIRE( validAction.isValid() );
+        REQUIRE( validBinding );
+        REQUIRE( validAction == mgr->getAction( cameraContext,
+                                                validBinding->m_buttons,
+                                                validBinding->m_modifiers,
+                                                validBinding->m_key ) );
+        REQUIRE( validBinding->m_buttons == Qt::LeftButton );
+        REQUIRE( validBinding->m_modifiers == Qt::NoModifier );
+        REQUIRE( validBinding->m_key == -1 );
+        REQUIRE( validBinding->m_wheel == false );
+
+        auto invalidBinding { mgr->getBinding( cameraContext, {} ) };
+        REQUIRE( !invalidBinding );
+    }
 }
