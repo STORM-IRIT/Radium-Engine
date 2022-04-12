@@ -24,6 +24,8 @@ class MaterialData;
  */
 class RA_CORE_API GeometryData : public AssetData
 {
+    typedef Utils::Attrib<Eigen::Matrix<Scalar, 3, 1>>* AttribPtr;
+    AttribPtr attribPtr;
 
   public:
     using ColorArray = Vector4Array;
@@ -126,8 +128,11 @@ class RA_CORE_API GeometryData : public AssetData
     inline void setPolyhedra( const Container& polyList );
 
     /// Return the list of vertex normals.
-    /// \note This list must be unlock.
+    /// \note This list must be unlock by calling unlockData.
     inline Vector3Array& getNormals();
+
+    /// Unlock data and set to nullptr pointer associated to it
+    inline void unlockData();
 
     /// Return the list of vertex normals.
     inline const Vector3Array& getNormals() const;
@@ -261,18 +266,6 @@ class RA_CORE_API GeometryData : public AssetData
     /// Named attributes
     /// \todo Move all built-in attributes to m_vertexAttribs
     Utils::AttribManager m_vertexAttribs;
-
-    /// The list of vertex normals.
-    //[[deprecated]] Vector3Array m_normal;
-
-    /// The list of vertex tangent vectors.
-    //[[deprecated]] Vector3Array m_tangent;
-
-    /// The list of vertex bitangent vectors.
-    [[deprecated]] Vector3Array m_bitangent;
-
-    /// The list of vertex texture coordinates.
-    [[deprecated]] Vector3Array m_texCoord;
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;

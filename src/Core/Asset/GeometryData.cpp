@@ -15,8 +15,6 @@ GeometryData::GeometryData( const std::string& name, const GeometryType& type ) 
     m_faces(),
     m_polyhedron(),
     m_vertexAttribs(),
-    m_bitangent(),
-    m_texCoord(),
     m_material() {}
 
 GeometryData::~GeometryData() {}
@@ -59,8 +57,8 @@ void GeometryData::displayInfo() const {
     LOG( logINFO ) << " Face #         : " << m_faces.size();
     LOG( logINFO ) << " Normal ?       : " << ( ( getNormals().empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Tangent ?      : " << ( ( getTangents().empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Bitangent ?    : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( m_texCoord.empty() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Bitangent ?    : " << ( ( getBiTangents().empty() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( getTexCoords().empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
 
     if ( hasMaterial() ) { m_material->displayInfo(); }
