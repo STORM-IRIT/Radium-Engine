@@ -102,17 +102,12 @@ class PfmReader
     }
 
     static bool readFloat( FILE* fptr, float* n, int swap ) {
-        unsigned char *cptr, tmp;
 
         if ( fread( n, 4, 1, fptr ) != 1 ) return false;
         if ( swap ) {
-            cptr    = (unsigned char*)n;
-            tmp     = cptr[0];
-            cptr[0] = cptr[3];
-            cptr[3] = tmp;
-            tmp     = cptr[1];
-            cptr[1] = cptr[2];
-            cptr[2] = tmp;
+            unsigned char* cptr = (unsigned char*)n;
+            std::swap( cptr[0], cptr[3] );
+            std::swap( cptr[1], cptr[2] );
         }
 
         return true;
@@ -341,7 +336,11 @@ void EnvironmentTexture::setupTexturesFromCube() {
         int w;
         int h;
         stbi_set_flip_vertically_on_load( flipV );
-        auto loaded       = stbi_loadf( imgname.c_str(), &w, &h, &n, 0 );
+        auto loaded = stbi_loadf( imgname.c_str(), &w, &h, &n, 0 );
+        if ( !loaded ) {
+            LOG( logERROR ) << "EnvironmentTexture::setupTexturesFromCube : unable to load "
+                            << imgname.c_str();
+        }
         m_width           = w;
         m_height          = h;
         m_skyData[imgIdx] = new float[m_width * m_height * 4];
@@ -636,7 +635,7 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
     return m_shtexture.get();
 }
 
-void EnvironmentTexture::saveShProjection( const std::string filename ) {
+void EnvironmentTexture::saveShProjection( const std::string& filename ) {
     getSHImage();
     auto flnm = std::string( "../" ) + filename;
     stbi_write_png(
