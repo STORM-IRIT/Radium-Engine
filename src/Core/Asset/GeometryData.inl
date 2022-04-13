@@ -32,11 +32,11 @@ inline std::size_t GeometryData::getVerticesSize() const {
 }
 
 inline const Vector3Array& GeometryData::getVertices() const {
-    return getVertexAttrib( "vertex" );
+    return getVertexAttrib<Vector3Array&>( "vertex" );
 }
 
 inline Vector3Array& GeometryData::getVertices() {
-    return getVertexAttrib( "vertex" );
+    return getVertexAttrib<Vector3Array&>( "vertex" );
 }
 
 namespace internal {
@@ -100,11 +100,11 @@ inline void GeometryData::setPolyhedra( const Container& polyList ) {
 }
 
 inline Vector3Array& GeometryData::getNormals() {
-    return getVertexAttrib( "normal" );
+    return getVertexAttrib<Vector3Array&>( "normal" );
 }
 
 inline const Vector3Array& GeometryData::getNormals() const {
-    return getVertexAttrib( "normal" );
+    return getVertexAttrib<Vector3Array&>( "normal" );
 }
 
 template <typename Container>
@@ -113,11 +113,11 @@ inline void GeometryData::setNormals( const Container& normalList ) {
 }
 
 inline Vector3Array& GeometryData::getTangents() {
-    return getVertexAttrib( "tangent" );
+    return getVertexAttrib<Vector3Array&>( "tangent" );
 }
 
 inline const Vector3Array& GeometryData::getTangents() const {
-    return getVertexAttrib( "tangent" );
+    return getVertexAttrib<Vector3Array&>( "tangent" );
 }
 
 template <typename Container>
@@ -126,11 +126,11 @@ inline void GeometryData::setTangents( const Container& tangentList ) {
 }
 
 inline Vector3Array& GeometryData::getBiTangents() {
-    return getVertexAttrib( "biTangent" );
+    return getVertexAttrib<Vector3Array&>( "biTangent" );
 }
 
 inline const Vector3Array& GeometryData::getBiTangents() const {
-    return getVertexAttrib( "biTangent" );
+    return getVertexAttrib<Vector3Array&>( "biTangent" );
 }
 
 template <typename Container>
@@ -139,11 +139,11 @@ inline void GeometryData::setBitangents( const Container& bitangentList ) {
 }
 
 inline Vector3Array& GeometryData::getTexCoords() {
-    return getVertexAttrib( "texCoord" );
+    return getVertexAttrib<Vector3Array&>( "texCoord" );
 }
 
 inline const Vector3Array& GeometryData::getTexCoords() const {
-    return getVertexAttrib( "texCoord" );
+    return getVertexAttrib<Vector3Array&>( "texCoord" );
 }
 
 template <typename Container>
@@ -231,7 +231,8 @@ Utils::AttribManager& GeometryData::getAttribManager() {
     return m_vertexAttribs;
 }
 
-inline Vector3Array& GeometryData::getVertexAttrib( std::string vertexAttribName ) {
+template <typename Container>
+inline Container& GeometryData::getVertexAttrib( std::string vertexAttribName ) {
     auto h = m_vertexAttribs.findAttrib<Vector3>( vertexAttribName );
     if ( !m_vertexAttribs.isValid( h ) ) {
         h = m_vertexAttribs.addAttrib<Vector3>( vertexAttribName );
@@ -242,10 +243,11 @@ inline Vector3Array& GeometryData::getVertexAttrib( std::string vertexAttribName
     return v;
 }
 
-inline const Vector3Array& GeometryData::getVertexAttrib( std::string vertexAttribName ) const {
+template <typename Container>
+inline const Container& GeometryData::getVertexAttrib( std::string vertexAttribName ) const {
     auto attriHandler = m_vertexAttribs.findAttrib<Vector3>( vertexAttribName );
     auto& v           = m_vertexAttribs.getAttrib( attriHandler ).data();
-    return v;
+    return const_cast<VectorArray<Eigen::Matrix<float, 3, 1, 0>>&>( v );
 }
 
 template <typename Container>
