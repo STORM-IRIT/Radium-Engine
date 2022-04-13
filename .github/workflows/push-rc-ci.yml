@@ -10,6 +10,11 @@ jobs:
     uses: ./.github/workflows/increase-version.yml
     secrets:
       token: ${{ secrets.COMMIT_VERSION_TOKEN }}
+  call-guideline-checks:
+    uses: ./.github/workflows/guideline-checks.yml
+    secrets:
+      GIST_BADGES_TOKEN:  ${{ secrets.GIST_BADGES_TOKEN }}
+      GIST_BADGES_SECRET: ${{ secrets.GIST_BADGES_SECRET }}
   call-build:
     needs: [increase-version-number]
     uses: ./.github/workflows/build-matrix.yml
