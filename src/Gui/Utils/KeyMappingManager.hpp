@@ -27,25 +27,16 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 
   public:
     /// Inner class to store event binding.
-    /// \todo rename to EventBinding, since it stores mouse, wheel or key event.
-    class MouseBinding
+    class EventBinding
     {
       public:
-        explicit MouseBinding( Qt::MouseButtons buttons        = Qt::NoButton,
+        explicit EventBinding( Qt::MouseButtons buttons        = Qt::NoButton,
                                Qt::KeyboardModifiers modifiers = Qt::NoModifier,
                                int key                         = -1,
                                bool wheel                      = false ) :
 
             m_buttons { buttons }, m_modifiers { modifiers }, m_key { key }, m_wheel { wheel } {}
-        bool operator<( const MouseBinding& b ) const {
-            return ( m_buttons < b.m_buttons ) ||
-                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers < b.m_modifiers ) ) ||
-                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
-                     ( m_key < b.m_key ) ) ||
-                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
-                     ( m_key == b.m_key ) && ( m_wheel < b.m_wheel ) );
-        }
-
+        bool operator<( const EventBinding& b ) const;
         bool isMouseEvent() { return m_buttons != Qt::NoButton; }
         bool isWheelEvent() { return m_wheel; }
         bool isKeyEvent() { return !isMouseEvent() && !isWheelEvent(); }
@@ -88,7 +79,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 
     /// Return, if exists, the event binding associated with a context/action.
     /// if such binding doesn't exists, the optional does not contain a value.
-    std::optional<MouseBinding> getBinding( const Context& context, KeyMappingAction action );
+    std::optional<EventBinding> getBinding( const Context& context, KeyMappingAction action );
 
     /// \brief Add a given action within a possibly non existing context (also created in this case)
     /// to the mapping system.
@@ -166,7 +157,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// bind binding to actionIndex, in contextIndex. If replace previously
     /// binded action, with a warning if binding was alreasly present.,
     void bindKeyToAction( Ra::Core::Utils::Index contextIndex,
-                          const MouseBinding& binding,
+                          const EventBinding& binding,
                           Ra::Core::Utils::Index actionIndex );
 
     void loadConfigurationInternal();
@@ -196,7 +187,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     QMetaEnum m_metaEnumKey;
     QFile* m_file;
 
-    using MouseBindingMapping = std::map<MouseBinding, KeyMappingAction>;
+    using MouseBindingMapping = std::map<EventBinding, KeyMappingAction>;
     using ContextNameMap      = std::map<std::string, Context>;
     using ActionNameMap       = std::map<std::string, Ra::Core::Utils::Index>;
 
@@ -238,3 +229,5 @@ KeyMappingManager::Context KeyMappingManageable<T>::m_keyMappingContext;
 
 } // namespace Gui
 } // namespace Ra
+
+#include <Gui/Utils/KeyMappingManager.inl>
