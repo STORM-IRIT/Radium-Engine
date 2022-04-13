@@ -246,5 +246,19 @@ TEST_CASE( "Gui/Utils/KeyMappingManager", "[Gui][Gui/Utils][KeyMappingManager]" 
 
         auto invalidBinding { mgr->getBinding( cameraContext, {} ) };
         REQUIRE( !invalidBinding );
+
+        KeyMappingManager::EventBinding mouseEvent { Qt::MouseButtons { Qt::LeftButton },
+                                                     Qt::ShiftModifier };
+        REQUIRE( mouseEvent.isMouseEvent() );
+
+        KeyMappingManager::EventBinding wheelEvent { true, Qt::ControlModifier };
+        REQUIRE( wheelEvent.isWheelEvent() );
+
+        KeyMappingManager::EventBinding keyEvent { Qt::Key_Bar, Qt::MetaModifier };
+        REQUIRE( keyEvent.isKeyEvent() );
+
+        KeyMappingManager::EventBinding combinedEvent {
+            Qt::LeftButton, Qt::MetaModifier, Qt::Key_Bar };
+        REQUIRE( ( !combinedEvent.isKeyEvent() && combinedEvent.isMouseEvent() ) );
     }
 }

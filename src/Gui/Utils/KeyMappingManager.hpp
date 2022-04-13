@@ -30,22 +30,37 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     class EventBinding
     {
       public:
-        explicit EventBinding( Qt::MouseButtons buttons        = Qt::NoButton,
-                               Qt::KeyboardModifiers modifiers = Qt::NoModifier,
-                               int key                         = -1,
-                               bool wheel                      = false ) :
-
+        /// Default constructor : empty event
+        EventBinding() = default;
+        /// Construct a mouse event : explicitely construct an event from all properties
+        /// @note When constructing a mouse event, buttons must be explicitely typed to prevent
+        /// constructor ambiguity
+        explicit EventBinding( Qt::MouseButtons buttons,
+                               Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
+            m_buttons { buttons }, m_modifiers { modifiers } {}
+        /// Construct a key event : explicitely construct an event from all properties
+        explicit EventBinding( int key, Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
+            m_modifiers { modifiers }, m_key { key } {}
+        /// Construct a key event : explicitely construct an event from all properties
+        explicit EventBinding( bool wheel, Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
+            m_modifiers { modifiers }, m_wheel { wheel } {}
+        /// Construct a combined event : explicitely construct combined event event from all
+        /// properties
+        EventBinding( Qt::MouseButtons buttons,
+                      Qt::KeyboardModifiers modifiers,
+                      int key,
+                      bool wheel = false ) :
             m_buttons { buttons }, m_modifiers { modifiers }, m_key { key }, m_wheel { wheel } {}
         bool operator<( const EventBinding& b ) const;
         bool isMouseEvent() { return m_buttons != Qt::NoButton; }
         bool isWheelEvent() { return m_wheel; }
         bool isKeyEvent() { return !isMouseEvent() && !isWheelEvent(); }
 
-        Qt::MouseButtons m_buttons;
-        Qt::KeyboardModifiers m_modifiers;
+        Qt::MouseButtons m_buttons { Qt::NoButton };
+        Qt::KeyboardModifiers m_modifiers { Qt::NoModifier };
         // only one key
-        int m_key;
-        bool m_wheel;
+        int m_key { -1 };
+        bool m_wheel { false };
     };
 
     using KeyMappingAction = Ra::Core::Utils::Index;
