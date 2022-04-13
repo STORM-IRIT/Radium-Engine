@@ -23,6 +23,7 @@ set(test_src
     Core/resources.cpp
     Core/string.cpp
     Core/topomesh.cpp
+    Engine/environmentmap.cpp
     Engine/signalmanager.cpp
     Engine/renderparameters.cpp
     Gui/keymapping.cpp
