@@ -268,12 +268,45 @@ class RA_CORE_API GeometryData : public AssetData
     std::shared_ptr<MaterialData> m_material;
 
   private:
-    inline Vector3Array& getVertexAttrib( std::string vertexAttribName );
-    inline const Vector3Array& getVertexAttrib( std::string vertexAttribName ) const;
+    /**
+     *
+     * @tparam Container
+     * @param vertexAttribName
+     * @return Get container base on the given name.
+     * @warning If AttribHandle corresponding to vertexAttribName doesn't exist, it's created
+     * and return. User must use hasVertexAttrib to verify it.
+     */
+    template <typename Container>
+    inline Container& getVertexAttrib( std::string vertexAttribName );
 
+    /**
+     *
+     * @tparam Container
+     * @param vertexAttribName
+     * @return Get container base on the given name (const).
+     * @warning There is no check on the handle validity (obtained by using vertexAttribName)
+     */
+    template <typename Container>
+    inline const Container& getVertexAttrib( std::string vertexAttribName ) const;
+
+    /**
+     *
+     * @tparam Container
+     * @param vertexAttribName
+     * @param vertexAttribList
+     * @note Copy data from vertexAttribList into the attrib obtain with vertexAttribName.
+     *
+     */
     template <typename Container>
     inline void setVertexAttrib( std::string vertexAttribName, const Container& vertexAttribList );
 
+    /**
+     *
+     * @param vertexAttribName
+     * @return true if vertexAttribName provided correspond to an existing attribHandle else it
+     * return false.
+     *
+     */
     inline bool hasVertexAttrib( std::string vertexAttribName ) const;
 };
 
