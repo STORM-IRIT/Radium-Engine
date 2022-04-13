@@ -19,6 +19,14 @@ struct ViewingParameters;
 class RA_ENGINE_API EnvironmentTexture
 {
   public:
+    /**
+     * Supported environment type.
+     *   - ENVMAP_PFM : cross envmap in PortableFloatMap format
+     *       (http://www.pauldebevec.com/Research/HDR/PFM/)
+     *   - ENVMAP_CUBE : cube map with 6 textures (1 per face)
+     *   - ENVMAP_LATLON : equirectangular Projection of the envmap
+     *       (https://en.wikipedia.org/wiki/Equirectangular_projection)
+     */
     enum class EnvMapType { ENVMAP_PFM = 0, ENVMAP_CUBE, ENVMAP_LATLON };
     /**
      * Constructors and destructor follow the 'rule of five'
@@ -31,7 +39,7 @@ class RA_ENGINE_API EnvironmentTexture
      * Supported image component of the envmap are the following.
      *
      *   - a pfm file for cross cubemap
-     *   - a list of png or jpeg for individual cube map faces (see below for naming convention)
+     *   - a list of image files for individual cube map faces (see below for naming convention)
      *   - a single png, exr, hdr, jpg file for Spherical equirectangular envmap
      *
      * If the cubemap is defined by a list of files, they must be named according to the
@@ -45,10 +53,10 @@ class RA_ENGINE_API EnvironmentTexture
      * @param mapName The list of filenames
      * @param type The file type. Supported file types are PFM for single files or whatever is
      * supported by stb for per-face files.
-     * @param isSkybox indicates if the envmap must be associated with a sky box and rendered like
+     * @param isSkybox indicates if the envmap must be associated with a skybox and rendered like
      * this.
      *
-     * @note The envmap is trasnformed at loading/build time to the Radium global frame.
+     * @note The envmap is transformed at loading/build time to the Radium global frame.
      * @todo : if the file given to the constructor does not exist, generates a white envmap ?
      */
     explicit EnvironmentTexture( const std::string& mapName, bool isSkybox = false );
@@ -67,12 +75,12 @@ class RA_ENGINE_API EnvironmentTexture
      * Saves the spherical image representing the SH-encoded envmap
      * @param filename
      */
-    void saveShProjection( const std::string filename );
+    void saveShProjection( const std::string& filename );
 
     /**
      * Return the SH Matrix corresponding to the given color channel.
      * @param channel
-     * @return
+     * @return the SH irradiance matrix for the channel
      */
     Ra::Core::Matrix4 getShMatrix( int channel );
 
@@ -83,13 +91,23 @@ class RA_ENGINE_API EnvironmentTexture
     void render( const Ra::Engine::Data::ViewingParameters& viewParams );
 
     /**
-     * Set the state of the sky bos
-     * @param state true to render the skybos, false to just use the SH coefficients
+     * Set the state of the skybox
+     * @param state true to render the skybox, false to just use the SH coefficients
      */
     void setSkybox( bool state );
 
+    /**
+     * set the multiplicative factor which defined the power of the light source
+     * @param s the envmap power
+     */
     void setStrength( float s );
+
+    /**
+     * get the multiplicative factor which defined the power of the light source
+     * @return the envmap power
+     */
     float getStrength() const;
+
     /**
      * @return true if the envmap is a skybox and might be rendered.
      */
@@ -100,16 +118,25 @@ class RA_ENGINE_API EnvironmentTexture
      */
     Ra::Engine::Data::Texture* getEnvironmentTexture();
 
+    /**
+     * Update th OpenGL state of the envmap : texture, skybox and shaders if needed.
+     */
     void updateGL();
 
   private:
+    /// Initialize the texture representing the skybox
     void initializeTexture();
 
+    /// loads and transform portableFloatMap cross image
     void setupTexturesFromPfm();
+    /// loads and transform cubemap from list of image files
     void setupTexturesFromCube();
+    /// loads and transform an equirectangular environment map
     void setupTexturesFromSphericalEquiRectangular();
 
+    /// Compute the irradiance SH matrices
     void computeSHMatrices();
+
     void updateCoeffs( float* hdr, float x, float y, float z, float domega );
     float* getPixel( float x, float y, float z );
     void tomatrix();
