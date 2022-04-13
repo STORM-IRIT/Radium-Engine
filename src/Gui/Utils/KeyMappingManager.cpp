@@ -51,7 +51,7 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
          ( key == Qt::Key_Meta ) ) {
         key = -1;
     }
-    KeyMappingManager::MouseBinding binding { buttons, modifiers, key, wheel };
+    KeyMappingManager::EventBinding binding { buttons, modifiers, key, wheel };
 
     auto action = m_mappingAction[context].find( binding );
     if ( action != m_mappingAction[context].end() ) { return action->second; }
@@ -59,7 +59,7 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
     return KeyMappingManager::KeyMappingAction();
 }
 
-std::optional<KeyMappingManager::MouseBinding>
+std::optional<KeyMappingManager::EventBinding>
 KeyMappingManager::getBinding( const KeyMappingManager::Context& context,
                                KeyMappingAction action ) {
     for ( const auto& [key, value] : m_mappingAction[context] )
@@ -195,7 +195,7 @@ void KeyMappingManager::removeListener( int callbackId ) {
 }
 
 void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
-                                         const MouseBinding& binding,
+                                         const EventBinding& binding,
                                          Ra::Core::Utils::Index actionIndex ) {
 
     CORE_ASSERT( contextIndex < m_contextNameToIndex.size(), "contextIndex is out of range" );
@@ -473,7 +473,7 @@ KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
     }
     else {
         bindKeyToAction( contextIndex,
-                         MouseBinding { buttonsValue, modifiersValue, keyValue, wheel },
+                         EventBinding { buttonsValue, modifiersValue, keyValue, wheel },
                          actionIndex );
     }
     return actionIndex;
