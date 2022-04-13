@@ -65,6 +65,7 @@ env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
 
 jobs:
+  # inpiration from https://www.cynkra.com/blog/2020-12-23-dynamic-gha/
   create-matrix:
     runs-on: ubuntu-latest
     outputs:
