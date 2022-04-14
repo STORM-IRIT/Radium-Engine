@@ -38,9 +38,9 @@ namespace Ra {
 namespace Engine {
 namespace Scene {
 
-static std::string tangentName =
+static const std::string tangentName =
     Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TANGENT );
-static std::string bitangentName =
+static const std::string bitangentName =
     Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_BITANGENT );
 
 TriangleMesh triangulate( const PolyMesh& polyMesh ) {
