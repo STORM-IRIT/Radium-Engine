@@ -318,9 +318,6 @@ class RA_CORE_API GeometryData : public AssetData
     /// The type of geometry for the object.
     GeometryType m_type;
 
-    /// The list of vertices.
-    Vector3Array m_vertex;
-
     /// The list of lines.
     Vector2uArray m_edge;
 

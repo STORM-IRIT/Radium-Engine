@@ -10,7 +10,6 @@ GeometryData::GeometryData( const std::string& name, const GeometryType& type ) 
     AssetData( name ),
     m_frame( Transform::Identity() ),
     m_type( type ),
-    m_vertex(),
     m_edge(),
     m_faces(),
     m_polyhedron(),
@@ -52,13 +51,13 @@ void GeometryData::displayInfo() const {
     LOG( logINFO ) << "======== MESH INFO ========";
     LOG( logINFO ) << " Name           : " << m_name;
     LOG( logINFO ) << " Type           : " << type;
-    LOG( logINFO ) << " Vertex #       : " << m_vertex.size();
+    LOG( logINFO ) << " Vertex #       : " << getVerticesSize();
     LOG( logINFO ) << " Edge #         : " << m_edge.size();
     LOG( logINFO ) << " Face #         : " << m_faces.size();
-    LOG( logINFO ) << " Normal ?       : " << ( ( getNormals().empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tangent ?      : " << ( ( getTangents().empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Bitangent ?    : " << ( ( getBiTangents().empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( getTexCoords().empty() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Normal ?       : " << ( ( !hasAttribData( "normal" ) ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Tangent ?      : " << ( ( !hasAttribData( "tangent" ) ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Bitangent ?    : " << ( ( !hasAttribData( "biTangent" ) ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( !hasAttribData( "texCoord" ) ) ? "NO" : "YES" );
     LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
 
     if ( hasMaterial() ) { m_material->displayInfo(); }
