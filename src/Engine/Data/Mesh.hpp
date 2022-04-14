@@ -467,17 +467,17 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
 
     // \todo remove when data will handle all the attributes in a coherent way.
     if ( data->hasTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_TANGENT],
+        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TANGENT ),
                         data->getTangents() );
     }
 
     if ( data->hasBiTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_BITANGENT],
+        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_BITANGENT ),
                         data->getBiTangents() );
     }
 
     if ( data->hasTextureCoordinates() ) {
-        mesh.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_TEXCOORD],
+        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TEXCOORD ),
                         data->getTexCoords() );
     }
 

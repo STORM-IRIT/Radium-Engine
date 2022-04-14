@@ -238,7 +238,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     size_t colorCount = colorBuffer ? colorBuffer->count : 0;
     if ( colorCount != 0 ) {
         auto handle = attribManager.addAttrib<Core::Vector4>(
-            Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR] );
+            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ) );
         auto& attrib    = attribManager.getAttrib( handle );
         auto& container = attrib.getDataWithLock();
 
