@@ -273,6 +273,8 @@ class RA_CORE_API GeometryData : public AssetData
 
     template <typename Container>
     inline void setVertexAttrib( std::string vertexAttribName, const Container& vertexAttribList );
+
+    inline bool hasVertexAttrib( std::string vertexAttribName ) const;
 };
 
 } // namespace Asset
