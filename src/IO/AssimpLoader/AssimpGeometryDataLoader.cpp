@@ -216,7 +216,6 @@ void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& d
         normal[i] = assimpToCore( mesh.mNormals[i] );
         normal[i].normalize();
     }
-    data.unlockData();
 }
 
 void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& data ) const {
@@ -227,7 +226,6 @@ void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& 
     for ( int i = 0; i < int( size ); ++i ) {
         tangent[i] = assimpToCore( mesh.mTangents[i] );
     }
-    data.unlockData();
 }
 
 void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData& data ) const {
@@ -238,7 +236,6 @@ void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData
     for ( int i = 0; i < size; ++i ) {
         bitangent[i] = assimpToCore( mesh.mBitangents[i] );
     }
-    data.unlockData();
 }
 
 void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
@@ -251,7 +248,6 @@ void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
         // Radium V2 : allow to have several UV channels
         texcoord.at( i ) = assimpToCore( mesh.mTextureCoords[0][i] );
     }
-    data.unlockData();
 }
 
 void AssimpGeometryDataLoader::fetchColors( const aiMesh& mesh, GeometryData& data ) const {
