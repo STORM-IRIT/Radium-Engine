@@ -24,9 +24,6 @@ class MaterialData;
  */
 class RA_CORE_API GeometryData : public AssetData
 {
-    typedef Utils::Attrib<Eigen::Matrix<Scalar, 3, 1>>* AttribPtr;
-    AttribPtr attribPtr;
-
   public:
     using ColorArray = Vector4Array;
 
@@ -269,6 +266,13 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
+
+  private:
+    inline Vector3Array& getVertexAttrib( std::string vertexAttribName );
+    inline const Vector3Array& getVertexAttrib( std::string vertexAttribName ) const;
+
+    template <typename Container>
+    inline void setVertexAttrib( std::string vertexAttribName, const Container& vertexAttribList );
 };
 
 } // namespace Asset
