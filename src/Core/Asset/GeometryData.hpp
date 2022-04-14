@@ -72,15 +72,19 @@ class RA_CORE_API GeometryData : public AssetData
     inline std::size_t getVerticesSize() const;
 
     /// Return the list of vertices.
-    inline Vector3Array& getVertices();
+    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    getVertices();
 
     /// Return the list of vertices.
-    inline const Vector3Array& getVertices() const;
+    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
+    getVertices() const;
 
     /// Set the mesh vertices.
     /// \note In-place setting with getVertices() is preferred.
     template <typename Container>
-    inline void setVertices( const Container& vertexList );
+    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+                  "instead." )]] inline void
+    setVertices( const Container& vertexList );
 
     /// Return the list of lines.
     /// \note For line meshes only.
@@ -125,52 +129,64 @@ class RA_CORE_API GeometryData : public AssetData
     inline void setPolyhedra( const Container& polyList );
 
     /// Return the list of vertex normals.
-    /// \note This list must be unlock by calling unlockData.
-    inline Vector3Array& getNormals();
-
-    /// Unlock data and set to nullptr pointer associated to it
-    inline void unlockData();
+    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    getNormals();
 
     /// Return the list of vertex normals.
-    inline const Vector3Array& getNormals() const;
+    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
+    getNormals() const;
 
     /// Set the vertex normals.
     /// \note In-place setting with getNormals() is preferred.
     template <typename Container>
-    inline void setNormals( const Container& normalList );
+    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+                  "instead." )]] inline void
+    setNormals( const Container& normalList );
 
     /// Return the list of vertex tangent vectors.
-    inline Vector3Array& getTangents();
+    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    getTangents();
 
     /// Return the list of vertex tangent vectors.
-    inline const Vector3Array& getTangents() const;
+    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
+    getTangents() const;
 
     /// Set the vertex tangent vectors.
     /// \note In-place setting with getTangents() is preferred.
     template <typename Container>
-    inline void setTangents( const Container& tangentList );
+    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+                  "instead." )]] inline void
+    setTangents( const Container& tangentList );
 
     /// Return the list of vertex bitangent vectors.
-    inline Vector3Array& getBiTangents();
+    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    getBiTangents();
 
     /// Return the list of vertex bitangent vectors.
-    inline const Vector3Array& getBiTangents() const;
+    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
+    getBiTangents() const;
 
     /// Set the vertex bitangent vectors.
     /// \note In-place setting with getBiTangents() is preferred.
     template <typename Container>
-    inline void setBitangents( const Container& bitangentList );
+    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+                  "instead." )]] inline void
+    setBitangents( const Container& bitangentList );
 
     /// Return the list of vertex texture coordinates.
-    inline Vector3Array& getTexCoords();
+    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    getTexCoords();
 
     /// Return the list of vertex texture coordinates.
-    inline const Vector3Array& getTexCoords() const;
+    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
+    getTexCoords() const;
 
     /// Set the vertex texture coordinates.
     /// \note In-place setting with getTexCoords() is preferred.
     template <typename Container>
-    inline void setTextureCoordinates( const Container& texCoordList );
+    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+                  "instead." )]] inline void
+    setTextureCoordinates( const Container& texCoordList );
 
     /// Return the MaterialData associated to the objet.
     inline const MaterialData& getMaterial() const;
@@ -205,7 +221,8 @@ class RA_CORE_API GeometryData : public AssetData
     inline bool isHexMesh() const;
 
     /// Return true if the object has vertices.
-    inline bool hasVertices() const;
+    [[deprecated( "Use hasAttribData( std::string name ) instead." )]] inline bool
+    hasVertices() const;
 
     /// Return true if the object has lines.
     inline bool hasEdges() const;
@@ -217,20 +234,73 @@ class RA_CORE_API GeometryData : public AssetData
     inline bool hasPolyhedra() const;
 
     /// Return true if the object has vertex normals.
-    inline bool hasNormals() const;
+    [[deprecated( "Use hasAttribData( std::string name ) instead." )]] inline bool
+    hasNormals() const;
 
     /// Return true if the object has vertex tangent vectors.
-    inline bool hasTangents() const;
+    [[deprecated( "Use hasAttribData( std::string name ) instead." )]] inline bool
+    hasTangents() const;
 
     /// Return true if the object has vertex bitangent vectors.
-    inline bool hasBiTangents() const;
+    [[deprecated( "Use hasAttribData( std::string name ) instead." )]] inline bool
+    hasBiTangents() const;
 
     /// Return true if the object has vertex texture coordinates.
-    inline bool hasTextureCoordinates() const;
+    [[deprecated( "Use hasAttribData( std::string name ) instead." )]] inline bool
+    hasTextureCoordinates() const;
 
     /// Return true if the object has MaterialData.
     inline bool hasMaterial() const;
     /// \}
+
+    /**
+     *
+     * @tparam Container
+     * @param name
+     * @return Get container base on name (lock).
+     * @warning If AttribHandle corresponding to name doesn't exist, it's created
+     * and return. By using this method, user has read-write access to data, data is lock, when
+     * done call attribDataUnlock( std :: std::string name )
+     */
+    template <typename Container>
+    inline Container& getAttribDataWithLock( std::string name );
+
+    /**
+     *
+     * @param name
+     * @brief Unlock data base on name.
+     */
+    inline void attribDataUnlock( std::string name );
+
+    /**
+     *
+     * @tparam Container
+     * @param name
+     * @return Get container base on the given name (const).
+     * @warning There is no check on the handle validity (obtained by using name)
+     */
+    template <typename Container>
+    inline const Container& getAttribData( std::string name ) const;
+
+    /**
+     *
+     * @tparam Container
+     * @param name
+     * @param attribDataList
+     * @brief Copy data from attribDataList into the attrib obtain with name.
+     * @note In-place setting with getAttribDataWithLock( std::string name ) is preferred.
+     *
+     */
+    template <typename Container>
+    inline void setAttribData( std::string name, const Container& attribDataList );
+
+    /**
+     *
+     * @param name
+     * @return true if the name provided correspond to an existing attribHandle.
+     *
+     */
+    inline bool hasAttribData( std::string name ) const;
 
     /// Print stast info to the Debug output.
     void displayInfo() const;
@@ -266,48 +336,6 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
-
-  private:
-    /**
-     *
-     * @tparam Container
-     * @param vertexAttribName
-     * @return Get container base on the given name.
-     * @warning If AttribHandle corresponding to vertexAttribName doesn't exist, it's created
-     * and return. User must use hasVertexAttrib to verify it.
-     */
-    template <typename Container>
-    inline Container& getVertexAttrib( std::string vertexAttribName );
-
-    /**
-     *
-     * @tparam Container
-     * @param vertexAttribName
-     * @return Get container base on the given name (const).
-     * @warning There is no check on the handle validity (obtained by using vertexAttribName)
-     */
-    template <typename Container>
-    inline const Container& getVertexAttrib( std::string vertexAttribName ) const;
-
-    /**
-     *
-     * @tparam Container
-     * @param vertexAttribName
-     * @param vertexAttribList
-     * @note Copy data from vertexAttribList into the attrib obtain with vertexAttribName.
-     *
-     */
-    template <typename Container>
-    inline void setVertexAttrib( std::string vertexAttribName, const Container& vertexAttribList );
-
-    /**
-     *
-     * @param vertexAttribName
-     * @return true if vertexAttribName provided correspond to an existing attribHandle else it
-     * return false.
-     *
-     */
-    inline bool hasVertexAttrib( std::string vertexAttribName ) const;
 };
 
 } // namespace Asset
