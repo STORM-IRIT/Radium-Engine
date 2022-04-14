@@ -28,11 +28,11 @@ inline void GeometryData::setFrame( const Transform& frame ) {
 }
 
 inline std::size_t GeometryData::getVerticesSize() const {
-    return getAttribData<Vector3Array&>( "vertex" ).size();
+    return getAttribData<const Vector3Array&>( "vertex" ).size();
 }
 
 inline const Vector3Array& GeometryData::getVertices() const {
-    return getAttribData<Vector3Array&>( "vertex" );
+    return getAttribData<const Vector3Array&>( "vertex" );
 }
 
 inline Vector3Array& GeometryData::getVertices() {
@@ -104,7 +104,7 @@ inline Vector3Array& GeometryData::getNormals() {
 }
 
 inline const Vector3Array& GeometryData::getNormals() const {
-    return getAttribData<Vector3Array&>( "normal" );
+    return getAttribData<const Vector3Array&>( "normal" );
 }
 
 template <typename Container>
@@ -117,7 +117,7 @@ inline Vector3Array& GeometryData::getTangents() {
 }
 
 inline const Vector3Array& GeometryData::getTangents() const {
-    return getAttribData<Vector3Array&>( "tangent" );
+    return getAttribData<const Vector3Array&>( "tangent" );
 }
 
 template <typename Container>
@@ -130,7 +130,7 @@ inline Vector3Array& GeometryData::getBiTangents() {
 }
 
 inline const Vector3Array& GeometryData::getBiTangents() const {
-    return getAttribData<Vector3Array&>( "biTangent" );
+    return getAttribData<const Vector3Array&>( "biTangent" );
 }
 
 template <typename Container>
@@ -143,7 +143,7 @@ inline Vector3Array& GeometryData::getTexCoords() {
 }
 
 inline const Vector3Array& GeometryData::getTexCoords() const {
-    return getAttribData<Vector3Array&>( "texCoord" );
+    return getAttribData<const Vector3Array&>( "texCoord" );
 }
 
 template <typename Container>
@@ -243,8 +243,8 @@ inline Container& GeometryData::getAttribDataWithLock( std::string name ) {
 template <typename Container>
 inline const Container& GeometryData::getAttribData( std::string name ) const {
     auto attriHandler = m_vertexAttribs.findAttrib<Vector3>( name );
-    auto& v           = m_vertexAttribs.getAttrib( attriHandler ).data();
-    return const_cast<VectorArray<Eigen::Matrix<float, 3, 1, 0>>&>( v );
+    const auto& v     = m_vertexAttribs.getAttrib( attriHandler ).data();
+    return v;
 }
 
 template <typename Container>
