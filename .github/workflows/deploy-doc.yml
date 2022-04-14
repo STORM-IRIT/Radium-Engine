@@ -39,12 +39,18 @@ jobs:
       - name: Install packages
         run : |
           sudo apt-get install doxygen graphviz
+      - name: Extract ref for badges prefix
+        if: always()
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${${{ github.ref }}#refs/heads/})"
+        id: extract_branch
       - name: Configure Doc
         run: |
           cd build/Radium-Engine
           cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT
       - name: Build Doc
         run: |
+          export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
           cd build/Radium-Engine
           cmake --build . --target RadiumDoc
       - name: Temp ugly badge fix (remove when doxygen>1.17)

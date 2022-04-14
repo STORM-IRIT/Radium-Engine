@@ -1,13 +1,12 @@
 name: Guideline Checks
 
 on:
-  pull_request:
-    branches:
-      - release-candidate
-  push:
-    branches:
-      - master
-      - release-candidate
+  workflow_call:
+    secrets:
+      GIST_BADGES_TOKEN:
+        required: false
+      GIST_BADGES_SECRET:
+        required: false
 jobs:
   history:
     if: ${{ github.event_name != 'push' }}
