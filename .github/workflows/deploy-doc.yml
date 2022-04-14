@@ -42,8 +42,10 @@ jobs:
       - name: Extract ref for badges prefix
         if: always()
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${${{ github.ref }}#refs/heads/})"
-        id: extract_branch
+        run: |
+          GITHUB_REF=${{ github.ref }}
+          echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+        id: extract-branch
       - name: Configure Doc
         run: |
           cd build/Radium-Engine
@@ -55,8 +57,10 @@ jobs:
           cmake --build . --target RadiumDoc
       - name: Temp ugly badge fix (remove when doxygen>1.17)
         run: |
+          export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
           cd build/Radium-Engine
           sed -i 's/object type="image\/svg+xml" data/img src/g ; s/>codecov<\/object/ alt="codecov" class="inline"\//g' html/index.html
+          sed -i "s/\$(GITHUB_REF)/${GITHUB_REF}/g" html/index.html
       - name: Git branch name
         id: git-branch-name
         uses: EthanSK/git-branch-name-action@v1
