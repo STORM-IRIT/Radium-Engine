@@ -228,8 +228,12 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     // read requested buffers (and only those) from file content
     file.read( *file_stream );
-    copyBufferToContainer( vertBuffer, geometry->getVertices() );
-    copyBufferToContainer( normalBuffer, geometry->getNormals() );
+    copyBufferToContainer( vertBuffer,
+                           geometry->getAttribDataWithLock<Core::Vector3Array&>( "vertex" ) );
+    geometry->attribDataUnlock( "vertex" );
+    copyBufferToContainer( normalBuffer,
+                           geometry->getAttribDataWithLock<Core::Vector3Array&>( "normal" ) );
+    geometry->attribDataUnlock( "normal" );
 
     auto& attribManager = geometry->getAttribManager();
 
