@@ -28,15 +28,15 @@ inline void GeometryData::setFrame( const Transform& frame ) {
 }
 
 inline std::size_t GeometryData::getVerticesSize() const {
-    return m_vertex.size();
+    return getAttribData<Vector3Array&>( "vertex" ).size();
 }
 
 inline const Vector3Array& GeometryData::getVertices() const {
-    return getVertexAttrib<Vector3Array&>( "vertex" );
+    return getAttribData<Vector3Array&>( "vertex" );
 }
 
 inline Vector3Array& GeometryData::getVertices() {
-    return getVertexAttrib<Vector3Array&>( "vertex" );
+    return getAttribDataWithLock<Vector3Array&>( "vertex" );
 }
 
 namespace internal {
@@ -57,7 +57,7 @@ inline void copyData( const InContainer& input, OutContainer& output ) {
 
 template <typename Container>
 inline void GeometryData::setVertices( const Container& vertexList ) {
-    return setVertexAttrib( "vertex", vertexList );
+    return setAttribData( "vertex", vertexList );
 }
 
 inline Vector2uArray& GeometryData::getEdges() {
@@ -100,55 +100,55 @@ inline void GeometryData::setPolyhedra( const Container& polyList ) {
 }
 
 inline Vector3Array& GeometryData::getNormals() {
-    return getVertexAttrib<Vector3Array&>( "normal" );
+    return getAttribDataWithLock<Vector3Array&>( "normal" );
 }
 
 inline const Vector3Array& GeometryData::getNormals() const {
-    return getVertexAttrib<Vector3Array&>( "normal" );
+    return getAttribData<Vector3Array&>( "normal" );
 }
 
 template <typename Container>
 inline void GeometryData::setNormals( const Container& normalList ) {
-    return setVertexAttrib( "normal", normalList );
+    return setAttribData( "normal", normalList );
 }
 
 inline Vector3Array& GeometryData::getTangents() {
-    return getVertexAttrib<Vector3Array&>( "tangent" );
+    return getAttribDataWithLock<Vector3Array&>( "tangent" );
 }
 
 inline const Vector3Array& GeometryData::getTangents() const {
-    return getVertexAttrib<Vector3Array&>( "tangent" );
+    return getAttribData<Vector3Array&>( "tangent" );
 }
 
 template <typename Container>
 inline void GeometryData::setTangents( const Container& tangentList ) {
-    return setVertexAttrib( "tangent", tangentList );
+    return setAttribData( "tangent", tangentList );
 }
 
 inline Vector3Array& GeometryData::getBiTangents() {
-    return getVertexAttrib<Vector3Array&>( "biTangent" );
+    return getAttribDataWithLock<Vector3Array&>( "biTangent" );
 }
 
 inline const Vector3Array& GeometryData::getBiTangents() const {
-    return getVertexAttrib<Vector3Array&>( "biTangent" );
+    return getAttribData<Vector3Array&>( "biTangent" );
 }
 
 template <typename Container>
 inline void GeometryData::setBitangents( const Container& bitangentList ) {
-    return setVertexAttrib( "biTangent", bitangentList );
+    return setAttribData( "biTangent", bitangentList );
 }
 
 inline Vector3Array& GeometryData::getTexCoords() {
-    return getVertexAttrib<Vector3Array&>( "texCoord" );
+    return getAttribDataWithLock<Vector3Array&>( "texCoord" );
 }
 
 inline const Vector3Array& GeometryData::getTexCoords() const {
-    return getVertexAttrib<Vector3Array&>( "texCoord" );
+    return getAttribData<Vector3Array&>( "texCoord" );
 }
 
 template <typename Container>
 inline void GeometryData::setTextureCoordinates( const Container& texCoordList ) {
-    return setVertexAttrib( "texCoord", texCoordList );
+    return setAttribData( "texCoord", texCoordList );
 }
 
 inline const MaterialData& GeometryData::getMaterial() const {
@@ -188,7 +188,7 @@ inline bool GeometryData::isHexMesh() const {
 }
 
 inline bool GeometryData::hasVertices() const {
-    return hasVertexAttrib( "vertex" );
+    return hasAttribData( "vertex" );
 }
 
 inline bool GeometryData::hasEdges() const {
@@ -204,19 +204,19 @@ inline bool GeometryData::hasPolyhedra() const {
 }
 
 inline bool GeometryData::hasNormals() const {
-    return hasVertexAttrib( "normal" );
+    return hasAttribData( "normal" );
 }
 
 inline bool GeometryData::hasTangents() const {
-    return hasVertexAttrib( "tangent" );
+    return hasAttribData( "tangent" );
 }
 
 inline bool GeometryData::hasBiTangents() const {
-    return hasVertexAttrib( "biTangent" );
+    return hasAttribData( "biTangent" );
 }
 
 inline bool GeometryData::hasTextureCoordinates() const {
-    return hasVertexAttrib( "texCoord" );
+    return hasAttribData( "texCoord" );
 }
 
 inline bool GeometryData::hasMaterial() const {
@@ -232,37 +232,40 @@ Utils::AttribManager& GeometryData::getAttribManager() {
 }
 
 template <typename Container>
-inline Container& GeometryData::getVertexAttrib( std::string vertexAttribName ) {
-    auto h = m_vertexAttribs.findAttrib<Vector3>( vertexAttribName );
-    if ( !m_vertexAttribs.isValid( h ) ) {
-        h = m_vertexAttribs.addAttrib<Vector3>( vertexAttribName );
-    }
+inline Container& GeometryData::getAttribDataWithLock( std::string name ) {
+    auto h = m_vertexAttribs.findAttrib<Vector3>( name );
+    if ( !m_vertexAttribs.isValid( h ) ) { h = m_vertexAttribs.addAttrib<Vector3>( name ); }
     auto attribPtr = m_vertexAttribs.getAttribPtr( h );
-    if ( attribPtr->isLocked() ) { attribPtr->unlock(); }
-    auto& v = attribPtr->getDataWithLock();
+    auto& v        = attribPtr->getDataWithLock();
     return v;
 }
 
 template <typename Container>
-inline const Container& GeometryData::getVertexAttrib( std::string vertexAttribName ) const {
-    auto attriHandler = m_vertexAttribs.findAttrib<Vector3>( vertexAttribName );
+inline const Container& GeometryData::getAttribData( std::string name ) const {
+    auto attriHandler = m_vertexAttribs.findAttrib<Vector3>( name );
     auto& v           = m_vertexAttribs.getAttrib( attriHandler ).data();
     return const_cast<VectorArray<Eigen::Matrix<float, 3, 1, 0>>&>( v );
 }
 
 template <typename Container>
-inline void GeometryData::setVertexAttrib( std::string vertexAttribName,
-                                           const Container& vertexAttribList ) {
-    auto& attrib =
-        m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( vertexAttribName ) );
-    auto& v = attrib.getDataWithLock();
-    internal::copyData( vertexAttribList, v );
+inline void GeometryData::setAttribData( std::string name, const Container& attribDataList ) {
+    auto& attrib = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( name ) );
+    auto& v      = attrib.getDataWithLock();
+    internal::copyData( attribDataList, v );
     attrib.unlock();
 }
-bool GeometryData::hasVertexAttrib( std::string vertexAttribName ) const {
-    auto h = m_vertexAttribs.findAttrib<Vector3>( vertexAttribName );
+bool GeometryData::hasAttribData( std::string name ) const {
+    auto h = m_vertexAttribs.findAttrib<Vector3>( name );
     if ( m_vertexAttribs.isValid( h ) ) { return !m_vertexAttribs.getAttrib( h ).data().empty(); }
     return false;
+}
+
+void GeometryData::attribDataUnlock( std::string name ) {
+    auto h = m_vertexAttribs.findAttrib<Vector3>( name );
+    if ( m_vertexAttribs.isValid( h ) ) {
+        auto attribPtr = m_vertexAttribs.getAttribPtr( h );
+        if ( attribPtr->isLocked() ) { attribPtr->unlock(); }
+    }
 }
 
 } // namespace Asset
