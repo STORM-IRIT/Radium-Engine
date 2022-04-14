@@ -263,14 +263,14 @@ class RA_CORE_API GeometryData : public AssetData
      * done call attribDataUnlock( std :: std::string name )
      */
     template <typename Container>
-    inline Container& getAttribDataWithLock( std::string name );
+    inline Container& getAttribDataWithLock( const std::string& name );
 
     /**
      *
      * @param name
      * @brief Unlock data base on name.
      */
-    inline void attribDataUnlock( std::string name );
+    inline void attribDataUnlock( const std::string& name );
 
     /**
      *
@@ -280,7 +280,7 @@ class RA_CORE_API GeometryData : public AssetData
      * @warning There is no check on the handle validity (obtained by using name)
      */
     template <typename Container>
-    inline const Container& getAttribData( std::string name ) const;
+    inline const Container& getAttribData( const std::string& name ) const;
 
     /**
      *
@@ -292,7 +292,7 @@ class RA_CORE_API GeometryData : public AssetData
      *
      */
     template <typename Container>
-    inline void setAttribData( std::string name, const Container& attribDataList );
+    inline void setAttribData( const std::string& name, const Container& attribDataList );
 
     /**
      *
@@ -300,7 +300,7 @@ class RA_CORE_API GeometryData : public AssetData
      * @return true if the name provided correspond to an existing attribHandle.
      *
      */
-    inline bool hasAttribData( std::string name ) const;
+    inline bool hasAttribData( const std::string& name ) const;
 
     /// Print stast info to the Debug output.
     void displayInfo() const;
