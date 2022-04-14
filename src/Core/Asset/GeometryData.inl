@@ -188,7 +188,7 @@ inline bool GeometryData::isHexMesh() const {
 }
 
 inline bool GeometryData::hasVertices() const {
-    return !m_vertex.empty();
+    return hasVertexAttrib( "vertex" );
 }
 
 inline bool GeometryData::hasEdges() const {
@@ -204,27 +204,19 @@ inline bool GeometryData::hasPolyhedra() const {
 }
 
 inline bool GeometryData::hasNormals() const {
-    return !m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "normal" ) )
-                .data()
-                .empty();
+    return hasVertexAttrib( "normal" );
 }
 
 inline bool GeometryData::hasTangents() const {
-    return !m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "tangent" ) )
-                .data()
-                .empty();
+    return hasVertexAttrib( "tangent" );
 }
 
 inline bool GeometryData::hasBiTangents() const {
-    return !m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "biTangent" ) )
-                .data()
-                .empty();
+    return hasVertexAttrib( "biTangent" );
 }
 
 inline bool GeometryData::hasTextureCoordinates() const {
-    return !m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( "texCoord" ) )
-                .data()
-                .empty();
+    return hasVertexAttrib( "texCoord" );
 }
 
 inline bool GeometryData::hasMaterial() const {
@@ -264,6 +256,11 @@ inline void GeometryData::setVertexAttrib( std::string vertexAttribName,
     auto& v = attrib.getDataWithLock();
     internal::copyData( vertexAttribList, v );
     attrib.unlock();
+}
+bool GeometryData::hasVertexAttrib( std::string vertexAttribName ) const {
+    auto h = m_vertexAttribs.findAttrib<Vector3>( vertexAttribName );
+    if ( m_vertexAttribs.isValid( h ) ) { return !m_vertexAttribs.getAttrib( h ).data().empty(); }
+    return false;
 }
 
 } // namespace Asset
