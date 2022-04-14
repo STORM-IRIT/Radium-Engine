@@ -200,9 +200,9 @@ inline void AttribArrayGeometry::normalsUnlock() {
 
 inline void AttribArrayGeometry::initDefaultAttribs() {
     m_verticesHandle = m_vertexAttribs.addAttrib<PointAttribHandle::value_type>(
-        g_attribName[MeshAttrib::VERTEX_POSITION] );
+        getAttribName( MeshAttrib::VERTEX_POSITION ) );
     m_normalsHandle = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>(
-        g_attribName[MeshAttrib::VERTEX_NORMAL] );
+        getAttribName( MeshAttrib::VERTEX_NORMAL ) );
     invalidateAabb();
 }
 

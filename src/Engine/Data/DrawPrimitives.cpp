@@ -39,7 +39,7 @@ Rendering::RenderObject* Primitive( Scene::Component* component,
     builder.second( rt, false );
     auto roMaterial              = Core::make_shared<PlainMaterial>( "Default material" );
     roMaterial->m_perVertexColor = mesh->getAttribArrayGeometry().hasAttrib(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR] );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ) );
     rt.setParametersProvider( roMaterial );
 
     auto ro = Rendering::RenderObject::createRenderObject(
@@ -58,8 +58,9 @@ LineMeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, 
                         ( point + ( scale * Core::Vector3::UnitZ() ) ),
                         ( point - ( scale * Core::Vector3::UnitZ() ) ) } );
     geom.setIndices( { { 0, 1 }, { 2, 3 }, { 4, 5 } } );
-    geom.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Core::Vector4Array { geom.vertices().size(), color } );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<LineMesh>( "Point Primitive", std::move( geom ) );
 }
@@ -69,8 +70,9 @@ Line( const Core::Vector3& a, const Core::Vector3& b, const Core::Utils::Color& 
     Geometry::LineMesh geom;
     geom.setVertices( { a, b } );
     geom.setIndices( { { 0, 1 } } );
-    geom.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Core::Vector4Array { geom.vertices().size(), color } );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<LineMesh>( "Line Primitive", std::move( geom ) );
 }
@@ -91,8 +93,9 @@ Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Utils::C
                         start + ( ( 1.f - arrowFract ) * v ) + ( ( arrowFract * l ) * a ),
                         start + ( ( 1.f - arrowFract ) * v ) - ( ( arrowFract * l ) * a ) } );
     geom.setIndices( { { 0, 1 }, { 1, 2 }, { 1, 3 } } );
-    geom.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Core::Vector4Array { geom.vertices().size(), color } );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<LineMesh>( "Vector Primitive", std::move( geom ) );
 }
@@ -102,8 +105,9 @@ LineMeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color, Scalar l
     Core::Vector3 end = ray.pointAt( len );
     geom.setVertices( { ray.origin(), end } );
     geom.setIndices( { { 0, 1 } } );
-    geom.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Core::Vector4Array { geom.vertices().size(), color } );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
     return make_shared<LineMesh>( "Ray Primitive", std::move( geom ) );
 }
 
@@ -117,7 +121,7 @@ AttribArrayDisplayablePtr Triangle( const Core::Vector3& a,
         geom.setVertices( { a, b, c } );
         geom.setIndices( { { 0, 1, 2 } } );
         geom.addAttrib(
-            Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
+            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
             Core::Vector4Array { geom.vertices().size(), color } );
         return make_shared<Mesh>( "Triangle Primitive", std::move( geom ) );
     }
@@ -126,7 +130,7 @@ AttribArrayDisplayablePtr Triangle( const Core::Vector3& a,
         geom.setVertices( { a, b, c } );
         geom.setIndices( { { 0, 1 }, { 1, 2 }, { 2, 0 } } );
         geom.addAttrib(
-            Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
+            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
             Core::Vector4Array { geom.vertices().size(), color } );
         return make_shared<LineMesh>( "Triangle Primitive", std::move( geom ) );
     }
@@ -159,7 +163,7 @@ MeshPtr QuadStrip( const Core::Vector3& a,
     MeshPtr mesh( new Mesh( "Quad Strip Primitive", Mesh::RM_TRIANGLE_STRIP ) );
     mesh->loadGeometry( vertices, indices );
     mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR], colors );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
     return mesh;
 }
 
@@ -194,8 +198,9 @@ LineMeshPtr Circle( const Core::Vector3& center,
 
     geom.setVertices( std::move( vertices ) );
     geom.setIndices( std::move( indices ) );
-    geom.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Core::Vector4Array { geom.vertices().size(), color } );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<LineMesh>( "Circle Primitive", std::move( geom ) );
 }
@@ -231,8 +236,9 @@ LineMeshPtr CircleArc( const Core::Vector3& center,
 
     geom.setVertices( std::move( vertices ) );
     geom.setIndices( std::move( indices ) );
-    geom.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Core::Vector4Array { geom.vertices().size(), color } );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<LineMesh>( "Arc Circle Primitive", std::move( geom ) );
 }
@@ -240,15 +246,16 @@ LineMeshPtr CircleArc( const Core::Vector3& center,
 MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
     auto geom   = makeGeodesicSphere( radius, 2 );
     auto handle = geom.getAttribHandle<TriangleMesh::Point>(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION] );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION ) );
     auto& vertices = geom.getAttrib<TriangleMesh::Point>( handle );
     auto& data     = vertices.getDataWithLock();
 
     std::for_each( data.begin(), data.end(), [center]( Core::Vector3& v ) { v += center; } );
     vertices.unlock();
 
-    geom.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Core::Vector4Array { geom.vertices().size(), color } );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<Mesh>( "Sphere Primitive", std::move( geom ) );
 }
@@ -274,14 +281,14 @@ MeshPtr Capsule( const Core::Vector3& p1,
     Matrix3 normalMatrix = t.linear().inverse().transpose();
 
     auto vertHandle = geom.getAttribHandle<TriangleMesh::Point>(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_POSITION] );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_POSITION ) );
     auto& vertAttrib = geom.getAttrib<TriangleMesh::Point>( vertHandle );
     auto& vertData   = vertAttrib.getDataWithLock();
     std::for_each( vertData.begin(), vertData.end(), [t]( Core::Vector3& v ) { v = t * v; } );
     vertAttrib.unlock();
 
     auto normalHandle = geom.getAttribHandle<TriangleMesh::Point>(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::VERTEX_NORMAL] );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_NORMAL ) );
     auto& normalAttrib = geom.getAttrib<TriangleMesh::Point>( normalHandle );
     auto& normalData   = normalAttrib.getDataWithLock();
     std::for_each( normalData.begin(), normalData.end(), [normalMatrix]( Core::Vector3& n ) {
@@ -289,8 +296,9 @@ MeshPtr Capsule( const Core::Vector3& p1,
     } );
     normalAttrib.unlock();
 
-    geom.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Core::Vector4Array { geom.vertices().size(), color } );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<Mesh>( "Capsule Primitive", std::move( geom ) );
 }
@@ -329,7 +337,7 @@ MeshPtr Disk( const Core::Vector3& center,
     MeshPtr mesh( new Mesh( "Disk Primitive", Mesh::RM_TRIANGLE_FAN ) );
     mesh->loadGeometry( vertices, indices );
     mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR], colors );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
 
     return mesh;
 }
@@ -375,8 +383,9 @@ LineMeshPtr Normal( const Core::Vector3& point,
                        { 7, 4 },
                        { 4, 6 },
                        { 5, 7 } } );
-    geom.addAttrib( Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Core::Vector4Array { geom.vertices().size(), color } );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<LineMesh>( "Normal Primitive", std::move( geom ) );
 }
@@ -406,7 +415,7 @@ MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
 
     mesh->loadGeometry( vertices, indices );
     mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR], colors );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
 
     return mesh;
 }
@@ -452,7 +461,7 @@ MeshPtr Grid( const Core::Vector3& center,
     MeshPtr mesh( new Mesh( "GridPrimitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( vertices, indices );
     mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR], colors );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
 
     return mesh;
 }
@@ -475,7 +484,7 @@ MeshPtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& color ) {
     MeshPtr mesh( new Mesh( "AABB Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( vertices, indices );
     mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR], colors );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
 
     return mesh;
 }
@@ -498,7 +507,7 @@ MeshPtr OBB( const Obb& obb, const Core::Utils::Color& color ) {
     MeshPtr mesh( new Mesh( "OBB Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( vertices, indices );
     mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR], colors );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
 
     return mesh;
 }
@@ -529,7 +538,7 @@ MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
     MeshPtr mesh( new Mesh( "Spline Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( vertices, indices );
     mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR], colors );
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
 
     return mesh;
 }
@@ -548,7 +557,7 @@ MeshPtr LineStrip( const Core::Vector3Array& vertices, const Core::Vector4Array&
     mesh->loadGeometry( vertices, indices );
     if ( colors.size() > 0 ) {
         mesh->getCoreGeometry().addAttrib(
-            Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
+            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
             colors );
     }
     return mesh;

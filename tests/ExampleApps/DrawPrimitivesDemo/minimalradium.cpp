@@ -858,9 +858,9 @@ void MinimalComponent::initialize() {
                 Vector3 up { 0_ra, .05_ra, 0_ra };
 
                 mesh.setVertices( points );
-                mesh.addAttrib(
-                    Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Vector4Array { colors.begin(), colors.begin() + points.size() } );
+                mesh.addAttrib( Ra::Core::Geometry::getAttribName(
+                                    Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+                                Vector4Array { colors.begin(), colors.begin() + points.size() } );
                 mesh.setIndices( indices );
                 topo = TopologicalMesh { mesh };
                 topo.mergeEqualWedges();
@@ -952,9 +952,9 @@ void MinimalComponent::initialize() {
                 Vector3 up { 0_ra, .05_ra, 0_ra };
 
                 mesh.setVertices( points );
-                mesh.addAttrib(
-                    Ra::Core::Geometry::g_attribName[Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR],
-                    Vector4Array { colors.begin(), colors.begin() + points.size() } );
+                mesh.addAttrib( Ra::Core::Geometry::getAttribName(
+                                    Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+                                Vector4Array { colors.begin(), colors.begin() + points.size() } );
                 mesh.setIndices( indices );
 
                 topo = TopologicalMesh { mesh };
