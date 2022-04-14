@@ -232,7 +232,7 @@ Utils::AttribManager& GeometryData::getAttribManager() {
 }
 
 template <typename Container>
-inline Container& GeometryData::getAttribDataWithLock( std::string name ) {
+inline Container& GeometryData::getAttribDataWithLock( const std::string& name ) {
     auto h = m_vertexAttribs.findAttrib<Vector3>( name );
     if ( !m_vertexAttribs.isValid( h ) ) { h = m_vertexAttribs.addAttrib<Vector3>( name ); }
     auto attribPtr = m_vertexAttribs.getAttribPtr( h );
@@ -241,26 +241,27 @@ inline Container& GeometryData::getAttribDataWithLock( std::string name ) {
 }
 
 template <typename Container>
-inline const Container& GeometryData::getAttribData( std::string name ) const {
+inline const Container& GeometryData::getAttribData( const std::string& name ) const {
     auto attriHandler = m_vertexAttribs.findAttrib<Vector3>( name );
     const auto& v     = m_vertexAttribs.getAttrib( attriHandler ).data();
     return v;
 }
 
 template <typename Container>
-inline void GeometryData::setAttribData( std::string name, const Container& attribDataList ) {
+inline void GeometryData::setAttribData( const std::string& name,
+                                         const Container& attribDataList ) {
     auto& attrib = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( name ) );
     auto& v      = attrib.getDataWithLock();
     internal::copyData( attribDataList, v );
     attrib.unlock();
 }
-bool GeometryData::hasAttribData( std::string name ) const {
+bool GeometryData::hasAttribData( const std::string& name ) const {
     auto h = m_vertexAttribs.findAttrib<Vector3>( name );
     if ( m_vertexAttribs.isValid( h ) ) { return !m_vertexAttribs.getAttrib( h ).data().empty(); }
     return false;
 }
 
-void GeometryData::attribDataUnlock( std::string name ) {
+void GeometryData::attribDataUnlock( const std::string& name ) {
     auto h = m_vertexAttribs.findAttrib<Vector3>( name );
     if ( m_vertexAttribs.isValid( h ) ) {
         auto attribPtr = m_vertexAttribs.getAttribPtr( h );
