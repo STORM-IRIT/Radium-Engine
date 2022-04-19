@@ -171,6 +171,8 @@ void EnvironmentTexture::initializeTexture() {
     case EnvMapType::ENVMAP_LATLON:
         setupTexturesFromSphericalEquiRectangular();
         break;
+    default:
+        LOG( logERROR ) << "EnvironmentTexture::initializeTexture(): unkown EnvMapType";
     }
     computeSHMatrices();
     // make the envmap cube texture
