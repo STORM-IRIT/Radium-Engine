@@ -118,10 +118,10 @@ class RA_GUI_API WindowQt : public QWindow
     // paintGL done by base app rendering loop
 
   protected:
-    static WindowQt* s_getProcAddressHelper;
     static glbinding::ProcAddress getProcAddress( const char* name );
 
   private:
+    static WindowQt* s_getProcAddressHelper;
     int m_contextActivationCount { 0 };
 };
 
