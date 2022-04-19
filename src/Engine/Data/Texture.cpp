@@ -132,10 +132,12 @@ void Texture::updateData( const void* data ) {
     } break;
     case GL_TEXTURE_CUBE_MAP: {
         // Load the 6 faces of the cube-map
-        void** texels = (void**)data;
+        static const void* nullTexels[6] { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
+        auto texels = data != nullptr ? (const void**)data : nullTexels;
+
         m_texture->bind();
-        // track globjects update that will hopefully support direct loading of
-        // cube-maps
+        // track globjects updates that will hopefully support direct loading of
+        // cube-maps https://github.com/cginternals/globjects/issues/368
         gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_POSITIVE_X,
                           0,
                           m_textureParameters.internalFormat,
@@ -158,7 +160,6 @@ void Texture::updateData( const void* data ) {
         gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
                           0,
                           m_textureParameters.internalFormat,
-
                           GLsizei( m_textureParameters.width ),
                           GLsizei( m_textureParameters.height ),
                           0,
