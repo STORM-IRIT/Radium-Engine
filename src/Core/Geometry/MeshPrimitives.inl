@@ -9,7 +9,7 @@ namespace Geometry {
 template <uint U, uint V>
 TriangleMesh makeParametricSphere( Scalar radius,
                                    const Utils::optional<Utils::Color>& color,
-                                   const bool& generateTexCoord ) {
+                                   bool generateTexCoord ) {
     constexpr uint slices = U;
     constexpr uint stacks = V;
 
@@ -83,7 +83,7 @@ template <uint U, uint V>
 TriangleMesh makeParametricTorus( Scalar majorRadius,
                                   Scalar minorRadius,
                                   const Utils::optional<Utils::Color>& color,
-                                  const bool& generateTexCoord ) {
+                                  bool generateTexCoord ) {
     TriangleMesh result;
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;

@@ -17,25 +17,25 @@ RA_CORE_API TriangleMesh makePlaneGrid( const uint rows         = 1,
                                         const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
                                         const Transform& T      = Transform::Identity(),
                                         const Utils::optional<Utils::Color>& color = Utils::Color(),
-                                        const bool& generateTexCoord               = false );
+                                        bool generateTexCoord                      = false );
 
 /// Create a 2D quad mesh given half extents, centered on the origin with x axis as normal
 RA_CORE_API TriangleMesh
 makeXNormalQuad( const Vector2& halfExts                    = Vector2( .5_ra, .5_ra ),
                  const Utils::optional<Utils::Color>& color = Utils::Color(),
-                 const bool& generateTexCoord               = false );
+                 bool generateTexCoord                      = false );
 
 /// Create a 2D quad mesh given half extents, centered on the origin with y axis as normal
 RA_CORE_API TriangleMesh
 makeYNormalQuad( const Vector2& halfExts                    = Vector2( .5_ra, .5_ra ),
                  const Utils::optional<Utils::Color>& color = Utils::Color(),
-                 const bool& generateTexCoord               = false );
+                 bool generateTexCoord                      = false );
 
 /// Create a 2D quad mesh given half extents, centered on the origin with z axis as normal
 RA_CORE_API TriangleMesh
 makeZNormalQuad( const Vector2& halfExts                    = Vector2( .5_ra, .5_ra ),
                  const Utils::optional<Utils::Color>& color = Utils::Color(),
-                 const bool& generateTexCoord               = false );
+                 bool generateTexCoord                      = false );
 
 /// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
 RA_CORE_API TriangleMesh makeBox( const Vector3& halfExts = Vector3( .5_ra, .5_ra, .5_ra ),
@@ -58,7 +58,7 @@ makeSharpBox( const Aabb& aabb, const Utils::optional<Utils::Color>& color = Uti
 template <uint U = 16, uint V = U>
 TriangleMesh makeParametricSphere( Scalar radius                              = 1_ra,
                                    const Utils::optional<Utils::Color>& color = Utils::Color(),
-                                   const bool& generateTexCoord               = false );
+                                   bool generateTexCoord                      = false );
 
 /// Create a parametric torus mesh. The minor radius is the radius of the inside of the tube and the
 /// major radius is the radius of the whole torus. The torus will be centered at the origin and have
@@ -67,7 +67,7 @@ template <uint U = 16, uint V = U>
 TriangleMesh makeParametricTorus( Scalar majorRadius,
                                   Scalar minorRadius,
                                   const Utils::optional<Utils::Color>& color = Utils::Color(),
-                                  const bool& generateTexCoord               = false );
+                                  bool generateTexCoord                      = false );
 
 /// Create a spherical mesh by subdivision of an icosahedron.
 RA_CORE_API TriangleMesh

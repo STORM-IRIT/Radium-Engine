@@ -12,7 +12,7 @@ namespace Geometry {
 
 TriangleMesh makeXNormalQuad( const Vector2& halfExts,
                               const Utils::optional<Utils::Color>& color,
-                              const bool& generateTexCoord ) {
+                              bool generateTexCoord ) {
     Transform T = Transform::Identity();
     T.linear().col( 0 ).swap( T.linear().col( 1 ) );
     T.linear().col( 1 ).swap( T.linear().col( 2 ) );
@@ -21,7 +21,7 @@ TriangleMesh makeXNormalQuad( const Vector2& halfExts,
 
 TriangleMesh makeYNormalQuad( const Vector2& halfExts,
                               const Utils::optional<Utils::Color>& color,
-                              const bool& generateTexCoord ) {
+                              bool generateTexCoord ) {
     Transform T = Transform::Identity();
     T.linear().col( 1 ).swap( T.linear().col( 2 ) );
     T.linear().col( 0 ).swap( T.linear().col( 1 ) );
@@ -30,7 +30,7 @@ TriangleMesh makeYNormalQuad( const Vector2& halfExts,
 
 TriangleMesh makeZNormalQuad( const Vector2& halfExts,
                               const Utils::optional<Utils::Color>& color,
-                              const bool& generateTexCoord ) {
+                              bool generateTexCoord ) {
     return makePlaneGrid( 1, 1, halfExts, Transform::Identity(), color, generateTexCoord );
 }
 
@@ -679,7 +679,7 @@ TriangleMesh makePlaneGrid( const uint rows,
                             const Vector2& halfExts,
                             const Transform& T,
                             const Utils::optional<Utils::Color>& color,
-                            const bool& generateTexCoord ) {
+                            bool generateTexCoord ) {
     TriangleMesh result;
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
