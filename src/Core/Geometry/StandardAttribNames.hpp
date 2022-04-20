@@ -22,21 +22,18 @@ enum MeshAttrib : uint {
     MAX_DATA
 };
 
-///@{
 /// Get the name expected for a given attrib.
-
-inline constexpr char const* getAttribName( MeshAttrib index ) {
-    constexpr char const* g_attribName[MeshAttrib::MAX_DATA] = { "in_position",
-                                                                 "in_normal",
-                                                                 "in_tangent",
-                                                                 "in_bitangent",
-                                                                 "in_texcoord",
-                                                                 "in_color",
-                                                                 "in_weight",
-                                                                 "in_weight_idx" };
+inline const std::string& getAttribName( MeshAttrib index ) {
+    static const std::string g_attribName[MeshAttrib::MAX_DATA] = { "in_position",
+                                                                    "in_normal",
+                                                                    "in_tangent",
+                                                                    "in_bitangent",
+                                                                    "in_texcoord",
+                                                                    "in_color",
+                                                                    "in_weight",
+                                                                    "in_weight_idx" };
     return g_attribName[index];
 }
-///@}
 
 } // namespace Geometry
 } // namespace Core

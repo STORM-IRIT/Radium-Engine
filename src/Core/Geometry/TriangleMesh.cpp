@@ -36,8 +36,7 @@ void AttribArrayGeometry::clearAttributes() {
 }
 
 void AttribArrayGeometry::colorize( const Utils::Color& color ) {
-    static constexpr auto colorAttribName( getAttribName( MeshAttrib::VERTEX_COLOR ) );
-    auto colorAttribHandle = addAttrib<Core::Vector4>( colorAttribName );
+    auto colorAttribHandle = addAttrib<Core::Vector4>( getAttribName( MeshAttrib::VERTEX_COLOR ) );
     getAttrib( colorAttribHandle ).setData( Vector4Array( vertices().size(), color ) );
 }
 
