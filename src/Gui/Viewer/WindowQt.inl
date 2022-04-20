@@ -4,20 +4,20 @@
 namespace Ra {
 namespace Gui {
 
-class WindowQt::ScopedContext
+class WindowQt::ScopedGLContext
 {
   public:
-    explicit ScopedContext( WindowQt* window ) : m_window( window ) { window->makeCurrent(); }
-    ~ScopedContext() { m_window->doneCurrent(); }
-    ScopedContext( const ScopedContext& ) = delete;
-    ScopedContext& operator=( ScopedContext const& ) = delete;
+    explicit ScopedGLContext( WindowQt* window ) : m_window( window ) { window->makeCurrent(); }
+    ~ScopedGLContext() { m_window->doneCurrent(); }
+    ScopedGLContext( const ScopedGLContext& ) = delete;
+    ScopedGLContext& operator=( ScopedGLContext const& ) = delete;
 
   private:
     WindowQt* m_window;
 };
 
-inline WindowQt::ScopedContext WindowQt::activateScopedContext() {
-    return ScopedContext { this };
+inline WindowQt::ScopedGLContext WindowQt::activateScopedContext() {
+    return ScopedGLContext { this };
 }
 
 } // namespace Gui

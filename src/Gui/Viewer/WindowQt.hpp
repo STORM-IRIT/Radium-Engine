@@ -27,7 +27,7 @@ namespace Gui {
 class RA_GUI_API WindowQt : public QWindow
 {
   private:
-    class ScopedContext;
+    class ScopedGLContext;
 
   public:
     explicit WindowQt( QScreen* screen );
@@ -78,7 +78,7 @@ class RA_GUI_API WindowQt : public QWindow
      * } // block exit will first call tex dtor (with active context) then context dtor.
      * \endcode
      */
-    inline ScopedContext activateScopedContext();
+    inline ScopedGLContext activateScopedContext();
 
     /// \see https://doc.qt.io/qt-5/qglwidget.html#context
     QOpenGLContext* context();
