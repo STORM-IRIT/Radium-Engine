@@ -52,6 +52,11 @@ add_executable(
     ${PROJECT_NAME} MACOSX_BUNDLE ${app_sources} ${app_headers} ${app_uis} ${app_resources}
 )
 
+get_target_property(USE_ASSIMP Radium::IO IO_ASSIMP)
+if(${USE_ASSIMP})
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "-DIO_USE_ASSIMP")
+endif()
+
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 target_include_directories(
     ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc
@@ -62,4 +67,6 @@ target_link_libraries(
     ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui Radium::IO ${Qt_LIBRARIES}
 )
 
-configure_radium_app(NAME ${PROJECT_NAME})
+configure_radium_app(
+    NAME ${PROJECT_NAME} RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/Assets" PREFIX "DrawPrimitivesApp"
+)
