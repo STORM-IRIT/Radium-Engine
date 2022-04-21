@@ -224,48 +224,70 @@ inline bool GeometryData::hasMaterial() const {
 }
 
 const Utils::AttribManager& GeometryData::getAttribManager() const {
-    return m_vertexAttribs;
+    return m_vertexAttribArray.vertexAttribs();
 }
 
 Utils::AttribManager& GeometryData::getAttribManager() {
-    return m_vertexAttribs;
+    return m_vertexAttribArray.vertexAttribs();
 }
 
 template <typename Container>
 inline Container& GeometryData::getAttribDataWithLock( const std::string& name ) {
-    auto h = m_vertexAttribs.findAttrib<Vector3>( name );
-    if ( !m_vertexAttribs.isValid( h ) ) { h = m_vertexAttribs.addAttrib<Vector3>( name ); }
-    auto attribPtr = m_vertexAttribs.getAttribPtr( h );
-    auto& v        = attribPtr->getDataWithLock();
-    return v;
+    if ( name == "vertex" ) { return m_vertexAttribArray.verticesWithLock(); }
+    else if ( name == "normal" ) {
+        return m_vertexAttribArray.normalsWithLock();
+    }
+    auto h = m_vertexAttribArray.template getAttribHandle<Vector3>( name );
+    if ( !m_vertexAttribArray.template isValid( h ) ) {
+        h = m_vertexAttribArray.template addAttrib<Vector3>( name );
+    }
+    auto& attrib = m_vertexAttribArray.template getAttrib( h );
+    auto& d      = attrib.getDataWithLock();
+    return d;
 }
 
 template <typename Container>
 inline const Container& GeometryData::getAttribData( const std::string& name ) const {
-    auto attriHandler = m_vertexAttribs.findAttrib<Vector3>( name );
-    const auto& v     = m_vertexAttribs.getAttrib( attriHandler ).data();
-    return v;
+    if ( name == "vertex" ) { return m_vertexAttribArray.vertices(); }
+    else if ( name == "normal" ) {
+        return m_vertexAttribArray.normals();
+    }
+    auto h             = m_vertexAttribArray.template getAttribHandle<Vector3>( name );
+    const auto& attrib = m_vertexAttribArray.template getAttrib( h );
+    auto& d            = attrib.data();
+    return d;
 }
 
 template <typename Container>
 inline void GeometryData::setAttribData( const std::string& name,
                                          const Container& attribDataList ) {
-    auto& attrib = m_vertexAttribs.getAttrib( m_vertexAttribs.findAttrib<Vector3>( name ) );
-    auto& v      = attrib.getDataWithLock();
+    Utils::Attrib<Container>& c = m_vertexAttribArray.getAttribBase( name )->cast<Container>();
+    auto& v                     = c.getDataWithLock();
     internal::copyData( attribDataList, v );
-    attrib.unlock();
+    attribDataUnlock( name );
 }
+
 bool GeometryData::hasAttribData( const std::string& name ) const {
-    auto h = m_vertexAttribs.findAttrib<Vector3>( name );
-    if ( m_vertexAttribs.isValid( h ) ) { return !m_vertexAttribs.getAttrib( h ).data().empty(); }
+    if ( name == "vertex" ) { return !m_vertexAttribArray.vertices().empty(); }
+    else if ( name == "normal" ) {
+        return !m_vertexAttribArray.normals().empty();
+    }
+    else {
+        auto h = m_vertexAttribArray.getAttribHandle<Vector3>( name );
+        if ( m_vertexAttribArray.isValid( h ) ) {
+            return !m_vertexAttribArray.getAttrib( h ).data().empty();
+        }
+    }
     return false;
 }
 
 void GeometryData::attribDataUnlock( const std::string& name ) {
-    auto h = m_vertexAttribs.findAttrib<Vector3>( name );
-    if ( m_vertexAttribs.isValid( h ) ) {
-        auto attribPtr = m_vertexAttribs.getAttribPtr( h );
-        if ( attribPtr->isLocked() ) { attribPtr->unlock(); }
+    if ( name == "vertex" ) { m_vertexAttribArray.verticesUnlock(); }
+    else if ( name == "normal" ) {
+        m_vertexAttribArray.normalsUnlock();
+    }
+    else {
+        m_vertexAttribArray.getAttribBase( name )->unlock();
     }
 }
 

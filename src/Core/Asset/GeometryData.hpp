@@ -12,6 +12,7 @@
 
 #include <Core/Asset/AssetData.hpp>
 #include <Core/Asset/MaterialData.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 namespace Ra {
 namespace Core {
@@ -328,8 +329,7 @@ class RA_CORE_API GeometryData : public AssetData
     VectorNuArray m_polyhedron;
 
     /// Named attributes
-    /// \todo Move all built-in attributes to m_vertexAttribs
-    Utils::AttribManager m_vertexAttribs;
+    Core::Geometry::AttribArrayGeometry m_vertexAttribArray;
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
