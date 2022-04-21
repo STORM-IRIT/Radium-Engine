@@ -6,9 +6,8 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/// List of standard vertex attributes.
-/// Corresponding standard vertex attribute names are obtained with g_attribName
-/// Information which is in the mesh geometry
+/// \brief List of standard vertex attributes.
+/// Corresponding standard vertex attribute names are obtained with #getAttribName
 enum MeshAttrib : uint {
     VERTEX_POSITION,   ///< Vertex positions
     VERTEX_NORMAL,     ///< Vertex normals
