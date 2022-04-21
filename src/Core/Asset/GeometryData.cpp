@@ -13,7 +13,7 @@ GeometryData::GeometryData( const std::string& name, const GeometryType& type ) 
     m_edge(),
     m_faces(),
     m_polyhedron(),
-    m_vertexAttribs(),
+    m_vertexAttribArray(),
     m_material() {}
 
 GeometryData::~GeometryData() {}
