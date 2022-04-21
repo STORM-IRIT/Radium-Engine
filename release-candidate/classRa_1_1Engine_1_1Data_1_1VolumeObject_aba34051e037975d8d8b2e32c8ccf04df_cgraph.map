@@ -6,7 +6,7 @@
 <area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html#a8cc588360ff97fc9d3d0b05d54f4671c" title="Returns the name of the mesh." alt="" coords="252,201,467,243"/>
 <area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a3896192c57de6b205245e97f15be2736" title="Return true if the volume is dense (implies isDiscrete to be true)" alt="" coords="263,267,456,308"/>
 <area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1Mesh.html#a215a55acdff155ac1705812ddeab2198" title=" " alt="" coords="273,332,446,373"/>
-<area shape="rect" id="node17" href="$namespaceRa_1_1Core_1_1Geometry.html#a97444ae32c928b107e10c0a30dd4fb96" title="Create an axis&#45;aligned cubic mesh with the given half extents, centered on the origin." alt="" coords="284,397,435,439"/>
+<area shape="rect" id="node17" href="$namespaceRa_1_1Core_1_1Geometry.html#a870bdc93b17c536b325b1abd346b08b0" title="Create an axis&#45;aligned cubic mesh with the given half extents, centered on the origin." alt="" coords="284,397,435,439"/>
 <area shape="rect" id="node18" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a9c57a12bdc5cef136c095931e333cdfb" title=" " alt="" coords="266,463,453,504"/>
 <area shape="rect" id="node19" href="$classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html#acc43fd53785386c5eaf99372033083cd" title="return the size (number of bins ni each dimension) of the volume" alt="" coords="249,528,470,569"/>
 <area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title=" " alt="" coords="539,267,758,308"/>

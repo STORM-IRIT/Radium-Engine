@@ -1,7 +1,7 @@
 <map id="Ra::Engine::Rendering::DebugRender::addSphere" name="Ra::Engine::Rendering::DebugRender::addSphere">
 <area shape="rect" id="node1" title=" " alt="" coords="5,213,200,254"/>
 <area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab0d998fb49864a940afd6009f12a484c" title="Displays sphere computed with given center and radius." alt="" coords="248,213,487,254"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#a9f1b964d3d8b54b91ca8ba0f788c66e7" title="Create a spherical mesh by subdivision of an icosahedron." alt="" coords="535,213,705,254"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#a987c72b6c206114644ae2bed853a7b40" title="Create a spherical mesh by subdivision of an icosahedron." alt="" coords="535,213,705,254"/>
 <area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a252d9466c6cb8dba0c76f322cbe99f8b" title="Check that the MultiIndexedGeometry is well built, asserting when it is not." alt="" coords="773,5,952,61"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a3a3a1458f93f23c7c8663bc3d52f7841" title=" " alt="" coords="779,85,946,141"/>
 <area shape="rect" id="node9" href="$namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8" title=" " alt="" coords="789,325,937,352"/>
