@@ -244,7 +244,7 @@ LineMeshPtr CircleArc( const Core::Vector3& center,
 }
 
 MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
-    auto geom   = makeGeodesicSphere( radius, 2 );
+    auto geom   = makeGeodesicSphere( radius, 2, color );
     auto handle = geom.getAttribHandle<TriangleMesh::Point>(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION ) );
     auto& vertices = geom.getAttrib<TriangleMesh::Point>( handle );
@@ -252,10 +252,6 @@ MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::C
 
     std::for_each( data.begin(), data.end(), [center]( Core::Vector3& v ) { v += center; } );
     vertices.unlock();
-
-    geom.addAttrib(
-        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
-        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<Mesh>( "Sphere Primitive", std::move( geom ) );
 }
@@ -266,7 +262,7 @@ MeshPtr Capsule( const Core::Vector3& p1,
                  const Core::Utils::Color& color ) {
     const Scalar l = ( p2 - p1 ).norm();
 
-    TriangleMesh geom = makeCapsule( l, radius );
+    TriangleMesh geom = makeCapsule( l, radius, 32, color );
 
     // Compute the transform so that
     // (0,0,-l/2) maps to p1 and (0,0,l/2) maps to p2
@@ -295,10 +291,6 @@ MeshPtr Capsule( const Core::Vector3& p1,
         n = normalMatrix * n;
     } );
     normalAttrib.unlock();
-
-    geom.addAttrib(
-        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
-        Core::Vector4Array { geom.vertices().size(), color } );
 
     return make_shared<Mesh>( "Capsule Primitive", std::move( geom ) );
 }
