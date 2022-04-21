@@ -236,7 +236,8 @@ TopologicalMesh::WedgeCollection::setWedgeAttrib( const TopologicalMesh::WedgeIn
 }
 
 template <typename T>
-inline int TopologicalMesh::WedgeCollection::getWedgeAttribIndex( const std::string& name ) {
+inline TopologicalMesh::WedgeAttribIndex
+TopologicalMesh::WedgeCollection::getWedgeAttribIndex( const std::string& name ) {
     auto nameArray = getNameArray<T>();
     auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
     if ( itr != nameArray.end() ) { return std::distance( nameArray.begin(), itr ); }
@@ -290,7 +291,8 @@ inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray(
     return m_floatAttribNames;
 }
 template <typename T>
-int TopologicalMesh::WedgeCollection::addAttribName( const std::string& name ) {
+TopologicalMesh::WedgeAttribIndex
+TopologicalMesh::WedgeCollection::addAttribName( const std::string& name ) {
     if ( name != getAttribName( MeshAttrib::VERTEX_POSITION ) ) {
         getNameArray<T>().push_back( name );
     }
@@ -298,7 +300,8 @@ int TopologicalMesh::WedgeCollection::addAttribName( const std::string& name ) {
 }
 
 template <typename T>
-int TopologicalMesh::WedgeCollection::addAttrib( const std::string& name, const T& value ) {
+TopologicalMesh::WedgeAttribIndex
+TopologicalMesh::WedgeCollection::addAttrib( const std::string& name, const T& value ) {
 
     auto index = addAttribName<T>( name );
     for ( auto& w : m_data ) {
