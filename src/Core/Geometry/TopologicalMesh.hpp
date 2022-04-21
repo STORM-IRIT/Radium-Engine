@@ -297,7 +297,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * The old wedge is "deleted". If wedge data correspond to an already
      * present wedge, it's index is used.
      */
-    inline void replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd );
+    inline WedgeIndex replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd );
 
     template <typename T>
     inline int addWedgeAttrib( const std::string& name, T value = {} ) {

@@ -451,9 +451,12 @@ void TopologicalMesh::initWithWedge(
 
     clean();
 
-    LOG( logINFO ) << "TopologicalMesh: load mesh with "
-                   //<< abstractLayer.size()
-                   << " faces and " << mesh.vertices().size() << " vertices.";
+    LOG( logINFO )
+        << "TopologicalMesh: load mesh with "
+        << ( abstractLayer.hasSemantic( TriangleIndexLayer::staticSemanticName )
+                 ? static_cast<const TriangleIndexLayer&>( abstractLayer ).collection().size()
+                 : static_cast<const PolyIndexLayer&>( abstractLayer ).collection().size() )
+        << " faces and " << mesh.vertices().size() << " vertices.";
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
@@ -762,9 +765,12 @@ inline const T& TopologicalMesh::getWedgeAttrib( const TopologicalMesh::WedgeInd
     return m_wedges.getWedgeData<T>( idx, name );
 }
 
-inline void TopologicalMesh::replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd ) {
+inline TopologicalMesh::WedgeIndex TopologicalMesh::replaceWedge( OpenMesh::HalfedgeHandle he,
+                                                                  const WedgeData& wd ) {
     m_wedges.del( property( getWedgeIndexPph(), he ) );
-    property( getWedgeIndexPph(), he ) = m_wedges.add( wd );
+    auto index                         = m_wedges.add( wd );
+    property( getWedgeIndexPph(), he ) = index;
+    return index;
 }
 
 inline void TopologicalMesh::replaceWedgeIndex( OpenMesh::HalfedgeHandle he,
