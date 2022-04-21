@@ -28,6 +28,9 @@ TriangleMesh makeParametricSphere( Scalar radius,
     const Scalar du = 1_ra / slices;
     const Scalar dv = 1_ra / stacks;
 
+    const Scalar du = 1_ra / slices;
+    const Scalar dv = 1_ra / stacks;
+
     for ( uint u = 0; u < slices; ++u ) {
         const Scalar theta = Scalar( 2 * u ) * Core::Math::Pi / Scalar( slices );
         for ( uint v = 1; v < stacks; ++v ) {
