@@ -11,24 +11,27 @@ namespace Core {
 namespace Geometry {
 
 TriangleMesh makeXNormalQuad( const Vector2& halfExts,
-                              const Utils::optional<Utils::Color>& color ) {
+                              const Utils::optional<Utils::Color>& color,
+                              bool generateTexCoord ) {
     Transform T = Transform::Identity();
     T.linear().col( 0 ).swap( T.linear().col( 1 ) );
     T.linear().col( 1 ).swap( T.linear().col( 2 ) );
-    return makePlaneGrid( 1, 1, halfExts, T, color );
+    return makePlaneGrid( 1, 1, halfExts, T, color, generateTexCoord );
 }
 
 TriangleMesh makeYNormalQuad( const Vector2& halfExts,
-                              const Utils::optional<Utils::Color>& color ) {
+                              const Utils::optional<Utils::Color>& color,
+                              bool generateTexCoord ) {
     Transform T = Transform::Identity();
     T.linear().col( 1 ).swap( T.linear().col( 2 ) );
     T.linear().col( 0 ).swap( T.linear().col( 1 ) );
-    return makePlaneGrid( 1, 1, halfExts, T, color );
+    return makePlaneGrid( 1, 1, halfExts, T, color, generateTexCoord );
 }
 
 TriangleMesh makeZNormalQuad( const Vector2& halfExts,
-                              const Utils::optional<Utils::Color>& color ) {
-    return makePlaneGrid( 1, 1, halfExts, Transform::Identity(), color );
+                              const Utils::optional<Utils::Color>& color,
+                              bool generateTexCoord ) {
+    return makePlaneGrid( 1, 1, halfExts, Transform::Identity(), color, generateTexCoord );
 }
 
 TriangleMesh makeBox( const Vector3& halfExts, const Utils::optional<Utils::Color>& color ) {
@@ -675,11 +678,13 @@ TriangleMesh makePlaneGrid( const uint rows,
                             const uint cols,
                             const Vector2& halfExts,
                             const Transform& T,
-                            const Utils::optional<Utils::Color>& color ) {
+                            const Utils::optional<Utils::Color>& color,
+                            bool generateTexCoord ) {
     TriangleMesh result;
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
     TriangleMesh::IndexContainerType indices;
+    Ra::Core::Vector3Array texCoords;
 
     const uint R      = ( rows + 1 );
     const uint C      = ( cols + 1 );
@@ -689,6 +694,7 @@ TriangleMesh makePlaneGrid( const uint rows,
     vertices.resize( v_size );
     normals.resize( v_size );
     indices.reserve( t_size );
+    texCoords.reserve( v_size );
 
     const Vector3 X = T.linear().col( 0 ).normalized();
     const Vector3 Y = T.linear().col( 1 ).normalized();
@@ -698,6 +704,9 @@ TriangleMesh makePlaneGrid( const uint rows,
     const Vector3 y = ( 2_ra * halfExts[1] * Y ) / Scalar( rows );
     const Vector3 o = T.translation() - ( halfExts[0] * X ) - ( halfExts[1] * Y );
 
+    const Scalar du = 1_ra / rows;
+    const Scalar dv = 1_ra / cols;
+
     Grid<uint, 2> v( { R, C } );
     for ( uint i = 0; i < R; ++i ) {
         for ( uint j = 0; j < C; ++j ) {
@@ -705,6 +714,7 @@ TriangleMesh makePlaneGrid( const uint rows,
             v.at( { i, j } ) = id;
             vertices[id]     = o + ( i * y ) + ( j * x );
             normals[id]      = Z;
+            texCoords.emplace_back( i * du, j * dv, 0_ra );
         }
     }
 
@@ -719,6 +729,7 @@ TriangleMesh makePlaneGrid( const uint rows,
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
     result.setIndices( std::move( indices ) );
+    if ( generateTexCoord ) result.addAttrib( "in_texcoord", std::move( texCoords ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
