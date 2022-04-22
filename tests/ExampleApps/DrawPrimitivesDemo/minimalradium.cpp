@@ -125,7 +125,8 @@ void MinimalComponent::initialize() {
         auto coord = cellSize / 8_ra;
         cube1->loadGeometry( Geometry::makeSharpBox( Vector3 { coord, coord, coord } ) );
         cube1->getCoreGeometry().addAttrib(
-            "in_color", Vector4Array { cube1->getNumVertices(), Color::Green() } );
+            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
+            Vector4Array { cube1->getNumVertices(), Color::Green() } );
 
         auto renderObject1 = RenderObject::createRenderObject(
             "Cube1", this, RenderObjectType::Geometry, cube1, {} );
@@ -137,10 +138,12 @@ void MinimalComponent::initialize() {
         std::shared_ptr<Mesh> cube2( new Mesh( "Cube" ) );
         coord = cellSize / 4_ra;
         cube2->loadGeometry( Geometry::makeSharpBox( Vector3 { coord, coord, coord } ) );
+        const std::string myColourName { "colour" };
         cube2->getCoreGeometry().addAttrib(
-            "colour", Vector4Array { cube2->getNumVertices(), Color::Red() } );
+            myColourName, Vector4Array { cube2->getNumVertices(), Color::Red() } );
 
-        cube2->setAttribNameCorrespondance( "colour", "in_color" );
+        cube2->setAttribNameCorrespondance(
+            myColourName, Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ) );
         auto renderObject2 = RenderObject::createRenderObject(
             "CubeRO_2", this, RenderObjectType::Geometry, cube2, {} );
         coord = cellSize / 2_ra;
@@ -616,7 +619,7 @@ void MinimalComponent::initialize() {
         std::shared_ptr<Data::PolyMesh> poly1(
             new Data::PolyMesh( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
-            "in_color",
+            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
             Vector4Array { poly1->getNumVertices(), colorBoost * Color { 1_ra, 0.6_ra, 0.1_ra } } );
 
         auto renderObject1 = RenderObject::createRenderObject(
@@ -633,7 +636,7 @@ void MinimalComponent::initialize() {
         auto triangulated = topo.toTriangleMesh();
         std::shared_ptr<Mesh> poly2( new Mesh( "Poly", std::move( triangulated ) ) );
         poly2->getCoreGeometry().addAttrib(
-            "in_color",
+            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
             Vector4Array { poly2->getNumVertices(), colorBoost * Color { 0_ra, 0.6_ra, 0.1_ra } } );
 
         auto renderObject2 = RenderObject::createRenderObject(
