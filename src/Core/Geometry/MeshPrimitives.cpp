@@ -83,12 +83,16 @@ TriangleMesh makeBox( const Aabb& aabb, const Utils::optional<Utils::Color>& col
     return result;
 }
 
-TriangleMesh makeSharpBox( const Vector3& halfExts, const Utils::optional<Utils::Color>& color ) {
+TriangleMesh makeSharpBox( const Vector3& halfExts,
+                           const Utils::optional<Utils::Color>& color,
+                           bool generateTexCoord ) {
     Aabb aabb( -halfExts, halfExts );
-    return makeSharpBox( aabb, color );
+    return makeSharpBox( aabb, color, generateTexCoord );
 }
 
-TriangleMesh makeSharpBox( const Aabb& aabb, const Utils::optional<Utils::Color>& color ) {
+TriangleMesh makeSharpBox( const Aabb& aabb,
+                           const Utils::optional<Utils::Color>& color,
+                           bool generateTexCoord ) {
     TriangleMesh result;
     result.setVertices( { // Floor Face
                           aabb.corner( Aabb::BottomLeftFloor ),
@@ -156,6 +160,43 @@ TriangleMesh makeSharpBox( const Aabb& aabb, const Utils::optional<Utils::Color>
                          Vector3( 0, +1, 0 ),
                          Vector3( 0, +1, 0 ),
                          Vector3( 0, +1, 0 ) } );
+
+    if ( generateTexCoord ) {
+        Vector3Array texCoords {
+            // Floor face
+            Vector3( 0, 0, 0 ),
+            Vector3( 1, 0, 0 ),
+            Vector3( 1, 1, 0 ),
+            Vector3( 0, 1, 0 ),
+            // Ceil Face
+            Vector3( 0, 0, 0 ),
+            Vector3( 1, 0, 0 ),
+            Vector3( 1, 1, 0 ),
+            Vector3( 0, 1, 0 ),
+            // Left Face
+            Vector3( 0, 0, 0 ),
+            Vector3( 1, 0, 0 ),
+            Vector3( 1, 1, 0 ),
+            Vector3( 0, 1, 0 ),
+            // Right Face
+            Vector3( 0, 0, 0 ),
+            Vector3( 1, 0, 0 ),
+            Vector3( 1, 1, 0 ),
+            Vector3( 0, 1, 0 ),
+            // Bottom Face
+            Vector3( 0, 0, 0 ),
+            Vector3( 1, 0, 0 ),
+            Vector3( 1, 1, 0 ),
+            Vector3( 0, 1, 0 ),
+            // Top Face
+            Vector3( 0, 0, 0 ),
+            Vector3( 1, 0, 0 ),
+            Vector3( 1, 1, 0 ),
+            Vector3( 0, 1, 0 ),
+        };
+
+        if ( generateTexCoord ) result.addAttrib( "in_texcoord", std::move( texCoords ) );
+    }
 
     result.setIndices( {
 
