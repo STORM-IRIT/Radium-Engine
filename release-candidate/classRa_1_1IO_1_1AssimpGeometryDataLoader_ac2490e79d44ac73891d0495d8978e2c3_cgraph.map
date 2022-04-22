@@ -1,4 +1,4 @@
-<map id="Ra::IO::AssimpGeometryDataLoader::loadMeshData" name="Ra::IO::AssimpGeometryDataLoader::loadMeshData">
+<map id="Ra::IO::AssimpGeometryDataLoader::loadMeshAttrib" name="Ra::IO::AssimpGeometryDataLoader::loadMeshAttrib">
 <area shape="rect" id="node1" title="Fill data with the GeometryData from mesh." alt="" coords="5,423,219,464"/>
 <area shape="rect" id="node2" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aaba5e6585d54ed47bffeff90ae9b7d95" title="Fill data with the vertex bitangent vectors from mesh." alt="" coords="277,96,490,137"/>
 <area shape="rect" id="node5" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a0e91cabef1beb70fac2c31804d1133a1" title="Fill data with the lines from mesh." alt="" coords="277,31,490,72"/>

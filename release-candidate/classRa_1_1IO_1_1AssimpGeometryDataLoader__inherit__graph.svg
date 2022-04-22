@@ -71,7 +71,7 @@ var sectionId = 'dynsection-0';
 <text text-anchor="start" x="8" y="-183.5" font-family="Helvetica,sans-Serif" font-size="10.00"># sceneHasGeometry()</text>
 <text text-anchor="start" x="8" y="-172.5" font-family="Helvetica,sans-Serif" font-size="10.00"># sceneGeometrySize()</text>
 <text text-anchor="start" x="8" y="-161.5" font-family="Helvetica,sans-Serif" font-size="10.00"># loadGeometryData()</text>
-<text text-anchor="start" x="8" y="-150.5" font-family="Helvetica,sans-Serif" font-size="10.00"># loadMeshData()</text>
+<text text-anchor="start" x="8" y="-150.5" font-family="Helvetica,sans-Serif" font-size="10.00"># loadMeshAttrib()</text>
 <text text-anchor="start" x="8" y="-139.5" font-family="Helvetica,sans-Serif" font-size="10.00"># loadMaterial()</text>
 <text text-anchor="start" x="8" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00"># loadMeshFrame()</text>
 <text text-anchor="start" x="8" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00"># fetchName()</text>

@@ -1,0 +1,4 @@
+<map id="Ra::Engine::Data::DrawPrimitives::QuadStrip" name="Ra::Engine::Data::DrawPrimitives::QuadStrip">
+<area shape="rect" id="node1" title="Displays a strip of n quads, starting at A and with directions X and Y." alt="" coords="5,5,244,47"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#a9bf7b8f0db1eacfcae5bd58d00c1c906" title="Get the name expected for a given attrib." alt="" coords="292,5,443,47"/>
+</map>

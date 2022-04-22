@@ -1,6 +1,8 @@
 var NAVTREEINDEX24 =
 {
+"namespaceglobjects.html":[9,0,3],
 "namespacemembers.html":[9,1,0],
+"namespacemembers.html":[9,1,0,0],
 "namespacemembers_b.html":[9,1,0,1],
 "namespacemembers_c.html":[9,1,0,2],
 "namespacemembers_d.html":[9,1,0,3],
@@ -8,8 +10,8 @@ var NAVTREEINDEX24 =
 "namespacemembers_enum.html":[9,1,4],
 "namespacemembers_eval.html":[9,1,5],
 "namespacemembers_f.html":[9,1,0,5],
-"namespacemembers_func.html":[9,1,1],
 "namespacemembers_func.html":[9,1,1,0],
+"namespacemembers_func.html":[9,1,1],
 "namespacemembers_func_b.html":[9,1,1,1],
 "namespacemembers_func_c.html":[9,1,1,2],
 "namespacemembers_func_d.html":[9,1,1,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX24 =
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html":[10,0,3,0,2,12,4],
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a07f10c4d014138044bbe0d86319cd9d8":[10,0,3,0,2,12,4,2],
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a1561f094de895f9faaa894c1cb2adca9":[10,0,3,0,2,12,4,1],
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a65aa5fde8365b60244ec48a127d30b29":[10,0,3,0,2,12,4,3],
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a911834a92c94f36227b223ff16d04ce2":[10,0,3,0,2,12,4,0],
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#ae446508dee4a8c26a994ea2306ba80a2":[10,0,3,0,2,12,4,4]
+"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a65aa5fde8365b60244ec48a127d30b29":[10,0,3,0,2,12,4,3]
 };

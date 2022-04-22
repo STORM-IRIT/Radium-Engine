@@ -1,12 +1,13 @@
 <map id="Ra::Engine::Data::DrawPrimitives::Primitive" name="Ra::Engine::Data::DrawPrimitives::Primitive">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,244,121"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a08c0b98218906938eba8b68cd323a00d" title=" " alt="" coords="292,80,531,121"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#ab597fd85376bd86d7e78dc4194e409c2" title=" " alt="" coords="604,26,796,82"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25" title=" " alt="" coords="579,113,821,169"/>
-<area shape="rect" id="node4" href="$namespaceCLI_1_1detail.html#aa4b4a0a97c9b07110595765887647385" title="A search function." alt="" coords="934,21,1073,47"/>
-<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#a0c6cf48feae9d909d52e7b4c346cba29" title=" " alt="" coords="1248,5,1381,47"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4" title=" " alt="" coords="869,135,1137,176"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd" title=" " alt="" coords="1185,71,1444,112"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="1235,201,1394,243"/>
-<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="1214,136,1415,177"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,79,244,120"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a08c0b98218906938eba8b68cd323a00d" title=" " alt="" coords="292,79,531,120"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#a9bf7b8f0db1eacfcae5bd58d00c1c906" title="Get the name expected for a given attrib." alt="" coords="625,5,775,47"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#ab597fd85376bd86d7e78dc4194e409c2" title=" " alt="" coords="604,71,796,127"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25" title=" " alt="" coords="579,158,821,214"/>
+<area shape="rect" id="node5" href="$namespaceCLI_1_1detail.html#aa4b4a0a97c9b07110595765887647385" title="A search function." alt="" coords="934,66,1073,93"/>
+<area shape="rect" id="node6" href="$namespaceCLI_1_1detail.html#a0c6cf48feae9d909d52e7b4c346cba29" title=" " alt="" coords="1248,51,1381,92"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4" title=" " alt="" coords="869,180,1137,221"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd" title=" " alt="" coords="1185,116,1444,157"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="1235,247,1394,288"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="1214,181,1415,223"/>
 </map>

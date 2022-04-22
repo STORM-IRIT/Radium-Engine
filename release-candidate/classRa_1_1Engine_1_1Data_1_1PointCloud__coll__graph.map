@@ -1,7 +1,7 @@
 <map id="Ra::Engine::Data::PointCloud" name="Ra::Engine::Data::PointCloud">
 <area shape="rect" id="node1" title="A PointCloud without indices." alt="" coords="1290,2545,1498,2681"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="1271,2081,1517,2496"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="757,987,978,1373"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="757,1002,978,1358"/>
 <area shape="rect" id="node27" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="1157,1619,1404,2019"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="971,469,1185,708"/>
 <area shape="rect" id="node5" title=" " alt="" coords="952,307,1103,385"/>

@@ -27,33 +27,31 @@
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="460.5,-188 460.5,-476 626.5,-476 626.5,-188 460.5,-188"/>
-<text text-anchor="start" x="468.5" y="-464" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Attrib</text>
-<text text-anchor="middle" x="543.5" y="-453" font-family="Helvetica,sans-Serif" font-size="10.00">ArrayDisplayable</text>
-<polyline fill="none" stroke="black" points="460.5,-446 626.5,-446 "/>
-<text text-anchor="middle" x="543.5" y="-434" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="460.5,-427 626.5,-427 "/>
-<text text-anchor="start" x="468.5" y="-415" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribArrayDisplayable()</text>
+<polygon fill="white" stroke="black" points="460.5,-199 460.5,-465 626.5,-465 626.5,-199 460.5,-199"/>
+<text text-anchor="start" x="468.5" y="-453" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Attrib</text>
+<text text-anchor="middle" x="543.5" y="-442" font-family="Helvetica,sans-Serif" font-size="10.00">ArrayDisplayable</text>
+<polyline fill="none" stroke="black" points="460.5,-435 626.5,-435 "/>
+<text text-anchor="middle" x="543.5" y="-423" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="460.5,-416 626.5,-416 "/>
 <text text-anchor="start" x="468.5" y="-404" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribArrayDisplayable()</text>
-<text text-anchor="start" x="468.5" y="-393" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="468.5" y="-382" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AttribArrayDisplayable()</text>
-<text text-anchor="start" x="468.5" y="-371" font-family="Helvetica,sans-Serif" font-size="10.00">+ setRenderMode()</text>
-<text text-anchor="start" x="468.5" y="-360" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRenderMode()</text>
-<text text-anchor="start" x="468.5" y="-349" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateGL()</text>
-<text text-anchor="start" x="468.5" y="-338" font-family="Helvetica,sans-Serif" font-size="10.00">+ getName()</text>
-<text text-anchor="start" x="468.5" y="-327" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDirty()</text>
+<text text-anchor="start" x="468.5" y="-393" font-family="Helvetica,sans-Serif" font-size="10.00">+ AttribArrayDisplayable()</text>
+<text text-anchor="start" x="468.5" y="-382" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="468.5" y="-371" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~AttribArrayDisplayable()</text>
+<text text-anchor="start" x="468.5" y="-360" font-family="Helvetica,sans-Serif" font-size="10.00">+ setRenderMode()</text>
+<text text-anchor="start" x="468.5" y="-349" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRenderMode()</text>
+<text text-anchor="start" x="468.5" y="-338" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateGL()</text>
+<text text-anchor="start" x="468.5" y="-327" font-family="Helvetica,sans-Serif" font-size="10.00">+ getName()</text>
 <text text-anchor="start" x="468.5" y="-316" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDirty()</text>
 <text text-anchor="start" x="468.5" y="-305" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDirty()</text>
-<text text-anchor="start" x="468.5" y="-294" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribArrayGeometry()</text>
+<text text-anchor="start" x="468.5" y="-294" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDirty()</text>
 <text text-anchor="start" x="468.5" y="-283" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribArrayGeometry()</text>
-<text text-anchor="start" x="468.5" y="-272" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribName()</text>
+<text text-anchor="start" x="468.5" y="-272" font-family="Helvetica,sans-Serif" font-size="10.00">+ getAttribArrayGeometry()</text>
 <text text-anchor="start" x="468.5" y="-261" font-family="Helvetica,sans-Serif" font-size="10.00"># updatePickingRenderMode()</text>
 <text text-anchor="start" x="468.5" y="-250" font-family="Helvetica,sans-Serif" font-size="10.00">* setDirty()</text>
 <text text-anchor="start" x="468.5" y="-239" font-family="Helvetica,sans-Serif" font-size="10.00">* setDirty()</text>
 <text text-anchor="start" x="468.5" y="-228" font-family="Helvetica,sans-Serif" font-size="10.00">* setDirty()</text>
-<text text-anchor="start" x="468.5" y="-217" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribName()</text>
+<text text-anchor="start" x="468.5" y="-217" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribArrayGeometry()</text>
 <text text-anchor="start" x="468.5" y="-206" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribArrayGeometry()</text>
-<text text-anchor="start" x="468.5" y="-195" font-family="Helvetica,sans-Serif" font-size="10.00">* getAttribArrayGeometry()</text>
 </a>
 </g>
 </g>
@@ -129,8 +127,8 @@
 <!-- Node5&#45;&gt;Node2 -->
 <g id="edge4" class="edge">
 <title>Node5&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M615.38,-656C607.25,-619.46 592.25,-552.08 578.05,-488.27"/>
-<polygon fill="none" stroke="#404040" points="578.02,-488.12 572.81,-483.13 575.41,-476.41 580.62,-481.39 578.02,-488.12"/>
+<path fill="none" stroke="#404040" d="M615.38,-656C606.77,-617.33 590.48,-544.11 575.58,-477.15"/>
+<polygon fill="none" stroke="#404040" points="575.52,-476.88 570.31,-471.89 572.91,-465.17 578.12,-470.15 575.52,-476.88"/>
 <text text-anchor="middle" x="639" y="-569" font-family="Helvetica,sans-Serif" font-size="10.00"> #m_renderMode</text>
 </g>
 <!-- Node6 -->
@@ -504,8 +502,8 @@
 <!-- Node17&#45;&gt;Node2 -->
 <g id="edge17" class="edge">
 <title>Node17&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M482.86,-650.21C490.04,-612.64 502.24,-548.85 513.82,-488.29"/>
-<polygon fill="none" stroke="#404040" points="513.87,-488.01 511.07,-481.37 516.12,-476.22 518.92,-482.87 513.87,-488.01"/>
+<path fill="none" stroke="#404040" d="M482.86,-650.21C490.49,-610.31 503.77,-540.85 515.96,-477.07"/>
+<polygon fill="none" stroke="#404040" points="515.97,-477.02 513.17,-470.38 518.22,-465.24 521.02,-471.88 515.97,-477.02"/>
 <text text-anchor="middle" x="523.5" y="-569" font-family="Helvetica,sans-Serif" font-size="10.00"> #m_vbos</text>
 </g>
 <!-- Node18&#45;&gt;Node17 -->
@@ -560,8 +558,8 @@
 <!-- Node21&#45;&gt;Node2 -->
 <g id="edge23" class="edge">
 <title>Node21&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M344.45,-656C368.1,-617.62 412.71,-545.23 453.72,-478.69"/>
-<polygon fill="none" stroke="#404040" points="453.97,-478.28 453.71,-471.08 460.26,-468.07 460.52,-475.27 453.97,-478.28"/>
+<path fill="none" stroke="#404040" d="M344.45,-656C368.48,-617.01 414.15,-542.9 455.69,-475.49"/>
+<polygon fill="none" stroke="#404040" points="455.76,-475.38 455.5,-468.18 462.05,-465.17 462.31,-472.37 455.76,-475.38"/>
 <text text-anchor="middle" x="434" y="-569" font-family="Helvetica,sans-Serif" font-size="10.00"> #m_dataDirty</text>
 </g>
 <!-- Node22&#45;&gt;Node1 -->

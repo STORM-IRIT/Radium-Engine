@@ -84,10 +84,10 @@ var sectionId = 'dynsection-12';
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#af5c15d97fec98d1bbc62de339fab4928" target="_top" xlink:title="Fill data with the GeometryData from mesh.">
+<g id="a_node5"><a xlink:href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3" target="_top" xlink:title="Fill data with the GeometryData from mesh.">
 <polygon fill="white" stroke="black" points="196,-319.5 196,-349.5 356,-349.5 356,-319.5 196,-319.5"/>
 <text text-anchor="start" x="204" y="-337.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::IO::AssimpGeometryData</text>
-<text text-anchor="middle" x="276" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">Loader::loadMeshData</text>
+<text text-anchor="middle" x="276" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">Loader::loadMeshAttrib</text>
 </a>
 </g>
 </g>

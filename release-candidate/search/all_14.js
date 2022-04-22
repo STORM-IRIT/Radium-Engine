@@ -120,7 +120,7 @@ var searchData=
   ['registertask_2695',['registerTask',['../classRa_1_1Core_1_1TaskQueue.html#a9dfa226458ca9f60b19d54277583977a',1,'Ra::Core::TaskQueue']]],
   ['reject_2696',['reject',['../classRa_1_1Gui_1_1HelpDialog.html#a4d1e37fdc1d69d215bdb18c0ccced98b',1,'Ra::Gui::HelpDialog']]],
   ['rel_5fdeb_2697',['REL_DEB',['../CoreMacros_8hpp.html#a47924467513a8ab0469171359af70a8e',1,'CoreMacros.hpp']]],
-  ['relativepose_2698',['relativePose',['../namespaceRa_1_1Core_1_1Animation.html#a03d7eb179bf339237a3e5b06d6d06100',1,'Ra::Core::Animation::relativePose(const Pose &amp;modelPose, const RestPose &amp;restPose)'],['../namespaceRa_1_1Core_1_1Animation.html#affe0bf876395bf39e177d5484441a139',1,'Ra::Core::Animation::RelativePose()']]],
+  ['relativepose_2698',['RelativePose',['../namespaceRa_1_1Core_1_1Animation.html#affe0bf876395bf39e177d5484441a139',1,'Ra::Core::Animation::RelativePose()'],['../namespaceRa_1_1Core_1_1Animation.html#a03d7eb179bf339237a3e5b06d6d06100',1,'Ra::Core::Animation::relativePose(const Pose &amp;modelPose, const RestPose &amp;restPose)']]],
   ['release_2699',['RELEASE',['../CoreMacros_8hpp.html#a5bd9a30fc22d9a737ee060d41a4ec479',1,'CoreMacros.hpp']]],
   ['releasefile_2700',['releaseFile',['../classRa_1_1Engine_1_1RadiumEngine.html#ad66028463fa0908bbd5859294967c73e',1,'Ra::Engine::RadiumEngine']]],
   ['reload_2701',['reload',['../classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a374be531dbc57ebd4678db4d78a50583',1,'Ra::Engine::Data::ShaderProgram']]],

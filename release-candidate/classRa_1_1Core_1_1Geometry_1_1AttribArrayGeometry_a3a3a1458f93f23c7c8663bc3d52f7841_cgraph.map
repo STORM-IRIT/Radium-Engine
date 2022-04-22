@@ -1,6 +1,7 @@
 <map id="Ra::Core::Geometry::AttribArrayGeometry::colorize" name="Ra::Core::Geometry::AttribArrayGeometry::colorize">
-<area shape="rect" id="node1" title=" " alt="" coords="5,45,172,101"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,79,172,135"/>
 <area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59" title=" " alt="" coords="220,5,387,61"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="220,85,387,141"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="435,53,651,94"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Geometry.html#a9bf7b8f0db1eacfcae5bd58d00c1c906" title="Get the name expected for a given attrib." alt="" coords="228,86,379,127"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="220,152,387,208"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="435,86,651,127"/>
 </map>

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.14</span>
+   &#160;<span id="projectnumber">1.2.15</span>
    </div>
   </td>
  </tr>
@@ -129,21 +129,6 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a298cf502f809250e2e16cc4cc0d6a50f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50f">MeshData</a> : uint { <br />
-&#160;&#160;<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa1e0c1c12c6ecfd4269c1109730d3e701">VERTEX_POSITION</a>, 
-<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fadc0373cf96929536c36f06698638fa86">VERTEX_NORMAL</a>, 
-<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa3ba579a4050a38f4dcdf307a1d23254b">VERTEX_TANGENT</a>, 
-<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fafd45357c1d5dd5d1a28160e2d447c42d">VERTEX_BITANGENT</a>, 
-<br />
-&#160;&#160;<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa51df48ae5b8dc052416487ec25465aae">VERTEX_TEXCOORD</a>, 
-<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fae81c101835230f905c69b3950bef6063">VERTEX_COLOR</a>, 
-<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50faa8e1a46bb55e55ed6c64eff4405d86cf">VERTEX_WEIGHTS</a>, 
-<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa5e639659a27557af5bd965989468f024">VERTEX_WEIGHT_IDX</a>, 
-<br />
-&#160;&#160;<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa71d7438f6fac1ebe5c4bb030a0308659">MAX_DATA</a>
-<br />
- }</td></tr>
-<tr class="separator:a298cf502f809250e2e16cc4cc0d6a50f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad089d928906d89959f0955c699a715d0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0">MeshRenderMode</a> : uint { <br />
 &#160;&#160;<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0a700e82b3fc78fad0516fb8959ae64414">RM_POINTS</a> = 0x0000, 
 <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0abc4cf3c998d996ec7e08de382863e342">RM_LINES</a> = 0x0001, 
@@ -202,8 +187,8 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Mark attrib data as dirty, forcing an update of the OpenGL buffer. </p>
 </div></td></tr>
-<tr class="memitem:ab6faba08ae91312711059ab9021a7e35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ab6faba08ae91312711059ab9021a7e35">setDirty</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50f">MeshData</a> &amp;type)</td></tr>
-<tr class="separator:ab6faba08ae91312711059ab9021a7e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02623fcf3679861530e1bce1f5d88808"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a02623fcf3679861530e1bce1f5d88808">setDirty</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a601e93ad276b69b096bcb796ff27c2cf">Core::Geometry::MeshAttrib</a> &amp;type)</td></tr>
+<tr class="separator:a02623fcf3679861530e1bce1f5d88808"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d02575428eaf4589f438c9ed00e3369"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a7d02575428eaf4589f438c9ed00e3369">setDirty</a> (const std::string &amp;name)</td></tr>
 <tr class="separator:a7d02575428eaf4589f438c9ed00e3369"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55d0abcf1efc4e64aaf0698f24e3e859"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a55d0abcf1efc4e64aaf0698f24e3e859">setDirty</a> (unsigned <a class="el" href="classint.html">int</a> index)</td></tr>
@@ -239,12 +224,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afeff74bff58429fb220cb9419a0ca6c5 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Displayable"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#afeff74bff58429fb220cb9419a0ca6c5">getNumVertices</a> () const</td></tr>
 <tr class="separator:afeff74bff58429fb220cb9419a0ca6c5 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Displayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:ad22c7cbacae9e25437341a8a42c5b5bd"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad22c7cbacae9e25437341a8a42c5b5bd">getAttribName</a> (<a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50f">MeshData</a> type)</td></tr>
-<tr class="separator:ad22c7cbacae9e25437341a8a42c5b5bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a4ba75a89f6c80c147b1bca040928ef6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a4ba75a89f6c80c147b1bca040928ef6a">updatePickingRenderMode</a> ()</td></tr>
@@ -272,44 +251,8 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class representing an openGL general mesh to be displayed. It stores the vertex attributes, indices, and can be rendered with a specific render mode (e.g. GL_TRIANGLES or GL_LINES). It maintains the attributes and keeps them in sync with the GPU. </p><dl class="section note"><dt>Note</dt><dd>Attribute names are used to automatic location binding when using shaders. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00048">48</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00050">50</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a298cf502f809250e2e16cc4cc0d6a50f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a298cf502f809250e2e16cc4cc0d6a50f">&#9670;&nbsp;</a></span>MeshData</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50f">Ra::Engine::Data::AttribArrayDisplayable::MeshData</a> : <a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>List of standard vertex attributes. Corresponding standard vertex attribute names are obtained with getAttribName Information which is in the mesh geometry </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a298cf502f809250e2e16cc4cc0d6a50fa1e0c1c12c6ecfd4269c1109730d3e701"></a>VERTEX_POSITION&#160;</td><td class="fielddoc"><p>Vertex positions. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a298cf502f809250e2e16cc4cc0d6a50fadc0373cf96929536c36f06698638fa86"></a>VERTEX_NORMAL&#160;</td><td class="fielddoc"><p>Vertex normals. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a298cf502f809250e2e16cc4cc0d6a50fa3ba579a4050a38f4dcdf307a1d23254b"></a>VERTEX_TANGENT&#160;</td><td class="fielddoc"><p>Vertex tangent 1. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a298cf502f809250e2e16cc4cc0d6a50fafd45357c1d5dd5d1a28160e2d447c42d"></a>VERTEX_BITANGENT&#160;</td><td class="fielddoc"><p>Vertex tangent 2. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a298cf502f809250e2e16cc4cc0d6a50fa51df48ae5b8dc052416487ec25465aae"></a>VERTEX_TEXCOORD&#160;</td><td class="fielddoc"><p>U,V texture coords (last coordinate not used) </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a298cf502f809250e2e16cc4cc0d6a50fae81c101835230f905c69b3950bef6063"></a>VERTEX_COLOR&#160;</td><td class="fielddoc"><p>RGBA color. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a298cf502f809250e2e16cc4cc0d6a50faa8e1a46bb55e55ed6c64eff4405d86cf"></a>VERTEX_WEIGHTS&#160;</td><td class="fielddoc"><p>Skinning weights (not used) </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a298cf502f809250e2e16cc4cc0d6a50fa5e639659a27557af5bd965989468f024"></a>VERTEX_WEIGHT_IDX&#160;</td><td class="fielddoc"><p>Associated weight bones. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a298cf502f809250e2e16cc4cc0d6a50fa71d7438f6fac1ebe5c4bb030a0308659"></a>MAX_DATA&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00054">54</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
-
-</div>
-</div>
 <a id="ad089d928906d89959f0955c699a715d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad089d928906d89959f0955c699a715d0">&#9670;&nbsp;</a></span>MeshRenderMode</h2>
 
@@ -340,7 +283,7 @@ Protected Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="ad089d928906d89959f0955c699a715d0ab144b9e348e83a97c74157e40174081c"></a>RM_PATCHES&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00070">70</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00056">56</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -432,7 +375,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00095">95</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00081">81</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -489,35 +432,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#abfbd723af07f175c00fda41502f31fe7">Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#abfbd723af07f175c00fda41502f31fe7">Ra::Engine::Data::CoreGeometryDisplayable&lt; Core::Geometry::TriangleMesh &gt;</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#abfbd723af07f175c00fda41502f31fe7">Ra::Engine::Data::CoreGeometryDisplayable&lt; Core::Geometry::PointCloud &gt;</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#abfbd723af07f175c00fda41502f31fe7">Ra::Engine::Data::CoreGeometryDisplayable&lt; Core::Geometry::PolyMesh &gt;</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#abfbd723af07f175c00fda41502f31fe7">Ra::Engine::Data::CoreGeometryDisplayable&lt; Core::Geometry::LineMesh &gt;</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a329baecc8f523cbf4183382bf8c99de8">Ra::Engine::Data::CoreGeometryDisplayable&lt; Core::Geometry::TriangleMesh &gt;</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a329baecc8f523cbf4183382bf8c99de8">Ra::Engine::Data::CoreGeometryDisplayable&lt; Core::Geometry::PointCloud &gt;</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a329baecc8f523cbf4183382bf8c99de8">Ra::Engine::Data::CoreGeometryDisplayable&lt; Core::Geometry::PolyMesh &gt;</a>, and <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a329baecc8f523cbf4183382bf8c99de8">Ra::Engine::Data::CoreGeometryDisplayable&lt; Core::Geometry::LineMesh &gt;</a>.</p>
-
-</div>
-</div>
-<a id="ad22c7cbacae9e25437341a8a42c5b5bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad22c7cbacae9e25437341a8a42c5b5bd">&#9670;&nbsp;</a></span>getAttribName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string Ra::Engine::Data::AttribArrayDisplayable::getAttribName </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50f">MeshData</a>&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Get the name expected for a given attrib. </p>
-
-<p class="definition">Definition at line <a class="el" href="Mesh_8inl_source.html#l00025">25</a> of file <a class="el" href="Mesh_8inl_source.html">Mesh.inl</a>.</p>
 
 </div>
 </div>
@@ -602,8 +516,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab6faba08ae91312711059ab9021a7e35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6faba08ae91312711059ab9021a7e35">&#9670;&nbsp;</a></span>setDirty() <span class="overload">[1/3]</span></h2>
+<a id="a02623fcf3679861530e1bce1f5d88808"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02623fcf3679861530e1bce1f5d88808">&#9670;&nbsp;</a></span>setDirty() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -611,15 +525,15 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Ra::Engine::Data::AttribArrayDisplayable::setDirty </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50f">MeshData</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a601e93ad276b69b096bcb796ff27c2cf">Core::Geometry::MeshAttrib</a> &amp;&#160;</td>
           <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Use getAttribName to find the corresponding name and call <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a7d02575428eaf4589f438c9ed00e3369">setDirty(const std::string&amp; name)</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Use g_attribName to find the corresponding name and call <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a7d02575428eaf4589f438c9ed00e3369">setDirty(const std::string&amp; name)</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>the data to set to dirty. </td></tr>
+    <tr><td class="paramname">type</td><td>the data to set to MeshAttrib </td></tr>
   </table>
   </dd>
 </dl>
@@ -630,7 +544,7 @@ Protected Attributes</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_ab6faba08ae91312711059ab9021a7e35_cgraph.svg" width="492" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_a02623fcf3679861530e1bce1f5d88808_cgraph.svg" width="404" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -814,7 +728,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00167">167</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00148">148</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -838,7 +752,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00171">171</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00152">152</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -863,7 +777,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>General dirty bit of the mesh. Must be equivalent of the "or" of the other dirty flags. an empty mesh is not dirty </p>
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00175">175</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00156">156</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -887,7 +801,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00163">163</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00144">144</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -911,7 +825,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00161">161</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00142">142</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -935,7 +849,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00166">166</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00147">147</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -950,7 +864,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Data</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">AttribArrayDisplayable</a></li>
-    <li class="footer">Generated on Fri Apr 22 2022 11:52:50 for Radium Engine by
+    <li class="footer">Generated on Fri Apr 22 2022 20:27:11 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

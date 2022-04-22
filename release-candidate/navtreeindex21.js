@@ -1,5 +1,7 @@
 var NAVTREEINDEX21 =
 {
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0b0eaa22ace41441f143a871ef3b1148":[10,0,3,2,25,18],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a19d30b9cfb4cc8dd942a40cfd689b3dd":[10,0,3,2,25,17],
 "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a1a32a812f552b3a424539018ef3681fa":[10,0,3,2,25,7],
 "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a200632859970fd7cf0288525833734d9":[10,0,3,2,25,6],
 "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a21bfdf8a04a9846e34ae3abdfb71a5ab":[10,0,3,2,25,13],
@@ -247,7 +249,5 @@ var NAVTREEINDEX21 =
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a1ded2f744190df2500bc3fbac919e49d":[10,0,3,4,3,3],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a338d8b0b7ce312143ac262cb2cc97e69":[10,0,3,4,3,6],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5d494bbdf71dd227648375b2c59d74a8":[10,0,3,4,3,18],
-"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5f41da5dd02e9914348c56b16389feca":[10,0,3,4,3,0],
-"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc":[10,0,3,4,3,15],
-"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a97efd0cc7bfcc4d7af4dcde8960e8e2d":[10,0,3,4,3,17]
+"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5f41da5dd02e9914348c56b16389feca":[10,0,3,4,3,0]
 };

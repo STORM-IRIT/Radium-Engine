@@ -1,17 +1,6 @@
 var classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable =
 [
     [ "AttribObserver", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_1_1AttribObserver.html", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_1_1AttribObserver" ],
-    [ "MeshData", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50f", [
-      [ "VERTEX_POSITION", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa1e0c1c12c6ecfd4269c1109730d3e701", null ],
-      [ "VERTEX_NORMAL", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fadc0373cf96929536c36f06698638fa86", null ],
-      [ "VERTEX_TANGENT", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa3ba579a4050a38f4dcdf307a1d23254b", null ],
-      [ "VERTEX_BITANGENT", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fafd45357c1d5dd5d1a28160e2d447c42d", null ],
-      [ "VERTEX_TEXCOORD", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa51df48ae5b8dc052416487ec25465aae", null ],
-      [ "VERTEX_COLOR", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fae81c101835230f905c69b3950bef6063", null ],
-      [ "VERTEX_WEIGHTS", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50faa8e1a46bb55e55ed6c64eff4405d86cf", null ],
-      [ "VERTEX_WEIGHT_IDX", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa5e639659a27557af5bd965989468f024", null ],
-      [ "MAX_DATA", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a298cf502f809250e2e16cc4cc0d6a50fa71d7438f6fac1ebe5c4bb030a0308659", null ]
-    ] ],
     [ "MeshRenderMode", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0", [
       [ "RM_POINTS", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0a700e82b3fc78fad0516fb8959ae64414", null ],
       [ "RM_LINES", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0abc4cf3c998d996ec7e08de382863e342", null ],
@@ -34,11 +23,10 @@ var classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable =
     [ "~AttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a79a819d34e7b88de6f62e78586535ac3", null ],
     [ "getAttribArrayGeometry", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a517b61bc7823cbb8b65bb1a9fc9bd057", null ],
     [ "getAttribArrayGeometry", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a51cdfbea34d086fa20ccf011155d6324", null ],
-    [ "getAttribName", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad22c7cbacae9e25437341a8a42c5b5bd", null ],
     [ "getName", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a8cc588360ff97fc9d3d0b05d54f4671c", null ],
     [ "getRenderMode", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f", null ],
     [ "operator=", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#af36d927e071757e33a42408d9e51816f", null ],
-    [ "setDirty", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ab6faba08ae91312711059ab9021a7e35", null ],
+    [ "setDirty", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a02623fcf3679861530e1bce1f5d88808", null ],
     [ "setDirty", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a7d02575428eaf4589f438c9ed00e3369", null ],
     [ "setDirty", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a55d0abcf1efc4e64aaf0698f24e3e859", null ],
     [ "setRenderMode", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a9fce3bf8c466aea7e724f3a6d73e3169", null ],

@@ -648,10 +648,10 @@
 <!-- Node41 -->
 <g id="node37" class="node">
 <title>Node41</title>
-<g id="a_node37"><a xlink:href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#af5c15d97fec98d1bbc62de339fab4928" target="_top" xlink:title="Fill data with the GeometryData from mesh.">
+<g id="a_node37"><a xlink:href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3" target="_top" xlink:title="Fill data with the GeometryData from mesh.">
 <polygon fill="white" stroke="red" points="579,-680.5 579,-710.5 739,-710.5 739,-680.5 579,-680.5"/>
 <text text-anchor="start" x="587" y="-698.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::IO::AssimpGeometryData</text>
-<text text-anchor="middle" x="659" y="-687.5" font-family="Helvetica,sans-Serif" font-size="10.00">Loader::loadMeshData</text>
+<text text-anchor="middle" x="659" y="-687.5" font-family="Helvetica,sans-Serif" font-size="10.00">Loader::loadMeshAttrib</text>
 </a>
 </g>
 </g>

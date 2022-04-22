@@ -37,7 +37,7 @@
 <area shape="rect" id="node34" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b" title="Fill data with all the GeometryData from scene." alt="" coords="505,1388,719,1429"/>
 <area shape="rect" id="node45" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac4a70c22b1d918ba74252a9d0becbafd" title="Return true if the given scene has geometry data." alt="" coords="505,1503,719,1544"/>
 <area shape="rect" id="node35" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc" title="Fill data with the Material data from material." alt="" coords="777,1257,991,1299"/>
-<area shape="rect" id="node37" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#af5c15d97fec98d1bbc62de339fab4928" title="Fill data with the GeometryData from mesh." alt="" coords="777,1420,991,1461"/>
+<area shape="rect" id="node37" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3" title="Fill data with the GeometryData from mesh." alt="" coords="777,1420,991,1461"/>
 <area shape="rect" id="node44" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a97efd0cc7bfcc4d7af4dcde8960e8e2d" title="Fill data with the transformation data from node and parentFrame." alt="" coords="777,1485,991,1527"/>
 <area shape="rect" id="node36" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4df3ae33c97163e9f31cc2f59e9a8374" title="Set the MaterialData for the object." alt="" coords="1059,1257,1253,1299"/>
 <area shape="rect" id="node38" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aaba5e6585d54ed47bffeff90ae9b7d95" title="Fill data with the vertex bitangent vectors from mesh." alt="" coords="1049,1584,1263,1625"/>

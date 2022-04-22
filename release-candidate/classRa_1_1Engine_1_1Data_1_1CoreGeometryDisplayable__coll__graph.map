@@ -1,6 +1,6 @@
 <map id="Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;" name="Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;">
-<area shape="rect" id="node1" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="666,1205,913,1605"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="679,771,900,1156"/>
+<area shape="rect" id="node1" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="666,1176,913,1576"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="679,771,900,1127"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="682,469,897,708"/>
 <area shape="rect" id="node4" title=" " alt="" coords="714,307,865,385"/>
 <area shape="rect" id="node5" title=" " alt="" coords="921,550,1060,627"/>

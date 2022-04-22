@@ -3,7 +3,7 @@
 <area shape="rect" id="node2" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b" title="Fill data with all the GeometryData from scene." alt="" coords="267,744,480,785"/>
 <area shape="rect" id="node30" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac4a70c22b1d918ba74252a9d0becbafd" title="Return true if the given scene has geometry data." alt="" coords="267,809,480,851"/>
 <area shape="rect" id="node3" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc" title="Fill data with the Material data from material." alt="" coords="528,776,741,817"/>
-<area shape="rect" id="node6" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#af5c15d97fec98d1bbc62de339fab4928" title="Fill data with the GeometryData from mesh." alt="" coords="528,431,741,472"/>
+<area shape="rect" id="node6" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3" title="Fill data with the GeometryData from mesh." alt="" coords="528,431,741,472"/>
 <area shape="rect" id="node29" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a97efd0cc7bfcc4d7af4dcde8960e8e2d" title="Fill data with the transformation data from node and parentFrame." alt="" coords="528,711,741,752"/>
 <area shape="rect" id="node4" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title=" " alt="" coords="1088,659,1248,686"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4df3ae33c97163e9f31cc2f59e9a8374" title="Set the MaterialData for the object." alt="" coords="809,957,1003,999"/>

@@ -1,4 +1,5 @@
 <map id="Ra::Engine::Rendering::DebugRender::addAABB" name="Ra::Engine::Rendering::DebugRender::addAABB">
 <area shape="rect" id="node1" title=" " alt="" coords="5,5,192,47"/>
 <area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a6e1258c6c5fc039cd512a9f7f653d7fc" title="Display a wireframe AABB." alt="" coords="240,5,479,47"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#a9bf7b8f0db1eacfcae5bd58d00c1c906" title="Get the name expected for a given attrib." alt="" coords="527,5,677,47"/>
 </map>

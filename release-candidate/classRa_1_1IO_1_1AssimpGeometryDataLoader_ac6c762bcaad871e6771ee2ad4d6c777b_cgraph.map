@@ -1,7 +1,7 @@
 <map id="Ra::IO::AssimpGeometryDataLoader::loadGeometryData" name="Ra::IO::AssimpGeometryDataLoader::loadGeometryData">
 <area shape="rect" id="node1" title="Fill data with all the GeometryData from scene." alt="" coords="5,377,219,419"/>
 <area shape="rect" id="node2" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc" title="Fill data with the Material data from material." alt="" coords="267,64,480,105"/>
-<area shape="rect" id="node5" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#af5c15d97fec98d1bbc62de339fab4928" title="Fill data with the GeometryData from mesh." alt="" coords="267,533,480,575"/>
+<area shape="rect" id="node5" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3" title="Fill data with the GeometryData from mesh." alt="" coords="267,533,480,575"/>
 <area shape="rect" id="node28" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a97efd0cc7bfcc4d7af4dcde8960e8e2d" title="Fill data with the transformation data from node and parentFrame." alt="" coords="267,377,480,419"/>
 <area shape="rect" id="node3" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title=" " alt="" coords="827,385,987,411"/>
 <area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4df3ae33c97163e9f31cc2f59e9a8374" title="Set the MaterialData for the object." alt="" coords="547,5,742,47"/>

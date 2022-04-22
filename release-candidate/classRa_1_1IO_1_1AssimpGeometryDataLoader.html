@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.14</span>
+   &#160;<span id="projectnumber">1.2.15</span>
    </div>
   </td>
  </tr>
@@ -152,9 +152,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ac6c762bcaad871e6771ee2ad4d6c777b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b">loadGeometryData</a> (const aiScene *scene, std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;data)</td></tr>
 <tr class="memdesc:ac6c762bcaad871e6771ee2ad4d6c777b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with all the GeometryData from <code>scene</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b">More...</a><br /></td></tr>
 <tr class="separator:ac6c762bcaad871e6771ee2ad4d6c777b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5c15d97fec98d1bbc62de339fab4928"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#af5c15d97fec98d1bbc62de339fab4928">loadMeshData</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data, std::set&lt; std::string &gt; &amp;usedNames)</td></tr>
-<tr class="memdesc:af5c15d97fec98d1bbc62de339fab4928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the GeometryData from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#af5c15d97fec98d1bbc62de339fab4928">More...</a><br /></td></tr>
-<tr class="separator:af5c15d97fec98d1bbc62de339fab4928"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2490e79d44ac73891d0495d8978e2c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3">loadMeshAttrib</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data, std::set&lt; std::string &gt; &amp;usedNames)</td></tr>
+<tr class="memdesc:ac2490e79d44ac73891d0495d8978e2c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the GeometryData from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3">More...</a><br /></td></tr>
+<tr class="separator:ac2490e79d44ac73891d0495d8978e2c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60bc6c1f8c09845639f9783a1c59a0fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc">loadMaterial</a> (const aiMaterial &amp;material, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
 <tr class="memdesc:a60bc6c1f8c09845639f9783a1c59a0fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the Material data from <code>material</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc">More...</a><br /></td></tr>
 <tr class="separator:a60bc6c1f8c09845639f9783a1c59a0fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -934,8 +934,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af5c15d97fec98d1bbc62de339fab4928"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5c15d97fec98d1bbc62de339fab4928">&#9670;&nbsp;</a></span>loadMeshData()</h2>
+<a id="ac2490e79d44ac73891d0495d8978e2c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2490e79d44ac73891d0495d8978e2c3">&#9670;&nbsp;</a></span>loadMeshAttrib()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -944,7 +944,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::loadMeshData </td>
+          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::loadMeshAttrib </td>
           <td>(</td>
           <td class="paramtype">const aiMesh &amp;&#160;</td>
           <td class="paramname"><em>mesh</em>, </td>
@@ -982,7 +982,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-14-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_af5c15d97fec98d1bbc62de339fab4928_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_ac2490e79d44ac73891d0495d8978e2c3_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -1126,7 +1126,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1IO.html">IO</a></li><li class="navelem"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html">AssimpGeometryDataLoader</a></li>
-    <li class="footer">Generated on Fri Apr 22 2022 11:52:51 for Radium Engine by
+    <li class="footer">Generated on Fri Apr 22 2022 20:27:12 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

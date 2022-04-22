@@ -1,16 +1,18 @@
 var NAVTREEINDEX22 =
 {
+"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc":[10,0,3,4,3,15],
+"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a97efd0cc7bfcc4d7af4dcde8960e8e2d":[10,0,3,4,3,17],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa0c33c7a06e92fc4da9f4d15a5b447ba":[10,0,3,4,3,8],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa6c1ada49b7dbf1ef90fa318c39699f7":[10,0,3,4,3,13],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aab50bdaa647338a54137c7ce33186379":[10,0,3,4,3,10],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aaba5e6585d54ed47bffeff90ae9b7d95":[10,0,3,4,3,2],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#abcead4d8442c09504783d497e200ac4a":[10,0,3,4,3,9],
+"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3":[10,0,3,4,3,16],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac4a70c22b1d918ba74252a9d0becbafd":[10,0,3,4,3,19],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac4aea8ff57b978047124829e10100602":[10,0,3,4,3,1],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b":[10,0,3,4,3,14],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#adbeb774acac5f2f63059aa4d1b778562":[10,0,3,4,3,7],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#adc78d9c380370c35302444b879b2c9a3":[10,0,3,4,3,5],
-"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#af5c15d97fec98d1bbc62de339fab4928":[10,0,3,4,3,16],
 "classRa_1_1IO_1_1AssimpHandleDataLoader.html":[10,0,3,4,4],
 "classRa_1_1IO_1_1AssimpHandleDataLoader.html#a273bfdefebe957234af644f4d68df8cf":[10,0,3,4,4,0],
 "classRa_1_1IO_1_1AssimpHandleDataLoader.html#a972d089e633723b8f83b48804fdd3a17":[10,0,3,4,4,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX22 =
 "dir_1b07f77798358fd74e92420363fd4633.html":[11,0,3,5],
 "dir_21c87f206f6872de3cc60b97917f3fdd.html":[11,0,3,4,3],
 "dir_2a529fd74e7782bdaa5de0314056ee46.html":[11,0,3,2,6],
-"dir_3072bc1f55ed1280fe4fbe6b21c78379.html":[11,0,3,1],
-"dir_34a4d176080403972ecf681e5218a237.html":[11,0,3,3,0],
-"dir_486288e78e9dc8c89d3d526bcb77146e.html":[11,0,3,0,1]
+"dir_3072bc1f55ed1280fe4fbe6b21c78379.html":[11,0,3,1]
 };

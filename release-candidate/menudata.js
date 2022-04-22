@@ -114,6 +114,7 @@ var menudata={children:[
 {text:"d",url:"namespacemembers_eval.html#index_d"},
 {text:"h",url:"namespacemembers_eval.html#index_h"},
 {text:"l",url:"namespacemembers_eval.html#index_l"},
+{text:"m",url:"namespacemembers_eval.html#index_m"},
 {text:"s",url:"namespacemembers_eval.html#index_s"},
 {text:"v",url:"namespacemembers_eval.html#index_v"},
 {text:"z",url:"namespacemembers_eval.html#index_z"}]}]}]},
