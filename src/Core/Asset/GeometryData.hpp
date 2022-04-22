@@ -311,6 +311,10 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Access to the (const) attrib manager
     inline const Utils::AttribManager& getAttribManager() const;
+    /*
+     template <typename T>
+     inline T& getIndexDataWithLock( Core::Geometry::MultiIndexedGeometry::LayerSemanticCollection&
+     semantics ,const std::string& layerName );*/
 
   protected:
     /// The transformation of the object.
@@ -329,7 +333,7 @@ class RA_CORE_API GeometryData : public AssetData
     VectorNuArray m_polyhedron;
 
     /// Named attributes
-    Core::Geometry::AttribArrayGeometry m_vertexAttribArray;
+    Core::Geometry::MultiIndexedGeometry multiIndexedGeometry;
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
