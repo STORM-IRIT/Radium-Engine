@@ -61,7 +61,19 @@ inline void GeometryData::setVertices( const Container& vertexList ) {
 }
 
 inline Vector2uArray& GeometryData::getEdges() {
-    return m_edge;
+    auto pil = std::make_unique<Core::Geometry::LineIndexLayer>();
+    multiIndexedGeometry.addLayer( std::move( pil ), "edge" );
+    std::set<std::string> semantics;
+    for ( const auto& k : multiIndexedGeometry.layerKeys() ) {
+        if ( k.second == "edge" ) {
+            semantics = k.first;
+            break;
+        }
+    }
+    auto& d = multiIndexedGeometry.getLayerWithLock( semantics, "edge" );
+    auto& v = dynamic_cast<Geometry::LineIndexLayer&>( d );
+    if ( v.collection().empty() ) { v.collection() = Vector2uArray(); }
+    return v.collection();
 }
 
 inline const Vector2uArray& GeometryData::getEdges() const {
@@ -70,6 +82,8 @@ inline const Vector2uArray& GeometryData::getEdges() const {
 
 template <typename Container>
 inline void GeometryData::setEdges( const Container& edgeList ) {
+    auto pil = std::make_unique<Core::Geometry::PolyIndexLayer>();
+    multiIndexedGeometry.addLayer( std::move( pil ) );
     internal::copyData( edgeList, m_edge );
 }
 
@@ -224,36 +238,36 @@ inline bool GeometryData::hasMaterial() const {
 }
 
 const Utils::AttribManager& GeometryData::getAttribManager() const {
-    return m_vertexAttribArray.vertexAttribs();
+    return multiIndexedGeometry.vertexAttribs();
 }
 
 Utils::AttribManager& GeometryData::getAttribManager() {
-    return m_vertexAttribArray.vertexAttribs();
+    return multiIndexedGeometry.vertexAttribs();
 }
 
 template <typename Container>
 inline Container& GeometryData::getAttribDataWithLock( const std::string& name ) {
-    if ( name == "vertex" ) { return m_vertexAttribArray.verticesWithLock(); }
+    if ( name == "vertex" ) { return multiIndexedGeometry.verticesWithLock(); }
     else if ( name == "normal" ) {
-        return m_vertexAttribArray.normalsWithLock();
+        return multiIndexedGeometry.normalsWithLock();
     }
-    auto h = m_vertexAttribArray.template getAttribHandle<Vector3>( name );
-    if ( !m_vertexAttribArray.template isValid( h ) ) {
-        h = m_vertexAttribArray.template addAttrib<Vector3>( name );
+    auto h = multiIndexedGeometry.template getAttribHandle<Vector3>( name );
+    if ( !multiIndexedGeometry.template isValid( h ) ) {
+        h = multiIndexedGeometry.template addAttrib<Vector3>( name );
     }
-    auto& attrib = m_vertexAttribArray.template getAttrib( h );
+    auto& attrib = multiIndexedGeometry.template getAttrib( h );
     auto& d      = attrib.getDataWithLock();
     return d;
 }
 
 template <typename Container>
 inline const Container& GeometryData::getAttribData( const std::string& name ) const {
-    if ( name == "vertex" ) { return m_vertexAttribArray.vertices(); }
+    if ( name == "vertex" ) { return multiIndexedGeometry.vertices(); }
     else if ( name == "normal" ) {
-        return m_vertexAttribArray.normals();
+        return multiIndexedGeometry.normals();
     }
-    auto h             = m_vertexAttribArray.template getAttribHandle<Vector3>( name );
-    const auto& attrib = m_vertexAttribArray.template getAttrib( h );
+    auto h             = multiIndexedGeometry.template getAttribHandle<Vector3>( name );
+    const auto& attrib = multiIndexedGeometry.template getAttrib( h );
     auto& d            = attrib.data();
     return d;
 }
@@ -261,35 +275,40 @@ inline const Container& GeometryData::getAttribData( const std::string& name ) c
 template <typename Container>
 inline void GeometryData::setAttribData( const std::string& name,
                                          const Container& attribDataList ) {
-    Utils::Attrib<Container>& c = m_vertexAttribArray.getAttribBase( name )->cast<Container>();
+    Utils::Attrib<Container>& c = multiIndexedGeometry.getAttribBase( name )->cast<Container>();
     auto& v                     = c.getDataWithLock();
     internal::copyData( attribDataList, v );
     attribDataUnlock( name );
 }
 
 bool GeometryData::hasAttribData( const std::string& name ) const {
-    if ( name == "vertex" ) { return !m_vertexAttribArray.vertices().empty(); }
+    if ( name == "vertex" ) { return !multiIndexedGeometry.vertices().empty(); }
     else if ( name == "normal" ) {
-        return !m_vertexAttribArray.normals().empty();
+        return !multiIndexedGeometry.normals().empty();
     }
     else {
-        auto h = m_vertexAttribArray.getAttribHandle<Vector3>( name );
-        if ( m_vertexAttribArray.isValid( h ) ) {
-            return !m_vertexAttribArray.getAttrib( h ).data().empty();
+        auto h = multiIndexedGeometry.getAttribHandle<Vector3>( name );
+        if ( multiIndexedGeometry.isValid( h ) ) {
+            return !multiIndexedGeometry.getAttrib( h ).data().empty();
         }
     }
     return false;
 }
 
 void GeometryData::attribDataUnlock( const std::string& name ) {
-    if ( name == "vertex" ) { m_vertexAttribArray.verticesUnlock(); }
+    if ( name == "vertex" ) { multiIndexedGeometry.verticesUnlock(); }
     else if ( name == "normal" ) {
-        m_vertexAttribArray.normalsUnlock();
+        multiIndexedGeometry.normalsUnlock();
     }
     else {
-        m_vertexAttribArray.getAttribBase( name )->unlock();
+        multiIndexedGeometry.getAttribBase( name )->unlock();
     }
 }
+/*
+template <typename V>
+inline VectorArray<V>& GeometryData::getIndexDataWithLock( Core::Geometry::IndexedGeometry<V>
+indexedGeometry ) { indexedGeometry. auto& i = indexedGeometry.getIndicesWithLock(); return i;
+}*/
 
 } // namespace Asset
 } // namespace Core
