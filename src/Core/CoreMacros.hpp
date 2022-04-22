@@ -248,7 +248,7 @@
 
 using uchar  = unsigned char;
 using ushort = unsigned short;
-using uint   =  unsigned int;
+using uint   = unsigned int;
 using ulong  = unsigned long;
 
 // Use this to use double precision for all maths

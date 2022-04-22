@@ -5,6 +5,8 @@
 #include <typeinfo>
 #include <unordered_map>
 
+#include <Core/Geometry/StandardAttribNames.hpp>
+
 namespace Ra {
 namespace Core {
 namespace Geometry {
@@ -289,7 +291,9 @@ inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray(
 }
 template <typename T>
 int TopologicalMesh::WedgeCollection::addAttribName( const std::string& name ) {
-    if ( name != std::string( "in_position" ) ) { getNameArray<T>().push_back( name ); }
+    if ( name != getAttribName( MeshAttrib::VERTEX_POSITION ) ) {
+        getNameArray<T>().push_back( name );
+    }
     return getNameArray<T>().size() - 1;
 }
 
@@ -357,7 +361,7 @@ TopologicalMesh::InitWedgeAttribsFromMultiIndexedGeometry::operator()( AttribBas
     if ( attr->getSize() != m_triMesh.vertices().size() ) {
         LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute " << attr->getName();
     }
-    else if ( attr->getName() != std::string( "in_position" ) ) {
+    else if ( attr->getName() != getAttribName( MeshAttrib::VERTEX_POSITION ) ) {
         if ( attr->isFloat() ) {
             m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
                 m_triMesh.template getAttribHandle<Scalar>( attr->getName() ) );
@@ -611,7 +615,8 @@ void TopologicalMesh::initWithWedge(
 
     command.postProcess( *this );
     if ( hasNormals ) {
-        m_normalsIndex = m_wedges.getWedgeAttribIndex<Normal>( "in_normal" );
+        m_normalsIndex =
+            m_wedges.getWedgeAttribIndex<Normal>( getAttribName( MeshAttrib::VERTEX_NORMAL ) );
 
         m_vertexFaceWedgesWithSameNormals.clear();
         m_vertexFaceWedgesWithSameNormals.resize( n_vertices() );
@@ -676,7 +681,7 @@ inline void TopologicalMesh::propagate_normal_to_wedges( VertexHandle vh ) {
     for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it ) {
         auto wd = getWedgeData( property( getWedgeIndexPph(), *vih_it ) );
 
-        m_wedges.setWedgeAttrib( wd, "in_normal", normal( vh ) );
+        m_wedges.setWedgeAttrib( wd, getAttribName( MeshAttrib::VERTEX_NORMAL ), normal( vh ) );
 
         replaceWedge( *vih_it, wd );
     }

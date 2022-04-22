@@ -1,4 +1,5 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <catch2/catch.hpp>
@@ -119,7 +120,7 @@ void copyToWedgesVector( size_t size,
         LOG( logWARNING ) << "[TopologicalMesh test] Skip badly sized attribute "
                           << attr->getName();
     }
-    else if ( attr->getName() != std::string( "in_position" ) ) {
+    else if ( attr->getName() != getAttribName( VERTEX_POSITION ) ) {
         {
             auto data = meshOne.vertices();
             for ( size_t i = 0; i < size; ++i ) {
@@ -322,7 +323,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         auto topologicalMesh = TopologicalMesh( mesh );
         auto newMesh         = topologicalMesh.toTriangleMesh();
         topologicalMesh.setWedgeData(
-            TopologicalMesh::WedgeIndex { 0 }, "in_normal", Vector3( 0, 0, 0 ) );
+            TopologicalMesh::WedgeIndex { 0 }, getAttribName( VERTEX_NORMAL ), Vector3( 0, 0, 0 ) );
         auto newMeshModified = topologicalMesh.toTriangleMesh();
 
         REQUIRE( isSameMesh( mesh, newMesh ) );

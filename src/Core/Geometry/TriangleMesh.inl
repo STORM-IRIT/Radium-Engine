@@ -1,5 +1,6 @@
 #pragma once
 #include "TriangleMesh.hpp"
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TriangleOperation.hpp> // triangleArea
 
 namespace Ra {
@@ -198,8 +199,10 @@ inline void AttribArrayGeometry::normalsUnlock() {
 }
 
 inline void AttribArrayGeometry::initDefaultAttribs() {
-    m_verticesHandle = m_vertexAttribs.addAttrib<PointAttribHandle::value_type>( "in_position" );
-    m_normalsHandle  = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>( "in_normal" );
+    m_verticesHandle = m_vertexAttribs.addAttrib<PointAttribHandle::value_type>(
+        getAttribName( MeshAttrib::VERTEX_POSITION ) );
+    m_normalsHandle = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>(
+        getAttribName( MeshAttrib::VERTEX_NORMAL ) );
     invalidateAabb();
 }
 

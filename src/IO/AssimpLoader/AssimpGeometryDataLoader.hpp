@@ -47,9 +47,9 @@ class RA_IO_API AssimpGeometryDataLoader : public Core::Asset::DataLoader<Core::
                            std::vector<std::unique_ptr<Core::Asset::GeometryData>>& data );
 
     /// Fill \p data with the GeometryData from \p mesh.
-    void loadMeshData( const aiMesh& mesh,
-                       Core::Asset::GeometryData& data,
-                       std::set<std::string>& usedNames );
+    void loadMeshAttrib( const aiMesh& mesh,
+                         Core::Asset::GeometryData& data,
+                         std::set<std::string>& usedNames );
 
     /// Fill \p data with the Material data from \p material.
     void loadMaterial( const aiMaterial& material, Core::Asset::GeometryData& data ) const;

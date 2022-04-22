@@ -1,3 +1,4 @@
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Types.hpp>
 
@@ -35,8 +36,7 @@ void AttribArrayGeometry::clearAttributes() {
 }
 
 void AttribArrayGeometry::colorize( const Utils::Color& color ) {
-    static const std::string colorAttribName( "in_color" );
-    auto colorAttribHandle = addAttrib<Core::Vector4>( colorAttribName );
+    auto colorAttribHandle = addAttrib<Core::Vector4>( getAttribName( MeshAttrib::VERTEX_COLOR ) );
     getAttrib( colorAttribHandle ).setData( Vector4Array( vertices().size(), color ) );
 }
 

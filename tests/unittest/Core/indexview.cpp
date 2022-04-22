@@ -1,5 +1,6 @@
 #include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <catch2/catch.hpp>
 
 struct CustomTriangleIndexLayer : public Ra::Core::Geometry::TriangleIndexLayer {
@@ -10,11 +11,7 @@ struct CustomTriangleIndexLayer : public Ra::Core::Geometry::TriangleIndexLayer 
 
 TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeometry]" ) {
     using Ra::Core::Vector3;
-    using Ra::Core::Geometry::AttribArrayGeometry;
-    using Ra::Core::Geometry::MultiIndexedGeometry;
-    using Ra::Core::Geometry::PointCloudIndexLayer;
-    using Ra::Core::Geometry::TriangleIndexLayer;
-    using Ra::Core::Geometry::TriangleMesh;
+    using namespace Ra::Core::Geometry;
     using Ra::Core::Utils::ObjectWithSemantic;
 
     // Store keys of the layers that should be in the geometry
@@ -98,20 +95,16 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
 
 TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes", "[Core][Core/Geometry][IndexedGeometry]" ) {
     using Ra::Core::Vector3;
-    using Ra::Core::Geometry::AttribArrayGeometry;
-    using Ra::Core::Geometry::MultiIndexedGeometry;
-    using Ra::Core::Geometry::PointCloudIndexLayer;
-    using Ra::Core::Geometry::TriangleIndexLayer;
-    using Ra::Core::Geometry::TriangleMesh;
+    using namespace Ra::Core::Geometry;
     using Ra::Core::Utils::ObjectWithSemantic;
     using Vec3AttribHandle = AttribArrayGeometry::Vec3AttribHandle;
 
     MultiIndexedGeometry mesh( Ra::Core::Geometry::makeBox() );
 
     // base attributes are automatically added
-    auto h_pos = mesh.getAttribHandle<Vector3>( "in_position" );
+    auto h_pos = mesh.getAttribHandle<Vector3>( getAttribName( VERTEX_POSITION ) );
     REQUIRE( mesh.isValid( h_pos ) );
-    auto h_nor = mesh.getAttribHandle<Vector3>( "in_normal" );
+    auto h_nor = mesh.getAttribHandle<Vector3>( getAttribName( VERTEX_NORMAL ) );
     REQUIRE( mesh.isValid( h_nor ) );
 
     // Add/Remove attributes without filling it
@@ -254,7 +247,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/CopyAllAttributes",
            "[Core][Core/Geometry][IndexedGeometry]" ) {
     using Ra::Core::Vector2;
     using Ra::Core::Vector3;
-    using Ra::Core::Geometry::TriangleMesh;
+    using namespace Ra::Core::Geometry;
     using Vec3AttribHandle = Ra::Core::Utils::AttribHandle<Vector3>;
     using Ra::Core::Geometry::TriangleMesh;
 
