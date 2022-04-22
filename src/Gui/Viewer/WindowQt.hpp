@@ -26,6 +26,9 @@ namespace Gui {
  */
 class RA_GUI_API WindowQt : public QWindow
 {
+  private:
+    class ScopedGLContext;
+
   public:
     explicit WindowQt( QScreen* screen );
     virtual ~WindowQt();
@@ -44,6 +47,7 @@ class RA_GUI_API WindowQt : public QWindow
      * context has been asked to be activated.
      * If the context have already been made current with a previous call to makeCurrent, this
      * function increase an internal counter by one so that doneCurrent do not release the context.
+     * \see activateScopedContext() as an alternative
      */
     void makeCurrent();
 
@@ -52,9 +56,31 @@ class RA_GUI_API WindowQt : public QWindow
      * This results in no context being current in the current thread.
      * In case a context has been made current multiple times, this function just deacrease the
      * internal counter by one. \see makeCurrent()
+     * \see activateScopedContext() as an alternative
      */
     void doneCurrent();
 
+    /**
+     * Make this->context() the current context for current block.
+     * The context is released when the return variable is destroyed. The "context object" uses
+     * this->makeCurrent() and this->doneCurrent(), hence it's compatible with enclosed scopes, and
+     * only the first created context object dtor eventually release OpenGL context.
+     *
+     * Example
+     *
+     * \code{.cpp} if(test){
+     *    auto context = viewer->activateScopedContext();
+     *     // here OpenGL context is bound
+     *     Texture tex;
+     *     // [...] do tex setup
+     *     tex->initializeGL();
+     *     // [...] use tex ...
+     * } // block exit will first call tex dtor (with active context) then context dtor.
+     * \endcode
+     */
+    inline ScopedGLContext activateScopedContext();
+
+    /// \see https://doc.qt.io/qt-5/qglwidget.html#context
     QOpenGLContext* context();
 
     // note when updating from globjets
@@ -92,12 +118,14 @@ class RA_GUI_API WindowQt : public QWindow
     // paintGL done by base app rendering loop
 
   protected:
-    static WindowQt* s_getProcAddressHelper;
     static glbinding::ProcAddress getProcAddress( const char* name );
 
   private:
+    static WindowQt* s_getProcAddressHelper;
     int m_contextActivationCount { 0 };
 };
 
 } // namespace Gui
 } // namespace Ra
+
+#include "WindowQt.inl"

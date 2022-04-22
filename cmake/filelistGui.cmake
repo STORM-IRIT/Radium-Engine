@@ -74,7 +74,7 @@ set(gui_headers
     Viewer/WindowQt.hpp
 )
 
-set(gui_inlines)
+set(gui_inlines Viewer/WindowQt.inl)
 
 set(gui_uis AboutDialog/AboutDialog.ui SkeletonBasedAnimation/SkeletonBasedAnimationUI.ui
             Timeline/HelpDialog.ui Timeline/Timeline.ui
