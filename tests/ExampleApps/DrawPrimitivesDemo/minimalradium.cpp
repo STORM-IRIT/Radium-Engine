@@ -138,17 +138,25 @@ void MinimalComponent::initialize() {
     //// CUBES ////
     if ( ENABLE_CUBES ) {
         std::shared_ptr<Mesh> cube1( new Mesh( "Cube" ) );
-        auto coord = cellSize / 8_ra;
-        cube1->loadGeometry( Geometry::makeSharpBox( Vector3 { coord, coord, coord } ) );
-        cube1->getCoreGeometry().addAttrib(
-            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
-            Vector4Array { cube1->getNumVertices(), Color::Green() } );
-
+        auto coord = cellSize / 16_ra;
+        cube1->loadGeometry(
+            Geometry::makeSharpBox( Vector3 { coord, coord, coord }, Color::Green() ) );
         auto renderObject1 = RenderObject::createRenderObject(
             "Cube1", this, RenderObjectType::Geometry, cube1, {} );
         renderObject1->setLocalTransform( Transform { Translation( cellCorner ) } );
         renderObject1->setMaterial( blinnPhongMaterial );
         addRenderObject( renderObject1 );
+
+        std::shared_ptr<Mesh> texCube( new Mesh( "Cube" ) );
+        texCube->loadGeometry( Geometry::makeSharpBox(
+            Vector3 { 1.2_ra * coord, 1.2_ra * coord, 1.2_ra * coord }, Color::White(), true ) );
+        auto renderObjectTexCube = RenderObject::createRenderObject(
+            "TexCube", this, RenderObjectType::Geometry, texCube, {} );
+        renderObjectTexCube->setLocalTransform(
+            Transform { Translation( cellCorner + Vector3 { 0_ra, coord * 3.5_ra, 0_ra } ) } );
+        renderObjectTexCube->setMaterial( blinnPhongTexturedMaterial );
+
+        addRenderObject( renderObjectTexCube );
 
         // another cube
         std::shared_ptr<Mesh> cube2( new Mesh( "Cube" ) );
@@ -164,7 +172,7 @@ void MinimalComponent::initialize() {
             "CubeRO_2", this, RenderObjectType::Geometry, cube2, {} );
         coord = cellSize / 2_ra;
         renderObject2->setLocalTransform(
-            Transform { Translation( cellCorner + Vector3( coord, coord, coord ) ) } );
+            Transform { Translation( cellCorner + Vector3 { coord, coord, coord } ) } );
         renderObject2->setMaterial( lambertianMaterial );
         addRenderObject( renderObject2 );
     }
