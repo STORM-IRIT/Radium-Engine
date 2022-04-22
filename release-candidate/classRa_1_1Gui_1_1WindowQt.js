@@ -1,7 +1,9 @@
 var classRa_1_1Gui_1_1WindowQt =
 [
+    [ "ScopedGLContext", "classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html", "classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext" ],
     [ "WindowQt", "classRa_1_1Gui_1_1WindowQt.html#aeaf44d6f885ecf78f4c44045ef69aeea", null ],
     [ "~WindowQt", "classRa_1_1Gui_1_1WindowQt.html#ab2b17163135b98c3eed80326f5d6e40c", null ],
+    [ "activateScopedContext", "classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587", null ],
     [ "cleanupGL", "classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d", null ],
     [ "context", "classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de", null ],
     [ "deinitializeGL", "classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c", null ],
@@ -21,6 +23,5 @@ var classRa_1_1Gui_1_1WindowQt =
     [ "showEvent", "classRa_1_1Gui_1_1WindowQt.html#a9e218f1715f8207ad38140386120e8ae", null ],
     [ "m_context", "classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df", null ],
     [ "m_glInitialized", "classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854", null ],
-    [ "m_updatePending", "classRa_1_1Gui_1_1WindowQt.html#af022c0986f1c5c62c5341518c29c08e0", null ],
-    [ "s_getProcAddressHelper", "classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7", null ]
+    [ "m_updatePending", "classRa_1_1Gui_1_1WindowQt.html#af022c0986f1c5c62c5341518c29c08e0", null ]
 ];

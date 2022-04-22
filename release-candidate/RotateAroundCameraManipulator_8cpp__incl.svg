@@ -1296,33 +1296,33 @@ var sectionId = 'dynsection-0';
 <path fill="none" stroke="midnightblue" d="M1939.52,-462.33C2018.12,-460.32 2155.04,-450.85 2265,-412 2298.16,-400.29 2332.04,-377.16 2352.29,-361.89"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2354.56,-364.56 2360.34,-355.69 2350.29,-359.02 2354.56,-364.56"/>
 </g>
-<!-- Node90 -->
+<!-- Node91 -->
 <g id="node59" class="node">
-<title>Node90</title>
+<title>Node91</title>
 <g id="a_node59"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="1868,-392.5 1868,-411.5 1954,-411.5 1954,-392.5 1868,-392.5"/>
 <text text-anchor="middle" x="1911" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">QMessageBox</text>
 </a>
 </g>
 </g>
-<!-- Node81&#45;&gt;Node90 -->
+<!-- Node81&#45;&gt;Node91 -->
 <g id="edge129" class="edge">
-<title>Node81&#45;&gt;Node90</title>
+<title>Node81&#45;&gt;Node91</title>
 <path fill="none" stroke="midnightblue" d="M1881.01,-453.98C1886.16,-445.23 1894.31,-431.37 1900.82,-420.31"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1903.94,-421.9 1905.99,-411.51 1897.91,-418.35 1903.94,-421.9"/>
 </g>
-<!-- Node91 -->
+<!-- Node92 -->
 <g id="node60" class="node">
-<title>Node91</title>
+<title>Node92</title>
 <g id="a_node60"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="1972,-392.5 1972,-411.5 2030,-411.5 2030,-392.5 1972,-392.5"/>
 <text text-anchor="middle" x="2001" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">QThread</text>
 </a>
 </g>
 </g>
-<!-- Node81&#45;&gt;Node91 -->
+<!-- Node81&#45;&gt;Node92 -->
 <g id="edge130" class="edge">
-<title>Node81&#45;&gt;Node91</title>
+<title>Node81&#45;&gt;Node92</title>
 <path fill="none" stroke="midnightblue" d="M1893.91,-453.98C1914.89,-443.99 1949.85,-427.35 1974.09,-415.81"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1975.6,-418.97 1983.12,-411.51 1972.59,-412.65 1975.6,-418.97"/>
 </g>

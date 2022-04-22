@@ -16,5 +16,8 @@ var dir_b04feb2291820e8d3d098807c21e4559 =
     [ "WindowQt.cpp", "WindowQt_8cpp.html", "WindowQt_8cpp" ],
     [ "WindowQt.hpp", "WindowQt_8hpp.html", [
       [ "WindowQt", "classRa_1_1Gui_1_1WindowQt.html", "classRa_1_1Gui_1_1WindowQt" ]
+    ] ],
+    [ "WindowQt.inl", "WindowQt_8inl.html", [
+      [ "ScopedGLContext", "classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html", "classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext" ]
     ] ]
 ];

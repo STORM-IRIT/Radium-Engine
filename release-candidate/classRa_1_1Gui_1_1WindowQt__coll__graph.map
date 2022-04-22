@@ -1,5 +1,5 @@
 <map id="Ra::Gui::WindowQt" name="Ra::Gui::WindowQt">
-<area shape="rect" id="node1" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="286,425,457,767"/>
+<area shape="rect" id="node1" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="272,425,471,781"/>
 <area shape="rect" id="node2" href="$classQWindow.html" title=" " alt="" coords="5,285,89,363"/>
 <area shape="rect" id="node3" title=" " alt="" coords="114,285,375,363"/>
 <area shape="rect" id="node4" title=" " alt="" coords="119,145,253,223"/>

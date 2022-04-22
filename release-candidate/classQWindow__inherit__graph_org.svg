@@ -26,33 +26,33 @@
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="classRa_1_1Gui_1_1WindowQt.html" target="_top" xlink:title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings.">
-<polygon fill="white" stroke="black" points="12,-985.5 12,-1273.5 158,-1273.5 158,-985.5 12,-985.5"/>
+<polygon fill="white" stroke="black" points="10.5,-985.5 10.5,-1273.5 159.5,-1273.5 159.5,-985.5 10.5,-985.5"/>
 <text text-anchor="middle" x="85" y="-1261.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::WindowQt</text>
-<polyline fill="none" stroke="black" points="12,-1254.5 158,-1254.5 "/>
-<text text-anchor="start" x="20" y="-1242.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_context</text>
-<text text-anchor="start" x="20" y="-1231.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_updatePending</text>
-<text text-anchor="start" x="20" y="-1220.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_glInitialized</text>
-<text text-anchor="start" x="20" y="-1209.5" font-family="Helvetica,sans-Serif" font-size="10.00"># s_getProcAddressHelper</text>
-<polyline fill="none" stroke="black" points="12,-1202.5 158,-1202.5 "/>
-<text text-anchor="start" x="20" y="-1190.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WindowQt()</text>
-<text text-anchor="start" x="20" y="-1179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~WindowQt()</text>
-<text text-anchor="start" x="20" y="-1168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ resizeEvent()</text>
-<text text-anchor="start" x="20" y="-1157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ showEvent()</text>
-<text text-anchor="start" x="20" y="-1146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ exposeEvent()</text>
-<text text-anchor="start" x="20" y="-1135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ enterEvent()</text>
-<text text-anchor="start" x="20" y="-1124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ leaveEvent()</text>
-<text text-anchor="start" x="20" y="-1113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ makeCurrent()</text>
-<text text-anchor="start" x="20" y="-1102.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ doneCurrent()</text>
-<text text-anchor="start" x="20" y="-1091.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ context()</text>
-<text text-anchor="start" x="20" y="-1080.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isOpenGlInitialized()</text>
-<text text-anchor="start" x="20" y="-1069.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ cleanupGL()</text>
-<text text-anchor="start" x="20" y="-1058.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ screenChanged()</text>
-<text text-anchor="start" x="20" y="-1047.5" font-family="Helvetica,sans-Serif" font-size="10.00"># initialize()</text>
-<text text-anchor="start" x="20" y="-1036.5" font-family="Helvetica,sans-Serif" font-size="10.00"># resizeInternal()</text>
-<text text-anchor="start" x="20" y="-1025.5" font-family="Helvetica,sans-Serif" font-size="10.00"># initializeGL()</text>
-<text text-anchor="start" x="20" y="-1014.5" font-family="Helvetica,sans-Serif" font-size="10.00"># deinitializeGL()</text>
-<text text-anchor="start" x="20" y="-1003.5" font-family="Helvetica,sans-Serif" font-size="10.00"># resizeGL()</text>
-<text text-anchor="start" x="20" y="-992.5" font-family="Helvetica,sans-Serif" font-size="10.00"># getProcAddress()</text>
+<polyline fill="none" stroke="black" points="10.5,-1254.5 159.5,-1254.5 "/>
+<text text-anchor="start" x="18.5" y="-1242.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_context</text>
+<text text-anchor="start" x="18.5" y="-1231.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_updatePending</text>
+<text text-anchor="start" x="18.5" y="-1220.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_glInitialized</text>
+<polyline fill="none" stroke="black" points="10.5,-1213.5 159.5,-1213.5 "/>
+<text text-anchor="start" x="18.5" y="-1201.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WindowQt()</text>
+<text text-anchor="start" x="18.5" y="-1190.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~WindowQt()</text>
+<text text-anchor="start" x="18.5" y="-1179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ resizeEvent()</text>
+<text text-anchor="start" x="18.5" y="-1168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ showEvent()</text>
+<text text-anchor="start" x="18.5" y="-1157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ exposeEvent()</text>
+<text text-anchor="start" x="18.5" y="-1146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ enterEvent()</text>
+<text text-anchor="start" x="18.5" y="-1135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ leaveEvent()</text>
+<text text-anchor="start" x="18.5" y="-1124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ makeCurrent()</text>
+<text text-anchor="start" x="18.5" y="-1113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ doneCurrent()</text>
+<text text-anchor="start" x="18.5" y="-1102.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ activateScopedContext()</text>
+<text text-anchor="start" x="18.5" y="-1091.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ context()</text>
+<text text-anchor="start" x="18.5" y="-1080.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isOpenGlInitialized()</text>
+<text text-anchor="start" x="18.5" y="-1069.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ cleanupGL()</text>
+<text text-anchor="start" x="18.5" y="-1058.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ screenChanged()</text>
+<text text-anchor="start" x="18.5" y="-1047.5" font-family="Helvetica,sans-Serif" font-size="10.00"># initialize()</text>
+<text text-anchor="start" x="18.5" y="-1036.5" font-family="Helvetica,sans-Serif" font-size="10.00"># resizeInternal()</text>
+<text text-anchor="start" x="18.5" y="-1025.5" font-family="Helvetica,sans-Serif" font-size="10.00"># initializeGL()</text>
+<text text-anchor="start" x="18.5" y="-1014.5" font-family="Helvetica,sans-Serif" font-size="10.00"># deinitializeGL()</text>
+<text text-anchor="start" x="18.5" y="-1003.5" font-family="Helvetica,sans-Serif" font-size="10.00"># resizeGL()</text>
+<text text-anchor="start" x="18.5" y="-992.5" font-family="Helvetica,sans-Serif" font-size="10.00"># getProcAddress()</text>
 </a>
 </g>
 </g>

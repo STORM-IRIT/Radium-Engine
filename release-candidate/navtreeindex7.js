@@ -9,6 +9,8 @@ var NAVTREEINDEX7 =
 "WindowQt_8cpp_source.html":[11,0,3,2,9,11],
 "WindowQt_8hpp.html":[11,0,3,2,9,12],
 "WindowQt_8hpp_source.html":[11,0,3,2,9,12],
+"WindowQt_8inl.html":[11,0,3,2,9,13],
+"WindowQt_8inl_source.html":[11,0,3,2,9,13],
 "annotated.html":[10,0],
 "api.html":[4,5],
 "apps.html":[4,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX7 =
 "classCLI_1_1App.html#aed1c005724aa987ef6d9a375ec90c6ed":[10,0,0,1,140],
 "classCLI_1_1App.html#af15231547d53a51458059588a1c34a0b":[10,0,0,1,11],
 "classCLI_1_1App.html#af20c05b97b9de2a4543a2de9bcc0993d":[10,0,0,1,21],
-"classCLI_1_1App.html#af2df320303dd893dca0a80934dbeeb2a":[10,0,0,1,182],
-"classCLI_1_1App.html#af35ca552ab4b1ee3ea975183c94e2f9c":[10,0,0,1,93],
-"classCLI_1_1App.html#af36b34d6e45f6ed309fc54c538f5eee9":[10,0,0,1,17]
+"classCLI_1_1App.html#af2df320303dd893dca0a80934dbeeb2a":[10,0,0,1,182]
 };

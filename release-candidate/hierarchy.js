@@ -447,6 +447,7 @@ var hierarchy =
     [ "Ra::Engine::Data::RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", null ],
     [ "Ra::Engine::Rendering::RenderTechnique", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html", null ],
     [ "Ra::Core::Geometry::VolumeSparse::SampleType", "structRa_1_1Core_1_1Geometry_1_1VolumeSparse_1_1SampleType.html", null ],
+    [ "Ra::Gui::WindowQt::ScopedGLContext", "classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html", null ],
     [ "Ra::Core::Geometry::SegmentToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html", null ],
     [ "Ra::Core::Animation::Sequence", "classRa_1_1Core_1_1Animation_1_1Sequence.html", null ],
     [ "Ra::Engine::Data::ShaderConfiguration", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html", null ],
@@ -502,8 +503,8 @@ var hierarchy =
     [ "CLI::Timer", "classCLI_1_1Timer.html", [
       [ "CLI::AutoTimer", "classCLI_1_1AutoTimer.html", null ]
     ] ],
-    [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
     [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
+    [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
     [ "Ra::Gui::TransformEditor", "classRa_1_1Gui_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],
