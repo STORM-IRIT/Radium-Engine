@@ -455,12 +455,14 @@ void MinimalComponent::initialize() {
                 "test_tex_sphere",
                 this,
                 RenderObjectType::Geometry,
-                DrawPrimitives::Sphere( cellCorner + Vector3 { 0_ra, cellSize / 2_ra, 0_ra },
-                                        0.1_ra,
-                                        Color::White(),
-                                        true ),
+                DrawPrimitives::ParametricSphere(
+                    Vector3 { 0_ra, 0_ra, 0_ra }, 0.05_ra, Color::White(), true ),
                 {} );
             texSphere->setMaterial( blinnPhongTexturedMaterial );
+            texSphere->setLocalTransform(
+                Transform { Translation( cellCorner + Vector3 { 0_ra, cellSize / 2_ra, 0_ra } ) *
+                            AngleAxis( Math::Pi / 2_ra, Vector3( 1_ra, 0_ra, 0_ra ) ) } );
+
             addRenderObject( texSphere );
         }
         numberOfSphere = 32;
