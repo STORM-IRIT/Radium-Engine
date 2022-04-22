@@ -1,5 +1,6 @@
 #include <Core/Containers/Grid.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Math/Math.hpp> // areApproxEqual
 #include <Core/Types.hpp>
 
@@ -729,7 +730,8 @@ TriangleMesh makePlaneGrid( const uint rows,
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
     result.setIndices( std::move( indices ) );
-    if ( generateTexCoord ) result.addAttrib( "in_texcoord", std::move( texCoords ) );
+    if ( generateTexCoord )
+        result.addAttrib( getAttribName( MeshAttrib::VERTEX_TEXCOORD ), std::move( texCoords ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
