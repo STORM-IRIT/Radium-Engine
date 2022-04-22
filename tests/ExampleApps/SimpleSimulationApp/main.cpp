@@ -72,7 +72,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Colorize the cloud]
     cloud.addAttrib(
-        "in_color",
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
         Ra::Core::Vector4Array { cloud.vertices().size(), Ra::Core::Utils::Color::Green() } );
     //! [Colorize the cloud]
 

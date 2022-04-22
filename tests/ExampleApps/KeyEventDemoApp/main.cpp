@@ -4,6 +4,7 @@
 
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
@@ -133,7 +134,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Colorize the Cube]
     cube.addAttrib(
-        "in_color",
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
         Ra::Core::Vector4Array { cube.vertices().size(), Ra::Core::Utils::Color::Green() } );
     //! [Colorize the Cube]
 
