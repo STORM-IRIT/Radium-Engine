@@ -98,8 +98,11 @@ RA_ENGINE_API LineMeshPtr CircleArc( const Core::Vector3& center,
 /// Displays sphere computed with given center and radius
 RA_ENGINE_API MeshPtr Sphere( const Core::Vector3& center,
                               Scalar radius,
-                              const Core::Utils::Color& color,
-                              bool generateTexCoord = false );
+                              const Core::Utils::Color& color );
+RA_ENGINE_API MeshPtr ParametricSphere( const Core::Vector3& center,
+                                        Scalar radius,
+                                        const Core::Utils::Color& color,
+                                        bool generateTexCoord = false );
 
 /// Displays a capsule computed with given endpoints and radius.
 RA_ENGINE_API MeshPtr Capsule( const Core::Vector3& p1,
