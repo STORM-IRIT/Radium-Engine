@@ -16,8 +16,8 @@
 class SimpleSimulationSystem : public Ra::Engine::Scene::System
 {
     Ra::Engine::Data::PointCloud* m_cloud;
-    const std::string colorHandleName = Ra::Engine::Data::AttribArrayDisplayable::getAttribName(
-        Ra::Engine::Data::AttribArrayDisplayable::VERTEX_COLOR );
+    const std::string colorHandleName =
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR );
 
     Ra::Core::Utils::Attrib<Ra::Core::Vector4>& getColorAttrib() {
         auto cHandle =
@@ -72,7 +72,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Colorize the cloud]
     cloud.addAttrib(
-        "in_color",
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
         Ra::Core::Vector4Array { cloud.vertices().size(), Ra::Core::Utils::Color::Green() } );
     //! [Colorize the cloud]
 

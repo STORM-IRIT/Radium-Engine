@@ -62,9 +62,9 @@ uint AssimpGeometryDataLoader::sceneGeometrySize( const aiScene* scene ) const {
     return mesh_size;
 }
 
-void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh,
-                                             GeometryData& data,
-                                             std::set<std::string>& usedNames ) {
+void AssimpGeometryDataLoader::loadMeshAttrib( const aiMesh& mesh,
+                                               GeometryData& data,
+                                               std::set<std::string>& usedNames ) {
     fetchName( mesh, data, usedNames );
     fetchType( mesh, data );
     fetchVertices( mesh, data );
@@ -344,7 +344,7 @@ void AssimpGeometryDataLoader::loadGeometryData(
         aiMesh* mesh = scene->mMeshes[i];
         if ( mesh->HasPositions() ) {
             auto geometry = new GeometryData();
-            loadMeshData( *mesh, *geometry, usedNames );
+            loadMeshAttrib( *mesh, *geometry, usedNames );
             // This returns always true (see assimp documentation)
             if ( scene->HasMaterials() ) {
                 const uint matID = mesh->mMaterialIndex;

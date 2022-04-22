@@ -2,6 +2,7 @@
 
 #include <Core/Asset/FileData.hpp>
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Utils/Attribs.hpp>
 
 #include <tinyply.h>
@@ -236,7 +237,8 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     size_t colorCount = colorBuffer ? colorBuffer->count : 0;
     if ( colorCount != 0 ) {
-        auto handle     = attribManager.addAttrib<Core::Vector4>( "in_color" );
+        auto handle = attribManager.addAttrib<Core::Vector4>(
+            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ) );
         auto& attrib    = attribManager.getAttrib( handle );
         auto& container = attrib.getDataWithLock();
 

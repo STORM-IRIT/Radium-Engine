@@ -60,7 +60,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Colorize the Cube]
     cube.addAttrib(
-        "in_color",
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
         Ra::Core::Vector4Array { cube.vertices().size(), Ra::Core::Utils::Color::Green() } );
     //! [Colorize the Cube]
 

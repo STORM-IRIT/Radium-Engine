@@ -114,6 +114,7 @@ set(core_headers
     Geometry/PolyLine.hpp
     Geometry/RayCast.hpp
     Geometry/Spline.hpp
+    Geometry/StandardAttribNames.hpp
     Geometry/TopologicalMesh.hpp
     Geometry/TriangleMesh.hpp
     Geometry/TriangleOperation.hpp

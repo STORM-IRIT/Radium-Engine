@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TopologicalMesh.hpp"
+#include <Core/Geometry/StandardAttribNames.hpp>
 
 #include <typeinfo>
 #include <unordered_map>
@@ -38,8 +39,8 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
     triMesh.vertexAttribs().for_each_attrib(
         [&triMesh, this, &vprop_float, &vprop_vec2, &vprop_vec3, &vprop_vec4]( const auto& attr ) {
             // skip builtin attribs
-            if ( attr->getName() != std::string( "in_position" ) &&
-                 attr->getName() != std::string( "in_normal" ) ) {
+            if ( attr->getName() != std::string( getAttribName( MeshAttrib::VERTEX_POSITION ) ) &&
+                 attr->getName() != std::string( getAttribName( MeshAttrib::VERTEX_NORMAL ) ) ) {
                 if ( attr->isFloat() )
                     addAttribPairToTopo( triMesh, attr, vprop_float, m_floatPph );
                 else if ( attr->isVector2() )

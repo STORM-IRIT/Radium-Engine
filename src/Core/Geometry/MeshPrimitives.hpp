@@ -1,4 +1,5 @@
 #pragma once
+
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Color.hpp>

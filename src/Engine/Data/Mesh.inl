@@ -22,18 +22,6 @@ AttribArrayDisplayable::MeshRenderMode AttribArrayDisplayable::getRenderMode() c
     return m_renderMode;
 }
 
-std::string AttribArrayDisplayable::getAttribName( MeshData type ) {
-    if ( type == VERTEX_POSITION ) return { "in_position" };
-    if ( type == VERTEX_NORMAL ) return { "in_normal" };
-    if ( type == VERTEX_TANGENT ) return { "in_tangent" };
-    if ( type == VERTEX_BITANGENT ) return { "in_bitangent" };
-    if ( type == VERTEX_TEXCOORD ) return { "in_texcoord" };
-    if ( type == VERTEX_COLOR ) return { "in_color" };
-    if ( type == VERTEX_WEIGHTS ) return { "in_weight" };
-    if ( type == VERTEX_WEIGHT_IDX ) return { "in_weight_idx" };
-    return { "invalid mesh data attr name" };
-}
-
 ///////////////// VaoIndices  ///////////////////////
 
 void VaoIndices::setIndicesDirty() {
