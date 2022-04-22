@@ -43,7 +43,7 @@ add_dependencies(ExamplePluginWithLib UpstreamLibrary UpstreamPlugin)
 
 # Downstream plugin that search for the package UpstreamLibrary allow to find_package in the build
 # tree
-set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${CMAKE_CURRENT_BINARY_DIR}/Upstream/Library"})
+set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${CMAKE_CURRENT_BINARY_DIR}/Upstream/Library")
 add_subdirectory(Downstream)
 add_dependencies(ExamplePluginWithLib DownstreamPlugin)
 
