@@ -14,6 +14,7 @@
 #include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/Data/TextureManager.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
@@ -72,10 +73,25 @@ void updateCellCorner( Vector3& cellCorner, const Scalar cellSize, const int nCe
 /// This function is called when the component is properly
 /// setup, i.e. it has an entity.
 void MinimalComponent::initialize() {
+    auto rp = Resources::getResourcesPath();
+
     auto blinnPhongMaterial              = make_shared<BlinnPhongMaterial>( "Shaded Material" );
     blinnPhongMaterial->m_perVertexColor = true;
     blinnPhongMaterial->m_ks             = Color::White();
     blinnPhongMaterial->m_ns             = 100_ra;
+
+    auto blinnPhongTexturedMaterial = make_shared<BlinnPhongMaterial>( "Shaded Textured Material" );
+    blinnPhongTexturedMaterial->m_perVertexColor = true;
+    blinnPhongTexturedMaterial->m_ks             = Color::White();
+    blinnPhongTexturedMaterial->m_ns             = 100_ra;
+
+    Ra::Engine::Data::TextureParameters textureParameters;
+    textureParameters.name      = *rp + "/DrawPrimitivesApp/Assets/grid.png";
+    textureParameters.wrapS     = GL_REPEAT;
+    textureParameters.wrapT     = GL_REPEAT;
+    textureParameters.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+    blinnPhongTexturedMaterial->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE,
+                                            textureParameters );
 
     auto plainMaterial              = make_shared<PlainMaterial>( "Plain Material" );
     plainMaterial->m_perVertexColor = true;
@@ -434,6 +450,18 @@ void MinimalComponent::initialize() {
                 {} );
             sphere->setMaterial( blinnPhongMaterial );
             addRenderObject( sphere );
+
+            auto texSphere = RenderObject::createRenderObject(
+                "test_tex_sphere",
+                this,
+                RenderObjectType::Geometry,
+                DrawPrimitives::Sphere( cellCorner + Vector3 { 0_ra, cellSize / 2_ra, 0_ra },
+                                        0.1_ra,
+                                        Color::White(),
+                                        true ),
+                {} );
+            texSphere->setMaterial( blinnPhongTexturedMaterial );
+            addRenderObject( texSphere );
         }
         numberOfSphere = 32;
         for ( uint i = 0; i < numberOfSphere; ++i ) {
@@ -657,7 +685,6 @@ void MinimalComponent::initialize() {
 
 #ifdef IO_USE_ASSIMP
         auto l               = IO::AssimpFileLoader();
-        auto rp              = Resources::getResourcesPath();
         std::string filename = *rp + "/DrawPrimitivesApp/Assets/radium-logo.dae";
         data                 = l.loadFile( filename );
 #endif
