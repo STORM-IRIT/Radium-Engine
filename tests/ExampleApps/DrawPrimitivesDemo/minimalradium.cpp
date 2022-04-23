@@ -43,6 +43,7 @@ const bool ENABLE_POLYS     = true;
 const bool ENABLE_LOGO      = true;
 const bool ENABLE_COLLAPSE  = true;
 const bool ENABLE_SPLIT     = true;
+const bool ENABLE_TORUS     = true;
 
 using namespace Ra;
 using namespace Ra::Core;
@@ -1050,6 +1051,41 @@ void MinimalComponent::initialize() {
 
         // with "flat face" wedges
         addSplitScene( pos, points2, colors2, indices4, points1[5], points1[2] );
+    }
+
+    if ( ENABLE_TORUS ) {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        {
+            using Ra::Engine::Data::Mesh;
+            {
+                auto torusGeom = makeParametricTorus<32, 16>( .04_ra, .01_ra, Color::White() );
+                auto torusMesh = make_shared<Mesh>( "Torus", std::move( torusGeom ) );
+                auto torus     = RenderObject::createRenderObject(
+                    "test_torus", this, RenderObjectType::Geometry, torusMesh, {} );
+                torus->setMaterial( blinnPhongMaterial );
+                torus->setLocalTransform(
+                    Transform { Translation( cellCorner ) *
+                                AngleAxis( Math::Pi / 2_ra, Vector3( 1_ra, 0_ra, 0_ra ) ) } );
+                addRenderObject( torus );
+            }
+
+            {
+                auto texTorusGeom =
+                    makeParametricTorus<64, 16>( .1_ra, .05_ra, Color::White(), true );
+                auto texTorusMesh =
+                    make_shared<Mesh>( "Textured Torus", std::move( texTorusGeom ) );
+                auto texTorus = RenderObject::createRenderObject(
+                    "test_tex_torus", this, RenderObjectType::Geometry, texTorusMesh, {} );
+                texTorus->setMaterial( blinnPhongTexturedMaterial );
+                texTorus->setLocalTransform( Transform {
+                    Translation( cellCorner + toCellCenter ) *
+                    AngleAxis( -Math::Pi / 4_ra, Vector3( 1_ra, 1_ra, 1_ra ).normalized() ) } );
+
+                addRenderObject( texTorus );
+            }
+        }
     }
 }
 
