@@ -44,4 +44,4 @@ Radium offers several cmake functions to configure and build your extension.
 \page apps How to write your own application
 \todo write application dev doc, merging ExampleApp and Apps docs.
 # Radium Application
-Tutorial here: [https://github.com/STORM-IRIT/Radium-AppExample](https://github.com/STORM-IRIT/Radium-AppExample)
+Tutorial here: https://github.com/STORM-IRIT/Radium-Apps

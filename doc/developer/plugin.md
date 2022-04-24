@@ -2,7 +2,7 @@
 [TOC]
 
 # Radium Plugin
-Tutorial and documentation here: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample)
+Tutorial and documentation here: https://github.com/STORM-IRIT/Radium-PluginExample
 
 In addition to the Ra::Plugins::RadiumPluginInterface API,
 Radium provides a set of tools simplifying the deployment of plugins, which take care of the portability of the binaries.
@@ -61,7 +61,7 @@ Example CMakeLists.txt setup to compile a Radium plugin:
 
 Such a CMakeLists.txt is as usual as others. The only command that is specific to Radium plugins is the last line
 `configure_radium_plugin( NAME ${PROJECT_NAME} )` that aims at configuring the plugin installation along with
-its associated resources.
+its associated resources. This function is provided from `find_package(Radium REQUIRED Core Engine PluginBase)`, see \ref cmakeutilities "Radium cmake utilities" documentation for more details.
 
 The command `configure_radium_plugin`takes several parameters.
 The full usage of this command is :
