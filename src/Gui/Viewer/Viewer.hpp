@@ -115,7 +115,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     //  Time dependent state management
     //
     /// Update the internal viewer state to the (application) time dt
-    void update( const Scalar dt );
+    virtual void update( const Scalar dt );
     //
     // Rendering management
     //
@@ -173,11 +173,12 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     void requestEngineOpenGLInitialization();
     bool glInitialized(); //! Emitted when GL context is ready. We except call to addRenderer here
     void rendererReady(); //! Emitted when the rendered is correctly initialized
-    void rightClickPicking( const Ra::Engine::Rendering::Renderer::PickingResult& result );
-    //! Emitted when the resut of a right click picking is known (for selection)
 
-    void toggleBrushPicking(
-        bool on ); //! Emitted when the corresponding key is released (see keyReleaseEvent)
+    /// Emitted when the resut of a right click picking is known (for selection)
+    void rightClickPicking( const Ra::Engine::Rendering::Renderer::PickingResult& result );
+
+    /// Emitted when the corresponding key is released (see keyReleaseEvent)
+    void toggleBrushPicking( bool on );
 
     void needUpdate();
 
