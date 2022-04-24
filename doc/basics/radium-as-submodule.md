@@ -16,10 +16,16 @@ target_link_libraries(${target} Radium::Core Radium::Engine Radium::IO Radium::G
 ~~~
 Include directories and link instructions are populated automatically by cmake.
 
+To configure your target install using Radium facilities:
+~~~cmake
+configure_radium_app(NAME ${target})
+~~~
+See \ref configure_radium_app for more details
+
 In your source code:
 ~~~cpp
 #include <Core/Math/DualQuaternion.hpp>
 ~~~
 
 ## Detailed instructions
-See [CMake setup](@ref cmakeutilities).
+See [CMake setup](@ref cmakeutilities) for detailed doc and Radium's cmake utilies function insights.
