@@ -19,9 +19,14 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
     const Scalar dv = 1_ra / stacks;
     using WAI       = TopologicalMesh::WedgeAttribIndex;
     TopologicalMesh topoMesh;
-    auto whNormal  = topoMesh.addWedgeAttrib<Vector3>( "in_normal" );
-    WAI whColor    = color ? topoMesh.addWedgeAttrib<Vector4>( "in_color" ) : WAI::Invalid();
-    WAI whTexCoord = gtc ? topoMesh.addWedgeAttrib<Vector3>( "in_texcoord" ) : WAI::Invalid();
+    auto whNormal = topoMesh.addWedgeAttrib<Vector3>( getAttribName( MeshAttrib::VERTEX_NORMAL ) );
+
+    WAI whColor =
+        color ? topoMesh.addWedgeAttrib<Vector4>( getAttribName( MeshAttrib::VERTEX_COLOR ) )
+              : WAI::Invalid();
+    WAI whTexCoord =
+        gtc ? topoMesh.addWedgeAttrib<Vector3>( getAttribName( MeshAttrib::VERTEX_TEXCOORD ) )
+            : WAI::Invalid();
 
     TopologicalMesh::VertexHandle vhandles[( stacks - 1 ) * slices + 2];
     Vector3Array topoTexCoords;
@@ -216,7 +221,8 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
     result.setIndices( std::move( indices ) );
-    if ( generateTexCoord ) result.addAttrib( "in_texcoord", std::move( texCoords ) );
+    if ( generateTexCoord )
+        result.addAttrib( getAttribName( MeshAttrib::VERTEX_TEXCOORD ), std::move( texCoords ) );
     if ( color ) result.colorize( *color );
     result.checkConsistency();
 
