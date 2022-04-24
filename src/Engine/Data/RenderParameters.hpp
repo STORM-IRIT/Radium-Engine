@@ -234,7 +234,7 @@ class RA_ENGINE_API ShaderParameterProvider
     virtual void updateGL() = 0;
 
     /**
-     * Get the list of properties the provider migh use  in a shader.
+     * Get the list of properties the provider migh use in a shader.
      * Each property will be added to the shader used for rendering under the form
      * "#define theProperty" when the provider is associated with the render technique.
      *
