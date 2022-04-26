@@ -61,56 +61,42 @@ inline void GeometryData::setVertices( const Container& vertexList ) {
 }
 
 inline Vector2uArray& GeometryData::getEdges() {
-    auto pil = std::make_unique<Core::Geometry::LineIndexLayer>();
-    multiIndexedGeometry.addLayer( std::move( pil ), "edge" );
-    std::set<std::string> semantics;
-    for ( const auto& k : multiIndexedGeometry.layerKeys() ) {
-        if ( k.second == "edge" ) {
-            semantics = k.first;
-            break;
-        }
-    }
-    auto& d = multiIndexedGeometry.getLayerWithLock( semantics, "edge" );
-    auto& v = dynamic_cast<Geometry::LineIndexLayer&>( d );
-    if ( v.collection().empty() ) { v.collection() = Vector2uArray(); }
-    return v.collection();
+    return getIndexedDataWithLock<Vector2ui>( "edge" );
 }
 
 inline const Vector2uArray& GeometryData::getEdges() const {
-    return m_edge;
+    return getIndexedData<Vector2ui>( "edge" );
 }
 
 template <typename Container>
 inline void GeometryData::setEdges( const Container& edgeList ) {
-    auto pil = std::make_unique<Core::Geometry::PolyIndexLayer>();
-    multiIndexedGeometry.addLayer( std::move( pil ) );
-    internal::copyData( edgeList, m_edge );
+    setIndexedData( "edge", edgeList );
 }
 
 inline const VectorNuArray& GeometryData::getFaces() const {
-    return m_faces;
+    return getIndexedData<VectorNui>( "face" );
 }
 
 inline VectorNuArray& GeometryData::getFaces() {
-    return m_faces;
+    return getIndexedDataWithLock<VectorNui>( "face" );
 }
 
 template <typename Container>
 inline void GeometryData::setFaces( const Container& faceList ) {
-    internal::copyData( faceList, m_faces );
+    setIndexedData( "face", faceList );
 }
 
 inline VectorNuArray& GeometryData::getPolyhedra() {
-    return m_polyhedron;
+    return getIndexedDataWithLock<VectorNui>( "polyhedron" );
 }
 
 inline const VectorNuArray& GeometryData::getPolyhedra() const {
-    return m_polyhedron;
+    return getIndexedData<VectorNui>( "polyhedron" );
 }
 
 template <typename Container>
 inline void GeometryData::setPolyhedra( const Container& polyList ) {
-    internal::copyData( polyList, m_polyhedron );
+    setIndexedData( "polyhedron", polyList );
 }
 
 inline Vector3Array& GeometryData::getNormals() {
@@ -206,15 +192,15 @@ inline bool GeometryData::hasVertices() const {
 }
 
 inline bool GeometryData::hasEdges() const {
-    return !m_edge.empty();
+    return !getIndexedData<Vector2ui>( "edge" ).empty();
 }
 
 inline bool GeometryData::hasFaces() const {
-    return !m_faces.empty();
+    return !getIndexedData<VectorNui>( "face" ).empty();
 }
 
 inline bool GeometryData::hasPolyhedra() const {
-    return !m_polyhedron.empty();
+    return !getIndexedData<VectorNui>( "polyhedron" ).empty();
 }
 
 inline bool GeometryData::hasNormals() const {
@@ -304,11 +290,71 @@ void GeometryData::attribDataUnlock( const std::string& name ) {
         multiIndexedGeometry.getAttribBase( name )->unlock();
     }
 }
-/*
+
+inline void GeometryData::initIndexedData( const std::string& name ) {
+    if ( name == "edge" ) {
+        auto pil = std::make_unique<Core::Geometry::LineIndexLayer>();
+        multiIndexedGeometry.addLayer( std::move( pil ), "edge" );
+    }
+    else {
+        auto pil1 = std::make_unique<Core::Geometry::PolyIndexLayer>();
+        multiIndexedGeometry.addLayer( std::move( pil1 ), name );
+    }
+}
+
 template <typename V>
-inline VectorArray<V>& GeometryData::getIndexDataWithLock( Core::Geometry::IndexedGeometry<V>
-indexedGeometry ) { indexedGeometry. auto& i = indexedGeometry.getIndicesWithLock(); return i;
-}*/
+inline VectorArray<V>& GeometryData::getIndexedDataWithLock( const std::string& name ) {
+    initIndexedData( name );
+    std::set<std::string> semantics;
+    for ( const auto& k : multiIndexedGeometry.layerKeys() ) {
+        if ( k.second == name ) {
+            semantics = k.first;
+            std::cout << name << std::endl;
+            break;
+        }
+    }
+
+    auto& d = multiIndexedGeometry.getLayerWithLock( semantics, name );
+
+    auto& v = dynamic_cast<Geometry::GeometryIndexLayer<V>&>( d );
+    // if ( v.collection().empty() ) { v.collection() = VectorArray<V>(); }
+    auto& data = v.collection();
+    return data;
+}
+
+template <typename V>
+inline const VectorArray<V>& GeometryData::getIndexedData( const std::string& name ) const {
+    std::set<std::string> semantics;
+    for ( const auto& k : multiIndexedGeometry.layerKeys() ) {
+        if ( k.second == name ) {
+            semantics = k.first;
+            break;
+        }
+    }
+
+    const auto& d = multiIndexedGeometry.getFirstLayerOccurrence( semantics );
+    const auto& v = dynamic_cast<const Geometry::GeometryIndexLayer<V>&>( d.second );
+    auto& data    = v.collection();
+    return data;
+}
+
+inline void GeometryData::indexedDataUnlock( const std::string& name ) {
+    std::set<std::string> semantics;
+    for ( const auto& k : multiIndexedGeometry.layerKeys() ) {
+        if ( k.second == name ) {
+            semantics = k.first;
+            break;
+        }
+    }
+    multiIndexedGeometry.unlockLayer( semantics, name );
+}
+
+template <typename V>
+inline void GeometryData::setIndexedData( const std::string& name,
+                                          const VectorArray<V>& attribDataList ) {
+    internal::copyData( attribDataList, getIndexedDataWithLock<V>( name ) );
+    indexedDataUnlock( name );
+}
 
 } // namespace Asset
 } // namespace Core
