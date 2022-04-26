@@ -247,31 +247,44 @@ inline bool GeometryData::hasAttribData( const Geometry::MeshAttrib& name ) cons
 inline void GeometryData::initIndexedData( const std::string& name ) {
     if ( name == "edge" ) {
         auto pil = std::make_unique<Core::Geometry::LineIndexLayer>();
-        multiIndexedGeometry.addLayer( std::move( pil ), "edge" );
+        bool a   = multiIndexedGeometry.addLayer( std::move( pil ), "edge" );
+        std::cout << name << a << std::endl;
     }
     else {
         auto pil1 = std::make_unique<Core::Geometry::PolyIndexLayer>();
-        multiIndexedGeometry.addLayer( std::move( pil1 ), name );
+        bool b    = multiIndexedGeometry.addLayer( std::move( pil1 ), name );
+        std::cout << name << b << std::endl;
     }
 }
 
 template <typename V>
 inline VectorArray<V>& GeometryData::getIndexedDataWithLock( const std::string& name ) {
-    initIndexedData( name );
-    std::set<std::string> semantics;
-    for ( const auto& k : multiIndexedGeometry.layerKeys() ) {
-        if ( k.second == name ) {
-            semantics = k.first;
-            break;
-        }
+    if ( name == "edge" && !multiIndexedGeometry.containsLayer(
+                               { Core::Geometry::LineIndexLayer::staticSemanticName }, name ) ) {
+        auto pil = std::make_unique<Core::Geometry::LineIndexLayer>();
+        multiIndexedGeometry.addLayer( std::move( pil ), "edge" );
+    }
+    else if ( name != "edge" &&
+              !multiIndexedGeometry.containsLayer(
+                  { Core::Geometry::PolyIndexLayer::staticSemanticName }, name ) ) {
+        auto pil1 = std::make_unique<Core::Geometry::PolyIndexLayer>();
+        multiIndexedGeometry.addLayer( std::move( pil1 ), name );
     }
 
-    auto& d = multiIndexedGeometry.getLayerWithLock( semantics, name );
-
-    auto& v = dynamic_cast<Geometry::GeometryIndexLayer<V>&>( d );
-    // if ( v.collection().empty() ) { v.collection() = VectorArray<V>(); }
-    auto& data = v.collection();
-    return data;
+    if ( name == "edge" ) {
+        auto& d = multiIndexedGeometry.getLayerWithLock(
+            { Core::Geometry::LineIndexLayer::staticSemanticName }, name );
+        auto& v    = dynamic_cast<Geometry::GeometryIndexLayer<V>&>( d );
+        auto& data = v.collection();
+        return data;
+    }
+    else {
+        auto& d = multiIndexedGeometry.getLayerWithLock(
+            { Core::Geometry::PolyIndexLayer::staticSemanticName }, name );
+        auto& v    = dynamic_cast<Geometry::GeometryIndexLayer<V>&>( d );
+        auto& data = v.collection();
+        return data;
+    }
 }
 
 template <typename V>
