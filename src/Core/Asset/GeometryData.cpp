@@ -54,10 +54,10 @@ void GeometryData::displayInfo() const {
     LOG( logINFO ) << " Vertex #       : " << getVerticesSize();
     LOG( logINFO ) << " Edge #         : " << m_edge.size();
     LOG( logINFO ) << " Face #         : " << m_faces.size();
-    LOG( logINFO ) << " Normal ?       : " << ( ( !hasAttribData( "normal" ) ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tangent ?      : " << ( ( !hasAttribData( "tangent" ) ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Bitangent ?    : " << ( ( !hasAttribData( "biTangent" ) ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( !hasAttribData( "texCoord" ) ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Normal ?       : " << ( ( !hasNormals() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Tangent ?      : " << ( ( !hasTangents() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Bitangent ?    : " << ( ( !hasBiTangents() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( !hasTextureCoordinates() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
 
     if ( hasMaterial() ) { m_material->displayInfo(); }
