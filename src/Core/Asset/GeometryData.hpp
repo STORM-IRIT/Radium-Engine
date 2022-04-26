@@ -311,10 +311,19 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Access to the (const) attrib manager
     inline const Utils::AttribManager& getAttribManager() const;
-    /*
-     template <typename T>
-     inline T& getIndexDataWithLock( Core::Geometry::MultiIndexedGeometry::LayerSemanticCollection&
-     semantics ,const std::string& layerName );*/
+
+    inline void initIndexedData( const std::string& name );
+
+    template <typename V>
+    inline VectorArray<V>& getIndexedDataWithLock( const std::string& name );
+
+    template <typename V>
+    inline const VectorArray<V>& getIndexedData( const std::string& name ) const;
+
+    inline void indexedDataUnlock( const std::string& name );
+
+    template <typename V>
+    inline void setIndexedData( const std::string& name, const VectorArray<V>& attribDataList );
 
   protected:
     /// The transformation of the object.
