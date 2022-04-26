@@ -445,41 +445,11 @@ class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
 template <typename CoreMeshType>
 CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData* data ) {
     CoreMeshType mesh;
-    typename CoreMeshType::PointAttribHandle::Container vertices;
-    typename CoreMeshType::NormalAttribHandle::Container normals;
     typename CoreMeshType::IndexContainerType indices;
-
-    vertices.reserve( data->getVerticesSize() );
-    std::copy(
-        data->getVertices().begin(), data->getVertices().end(), std::back_inserter( vertices ) );
-
-    if ( data->hasNormals() ) {
-        normals.reserve( data->getVerticesSize() );
-        std::copy(
-            data->getNormals().begin(), data->getNormals().end(), std::back_inserter( normals ) );
-    }
 
     const auto& faces = data->getFaces();
     indices.reserve( faces.size() );
     std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
-    mesh.setVertices( std::move( vertices ) );
-    mesh.setNormals( std::move( normals ) );
-
-    // \todo remove when data will handle all the attributes in a coherent way.
-    if ( data->hasTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TANGENT ),
-                        data->getTangents() );
-    }
-
-    if ( data->hasBiTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_BITANGENT ),
-                        data->getBiTangents() );
-    }
-
-    if ( data->hasTextureCoordinates() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TEXCOORD ),
-                        data->getTexCoords() );
-    }
 
     // add custom attribs
     // only attributs not handled before are handled by data->getAttribManager()
