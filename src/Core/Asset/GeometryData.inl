@@ -28,15 +28,14 @@ inline void GeometryData::setFrame( const Transform& frame ) {
 }
 
 inline std::size_t GeometryData::getVerticesSize() const {
-    return getAttribData<const Vector3Array&>( "vertex" ).size();
-}
-
-inline const Vector3Array& GeometryData::getVertices() const {
-    return getAttribData<const Vector3Array&>( "vertex" );
+    auto& n      = getAttribName( Geometry::MeshAttrib::VERTEX_POSITION );
+    auto h       = multiIndexedGeometry.getAttribHandle<Vector3>( n );
+    auto& attrib = multiIndexedGeometry.getAttrib( h );
+    return attrib.data().size();
 }
 
 inline Vector3Array& GeometryData::getVertices() {
-    return getAttribDataWithLock<Vector3Array&>( "vertex" );
+    return addAttribDataWithLock<Vector3>( Geometry::MeshAttrib::VERTEX_POSITION );
 }
 
 namespace internal {
@@ -100,55 +99,39 @@ inline void GeometryData::setPolyhedra( const Container& polyList ) {
 }
 
 inline Vector3Array& GeometryData::getNormals() {
-    return getAttribDataWithLock<Vector3Array&>( "normal" );
-}
-
-inline const Vector3Array& GeometryData::getNormals() const {
-    return getAttribData<const Vector3Array&>( "normal" );
+    return addAttribDataWithLock<Vector3>( Geometry::MeshAttrib::VERTEX_NORMAL );
 }
 
 template <typename Container>
 inline void GeometryData::setNormals( const Container& normalList ) {
-    return setAttribData( "normal", normalList );
+    return setAttribData( Geometry::MeshAttrib::VERTEX_NORMAL, normalList );
 }
 
 inline Vector3Array& GeometryData::getTangents() {
-    return getAttribDataWithLock<Vector3Array&>( "tangent" );
-}
-
-inline const Vector3Array& GeometryData::getTangents() const {
-    return getAttribData<const Vector3Array&>( "tangent" );
+    return addAttribDataWithLock<Vector3>( Geometry::MeshAttrib::VERTEX_TANGENT );
 }
 
 template <typename Container>
 inline void GeometryData::setTangents( const Container& tangentList ) {
-    return setAttribData( "tangent", tangentList );
+    return setAttribData( Geometry::MeshAttrib::VERTEX_TANGENT, tangentList );
 }
 
 inline Vector3Array& GeometryData::getBiTangents() {
-    return getAttribDataWithLock<Vector3Array&>( "biTangent" );
-}
-
-inline const Vector3Array& GeometryData::getBiTangents() const {
-    return getAttribData<const Vector3Array&>( "biTangent" );
+    return addAttribDataWithLock<Vector3>( Geometry::MeshAttrib::VERTEX_BITANGENT );
 }
 
 template <typename Container>
 inline void GeometryData::setBitangents( const Container& bitangentList ) {
-    return setAttribData( "biTangent", bitangentList );
+    return setAttribData( Geometry::MeshAttrib::VERTEX_BITANGENT, bitangentList );
 }
 
 inline Vector3Array& GeometryData::getTexCoords() {
-    return getAttribDataWithLock<Vector3Array&>( "texCoord" );
-}
-
-inline const Vector3Array& GeometryData::getTexCoords() const {
-    return getAttribData<const Vector3Array&>( "texCoord" );
+    return addAttribDataWithLock<Vector3>( Geometry::MeshAttrib::VERTEX_TEXCOORD );
 }
 
 template <typename Container>
 inline void GeometryData::setTextureCoordinates( const Container& texCoordList ) {
-    return setAttribData( "texCoord", texCoordList );
+    return setAttribData( Geometry::MeshAttrib::VERTEX_TEXCOORD, texCoordList );
 }
 
 inline const MaterialData& GeometryData::getMaterial() const {
@@ -188,7 +171,7 @@ inline bool GeometryData::isHexMesh() const {
 }
 
 inline bool GeometryData::hasVertices() const {
-    return hasAttribData( "vertex" );
+    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_POSITION );
 }
 
 inline bool GeometryData::hasEdges() const {
@@ -204,19 +187,19 @@ inline bool GeometryData::hasPolyhedra() const {
 }
 
 inline bool GeometryData::hasNormals() const {
-    return hasAttribData( "normal" );
+    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_NORMAL );
 }
 
 inline bool GeometryData::hasTangents() const {
-    return hasAttribData( "tangent" );
+    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_TANGENT );
 }
 
 inline bool GeometryData::hasBiTangents() const {
-    return hasAttribData( "biTangent" );
+    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_BITANGENT );
 }
 
 inline bool GeometryData::hasTextureCoordinates() const {
-    return hasAttribData( "texCoord" );
+    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_TEXCOORD );
 }
 
 inline bool GeometryData::hasMaterial() const {
@@ -231,64 +214,34 @@ Utils::AttribManager& GeometryData::getAttribManager() {
     return multiIndexedGeometry.vertexAttribs();
 }
 
-template <typename Container>
-inline Container& GeometryData::getAttribDataWithLock( const std::string& name ) {
-    if ( name == "vertex" ) { return multiIndexedGeometry.verticesWithLock(); }
-    else if ( name == "normal" ) {
-        return multiIndexedGeometry.normalsWithLock();
-    }
-    auto h = multiIndexedGeometry.template getAttribHandle<Vector3>( name );
-    if ( !multiIndexedGeometry.template isValid( h ) ) {
-        h = multiIndexedGeometry.template addAttrib<Vector3>( name );
-    }
-    auto& attrib = multiIndexedGeometry.template getAttrib( h );
+template <typename V>
+inline VectorArray<V>& GeometryData::addAttribDataWithLock( const Geometry::MeshAttrib& name ) {
+    auto& n = getAttribName( name );
+    auto h  = multiIndexedGeometry.getAttribHandle<V>( n );
+    if ( !multiIndexedGeometry.isValid( h ) ) { h = multiIndexedGeometry.addAttrib<V>( n ); }
+    auto& attrib = multiIndexedGeometry.getAttrib( h );
     auto& d      = attrib.getDataWithLock();
     return d;
 }
 
 template <typename Container>
-inline const Container& GeometryData::getAttribData( const std::string& name ) const {
-    if ( name == "vertex" ) { return multiIndexedGeometry.vertices(); }
-    else if ( name == "normal" ) {
-        return multiIndexedGeometry.normals();
-    }
-    auto h             = multiIndexedGeometry.template getAttribHandle<Vector3>( name );
-    const auto& attrib = multiIndexedGeometry.template getAttrib( h );
-    auto& d            = attrib.data();
-    return d;
-}
-
-template <typename Container>
-inline void GeometryData::setAttribData( const std::string& name,
+inline void GeometryData::setAttribData( const Geometry::MeshAttrib& name,
                                          const Container& attribDataList ) {
-    Utils::Attrib<Container>& c = multiIndexedGeometry.getAttribBase( name )->cast<Container>();
+    auto& n                     = getAttribName( name );
+    Utils::Attrib<Container>& c = multiIndexedGeometry.getAttribBase( n )->cast<Container>();
     auto& v                     = c.getDataWithLock();
     internal::copyData( attribDataList, v );
-    attribDataUnlock( name );
+    multiIndexedGeometry.getAttribBase( n )->unlock();
 }
 
-bool GeometryData::hasAttribData( const std::string& name ) const {
-    if ( name == "vertex" ) { return !multiIndexedGeometry.vertices().empty(); }
-    else if ( name == "normal" ) {
-        return !multiIndexedGeometry.normals().empty();
-    }
-    else {
-        auto h = multiIndexedGeometry.getAttribHandle<Vector3>( name );
-        if ( multiIndexedGeometry.isValid( h ) ) {
-            return !multiIndexedGeometry.getAttrib( h ).data().empty();
-        }
+template <typename V>
+inline bool GeometryData::hasAttribData( const Geometry::MeshAttrib& name ) const {
+    auto& n = getAttribName( name );
+    auto h  = multiIndexedGeometry.getAttribHandle<V>( n );
+    if ( multiIndexedGeometry.isValid( h ) ) {
+        return !multiIndexedGeometry.getAttrib( h ).data().empty();
     }
     return false;
-}
-
-void GeometryData::attribDataUnlock( const std::string& name ) {
-    if ( name == "vertex" ) { multiIndexedGeometry.verticesUnlock(); }
-    else if ( name == "normal" ) {
-        multiIndexedGeometry.normalsUnlock();
-    }
-    else {
-        multiIndexedGeometry.getAttribBase( name )->unlock();
-    }
 }
 
 inline void GeometryData::initIndexedData( const std::string& name ) {
@@ -309,7 +262,6 @@ inline VectorArray<V>& GeometryData::getIndexedDataWithLock( const std::string& 
     for ( const auto& k : multiIndexedGeometry.layerKeys() ) {
         if ( k.second == name ) {
             semantics = k.first;
-            std::cout << name << std::endl;
             break;
         }
     }

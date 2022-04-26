@@ -73,7 +73,7 @@ class RA_CORE_API GeometryData : public AssetData
     inline std::size_t getVerticesSize() const;
 
     /// Return the list of vertices.
-    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
     getVertices();
 
     /// Return the list of vertices.
@@ -130,7 +130,7 @@ class RA_CORE_API GeometryData : public AssetData
     inline void setPolyhedra( const Container& polyList );
 
     /// Return the list of vertex normals.
-    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
     getNormals();
 
     /// Return the list of vertex normals.
@@ -145,7 +145,7 @@ class RA_CORE_API GeometryData : public AssetData
     setNormals( const Container& normalList );
 
     /// Return the list of vertex tangent vectors.
-    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
     getTangents();
 
     /// Return the list of vertex tangent vectors.
@@ -160,7 +160,7 @@ class RA_CORE_API GeometryData : public AssetData
     setTangents( const Container& tangentList );
 
     /// Return the list of vertex bitangent vectors.
-    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
     getBiTangents();
 
     /// Return the list of vertex bitangent vectors.
@@ -175,7 +175,7 @@ class RA_CORE_API GeometryData : public AssetData
     setBitangents( const Container& bitangentList );
 
     /// Return the list of vertex texture coordinates.
-    [[deprecated( "Use getAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
     getTexCoords();
 
     /// Return the list of vertex texture coordinates.
@@ -254,55 +254,6 @@ class RA_CORE_API GeometryData : public AssetData
     inline bool hasMaterial() const;
     /// \}
 
-    /**
-     *
-     * @tparam Container
-     * @param name
-     * @return Get container base on name (lock).
-     * @warning If AttribHandle corresponding to name doesn't exist, it's created
-     * and return. By using this method, user has read-write access to data, data is lock, when
-     * done call attribDataUnlock( std :: std::string name )
-     */
-    template <typename Container>
-    inline Container& getAttribDataWithLock( const std::string& name );
-
-    /**
-     *
-     * @param name
-     * @brief Unlock data base on name.
-     */
-    inline void attribDataUnlock( const std::string& name );
-
-    /**
-     *
-     * @tparam Container
-     * @param name
-     * @return Get container base on the given name (const).
-     * @warning There is no check on the handle validity (obtained by using name)
-     */
-    template <typename Container>
-    inline const Container& getAttribData( const std::string& name ) const;
-
-    /**
-     *
-     * @tparam Container
-     * @param name
-     * @param attribDataList
-     * @brief Copy data from attribDataList into the attrib obtain with name.
-     * @note In-place setting with getAttribDataWithLock( std::string name ) is preferred.
-     *
-     */
-    template <typename Container>
-    inline void setAttribData( const std::string& name, const Container& attribDataList );
-
-    /**
-     *
-     * @param name
-     * @return true if the name provided correspond to an existing attribHandle.
-     *
-     */
-    inline bool hasAttribData( const std::string& name ) const;
-
     /// Print stast info to the Debug output.
     void displayInfo() const;
 
@@ -346,6 +297,43 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
+
+  private:
+    /**
+     *
+     * @tparam V
+     * @param name
+     * @return Get container base on name (lock).
+     * @warning If AttribHandle corresponding to name doesn't exist, it's created
+     * and return. By using this method, user has read-write access to data, data is lock, when
+     * done call attribDataUnlock( std :: std::string name )
+     * @note This function is only to avoid redundant code of function like getNormals().
+     */
+    template <typename V>
+    inline VectorArray<V>& addAttribDataWithLock( const Geometry::MeshAttrib& name );
+
+    /**
+     *
+     * @tparam Container
+     * @param name
+     * @param attribDataList
+     * @brief Copy data from attribDataList into the attrib obtain with name.
+     * @note In-place setting with addAttribDataWithLock( std::string name ) is preferred.
+     * This function is only to avoid redundant code of function like setNormals().
+     *
+     */
+    template <typename Container>
+    inline void setAttribData( const Geometry::MeshAttrib& name, const Container& attribDataList );
+
+    /**
+     * @tparam V
+     * @param name
+     * @return true if the name provided correspond to an existing attribHandle.
+     * @note This function is only to avoid redundant code of function like hasNormals().
+     *
+     */
+    template <typename V>
+    inline bool hasAttribData( const Geometry::MeshAttrib& name ) const;
 };
 
 } // namespace Asset
