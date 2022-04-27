@@ -1,7 +1,5 @@
-
 # -------------- Configuration of the Radium Core targets and definitions ------------0---------
 if(NOT TARGET Core)
-
     include(CMakeFindDependencyMacro)
     find_dependency(Threads REQUIRED)
     if(@OPENMP_FOUND@) # Indicates if OpenMP has been used when compiling the Radium libraries
