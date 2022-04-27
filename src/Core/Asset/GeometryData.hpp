@@ -89,53 +89,67 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Return the list of lines.
     /// \note For line meshes only.
-    inline Vector2uArray& getEdges();
+    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
+                  "instead." )]] inline Vector2uArray&
+    getEdges();
 
     /// Return the list of lines.
     /// \note For line meshes only.
-    inline const Vector2uArray& getEdges() const;
+    [[deprecated( "Use getIndexedData( const GeometryType& type, const std::string& name ) "
+                  "instead." )]] inline const Vector2uArray&
+    getEdges() const;
 
     /// Set the list of lines.
     /// \note For line meshes only.
     /// \note In-place setting with getEdges() is preferred.
     template <typename Container>
-    inline void setEdges( const Container& edgeList );
+    [[deprecated( "Use setIndexedData( const GeometryType& type, const VectorArray<V>& "
+                  "indexedDataList, const std::string& name) instead. " )]] inline void
+    setEdges( const Container& edgeList );
 
     /// Return the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    inline VectorNuArray& getFaces();
+    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
+                  "instead." )]] inline VectorNuArray&
+    getFaces();
 
     /// Return the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    inline const VectorNuArray& getFaces() const;
+    [[deprecated( "Use getIndexedData( const GeometryType& type, const std::string& name ) "
+                  "instead." )]] inline const VectorNuArray&
+    getFaces() const;
 
     /// Set the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
     /// \note In-place setting with getFaces() is preferred.
     template <typename Container>
-    inline void setFaces( const Container& faceList );
+    [[deprecated( "Use setIndexedData( const GeometryType& type, const VectorArray<V>& "
+                  "indexedDataList, const std::string& name) instead. " )]] inline void
+    setFaces( const Container& faceList );
 
     /// Return the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    inline VectorNuArray& getPolyhedra();
+    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
+                  "instead." )]] inline VectorNuArray&
+    getPolyhedra();
 
     /// Return the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    inline const VectorNuArray& getPolyhedra() const;
+    [[deprecated( "Use getIndexedData( const GeometryType& type, const std::string& name ) "
+                  "instead." )]] inline const VectorNuArray&
+    getPolyhedra() const;
 
     /// Set the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
     /// \note In-place setting with getPolyhedra() is preferred.
     template <typename Container>
-    inline void setPolyhedra( const Container& polyList );
+    [[deprecated( "Use setIndexedData( const GeometryType& type, const VectorArray<V>& "
+                  "indexedDataList, const std::string& name) instead. " )]] inline void
+    setPolyhedra( const Container& polyList );
 
     /// Return the list of vertex normals.
     [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
     getNormals();
-
-    /// Return the list of vertex normals.
-    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
-    getNormals() const;
 
     /// Set the vertex normals.
     /// \note In-place setting with getNormals() is preferred.
@@ -148,10 +162,6 @@ class RA_CORE_API GeometryData : public AssetData
     [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
     getTangents();
 
-    /// Return the list of vertex tangent vectors.
-    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
-    getTangents() const;
-
     /// Set the vertex tangent vectors.
     /// \note In-place setting with getTangents() is preferred.
     template <typename Container>
@@ -163,10 +173,6 @@ class RA_CORE_API GeometryData : public AssetData
     [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
     getBiTangents();
 
-    /// Return the list of vertex bitangent vectors.
-    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
-    getBiTangents() const;
-
     /// Set the vertex bitangent vectors.
     /// \note In-place setting with getBiTangents() is preferred.
     template <typename Container>
@@ -177,10 +183,6 @@ class RA_CORE_API GeometryData : public AssetData
     /// Return the list of vertex texture coordinates.
     [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
     getTexCoords();
-
-    /// Return the list of vertex texture coordinates.
-    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
-    getTexCoords() const;
 
     /// Set the vertex texture coordinates.
     /// \note In-place setting with getTexCoords() is preferred.
@@ -263,18 +265,54 @@ class RA_CORE_API GeometryData : public AssetData
     /// Access to the (const) attrib manager
     inline const Utils::AttribManager& getAttribManager() const;
 
-    inline void initIndexedData( const std::string& name );
-
+    /**
+     *
+     * @tparam V
+     * @param type
+     * @param name
+     * @return Initialize (if necessary) and get a VectorArray<V> contain in layer.
+     * @note This function is only to avoid redundant code of function like getEdges().
+     * @warning This function lock the layer, user has read-write access, when done, call
+     * indexedDataUnlock ( const GeometryType& type, const std::string& name ).
+     */
     template <typename V>
-    inline VectorArray<V>& getIndexedDataWithLock( const std::string& name );
+    inline VectorArray<V>& addIndexedDataWithLock( const GeometryType& type,
+                                                   const std::string& name = "" );
 
+    /**
+     *
+     * @tparam V
+     * @param type
+     * @param name
+     * @note This function is only to avoid redundant code of function like getEdges().
+     * @return VectorArray<V>& stored in the layer.
+     */
     template <typename V>
-    inline const VectorArray<V>& getIndexedData( const std::string& name ) const;
+    inline const VectorArray<V>& getIndexedData( const GeometryType& type,
+                                                 const std::string& name = "" ) const;
 
-    inline void indexedDataUnlock( const std::string& name );
+    /**
+     *
+     * @param type
+     * @param name
+     * @warning Unlock a layer only if it was previously locked.
+     */
+    inline void indexedDataUnlock( const GeometryType& type, const std::string& name = "" );
 
+    /**
+     *
+     * @tparam V
+     * @param indexedDataList
+     * @param type
+     * @param name
+     * @brief Copy data from indexedDataList into the layer obtain with name and type.
+     * @note In-place setting with addIndexedDataWithLock( std::string name ) is preferred.
+     * This function is only to avoid redundant code of function like setEdges().
+     */
     template <typename V>
-    inline void setIndexedData( const std::string& name, const VectorArray<V>& attribDataList );
+    inline void setIndexedData( const GeometryType& type,
+                                const VectorArray<V>& indexedDataList,
+                                const std::string& name = "" );
 
   protected:
     /// The transformation of the object.
@@ -283,17 +321,8 @@ class RA_CORE_API GeometryData : public AssetData
     /// The type of geometry for the object.
     GeometryType m_type;
 
-    /// The list of lines.
-    Vector2uArray m_edge;
-
-    /// The list of faces
-    VectorNuArray m_faces;
-
-    /// The list of polyhedra
-    VectorNuArray m_polyhedron;
-
     /// Named attributes
-    Core::Geometry::MultiIndexedGeometry multiIndexedGeometry;
+    Core::Geometry::MultiIndexedGeometry m_multiIndexedGeometry;
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
@@ -334,6 +363,35 @@ class RA_CORE_API GeometryData : public AssetData
      */
     template <typename V>
     inline bool hasAttribData( const Geometry::MeshAttrib& name ) const;
+
+    /**
+     *
+     * @tparam L
+     * @param name
+     * @return true if layer isn't initialized.
+     */
+    template <typename L>
+    inline bool initLayer( const std::string& name );
+
+    /**
+     *
+     * @tparam V
+     * @tparam L
+     * @param name
+     * @return VectorArray<V>& and lock the layer associated to it.
+     */
+    template <typename V, typename L>
+    inline VectorArray<V>& getIndexedDataWithLock( const std::string& name );
+
+    /**
+     *
+     * @tparam V
+     * @tparam L
+     * @param name
+     * @return VectorArray<V>&
+     */
+    template <typename V, typename L>
+    inline const VectorArray<V>& getIndexedData( const std::string& name ) const;
 };
 
 } // namespace Asset
