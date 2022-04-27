@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <cpplocate/cpplocate.h>
+#include <filesystem>
 #include <stack>
 
 namespace Ra {
@@ -28,8 +29,8 @@ fs::path searchPath( const std::string& pattern, const std::string& system, void
 fs::path clean( const fs::path& path ) {
     auto status = fs::status( path );
     if ( status.type() == fs::file_type::not_found ) return "";
-    if ( status.type() == fs::file_type::directory ) return path / "";
-    return path;
+    if ( status.type() == fs::file_type::directory ) return fs::canonical( path ) / "";
+    return fs::canonical( path );
 }
 /// \endcond
 
