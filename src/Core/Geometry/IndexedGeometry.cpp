@@ -200,7 +200,7 @@ void MultiIndexedGeometry::unlockFirstLayerOccurrence( const LayerSemanticCollec
 void MultiIndexedGeometry::unlockLayer( const LayerKeyType& layerKey ) {
     auto& p = m_indices.at( layerKey );
     CORE_ASSERT( p.first, "try to release unlocked layer" );
-    p.first = true;
+    p.first = false;
     notify();
 }
 
