@@ -80,7 +80,7 @@ else()
     if(${IsPrefix} GREATER -1)
         message(
             FATAL_ERROR
-                "Externals can't be installed into a subdirectory of Radium source tree.  ${CMAKE_INSTALL_PREFIX}  -- ${RadiumPREFIX}"
+                "Externals can't be installed into a subdirectory of Radium source tree: ${CMAKE_INSTALL_PREFIX}  -- ${RadiumPREFIX}"
         )
     endif()
 
