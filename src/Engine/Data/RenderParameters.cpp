@@ -126,6 +126,7 @@ void RenderParameters::copyParameters( const RenderParameters& params ) {
     PARAM_FUNC_HELPER
 }
 #undef P_FUNC
+#undef PARAM_FUNC_HELPER
 
 } // namespace Data
 } // namespace Engine

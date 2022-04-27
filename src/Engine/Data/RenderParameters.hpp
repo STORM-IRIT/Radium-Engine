@@ -168,14 +168,14 @@ class RA_ENGINE_API RenderParameters final
     /**
      * Concatenates two RenderParameters
      * @param params the render parameter to merge with the current.
-     * Exitings parameter values are not changes
+     * Existing parameter values are not changed
      */
     void concatParameters( const RenderParameters& params );
 
     /**
      * Concatenates two RenderParameters
      * @param params the render parameter to merge with the current.
-     * Exitings parameter values are set to params's one.
+     * Existing parameter values are set to params's one.
      */
     void copyParameters( const RenderParameters& params );
 
