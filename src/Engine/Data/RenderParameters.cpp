@@ -87,97 +87,45 @@ void RenderParameters::addParameter( const std::string& name, Data::Texture* tex
     m_texParamsVector[name] = TextureParameter( name, tex, texUnit );
 }
 
+// apply P_FUNC to each m_*ParamsVector
+#define PARAM_FUNC_HELPER           \
+    P_FUNC( m_boolParamsVector )    \
+    P_FUNC( m_intParamsVector )     \
+    P_FUNC( m_uintParamsVector )    \
+    P_FUNC( m_scalarParamsVector )  \
+    P_FUNC( m_intsParamsVector )    \
+    P_FUNC( m_uintsParamsVector )   \
+    P_FUNC( m_scalarsParamsVector ) \
+    P_FUNC( m_vec2ParamsVector )    \
+    P_FUNC( m_vec3ParamsVector )    \
+    P_FUNC( m_vec4ParamsVector )    \
+    P_FUNC( m_colorParamsVector )   \
+    P_FUNC( m_mat2ParamsVector )    \
+    P_FUNC( m_mat3ParamsVector )    \
+    P_FUNC( m_mat4ParamsVector )    \
+    P_FUNC( m_texParamsVector )
+
+// for concat -> insert, keep old value
+#define P_FUNC( x )                        \
+    for ( const auto& param : params.x ) { \
+        x.insert( param );                 \
+    }
+
 void RenderParameters::concatParameters( const RenderParameters& params ) {
-    for ( const auto& param : params.m_boolParamsVector ) {
-        m_boolParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_intParamsVector ) {
-        m_intParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_uintParamsVector ) {
-        m_uintParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_scalarParamsVector ) {
-        m_scalarParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_vec2ParamsVector ) {
-        m_vec2ParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_vec3ParamsVector ) {
-        m_vec3ParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_vec4ParamsVector ) {
-        m_vec4ParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_mat2ParamsVector ) {
-        m_mat2ParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_mat3ParamsVector ) {
-        m_mat3ParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_mat4ParamsVector ) {
-        m_mat4ParamsVector.insert( param );
-    }
-
-    for ( const auto& param : params.m_texParamsVector ) {
-        m_texParamsVector.insert( param );
-    }
+    PARAM_FUNC_HELPER
 }
+#undef P_FUNC
+
+// for copy -> [], replace old value
+#define P_FUNC( x )                        \
+    for ( const auto& param : params.x ) { \
+        x[param.first] = param.second;     \
+    }
 
 void RenderParameters::copyParameters( const RenderParameters& params ) {
-    for ( const auto& param : params.m_boolParamsVector ) {
-        m_boolParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_intParamsVector ) {
-        m_intParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_uintParamsVector ) {
-        m_uintParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_scalarParamsVector ) {
-        m_scalarParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_vec2ParamsVector ) {
-        m_vec2ParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_vec3ParamsVector ) {
-        m_vec3ParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_vec4ParamsVector ) {
-        m_vec4ParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_mat2ParamsVector ) {
-        m_mat2ParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_mat3ParamsVector ) {
-        m_mat3ParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_mat4ParamsVector ) {
-        m_mat4ParamsVector[param.first] = param.second;
-    }
-
-    for ( const auto& param : params.m_texParamsVector ) {
-        m_texParamsVector[param.first] = param.second;
-    }
+    PARAM_FUNC_HELPER
 }
+#undef P_FUNC
 
 } // namespace Data
 } // namespace Engine
