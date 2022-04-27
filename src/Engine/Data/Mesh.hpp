@@ -447,9 +447,11 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
     CoreMeshType mesh;
     typename CoreMeshType::IndexContainerType indices;
 
-    const auto& faces = data->getFaces();
-    indices.reserve( faces.size() );
-    std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
+    if ( !data->isLineMesh() ) {
+        const auto& faces = data->getFaces();
+        indices.reserve( faces.size() );
+        std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
+    }
 
     // add custom attribs
     // only attributs not handled before are handled by data->getAttribManager()
