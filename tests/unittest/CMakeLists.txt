@@ -24,6 +24,7 @@ set(test_src
     Core/string.cpp
     Core/topomesh.cpp
     Engine/signalmanager.cpp
+    Engine/renderparameters.cpp
     Gui/keymapping.cpp
 )
 
