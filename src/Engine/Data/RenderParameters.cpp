@@ -88,6 +88,10 @@ void RenderParameters::addParameter( const std::string& name, Data::Texture* tex
 }
 
 void RenderParameters::concatParameters( const RenderParameters& params ) {
+    for ( const auto& param : params.m_boolParamsVector ) {
+        m_boolParamsVector.insert( param );
+    }
+
     for ( const auto& param : params.m_intParamsVector ) {
         m_intParamsVector.insert( param );
     }
@@ -126,6 +130,52 @@ void RenderParameters::concatParameters( const RenderParameters& params ) {
 
     for ( const auto& param : params.m_texParamsVector ) {
         m_texParamsVector.insert( param );
+    }
+}
+
+void RenderParameters::copyParameters( const RenderParameters& params ) {
+    for ( const auto& param : params.m_boolParamsVector ) {
+        m_boolParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_intParamsVector ) {
+        m_intParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_uintParamsVector ) {
+        m_uintParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_scalarParamsVector ) {
+        m_scalarParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_vec2ParamsVector ) {
+        m_vec2ParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_vec3ParamsVector ) {
+        m_vec3ParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_vec4ParamsVector ) {
+        m_vec4ParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_mat2ParamsVector ) {
+        m_mat2ParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_mat3ParamsVector ) {
+        m_mat3ParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_mat4ParamsVector ) {
+        m_mat4ParamsVector[param.first] = param.second;
+    }
+
+    for ( const auto& param : params.m_texParamsVector ) {
+        m_texParamsVector[param.first] = param.second;
     }
 }
 
