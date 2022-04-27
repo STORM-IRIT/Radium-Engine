@@ -190,7 +190,7 @@ void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& dat
     for ( int i = 0; i < size; ++i ) {
         edge[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
     }
-    data.indexedDataUnlock( "edge" );
+    data.indexedDataUnlock( GeometryData::GeometryType::LINE_MESH, "in_edge" );
 }
 
 void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& data ) const {
@@ -201,7 +201,7 @@ void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& dat
     for ( int i = 0; i < size; ++i ) {
         face[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
     }
-    data.indexedDataUnlock( "face" );
+    data.indexedDataUnlock( GeometryData::GeometryType::POLY_MESH, "in_face" );
 }
 
 void AssimpGeometryDataLoader::fetchPolyhedron( const aiMesh& mesh, GeometryData& data ) const {
