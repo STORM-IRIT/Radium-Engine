@@ -10,6 +10,9 @@
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
+//#include <Core/Asset/TextureData.hpp>
+#include <Core/Asset/TextureData.hpp>
+#include <Core/Asset/TextureDataManager.hpp>
 
 #include <QTimer>
 
@@ -46,6 +49,16 @@ int main( int argc, char* argv[] ) {
     //! [Create an entity and component to draw or data]
     auto e = app.m_engine->getEntityManager()->createEntity( "Textured quad" );
 
+    int nChannel = 4;
+    int baseSize = 1;
+    Ra::Core::Asset::ImageSpec imgSpec(tWidth, tHeight, nChannel, Ra::Core::Asset::TypeUInt8);
+    Ra::Core::Asset::TextureData textureData(imgSpec, data);
+    Ra::Core::Asset::TextureDataManager::addTexture("myTexture", textureData);
+
+    std::string imageFilename = "myFile";
+    Ra::Core::Asset::TextureData textureData2(imageFilename);
+    Ra::Core::Asset::TextureDataManager::addTexture("myTexture2", textureData2);
+
     Ra::Core::Asset::BlinnPhongMaterialData matData( "myMaterialData" );
     // remove glossy highlight
     matData.m_specular    = Ra::Core::Utils::Color::Black();
@@ -69,7 +82,7 @@ int main( int argc, char* argv[] ) {
     int dec = 0;
 
     //    auto thread = std::thread([&app, &dec]() { // not worked
-    QObject::connect( close_timer, &QTimer::timeout, [&app, &dec]() {
+    QObject::connect( close_timer, &QTimer::timeout, [&app, &dec, &textureData]() {
         unsigned char newData[tSize];
         for ( int i = 0; i < tWidth; ++i ) {
             for ( int j = 0; j < tHeight; j++ ) {
@@ -82,15 +95,17 @@ int main( int argc, char* argv[] ) {
 
         Ra::Engine::Data::TextureParameters textureParameters;
         textureParameters.name = "myTexture";
-        auto texture = app.m_engine->getTextureManager()->getOrLoadTexture( textureParameters );
+        auto texture3 = app.m_engine->getTextureManager()->getOrLoadTexture( textureParameters );
 
-        //        texture->updateData( newData ); // not worked
+        //        texture3->updateData( newData ); // not worked
 
-        auto& params = texture->getParameters();
+        auto& params = texture3->getParameters();
         memcpy( params.texels, newData, tSize );
         app.m_mainWindow->getViewer()->makeCurrent();
-        texture->initializeGL( false );
+        texture3->initializeGL( false );
         app.m_mainWindow->getViewer()->doneCurrent();
+
+        textureData.update(newData);
 
         std::cout << "update data with dec = " << dec << std::endl;
         ++dec;
