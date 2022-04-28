@@ -8,17 +8,16 @@ import re
 p = Path('.')
 
 filenames=list(p.glob('**/CMakeLists.txt'))
-
 full = re.compile(r'(Add\([^\)]*\))')
 name = re.compile(r'Add\([\s]*(\S*)')
 git = re.compile(r'[^\)]*GIT_REPOSITORY (.*)')
 tag = re.compile(r'[^\)]*GIT_TAG (.*)')
 option = re.compile(r'[^\)](-D\S*)')
-installdir = re.compile(r'set\([^ ]* (${CMAKE_INSTALL_PREFIX}.*)\)')
-installdir = re.compile(r'set\([^ ]* (.*)\)')
 optionfilter = re.compile(r'indent')
 
 dep = {}
+debug = False
+
 for filename in filenames:
     with open(filename, "r") as f:
         currentname="dummy"
@@ -26,28 +25,39 @@ for filename in filenames:
         start=0
         match0 = full.search(filetext)
         while(match0):
-            match1 = name.search(match0.group(0))
-            currentname=match1.group(1)
+            cmake_add_text = match0.group(1)
+            match1 = name.search(cmake_add_text)
+
+            currentname = match1.group(1) if match1 else 'dummy'
+
+            if debug : print( " --------- ", currentname)
+            if debug : print(cmake_add_text)
+            if debug : print( " --------- " )
+
             dep[currentname]={}
-            for key,regex  in zip(['git', 'tag', 'installdir'], [git, tag, installdir]):
-                match2 = regex.search(filetext, start)
+
+            for key,regex  in zip(['git', 'tag'], [git, tag]):
+                match2 = regex.search(cmake_add_text)
                 if match2 and currentname != 'dummy':
+                    option_text = match2.group(1)
                     if key in dep[currentname]:
-                        dep[currentname][key] += " "+match2.group(1)
+                        dep[currentname][key] += " " + option_text
                     else:
-                        dep[currentname][key] = match2.group(1)
+                        dep[currentname][key] = option_text
+                    if debug : print(key, dep[currentname][key])
+
             key,regex = 'option', option
-            match3 = regex.search(filetext, start)
+            match3 = regex.search(cmake_add_text)
             while match3:
-                if match3 and not optionfilter.search(match3.group(1)) and currentname != 'dummy':
+                option_text = match3.group(1)
+                if not optionfilter.search(option_text) and currentname != 'dummy':
+                    if debug : print("[",option_text,"]")
                     if key in dep[currentname]:
-                        dep[currentname][key] += " "+match3.group(1)
+                        dep[currentname][key] += " " + option_text
                     else:
-                        dep[currentname][key] = match3.group(1)
-                match3 = regex.search(filetext, match3.end(1))
-            if  currentname != 'dummy' and not 'installdir' in dep[currentname]:
-                dep[currentname]['installdir']="default"
-            start = match0.end(0)
+                        dep[currentname][key] = option_text
+                match3 = regex.search(cmake_add_text, match3.end(1))
+            start = match0.end(1)
             match0 = full.search(filetext, start)
 
 for key in dep:
