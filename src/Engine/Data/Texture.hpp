@@ -8,6 +8,7 @@
 #include <Engine/OpenGL.hpp>
 
 #include <Core/Utils/Color.hpp>
+#include <Core/Asset/Image.hpp>
 
 namespace globjects {
 class Texture;
@@ -216,6 +217,10 @@ class RA_ENGINE_API Texture final
         m_textureParameters = textureParameters;
     }
 
+    void attachImage( std::shared_ptr<Ra::Core::Asset::Image> image ) {
+        m_image = image;
+    }
+
   private:
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
@@ -243,6 +248,9 @@ class RA_ENGINE_API Texture final
     bool m_isMipMapped { false };
     /// Is the texture in LinearRGB ?
     bool m_isLinear { false };
+
+    std::shared_ptr<Ra::Core::Asset::Image> m_image;
+    size_t m_ageOfImage = 0;
 };
 } // namespace Data
 } // namespace Engine

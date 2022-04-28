@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // https://github.com/OpenImageIO/oiio
 
+#include <map>
+
 #pragma once
 #include <vector>
 
@@ -10,7 +12,7 @@
 namespace Ra {
 namespace Core {
 namespace Asset {
-//namespace ImageSpec {
+// namespace ImageSpec {
 
 /////////////////////////////////////////////////////////////////////////////////
 // header from OpenImageIO : typedesc.h
@@ -106,69 +108,90 @@ struct RA_CORE_API TypeDesc {
     unsigned char reserved;     ///< Reserved for future expansion
     int arraylen;               ///< Array length, 0 = not array, -1 = unsized
 
+    bool operator<(const TypeDesc& other) const {
+        return basetype * aggregate < other.basetype * other.aggregate;
+    }
 
     /// Construct from a BASETYPE and optional aggregateness, semantics,
     /// and arrayness.
-    constexpr TypeDesc (BASETYPE btype=UNKNOWN, AGGREGATE agg=SCALAR,
-                        VECSEMANTICS semantics=NOSEMANTICS,
-                        int arraylen=0) noexcept
-        : basetype(static_cast<unsigned char>(btype)),
-          aggregate(static_cast<unsigned char>(agg)),
-          vecsemantics(static_cast<unsigned char>(semantics)), reserved(0),
-          arraylen(arraylen)
-          { }
+    constexpr TypeDesc( BASETYPE btype         = UNKNOWN,
+                        AGGREGATE agg          = SCALAR,
+                        VECSEMANTICS semantics = NOSEMANTICS,
+                        int arraylen           = 0 ) noexcept :
+        basetype( static_cast<unsigned char>( btype ) ),
+        aggregate( static_cast<unsigned char>( agg ) ),
+        vecsemantics( static_cast<unsigned char>( semantics ) ),
+        reserved( 0 ),
+        arraylen( arraylen ) {}
 
-
-//    /// Copy constructor.
-//    constexpr TypeDesc (const TypeDesc &t) noexcept
-//        : basetype(t.basetype), aggregate(t.aggregate),
-//          vecsemantics(t.vecsemantics), reserved(0), arraylen(t.arraylen)
-//          { }
-
-
-
+    //    /// Copy constructor.
+    //    constexpr TypeDesc (const TypeDesc &t) noexcept
+    //        : basetype(t.basetype), aggregate(t.aggregate),
+    //          vecsemantics(t.vecsemantics), reserved(0), arraylen(t.arraylen)
+    //          { }
 };
-
 
 // Static values for commonly used types. Because these are constexpr,
 // they should incur no runtime construction cost and should optimize nicely
 // in various ways.
-constexpr TypeDesc TypeUnknown (TypeDesc::UNKNOWN);
-constexpr TypeDesc TypeFloat (TypeDesc::FLOAT);
-constexpr TypeDesc TypeColor (TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::COLOR);
-constexpr TypeDesc TypePoint (TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::POINT);
-constexpr TypeDesc TypeVector (TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::VECTOR);
-constexpr TypeDesc TypeNormal (TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::NORMAL);
-constexpr TypeDesc TypeMatrix33 (TypeDesc::FLOAT, TypeDesc::MATRIX33);
-constexpr TypeDesc TypeMatrix44 (TypeDesc::FLOAT, TypeDesc::MATRIX44);
+constexpr TypeDesc TypeUnknown( TypeDesc::UNKNOWN );
+constexpr TypeDesc TypeFloat( TypeDesc::FLOAT );
+constexpr TypeDesc TypeColor( TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::COLOR );
+constexpr TypeDesc TypePoint( TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::POINT );
+constexpr TypeDesc TypeVector( TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::VECTOR );
+constexpr TypeDesc TypeNormal( TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::NORMAL );
+constexpr TypeDesc TypeMatrix33( TypeDesc::FLOAT, TypeDesc::MATRIX33 );
+constexpr TypeDesc TypeMatrix44( TypeDesc::FLOAT, TypeDesc::MATRIX44 );
 constexpr TypeDesc TypeMatrix = TypeMatrix44;
-constexpr TypeDesc TypeFloat2 (TypeDesc::FLOAT, TypeDesc::VEC2);
-constexpr TypeDesc TypeVector2 (TypeDesc::FLOAT, TypeDesc::VEC2, TypeDesc::VECTOR);
-constexpr TypeDesc TypeFloat4 (TypeDesc::FLOAT, TypeDesc::VEC4);
+constexpr TypeDesc TypeFloat2( TypeDesc::FLOAT, TypeDesc::VEC2 );
+constexpr TypeDesc TypeVector2( TypeDesc::FLOAT, TypeDesc::VEC2, TypeDesc::VECTOR );
+constexpr TypeDesc TypeFloat4( TypeDesc::FLOAT, TypeDesc::VEC4 );
 constexpr TypeDesc TypeVector4 = TypeFloat4;
-constexpr TypeDesc TypeString (TypeDesc::STRING);
-constexpr TypeDesc TypeInt (TypeDesc::INT);
-constexpr TypeDesc TypeUInt (TypeDesc::UINT);
-constexpr TypeDesc TypeInt32 (TypeDesc::INT);
-constexpr TypeDesc TypeUInt32 (TypeDesc::UINT);
-constexpr TypeDesc TypeInt16 (TypeDesc::INT16);
-constexpr TypeDesc TypeUInt16 (TypeDesc::UINT16);
-constexpr TypeDesc TypeInt8 (TypeDesc::INT8);
-constexpr TypeDesc TypeUInt8 (TypeDesc::UINT8);
-constexpr TypeDesc TypeInt64 (TypeDesc::INT64);
-constexpr TypeDesc TypeUInt64 (TypeDesc::UINT64);
-constexpr TypeDesc TypeVector2i(TypeDesc::INT, TypeDesc::VEC2);
-constexpr TypeDesc TypeBox2(TypeDesc::FLOAT, TypeDesc::VEC2, TypeDesc::BOX, 2);
-constexpr TypeDesc TypeBox3(TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::BOX, 2);
-constexpr TypeDesc TypeBox2i(TypeDesc::INT, TypeDesc::VEC2, TypeDesc::BOX, 2);
-constexpr TypeDesc TypeBox3i(TypeDesc::INT, TypeDesc::VEC3, TypeDesc::BOX, 2);
-constexpr TypeDesc TypeHalf (TypeDesc::HALF);
-constexpr TypeDesc TypeTimeCode (TypeDesc::UINT, TypeDesc::SCALAR, TypeDesc::TIMECODE, 2);
-constexpr TypeDesc TypeKeyCode (TypeDesc::INT, TypeDesc::SCALAR, TypeDesc::KEYCODE, 7);
-constexpr TypeDesc TypeRational(TypeDesc::INT, TypeDesc::VEC2, TypeDesc::RATIONAL);
-constexpr TypeDesc TypePointer(TypeDesc::PTR);
+constexpr TypeDesc TypeString( TypeDesc::STRING );
+constexpr TypeDesc TypeInt( TypeDesc::INT );
+constexpr TypeDesc TypeUInt( TypeDesc::UINT );
+constexpr TypeDesc TypeInt32( TypeDesc::INT );
+constexpr TypeDesc TypeUInt32( TypeDesc::UINT );
+constexpr TypeDesc TypeInt16( TypeDesc::INT16 );
+constexpr TypeDesc TypeUInt16( TypeDesc::UINT16 );
+constexpr TypeDesc TypeInt8( TypeDesc::INT8 );
+constexpr TypeDesc TypeUInt8( TypeDesc::UINT8 );
+constexpr TypeDesc TypeInt64( TypeDesc::INT64 );
+constexpr TypeDesc TypeUInt64( TypeDesc::UINT64 );
+constexpr TypeDesc TypeVector2i( TypeDesc::INT, TypeDesc::VEC2 );
+constexpr TypeDesc TypeBox2( TypeDesc::FLOAT, TypeDesc::VEC2, TypeDesc::BOX, 2 );
+constexpr TypeDesc TypeBox3( TypeDesc::FLOAT, TypeDesc::VEC3, TypeDesc::BOX, 2 );
+constexpr TypeDesc TypeBox2i( TypeDesc::INT, TypeDesc::VEC2, TypeDesc::BOX, 2 );
+constexpr TypeDesc TypeBox3i( TypeDesc::INT, TypeDesc::VEC3, TypeDesc::BOX, 2 );
+constexpr TypeDesc TypeHalf( TypeDesc::HALF );
+constexpr TypeDesc TypeTimeCode( TypeDesc::UINT, TypeDesc::SCALAR, TypeDesc::TIMECODE, 2 );
+constexpr TypeDesc TypeKeyCode( TypeDesc::INT, TypeDesc::SCALAR, TypeDesc::KEYCODE, 7 );
+constexpr TypeDesc TypeRational( TypeDesc::INT, TypeDesc::VEC2, TypeDesc::RATIONAL );
+constexpr TypeDesc TypePointer( TypeDesc::PTR );
 
-
+static const std::map<TypeDesc, int> g_typeDesc2size = { { TypeFloat, 4 },
+                                          { TypeColor, 4 * 3 },
+                                          { TypePoint, 4 * 3 },
+                                          { TypeVector, 4 * 3 },
+                                          { TypeNormal, 4 * 3 },
+                                          { TypeMatrix33, 4 * 3 * 3 },
+                                          { TypeMatrix44, 4 * 4 * 4 },
+                                          { TypeMatrix, 4 * 4 * 4 },
+                                          { TypeFloat2, 4 * 2 },
+                                          { TypeVector2, 4 * 2 },
+                                          { TypeFloat4, 4 * 4 },
+                                          { TypeVector4, 4 * 4 },
+                                          { TypeInt, 4 },
+                                          { TypeUInt, 4 },
+                                          { TypeInt32, 4 },
+                                          { TypeUInt32, 4 },
+                                          { TypeInt16, 2 },
+                                          { TypeUInt16, 2 },
+                                          { TypeInt8, 1 },
+                                          { TypeUInt8, 1 },
+                                          { TypeInt64, 8 },
+                                          { TypeUInt64, 8 },
+                                          { TypeVector2i, 4 * 2 } };
 
 /////////////////////////////////////////////////////////////////////////////////
 // header from OpenImageIO : paramlist.h
@@ -300,12 +323,11 @@ struct RA_CORE_API ImageSpec {
                ///< `false`, it's an ordinary image with one data value (per
                ///< channel) per pixel.
 
-//    ParamValueList extra_attribs; // hard to serialize, no metadada for radium
+    //    ParamValueList extra_attribs; // hard to serialize, no metadada for radium
     ///< A list of arbitrarily-named and arbitrarily-typed additional
     /// attributes of the image, for any metadata not described by the
     /// hard-coded fields described above.  This list may be manipulated
     /// with the `attribute()` and `find_attribute()` methods.
-
 
     /// Constructs an `ImageSpec` with the given x and y resolution, number
     /// of channels, and pixel data format.
@@ -316,14 +338,13 @@ struct RA_CORE_API ImageSpec {
     /// channel names are "R", "G", "B"' and "A" (up to and including 4
     /// channels, beyond that they are named "channel *n*"), the fourth
     /// channel (if it exists) is assumed to be alpha.
-    ImageSpec (int xres, int yres, int nchans, TypeDesc fmt = TypeUInt8) noexcept;
+    ImageSpec( int xres, int yres, int nchans, TypeDesc fmt = TypeUInt8 ) noexcept;
 
     /// Sets the `channelnames` to reasonable defaults for the number of
     /// channels.  Specifically, channel names are set to "R", "G", "B,"
     /// and "A" (up to and including 4 channels, beyond that they are named
     /// "channel*n*".
-    void default_channel_names () noexcept;
-
+    void default_channel_names() noexcept;
 
     ///@}
 };
