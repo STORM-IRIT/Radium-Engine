@@ -1,4 +1,4 @@
-#include <Core/Asset/TextureData.hpp>
+#include <Core/Asset/Image.hpp>
 #include <memory>
 
 #include <OpenImageIO/imagebuf.h>
@@ -7,10 +7,10 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-class TextureImpl
+class ImageImpl
 {
   public:
-    TextureImpl( const ImageSpec& spec, void* data ) {
+    ImageImpl( const ImageSpec& spec, void* data ) {
         OpenImageIO_v2_3::ImageSpec imgSpec;
         //        assert( sizeof( spec ) == sizeof( imgSpec ) );
 
@@ -30,10 +30,10 @@ class TextureImpl
         m_imgBuf = OpenImageIO_v2_3::ImageBuf( imgSpec, data );
         assert( (void*)m_imgBuf.pixeladdr( 0, 0, 0 ) == data );
     }
-    TextureImpl( const std::string& filename ) {
+    ImageImpl( const std::string& filename ) {
         m_imgBuf = OpenImageIO_v2_3::ImageBuf( filename );
     }
-    ~TextureImpl() = default;
+    ~ImageImpl() = default;
 
     void update( void* newData ) {}
 
@@ -45,24 +45,24 @@ class TextureImpl
 /////////////////////////////////////////////////////////////////////////
 /// CONSTRUCTORS
 ///
-TextureData::TextureData( const ImageSpec& spec, void* data ) :
-    //    m_impl { std::make_unique<TextureImpl>( spec, data ) } {}
-    m_impl { new TextureImpl( spec, data ) },
+Image::Image( const ImageSpec& spec, void* data ) :
+    //    m_impl { std::make_unique<ImageImpl>( spec, data ) } {}
+    m_impl { new ImageImpl( spec, data ) },
     m_spec( spec ) {}
 
-TextureData::TextureData( const std::string& filename ) :
-    //    m_impl { std::make_unique<TextureImpl>( filename ) } {}
-    m_impl { new TextureImpl( filename ) },
+Image::Image( const std::string& filename ) :
+    //    m_impl { std::make_unique<ImageImpl>( filename ) } {}
+    m_impl { new ImageImpl( filename ) },
     m_spec( 0, 0, 0 ) {}
 
-// TextureData::~TextureData() {}
-TextureData::~TextureData() {}
+// Image::~Image() {}
+Image::~Image() {}
 
-void TextureData::update( void* newData ) {
+void Image::update( void* newData ) {
     m_impl->update( newData );
 }
 
-const ImageSpec &TextureData::get_spec() const
+const ImageSpec &Image::get_spec() const
 {
     return m_spec;
 };

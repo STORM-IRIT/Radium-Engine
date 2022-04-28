@@ -10,9 +10,8 @@
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
-//#include <Core/Asset/TextureData.hpp>
-#include <Core/Asset/TextureData.hpp>
-#include <Core/Asset/TextureDataManager.hpp>
+#include <Core/Asset/Image.hpp>
+#include <Core/Asset/ImageManager.hpp>
 
 #include <QTimer>
 
@@ -52,12 +51,12 @@ int main( int argc, char* argv[] ) {
     int nChannel = 4;
     int baseSize = 1;
     Ra::Core::Asset::ImageSpec imgSpec(tWidth, tHeight, nChannel, Ra::Core::Asset::TypeUInt8);
-    Ra::Core::Asset::TextureData textureData(imgSpec, data);
-    Ra::Core::Asset::TextureDataManager::addTexture("myTexture", textureData);
+    auto image = std::make_shared<Ra::Core::Asset::Image>(imgSpec, data);
+    Ra::Core::Asset::ImageManager::addTexture("proceduralImage", image);
 
     std::string imageFilename = "myFile";
-    Ra::Core::Asset::TextureData textureData2(imageFilename);
-    Ra::Core::Asset::TextureDataManager::addTexture("myTexture2", textureData2);
+    auto image2 = std::make_shared<Ra::Core::Asset::Image>(imageFilename);
+    Ra::Core::Asset::ImageManager::addTexture("fileImage", image2);
 
     Ra::Core::Asset::BlinnPhongMaterialData matData( "myMaterialData" );
     // remove glossy highlight
@@ -82,7 +81,7 @@ int main( int argc, char* argv[] ) {
     int dec = 0;
 
     //    auto thread = std::thread([&app, &dec]() { // not worked
-    QObject::connect( close_timer, &QTimer::timeout, [&app, &dec, &textureData]() {
+    QObject::connect( close_timer, &QTimer::timeout, [&app, &dec, &image]() {
         unsigned char newData[tSize];
         for ( int i = 0; i < tWidth; ++i ) {
             for ( int j = 0; j < tHeight; j++ ) {
@@ -105,7 +104,7 @@ int main( int argc, char* argv[] ) {
         texture3->initializeGL( false );
         app.m_mainWindow->getViewer()->doneCurrent();
 
-        textureData.update(newData);
+        image->update(newData);
 
         std::cout << "update data with dec = " << dec << std::endl;
         ++dec;

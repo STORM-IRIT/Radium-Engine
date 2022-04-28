@@ -1,13 +1,13 @@
 #pragma once
-#include <Core/Asset/TextureDataManager.hpp>
+#include <Core/Asset/Image.hpp>
 
 namespace Ra {
 namespace Core {
 namespace Asset {
 
-////////////////////////
-/// TEXTURE_MANAGER  ///
-////////////////////////
+////////////////
+/// TEXTURE  ///
+////////////////
 
 
 } // namespace Asset
