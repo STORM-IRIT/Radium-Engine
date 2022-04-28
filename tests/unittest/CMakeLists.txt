@@ -27,6 +27,7 @@ set(test_src
     Engine/signalmanager.cpp
     Engine/renderparameters.cpp
     Gui/keymapping.cpp
+    Core/geometryData.cpp
 )
 
 get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)

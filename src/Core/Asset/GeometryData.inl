@@ -56,7 +56,7 @@ inline void copyData( const InContainer& input, OutContainer& output ) {
 
 template <typename Container>
 inline void GeometryData::setVertices( const Container& vertexList ) {
-    return setAttribData( "vertex", vertexList );
+    return setAttribData( Geometry::MeshAttrib::VERTEX_POSITION, vertexList );
 }
 
 inline Vector2uArray& GeometryData::getEdges() {
@@ -224,13 +224,12 @@ inline VectorArray<V>& GeometryData::addAttribDataWithLock( const Geometry::Mesh
     return d;
 }
 
-template <typename Container>
+template <typename V>
 inline void GeometryData::setAttribData( const Geometry::MeshAttrib& name,
-                                         const Container& attribDataList ) {
-    auto& n                     = getAttribName( name );
-    Utils::Attrib<Container>& c = m_multiIndexedGeometry.getAttribBase( n )->cast<Container>();
-    auto& v                     = c.getDataWithLock();
-    internal::copyData( attribDataList, v );
+                                         const VectorArray<V>& attribDataList ) {
+    auto& n    = getAttribName( name );
+    auto& data = addAttribDataWithLock<V>( name );
+    internal::copyData( attribDataList, data );
     m_multiIndexedGeometry.getAttribBase( n )->unlock();
 }
 
