@@ -335,7 +335,7 @@ class RA_CORE_API GeometryData : public AssetData
      * @return Get container base on name (lock).
      * @warning If AttribHandle corresponding to name doesn't exist, it's created
      * and return. By using this method, user has read-write access to data, data is lock, when
-     * done call attribDataUnlock( std :: std::string name )
+     * done, user must unlock data by getting the attribManager and then get the attrib.
      * @note This function is only to avoid redundant code of function like getNormals().
      */
     template <typename V>
