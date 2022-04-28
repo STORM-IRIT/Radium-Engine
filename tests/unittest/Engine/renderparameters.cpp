@@ -26,6 +26,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
     REQUIRE( p1.getParameterSet<RP::Mat2Parameter>().size() == 0 );
     REQUIRE( p1.getParameterSet<RP::Mat3Parameter>().size() == 0 );
     REQUIRE( p1.getParameterSet<RP::Mat4Parameter>().size() == 0 );
+    REQUIRE( p1.getParameterSet<RP::TextureParameter>().size() == 0 );
     int i    = 1;
     uint ui  = 1u;
     Scalar s = 1_ra;
@@ -40,7 +41,8 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
     Matrix3 mat3 = Matrix3::Identity();
     Matrix4 mat4 = Matrix4::Identity();
     Color color  = Color::White();
-
+    TextureParameters paramsTex1 { "texture1" };
+    Texture tex1 { paramsTex1 };
     p1.addParameter( "IntParameter", i );
     p1.addParameter( "BoolParameter", b );
     p1.addParameter( "UIntParameter", ui );
@@ -55,6 +57,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
     p1.addParameter( "Mat2Parameter", mat2 );
     p1.addParameter( "Mat3Parameter", mat3 );
     p1.addParameter( "Mat4Parameter", mat4 );
+    p1.addParameter( "texture1", &tex1, 1 );
 
     REQUIRE( p1.getParameterSet<RP::IntParameter>().size() == 1 );
     REQUIRE( p1.getParameterSet<RP::BoolParameter>().size() == 1 );
@@ -70,6 +73,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
     REQUIRE( p1.getParameterSet<RP::Mat2Parameter>().size() == 1 );
     REQUIRE( p1.getParameterSet<RP::Mat3Parameter>().size() == 1 );
     REQUIRE( p1.getParameterSet<RP::Mat4Parameter>().size() == 1 );
+    REQUIRE( p1.getParameterSet<RP::TextureParameter>().size() == 1 );
 
     REQUIRE( p1.getParameterSet<RP::IntParameter>().at( "IntParameter" ).m_value == i );
     REQUIRE( p1.getParameterSet<RP::BoolParameter>().at( "BoolParameter" ).m_value == b );
@@ -85,7 +89,8 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
     REQUIRE( p1.getParameterSet<RP::Mat2Parameter>().at( "Mat2Parameter" ).m_value == mat2 );
     REQUIRE( p1.getParameterSet<RP::Mat3Parameter>().at( "Mat3Parameter" ).m_value == mat3 );
     REQUIRE( p1.getParameterSet<RP::Mat4Parameter>().at( "Mat4Parameter" ).m_value == mat4 );
-
+    REQUIRE( p1.getParameterSet<RP::TextureParameter>().at( "texture1" ).m_texture == &tex1 );
+    REQUIRE( p1.getParameterSet<RP::TextureParameter>().at( "texture1" ).m_texUnit == 1 );
     RP p2;
     p2.addParameter( "IntParameter", i + 1 );
     p2.addParameter( "BoolParameter", !b );
@@ -101,6 +106,9 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
     p2.addParameter( "Vec3Parameter", Vector3 { vec3 + Vector3 { 1_ra, 1_ra, 1_ra } } );
     p2.addParameter( "Vec4Parameter", Vector4 { vec4 + Vector4 { 1_ra, 1_ra, 1_ra, 1_ra } } );
     p2.addParameter( "ColorParameter", Color::Red() );
+    TextureParameters paramsTex2 { "texture2" };
+    Texture tex2 { paramsTex2 };
+    p2.addParameter( "texture1", &tex2, 2 );
     p2.addParameter( "Foo", 42 );
 
     p1.addParameter( "Bar", 43 );
@@ -130,7 +138,8 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
              p1.getParameterSet<RP::Vec4Parameter>().at( "Vec4Parameter" ).m_value );
     REQUIRE( concat.getParameterSet<RP::ColorParameter>().at( "ColorParameter" ).m_value ==
              p1.getParameterSet<RP::ColorParameter>().at( "ColorParameter" ).m_value );
-
+    REQUIRE( concat.getParameterSet<RP::TextureParameter>().at( "texture1" ).m_texture ==
+             p1.getParameterSet<RP::TextureParameter>().at( "texture1" ).m_texture );
     // Foo is p2's value
     REQUIRE( concat.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value ==
              p2.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value );
@@ -166,6 +175,8 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
              p2.getParameterSet<RP::ColorParameter>().at( "ColorParameter" ).m_value );
     REQUIRE( copy.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value ==
              p2.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value );
+    REQUIRE( copy.getParameterSet<RP::TextureParameter>().at( "texture1" ).m_texture ==
+             p2.getParameterSet<RP::TextureParameter>().at( "texture1" ).m_texture );
     // Bar is on p1 side only and not changed
     REQUIRE( copy.getParameterSet<RP::IntParameter>().at( "Bar" ).m_value ==
              p1.getParameterSet<RP::IntParameter>().at( "Bar" ).m_value );
