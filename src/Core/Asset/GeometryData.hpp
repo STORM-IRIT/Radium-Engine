@@ -83,7 +83,8 @@ class RA_CORE_API GeometryData : public AssetData
     /// Set the mesh vertices.
     /// \note In-place setting with getVertices() is preferred.
     template <typename Container>
-    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
+                  "attribDataList ) "
                   "instead." )]] inline void
     setVertices( const Container& vertexList );
 
@@ -154,7 +155,8 @@ class RA_CORE_API GeometryData : public AssetData
     /// Set the vertex normals.
     /// \note In-place setting with getNormals() is preferred.
     template <typename Container>
-    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
+                  "attribDataList ) "
                   "instead." )]] inline void
     setNormals( const Container& normalList );
 
@@ -165,7 +167,8 @@ class RA_CORE_API GeometryData : public AssetData
     /// Set the vertex tangent vectors.
     /// \note In-place setting with getTangents() is preferred.
     template <typename Container>
-    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
+                  "attribDataList ) "
                   "instead." )]] inline void
     setTangents( const Container& tangentList );
 
@@ -176,7 +179,8 @@ class RA_CORE_API GeometryData : public AssetData
     /// Set the vertex bitangent vectors.
     /// \note In-place setting with getBiTangents() is preferred.
     template <typename Container>
-    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
+                  "attribDataList ) "
                   "instead." )]] inline void
     setBitangents( const Container& bitangentList );
 
@@ -187,7 +191,8 @@ class RA_CORE_API GeometryData : public AssetData
     /// Set the vertex texture coordinates.
     /// \note In-place setting with getTexCoords() is preferred.
     template <typename Container>
-    [[deprecated( "Use setAttribData( std::string name, const Container& attribDataList ) "
+    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
+                  "attribDataList ) "
                   "instead." )]] inline void
     setTextureCoordinates( const Container& texCoordList );
 
@@ -351,8 +356,9 @@ class RA_CORE_API GeometryData : public AssetData
      * This function is only to avoid redundant code of function like setNormals().
      *
      */
-    template <typename Container>
-    inline void setAttribData( const Geometry::MeshAttrib& name, const Container& attribDataList );
+    template <typename V>
+    inline void setAttribData( const Geometry::MeshAttrib& name,
+                               const VectorArray<V>& attribDataList );
 
     /**
      * @tparam V
