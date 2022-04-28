@@ -9,8 +9,9 @@ p = Path('.')
 
 filenames=list(p.glob('**/CMakeLists.txt'))
 
-name = re.compile(r'Add\([\s]*(.*)')
-git = re.compile(r'GIT_REPOSITORY (.*)')
+full = re.compile(r'(Add\([^\)]*\))')
+name = re.compile(r'Add\([\s]*(\S*)')
+git = re.compile(r'[^\)]*GIT_REPOSITORY (.*)')
 tag = re.compile(r'[^\)]*GIT_TAG (.*)')
 option = re.compile(r'[^\)](-D\S*)')
 installdir = re.compile(r'set\([^ ]* (${CMAKE_INSTALL_PREFIX}.*)\)')
@@ -23,13 +24,11 @@ for filename in filenames:
         currentname="dummy"
         filetext = f.read()
         start=0
-
-        match = name.search(filetext)
-        while match:
-            currentname=match.group(1)
+        match0 = full.search(filetext)
+        while(match0):
+            match1 = name.search(match0.group(0))
+            currentname=match1.group(1)
             dep[currentname]={}
-            start = match.end(1)
-            newstart = start
             for key,regex  in zip(['git', 'tag', 'installdir'], [git, tag, installdir]):
                 match2 = regex.search(filetext, start)
                 if match2 and currentname != 'dummy':
@@ -37,7 +36,6 @@ for filename in filenames:
                         dep[currentname][key] += " "+match2.group(1)
                     else:
                         dep[currentname][key] = match2.group(1)
-                    newstart = max(match2.end(1), newstart)
             key,regex = 'option', option
             match3 = regex.search(filetext, start)
             while match3:
@@ -46,13 +44,11 @@ for filename in filenames:
                         dep[currentname][key] += " "+match3.group(1)
                     else:
                         dep[currentname][key] = match3.group(1)
-                newstart = max(match3.end(1), newstart)
-                match3 = regex.search(filetext, newstart)
+                match3 = regex.search(filetext, match3.end(1))
             if  currentname != 'dummy' and not 'installdir' in dep[currentname]:
                 dep[currentname]['installdir']="default"
-            start = newstart
-            match = name.search(filetext, start)
-
+            start = match0.end(0)
+            match0 = full.search(filetext, start)
 
 for key in dep:
     print(f" *  `{key}_DIR`")
@@ -61,9 +57,3 @@ print("\n\nRadium is compiled and tested with specific version of dependencies, 
 
 for key in dep:
     print(f" *  {key}: {dep[key]['git']}, [{dep[key]['tag']}],\n    *  with options `{dep[key]['option'] if 'option' in dep[key] else None }`")
-
-
-print("\n\nConfigure your Radium build with:")
-
-for key in dep:
-    print(f"{key} {dep[key]['installdir']}")
