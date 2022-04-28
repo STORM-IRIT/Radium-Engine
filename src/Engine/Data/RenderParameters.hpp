@@ -166,18 +166,20 @@ class RA_ENGINE_API RenderParameters final
     /**@}*/
 
     /**
-     * Concatenates two RenderParameters
+     * Merges a RenderParameters \a params with this
      * @param params the render parameter to merge with the current.
-     * Existing parameter values are not changed
+     * Existing parameter value are kept from this
+     * \see mergeReplaceParameters
      */
-    void concatParameters( const RenderParameters& params );
+    void mergeKeepParameters( const RenderParameters& params );
 
     /**
-     * Concatenates two RenderParameters
+     * Merges a RenderParameters \a params with this
      * @param params the render parameter to merge with the current.
-     * Existing parameter values are set to params's one.
+     * Existing parameter values are replaced by params's one.
+     * \see mergeKeepParameters
      */
-    void copyParameters( const RenderParameters& params );
+    void mergeReplaceParameters( const RenderParameters& params );
 
     /** Bind the parameter uniform on the shader program
      *

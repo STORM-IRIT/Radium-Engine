@@ -115,72 +115,72 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
     // add a int parameter to p1
     p1.addParameter( "Bar", 43 );
 
-    RP concat = p1;
-    concat.concatParameters( p2 );
+    RP kept = p1;
+    kept.mergeKeepParameters( p2 );
 
     // existings parameters are note changes (p1's values)
-    REQUIRE( concat.getParameterSet<RP::IntParameter>().at( "IntParameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::IntParameter>().at( "IntParameter" ).m_value ==
              p1.getParameterSet<RP::IntParameter>().at( "IntParameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::BoolParameter>().at( "BoolParameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::BoolParameter>().at( "BoolParameter" ).m_value ==
              p1.getParameterSet<RP::BoolParameter>().at( "BoolParameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::UIntParameter>().at( "UIntParameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::UIntParameter>().at( "UIntParameter" ).m_value ==
              p1.getParameterSet<RP::UIntParameter>().at( "UIntParameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::ScalarParameter>().at( "ScalarParameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::ScalarParameter>().at( "ScalarParameter" ).m_value ==
              p1.getParameterSet<RP::ScalarParameter>().at( "ScalarParameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::IntsParameter>().at( "IntsParameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::IntsParameter>().at( "IntsParameter" ).m_value ==
              p1.getParameterSet<RP::IntsParameter>().at( "IntsParameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::UIntsParameter>().at( "UIntsParameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::UIntsParameter>().at( "UIntsParameter" ).m_value ==
              p1.getParameterSet<RP::UIntsParameter>().at( "UIntsParameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::ScalarsParameter>().at( "ScalarsParameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::ScalarsParameter>().at( "ScalarsParameter" ).m_value ==
              p1.getParameterSet<RP::ScalarsParameter>().at( "ScalarsParameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::Vec2Parameter>().at( "Vec2Parameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::Vec2Parameter>().at( "Vec2Parameter" ).m_value ==
              p1.getParameterSet<RP::Vec2Parameter>().at( "Vec2Parameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::Vec3Parameter>().at( "Vec3Parameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::Vec3Parameter>().at( "Vec3Parameter" ).m_value ==
              p1.getParameterSet<RP::Vec3Parameter>().at( "Vec3Parameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::Vec4Parameter>().at( "Vec4Parameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::Vec4Parameter>().at( "Vec4Parameter" ).m_value ==
              p1.getParameterSet<RP::Vec4Parameter>().at( "Vec4Parameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::ColorParameter>().at( "ColorParameter" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::ColorParameter>().at( "ColorParameter" ).m_value ==
              p1.getParameterSet<RP::ColorParameter>().at( "ColorParameter" ).m_value );
-    REQUIRE( concat.getParameterSet<RP::TextureParameter>().at( "TextureParameter" ).m_texture ==
+    REQUIRE( kept.getParameterSet<RP::TextureParameter>().at( "TextureParameter" ).m_texture ==
              p1.getParameterSet<RP::TextureParameter>().at( "TextureParameter" ).m_texture );
     // Foo is p2's value
-    REQUIRE( concat.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value ==
              p2.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value );
 
     // Bar is on p1 side only, still here
-    REQUIRE( concat.getParameterSet<RP::IntParameter>().at( "Bar" ).m_value ==
+    REQUIRE( kept.getParameterSet<RP::IntParameter>().at( "Bar" ).m_value ==
              p1.getParameterSet<RP::IntParameter>().at( "Bar" ).m_value );
 
-    RP copy = p1;
-    copy.copyParameters( p2 );
+    RP replaced = p1;
+    replaced.mergeReplaceParameters( p2 );
     // Existings in p1 and p2, as well as new parameters are set to p2's values
-    REQUIRE( copy.getParameterSet<RP::IntParameter>().at( "IntParameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::IntParameter>().at( "IntParameter" ).m_value ==
              p2.getParameterSet<RP::IntParameter>().at( "IntParameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::BoolParameter>().at( "BoolParameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::BoolParameter>().at( "BoolParameter" ).m_value ==
              p2.getParameterSet<RP::BoolParameter>().at( "BoolParameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::UIntParameter>().at( "UIntParameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::UIntParameter>().at( "UIntParameter" ).m_value ==
              p2.getParameterSet<RP::UIntParameter>().at( "UIntParameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::ScalarParameter>().at( "ScalarParameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::ScalarParameter>().at( "ScalarParameter" ).m_value ==
              p2.getParameterSet<RP::ScalarParameter>().at( "ScalarParameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::IntsParameter>().at( "IntsParameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::IntsParameter>().at( "IntsParameter" ).m_value ==
              p2.getParameterSet<RP::IntsParameter>().at( "IntsParameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::UIntsParameter>().at( "UIntsParameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::UIntsParameter>().at( "UIntsParameter" ).m_value ==
              p2.getParameterSet<RP::UIntsParameter>().at( "UIntsParameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::ScalarsParameter>().at( "ScalarsParameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::ScalarsParameter>().at( "ScalarsParameter" ).m_value ==
              p2.getParameterSet<RP::ScalarsParameter>().at( "ScalarsParameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::Vec2Parameter>().at( "Vec2Parameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::Vec2Parameter>().at( "Vec2Parameter" ).m_value ==
              p2.getParameterSet<RP::Vec2Parameter>().at( "Vec2Parameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::Vec3Parameter>().at( "Vec3Parameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::Vec3Parameter>().at( "Vec3Parameter" ).m_value ==
              p2.getParameterSet<RP::Vec3Parameter>().at( "Vec3Parameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::Vec4Parameter>().at( "Vec4Parameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::Vec4Parameter>().at( "Vec4Parameter" ).m_value ==
              p2.getParameterSet<RP::Vec4Parameter>().at( "Vec4Parameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::ColorParameter>().at( "ColorParameter" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::ColorParameter>().at( "ColorParameter" ).m_value ==
              p2.getParameterSet<RP::ColorParameter>().at( "ColorParameter" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value ==
              p2.getParameterSet<RP::IntParameter>().at( "Foo" ).m_value );
-    REQUIRE( copy.getParameterSet<RP::TextureParameter>().at( "TextureParameter" ).m_texture ==
+    REQUIRE( replaced.getParameterSet<RP::TextureParameter>().at( "TextureParameter" ).m_texture ==
              p2.getParameterSet<RP::TextureParameter>().at( "TextureParameter" ).m_texture );
     // Bar is on p1 side only and not changed
-    REQUIRE( copy.getParameterSet<RP::IntParameter>().at( "Bar" ).m_value ==
+    REQUIRE( replaced.getParameterSet<RP::IntParameter>().at( "Bar" ).m_value ==
              p1.getParameterSet<RP::IntParameter>().at( "Bar" ).m_value );
 }

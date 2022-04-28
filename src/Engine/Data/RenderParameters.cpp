@@ -111,7 +111,7 @@ void RenderParameters::addParameter( const std::string& name, Data::Texture* tex
         x.insert( param );                 \
     }
 
-void RenderParameters::concatParameters( const RenderParameters& params ) {
+void RenderParameters::mergeKeepParameters( const RenderParameters& params ) {
     PARAM_FUNC_HELPER
 }
 #undef P_FUNC
@@ -122,7 +122,7 @@ void RenderParameters::concatParameters( const RenderParameters& params ) {
         x[param.first] = param.second;     \
     }
 
-void RenderParameters::copyParameters( const RenderParameters& params ) {
+void RenderParameters::mergeReplaceParameters( const RenderParameters& params ) {
     PARAM_FUNC_HELPER
 }
 #undef P_FUNC
