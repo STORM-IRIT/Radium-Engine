@@ -179,7 +179,6 @@ void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& 
         vertex[i] = assimpToCore( mesh.mVertices[i] );
     }
     //    fetchVectorData( mesh.mNumVertices, mesh.mVertices, vertex );
-    data.getAttribManager().getAttribBase( Core::Geometry::MeshAttrib::VERTEX_POSITION )->unlock();
 }
 
 void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& data ) const {
@@ -219,7 +218,6 @@ void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& d
         normal[i] = assimpToCore( mesh.mNormals[i] );
         normal[i].normalize();
     }
-    data.getAttribManager().getAttribBase( Core::Geometry::MeshAttrib::VERTEX_NORMAL )->unlock();
 }
 
 void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& data ) const {
@@ -230,7 +228,6 @@ void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& 
     for ( int i = 0; i < int( size ); ++i ) {
         tangent[i] = assimpToCore( mesh.mTangents[i] );
     }
-    data.getAttribManager().getAttribBase( Core::Geometry::MeshAttrib::VERTEX_TANGENT )->unlock();
 }
 
 void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData& data ) const {
@@ -241,7 +238,6 @@ void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData
     for ( int i = 0; i < size; ++i ) {
         bitangent[i] = assimpToCore( mesh.mBitangents[i] );
     }
-    data.getAttribManager().getAttribBase( Core::Geometry::MeshAttrib::VERTEX_BITANGENT )->unlock();
 }
 
 void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
@@ -255,7 +251,6 @@ void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
         // Radium V2 : allow to have several UV channels
         texcoord.at( i ) = assimpToCore( mesh.mTextureCoords[0][i] );
     }
-    data.getAttribManager().getAttribBase( Core::Geometry::MeshAttrib::VERTEX_TEXCOORD )->unlock();
 }
 
 void AssimpGeometryDataLoader::fetchColors( const aiMesh& mesh, GeometryData& data ) const {
@@ -352,7 +347,9 @@ void AssimpGeometryDataLoader::loadGeometryData(
         aiMesh* mesh = scene->mMeshes[i];
         if ( mesh->HasPositions() ) {
             auto geometry = new GeometryData();
+            auto unlocker = geometry->getAttribManager().getUnlocker();
             loadMeshAttrib( *mesh, *geometry, usedNames );
+
             // This returns always true (see assimp documentation)
             if ( scene->HasMaterials() ) {
                 const uint matID = mesh->mMaterialIndex;
