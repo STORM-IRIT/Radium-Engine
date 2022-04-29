@@ -73,19 +73,15 @@ class RA_CORE_API GeometryData : public AssetData
     inline std::size_t getVerticesSize() const;
 
     /// Return the list of vertices.
-    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+                  "instead." )]] inline Vector3Array&
     getVertices();
 
-    /// Return the list of vertices.
-    [[deprecated( "Use getAttribData( std::string name ) instead." )]] inline const Vector3Array&
-    getVertices() const;
-
     /// Set the mesh vertices.
-    /// \note In-place setting with getVertices() is preferred.
+    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
-                  "attribDataList ) "
-                  "instead." )]] inline void
+    [[deprecated(
+        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead. " )]] inline void
     setVertices( const Container& vertexList );
 
     /// Return the list of lines.
@@ -102,10 +98,11 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of lines.
     /// \note For line meshes only.
-    /// \note In-place setting with getEdges() is preferred.
+    /// \note Use addIndexedDataWithLock( const GeometryType& type, const std::string& name )
+    /// instead.
     template <typename Container>
-    [[deprecated( "Use setIndexedData( const GeometryType& type, const VectorArray<V>& "
-                  "indexedDataList, const std::string& name) instead. " )]] inline void
+    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
+                  "instead." )]] inline void
     setEdges( const Container& edgeList );
 
     /// Return the list of faces.
@@ -122,10 +119,11 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    /// \note In-place setting with getFaces() is preferred.
+    /// \note Use addIndexedDataWithLock( const GeometryType& type, const std::string& name )
+    /// instead.
     template <typename Container>
-    [[deprecated( "Use setIndexedData( const GeometryType& type, const VectorArray<V>& "
-                  "indexedDataList, const std::string& name) instead. " )]] inline void
+    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
+                  "instead." )]] inline void
     setFaces( const Container& faceList );
 
     /// Return the list of polyhedra.
@@ -142,58 +140,59 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    /// \note In-place setting with getPolyhedra() is preferred.
+    /// \note Use addIndexedDataWithLock( const GeometryType& type, const std::string& name )
+    /// instead.
     template <typename Container>
-    [[deprecated( "Use setIndexedData( const GeometryType& type, const VectorArray<V>& "
-                  "indexedDataList, const std::string& name) instead. " )]] inline void
+    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
+                  "instead." )]] inline void
     setPolyhedra( const Container& polyList );
 
     /// Return the list of vertex normals.
-    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+                  "instead." )]] inline Vector3Array&
     getNormals();
 
     /// Set the vertex normals.
-    /// \note In-place setting with getNormals() is preferred.
+    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
-                  "attribDataList ) "
-                  "instead." )]] inline void
+    [[deprecated(
+        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead." )]] inline void
     setNormals( const Container& normalList );
 
     /// Return the list of vertex tangent vectors.
-    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+                  "instead." )]] inline Vector3Array&
     getTangents();
 
     /// Set the vertex tangent vectors.
-    /// \note In-place setting with getTangents() is preferred.
+    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
-                  "attribDataList ) "
-                  "instead." )]] inline void
+    [[deprecated(
+        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead." )]] inline void
     setTangents( const Container& tangentList );
 
     /// Return the list of vertex bitangent vectors.
-    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+                  "instead." )]] inline Vector3Array&
     getBiTangents();
 
     /// Set the vertex bitangent vectors.
-    /// \note In-place setting with getBiTangents() is preferred.
+    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
-                  "attribDataList ) "
-                  "instead." )]] inline void
+    [[deprecated(
+        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead." )]] inline void
     setBitangents( const Container& bitangentList );
 
     /// Return the list of vertex texture coordinates.
-    [[deprecated( "Use addAttribDataWithLock( std::string name ) instead." )]] inline Vector3Array&
+    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+                  "instead." )]] inline Vector3Array&
     getTexCoords();
 
     /// Set the vertex texture coordinates.
-    /// \note In-place setting with getTexCoords() is preferred.
+    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use setAttribData( const Geometry::MeshAttrib& name, const VectorArray<V>& "
-                  "attribDataList ) "
-                  "instead." )]] inline void
+    [[deprecated(
+        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead." )]] inline void
     setTextureCoordinates( const Container& texCoordList );
 
     /// Return the MaterialData associated to the objet.
@@ -273,6 +272,29 @@ class RA_CORE_API GeometryData : public AssetData
     /**
      *
      * @tparam V
+     * @param name
+     * @return Get container base on name (lock).
+     * @warning If AttribHandle corresponding to name doesn't exist, it's created
+     * and return. By using this method, user has read-write access to data, data is lock, when
+     * done, user must unlock data by getting the attribManager and then get the attrib.
+     * @note This function is only to avoid redundant code of function like getNormals().
+     */
+    template <typename V>
+    inline VectorArray<V>& addAttribDataWithLock( const Geometry::MeshAttrib& name );
+
+    /**
+     * @tparam V
+     * @param name
+     * @return true if the name provided correspond to an existing attribHandle.
+     * @note This function is only to avoid redundant code of function like hasNormals().
+     *
+     */
+    template <typename V>
+    inline bool hasAttribData( const Geometry::MeshAttrib& name ) const;
+
+    /**
+     *
+     * @tparam V
      * @param type
      * @param name
      * @return Initialize (if necessary) and get a VectorArray<V> contain in layer.
@@ -304,21 +326,6 @@ class RA_CORE_API GeometryData : public AssetData
      */
     inline void indexedDataUnlock( const GeometryType& type, const std::string& name = "" );
 
-    /**
-     *
-     * @tparam V
-     * @param indexedDataList
-     * @param type
-     * @param name
-     * @brief Copy data from indexedDataList into the layer obtain with name and type.
-     * @note In-place setting with addIndexedDataWithLock( std::string name ) is preferred.
-     * This function is only to avoid redundant code of function like setEdges().
-     */
-    template <typename V>
-    inline void setIndexedData( const GeometryType& type,
-                                const VectorArray<V>& indexedDataList,
-                                const std::string& name = "" );
-
   protected:
     /// The transformation of the object.
     Transform m_frame;
@@ -335,25 +342,11 @@ class RA_CORE_API GeometryData : public AssetData
   private:
     /**
      *
-     * @tparam V
-     * @param name
-     * @return Get container base on name (lock).
-     * @warning If AttribHandle corresponding to name doesn't exist, it's created
-     * and return. By using this method, user has read-write access to data, data is lock, when
-     * done, user must unlock data by getting the attribManager and then get the attrib.
-     * @note This function is only to avoid redundant code of function like getNormals().
-     */
-    template <typename V>
-    inline VectorArray<V>& addAttribDataWithLock( const Geometry::MeshAttrib& name );
-
-    /**
-     *
      * @tparam Container
      * @param name
      * @param attribDataList
      * @brief Copy data from attribDataList into the attrib obtain with name.
-     * @note In-place setting with addAttribDataWithLock( std::string name ) is preferred.
-     * This function is only to avoid redundant code of function like setNormals().
+     * @note This function is only to avoid redundant code of function like setNormals().
      *
      */
     template <typename V>
@@ -361,14 +354,18 @@ class RA_CORE_API GeometryData : public AssetData
                                const VectorArray<V>& attribDataList );
 
     /**
-     * @tparam V
-     * @param name
-     * @return true if the name provided correspond to an existing attribHandle.
-     * @note This function is only to avoid redundant code of function like hasNormals().
      *
+     * @tparam V
+     * @param indexedDataList
+     * @param type
+     * @param name
+     * @brief Copy data from indexedDataList into the layer obtain with name and type.
+     * @note This function is only to avoid redundant code of function like setEdges().
      */
     template <typename V>
-    inline bool hasAttribData( const Geometry::MeshAttrib& name ) const;
+    inline void setIndexedData( const GeometryType& type,
+                                const VectorArray<V>& indexedDataList,
+                                const std::string& name = "" );
 
     /**
      *
