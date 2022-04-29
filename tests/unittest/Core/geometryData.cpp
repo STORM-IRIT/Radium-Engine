@@ -144,6 +144,22 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
             geoTexCoordsTest->getAttribManager().getAttrib( attribHandlerTexCoords2 );
         REQUIRE( attribTexCoords.data().size() == 1 );
         REQUIRE( attribTexCoords.data()[0] == saveTexCoords );
+
+        geometry->addAttribDataWithLock<Ra::Core::Vector3>( MeshAttrib::VERTEX_TANGENT );
+        REQUIRE(
+            geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TANGENT )->isLocked() );
+        {
+            auto unlocker = geometry->getAttribManager().getUnlocker();
+            geometry->addAttribDataWithLock<Ra::Core::Vector3>( MeshAttrib::VERTEX_BITANGENT );
+            REQUIRE( geometry->getAttribManager()
+                         .getAttribBase( MeshAttrib::VERTEX_BITANGENT )
+                         ->isLocked() );
+        }
+        REQUIRE(
+            geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TANGENT )->isLocked() );
+        REQUIRE( !geometry->getAttribManager()
+                      .getAttribBase( MeshAttrib::VERTEX_BITANGENT )
+                      ->isLocked() );
     }
 
     SECTION( "Edges test " ) {
