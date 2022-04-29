@@ -1,3 +1,4 @@
+#include "OpenGL.hpp"
 #include <Engine/Data/ShaderProgram.hpp>
 
 #include <globjects/NamedString.h>
@@ -331,6 +332,16 @@ void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) 
 template <>
 void ShaderProgram::setUniform( const char* name, const Scalar& value ) const {
     m_program->setUniform( name, static_cast<GL_SCALAR_PLAIN>( value ) );
+}
+
+template <>
+void ShaderProgram::setUniform( const char* name, const std::vector<Scalar>& value ) const {
+    std::vector<GL_SCALAR_PLAIN> convertedValue;
+    /// \todo use is_same and enable_if to prevent copy when unnecessary
+    for ( const auto& v : value ) {
+        convertedValue.emplace_back( v );
+    }
+    m_program->setUniform( name, convertedValue );
 }
 
 void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
