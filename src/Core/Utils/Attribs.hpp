@@ -320,6 +320,39 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     /// Return the number of attributes
     inline int getNumAttribs() const;
 
+    /// Unlocker class, unlock all attribs (which are locked after create the unlocker object) after
+    /// destruct.
+    class Unlocker
+    {
+      public:
+        /**
+         *
+         * @param a
+         * @brief Constructor, save statement of all attribs from attribManager ( isLocked() )
+         */
+        explicit Unlocker( AttribManager* a ) : n_a { a } {
+            for ( const auto& attr : n_a->m_attribs ) {
+                if ( attr == nullptr ) break;
+                v.push_back( std::make_pair( attr.get(), attr->isLocked() ) );
+            }
+        }
+        /**
+         * @brief Destructor, unlock all attribs from attribManager which have been locked after the
+         * initialization of the Unlocker.
+         */
+        ~Unlocker() {
+            for ( auto& p : v ) {
+                if ( !p.second && p.first->isLocked() ) { p.first->unlock(); }
+            }
+        }
+
+      private:
+        AttribManager* n_a;
+        std::vector<std::pair<AttribBase*, bool>> v;
+    };
+
+    Unlocker getUnlocker() { return Unlocker { this }; }
+
   private:
     /// Attrib list, better using attribs() to go through.
     Container m_attribs;
