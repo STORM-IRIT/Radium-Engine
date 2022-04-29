@@ -1,7 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
-if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} VERSION_GREATER "3.9")
-    cmake_policy(SET CMP0071 NEW)
-endif()
+cmake_minimum_required(VERSION 3.19)
 if(APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
@@ -38,21 +35,15 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # ------------------------------------------------------------------------------
 set(app_sources main.cpp)
-set(app_headers)
-
-set(app_uis)
-qt_wrap_ui(app_uis_moc ${app_uis})
-
-set(app_resources)
 
 # to install the app as a redistribuable bundle on macos, add MACOSX_BUNDLE when calling
 # add_executable
-add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_resources})
+add_executable(${PROJECT_NAME} ${app_sources})
 
 target_compile_definitions(
     ${PROJECT_NAME} PRIVATE DEMO_FILE="${CMAKE_CURRENT_SOURCE_DIR}/../../unittest/data/Lobster.pvm"
 )
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+
 target_include_directories(
     ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc
                             ${CMAKE_CURRENT_SOURCE_DIR}
