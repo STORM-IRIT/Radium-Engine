@@ -1,6 +1,7 @@
 #include "OpenGL.hpp"
 #include <Engine/Data/ShaderProgram.hpp>
 
+#include <glbinding/gl/enum.h>
 #include <globjects/NamedString.h>
 #include <globjects/Program.h>
 #include <globjects/Shader.h>
@@ -11,6 +12,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/Texture.hpp>
 
+#include <algorithm>
 #include <numeric> // for std::accumulate
 #include <regex>
 
@@ -338,9 +340,10 @@ template <>
 void ShaderProgram::setUniform( const char* name, const std::vector<Scalar>& value ) const {
     std::vector<GL_SCALAR_PLAIN> convertedValue;
     /// \todo use is_same and enable_if to prevent copy when unnecessary
-    for ( const auto& v : value ) {
-        convertedValue.emplace_back( v );
-    }
+    std::transform( value.begin(),
+                    value.end(),
+                    std::back_inserter( convertedValue ),
+                    []( Scalar c ) -> GL_SCALAR_PLAIN { return c; } );
     m_program->setUniform( name, convertedValue );
 }
 
