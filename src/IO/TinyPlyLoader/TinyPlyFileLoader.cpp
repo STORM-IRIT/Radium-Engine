@@ -229,14 +229,11 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     // read requested buffers (and only those) from file content
     file.read( *file_stream );
-    copyBufferToContainer( vertBuffer, geometry->getVertices() );
-    geometry->getAttribManager()
-        .getAttribBase( Core::Geometry::MeshAttrib::VERTEX_POSITION )
-        ->unlock();
-    copyBufferToContainer( normalBuffer, geometry->getNormals() );
-    geometry->getAttribManager()
-        .getAttribBase( Core::Geometry::MeshAttrib::VERTEX_NORMAL )
-        ->unlock();
+    {
+        auto unlocker = geometry->getAttribManager().getUnlocker();
+        copyBufferToContainer( vertBuffer, geometry->getVertices() );
+        copyBufferToContainer( normalBuffer, geometry->getNormals() );
+    }
 
     auto& attribManager = geometry->getAttribManager();
 
