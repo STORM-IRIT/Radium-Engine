@@ -113,10 +113,8 @@ class RA_ENGINE_API RenderParameters final
     /// Parameter of type vector of unsigned int
     using UIntsParameter = TParameter<std::vector<uint>>;
 
-    /** Parameter of type vector of unsigned float
-     * @warning : no double parameter as globjects seems to not handle vector of double
-     */
-    using ScalarsParameter = TParameter<std::vector<float>>;
+    /// Parameter of type vector of Scalar;
+    using ScalarsParameter = TParameter<std::vector<Scalar>>;
 
     /// Parameter of type Vector2
     using Vec2Parameter = TParameter<Core::Vector2>;
@@ -145,7 +143,7 @@ class RA_ENGINE_API RenderParameters final
 
     void addParameter( const std::string& name, std::vector<int> values );
     void addParameter( const std::string& name, std::vector<uint> values );
-    void addParameter( const std::string& name, std::vector<float> values );
+    void addParameter( const std::string& name, std::vector<Scalar> values );
 
     void addParameter( const std::string& name, const Core::Vector2& value );
     void addParameter( const std::string& name, const Core::Vector3& value );
