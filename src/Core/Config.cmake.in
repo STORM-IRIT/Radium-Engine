@@ -1,4 +1,4 @@
-# -------------- Configuration of the Radium Core targets and definitions ------------0---------
+# -------------- Configuration of the Radium Core targets and definitions -------------------------
 if(NOT TARGET Core)
     include(CMakeFindDependencyMacro)
     find_dependency(Threads REQUIRED)
