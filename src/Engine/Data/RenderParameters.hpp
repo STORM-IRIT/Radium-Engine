@@ -164,11 +164,22 @@ class RA_ENGINE_API RenderParameters final
      */
     void addParameter( const std::string& name, Data::Texture* tex, int texUnit = -1 );
     /**@}*/
-    /***
-     * Concatenates two RenderParameters
+
+    /**
+     * Merges a RenderParameters \a params with this
      * @param params the render parameter to merge with the current.
+     * Existing parameter value are kept from this
+     * \see mergeReplaceParameters
      */
-    void concatParameters( const RenderParameters& params );
+    void mergeKeepParameters( const RenderParameters& params );
+
+    /**
+     * Merges a RenderParameters \a params with this
+     * @param params the render parameter to merge with the current.
+     * Existing parameter values are replaced by params's one.
+     * \see mergeKeepParameters
+     */
+    void mergeReplaceParameters( const RenderParameters& params );
 
     /** Bind the parameter uniform on the shader program
      *
