@@ -184,6 +184,9 @@ var NAVTREEINDEX4 =
 "RenderObject_8hpp.html":[11,0,3,1,1,8],
 "RenderObject_8hpp_source.html":[11,0,3,1,1,8],
 "RenderParameters_8cpp.html":[11,0,3,1,0,21],
+"RenderParameters_8cpp.html#a35cf2e9df58510385b90bc51402de6af":[11,0,3,1,0,21,2],
+"RenderParameters_8cpp.html#a730a9ccf0e9d2b4167a29960f997cce7":[11,0,3,1,0,21,1],
+"RenderParameters_8cpp.html#a730a9ccf0e9d2b4167a29960f997cce7":[11,0,3,1,0,21,0],
 "RenderParameters_8cpp_source.html":[11,0,3,1,0,21],
 "RenderParameters_8hpp.html":[11,0,3,1,0,22],
 "RenderParameters_8hpp_source.html":[11,0,3,1,0,22],
@@ -246,8 +249,5 @@ var NAVTREEINDEX4 =
 "RotateAroundCameraManipulator_8hpp.html#ab1478fa43039cf1b62157b0375df9960":[11,0,3,2,9,6,2],
 "RotateAroundCameraManipulator_8hpp_source.html":[11,0,3,2,9,6],
 "RotateGizmo_8cpp.html":[11,0,3,2,9,0,4],
-"RotateGizmo_8cpp_source.html":[11,0,3,2,9,0,4],
-"RotateGizmo_8hpp.html":[11,0,3,2,9,0,5],
-"RotateGizmo_8hpp_source.html":[11,0,3,2,9,0,5],
-"RotationCenterSkinning_8cpp.html":[11,0,3,0,0,20]
+"RotateGizmo_8cpp_source.html":[11,0,3,2,9,0,4]
 };

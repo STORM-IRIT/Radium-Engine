@@ -34,7 +34,8 @@ var classRa_1_1Engine_1_1Data_1_1RenderParameters =
     [ "addParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a17307687cd41a31fb2c0c231eceeed9d", null ],
     [ "addParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aaff274f370a930d08f58dd8022fef925", null ],
     [ "bind", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6a3e5cfdb4ee0618fcdfd72eaac72c98", null ],
-    [ "concatParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a492a4b7bdafa3af3a23d24a16d4c89df", null ],
     [ "getParameterSet", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae005d82f1311363657a20405db1ce8bf", null ],
-    [ "getParameterSet", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e", null ]
+    [ "getParameterSet", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e", null ],
+    [ "mergeKeepParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae27dade3c2d0e82d306c45b2491f639a", null ],
+    [ "mergeReplaceParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f", null ]
 ];

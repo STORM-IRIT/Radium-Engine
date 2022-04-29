@@ -1,5 +1,8 @@
 var NAVTREEINDEX5 =
 {
+"RotateGizmo_8hpp.html":[11,0,3,2,9,0,5],
+"RotateGizmo_8hpp_source.html":[11,0,3,2,9,0,5],
+"RotationCenterSkinning_8cpp.html":[11,0,3,0,0,20],
 "RotationCenterSkinning_8cpp.html#a7e29ad918c37dcd14eee94f49c7ec300":[11,0,3,0,0,20,2],
 "RotationCenterSkinning_8cpp.html#ac01535127ca12dc01779f0df10185c6e":[11,0,3,0,0,20,1],
 "RotationCenterSkinning_8cpp.html#ad451474c757b714cf8f2dbcc7f6a5ffc":[11,0,3,0,0,20,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX5 =
 "Task_8hpp.html":[11,0,3,0,6,0],
 "Task_8hpp_source.html":[11,0,3,0,6,0],
 "Tex_8hpp.html":[11,0,3,0,2,12],
-"Tex_8hpp.html#a6a8bde170731bf837a94c3bdd53e7b50":[11,0,3,0,2,12,1],
-"Tex_8hpp.html#ae45597b9165d8d01d5318c7fbd3989ab":[11,0,3,0,2,12,2],
-"Tex_8hpp_source.html":[11,0,3,0,2,12],
-"Tex_8inl.html":[11,0,3,0,2,13]
+"Tex_8hpp.html#a6a8bde170731bf837a94c3bdd53e7b50":[11,0,3,0,2,12,1]
 };

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.20</span>
+   &#160;<span id="projectnumber">1.2.21</span>
    </div>
   </td>
  </tr>
@@ -93,7 +93,8 @@ $(document).ready(function(){initNavTree('RenderParameters_8cpp.html',''); initR
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">RenderParameters.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -121,14 +122,102 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceRa_1_1Engine_1_1Data"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Ra::Engine::Data</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a35cf2e9df58510385b90bc51402de6af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RenderParameters_8cpp.html#a35cf2e9df58510385b90bc51402de6af">PARAM_FUNC_HELPER</a></td></tr>
+<tr class="separator:a35cf2e9df58510385b90bc51402de6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a730a9ccf0e9d2b4167a29960f997cce7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RenderParameters_8cpp.html#a730a9ccf0e9d2b4167a29960f997cce7">P_FUNC</a>(x)</td></tr>
+<tr class="separator:a730a9ccf0e9d2b4167a29960f997cce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a730a9ccf0e9d2b4167a29960f997cce7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RenderParameters_8cpp.html#a730a9ccf0e9d2b4167a29960f997cce7">P_FUNC</a>(x)</td></tr>
+<tr class="separator:a730a9ccf0e9d2b4167a29960f997cce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a730a9ccf0e9d2b4167a29960f997cce7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a730a9ccf0e9d2b4167a29960f997cce7">&#9670;&nbsp;</a></span>P_FUNC <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define P_FUNC</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; param : params.x ) { \</div>
+<div class="line">        x.insert( param );                 \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00120">120</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a730a9ccf0e9d2b4167a29960f997cce7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a730a9ccf0e9d2b4167a29960f997cce7">&#9670;&nbsp;</a></span>P_FUNC <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define P_FUNC</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; param : params.x ) { \</div>
+<div class="line">        x[param.first] = param.second;     \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00120">120</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a35cf2e9df58510385b90bc51402de6af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35cf2e9df58510385b90bc51402de6af">&#9670;&nbsp;</a></span>PARAM_FUNC_HELPER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PARAM_FUNC_HELPER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="RenderParameters_8cpp.html#a730a9ccf0e9d2b4167a29960f997cce7">P_FUNC</a>( m_boolParamsVector )    \</div>
+<div class="line">    P_FUNC( m_intParamsVector )     \</div>
+<div class="line">    P_FUNC( m_uintParamsVector )    \</div>
+<div class="line">    P_FUNC( m_scalarParamsVector )  \</div>
+<div class="line">    P_FUNC( m_intsParamsVector )    \</div>
+<div class="line">    P_FUNC( m_uintsParamsVector )   \</div>
+<div class="line">    P_FUNC( m_scalarsParamsVector ) \</div>
+<div class="line">    P_FUNC( m_vec2ParamsVector )    \</div>
+<div class="line">    P_FUNC( m_vec3ParamsVector )    \</div>
+<div class="line">    P_FUNC( m_vec4ParamsVector )    \</div>
+<div class="line">    P_FUNC( m_colorParamsVector )   \</div>
+<div class="line">    P_FUNC( m_mat2ParamsVector )    \</div>
+<div class="line">    P_FUNC( m_mat3ParamsVector )    \</div>
+<div class="line">    P_FUNC( m_mat4ParamsVector )    \</div>
+<div class="line">    P_FUNC( m_texParamsVector )</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00091">91</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aRenderParameters_8cpp_html_a730a9ccf0e9d2b4167a29960f997cce7"><div class="ttname"><a href="RenderParameters_8cpp.html#a730a9ccf0e9d2b4167a29960f997cce7">P_FUNC</a></div><div class="ttdeci">#define P_FUNC(x)</div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8cpp_source.html#l00120">RenderParameters.cpp:120</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="RenderParameters_8cpp.html">RenderParameters.cpp</a></li>
-    <li class="footer">Generated on Thu Apr 28 2022 13:56:45 for Radium Engine by
+    <li class="footer">Generated on Fri Apr 29 2022 06:39:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

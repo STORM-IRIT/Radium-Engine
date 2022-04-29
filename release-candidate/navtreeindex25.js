@@ -1,5 +1,9 @@
 var NAVTREEINDEX25 =
 {
+"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html":[10,0,3,0,2,12,4],
+"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a07f10c4d014138044bbe0d86319cd9d8":[10,0,3,0,2,12,4,2],
+"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a1561f094de895f9faaa894c1cb2adca9":[10,0,3,0,2,12,4,1],
+"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a65aa5fde8365b60244ec48a127d30b29":[10,0,3,0,2,12,4,3],
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a911834a92c94f36227b223ff16d04ce2":[10,0,3,0,2,12,4,0],
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#ae446508dee4a8c26a994ea2306ba80a2":[10,0,3,0,2,12,4,4],
 "structRa_1_1Core_1_1Asset_1_1VolumeData.html":[10,0,3,0,2,15],
@@ -245,9 +249,5 @@ var NAVTREEINDEX25 =
 "structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#abb75bfc7efa4859df709265ab8982712":[10,0,3,1,2,16,4],
 "structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4":[10,0,3,1,2,16,5],
 "structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html":[10,0,3,1,2,17,0],
-"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a1310d6dfd9df2b6c6d923fa61e67e73f":[10,0,3,1,2,17,0,1],
-"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a5c3937f6b97223c2a6b57ecc76b966ae":[10,0,3,1,2,17,0,2],
-"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a6beef8226d33156dbbe499ba8fe9173f":[10,0,3,1,2,17,0,3],
-"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#aca996c790e184fe027d63b62cd0622fb":[10,0,3,1,2,17,0,0],
-"structRa_1_1FrameTimerData.html":[10,0,3,6]
+"structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a1310d6dfd9df2b6c6d923fa61e67e73f":[10,0,3,1,2,17,0,1]
 };

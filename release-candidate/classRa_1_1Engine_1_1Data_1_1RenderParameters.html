@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.20</span>
+   &#160;<span id="projectnumber">1.2.21</span>
    </div>
   </td>
  </tr>
@@ -166,8 +166,10 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a492a4b7bdafa3af3a23d24a16d4c89df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a492a4b7bdafa3af3a23d24a16d4c89df">concatParameters</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;params)</td></tr>
-<tr class="separator:a492a4b7bdafa3af3a23d24a16d4c89df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae27dade3c2d0e82d306c45b2491f639a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae27dade3c2d0e82d306c45b2491f639a">mergeKeepParameters</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;params)</td></tr>
+<tr class="separator:ae27dade3c2d0e82d306c45b2491f639a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d929872799f18541433ade3f118099f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f">mergeReplaceParameters</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;params)</td></tr>
+<tr class="separator:a9d929872799f18541433ade3f118099f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a3e5cfdb4ee0618fcdfd72eaac72c98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6a3e5cfdb4ee0618fcdfd72eaac72c98">bind</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Data::ShaderProgram</a> *shader) const</td></tr>
 <tr class="separator:a6a3e5cfdb4ee0618fcdfd72eaac72c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc35dc41b69e69225565f202d441468e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -951,26 +953,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a492a4b7bdafa3af3a23d24a16d4c89df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a492a4b7bdafa3af3a23d24a16d4c89df">&#9670;&nbsp;</a></span>concatParameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::concatParameters </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>params</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00090">90</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
 <a id="ae005d82f1311363657a20405db1ce8bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae005d82f1311363657a20405db1ce8bf">&#9670;&nbsp;</a></span>getParameterSet() <span class="overload">[1/2]</span></h2>
 
@@ -1026,6 +1008,60 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ae27dade3c2d0e82d306c45b2491f639a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae27dade3c2d0e82d306c45b2491f639a">&#9670;&nbsp;</a></span>mergeKeepParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::RenderParameters::mergeKeepParameters </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Merges a <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> <em>params</em> with this </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>the render parameter to merge with the current. Existing parameter value are kept from this </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f">mergeReplaceParameters</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00114">114</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9d929872799f18541433ade3f118099f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d929872799f18541433ade3f118099f">&#9670;&nbsp;</a></span>mergeReplaceParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::RenderParameters::mergeReplaceParameters </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Merges a <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> <em>params</em> with this </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>the render parameter to merge with the current. Existing parameter values are replaced by params's one. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae27dade3c2d0e82d306c45b2491f639a">mergeKeepParameters</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00125">125</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Data/<a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Data/<a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a></li>
@@ -1037,7 +1073,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Data</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a></li>
-    <li class="footer">Generated on Thu Apr 28 2022 13:56:46 for Radium Engine by
+    <li class="footer">Generated on Fri Apr 29 2022 06:39:46 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

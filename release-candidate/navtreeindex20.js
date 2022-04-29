@@ -1,5 +1,9 @@
 var NAVTREEINDEX20 =
 {
+"classRa_1_1Gui_1_1Gizmo.html#a86af48cbefd323b7efd8e6fffb15f4fda0c9109d952fc27d1b69e231b8589d510":[10,0,3,2,5,1,0],
+"classRa_1_1Gui_1_1Gizmo.html#a86af48cbefd323b7efd8e6fffb15f4fda7e6cbc8d5d2b92be2293022cc9c8013f":[10,0,3,2,5,1,1],
+"classRa_1_1Gui_1_1Gizmo.html#ab7b1bac81ee68a8a061c6af0bad28365":[10,0,3,2,5,13],
+"classRa_1_1Gui_1_1Gizmo.html#ab84b5d13d6f0d5730df97d1354114999":[10,0,3,2,5,8],
 "classRa_1_1Gui_1_1Gizmo.html#ad9d1c38f9ce6bc77e087517c2292a926":[10,0,3,2,5,7],
 "classRa_1_1Gui_1_1Gizmo.html#ae5548219f2292a8da641c857ae698d8f":[10,0,3,2,5,10],
 "classRa_1_1Gui_1_1Gizmo.html#ae733abf00f867def770eb5605f0f320c":[10,0,3,2,5,16],
@@ -245,9 +249,5 @@ var NAVTREEINDEX20 =
 "classRa_1_1Gui_1_1TimelineTimeScale.html":[10,0,3,2,24],
 "classRa_1_1Gui_1_1TimelineTimeScale.html#a254823f2b9c52dc33a607e71cf0df842":[10,0,3,2,24,1],
 "classRa_1_1Gui_1_1TimelineTimeScale.html#a4ebbeb34adeeadce19d9cc12005bd466":[10,0,3,2,24,2],
-"classRa_1_1Gui_1_1TimelineTimeScale.html#ac31c7de147891bba4a421c75f4bf9b7a":[10,0,3,2,24,0],
-"classRa_1_1Gui_1_1TrackballCameraManipulator.html":[10,0,3,2,25],
-"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a02cc1184f6a81c2bff9f044262fbc084":[10,0,3,2,25,0],
-"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a073412555738e6128d3a557e44734f48":[10,0,3,2,25,5],
-"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0a160af972e5593fbd69bb0622e26b29":[10,0,3,2,25,3]
+"classRa_1_1Gui_1_1TimelineTimeScale.html#ac31c7de147891bba4a421c75f4bf9b7a":[10,0,3,2,24,0]
 };

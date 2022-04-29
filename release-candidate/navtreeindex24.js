@@ -1,5 +1,9 @@
 var NAVTREEINDEX24 =
 {
+"namespaceRa_1_1Version.html":[9,0,6,7],
+"namespaceUi.html":[9,0,7],
+"namespacecompile__time__utils.html":[9,0,1],
+"namespacecompile__time__utils.html":[10,0,1],
 "namespaceglobjects.html":[9,0,3],
 "namespacemembers.html":[9,1,0],
 "namespacemembers.html":[9,1,0,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX24 =
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html#ac6d1876ef5f7bea0205631ce1fba98d1":[10,0,3,0,2,12,2,3],
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html":[10,0,3,0,2,12,3],
 "structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html#ab22439ae0600773369bcddb94b57b9bb":[10,0,3,0,2,12,3,1],
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html#ac37a3f9f6b059717b358bf75ac23345c":[10,0,3,0,2,12,3,0],
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html":[10,0,3,0,2,12,4],
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a07f10c4d014138044bbe0d86319cd9d8":[10,0,3,0,2,12,4,2],
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a1561f094de895f9faaa894c1cb2adca9":[10,0,3,0,2,12,4,1],
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html#a65aa5fde8365b60244ec48a127d30b29":[10,0,3,0,2,12,4,3]
+"structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html#ac37a3f9f6b059717b358bf75ac23345c":[10,0,3,0,2,12,3,0]
 };
