@@ -2,6 +2,9 @@
 #include <memory>
 
 //#define USE_OIIO
+#include <iostream>
+//#include <string>
+#include <cstring>
 
 namespace Ra {
 namespace Core {
@@ -46,21 +49,54 @@ class ImageImpl
     OpenImageIO_v2_3::ImageBuf m_imgBuf;
 };
 #else
+
 class ImageImpl
 {
   public:
-    ImageImpl( const ImageSpec& spec, void* data, size_t len ) { m_data = data; }
+    ImageImpl( const ImageSpec& spec, void* data, size_t len ) // : m_spec( spec )
+    {
+        m_sizeData = len;
+        m_data = new unsigned char[m_sizeData];
+        update( data, len );
+    }
     ImageImpl( const std::string& filename ) {}
     ~ImageImpl() = default;
 
-    void update( void* newData, size_t len ) { m_data = newData; }
-    void resize( int width, int height, void* newData, size_t len ) { m_data = newData; }
+    void update( void* newData, size_t len ) {
+        // no update if newData is null
+        // newData can be null when user want to create an image without having the data
+        // only spec was specify and the data comming after the instanciate of image (from sensors for example)
+        if (newData == nullptr)
+            return;
+
+        assert(m_data != nullptr);
+        assert(m_sizeData == len);
+        //        m_data = newData;
+        std::memcpy( m_data, newData, len );
+        // copy the data here, no dangling pointers,
+        // we assume that the client pointer can be deallocated by himself
+    }
+    void resize( int width, int height, void* newData, size_t len ) {
+        if (m_sizeData != len) {
+            delete [] (unsigned char*)m_data;
+            m_sizeData = len;
+            m_data = new unsigned char[m_sizeData];
+        }
+        update( newData, len );
+    }
 
   public:
     const void* getData() const { return m_data; }
+//    const ImageSpec& getSpec() const { return m_spec; }
+    size_t getSizeData() const { return m_sizeData; }
 
   private:
-    void* m_data;
+    //    void setData(void * data, size_t len);
+  private:
+    void* m_data = nullptr;
+//    unsigned char* m_data = nullptr;
+//    ImageSpec m_spec;
+    size_t m_sizeData = 0; // bytes
 };
 
 #endif
@@ -71,56 +107,56 @@ class ImageImpl
 Image::Image( const ImageSpec& spec, void* data, size_t len ) :
     //    m_impl { std::make_unique<ImageImpl>( spec, data ) } {}
     m_impl { new ImageImpl( spec, data, len ) },
-    m_spec( spec ),
-    m_age { 1 }, // birth
-    m_sizeData( spec.width * spec.height * spec.nchannels * g_typeDesc2size.at( spec.format ) ) {
-
-    assert( m_sizeData == len );
+    m_age { 1 } // birth
+{
 }
 
 Image::Image( const std::string& filename ) :
     //    m_impl { std::make_unique<ImageImpl>( filename ) } {}
     m_impl { new ImageImpl( filename ) },
-    m_spec( 0, 0, 0 ),
     m_age { 1 } // birth
 {
-    m_sizeData =
-        m_spec.width * m_spec.height * m_spec.nchannels * g_typeDesc2size.at( m_spec.format );
+    //    m_sizeData =
+    //        m_spec.width * m_spec.height * m_spec.nchannels * g_typeDesc2size.at( m_spec.format );
 }
 
 Image::~Image() {}
 
 void Image::update( void* newData, size_t len ) {
-    assert( len == m_sizeData );
     m_impl->update( newData, len );
     ++m_age;
 }
 
 void Image::resize( int width, int height, void* newData, size_t len ) {
-    m_spec.width  = width;
-    m_spec.height = height;
-    m_sizeData =
-        m_spec.width * m_spec.height * m_spec.nchannels * g_typeDesc2size.at( m_spec.format );
-    assert( len == m_sizeData );
+    //    m_spec.width  = width;
+    //    m_spec.height = height;
+    //    m_sizeData =
+    //        m_spec.width * m_spec.height * m_spec.nchannels * g_typeDesc2size.at( m_spec.format );
+    //    assert( m_sizeData == len );
     m_impl->resize( width, height, newData, len );
+    //    m_impl->setData (newData, len);
     ++m_age;
+}
+
+// void Image::setData(void *data, size_t len)
+//{
+
+//};
+size_t Image::getAge() const {
+    return m_age;
 }
 
 const void* Image::getData() const {
     return m_impl->getData();
 }
 
-const ImageSpec& Image::get_spec() const {
-    return m_spec;
-}
-
-size_t Image::getAge() const {
-    return m_age;
-}
+//const ImageSpec& Image::get_spec() const {
+//    return m_impl->getSpec();
+//}
 
 size_t Image::getSizeData() const {
-    return m_sizeData;
-};
+    return m_impl->getSizeData();
+}
 
 } // namespace Asset
 } // namespace Core

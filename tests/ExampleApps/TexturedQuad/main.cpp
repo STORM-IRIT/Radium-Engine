@@ -16,8 +16,10 @@
 
 #include <QTimer>
 #include <future>
+#include <memory>
 #include <thread>
 
+constexpr int nQuad = 5;
 // Vertex shader source code
 const std::string _vertexShaderSource {
     "#include \"TransformStructs.glsl\"\n"
@@ -48,232 +50,517 @@ const std::string _fragmentShaderSource {
     "   // out_color =  ( 1 + cos( 20 * ( in_pos.x + aScalarUniform ) ) ) * 0.5 * aColorUniform;\n"
     "}\n" };
 
-int main( int argc, char* argv[] ) {
-    //! [Creating the application]
-    Ra::Gui::BaseApplication app( argc, argv );
-    app.initialize( Ra::Gui::SimpleWindowFactory {} );
-    //! [Creating the application]
+// static Ra::Core::Asset::BlinnPhongMaterialData* g_matData = nullptr;
 
-    std::shared_ptr<Ra::Engine::Rendering::RenderObject> ro, ro2;
+class QuadLife
+{
+  public:
+    void born() {
+        assert( m_app != nullptr );
 
-    ///////////////////////////////// create texture 1 /////////////////////////////////////
-    //! [Creating a texture]
-    constexpr int tWidth  = 192;
-    constexpr int tHeight = 512;
-    constexpr int tSize   = tWidth * tHeight;
-    {
-        unsigned char data[tSize];
-        // fill with some function
-        for ( int i = 0; i < tWidth; ++i ) {
-            for ( int j = 0; j < tHeight; j++ ) {
-                data[( i * tHeight + j )] =
-                    (unsigned char)( 255.0 * std::abs( std::sin( j * i * M_PI / 64.0 ) *
-                                                       std::cos( j * i * M_PI / 96.0 ) ) );
-            }
-        }
-        auto& textureParameters =
-            app.m_engine->getTextureManager()->addTexture( "myTexture", tWidth, tHeight, data );
-        // these values will be used when engine initialize texture GL representation.
-        textureParameters.format         = gl::GLenum::GL_RED;
-        textureParameters.internalFormat = gl::GLenum::GL_R8;
-        //! [Creating a texture]
-
-        Ra::Core::Asset::BlinnPhongMaterialData matData( "myMaterialData" );
         // remove glossy highlight
-        matData.m_specular    = Ra::Core::Utils::Color::Black();
-        matData.m_hasSpecular = true;
-
-        matData.m_hasTexDiffuse = true;
-        // this name has to be the same as texManager added texture name
-        matData.m_texDiffuse = "myTexture";
+        m_matData.m_specular    = Ra::Core::Utils::Color::Black();
+        m_matData.m_hasSpecular = true;
 
         //! [Creating a quad geometry with texture coordinates]
         auto quad = Ra::Core::Geometry::makeZNormalQuad( { 1_ra, 1_ra }, {}, true );
         //! [Creating a quad geometry with texture coordinates]
 
         //! [Create an entity and component to draw or data]
-        auto e = app.m_engine->getEntityManager()->createEntity( "Textured quad" );
+        auto e = m_app->m_engine->getEntityManager()->createEntity(
+            "Textured quad " + std::to_string( m_i ) + " " + std::to_string( m_j ) );
+
         // the entity get's this new component ownership. a bit wired since hidden in ctor.
         auto c = new Ra::Engine::Scene::TriangleMeshComponent(
-            "Quad Mesh", e, std::move( quad ), &matData );
+            "Quad Mesh", e, std::move( quad ), &m_matData );
         //! [Create an entity and component to draw or data]
-        ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
+
+        m_ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
             c->m_renderObjects[0] );
-        ro->setLocalTransform( Ra::Core::Transform(
-            Ra::Core::Translation( ( Ra::Core::Vector3 { -2.0, 0.0, 0.0 } ) ) ) );
+        // Local transform
+        m_worldTransform.translate( Ra::Core::Vector3( m_j, nQuad - m_i, 0.0 ) );
+        Ra::Core::Vector3 vecScale( 0.4, 0.4, 1.0 );
+        m_localTransform.scale( vecScale );
+        m_ro->setLocalTransform( m_worldTransform * m_localTransform );
+        //        m_ro->setLocalTransform( Ra::Core::Transform(
+        //            Ra::Core::Translation( ( Ra::Core::Vector3 { m_i, m_j, 0.0 } ) ) ) );
+    }
+    void live() {
+        assert( m_app != nullptr );
+        //        return;
+        //            m_thread = std::thread( [m_futureObj = std::move( m_futureObj )]() {
+        m_thread = std::thread( [this]() {
+            while ( m_futureObj.wait_for( std::chrono::milliseconds( 1 ) ) ==
+                    std::future_status::timeout ) {
+
+                const auto start = std::chrono::high_resolution_clock::now();
+                if ( m_routine != nullptr ) { m_routine( *this ); }
+                const auto end =
+                    start + std::chrono::microseconds( 1'000'000 / m_routinePerSecond );
+                std::this_thread::sleep_until( end );
+
+                ++m_age;
+            }
+        } );
+    }
+    void die() {
+        assert( m_app != nullptr );
+        //        return;
+
+        m_exitSignal.set_value();
+        m_thread.join();
     }
 
-    //////////////////////////////////////// create texture 2 //////////////////////////////////
-    constexpr int tWidth2  = 20;
-    constexpr int tHeight2 = 20;
-    constexpr int tSize2   = tWidth2 * tHeight2 * 3;
+  public:
+    //    int size = 0;
+    int m_i;
+    int m_j;
+
+    int m_width  = 0;
+    int m_height = 0;
+    int m_size   = 0;
+
+    Ra::Gui::BaseApplication* m_app = nullptr;
+
+    int m_routinePerSecond = 10;
+    int m_age              = 0; // nb routine done
+
+    Ra::Core::Transform m_worldTransform = Ra::Core::Transform::Identity();
+    Ra::Core::Transform m_localTransform = Ra::Core::Transform::Identity();
+    //  private:
+    std::shared_ptr<Ra::Engine::Rendering::RenderObject> m_ro;
+    Ra::Core::Asset::BlinnPhongMaterialData m_matData;
+    std::promise<void> m_exitSignal;
+    std::future<void> m_futureObj = m_exitSignal.get_future();
+    std::thread m_thread;
+    std::function<void( QuadLife& quadLife )> m_routine;
+    std::vector<std::string> m_messages = { "auau", "ouou" };
+};
+
+void printQuadMessages( const QuadLife* quads, int width, int height );
+
+int main( int argc, char* argv[] ) {
+    //! [Creating the application]
+    Ra::Gui::BaseApplication app( argc, argv );
+    app.initialize( Ra::Gui::SimpleWindowFactory {} );
+    //! [Creating the application]
+
+    ///////////////////////////////// Creating engine textures /////////////////////////////////////
+
+    constexpr int proceduralEngineTexWidth  = 192;
+    constexpr int proceduralEngineTexHeight = 512;
+    constexpr int proceduralEngineTexSize   = proceduralEngineTexWidth * proceduralEngineTexHeight;
     {
-        unsigned char data2[tSize2];
-        for ( int i = 0; i < tWidth2; ++i ) {
-            for ( int j = 0; j < tHeight2; j++ ) {
-                unsigned char color = ( ( i + j ) % 2 );
-                data2[( i * tHeight2 + j ) * 3] =
-                    ( color * int( (double)i / tWidth2 * 255 ) ) % 255;
-                data2[( i * tHeight2 + j ) * 3 + 1] =
-                    ( color * int( (double)j / tHeight2 * 255 ) ) % 255;
-                data2[( i * tHeight2 + j ) * 3 + 2] = color * 255 % 255;
+        unsigned char data[proceduralEngineTexSize];
+        // fill with some function
+        for ( int i = 0; i < proceduralEngineTexWidth; ++i ) {
+            for ( int j = 0; j < proceduralEngineTexHeight; j++ ) {
+                data[( i * proceduralEngineTexHeight + j )] =
+                    (unsigned char)( 255.0 * std::abs( std::sin( j * i * M_PI / 64.0 ) *
+                                                       std::cos( j * i * M_PI / 96.0 ) ) );
             }
         }
-        auto& textureParameters2 =
-            app.m_engine->getTextureManager()->addTexture( "myTexture2", tWidth2, tHeight2, data2 );
+        auto& textureParameters = app.m_engine->getTextureManager()->addTexture(
+            "proceduralEngineTex", proceduralEngineTexWidth, proceduralEngineTexHeight, data );
+        // these values will be used when engine initialize texture GL representation.
+        textureParameters.format         = gl::GLenum::GL_RED;
+        textureParameters.internalFormat = gl::GLenum::GL_R8;
+    }
+
+    int checkerboardEngineTexSide = 10;
+    int checkerboardEngineTexSize = checkerboardEngineTexSide * checkerboardEngineTexSide * 3;
+    {
+        unsigned char data2[checkerboardEngineTexSize];
+        //        unsigned char * data2 = new unsigned char[checkerboardEngineTexSize];
+        for ( int i = 0; i < checkerboardEngineTexSide; ++i ) {
+            for ( int j = 0; j < checkerboardEngineTexSide; j++ ) {
+                unsigned char color = ( ( i + j ) % 2 );
+                data2[( i * checkerboardEngineTexSide + j ) * 3] =
+                    ( color * int( (double)i / checkerboardEngineTexSide * 255 ) ) % 255;
+                data2[( i * checkerboardEngineTexSide + j ) * 3 + 1] =
+                    ( color * int( (double)j / checkerboardEngineTexSide * 255 ) ) % 255;
+                data2[( i * checkerboardEngineTexSide + j ) * 3 + 2] = color * 255 % 255;
+            }
+        }
+        //        unsigned char data3[checkerboardEngineTexSize]; // not worked, dangling pointer
+        //        unsigned char data4[checkerboardEngineTexSize]; // not worked, dangling pointer
+        //        unsigned char data5[checkerboardEngineTexSize]; // not worked, dangling pointer
+        //        unsigned char data6[checkerboardEngineTexSize]; // not worked, dangling pointer
+        unsigned char* data3  = new unsigned char[checkerboardEngineTexSize];
+        unsigned char* data4  = new unsigned char[checkerboardEngineTexSize];
+        unsigned char* data5  = new unsigned char[checkerboardEngineTexSize];
+        unsigned char* data6  = new unsigned char[checkerboardEngineTexSize];
+        unsigned char* data7  = new unsigned char[checkerboardEngineTexSize];
+        unsigned char* data8  = new unsigned char[checkerboardEngineTexSize];
+        unsigned char* data9  = new unsigned char[checkerboardEngineTexSize];
+        unsigned char* data10 = new unsigned char[checkerboardEngineTexSize];
+        memcpy( data3, data2, checkerboardEngineTexSize );
+        memcpy( data4, data2, checkerboardEngineTexSize );
+        memcpy( data5, data2, checkerboardEngineTexSize );
+        memcpy( data6, data2, checkerboardEngineTexSize );
+        memcpy( data7, data2, checkerboardEngineTexSize );
+        memcpy( data8, data2, checkerboardEngineTexSize );
+        memcpy( data9, data2, checkerboardEngineTexSize );
+        memcpy( data10, data2, checkerboardEngineTexSize );
+
+        auto& textureParameters2 = app.m_engine->getTextureManager()->addTexture(
+            "checkerboardEngineTex", checkerboardEngineTexSide, checkerboardEngineTexSide, data2 );
+        //        textureParameters2.format         = gl::GLenum::GL_RGB8;
         textureParameters2.wrapS     = gl::GLenum::GL_CLAMP_TO_BORDER;
         textureParameters2.wrapT     = gl::GLenum::GL_CLAMP_TO_BORDER;
         textureParameters2.magFilter = gl::GLenum::GL_NEAREST;
 
-        Ra::Core::Asset::BlinnPhongMaterialData matData2( "myMaterialData2" );
-        // uncomment this to remove glossy highlight
-        matData2.m_specular      = Ra::Core::Utils::Color::Black();
-        matData2.m_hasSpecular   = false;
-        matData2.m_hasTexDiffuse = true;
-        matData2.m_texDiffuse    = "myTexture2";
+        auto& textureParameters3 = app.m_engine->getTextureManager()->addTexture(
+            "checkerboardEngineTex_minLinear_magLinear",
+            checkerboardEngineTexSide,
+            checkerboardEngineTexSide,
+            data3 );
+        textureParameters3.minFilter = gl::GLenum::GL_LINEAR;
+        textureParameters3.magFilter = gl::GLenum::GL_LINEAR;
 
-        //! [Creating a quad geometry with texture coordinates]
-        auto quad2 = Ra::Core::Geometry::makeZNormalQuad( { 1_ra, 1_ra }, {}, true );
-        //! [Creating a quad geometry with texture coordinates]
+        auto& textureParameters4 = app.m_engine->getTextureManager()->addTexture(
+            "checkerboardEngineTex_minLinear_magNearest",
+            checkerboardEngineTexSide,
+            checkerboardEngineTexSide,
+            data4 );
+        textureParameters4.minFilter = gl::GLenum::GL_LINEAR;
+        textureParameters4.magFilter = gl::GLenum::GL_NEAREST;
 
-        auto e2 = app.m_engine->getEntityManager()->createEntity( "Textured quad 2" );
-        // the entity get's this new component ownership. a bit wired since hidden in ctor.
-        auto c2 = new Ra::Engine::Scene::TriangleMeshComponent(
-            "Quad Mesh 2", e2, std::move( quad2 ), &matData2 );
-        ro2 = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
-            c2->m_renderObjects[0] );
-        ro2->setLocalTransform( Ra::Core::Transform(
-            Ra::Core::Translation( ( Ra::Core::Vector3 { 1.0, 0.0, 0.0 } ) ) ) );
+        auto& textureParameters5 = app.m_engine->getTextureManager()->addTexture(
+            "checkerboardEngineTex_magNearest_minLinear",
+            checkerboardEngineTexSide,
+            checkerboardEngineTexSide,
+            data5 );
+        textureParameters5.minFilter = gl::GLenum::GL_NEAREST;
+        textureParameters5.magFilter = gl::GLenum::GL_LINEAR;
 
-        //! [create the quad material]
+        auto& textureParameters6 = app.m_engine->getTextureManager()->addTexture(
+            "checkerboardEngineTex_magNearest_minNearest",
+            checkerboardEngineTexSide,
+            checkerboardEngineTexSide,
+            data6 );
+        textureParameters6.minFilter = gl::GLenum::GL_NEAREST;
+        textureParameters6.magFilter = gl::GLenum::GL_NEAREST;
+
+        auto& textureParameters7 = app.m_engine->getTextureManager()->addTexture(
+            "checkerboardEngineTex_minLinear_clampToBorder",
+            checkerboardEngineTexSide,
+            checkerboardEngineTexSide,
+            data7 );
+        textureParameters7.minFilter = gl::GLenum::GL_LINEAR;
+        textureParameters7.wrapS     = gl::GLenum::GL_CLAMP_TO_BORDER;
+        textureParameters7.wrapT     = gl::GLenum::GL_CLAMP_TO_BORDER;
+
+        auto& textureParameters8 = app.m_engine->getTextureManager()->addTexture(
+            "checkerboardEngineTex_minLinear_clampToEdge",
+            checkerboardEngineTexSide,
+            checkerboardEngineTexSide,
+            data8 );
+        textureParameters8.minFilter = gl::GLenum::GL_LINEAR;
+        textureParameters8.wrapS     = gl::GLenum::GL_CLAMP_TO_EDGE;
+        textureParameters8.wrapT     = gl::GLenum::GL_CLAMP_TO_EDGE;
+
+        auto& textureParameters9 =
+            app.m_engine->getTextureManager()->addTexture( "checkerboardEngineTex_minLinear_repeat",
+                                                           checkerboardEngineTexSide,
+                                                           checkerboardEngineTexSide,
+                                                           data9 );
+        textureParameters9.minFilter = gl::GLenum::GL_LINEAR;
+        textureParameters9.wrapS     = gl::GLenum::GL_REPEAT;
+        textureParameters9.wrapT     = gl::GLenum::GL_REPEAT;
+
+        auto& textureParameters10 = app.m_engine->getTextureManager()->addTexture(
+            "checkerboardEngineTex_minLinear_mirroredRepeat",
+            checkerboardEngineTexSide,
+            checkerboardEngineTexSide,
+            data10 );
+        textureParameters10.minFilter = gl::GLenum::GL_LINEAR;
+        textureParameters10.wrapS     = gl::GLenum::GL_MIRRORED_REPEAT;
+        textureParameters10.wrapT     = gl::GLenum::GL_MIRRORED_REPEAT;
     }
+
+    ///////////////////////////////// Creating quads /////////////////////////////////////
+
+    QuadLife quads[nQuad][nQuad];
+
+    quads[0][0].m_matData.m_hasTexDiffuse = true;
+    quads[0][0].m_matData.m_texDiffuse    = "proceduralEngineTex";
+    //    quads[0][0].m_messages                = { "procedural engine", "texture" };
+    quads[0][0].m_messages = { "a" };
+
+    quads[0][1].m_matData.m_hasTexDiffuse = true;
+    quads[0][1].m_matData.m_texDiffuse    = "checkerboardEngineTex";
+    //    quads[1][1].m_messages                = { "checkerboard engine", "texture" };
+    quads[0][1].m_messages = { "b" };
+
+    quads[1][1].m_matData.m_hasTexDiffuse = true;
+    quads[1][1].m_matData.m_texDiffuse    = "checkerboardEngineTex";
+    //    quads[1][1].m_messages                = { "checkerboard engine", "texture" };
+    quads[1][1].m_messages = { "c" };
+
+    quads[0][nQuad - 1].m_matData.m_hasTexDiffuse = true;
+    quads[0][nQuad - 1].m_matData.m_texDiffuse    = "proceduralEngineTex";
+    quads[0][nQuad - 1].m_messages                = { "procedural engine", "texture" };
+
+    quads[1][nQuad - 1].m_matData.m_hasTexDiffuse = true;
+    quads[1][nQuad - 1].m_matData.m_texDiffuse    = "checkerboardEngineTex";
+    quads[1][nQuad - 1].m_messages                = { "checkerboard engine", "texture" };
+
+    quads[0][nQuad - 2].m_matData.m_hasTexDiffuse = true;
+    quads[0][nQuad - 2].m_matData.m_texDiffuse    = "checkerboardEngineTex_minLinear_magLinear";
+    quads[0][nQuad - 2].m_messages = { "checkerboard engine", "texture", "minLinear + magLinear" };
+
+    quads[1][nQuad - 2].m_matData.m_hasTexDiffuse = true;
+    quads[1][nQuad - 2].m_matData.m_texDiffuse    = "checkerboardEngineTex_minLinear_magNearest";
+    quads[1][nQuad - 2].m_messages = { "checkerboard engine", "texture", "minLinear + magNearest" };
+
+    quads[2][nQuad - 2].m_matData.m_hasTexDiffuse = true;
+    quads[2][nQuad - 2].m_matData.m_texDiffuse    = "checkerboardEngineTex_minNearest_magLinear";
+    quads[2][nQuad - 2].m_messages = { "checkerboard engine", "texture", "minNearest + magLinear" };
+
+    quads[3][nQuad - 2].m_matData.m_hasTexDiffuse = true;
+    quads[3][nQuad - 2].m_matData.m_texDiffuse    = "checkerboardEngineTex_minNearest_magNearest";
+    quads[3][nQuad - 2].m_messages                = {
+        "checkerboard engine", "texture", "minNearest + magNearest" };
+
+    quads[0][nQuad - 3].m_matData.m_hasTexDiffuse = true;
+    quads[0][nQuad - 3].m_matData.m_texDiffuse    = "checkerboardEngineTex_minLinear_clampToBorder";
+    quads[0][nQuad - 3].m_messages                = {
+        "checkerboard engine", "texture", "minLinear + clampToBorder" };
+
+    quads[1][nQuad - 3].m_matData.m_hasTexDiffuse = true;
+    quads[1][nQuad - 3].m_matData.m_texDiffuse    = "checkerboardEngineTex_minLinear_clampToEdge";
+    quads[1][nQuad - 3].m_messages                = {
+        "checkerboard engine", "texture", "minLinear + clampToEdge" };
+
+    quads[2][nQuad - 3].m_matData.m_hasTexDiffuse = true;
+    quads[2][nQuad - 3].m_matData.m_texDiffuse    = "checkerboardEngineTex_minLinear_repeat";
+    quads[2][nQuad - 3].m_messages = { "checkerboard engine", "texture", "minLinear + repeat" };
+
+    quads[3][nQuad - 3].m_matData.m_hasTexDiffuse = true;
+    quads[3][nQuad - 3].m_matData.m_texDiffuse = "checkerboardEngineTex_minLinear_mirroredRepeat";
+    quads[3][nQuad - 3].m_messages             = {
+        "checkerboard engine", "texture", "minLinear + mirroredRepeat" };
+
+    // init geometry
+    for ( int i = 0; i < nQuad; ++i ) {
+        for ( int j = 0; j < nQuad; ++j ) {
+            QuadLife& quadLife = quads[i][j];
+            quadLife.m_app     = &app;
+            quadLife.m_i       = i;
+            quadLife.m_j       = j;
+            quadLife.born();
+        }
+    }
+    //    auto blinnPhongMaterial =
+    //        std::make_shared<Ra::Engine::Data::BlinnPhongMaterial>( "Shaded Material" );
+    //    blinnPhongMaterial->m_perVertexColor = true;
+    //    blinnPhongMaterial->m_ks             = Ra::Engine::Data::Color::White();
+    //    blinnPhongMaterial->m_ns             = 100_ra;
 
     //! [Tell the window that something is to be displayed]
     app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
 
-    auto& renderTechnique = *ro2->getRenderTechnique();
-    Ra::Engine::Data::ShaderConfiguration shaderConfig( "myShader" );
-    shaderConfig.addShaderSource( Ra::Engine::Data::ShaderType_VERTEX, _vertexShaderSource );
-    shaderConfig.addShaderSource( Ra::Engine::Data::ShaderType_FRAGMENT, _fragmentShaderSource );
-    renderTechnique.setConfiguration( shaderConfig );
+    ////////////////////////////////// Create images ///////////////////////////////////
 
-    ////////////////////////////////// create image /////////////////////////////////////////////
+    Ra::Core::Asset::ImageSpec imgSpec(
+        proceduralEngineTexWidth, proceduralEngineTexHeight, 1, Ra::Core::Asset::TypeUInt8 );
+    auto proceduralImage =
+        std::make_shared<Ra::Core::Asset::Image>( imgSpec, nullptr, proceduralEngineTexSize );
 
-    int nChannel = 1;
-    //    int baseSize = 1;
-    Ra::Core::Asset::ImageSpec imgSpec( tWidth, tHeight, nChannel, Ra::Core::Asset::TypeUInt8 );
-    auto image = std::make_shared<Ra::Core::Asset::Image>( imgSpec, nullptr, tSize );
-    //    Ra::Core::Asset::ImageManager::addTexture( "proceduralImage", image );
+    Ra::Core::Asset::ImageSpec imgSpec2(
+        checkerboardEngineTexSide, checkerboardEngineTexSide, 3, Ra::Core::Asset::TypeUInt8 );
+    auto checkerboardImage =
+        std::make_shared<Ra::Core::Asset::Image>( imgSpec2, nullptr, checkerboardEngineTexSize );
 
-    Ra::Core::Asset::ImageSpec imgSpec2( tWidth2, tHeight2, 3, Ra::Core::Asset::TypeUInt8 );
-    auto image2 = std::make_shared<Ra::Core::Asset::Image>( imgSpec2, nullptr, tSize2 );
-
-//    std::string imageFilename = "myFile";
-//    auto image2               = std::make_shared<Ra::Core::Asset::Image>( imageFilename );
-    //    Ra::Core::Asset::ImageManager::addTexture( "fileImage", image2 );
+    ////////////////////////////////// Get engine textures ///////////////////////////////////
 
     app.m_mainWindow->getViewer()->makeCurrent();
     Ra::Engine::Data::TextureParameters textureParameters;
-    textureParameters.name = "myTexture";
-    auto texture3 = app.m_engine->getTextureManager()->getOrLoadTexture( textureParameters );
+    textureParameters.name = "proceduralEngineTex";
+    auto proceduralEngineTex =
+        app.m_engine->getTextureManager()->getOrLoadTexture( textureParameters );
+    textureParameters.name = "checkerboardEngineTex";
+    auto checkerboardEngineTex =
+        app.m_engine->getTextureManager()->getOrLoadTexture( textureParameters );
     app.m_mainWindow->getViewer()->doneCurrent();
-    texture3->attachImage( image );
 
-    //////////////////////////////////// create routine ////////////////////////////////////////////
+    Ra::Engine::Data::ShaderConfiguration shaderConfig( "myShader" );
+    shaderConfig.addShaderSource( Ra::Engine::Data::ShaderType_VERTEX, _vertexShaderSource );
+    shaderConfig.addShaderSource( Ra::Engine::Data::ShaderType_FRAGMENT, _fragmentShaderSource );
 
-    std::promise<void> exitSignal;
-    std::future<void> futureObj = exitSignal.get_future();
-    auto thread = std::thread( [&image, &ro, futureObj = std::move( futureObj )]() {
-        const auto fps = 20;
-        const auto rps = Ra::Core::Math::Pi / 2_ra; // radian per second
-
-        int dec = 0;
-        while ( futureObj.wait_for( std::chrono::milliseconds( 1 ) ) ==
-                std::future_status::timeout ) {
-
-            const auto start = std::chrono::high_resolution_clock::now();
-
-            unsigned char newData[tSize];
-            for ( int i = 0; i < tWidth; ++i ) {
-                for ( int j = 0; j < tHeight; j++ ) {
-                    newData[( i * tHeight + j )] =
-                        (unsigned char)( 200.0 * std::abs( std::sin( float( dec ) / 4_ra ) ) *
-                                         std::abs( std::sin( j * i * M_PI / 64.0 ) *
-                                                   std::cos( j * i * M_PI / 96.0 ) ) );
-                    //                    newData[i * tHeight + j] = ( i + dec ) % 256;
-                }
-            }
-
-            image->update( newData, tSize );
-
-//            Ra::Core::Transform transform = Ra::Core::Transform::Identity();
-//            transform.translate( Ra::Core::Vector3( -2.0, 0.0, 0.0 ) );
-//            transform.rotate(
-//                Eigen::AngleAxis( dec * rps / 20_ra, Ra::Core::Vector3( 0.0, 0.0, 1.0 ) ) );
-//            ro->setLocalTransform( transform );
-
-//            std::cout << "update data with dec = " << dec << std::endl;
-            const auto end = start + std::chrono::microseconds( 1'000'000 / fps );
-            std::this_thread::sleep_until( end );
-            ++dec;
+    for ( int i = 0; i < nQuad; ++i ) {
+        for ( int j = 0; j < nQuad; ++j ) {
+            quads[i][j].m_ro->getRenderTechnique()->setConfiguration( shaderConfig );
         }
-    } );
+    }
 
-    std::promise<void> exitSignal2;
-    std::future<void> futureObj2 = exitSignal2.get_future();
-    auto thread2 = std::thread( [&image2, &ro2, futureObj2 = std::move( futureObj2 )]() {
-        const auto fps = 20;
+    //////////////////////////////////// Create routines ////////////////////////////////////////
 
-        int dec = 0;
-        while ( futureObj2.wait_for( std::chrono::milliseconds( 1 ) ) ==
-                std::future_status::timeout ) {
+    quads[0][0].m_routine = [&proceduralImage]( QuadLife& quadLife ) {
+        constexpr auto rps = Ra::Core::Math::Pi / 2_ra; // radian per second
 
-            const auto start = std::chrono::high_resolution_clock::now();
-
-            const auto side = dec % 100;
-            const auto size = side * side * 3;
-
-            unsigned char newData[size];
-            for ( int i = 0; i < side; ++i ) {
-                for ( int j = 0; j < side; j++ ) {
-                    unsigned char color = ( ( i + j ) % 2 );
-                    newData[( i * side + j ) * 3] =
-                        ( color * int( (double)i / side * 255 ) ) % 255;
-                    newData[( i * side + j ) * 3 + 1] =
-                        ( color * int( (double)j / side * 255 ) ) % 255;
-                    newData[( i * side + j ) * 3 + 2] = color * 255 % 255;
-                }
+        unsigned char newData[proceduralEngineTexSize];
+        for ( int i = 0; i < proceduralEngineTexWidth; ++i ) {
+            for ( int j = 0; j < proceduralEngineTexHeight; j++ ) {
+                newData[( i * proceduralEngineTexHeight + j )] =
+                    (unsigned char)( 200.0 *
+                                     std::abs( std::sin( float( quadLife.m_age ) / 4_ra ) ) *
+                                     std::abs( std::sin( j * i * M_PI / 64.0 ) *
+                                               std::cos( j * i * M_PI / 96.0 ) ) );
             }
-
-//            image2->update( newData, tSize2 );
-            image2->resize( side, side, newData, size);
-
-            //            Ra::Core::Transform transform = Ra::Core::Transform::Identity();
-            //            transform.translate( Ra::Core::Vector3( -2.0, 0.0, 0.0 ) );
-            //            transform.rotate( Eigen::AngleAxis( dec * rps / 20_ra,
-            //                                                Ra::Core::Vector3( 0.0, 0.0, 1.0 ) )
-            //                                                );
-            //            ro->setLocalTransform( transform );
-
-//            std::cout << "update data with dec = " << dec << std::endl;
-            const auto end = start + std::chrono::microseconds( 1'000'000 / fps );
-            std::this_thread::sleep_until( end );
-            ++dec;
         }
-    } );
 
-//     terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.
-//        auto close_timer = new QTimer( &app );
-//        close_timer->setInterval( 2000 );
-//        QObject::connect( close_timer, &QTimer::timeout, [&app, &thread, &thread2, &exitSignal, &exitSignal2]() {
-//            exitSignal.set_value();
-//            exitSignal2.set_value();
-//            thread.join();
-//            thread2.join();
-//            app.appNeedsToQuit();
-//        } );
-//        close_timer->start();
+        proceduralImage->update( newData, proceduralEngineTexSize );
+        std::memset( newData, 255, proceduralEngineTexSize );
+
+        Ra::Core::Transform rotateTransform = Ra::Core::Transform::Identity();
+        rotateTransform.rotate(
+            Eigen::AngleAxis( quadLife.m_age * rps / quadLife.m_routinePerSecond,
+                              Ra::Core::Vector3( 0.0, 0.0, 1.0 ) ) );
+
+        quadLife.m_ro->setLocalTransform( quadLife.m_worldTransform * quadLife.m_localTransform *
+                                          rotateTransform );
+    };
+    proceduralEngineTex->attachImage( proceduralImage );
+    quads[0][0].m_routinePerSecond = 60;
+    //    quads[0][0].m_ro->getRenderTechnique()->setConfiguration( shaderConfig );
+
+    quads[1][1].m_routine = [&checkerboardImage,
+                             &checkerboardEngineTexSize,
+                             &checkerboardEngineTexSide]( QuadLife& quadLife ) {
+        //        checkerboardEngineTexSide = quadLife.m_age % 100;
+        checkerboardEngineTexSize = checkerboardEngineTexSide * checkerboardEngineTexSide * 3;
+
+        unsigned char newData[checkerboardEngineTexSize];
+        for ( int i = 0; i < checkerboardEngineTexSide; ++i ) {
+            for ( int j = 0; j < checkerboardEngineTexSide; j++ ) {
+                unsigned char color = ( ( i + j ) % 2 );
+                newData[( i * checkerboardEngineTexSide + j ) * 3] =
+                    ( color * int( (double)i / checkerboardEngineTexSide * 255 ) ) % 255;
+                newData[( i * checkerboardEngineTexSide + j ) * 3 + 1] =
+                    ( color * int( (double)j / checkerboardEngineTexSide * 255 ) ) % 255;
+                newData[( i * checkerboardEngineTexSide + j ) * 3 + 2] = color * 255 % 255;
+            }
+        }
+
+        //            image2->update( newData, tSize2 );
+        checkerboardImage->update( newData, checkerboardEngineTexSize );
+        //        checkerboardImage->resize( checkerboardEngineTexSide,
+        //                                   checkerboardEngineTexSide,
+        //                                   newData,
+        //                                   checkerboardEngineTexSize );
+    };
+    //    quads[1][1].m_ro->getRenderTechnique()->setConfiguration( shaderConfig );
+    //    checkerboardEngineTex->attachImage( checkerboardImage );
+
+    //////////////////////////////////// Starting routines ////////////////////////////////////////
+
+    // Maternity, starting quad lifes
+    for ( int i = 0; i < nQuad; ++i ) {
+        for ( int j = 0; j < nQuad; ++j ) {
+            QuadLife& quadLife = quads[i][j];
+            quadLife.live();
+        }
+    }
+
+    //    terminate the app after 4 second( approximatively ).Camera can be moved using mouse moves.
+    auto close_timer = new QTimer( &app );
+    close_timer->setInterval( 4000 );
+    QObject::connect( close_timer, &QTimer::timeout, [&app, &quads]() {
+        for ( int i = 0; i < nQuad; ++i ) {
+            for ( int j = 0; j < nQuad; ++j ) {
+                QuadLife& quadLife = quads[i][j];
+                quadLife.die();
+            }
+        }
+        app.appNeedsToQuit();
+    } );
+    close_timer->start();
+
+    printQuadMessages( (const QuadLife*)quads, nQuad, nQuad );
 
     return app.exec();
+}
+
+void printQuadMessages( const QuadLife* quads, int width, int height ) {
+
+    constexpr int hSpace = 5;
+    constexpr int vSpace = hSpace / 3;
+
+    constexpr int hSide = 30;
+    constexpr int vSide = hSide / 3;
+
+    // for each quad line
+    for ( int i = 0; i < height; ++i ) {
+        // top bar
+        for ( int j = 0; j < height; ++j ) {
+            for ( int s = 0; s < hSide; ++s ) {
+                std::cout << "-";
+            }
+            for ( int s = 0; s < hSpace; ++s ) {
+                std::cout << " ";
+            }
+        }
+        std::cout << std::endl;
+
+        // for each line in quad
+        for ( int j = 0; j < vSide; ++j ) {
+
+            // for each quad column
+            for ( int k = 0; k < width; ++k ) {
+                std::cout << "|";
+
+                //                const auto& messages = quads[(height - i - 1) * width + (width - k
+                //                - 1)].m_messages;
+                const auto& messages = quads[i * width + k].m_messages;
+                assert( messages.size() < vSide + 1 );
+                int nbMessage = messages.size();
+
+                int cur = j - vSide / 2 + nbMessage / 2;
+
+                if ( 0 <= cur && cur < nbMessage ) {
+                    const auto& message = messages.at( cur );
+                    assert( message.size() < hSide - 2 );
+                    const auto lenMessage = message.size();
+                    for ( int l = 0; l < ( hSide - lenMessage ) / 2 - 1; ++l ) {
+                        std::cout << " ";
+                    }
+                    std::cout << message;
+                    for ( int l = 0; l < ( hSide - lenMessage - 1 ) / 2; ++l ) {
+                        std::cout << " ";
+                    }
+                }
+                else {
+                    for ( int l = 1; l < hSide - 1; ++l ) {
+                        std::cout << " ";
+                    }
+                }
+                std::cout << "|";
+
+                // h margin
+                for ( int s = 0; s < hSpace; ++s ) {
+                    std::cout << " ";
+                }
+            }
+            std::cout << std::endl;
+        }
+
+        // bottom bar
+        for ( int j = 0; j < height; ++j ) {
+            for ( int s = 0; s < hSide; ++s ) {
+                std::cout << "-";
+            }
+            for ( int s = 0; s < hSpace; ++s ) {
+                std::cout << " ";
+            }
+        }
+        std::cout << std::endl;
+
+        // v margin
+        for ( int s = 0; s < vSpace; ++s ) {
+            std::cout << std::endl;
+        }
+    }
 }
