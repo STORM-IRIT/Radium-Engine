@@ -18,7 +18,7 @@ namespace Utils {
  * \return Color code, or 0 if \a name is not a valid svg color name (0 corresponds to black).
  * \see https://www.december.com/html/spec/colorsvg.html
  */
-uint32_t getNamedColorCode( const std::string& name );
+uint32_t RA_CORE_API getNamedColorCode( const std::string& name );
 
 /*!
  * Colors are defined as vector4, i.e. 4 Scalars in RGBA order.
