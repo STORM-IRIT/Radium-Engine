@@ -10,12 +10,15 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
+//
+uint32_t getNamedColorCode( const std::string& name );
+
 /*!
  * Colors are defined as vector4, i.e. 4 Scalars in RGBA order.
  * displayable colors should have all their coordinates between 0 and 1.
  *
  * \warning Vector arithmetics can be used to add, substract, multiply or divide colors with
- * scalars and other colors. In that case, alpha is treated as any other component. It is fine for
+ * scalars and other colors. In that case, alpha is treate as any other component. It is fine for
  * most cases, however adding two colors (e.g. Blue()+Red()) may lead to unconsistent
  * alpha: Blue()+Red() = {1, 0, 1, 2}.
  * In that case, only the rgb values need to be added:
@@ -130,6 +133,11 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
     static inline ColorBase<_Scalar> Skin() {
         return ColorBase<_Scalar>( _Scalar( 1.0 ), _Scalar( 0.87 ), _Scalar( 0.74 ) );
     }
+
+    static inline ColorBase<_Scalar> getNamedColor( const std::string& name ) {
+        return fromRGB24( getNamedColorCode( name ) );
+    }
+
     // Convert to/from various int formats
 
     static inline ColorBase<_Scalar> fromChars( uchar r, uchar g, uchar b, uchar a = 0xff ) {
@@ -137,6 +145,13 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
                                    _Scalar( g ) / 255.0f,
                                    _Scalar( b ) / 255.0f,
                                    _Scalar( a ) / 255.0f );
+    }
+
+    static inline ColorBase<_Scalar> fromRGB24( uint32_t rgb ) {
+        uchar r = uchar( ( rgb >> 16 ) & 0xff );
+        uchar g = uchar( ( rgb >> 8 ) & 0xff );
+        uchar b = uchar( ( rgb >> 0 ) & 0xff );
+        return fromChars( r, g, b );
     }
 
     static inline ColorBase<_Scalar> fromRGBA32( uint32_t rgba ) {
