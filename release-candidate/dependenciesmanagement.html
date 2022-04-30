@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.21</span>
+   &#160;<span id="projectnumber">1.2.22</span>
    </div>
   </td>
  </tr>
@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('dependenciesmanagement.html',''); init
 </ul>
 </div>
 <div class="textblock"><p>Radium relies on several external libraries to load files or to represent some data:</p><ul>
-<li>[Core] <a class="el" href="namespaceEigen.html">Eigen</a>, <a class="el" href="namespaceOpenMesh.html">OpenMesh</a></li>
+<li>[Core] <a class="el" href="namespaceEigen.html">Eigen</a>, <a class="el" href="namespaceOpenMesh.html">OpenMesh</a>, nlohmann_json</li>
 <li>[Engine] glm, globjects, glbindings</li>
 <li>[IO] Assimp</li>
 <li>[Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 at least, Qt6 support is experimental)</li>
@@ -144,28 +144,30 @@ Configuration of Radium</h2>
 <div class="line">set(RADIUM_DEP_PREFIX /path/to/external/install)</div>
 <div class="line"> </div>
 <div class="line">#set each external dirs</div>
-<div class="line">set(Eigen3_DIR      ${RADIUM_DEP_PREFIX}/share/eigen3/cmake/ CACHE PATH &quot;My Eigen&quot;)</div>
-<div class="line">set(OpenMesh_DIR    ${RADIUM_DEP_PREFIX}/share/OpenMesh/cmake/ CACHE PATH &quot;My OpenMesh&quot;)</div>
-<div class="line">set(cpplocate_DIR   ${RADIUM_DEP_PREFIX}/share/cpplocate/ CACHE PATH &quot;My cpplocate&quot;)</div>
-<div class="line">set(glm_DIR         ${RADIUM_DEP_PREFIX}/lib/cmake/glm/ CACHE PATH &quot;My glm&quot;)</div>
-<div class="line">set(glbinding_DIR   ${RADIUM_DEP_PREFIX}/share/glbinding/ CACHE PATH &quot;My glbinding&quot;)</div>
-<div class="line">set(globjects_DIR   ${RADIUM_DEP_PREFIX}/share/globjects/ CACHE PATH &quot;My globjects&quot;)</div>
-<div class="line">set(stb_DIR         ${RADIUM_DEP_PREFIX}/include/stb/ CACHE PATH &quot;My stb&quot;)</div>
-<div class="line">set(assimp_DIR      ${RADIUM_DEP_PREFIX}/lib/cmake/assimp-5.0/ CACHE PATH &quot;My assimp&quot;)</div>
-<div class="line">set(tinyply_DIR     ${RADIUM_DEP_PREFIX}/lib/cmake/tinyply/  CACHE PATH &quot;My tinyply&quot;)</div>
+<div class="line">set(Eigen3_DIR        ${RADIUM_DEP_PREFIX}/share/eigen3/cmake/ CACHE PATH &quot;My Eigen&quot;)</div>
+<div class="line">set(OpenMesh_DIR      ${RADIUM_DEP_PREFIX}/share/OpenMesh/cmake/ CACHE PATH &quot;My OpenMesh&quot;)</div>
+<div class="line">set(cpplocate_DIR     ${RADIUM_DEP_PREFIX}/share/cpplocate/ CACHE PATH &quot;My cpplocate&quot;)</div>
+<div class="line">set(nlohmann_json_DIR ${RADIUM_DEP_PREFIX}/lib/cmake/nlohmann_json/  CACHE PATH &quot;My json&quot;)</div>
+<div class="line">set(glm_DIR           ${RADIUM_DEP_PREFIX}/lib/cmake/glm/ CACHE PATH &quot;My glm&quot;)</div>
+<div class="line">set(glbinding_DIR     ${RADIUM_DEP_PREFIX}/share/glbinding/ CACHE PATH &quot;My glbinding&quot;)</div>
+<div class="line">set(globjects_DIR     ${RADIUM_DEP_PREFIX}/share/globjects/ CACHE PATH &quot;My globjects&quot;)</div>
+<div class="line">set(stb_DIR           ${RADIUM_DEP_PREFIX}/include/stb/ CACHE PATH &quot;My stb&quot;)</div>
+<div class="line">set(assimp_DIR        ${RADIUM_DEP_PREFIX}/lib/cmake/assimp-5.0/ CACHE PATH &quot;My assimp&quot;)</div>
+<div class="line">set(tinyply_DIR       ${RADIUM_DEP_PREFIX}/lib/cmake/tinyply/  CACHE PATH &quot;My tinyply&quot;)</div>
 </div><!-- fragment --><p>When configuring Radium cmake project, don't forget to add this file by calling <code>cmake -C /path/to/myconfig.cmake ......</code></p>
 <h3>Manually using command line</h3>
 <p>Another option is to provide each value direclty to the cmake command line with <code>-D</code> with:</p>
 <div class="fragment"><div class="line">cmake \</div>
-<div class="line">-DEigen3_DIR      /path/to/external/install/share/eigen3/cmake/ \</div>
-<div class="line">-DOpenMesh_DIR    /path/to/external/install/share/OpenMesh/cmake/ \</div>
-<div class="line">-Dcpplocate_DIR   /path/to/external/install/share/cpplocate/ \</div>
-<div class="line">-Dglm_DIR         /path/to/external/install/lib/cmake/glm/ \</div>
-<div class="line">-Dglbinding_DIR   /path/to/external/install/share/glbinding/ \</div>
-<div class="line">-Dglobjects_DIR   /path/to/external/install/share/globjects/ \</div>
-<div class="line">-Dstb_DIR         /path/to/external/install/include/stb/ \</div>
-<div class="line">-Dassimp_DIR      /path/to/external/install/lib/cmake/assimp-5.0/ \</div>
-<div class="line">-Dtinyply_DIR     /path/to/external/install/lib/cmake/tinyply/ \</div>
+<div class="line">-DEigen3_DIR        /path/to/external/install/share/eigen3/cmake/ \</div>
+<div class="line">-DOpenMesh_DIR      /path/to/external/install/share/OpenMesh/cmake/ \</div>
+<div class="line">-Dcpplocate_DIR     /path/to/external/install/share/cpplocate/ \</div>
+<div class="line">-Dnlohmann_json_DIR /path/to/external/install/lib/cmake/nlohmann_json/ \</div>
+<div class="line">-Dglm_DIR           /path/to/external/install/lib/cmake/glm/ \</div>
+<div class="line">-Dglbinding_DIR     /path/to/external/install/share/glbinding/ \</div>
+<div class="line">-Dglobjects_DIR     /path/to/external/install/share/globjects/ \</div>
+<div class="line">-Dstb_DIR           /path/to/external/install/include/stb/ \</div>
+<div class="line">-Dassimp_DIR        /path/to/external/install/lib/cmake/assimp-5.0/ \</div>
+<div class="line">-Dtinyply_DIR       /path/to/external/install/lib/cmake/tinyply/ \</div>
 <div class="line">.......</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md19"></a>
 Fetch and build at configure time</h1>
@@ -220,6 +222,7 @@ User provided external dependencies</h1>
 <li><code>Eigen3_DIR</code></li>
 <li><code>OpenMesh_DIR</code></li>
 <li><code>cpplocate_DIR</code></li>
+<li><code>nlohmann_json_DIR</code></li>
 </ul>
 <p>Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record</p>
 <ul>
@@ -259,6 +262,10 @@ User provided external dependencies</h1>
 <li>with options <code>-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF</code></li>
 </ul>
 </li>
+<li>nlohmann_json: <a href="https://github.com/nlohmann/json.git,">https://github.com/nlohmann/json.git,</a> [release/3.10.5],<ul>
+<li>with options <code>-DJSON_Install=ON -DJSON_BuildTests=OFF</code></li>
+</ul>
+</li>
 </ul>
 <dl class="section warning"><dt>Warning</dt><dd>You have to take care of the consistency of the external dependencies, e.g. it's not possible to use your version of globjects without providing your version of eigen, otherwise you will have mixed version in Radium. </dd></dl>
 </div></div><!-- contents -->
@@ -268,7 +275,7 @@ User provided external dependencies</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Fri Apr 29 2022 06:39:45 for Radium Engine by
+    <li class="footer">Generated on Sat Apr 30 2022 14:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
