@@ -1,10 +1,9 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.19)
 
 # ------------------------------------------------------------------------------
 # Policies and global parameters for CMake
-if(POLICY CMP0077)
-    cmake_policy(SET CMP0077 NEW)
-endif()
+cmake_policy(SET CMP0077 NEW)
+cmake_policy(SET CMP0092 NEW)
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
