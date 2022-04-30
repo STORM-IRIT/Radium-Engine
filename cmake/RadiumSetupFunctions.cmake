@@ -576,8 +576,9 @@ function(configure_windows_radium_app)
     list(FILTER linked_libraries INCLUDE REGEX "Qt*")
     list(LENGTH linked_libraries qt_libs_count)
     if(qt_libs_count GREATER 0)
-        message(STATUS "[configure_windows_radium_app] Preparing call to WinDeployQT"
-                       "for application ${ARGS_NAME}"
+        message(
+            STATUS
+                "[configure_windows_radium_app] Preparing call to WinDeployQT for application ${ARGS_NAME}"
         )
         windeployqt(${ARGS_NAME} bin)
     endif()
