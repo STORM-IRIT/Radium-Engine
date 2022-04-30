@@ -19,7 +19,7 @@ Texture::Texture( const TextureParameters& texParameters ) :
 Texture::~Texture() = default;
 
 void Texture::initializeGL( bool linearize ) {
-    std::cout << "[Texture:" << m_textureParameters.name << "] initializeGL" << std::endl;
+    //    std::cout << "[Texture:" << m_textureParameters.name << "] initializeGL" << std::endl;
     if ( ( m_textureParameters.target != GL_TEXTURE_1D ) &&
          ( m_textureParameters.target != GL_TEXTURE_2D ) &&
          ( m_textureParameters.target != GL_TEXTURE_RECTANGLE ) &&
@@ -80,15 +80,22 @@ void Texture::initializeGL( bool linearize ) {
 }
 
 void Texture::bind( int unit ) {
-    std::cout << "[Texture:" << m_textureParameters.name << "] bind " << unit << std::endl;
-    if ( m_textureParameters.name == std::string( "myTexture" ) ) { std::cout << ""; }
+    //    std::cout << "[Texture:" << m_textureParameters.name << "] bind " << unit << std::endl;
+    //    if ( m_textureParameters.name == std::string( "myTexture" ) ) { std::cout << ""; }
     if ( m_image != nullptr ) {
         if ( m_ageOfImage != m_image->getAge() ) {
-            std::cout << "[Texture:" << m_textureParameters.name << "] bind : update data"
-                      << std::endl;
+            //            std::cout << "[Texture:" << m_textureParameters.name << "] bind : update
+            //            data"
+            //                      << std::endl;
 
             updateData( m_image->getData() );
             m_ageOfImage = m_image->getAge();
+        }
+    }
+    else {
+        if ( m_ageOfImage != 0 ) {
+            updateData( m_textureParameters.texels );
+            m_ageOfImage = 0;
         }
     }
     if ( unit >= 0 ) { m_texture->bindActive( uint( unit ) ); }
@@ -102,14 +109,16 @@ void Texture::bindImageTexture( int unit,
                                 GLboolean layered,
                                 GLint layer,
                                 GLenum access ) {
-    std::cout << "[Texture:" << m_textureParameters.name << "] bindImageTexture " << unit << " "
-              << level << std::endl;
+    //    std::cout << "[Texture:" << m_textureParameters.name << "] bindImageTexture " << unit << "
+    //    "
+    //              << level << std::endl;
     m_texture->bindImageTexture(
         uint( unit ), level, layered, layer, access, m_textureParameters.internalFormat );
 }
 
 void Texture::updateData( const void* data ) {
-    std::cout << "[Texture:" << m_textureParameters.name << "] updateData " << data << std::endl;
+    //    std::cout << "[Texture:" << m_textureParameters.name << "] updateData " << data <<
+    //    std::endl;
     switch ( m_texture->target() ) {
     case GL_TEXTURE_1D: {
         m_texture->image1D( 0,
@@ -221,7 +230,8 @@ void Texture::updateData( const void* data ) {
 
 // let the compiler warn about case fallthrough
 void Texture::updateParameters() {
-    std::cout << "[Texture:" << m_textureParameters.name << "] updateParameters " << std::endl;
+    //    std::cout << "[Texture:" << m_textureParameters.name << "] updateParameters " <<
+    //    std::endl;
     switch ( m_texture->target() ) {
     case GL_TEXTURE_CUBE_MAP:
     case GL_TEXTURE_3D:

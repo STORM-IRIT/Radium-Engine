@@ -7,8 +7,8 @@
 
 #include <Engine/OpenGL.hpp>
 
-#include <Core/Utils/Color.hpp>
 #include <Core/Asset/Image.hpp>
+#include <Core/Utils/Color.hpp>
 
 namespace globjects {
 class Texture;
@@ -218,7 +218,14 @@ class RA_ENGINE_API Texture final
     }
 
     void attachImage( std::shared_ptr<Ra::Core::Asset::Image> image ) {
-        m_image = image;
+        m_ageOfImage = 0;
+//        assert(m_ageOfImage == 0);
+        m_image      = image;
+    }
+
+    void detachImage() {
+        assert( m_image != nullptr );
+        m_image = nullptr;
     }
 
   private:
