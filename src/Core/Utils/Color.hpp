@@ -10,7 +10,14 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-//
+/**
+ * Get a named color from its name. Return the uint value of named svg color. The value is of the
+ * form 0xRRGGBB. RR is red, GG is green and BB is blue.
+ *
+ * \param name: the name of the color as given from svg spec.
+ * \return Color code, or 0 if \a name is not a valid svg color name (0 corresponds to black).
+ * \see https://www.december.com/html/spec/colorsvg.html
+ */
 uint32_t getNamedColorCode( const std::string& name );
 
 /*!
@@ -18,7 +25,7 @@ uint32_t getNamedColorCode( const std::string& name );
  * displayable colors should have all their coordinates between 0 and 1.
  *
  * \warning Vector arithmetics can be used to add, substract, multiply or divide colors with
- * scalars and other colors. In that case, alpha is treate as any other component. It is fine for
+ * scalars and other colors. In that case, alpha is treated as any other component. It is fine for
  * most cases, however adding two colors (e.g. Blue()+Red()) may lead to unconsistent
  * alpha: Blue()+Red() = {1, 0, 1, 2}.
  * In that case, only the rgb values need to be added:
@@ -134,6 +141,10 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
         return ColorBase<_Scalar>( _Scalar( 1.0 ), _Scalar( 0.87 ), _Scalar( 0.74 ) );
     }
 
+    /// Return a color base on svg name, or Black() if \a name do not correspond to a supported
+    /// color name.
+    /// \param name: a lowercase string corresponding to a valid svg color name. \see
+    /// https://www.w3.org/TR/css-color-3/#svg-color
     static inline ColorBase<_Scalar> getNamedColor( const std::string& name ) {
         return fromRGB24( getNamedColorCode( name ) );
     }
