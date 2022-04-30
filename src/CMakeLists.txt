@@ -85,6 +85,9 @@ if(MSVC OR MSVC_IDE OR MINGW)
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/Windeployqt.cmake"
             DESTINATION ${ConfigPackageLocation}
     )
+    file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/Windeployqt.cmake"
+         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+    )
 endif()
 
 # propagate global to parent
