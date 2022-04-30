@@ -30,6 +30,7 @@ add_library(
 populate_local_dependencies(NAME "Eigen3_DIR")
 populate_local_dependencies(NAME "OpenMesh_DIR")
 populate_local_dependencies(NAME "cpplocate_DIR")
+populate_local_dependencies(NAME "nlohmann_json_DIR")
 
 add_external_folder(Core ${RADIUM_EXTERNAL_DIR}/Core ${LocalDependencies})
 
@@ -39,6 +40,8 @@ find_package(OpenMesh REQUIRED COMPONENTS Core Tools NO_DEFAULT_PATH)
 
 find_package(cpplocate REQUIRED NO_DEFAULT_PATH)
 
+find_package(nlohmann_json REQUIRED NO_DEFAULT_PATH)
+
 add_dependencies(${ra_core_target} versionFileTouchForRebuild) # We want precise time of build in
                                                                # version
 target_include_directories(
@@ -47,7 +50,8 @@ target_include_directories(
 )
 target_link_libraries(
     ${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen
-                             cpplocate::cpplocate PRIVATE std::filesystem
+                             cpplocate::cpplocate nlohmann_json::nlohmann_json
+    PRIVATE std::filesystem
 )
 
 target_compile_definitions(${ra_core_target} PRIVATE RA_CORE_EXPORTS)

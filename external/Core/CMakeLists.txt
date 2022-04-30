@@ -74,3 +74,21 @@ if(NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
 else()
     status_message("" "cpplocate" ${cpplocate_DIR})
 endif()
+
+if(NOT DEFINED nlohmann_json_DIR)
+    check_externals_prerequisite()
+    status_message("[CoreExternal]" "nlohmann_json" "remote git")
+    ExternalProject_Add(
+        nlohmann_json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG release/3.10.5
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DJSON_Install=ON -DJSON_BuildTests=OFF
+                   "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
+    )
+    add_dependencies(CoreExternals nlohmann_json)
+else()
+    status_message("" "nlohmann_json" ${nlohmann_json_DIR})
+endif()
