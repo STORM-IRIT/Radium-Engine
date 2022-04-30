@@ -45,6 +45,10 @@ if(MSVC OR MSVC_IDE OR MINGW)
     if(RADIUM_IO_TINYPLY AND DEFINED tinyply_DIR)
         add_imported_dir(FROM tinyply TO RadiumExternalDlls_location)
     endif()
+    if(TARGET Qt)
+        get_target_property(QTLIB Qt::Core INTERFACE_LINK_LIBRARIES)
+        add_imported_dir(FROM ${QTLIB} TO RadiumExternalDlls_location)
+    endif()
 endif()
 # ------------------------------------------------------------------------------
 # ---- CTest test suite --------------------------------------------------------
