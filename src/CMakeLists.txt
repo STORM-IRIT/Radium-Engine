@@ -7,7 +7,7 @@ include(Sanitizers)
 # ------------------------------------------------------------------------------
 # Compilation option
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    add_compile_options(/W3)
+    add_compile_options(/W4)
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         add_compile_options(/bigobj)
     endif()

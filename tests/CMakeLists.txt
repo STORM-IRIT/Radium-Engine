@@ -11,7 +11,7 @@ include(Sanitizers)
 
 # Enable helpfull warnings and C++17 for all files
 if(MSVC)
-    add_compile_options(/std:c++17 /W3)
+    add_compile_options(/std:c++17 /W4)
 else()
     add_compile_options(-std=c++17 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
