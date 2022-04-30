@@ -1,4 +1,5 @@
 // Include Radium base application and its simple Gui
+#include <Core/Resources/Resources.hpp>
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 #include <Gui/Viewer/Viewer.hpp>
@@ -55,8 +56,6 @@ const std::string _fragmentShaderSource {
     "   // out_color =  ( 1 + cos( 20 * ( in_pos.x + aScalarUniform ) ) ) * 0.5 * aColorUniform;\n"
     "}\n" };
 
-// static Ra::Core::Asset::BlinnPhongMaterialData* g_matData = nullptr;
-
 struct QuadLife {
     void born() {
         assert( m_app != nullptr );
@@ -66,7 +65,9 @@ struct QuadLife {
         m_matData.m_hasSpecular = true;
         // add default diffuse color if user didn't set one
         if ( !m_matData.m_hasDiffuse ) {
-            m_matData.m_diffuse    = Ra::Core::Utils::Color::Green();
+            //            m_matData.m_diffuse    = Ra::Core::Utils::Color::Green();
+            //            m_matData.m_diffuse    = Ra::Core::Utils::Color::Magenta();
+            m_matData.m_diffuse    = Ra::Core::Utils::Color::Black();
             m_matData.m_hasDiffuse = true;
         }
 
@@ -171,6 +172,10 @@ enum EngineTextureInstance : uint {
     CHECKER_BOARD_WRAP_MIRRORED_REPEAT,
     SHIFTER,
     ATTACH_DETACH,
+    GRADIENT,
+    RADIUM_LOGO_PNG,
+    RADIUM_LOGO_JPG,
+
     COUNT,
     NONE,
 };
@@ -180,7 +185,7 @@ const EngineTextureInstance g_initQuadTexture[nQuad][nQuad] {
     { PROCEDURAL, 							CHECKER_BOARD, 							NONE, 									NONE, 			NONE },
     { CHECKER_BOARD_MIN_LINEAR_MAG_NEAREST, CHECKER_BOARD_MIN_NEAREST_MAG_LINEAR, 	CHECKER_BOARD_MIN_NEAREST_MAG_NEAREST, 	NONE, 			NONE },
     { CHECKER_BOARD_WRAP_CLAMP_TO_BORDER, 	CHECKER_BOARD_WRAP_REPEAT, 				CHECKER_BOARD_WRAP_MIRRORED_REPEAT, 	NONE, 			NONE },
-    { NONE, 								NONE, 									NONE, 									NONE, 			NONE },
+    { RADIUM_LOGO_PNG, 						RADIUM_LOGO_JPG, 						NONE, 									NONE, 			GRADIENT },
     { PROCEDURAL, 							CHECKER_BOARD, 							SHIFTER, 								ATTACH_DETACH, 	NONE /* white color */ }
 };
 // clang-format on
@@ -199,6 +204,9 @@ const Ra::Engine::Data::TextureParameters g_initTextureParameters[EngineTextureI
   { "checkerboard_wrapMirroredRepeat", GL_TEXTURE_2D, 10, 10, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_MIRRORED_REPEAT, GL_MIRRORED_REPEAT, GL_MIRRORED_REPEAT, GL_LINEAR, GL_LINEAR, nullptr },
   { "shifter", GL_TEXTURE_2D, 100, 100, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
   { "attach/detach", GL_TEXTURE_2D, 10, 10, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
+  { "gradient", GL_TEXTURE_2D, 256, 256, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
+  { "radium-logo.png", GL_TEXTURE_2D, 512, 512, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
+  { "radium-logo.jpg", GL_TEXTURE_2D, 512, 512, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
 };
 // clang-format on
 
@@ -232,7 +240,7 @@ struct EngineTexture {
         memcpy( m_data, data, len );
     }
     void init( Ra::Gui::BaseApplication& app ) {
-        assert( m_data != nullptr );
+        //        assert( m_data != nullptr );
 
         auto& textureParameters =
             app.m_engine->getTextureManager()->addTexture( m_initTextureParameters.name,
@@ -343,6 +351,44 @@ int main( int argc, char* argv[] ) {
         g_engineTextures[ATTACH_DETACH].setData( data, size );
     }
 
+    {
+        constexpr int width    = 256;
+        constexpr int height   = 256;
+        constexpr int nChannel = 3;
+        constexpr int size     = width * height * nChannel;
+
+        unsigned char data[size];
+        for ( int i = 0; i < width; ++i ) {
+            for ( int j = 0; j < height; ++j ) {
+                data[( i * height + j ) * 3]     = i;
+                data[( i * height + j ) * 3 + 1] = i;
+                data[( i * height + j ) * 3 + 2] = i;
+            }
+        }
+
+        g_engineTextures[GRADIENT].setData( data, size );
+    }
+
+    {
+        constexpr int width    = 512;
+        constexpr int height   = 512;
+        constexpr int nChannel = 3;
+        constexpr int size     = width * height * nChannel;
+
+        unsigned char data[size];
+        for ( int i = 0; i < width; ++i ) {
+            for ( int j = 0; j < height; ++j ) {
+                data[( i * height + j ) * 3]     = 0;
+                data[( i * height + j ) * 3 + 1] = 255;
+                data[( i * height + j ) * 3 + 2] = 0;
+            }
+        }
+
+        g_engineTextures[RADIUM_LOGO_JPG].setData( data, size );
+        g_engineTextures[RADIUM_LOGO_PNG].setData( data, size );
+    }
+
+
     for ( auto& engineTexture : g_engineTextures ) {
         engineTexture.init( app );
     }
@@ -403,6 +449,24 @@ int main( int argc, char* argv[] ) {
         imgSpec2, nullptr, g_engineTextures[CHECKER_BOARD].m_sizeData );
     images.push_back( imageCheckerboard );
 
+    const auto& grandientInitParameters = g_initTextureParameters[GRADIENT];
+    Ra::Core::Asset::ImageSpec imgSpec3( grandientInitParameters.width,
+                                         grandientInitParameters.height,
+                                         3,
+                                         Ra::Core::Asset::TypeUInt8 );
+    auto imageGradient = std::make_shared<Ra::Core::Asset::Image>(
+        imgSpec3, nullptr, g_engineTextures[GRADIENT].m_sizeData );
+    images.push_back( imageGradient );
+
+    auto rp              = Ra::Core::Resources::getResourcesPath();
+    std::string filename   = *rp + "/Demos/Assets/radium-logo.png";
+    auto imageRadiumLogoPng = std::make_shared<Ra::Core::Asset::Image>( filename );
+    images.push_back( imageRadiumLogoPng );
+
+    std::string filename2   = *rp + "/Demos/Assets/radium-logo.jpg";
+    auto imageRadiumLogoJpg = std::make_shared<Ra::Core::Asset::Image>( filename2 );
+    images.push_back( imageRadiumLogoJpg );
+
     ////////////////////////////////// Get engine textures ///////////////////////////////////
 
     app.m_mainWindow->getViewer()->makeCurrent();
@@ -413,13 +477,18 @@ int main( int argc, char* argv[] ) {
 
     app.m_mainWindow->getViewer()->doneCurrent();
 
+    ////////////////////////////////// Attach images to textures /////////////////////////////
+
     g_engineTextures[PROCEDURAL].m_texture->attachImage( imageProcedural );
     //    g_engineTextures[CHECKER_BOARD].m_texture->attachImage(imageCheckerboard);
     for ( int i = CHECKER_BOARD; i < (int)CHECKER_BOARD_WRAP_MIRRORED_REPEAT + 1; ++i ) {
         g_engineTextures[i].m_texture->attachImage( imageCheckerboard );
     }
+    g_engineTextures[GRADIENT].m_texture->attachImage( imageGradient );
+    g_engineTextures[RADIUM_LOGO_PNG].m_texture->attachImage( imageRadiumLogoPng );
+    g_engineTextures[RADIUM_LOGO_JPG].m_texture->attachImage( imageRadiumLogoJpg );
 
-    ////////////////////////////////// Set user shader ///////////////////////////////////
+    ////////////////////////////////// Set user shader ///////////////////////////////////////
 
     Ra::Engine::Data::ShaderConfiguration shaderConfig( "myShader" );
     shaderConfig.addShaderSource( Ra::Engine::Data::ShaderType_VERTEX, _vertexShaderSource );
@@ -431,7 +500,7 @@ int main( int argc, char* argv[] ) {
         }
     }
 
-    //////////////////////////////////// Create routines ////////////////////////////////////////
+    //////////////////////////////////// Create routines /////////////////////////////////////
 
     auto& proceduralQuad = quads[nQuad - 1][0];
     {
@@ -495,13 +564,36 @@ int main( int argc, char* argv[] ) {
         checkerboardQuad.m_messages.push_back( "resize image" );
     }
 
+    auto& gradientQuad = quads[nQuad - 2][nQuad - 1];
+    {
+        gradientQuad.m_routine = [&imageGradient]( QuadLife& quadLife ) {
+            const auto& proceduralInitParameters = g_initTextureParameters[GRADIENT];
+            const auto& size                     = g_engineTextures[GRADIENT].m_sizeData;
+            const auto& side                     = proceduralInitParameters.width;
+
+            unsigned char newData[size];
+            for ( int i = 0; i < side; ++i ) {
+                for ( int j = 0; j < side; j++ ) {
+                    unsigned char color               = ( i + quadLife.m_age ) % 256;
+                    newData[( i * side + j ) * 3]     = color;
+                    newData[( i * side + j ) * 3 + 1] = color;
+                    newData[( i * side + j ) * 3 + 2] = color;
+                }
+            }
+
+            imageGradient->update( newData, size );
+        };
+        gradientQuad.m_messages.push_back( "update image" );
+        gradientQuad.m_routinePerSecond = 256;
+    }
+
     auto& textureShifterQuad = quads[nQuad - 1][2];
     {
         textureShifterQuad.m_routine = [&images]( QuadLife& quadLife ) {
             g_engineTextures[SHIFTER].m_texture->attachImage(
                 images[quadLife.m_age % images.size()] );
         };
-        textureShifterQuad.m_routinePerSecond = 1;
+        textureShifterQuad.m_routinePerSecond = 0.5;
     }
 
     auto& attachDetachQuad = quads[nQuad - 1][3];
@@ -537,7 +629,7 @@ int main( int argc, char* argv[] ) {
 
     //////////////////////////////////// Starting routines ////////////////////////////////////////
 
-    // Maternity, starting quad lifes
+    // Maternity : starting quad lifes
     for ( int i = 0; i < nQuad; ++i ) {
         for ( int j = 0; j < nQuad; ++j ) {
             QuadLife& quadLife = quads[i][j];
@@ -584,7 +676,7 @@ void printQuadMessages( const QuadLife* quads, int width, int height ) {
     const int hSide = hSideMin + 4;
     const int vSide = std::max( hSide / 3, vSideMin );
 
-    // for each quad line
+    // for each quads line
     for ( int i = 0; i < height; ++i ) {
         // top bar
         for ( int j = 0; j < height; ++j ) {
@@ -600,7 +692,7 @@ void printQuadMessages( const QuadLife* quads, int width, int height ) {
         // for each line in quad
         for ( int j = 0; j < vSide; ++j ) {
 
-            // for each quad column
+            // for each quads column
             for ( int k = 0; k < width; ++k ) {
                 std::cout << "|";
 

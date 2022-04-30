@@ -47,4 +47,4 @@ target_link_libraries(
 
 target_compile_options(${PROJECT_NAME} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)
 
-configure_radium_app(NAME ${PROJECT_NAME})
+configure_radium_app(NAME ${PROJECT_NAME} PREFIX Demos RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Assets)
