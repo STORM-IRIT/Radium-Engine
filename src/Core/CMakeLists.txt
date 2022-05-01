@@ -43,7 +43,7 @@ find_package(cpplocate REQUIRED NO_DEFAULT_PATH)
 find_package(nlohmann_json REQUIRED NO_DEFAULT_PATH)
 
 find_package(OpenImageIO)
-if (OpenImageIO_FOUND)
+if(OpenImageIO_FOUND)
     target_compile_definitions(${ra_core_target} PRIVATE USE_OIIO)
 endif()
 
@@ -55,8 +55,7 @@ target_include_directories(
 )
 target_link_libraries(
     ${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen
-                             cpplocate::cpplocate nlohmann_json::nlohmann_json
-                             OpenImageIO
+                             cpplocate::cpplocate nlohmann_json::nlohmann_json OpenImageIO
     PRIVATE std::filesystem
 )
 
