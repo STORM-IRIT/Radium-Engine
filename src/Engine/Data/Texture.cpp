@@ -87,7 +87,8 @@ void Texture::bind( int unit ) {
         }
     }
     else {
-        // after detaching image reinitialize the engine texture with its parameters on the render thread
+        // after detaching image reinitialize the engine texture with its parameters on the render
+        // thread
         if ( m_ageOfImage != 0 ) {
             updateData( m_textureParameters.texels );
             m_ageOfImage = 0;
