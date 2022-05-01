@@ -42,8 +42,7 @@ find_package(cpplocate REQUIRED NO_DEFAULT_PATH)
 
 find_package(nlohmann_json REQUIRED NO_DEFAULT_PATH)
 
-# find_package(OpenImageIO) if(OpenImageIO_FOUND) target_compile_definitions(${ra_core_target}
-# PRIVATE USE_OIIO) endif()
+find_package(OpenImageIO)
 
 add_dependencies(${ra_core_target} versionFileTouchForRebuild) # We want precise time of build in
                                                                # version
@@ -53,7 +52,7 @@ target_include_directories(
 )
 target_link_libraries(
     ${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen
-                             cpplocate::cpplocate nlohmann_json::nlohmann_json # OpenImageIO
+                             cpplocate::cpplocate nlohmann_json::nlohmann_json
     PRIVATE std::filesystem
 )
 
@@ -72,6 +71,11 @@ if(Backtrace_FOUND)
     if(DEFINED Backtrace_LIBRARIES)
         target_link_libraries(${ra_core_target} PRIVATE ${Backtrace_LIBRARIES})
     endif()
+endif()
+
+if(OpenImageIO_FOUND)
+    target_compile_definitions(${ra_core_target} PRIVATE USE_OIIO)
+    target_link_libraries(${ra_core_target} PRIVATE OpenImageIO)
 endif()
 
 if(WIN_32)
