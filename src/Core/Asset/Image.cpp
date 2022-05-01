@@ -56,8 +56,6 @@ class ImageImpl
 #    include <stb/stb_image.h>
 
 #    include <filesystem>
-#include <mutex>
-#include <atomic>
 
 namespace Ra {
 namespace Core {
@@ -66,30 +64,35 @@ namespace Asset {
 class ImageImpl
 {
   public:
-    ImageImpl( ImageSpec&& spec, void* data, size_t len ) : m_spec( std::move( spec ) ) {
+    ImageImpl( ImageSpec&& spec, void* data, size_t len ) {
+        m_width     = spec.width;
+        m_height    = spec.height;
+        m_nChannels = spec.nchannels;
 
-        assert( len == m_spec.width * m_spec.height * m_spec.nchannels );
-        m_sizeData = len;
-        //        m_data     = new unsigned char[m_sizeData];
+        assert( len == m_width * m_height * m_nChannels );
+        m_sizeData           = len;
         auto* readWriteBuffs = new unsigned char[m_sizeData * 2]; // do this to benefit of cache
         m_data[0]            = readWriteBuffs;
         m_data[1]            = &readWriteBuffs[m_sizeData];
         update( data, m_sizeData );
     }
 
-    ImageImpl( const std::string& filename ) : m_spec( 0, 0, 0, TypeUInt8 ) {
-
+    ImageImpl( const std::string& filename ) {
         assert( std::filesystem::exists( filename ) );
         int desired_channels = 0;
-        unsigned char* data  = stbi_load(
-            filename.c_str(), &m_spec.width, &m_spec.height, &m_spec.nchannels, desired_channels );
+        unsigned char* data  = stbi_load( filename.c_str(),
+                                         (int*)&m_width,
+                                         (int*)&m_height,
+                                         (int*)&m_nChannels,
+                                         desired_channels );
 
         if ( !data ) {
-            std::cout << "Something went wrong when loading image \"" << filename << "\".";
+            std::cout << "Something went wrong when loading image \"" << filename << "\"."
+                      << std::endl;
             return;
         }
 
-        m_sizeData = m_spec.width * m_spec.height * m_spec.nchannels;
+        m_sizeData = m_width * m_height * m_nChannels;
         // no need to copy data, we are the owner of the image pointer
         //        m_data = new unsigned char[m_sizeData];
         //        update( data, m_sizeData );
@@ -98,7 +101,7 @@ class ImageImpl
 
     ~ImageImpl() {
         if ( m_data[0] != nullptr ) {
-            delete[]( unsigned char* )  m_data[0];
+            delete[]( unsigned char* ) m_data[0];
             m_data[0] = nullptr;
             m_data[1] = nullptr;
         }
@@ -109,60 +112,71 @@ class ImageImpl
 
         // no update if newData is null
         // newData can be null when user want to create an image without having the data
-        // only spec was specify and the data comming after the instanciate of image (from
-        // sensors for example)
+        // only image specification was specify and the data comming after the instanciate of image
+        // (comming afterward from sensors for example)
         if ( newData == nullptr ) return;
 
         assert( m_data[0] != nullptr && m_data[1] != nullptr );
-        if (m_sizeData != len) {
-            std::cout << "hello" << std::endl;
-        }
         assert( m_sizeData == len );
 
         // copy user data here, no dangling pointers,
         // we assume that the client pointer can be deallocated by himself
-        // the client data can be modified at any time
+        // the client data can be modified at any time (network socket, stream sensors)
         // with a client pointer it's difficult to manage the read/write operations
-        // on the image buffer without asking the clients to manage the concurrency (mutex,
-        // semaphore)
+        // on the image buffer without asking the clients to manage the concurrency
+        // (mutex, semaphore)
         const int writeHead = 1 - m_readHead;
-            m_mtx.lock();
         std::memcpy( m_data[writeHead], newData, len );
-        m_mtx.unlock();
         m_readHead = writeHead;
-        //        m_data = newData; // avoid this
     }
 
     void resize( int width, int height, void* newData, size_t len ) {
-        if ( m_sizeData != len ) {
-            m_spec.width  = width;
-            m_spec.height = height;
+        assert( m_sizeData != len );
+        assert( newData != nullptr );
 
-            assert( len == m_spec.width * m_spec.height * m_spec.nchannels );
-            m_sizeData = len;
-            m_mtx.lock();
-            delete[]( unsigned char* ) m_data[0]; // I don't know if both array are deallocate
-            auto* data = new unsigned char[m_sizeData * 2]; // do this to benefit of cache
-            m_data[0]  = data;
-            m_data[1]  = &data[m_sizeData];
-            m_mtx.unlock();
-        }
-        update( newData, len );
+        struct {
+            void* data[2];
+            size_t width;
+            size_t height;
+            size_t sizeData;
+            int readHead;
+        } tmp;
+
+        tmp.width  = width;
+        tmp.height = height;
+
+        assert( len == tmp.width * tmp.height * m_nChannels );
+        tmp.sizeData = len;
+
+        auto* readWriteBuffs = new unsigned char[tmp.sizeData * 2]; // do this to benefit of cache
+        tmp.data[0]            = readWriteBuffs;
+        tmp.data[1]            = &readWriteBuffs[tmp.sizeData];
+
+        const int writeHead = 1 - m_readHead;
+        std::memcpy( tmp.data[writeHead], newData, len );
+        tmp.readHead = writeHead;
+
+        void* dataToRemove = m_data[0];
+        memcpy( this, &tmp, sizeof( tmp ) );
+        delete[]( unsigned char* ) dataToRemove; // I don't know if both array are deallocate
     }
 
   public:
     const void* getData() const { return m_data[m_readHead]; }
     size_t getSizeData() const { return m_sizeData; }
-    size_t getWidth() const { return m_spec.width; }
-    size_t getHeight() const { return m_spec.height; }
-    size_t getNChannels() const { return m_spec.nchannels; }
+    size_t getWidth() const { return m_width; }
+    size_t getHeight() const { return m_height; }
+    size_t getNChannels() const { return m_nChannels; }
 
   private:
     void* m_data[2] = { nullptr, nullptr }; // read/write buffers
-    std::mutex m_mtx;
-    std::atomic<int> m_readHead = 0;
-    ImageSpec m_spec;
+
+    size_t m_width    = 0;
+    size_t m_height   = 0;
     size_t m_sizeData = 0; // bytes
+    int m_readHead = 0;
+
+    size_t m_nChannels = 0;
 };
 
 #endif
