@@ -23,7 +23,7 @@
 #include <memory>
 #include <thread>
 
-constexpr int nQuad = 5;
+constexpr int nQuad = 5; // side
 
 // Vertex shader source code
 const std::string _vertexShaderSource {
@@ -65,8 +65,6 @@ struct QuadLife {
         m_matData.m_hasSpecular = true;
         // add default diffuse color if user didn't set one
         if ( !m_matData.m_hasDiffuse ) {
-            //            m_matData.m_diffuse    = Ra::Core::Utils::Color::Green();
-            //            m_matData.m_diffuse    = Ra::Core::Utils::Color::Magenta();
             m_matData.m_diffuse    = Ra::Core::Utils::Color::Black();
             m_matData.m_hasDiffuse = true;
         }
@@ -86,12 +84,13 @@ struct QuadLife {
 
         m_ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
             c->m_renderObjects[0] );
-        // Local transform
+
         m_worldTransform.translate( Ra::Core::Vector3( m_j, nQuad - m_i, 0.0 ) );
         Ra::Core::Vector3 vecScale( 0.4, 0.4, 1.0 );
         m_localTransform.scale( vecScale );
         m_ro->setLocalTransform( m_worldTransform * m_localTransform );
 
+        // get message from engine texture name
         if ( !m_matData.m_texDiffuse.empty() ) {
             std::string s         = m_matData.m_texDiffuse;
             std::string delimiter = "_";
@@ -159,8 +158,6 @@ struct QuadLife {
     std::vector<std::string> m_messages;
 };
 
-void printQuadMessages( const QuadLife* quads, int width, int height );
-
 enum EngineTextureInstance : uint {
     PROCEDURAL = 0,
     CHECKER_BOARD,
@@ -175,6 +172,7 @@ enum EngineTextureInstance : uint {
     GRADIENT,
     RADIUM_LOGO_PNG,
     RADIUM_LOGO_JPG,
+    BLINK,
 
     COUNT,
     NONE,
@@ -184,7 +182,7 @@ enum EngineTextureInstance : uint {
 const EngineTextureInstance g_initQuadTexture[nQuad][nQuad] {
     { PROCEDURAL, 							CHECKER_BOARD, 							NONE, 									NONE, 			NONE },
     { CHECKER_BOARD_MIN_LINEAR_MAG_NEAREST, CHECKER_BOARD_MIN_NEAREST_MAG_LINEAR, 	CHECKER_BOARD_MIN_NEAREST_MAG_NEAREST, 	NONE, 			NONE },
-    { CHECKER_BOARD_WRAP_CLAMP_TO_BORDER, 	CHECKER_BOARD_WRAP_REPEAT, 				CHECKER_BOARD_WRAP_MIRRORED_REPEAT, 	NONE, 			NONE },
+    { CHECKER_BOARD_WRAP_CLAMP_TO_BORDER, 	CHECKER_BOARD_WRAP_REPEAT, 				CHECKER_BOARD_WRAP_MIRRORED_REPEAT, 	NONE, 			BLINK },
     { RADIUM_LOGO_PNG, 						RADIUM_LOGO_JPG, 						NONE, 									NONE, 			GRADIENT },
     { PROCEDURAL, 							CHECKER_BOARD, 							SHIFTER, 								ATTACH_DETACH, 	NONE /* white color */ }
 };
@@ -207,11 +205,11 @@ const Ra::Engine::Data::TextureParameters g_initTextureParameters[EngineTextureI
   { "gradient", GL_TEXTURE_2D, 256, 256, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
   { "radium-logo.png", GL_TEXTURE_2D, 512, 512, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
   { "radium-logo.jpg", GL_TEXTURE_2D, 512, 512, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
+  { "blink", GL_TEXTURE_2D, 100, 100, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
 };
 // clang-format on
 
 struct EngineTexture {
-    //    EngineTextureInstance m_instance;
     Ra::Engine::Data::TextureParameters m_initTextureParameters;
 
     unsigned char* m_data                = nullptr;
@@ -269,6 +267,8 @@ struct EngineTexture {
 };
 static EngineTexture g_engineTextures[EngineTextureInstance::COUNT];
 
+void printQuadMessages( const QuadLife* quads, int width, int height );
+
 int main( int argc, char* argv[] ) {
 
     //! [Creating the application]
@@ -279,7 +279,6 @@ int main( int argc, char* argv[] ) {
     ///////////////////////////////// Creating engine textures /////////////////////////////////////
 
     for ( int i = 0; i < (int)EngineTextureInstance::COUNT; ++i ) {
-        //        g_engineTextures[i].m_instance          = EngineTextureInstance( i );
         g_engineTextures[i].m_initTextureParameters = g_initTextureParameters[i];
     }
 
@@ -331,6 +330,7 @@ int main( int argc, char* argv[] ) {
         unsigned char data[size];
         memset( data, 0, size );
         g_engineTextures[SHIFTER].setData( data, size );
+        g_engineTextures[BLINK].setData( data, size );
     }
 
     {
@@ -388,7 +388,6 @@ int main( int argc, char* argv[] ) {
         g_engineTextures[RADIUM_LOGO_PNG].setData( data, size );
     }
 
-
     for ( auto& engineTexture : g_engineTextures ) {
         engineTexture.init( app );
     }
@@ -408,9 +407,9 @@ int main( int argc, char* argv[] ) {
         }
     }
 
-    auto& transformQuad                  = quads[nQuad - 1][nQuad - 1];
-    transformQuad.m_matData.m_diffuse    = Ra::Core::Utils::Color::White();
-    transformQuad.m_matData.m_hasDiffuse = true;
+    auto& transformTestQuad                  = quads[nQuad - 1][nQuad - 1];
+    transformTestQuad.m_matData.m_diffuse    = Ra::Core::Utils::Color::White();
+    transformTestQuad.m_matData.m_hasDiffuse = true;
 
     // init geometry
     for ( int i = 0; i < nQuad; ++i ) {
@@ -458,14 +457,21 @@ int main( int argc, char* argv[] ) {
         imgSpec3, nullptr, g_engineTextures[GRADIENT].m_sizeData );
     images.push_back( imageGradient );
 
-    auto rp              = Ra::Core::Resources::getResourcesPath();
-    std::string filename   = *rp + "/Demos/Assets/radium-logo.png";
+    auto rp                 = Ra::Core::Resources::getResourcesPath();
+    std::string filename    = *rp + "/Demos/Assets/radium-logo.png";
     auto imageRadiumLogoPng = std::make_shared<Ra::Core::Asset::Image>( filename );
     images.push_back( imageRadiumLogoPng );
 
     std::string filename2   = *rp + "/Demos/Assets/radium-logo.jpg";
     auto imageRadiumLogoJpg = std::make_shared<Ra::Core::Asset::Image>( filename2 );
     images.push_back( imageRadiumLogoJpg );
+
+    const auto& blinkInitParameters = g_initTextureParameters[BLINK];
+    Ra::Core::Asset::ImageSpec imgSpec4(
+        blinkInitParameters.width, blinkInitParameters.height, 3, Ra::Core::Asset::TypeUInt8 );
+    auto imageBlink = std::make_shared<Ra::Core::Asset::Image>(
+        imgSpec4, nullptr, g_engineTextures[BLINK].m_sizeData );
+    images.push_back( imageBlink );
 
     ////////////////////////////////// Get engine textures ///////////////////////////////////
 
@@ -480,13 +486,13 @@ int main( int argc, char* argv[] ) {
     ////////////////////////////////// Attach images to textures /////////////////////////////
 
     g_engineTextures[PROCEDURAL].m_texture->attachImage( imageProcedural );
-    //    g_engineTextures[CHECKER_BOARD].m_texture->attachImage(imageCheckerboard);
     for ( int i = CHECKER_BOARD; i < (int)CHECKER_BOARD_WRAP_MIRRORED_REPEAT + 1; ++i ) {
         g_engineTextures[i].m_texture->attachImage( imageCheckerboard );
     }
     g_engineTextures[GRADIENT].m_texture->attachImage( imageGradient );
     g_engineTextures[RADIUM_LOGO_PNG].m_texture->attachImage( imageRadiumLogoPng );
     g_engineTextures[RADIUM_LOGO_JPG].m_texture->attachImage( imageRadiumLogoJpg );
+    g_engineTextures[BLINK].m_texture->attachImage( imageBlink );
 
     ////////////////////////////////// Set user shader ///////////////////////////////////////
 
@@ -611,7 +617,7 @@ int main( int argc, char* argv[] ) {
     }
 
     {
-        transformQuad.m_routine = []( QuadLife& quadLife ) {
+        transformTestQuad.m_routine = []( QuadLife& quadLife ) {
             constexpr auto rps                  = Ra::Core::Math::Pi / 4_ra; // radian per second
             Ra::Core::Transform rotateTransform = Ra::Core::Transform::Identity();
             rotateTransform.rotate(
@@ -621,10 +627,34 @@ int main( int argc, char* argv[] ) {
             quadLife.m_ro->setLocalTransform( quadLife.m_worldTransform *
                                               quadLife.m_localTransform * rotateTransform );
         };
-        transformQuad.m_routinePerSecond = 120;
-        transformQuad.m_messages.push_back( "white color" );
-        transformQuad.m_messages.push_back( "no texture" );
-        transformQuad.m_messages.push_back( "rotate transform" );
+        transformTestQuad.m_routinePerSecond = 120;
+        transformTestQuad.m_messages.push_back( "white color" );
+        transformTestQuad.m_messages.push_back( "no texture" );
+        transformTestQuad.m_messages.push_back( "rotate transform" );
+    }
+
+    auto& blinkQuad = quads[nQuad - 3][nQuad - 1];
+    {
+        int blkps        = 30; // blink per second
+        blinkQuad.m_routinePerSecond = blkps;
+        int iPeriod         = 0;
+        blinkQuad.m_routine = [&imageBlink, &iPeriod, &blkps]( QuadLife& quadLife ) {
+            const auto& size = g_engineTextures[BLINK].m_sizeData;
+
+            unsigned char newData[size];
+            std::memset( newData, ( quadLife.m_age % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
+            imageBlink->update( newData, size );
+
+            ++iPeriod;
+            if ( iPeriod == blkps ) {
+                blkps                    = blkps % 60 + 1;
+                quadLife.m_routinePerSecond = blkps;
+                iPeriod = 0;
+            }
+        };
+        blinkQuad.m_messages.push_back( "white/black" );
+        blinkQuad.m_messages.push_back( "blinking texture" );
+        blinkQuad.m_messages.push_back( "1Hz -> 60Hz" );
     }
 
     //////////////////////////////////// Starting routines ////////////////////////////////////////
