@@ -80,13 +80,8 @@ void Texture::initializeGL( bool linearize ) {
 }
 
 void Texture::bind( int unit ) {
-    //    std::cout << "[Texture:" << m_textureParameters.name << "] bind " << unit << std::endl;
-    //    if ( m_textureParameters.name == std::string( "myTexture" ) ) { std::cout << ""; }
     if ( m_image != nullptr ) {
         if ( m_ageOfImage != m_image->getAge() ) {
-            //            std::cout << "[Texture:" << m_textureParameters.name << "] bind : update
-            //            data"
-            //                      << std::endl;
 
             updateData( m_image->getData() );
             m_ageOfImage = m_image->getAge();
@@ -98,6 +93,7 @@ void Texture::bind( int unit ) {
             m_ageOfImage = 0;
         }
     }
+
     if ( unit >= 0 ) { m_texture->bindActive( uint( unit ) ); }
     else {
         m_texture->bind();
@@ -117,8 +113,30 @@ void Texture::bindImageTexture( int unit,
 }
 
 void Texture::updateData( const void* data ) {
-    //    std::cout << "[Texture:" << m_textureParameters.name << "] updateData " << data <<
-    //    std::endl;
+    static constexpr GLenum g_nChannels2format[] { GL_NONE, GL_RED, GL_RG, GL_RGB, GL_RGBA };
+    static constexpr GLenum g_nChannels2internalFormat[] {
+        GL_NONE, GL_R8, GL_RG8, GL_RGB8, GL_RGBA8 };
+
+    int width;
+    int height;
+    GLenum format;
+    GLenum internalFormat;
+
+    if ( m_image != nullptr ) {
+        width                = m_image->getWidth();
+        height               = m_image->getHeight();
+        const auto nChannels = m_image->getNChannels();
+        assert( 1 <= nChannels && nChannels <= 4 );
+        format         = g_nChannels2format[nChannels];
+        internalFormat = g_nChannels2internalFormat[nChannels];
+    }
+    else {
+        width          = m_textureParameters.width;
+        height         = m_textureParameters.height;
+        format         = m_textureParameters.format;
+        internalFormat = m_textureParameters.internalFormat;
+    }
+
     switch ( m_texture->target() ) {
     case GL_TEXTURE_1D: {
         m_texture->image1D( 0,
@@ -133,11 +151,11 @@ void Texture::updateData( const void* data ) {
     case GL_TEXTURE_2D:
     case GL_TEXTURE_RECTANGLE: {
         m_texture->image2D( 0,
-                            m_textureParameters.internalFormat,
-                            GLsizei( m_textureParameters.width ),
-                            GLsizei( m_textureParameters.height ),
+                            internalFormat,
+                            GLsizei( width ),
+                            GLsizei( height ),
                             0,
-                            m_textureParameters.format,
+                            format,
                             m_textureParameters.type,
                             data );
         GL_CHECK_ERROR

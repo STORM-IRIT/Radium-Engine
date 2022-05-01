@@ -205,7 +205,7 @@ const Ra::Engine::Data::TextureParameters g_initTextureParameters[EngineTextureI
   { "gradient", GL_TEXTURE_2D, 256, 256, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
   { "radium-logo.png", GL_TEXTURE_2D, 512, 512, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
   { "radium-logo.jpg", GL_TEXTURE_2D, 512, 512, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
-  { "blink", GL_TEXTURE_2D, 100, 100, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
+  { "blink_white/black", GL_TEXTURE_2D, 100, 100, 1, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR, nullptr },
 };
 // clang-format on
 
@@ -282,6 +282,7 @@ int main( int argc, char* argv[] ) {
         g_engineTextures[i].m_initTextureParameters = g_initTextureParameters[i];
     }
 
+    // all data set here will be read by initializeGL with dangling pointers
     {
         constexpr int width    = 192;
         constexpr int height   = 512;
@@ -652,7 +653,6 @@ int main( int argc, char* argv[] ) {
                 iPeriod = 0;
             }
         };
-        blinkQuad.m_messages.push_back( "white/black" );
         blinkQuad.m_messages.push_back( "blinking texture" );
         blinkQuad.m_messages.push_back( "1Hz -> 60Hz" );
     }
@@ -668,18 +668,18 @@ int main( int argc, char* argv[] ) {
     }
 
     //    terminate the app after 4 second( approximatively ).Camera can be moved using mouse moves.
-    //    auto close_timer = new QTimer( &app );
-    //    close_timer->setInterval( 4000 );
-    //    QObject::connect( close_timer, &QTimer::timeout, [&app, &quads]() {
-    //        for ( int i = 0; i < nQuad; ++i ) {
-    //            for ( int j = 0; j < nQuad; ++j ) {
-    //                QuadLife& quadLife = quads[i][j];
-    //                quadLife.die();
-    //            }
-    //        }
-    //        app.appNeedsToQuit();
-    //    } );
-    //    close_timer->start();
+        auto close_timer = new QTimer( &app );
+        close_timer->setInterval( 4000 );
+        QObject::connect( close_timer, &QTimer::timeout, [&app, &quads]() {
+            for ( int i = 0; i < nQuad; ++i ) {
+                for ( int j = 0; j < nQuad; ++j ) {
+                    QuadLife& quadLife = quads[i][j];
+                    quadLife.die();
+                }
+            }
+            app.appNeedsToQuit();
+        } );
+        close_timer->start();
 
     printQuadMessages( (const QuadLife*)quads, nQuad, nQuad );
 

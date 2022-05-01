@@ -219,13 +219,14 @@ class RA_ENGINE_API Texture final
 
     void attachImage( std::shared_ptr<Ra::Core::Asset::Image> image ) {
         m_ageOfImage = 0;
-//        assert(m_ageOfImage == 0);
         m_image      = image;
     }
 
     void detachImage() {
         assert( m_image != nullptr );
         m_image = nullptr;
+        // do not update data with textureParameters because it's not thread safe
+        // only render thread can do that
     }
 
   private:

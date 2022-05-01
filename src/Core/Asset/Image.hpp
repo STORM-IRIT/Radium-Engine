@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 
 //#include <Core/Asset/AssetData.hpp>
@@ -17,13 +18,12 @@ class ImageImpl;
 class RA_CORE_API Image
 {
   public:
-    Image( const ImageSpec& spec, void* data, size_t len );
+    Image( ImageSpec spec, void* data, size_t len );
 
     /// @param filename
     /// The image file to read.
     Image( const std::string& filename );
 
-    //    Image (Image && image) = default;
     Image( const Image& image ) = delete;
     Image& operator=( const Image& image ) = delete;
 
@@ -35,20 +35,17 @@ class RA_CORE_API Image
   protected:
     friend class ImageImpl;
 
-//  private:
-//    void setData( void* data, size_t len );
-
   private:
     std::unique_ptr<ImageImpl> m_impl; // PIMPL idom
-//    ImageSpec m_spec;
     size_t m_age = 0;
-//    size_t m_sizeData; // bytes
 
   public:
     const void* getData() const;
-//    const ImageSpec& get_spec() const;
     size_t getAge() const;
     size_t getSizeData() const;
+    size_t getWidth() const;
+    size_t getHeight() const;
+    size_t getNChannels() const;
 };
 
 } // namespace Asset
