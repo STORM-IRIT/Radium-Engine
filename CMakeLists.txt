@@ -9,8 +9,6 @@ endif()
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
-string(APPEND CMAKE_CXX_FLAGS " -Wfatal-errors")
-
 # Project setup, versioning stuff here, change when changing the version
 # ~~~
 # Note: keep the project name lower case only for easy linux packaging support
