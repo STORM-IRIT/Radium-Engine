@@ -1,11 +1,12 @@
 #pragma once
+
+#include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
 #include <Core/Asset/Image.hpp>
 #include <Core/RaCore.hpp>
-#include <map>
-#include <memory>
 
 namespace Ra {
 namespace Core {

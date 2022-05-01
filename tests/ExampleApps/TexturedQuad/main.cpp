@@ -636,10 +636,10 @@ int main( int argc, char* argv[] ) {
 
     auto& blinkQuad = quads[nQuad - 3][nQuad - 1];
     {
-        int blkps        = 30; // blink per second
+        int blkps                    = 30; // blink per second
         blinkQuad.m_routinePerSecond = blkps;
-        int iPeriod         = 0;
-        blinkQuad.m_routine = [&imageBlink, &iPeriod, &blkps]( QuadLife& quadLife ) {
+        int iPeriod                  = 0;
+        blinkQuad.m_routine          = [&imageBlink, &iPeriod, &blkps]( QuadLife& quadLife ) {
             const auto& size = g_engineTextures[BLINK].m_sizeData;
 
             unsigned char newData[size];
@@ -648,9 +648,9 @@ int main( int argc, char* argv[] ) {
 
             ++iPeriod;
             if ( iPeriod == blkps ) {
-                blkps                    = blkps % 60 + 1;
+                blkps                       = blkps % 60 + 1;
                 quadLife.m_routinePerSecond = blkps;
-                iPeriod = 0;
+                iPeriod                     = 0;
             }
         };
         blinkQuad.m_messages.push_back( "blinking texture" );
@@ -668,18 +668,18 @@ int main( int argc, char* argv[] ) {
     }
 
     //    terminate the app after 4 second( approximatively ).Camera can be moved using mouse moves.
-        auto close_timer = new QTimer( &app );
-        close_timer->setInterval( 4000 );
-        QObject::connect( close_timer, &QTimer::timeout, [&app, &quads]() {
-            for ( int i = 0; i < nQuad; ++i ) {
-                for ( int j = 0; j < nQuad; ++j ) {
-                    QuadLife& quadLife = quads[i][j];
-                    quadLife.die();
-                }
+    auto close_timer = new QTimer( &app );
+    close_timer->setInterval( 4000 );
+    QObject::connect( close_timer, &QTimer::timeout, [&app, &quads]() {
+        for ( int i = 0; i < nQuad; ++i ) {
+            for ( int j = 0; j < nQuad; ++j ) {
+                QuadLife& quadLife = quads[i][j];
+                quadLife.die();
             }
-            app.appNeedsToQuit();
-        } );
-        close_timer->start();
+        }
+        app.appNeedsToQuit();
+    } );
+    close_timer->start();
 
     printQuadMessages( (const QuadLife*)quads, nQuad, nQuad );
 

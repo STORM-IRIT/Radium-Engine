@@ -113,7 +113,7 @@ struct RA_CORE_API TypeDesc {
     unsigned char reserved;     ///< Reserved for future expansion
     int arraylen;               ///< Array length, 0 = not array, -1 = unsized
 
-    bool operator<(const TypeDesc& other) const {
+    bool operator<( const TypeDesc& other ) const {
         return basetype * aggregate < other.basetype * other.aggregate;
     }
 
@@ -175,28 +175,28 @@ constexpr TypeDesc TypeRational( TypeDesc::INT, TypeDesc::VEC2, TypeDesc::RATION
 constexpr TypeDesc TypePointer( TypeDesc::PTR );
 
 static const std::map<TypeDesc, int> g_typeDesc2size = { { TypeFloat, 4 },
-                                          { TypeColor, 4 * 3 },
-                                          { TypePoint, 4 * 3 },
-                                          { TypeVector, 4 * 3 },
-                                          { TypeNormal, 4 * 3 },
-                                          { TypeMatrix33, 4 * 3 * 3 },
-                                          { TypeMatrix44, 4 * 4 * 4 },
-                                          { TypeMatrix, 4 * 4 * 4 },
-                                          { TypeFloat2, 4 * 2 },
-                                          { TypeVector2, 4 * 2 },
-                                          { TypeFloat4, 4 * 4 },
-                                          { TypeVector4, 4 * 4 },
-                                          { TypeInt, 4 },
-                                          { TypeUInt, 4 },
-                                          { TypeInt32, 4 },
-                                          { TypeUInt32, 4 },
-                                          { TypeInt16, 2 },
-                                          { TypeUInt16, 2 },
-                                          { TypeInt8, 1 },
-                                          { TypeUInt8, 1 },
-                                          { TypeInt64, 8 },
-                                          { TypeUInt64, 8 },
-                                          { TypeVector2i, 4 * 2 } };
+                                                         { TypeColor, 4 * 3 },
+                                                         { TypePoint, 4 * 3 },
+                                                         { TypeVector, 4 * 3 },
+                                                         { TypeNormal, 4 * 3 },
+                                                         { TypeMatrix33, 4 * 3 * 3 },
+                                                         { TypeMatrix44, 4 * 4 * 4 },
+                                                         { TypeMatrix, 4 * 4 * 4 },
+                                                         { TypeFloat2, 4 * 2 },
+                                                         { TypeVector2, 4 * 2 },
+                                                         { TypeFloat4, 4 * 4 },
+                                                         { TypeVector4, 4 * 4 },
+                                                         { TypeInt, 4 },
+                                                         { TypeUInt, 4 },
+                                                         { TypeInt32, 4 },
+                                                         { TypeUInt32, 4 },
+                                                         { TypeInt16, 2 },
+                                                         { TypeUInt16, 2 },
+                                                         { TypeInt8, 1 },
+                                                         { TypeUInt8, 1 },
+                                                         { TypeInt64, 8 },
+                                                         { TypeUInt64, 8 },
+                                                         { TypeVector2i, 4 * 2 } };
 
 /////////////////////////////////////////////////////////////////////////////////
 // header from OpenImageIO : paramlist.h

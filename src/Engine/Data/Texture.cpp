@@ -19,7 +19,6 @@ Texture::Texture( const TextureParameters& texParameters ) :
 Texture::~Texture() = default;
 
 void Texture::initializeGL( bool linearize ) {
-    //    std::cout << "[Texture:" << m_textureParameters.name << "] initializeGL" << std::endl;
     if ( ( m_textureParameters.target != GL_TEXTURE_1D ) &&
          ( m_textureParameters.target != GL_TEXTURE_2D ) &&
          ( m_textureParameters.target != GL_TEXTURE_RECTANGLE ) &&
@@ -88,6 +87,7 @@ void Texture::bind( int unit ) {
         }
     }
     else {
+        // after detaching image reinitialize the engine texture with its parameters on the render thread
         if ( m_ageOfImage != 0 ) {
             updateData( m_textureParameters.texels );
             m_ageOfImage = 0;
@@ -105,9 +105,6 @@ void Texture::bindImageTexture( int unit,
                                 GLboolean layered,
                                 GLint layer,
                                 GLenum access ) {
-    //    std::cout << "[Texture:" << m_textureParameters.name << "] bindImageTexture " << unit << "
-    //    "
-    //              << level << std::endl;
     m_texture->bindImageTexture(
         uint( unit ), level, layered, layer, access, m_textureParameters.internalFormat );
 }
@@ -248,8 +245,6 @@ void Texture::updateData( const void* data ) {
 
 // let the compiler warn about case fallthrough
 void Texture::updateParameters() {
-    //    std::cout << "[Texture:" << m_textureParameters.name << "] updateParameters " <<
-    //    std::endl;
     switch ( m_texture->target() ) {
     case GL_TEXTURE_CUBE_MAP:
     case GL_TEXTURE_3D:

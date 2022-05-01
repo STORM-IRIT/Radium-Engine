@@ -217,16 +217,27 @@ class RA_ENGINE_API Texture final
         m_textureParameters = textureParameters;
     }
 
+    /**
+     * @brief attached an image to a texture, the engine texture will be a view of the image data,
+     * only the opengl options to display this image are used (magnify, minify, wrapp).
+     * An image contains the data but also the size, which implies not to use
+     * the duplicated information in the engine texture parameters.
+     * @param image to attach
+     */
     void attachImage( std::shared_ptr<Ra::Core::Asset::Image> image ) {
         m_ageOfImage = 0;
         m_image      = image;
     }
 
+    /**
+     * @brief detached the view from a texture image
+     * reinitialize the engine texture with its default parameters.
+     */
     void detachImage() {
         assert( m_image != nullptr );
         m_image = nullptr;
-        // do not update data with textureParameters because it's not thread safe
-        // only render thread can do that
+        // updateData( m_textureParameters.texels ); // do not update data now with
+        // textureParameters because it's not thread safe, only render thread can do that
     }
 
   private:

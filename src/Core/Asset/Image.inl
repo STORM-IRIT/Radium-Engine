@@ -3,13 +3,6 @@
 
 namespace Ra {
 namespace Core {
-namespace Asset {
-
-////////////////
-/// TEXTURE  ///
-////////////////
-
-
-} // namespace Asset
+namespace Asset {} // namespace Asset
 } // namespace Core
 } // namespace Ra

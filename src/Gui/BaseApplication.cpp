@@ -464,8 +464,6 @@ void BaseApplication::framesCountForStatsChanged( uint count ) {
 }
 
 void BaseApplication::radiumFrame() {
-//    std::cout << "-----------------------------------------------------------" << std::endl;
-//    std::cout << "[BaseApplication] start radiumFrame" << std::endl;
     FrameTimerData timerData;
     timerData.frameStart = Core::Utils::Clock::now();
 
@@ -534,7 +532,6 @@ void BaseApplication::radiumFrame() {
         m_timerData.clear();
     }
     m_mainWindow->onFrameComplete();
-//    std::cout << "[BaseApplication] radiumFrame ended\n" << std::endl;
 }
 
 void BaseApplication::appNeedsToQuit() {
