@@ -209,6 +209,23 @@ const Ra::Engine::Data::TextureParameters g_initTextureParameters[EngineTextureI
 };
 // clang-format on
 
+constexpr size_t g_engineTextureSizes[EngineTextureInstance::COUNT] {
+    192 * 512 * 1,
+    10 * 10 * 3,
+    10 * 10 * 3,
+    10 * 10 * 3,
+    10 * 10 * 3,
+    10 * 10 * 3,
+    10 * 10 * 3,
+    10 * 10 * 3,
+    100 * 100 * 3,
+    10 * 10 * 3,
+    256 * 256 * 3,
+    512 * 512 * 3,
+    512 * 512 * 3,
+    100 * 100 * 3,
+};
+
 struct EngineTexture {
     Ra::Engine::Data::TextureParameters m_initTextureParameters;
 
@@ -389,6 +406,9 @@ int main( int argc, char* argv[] ) {
         g_engineTextures[RADIUM_LOGO_PNG].setData( data, size );
     }
 
+    for ( int i = 0; i < (int)EngineTextureInstance::COUNT; ++i ) {
+        assert( g_engineTextures[i].m_sizeData == g_engineTextureSizes[i] );
+    }
     for ( auto& engineTexture : g_engineTextures ) {
         engineTexture.init( app );
     }
@@ -515,7 +535,7 @@ int main( int argc, char* argv[] ) {
             constexpr auto rps = Ra::Core::Math::Pi / 2_ra; // radian per second
 
             const auto& proceduralInitParameters = g_initTextureParameters[PROCEDURAL];
-            const auto& size                     = g_engineTextures[PROCEDURAL].m_sizeData;
+            const auto& size                     = g_engineTextureSizes[PROCEDURAL];
 
             unsigned char newData[size];
             for ( int i = 0; i < proceduralInitParameters.width; ++i ) {
@@ -551,7 +571,7 @@ int main( int argc, char* argv[] ) {
             int checkerboard_engineTexSize =
                 checkerboard_engineTexSide * checkerboard_engineTexSide * 3;
 
-            unsigned char newData[checkerboard_engineTexSize];
+            auto newData = new unsigned char[checkerboard_engineTexSize];
             for ( int i = 0; i < checkerboard_engineTexSide; ++i ) {
                 for ( int j = 0; j < checkerboard_engineTexSide; j++ ) {
                     unsigned char color = ( ( i + j ) % 2 );
@@ -567,6 +587,7 @@ int main( int argc, char* argv[] ) {
                                        checkerboard_engineTexSide,
                                        newData,
                                        checkerboard_engineTexSize );
+            delete[] newData;
         };
         checkerboardQuad.m_messages.push_back( "resize image" );
     }
@@ -575,7 +596,7 @@ int main( int argc, char* argv[] ) {
     {
         gradientQuad.m_routine = [&imageGradient]( QuadLife& quadLife ) {
             const auto& proceduralInitParameters = g_initTextureParameters[GRADIENT];
-            const auto& size                     = g_engineTextures[GRADIENT].m_sizeData;
+            const auto& size                     = g_engineTextureSizes[GRADIENT];
             const auto& side                     = proceduralInitParameters.width;
 
             unsigned char newData[size];
@@ -640,7 +661,7 @@ int main( int argc, char* argv[] ) {
         blinkQuad.m_routinePerSecond = blkps;
         int iPeriod                  = 0;
         blinkQuad.m_routine          = [&imageBlink, &iPeriod, &blkps]( QuadLife& quadLife ) {
-            const auto& size = g_engineTextures[BLINK].m_sizeData;
+            const auto& size = g_engineTextureSizes[BLINK];
 
             unsigned char newData[size];
             std::memset( newData, ( quadLife.m_age % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
