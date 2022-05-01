@@ -26,9 +26,9 @@ set(core_sources
     Asset/HandleToSkeleton.cpp
     Asset/LightData.cpp
     Asset/MaterialData.cpp
-	Asset/Image.cpp
-	Asset/ImageManager.cpp
-	Asset/ImageSpec.cpp
+    Asset/Image.cpp
+    Asset/ImageManager.cpp
+    Asset/ImageSpec.cpp
     Containers/AdjacencyList.cpp
     Geometry/Adjacency.cpp
     Geometry/Area.cpp
@@ -86,9 +86,9 @@ set(core_headers
     Asset/HandleToSkeleton.hpp
     Asset/LightData.hpp
     Asset/MaterialData.hpp
-	Asset/Image.hpp
-	Asset/ImageManager.hpp
-	Asset/ImageSpec.hpp
+    Asset/Image.hpp
+    Asset/ImageManager.hpp
+    Asset/ImageSpec.hpp
     Asset/VolumeData.hpp
     Containers/AdjacencyList.hpp
     Containers/Algorithm.hpp
@@ -170,8 +170,8 @@ set(core_inlines
     Asset/HandleData.inl
     Asset/LightData.inl
     Asset/MaterialData.inl
-	Asset/Image.inl
-	Asset/ImageManager.inl
+    Asset/Image.inl
+    Asset/ImageManager.inl
     Containers/AdjacencyList.inl
     Containers/BVH.inl
     Containers/Grid.inl
