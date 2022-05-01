@@ -35,7 +35,7 @@ class ImageImpl
         m_sizeData = len;
     }
 
-    ImageImpl( const std::string& filename ) {
+    explicit ImageImpl( const std::string& filename ) {
         m_imgBuf = OpenImageIO_v2_3::ImageBuf( filename );
         // todo init m_sizeData
         m_sizeData = m_imgBuf.nativespec().size_t_safe();
@@ -103,7 +103,7 @@ class ImageImpl
         update( data, m_sizeData );
     }
 
-    ImageImpl( const std::string& filename ) {
+    explicit ImageImpl( const std::string& filename ) {
         assert( std::filesystem::exists( filename ) );
         int desired_channels = 0;
         unsigned char* data  = stbi_load( filename.c_str(),

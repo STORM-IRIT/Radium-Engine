@@ -529,8 +529,8 @@ int main( int argc, char* argv[] ) {
 
     //////////////////////////////////// Create routines /////////////////////////////////////
 
-    auto& proceduralQuad = quads[nQuad - 1][0];
     {
+		auto& proceduralQuad = quads[nQuad - 1][0];
         proceduralQuad.m_routine = [&imageProcedural]( QuadLife& quadLife ) {
             constexpr auto rps = Ra::Core::Math::Pi / 2_ra; // radian per second
 
@@ -564,8 +564,8 @@ int main( int argc, char* argv[] ) {
         proceduralQuad.m_messages.push_back( "update image" );
     }
 
-    auto& checkerboardQuad = quads[nQuad - 1][1];
     {
+		auto& checkerboardQuad = quads[nQuad - 1][1];
         checkerboardQuad.m_routine = [&imageCheckerboard]( QuadLife& quadLife ) {
             int checkerboard_engineTexSide = quadLife.m_age % 100;
             int checkerboard_engineTexSize =
@@ -592,8 +592,8 @@ int main( int argc, char* argv[] ) {
         checkerboardQuad.m_messages.push_back( "resize image" );
     }
 
-    auto& gradientQuad = quads[nQuad - 2][nQuad - 1];
     {
+		auto& gradientQuad = quads[nQuad - 2][nQuad - 1];
         gradientQuad.m_routine = [&imageGradient]( QuadLife& quadLife ) {
             const auto& proceduralInitParameters = g_initTextureParameters[GRADIENT];
             const auto& size                     = g_engineTextureSizes[GRADIENT];
@@ -615,8 +615,8 @@ int main( int argc, char* argv[] ) {
         gradientQuad.m_routinePerSecond = 256;
     }
 
-    auto& textureShifterQuad = quads[nQuad - 1][2];
     {
+		auto& textureShifterQuad = quads[nQuad - 1][2];
         textureShifterQuad.m_routine = [&images]( QuadLife& quadLife ) {
             g_engineTextures[SHIFTER].m_texture->attachImage(
                 images[quadLife.m_age % images.size()] );
@@ -624,8 +624,8 @@ int main( int argc, char* argv[] ) {
         textureShifterQuad.m_routinePerSecond = 0.5;
     }
 
-    auto& attachDetachQuad = quads[nQuad - 1][3];
     {
+		auto& attachDetachQuad = quads[nQuad - 1][3];
         attachDetachQuad.m_routine = [&imageProcedural]( QuadLife& quadLife ) {
             if ( quadLife.m_age % 2 == 0 ) {
                 g_engineTextures[ATTACH_DETACH].m_texture->attachImage( imageProcedural );
@@ -655,8 +655,8 @@ int main( int argc, char* argv[] ) {
         transformTestQuad.m_messages.push_back( "rotate transform" );
     }
 
-    auto& blinkQuad = quads[nQuad - 3][nQuad - 1];
     {
+		auto& blinkQuad = quads[nQuad - 3][nQuad - 1];
         int blkps                    = 30; // blink per second
         blinkQuad.m_routinePerSecond = blkps;
         int iPeriod                  = 0;
@@ -702,7 +702,7 @@ int main( int argc, char* argv[] ) {
     } );
     close_timer->start();
 
-    printQuadMessages( (const QuadLife*)quads, nQuad, nQuad );
+    printQuadMessages( reinterpret_cast<const QuadLife*>(quads), nQuad, nQuad );
 
     return app.exec();
 }

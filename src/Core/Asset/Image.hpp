@@ -22,7 +22,7 @@ class RA_CORE_API Image
 
     /// @param filename
     /// The image file to read.
-    Image( const std::string& filename );
+    explicit Image( const std::string& filename );
 
     Image( const Image& image ) = delete;
     Image& operator=( const Image& image ) = delete;

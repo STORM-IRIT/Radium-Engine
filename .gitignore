@@ -18,6 +18,7 @@
 Bundle*/
 build*/
 cmake-build-*/
+out/
 
 # external libraries
 external/eigen
@@ -26,3 +27,6 @@ tests/external/Catch2
 
 #Auto-generated plugins registration file
 src/Core/Utils/Version.cpp
+
+#Visual Studio
+CMakeSettings.json

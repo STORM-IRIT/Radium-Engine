@@ -218,14 +218,14 @@ struct RA_CORE_API ParamValue {
 
     std::string m_name; ///< data name
     TypeDesc m_type;    ///< data type, which may itself be an array
-    union {
-        char localval[16];
-        const void* ptr;
-    } m_data;                                 ///< Our data, either a pointer or small local value
-    int m_nvalues          = 0;               ///< number of values of the given type
-    unsigned char m_interp = INTERP_CONSTANT; ///< Interpolation type
-    bool m_copy            = false;
-    bool m_nonlocal        = false;
+    //union {
+    //    //char localval[16];
+    //    const void* ptr;
+    //} m_data;                                 ///< Our data, either a pointer or small local value
+    //int m_nvalues          = 0;               ///< number of values of the given type
+    //unsigned char m_interp = INTERP_CONSTANT; ///< Interpolation type
+    //bool m_copy            = false;
+    //bool m_nonlocal        = false;
 };
 using ParamValueList = std::vector<ParamValue>;
 
