@@ -1,19 +1,20 @@
 #include <Core/Asset/Image.hpp>
 
-//#define USE_OIIO
-
 #ifdef USE_OIIO
 
 #    include <OpenImageIO/imagebuf.h>
+
 namespace Ra {
 namespace Core {
 namespace Asset {
+
+// todo, this implement not worked today
+
 class ImageImpl
 {
   public:
-    ImageImpl( const ImageSpec& spec, void* data ) {
+    ImageImpl( ImageSpec&& spec, void* data, size_t len ) {
         OpenImageIO_v2_3::ImageSpec imgSpec;
-        //        assert( sizeof( spec ) == sizeof( imgSpec ) );
 
         assert( sizeof( spec.format ) == sizeof( imgSpec.format ) );
         memcpy( &imgSpec, &spec, (uintptr_t)&spec.channelnames - (uintptr_t)&spec );
@@ -30,19 +31,43 @@ class ImageImpl
         //        imgSpec.extra_attribs = spec.extra_attribs;
         m_imgBuf = OpenImageIO_v2_3::ImageBuf( imgSpec, data );
         assert( (void*)m_imgBuf.pixeladdr( 0, 0, 0 ) == data );
+        m_sizeData = len;
     }
-    ImageImpl( const std::string& filename ) { m_imgBuf = OpenImageIO_v2_3::ImageBuf( filename ); }
-    ~ImageImpl() = default;
 
-    void update( void* newData ) {
+    ImageImpl( const std::string& filename ) {
+        m_imgBuf = OpenImageIO_v2_3::ImageBuf( filename );
+        // todo init m_sizeData
+        m_sizeData = m_imgBuf.nativespec().size_t_safe();
+    }
+
+    ~ImageImpl() { m_imgBuf.clear(); }
+
+    void update( void* newData, size_t len ) {
         m_imgBuf = OpenImageIO_v2_3::ImageBuf( m_imgBuf.spec(), newData );
         assert( (void*)m_imgBuf.pixeladdr( 0, 0, 0 ) == newData );
+        m_sizeData = len;
     }
+
+    void resize( int width, int height, void* newData, size_t len ) {
+        auto imgSpec   = m_imgBuf.spec();
+        imgSpec.width  = width;
+        imgSpec.height = height;
+        m_imgBuf       = OpenImageIO_v2_3::ImageBuf( imgSpec, newData );
+        assert( (void*)m_imgBuf.pixeladdr( 0, 0, 0 ) == newData );
+        m_sizeData = len;
+    }
+
+  public:
     const void* getData() const { return m_imgBuf.pixeladdr( 0, 0, 0 ); }
+    size_t getSizeData() const { return m_sizeData; }
+    size_t getWidth() const { return m_imgBuf.spec().width; }
+    size_t getHeight() const { return m_imgBuf.spec().height; }
+    size_t getNChannels() const { return m_imgBuf.spec().nchannels; }
 
   private:
     //    std::string m_filename;
     OpenImageIO_v2_3::ImageBuf m_imgBuf;
+    size_t m_sizeData = 0;
 };
 
 #else
@@ -131,6 +156,8 @@ class ImageImpl
     }
 
     void resize( int width, int height, void* newData, size_t len ) {
+        // I assume here that there is only one thread that modifies or redefines an image
+        // so there can't be 2 concurrent calls of resize and update (so no mutex here)
         assert( m_sizeData != len );
         assert( newData != nullptr );
 
@@ -149,8 +176,8 @@ class ImageImpl
         tmp.sizeData = len;
 
         auto* readWriteBuffs = new unsigned char[tmp.sizeData * 2]; // do this to benefit of cache
-        tmp.data[0]            = readWriteBuffs;
-        tmp.data[1]            = &readWriteBuffs[tmp.sizeData];
+        tmp.data[0]          = readWriteBuffs;
+        tmp.data[1]          = &readWriteBuffs[tmp.sizeData];
 
         const int writeHead = 1 - m_readHead;
         std::memcpy( tmp.data[writeHead], newData, len );
@@ -174,7 +201,7 @@ class ImageImpl
     size_t m_width    = 0;
     size_t m_height   = 0;
     size_t m_sizeData = 0; // bytes
-    int m_readHead = 0;
+    int m_readHead    = 0;
 
     size_t m_nChannels = 0;
 };

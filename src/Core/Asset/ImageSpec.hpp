@@ -2,6 +2,11 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // https://github.com/OpenImageIO/oiio
 
+// I use header of ImageIO Lib for a future use of this one in Radium
+// Today it's optionnal
+// During the integration, the values of the parameters will be the same
+// this reduces the cost of future maintenance
+
 #include <map>
 
 #pragma once
