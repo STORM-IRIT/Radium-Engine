@@ -11,6 +11,7 @@ set(test_src
     Core/animation.cpp
     Core/camera.cpp
     Core/color.cpp
+    Core/image.cpp
     Core/containers.cpp
     Core/distance.cpp
     Core/indexmap.cpp
@@ -25,6 +26,7 @@ set(test_src
     Core/topomesh.cpp
     Engine/signalmanager.cpp
     Engine/renderparameters.cpp
+    Engine/texture.cpp
     Gui/keymapping.cpp
 )
 

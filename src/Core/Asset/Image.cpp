@@ -1,6 +1,6 @@
 #include <Core/Asset/Image.hpp>
 
-#undef USE_OIIO // not ready
+//#undef USE_OIIO // not ready
 #ifdef USE_OIIO
 
 #    include <OpenImageIO/imagebuf.h>
