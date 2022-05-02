@@ -141,6 +141,8 @@ class RA_GUI_API BaseApplication : public QApplication
     /// Get the html formatted help text
     virtual std::string getHelpText() const;
 
+    void addRadiumMenu();
+
   signals:
     /// Fired when the engine has just started, before the frame timer is set.
     void starting();
