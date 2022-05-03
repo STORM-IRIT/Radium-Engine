@@ -655,28 +655,54 @@ int main( int argc, char* argv[] ) {
         transformTestQuad.m_messages.push_back( "rotate transform" );
     }
 
-    {
-        auto& blinkQuad              = quads[nQuad - 3][nQuad - 1];
-        int blkps                    = 15; // blink per second
-        blinkQuad.m_routinePerSecond = blkps;
-        int iPeriod                  = 0;
-        blinkQuad.m_routine          = [&imageBlink, &iPeriod, &blkps]( QuadLife& quadLife ) {
-            const auto& size = g_engineTextureSizes[BLINK];
+    //    {
+    //        auto& blinkQuad              = quads[nQuad - 3][nQuad - 1];
+    //        int blkps                    = 15; // blink per second
+    //        blinkQuad.m_routinePerSecond = blkps;
+    //        int iPeriod                  = 0;
+    //            const auto& size = g_engineTextureSizes[BLINK];
+    //            unsigned char newData[size];
+    //            imageBlink->update( newData, size );
 
-            unsigned char newData[size];
-            std::memset( newData, ( quadLife.m_age % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
-            imageBlink->update( newData, size );
+    //        blinkQuad.m_routine          = [&imageBlink, &iPeriod, &blkps, &size, &newData](
+    //        QuadLife& quadLife ) {
 
-            ++iPeriod;
-            if ( iPeriod == blkps ) {
-                blkps                       = blkps % 30 + 1;
-                quadLife.m_routinePerSecond = blkps;
-                iPeriod                     = 0;
-            }
-        };
-        blinkQuad.m_messages.push_back( "blinking texture" );
-        blinkQuad.m_messages.push_back( "1Hz -> 30Hz" );
-    }
+    //            imageBlink->startWriting();
+    //            std::memset( newData, ( quadLife.m_age % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
+    //            imageBlink->endWriting();
+    ////            imageBlink->update( newData, size );
+
+    //            ++iPeriod;
+    //            if ( iPeriod == blkps ) {
+    //                blkps                       = blkps % 30 + 1;
+    //                quadLife.m_routinePerSecond = blkps;
+    //                iPeriod                     = 0;
+    //            }
+    //        };
+    //        blinkQuad.m_messages.push_back( "blinking texture" );
+    //        blinkQuad.m_messages.push_back( "1Hz -> 30Hz" );
+    //    }
+
+    const auto& size = g_engineTextureSizes[BLINK];
+    unsigned char newData[size];
+    imageBlink->update( newData, size );
+
+    std::thread thread = std::thread( [&imageBlink, &newData]() {
+        int fps = 30;
+        int cpt    = 0;
+
+        while ( true ) {
+            const auto start = std::chrono::high_resolution_clock::now();
+            imageBlink->startWriting();
+            std::memset( newData, ( cpt % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
+            imageBlink->update(newData, size);
+            imageBlink->endWriting();
+            const auto end = start + std::chrono::microseconds( (int)( 1'000'000 / fps ) );
+//            std::this_thread::sleep_until( end );
+            std::this_thread::sleep_for(std::chrono::microseconds( 1'000'000 / fps));
+            ++cpt;
+        }
+    } );
 
     //////////////////////////////////// Starting routines ////////////////////////////////////////
 
@@ -689,18 +715,18 @@ int main( int argc, char* argv[] ) {
     }
 
     //    terminate the app after 4 second( approximatively ).Camera can be moved using mouse moves.
-//    auto close_timer = new QTimer( &app );
-//    close_timer->setInterval( 4000 );
-//    QObject::connect( close_timer, &QTimer::timeout, [&app, &quads]() {
-//        for ( int i = 0; i < nQuad; ++i ) {
-//            for ( int j = 0; j < nQuad; ++j ) {
-//                QuadLife& quadLife = quads[i][j];
-//                quadLife.die();
-//            }
-//        }
-//        app.appNeedsToQuit();
-//    } );
-//    close_timer->start();
+    //    auto close_timer = new QTimer( &app );
+    //    close_timer->setInterval( 4000 );
+    //    QObject::connect( close_timer, &QTimer::timeout, [&app, &quads]() {
+    //        for ( int i = 0; i < nQuad; ++i ) {
+    //            for ( int j = 0; j < nQuad; ++j ) {
+    //                QuadLife& quadLife = quads[i][j];
+    //                quadLife.die();
+    //            }
+    //        }
+    //        app.appNeedsToQuit();
+    //    } );
+    //    close_timer->start();
 
     printQuadMessages( reinterpret_cast<const QuadLife*>( quads ), nQuad, nQuad );
 

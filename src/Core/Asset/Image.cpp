@@ -1,6 +1,7 @@
 #include <Core/Asset/Image.hpp>
 
 //#undef USE_OIIO // not ready
+
 #ifdef USE_OIIO
 
 #    include <OpenImageIO/imagebuf.h>
@@ -71,26 +72,141 @@ class ImageImpl
     size_t m_sizeData = 0;
 };
 
-#else
+#endif // USE_OIIO
 
-#    include <memory>
+#include <memory>
 
-#    include <cstring>
-#    include <iostream>
+#include <cstring>
+#include <iostream>
 
-#    define STB_IMAGE_IMPLEMENTATION
-#    include <stb/stb_image.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
 
-#    include <filesystem>
+#include <filesystem>
+#include <mutex>
 
 namespace Ra {
 namespace Core {
 namespace Asset {
 
 //#define USE_USER_PTR
-#    ifndef USE_USER_PTR
+//#define USE_DOUBLE_BUFFERING
+#define USE_CONCURRENCY
 
-#        ifndef USE_N_BUFFERING
+#ifdef USE_CONCURRENCY
+
+/**
+ * @brief
+ */
+class ImageImpl
+{
+  public:
+    ImageImpl( ImageSpec&& spec, void* data, size_t len ) {
+        m_width     = spec.width;
+        m_height    = spec.height;
+        m_nChannels = spec.nchannels;
+
+        assert( len == m_width * m_height * m_nChannels );
+        m_sizeData = len;
+        m_data     = new unsigned char[m_sizeData];
+        update( data, m_sizeData );
+    }
+
+    explicit ImageImpl( const std::string& filename ) {
+        assert( std::filesystem::exists( filename ) );
+        int desired_channels = 0;
+        unsigned char* data  = stbi_load( filename.c_str(),
+                                         (int*)&m_width,
+                                         (int*)&m_height,
+                                         (int*)&m_nChannels,
+                                         desired_channels );
+
+        if ( !data ) {
+            std::cout << "Something went wrong when loading image \"" << filename << "\"."
+                      << std::endl;
+            return;
+        }
+
+        m_sizeData = m_width * m_height * m_nChannels;
+        // no need to copy data, we are the owner of the image pointer
+        //        m_data = new unsigned char[m_sizeData];
+        //        update( data, m_sizeData );
+        m_data = data;
+    }
+
+    ~ImageImpl() {
+        if ( m_data != nullptr ) { delete[]( unsigned char* ) m_data; }
+    }
+
+    void update( void* newData, size_t len ) {
+
+        // no update if newData is null
+        // newData can be null when user want to create an image without having the data
+        // only image specification was specify and the data comming after the instanciate of image
+        // (comming afterward from sensors for example)
+        if ( newData == nullptr ) return;
+        assert( m_data != nullptr );
+
+        assert( m_sizeData == len );
+
+        m_data = newData;
+    }
+
+    void resize( int width, int height, void* newData, size_t len ) {
+        // I assume here that there is only one thread that modifies or redefines an image
+        // so there can't be 2 concurrent calls of resize and update (so no mutex here)
+        assert( m_sizeData != len );
+        assert( newData != nullptr );
+
+        struct {
+            void* data;
+            size_t width;
+            size_t height;
+            size_t sizeData;
+        } tmp;
+
+        tmp.data   = newData;
+        tmp.width  = width;
+        tmp.height = height;
+
+        assert( len == tmp.width * tmp.height * m_nChannels );
+        tmp.sizeData = len;
+
+        memcpy( this, &tmp, sizeof( tmp ) );
+    }
+
+    void startWriting() { m_mtx.lock(); }
+
+    void endWriting() {
+        m_mtx.unlock();
+    }
+
+    void startReading() { m_mtx.lock(); }
+
+    void endReading() { m_mtx.unlock(); }
+
+  public:
+    const void* getData() const { return m_data; }
+    size_t getSizeData() const { return m_sizeData; }
+    size_t getWidth() const { return m_width; }
+    size_t getHeight() const { return m_height; }
+    size_t getNChannels() const { return m_nChannels; }
+
+  private:
+    void* m_data = nullptr; // user data
+
+    size_t m_width    = 0;
+    size_t m_height   = 0;
+    size_t m_sizeData = 0; // bytes
+
+    size_t m_nChannels = 0;
+
+    std::mutex m_mtx;
+};
+
+#endif // USE_CONCURRENCY
+
+#ifdef USE_DOUBLE_BUFFERING
 
 class ImageImpl
 {
@@ -194,6 +310,11 @@ class ImageImpl
         delete[]( unsigned char* ) dataToRemove; // I don't know if both array are deallocate
     }
 
+    void startReading() {}
+    void endReading() {}
+    void startWriting() {}
+    void endWriting() {}
+
   public:
     const void* getData() const { return m_data[m_readHead]; }
     size_t getSizeData() const { return m_sizeData; }
@@ -212,136 +333,9 @@ class ImageImpl
     size_t m_nChannels = 0;
 };
 
-#        else
+#endif // USE_DOUBLE_BUFFERING
 
-class ImageImpl
-{
-    static constexpr int nBufs = 60;
-
-  public:
-    ImageImpl( ImageSpec&& spec, void* data, size_t len ) {
-        m_width     = spec.width;
-        m_height    = spec.height;
-        m_nChannels = spec.nchannels;
-
-        assert( len == m_width * m_height * m_nChannels );
-        m_sizeData           = len;
-        auto* readWriteBuffs = new unsigned char[m_sizeData * nBufs]; // do this to benefit of cache
-        for (int i = 0; i <nBufs; ++i) {
-            m_data[i] = &readWriteBuffs[i * m_sizeData];
-        }
-        update( data, m_sizeData );
-    }
-
-    explicit ImageImpl( const std::string& filename ) {
-        assert( std::filesystem::exists( filename ) );
-        int desired_channels = 0;
-        unsigned char* data  = stbi_load( filename.c_str(),
-                                         (int*)&m_width,
-                                         (int*)&m_height,
-                                         (int*)&m_nChannels,
-                                         desired_channels );
-
-        if ( !data ) {
-            std::cout << "Something went wrong when loading image \"" << filename << "\"."
-                      << std::endl;
-            return;
-        }
-
-        m_sizeData = m_width * m_height * m_nChannels;
-        // no need to copy data, we are the owner of the image pointer
-        //        m_data = new unsigned char[m_sizeData];
-        //        update( data, m_sizeData );
-        m_data[m_readHead] = data;
-    }
-
-    ~ImageImpl() {
-        if ( m_data[0] != nullptr ) {
-            delete[]( unsigned char* ) m_data[0];
-            for (int i = 0; i <nBufs; ++i) {
-                m_data[i] = nullptr;
-            }
-        }
-    }
-
-    void update( void* newData, size_t len ) {
-        if ( m_data[1] == nullptr ) return; // no update possible with from file image
-
-        // no update if newData is null
-        // newData can be null when user want to create an image without having the data
-        // only image specification was specify and the data comming after the instanciate of image
-        // (comming afterward from sensors for example)
-        if ( newData == nullptr ) return;
-
-        assert( m_data[0] != nullptr && m_data[1] != nullptr );
-        assert( m_sizeData == len );
-
-        // copy user data here, no dangling pointers,
-        // we assume that the client pointer can be deallocated by himself
-        // the client data can be modified at any time (network socket, stream sensors)
-        // with a client pointer it's difficult to manage the read/write operations
-        // on the image buffer without asking the clients to manage the concurrency
-        // (mutex, semaphore)
-        const int writeHead = (m_readHead + 1) % nBufs;
-        std::memcpy( m_data[writeHead], newData, len );
-        m_readHead = writeHead;
-    }
-
-    void resize( int width, int height, void* newData, size_t len ) {
-        // I assume here that there is only one thread that modifies or redefines an image
-        // so there can't be 2 concurrent calls of resize and update (so no mutex here)
-        assert( m_sizeData != len );
-        assert( newData != nullptr );
-
-        struct {
-            void* data[nBufs];
-            size_t width;
-            size_t height;
-            size_t sizeData;
-            int readHead;
-        } tmp;
-
-        tmp.width  = width;
-        tmp.height = height;
-
-        assert( len == tmp.width * tmp.height * m_nChannels );
-        tmp.sizeData = len;
-
-        auto* readWriteBuffs = new unsigned char[tmp.sizeData * nBufs]; // do this to benefit of cache
-        for (int i = 0; i <nBufs; ++i) {
-            tmp.data[i] = &readWriteBuffs[i *tmp.sizeData];
-        }
-
-        const int writeHead = (m_readHead + 1) % nBufs;
-        std::memcpy( tmp.data[writeHead], newData, len );
-        tmp.readHead = writeHead;
-
-        void* dataToRemove = m_data[0];
-        memcpy( this, &tmp, sizeof( tmp ) );
-        delete[]( unsigned char* ) dataToRemove;
-    }
-
-  public:
-    const void* getData() const { return m_data[m_readHead]; }
-    size_t getSizeData() const { return m_sizeData; }
-    size_t getWidth() const { return m_width; }
-    size_t getHeight() const { return m_height; }
-    size_t getNChannels() const { return m_nChannels; }
-
-  private:
-    void* m_data[nBufs] = { 0 }; // read/write buffers
-
-    size_t m_width    = 0;
-    size_t m_height   = 0;
-    size_t m_sizeData = 0; // bytes
-    int m_readHead    = 0;
-
-    size_t m_nChannels = 0;
-};
-
-#        endif // USE_DOUBLE_BUFFERING
-
-#    else
+#ifdef USE_USER_PTR
 
 /**
  * @brief Naive implement using user ptr without checking concurency
@@ -441,9 +435,7 @@ class ImageImpl
     size_t m_nChannels = 0;
 };
 
-#    endif // USE_USER_PTR
-
-#endif // USE_OIIO
+#endif // USE_USER_PTR
 
 //////////////////////////// Image /////////////////////////////////////////////
 
@@ -467,6 +459,23 @@ void Image::update( void* newData, size_t len ) {
 void Image::resize( int width, int height, void* newData, size_t len ) {
     m_impl->resize( width, height, newData, len );
     ++m_age;
+}
+
+void Image::startWriting() {
+    m_impl->startWriting();
+}
+
+void Image::endWriting() {
+    m_impl->endWriting();
+    ++m_age;
+}
+
+void Image::startReading() {
+    m_impl->startReading();
+}
+
+void Image::endReading() {
+    m_impl->endReading();
 }
 
 size_t Image::getAge() const {

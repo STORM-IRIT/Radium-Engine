@@ -32,6 +32,11 @@ class RA_CORE_API Image
     void update( void* newData, size_t len );
     void resize( int width, int height, void* newData, size_t len );
 
+    void startWriting();
+    void endWriting();
+    void startReading();
+    void endReading();
+
   protected:
     friend class ImageImpl;
 
