@@ -81,14 +81,7 @@ void Texture::initializeGL( bool linearize ) {
 void Texture::bind( int unit ) {
     if ( m_image != nullptr ) {
         if ( m_ageOfImage != m_image->getAge() ) {
-
-//            const auto size = m_image->getSizeData();
-//            auto * data = new unsigned char[size];
-//            std::memcpy(data, m_image->getData(), size);
-            m_image->startReading();
             updateData( m_image->getData() );
-            m_image->endReading();
-//            delete [] data;
             m_ageOfImage = m_image->getAge();
         }
     }

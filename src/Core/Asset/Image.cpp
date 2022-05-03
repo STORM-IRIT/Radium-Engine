@@ -89,122 +89,8 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
+#define USE_DOUBLE_BUFFERING
 //#define USE_USER_PTR
-//#define USE_DOUBLE_BUFFERING
-#define USE_CONCURRENCY
-
-#ifdef USE_CONCURRENCY
-
-/**
- * @brief
- */
-class ImageImpl
-{
-  public:
-    ImageImpl( ImageSpec&& spec, void* data, size_t len ) {
-        m_width     = spec.width;
-        m_height    = spec.height;
-        m_nChannels = spec.nchannels;
-
-        assert( len == m_width * m_height * m_nChannels );
-        m_sizeData = len;
-        m_data     = new unsigned char[m_sizeData];
-        update( data, m_sizeData );
-    }
-
-    explicit ImageImpl( const std::string& filename ) {
-        assert( std::filesystem::exists( filename ) );
-        int desired_channels = 0;
-        unsigned char* data  = stbi_load( filename.c_str(),
-                                         (int*)&m_width,
-                                         (int*)&m_height,
-                                         (int*)&m_nChannels,
-                                         desired_channels );
-
-        if ( !data ) {
-            std::cout << "Something went wrong when loading image \"" << filename << "\"."
-                      << std::endl;
-            return;
-        }
-
-        m_sizeData = m_width * m_height * m_nChannels;
-        // no need to copy data, we are the owner of the image pointer
-        //        m_data = new unsigned char[m_sizeData];
-        //        update( data, m_sizeData );
-        m_data = data;
-    }
-
-    ~ImageImpl() {
-        if ( m_data != nullptr ) { delete[]( unsigned char* ) m_data; }
-    }
-
-    void update( void* newData, size_t len ) {
-
-        // no update if newData is null
-        // newData can be null when user want to create an image without having the data
-        // only image specification was specify and the data comming after the instanciate of image
-        // (comming afterward from sensors for example)
-        if ( newData == nullptr ) return;
-        assert( m_data != nullptr );
-
-        assert( m_sizeData == len );
-
-        m_data = newData;
-    }
-
-    void resize( int width, int height, void* newData, size_t len ) {
-        // I assume here that there is only one thread that modifies or redefines an image
-        // so there can't be 2 concurrent calls of resize and update (so no mutex here)
-        assert( m_sizeData != len );
-        assert( newData != nullptr );
-
-        struct {
-            void* data;
-            size_t width;
-            size_t height;
-            size_t sizeData;
-        } tmp;
-
-        tmp.data   = newData;
-        tmp.width  = width;
-        tmp.height = height;
-
-        assert( len == tmp.width * tmp.height * m_nChannels );
-        tmp.sizeData = len;
-
-        memcpy( this, &tmp, sizeof( tmp ) );
-    }
-
-    void startWriting() { m_mtx.lock(); }
-
-    void endWriting() {
-        m_mtx.unlock();
-    }
-
-    void startReading() { m_mtx.lock(); }
-
-    void endReading() { m_mtx.unlock(); }
-
-  public:
-    const void* getData() const { return m_data; }
-    size_t getSizeData() const { return m_sizeData; }
-    size_t getWidth() const { return m_width; }
-    size_t getHeight() const { return m_height; }
-    size_t getNChannels() const { return m_nChannels; }
-
-  private:
-    void* m_data = nullptr; // user data
-
-    size_t m_width    = 0;
-    size_t m_height   = 0;
-    size_t m_sizeData = 0; // bytes
-
-    size_t m_nChannels = 0;
-
-    std::mutex m_mtx;
-};
-
-#endif // USE_CONCURRENCY
 
 #ifdef USE_DOUBLE_BUFFERING
 
@@ -309,11 +195,6 @@ class ImageImpl
         memcpy( this, &tmp, sizeof( tmp ) );
         delete[]( unsigned char* ) dataToRemove; // I don't know if both array are deallocate
     }
-
-    void startReading() {}
-    void endReading() {}
-    void startWriting() {}
-    void endWriting() {}
 
   public:
     const void* getData() const { return m_data[m_readHead]; }
@@ -459,23 +340,6 @@ void Image::update( void* newData, size_t len ) {
 void Image::resize( int width, int height, void* newData, size_t len ) {
     m_impl->resize( width, height, newData, len );
     ++m_age;
-}
-
-void Image::startWriting() {
-    m_impl->startWriting();
-}
-
-void Image::endWriting() {
-    m_impl->endWriting();
-    ++m_age;
-}
-
-void Image::startReading() {
-    m_impl->startReading();
-}
-
-void Image::endReading() {
-    m_impl->endReading();
 }
 
 size_t Image::getAge() const {

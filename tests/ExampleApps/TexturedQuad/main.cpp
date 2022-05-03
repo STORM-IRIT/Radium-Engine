@@ -655,54 +655,29 @@ int main( int argc, char* argv[] ) {
         transformTestQuad.m_messages.push_back( "rotate transform" );
     }
 
-    //    {
-    //        auto& blinkQuad              = quads[nQuad - 3][nQuad - 1];
-    //        int blkps                    = 15; // blink per second
-    //        blinkQuad.m_routinePerSecond = blkps;
-    //        int iPeriod                  = 0;
-    //            const auto& size = g_engineTextureSizes[BLINK];
-    //            unsigned char newData[size];
-    //            imageBlink->update( newData, size );
+    {
+        auto& blinkQuad              = quads[nQuad - 3][nQuad - 1];
+        int blkps                    = 15; // blink per second
+        blinkQuad.m_routinePerSecond = blkps;
+        int iPeriod                  = 0;
+        const auto& size             = g_engineTextureSizes[BLINK];
+        unsigned char newData[size];
 
-    //        blinkQuad.m_routine          = [&imageBlink, &iPeriod, &blkps, &size, &newData](
-    //        QuadLife& quadLife ) {
+        blinkQuad.m_routine =
+            [&imageBlink, &iPeriod, &blkps, &size, &newData]( QuadLife& quadLife ) {
+                std::memset( newData, ( quadLife.m_age % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
+                imageBlink->update( newData, size );
 
-    //            imageBlink->startWriting();
-    //            std::memset( newData, ( quadLife.m_age % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
-    //            imageBlink->endWriting();
-    ////            imageBlink->update( newData, size );
-
-    //            ++iPeriod;
-    //            if ( iPeriod == blkps ) {
-    //                blkps                       = blkps % 30 + 1;
-    //                quadLife.m_routinePerSecond = blkps;
-    //                iPeriod                     = 0;
-    //            }
-    //        };
-    //        blinkQuad.m_messages.push_back( "blinking texture" );
-    //        blinkQuad.m_messages.push_back( "1Hz -> 30Hz" );
-    //    }
-
-    const auto& size = g_engineTextureSizes[BLINK];
-    unsigned char newData[size];
-    imageBlink->update( newData, size );
-
-    std::thread thread = std::thread( [&imageBlink, &newData]() {
-        int fps = 30;
-        int cpt    = 0;
-
-        while ( true ) {
-            const auto start = std::chrono::high_resolution_clock::now();
-            imageBlink->startWriting();
-            std::memset( newData, ( cpt % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
-            imageBlink->update(newData, size);
-            imageBlink->endWriting();
-            const auto end = start + std::chrono::microseconds( (int)( 1'000'000 / fps ) );
-//            std::this_thread::sleep_until( end );
-            std::this_thread::sleep_for(std::chrono::microseconds( 1'000'000 / fps));
-            ++cpt;
-        }
-    } );
+                ++iPeriod;
+                if ( iPeriod == blkps ) {
+                    blkps                       = blkps % 30 + 1;
+                    quadLife.m_routinePerSecond = blkps;
+                    iPeriod                     = 0;
+                }
+            };
+        blinkQuad.m_messages.push_back( "blinking texture" );
+        blinkQuad.m_messages.push_back( "1Hz -> 30Hz" );
+    }
 
     //////////////////////////////////// Starting routines ////////////////////////////////////////
 
