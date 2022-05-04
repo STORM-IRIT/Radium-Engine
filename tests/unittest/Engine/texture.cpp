@@ -35,8 +35,8 @@ TEST_CASE( "Engine/Data/Texture", "[Engine][Engine/Data][Texture]" ) {
                                           GL_LINEAR,
                                           nullptr };
 
-    Texture texture(textureParameters);
-    texture.attachImage(img);
+    Texture texture( textureParameters );
+    texture.attachImage( img );
     // todo: check if the texture shown by OpenGL is the same as image
     texture.detachImage();
 }

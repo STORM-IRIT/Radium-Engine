@@ -457,7 +457,9 @@ int main( int argc, char* argv[] ) {
                                         1,
                                         Ra::Core::Asset::TypeUInt8 );
     auto imageProcedural = std::make_shared<Ra::Core::Asset::Image>(
-        imgSpec, nullptr, g_engineTextures[PROCEDURAL].m_sizeData );
+        //        imgSpec, nullptr, g_engineTextures[PROCEDURAL].m_sizeData );
+        imgSpec,
+        nullptr );
     images.push_back( imageProcedural );
 
     const auto& checkerboardInitParameters = g_initTextureParameters[CHECKER_BOARD];
@@ -466,7 +468,9 @@ int main( int argc, char* argv[] ) {
                                          3,
                                          Ra::Core::Asset::TypeUInt8 );
     auto imageCheckerboard = std::make_shared<Ra::Core::Asset::Image>(
-        imgSpec2, nullptr, g_engineTextures[CHECKER_BOARD].m_sizeData );
+        //        imgSpec2, nullptr, g_engineTextures[CHECKER_BOARD].m_sizeData );
+        imgSpec2,
+        nullptr );
     images.push_back( imageCheckerboard );
 
     const auto& grandientInitParameters = g_initTextureParameters[GRADIENT];
@@ -475,7 +479,9 @@ int main( int argc, char* argv[] ) {
                                          3,
                                          Ra::Core::Asset::TypeUInt8 );
     auto imageGradient = std::make_shared<Ra::Core::Asset::Image>(
-        imgSpec3, nullptr, g_engineTextures[GRADIENT].m_sizeData );
+        //        imgSpec3, nullptr, g_engineTextures[GRADIENT].m_sizeData );
+        imgSpec3,
+        nullptr );
     images.push_back( imageGradient );
 
     auto rp                 = Ra::Core::Resources::getResourcesPath();
@@ -491,7 +497,9 @@ int main( int argc, char* argv[] ) {
     Ra::Core::Asset::ImageSpec imgSpec4(
         blinkInitParameters.width, blinkInitParameters.height, 3, Ra::Core::Asset::TypeUInt8 );
     auto imageBlink = std::make_shared<Ra::Core::Asset::Image>(
-        imgSpec4, nullptr, g_engineTextures[BLINK].m_sizeData );
+        //        imgSpec4, nullptr, g_engineTextures[BLINK].m_sizeData );
+        imgSpec4,
+        nullptr );
     images.push_back( imageBlink );
 
     ////////////////////////////////// Get engine textures ///////////////////////////////////
@@ -549,7 +557,8 @@ int main( int argc, char* argv[] ) {
             }
 
             imageProcedural->update( newData, size );
-            std::memset( newData, 255, size );
+            std::memset( newData, 255, size ); // check if the data is copied, no dangling pointer
+                                               // here possible due of the thread loop
 
             Ra::Core::Transform rotateTransform = Ra::Core::Transform::Identity();
             rotateTransform.rotate(
@@ -655,29 +664,29 @@ int main( int argc, char* argv[] ) {
         transformTestQuad.m_messages.push_back( "rotate transform" );
     }
 
-    {
-        auto& blinkQuad              = quads[nQuad - 3][nQuad - 1];
-        int blkps                    = 15; // blink per second
-        blinkQuad.m_routinePerSecond = blkps;
-        int iPeriod                  = 0;
-        const auto& size             = g_engineTextureSizes[BLINK];
-        unsigned char newData[size];
+    // no block here, capture references need to still alive during the process
+    //    {
+    auto& blinkQuad              = quads[nQuad - 3][nQuad - 1];
+    int blkps                    = 15; // blink per second
+    blinkQuad.m_routinePerSecond = blkps;
+    int iPeriod                  = 0;
+    const auto& size             = g_engineTextureSizes[BLINK];
+    unsigned char newData[size];
 
-        blinkQuad.m_routine =
-            [&imageBlink, &iPeriod, &blkps, &size, &newData]( QuadLife& quadLife ) {
-                std::memset( newData, ( quadLife.m_age % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
-                imageBlink->update( newData, size );
+    blinkQuad.m_routine = [&imageBlink, &iPeriod, &blkps, &size, &newData]( QuadLife& quadLife ) {
+        std::memset( newData, ( quadLife.m_age % 2 == 0 ) ? ( 255 ) : ( 0 ), size );
+        imageBlink->update( newData, size );
 
-                ++iPeriod;
-                if ( iPeriod == blkps ) {
-                    blkps                       = blkps % 30 + 1;
-                    quadLife.m_routinePerSecond = blkps;
-                    iPeriod                     = 0;
-                }
-            };
-        blinkQuad.m_messages.push_back( "blinking texture" );
-        blinkQuad.m_messages.push_back( "1Hz -> 30Hz" );
-    }
+        ++iPeriod;
+        if ( iPeriod >= blkps ) {
+            blkps                       = blkps % 30 + 1;
+            quadLife.m_routinePerSecond = blkps;
+            iPeriod                     = 0;
+        }
+    };
+    blinkQuad.m_messages.push_back( "blinking texture" );
+    blinkQuad.m_messages.push_back( "1Hz -> 30Hz" );
+    //    }
 
     //////////////////////////////////// Starting routines ////////////////////////////////////////
 
