@@ -63,12 +63,15 @@ class ImageImpl
         m_sizeData = getWidth() * getHeight() * getNChannels();
     }
 
-    explicit ImageImpl( const std::string& filename ) {
-        m_imgBuf = OpenImageIO_v2_3::ImageBuf( filename );
+    explicit ImageImpl( const std::string& filename ) :
+        m_imgBuf( OpenImageIO_v2_3::ImageBuf( filename ) ) {
         //        m_imgCache = OpenImageIO_v2_3::ImageCache::create(false);
         //        m_imgBuf = OpenImageIO_v2_3::ImageBuf( filename, 0, 0, m_imgCache );
         m_sizeData = getWidth() * getHeight() * getNChannels();
     }
+
+    ImageImpl( const ImageImpl& image ) = delete;
+    ImageImpl operator= (const ImageImpl & imgImpl) = delete;
 
     ~ImageImpl() {
         m_imgBuf.clear();
@@ -198,6 +201,9 @@ class ImageImpl
         //        update( data, m_sizeData );
         m_data[m_readHead] = data;
     }
+
+    ImageImpl( const ImageImpl & imgImpl) = delete;
+    ImageImpl operator= (const ImageImpl & imgImpl) = delete;
 
     ~ImageImpl() {
         if ( m_readWriteBuffs != nullptr ) {
