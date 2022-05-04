@@ -266,6 +266,9 @@ class RA_CORE_API GeometryData : public AssetData
     /// Access to the attrib manager
     inline Utils::AttribManager& getAttribManager();
 
+    /// Access to the multiIndexedGeometry;
+    inline Geometry::MultiIndexedGeometry& getMultiIndexedGeometry();
+
     /// Access to the (const) attrib manager
     inline const Utils::AttribManager& getAttribManager() const;
 
