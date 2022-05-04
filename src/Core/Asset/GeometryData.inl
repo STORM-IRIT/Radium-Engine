@@ -210,6 +210,10 @@ const Utils::AttribManager& GeometryData::getAttribManager() const {
     return m_multiIndexedGeometry.vertexAttribs();
 }
 
+inline Geometry::MultiIndexedGeometry& GeometryData::getMultiIndexedGeometry() {
+    return m_multiIndexedGeometry;
+}
+
 Utils::AttribManager& GeometryData::getAttribManager() {
     return m_multiIndexedGeometry.vertexAttribs();
 }
