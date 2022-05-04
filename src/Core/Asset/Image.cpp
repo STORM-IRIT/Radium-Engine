@@ -71,7 +71,7 @@ class ImageImpl
     }
 
     ImageImpl( const ImageImpl& image ) = delete;
-    ImageImpl operator= (const ImageImpl & imgImpl) = delete;
+    ImageImpl operator=( const ImageImpl& imgImpl ) = delete;
 
     ~ImageImpl() {
         m_imgBuf.clear();
@@ -202,8 +202,8 @@ class ImageImpl
         m_data[m_readHead] = data;
     }
 
-    ImageImpl( const ImageImpl & imgImpl) = delete;
-    ImageImpl operator= (const ImageImpl & imgImpl) = delete;
+    ImageImpl( const ImageImpl& imgImpl ) = delete;
+    ImageImpl operator=( const ImageImpl& imgImpl ) = delete;
 
     ~ImageImpl() {
         if ( m_readWriteBuffs != nullptr ) {
