@@ -420,6 +420,15 @@ struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
     inline TriangleIndexLayer( SemanticNames... names );
 };
 
+struct RA_CORE_API QuadIndexLayer : public GeometryIndexLayer<Vector4ui> {
+    inline QuadIndexLayer();
+    static constexpr const char* staticSemanticName = "QuadMesh";
+
+  protected:
+    template <class... SemanticNames>
+    inline QuadIndexLayer( SemanticNames... names );
+};
+
 struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
     inline PolyIndexLayer();
     static constexpr const char* staticSemanticName = "PolyMesh";
@@ -452,6 +461,11 @@ struct getType<Vector2ui> {
 template <>
 struct getType<Vector3ui> {
     using Type = Ra::Core::Geometry::TriangleIndexLayer;
+};
+
+template <>
+struct getType<Vector4ui> {
+    using Type = Ra::Core::Geometry::QuadIndexLayer;
 };
 
 template <>
@@ -512,6 +526,9 @@ class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
 {};
 
 class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
+{};
+
+class RA_CORE_API QuadMesh : public IndexedGeometry<Vector4ui>
 {};
 
 class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>

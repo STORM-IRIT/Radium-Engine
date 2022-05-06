@@ -163,6 +163,11 @@ inline TriangleIndexLayer::TriangleIndexLayer() :
 template <class... SemanticNames>
 inline TriangleIndexLayer::TriangleIndexLayer( SemanticNames... names ) :
     GeometryIndexLayer( TriangleIndexLayer::staticSemanticName, names... ) {}
+// QuadIndexLayer
+inline QuadIndexLayer::QuadIndexLayer() : QuadIndexLayer( QuadIndexLayer::staticSemanticName ) {}
+template <class... SemanticNames>
+inline QuadIndexLayer::QuadIndexLayer( SemanticNames... names ) :
+    GeometryIndexLayer( QuadIndexLayer::staticSemanticName, names... ) {}
 // PolyIndexLayer
 inline PolyIndexLayer::PolyIndexLayer() :
     GeometryIndexLayer( PolyIndexLayer::staticSemanticName ) {}
