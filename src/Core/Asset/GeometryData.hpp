@@ -274,16 +274,12 @@ class RA_CORE_API GeometryData : public AssetData
 
     /**
      *
-     * @tparam V
+     * @tparam T
      * @param name
-     * @return Get container base on name (lock).
-     * @warning If AttribHandle corresponding to name doesn't exist, it's created
-     * and return. By using this method, user has read-write access to data, data is lock, when
-     * done, user must unlock data by getting the attribManager and then get the attrib.
-     * @note This function is only to avoid redundant code of function like getNormals().
+     * @return Attrib<T> from m_multiIndexedGeometry.
      */
-    template <typename V>
-    inline VectorArray<V>& addAttribDataWithLock( const Geometry::MeshAttrib& name );
+    template <typename T>
+    inline Utils::Attrib<T>& getAttrib( const Geometry::MeshAttrib& name );
 
     /**
      * @tparam V
@@ -298,28 +294,32 @@ class RA_CORE_API GeometryData : public AssetData
     /**
      *
      * @tparam V
-     * @param type
      * @param name
+     * @param firstOccurrence
      * @return Initialize (if necessary) and get a VectorArray<V> contain in layer.
      * @note This function is only to avoid redundant code of function like getEdges().
+     * If firstOccurrence == true, it allow to function to be more efficient but the name isn't use
+     * to find the layer.
      * @warning This function lock the layer, user has read-write access, when done, call
      * indexedDataUnlock ( const GeometryType& type, const std::string& name ).
      */
     template <typename V>
-    inline VectorArray<V>& addIndexedDataWithLock( const GeometryType& type,
-                                                   const std::string& name = "" );
+    inline VectorArray<V>& addIndexedDataWithLock( const std::string& name     = "",
+                                                   const bool& firstOccurrence = true );
 
     /**
      *
      * @tparam V
-     * @param type
      * @param name
+     * @param firstOccurrence
      * @note This function is only to avoid redundant code of function like getEdges().
+     * If firstOccurrence == true, it allow to function to be more efficient but the name isn't use
+     * to find the layer.
      * @return VectorArray<V>& stored in the layer.
      */
     template <typename V>
-    inline const VectorArray<V>& getIndexedData( const GeometryType& type,
-                                                 const std::string& name = "" ) const;
+    inline const VectorArray<V>& getIndexedData( const std::string& name     = "",
+                                                 const bool& firstOccurrence = true ) const;
 
     /**
      *
@@ -372,32 +372,27 @@ class RA_CORE_API GeometryData : public AssetData
 
     /**
      *
-     * @tparam L
-     * @param name
-     * @return true if layer isn't initialized.
-     */
-    template <typename L>
-    inline bool initLayer( const std::string& name );
-
-    /**
-     *
      * @tparam V
      * @tparam L
+     * @param firstOccurrence
      * @param name
      * @return VectorArray<V>& and lock the layer associated to it.
      */
     template <typename V, typename L>
-    inline VectorArray<V>& getIndexedDataWithLock( const std::string& name );
+    inline VectorArray<V>& getIndexedDataWithLock( const bool& firstOccurrence,
+                                                   const std::string& name = "" );
 
     /**
      *
      * @tparam V
      * @tparam L
+     * @param firstOccurrence
      * @param name
      * @return VectorArray<V>&
      */
     template <typename V, typename L>
-    inline const VectorArray<V>& getIndexedData( const std::string& name ) const;
+    inline const VectorArray<V>& getIndexedData( const bool& firstOccurrence,
+                                                 const std::string& name = "" ) const;
 };
 
 } // namespace Asset

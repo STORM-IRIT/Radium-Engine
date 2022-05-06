@@ -145,12 +145,13 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         REQUIRE( attribTexCoords.data().size() == 1 );
         REQUIRE( attribTexCoords.data()[0] == saveTexCoords );
 
-        geometry->addAttribDataWithLock<Ra::Core::Vector3>( MeshAttrib::VERTEX_TANGENT );
+        geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_TANGENT ).getDataWithLock();
         REQUIRE(
             geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TANGENT )->isLocked() );
         {
             auto unlocker = geometry->getAttribManager().getUnlocker();
-            geometry->addAttribDataWithLock<Ra::Core::Vector3>( MeshAttrib::VERTEX_BITANGENT );
+            geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_BITANGENT )
+                .getDataWithLock();
             REQUIRE( geometry->getAttribManager()
                          .getAttribBase( MeshAttrib::VERTEX_BITANGENT )
                          ->isLocked() );
@@ -173,8 +174,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         geometry.indexedDataUnlock( GeometryData::GeometryType::LINE_MESH, "in_edge" );
         REQUIRE( geometry.hasEdges() );
 
-        const auto& data = geometry.getIndexedData<Ra::Core::Vector2ui>(
-            GeometryData::GeometryType::LINE_MESH, "in_edge" );
+        const auto& data = geometry.getIndexedData<Ra::Core::Vector2ui>( "in_edge" );
         REQUIRE( save == data[0] );
 
         auto geometry2 = GeometryData();
@@ -195,8 +195,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         geometry.indexedDataUnlock( GeometryData::GeometryType::POLY_MESH, "in_face" );
         REQUIRE( geometry.hasFaces() );
 
-        const auto& data = geometry.getIndexedData<Ra::Core::VectorNui>(
-            GeometryData::GeometryType::POLY_MESH, "in_face" );
+        const auto& data = geometry.getIndexedData<Ra::Core::VectorNui>( "in_face" );
         REQUIRE( save == data[0] );
 
         auto geometry2 = GeometryData();
@@ -217,8 +216,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         geometry.indexedDataUnlock( GeometryData::GeometryType::POLY_MESH, "in_polyhedron" );
         REQUIRE( geometry.hasPolyhedra() );
 
-        const auto& data = geometry.getIndexedData<Ra::Core::VectorNui>(
-            GeometryData::GeometryType::POLY_MESH, "in_polyhedron" );
+        const auto& data = geometry.getIndexedData<Ra::Core::VectorNui>( "in_polyhedron" );
         REQUIRE( save == data[0] );
 
         auto geometry2 = GeometryData();
