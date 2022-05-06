@@ -73,21 +73,21 @@ class RA_CORE_API GeometryData : public AssetData
     inline std::size_t getVerticesSize() const;
 
     /// Return the list of vertices.
-    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
                   "instead." )]] inline Vector3Array&
     getVertices();
 
     /// Set the mesh vertices.
-    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated(
-        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead. " )]] inline void
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead. " )]] inline void
     setVertices( const Container& vertexList );
 
     /// Return the list of lines.
     /// \note For line meshes only.
-    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
-                  "instead." )]] inline Vector2uArray&
+    [[deprecated(
+        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "instead." )]] inline Vector2uArray&
     getEdges();
 
     /// Return the list of lines.
@@ -98,17 +98,19 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of lines.
     /// \note For line meshes only.
-    /// \note Use addIndexedDataWithLock( const GeometryType& type, const std::string& name )
+    /// \note Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
-    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
-                  "instead." )]] inline void
+    [[deprecated(
+        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "instead." )]] inline void
     setEdges( const Container& edgeList );
 
     /// Return the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
-                  "instead." )]] inline VectorNuArray&
+    [[deprecated(
+        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "instead." )]] inline VectorNuArray&
     getFaces();
 
     /// Return the list of faces.
@@ -119,17 +121,19 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    /// \note Use addIndexedDataWithLock( const GeometryType& type, const std::string& name )
+    /// \note Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
-    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
-                  "instead." )]] inline void
+    [[deprecated(
+        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "instead." )]] inline void
     setFaces( const Container& faceList );
 
     /// Return the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
-                  "instead." )]] inline VectorNuArray&
+    [[deprecated(
+        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "instead." )]] inline VectorNuArray&
     getPolyhedra();
 
     /// Return the list of polyhedra.
@@ -140,59 +144,56 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    /// \note Use addIndexedDataWithLock( const GeometryType& type, const std::string& name )
+    /// \note Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
-    [[deprecated( "Use addIndexedDataWithLock( const GeometryType& type, const std::string& name ) "
-                  "instead." )]] inline void
+    [[deprecated(
+        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "instead." )]] inline void
     setPolyhedra( const Container& polyList );
 
     /// Return the list of vertex normals.
-    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
                   "instead." )]] inline Vector3Array&
     getNormals();
 
     /// Set the vertex normals.
-    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated(
-        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead." )]] inline void
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead." )]] inline void
     setNormals( const Container& normalList );
 
     /// Return the list of vertex tangent vectors.
-    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
                   "instead." )]] inline Vector3Array&
     getTangents();
 
     /// Set the vertex tangent vectors.
-    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated(
-        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead." )]] inline void
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead." )]] inline void
     setTangents( const Container& tangentList );
 
     /// Return the list of vertex bitangent vectors.
-    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
                   "instead." )]] inline Vector3Array&
     getBiTangents();
 
     /// Set the vertex bitangent vectors.
-    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated(
-        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead." )]] inline void
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead." )]] inline void
     setBitangents( const Container& bitangentList );
 
     /// Return the list of vertex texture coordinates.
-    [[deprecated( "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) "
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
                   "instead." )]] inline Vector3Array&
     getTexCoords();
 
     /// Set the vertex texture coordinates.
-    /// \note Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated(
-        "Use addAttribDataWithLock( const Geometry::MeshAttrib& name ) instead." )]] inline void
+    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead." )]] inline void
     setTextureCoordinates( const Container& texCoordList );
 
     /// Return the MaterialData associated to the objet.
