@@ -55,6 +55,7 @@ else()
     target_link_libraries(
         ${ra_headless_target} PUBLIC Radium::Core Radium::Engine Radium::IO PRIVATE glfw
     )
+    target_compile_options(${ra_headless_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
     target_compile_definitions(
         ${ra_headless_target} PRIVATE ${ra_headless_target}_EXPORTS GLFW_INCLUDE_NONE
     )

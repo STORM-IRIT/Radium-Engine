@@ -1,4 +1,4 @@
-#set the compile defdinition for current directory (i.e. externals)
+#set the compile definition for current directory (i.e. externals)
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
         string(REGEX REPLACE "/W[0-4]" "/W4" EXTERNAL_CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")

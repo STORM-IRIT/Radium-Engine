@@ -44,6 +44,9 @@ find_package(nlohmann_json REQUIRED NO_DEFAULT_PATH)
 
 add_dependencies(${ra_core_target} versionFileTouchForRebuild) # We want precise time of build in
                                                                # version
+
+target_compile_options(${ra_core_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+
 target_include_directories(
     ${ra_core_target} PUBLIC $<BUILD_INTERFACE:${OPENMESH_INCLUDE_DIR}>
                              $<BUILD_INTERFACE:${EIGEN_INCLUDE_DIR}>
