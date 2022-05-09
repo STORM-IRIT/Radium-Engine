@@ -336,15 +336,30 @@ void ShaderProgram::setUniform( const char* name, const Scalar& value ) const {
     m_program->setUniform( name, static_cast<GL_SCALAR_PLAIN>( value ) );
 }
 
-template <>
-void ShaderProgram::setUniform( const char* name, const std::vector<Scalar>& value ) const {
+template <typename T,
+          typename std::enable_if<!std::is_same<T, GL_SCALAR_PLAIN>::value>::type* = nullptr>
+void scalarVectorAdapter( globjects::Program* prog,
+                          const char* name,
+                          const std::vector<T>& value ) {
     std::vector<GL_SCALAR_PLAIN> convertedValue;
-    /// \todo use is_same and enable_if to prevent copy when unnecessary
     std::transform( value.begin(),
                     value.end(),
                     std::back_inserter( convertedValue ),
                     []( Scalar c ) -> GL_SCALAR_PLAIN { return c; } );
-    m_program->setUniform( name, convertedValue );
+    prog->setUniform( name, convertedValue );
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<T, GL_SCALAR_PLAIN>::value>::type* = nullptr>
+void scalarVectorAdapter( globjects::Program* prog,
+                          const char* name,
+                          const std::vector<T>& value ) {
+    prog->setUniform( name, value );
+}
+
+template <>
+void ShaderProgram::setUniform( const char* name, const std::vector<Scalar>& value ) const {
+    scalarVectorAdapter<Scalar>( m_program.get(), name, value );
 }
 
 void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
