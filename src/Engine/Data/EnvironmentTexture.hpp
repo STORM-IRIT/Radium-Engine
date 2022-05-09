@@ -13,13 +13,14 @@ namespace Data {
 class ShaderProgram;
 struct ViewingParameters;
 
-/// Define a spherical, infinite light source.
-/// This object could be used for texturing skyboxes or to implement infinite lighting.
-/// An operator to convert an envmap to SH matrices for irradiance mapping is defined.
+/// \brief Defines a spherical, infinite light sources and, optionally, sky boxes.
+/// An operator to convert an EnvironmentTexture to SH matrices for irradiance mapping is defined.
+/// An operator to draw a textured sky box is defined.
 class RA_ENGINE_API EnvironmentTexture
 {
   public:
     /**
+     * \brief Environment map type inferred from file names and format.
      * Supported environment type.
      *   - ENVMAP_PFM : cross envmap in PortableFloatMap format
      *       (http://www.pauldebevec.com/Research/HDR/PFM/)
@@ -27,7 +28,7 @@ class RA_ENGINE_API EnvironmentTexture
      *   - ENVMAP_LATLON : equirectangular Projection of the envmap
      *       (https://en.wikipedia.org/wiki/Equirectangular_projection)
      */
-    enum class EnvMapType { ENVMAP_PFM = 0, ENVMAP_CUBE, ENVMAP_LATLON };
+    enum class EnvMapType { ENVMAP_PFM, ENVMAP_CUBE, ENVMAP_LATLON };
     /**
      * Constructors and destructor follow the 'rule of five'
      *  https://en.cppreference.com/w/cpp/language/rule_of_three
@@ -35,12 +36,13 @@ class RA_ENGINE_API EnvironmentTexture
     /** @{ */
 
     /**
-     * Construct an envmap from a file.
+     * \brief Construct an envmap from a file.
      * Supported image component of the envmap are the following.
      *
      *   - a pfm file for cross cubemap
-     *   - a list of image files for individual cube map faces (see below for naming convention)
+     *   - a list of image files for individual cube map faces (see below for naming convention).
      *   - a single png, exr, hdr, jpg file for Spherical equirectangular envmap
+     * \see EnvMapType
      *
      * If the cubemap is defined by a list of files, they must be named according to the
      * corresponding face of the cube :
@@ -50,14 +52,14 @@ class RA_ENGINE_API EnvironmentTexture
      * *negy* or *-Y-minux* : -Y face of the cube <br/>
      * *posz* or *-Z-plux* : +Z face of the cube <br/>
      * *negz* or *-Z-minux* : -Z face of the cube <br/>
-     * @param mapName The list of filenames
-     * @param type The file type. Supported file types are PFM for single files or whatever is
+     * \param mapName The list of filenames
+     * \param type The file type. Supported file types are PFM for single files or whatever is
      * supported by stb for per-face files.
-     * @param isSkybox indicates if the envmap must be associated with a skybox and rendered like
+     * \param isSkybox indicates if the envmap must be associated with a skybox and rendered like
      * this.
      *
-     * @note The envmap is transformed at loading/build time to the Radium global frame.
-     * @todo : if the file given to the constructor does not exist, generates a white envmap ?
+     * \note The envmap is transformed at loading/build time to the Radium global frame.
+     * \todo : if the file given to the constructor does not exist, generates a white envmap ?
      */
     explicit EnvironmentTexture( const std::string& mapName, bool isSkybox = false );
     EnvironmentTexture( const EnvironmentTexture& ) = delete;
@@ -68,73 +70,85 @@ class RA_ENGINE_API EnvironmentTexture
     ~EnvironmentTexture() = default;
     /**@}*/
 
-    std::string getImageName() const;
+    /**
+     * \brief Get the name used to construct the environment texture
+     * \return The file name, possibly ';' separated list of names, of the environment texture.
+     */
+    const std::string& getImageName() const;
+    /**
+     * \brief Get the type of the environment texture
+     * \see EnvMapType
+     * \return The type of the environment texture
+     */
     EnvMapType getImageType() const;
 
     /**
-     * Saves the spherical image representing the SH-encoded envmap
-     * @param filename
+     * \brief Saves the spherical image representing the SH-encoded envmap
+     * \param filename the file to write, in any format supported by stb library
      */
     void saveShProjection( const std::string& filename );
 
     /**
-     * Return the SH Matrix corresponding to the given color channel.
-     * @param channel
-     * @return the SH irradiance matrix for the channel
+     * \brief Return the SH Matrix corresponding to the given color channel.
+     * \param channel
+     * \return the SH irradiance matrix for the channel
      */
-    Ra::Core::Matrix4 getShMatrix( int channel );
+    const Ra::Core::Matrix4& getShMatrix( int channel );
 
     /**
-     * Render the envmap as a textured cube. This method does nothing if the envmap is not a skybox
-     * @param viewParams
+     * \brief Render the envmap as a textured cube. This method does nothing if the envmap is not a
+     * skybox \param viewParams The viewing parameter used to draw the scene
      */
     void render( const Ra::Engine::Data::ViewingParameters& viewParams );
 
     /**
-     * Set the state of the skybox
-     * @param state true to render the skybox, false to just use the SH coefficients
+     * \brief Set the state of the skybox
+     * \param state true to enable skybox rendering, false to just use the SH coefficients
      */
     void setSkybox( bool state );
 
     /**
-     * set the multiplicative factor which defined the power of the light source
-     * @param s the envmap power
+     * \brief Set the multiplicative factor which defined the power of the light source
+     * \param s the envmap power
      */
     void setStrength( float s );
 
     /**
-     * get the multiplicative factor which defined the power of the light source
-     * @return the envmap power
+     * \brief Get the multiplicative factor which defined the power of the light source
+     * \return the envmap power
      */
     float getStrength() const;
 
     /**
-     * @return true if the envmap is a skybox and might be rendered.
+     * \return true if the envmap is a skybox and might be rendered.
      */
     bool isSkybox() const;
 
     /**
-     * @return the cubemap texture defining the environment
+     * \return the prefiltered cubemap texture defining the environment
+     * \note Prefiltering is made using standard mip-mapping.
+     * \todo Prefilter according to bsdf roughness values ?
+     *       This will help for envmap lighting but might be wrong for skybox rendering
      */
     Ra::Engine::Data::Texture* getEnvironmentTexture();
 
     /**
-     * Update th OpenGL state of the envmap : texture, skybox and shaders if needed.
+     * \brief Update the OpenGL state of the envmap : texture, skybox and shaders if needed.
      */
     void updateGL();
 
   private:
-    /// Initialize the texture representing the skybox
+    /// \brief Initialize the texture representing the skybox
     void initializeTexture();
 
-    /// loads and transform portableFloatMap cross image
+    /// \brief Loads and transform portableFloatMap cross image
     void setupTexturesFromPfm();
-    /// loads and transform cubemap from list of image files
+    /// \brief Loads and transform cubemap from list of image files
     void setupTexturesFromCube();
-    /// loads and transform an equirectangular environment map
+    /// \brief Loads and transform an equirectangular environment map
     void setupTexturesFromSphericalEquiRectangular();
 
-    /// Compute the irradiance SH matrices
+    /// \brief Compute the irradiance SH matrices
     void computeSHMatrices();
 
     void updateCoeffs( float* hdr, float x, float y, float z, float domega );

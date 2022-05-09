@@ -4,7 +4,7 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 
-inline std::string EnvironmentTexture::getImageName() const {
+inline const std::string& EnvironmentTexture::getImageName() const {
     return m_name;
 }
 inline EnvironmentTexture::EnvMapType EnvironmentTexture::getImageType() const {

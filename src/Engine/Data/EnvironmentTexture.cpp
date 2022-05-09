@@ -338,6 +338,7 @@ void EnvironmentTexture::setupTexturesFromCube() {
         int w;
         int h;
         stbi_set_flip_vertically_on_load( flipV );
+        // Assume input images are in sRGB color space. stbi_loadf will convert to linear space.
         auto loaded = stbi_loadf( imgname.c_str(), &w, &h, &n, 0 );
         if ( !loaded ) {
             LOG( logERROR ) << "EnvironmentTexture::setupTexturesFromCube : unable to load "
@@ -366,6 +367,7 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
     int n, w, h;
     if ( ext == "exr" ) {
         const char* err { nullptr };
+        // EXR image are always in linear RGB color space
         int ret = LoadEXR( &latlonPix, &w, &h, m_name.c_str(), &err );
         n       = 4;
         if ( ret != TINYEXR_SUCCESS ) {
@@ -377,6 +379,7 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
     }
     else {
         stbi_set_flip_vertically_on_load( false );
+        // Assume input images are in sRGB color space. stbi_loadf will convert to linear space.
         latlonPix = stbi_loadf( m_name.c_str(), &w, &h, &n, 4 );
     }
     int textureSize = 1;
@@ -638,13 +641,12 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
 }
 
 void EnvironmentTexture::saveShProjection( const std::string& filename ) {
-    getSHImage();
+    auto tex  = getSHImage();
     auto flnm = std::string( "../" ) + filename;
-    stbi_write_png(
-        flnm.c_str(), m_shtexture->width(), m_shtexture->height(), 4, m_shtexture->texels(), 0 );
+    stbi_write_png( flnm.c_str(), tex->width(), tex->height(), 4, tex->texels(), 0 );
 }
 
-Ra::Core::Matrix4 EnvironmentTexture::getShMatrix( int channel ) {
+const Ra::Core::Matrix4& EnvironmentTexture::getShMatrix( int channel ) {
     return m_shMatrices[channel];
 }
 
@@ -654,25 +656,25 @@ void EnvironmentTexture::updateGL() {
         auto shaderMngr = Ra::Engine::RadiumEngine::getInstance()->getShaderProgramManager();
         const std::string vertexShaderSource { "#include \"TransformStructs.glsl\"\n"
                                                "layout (location = 0) in vec3 in_position;\n"
-                                               "out vec3 var_texcoord;\n"
+                                               "out vec3 incidentDirection;\n"
                                                "uniform Transform transform;\n"
                                                "void main(void)\n"
                                                "{\n"
                                                "    mat4 mvp = transform.proj * transform.view;\n"
-                                               "    gl_Position = mvp*vec4(in_position.xyz, 1.0);\n"
-                                               "    var_texcoord = in_position;\n"
+                                               "    gl_Position = mvp*vec4(in_position, 1.0);\n"
+                                               "    incidentDirection = in_position;\n"
                                                "}\n" };
         const std::string fragmentShadersource {
-            "layout (location = 0) out vec4 out_color;\n"
-            "in vec3 var_texcoord;\n"
-            "uniform samplerCube skytexture;\n"
+            "layout (location = 0) out vec4 outColor;\n"
+            "in vec3 incidentDirection;\n"
+            "uniform samplerCube skyTexture;\n"
             "uniform float strength;\n"
             "void main(void)\n"
             "{\n"
-            "    vec3 envColor = texture(skytexture, normalize(var_texcoord)).rgb;\n"
-            "    out_color =vec4(strength*envColor, 1);\n"
+            "    vec3 envColor = texture(skyTexture, normalize(incidentDirection)).rgb;\n"
+            "    outColor =vec4(strength*envColor, 1);\n"
             "}\n" };
-        Ra::Engine::Data::ShaderConfiguration config { "Built In SkyBox" };
+        Ra::Engine::Data::ShaderConfiguration config { "EnvironmentTexture::Builtin SkyBox" };
         config.addShaderSource( Ra::Engine::Data::ShaderType::ShaderType_VERTEX,
                                 vertexShaderSource );
         config.addShaderSource( Ra::Engine::Data::ShaderType::ShaderType_FRAGMENT,
@@ -684,7 +686,7 @@ void EnvironmentTexture::updateGL() {
             m_isSkyBox = false;
         }
         m_displayMesh->updateGL();
-        m_skyTexture->initializeGL( true );
+        m_skyTexture->initializeGL();
         glEnable( GL_TEXTURE_CUBE_MAP_SEAMLESS );
         m_glReady = true;
         // saveShProjection( "SHImage.png" );
