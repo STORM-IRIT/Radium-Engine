@@ -16,11 +16,6 @@ add_library(${ra_io_target} SHARED ${io_sources} ${io_headers} ${io_inlines})
 populate_local_dependencies(NAME "assimp_DIR")
 populate_local_dependencies(NAME "tinyply_DIR")
 
-add_external_folder(
-    IO ${RADIUM_EXTERNAL_DIR}/IO -DRADIUM_IO_ASSIMP=${RADIUM_IO_ASSIMP}
-    -DRADIUM_IO_TINYPLY=${RADIUM_IO_TINYPLY} ${LocalDependencies}
-)
-
 if(RADIUM_IO_ASSIMP)
     find_package(assimp 5.0 REQUIRED NO_DEFAULT_PATH)
     set_target_properties(${ra_io_target} PROPERTIES IO_ASSIMP ${RADIUM_IO_ASSIMP})
