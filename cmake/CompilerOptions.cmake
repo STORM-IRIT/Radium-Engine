@@ -73,11 +73,10 @@ endif()
 #
 
 set(RA_DEFAULT_COMPILE_OPTIONS)
-set(RA_GLBINDINGS_COMPILE_OPTIONS)
 
 # MSVC compiler options
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
-    set(RA_GLBINDINGS_COMPILE_OPTIONS
+    set(RA_DEFAULT_COMPILE_OPTIONS
         ${RA_DEFAULT_COMPILE_OPTIONS}
         PRIVATE
         /MP # -> build with multiple processes
@@ -89,7 +88,7 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
                 # (implementation limitation)
         # /wd4201     # -> disable warning: nonstandard extension used: nameless struct/union
         # (caused by GLM)
-        /wd4127 # -> disable warning: conditional expression is constant (caused by Qt)
+        /wd4127 # -> disable warning: conditional expression is constant (i.e. caused by Qt and LOG)
         # /Zm114      # -> Memory size for precompiled headers (insufficient for msvc 2013)
         /Zm200 # -> Memory size for precompiled headers
         # $<$<CONFIG:Debug>: /RTCc         # -> value is assigned to a smaller data type and results
@@ -108,7 +107,7 @@ endif()
 
 # GCC and Clang compiler options
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-    set(RA_GLBINDINGS_COMPILE_OPTIONS
+    set(RA_DEFAULT_COMPILE_OPTIONS
         ${RA_DEFAULT_COMPILE_OPTIONS}
         PRIVATE
         # -fno-exceptions # since we use stl and stl is intended to use exceptions, exceptions

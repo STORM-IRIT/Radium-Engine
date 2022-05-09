@@ -31,6 +31,8 @@ add_dependencies(${ra_gui_target} Core Engine PluginBase IO)
 target_link_libraries(${ra_gui_target} PUBLIC Core Engine PluginBase IO)
 target_link_libraries(${ra_gui_target} PRIVATE ${Qt_LIBRARIES} OpenGL::GL)
 
+target_compile_options(${ra_gui_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     target_compile_definitions(${ra_gui_target} PUBLIC GUI_IS_COMPILED_WITH_DEBUG_INFO)
 endif()

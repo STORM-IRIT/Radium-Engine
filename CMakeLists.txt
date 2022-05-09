@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.19)
 # ------------------------------------------------------------------------------
 # Policies and global parameters for CMake
 cmake_policy(SET CMP0077 NEW)
-cmake_policy(SET CMP0092 NEW)
+cmake_policy(SET CMP0092 NEW) # do not set /W3 for msvc
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
