@@ -44,6 +44,11 @@ function(windeployqt target directory)
         set(QT_OPTIONS ${QT_OPTIONS} --no-angle)
     endif()
 
+    set(QT_BUILD_TYPE_OPTION --release)
+    if(CMAKE_BUILD_TYPE MATCHES Debug)
+        set(QT_BUILD_TYPE_OPTION --debug)
+    endif()
+
     # execute windeployqt in a tmp directory after build
     add_custom_command(
         TARGET ${target}
@@ -54,8 +59,8 @@ function(windeployqt target directory)
                 "${CMAKE_CURRENT_BINARY_DIR}/windeployqt-${target}"
         COMMAND
             "${WINDEPLOYQT_EXECUTABLE}" --dir "${CMAKE_CURRENT_BINARY_DIR}/windeployqt-${target}"
-            --verbose 0 --no-compiler-runtime --no-translations --release --no-opengl-sw
-            ${QT_OPTIONS} "$<TARGET_FILE:${target}>"
+            --verbose 0 --no-compiler-runtime --no-translations ${QT_BUILD_TYPE_OPTION}
+            --no-opengl-sw ${QT_OPTIONS} "$<TARGET_FILE:${target}>"
         COMMENT "Run WinQTDeploy on ${target}"
         USES_TERMINAL COMMAND_EXPAND_LISTS
     )
