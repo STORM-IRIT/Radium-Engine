@@ -47,8 +47,8 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
     void updateShadowMaps();
 
   protected:
-    /// Draw the picture background
-    /// This method allow custom renderers to draw objects on the background.
+    /// \brief Draw the picture background.
+    /// This method allowq custom renderers to draw objects on the background.
     /// Called before the Zpre-pass, but after clearing the draw buffers.
     virtual void renderBackground( const Data::ViewingParameters& ) {}
 

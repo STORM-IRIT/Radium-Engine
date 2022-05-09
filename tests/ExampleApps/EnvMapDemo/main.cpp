@@ -28,7 +28,7 @@ class SkyBoxRenderer : public Rendering::ForwardRenderer
     using ForwardRenderer::ForwardRenderer;
     std::string getRendererName() const override { return "Skybox Renderer"; }
 
-    void setEnvMap( std::string filename ) {
+    void setEnvMap( const std::string& filename ) {
         m_envMap.reset( new Data::EnvironmentTexture( filename, true ) );
     }
 
