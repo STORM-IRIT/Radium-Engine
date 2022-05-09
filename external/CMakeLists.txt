@@ -12,9 +12,6 @@ if(NOT CMAKE_PROJECT_NAME STREQUAL ${RADIUM_DEPENDENCIES_PROJECT_NAME})
   ${CMAKE_PROJECT_NAME} !)"
     )
 else()
-    set(CMAKE_DISABLE_SOURCE_CHANGES ON)
-    set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-
     # We can use include() and find_package() for our scripts in there
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
 
@@ -68,22 +65,6 @@ else()
         )
     endif()
 
-    # Ensure that external dependencies built as standalone are not installed in a subdir of Radium
-    # source tree
-
-    get_filename_component(CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX} ABSOLUTE)
-    string(LENGTH ${CMAKE_SOURCE_DIR} SourceDirLength)
-    string(LENGTH "external/" ExternalDirLength)
-    math(EXPR RadiumPrefixLength " ${SourceDirLength} - ${ExternalDirLength}")
-    string(SUBSTRING ${CMAKE_SOURCE_DIR} 0 ${RadiumPrefixLength} RadiumPREFIX)
-    string(FIND ${CMAKE_INSTALL_PREFIX} ${RadiumPREFIX} IsPrefix)
-    if(${IsPrefix} GREATER -1)
-        message(
-            FATAL_ERROR
-                "Externals can't be installed into a subdirectory of Radium source tree: ${CMAKE_INSTALL_PREFIX}  -- ${RadiumPREFIX}"
-        )
-    endif()
-
     message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")
 
     # add core_dependencies
@@ -96,4 +77,11 @@ else()
     option(RADIUM_IO_ASSIMP "Provide loaders based on Assimp library" ON)
     option(RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library" ON)
     add_subdirectory(IO)
+
+    message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")
+
+    configure_file(
+        "${CMAKE_CURRENT_LIST_DIR}/radium-options.cmake.in"
+        "${CMAKE_INSTALL_PREFIX}/radium-options.cmake" @ONLY
+    )
 endif()
