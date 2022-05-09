@@ -186,7 +186,8 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
 
     SECTION( "Faces test " ) {
         auto geometry = GeometryData();
-        auto& faces   = geometry.getFaces();
+        geometry.setType( GeometryData::POLY_MESH );
+        auto& faces = geometry.getFaces<Ra::Core::VectorNui>();
         REQUIRE( faces.empty() );
 
         faces.resize( 1 );
@@ -199,10 +200,11 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         REQUIRE( save == data[0] );
 
         auto geometry2 = GeometryData();
+        geometry.setType( GeometryData::POLY_MESH );
         geometry2.setFaces( faces );
         // geometry2.setIndexedData(GeometryData::GeometryType::POLY_MESH, faces, "in_face");
-        REQUIRE( geometry2.getFaces().size() == 1 );
-        REQUIRE( geometry.getFaces()[0] == save );
+        REQUIRE( geometry2.getFaces<Ra::Core::VectorNui>().size() == 1 );
+        REQUIRE( geometry.getFaces<Ra::Core::VectorNui>()[0] == save );
     }
 
     SECTION( "Polyhedron test " ) {

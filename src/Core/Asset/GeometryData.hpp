@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string>
+#include <variant>
 #include <vector>
 
 #include <Core/Containers/VectorArray.hpp>
@@ -111,14 +112,16 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Return the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
+    template <typename T>
     [[deprecated( "Use findIndexDataWithLock<VectorNui>( \"in_face\" ) "
-                  "instead." )]] inline VectorNuArray&
+                  "instead." )]] inline VectorArray<T>&
     getFaces();
 
     /// Return the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
+    template <typename T>
     [[deprecated( "Use getIndexedData<VectorNui>( \"in_face\" ) "
-                  "instead." )]] inline const VectorNuArray&
+                  "instead." )]] inline const VectorArray<T>&
     getFaces() const;
 
     /// Set the list of faces.

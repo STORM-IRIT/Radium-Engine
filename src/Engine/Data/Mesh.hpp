@@ -446,9 +446,8 @@ template <typename CoreMeshType>
 CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData* data ) {
     CoreMeshType mesh;
     typename CoreMeshType::IndexContainerType indices;
-
     if ( !data->isLineMesh() ) {
-        const auto& faces = data->getFaces();
+        const auto& faces = data->getFaces<typename CoreMeshType::IndexType>();
         indices.reserve( faces.size() );
         std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
     }

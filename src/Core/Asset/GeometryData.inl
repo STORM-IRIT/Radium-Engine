@@ -76,12 +76,16 @@ inline void GeometryData::setEdges( const Container& edgeList ) {
     setIndexedData( GeometryType::LINE_MESH, edgeList, "in_edge" );
 }
 
-inline const VectorNuArray& GeometryData::getFaces() const {
-    return getIndexedData<VectorNui>( "in_face" );
+template <typename T>
+inline const VectorArray<T>& GeometryData::getFaces() const {
+    std::cout << " LA " << typeid( T ).name() << " FIN " << std::endl;
+    return getIndexedData<T>( "in_face" );
 }
 
-inline VectorNuArray& GeometryData::getFaces() {
-    return findIndexDataWithLock<VectorNui>( "in_face" );
+template <typename T>
+inline VectorArray<T>& GeometryData::getFaces() {
+    std::cout << "PAS CONST LA " << typeid( T ).name() << " FIN " << std::endl;
+    return findIndexDataWithLock<T>( "in_face" );
 }
 
 template <typename Container>
@@ -317,6 +321,14 @@ inline VectorArray<V>& GeometryData::findIndexDataWithLock( const std::string& n
     if ( std::is_same<V, Vector2ui>::value ) {
         return getIndexedDataWithLock<V, Geometry::LineIndexLayer>( firstOccurrence, name );
     }
+    else if ( std::is_same<V, Vector3ui>::value ) {
+        std::cout << "TRI_MESH" << std::endl;
+        return getIndexedDataWithLock<V, Geometry::TriangleIndexLayer>( firstOccurrence, name );
+    }
+    else if ( std::is_same<V, Vector4ui>::value ) {
+        std::cout << "QUAD_MESH" << std::endl;
+        return getIndexedDataWithLock<V, Geometry::QuadIndexLayer>( firstOccurrence, name );
+    }
     else {
         return getIndexedDataWithLock<V, Geometry::PolyIndexLayer>( firstOccurrence, name );
     }
@@ -340,6 +352,14 @@ inline void GeometryData::indexedDataUnlock( const GeometryType& type, const std
     case GeometryType::LINE_MESH:
         m_multiIndexedGeometry.unlockLayer(
             { { Core::Geometry::LineIndexLayer::staticSemanticName }, name } );
+        break;
+    case GeometryType::TRI_MESH:
+        m_multiIndexedGeometry.unlockLayer(
+            { { Core::Geometry::TriangleIndexLayer::staticSemanticName }, name } );
+        break;
+    case GeometryType::QUAD_MESH:
+        m_multiIndexedGeometry.unlockLayer(
+            { { Core::Geometry::QuadIndexLayer::staticSemanticName }, name } );
         break;
     default:
         m_multiIndexedGeometry.unlockLayer(

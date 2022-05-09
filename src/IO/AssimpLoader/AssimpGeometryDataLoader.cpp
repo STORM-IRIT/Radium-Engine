@@ -131,25 +131,45 @@ void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh,
 
 void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, GeometryData& data ) const {
     data.setType( GeometryData::UNKNOWN );
-    uint face_type = 0;
+    uint face_type_min = 0;
+    uint face_type_max = 0;
     for ( uint i = 0; i < mesh.mNumFaces; ++i ) {
-        face_type = std::max( face_type, mesh.mFaces[i].mNumIndices );
+        face_type_min = std::min( face_type_min, mesh.mFaces[i].mNumIndices );
     }
-    if ( face_type != 1 ) {
-        switch ( face_type ) {
+    for ( uint i = 0; i < mesh.mNumFaces; ++i ) {
+        face_type_max = std::max( face_type_max, mesh.mFaces[i].mNumIndices );
+    }
+    if ( face_type_max != 1 ) {
+        switch ( face_type_max ) {
         case 0: {
             data.setType( GeometryData::POINT_CLOUD );
         } break;
         case 2: {
+            std::cout << "line_mesh" << std::endl;
             data.setType( GeometryData::LINE_MESH );
         } break;
         case 3: {
-            data.setType( GeometryData::TRI_MESH );
+            if ( face_type_min == 3 ) {
+                std::cout << "tri_mesh" << std::endl;
+                data.setType( GeometryData::TRI_MESH );
+            }
+            else {
+                std::cout << "poly_mesh1" << std::endl;
+                data.setType( GeometryData::POLY_MESH );
+            }
         } break;
         case 4: {
-            data.setType( GeometryData::QUAD_MESH );
+            if ( face_type_min == 4 ) {
+                std::cout << "quad_mesh" << std::endl;
+                data.setType( GeometryData::QUAD_MESH );
+            }
+            else {
+                std::cout << "poly_mesh2" << std::endl;
+                data.setType( GeometryData::POLY_MESH );
+            }
         } break;
         default: {
+            std::cout << "poly_mesh3" << std::endl;
             data.setType( GeometryData::POLY_MESH );
         } break;
         }
@@ -196,13 +216,38 @@ void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& dat
 
 void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& data ) const {
     const int size = mesh.mNumFaces;
-    auto& face     = data.getFaces();
-    face.resize( mesh.mNumFaces );
+    switch ( data.getType() ) {
+    case Core::Asset::GeometryData::GeometryType::TRI_MESH: {
+        auto& face = data.getFaces<Ra::Core::Vector3ui>();
+        face.resize( mesh.mNumFaces );
 #pragma omp parallel for
-    for ( int i = 0; i < size; ++i ) {
-        face[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
+        for ( int i = 0; i < size; ++i ) {
+            face[i] =
+                assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
+        }
+        data.indexedDataUnlock( GeometryData::GeometryType::TRI_MESH, "in_face" );
     }
-    data.indexedDataUnlock( GeometryData::GeometryType::POLY_MESH, "in_face" );
+    case Core::Asset::GeometryData::GeometryType::QUAD_MESH: {
+        auto& face = data.getFaces<Ra::Core::Vector4ui>();
+        face.resize( mesh.mNumFaces );
+#pragma omp parallel for
+        for ( int i = 0; i < size; ++i ) {
+            face[i] =
+                assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
+        }
+        data.indexedDataUnlock( GeometryData::GeometryType::QUAD_MESH, "in_face" );
+    }
+    default: {
+        auto& face = data.getFaces<Ra::Core::VectorNui>();
+        face.resize( mesh.mNumFaces );
+#pragma omp parallel for
+        for ( int i = 0; i < size; ++i ) {
+            face[i] =
+                assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
+        }
+        data.indexedDataUnlock( GeometryData::GeometryType::POLY_MESH, "in_face" );
+    }
+    }
 }
 
 void AssimpGeometryDataLoader::fetchPolyhedron( const aiMesh& mesh, GeometryData& data ) const {
