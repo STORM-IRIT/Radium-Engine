@@ -22,7 +22,7 @@ We offer three different systems to handle external dependencies (see details an
 
 \warning Dependencies need to be built with the same build type (ie. Release, Debug) than Radium.
 
-# Building and installing Radium dependencies once for all
+# Building and installing Radium dependencies once for all {#builddep}
 
 We provide a standalone cmake project (`external/CMakeLists.txt`) to compile and install the Radium dependencies at any location.
 
