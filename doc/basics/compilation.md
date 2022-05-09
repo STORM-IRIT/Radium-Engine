@@ -47,11 +47,6 @@ By default, `${CMAKE_INSTALL_PREFIX}` is set as follow:
 It has the following structure, if externals are compiled along Radium
 ~~~
 Bundle-*
- - bin/  include/  lib/  libdata/  LICENSE  README.md  Resources/  share/
-~~~
-Or if externals are compiled locally :
-~~~
-Bundle-*
  - bin/  include/  lib/  LICENSE  README.md  Resources/  share/
 ~~~
 
@@ -142,14 +137,11 @@ add_dependencies (${ra_gui_target} PUBLIC Radium::Core Radium::Engine Radium::Pl
 
 ## Command line instructions for building (on windows, mac and linux)
 
-Out-of source builds are mandatory, we recommend to follow the usual sequence:
+Out-of source builds are mandatory, we recommend to follow the usual sequence, assuming you have build dependecies as explained [here](@ref builddep):
 
 ~~~bash
-$ mkdir build
-$ cd build
-$ cmake .. -DQt5_DIR=........ -DCMAKE_BUILD_TYPE=.......
-$ make
-$ make install
+cmake . -B build-r -DCMAKE_BUILD_TYPE=Release -C external/install-r/radium-options.cmake
+cmake --build build-r --target install --parallel
 ~~~
 \note Qt6 support is experimental. To enable it, replace `-DQt5_DIR=path/to/qt5` by `-DQt6_DIR=path/to/qt6`.
 
@@ -194,7 +186,7 @@ To fix it, edit `CMakeSettings.json`, such that
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
       "installRoot": "C:/Users/XXX/Dev/Radium-install",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
+      "cmakeCommandArgs": "-C external/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     },
@@ -205,7 +197,7 @@ To fix it, edit `CMakeSettings.json`, such that
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
       "installRoot": "C:/Users/XXX/Dev/Radium-installdbg",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
+      "cmakeCommandArgs": "-C external/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     }
