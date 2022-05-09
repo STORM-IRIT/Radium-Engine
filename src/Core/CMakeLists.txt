@@ -32,8 +32,6 @@ populate_local_dependencies(NAME "OpenMesh_DIR")
 populate_local_dependencies(NAME "cpplocate_DIR")
 populate_local_dependencies(NAME "nlohmann_json_DIR")
 
-add_external_folder(Core ${RADIUM_EXTERNAL_DIR}/Core ${LocalDependencies})
-
 find_package(Eigen3 3.3 REQUIRED NO_DEFAULT_PATH)
 
 find_package(OpenMesh REQUIRED COMPONENTS Core Tools NO_DEFAULT_PATH)
