@@ -18,7 +18,7 @@ namespace Utils {
  * \return Color code, or 0 if \a name is not a valid svg color name (0 corresponds to black).
  * \see https://www.december.com/html/spec/colorsvg.html
  */
-uint32_t RA_CORE_API getNamedColorCode( const std::string& name );
+uint32_t RA_CORE_API getNamedColorCode( std::string_view name );
 
 /*!
  * Colors are defined as vector4, i.e. 4 Scalars in RGBA order.
@@ -145,7 +145,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
     /// color name.
     /// \param name: a lowercase string corresponding to a valid svg color name. \see
     /// https://www.w3.org/TR/css-color-3/#svg-color
-    static inline ColorBase<_Scalar> getNamedColor( const std::string& name ) {
+    static inline ColorBase<_Scalar> getNamedColor( std::string_view name ) {
         return fromRGB24( getNamedColorCode( name ) );
     }
 
