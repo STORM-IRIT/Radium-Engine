@@ -48,6 +48,25 @@ add_executable(
     ${PROJECT_NAME} MACOSX_BUNDLE ${app_sources} ${app_headers} ${app_uis} ${app_resources}
 )
 
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+    target_compile_options(
+        ${PROJECT_NAME}
+        PRIVATE /MP
+                /W4
+                /wd4251
+                /wd4592
+                /wd4127
+                /Zm200
+                $<$<CONFIG:Release>:
+                /Gw
+                /GS-
+                /GL
+                /GF
+                >
+        PUBLIC
+    )
+endif()
+
 get_target_property(USE_ASSIMP Radium::IO IO_ASSIMP)
 if(${USE_ASSIMP})
     target_compile_definitions(${PROJECT_NAME} PRIVATE "-DIO_USE_ASSIMP")

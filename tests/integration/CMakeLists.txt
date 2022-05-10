@@ -4,9 +4,14 @@ add_custom_target(integration)
 # updating the tests while not updating the libs
 add_custom_target(integration_create_ref)
 
+# -----------------------------------------------------------------------------
+# ------------- TinyPlyFileLoader ---------------------------------------------
+# -----------------------------------------------------------------------------
+
 set(INTEGRATION_TEST TinyPlyFileLoader)
 # TinyPlyFileLoader read tests
 add_executable(integration_${INTEGRATION_TEST} ${INTEGRATION_TEST}/main.cpp)
+target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 target_link_libraries(integration_${INTEGRATION_TEST} PUBLIC Core IO)
 
 add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
@@ -45,6 +50,10 @@ set_tests_properties(
 
 add_dependencies(integration integration_${INTEGRATION_TEST})
 
+# -----------------------------------------------------------------------------
+# ------------- KeyMappingManager ---------------------------------------------
+# -----------------------------------------------------------------------------
+
 set(INTEGRATION_TEST KeyMappingManager)
 
 find_program(LIBXML2_XMLLINT_EXECUTABLE xmllint)
@@ -58,6 +67,8 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
 
     # KeyMappingManager saveConfiguration tests
     add_executable(integration_${INTEGRATION_TEST} ${INTEGRATION_TEST}/main.cpp)
+    target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+
     target_link_libraries(
         integration_${INTEGRATION_TEST} PUBLIC Core Gui PRIVATE std::filesystem ${Qt_LIBRARIES}
     )
@@ -101,6 +112,12 @@ else()
     )
 endif()
 
+# -----------------------------------------------------------------------------
+# ------------- includes ------------------------------------------------------
+# -----------------------------------------------------------------------------
+
+set(INTEGRATION_TEST includes)
+
 find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
 find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
@@ -124,12 +141,14 @@ configure_file(
 )
 
 set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
-add_executable(integration_includes "${CMAKE_CURRENT_BINARY_DIR}/includes.cpp")
+add_executable(integration_${INTEGRATION_TEST} "${CMAKE_CURRENT_BINARY_DIR}/includes.cpp")
+target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+
 target_link_libraries(
-    integration_includes PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt_LIBRARIES}
+    integration_${INTEGRATION_TEST} PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt_LIBRARIES}
 )
 target_compile_definitions(
-    integration_includes
+    integration_${INTEGRATION_TEST}
     PRIVATE -DCXX_FILESYSTEM_HAVE_FS
             -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}>
             -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE}
@@ -137,4 +156,4 @@ target_compile_definitions(
 
 # there is no run here, the fact that it compiles is the test. maybe use try_compile, but harder to
 # do ;)
-add_dependencies(integration integration_includes)
+add_dependencies(integration integration_${INTEGRATION_TEST})
