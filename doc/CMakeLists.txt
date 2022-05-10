@@ -4,7 +4,7 @@
 #   * dot = for automatically generated UML diagrams (class, include, caller, call, collaboration)
 #   * PlantUML = for easy generation of custom diagrams
 
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.16)
 project(radium-doc)
 
 if(POLICY CMP0077)

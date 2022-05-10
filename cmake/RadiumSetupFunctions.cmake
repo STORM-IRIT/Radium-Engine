@@ -3,10 +3,10 @@
 # cmake tips : To delay evaluation of some variable to build time, just escape their name ( e.g
 # \${NAME} instead of ${NAME}
 
-# Minimum version: 3.13: install target from different directory see
+# Minimum version: 3.16: install target from different directory see
 # https://github.com/STORM-IRIT/Radium-Engine/pull/550#issuecomment-637415860
 
-cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 if(MSVC OR MSVC_IDE OR MINGW)
     include(${CMAKE_CURRENT_LIST_DIR}/Windeployqt.cmake)

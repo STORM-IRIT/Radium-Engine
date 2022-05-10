@@ -139,8 +139,6 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHE
         $<$<PLATFORM_ID:Darwin>:
         -pthread
         >
-        # Required for CMake < 3.1; should be removed if minimum required CMake version is raised.
-        $<$<VERSION_LESS:${CMAKE_VERSION},3.1>:
         -std=c++17
         >
     )
@@ -159,5 +157,4 @@ endif()
 
 if(NOT "${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
     set(RA_DEFAULT_LINKER_OPTIONS ${RA_DEFAULT_LINKER_OPTIONS} PUBLIC ${CMAKE_DL_LIBS})
-
 endif()

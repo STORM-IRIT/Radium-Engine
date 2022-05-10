@@ -28,11 +28,11 @@ get_target_property(_qmake_executable Qt::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
 find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
 
-# Running this with MSVC 2015 requires CMake 3.6+
+# Running this with MSVC 2015 requires CMake 3.16+
 if((MSVC_VERSION VERSION_EQUAL 1900 OR MSVC_VERSION VERSION_GREATER 1900) AND CMAKE_VERSION
-                                                                              VERSION_LESS "3.6"
+                                                                              VERSION_LESS "3.16"
 )
-    message(WARNING "Deploying with MSVC 2015+ requires CMake 3.6+")
+    message(WARNING "Deploying with MSVC 2015+ requires CMake 3.16+")
 endif()
 
 # Add commands that copy the Qt runtime to the target's output directory after build and install the

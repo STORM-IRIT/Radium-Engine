@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.16)
 
 # ------------------------------------------------------------------------------
 # Policies and global parameters for CMake

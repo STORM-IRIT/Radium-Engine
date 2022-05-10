@@ -1,7 +1,5 @@
-cmake_minimum_required(VERSION 3.13)
-if(APPLE)
-    cmake_policy(SET CMP0042 NEW)
-endif(APPLE)
+cmake_minimum_required(VERSION 3.16)
+cmake_policy(SET CMP0042 NEW)
 
 project(EntityAnimationDemo VERSION 1.0.0)
 
