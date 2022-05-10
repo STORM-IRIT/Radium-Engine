@@ -46,6 +46,25 @@ set(app_resources)
 # add_executable
 add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_resources})
 
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+    target_compile_options(
+        ${PROJECT_NAME}
+        PRIVATE /MP
+                /W4
+                /wd4251
+                /wd4592
+                /wd4127
+                /Zm200
+                $<$<CONFIG:Release>:
+                /Gw
+                /GS-
+                /GL
+                /GF
+                >
+        PUBLIC
+    )
+endif()
+
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 target_include_directories(
     ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc

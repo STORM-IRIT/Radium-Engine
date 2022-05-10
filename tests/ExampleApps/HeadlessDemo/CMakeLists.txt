@@ -32,6 +32,25 @@ set(app_sources main.cpp)
 
 add_executable(${PROJECT_NAME} ${app_sources})
 
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+    target_compile_options(
+        ${PROJECT_NAME}
+        PRIVATE /MP
+                /W4
+                /wd4251
+                /wd4592
+                /wd4127
+                /Zm200
+                $<$<CONFIG:Release>:
+                /Gw
+                /GS-
+                /GL
+                /GF
+                >
+        PUBLIC
+    )
+endif()
+
 target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Headless)
 
 if(USE_RADIUM_IO_ASSIMPLOADER)
