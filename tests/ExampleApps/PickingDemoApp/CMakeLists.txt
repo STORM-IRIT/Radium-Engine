@@ -1,10 +1,6 @@
-cmake_minimum_required(VERSION 3.6)
-if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} VERSION_GREATER "3.9")
-    cmake_policy(SET CMP0071 NEW)
-endif()
-if(APPLE)
-    cmake_policy(SET CMP0042 NEW)
-endif(APPLE)
+cmake_minimum_required(VERSION 3.16)
+cmake_policy(SET CMP0071 NEW)
+cmake_policy(SET CMP0042 NEW)
 
 project(PickingDemoApp VERSION 1.0.0)
 

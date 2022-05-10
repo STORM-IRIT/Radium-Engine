@@ -6,7 +6,7 @@ project(${ra_engine_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 include(filelistEngine)
 set(engine_shaders_full ${engine_shaders})
 
-if(CMAKE_VERSION VERSION_LESS 3.12)
+if(CMAKE_VERSION VERSION_LESS 3.16)
     string(REGEX REPLACE "([^;]+)" "${RADIUM_SHADERS_DIR}/\\1" engine_shaders_full
                          "${engine_shaders}"
     )
