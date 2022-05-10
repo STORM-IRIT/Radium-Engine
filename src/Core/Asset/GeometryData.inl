@@ -78,13 +78,11 @@ inline void GeometryData::setEdges( const Container& edgeList ) {
 
 template <typename T>
 inline const VectorArray<T>& GeometryData::getFaces() const {
-    std::cout << " LA " << typeid( T ).name() << " FIN " << std::endl;
     return getIndexedData<T>( "in_face" );
 }
 
 template <typename T>
 inline VectorArray<T>& GeometryData::getFaces() {
-    std::cout << "PAS CONST LA " << typeid( T ).name() << " FIN " << std::endl;
     return findIndexDataWithLock<T>( "in_face" );
 }
 
@@ -204,8 +202,15 @@ inline bool GeometryData::hasEdges() const {
 }
 
 inline bool GeometryData::hasFaces() const {
-    return m_multiIndexedGeometry.containsLayer( { Geometry::PolyIndexLayer::staticSemanticName },
+    switch ( m_type ) {
+    case TRI_MESH:
+        return !getIndexedData<Vector3ui>( "in_face" ).empty();
+    case QUAD_MESH:
+        return !getIndexedData<Vector4ui>( "in_face" ).empty();
+    default:
+        return m_multiIndexedGeometry.containsLayer( { Geometry::PolyIndexLayer::staticSemanticName },
                                                  "in_face" );
+    }
 }
 
 inline bool GeometryData::hasPolyhedra() const {
@@ -322,11 +327,9 @@ inline VectorArray<V>& GeometryData::findIndexDataWithLock( const std::string& n
         return getIndexedDataWithLock<V, Geometry::LineIndexLayer>( firstOccurrence, name );
     }
     else if ( std::is_same<V, Vector3ui>::value ) {
-        std::cout << "TRI_MESH" << std::endl;
         return getIndexedDataWithLock<V, Geometry::TriangleIndexLayer>( firstOccurrence, name );
     }
     else if ( std::is_same<V, Vector4ui>::value ) {
-        std::cout << "QUAD_MESH" << std::endl;
         return getIndexedDataWithLock<V, Geometry::QuadIndexLayer>( firstOccurrence, name );
     }
     else {
@@ -339,6 +342,14 @@ inline const VectorArray<V>& GeometryData::getIndexedData( const std::string& na
                                                            const bool& firstOccurrence ) const {
     if ( std::is_same<V, Vector2ui>::value ) {
         auto& geomBase = getLayerBase<Geometry::LineIndexLayer>( firstOccurrence, name );
+        return getDataFromLayerBase<V>( geomBase );
+    }
+    else if (std::is_same<V, Vector3ui>::value){
+        auto& geomBase = getLayerBase<Geometry::TriangleIndexLayer>( firstOccurrence, name );
+        return getDataFromLayerBase<V>( geomBase );
+    }
+    else if (std::is_same<V, Vector4ui>::value){
+        auto& geomBase = getLayerBase<Geometry::QuadIndexLayer>( firstOccurrence, name );
         return getDataFromLayerBase<V>( geomBase );
     }
     else {

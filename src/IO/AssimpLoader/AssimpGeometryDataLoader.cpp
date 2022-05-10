@@ -131,47 +131,40 @@ void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh,
 
 void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, GeometryData& data ) const {
     data.setType( GeometryData::UNKNOWN );
-    uint face_type_min = 0;
+
+    // Fetch max
     uint face_type_max = 0;
-    for ( uint i = 0; i < mesh.mNumFaces; ++i ) {
-        face_type_min = std::min( face_type_min, mesh.mFaces[i].mNumIndices );
-    }
     for ( uint i = 0; i < mesh.mNumFaces; ++i ) {
         face_type_max = std::max( face_type_max, mesh.mFaces[i].mNumIndices );
     }
+    // Fetch min
+    uint face_type_min = face_type_max;
+    for ( uint i = 0; i < mesh.mNumFaces; ++i ) {
+        face_type_min = std::min( face_type_min, mesh.mFaces[i].mNumIndices );
+    }
+
     if ( face_type_max != 1 ) {
-        switch ( face_type_max ) {
-        case 0: {
-            data.setType( GeometryData::POINT_CLOUD );
-        } break;
-        case 2: {
-            std::cout << "line_mesh" << std::endl;
-            data.setType( GeometryData::LINE_MESH );
-        } break;
-        case 3: {
-            if ( face_type_min == 3 ) {
-                std::cout << "tri_mesh" << std::endl;
+        if ( face_type_min != face_type_max ) {
+            if ( !face_type_max ) { data.setType( GeometryData::POINT_CLOUD ); }
+            else {
+                data.setType( GeometryData::POLY_MESH );
+            }
+        }
+        else {
+            switch ( face_type_max ) {
+            case 2:
+                data.setType( GeometryData::LINE_MESH );
+                break;
+            case 3:
                 data.setType( GeometryData::TRI_MESH );
-            }
-            else {
-                std::cout << "poly_mesh1" << std::endl;
-                data.setType( GeometryData::POLY_MESH );
-            }
-        } break;
-        case 4: {
-            if ( face_type_min == 4 ) {
-                std::cout << "quad_mesh" << std::endl;
+                break;
+            case 4:
                 data.setType( GeometryData::QUAD_MESH );
-            }
-            else {
-                std::cout << "poly_mesh2" << std::endl;
+                break;
+            default:
                 data.setType( GeometryData::POLY_MESH );
+                break;
             }
-        } break;
-        default: {
-            std::cout << "poly_mesh3" << std::endl;
-            data.setType( GeometryData::POLY_MESH );
-        } break;
         }
     }
 }
