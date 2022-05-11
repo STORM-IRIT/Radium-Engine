@@ -53,8 +53,6 @@ option(
     ON
 )
 
-set(RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE NEVER)
-
 set(DISPLAY_WIDTH 80)
 
 if(RADIUM_USE_DOUBLE)
@@ -76,7 +74,6 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 include(MessageFunc)
 message_title(" ${PROJECT_NAME} Project configuration ")
-message_info("Externals will be built with $ENV{CMAKE_BUILD_PARALLEL_LEVEL} core(s)")
 
 # ------------------------------------------------------------------------------
 # General settings
@@ -116,7 +113,7 @@ else()
         ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}
     )
 endif()
-set(RADIUM_EXTERNAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external")
+
 set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(RADIUM_SHADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
 
@@ -175,8 +172,6 @@ if(RADIUM_ENABLE_COVERAGE)
 endif(RADIUM_ENABLE_COVERAGE)
 
 # ------------------------------------------------------------------------------
-# Dependency management utilities
-include(ExternalFunc)
 # Installation utilities
 include(RadiumSetupFunctions)
 
@@ -283,9 +278,6 @@ message_setting("RADIUM_IO_ASSIMP")
 message_setting("RADIUM_IO_TINYPLY")
 message_setting("RADIUM_IO_VOLUMES")
 message_setting("RADIUM_IO_DEPRECATED")
-message_setting("RADIUM_SKIP_CORE_EXTERNAL")
-message_setting("RADIUM_SKIP_ENGINE_EXTERNAL")
-message_setting("RADIUM_SKIP_IO_EXTERNAL")
 message_setting("RADIUM_INSTALL_DOC")
 message_setting("RADIUM_UPDATE_VERSION")
 message_setting("RADIUM_QUIET")
