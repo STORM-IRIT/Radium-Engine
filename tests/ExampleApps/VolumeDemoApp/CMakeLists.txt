@@ -1,10 +1,7 @@
-cmake_minimum_required(VERSION 3.6)
-if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} VERSION_GREATER "3.9")
-    cmake_policy(SET CMP0071 NEW)
-endif()
-if(APPLE)
-    cmake_policy(SET CMP0042 NEW)
-endif(APPLE)
+cmake_minimum_required(VERSION 3.16)
+
+cmake_policy(SET CMP0071 NEW)
+cmake_policy(SET CMP0042 NEW)
 
 project(VolumeDemoApp VERSION 1.0.0)
 
@@ -38,21 +35,34 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # ------------------------------------------------------------------------------
 set(app_sources main.cpp)
-set(app_headers)
-
-set(app_uis)
-qt_wrap_ui(app_uis_moc ${app_uis})
-
-set(app_resources)
 
 # to install the app as a redistribuable bundle on macos, add MACOSX_BUNDLE when calling
 # add_executable
-add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_resources})
+add_executable(${PROJECT_NAME} ${app_sources})
+
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+    target_compile_options(
+        ${PROJECT_NAME}
+        PRIVATE /MP
+                /W4
+                /wd4251
+                /wd4592
+                /wd4127
+                /Zm200
+                $<$<CONFIG:Release>:
+                /Gw
+                /GS-
+                /GL
+                /GF
+                >
+        PUBLIC
+    )
+endif()
 
 target_compile_definitions(
     ${PROJECT_NAME} PRIVATE DEMO_FILE="${CMAKE_CURRENT_SOURCE_DIR}/../../unittest/data/Lobster.pvm"
 )
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+
 target_include_directories(
     ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc
                             ${CMAKE_CURRENT_SOURCE_DIR}

@@ -1,7 +1,5 @@
-cmake_minimum_required(VERSION 3.13)
-if(APPLE)
-    cmake_policy(SET CMP0042 NEW)
-endif(APPLE)
+cmake_minimum_required(VERSION 3.16)
+cmake_policy(SET CMP0042 NEW)
 
 project(TexturedQuad VERSION 1.0.0)
 
@@ -40,6 +38,25 @@ set(app_sources main.cpp)
 # to install the app as a redistribuable bundle on macos, add MACOSX_BUNDLE when calling
 # add_executable
 add_executable(${PROJECT_NAME} ${app_sources})
+
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+    target_compile_options(
+        ${PROJECT_NAME}
+        PRIVATE /MP
+                /W4
+                /wd4251
+                /wd4592
+                /wd4127
+                /Zm200
+                $<$<CONFIG:Release>:
+                /Gw
+                /GS-
+                /GL
+                /GF
+                >
+        PUBLIC
+    )
+endif()
 
 target_link_libraries(
     ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui ${Qt_LIBRARIES}

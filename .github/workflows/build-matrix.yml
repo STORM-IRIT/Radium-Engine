@@ -144,6 +144,9 @@ jobs:
       - name: Install dep Linux
         if: runner.os == 'Linux'
         run: sudo apt-get install -y libglfw3-dev
+      - name: Install tests dep
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libxml2-utils
       - name: Install dep coverage
         if: ${{ inputs.coverage == 'true' }}
         run: sudo apt-get install -y lcov
@@ -199,9 +202,6 @@ jobs:
         run: |
           cd build/Radium-Engine
           cmake --build . --parallel --config ${{ matrix.build-type }} --target install
-      - name: Install tests dep
-        if: runner.os == 'Linux'
-        run: sudo apt-get install -y libxml2-utils
       - name: Run unit tests
         if: runner.os != 'Windows'
         run: |

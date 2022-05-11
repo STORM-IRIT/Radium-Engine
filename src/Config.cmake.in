@@ -27,8 +27,11 @@ endif("${isSystemDir}" STREQUAL "-1")
 
 # --------------------------------------------------------------------------------------------------
 # Configure components
-@PACKAGE_INIT@
 
+# Load Radium cmake functions
+include(${CMAKE_CURRENT_LIST_DIR}/RadiumSetupFunctions.cmake)
+
+@PACKAGE_INIT@
 
 # manage components
 set(Radium_supported_components @RADIUM_COMPONENTS@)
@@ -54,9 +57,7 @@ else()
 endif()
 
 if(NOT TARGET Core)
-    # Load Radium cmake functions
-    include(${CMAKE_CURRENT_LIST_DIR}/RadiumSetupFunctions.cmake)
-    # Compute paths
+     # Compute paths
     get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
     # get up in the directories until we found a "Resources/Radium" subdir TODO : instead of
     # 'Resources/Radium' that might not exists if Engine nor Gui are compiled, search for a file

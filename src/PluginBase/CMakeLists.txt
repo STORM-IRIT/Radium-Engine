@@ -24,6 +24,8 @@ add_dependencies(${ra_pluginbase_target} Core Engine)
 target_link_libraries(${ra_pluginbase_target} PUBLIC Core Engine)
 target_link_libraries(${ra_pluginbase_target} PRIVATE Qt::Core)
 
+target_compile_options(${ra_pluginbase_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+
 target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPORTS")
 
 message(STATUS "Configuring library ${ra_pluginbase_target} with standard settings")
