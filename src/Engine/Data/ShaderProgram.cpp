@@ -1,5 +1,7 @@
+#include "OpenGL.hpp"
 #include <Engine/Data/ShaderProgram.hpp>
 
+#include <glbinding/gl/enum.h>
 #include <globjects/NamedString.h>
 #include <globjects/Program.h>
 #include <globjects/Shader.h>
@@ -10,6 +12,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/Texture.hpp>
 
+#include <algorithm>
 #include <numeric> // for std::accumulate
 #include <regex>
 
@@ -331,6 +334,32 @@ void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) 
 template <>
 void ShaderProgram::setUniform( const char* name, const Scalar& value ) const {
     m_program->setUniform( name, static_cast<GL_SCALAR_PLAIN>( value ) );
+}
+
+template <typename T,
+          typename std::enable_if<!std::is_same<T, GL_SCALAR_PLAIN>::value>::type* = nullptr>
+void scalarVectorAdapter( globjects::Program* prog,
+                          const char* name,
+                          const std::vector<T>& value ) {
+    std::vector<GL_SCALAR_PLAIN> convertedValue;
+    std::transform( value.begin(),
+                    value.end(),
+                    std::back_inserter( convertedValue ),
+                    []( Scalar c ) -> GL_SCALAR_PLAIN { return c; } );
+    prog->setUniform( name, convertedValue );
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<T, GL_SCALAR_PLAIN>::value>::type* = nullptr>
+void scalarVectorAdapter( globjects::Program* prog,
+                          const char* name,
+                          const std::vector<T>& value ) {
+    prog->setUniform( name, value );
+}
+
+template <>
+void ShaderProgram::setUniform( const char* name, const std::vector<Scalar>& value ) const {
+    scalarVectorAdapter<Scalar>( m_program.get(), name, value );
 }
 
 void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {

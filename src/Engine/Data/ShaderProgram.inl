@@ -1,7 +1,9 @@
 #pragma once
+#include "CoreMacros.hpp"
 #include <Engine/Data/ShaderProgram.hpp>
 
 #include <globjects/Program.h>
+#include <type_traits>
 
 namespace Ra {
 namespace Engine {
@@ -28,6 +30,10 @@ RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Core::Matr
 
 template <>
 RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Scalar& value ) const;
+
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name,
+                                              const std::vector<Scalar>& value ) const;
 
 // Uniform setters
 template <typename T>
