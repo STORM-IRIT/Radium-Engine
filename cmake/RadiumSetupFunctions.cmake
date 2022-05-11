@@ -3,10 +3,10 @@
 # cmake tips : To delay evaluation of some variable to build time, just escape their name ( e.g
 # \${NAME} instead of ${NAME}
 
-# Minimum version: 3.13: install target from different directory see
+# Minimum version: 3.16: install target from different directory see
 # https://github.com/STORM-IRIT/Radium-Engine/pull/550#issuecomment-637415860
 
-cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 if(MSVC OR MSVC_IDE OR MINGW)
     include(${CMAKE_CURRENT_LIST_DIR}/Windeployqt.cmake)
@@ -187,10 +187,13 @@ function(configure_bundled_radium_app)
     list(REMOVE_DUPLICATES depsRsc)
 
     # prepare to deploy using either macdeployQt or fixup-bundle
-    get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-    list(FIND IsUsingQt "Qt::Core" QTCoreIdx)
-    list(FIND IsUsingQt "Radium::Gui" RadiumGuiIdx)
-    if(NOT ((QTCoreIdx EQUAL -1) AND (RadiumGuiIdx EQUAL -1)))
+    get_target_property(linked_libraries ${ARGS_NAME} LINK_LIBRARIES)
+    # Search Radium Gui
+    list(FIND linked_libraries "Radium::Gui" RadiumGuiIdx)
+    # and any qt lib
+    list(FILTER linked_libraries INCLUDE REGEX "Qt*")
+    list(LENGTH linked_libraries qt_libs_count)
+    if((qt_libs_count GREATER 0) OR NOT (RadiumGuiIdx EQUAL -1))
         set(DeployWithQt TRUE)
         # Retrieve the absolute path to qmake and then use that path to find the macdeployqt binary
         get_target_property(_qmake_executable Qt::qmake IMPORTED_LOCATION)
@@ -569,11 +572,13 @@ function(configure_windows_radium_app)
     list(REMOVE_DUPLICATES depsRsc)
 
     # deploy qt
-    get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-    list(FIND IsUsingQt "Qt::Core" QTCOREIDX)
-    if(NOT QTCOREIDX EQUAL -1)
-        message(STATUS "[configure_windows_radium_app] Preparing call to WinDeployQT"
-                       "for application ${ARGS_NAME}"
+    get_target_property(linked_libraries ${ARGS_NAME} LINK_LIBRARIES)
+    list(FILTER linked_libraries INCLUDE REGEX "Qt*")
+    list(LENGTH linked_libraries qt_libs_count)
+    if(qt_libs_count GREATER 0)
+        message(
+            STATUS
+                "[configure_windows_radium_app] Preparing call to WinDeployQT for application ${ARGS_NAME}"
         )
         windeployqt(${ARGS_NAME} bin)
     endif()
@@ -690,9 +695,10 @@ function(configure_radium_app)
         configure_windows_radium_app(${ARGN})
     else()
         configure_cmdline_radium_app(${ARGN})
-        get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-        list(FIND IsUsingQt "Qt::Core" QTCOREIDX)
-        if(NOT QTCOREIDX EQUAL -1)
+        get_target_property(IsUsingQt ${ARGS_NAME} linked_libraries)
+        list(FILTER linked_libraries INCLUDE REGEX "Qt*")
+        list(LENGTH linked_libraries qt_libs_count)
+        if(qt_libs_count GREATER 0)
             message(
                 STATUS "[configure_radium_app] Deploying QT is not yet supported for application "
                        "${ARGS_NAME} on ${CMAKE_SYSTEM_NAME}"

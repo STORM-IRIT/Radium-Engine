@@ -57,6 +57,9 @@ endif()
 
 add_dependencies(${ra_io_target} Core)
 target_link_libraries(${ra_io_target} PUBLIC Core)
+
+target_compile_options(${ra_io_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+
 target_compile_definitions(${ra_io_target} PRIVATE RA_IO_EXPORTS IO_USE_CAMERA_LOADER)
 
 message(STATUS "Configuring library ${ra_io_target} with standard settings")

@@ -70,6 +70,8 @@ else()
 
     # Ensure that external dependencies built as standalone are not installed in a subdir of Radium
     # source tree
+
+    get_filename_component(CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX} ABSOLUTE)
     string(LENGTH ${CMAKE_SOURCE_DIR} SourceDirLength)
     string(LENGTH "external/" ExternalDirLength)
     math(EXPR RadiumPrefixLength " ${SourceDirLength} - ${ExternalDirLength}")
@@ -77,7 +79,8 @@ else()
     string(FIND ${CMAKE_INSTALL_PREFIX} ${RadiumPREFIX} IsPrefix)
     if(${IsPrefix} GREATER -1)
         message(
-            FATAL_ERROR "Externals can't be installed into a subdirectory of Radium source tree."
+            FATAL_ERROR
+                "Externals can't be installed into a subdirectory of Radium source tree: ${CMAKE_INSTALL_PREFIX}  -- ${RadiumPREFIX}"
         )
     endif()
 

@@ -28,11 +28,11 @@ get_target_property(_qmake_executable Qt::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
 find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
 
-# Running this with MSVC 2015 requires CMake 3.6+
+# Running this with MSVC 2015 requires CMake 3.16+
 if((MSVC_VERSION VERSION_EQUAL 1900 OR MSVC_VERSION VERSION_GREATER 1900) AND CMAKE_VERSION
-                                                                              VERSION_LESS "3.6"
+                                                                              VERSION_LESS "3.16"
 )
-    message(WARNING "Deploying with MSVC 2015+ requires CMake 3.6+")
+    message(WARNING "Deploying with MSVC 2015+ requires CMake 3.16+")
 endif()
 
 # Add commands that copy the Qt runtime to the target's output directory after build and install the
@@ -42,6 +42,11 @@ function(windeployqt target directory)
     set(QT_OPTIONS "")
     if(Qt5_FOUND)
         set(QT_OPTIONS ${QT_OPTIONS} --no-angle)
+    endif()
+
+    set(QT_BUILD_TYPE_OPTION --release)
+    if(CMAKE_BUILD_TYPE MATCHES Debug)
+        set(QT_BUILD_TYPE_OPTION --debug)
     endif()
 
     # execute windeployqt in a tmp directory after build
@@ -54,8 +59,8 @@ function(windeployqt target directory)
                 "${CMAKE_CURRENT_BINARY_DIR}/windeployqt-${target}"
         COMMAND
             "${WINDEPLOYQT_EXECUTABLE}" --dir "${CMAKE_CURRENT_BINARY_DIR}/windeployqt-${target}"
-            --verbose 0 --no-compiler-runtime --no-translations --release --no-opengl-sw
-            ${QT_OPTIONS} "$<TARGET_FILE:${target}>"
+            --verbose 0 --no-compiler-runtime --no-translations ${QT_BUILD_TYPE_OPTION}
+            --no-opengl-sw ${QT_OPTIONS} "$<TARGET_FILE:${target}>"
         COMMENT "Run WinQTDeploy on ${target}"
         USES_TERMINAL COMMAND_EXPAND_LISTS
     )

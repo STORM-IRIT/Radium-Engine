@@ -7,7 +7,7 @@ include(Sanitizers)
 # ------------------------------------------------------------------------------
 # Compilation option
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    add_compile_options(/W3)
+    add_compile_options(/W4)
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         add_compile_options(/bigobj)
     endif()
@@ -84,6 +84,9 @@ file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/RadiumSetupFunctions.cmake"
 if(MSVC OR MSVC_IDE OR MINGW)
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/Windeployqt.cmake"
             DESTINATION ${ConfigPackageLocation}
+    )
+    file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/Windeployqt.cmake"
+         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
     )
 endif()
 
