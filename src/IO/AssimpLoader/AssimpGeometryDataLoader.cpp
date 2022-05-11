@@ -146,9 +146,6 @@ void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, GeometryData& data
     if ( face_type_max != 1 ) {
         if ( face_type_min != face_type_max ) {
             if ( !face_type_max ) { data.setType( GeometryData::POINT_CLOUD ); }
-            else {
-                data.setType( GeometryData::POLY_MESH );
-            }
         }
         else {
             switch ( face_type_max ) {
@@ -219,6 +216,7 @@ void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& dat
                 assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
         }
         data.indexedDataUnlock( GeometryData::GeometryType::TRI_MESH, "in_face" );
+        break;
     }
     case Core::Asset::GeometryData::GeometryType::QUAD_MESH: {
         auto& face = data.getFaces<Ra::Core::Vector4ui>();
@@ -229,6 +227,7 @@ void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& dat
                 assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
         }
         data.indexedDataUnlock( GeometryData::GeometryType::QUAD_MESH, "in_face" );
+        break;
     }
     default: {
         auto& face = data.getFaces<Ra::Core::VectorNui>();
@@ -239,6 +238,7 @@ void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& dat
                 assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
         }
         data.indexedDataUnlock( GeometryData::GeometryType::POLY_MESH, "in_face" );
+        break;
     }
     }
 }
