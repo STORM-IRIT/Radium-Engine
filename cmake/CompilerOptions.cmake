@@ -139,8 +139,6 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHE
         $<$<PLATFORM_ID:Darwin>:
         -pthread
         >
-        -std=c++17
-        >
     )
 endif()
 
