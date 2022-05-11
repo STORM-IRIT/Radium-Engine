@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.23</span>
+   &#160;<span id="projectnumber">1.2.24</span>
    </div>
   </td>
  </tr>
@@ -139,59 +139,58 @@ $(document).ready(function(){initNavTree('ShaderProgram_8hpp_source.html',''); i
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> T&amp; value ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* tex, <span class="keywordtype">int</span> texUnit ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> setUniformTexture( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* tex ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    globjects::Program* getProgramObject() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> addShaderFromSource( <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">Data::ShaderType</a> type,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                              std::unique_ptr&lt;globjects::StaticStringSource&gt;&amp;&amp; source,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                              <span class="keyword">const</span> std::string&amp; name = <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                              <span class="keywordtype">bool</span> fromFile           = <span class="keyword">true</span> );</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> link();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">struct </span>TextureBinding {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">int</span> m_texUnit { -1 };</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordtype">int</span> m_location { -1 };</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        TextureBinding( <span class="keywordtype">int</span> unit, <span class="keywordtype">int</span> location ) : m_texUnit { unit }, m_location { location } {}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        TextureBinding() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    };</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">using</span> TextureUnits = std::map&lt;std::string, TextureBinding&gt;;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    TextureUnits textureUnits;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> loadShader( <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">Data::ShaderType</a> type,</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                     <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                     <span class="keyword">const</span> std::set&lt;std::string&gt;&amp; props,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                     <span class="keyword">const</span> std::vector&lt;std::pair&lt;std::string, Data::ShaderType&gt;&gt;&amp; includes,</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                     <span class="keywordtype">bool</span> fromFile              = <span class="keyword">true</span>,</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                     <span class="keyword">const</span> std::string&amp; version = <span class="stringliteral">&quot;#version 410&quot;</span> );</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    std::string preprocessIncludes( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                    <span class="keyword">const</span> std::string&amp; shader,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                                    <span class="keywordtype">int</span> level,</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                    <span class="keywordtype">int</span> line = 0 );</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a> m_configuration;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    std::array&lt;std::pair&lt;bool, std::unique_ptr&lt;globjects::Shader&gt;&gt;, <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aae505d7dfe51f053217ba42d8996db147">Data::ShaderType_COUNT</a>&gt;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        m_shaderObjects;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    std::array&lt;std::unique_ptr&lt;globjects::StaticStringSource&gt;, <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aae505d7dfe51f053217ba42d8996db147">Data::ShaderType_COUNT</a>&gt;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        m_shaderSources;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    std::unique_ptr&lt;globjects::Program&gt; m_program;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">namespace </span>Rendering {} <span class="comment">// namespace Rendering</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ShaderProgram_8inl.html">ShaderProgram.inl</a>&quot;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> setUniform( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* tex, <span class="keywordtype">int</span> texUnit ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> setUniformTexture( <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* tex ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    globjects::Program* getProgramObject() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> addShaderFromSource( <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">Data::ShaderType</a> type,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                              std::unique_ptr&lt;globjects::StaticStringSource&gt;&amp;&amp; source,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                              <span class="keyword">const</span> std::string&amp; name = <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                              <span class="keywordtype">bool</span> fromFile           = <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> link();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">struct </span>TextureBinding {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">int</span> m_texUnit { -1 };</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">int</span> m_location { -1 };</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        TextureBinding( <span class="keywordtype">int</span> unit, <span class="keywordtype">int</span> location ) : m_texUnit { unit }, m_location { location } {}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        TextureBinding() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">using</span> TextureUnits = std::map&lt;std::string, TextureBinding&gt;;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    TextureUnits textureUnits;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> loadShader( <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">Data::ShaderType</a> type,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                     <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                     <span class="keyword">const</span> std::set&lt;std::string&gt;&amp; props,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                     <span class="keyword">const</span> std::vector&lt;std::pair&lt;std::string, Data::ShaderType&gt;&gt;&amp; includes,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                     <span class="keywordtype">bool</span> fromFile              = <span class="keyword">true</span>,</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                     <span class="keyword">const</span> std::string&amp; version = <span class="stringliteral">&quot;#version 410&quot;</span> );</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    std::string preprocessIncludes( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                    <span class="keyword">const</span> std::string&amp; shader,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                    <span class="keywordtype">int</span> level,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                                    <span class="keywordtype">int</span> line = 0 );</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a> m_configuration;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    std::array&lt;std::pair&lt;bool, std::unique_ptr&lt;globjects::Shader&gt;&gt;, <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aae505d7dfe51f053217ba42d8996db147">Data::ShaderType_COUNT</a>&gt;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        m_shaderObjects;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    std::array&lt;std::unique_ptr&lt;globjects::StaticStringSource&gt;, <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aae505d7dfe51f053217ba42d8996db147">Data::ShaderType_COUNT</a>&gt;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        m_shaderSources;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    std::unique_ptr&lt;globjects::Program&gt; m_program;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">namespace </span>Rendering {} <span class="comment">// namespace Rendering</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ShaderProgram_8inl.html">ShaderProgram.inl</a>&quot;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aShaderConfiguration_8hpp_html"><div class="ttname"><a href="ShaderConfiguration_8hpp.html">ShaderConfiguration.hpp</a></div></div>
@@ -210,7 +209,7 @@ $(document).ready(function(){initNavTree('ShaderProgram_8hpp_source.html',''); i
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="ShaderProgram_8hpp.html">ShaderProgram.hpp</a></li>
-    <li class="footer">Generated on Wed May 11 2022 06:05:47 for Radium Engine by
+    <li class="footer">Generated on Wed May 11 2022 14:39:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

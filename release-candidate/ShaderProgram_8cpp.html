@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.23</span>
+   &#160;<span id="projectnumber">1.2.24</span>
    </div>
   </td>
  </tr>
@@ -99,7 +99,9 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp.html',''); initResi
 <div class="title">ShaderProgram.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="ShaderProgram_8hpp_source.html">Engine/Data/ShaderProgram.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="OpenGL_8hpp_source.html">OpenGL.hpp</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="ShaderProgram_8hpp_source.html">Engine/Data/ShaderProgram.hpp</a>&gt;</code><br />
+<code>#include &lt;glbinding/gl/enum.h&gt;</code><br />
 <code>#include &lt;globjects/NamedString.h&gt;</code><br />
 <code>#include &lt;globjects/Program.h&gt;</code><br />
 <code>#include &lt;globjects/Shader.h&gt;</code><br />
@@ -108,6 +110,7 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp.html',''); initResi
 <code>#include &lt;globjects/base/StaticStringSource.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="Log_8hpp_source.html">Core/Utils/Log.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Texture_8hpp_source.html">Engine/Data/Texture.hpp</a>&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;numeric&gt;</code><br />
 <code>#include &lt;regex&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -137,6 +140,9 @@ Functions</h2></td></tr>
 <tr class="separator:a6c6d2135a635e37605870be1d6fc5ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad221f3f1760aa217e71ee8427f763ac3"><td class="memItemLeft" align="right" valign="top">ShaderType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html#ad221f3f1760aa217e71ee8427f763ac3">Ra::Engine::Data::getGLenumAsType</a> (GLenum type)</td></tr>
 <tr class="separator:ad221f3f1760aa217e71ee8427f763ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac02e30f21a39845475392e74dc238506"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; T, GL_SCALAR_PLAIN &gt;::value &gt;::type *  = nullptr&gt; </td></tr>
+<tr class="memitem:ac02e30f21a39845475392e74dc238506"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html#ac02e30f21a39845475392e74dc238506">Ra::Engine::Data::scalarVectorAdapter</a> (globjects::Program *prog, const <a class="el" href="classchar.html">char</a> *name, const std::vector&lt; T &gt; &amp;value)</td></tr>
+<tr class="separator:ac02e30f21a39845475392e74dc238506"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -144,7 +150,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="ShaderProgram_8cpp.html">ShaderProgram.cpp</a></li>
-    <li class="footer">Generated on Wed May 11 2022 06:05:48 for Radium Engine by
+    <li class="footer">Generated on Wed May 11 2022 14:40:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

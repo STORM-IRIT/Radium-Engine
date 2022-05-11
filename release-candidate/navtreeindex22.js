@@ -1,5 +1,7 @@
 var NAVTREEINDEX22 =
 {
+"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a02ec7c18b9af17d19b0dcfd3a39c2ac8":[10,0,3,4,3,11],
+"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a0e91cabef1beb70fac2c31804d1133a1":[10,0,3,4,3,4],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a1ded2f744190df2500bc3fbac919e49d":[10,0,3,4,3,3],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a338d8b0b7ce312143ac262cb2cc97e69":[10,0,3,4,3,6],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5d494bbdf71dd227648375b2c59d74a8":[10,0,3,4,3,18],
@@ -247,7 +249,5 @@ var NAVTREEINDEX22 =
 "dir_01a8c2f0fadc2dca82cf84211ec91544.html":[11,0,3,4,2],
 "dir_05ad645af30ba5694f9d87fa8078b2c2.html":[11,0,3,0,5],
 "dir_10524f5d842f46d1a12201bd3e57b69f.html":[11,0,1],
-"dir_1456dd235032e023892318efbecb420b.html":[11,0,3,0,2],
-"dir_1577ba8040ea4e3d21120572b53f4a28.html":[11,0,3,3],
-"dir_17bfc51b20949079282a076b84b0b9f6.html":[11,0,3,2,2]
+"dir_1456dd235032e023892318efbecb420b.html":[11,0,3,0,2]
 };
