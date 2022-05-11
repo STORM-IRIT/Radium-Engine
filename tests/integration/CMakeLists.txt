@@ -147,6 +147,7 @@ target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPI
 target_link_libraries(
     integration_${INTEGRATION_TEST} PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt_LIBRARIES}
 )
+
 target_compile_definitions(
     integration_${INTEGRATION_TEST}
     PRIVATE -DCXX_FILESYSTEM_HAVE_FS
