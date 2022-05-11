@@ -72,14 +72,9 @@ endif()
 # We can use include() and find_package() for our scripts in there
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-include(MessageFunc)
-message_title(" ${PROJECT_NAME} Project configuration ")
-
 # ------------------------------------------------------------------------------
 # General settings
-
 if(NOT CMAKE_BUILD_TYPE)
-    message_info("No CMAKE_BUILD_TYPE, using default CMAKE_BUILD_TYPE=Release")
     set(CMAKE_BUILD_TYPE "Release")
 endif()
 
@@ -124,7 +119,6 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "${RADIUM_BUNDLE_DIRECTORY}"
         CACHE PATH "Install path prefix, prepended onto install directories." FORCE
     )
-    message_info("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
     # prevent subsequent modification of CMAKE_INSTALL_PREFIX based on
     # CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT value
     unset(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -156,9 +150,6 @@ if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
 else()
     set(GIT_CHANGESET "")
 endif()
-message_info("Git Changeset: ${GIT_CHANGESET}")
-
-message_end()
 
 set(ENABLE_COVERAGE "")
 mark_as_advanced(ENABLE_COVERAGE)
@@ -251,19 +242,25 @@ install(FILES README.md DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
 
 # -------------------------------------------------------------------------------
 # Wrap up of settings printed on build
-
+include(MessageFunc)
+message(NOTICE "")
 message_title(" Final overview for ${PROJECT_NAME} ")
+message_info(" ")
 message_info(
     "Version:               ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} @ ${VERSION_HOST}"
 )
+message_info("Git Changeset: ${GIT_CHANGESET}")
+message_info(" ")
 message_info("Install prefix: ")
 message_info("  ${CMAKE_INSTALL_PREFIX}")
+message_info(" ")
 message_info(
     "Compiler: ${CMAKE_CXX_COMPILER} - ${CMAKE_CXX_COMPILER_ID} in version ${CMAKE_CXX_COMPILER_VERSION}."
 )
 message_setting("CMAKE_BUILD_TYPE")
 message_info("  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message_info("  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
+message_info(" ")
 message_setting("RADIUM_ENABLE_TESTING")
 message_setting("RADIUM_ENABLE_COVERAGE")
 message_setting("RADIUM_USE_DOUBLE")
@@ -283,6 +280,7 @@ message_setting("RADIUM_UPDATE_VERSION")
 message_setting("RADIUM_QUIET")
 message_setting("USE_GOLD_LINKER")
 message_end()
+message(NOTICE "")
 
 set(CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL
                                                           "Previous value of CMAKE_INSTALL_PREFIX"
