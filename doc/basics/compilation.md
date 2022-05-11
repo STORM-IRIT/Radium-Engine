@@ -140,9 +140,11 @@ add_dependencies (${ra_gui_target} PUBLIC Radium::Core Radium::Engine Radium::Pl
 Out-of source builds are mandatory, we recommend to follow the usual sequence, assuming you have build dependecies as explained [here](@ref builddep):
 
 ~~~bash
-cmake . -B build-r -DCMAKE_BUILD_TYPE=Release -C external/install-r/radium-options.cmake
+cmake . -B build-r -DCMAKE_BUILD_TYPE=Release -C external/install-r/radium-options.cmake -DQt5_DIR=path/to/qt5
 cmake --build build-r --target install --parallel
 ~~~
+If qt is installed system wide (likely on linux), `-DQt5_DIR` is not needed.
+
 \note Qt6 support is experimental. To enable it, replace `-DQt5_DIR=path/to/qt5` by `-DQt6_DIR=path/to/qt6`.
 
 \note Running the `install` target is recommended as it will copy all the radium related library in the same place,
