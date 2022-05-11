@@ -13,8 +13,8 @@ See also our Continuous Integration system at https://github.com/STORM-IRIT/Radi
 
 Minimal requirements
 * OpenGL 4.1+ / GLSL 410+
-* CMake 3.15.7+
-* Qt5 (minimal version 5.14) or Qt6 (experimental)
+* CMake 3.16+
+* Qt5 (minimal version 5.15) or Qt6 (experimental)
 
 # Build instructions
 If not already done, follow instructions at \ref dependenciesmanagement.
