@@ -111,6 +111,9 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// \see AttribManager::contains for more info.
     inline bool hasAttrib( const std::string& name );
 
+    /// Check if data in an attribute is empty or not with the given name.
+    inline bool hasAttribData( const std::string& name ) const;
+
     ///@{
     /// Add attribute with the given name.
     /// \see AttribManager::addAttrib() for more info.

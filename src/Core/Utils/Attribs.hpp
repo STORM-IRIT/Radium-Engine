@@ -330,11 +330,25 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
          * @param a
          * @brief Constructor, save statement of all attribs from attribManager ( isLocked() )
          */
-        explicit Unlocker( AttribManager* a ) : n_a { a } {
-            for ( const auto& attr : n_a->m_attribs ) {
-                if ( attr == nullptr ) break;
-                v.push_back( std::make_pair( attr.get(), attr->isLocked() ) );
-            }
+        /// \code{.cpp}
+        /// auto geometry = new GeometryData();
+        /// geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_TANGENT ).getDataWithLock();
+        //  REQUIRE (geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TANGENT
+        //  )->isLocked() );
+        //  {
+        //      auto unlocker = geometry->getAttribManager().getUnlocker();
+        //      geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_BITANGENT
+        //      ).getDataWithLock(); REQUIRE( geometry->getAttribManager().getAttribBase(
+        //      MeshAttrib::VERTEX_BITANGENT )->isLocked() );
+        //  }
+        //      REQUIRE(geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TANGENT
+        //      )->isLocked() ); REQUIRE( !geometry->getAttribManager().getAttribBase(
+        //      MeshAttrib::VERTEX_BITANGENT )->isLocked() );
+
+        explicit Unlocker( AttribManager* a ) : m_a { a } {
+            a->for_each_attrib( [this]( const auto& attr ) {
+                return ( v.push_back( std::make_pair( attr, attr->isLocked() ) ) );
+            } );
         }
         /**
          * @brief Destructor, unlock all attribs from attribManager which have been locked after the
@@ -347,7 +361,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
         }
 
       private:
-        AttribManager* n_a;
+        AttribManager* m_a;
         std::vector<std::pair<AttribBase*, bool>> v;
     };
 

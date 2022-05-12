@@ -77,6 +77,11 @@ class RA_CORE_API GeometryData : public AssetData
                   "instead." )]] inline Vector3Array&
     getVertices();
 
+    /// Return the (const) list of vertices.
+    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
+                  "list." )]] inline const Vector3Array&
+    getVertices() const;
+
     /// Set the mesh vertices.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
@@ -86,7 +91,7 @@ class RA_CORE_API GeometryData : public AssetData
     /// Return the list of lines.
     /// \note For line meshes only.
     [[deprecated(
-        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline Vector2uArray&
     getEdges();
 
@@ -98,18 +103,18 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of lines.
     /// \note For line meshes only.
-    /// \note Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
+    /// \note Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
     [[deprecated(
-        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline void
     setEdges( const Container& edgeList );
 
     /// Return the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
     [[deprecated(
-        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline VectorNuArray&
     getFaces();
 
@@ -121,18 +126,18 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    /// \note Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
+    /// \note Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
     [[deprecated(
-        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline void
     setFaces( const Container& faceList );
 
     /// Return the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
     [[deprecated(
-        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline VectorNuArray&
     getPolyhedra();
 
@@ -144,11 +149,11 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    /// \note Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
+    /// \note Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
     [[deprecated(
-        "Use addIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline void
     setPolyhedra( const Container& polyList );
 
@@ -156,6 +161,11 @@ class RA_CORE_API GeometryData : public AssetData
     [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
                   "instead." )]] inline Vector3Array&
     getNormals();
+
+    /// Return the (const) list of vertex normals.
+    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
+                  "list." )]] inline const Vector3Array&
+    getNormals() const;
 
     /// Set the vertex normals.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
@@ -168,6 +178,11 @@ class RA_CORE_API GeometryData : public AssetData
                   "instead." )]] inline Vector3Array&
     getTangents();
 
+    /// Return the (const) list of vertex tangents vectors.
+    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
+                  "list." )]] inline const Vector3Array&
+    getTangents() const;
+
     /// Set the vertex tangent vectors.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
@@ -179,6 +194,11 @@ class RA_CORE_API GeometryData : public AssetData
                   "instead." )]] inline Vector3Array&
     getBiTangents();
 
+    /// Return the (const) list of vertex bitangent vectors.
+    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
+                  "list." )]] inline const Vector3Array&
+    getBiTangents() const;
+
     /// Set the vertex bitangent vectors.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
@@ -189,6 +209,11 @@ class RA_CORE_API GeometryData : public AssetData
     [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
                   "instead." )]] inline Vector3Array&
     getTexCoords();
+
+    /// Return the (const) list of vertex texture coordinates.
+    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
+                  "list." )]] inline const Vector3Array&
+    getTexCoords() const;
 
     /// Set the vertex texture coordinates.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
@@ -264,11 +289,14 @@ class RA_CORE_API GeometryData : public AssetData
     /// Print stast info to the Debug output.
     void displayInfo() const;
 
-    /// Access to the attrib manager
-    inline Utils::AttribManager& getAttribManager();
-
     /// Access to the multiIndexedGeometry;
     inline Geometry::MultiIndexedGeometry& getMultiIndexedGeometry();
+
+    /// Access to the (const) multiIndexedGeometry;
+    inline const Geometry::MultiIndexedGeometry& getMultiIndexedGeometry() const;
+
+    /// Access to the attrib manager
+    inline Utils::AttribManager& getAttribManager();
 
     /// Access to the (const) attrib manager
     inline const Utils::AttribManager& getAttribManager() const;
@@ -278,19 +306,10 @@ class RA_CORE_API GeometryData : public AssetData
      * @tparam T
      * @param name
      * @return Attrib<T> from m_multiIndexedGeometry.
+     * @note This function is only to avoid redundant code of function like getNormals().
      */
     template <typename T>
     inline Utils::Attrib<T>& getAttrib( const Geometry::MeshAttrib& name );
-
-    /**
-     * @tparam V
-     * @param name
-     * @return true if the name provided correspond to an existing attribHandle.
-     * @note This function is only to avoid redundant code of function like hasNormals().
-     *
-     */
-    template <typename V>
-    inline bool hasAttribData( const Geometry::MeshAttrib& name ) const;
 
     /**
      *
@@ -305,8 +324,8 @@ class RA_CORE_API GeometryData : public AssetData
      * indexedDataUnlock ( const GeometryType& type, const std::string& name ).
      */
     template <typename V>
-    inline VectorArray<V>& addIndexedDataWithLock( const std::string& name     = "",
-                                                   const bool& firstOccurrence = true );
+    inline VectorArray<V>& findIndexedDataWithLock( const std::string& name     = "",
+                                                    const bool& firstOccurrence = true );
 
     /**
      *
@@ -374,6 +393,53 @@ class RA_CORE_API GeometryData : public AssetData
     /**
      *
      * @tparam V
+     * @param geomBase
+     * @return VectorArray<V> contains into the layerBase.
+     */
+    template <typename V>
+    inline VectorArray<V>& getDataFromLayerBase( Geometry::GeometryIndexLayerBase& geomBase );
+
+    /**
+     *
+     * @tparam V
+     * @param geomBase
+     * @return const VectorArray<V> contains into the layerBase.
+     */
+    template <typename V>
+    inline const VectorArray<V>&
+    getDataFromLayerBase( const Geometry::GeometryIndexLayerBase& geomBase ) const;
+
+    /**
+     *
+     * @tparam L
+     * @param firstOccurrence
+     * @param name
+     * @return GeometryIndexLayerBase& from the given name.
+     * @note This will try to get the first occurrence of the layer ignoring the given name for
+     * optimization. Please put firstOccurrence to false if you provide a name.
+     * @warning You must unlock the layer after using this function by using indexedDataUnlock(
+     * const GeometryType& type, const std::string& name ).
+     */
+    template <typename L>
+    inline Geometry::GeometryIndexLayerBase& getLayerBaseWithLock( const bool& firstOccurrence,
+                                                                   const std::string& name );
+
+    /**
+     *
+     * @tparam L
+     * @param firstOccurrence
+     * @param name
+     * @return const GeometryIndexLayerBase& from the given name.
+     * @note This will try to get the first occurrence of the layer ignoring the given name for
+     * optimization. Please put firstOccurrence to false if you provide a name.
+     */
+    template <typename L>
+    inline const Geometry::GeometryIndexLayerBase& getLayerBase( const bool& firstOccurrence,
+                                                                 const std::string& name ) const;
+
+    /**
+     *
+     * @tparam V
      * @tparam L
      * @param firstOccurrence
      * @param name
@@ -382,18 +448,6 @@ class RA_CORE_API GeometryData : public AssetData
     template <typename V, typename L>
     inline VectorArray<V>& getIndexedDataWithLock( const bool& firstOccurrence,
                                                    const std::string& name = "" );
-
-    /**
-     *
-     * @tparam V
-     * @tparam L
-     * @param firstOccurrence
-     * @param name
-     * @return VectorArray<V>&
-     */
-    template <typename V, typename L>
-    inline const VectorArray<V>& getIndexedData( const bool& firstOccurrence,
-                                                 const std::string& name = "" ) const;
 };
 
 } // namespace Asset

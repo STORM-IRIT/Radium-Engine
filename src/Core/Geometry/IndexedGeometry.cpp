@@ -207,15 +207,24 @@ void MultiIndexedGeometry::unlockLayer( const LayerKeyType& layerKey ) {
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-bool MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
-                                     const std::string& layerName ) {
+std::pair<bool, GeometryIndexLayerBase&>
+MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
+                                const bool withLock,
+                                const std::string& layerName ) {
     LayerKeyType key { layer->semantics(), layerName };
-    if ( m_indices.find( key ) != m_indices.end() ) return false;
-
-    m_indices.insert( { key, std::make_pair( false, layer.release() ) } );
-
+    std::pair<LayerKeyType, EntryType> elt { key, std::make_pair( false, layer.get() ) };
+    auto [pos, inserted] = m_indices.insert( std::move( elt ) );
+    if ( inserted ) { layer.release(); }
     notify();
-    return true;
+
+    if ( withLock ) {
+        CORE_ASSERT( !pos->second.first, "try to get already locked layer" );
+        pos->second.first = true;
+    }
+    /// TODO What happens to the unique ptr when it is not inserted ? (The problem was the same in
+    /// the previous version).
+
+    return { inserted, *( pos->second.second ) };
 }
 
 //////////////////////////////////////////////////////////////////////
