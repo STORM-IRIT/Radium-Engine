@@ -16,5 +16,9 @@ inline std::string CLIViewer::getDataFileName() const {
 inline void CLIViewer::setDataFileName( std::string filename ) {
     m_parameters.m_dataFile = std::move( filename );
 }
+
+inline OpenGLContext& CLIViewer::getWindow() {
+    return m_glContext;
+}
 } // namespace Headless
 } // namespace Ra
