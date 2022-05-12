@@ -63,7 +63,7 @@ target_compile_definitions(
             -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE}
 )
 
-configure_file(radium_backtrace.in radium_backtrace.h)
+configure_file(radium_backtrace.h.in radium_backtrace.h)
 target_include_directories(${ra_core_target} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 if(Backtrace_FOUND)
     target_include_directories(${ra_core_target} PRIVATE ${Backtrace_INCLUDE_DIRS})
