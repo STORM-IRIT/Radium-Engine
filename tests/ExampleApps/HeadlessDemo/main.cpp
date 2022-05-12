@@ -61,6 +61,14 @@ int main( int argc, const char* argv[] ) {
 
     auto render = [&viewer]( float time_step ) { viewer.oneFrame( time_step ); };
 
+    //! [Attach a mouse event listener]
+    auto mouseListenerId = viewer.getWindow().mouseListener().attach(
+        []( int button, int action, int modifiers, int x, int y ) {
+            std::cout << "mouseEvent : button " << button << " // action " << action
+                      << " // modifiers " << modifiers << " // position " << x << ", " << y
+                      << std::endl;
+        } );
+    //! [Attach a mouse event listener]
     if ( showWindow ) {
         if ( viewerParameters.m_animationEnable ) {
             viewer.showWindow( true, OpenGLContext::EventMode::TIMEOUT );
@@ -90,6 +98,10 @@ int main( int argc, const char* argv[] ) {
         }
     }
     //! [Running the application]
+
+    //! [Detach mouse event listener]
+    viewer.getWindow().mouseListener().detach( mouseListenerId );
+    //! [Detach mouse event listener]
 
     //! [Unbind the OpenGLContext when no more needed]
     viewer.bindOpenGLContext( false );

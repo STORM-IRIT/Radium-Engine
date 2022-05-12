@@ -144,6 +144,15 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
                      OpenGLContext::EventMode mode = OpenGLContext::EventMode::POLL,
                      float delay                   = 1.f / 60.f );
 
+    /** \brief Gives access to the window to add event processing callbacks
+     *
+     * example :
+     * \code{.cpp}
+         idListener = getWindow().mouseListener.attach( mouseEventProcessingFunction );
+       \endcode
+      */
+    inline OpenGLContext& getWindow();
+
     /** If a window is shown, launch the interactive render loop */
     void renderLoop( std::function<void( float )> render );
 
