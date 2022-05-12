@@ -6,7 +6,8 @@ Developed and maintained by the [STORM research group](https://www.irit.fr/STORM
 The source code is hosted on github: https://github.com/STORM-IRIT/Radium-Engine
 
 # Badges
-[![source format badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/nmellado/0e76e93f56eba8a7b28d6a0116873d85/raw/format.json)](https://github.com/STORM-IRIT/Radium-Engine/actions?query=workflow%3A%22Compile+and+Test+Radium+libraries%22)
+
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/374bd173d03946a9b54c3c6bbd8cd589)](https://app.codacy.com/gh/STORM-IRIT/Radium-Engine?utm_source=github.com&utm_medium=referral&utm_content=STORM-IRIT/Radium-Engine&utm_campaign=Badge_Grade_Settings)
 [![codecov](https://codecov.io/gh/STORM-IRIT/Radium-Engine/branch/$(GITHUB_REF)/graph/badge.svg?token=MKfANkC3sd)](https://codecov.io/gh/STORM-IRIT/Radium-Engine)
 
