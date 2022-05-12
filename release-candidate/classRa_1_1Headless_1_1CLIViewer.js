@@ -8,6 +8,7 @@ var classRa_1_1Headless_1_1CLIViewer =
     [ "compileScene", "classRa_1_1Headless_1_1CLIViewer.html#ae3e8afdbe2862a37e78a8d2780765571", null ],
     [ "getCommandLineParameters", "classRa_1_1Headless_1_1CLIViewer.html#a53433db4b0074b802d6db1258c23a337", null ],
     [ "getDataFileName", "classRa_1_1Headless_1_1CLIViewer.html#a5366a801abfbbe8bd26c3cf16e95619d", null ],
+    [ "getWindow", "classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c", null ],
     [ "grabFrame", "classRa_1_1Headless_1_1CLIViewer.html#a55222c0430456d683740e5102ace0a68", null ],
     [ "init", "classRa_1_1Headless_1_1CLIViewer.html#a199bd6c52650d5ae6a9b00754a445b73", null ],
     [ "loadScene", "classRa_1_1Headless_1_1CLIViewer.html#ac0fbb35f722f7ed755153e159bbdf16e", null ],

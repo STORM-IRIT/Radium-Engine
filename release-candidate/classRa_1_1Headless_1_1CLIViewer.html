@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.25</span>
+   &#160;<span id="projectnumber">1.2.26</span>
    </div>
   </td>
  </tr>
@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Headless_1_1CLIViewer.html'
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer__inherit__graph.svg" width="251" height="536"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer__inherit__graph.svg" width="251" height="551"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -160,6 +160,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a55222c0430456d683740e5102ace0a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1db79e131a45fe816c868f194ea67a12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#a1db79e131a45fe816c868f194ea67a12">showWindow</a> (<a class="el" href="classbool.html">bool</a> on=true, <a class="el" href="group__window.html#ga6b9387dfd25cfc93f6f504cc5bda9817">OpenGLContext::EventMode</a> mode=<a class="el" href="group__window.html#gga6b9387dfd25cfc93f6f504cc5bda9817a48798d6fe72649c6d013e60081c38d9a">OpenGLContext::EventMode::POLL</a>, <a class="el" href="classfloat.html">float</a> delay=1.f/60.f)</td></tr>
 <tr class="separator:a1db79e131a45fe816c868f194ea67a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99036a74b3732afb0b03a7a9d07dcd5c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Headless_1_1OpenGLContext.html">OpenGLContext</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">getWindow</a> ()</td></tr>
+<tr class="memdesc:a99036a74b3732afb0b03a7a9d07dcd5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives access to the window to add event processing callbacks.  <a href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">More...</a><br /></td></tr>
+<tr class="separator:a99036a74b3732afb0b03a7a9d07dcd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab09af2dd2cd0e6565b6a6fc32865f891"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#ab09af2dd2cd0e6565b6a6fc32865f891">renderLoop</a> (std::function&lt; void(<a class="el" href="classfloat.html">float</a>)&gt; render)</td></tr>
 <tr class="separator:ab09af2dd2cd0e6565b6a6fc32865f891"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5366a801abfbbe8bd26c3cf16e95619d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#a5366a801abfbbe8bd26c3cf16e95619d">getDataFileName</a> () const</td></tr>
@@ -380,6 +383,36 @@ Additional Inherited Members</h2></td></tr>
 <p>Get the filename given using the option &ndash;file &lt;filename&gt; or -f &lt;filename&gt; </p>
 
 <p class="definition">Definition at line <a class="el" href="CLIViewer_8inl_source.html#l00009">9</a> of file <a class="el" href="CLIViewer_8inl_source.html">CLIViewer.inl</a>.</p>
+
+</div>
+</div>
+<a id="a99036a74b3732afb0b03a7a9d07dcd5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99036a74b3732afb0b03a7a9d07dcd5c">&#9670;&nbsp;</a></span>getWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Headless_1_1OpenGLContext.html">OpenGLContext</a> &amp; Ra::Headless::CLIViewer::getWindow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gives access to the window to add event processing callbacks. </p>
+<p>example : </p><div class="fragment"><div class="line">idListener = <a class="code" href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">getWindow</a>().<a class="code" href="group__window.html#ga726085415abf83f37a8ae47de59b9118">mouseListener</a>.<a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( mouseEventProcessingFunction );</div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8inl_source.html#l00020">20</a> of file <a class="el" href="CLIViewer_8inl_source.html">CLIViewer.inl</a>.</p>
 
 </div>
 </div>
@@ -794,11 +827,14 @@ Additional Inherited Members</h2></td></tr>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4851931d5bedb5e17121a0ff806a9f6d"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">Ra::Core::Utils::Observable::attach</a></div><div class="ttdeci">int attach(Observer observer)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00054">Observable.hpp:54</a></div></div>
+<div class="ttc" id="agroup__window_html_ga726085415abf83f37a8ae47de59b9118"><div class="ttname"><a href="group__window.html#ga726085415abf83f37a8ae47de59b9118">Ra::Headless::OpenGLContext::mouseListener</a></div><div class="ttdeci">Ra::Core::Utils::Observable&lt; int, int, int, int, int &gt; &amp; mouseListener()</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8hpp_source.html#l00096">OpenGLContext.hpp:96</a></div></div>
+<div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_a99036a74b3732afb0b03a7a9d07dcd5c"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">Ra::Headless::CLIViewer::getWindow</a></div><div class="ttdeci">OpenGLContext &amp; getWindow()</div><div class="ttdoc">Gives access to the window to add event processing callbacks.</div><div class="ttdef"><b>Definition:</b> <a href="CLIViewer_8inl_source.html#l00020">CLIViewer.inl:20</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Headless.html">Headless</a></li><li class="navelem"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html">CLIViewer</a></li>
-    <li class="footer">Generated on Wed May 11 2022 23:44:21 for Radium Engine by
+    <li class="footer">Generated on Thu May 12 2022 18:55:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

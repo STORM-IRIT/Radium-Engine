@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.25</span>
+   &#160;<span id="projectnumber">1.2.26</span>
    </div>
   </td>
  </tr>
@@ -171,10 +171,10 @@ $(document).ready(function(){initNavTree('OpenGLContext_8cpp_source.html',''); i
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="comment">// see https://www.glfw.org/docs/latest/window_guide.html#window_scale</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordtype">float</span> xscale, yscale;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            glfwGetWindowContentScale( window, &amp;xscale, &amp;yscale );</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordtype">double</span> xpos, ypos;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            glfwGetCursorPos( window, &amp;xpos, &amp;ypos );</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            context-&gt;mouseEventCalback(</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                button, action, mods, <span class="keywordtype">int</span>( xpos / xscale ), <span class="keywordtype">int</span>( ypos / yscale ) );</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="comment">// seems that the scale is not to be taken into account</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordtype">double</span> xpos, ypos;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            glfwGetCursorPos( window, &amp;xpos, &amp;ypos );</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            context-&gt;mouseEventCalback( button, action, mods, <span class="keywordtype">int</span>( xpos ), <span class="keywordtype">int</span>( ypos ) );</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        };</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        glfwSetMouseButtonCallback( m_glfwContext, mouseCB );</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
@@ -182,7 +182,7 @@ $(document).ready(function(){initNavTree('OpenGLContext_8cpp_source.html',''); i
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keyword">auto</span> context = <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Headless_1_1OpenGLContext.html">OpenGLContext</a>*<span class="keyword">&gt;</span>( glfwGetWindowUserPointer( window ) );</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordtype">float</span> xscale, yscale;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            glfwGetWindowContentScale( window, &amp;xscale, &amp;yscale );</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            context-&gt;scrollEventCalback( <span class="keywordtype">int</span>( xoffset / xscale ), <span class="keywordtype">int</span>( yoffset / yscale ) );</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            context-&gt;scrollEventCalback( <span class="keywordtype">int</span>( xoffset ), <span class="keywordtype">int</span>( yoffset ) );</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        };</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        glfwSetScrollCallback( m_glfwContext, scrollCB );</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
@@ -307,7 +307,7 @@ $(document).ready(function(){initNavTree('OpenGLContext_8cpp_source.html',''); i
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1577ba8040ea4e3d21120572b53f4a28.html">Headless</a></li><li class="navelem"><a class="el" href="dir_8dc3d61c4bbcef1d8a23d6a496c6b21e.html">OpenGLContext</a></li><li class="navelem"><a class="el" href="OpenGLContext_8cpp.html">OpenGLContext.cpp</a></li>
-    <li class="footer">Generated on Wed May 11 2022 23:44:19 for Radium Engine by
+    <li class="footer">Generated on Thu May 12 2022 18:55:49 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
