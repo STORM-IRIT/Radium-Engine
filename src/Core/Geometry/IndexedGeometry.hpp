@@ -365,8 +365,10 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     ///
     /// \warning Takes the ownership of the layer
     ///
-    bool addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
-                   const std::string& layerName = "" );
+    std::pair<bool, GeometryIndexLayerBase&>
+    addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
+              const bool withLock          = false,
+              const std::string& layerName = "" );
 
     /// \brief Range on layer keys (read-only)
     ///

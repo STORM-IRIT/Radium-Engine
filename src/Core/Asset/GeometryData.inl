@@ -38,6 +38,10 @@ inline Vector3Array& GeometryData::getVertices() {
     return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_POSITION ).getDataWithLock();
 }
 
+inline const Vector3Array& GeometryData::getVertices() const {
+    return m_multiIndexedGeometry.vertices();
+}
+
 namespace internal {
 
 template <typename InContainer, typename OutContainer>
@@ -60,7 +64,7 @@ inline void GeometryData::setVertices( const Container& vertexList ) {
 }
 
 inline Vector2uArray& GeometryData::getEdges() {
-    return addIndexedDataWithLock<Vector2ui>( "in_edge" );
+    return findIndexedDataWithLock<Vector2ui>( "in_edge" );
 }
 
 inline const Vector2uArray& GeometryData::getEdges() const {
@@ -77,7 +81,7 @@ inline const VectorNuArray& GeometryData::getFaces() const {
 }
 
 inline VectorNuArray& GeometryData::getFaces() {
-    return addIndexedDataWithLock<VectorNui>( "in_face" );
+    return findIndexedDataWithLock<VectorNui>( "in_face" );
 }
 
 template <typename Container>
@@ -86,7 +90,7 @@ inline void GeometryData::setFaces( const Container& faceList ) {
 }
 
 inline VectorNuArray& GeometryData::getPolyhedra() {
-    return addIndexedDataWithLock<VectorNui>( "in_polyhedron" );
+    return findIndexedDataWithLock<VectorNui>( "in_polyhedron" );
 }
 
 inline const VectorNuArray& GeometryData::getPolyhedra() const {
@@ -102,6 +106,10 @@ inline Vector3Array& GeometryData::getNormals() {
     return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_NORMAL ).getDataWithLock();
 }
 
+inline const Vector3Array& GeometryData::getNormals() const {
+    return m_multiIndexedGeometry.normals();
+}
+
 template <typename Container>
 inline void GeometryData::setNormals( const Container& normalList ) {
     return setAttribData( Geometry::MeshAttrib::VERTEX_NORMAL, normalList );
@@ -109,6 +117,12 @@ inline void GeometryData::setNormals( const Container& normalList ) {
 
 inline Vector3Array& GeometryData::getTangents() {
     return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_TANGENT ).getDataWithLock();
+}
+
+inline const Vector3Array& GeometryData::getTangents() const {
+    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_TANGENT );
+    auto h     = m_multiIndexedGeometry.getAttribHandle<Vector3>( name );
+    return m_multiIndexedGeometry.getAttrib( h ).data();
 }
 
 template <typename Container>
@@ -120,6 +134,12 @@ inline Vector3Array& GeometryData::getBiTangents() {
     return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_BITANGENT ).getDataWithLock();
 }
 
+inline const Vector3Array& GeometryData::getBiTangents() const {
+    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_BITANGENT );
+    auto h     = m_multiIndexedGeometry.getAttribHandle<Vector3>( name );
+    return m_multiIndexedGeometry.getAttrib( h ).data();
+}
+
 template <typename Container>
 inline void GeometryData::setBitangents( const Container& bitangentList ) {
     return setAttribData( Geometry::MeshAttrib::VERTEX_BITANGENT, bitangentList );
@@ -127,6 +147,12 @@ inline void GeometryData::setBitangents( const Container& bitangentList ) {
 
 inline Vector3Array& GeometryData::getTexCoords() {
     return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_TEXCOORD ).getDataWithLock();
+}
+
+inline const Vector3Array& GeometryData::getTexCoords() const {
+    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_TEXCOORD );
+    auto h     = m_multiIndexedGeometry.getAttribHandle<Vector3>( name );
+    return m_multiIndexedGeometry.getAttrib( h ).data();
 }
 
 template <typename Container>
@@ -171,7 +197,8 @@ inline bool GeometryData::isHexMesh() const {
 }
 
 inline bool GeometryData::hasVertices() const {
-    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_POSITION );
+    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_POSITION );
+    return m_multiIndexedGeometry.hasAttribData( name );
 }
 
 inline bool GeometryData::hasEdges() const {
@@ -187,31 +214,39 @@ inline bool GeometryData::hasPolyhedra() const {
 }
 
 inline bool GeometryData::hasNormals() const {
-    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_NORMAL );
+    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_NORMAL );
+    return m_multiIndexedGeometry.hasAttribData( name );
 }
 
 inline bool GeometryData::hasTangents() const {
-    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_TANGENT );
+    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_TANGENT );
+    return m_multiIndexedGeometry.hasAttribData( name );
 }
 
 inline bool GeometryData::hasBiTangents() const {
-    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_BITANGENT );
+    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_BITANGENT );
+    return m_multiIndexedGeometry.hasAttribData( name );
 }
 
 inline bool GeometryData::hasTextureCoordinates() const {
-    return hasAttribData<Vector3>( Geometry::MeshAttrib::VERTEX_TEXCOORD );
+    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_TEXCOORD );
+    return m_multiIndexedGeometry.hasAttribData( name );
 }
 
 inline bool GeometryData::hasMaterial() const {
     return m_material != nullptr;
 }
 
-const Utils::AttribManager& GeometryData::getAttribManager() const {
-    return m_multiIndexedGeometry.vertexAttribs();
+const Geometry::MultiIndexedGeometry& GeometryData::getMultiIndexedGeometry() const {
+    return m_multiIndexedGeometry;
 }
 
-inline Geometry::MultiIndexedGeometry& GeometryData::getMultiIndexedGeometry() {
+Geometry::MultiIndexedGeometry& GeometryData::getMultiIndexedGeometry() {
     return m_multiIndexedGeometry;
+}
+
+const Utils::AttribManager& GeometryData::getAttribManager() const {
+    return m_multiIndexedGeometry.vertexAttribs();
 }
 
 Utils::AttribManager& GeometryData::getAttribManager() {
@@ -221,14 +256,8 @@ Utils::AttribManager& GeometryData::getAttribManager() {
 template <typename T>
 inline Utils::Attrib<T>& GeometryData::getAttrib( const Geometry::MeshAttrib& name ) {
     const auto& n = getAttribName( name );
-    Utils::AttribHandle<T> h;
-    if ( m_multiIndexedGeometry.vertexAttribs().contains( n ) ) {
-        h = m_multiIndexedGeometry.getAttribHandle<T>( n );
-    }
-    else {
-        h = m_multiIndexedGeometry.addAttrib<T>( n );
-    }
-    auto& attrib = m_multiIndexedGeometry.getAttrib( h );
+    auto h        = m_multiIndexedGeometry.addAttrib<T>( n );
+    auto& attrib  = m_multiIndexedGeometry.getAttrib( h );
     return attrib;
 }
 
@@ -242,77 +271,91 @@ inline void GeometryData::setAttribData( const Geometry::MeshAttrib& name,
 }
 
 template <typename V>
-inline bool GeometryData::hasAttribData( const Geometry::MeshAttrib& name ) const {
-    auto& n = getAttribName( name );
-    auto h  = m_multiIndexedGeometry.getAttribHandle<V>( n );
-    if ( m_multiIndexedGeometry.isValid( h ) ) {
-        return !m_multiIndexedGeometry.getAttrib( h ).data().empty();
-    }
-    return false;
+inline VectorArray<V>&
+GeometryData::getDataFromLayerBase( Geometry::GeometryIndexLayerBase& geomBase ) {
+    auto& v    = dynamic_cast<Geometry::GeometryIndexLayer<V>&>( geomBase );
+    auto& data = v.collection();
+    return data;
+}
+
+template <typename V>
+inline const VectorArray<V>&
+GeometryData::getDataFromLayerBase( const Geometry::GeometryIndexLayerBase& geomBase ) const {
+    const auto& v    = dynamic_cast<const Geometry::GeometryIndexLayer<V>&>( geomBase );
+    const auto& data = v.collection();
+    return data;
+}
+
+template <typename L>
+inline Geometry::GeometryIndexLayerBase&
+GeometryData::getLayerBaseWithLock( const bool& firstOccurrence, const std::string& name ) {
+    auto& geomBase =
+        ( firstOccurrence )
+            ? m_multiIndexedGeometry.getFirstLayerOccurrenceWithLock( L::staticSemanticName ).second
+            : m_multiIndexedGeometry.getLayerWithLock( { L::staticSemanticName }, name );
+    return geomBase;
+}
+
+template <typename L>
+inline const Geometry::GeometryIndexLayerBase&
+GeometryData::getLayerBase( const bool& firstOccurrence, const std::string& name ) const {
+    const auto& geomBase =
+        ( firstOccurrence )
+            ? m_multiIndexedGeometry.getFirstLayerOccurrence( L::staticSemanticName ).second
+            : m_multiIndexedGeometry.getLayer( { L::staticSemanticName }, name );
+    return geomBase;
 }
 
 template <typename V, typename L>
 inline VectorArray<V>& GeometryData::getIndexedDataWithLock( const bool& firstOccurrence,
                                                              const std::string& name ) {
-    try {
-        auto& geomBase =
-            ( firstOccurrence )
-                ? m_multiIndexedGeometry.getFirstLayerOccurrenceWithLock( L::staticSemanticName )
-                      .second
-                : m_multiIndexedGeometry.getLayerWithLock( { L::staticSemanticName }, name );
-        auto& v    = dynamic_cast<Geometry::GeometryIndexLayer<V>&>( geomBase );
-        auto& data = v.collection();
-        return data;
+    if ( m_multiIndexedGeometry.containsLayer( { L::staticSemanticName }, name ) ) {
+        auto& geomBaseFound = getLayerBaseWithLock<L>( firstOccurrence, name );
+        return getDataFromLayerBase<V>( geomBaseFound );
     }
-    catch ( const std::out_of_range& e ) {
+    else {
         auto pil = std::make_unique<L>();
-        m_multiIndexedGeometry.addLayer( std::move( pil ), name );
-        return getIndexedDataWithLock<V, L>( firstOccurrence, name );
+        auto& geomBaseCreated =
+            m_multiIndexedGeometry.addLayer( std::move( pil ), true, name ).second;
+        return getDataFromLayerBase<V>( geomBaseCreated );
     }
 }
 
 template <typename V>
-inline VectorArray<V>& GeometryData::addIndexedDataWithLock( const std::string& name,
-                                                             const bool& firstOccurrence ) {
+inline VectorArray<V>& GeometryData::findIndexedDataWithLock( const std::string& name,
+                                                              const bool& firstOccurrence ) {
     if ( std::is_same<V, Vector2ui>::value ) {
         return getIndexedDataWithLock<V, Geometry::LineIndexLayer>( firstOccurrence, name );
     }
-    /*else if (std::is_same<V, Vector3ui>::value){
+    /* else if (std::is_same<V, Vector3ui>::value){
         return getIndexedDataWithLock<V, Geometry::TriangleIndexLayer>( firstOccurrence, name );
     }
     else if (std::is_same<V, Vector4ui>::value){
         return getIndexedDataWithLock<V, Geometry::QuadIndexLayer>( firstOccurrence, name );
-    }*/
+    } */
     else {
         return getIndexedDataWithLock<V, Geometry::PolyIndexLayer>( firstOccurrence, name );
     }
-}
-
-template <typename V, typename L>
-inline const VectorArray<V>& GeometryData::getIndexedData( const bool& firstOccurrence,
-                                                           const std::string& name ) const {
-    auto& g    = ( firstOccurrence )
-                     ? m_multiIndexedGeometry.getFirstLayerOccurrence( L::staticSemanticName ).second
-                     : m_multiIndexedGeometry.getLayer( { L::staticSemanticName }, name );
-    auto& v    = dynamic_cast<const Geometry::GeometryIndexLayer<V>&>( g );
-    auto& data = v.collection();
-    return data;
 }
 
 template <typename V>
 inline const VectorArray<V>& GeometryData::getIndexedData( const std::string& name,
                                                            const bool& firstOccurrence ) const {
     if ( std::is_same<V, Vector2ui>::value ) {
-        return getIndexedData<V, Geometry::LineIndexLayer>( firstOccurrence, name );
+        auto& geomBase = getLayerBase<Geometry::LineIndexLayer>( firstOccurrence, name );
+        return getDataFromLayerBase<V>( geomBase );
     }
     /*else if (std::is_same<V, Vector3ui>::value){
-        return getIndexedData<V, Geometry::TriangleIndexLayer>( firstOccurrence, name );
+        auto& geomBase = getLayerBase<Geometry::TriangleIndexLayer>( firstOccurrence, name );
+        return getDataFromLayerBase<V>( geomBase );
     }
     else if (std::is_same<V, Vector4ui>::value){
-        return getIndexedData<V, Geometry::QuadIndexLayer>( firstOccurrence, name );
+        auto& geomBase = getLayerBase<Geometry::QuadIndexLayer>( firstOccurrence, name );
+        return getDataFromLayerBase<V>( geomBase );
     }*/
     else {
-        return getIndexedData<V, Geometry::PolyIndexLayer>( firstOccurrence, name );
+        auto& geomBase = getLayerBase<Geometry::PolyIndexLayer>( firstOccurrence, name );
+        return getDataFromLayerBase<V>( geomBase );
     }
 }
 
@@ -339,7 +382,7 @@ template <typename V>
 inline void GeometryData::setIndexedData( const GeometryType& type,
                                           const VectorArray<V>& indexedDataList,
                                           const std::string& name ) {
-    internal::copyData( indexedDataList, addIndexedDataWithLock<V>( name ) );
+    internal::copyData( indexedDataList, findIndexedDataWithLock<V>( name ) );
     indexedDataUnlock( type, name );
 }
 
