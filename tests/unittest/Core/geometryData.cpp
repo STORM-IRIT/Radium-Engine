@@ -9,7 +9,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
     SECTION( "Normal test" ) {
         auto geometry = new GeometryData();
         auto& normal  = geometry->getNormals();
-        REQUIRE( !geometry->hasNormals() );
+        REQUIRE( normal.empty() );
         REQUIRE(
             geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_NORMAL )->isLocked() );
 
@@ -17,7 +17,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         normal[0] = Ra::Core::Vector3().setRandom();
         auto save = normal[0];
         geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_NORMAL )->unlock();
-        REQUIRE( geometry->hasNormals() );
+        REQUIRE( !normal.empty() );
 
         auto& name        = Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_NORMAL );
         auto attriHandler = geometry->getAttribManager().findAttrib<Ra::Core::Vector3>( name );
@@ -36,7 +36,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
     SECTION( "Vertices test" ) {
         auto geometry = new GeometryData();
         auto& vertex  = geometry->getVertices();
-        REQUIRE( !geometry->hasVertices() );
+        REQUIRE( vertex.empty() );
         REQUIRE(
             geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_POSITION )->isLocked() );
 
@@ -44,7 +44,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         vertex[0] = Ra::Core::Vector3().setRandom();
         auto save = vertex[0];
         geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_POSITION )->unlock();
-        REQUIRE( geometry->hasVertices() );
+        REQUIRE( !vertex.empty() );
 
         auto& name        = Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_POSITION );
         auto attriHandler = geometry->getAttribManager().findAttrib<Ra::Core::Vector3>( name );
@@ -65,7 +65,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
 
         // Tangent test
         auto& tangents = geometry->getTangents();
-        REQUIRE( !geometry->hasTangents() );
+        REQUIRE( tangents.empty() );
         REQUIRE(
             geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TANGENT )->isLocked() );
 
@@ -73,7 +73,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         tangents[0]  = Ra::Core::Vector3().setRandom();
         auto saveTan = tangents[0];
         geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TANGENT )->unlock();
-        REQUIRE( geometry->hasTangents() );
+        REQUIRE( !tangents.empty() );
 
         auto& nameTan = Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_TANGENT );
         auto attribHandlerTan =
@@ -91,7 +91,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
 
         // BiTangent test
         auto& biTangents = geometry->getBiTangents();
-        REQUIRE( !geometry->hasBiTangents() );
+        REQUIRE( biTangents.empty() );
         REQUIRE( geometry->getAttribManager()
                      .getAttribBase( MeshAttrib::VERTEX_BITANGENT )
                      ->isLocked() );
@@ -100,7 +100,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         biTangents[0]  = Ra::Core::Vector3().setRandom();
         auto saveBiTan = biTangents[0];
         geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_BITANGENT )->unlock();
-        REQUIRE( geometry->hasBiTangents() );
+        REQUIRE( !biTangents.empty() );
 
         auto& nameBiTan = Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_BITANGENT );
         auto attribHandlerBiTan =
@@ -119,7 +119,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
 
         // TexCoords test
         auto& texCoords = geometry->getTexCoords();
-        REQUIRE( !geometry->hasTextureCoordinates() );
+        REQUIRE( texCoords.empty() );
         REQUIRE(
             geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TEXCOORD )->isLocked() );
 
@@ -127,7 +127,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         texCoords[0]       = Ra::Core::Vector3().setRandom();
         auto saveTexCoords = texCoords[0];
         geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TEXCOORD )->unlock();
-        REQUIRE( geometry->hasTextureCoordinates() );
+        REQUIRE( !texCoords.empty() );
 
         auto& nameTexCoords = Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_TEXCOORD );
         auto attribHandlerTexCoords =
@@ -166,13 +166,13 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
     SECTION( "Edges test " ) {
         auto geometry = GeometryData();
         auto& edges   = geometry.getEdges();
-        REQUIRE( !geometry.hasEdges() );
+        REQUIRE( edges.empty() );
 
         edges.resize( 1 );
         edges[0]  = Ra::Core::Vector2ui().setRandom();
         auto save = edges[0];
         geometry.indexedDataUnlock( GeometryData::GeometryType::LINE_MESH, "in_edge" );
-        REQUIRE( geometry.hasEdges() );
+        REQUIRE( !edges.empty() );
 
         const auto& data = geometry.getIndexedData<Ra::Core::Vector2ui>( "in_edge" );
         REQUIRE( save == data[0] );
@@ -187,13 +187,13 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
     SECTION( "Faces test " ) {
         auto geometry = GeometryData();
         auto& faces   = geometry.getFaces();
-        REQUIRE( !geometry.hasFaces() );
+        REQUIRE( faces.empty() );
 
         faces.resize( 1 );
         faces[0]  = Ra::Core::VectorNui().setRandom();
         auto save = faces[0];
         geometry.indexedDataUnlock( GeometryData::GeometryType::POLY_MESH, "in_face" );
-        REQUIRE( geometry.hasFaces() );
+        REQUIRE( !faces.empty() );
 
         const auto& data = geometry.getIndexedData<Ra::Core::VectorNui>( "in_face" );
         REQUIRE( save == data[0] );
@@ -208,13 +208,13 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
     SECTION( "Polyhedron test " ) {
         auto geometry     = GeometryData();
         auto& polyhedrons = geometry.getPolyhedra();
-        REQUIRE( !geometry.hasPolyhedra() );
+        REQUIRE( polyhedrons.empty() );
 
         polyhedrons.resize( 1 );
         polyhedrons[0] = Ra::Core::VectorNui().setRandom();
         auto save      = polyhedrons[0];
         geometry.indexedDataUnlock( GeometryData::GeometryType::POLY_MESH, "in_polyhedron" );
-        REQUIRE( geometry.hasPolyhedra() );
+        REQUIRE( !polyhedrons.empty() );
 
         const auto& data = geometry.getIndexedData<Ra::Core::VectorNui>( "in_polyhedron" );
         REQUIRE( save == data[0] );
