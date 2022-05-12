@@ -453,12 +453,14 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
         std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
     }
     // Create a degenerated triangle to handle edges case.
-    /*
     else {
         const auto& edges = data->getEdges();
         indices.reserve( edges.size() );
-        std::transform();
-    } */
+        std::transform(
+            edges.begin(), edges.end(), std::back_inserter( indices ), []( Ra::Core::Vector2ui v ) {
+                return ( Ra::Core::Vector3ui { v( 0 ), v( 1 ), v( 1 ) } );
+            } );
+    }
 
     // add custom attribs
     // only attributs not handled before are handled by data->getAttribManager()
