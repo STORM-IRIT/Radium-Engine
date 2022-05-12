@@ -197,40 +197,38 @@ inline bool GeometryData::isHexMesh() const {
 }
 
 inline bool GeometryData::hasVertices() const {
-    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_POSITION );
-    return m_multiIndexedGeometry.hasAttribData( name );
+    return m_multiIndexedGeometry.vertexAttribs().contains( "in_position" );
 }
 
 inline bool GeometryData::hasEdges() const {
-    return !getIndexedData<Vector2ui>( "in_edge" ).empty();
+    return m_multiIndexedGeometry.containsLayer( { Geometry::LineIndexLayer::staticSemanticName },
+                                                 "in_edge" );
 }
 
 inline bool GeometryData::hasFaces() const {
-    return !getIndexedData<VectorNui>( "in_face" ).empty();
+    return m_multiIndexedGeometry.containsLayer( { Geometry::PolyIndexLayer::staticSemanticName },
+                                                 "in_face" );
 }
 
 inline bool GeometryData::hasPolyhedra() const {
-    return !getIndexedData<VectorNui>( "in_polyhedron" ).empty();
+    return m_multiIndexedGeometry.containsLayer( { Geometry::PolyIndexLayer::staticSemanticName },
+                                                 "in_polyhedron" );
 }
 
 inline bool GeometryData::hasNormals() const {
-    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_NORMAL );
-    return m_multiIndexedGeometry.hasAttribData( name );
+    return m_multiIndexedGeometry.vertexAttribs().contains( "in_normal" );
 }
 
 inline bool GeometryData::hasTangents() const {
-    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_TANGENT );
-    return m_multiIndexedGeometry.hasAttribData( name );
+    return m_multiIndexedGeometry.vertexAttribs().contains( "in_tangent" );
 }
 
 inline bool GeometryData::hasBiTangents() const {
-    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_BITANGENT );
-    return m_multiIndexedGeometry.hasAttribData( name );
+    return m_multiIndexedGeometry.vertexAttribs().contains( "in_bitangent" );
 }
 
 inline bool GeometryData::hasTextureCoordinates() const {
-    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_TEXCOORD );
-    return m_multiIndexedGeometry.hasAttribData( name );
+    return m_multiIndexedGeometry.vertexAttribs().contains( "in_texcoord" );
 }
 
 inline bool GeometryData::hasMaterial() const {
