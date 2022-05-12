@@ -3,7 +3,7 @@ list(APPEND CMAKE_MESSAGE_INDENT "[${ra_engine_target}] ")
 
 project(${ra_engine_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
-include(filelistEngine)
+include(filelist.cmake)
 set(engine_shaders_full ${engine_shaders})
 
 if(CMAKE_VERSION VERSION_LESS 3.16)
