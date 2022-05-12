@@ -142,12 +142,6 @@ inline bool AttribArrayGeometry::hasAttrib( const std::string& name ) {
     return m_vertexAttribs.contains( name );
 }
 
-inline bool AttribArrayGeometry::hasAttribData( const std::string& name ) const {
-    auto h = getAttribHandle<Vector3>( name );
-    if ( isValid( h ) ) { return !getAttrib( h ).data().empty(); }
-    return false;
-}
-
 template <typename T>
 inline Utils::AttribHandle<T> AttribArrayGeometry::addAttrib( const std::string& name ) {
     invalidateAabb();
