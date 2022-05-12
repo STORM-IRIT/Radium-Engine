@@ -51,16 +51,15 @@ target_include_directories(
 )
 target_link_libraries(
     ${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen
-                             cpplocate::cpplocate nlohmann_json::nlohmann_json
-    PRIVATE std::filesystem
+                             cpplocate::cpplocate nlohmann_json::nlohmann_json std::filesystem
 )
 
 target_compile_definitions(${ra_core_target} PRIVATE RA_CORE_EXPORTS)
 target_compile_definitions(
     ${ra_core_target}
-    PRIVATE -DCXX_FILESYSTEM_HAVE_FS
-            -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}>
-            -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE}
+    PUBLIC -DCXX_FILESYSTEM_HAVE_FS
+           -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}>
+           -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE}
 )
 
 configure_file(radium_backtrace.h.in radium_backtrace.h)
