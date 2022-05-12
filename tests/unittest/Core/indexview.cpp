@@ -42,7 +42,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
         // optional: save semantics for later
         pilSemantics = pil->semantics();
         // insert with default name
-        bool layerAdded = geo.addLayer( std::move( pil ) );
+        bool layerAdded = geo.addLayer( std::move( pil ) ).first;
         //! [Creating and adding pointcloud layer]
         REQUIRE( layerAdded );
 
@@ -67,7 +67,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
     REQUIRE( !geo.containsLayer( cilSemantics ) );
     REQUIRE( geo.countLayers( cilSemantics ) == 0 );
 
-    REQUIRE( geo.addLayer( std::move( cil ) ) );
+    REQUIRE( geo.addLayer( std::move( cil ) ).first );
     keys.insert( { cilSemantics, "" } );
 
     REQUIRE( geo.containsLayer( cilSemantics ) );
