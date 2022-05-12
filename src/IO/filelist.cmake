@@ -1,10 +1,9 @@
 # ----------------------------------------------------
-# ---------- DO NOT EDIT -----------------------------
-# ----------------------------------------------------
-# This file is autogenerate from a script:
-# run form scripts directory
+# This file can be generated from a script:
+# To do so, run form ./scripts directory
 # ./generateFilelistForModule.sh IO
 # ----------------------------------------------------
+
 set(io_sources CameraLoader/CameraLoader.cpp)
 
 set(io_headers CameraLoader/CameraLoader.hpp RaIO.hpp)
@@ -19,6 +18,7 @@ if(RADIUM_IO_DEPRECATED)
     )
 
     list(APPEND io_inlines deprecated/FileManager.inl)
+
 endif(RADIUM_IO_DEPRECATED)
 
 if(RADIUM_IO_ASSIMP)
@@ -44,16 +44,19 @@ if(RADIUM_IO_ASSIMP)
         AssimpLoader/AssimpLightDataLoader.hpp
         AssimpLoader/AssimpWrapper.hpp
     )
+
 endif(RADIUM_IO_ASSIMP)
 
 if(RADIUM_IO_TINYPLY)
     list(APPEND io_sources TinyPlyLoader/TinyPlyFileLoader.cpp)
 
     list(APPEND io_headers TinyPlyLoader/TinyPlyFileLoader.hpp)
+
 endif(RADIUM_IO_TINYPLY)
 
 if(RADIUM_IO_VOLUMES)
     list(APPEND io_sources VolumesLoader/pvmutils.cpp VolumesLoader/VolumeLoader.cpp)
 
     list(APPEND io_headers VolumesLoader/pvmutils.hpp VolumesLoader/VolumeLoader.hpp)
+
 endif(RADIUM_IO_VOLUMES)

@@ -3,7 +3,7 @@ list(APPEND CMAKE_MESSAGE_INDENT "[${ra_gui_target}] ")
 
 project(${ra_gui_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
-include(filelistGui)
+include(filelist.cmake)
 
 # Qt utility functions
 include(QtFunctions)

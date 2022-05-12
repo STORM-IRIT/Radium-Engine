@@ -8,7 +8,7 @@ option(RADIUM_IO_ASSIMP "Provide loaders based on Assimp library" ON)
 option(RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library" ON)
 option(RADIUM_IO_VOLUMES "Provide loader for volume pvm file format" ON)
 
-include(filelistIO)
+include(filelist.cmake)
 
 add_library(${ra_io_target} SHARED ${io_sources} ${io_headers} ${io_inlines})
 
