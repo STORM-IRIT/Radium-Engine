@@ -73,10 +73,10 @@ OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
             // see https://www.glfw.org/docs/latest/window_guide.html#window_scale
             float xscale, yscale;
             glfwGetWindowContentScale( window, &xscale, &yscale );
+            // seems that the scale is not to be taken into account
             double xpos, ypos;
             glfwGetCursorPos( window, &xpos, &ypos );
-            context->mouseEventCalback(
-                button, action, mods, int( xpos / xscale ), int( ypos / yscale ) );
+            context->mouseEventCalback( button, action, mods, int( xpos ), int( ypos ) );
         };
         glfwSetMouseButtonCallback( m_glfwContext, mouseCB );
 
@@ -84,7 +84,7 @@ OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
             auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
             float xscale, yscale;
             glfwGetWindowContentScale( window, &xscale, &yscale );
-            context->scrollEventCalback( int( xoffset / xscale ), int( yoffset / yscale ) );
+            context->scrollEventCalback( int( xoffset ), int( yoffset ) );
         };
         glfwSetScrollCallback( m_glfwContext, scrollCB );
     }
