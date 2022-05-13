@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.26</span>
+   &#160;<span id="projectnumber">1.2.27</span>
    </div>
   </td>
  </tr>
@@ -96,7 +96,18 @@ $(document).ready(function(){initNavTree('basicsmanual.html',''); initResizable(
 <div class="title">Radium Basics </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This part of the documentation describes how to compile Radium and use it in your own project. If it is your first time with Radium, please follow the instructions in this order:</p><ul>
+<div class="textblock"><p>This part of the documentation describes how to compile Radium and use it in your own project.</p>
+<p>TL;DR; (linux command line version)</p>
+<div class="fragment"><div class="line">git clone --recurse-submodules https://github.com/STORM-IRIT/Radium-Engine.git</div>
+<div class="line">cd Radium-Engine/external</div>
+<div class="line">cmake -DCMAKE_BUILD_TYPE=Release -B build-r/ . -DCMAKE_INSTALL_PREFIX=`pwd`/install-r</div>
+<div class="line">cmake --build build-r --parallel</div>
+<div class="line"> </div>
+<div class="line">cd .. # go back in Radium-Engine root dir</div>
+<div class="line">cmake -DCMAKE_BUILD_TYPE=Release -B build-r/ -C external/install-r/radium-options.cmake</div>
+<div class="line">cmake --build build-r --parallel --target install</div>
+</div><!-- fragment --><p>Radium-Engine installed files are in <code>Bundle-GNU</code></p>
+<p>More details and other systems information are in the following pages, to be read in order.</p><ul>
 <li><a class="el" href="dependenciesmanagement.html">Radium Dependencies Management</a> : Fetch and compile dependencies</li>
 <li><a class="el" href="basicsCompileRadium.html">Radium Compilation instructions</a> : Compile and install Radium</li>
 <li><a class="el" href="basicsRadiumSubmodule.html">Use Radium Libraries in your own project</a> : Link to Radium using cmake package</li>
@@ -108,7 +119,7 @@ $(document).ready(function(){initNavTree('basicsmanual.html',''); initResizable(
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu May 12 2022 18:55:50 for Radium Engine by
+    <li class="footer">Generated on Fri May 13 2022 08:29:49 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

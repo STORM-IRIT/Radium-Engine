@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.26</span>
+   &#160;<span id="projectnumber">1.2.27</span>
    </div>
   </td>
  </tr>
@@ -138,8 +138,6 @@ Folder structure</h2>
 </ul>
 <div class="fragment"><div class="line">set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})</div>
 </div><!-- fragment --><p>It has the following structure, if externals are compiled along Radium </p><div class="fragment"><div class="line">Bundle-*</div>
-<div class="line"> - bin/  include/  lib/  libdata/  LICENSE  README.md  Resources/  share/</div>
-</div><!-- fragment --><p>Or if externals are compiled locally : </p><div class="fragment"><div class="line">Bundle-*</div>
 <div class="line"> - bin/  include/  lib/  LICENSE  README.md  Resources/  share/</div>
 </div><!-- fragment --><h3>Configure build options</h3>
 <p>Radium offers the following build options: </p><div class="fragment"><div class="line">// Enable coverage, gcc only. Experimental, need ENABLE_TESTING</div>
@@ -212,13 +210,11 @@ Folder structure</h2>
 </ul>
 <h2><a class="anchor" id="autotoc_md13"></a>
 Command line instructions for building (on windows, mac and linux)</h2>
-<p>Out-of source builds are mandatory, we recommend to follow the usual sequence:</p>
-<div class="fragment"><div class="line">$ mkdir build</div>
-<div class="line">$ cd build</div>
-<div class="line">$ cmake .. -DQt5_DIR=........ -DCMAKE_BUILD_TYPE=.......</div>
-<div class="line">$ make</div>
-<div class="line">$ make install</div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Qt6 support is experimental. To enable it, replace <code>-DQt5_DIR=path/to/qt5</code> by <code>-DQt6_DIR=path/to/qt6</code>.</dd>
+<p>Out-of source builds are mandatory, we recommend to follow the usual sequence, assuming you have build dependecies as explained <a class="el" href="dependenciesmanagement.html#builddep">here</a>:</p>
+<div class="fragment"><div class="line">cmake . -B build-r -DCMAKE_BUILD_TYPE=Release -C external/install-r/radium-options.cmake -DQt5_DIR=path/to/qt5</div>
+<div class="line">cmake --build build-r --target install --parallel</div>
+</div><!-- fragment --><p>If qt is installed system wide (likely on linux), <code>-DQt5_DIR</code> is not needed.</p>
+<dl class="section note"><dt>Note</dt><dd>Qt6 support is experimental. To enable it, replace <code>-DQt5_DIR=path/to/qt5</code> by <code>-DQt6_DIR=path/to/qt6</code>.</dd>
 <dd>
 Running the <code>install</code> target is recommended as it will copy all the radium related library in the same place, generate the cmake packages and bundle applications with their dependencies (on macos and windows).</dd></dl>
 <p>Note that installation requires write access on the installation directory.</p>
@@ -243,7 +239,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div class="line">      &quot;inheritEnvironments&quot;: [ &quot;msvc_x64_x64&quot; ],</div>
 <div class="line">      &quot;buildRoot&quot;: &quot;C:/Users/XXX/Dev/builds/Radium/${name}&quot;,</div>
 <div class="line">      &quot;installRoot&quot;: &quot;C:/Users/XXX/Dev/Radium-install&quot;,</div>
-<div class="line">      &quot;cmakeCommandArgs&quot;: &quot;-DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64&quot;,</div>
+<div class="line">      &quot;cmakeCommandArgs&quot;: &quot;-C external/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64&quot;,</div>
 <div class="line">      &quot;buildCommandArgs&quot;: &quot;&quot;,</div>
 <div class="line">      &quot;ctestCommandArgs&quot;: &quot;&quot;</div>
 <div class="line">    },</div>
@@ -254,7 +250,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div class="line">      &quot;inheritEnvironments&quot;: [ &quot;msvc_x64_x64&quot; ],</div>
 <div class="line">      &quot;buildRoot&quot;: &quot;C:/Users/XXX/Dev/builds/Radium/${name}&quot;,</div>
 <div class="line">      &quot;installRoot&quot;: &quot;C:/Users/XXX/Dev/Radium-installdbg&quot;,</div>
-<div class="line">      &quot;cmakeCommandArgs&quot;: &quot;-DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64&quot;,</div>
+<div class="line">      &quot;cmakeCommandArgs&quot;: &quot;-C external/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64&quot;,</div>
 <div class="line">      &quot;buildCommandArgs&quot;: &quot;&quot;,</div>
 <div class="line">      &quot;ctestCommandArgs&quot;: &quot;&quot;</div>
 <div class="line">    }</div>
@@ -270,7 +266,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Thu May 12 2022 18:55:50 for Radium Engine by
+    <li class="footer">Generated on Fri May 13 2022 08:29:49 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

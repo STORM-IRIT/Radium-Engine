@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.26</span>
+   &#160;<span id="projectnumber">1.2.27</span>
    </div>
   </td>
  </tr>
@@ -97,15 +97,15 @@ $(document).ready(function(){initNavTree('develmeshes.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md88">Geometry types</a></li>
-<li class="level1"><a href="#autotoc_md89">Colaboration between Core and Engine</a></li>
-<li class="level1"><a href="#autotoc_md90">Data consistency</a></li>
-<li class="level1"><a href="#autotoc_md91">Mesh creation</a><ul><li class="level2"><a href="#wedges">Wedges</a></li>
+<ul><li class="level1"><a href="#autotoc_md86">Geometry types</a></li>
+<li class="level1"><a href="#autotoc_md87">Colaboration between Core and Engine</a></li>
+<li class="level1"><a href="#autotoc_md88">Data consistency</a></li>
+<li class="level1"><a href="#autotoc_md89">Mesh creation</a><ul><li class="level2"><a href="#wedges">Wedges</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md88"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md86"></a>
 Geometry types</h1>
 <p>There is three kind of geometry representation included in radium source :</p><ol type="1">
 <li><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Ra::Core::Geometry</a>::*, which handles geometry data and connectivity as a indexed vertex array. Each vertex is a unique set of position, normal, and other attributes. If indexed, faces are defined with VectorXui, where X is 1 for point, 2 for lines, 3 for triangles, and N for polygons. See inheritance diagram of <a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a> :<ul>
@@ -134,14 +134,14 @@ Geometry types</h1>
 </li>
 </ol>
 <p><code>*</code> : the starred classes are the one you want to instanciate, the other are more for code factoring or abstraction.</p>
-<h1><a class="anchor" id="autotoc_md89"></a>
+<h1><a class="anchor" id="autotoc_md87"></a>
 Colaboration between Core and Engine</h1>
 <p>A Core Geometry can be used on its own.</p>
 <p>Engine Geometry must own a Core Geometry, either set at construction, or later with loadGeometry. The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#adf6f87ad353e84d1f6fd5a145e4fbd3d">Ra::Engine::Data::Displayable::getAbstractGeometry</a> or <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a166c11d14412bdfc7fe13fa9242dd63f">Ra::Engine::Data::CoreGeometryDisplayable::getCoreGeometry</a></p>
-<h1><a class="anchor" id="autotoc_md90"></a>
+<h1><a class="anchor" id="autotoc_md88"></a>
 Data consistency</h1>
 <p>As soon as a Core Geometry is owned by a Engine Geometry, each data update on the Core Geometry attribute trigger a observator method to mark the corresponding GPU data as dirty. On the next <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b" title="Update (i.e. send to GPU) the buffers marked as dirty.">Ra::Engine::Data::CoreGeometryDisplayable::updateGL</a>, the dirty data will be updated on the GPU.</p>
-<h1><a class="anchor" id="autotoc_md91"></a>
+<h1><a class="anchor" id="autotoc_md89"></a>
 Mesh creation</h1>
 <p><code>GeometryComponent</code> is in charge of loading a <code>GeometryData</code> and create the corresponding <code>Mesh</code>.</p>
 <p>The user can add on the fly new vertex attributes to a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a> An attribute is defined by a unique name (std::string) and then represented as a <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html" title="An attrib handle basically store an Index and a name.">Ra::Core::Utils::AttribHandle</a>. The type of the attribute is defined by the caller using the template parameter of the method <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a>. To ensure consistency, it is strongly recommended to store the handle returned by the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a> method: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> handle1 = m.addAttrib&lt;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&gt;( <span class="stringliteral">&quot;vector3_attrib&quot;</span> );</div>
@@ -209,7 +209,7 @@ Halfedge collapse and wedge.</div></div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Thu May 12 2022 18:55:50 for Radium Engine by
+    <li class="footer">Generated on Fri May 13 2022 08:29:49 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
