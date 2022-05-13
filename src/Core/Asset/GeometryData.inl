@@ -64,7 +64,7 @@ inline void GeometryData::setVertices( const Container& vertexList ) {
 }
 
 inline Vector2uArray& GeometryData::getEdges() {
-    return findIndexedDataWithLock<Vector2ui>( "in_edge" );
+    return findIndexDataWithLock<Vector2ui>( "in_edge" );
 }
 
 inline const Vector2uArray& GeometryData::getEdges() const {
@@ -81,7 +81,7 @@ inline const VectorNuArray& GeometryData::getFaces() const {
 }
 
 inline VectorNuArray& GeometryData::getFaces() {
-    return findIndexedDataWithLock<VectorNui>( "in_face" );
+    return findIndexDataWithLock<VectorNui>( "in_face" );
 }
 
 template <typename Container>
@@ -90,7 +90,7 @@ inline void GeometryData::setFaces( const Container& faceList ) {
 }
 
 inline VectorNuArray& GeometryData::getPolyhedra() {
-    return findIndexedDataWithLock<VectorNui>( "in_polyhedron" );
+    return findIndexDataWithLock<VectorNui>( "in_polyhedron" );
 }
 
 inline const VectorNuArray& GeometryData::getPolyhedra() const {
@@ -320,8 +320,8 @@ inline VectorArray<V>& GeometryData::getIndexedDataWithLock( const bool& firstOc
 }
 
 template <typename V>
-inline VectorArray<V>& GeometryData::findIndexedDataWithLock( const std::string& name,
-                                                              const bool& firstOccurrence ) {
+inline VectorArray<V>& GeometryData::findIndexDataWithLock( const std::string& name,
+                                                            const bool& firstOccurrence ) {
     if ( std::is_same<V, Vector2ui>::value ) {
         return getIndexedDataWithLock<V, Geometry::LineIndexLayer>( firstOccurrence, name );
     }
@@ -380,7 +380,7 @@ template <typename V>
 inline void GeometryData::setIndexedData( const GeometryType& type,
                                           const VectorArray<V>& indexedDataList,
                                           const std::string& name ) {
-    internal::copyData( indexedDataList, findIndexedDataWithLock<V>( name ) );
+    internal::copyData( indexedDataList, findIndexDataWithLock<V>( name ) );
     indexedDataUnlock( type, name );
 }
 

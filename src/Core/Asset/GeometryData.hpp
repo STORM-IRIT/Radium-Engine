@@ -91,7 +91,7 @@ class RA_CORE_API GeometryData : public AssetData
     /// Return the list of lines.
     /// \note For line meshes only.
     [[deprecated(
-        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline Vector2uArray&
     getEdges();
 
@@ -103,18 +103,18 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of lines.
     /// \note For line meshes only.
-    /// \note Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
+    /// \note Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
     [[deprecated(
-        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline void
     setEdges( const Container& edgeList );
 
     /// Return the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
     [[deprecated(
-        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline VectorNuArray&
     getFaces();
 
@@ -126,18 +126,18 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    /// \note Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
+    /// \note Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
     [[deprecated(
-        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline void
     setFaces( const Container& faceList );
 
     /// Return the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
     [[deprecated(
-        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline VectorNuArray&
     getPolyhedra();
 
@@ -149,11 +149,11 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    /// \note Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence )
+    /// \note Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
     [[deprecated(
-        "Use findIndexedDataWithLock( const std::string& name, const bool& firstOccurrence ) "
+        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
         "instead." )]] inline void
     setPolyhedra( const Container& polyList );
 
@@ -324,8 +324,8 @@ class RA_CORE_API GeometryData : public AssetData
      * indexedDataUnlock ( const GeometryType& type, const std::string& name ).
      */
     template <typename V>
-    inline VectorArray<V>& findIndexedDataWithLock( const std::string& name     = "",
-                                                    const bool& firstOccurrence = true );
+    inline VectorArray<V>& findIndexDataWithLock( const std::string& name     = "",
+                                                  const bool& firstOccurrence = true );
 
     /**
      *
