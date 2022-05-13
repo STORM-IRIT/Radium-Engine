@@ -30,45 +30,20 @@ void BlinnPhongMaterial::updateRenderingParameters() {
     m_renderParameters.addParameter( "material.ns", m_ns );
     m_renderParameters.addParameter( "material.alpha", std::min( m_alpha, m_kd[3] ) );
     Texture* tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.kd", tex );
-        m_renderParameters.addParameter( "material.tex.hasKd", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasKd", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.kd", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasKd", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.ks", tex );
-        m_renderParameters.addParameter( "material.tex.hasKs", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasKs", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.ks", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasKs", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_NORMAL );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.normal", tex );
-        m_renderParameters.addParameter( "material.tex.hasNormal", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasNormal", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.normal", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasNormal", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SHININESS );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.ns", tex );
-        m_renderParameters.addParameter( "material.tex.hasNs", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasNs", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.ns", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasNs", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_ALPHA );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.alpha", tex );
-        m_renderParameters.addParameter( "material.tex.hasAlpha", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasAlpha", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.alpha", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasAlpha", tex != nullptr );
 }
 
 void BlinnPhongMaterial::updateGL() {
