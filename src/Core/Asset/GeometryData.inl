@@ -112,7 +112,7 @@ inline const Vector3Array& GeometryData::getNormals() const {
 
 template <typename Container>
 inline void GeometryData::setNormals( const Container& normalList ) {
-    return setAttribData( Geometry::MeshAttrib::VERTEX_NORMAL, normalList );
+    setAttribData( Geometry::MeshAttrib::VERTEX_NORMAL, normalList );
 }
 
 inline Vector3Array& GeometryData::getTangents() {
@@ -127,7 +127,7 @@ inline const Vector3Array& GeometryData::getTangents() const {
 
 template <typename Container>
 inline void GeometryData::setTangents( const Container& tangentList ) {
-    return setAttribData( Geometry::MeshAttrib::VERTEX_TANGENT, tangentList );
+    setAttribData( Geometry::MeshAttrib::VERTEX_TANGENT, tangentList );
 }
 
 inline Vector3Array& GeometryData::getBiTangents() {
@@ -142,7 +142,7 @@ inline const Vector3Array& GeometryData::getBiTangents() const {
 
 template <typename Container>
 inline void GeometryData::setBitangents( const Container& bitangentList ) {
-    return setAttribData( Geometry::MeshAttrib::VERTEX_BITANGENT, bitangentList );
+    setAttribData( Geometry::MeshAttrib::VERTEX_BITANGENT, bitangentList );
 }
 
 inline Vector3Array& GeometryData::getTexCoords() {
@@ -157,7 +157,7 @@ inline const Vector3Array& GeometryData::getTexCoords() const {
 
 template <typename Container>
 inline void GeometryData::setTextureCoordinates( const Container& texCoordList ) {
-    return setAttribData( Geometry::MeshAttrib::VERTEX_TEXCOORD, texCoordList );
+    setAttribData( Geometry::MeshAttrib::VERTEX_TEXCOORD, texCoordList );
 }
 
 inline const MaterialData& GeometryData::getMaterial() const {

@@ -48,9 +48,9 @@ void GeometryData::displayInfo() const {
     LOG( logINFO ) << "======== MESH INFO ========";
     LOG( logINFO ) << " Name           : " << m_name;
     LOG( logINFO ) << " Type           : " << type;
-    LOG( logINFO ) << " Vertex #       : " << getVerticesSize();
-    LOG( logINFO ) << " Edge #         : " << hasEdges();
-    LOG( logINFO ) << " Face #         : " << hasFaces();
+    LOG( logINFO ) << " Vertex #       : " << ( hasVertices() ? getVertices().size() : 0 );
+    LOG( logINFO ) << " Edge #         : " << ( hasEdges() ? getEdges().size() : 0 );
+    LOG( logINFO ) << " Face #         : " << ( hasFaces() ? getFaces().size() : 0 );
     LOG( logINFO ) << " Normal ?       : " << ( ( !hasNormals() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Tangent ?      : " << ( ( !hasTangents() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Bitangent ?    : " << ( ( !hasBiTangents() ) ? "NO" : "YES" );
