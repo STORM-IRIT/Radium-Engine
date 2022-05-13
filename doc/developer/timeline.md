@@ -1,5 +1,6 @@
 \page develtimeline  Timeline and Keyframes
 [TOC]
+
 # Timeline And Keyframes
 
 The `Ra::Gui::Timeline` class provides display and management of `Ra::Core::Animation::KeyFramedValue`s through
@@ -10,28 +11,32 @@ the `Ra::Core::Animation::KeyFramedValueController` class.
 The Timeline UI is a widget allowing to manipulate time and display animation keyframes:
 ![Timeline UI](../images/timeline_ui.png)
 The central part of the UI shows the time space, in which we have:
- - the time scale on the bottom part,
- - the time window drawn as a green to red sheet between movable widgets defining its start-time and end-time,
- - the current time drawn as a blue vertical line,
- - the time values, drawn as yellow vertical lines, where a keyframe is defined for the selected KeyFramedValue.
+
+- the time scale on the bottom part,
+- the time window drawn as a green to red sheet between movable widgets defining its start-time and end-time,
+- the current time drawn as a blue vertical line,
+- the time values, drawn as yellow vertical lines, where a keyframe is defined for the selected KeyFramedValue.
 
 On the upper-left corner, one can define the time window for time flow, i.e.
- - define the start-time and end-time for time flow,
- - change the current time value,
- - change the maximal time display.
+
+- define the start-time and end-time for time flow,
+- change the current time value,
+- change the maximal time display.
 
 On the upper-middle part, one can manipulate time flow, i.e.
- - reset time to the start-time or the end-time,
- - get to the previous or next keyframe time,
- - make time flow,
- - manage the time flow policy (loop-around or forward-backward).
+
+- reset time to the start-time or the end-time,
+- get to the previous or next keyframe time,
+- make time flow,
+- manage the time flow policy (loop-around or forward-backward).
 
 On the upper-right part, one can manipulate animation keyframes, i.e.
- - choose the one to display and manipulate for the selected object,
- - add a new keyframe or update the one at the current time,
- - see the current number of keyframes,
- - remove the current keyframe,
- - [coming soon] open the keyframe editor.
+
+- choose the one to display and manipulate for the selected object,
+- add a new keyframe or update the one at the current time,
+- see the current number of keyframes,
+- remove the current keyframe,
+- [coming soon] open the keyframe editor.
 
 On the upper-far-right corner, one can open the help window, displaying shortcuts and hints on how to manipulate
 the time space and the selected KeyFramedValue:
@@ -45,6 +50,7 @@ the time space and the selected KeyFramedValue:
 `Ra::Engine::Rendering::RenderObject` they belong to.
 
 ### Binding "Static" KeyFramedValue
+
 Those are `Ra::Core::Animation::KeyFramedValue`s that are an explicit part of a `Ra::Engine::Scene::Entity`, `Ra::Engine::Scene::Component` or
 `Ra::Engine::Rendering::RenderObject` data, either filled upon construction or through the `Ra::Gui::Timeline`.
 Static `Ra::Core::Animation::KeyFramedValue`s must be registered in the `Ra::Gui::Timeline` after the object's
@@ -53,6 +59,7 @@ They usually are not bound to an *UpdateCallback* function since the object they
 belong to usually calls `Ra::Core::Animation::KeyFramedValue::at` to query the current value.
 
 Example Usage:
+
 ```{.cpp}
 using KeyFramedValue = Ra::Core::Animation::KeyFramedValue<Scalar>;
 using KeyFramedValueController = Ra::Core::Animation::KeyFramedValueController;
@@ -121,7 +128,8 @@ struct MyTimeDependantSystem : public Ra::Engine::Scene::System
 };
 ```
 
-### Binding "Dynamic" KeyFramedValues:
+### Binding "Dynamic" KeyFramedValues
+
 Those are `Ra::Core::Animation::KeyFramedValue`s that are not part of an `Ra::Engine::Scene::Entity`, `Ra::Engine::Scene::Component` or
 `Ra::Engine::Rendering::RenderObject` data, but are used to keyframe some of its data.
 Dynamic `Ra::Core::Animation::KeyFramedValue`s must be created for and owned by the UI, and registered in the
@@ -130,6 +138,7 @@ They are usually bound to an UpdateCallback function since they have to update t
 object's data they are linked to.
 
 Example Usage:
+
 ```{.cpp}
 /// Let's say there is a Component class defined as:
 struct MyComponent : public Component {

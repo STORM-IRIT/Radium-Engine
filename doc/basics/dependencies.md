@@ -2,6 +2,7 @@
 [TOC]
 
 Radium relies on several external libraries to load files or to represent some data:
+
 * [Core] Eigen, OpenMesh, nlohmann_json
 * [Engine] glm, globjects, glbindings, tinyEXR
 * [IO] Assimp
@@ -11,11 +12,12 @@ Radium relies on several external libraries to load files or to represent some d
 
 We developed a series of tools to fetch and compile these dependencies easily, except for
 Qt, which needs to be installed and passed to cmake through the variables `Qt5_DIR` OR `Qt6_DIR` (see documentation at
-https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started).
+<https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started>).
 
 # Dependencies management systems
 
 We offer two different systems to handle external dependencies (see details and how-to in the following sections):
+
  1. **[recommended]** external build: the user compiles and installs once for all the dependencies using a dedicated
     cmake project. Then, Radium cmake project is configured to link with installed dependencies.
  2. manual management: users can also provide their own version of the dependencies through cmake packages.
@@ -27,6 +29,7 @@ We offer two different systems to handle external dependencies (see details and 
 We provide a standalone cmake project (`external/CMakeLists.txt`) to compile and install the Radium dependencies at any location.
 
 ## Configuration and compilation of the dependencies
+
 External dependencies have to be installed outside Radium-Engine source tree.
 
 ~~~{.bash}
@@ -41,6 +44,7 @@ cmake --build build-d --parallel
 If not given on the command line, the installation directory is set by default to `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}` for Release, and  `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}` for any other CMAKE_BUILD_TYPE`.
 
 ## Configuration of Radium
+
 To compile Radium-Engine, you have to indicate where cmake can find each dependency.
 
 For convenience, dependencies install procedure create a configuration file, you can use this configuration with the `-C` option of cmake.
@@ -88,49 +92,46 @@ cmake \
 You can  use your own installation of a local dependency instead of letting cmake fetch and compile it.
 To this end, just provide the corresponding '*_DIR' to cmake at configuration time as show before (with '-D' option, configuration file or toolchain file, please refer to cmake documentation).
 
-
 Currently supported (note that these paths must refer to the installation directory of the corresponding library):
-[//]: # (generated running ../script/list_dep.py from Radium-Engine/external directory)
+<!--  (generated running ../script/list_dep.py from Radium-Engine/external directory) -->
 
- *  `assimp_DIR`
- *  `tinyply_DIR`
- *  `glm_DIR`
- *  `glbinding_DIR`
- *  `globjects_DIR`
- *  `stb_DIR`
- *  `tinyEXR_DIR`
- *  `Eigen3_DIR`
- *  `OpenMesh_DIR`
- *  `cpplocate_DIR`
- *  `nlohmann_json_DIR`
-
+* `assimp_DIR`
+* `tinyply_DIR`
+* `glm_DIR`
+* `glbinding_DIR`
+* `globjects_DIR`
+* `stb_DIR`
+* `tinyEXR_DIR`
+* `Eigen3_DIR`
+* `OpenMesh_DIR`
+* `cpplocate_DIR`
+* `nlohmann_json_DIR`
 
 Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record
 
+* assimp: <https://github.com/assimp/assimp.git>, [tags/v5.0.1],
+  * with options `-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True`
+* tinyply: <https://github.com/ddiakopoulos/tinyply.git>, [tags/2.3.2],
+  * with options `-DSHARED_LIB=TRUE`
+* glm: <https://github.com/g-truc/glm.git>, [0.9.9.5],
+  * with options `-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib`
+* glbinding: <https://github.com/cginternals/glbinding.git>, [663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c],
+  * with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF`
+* globjects: <https://github.com/dlyr/globjects.git>, [11c559a07d9e310abb2f53725fd47cfaf538f8b1],
+  * with options `-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR}`
+* stb: <https://github.com/nothings/stb.git>, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],
+  * with options `None`
+* tinyEXR: <https://github.com/MathiasPaulin/tinyexr.git>, [origin/radium],
+  * with options `-DBUILD_INSTALLABLE_LIB=ON`
+* Eigen3: <https://gitlab.com/libeigen/eigen.git>, [e80ec243],
+  * with options `-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF`
+* OpenMesh: <https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git>, [tags/OpenMesh-8.1],
+  * with options `-DBUILD_APPS=OFF`
+* cpplocate: <https://github.com/cginternals/cpplocate.git>, [tags/v2.2.0],
+  * with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF`
+* nlohmann_json: <https://github.com/nlohmann/json.git>, [release/3.10.5],
+  * with options `-DJSON_Install=ON -DJSON_BuildTests=OFF`
 
- *  assimp: https://github.com/assimp/assimp.git, [tags/v5.0.1],
-    *  with options `-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True`
- *  tinyply: https://github.com/ddiakopoulos/tinyply.git, [tags/2.3.2],
-    *  with options `-DSHARED_LIB=TRUE`
- *  glm: https://github.com/g-truc/glm.git, [0.9.9.5],
-    *  with options `-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib`
- *  glbinding: https://github.com/cginternals/glbinding.git, [663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c],
-    *  with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF`
- *  globjects: https://github.com/dlyr/globjects.git, [11c559a07d9e310abb2f53725fd47cfaf538f8b1],
-    *  with options `-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR}`
- *  stb: https://github.com/nothings/stb.git, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],
-    *  with options `None`
- *  tinyEXR: https://github.com/MathiasPaulin/tinyexr.git, [origin/radium],
-    *  with options `-DBUILD_INSTALLABLE_LIB=ON`
- *  Eigen3: https://gitlab.com/libeigen/eigen.git, [e80ec243],
-    *  with options `-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF`
- *  OpenMesh: https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git, [tags/OpenMesh-8.1],
-    *  with options `-DBUILD_APPS=OFF`
- *  cpplocate: https://github.com/cginternals/cpplocate.git, [tags/v2.2.0],
-    *  with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF`
- *  nlohmann_json: https://github.com/nlohmann/json.git, [release/3.10.5],
-    *  with options `-DJSON_Install=ON -DJSON_BuildTests=OFF`
-
-[//]: # (end script copy)
+<!--  (end script copy) -->
 
 \warning You have to take care of the consistency of the external dependencies, e.g. it's not possible to use your version of globjects without providing your version of eigen, otherwise you will have mixed version in Radium.

@@ -16,11 +16,12 @@ cmake -DCMAKE_BUILD_TYPE=Release -B build-r/ -C ../radium-external/install-r/rad
 cmake --build build-r --parallel --target install
 
 ```
+
 Radium-Engine installed files are in `Bundle-GNU`
 
-
 More details and other systems information are in the following pages, to be read in order.
- * \subpage dependenciesmanagement : Fetch and compile dependencies
- * \subpage basicsCompileRadium : Compile and install Radium
- * \subpage basicsRadiumSubmodule : Link to Radium using cmake package
- * \subpage basicsTroubleshooting : Handle usual errors
+
+* \subpage dependenciesmanagement : Fetch and compile dependencies
+* \subpage basicsCompileRadium : Compile and install Radium
+* \subpage basicsRadiumSubmodule : Link to Radium using cmake package
+* \subpage basicsTroubleshooting : Handle usual errors

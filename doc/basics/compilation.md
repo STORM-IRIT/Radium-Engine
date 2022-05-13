@@ -5,18 +5,20 @@
 
 The following platforms and tool chains have been tested and should work :
 
- * *Windows* : IDEs: Visual Studio 2019 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017 or 2019) .
- * *Mac OSX* : gcc 10 or higher, Apple clang
- * *Linux* : gcc 8  or higher, clang
+* *Windows* : IDEs: Visual Studio 2019 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017 or 2019) .
+* *Mac OSX* : gcc 10 or higher, Apple clang
+* *Linux* : gcc 8  or higher, clang
 
-See also our Continuous Integration system at https://github.com/STORM-IRIT/Radium-Engine/actions.
+See also our Continuous Integration system at <https://github.com/STORM-IRIT/Radium-Engine/actions>.
 
 Minimal requirements
+
 * OpenGL 4.1+ / GLSL 410+
 * CMake 3.16+
 * Qt5 (minimal version 5.15) or Qt6 (experimental)
 
 # Build instructions
+
 If not already done, follow instructions at \ref dependenciesmanagement.
 
 Radium follows a standard cmake structure, so any IDE supporting cmake should be able to configure and build it.
@@ -26,26 +28,29 @@ Remember that compiling Radium in Debug mode needs to have the dependencies comp
 (due to a limitation in assimp).
 
 ## Folder structure
+
 Radium-Engine relies on CMake build-chain on all supported platforms.
 In most cases, building should be pretty straightforward, provided that cmake can locate the dependencies.
 
 ### Installation directory
+
 By default, `${CMAKE_INSTALL_PREFIX}` is set as follow:
 
-- For release build :
+* For release build :
 
 ~~~{.cmake}
     set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
 ~~~
 
-- For Debug or RelWithDebInfo build
+* For Debug or RelWithDebInfo build
 
 ~~~{.cmake}
     set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})
 ~~~
 
 It has the following structure
-~~~
+
+~~~{.txt}
 Bundle-*
  - bin/  include/  lib/  LICENSE  README.md  Resources/
 ~~~
@@ -53,7 +58,8 @@ Bundle-*
 ### Configure build options
 
 Radium offers the following build options:
-~~~bash
+
+~~~{.bash}
 // Enable coverage, gcc only. Experimental, need ENABLE_TESTING
 RADIUM_ENABLE_COVERAGE:BOOL=OFF
 --
@@ -116,7 +122,6 @@ All radium related cmake options (with their current values) can be printed with
 
 \warning For computers with low RAM capacities (under 12G) we recommend to set the `CMAKE_BUILD_PARALLEL_LEVEL` environment variable to a reasonable value (i.e. 2) to prevent the computer from swapping.
 
-
 ### Dependencies between libraries
 
 The options `RADIUM_GENERATE_LIB_XXXX` allows to enable/disable each Radium library.
@@ -131,18 +136,17 @@ add_dependencies (${ra_gui_target} PUBLIC Radium::Core Radium::Engine Radium::Pl
 
 \warning Consistency of `RADIUM_GENERATE_LIB_***` options is not checked wrt. the dependencies.
 
-- When enabled using `RADIUM_GENERATE_LIB_***`, each library has a compilation target: `Core`, `Engine`, ...
-
-
+* When enabled using `RADIUM_GENERATE_LIB_***`, each library has a compilation target: `Core`, `Engine`, ...
 
 ## Command line instructions for building (on windows, mac and linux)
 
 Out-of source builds are mandatory, we recommend to follow the usual sequence, assuming you have build dependecies as explained [here](@ref builddep):
 
-~~~bash
+~~~{.bash}
 cmake . -B build-r -DCMAKE_BUILD_TYPE=Release -C external/install-r/radium-options.cmake -DQt5_DIR=path/to/qt5
 cmake --build build-r --target install --parallel
 ~~~
+
 If qt is installed system wide (likely on linux), `-DQt5_DIR` is not needed.
 
 \note Qt6 support is experimental. To enable it, replace `-DQt5_DIR=path/to/qt5` by `-DQt6_DIR=path/to/qt6`.
@@ -155,7 +159,9 @@ Note that installation requires write access on the installation directory.
 ## Integration with Visual Studio (Microsoft Windows)
 
 ### Supported versions of MSVC
+
 Radium requires MSVC 2019 or superior, as it relies on:
+
 * C++11/C++14/C++17 features such as `constexpr`,
 * cmake built-in support
 
@@ -178,7 +184,8 @@ You may have Cmake errors occurring at the first run.
 To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu.
 For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries.
 To fix it, edit `CMakeSettings.json`, such that
-~~~json
+
+~~~{.json}
 {
   "configurations": [
     {
@@ -206,8 +213,9 @@ To fix it, edit `CMakeSettings.json`, such that
   ]
 }
 ~~~
-\note It is strongly encouraged to use `/` separators in your path, instead of `\\`. See https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u
-*Note*: When compiling the dependencies you may hit the max path length fixed by Microsoft OS (260 characters). To fix this, you might need to change the path of your build dir to shorten it, or to change the limit on your system, see: https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later
+
+\note It is strongly encouraged to use `/` separators in your path, instead of `\\`. See <https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u>
+*Note*: When compiling the dependencies you may hit the max path length fixed by Microsoft OS (260 characters). To fix this, you might need to change the path of your build dir to shorten it, or to change the limit on your system, see: <https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later>
 
 ### Compilation
 
