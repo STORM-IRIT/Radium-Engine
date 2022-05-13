@@ -1,0 +1,87 @@
+{
+  "material.alpha": {
+    "minimum": 0.0,
+    "maximum": 1.0,
+    "name": "alpha",
+    "type": "number"
+  },
+  "material.hasPerVertexKd": {
+    "editable": true,
+    "name": "hasPerVertexKd",
+    "type": "boolean"
+  },
+  "material.kd": {
+    "description": "diffuse component",
+    "minItems": 4,
+    "maxItems": 4,
+    "name": "kd",
+    "type": "array"
+  },
+  "material.ks": {
+    "description": "specular component",
+    "minItems": 4,
+    "maxItems": 4,
+    "name": "ks",
+    "type": "array"
+  },
+  "material.ns": {
+    "description": "specular exponent",
+    "name": "ns",
+    "type": "number"
+  },
+  "material.renderAsSplat": {
+    "editable": true,
+    "name": "RenderAsSplat",
+    "type": "boolean"
+  },
+  "material.tex.hasAlpha": {
+    "editable": false,
+    "name": "Texture has alpha",
+    "type": "boolean"
+  },
+  "material.tex.alpha": {
+    "name": "Texture's alpha",
+    "presenceKey": "material.tex.hasAlpha",
+    "type": "texture"
+  },
+  "material.tex.hasKd": {
+    "editable": false,
+    "name": "Texture has kd",
+    "type": "boolean"
+  },
+  "material.tex.kd": {
+    "name": "Texture's kd",
+    "presenceKey": "material.tex.hasKd",
+    "type": "texture"
+  },
+  "material.tex.hasKs": {
+    "editable": false,
+    "name": "Texture has ks",
+    "type": "boolean"
+  },
+  "material.tex.ks": {
+    "name": "Texture's ks",
+    "presenceKey": "material.tex.hasKs",
+    "type": "texture"
+  },
+  "material.tex.hasNormal": {
+    "editable": false,
+    "name": "Texture has normal",
+    "type": "boolean"
+  },
+  "material.tex.normal": {
+    "name": "Texture's normal",
+    "presenceKey": "material.tex.hasNormal",
+    "type": "texture"
+  },
+  "material.tex.hasNs": {
+    "editable": false,
+    "name": "Texture has ns",
+    "type": "boolean"
+  },
+  "material.tex.ns": {
+    "name": "Texture's ns",
+    "presenceKey": "material.tex.hasNs",
+    "type": "texture"
+  }
+}

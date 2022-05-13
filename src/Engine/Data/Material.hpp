@@ -5,6 +5,8 @@
 #include <map>
 #include <string>
 
+#include <nlohmann/json.hpp>
+
 // This include brings only the macro EIGEN_MAKE_ALIGNED_OPERATOR_NEW in the file scope.
 // Need to be separated to reduce compilation time
 #include <Core/Types.hpp>
@@ -95,6 +97,15 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
      * \todo : make the property list modifiable as well
      */
     std::list<std::string> getPropertyList() const override;
+
+    /**
+     * Get a json containing metadata about the parameters of the material.
+     *
+     * The default implementation returns an empty json
+     *
+     * @return the metadata in json format
+     */
+    virtual const nlohmann::json getParametersMetadata() const { return {}; };
 
     /**
      * \brief Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered

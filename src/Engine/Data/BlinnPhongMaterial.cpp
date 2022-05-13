@@ -1,5 +1,7 @@
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 
+#include <fstream>
+
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
@@ -13,6 +15,8 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 static const std::string materialName { "BlinnPhong" };
+
+nlohmann::json BlinnPhongMaterial::m_parametersMetadata = {};
 
 BlinnPhongMaterial::BlinnPhongMaterial( const std::string& instanceName ) :
     Material( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
@@ -124,6 +128,10 @@ void BlinnPhongMaterial::registerMaterial() {
                                      Rendering::DefaultRenderingPasses::LIGHTING_TRANSPARENT );
             }
         } );
+
+    // Registering parameters metadata
+    std::ifstream metadata( resourcesRootDir + "Metadata/BlinnPhong.json" );
+    metadata >> m_parametersMetadata;
 }
 
 void BlinnPhongMaterial::unregisterMaterial() {
