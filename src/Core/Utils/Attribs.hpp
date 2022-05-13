@@ -320,8 +320,8 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     /// Return the number of attributes
     inline int getNumAttribs() const;
 
-    /// Unlocker class, unlock all attribs (which are locked after create the unlocker object) after
-    /// destruct.
+    /// Unlocker class, unlock all attribs (which are locked after the creation of the unlocker
+    /// object) after destruct.
     class Unlocker
     {
       public:
@@ -331,19 +331,28 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
          * @brief Constructor, save statement of all attribs from attribManager ( isLocked() )
          */
         /// \code{.cpp}
-        /// auto geometry = new GeometryData();
-        /// geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_TANGENT ).getDataWithLock();
-        //  REQUIRE (geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TANGENT
-        //  )->isLocked() );
-        //  {
-        //      auto unlocker = geometry->getAttribManager().getUnlocker();
-        //      geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_BITANGENT
-        //      ).getDataWithLock(); REQUIRE( geometry->getAttribManager().getAttribBase(
-        //      MeshAttrib::VERTEX_BITANGENT )->isLocked() );
-        //  }
-        //      REQUIRE(geometry->getAttribManager().getAttribBase( MeshAttrib::VERTEX_TANGENT
-        //      )->isLocked() ); REQUIRE( !geometry->getAttribManager().getAttribBase(
-        //      MeshAttrib::VERTEX_BITANGENT )->isLocked() );
+        /*
+        {
+        auto geometry = new GeometryData();
+        // get write access. The attrib must be explicitly unlocked after usage
+        auto tgt = geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_TANGENT
+        ).getDataWithLock();
+        // ... write to tgt
+
+        // enable auto-unlock for next write access
+        auto unlocker = geometry->getAttribManager().getUnlocker();
+        // get write access to several attribs attribs
+        auto txc = geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_TEXCOORD
+        ).getDataWithLock();
+        // ... write to txc
+        auto btg = geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_BITANGENT
+        ).getDataWithLock();
+        // ... write to btg
+
+        // tgt is still locked as it was locked outside of the unlocker scope. You must unlock it.
+        tgt.unlock();
+        // txc and btg are automatically unlocked as the unlocker get out of scope
+        } */
 
         explicit Unlocker( AttribManager* a ) : m_a { a } {
             a->for_each_attrib( [this]( const auto& attr ) {

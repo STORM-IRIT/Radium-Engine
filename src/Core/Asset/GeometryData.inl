@@ -60,7 +60,7 @@ inline void copyData( const InContainer& input, OutContainer& output ) {
 
 template <typename Container>
 inline void GeometryData::setVertices( const Container& vertexList ) {
-    return setAttribData( Geometry::MeshAttrib::VERTEX_POSITION, vertexList );
+    setAttribData( Geometry::MeshAttrib::VERTEX_POSITION, vertexList );
 }
 
 inline Vector2uArray& GeometryData::getEdges() {
