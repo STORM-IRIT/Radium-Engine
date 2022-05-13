@@ -2,6 +2,7 @@
 [TOC]
 
 # Rendering in Radium
+
 Rendering in Radium is managed by the abstract Ra::Engine::Rendering::Renderer class that provides the following main rendering method.
 
 ## Main abstract render method
@@ -38,21 +39,26 @@ void Ra::Engine::Rendering::Renderer::render( const Ra::Engine::ViewingParameter
   drawScreenInternal();
 }
 ~~~
+
 The meaning of each rendering steps is described below.
 
 ### 0. Save an eventual already bound FBO
+
 In some cases (like with `QtOpenGLWidget`), you do not draw directly on the screen, but you have instead
 to feed an already bound FBO. Since the default renderer uses multiple FBOs, the Qt's one must be saved.
 
 _This behaviour cannot be modified._
 
 ### 1. Gather render objects and update them
+
 This construct the set of objects that must be drawn for the current frame and update their OpenGL state.
 
 ### 2. Feed the render queue
+
 This construct the set of render actions that must be done for the current frame.
 
 ### 3. Do picking if needed
+
 If there has been some picking requests since the last frame, `doPicking` is called.
 This function just renders all the objects (except _debug_ ones) by drawing them in some color given the ID
 of the entity a render object is attached to.
@@ -60,12 +66,13 @@ of the entity a render object is attached to.
 Then, for each picking request done, `glReadPixels` is called at the requested location, and object ID is retrieved.
 
 ### 4. Do the rendering
+
 This method does most of the whole rendering work
 and outputs one final _render pass_ texture, ready to be post-processed.
 
 ### 5. Post-process the rendering result
-This method will apply post-processing filters on the computed image.
 
+This method will apply post-processing filters on the computed image.
 
 ## Defining a concrete renderer
 
@@ -88,31 +95,31 @@ The Radium Engine exports a ready to use renderer, Ra::Engine::Rendering::Forwar
 passes as described in the \ref forwardRenderer document.
 
 ## Minimal renderer howto
+
 This section explain, through the developement of a simple Rendering, how to configure RenderObjects and RenderTechnique
 to be used by a renderer.
 
 ### Developping the Rendering
+
 Help wanted for this section.
 
 ### Configuring the RenderObjects and their RenderTechnique
+
 Help wanted for this section.
-
-
 
 # Radium Engine default rendering information
 
 See [Material management](@ref develmaterials) documentation for a complete description of the
 interactions geometry, material and shader._
 
-
-
 # Potential extensions for the renderer
-*   Ambient occlusion
-*   Shadow mapping
-*   Skybox
-*   Reflection / refraction
-*   Tonemapping (only gamma correction is applied for now)
-*   Bloom
-*   Motion blur
-*   FOV
-*   Physically based rendering
+
+* Ambient occlusion
+* Shadow mapping
+* Skybox
+* Reflection / refraction
+* Tonemapping (only gamma correction is applied for now)
+* Bloom
+* Motion blur
+* FOV
+* Physically based rendering
