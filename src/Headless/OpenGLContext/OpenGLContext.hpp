@@ -92,11 +92,19 @@ class HEADLESS_API OpenGLContext
     /// the mouse button, button action and modifier bits as well as the mouse position
     /// in pixel unit and in the FrameBuffer space. The origin is at the top left of the
     /// framebuffer.
-    /// @see https://www.glfw.org/docs/latest/input_guide.html#input_mouse
+    /// @see https://www.glfw.org/docs/latest/input_guide.html#cursor_pos
     Ra::Core::Utils::Observable<int, int, int, int, int>& mouseListener() {
         return m_mouseObservers;
     }
 
+    /// Give access to the mouse move event observable so that client can add Observer to this
+    /// event.
+    ///
+    /// The parameters sent to the mouse move listeners are the mouse position
+    /// in pixel unit and in the FrameBuffer space. The origin is at the top left of the
+    /// framebuffer.
+    /// @see https://www.glfw.org/docs/latest/input_guide.html#input_mouse
+    Ra::Core::Utils::Observable<int, int>& mouseMoveListener() { return m_mouseMoveObservers; }
     /// Give access to the scroll event observable so that client can add Observer to this
     /// event.
     ///
@@ -120,17 +128,22 @@ class HEADLESS_API OpenGLContext
     Ra::Core::Utils::Observable<int, int> m_resizers;
 
     /// Keyboard callback
-    void keyboardEventCalback( int key, int scancode, int action, int mods );
+    void keyboardEventCallback( int key, int scancode, int action, int mods );
     /// Keyboard event observable
     Ra::Core::Utils::Observable<int, int, int, int> m_keyboardObservers;
 
     /// Mouse callback
-    void mouseEventCalback( int button, int action, int mods, int x, int y );
+    void mouseEventCallback( int button, int action, int mods, int x, int y );
     /// Mouse event observable
     Ra::Core::Utils::Observable<int, int, int, int, int> m_mouseObservers;
 
+    /// Mouse move callback
+    void mouseMoveEventCallback( int x, int y );
+    /// Mouse move event observable
+    Ra::Core::Utils::Observable<int, int> m_mouseMoveObservers;
+
     /// Scroll callback
-    void scrollEventCalback( int xoffset, int yoffset );
+    void scrollEventCallback( int xoffset, int yoffset );
     /// Scroll event observable
     Ra::Core::Utils::Observable<int, int> m_scrollObservers;
 
