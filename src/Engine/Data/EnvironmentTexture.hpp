@@ -90,7 +90,13 @@ class RA_ENGINE_API EnvironmentTexture
 
     /**
      * \brief Return the SH Matrix corresponding to the given color channel.
-     * \param channel
+     * The SH matrix is computed according to the paper
+     *    An Efficient Representation for Irradiance Environment Maps,
+     *    Ramamoorthi, Ravi and Hanrahan, Pat
+     *    SIGGRAPH 2001
+     *    https://doi.org/10.1145/383259.383317
+     *
+     * \param channel The number of the color channel (red = 0, green = 1, blue = 2)
      * \return the SH irradiance matrix for the channel
      */
     const Ra::Core::Matrix4& getShMatrix( int channel );
@@ -149,8 +155,15 @@ class RA_ENGINE_API EnvironmentTexture
     void setupTexturesFromSphericalEquiRectangular();
 
     /// \brief Compute the irradiance SH matrices
+    /// \see getShMatrix
     void computeSHMatrices();
 
+    /**
+     * \brief
+     * Update the coefficients (i.e. compute the next term in the integral)
+     * \param hdr Value of the envmap for the direction (x, y, z)
+     * \param domega solid angle of the pixel in the direction (x, y, z)
+     */
     void updateCoeffs( float* hdr, float x, float y, float z, float domega );
     float* getPixel( float x, float y, float z );
     void tomatrix();
