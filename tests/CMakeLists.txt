@@ -66,6 +66,10 @@ add_subdirectory(unittest)
 # etc.
 add_subdirectory(integration)
 
+add_test(NAME integration_CoreExampleApp WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+         COMMAND "$<TARGET_FILE:CoreExampleApp>"
+)
+
 # example apps are simple complete application, no test for now. TODO : we can imagine to capture
 # screen output and compare to refs
 add_subdirectory(ExampleApps)
