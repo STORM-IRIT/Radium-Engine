@@ -37,16 +37,16 @@ using namespace gl;
 // Flip horizontally an image of w x h pixels with c commponents
 template <typename T>
 void flip_horizontally( T* img, size_t w, size_t h, size_t c ) {
-#pragma omp parallel for
+#pragma omp parallel for firstprivate( img )
     for ( int r = 0; r < int( h ); ++r ) {
-        for ( size_t l = 0; l < w / 2; ++l ) {
-            T* from = img + ( l * c );
-            T* to   = img + ( w - ( l + 1 ) ) * c;
-            for ( size_t e = 0; e < c; ++e ) {
+        auto limg = img + r * ( w * c );
+        for ( int l = 0; l < int( w ) / 2; ++l ) {
+            T* from = limg + ( l * c );
+            T* to   = limg + ( w - ( l + 1 ) ) * c;
+            for ( int e = 0; e < int( c ); ++e ) {
                 std::swap( *( from + e ), *( to + e ) );
             }
         }
-        img += w * c;
     }
 }
 
@@ -205,11 +205,15 @@ void EnvironmentTexture::setupTexturesFromPfm() {
     PfmReader::HDRIMAGE* img = PfmReader::open( m_name.c_str() );
     m_width                  = img->width / 3;
     m_height                 = img->height / 4;
-#pragma omp parallel for
+
     for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
         m_skyData[imgIdx] = new float[m_width * m_height * 4];
-        int xOffset       = 0;
-        int yOffset       = 0;
+    }
+
+#pragma omp parallel for
+    for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
+        int xOffset = 0;
+        int yOffset = 0;
         switch ( imgIdx ) {
         case 0: // X- side
             xOffset = 1 * m_width;
@@ -240,7 +244,7 @@ void EnvironmentTexture::setupTexturesFromPfm() {
             yOffset = 0;
             break;
         }
-        for ( size_t i = 0; i < m_height; ++i )
+        for ( size_t i = 0; i < m_height; ++i ) {
             for ( size_t j = 0; j < m_width; ++j ) {
                 if ( imgIdx == 1 || imgIdx == 4 || imgIdx == 5 ) {
                     m_skyData[imgIdx][4 * ( ( m_height - 1 - i ) * m_width + j ) + 0] =
@@ -289,8 +293,13 @@ void EnvironmentTexture::setupTexturesFromPfm() {
                     }
                 }
             }
+        }
+    }
+
+    for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
         flip_horizontally( m_skyData[imgIdx], m_width, m_height, 4 );
     }
+
     delete[] img->pixels;
     delete img;
 }
@@ -347,8 +356,9 @@ void EnvironmentTexture::setupTexturesFromCube() {
         m_width           = w;
         m_height          = h;
         m_skyData[imgIdx] = new float[m_width * m_height * 4];
-        for ( size_t l = 0; l < m_height; ++l ) {
-            for ( size_t c = 0; c < m_width; ++c ) {
+
+        for ( int l = 0; l < int( m_height ); ++l ) {
+            for ( int c = 0; c < int( m_width ); ++c ) {
                 auto is                       = ( l * m_width + c );
                 auto id                       = flipV ? is : ( l * m_width + ( m_width - c - 1 ) );
                 m_skyData[imgIdx][id * 4 + 0] = loaded[is * n + 0];
@@ -401,13 +411,21 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
         return ( p < 0 ) ? ( p + 2 * M_PI ) : p;
     };
     auto sphericalTheta = []( const Vector3& d ) { return std::acos( d.z() ); };
-#pragma omp parallel for
+
     for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
         // Alllocate the images
         m_skyData[imgIdx] = new float[textureSize * textureSize * 4];
+    }
+
+    Scalar duv = 2_ra / textureSize;
+
+#pragma omp parallel for firstprivate( duv )
+    for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
         // Fill in pixels
-        for ( Scalar u = -1_ra; u < 1_ra; u += 2_ra / textureSize ) {
-            for ( Scalar v = -1_ra; v < 1_ra; v += 2_ra / textureSize ) {
+        for ( int i = 0; i < textureSize; i++ ) {
+            Scalar u = -1 + i * duv;
+            for ( int j = 0; j < textureSize; j++ ) {
+                Scalar v  = -1 + j * duv;
                 Vector3 d = bases[imgIdx][0] + u * bases[imgIdx][1] + v * bases[imgIdx][2];
                 d         = d.normalized();
                 Vector2 st { w * sphericalPhi( d ) / ( 2 * M_PI ), h * sphericalTheta( d ) / M_PI };
@@ -427,8 +445,12 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
                 m_skyData[imgIdx][4 * ( cv * textureSize + cu ) + 3] = 1;
             }
         }
+    }
+
+    for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
         flip_horizontally( m_skyData[imgIdx], textureSize, textureSize, 4 );
     }
+
     free( latlonPix );
     m_width = m_height = textureSize;
 }
@@ -441,13 +463,13 @@ void EnvironmentTexture::computeSHMatrices() {
     }
     /// @todo replace this integration to use a sphere sampler ...
     /// Must evaluate the elementary solid angle for each sample
-    const float dtheta = 0.005;
-    const float dphi   = 0.005;
-    for ( float theta = 0.f; theta < M_PI; theta += dtheta ) {
-        for ( float phi = 0.f; phi < 2.f * M_PI; phi += dphi ) {
-            auto x          = std::sin( theta ) * std::cos( phi );
-            auto y          = std::sin( theta ) * std::sin( phi );
-            auto z          = std::cos( theta );
+    constexpr Scalar dtheta = 0.005_ra;
+    constexpr Scalar dphi   = 0.005_ra;
+    for ( Scalar theta = 0_ra; theta < M_PI; theta += dtheta ) {
+        for ( Scalar phi = 0_ra; phi < 2_ra * M_PI; phi += dphi ) {
+            Scalar x        = std::sin( theta ) * std::cos( phi );
+            Scalar y        = std::sin( theta ) * std::sin( phi );
+            Scalar z        = std::cos( theta );
             float* thePixel = getPixel( x, y, z );
             updateCoeffs( thePixel, -x, y, z, std::sin( theta ) * dtheta * dphi );
         }
@@ -457,18 +479,6 @@ void EnvironmentTexture::computeSHMatrices() {
 
 void EnvironmentTexture::updateCoeffs( float* hdr, float x, float y, float z, float domega ) {
     /******************************************************************
-       Update the coefficients (i.e. compute the next term in the
-       integral) based on the lighting value hdr[3], the differential
-       solid angle domega and cartesian components of surface normal x,y,z
-
-       Inputs:  hdr = L(x,y,z) [note that x^2+y^2+z^2 = 1]
-                i.e. the illumination at position (x,y,z)
-
-                domega = The solid angle at the pixel corresponding to
-                (x,y,z).  For these light probes, this is given by
-
-                x,y,z  = Cartesian components of surface normal
-
        Notes:   Of course, there are better numerical methods to do
                 integration, but this naive approach is sufficient for our
                 purpose.
@@ -507,35 +517,29 @@ void EnvironmentTexture::updateCoeffs( float* hdr, float x, float y, float z, fl
 void EnvironmentTexture::tomatrix( void ) {
     /* Form the quadratic form matrix (see equations 11 and 12 in paper) */
     int col;
-    float c1, c2, c3, c4, c5;
-    c1 = 0.429043;
-    c2 = 0.511664;
-    c3 = 0.743125;
-    c4 = 0.886227;
-    c5 = 0.247708;
+    constexpr float c1 = 0.429043f, c2 = 0.511664f, c3 = 0.743125f, c4 = 0.886227f, c5 = 0.247708f;
 
     for ( col = 0; col < 3; col++ ) { /* Equation 12 */
+        m_shMatrices[col] = ( Ra::Core::Matrix4() << c1 * m_shcoefs[8][col],
+                              c1 * m_shcoefs[4][col],
+                              c1 * m_shcoefs[7][col],
+                              c2 * m_shcoefs[3][col],
 
-        m_shMatrices[col]( 0, 0 ) = c1 * m_shcoefs[8][col]; /* c1 L_{22}  */
-        m_shMatrices[col]( 0, 1 ) = c1 * m_shcoefs[4][col]; /* c1 L_{2-2} */
-        m_shMatrices[col]( 0, 2 ) = c1 * m_shcoefs[7][col]; /* c1 L_{21}  */
-        m_shMatrices[col]( 0, 3 ) = c2 * m_shcoefs[3][col]; /* c2 L_{11}  */
+                              c1 * m_shcoefs[4][col],
+                              -c1 * m_shcoefs[8][col],
+                              c1 * m_shcoefs[5][col],
+                              c2 * m_shcoefs[1][col],
 
-        m_shMatrices[col]( 1, 0 ) = c1 * m_shcoefs[4][col];  /* c1 L_{2-2} */
-        m_shMatrices[col]( 1, 1 ) = -c1 * m_shcoefs[8][col]; /*-c1 L_{22}  */
-        m_shMatrices[col]( 1, 2 ) = c1 * m_shcoefs[5][col];  /* c1 L_{2-1} */
-        m_shMatrices[col]( 1, 3 ) = c2 * m_shcoefs[1][col];  /* c2 L_{1-1} */
+                              c1 * m_shcoefs[7][col],
+                              c1 * m_shcoefs[5][col],
+                              c3 * m_shcoefs[6][col],
+                              c2 * m_shcoefs[2][col],
 
-        m_shMatrices[col]( 2, 0 ) = c1 * m_shcoefs[7][col]; /* c1 L_{21}  */
-        m_shMatrices[col]( 2, 1 ) = c1 * m_shcoefs[5][col]; /* c1 L_{2-1} */
-        m_shMatrices[col]( 2, 2 ) = c3 * m_shcoefs[6][col]; /* c3 L_{20}  */
-        m_shMatrices[col]( 2, 3 ) = c2 * m_shcoefs[2][col]; /* c2 L_{10}  */
-
-        m_shMatrices[col]( 3, 0 ) = c2 * m_shcoefs[3][col]; /* c2 L_{11}  */
-        m_shMatrices[col]( 3, 1 ) = c2 * m_shcoefs[1][col]; /* c2 L_{1-1} */
-        m_shMatrices[col]( 3, 2 ) = c2 * m_shcoefs[2][col]; /* c2 L_{10}  */
-        m_shMatrices[col]( 3, 3 ) = c4 * m_shcoefs[0][col] - c5 * m_shcoefs[6][col];
-        /* c4 L_{00} - c5 L_{20} */
+                              c2 * m_shcoefs[3][col],
+                              c2 * m_shcoefs[1][col],
+                              c2 * m_shcoefs[2][col],
+                              c4 * m_shcoefs[0][col] - c5 * m_shcoefs[6][col] )
+                                .finished();
     }
 }
 
@@ -556,8 +560,8 @@ float* EnvironmentTexture::getPixel( float x, float y, float z ) {
         tc   = ( axis == 4 ) ? -x : x;
         sc   = y;
     }
-    auto s = 0.5f * ( 1.f + sc / ma );
-    auto t = 0.5f * ( 1.f + tc / ma );
+    auto s = 0.5_ra * ( 1_ra + sc / ma );
+    auto t = 0.5_ra * ( 1_ra + tc / ma );
     int is = int( s * m_width );
     int it = int( t * m_height );
     return &( m_skyData[axis][4 * ( ( m_height - 1 - is ) * m_width + it )] );
@@ -568,16 +572,19 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
 
     size_t ambientWidth = 1024;
     auto thepixels      = new unsigned char[4 * ambientWidth * ambientWidth];
-    for ( size_t i = 0; i < ambientWidth; i++ ) {
-        for ( size_t j = 0; j < ambientWidth; j++ ) {
+#pragma omp parallel for
+    for ( int i = 0; i < int( ambientWidth ); i++ ) {
+        for ( int j = 0; j < int( ambientWidth ); j++ ) {
 
             /* We now find the cartesian components for the point (i,j) */
-            float u, v, r;
+            Scalar u, v, r;
 
-            v = ( ambientWidth / 2.0 - j ) / ( ambientWidth / 2.0 ); /* v ranges from -1 to 1 */
-            u = ( ambientWidth / 2.0 - i ) / ( ambientWidth / 2.0 ); /* u ranges from -1 to 1 */
-            r = sqrt( u * u + v * v );                               /* The "radius" */
-            if ( r > 1.0f ) {
+            v = ( ambientWidth / 2.0_ra - j ) /
+                ( ambientWidth / 2.0_ra ); /* v ranges from -1 to 1 */
+            u = ( ambientWidth / 2.0_ra - i ) /
+                ( ambientWidth / 2.0_ra ); /* u ranges from -1 to 1 */
+            r = sqrt( u * u + v * v );     /* The "radius" */
+            if ( r > 1.0_ra ) {
                 thepixels[4 * ( j * ambientWidth + i ) + 0] = 0;
                 thepixels[4 * ( j * ambientWidth + i ) + 1] = 0;
                 thepixels[4 * ( j * ambientWidth + i ) + 2] = 0;
@@ -585,32 +592,23 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
                 continue; /* Consider only circle with r<1 */
             }
 
-            float theta = M_PI * r;      /* theta parameter of (i,j) */
-            float phi   = atan2( v, u ); /* phi parameter */
+            Scalar theta = M_PI * r;      /* theta parameter of (i,j) */
+            Scalar phi   = atan2( v, u ); /* phi parameter */
 
-            float x = std::sin( theta ) * std::cos( phi ); /* Cartesian components */
-            float y = std::sin( theta ) * std::sin( phi );
-            float z = std::cos( theta );
+            Scalar x = std::sin( theta ) * std::cos( phi ); /* Cartesian components */
+            Scalar y = std::sin( theta ) * std::sin( phi );
+            Scalar z = std::cos( theta );
 
             // color = NtMN
-            Ra::Core::Utils::Color color;
-            Ra::Core::Vector4 normal( x, y, z, 1.f );
+            Ra::Core::Vector4 normal( x, y, z, 1_ra );
+            const Ra::Core::Vector4 lcolor { normal.dot( m_shMatrices[0] * normal ),
+                                             normal.dot( m_shMatrices[1] * normal ),
+                                             normal.dot( m_shMatrices[2] * normal ),
+                                             1_ra };
+            Ra::Core::Utils::Color color {
+                Ra::Core::Utils::Color::linearRGBTosRGB( lcolor * 0.05_ra ) };
 
-            Ra::Core::Vector4 MN;
-            MN         = m_shMatrices[0] * normal;
-            color( 0 ) = normal.dot( MN );
-            MN         = m_shMatrices[1] * normal;
-            color( 1 ) = normal.dot( MN );
-            MN         = m_shMatrices[2] * normal;
-            color( 2 ) = normal.dot( MN );
-
-            color        = color * 0.05f;
-            color        = Ra::Core::Utils::Color::linearRGBTosRGB( color );
-            auto clpfnct = []( Scalar x ) {
-                if ( x < 0 ) { x = 0; }
-                if ( x > 1 ) { x = 1; }
-                return x;
-            };
+            auto clpfnct = []( Scalar x ) { return std::clamp( x, 0_ra, 1_ra ); };
 
             color.unaryExpr( clpfnct );
             thepixels[4 * ( j * ambientWidth + i ) + 0] =
@@ -707,7 +705,7 @@ void EnvironmentTexture::render( const Ra::Engine::Data::ViewingParameters& view
         Scalar fov =
             std::clamp( cam->getZoomFactor() * cam->getFOV(), 0.001_ra, Math::Pi - 0.1_ra );
         skyparams.projMatrix =
-            Ra::Core::Asset::Camera::perspective( cam->getAspect(), fov, 0.1, 3. );
+            Ra::Core::Asset::Camera::perspective( cam->getAspect(), fov, 0.1_ra, 3._ra );
         m_skyShader->bind();
         m_skyShader->setUniform( "transform.proj", skyparams.projMatrix );
         m_skyShader->setUniform( "transform.view", skyparams.viewMatrix );
