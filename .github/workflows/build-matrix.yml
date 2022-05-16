@@ -192,7 +192,7 @@ jobs:
           mkdir -p external/install/
           mkdir -p external/build/
           cd external/build/
-          cmake ../../src/Radium-Engine/external  -GNinja -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=LAZY -DCMAKE_INSTALL_PREFIX=../install/
+          cmake ../../src/Radium-Engine/external  -GNinja -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DCMAKE_INSTALL_MESSAGE=LAZY -DCMAKE_INSTALL_PREFIX=../install/
           cmake --build . --parallel --config ${{ matrix.build-type }}
       - name: Configure Radium
         run: |
