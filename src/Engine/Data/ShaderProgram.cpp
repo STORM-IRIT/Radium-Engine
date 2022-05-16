@@ -147,14 +147,22 @@ void ShaderProgram::loadShader( ShaderType type,
         } );
 
     std::unique_ptr<globjects::StaticStringSource> fullsource { nullptr };
+    std::string source;
     if ( fromFile ) {
         auto loadedSource = globjects::Shader::sourceFromFile( name );
-        fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
+        source            = loadedSource->string();
     }
     else {
-        fullsource = globjects::Shader::sourceFromString( shaderHeader + name );
+        source = name;
     }
-
+    std::string versionPrefix { "#version" };
+    // skip header if #version is set in shader source
+    if ( source.substr( 0, versionPrefix.size() ) == versionPrefix ) {
+        fullsource = globjects::Shader::sourceFromString( source );
+    }
+    else {
+        fullsource = globjects::Shader::sourceFromString( shaderHeader + source );
+    }
     // Radium V2 : allow to define global replacement per renderer, shader, rendertechnique ...
     auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );
 

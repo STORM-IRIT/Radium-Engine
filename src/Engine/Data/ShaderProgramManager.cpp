@@ -55,10 +55,13 @@ void ShaderProgramManager::reloadNamedString() {
 }
 
 Core::Utils::optional<const Data::ShaderProgram*>
-ShaderProgramManager::addShaderProgram( const Data::ShaderConfiguration& config ) {
+ShaderProgramManager::addShaderProgram( Data::ShaderConfiguration config ) {
     auto found = m_shaderPrograms.find( config );
 
     if ( found != m_shaderPrograms.end() ) { return found->second.get(); }
+
+    // set glsl version if not set in config
+    if ( config.getVersion().empty() ) config.setVersion( getDefaultVersion() );
 
     // add named strings
     for ( const auto& p : config.getNamedStrings() ) {

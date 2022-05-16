@@ -54,6 +54,7 @@ void RadiumEngine::initialize() {
     m_renderObjectManager  = std::make_unique<Rendering::RenderObjectManager>();
     m_textureManager       = std::make_unique<Data::TextureManager>();
     m_shaderProgramManager = std::make_unique<Data::ShaderProgramManager>();
+    m_shaderProgramManager->setDefaultVersion( "#version 440" );
 
     m_loadedFile.reset();
     Scene::ComponentMessenger::createInstance();

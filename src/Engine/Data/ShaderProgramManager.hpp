@@ -49,13 +49,14 @@ class RA_ENGINE_API ShaderProgramManager final
      * The shader sources corresponding to the configuration will be compiled, linked and verified.
      *
      *
-     * @param config the configuration of the programm to add to the collection
+     * @param config the configuration of the programm to add to the collection. If no version is
+     * set in config, getDefaultVersion() is used as version.
      * @return the created shader program. In case of compile/link/verify error, return false
      * @note ownership on the returned pointer is keep by the manager.
      * @warning this method is *not* reentrant
      */
     Core::Utils::optional<const Data::ShaderProgram*>
-    addShaderProgram( const Data::ShaderConfiguration& config );
+    addShaderProgram( Data::ShaderConfiguration config );
 
     /**
      * Get the shader programm corresponding to the given id
@@ -100,6 +101,11 @@ class RA_ENGINE_API ShaderProgramManager final
      */
     void reloadNamedString();
 
+    const std::string& getDefaultVersion() const { return m_defaultVersion; }
+    void setDefaultVersion( const std::string& defaultVersion ) {
+        m_defaultVersion = defaultVersion;
+    }
+
   private:
     void insertShader( const Data::ShaderConfiguration& config,
                        const std::shared_ptr<Data::ShaderProgram>& shader );
@@ -112,6 +118,8 @@ class RA_ENGINE_API ShaderProgramManager final
     std::map<std::string,
              std::pair<std::unique_ptr<globjects::File>, std::unique_ptr<globjects::NamedString>>>
         m_namedStrings;
+
+    std::string m_defaultVersion { "#version 440" };
 };
 
 } // namespace Data
