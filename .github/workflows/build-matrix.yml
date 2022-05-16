@@ -209,6 +209,11 @@ jobs:
         run: |
           cd build/Radium-Engine
           cmake --build . --parallel --config ${{ matrix.build-type }} --target check
+      - name: Run CoreExampleApp as a build and install test
+        if: runner.os != 'Windows'
+        run: |
+          ./build/Radium-Engine/tests/ExampleApps/CoreExampleApp/CoreExampleApp
+          ./install/bin/CoreExampleApp
       - name: Extract ref for badges prefix
         if: always()
         shell: bash
