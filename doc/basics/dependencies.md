@@ -15,7 +15,7 @@ https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started).
 
 # Dependencies management systems
 
-We offer three different systems to handle external dependencies (see details and how-to in the following sections):
+We offer two different systems to handle external dependencies (see details and how-to in the following sections):
  1. **[recommended]** external build: the user compiles and installs once for all the dependencies using a dedicated
     cmake project. Then, Radium cmake project is configured to link with installed dependencies.
  2. manual management: users can also provide their own version of the dependencies through cmake packages.
@@ -27,13 +27,14 @@ We offer three different systems to handle external dependencies (see details an
 We provide a standalone cmake project (`external/CMakeLists.txt`) to compile and install the Radium dependencies at any location.
 
 ## Configuration and compilation of the dependencies
-You can use the compile script `external/build.sh` which configure and builds external for Debug and Release, in directories `install-d` and `install-r`.
-This script actually do the following to configure and build the cmake project:
+External dependencies have to be installed outside Radium-Engine source tree (for mysterious reason).
+
 ~~~{.bash}
-cmake -DCMAKE_BUILD_TYPE=Release -B build-r/ . -DCMAKE_INSTALL_PREFIX=`pwd`/install-r
+# from wherever you want outside radium source tree
+cmake Radium-Source-Tree/external -DCMAKE_BUILD_TYPE=Release -B build-r/ -DCMAKE_INSTALL_PREFIX=`pwd`/install-r
 cmake --build build-r --parallel
 
-cmake -DCMAKE_BUILD_TYPE=Debug -B build-d/ . -DCMAKE_INSTALL_PREFIX=`pwd`/install-d
+cmake cmake Radium-Source-Tree/external -DCMAKE_BUILD_TYPE=Debug -B build-d/ -DCMAKE_INSTALL_PREFIX=`pwd`/install-d
 cmake --build build-d --parallel
 ~~~
 
