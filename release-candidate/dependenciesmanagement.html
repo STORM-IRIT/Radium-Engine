@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.28</span>
+   &#160;<span id="projectnumber">1.2.29</span>
    </div>
   </td>
  </tr>
@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('dependenciesmanagement.html',''); init
 <p>We developed a series of tools to fetch and compile these dependencies easily, except for Qt, which needs to be installed and passed to cmake through the variables <code>Qt5_DIR</code> OR <code>Qt6_DIR</code> (see documentation at <a href="https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started">https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started</a>).</p>
 <h1><a class="anchor" id="autotoc_md15"></a>
 Dependencies management systems</h1>
-<p>We offer three different systems to handle external dependencies (see details and how-to in the following sections):</p><ol type="1">
+<p>We offer two different systems to handle external dependencies (see details and how-to in the following sections):</p><ol type="1">
 <li><b>[recommended]</b> external build: the user compiles and installs once for all the dependencies using a dedicated cmake project. Then, Radium cmake project is configured to link with installed dependencies.</li>
 <li>manual management: users can also provide their own version of the dependencies through cmake packages.</li>
 </ol>
@@ -126,10 +126,12 @@ Building and installing Radium dependencies once for all</h1>
 <p>We provide a standalone cmake project (<code>external/CMakeLists.txt</code>) to compile and install the Radium dependencies at any location.</p>
 <h2><a class="anchor" id="autotoc_md16"></a>
 Configuration and compilation of the dependencies</h2>
-<p>You can use the compile script <code>external/build.sh</code> which configure and builds external for Debug and Release, in directories <code>install-d</code> and <code>install-r</code>. This script actually do the following to configure and build the cmake project: </p><div class="fragment"><div class="line">cmake -DCMAKE_BUILD_TYPE=Release -B build-r/ . -DCMAKE_INSTALL_PREFIX=`pwd`/install-r</div>
+<p>External dependencies have to be installed outside Radium-Engine source tree.</p>
+<div class="fragment"><div class="line"># from wherever you want outside radium source tree</div>
+<div class="line">cmake Radium-Source-Tree/external -DCMAKE_BUILD_TYPE=Release -B build-r/ -DCMAKE_INSTALL_PREFIX=`pwd`/install-r</div>
 <div class="line">cmake --build build-r --parallel</div>
 <div class="line"> </div>
-<div class="line">cmake -DCMAKE_BUILD_TYPE=Debug -B build-d/ . -DCMAKE_INSTALL_PREFIX=`pwd`/install-d</div>
+<div class="line">cmake cmake Radium-Source-Tree/external -DCMAKE_BUILD_TYPE=Debug -B build-d/ -DCMAKE_INSTALL_PREFIX=`pwd`/install-d</div>
 <div class="line">cmake --build build-d --parallel</div>
 </div><!-- fragment --><p>If not given on the command line, the installation directory is set by default to <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}</code> for Release, and <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}</code> for any other CMAKE_BUILD_TYPE`.</p>
 <h2><a class="anchor" id="autotoc_md17"></a>
@@ -230,7 +232,7 @@ User provided external dependencies</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Sat May 14 2022 19:34:52 for Radium Engine by
+    <li class="footer">Generated on Tue May 17 2022 15:01:04 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
