@@ -23,7 +23,6 @@ jobs:
     with:
       build-debug: "false"
   call-coverage:
-    needs: [call-build]
     uses: ./.github/workflows/build-matrix.yml
     with:
       windows: "false"
