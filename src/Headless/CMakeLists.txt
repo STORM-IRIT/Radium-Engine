@@ -18,38 +18,11 @@ else()
     # configure the headless component for build and install as component of the Radium package
     message(STATUS "Headless component is enabled")
     # set source files
-    set(CLI11_headers
-        CLI/App.hpp
-        CLI/CLI.hpp
-        CLI/Config.hpp
-        CLI/ConfigFwd.hpp
-        CLI/Error.hpp
-        CLI/Formatter.hpp
-        CLI/FormatterFwd.hpp
-        CLI/Macros.hpp
-        CLI/Option.hpp
-        CLI/Split.hpp
-        CLI/StringTools.hpp
-        CLI/Timer.hpp
-        CLI/TypeTools.hpp
-        CLI/Validators.hpp
-        CLI/Version.hpp
-    )
 
-    set(${ra_headless_target}_sources CLIBaseApplication.cpp CLIViewer.cpp
-                                      OpenGLContext/OpenGLContext.cpp
-    )
-
-    set(${ra_headless_target}_headers ${CLI11_headers} CLIBaseApplication.hpp CLIViewer.hpp
-                                      RaHeadless.hpp OpenGLContext/OpenGLContext.hpp
-    )
-
-    set(${ra_headless_target}_inlines CLIBaseApplication.inl CLIViewer.inl)
+    include(filelist.cmake)
 
     add_library(
-        ${ra_headless_target} SHARED
-        ${${ra_headless_target}_sources} ${${ra_headless_target}_headers}
-        ${${ra_headless_target}_inlines}
+        ${ra_headless_target} SHARED ${headless_sources} ${headless_headers} ${headless_inlines}
     )
     add_dependencies(${ra_headless_target} Core Engine IO)
     target_link_libraries(
@@ -62,7 +35,7 @@ else()
     configure_radium_target(${ra_headless_target})
 
     # configure the component "Headless" of packages "Radium"
-    set(installed_headers "${${ra_headless_target}_headers};${${ra_headless_target}_inlines}")
+    set(installed_headers "${headless_headers};${headless_inlines}")
     configure_radium_library(
         TARGET ${ra_headless_target} COMPONENT
         PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in FILES "${installed_headers}"

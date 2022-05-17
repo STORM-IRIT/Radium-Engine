@@ -21,7 +21,7 @@ find_package(Threads REQUIRED)
 find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
 find_package(Backtrace)
 
-include(filelistCore)
+include(filelist.cmake)
 
 add_library(
     ${ra_core_target} SHARED ${core_sources} ${core_headers} ${core_inlines} ${RA_VERSION_CPP}
