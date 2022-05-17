@@ -23,6 +23,7 @@ namespace Core {
 namespace Resources {
 using namespace Ra::Core::Utils;
 /** \name Resources path functions
+ * All paths are made absolute using https://en.cppreference.com/w/cpp/filesystem/canonical
  */
 ///@{
 /// \brief Get the path of Radium internal resources.
