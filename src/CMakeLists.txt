@@ -70,15 +70,17 @@ configure_radium_package(
 )
 
 # install general scripts
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/RadiumSetupFunctions.cmake"
-              "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/QtFunctions.cmake"
-        DESTINATION ${ConfigPackageLocation}
+install(
+    FILES "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/RadiumSetupFunctions.cmake"
+          "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/QtFunctions.cmake"
+          "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/RPath.cmake" DESTINATION ${ConfigPackageLocation}
 )
 
 # copy scripts in the buildtree to be available when searching package in the buildtree
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/RadiumSetupFunctions.cmake"
-          "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/QtFunctions.cmake"
-     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+file(
+    COPY "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/RadiumSetupFunctions.cmake"
+         "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/QtFunctions.cmake"
+         "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/RPath.cmake" DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 if(MSVC OR MSVC_IDE OR MINGW)
