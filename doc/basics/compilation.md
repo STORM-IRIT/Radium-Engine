@@ -44,10 +44,10 @@ By default, `${CMAKE_INSTALL_PREFIX}` is set as follow:
     set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})
 ~~~
 
-It has the following structure, if externals are compiled along Radium
+It has the following structure
 ~~~
 Bundle-*
- - bin/  include/  lib/  LICENSE  README.md  Resources/  share/
+ - bin/  include/  lib/  LICENSE  README.md  Resources/
 ~~~
 
 ### Configure build options
@@ -188,7 +188,7 @@ To fix it, edit `CMakeSettings.json`, such that
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
       "installRoot": "C:/Users/XXX/Dev/Radium-install",
-      "cmakeCommandArgs": "-C external/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
+      "cmakeCommandArgs": "-C external-install-dir/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     },
@@ -199,7 +199,7 @@ To fix it, edit `CMakeSettings.json`, such that
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
       "installRoot": "C:/Users/XXX/Dev/Radium-installdbg",
-      "cmakeCommandArgs": "-C external/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
+      "cmakeCommandArgs": "-C external-install-dir/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     }

@@ -7,12 +7,12 @@ TL;DR; (linux command line version)
 
 ```bash
 git clone --recurse-submodules https://github.com/STORM-IRIT/Radium-Engine.git
-cd Radium-Engine/external
-cmake -DCMAKE_BUILD_TYPE=Release -B build-r/ . -DCMAKE_INSTALL_PREFIX=`pwd`/install-r
-cmake --build build-r --parallel
+mkdir radium-external # outside Radium Source dir
+cmake Radium-Engine/external -DCMAKE_BUILD_TYPE=Release -B radium-external/build-r/ -DCMAKE_INSTALL_PREFIX=`pwd`/radium-external/install-r
+cmake --build radium-external/build-r --parallel
 
-cd .. # go back in Radium-Engine root dir
-cmake -DCMAKE_BUILD_TYPE=Release -B build-r/ -C external/install-r/radium-options.cmake
+cd Radium-Engine # go in Radium-Engine root dir
+cmake -DCMAKE_BUILD_TYPE=Release -B build-r/ -C ../radium-external/install-r/radium-options.cmake  # or wherever you install radium externals
 cmake --build build-r --parallel --target install
 
 ```
