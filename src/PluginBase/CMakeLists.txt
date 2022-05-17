@@ -3,7 +3,7 @@ list(APPEND CMAKE_MESSAGE_INDENT "[${ra_pluginbase_target}] ")
 
 project(${ra_pluginbase_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
-include(filelistPluginBase)
+include(filelist.cmake)
 
 # Qt utility functions
 include(QtFunctions)
