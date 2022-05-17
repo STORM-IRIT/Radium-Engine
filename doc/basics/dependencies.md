@@ -27,7 +27,7 @@ We offer two different systems to handle external dependencies (see details and 
 We provide a standalone cmake project (`external/CMakeLists.txt`) to compile and install the Radium dependencies at any location.
 
 ## Configuration and compilation of the dependencies
-External dependencies have to be installed outside Radium-Engine source tree (for mysterious reason).
+External dependencies have to be installed outside Radium-Engine source tree.
 
 ~~~{.bash}
 # from wherever you want outside radium source tree
