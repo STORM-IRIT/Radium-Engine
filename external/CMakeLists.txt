@@ -12,6 +12,9 @@ if(NOT CMAKE_PROJECT_NAME STREQUAL ${RADIUM_DEPENDENCIES_PROJECT_NAME})
   ${CMAKE_PROJECT_NAME} !)"
     )
 else()
+    set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+    set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+
     # We can use include() and find_package() for our scripts in there
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
 
@@ -62,6 +65,22 @@ else()
     if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX "${RADIUM_EXTERNAL_INSTALL}"
             CACHE PATH "Install path prefix, prepended onto install directories." FORCE
+        )
+    endif()
+
+    # Ensure that external dependencies built as standalone are not installed in a subdir of Radium
+    # source tree
+
+    get_filename_component(CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX} ABSOLUTE)
+    string(LENGTH ${CMAKE_SOURCE_DIR} SourceDirLength)
+    string(LENGTH "external/" ExternalDirLength)
+    math(EXPR RadiumPrefixLength " ${SourceDirLength} - ${ExternalDirLength}")
+    string(SUBSTRING ${CMAKE_SOURCE_DIR} 0 ${RadiumPrefixLength} RadiumPREFIX)
+    string(FIND ${CMAKE_INSTALL_PREFIX} ${RadiumPREFIX} IsPrefix)
+    if(${IsPrefix} GREATER -1)
+        message(
+            FATAL_ERROR
+                "Externals can't be installed into a subdirectory of Radium source tree: ${CMAKE_INSTALL_PREFIX}  -- ${RadiumPREFIX}"
         )
     endif()
 
