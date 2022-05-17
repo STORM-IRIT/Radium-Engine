@@ -98,7 +98,6 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
         NAME integration_${INTEGRATION_TEST}_compare_to_ref
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
         COMMAND
-        COMMAND
             ${CMAKE_COMMAND} -E compare_files
             ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml
             ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml
