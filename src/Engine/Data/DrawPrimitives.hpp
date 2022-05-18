@@ -95,10 +95,13 @@ RA_ENGINE_API LineMeshPtr CircleArc( const Core::Vector3& center,
                                      uint segments,
                                      const Core::Utils::Color& color );
 
-/// Displays sphere computed with given center and radius
+/// Displays geodesic sphere computed with given center and radius
 RA_ENGINE_API MeshPtr Sphere( const Core::Vector3& center,
                               Scalar radius,
                               const Core::Utils::Color& color );
+
+/// Displays uv sphere computed with given center and radius
+/// \param generateTexCoord: ask texture coordinate generation
 RA_ENGINE_API MeshPtr ParametricSphere( const Core::Vector3& center,
                                         Scalar radius,
                                         const Core::Utils::Color& color,
