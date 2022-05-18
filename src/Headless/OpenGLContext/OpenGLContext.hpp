@@ -92,7 +92,7 @@ class HEADLESS_API OpenGLContext
     /// the mouse button, button action and modifier bits as well as the mouse position
     /// in pixel unit and in the FrameBuffer space. The origin is at the top left of the
     /// framebuffer.
-    /// @see https://www.glfw.org/docs/latest/input_guide.html#cursor_pos
+    /// @see https://www.glfw.org/docs/latest/input_guide.html#input_mouse
     Ra::Core::Utils::Observable<int, int, int, int, int>& mouseListener() {
         return m_mouseObservers;
     }
@@ -103,8 +103,9 @@ class HEADLESS_API OpenGLContext
     /// The parameters sent to the mouse move listeners are the mouse position
     /// in pixel unit and in the FrameBuffer space. The origin is at the top left of the
     /// framebuffer.
-    /// @see https://www.glfw.org/docs/latest/input_guide.html#input_mouse
+    /// @see https://www.glfw.org/docs/latest/input_guide.html#cursor_pos
     Ra::Core::Utils::Observable<int, int>& mouseMoveListener() { return m_mouseMoveObservers; }
+
     /// Give access to the scroll event observable so that client can add Observer to this
     /// event.
     ///
