@@ -30,7 +30,7 @@ jobs:
     secrets:
       REPO_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
   call-coverage:
-    needs: [call-build]
+    needs: [increase-version-number]
     uses: ./.github/workflows/build-matrix.yml
     with:
       windows: "false"
