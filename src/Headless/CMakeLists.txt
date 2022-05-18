@@ -10,7 +10,7 @@ project(${ra_headless_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 # lib headless configuration
 # -----------------------------------------------------------------------------------
 # find required dependencies
-find_package(glfw3 3.2 QUIET)
+find_package(glfw3 3.3 QUIET)
 if(NOT glfw3_FOUND)
     # do not configure Radium headless if dependency is not found
     message(WARNING "glfw3 package not found. Headless component is disabled")

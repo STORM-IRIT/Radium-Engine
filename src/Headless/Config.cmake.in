@@ -29,7 +29,7 @@ endif()
 if(Configure_Headless)
     # find dependency on glfw
     if (NOT glfw3_FOUND)
-        find_dependency(glfw3 3.2 REQUIRED)
+        find_dependency(glfw3 3.3 REQUIRED)
     endif()
     include("${CMAKE_CURRENT_LIST_DIR}/HeadlessTargets.cmake")
 endif()
