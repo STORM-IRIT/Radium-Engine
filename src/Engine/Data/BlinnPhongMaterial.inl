@@ -47,7 +47,7 @@ inline Texture* BlinnPhongMaterial::getTexture( const TextureSemantic& semantic 
     return tex;
 }
 
-inline const nlohmann::json BlinnPhongMaterial::getParametersMetadata() const {
+inline nlohmann::json BlinnPhongMaterial::getParametersMetadata() const {
     return m_parametersMetadata;
 }
 
