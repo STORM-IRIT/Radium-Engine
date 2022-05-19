@@ -22,9 +22,9 @@ include(CMakePackageConfigHelpers)
 # dependency resources when configuring/installing a target.
 define_property(
     TARGET
-    PROPERTY RADIUM_TARGET_RESOURCES_DIRECTORY
-    BRIEF_DOCS "Identify the optional resource directory associated with a target."
-    FULL_DOCS "Contains a directory that will be linked "
+    PROPERTY RADIUM_TARGET_RESOURCES_DIRECTORIES
+    BRIEF_DOCS "Identify the optional resource directories associated with a target."
+    FULL_DOCS "Contains a list of directories that will be linked "
               "or installed when building or installing the target."
 )
 define_property(
@@ -483,8 +483,13 @@ ${CMAKE_INSTALL_PREFIX}/${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${
 
     # Install in the install tree Identify the individual files( to preserve directory structure )
     # set the target properties
+    get_target_property(resourceDir ${ARGS_TARGET} RADIUM_TARGET_RESOURCES_DIRECTORIES)
+    if(${resourceDir} STREQUAL "resourceDir-NOTFOUND")
+        set(resourceDir "")
+    endif()
+    list(APPEND resourceDir ${ARGS_RESOURCES_DIR})
     set_target_properties(
-        ${ARGS_TARGET} PROPERTIES RADIUM_TARGET_RESOURCES_DIRECTORY ${ARGS_RESOURCES_DIR}
+        ${ARGS_TARGET} PROPERTIES RADIUM_TARGET_RESOURCES_DIRECTORIES "${resourceDir}"
     )
 
     # why do not set tgt prop if files is not set, even if there is files in resources directory ?
@@ -793,8 +798,10 @@ function(configure_radium_plugin)
                            "for plugin ${ARGS_NAME}"
             )
             # gets the resource install property of the target
-            get_target_property(resourceDir ${helperLib} RADIUM_TARGET_RESOURCES_DIRECTORY)
-            if(NOT ${resourceDir} STREQUAL "resourceDir-NOTFOUND")
+            get_target_property(
+                resourceDirectories ${helperLib} RADIUM_TARGET_RESOURCES_DIRECTORIES
+            )
+            if(NOT "${resourceDirectories}" STREQUAL "resourceDirectories-NOTFOUND")
                 # gets the resource prefix for the target
                 get_target_property(resourcePrefix ${helperLib} RADIUM_TARGET_RESOURCES_PREFIX)
                 if(${resourcePrefix} STREQUAL "resourcePrefix-NOTFOUND")
@@ -803,15 +810,17 @@ function(configure_radium_plugin)
                 message(STATUS "[configure_radium_plugin] Installing ${helperLib} resources"
                                " in ${${ARGS_NAME}_INSTALL_DIR}/Resources/${resourcePrefix}"
                 )
-                get_filename_component(rsc_dir ${resourceDir} NAME)
-                file(GLOB_RECURSE RSC_FILES RELATIVE ${resourceDir} ${resourceDir}/*)
-                foreach(file ${RSC_FILES})
-                    get_filename_component(file_dir ${file} DIRECTORY)
-                    install(
-                        FILES ${resourceDir}/${file}
-                        DESTINATION
-                            ${${ARGS_NAME}_INSTALL_DIR}/Resources/${resourcePrefix}/${rsc_dir}/${file_dir}
-                    )
+                foreach(resourceDir ${resourceDirectories})
+                    get_filename_component(rsc_dir ${resourceDir} NAME)
+                    file(GLOB_RECURSE RSC_FILES RELATIVE ${resourceDir} ${resourceDir}/*)
+                    foreach(file ${RSC_FILES})
+                        get_filename_component(file_dir ${file} DIRECTORY)
+                        install(
+                            FILES ${resourceDir}/${file}
+                            DESTINATION
+                                ${${ARGS_NAME}_INSTALL_DIR}/Resources/${resourcePrefix}/${rsc_dir}/${file_dir}
+                        )
+                    endforeach()
                 endforeach()
             endif()
             get_target_property(IsImported "${OriginalLib}" IMPORTED)
