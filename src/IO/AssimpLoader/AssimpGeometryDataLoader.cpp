@@ -146,6 +146,9 @@ void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, GeometryData& data
     if ( face_type_max != 1 ) {
         if ( face_type_min != face_type_max ) {
             if ( !face_type_max ) { data.setType( GeometryData::POINT_CLOUD ); }
+            else {
+                data.setType( GeometryData::POLY_MESH );
+            }
         }
         else {
             switch ( face_type_max ) {
