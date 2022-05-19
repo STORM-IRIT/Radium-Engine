@@ -27,9 +27,7 @@ inline void RenderParameters::TParameter<Ra::Core::Utils::Color>::bind(
 
 inline void RenderParameters::TextureParameter::bind( const Data::ShaderProgram* shader ) const {
     if ( m_texUnit == -1 ) { shader->setUniformTexture( m_name.c_str(), m_texture ); }
-    else {
-        shader->setUniform( m_name.c_str(), m_texture, m_texUnit );
-    }
+    else { shader->setUniform( m_name.c_str(), m_texture, m_texUnit ); }
 }
 
 template <>
@@ -120,6 +118,18 @@ template <>
 inline const RenderParameters::UniformBindableSet<RenderParameters::TextureParameter>&
 RenderParameters::getParameterSet() const {
     return m_texParamsVector;
+}
+
+template <typename T>
+inline bool RenderParameters::containsParameter( const std::string& name ) const {
+    auto& params = getParameterSet<T>();
+    return params.find( name ) != params.end();
+}
+
+template <typename T>
+inline const T& RenderParameters::getParameter( const std::string& name ) const {
+    auto& params = getParameterSet<T>();
+    return params.at( name );
 }
 
 } // namespace Data

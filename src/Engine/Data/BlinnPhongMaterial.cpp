@@ -1,3 +1,6 @@
+#include "CoreMacros.hpp"
+#include "Data/RenderParameters.hpp"
+#include "Utils/Color.hpp"
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 
 #include <fstream>
@@ -69,6 +72,24 @@ void BlinnPhongMaterial::updateGL() {
     m_isDirty = false;
 
     updateRenderingParameters();
+}
+
+void BlinnPhongMaterial::updateState() {
+    m_kd =
+        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.kd" ).m_value;
+    m_perVertexColor =
+        m_renderParameters
+            .getParameter<RenderParameters::BoolParameter>( "material.hasPerVertexKd" )
+            .m_value;
+    m_renderAsSplat =
+        m_renderParameters.getParameter<RenderParameters::BoolParameter>( "material.renderAsSplat" )
+            .m_value;
+    m_ks =
+        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.ks" ).m_value;
+    m_ns =
+        m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.ns" ).m_value;
+    m_alpha = m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" )
+                  .m_value;
 }
 
 bool BlinnPhongMaterial::isTransparent() const {

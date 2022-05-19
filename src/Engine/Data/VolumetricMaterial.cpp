@@ -1,3 +1,4 @@
+#include "Data/RenderParameters.hpp"
 #include <Engine/Data/VolumetricMaterial.hpp>
 
 #include <Engine/Data/ShaderConfigFactory.hpp>
@@ -25,6 +26,22 @@ void VolumetricMaterial::updateGL() {
     updateRenderingParameters();
 }
 
+void VolumetricMaterial::updateState() {
+    m_sigma_a =
+        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.sigma_a" )
+            .m_value;
+    m_sigma_s =
+        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.sigma_s" )
+            .m_value;
+    m_g =
+        m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.g" ).m_value;
+    m_scale = m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.scale" )
+                  .m_value;
+    m_stepsize =
+        m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.stepsize" )
+            .m_value;
+}
+
 void VolumetricMaterial::updateRenderingParameters() {
     m_renderParameters.addParameter( "material.sigma_a", m_sigma_a );
     m_renderParameters.addParameter( "material.sigma_s", m_sigma_s );
@@ -36,9 +53,7 @@ void VolumetricMaterial::updateRenderingParameters() {
                                       m_texture->depth() * m_texture->depth() ) );
         m_renderParameters.addParameter( "material.stepsize", 1._ra / dim );
     }
-    else {
-        m_renderParameters.addParameter( "material.stepsize", m_stepsize );
-    }
+    else { m_renderParameters.addParameter( "material.stepsize", m_stepsize ); }
     m_renderParameters.addParameter( "material.density", m_texture );
     m_renderParameters.addParameter( "material.modelToDensity", m_modelToMedium.matrix() );
 }
