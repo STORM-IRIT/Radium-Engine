@@ -99,7 +99,10 @@ class SurfaceMeshComponent : public GeometryComponent
 };
 
 using TriangleMeshComponent = SurfaceMeshComponent<Ra::Core::Geometry::TriangleMesh>;
-using PolyMeshComponent     = SurfaceMeshComponent<Ra::Core::Geometry::PolyMesh>;
+using QuadMeshComponent =
+    SurfaceMeshComponent<Ra::Core::Geometry::GeneralMesh<Ra::Core::Vector4ui>>;
+using PolyMeshComponent =
+    SurfaceMeshComponent<Ra::Core::Geometry::GeneralMesh<Ra::Core::VectorNui>>;
 
 /// \warning, WIP
 /// \todo doc.

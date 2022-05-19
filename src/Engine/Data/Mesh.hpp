@@ -420,17 +420,22 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
   private:
 };
 
-/// PolyMesh, own a Core::Geometry::PolyMesh
+/// GeneralMesh, own a Core::Geometry::GeneralMesh
 /// This class handle the GPU representation of a polyhedron mesh.
 /// Each face of the polyhedron (typically quads) are assume to be planar and convex.
 /// Simple triangulation is performed on the fly before sending data to the GPU.
-class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
+template <typename T = Ra::Core::VectorNui>
+class RA_ENGINE_API GeneralMesh : public IndexedGeometry<Core::Geometry::GeneralMesh<T>>
 {
-    using base      = IndexedGeometry<Core::Geometry::PolyMesh>;
+    using base      = IndexedGeometry<Core::Geometry::GeneralMesh<T>>;
     using IndexType = Core::Vector3ui;
 
   public:
-    using base::IndexedGeometry;
+    inline explicit GeneralMesh(
+        const std::string& name,
+        typename base::CoreGeometry&& geom,
+        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_POLYGON );
+    using base::base;
     inline size_t getNumFaces() const override;
 
   protected:
@@ -438,10 +443,10 @@ class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
 
   private:
     inline void triangulate();
-    Core::AlignedStdVector<IndexType> m_triangleIndices;
+    Core::AlignedStdVector<IndexType> m_triangleIndices {};
 };
 
-/// create a TriangleMesh, PolyMesh or other Core::*Mesh from GeometryData
+/// create a TriangleMesh, GeneralMesh or other Core::*Mesh from GeometryData
 template <typename CoreMeshType>
 CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData* data ) {
     CoreMeshType mesh;
@@ -452,6 +457,7 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
         std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
     }
     // Create a degenerated triangle to handle edges case.
+    /*
     else {
         const auto& edges = data->getEdges();
         indices.reserve( edges.size() );
@@ -459,7 +465,7 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
             edges.begin(), edges.end(), std::back_inserter( indices ), []( Ra::Core::Vector2ui v ) {
                 return ( Ra::Core::Vector3ui { v( 0 ), v( 1 ), v( 1 ) } );
             } );
-    }
+    }*/
 
     // add custom attribs
     // only attributs not handled before are handled by data->getAttribManager()
@@ -489,13 +495,13 @@ struct getType<Ra::Core::Geometry::TriangleMesh> {
     using Type = Ra::Engine::Data::Mesh;
 };
 
-template <>
-struct getType<Ra::Core::Geometry::PolyMesh> {
-    using Type = Ra::Engine::Data::PolyMesh;
+template <typename T>
+struct getType<Ra::Core::Geometry::GeneralMesh<T>> {
+    using Type = Ra::Engine::Data::GeneralMesh<T>;
 };
 } // namespace RenderMeshType
 
-/// create Mesh, PolyMesh Engine::Data::*Mesh * from GeometryData
+/// create Mesh, GeneralMesh Engine::Data::*Mesh * from GeometryData
 template <typename CoreMeshType>
 typename RenderMeshType::getType<CoreMeshType>::Type*
 createMeshFromGeometryData( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {

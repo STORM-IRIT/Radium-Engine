@@ -451,7 +451,8 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 std::shared_ptr<Data::LineMesh> disp;
 
                 using trimesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::TriangleMesh>;
-                using polymesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh>;
+                using polymesh =
+                    Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::GeneralMesh<VectorNui>>;
 
                 auto displayable = ro->getMesh();
                 auto tm          = std::dynamic_pointer_cast<trimesh>( displayable );

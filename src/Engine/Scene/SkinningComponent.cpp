@@ -26,7 +26,7 @@
 using namespace Ra::Core;
 
 using Geometry::AttribArrayGeometry;
-using Geometry::PolyMesh;
+using Geometry::GeneralMesh;
 using Geometry::TriangleMesh;
 
 using namespace Animation;
@@ -43,13 +43,13 @@ static const std::string tangentName =
 static const std::string bitangentName =
     Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_BITANGENT );
 
-TriangleMesh triangulate( const PolyMesh& polyMesh ) {
+TriangleMesh triangulate( const GeneralMesh<>& polyMesh ) {
     TriangleMesh res;
     res.setVertices( polyMesh.vertices() );
     res.setNormals( polyMesh.normals() );
     res.copyAllAttributes( polyMesh );
     VectorArray<Vector3ui> indices;
-    // using the same triangulation as in Ra::Engine::PolyMesh::triangulate
+    // using the same triangulation as in Ra::Engine::GeneralMesh::triangulate
     for ( const auto& face : polyMesh.getIndices() ) {
         if ( face.size() == 3 ) { indices.push_back( face ); }
         else {
@@ -77,7 +77,7 @@ void SkinningComponent::initialize() {
     bool hasSkel    = compMsg->canGet<Skeleton>( getEntity(), m_skelName );
     bool hasRefPose = compMsg->canGet<RefPose>( getEntity(), m_skelName );
     bool hasTriMesh = compMsg->canGet<TriangleMesh>( getEntity(), m_meshName );
-    m_meshIsPoly    = compMsg->canGet<PolyMesh>( getEntity(), m_meshName );
+    m_meshIsPoly    = compMsg->canGet<GeneralMesh<>>( getEntity(), m_meshName );
 
     if ( hasSkel && hasRefPose && ( hasTriMesh || m_meshIsPoly ) ) {
         m_renderObjectReader = compMsg->getterCallback<Index>( getEntity(), m_meshName );
@@ -86,7 +86,7 @@ void SkinningComponent::initialize() {
             m_triMeshWriter = compMsg->rwCallback<TriangleMesh>( getEntity(), m_meshName );
         }
         else {
-            m_polyMeshWriter = compMsg->rwCallback<PolyMesh>( getEntity(), m_meshName );
+            m_polyMeshWriter = compMsg->rwCallback<GeneralMesh<>>( getEntity(), m_meshName );
         }
 
         // copy mesh triangles and find duplicates for normal computation.
@@ -162,7 +162,7 @@ void SkinningComponent::initialize() {
         AttribArrayGeometry* geom;
         if ( !m_meshIsPoly ) { geom = const_cast<TriangleMesh*>( m_triMeshWriter() ); }
         else {
-            geom = const_cast<PolyMesh*>( m_polyMeshWriter() );
+            geom = const_cast<GeneralMesh<>*>( m_polyMeshWriter() );
         }
         if ( geom->hasAttrib( attrUV ) ) {
             auto handle = geom->getAttribHandle<Vector3>( attrUV );
@@ -254,7 +254,7 @@ void SkinningComponent::endSkinning() {
         AttribArrayGeometry* geom;
         if ( !m_meshIsPoly ) { geom = const_cast<TriangleMesh*>( m_triMeshWriter() ); }
         else {
-            geom = const_cast<PolyMesh*>( m_polyMeshWriter() );
+            geom = const_cast<GeneralMesh<>*>( m_polyMeshWriter() );
         }
 
         geom->setVertices( m_frameData.m_currentPosition );
@@ -390,7 +390,7 @@ void SkinningComponent::showWeights( bool on ) {
     AttribArrayGeometry* geom;
     if ( !m_meshIsPoly ) { geom = const_cast<TriangleMesh*>( m_triMeshWriter() ); }
     else {
-        geom = const_cast<PolyMesh*>( m_polyMeshWriter() );
+        geom = const_cast<GeneralMesh<>*>( m_polyMeshWriter() );
     }
 
     if ( m_showingWeights ) {
