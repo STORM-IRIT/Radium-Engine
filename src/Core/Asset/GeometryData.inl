@@ -204,12 +204,14 @@ inline bool GeometryData::hasEdges() const {
 inline bool GeometryData::hasFaces() const {
     switch ( m_type ) {
     case TRI_MESH:
-        return !getIndexedData<Vector3ui>( "in_face" ).empty();
+        return m_multiIndexedGeometry.containsLayer(
+            { Geometry::TriangleIndexLayer::staticSemanticName }, "in_face" );
     case QUAD_MESH:
-        return !getIndexedData<Vector4ui>( "in_face" ).empty();
+        return m_multiIndexedGeometry.containsLayer(
+            { Geometry::QuadIndexLayer::staticSemanticName }, "in_face" );
     default:
-        return m_multiIndexedGeometry.containsLayer( { Geometry::PolyIndexLayer::staticSemanticName },
-                                                 "in_face" );
+        return m_multiIndexedGeometry.containsLayer(
+            { Geometry::PolyIndexLayer::staticSemanticName }, "in_face" );
     }
 }
 
@@ -344,11 +346,11 @@ inline const VectorArray<V>& GeometryData::getIndexedData( const std::string& na
         auto& geomBase = getLayerBase<Geometry::LineIndexLayer>( firstOccurrence, name );
         return getDataFromLayerBase<V>( geomBase );
     }
-    else if (std::is_same<V, Vector3ui>::value){
+    else if ( std::is_same<V, Vector3ui>::value ) {
         auto& geomBase = getLayerBase<Geometry::TriangleIndexLayer>( firstOccurrence, name );
         return getDataFromLayerBase<V>( geomBase );
     }
-    else if (std::is_same<V, Vector4ui>::value){
+    else if ( std::is_same<V, Vector4ui>::value ) {
         auto& geomBase = getLayerBase<Geometry::QuadIndexLayer>( firstOccurrence, name );
         return getDataFromLayerBase<V>( geomBase );
     }

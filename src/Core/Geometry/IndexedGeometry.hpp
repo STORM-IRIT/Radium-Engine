@@ -447,7 +447,7 @@ struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
     inline LineIndexLayer( SemanticNames... names );
 };
 
-/// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
+/// Temporary class providing the old API for TriangleMesh, LineMesh and GeneralMesh
 /// This class will be marked as deprecated soon.
 namespace IndexLayerType {
 template <class IndexT>
@@ -528,10 +528,8 @@ class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
 class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
 {};
 
-class RA_CORE_API QuadMesh : public IndexedGeometry<Vector4ui>
-{};
-
-class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>
+template <typename T = VectorNui>
+class RA_CORE_API GeneralMesh : public IndexedGeometry<T>
 {};
 
 class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
