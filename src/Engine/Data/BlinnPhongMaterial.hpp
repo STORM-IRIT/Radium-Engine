@@ -82,7 +82,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
      * Get a json containing metadata about the parameters of the material.
      * @return the metadata in json format
      */
-    inline const nlohmann::json getParametersMetadata() const override;
+    inline nlohmann::json getParametersMetadata() const override;
 
     inline void setColoredByVertexAttrib( bool state ) override;
 

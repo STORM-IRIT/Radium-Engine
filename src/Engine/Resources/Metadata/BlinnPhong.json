@@ -6,27 +6,28 @@
     "type": "number"
   },
   "material.hasPerVertexKd": {
+    "description": "Per-vertex Diffuse Color",
     "editable": true,
-    "name": "hasPerVertexKd",
+    "name": "Per-vertex kd",
     "type": "boolean"
   },
   "material.kd": {
-    "description": "diffuse component",
+    "description": "kd",
     "minItems": 4,
     "maxItems": 4,
-    "name": "kd",
+    "name": "Diffuse Color",
     "type": "array"
   },
   "material.ks": {
-    "description": "specular component",
+    "description": "ks",
     "minItems": 4,
     "maxItems": 4,
-    "name": "ks",
+    "name": "Specular Color",
     "type": "array"
   },
   "material.ns": {
-    "description": "specular exponent",
-    "name": "ns",
+    "description": "ns",
+    "name": "Shininess",
     "type": "number"
   },
   "material.renderAsSplat": {
@@ -80,7 +81,7 @@
     "type": "boolean"
   },
   "material.tex.ns": {
-    "name": "Texture's ns",
+    "name": "Texture's Shininess",
     "presenceKey": "material.tex.hasNs",
     "type": "texture"
   }
