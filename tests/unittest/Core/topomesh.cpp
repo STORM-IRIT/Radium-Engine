@@ -452,7 +452,7 @@ void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, Scalar f
 }
 
 void test_poly() {
-    Ra::Core::Geometry::PolyMesh polyMesh;
+    Ra::Core::Geometry::GeneralMesh<> polyMesh;
     polyMesh.setVertices( {
         // quad
         { -1.1_ra, -0_ra, 0_ra },
@@ -505,8 +505,8 @@ void test_poly() {
     REQUIRE( isSameMeshWedge( newMesh, polyMesh ) );
 }
 
-TEST_CASE( "Core/Geometry/TopologicalMesh/PolyMesh",
-           "[Core][Core/Geometry][TopologicalMesh][PolyMesh]" ) {
+TEST_CASE( "Core/Geometry/TopologicalMesh/GeneralMesh",
+           "[Core][Core/Geometry][TopologicalMesh][GeneralMesh]" ) {
 
     test_poly();
 }

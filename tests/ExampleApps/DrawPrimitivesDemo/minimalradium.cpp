@@ -581,12 +581,12 @@ void MinimalComponent::initialize() {
        = 1.0f
                    );*/
 
-    //// PolyMesh ////
+    //// GeneralMesh ////
     if ( ENABLE_POLYS ) {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
-        Geometry::PolyMesh polyMesh;
+        Geometry::GeneralMesh<> polyMesh;
         polyMesh.setVertices( {
             // quad
             { -1.1_ra, -0_ra, 0_ra },
@@ -616,14 +616,14 @@ void MinimalComponent::initialize() {
         hepta << 3, 2, 4, 5, 6, 7, 8;
         polyMesh.setIndices( { quad, hepta } );
 
-        std::shared_ptr<Data::PolyMesh> poly1(
-            new Data::PolyMesh( "Poly", std::move( polyMesh ) ) );
+        std::shared_ptr<Data::GeneralMesh<VectorNui>> poly1(
+            new Ra::Engine::Data::GeneralMesh<VectorNui>( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
             Vector4Array { poly1->getNumVertices(), colorBoost * Color { 1_ra, 0.6_ra, 0.1_ra } } );
 
         auto renderObject1 = RenderObject::createRenderObject(
-            "PolyMesh", this, RenderObjectType::Geometry, poly1, {} );
+            "GeneralMesh", this, RenderObjectType::Geometry, poly1, {} );
         renderObject1->setMaterial( blinnPhongMaterial );
         renderObject1->setLocalTransform( Transform { Translation( Vector3( cellCorner ) ) *
                                                       Eigen::UniformScaling<Scalar>( 0.06_ra ) } );
@@ -672,9 +672,14 @@ void MinimalComponent::initialize() {
                         createMeshFromGeometryData<Geometry::TriangleMesh>( "logo", gd ) };
                     break;
                 case Ra::Core::Asset::GeometryData::QUAD_MESH:
+                    mesh = std::shared_ptr<Data::GeneralMesh<Vector4ui>> {
+                        createMeshFromGeometryData<Geometry::GeneralMesh<Vector4ui>>( "logo",
+                                                                                      gd ) };
+                    break;
                 case Ra::Core::Asset::GeometryData::POLY_MESH:
-                    mesh = std::shared_ptr<Data::PolyMesh> {
-                        createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd ) };
+                    mesh = std::shared_ptr<Data::GeneralMesh<VectorNui>> {
+                        createMeshFromGeometryData<Geometry::GeneralMesh<VectorNui>>( "logo",
+                                                                                      gd ) };
                     break;
                 default:
                     break;
