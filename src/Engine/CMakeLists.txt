@@ -23,10 +23,12 @@ populate_local_dependencies(NAME "glm_DIR")
 populate_local_dependencies(NAME "glbinding_DIR")
 populate_local_dependencies(NAME "globjects_DIR")
 populate_local_dependencies(NAME "stb_DIR")
+populate_local_dependencies(NAME "tinyEXR_DIR")
 
 find_package(glbinding REQUIRED NO_DEFAULT_PATH)
 find_package(globjects REQUIRED NO_DEFAULT_PATH)
 find_package(Eigen3 REQUIRED NO_DEFAULT_PATH)
+find_package(tinyEXR REQUIRED NO_DEFAULT_PATH)
 
 # This one should be extracted directly from external project properties.
 target_compile_definitions(${ra_engine_target} PUBLIC GLOBJECTS_USE_EIGEN)
@@ -40,7 +42,7 @@ target_include_directories(
 add_dependencies(${ra_engine_target} Core RadiumEngineShaders)
 target_link_libraries(
     ${ra_engine_target} PUBLIC Core glm glbinding::glbinding glbinding::glbinding-aux
-                               globjects::globjects
+                               globjects::globjects tinyEXR::tinyEXR
 )
 
 target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")

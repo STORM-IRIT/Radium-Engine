@@ -136,3 +136,21 @@ else()
     file(COPY ${stb_DIR}/stb_image.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include/stb/)
     file(COPY ${stb_DIR}/stb_image_write.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include/stb/)
 endif()
+
+if(NOT DEFINED tinyEXR_DIR)
+    check_externals_prerequisite()
+    status_message("[EngineExternal]" "tinyEXR" "remote git")
+    ExternalProject_Add(
+        tinyEXR
+        GIT_REPOSITORY https://github.com/MathiasPaulin/tinyexr.git
+        GIT_TAG origin/radium
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DBUILD_INSTALLABLE_LIB=ON
+                   -DCMAKE_MESSAGE_INDENT=${indent_string}\;
+    )
+    add_dependencies(EngineExternals tinyEXR)
+else()
+    status_message("" "tinyEXR" "${tinyEXR_DIR}")
+endif()
