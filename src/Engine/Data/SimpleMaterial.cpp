@@ -1,3 +1,4 @@
+#include "Data/RenderParameters.hpp"
 #include <Engine/Data/SimpleMaterial.hpp>
 #include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -40,6 +41,15 @@ void SimpleMaterial::updateGL() {
     m_pendingTextures.clear();
     m_isDirty = false;
     updateRenderingParameters();
+}
+
+void SimpleMaterial::updateState() {
+    m_color = m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.color" )
+                  .m_value;
+    m_perVertexColor =
+        m_renderParameters
+            .getParameter<RenderParameters::BoolParameter>( "material.perVertexColor" )
+            .m_value;
 }
 
 } // namespace Data

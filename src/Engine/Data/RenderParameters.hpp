@@ -193,6 +193,24 @@ class RA_ENGINE_API RenderParameters final
     template <typename T>
     const UniformBindableSet<T>& getParameterSet() const;
 
+    /**
+     * Check if a typed parameter exists
+     * @tparam T the type of the parameter to get
+     * @param name The name of the parameter to get
+     * @return if the parameter exists
+     */
+    template <typename T>
+    bool containsParameter( const std::string& name ) const;
+
+    /**
+     * Get a typed parameter
+     * @tparam T the type of the parameter to get
+     * @param name The name of the parameter to get
+     * @return The corresponding parameter
+     */
+    template <typename T>
+    const T& getParameter( const std::string& name ) const;
+
   private:
     /**
      * Storage of the parameters
@@ -241,6 +259,11 @@ class RA_ENGINE_API ShaderParameterProvider
      * specific to the provider sementic.
      */
     virtual void updateGL() = 0;
+
+    /**
+     * Update the state of the ShaderParameterProvider using the renderParameters
+     */
+    virtual void updateState() {};
 
     /**
      * Get the list of properties the provider migh use in a shader.
