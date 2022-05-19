@@ -19,3 +19,5 @@
 *.png binary
 *.jpg binary
 *.pvm binary
+*.exr binary
+*.pfm binary
