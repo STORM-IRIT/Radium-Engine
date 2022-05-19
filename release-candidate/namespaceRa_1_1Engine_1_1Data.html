@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.33</span>
+   &#160;<span id="projectnumber">1.2.34</span>
    </div>
   </td>
  </tr>
@@ -129,6 +129,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Displayable</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a spherical, infinite light sources and, optionally, sky boxes. An operator to convert an <a class="el" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html" title="Defines a spherical, infinite light sources and, optionally, sky boxes. An operator to convert an Env...">EnvironmentTexture</a> to SH matrices for irradiance mapping is defined. An operator to draw a textured sky box is defined.  <a href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html">IndexedAttribArrayDisplayable</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">IndexedGeometry</a></td></tr>
@@ -145,6 +148,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Mesh</a>, own a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Core::Geometry::TriangleMesh</a>.  <a href="classRa_1_1Engine_1_1Data_1_1Mesh.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html">MultiIndexedGeometry</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1PfmReader.html">PfmReader</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1PlainMaterial.html">PlainMaterial</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,6 +215,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a38c3f99bbe959d1dcb486563831e47c3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a38c3f99bbe959d1dcb486563831e47c3"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html#a38c3f99bbe959d1dcb486563831e47c3">flip_horizontally</a> (T *img, size_t w, size_t h, size_t c)</td></tr>
+<tr class="separator:a38c3f99bbe959d1dcb486563831e47c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f84cb217a3fb0563cc77bef7fce6b2f"><td class="memTemplParams" colspan="2">template&lt;typename CoreMeshType &gt; </td></tr>
 <tr class="memitem:a0f84cb217a3fb0563cc77bef7fce6b2f"><td class="memTemplItemLeft" align="right" valign="top">CoreMeshType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html#a0f84cb217a3fb0563cc77bef7fce6b2f">createCoreMeshFromGeometryData</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a> *data)</td></tr>
 <tr class="memdesc:a0f84cb217a3fb0563cc77bef7fce6b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a TriangleMesh, <a class="el" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">PolyMesh</a> or other <a class="el" href="namespaceRa_1_1Core.html">Core</a>::*Mesh from GeometryData  <a href="namespaceRa_1_1Engine_1_1Data.html#a0f84cb217a3fb0563cc77bef7fce6b2f">More...</a><br /></td></tr>
@@ -347,6 +355,50 @@ template&lt;typename CoreMeshType &gt; </div>
 <p>create <a class="el" href="classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Mesh</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">PolyMesh</a> <a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Engine::Data</a>::*Mesh * from GeometryData </p>
 
 <p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00521">521</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a38c3f99bbe959d1dcb486563831e47c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c3f99bbe959d1dcb486563831e47c3">&#9670;&nbsp;</a></span>flip_horizontally()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::flip_horizontally </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>img</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00039">39</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
 
 </div>
 </div>
@@ -561,7 +613,7 @@ template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; T, GL_SCAL
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Data</a></li>
-    <li class="footer">Generated on Wed May 18 2022 12:39:20 for Radium Engine by
+    <li class="footer">Generated on Thu May 19 2022 09:55:33 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

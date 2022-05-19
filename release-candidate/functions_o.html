@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.33</span>
+   &#160;<span id="projectnumber">1.2.34</span>
    </div>
   </td>
  </tr>
@@ -174,6 +174,9 @@ $(document).ready(function(){initNavTree('functions_o.html',''); initResizable()
 </li>
 <li>onSetPlay()
 : <a class="el" href="classRa_1_1Gui_1_1Timeline.html#a8eaa71cc52e9a36efee06d61ed4d9d70">Ra::Gui::Timeline</a>
+</li>
+<li>open()
+: <a class="el" href="classRa_1_1Engine_1_1Data_1_1PfmReader.html#a12fa9314aa3794b2dec7e5aee7885dd4">Ra::Engine::Data::PfmReader</a>
 </li>
 <li>OPEN_UNIFORM
 : <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596">Ra::Core::Geometry::Spline&lt; D, K &gt;</a>
@@ -326,6 +329,7 @@ $(document).ready(function(){initNavTree('functions_o.html',''); initResizable()
 , <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#aa755a5614695dfcc4f656178567b9086">Ra::Core::Utils::Observable&lt; Args &gt;</a>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#af36d927e071757e33a42408d9e51816f">Ra::Engine::Data::AttribArrayDisplayable</a>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a968759d11fe133e907b6a4a95bf6d968">Ra::Engine::Data::Displayable</a>
+, <a class="el" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a01a2c433b17ebe0cada5b92a9548dd33">Ra::Engine::Data::EnvironmentTexture</a>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#af2d76029e42f78c7323f13cb29fe4e07">Ra::Engine::Data::ShaderProgramManager</a>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html#a54d727318158cf4d6a01aec568bc6076">Ra::Engine::Data::Texture</a>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumeObject.html#aa797e358e604b214e25bdcfd48f39f4f">Ra::Engine::Data::VolumeObject</a>
@@ -336,7 +340,7 @@ $(document).ready(function(){initNavTree('functions_o.html',''); initResizable()
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1LightManager.html#adac4c65369fdf1a76a3662164f559df6">Ra::Engine::Scene::LightManager</a>
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#a939775d46eb0998aa3218a6d8c56b63e">Ra::Engine::Scene::SkeletonBasedAnimationSystem</a>
 , <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#acbfcfae71933d6c0334efbec77cc9f46">Ra::Engine::Scene::SkeletonComponent</a>
-, <a class="el" href="classRa_1_1Gui_1_1SimpleWindow.html#a7ae55291542476fc993be3a6b30490c3">Ra::Gui::SimpleWindow</a>
+, <a class="el" href="classRa_1_1Gui_1_1SimpleWindow.html#add6fd781d974f24e69e489355146229b">Ra::Gui::SimpleWindow</a>
 , <a class="el" href="classRa_1_1Gui_1_1TreeItem.html#aaf8fc2e145fa7e0063e236f1aaaa1caa">Ra::Gui::TreeItem</a>
 , <a class="el" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#aa5f13bf7e330c8c63c4072187006648a">Ra::Gui::WindowQt::ScopedGLContext</a>
 </li>
@@ -344,7 +348,7 @@ $(document).ready(function(){initNavTree('functions_o.html',''); initResizable()
 : <a class="el" href="classCLI_1_1Option.html#ae72ff0b89bebb2987d548c186c577e50">CLI::Option</a>
 , <a class="el" href="classRa_1_1Core_1_1AlignedAllocator.html#a1a8217a4b4595506b10e0f21c4068e9d">Ra::Core::AlignedAllocator&lt; T, Alignment &gt;</a>
 , <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a0c3e98b89aa87a448c9020aa6a0a1b1c">Ra::Core::Animation::KeyFramedValue&lt; VALUE_TYPE &gt;</a>
-, <a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a9fa74c0da531a7eeee738cb2c50069e1">Ra::Core::Asset::AnimationTime</a>
+, <a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html#abf2a9be1df5b9b53f8b0dff556824672">Ra::Core::Asset::AnimationTime</a>
 , <a class="el" href="structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#abef0c1b47efa011b20f05331e79a2e3c">Ra::Core::Geometry::GeometryIndexLayer&lt; T &gt;</a>
 , <a class="el" href="classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html#ab28753c05e6405a731f11286fad24387">Ra::Core::Geometry::GeometryIndexLayerBase</a>
 , <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html#a63c84b40abca7f127f8e7968ad5b01e5">Ra::Core::Geometry::TopologicalMesh::WedgeData</a>
@@ -352,8 +356,8 @@ $(document).ready(function(){initNavTree('functions_o.html',''); initResizable()
 , <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#ad4da29426b69fae6821347aab51a43a3">Ra::Core::Utils::AttribBase</a>
 , <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html#abb6c4b4ffb25ac43fc12e6e347efb5a6">Ra::Core::Utils::AttribHandle&lt; T &gt;</a>
 , <a class="el" href="classRa_1_1Core_1_1Utils_1_1Chrono.html#a33869665b1319ffa55d59db03480223e">Ra::Core::Utils::Chrono</a>
-, <a class="el" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#aa61f93e5d58913ff558740075e5185a8">Ra::Core::Utils::CircularIndex</a>
-, <a class="el" href="classRa_1_1Core_1_1Utils_1_1Index.html#ad39ea98e0f041e2bd87c78515d4232ff">Ra::Core::Utils::Index</a>
+, <a class="el" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#ae37ce0697c6337641b977a85c2ef1a4d">Ra::Core::Utils::CircularIndex</a>
+, <a class="el" href="classRa_1_1Core_1_1Utils_1_1Index.html#aee6f73bfc13b632c097351cb0d17aa3f">Ra::Core::Utils::Index</a>
 , <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ab9b9822f043f6991e769a08de70c8ada">Ra::Engine::Scene::ItemEntry</a>
 </li>
 <li>operator&gt;()
@@ -378,7 +382,7 @@ $(document).ready(function(){initNavTree('functions_o.html',''); initResizable()
 : <a class="el" href="classCLI_1_1Validator.html#ac19919604a6ac47c5a1cbd34920991a4">CLI::Validator</a>
 </li>
 <li>Option()
-: <a class="el" href="classCLI_1_1Option.html#a72d6fb10f92fb81fc7a10327ce1a7da6">CLI::Option</a>
+: <a class="el" href="classCLI_1_1Option.html#a35e90f0fc810ccca676f7fa39bf4cc27">CLI::Option</a>
 </li>
 <li>option_defaults()
 : <a class="el" href="classCLI_1_1App.html#a2aee3915a2e24fc7806e25b9bbc2b37c">CLI::App</a>
@@ -428,7 +432,7 @@ $(document).ready(function(){initNavTree('functions_o.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed May 18 2022 12:39:21 for Radium Engine by
+    <li class="footer">Generated on Thu May 19 2022 09:55:34 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

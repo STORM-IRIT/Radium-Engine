@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.33</span>
+   &#160;<span id="projectnumber">1.2.34</span>
    </div>
   </td>
  </tr>
@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('dependenciesmanagement.html',''); init
 </div>
 <div class="textblock"><p>Radium relies on several external libraries to load files or to represent some data:</p><ul>
 <li>[Core] <a class="el" href="namespaceEigen.html">Eigen</a>, <a class="el" href="namespaceOpenMesh.html">OpenMesh</a>, nlohmann_json</li>
-<li>[Engine] glm, globjects, glbindings</li>
+<li>[Engine] glm, globjects, glbindings, tinyEXR</li>
 <li>[IO] Assimp</li>
 <li>[Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 at least, Qt6 support is experimental)</li>
 <li>[doc] Doxygen-awesome-css</li>
@@ -148,6 +148,7 @@ Configuration of Radium</h2>
 <div class="line">set(stb_DIR           &quot;${RADIUM_DEP_PREFIX}/include/stb/&quot; CACHE PATH &quot;My stb&quot;)</div>
 <div class="line">set(assimp_DIR        &quot;${RADIUM_DEP_PREFIX}/lib/cmake/assimp-5.0/&quot; CACHE PATH &quot;My assimp&quot;)</div>
 <div class="line">set(tinyply_DIR       &quot;${RADIUM_DEP_PREFIX}/lib/cmake/tinyply/&quot; CACHE PATH &quot;My tinyply&quot;)</div>
+<div class="line">set(tinyEXR_DIR       &quot;${RADIUM_DEP_PREFIX}/share/tinyEXR/cmake/&quot;  CACHE PATH &quot;My tinyEXR&quot;)</div>
 <div class="line">set(nlohmann_json_DIR &quot;${RADIUM_DEP_PREFIX}/lib/cmake/nlohmann_json/&quot; CACHE PATH &quot;My json&quot;)</div>
 <div class="line">set(RADIUM_IO_ASSIMP   ON CACHE BOOL &quot;Radium uses assimp io&quot;)</div>
 <div class="line">set(RADIUM_IO_TINYPLY  ON CACHE BOOL &quot;Radium uses tinyply io&quot;)</div>
@@ -164,6 +165,7 @@ Configuration of Radium</h2>
 <div class="line">-Dstb_DIR           /path/to/external/install/include/stb/ \</div>
 <div class="line">-Dassimp_DIR        /path/to/external/install/lib/cmake/assimp-5.0/ \</div>
 <div class="line">-Dtinyply_DIR       /path/to/external/install/lib/cmake/tinyply/ \</div>
+<div class="line">-DtinyEXR_DIR       /path/to/external/install/share/tinyEXR/cmake/ \</div>
 <div class="line">.......</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md18"></a>
 User provided external dependencies</h1>
@@ -176,6 +178,7 @@ User provided external dependencies</h1>
 <li><code>glbinding_DIR</code></li>
 <li><code>globjects_DIR</code></li>
 <li><code>stb_DIR</code></li>
+<li><code>tinyEXR_DIR</code></li>
 <li><code>Eigen3_DIR</code></li>
 <li><code>OpenMesh_DIR</code></li>
 <li><code>cpplocate_DIR</code></li>
@@ -207,8 +210,12 @@ User provided external dependencies</h1>
 <li>with options <code>None</code></li>
 </ul>
 </li>
+<li>tinyEXR: <a href="https://github.com/MathiasPaulin/tinyexr.git,">https://github.com/MathiasPaulin/tinyexr.git,</a> [origin/radium],<ul>
+<li>with options <code>-DBUILD_INSTALLABLE_LIB=ON</code></li>
+</ul>
+</li>
 <li>Eigen3: <a href="https://gitlab.com/libeigen/eigen.git,">https://gitlab.com/libeigen/eigen.git,</a> [e80ec243],<ul>
-<li>with options <code>-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF</code></li>
+<li>with options <code>-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF</code></li>
 </ul>
 </li>
 <li><a class="el" href="namespaceOpenMesh.html">OpenMesh</a>: <a href="https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git,">https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git,</a> [tags/OpenMesh-8.1],<ul>
@@ -232,7 +239,7 @@ User provided external dependencies</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Wed May 18 2022 12:39:19 for Radium Engine by
+    <li class="footer">Generated on Thu May 19 2022 09:55:32 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

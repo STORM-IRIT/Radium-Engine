@@ -141,7 +141,7 @@ var searchData=
   ['allow_5fextras_5f_169',['allow_extras_',['../classCLI_1_1App.html#ae994679fee098b93cbc654a99b8019ee',1,'CLI::App']]],
   ['allow_5fwindows_5fstyle_5foptions_170',['allow_windows_style_options',['../classCLI_1_1App.html#a7d8c3ab60b46e4ac79fbdba0d473e97b',1,'CLI::App']]],
   ['allow_5fwindows_5fstyle_5foptions_5f_171',['allow_windows_style_options_',['../classCLI_1_1App.html#afdcf791220d111363ac12526a693227b',1,'CLI::App']]],
-  ['alpha_172',['alpha',['../classRa_1_1Core_1_1Utils_1_1ColorBase.html#acd62a869cb9e5432ea8ce7abeba1dbdd',1,'Ra::Core::Utils::ColorBase::alpha() const'],['../classRa_1_1Core_1_1Utils_1_1ColorBase.html#ab83daa91246399715ed1aa404ddc14d4',1,'Ra::Core::Utils::ColorBase::alpha()'],['../classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1aa542da23b498ad86e178271a14fc61',1,'Ra::Core::Utils::ColorBase::Alpha()']]],
+  ['alpha_172',['Alpha',['../classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1aa542da23b498ad86e178271a14fc61',1,'Ra::Core::Utils::ColorBase::Alpha()'],['../classRa_1_1Core_1_1Utils_1_1ColorBase.html#acd62a869cb9e5432ea8ce7abeba1dbdd',1,'Ra::Core::Utils::ColorBase::alpha() const'],['../classRa_1_1Core_1_1Utils_1_1ColorBase.html#ab83daa91246399715ed1aa404ddc14d4',1,'Ra::Core::Utils::ColorBase::alpha()']]],
   ['always_5fcapture_5fdefault_173',['always_capture_default',['../classCLI_1_1OptionBase.html#a3c1499da5244ca58938feda5cda9d166',1,'CLI::OptionBase']]],
   ['always_5fcapture_5fdefault_5f_174',['always_capture_default_',['../classCLI_1_1OptionBase.html#a23aca05ffa9c2d3fbba10b5434cdba64',1,'CLI::OptionBase']]],
   ['angle_175',['angle',['../namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4',1,'Ra::Core::Math']]],

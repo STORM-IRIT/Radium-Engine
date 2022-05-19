@@ -182,6 +182,7 @@ var hierarchy =
     [ "CLI::detail::element_type< T, typename std::enable_if< is_copyable_ptr< T >::value >::type >", "structCLI_1_1detail_1_1element__type_3_01T_00_01typename_01std_1_1enable__if_3_01is__copyable__p095259d742d782941ef6a8bf79b7548e.html", null ],
     [ "CLI::detail::element_value_type< T >", "structCLI_1_1detail_1_1element__value__type.html", null ],
     [ "Ra::Engine::Scene::EntityManager", "classRa_1_1Engine_1_1Scene_1_1EntityManager.html", null ],
+    [ "Ra::Engine::Data::EnvironmentTexture", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html", null ],
     [ "std::exception", null, [
       [ "std::runtime_error", null, [
         [ "CLI::Error", "classCLI_1_1Error.html", [
@@ -266,6 +267,8 @@ var hierarchy =
     [ "Ra::Core::Asset::HandleComponentData", "structRa_1_1Core_1_1Asset_1_1HandleComponentData.html", null ],
     [ "CLI::detail::has_find< C, V >", "structCLI_1_1detail_1_1has__find.html", null ],
     [ "Ra::Core::Geometry::hash_vec", "structRa_1_1Core_1_1Geometry_1_1hash__vec.html", null ],
+    [ "Ra::Engine::Data::PfmReader::HDRIMAGE", "structRa_1_1Engine_1_1Data_1_1PfmReader_1_1HDRIMAGE.html", null ],
+    [ "Ra::Engine::Data::PfmReader::HDRPIXEL", "structRa_1_1Engine_1_1Data_1_1PfmReader_1_1HDRPIXEL.html", null ],
     [ "Ra::Core::Utils::Index", "classRa_1_1Core_1_1Utils_1_1Index.html", null ],
     [ "Ra::Core::Utils::IndexedObject", "classRa_1_1Core_1_1Utils_1_1IndexedObject.html", [
       [ "Ra::Engine::Rendering::RenderObject", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html", null ],
@@ -380,6 +383,7 @@ var hierarchy =
       [ "Ra::Engine::Data::RenderParameters::TextureParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TextureParameter.html", null ],
       [ "Ra::Engine::Data::RenderParameters::TParameter< T >", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html", null ]
     ] ],
+    [ "Ra::Engine::Data::PfmReader", "classRa_1_1Engine_1_1Data_1_1PfmReader.html", null ],
     [ "Ra::Gui::PickingManager", "classRa_1_1Gui_1_1PickingManager.html", null ],
     [ "Ra::Engine::Rendering::Renderer::PickingQuery", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html", null ],
     [ "Ra::Engine::Rendering::Renderer::PickingResult", "classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html", null ],
@@ -503,8 +507,8 @@ var hierarchy =
     [ "CLI::Timer", "classCLI_1_1Timer.html", [
       [ "CLI::AutoTimer", "classCLI_1_1AutoTimer.html", null ]
     ] ],
-    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
+    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Gui::TransformEditor", "classRa_1_1Gui_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],
