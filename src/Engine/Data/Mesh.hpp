@@ -431,10 +431,6 @@ class RA_ENGINE_API GeneralMesh : public IndexedGeometry<Core::Geometry::General
     using IndexType = Core::Vector3ui;
 
   public:
-    inline explicit GeneralMesh(
-        const std::string& name,
-        typename base::CoreGeometry&& geom,
-        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_POLYGON );
     using base::base;
     inline size_t getNumFaces() const override;
 
@@ -463,7 +459,7 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
         indices.reserve( edges.size() );
         std::transform(
             edges.begin(), edges.end(), std::back_inserter( indices ), []( Ra::Core::Vector2ui v ) {
-                return ( Ra::Core::Vector3ui { v( 0 ), v( 1 ), v( 1 ) } );
+                return ( typename CoreMeshType::IndexType { v( 0 ), v( 1 ), v( 1 ) } );
             } );
     }*/
 

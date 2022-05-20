@@ -568,14 +568,17 @@ LineMesh::LineMesh( const std::string& name, typename base::MeshRenderMode rende
 /////////  GeneralMesh ///////////
 
 template <typename T>
-GeneralMesh<T>::GeneralMesh( const std::string& name,
-                             typename base::CoreGeometry&& geom,
-                             typename base::MeshRenderMode renderMode ) :
-    base( name, std::move( geom ), renderMode ) {}
-
-template <typename T>
 size_t GeneralMesh<T>::getNumFaces() const {
-    return base::getCoreGeometry().getIndices().size();
+    switch ( this->m_renderMode ) {
+    case base::MeshRenderMode::RM_QUAD_STRIP:
+        [[fallthrough]];
+    case base::MeshRenderMode::RM_QUADS:
+        [[fallthrough]];
+    case base::MeshRenderMode::RM_POLYGON:
+        return base::getCoreGeometry().getIndices().size();
+    default:
+        return size_t( 0 );
+    }
 }
 
 template <typename T>
