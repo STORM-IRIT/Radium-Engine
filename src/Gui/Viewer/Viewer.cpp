@@ -587,6 +587,10 @@ void Viewer::showEvent( QShowEvent* ev ) {
     emit needUpdate();
 }
 
+void Viewer::focusOutEvent( QFocusEvent* ) {
+    keyReleased( activeKey() );
+}
+
 std::tuple<KeyMappingManager::KeyMappingAction,
            KeyMappingManager::KeyMappingAction,
            KeyMappingManager::KeyMappingAction>

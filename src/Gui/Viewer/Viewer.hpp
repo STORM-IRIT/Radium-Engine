@@ -257,6 +257,9 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     void showEvent( QShowEvent* ev ) override;
 
+    /// reset key pressed, in case a key is pressed when focus lost
+    void focusOutEvent( QFocusEvent* event ) override;
+
     /// @name
     /// handle the events, called by *Event, do the actual work, should be overriden in
     /// derived classes.
