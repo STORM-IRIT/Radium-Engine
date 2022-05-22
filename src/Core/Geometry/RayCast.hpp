@@ -30,7 +30,7 @@ bool RA_CORE_API RayCastSphere( const Ray& r,
 
 /// Intersect a ray with an infinite plane defined by point A and normal.
 bool RA_CORE_API RayCastPlane( const Ray& r,
-                               const Core::Vector3 a,
+                               const Core::Vector3& a,
                                const Core::Vector3& normal,
                                std::vector<Scalar>& hitsOut );
 
@@ -43,7 +43,7 @@ bool RA_CORE_API RayCastCylinder( const Ray& r,
 
 /// Intersect a ray with a triangle abc.
 bool RA_CORE_API RayCastTriangle( const Ray& r,
-                                  const Core::Vector3 a,
+                                  const Core::Vector3& a,
                                   const Core::Vector3& b,
                                   const Core::Vector3& c,
                                   std::vector<Scalar>& hitsOut );
