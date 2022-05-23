@@ -8,11 +8,15 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
 
+#include <fstream>
+
 namespace Ra {
 namespace Engine {
 namespace Data {
 
 static const std::string materialName { "Volumetric" };
+
+nlohmann::json VolumetricMaterial::s_parametersMetadata = {};
 
 VolumetricMaterial::VolumetricMaterial( const std::string& name ) :
     Material( name, materialName, Material::MaterialAspect::MAT_DENSITY ) {}
@@ -115,6 +119,10 @@ void VolumetricMaterial::registerMaterial() {
             rt.setConfiguration( *passconfig,
                                  Rendering::DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
         } );
+
+    // Registering parameters metadata
+    std::ifstream metadata( resourcesRootDir + "Metadata/Volumetric.json" );
+    metadata >> s_parametersMetadata;
 }
 
 void VolumetricMaterial::unregisterMaterial() {
