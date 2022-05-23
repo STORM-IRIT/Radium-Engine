@@ -43,15 +43,6 @@ void SimpleMaterial::updateGL() {
     updateRenderingParameters();
 }
 
-void SimpleMaterial::updateState() {
-    m_color = m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.color" )
-                  .m_value;
-    m_perVertexColor =
-        m_renderParameters
-            .getParameter<RenderParameters::BoolParameter>( "material.perVertexColor" )
-            .m_value;
-}
-
 } // namespace Data
 } // namespace Engine
 } // namespace Ra

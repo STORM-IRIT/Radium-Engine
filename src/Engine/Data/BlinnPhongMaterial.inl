@@ -48,7 +48,7 @@ inline Texture* BlinnPhongMaterial::getTexture( const TextureSemantic& semantic 
 }
 
 inline nlohmann::json BlinnPhongMaterial::getParametersMetadata() const {
-    return m_parametersMetadata;
+    return s_parametersMetadata;
 }
 
 inline void BlinnPhongMaterial::setColoredByVertexAttrib( bool state ) {

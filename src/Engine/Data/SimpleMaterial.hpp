@@ -43,8 +43,6 @@ class RA_ENGINE_API SimpleMaterial : public Material
      */
     void updateGL() override final;
 
-    void updateState() override;
-
     /**
      * Add an new texture, from a TextureParameters, to control the specified BSDF parameter.
      * The textures will be finalized (i.e loaded from a file if needed and transformed to OpenGL
