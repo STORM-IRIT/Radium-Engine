@@ -69,6 +69,13 @@ class RA_ENGINE_API VolumetricMaterial final : public Material
      */
     static void unregisterMaterial();
 
+    /**
+     * Get a json containing metadata about the parameters of the material.
+     *
+     * @return the metadata in json format
+     */
+    inline nlohmann::json getParametersMetadata() const override;
+
   public:
     /// Absorption coefficient, default to Air (0.0011, 0.0024, 0.014)
     Core::Utils::Color m_sigma_a { 0.0011_ra, 0.0024_ra, 0.014_ra };
@@ -93,6 +100,9 @@ class RA_ENGINE_API VolumetricMaterial final : public Material
      * Update the rendering parameters for the Material
      */
     void updateRenderingParameters();
+
+    /// The json containing metadata about the parameters of the material.
+    static nlohmann::json s_parametersMetadata;
 };
 
 } // namespace Data

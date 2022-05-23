@@ -13,6 +13,10 @@ inline Texture* VolumetricMaterial::getTexture() const {
     return m_texture;
 }
 
+inline nlohmann::json VolumetricMaterial::getParametersMetadata() const {
+    return s_parametersMetadata;
+}
+
 } // namespace Data
 } // namespace Engine
 } // namespace Ra
