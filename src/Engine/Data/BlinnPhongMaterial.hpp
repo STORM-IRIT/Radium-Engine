@@ -109,7 +109,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
   private:
     std::map<TextureSemantic, Texture*> m_textures;
     std::map<TextureSemantic, TextureParameters> m_pendingTextures;
-    static nlohmann::json m_parametersMetadata;
+    static nlohmann::json s_parametersMetadata;
 
     /**
      * Add an new texture, from a given file, to control the specified BSDF parameter.

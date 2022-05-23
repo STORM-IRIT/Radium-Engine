@@ -19,7 +19,7 @@ namespace Engine {
 namespace Data {
 static const std::string materialName { "BlinnPhong" };
 
-nlohmann::json BlinnPhongMaterial::m_parametersMetadata = {};
+nlohmann::json BlinnPhongMaterial::s_parametersMetadata = {};
 
 BlinnPhongMaterial::BlinnPhongMaterial( const std::string& instanceName ) :
     Material( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
@@ -152,7 +152,7 @@ void BlinnPhongMaterial::registerMaterial() {
 
     // Registering parameters metadata
     std::ifstream metadata( resourcesRootDir + "Metadata/BlinnPhong.json" );
-    metadata >> m_parametersMetadata;
+    metadata >> s_parametersMetadata;
 }
 
 void BlinnPhongMaterial::unregisterMaterial() {

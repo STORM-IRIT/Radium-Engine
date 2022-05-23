@@ -44,8 +44,19 @@ class RA_ENGINE_API PlainMaterial final : public SimpleMaterial
      * After removal, the material is no more available, ...
      */
     static void unregisterMaterial();
-};
 
+    void updateState() override;
+
+    /**
+     * Get a json containing metadata about the parameters of the material.
+     *
+     * @return the metadata in json format
+     */
+    nlohmann::json getParametersMetadata() const override;
+
+  private:
+    static nlohmann::json s_parametersMetadata;
+};
 } // namespace Data
 } // namespace Engine
 } // namespace Ra

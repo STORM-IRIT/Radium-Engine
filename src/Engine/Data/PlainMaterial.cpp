@@ -6,11 +6,15 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
 
+#include <fstream>
+
 namespace Ra {
 namespace Engine {
 namespace Data {
 
 static const std::string materialName { "Plain" };
+
+nlohmann::json PlainMaterial::s_parametersMetadata = {};
 
 PlainMaterial::PlainMaterial( const std::string& instanceName ) :
     SimpleMaterial( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
@@ -48,10 +52,26 @@ void PlainMaterial::registerMaterial() {
             auto zprepass = Data::ShaderConfigurationFactory::getConfiguration( "ZprepassPlain" );
             rt.setConfiguration( *zprepass, Rendering::DefaultRenderingPasses::Z_PREPASS );
         } );
+    // Registering parameters metadata
+    std::ifstream metadata( resourcesRootDir + "Metadata/Simple.json" );
+    metadata >> s_parametersMetadata;
 }
 
 void PlainMaterial::unregisterMaterial() {
     Rendering::EngineRenderTechniques::removeDefaultTechnique( "Plain" );
+}
+
+void PlainMaterial::updateState() {
+    m_color = m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.color" )
+                  .m_value;
+    m_perVertexColor =
+        m_renderParameters
+            .getParameter<RenderParameters::BoolParameter>( "material.perVertexColor" )
+            .m_value;
+}
+
+nlohmann::json PlainMaterial::getParametersMetadata() const {
+    return s_parametersMetadata;
 }
 
 } // namespace Data
