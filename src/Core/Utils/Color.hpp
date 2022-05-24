@@ -10,6 +10,16 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
+/**
+ * Get a named color from its name. Return the uint value of named svg color. The value is of the
+ * form 0xRRGGBB. RR is red, GG is green and BB is blue.
+ *
+ * \param name: the name of the color as given from svg spec.
+ * \return Color code, or 0 if \a name is not a valid svg color name (0 corresponds to black).
+ * \see https://www.december.com/html/spec/colorsvg.html
+ */
+uint32_t RA_CORE_API getNamedColorCode( std::string_view name );
+
 /*!
  * Colors are defined as vector4, i.e. 4 Scalars in RGBA order.
  * displayable colors should have all their coordinates between 0 and 1.
@@ -130,6 +140,15 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
     static inline ColorBase<_Scalar> Skin() {
         return ColorBase<_Scalar>( _Scalar( 1.0 ), _Scalar( 0.87 ), _Scalar( 0.74 ) );
     }
+
+    /// Return a color base on svg name, or Black() if \a name do not correspond to a supported
+    /// color name.
+    /// \param name: a lowercase string corresponding to a valid svg color name. \see
+    /// https://www.w3.org/TR/css-color-3/#svg-color
+    static inline ColorBase<_Scalar> getNamedColor( std::string_view name ) {
+        return fromRGB24( getNamedColorCode( name ) );
+    }
+
     // Convert to/from various int formats
 
     static inline ColorBase<_Scalar> fromChars( uchar r, uchar g, uchar b, uchar a = 0xff ) {
@@ -137,6 +156,13 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
                                    _Scalar( g ) / 255.0f,
                                    _Scalar( b ) / 255.0f,
                                    _Scalar( a ) / 255.0f );
+    }
+
+    static inline ColorBase<_Scalar> fromRGB24( uint32_t rgb ) {
+        uchar r = uchar( ( rgb >> 16 ) & 0xff );
+        uchar g = uchar( ( rgb >> 8 ) & 0xff );
+        uchar b = uchar( ( rgb >> 0 ) & 0xff );
+        return fromChars( r, g, b );
     }
 
     static inline ColorBase<_Scalar> fromRGBA32( uint32_t rgba ) {

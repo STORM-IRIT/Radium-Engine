@@ -55,4 +55,20 @@ TEST_CASE( "Core/Utils/Color", "[Core][Core/Utils][Color]" ) {
         // Conversion to ARGB32 failed
         REQUIRE( grey3.toARGB32() == argb );
     }
+    SECTION( "Test srgb" ) {
+        Color red   = Color::sRGBToLinearRGB( Color::Red() );
+        Color green = Color::sRGBToLinearRGB( Color::Green() );
+        Color blue  = Color::sRGBToLinearRGB( Color::Blue() );
+
+        REQUIRE( Color::linearRGBTosRGB( red ).isApprox( Color::Red() ) );
+        REQUIRE( Color::linearRGBTosRGB( green ).isApprox( Color::Green() ) );
+        REQUIRE( Color::linearRGBTosRGB( blue ).isApprox( Color::Blue() ) );
+    }
+    SECTION( "Test named" ) {
+        Color teal  = Color::getNamedColor( "teal" );
+        Color dummy = Color::getNamedColor( "dummy" );
+
+        REQUIRE( dummy.isApprox( Color::Black() ) );
+        REQUIRE( teal.isApprox( Color( 0_ra, 128_ra / 255_ra, 128_ra / 255_ra ) ) );
+    }
 }
