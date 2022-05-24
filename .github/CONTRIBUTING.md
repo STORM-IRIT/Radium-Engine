@@ -51,8 +51,6 @@ Before creating bug reports, please check [this list](#before-submitting-a-bug-r
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
 
-#### Before Submitting A Bug Report
-
 #### How Do I Submit A (Good) Bug Report?
 
 Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). After you've determined which component your bug is related to (e.g. [Radium Libraries](#radium-libraries) or [Radium Applications and Plugins](#radium-applications-and-plugins) ), create an issue on that repository and provide the following information by filling in [the template](ISSUE_TEMPLATE.md).
@@ -129,6 +127,7 @@ Both issue lists are sorted by total number of comments. While not perfect, numb
 
 ### Git Commit Messages
 
+* Start commit message with a tag to identify main modified components, e.g. [core], [doc], [tests], [engine], [cmake], [github]
 * Use the present tense ("Add feature" not "Added feature")
 * Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
 * Limit the first line to 72 characters or less

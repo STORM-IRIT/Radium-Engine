@@ -19,7 +19,11 @@ Please check if the PR fulfills these requirements
 
 Be aware that the PR request cannot be accepted if it doesn't pass the Continuous Integration tests.
 
-- **What kind of change does this PR introduce?** (Bug fix, feature, docs update, ...)
+- **What kind of change does this PR introduce?**
+  - [ ] bug fix
+  - [ ] feature
+  - [ ] docs update
+  - [ ] other:
 
 - **What is the current behavior?** (You can also link to an open issue here)
 
