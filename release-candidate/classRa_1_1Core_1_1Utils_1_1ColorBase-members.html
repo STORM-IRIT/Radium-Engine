@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.36</span>
+   &#160;<span id="projectnumber">1.2.37</span>
    </div>
   </td>
  </tr>
@@ -113,7 +113,9 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Utils_1_1ColorBase.
   <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#aa7f036875b9518348389580031acc8e0">fromChars</a>(uchar r, uchar g, uchar b, uchar a=0xff)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#ac863a693d5be518521734c6228e09e00">fromHSV</a>(const _Scalar hue, const _Scalar saturation=1.0, const _Scalar value=1.0, const _Scalar alpha=1.0)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a230dfe167e462895abd14a207bf7bc29">fromRGB</a>(const Eigen::MatrixBase&lt; Derived &gt; &amp;rgb, Scalar alpha=Scalar(1.))</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a0fb821baacbb510d507c6b8a1cde6760">fromRGBA32</a>(uint32_t rgba)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a63bcf8f206e43c1b8ef9a71e997c5073">fromRGB24</a>(uint32_t rgb)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a0fb821baacbb510d507c6b8a1cde6760">fromRGBA32</a>(uint32_t rgba)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#ab1cb43953a8f5e3ed57f4981e2573a1d">getNamedColor</a>(std::string_view name)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a54193413c10301c1edf46fc41fb09dfb">Green</a>()</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22">Grey</a>(_Scalar f=_Scalar(0.5), _Scalar a=_Scalar(1.))</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#adca349bd4619b729b57790253e60d9c6">hasValidAlpha</a>() const</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
@@ -136,7 +138,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Utils_1_1ColorBase.
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue May 24 2022 07:33:45 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 17:57:18 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

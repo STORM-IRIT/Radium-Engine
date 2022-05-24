@@ -8,8 +8,7 @@ var StandardAttribNames_8hpp =
       [ "VERTEX_TEXCOORD", "StandardAttribNames_8hpp.html#a601e93ad276b69b096bcb796ff27c2cfa612efc949760fe8f24be31234261eb0f", null ],
       [ "VERTEX_COLOR", "StandardAttribNames_8hpp.html#a601e93ad276b69b096bcb796ff27c2cfab5668a9a21e867d0d9e7266d315c1939", null ],
       [ "VERTEX_WEIGHTS", "StandardAttribNames_8hpp.html#a601e93ad276b69b096bcb796ff27c2cfa8734d3b2aedb02d4163b62079c7c4e9e", null ],
-      [ "VERTEX_WEIGHT_IDX", "StandardAttribNames_8hpp.html#a601e93ad276b69b096bcb796ff27c2cfa75b34a008b3a216e1792e9cfeacb1b56", null ],
-      [ "MAX_DATA", "StandardAttribNames_8hpp.html#a601e93ad276b69b096bcb796ff27c2cfad42275f28681d4db16f4222c4f3cc3e6", null ]
+      [ "VERTEX_WEIGHT_IDX", "StandardAttribNames_8hpp.html#a601e93ad276b69b096bcb796ff27c2cfa75b34a008b3a216e1792e9cfeacb1b56", null ]
     ] ],
     [ "getAttribName", "StandardAttribNames_8hpp.html#a9bf7b8f0db1eacfcae5bd58d00c1c906", null ]
 ];

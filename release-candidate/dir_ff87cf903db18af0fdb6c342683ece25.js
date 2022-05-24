@@ -17,6 +17,7 @@ var dir_ff87cf903db18af0fdb6c342683ece25 =
       [ "CircularIndex", "classRa_1_1Core_1_1Utils_1_1CircularIndex.html", "classRa_1_1Core_1_1Utils_1_1CircularIndex" ]
     ] ],
     [ "CircularIndex.inl", "CircularIndex_8inl.html", null ],
+    [ "Color.cpp", "Color_8cpp.html", "Color_8cpp" ],
     [ "Color.hpp", "Color_8hpp.html", "Color_8hpp" ],
     [ "ContainerIntrospectionInterface.hpp", "ContainerIntrospectionInterface_8hpp.html", [
       [ "ContainerIntrospectionInterface", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface" ]

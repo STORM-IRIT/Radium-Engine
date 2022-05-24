@@ -1,15 +1,15 @@
 <map id="Ra::Engine::Data::BlinnPhongMaterial" name="Ra::Engine::Data::BlinnPhongMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="645,2083,855,2292"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="357,1635,549,1844"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="11,1069,235,1220"/>
+<area shape="rect" id="node1" title=" " alt="" coords="645,2141,855,2351"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="357,1679,549,1888"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="11,1084,235,1235"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html" title=" " alt="" coords="5,5,220,816"/>
-<area shape="rect" id="node5" title=" " alt="" coords="393,1106,513,1183"/>
-<area shape="rect" id="node6" href="$classbool.html" title=" " alt="" coords="605,1106,655,1183"/>
-<area shape="rect" id="node7" title="STL class." alt="" coords="265,1106,352,1183"/>
+<area shape="rect" id="node5" title=" " alt="" coords="393,1121,513,1198"/>
+<area shape="rect" id="node6" href="$classbool.html" title=" " alt="" coords="605,1121,655,1198"/>
+<area shape="rect" id="node7" title="STL class." alt="" coords="265,1121,352,1198"/>
 <area shape="rect" id="node8" title="STL class." alt="" coords="245,365,383,457"/>
-<area shape="rect" id="node9" href="$classfloat.html" title=" " alt="" coords="814,1701,865,1778"/>
-<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="889,1473,1078,2005"/>
-<area shape="rect" id="node11" title=" " alt="" coords="931,1099,1094,1191"/>
-<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="718,879,907,1411"/>
+<area shape="rect" id="node9" href="$classfloat.html" title=" " alt="" coords="814,1745,865,1822"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="889,1503,1078,2064"/>
+<area shape="rect" id="node11" title=" " alt="" coords="931,1113,1094,1205"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="718,879,907,1440"/>
 <area shape="rect" id="node13" title=" " alt="" coords="725,365,900,457"/>
 </map>

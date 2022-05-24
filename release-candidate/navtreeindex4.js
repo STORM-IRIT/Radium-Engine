@@ -1,5 +1,10 @@
 var NAVTREEINDEX4 =
 {
+"MeshPrimitives_8hpp.html#aec3954d76263b5f055c796d8696b7b68":[11,0,3,0,3,23,14],
+"MeshPrimitives_8hpp_source.html":[11,0,3,0,3,23],
+"MeshPrimitives_8inl.html":[11,0,3,0,3,24],
+"MeshPrimitives_8inl.html#a1ed51b14187cfc796e6199a4db5a3ae8":[11,0,3,0,3,24,1],
+"MeshPrimitives_8inl.html#a8df5bdede5cff803cf7c4b8eb7a74cd8":[11,0,3,0,3,24,0],
 "MeshPrimitives_8inl_source.html":[11,0,3,0,3,24],
 "Mesh_8cpp.html":[11,0,3,1,0,16],
 "Mesh_8cpp_source.html":[11,0,3,1,0,16],
@@ -37,10 +42,10 @@ var NAVTREEINDEX4 =
 "OFFFileManager_8hpp_source.html":[11,0,3,4,2,5],
 "Obb_8hpp.html":[11,0,3,0,3,27],
 "Obb_8hpp_source.html":[11,0,3,0,3,27],
-"ObjectWithSemantic_8hpp.html":[11,0,3,0,7,15],
-"ObjectWithSemantic_8hpp_source.html":[11,0,3,0,7,15],
-"Observable_8hpp.html":[11,0,3,0,7,16],
-"Observable_8hpp_source.html":[11,0,3,0,7,16],
+"ObjectWithSemantic_8hpp.html":[11,0,3,0,7,16],
+"ObjectWithSemantic_8hpp_source.html":[11,0,3,0,7,16],
+"Observable_8hpp.html":[11,0,3,0,7,17],
+"Observable_8hpp_source.html":[11,0,3,0,7,17],
 "OpenGLContext_8cpp.html":[11,0,3,3,1,0],
 "OpenGLContext_8cpp.html#ace8cbaa95df9048e39402f42bd20be06":[11,0,3,3,1,0,0],
 "OpenGLContext_8cpp_source.html":[11,0,3,3,1,0],
@@ -244,10 +249,5 @@ var NAVTREEINDEX4 =
 "Resources_8hpp.html#a3cb536c70ed3e05e6ed8c0da51670cb2":[11,0,3,0,5,1,2],
 "Resources_8hpp.html#a49a62b95fba90756b4c2777238c2e032":[11,0,3,0,5,1,0],
 "Resources_8hpp.html#ad6fb8d46cb6a7f05ceae06d2498fca31":[11,0,3,0,5,1,6],
-"Resources_8hpp.html#ae666024acf0e64bda7b94f972af68aef":[11,0,3,0,5,1,4],
-"Resources_8hpp.html#af434c5b44164970395428b4a00e7729c":[11,0,3,0,5,1,3],
-"Resources_8hpp_source.html":[11,0,3,0,5,1],
-"RotateAroundCameraManipulator_8cpp.html":[11,0,3,2,9,5],
-"RotateAroundCameraManipulator_8cpp.html#ab1478fa43039cf1b62157b0375df9960":[11,0,3,2,9,5,0],
-"RotateAroundCameraManipulator_8cpp.html#ab1478fa43039cf1b62157b0375df9960":[11,0,3,2,9,5,1]
+"Resources_8hpp.html#ae666024acf0e64bda7b94f972af68aef":[11,0,3,0,5,1,4]
 };

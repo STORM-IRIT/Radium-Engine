@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.36</span>
+   &#160;<span id="projectnumber">1.2.37</span>
    </div>
   </td>
  </tr>
@@ -191,8 +191,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7f0a6768d3dff7343b503929b142fc22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06951f0641b03be8d47e2762f75d1f6e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a>&lt; _Scalar &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a06951f0641b03be8d47e2762f75d1f6e">Skin</a> ()</td></tr>
 <tr class="separator:a06951f0641b03be8d47e2762f75d1f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1cb43953a8f5e3ed57f4981e2573a1d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a>&lt; _Scalar &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#ab1cb43953a8f5e3ed57f4981e2573a1d">getNamedColor</a> (std::string_view name)</td></tr>
+<tr class="separator:ab1cb43953a8f5e3ed57f4981e2573a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7f036875b9518348389580031acc8e0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a>&lt; _Scalar &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#aa7f036875b9518348389580031acc8e0">fromChars</a> (<a class="el" href="CoreMacros_8hpp.html#ae48ac2456c5ad6c956fef86e7bef3a21">uchar</a> r, <a class="el" href="CoreMacros_8hpp.html#ae48ac2456c5ad6c956fef86e7bef3a21">uchar</a> g, <a class="el" href="CoreMacros_8hpp.html#ae48ac2456c5ad6c956fef86e7bef3a21">uchar</a> b, <a class="el" href="CoreMacros_8hpp.html#ae48ac2456c5ad6c956fef86e7bef3a21">uchar</a> a=0xff)</td></tr>
 <tr class="separator:aa7f036875b9518348389580031acc8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63bcf8f206e43c1b8ef9a71e997c5073"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a>&lt; _Scalar &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a63bcf8f206e43c1b8ef9a71e997c5073">fromRGB24</a> (uint32_t <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#ab0b00b1a7c426dc9fb627cb2f59fe310">rgb</a>)</td></tr>
+<tr class="separator:a63bcf8f206e43c1b8ef9a71e997c5073"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fb821baacbb510d507c6b8a1cde6760"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a>&lt; _Scalar &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a0fb821baacbb510d507c6b8a1cde6760">fromRGBA32</a> (uint32_t rgba)</td></tr>
 <tr class="separator:a0fb821baacbb510d507c6b8a1cde6760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24ae2277581f744012d54c0a4e23e19f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a>&lt; _Scalar &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a24ae2277581f744012d54c0a4e23e19f">fromARGB32</a> (uint32_t argb)</td></tr>
@@ -210,7 +214,7 @@ class Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</h3>
 <dl class="section warning"><dt>Warning</dt><dd>Vector arithmetics can be used to add, substract, multiply or divide colors with scalars and other colors. In that case, alpha is treated as any other component. It is fine for most cases, however adding two colors (e.g. <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#aed9cce82f3b09c3ec32a9fdc898d3b7f">Blue()</a>+<a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1b7a2d694cf0fe9382aa80868253f0d1">Red()</a>) may lead to unconsistent alpha: <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#aed9cce82f3b09c3ec32a9fdc898d3b7f">Blue()</a>+<a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1b7a2d694cf0fe9382aa80868253f0d1">Red()</a> = {1, 0, 1, 2}. In that case, only the rgb values need to be added: <div class="fragment"><div class="line"><a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Color</a> result = <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a230dfe167e462895abd14a207bf7bc29">Color::fromRGB</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#aed9cce82f3b09c3ec32a9fdc898d3b7f">Blue</a>().<a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#ab0b00b1a7c426dc9fb627cb2f59fe310">rgb</a>()+<a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1b7a2d694cf0fe9382aa80868253f0d1">Red</a>().<a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#ab0b00b1a7c426dc9fb627cb2f59fe310">rgb</a>() ); <span class="comment">// result = {1, 0, 1, 1}</span></div>
 </div><!-- fragment --> The validity of alpha can be checked using <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#adca349bd4619b729b57790253e60d9c6">hasValidAlpha()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00028">28</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00038">38</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a31b32b3c3e1cbd4f08a2387648abeee0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31b32b3c3e1cbd4f08a2387648abeee0">&#9670;&nbsp;</a></span>VectorType</h2>
@@ -226,7 +230,7 @@ template&lt;typename _Scalar &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00031">31</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00041">41</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -256,7 +260,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00033">33</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00043">43</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -310,7 +314,7 @@ template&lt;typename S2 &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00036">36</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00046">46</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -344,7 +348,7 @@ template&lt;typename S2 &gt; </div>
 
 <p>Copy constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00041">41</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00051">51</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -378,7 +382,7 @@ template&lt;typename Derived &gt; </div>
 
 <p>Copy constructor from <a class="el" href="namespaceEigen.html">Eigen</a> expressions: <code><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a>&lt;_Scalar&gt; c( (*this) * 255 );</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00045">45</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00055">55</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -408,7 +412,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00087">87</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00097">97</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -437,7 +441,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00090">90</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00100">100</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -466,7 +470,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00086">86</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00096">96</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -495,7 +499,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00094">94</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00104">104</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -524,7 +528,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00106">106</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00116">116</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -553,7 +557,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00118">118</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00128">128</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -583,7 +587,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00150">150</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00176">176</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -635,7 +639,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00135">135</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00154">154</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -687,7 +691,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00158">158</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00184">184</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -729,7 +733,37 @@ template&lt;typename Derived &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00076">76</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00086">86</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a63bcf8f206e43c1b8ef9a71e997c5073"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63bcf8f206e43c1b8ef9a71e997c5073">&#9670;&nbsp;</a></span>fromRGB24()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Scalar &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a>&lt;_Scalar&gt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase</a>&lt; _Scalar &gt;::fromRGB24 </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>rgb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00161">161</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -759,7 +793,44 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00142">142</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00168">168</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab1cb43953a8f5e3ed57f4981e2573a1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1cb43953a8f5e3ed57f4981e2573a1d">&#9670;&nbsp;</a></span>getNamedColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Scalar &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a>&lt;_Scalar&gt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase</a>&lt; _Scalar &gt;::getNamedColor </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return a color base on svg name, or <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#aaf67b196b10805750f12f3638ae81516">Black()</a> if <em>name</em> do not correspond to a supported color name. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>a lowercase string corresponding to a valid svg color name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://www.w3.org/TR/css-color-3/#svg-color">https://www.w3.org/TR/css-color-3/#svg-color</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00148">148</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -788,7 +859,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00102">102</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00112">112</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -828,7 +899,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00126">126</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00136">136</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -857,7 +928,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00088">88</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00098">98</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -889,7 +960,7 @@ template&lt;typename _Scalar &gt; </div>
 
 <p>convert the color expressed in linear RGB color space to sRGB </p>
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00064">64</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00074">74</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -918,7 +989,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00114">114</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00124">124</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -949,7 +1020,7 @@ template&lt;typename _Scalar &gt; </div>
 
 <p>cast operator, mandatory to use Vector arithmetic </p>
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00049">49</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00059">59</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -978,7 +1049,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00098">98</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00108">108</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1007,7 +1078,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00083">83</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00093">93</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1036,7 +1107,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00084">84</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00094">94</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1076,7 +1147,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00224">224</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00250">250</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1105,7 +1176,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00130">130</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00140">140</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1137,7 +1208,7 @@ template&lt;typename _Scalar &gt; </div>
 
 <p>convert the color expressed in sRGB color space to linear RGB </p>
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00052">52</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00062">62</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1166,7 +1237,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00217">217</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00243">243</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1195,7 +1266,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00210">210</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00236">236</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1224,7 +1295,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00122">122</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00132">132</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1253,7 +1324,7 @@ template&lt;typename _Scalar &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00110">110</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Color_8hpp_source.html#l00120">120</a> of file <a class="el" href="Color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -1262,16 +1333,16 @@ template&lt;typename _Scalar &gt; </div>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html_ab0b00b1a7c426dc9fb627cb2f59fe310"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#ab0b00b1a7c426dc9fb627cb2f59fe310">Ra::Core::Utils::ColorBase::rgb</a></div><div class="ttdeci">Eigen::Block&lt; VectorType, 3, 1 &gt; rgb()</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00083">Color.hpp:83</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html_aed9cce82f3b09c3ec32a9fdc898d3b7f"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#aed9cce82f3b09c3ec32a9fdc898d3b7f">Ra::Core::Utils::ColorBase::Blue</a></div><div class="ttdeci">static ColorBase&lt; _Scalar &gt; Blue()</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00106">Color.hpp:106</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html_a1b7a2d694cf0fe9382aa80868253f0d1"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1b7a2d694cf0fe9382aa80868253f0d1">Ra::Core::Utils::ColorBase::Red</a></div><div class="ttdeci">static ColorBase&lt; _Scalar &gt; Red()</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00098">Color.hpp:98</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html_a230dfe167e462895abd14a207bf7bc29"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a230dfe167e462895abd14a207bf7bc29">Ra::Core::Utils::ColorBase&lt; Scalar &gt;::fromRGB</a></div><div class="ttdeci">static ColorBase fromRGB(const Eigen::MatrixBase&lt; Derived &gt; &amp;rgb, Scalar alpha=Scalar(1.))</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00076">Color.hpp:76</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_a847b1262d9272f37005c731601da5580"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Ra::Core::Utils::Color</a></div><div class="ttdeci">ColorBase&lt; Scalar &gt; Color</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00239">Color.hpp:239</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html_ab0b00b1a7c426dc9fb627cb2f59fe310"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#ab0b00b1a7c426dc9fb627cb2f59fe310">Ra::Core::Utils::ColorBase::rgb</a></div><div class="ttdeci">Eigen::Block&lt; VectorType, 3, 1 &gt; rgb()</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00093">Color.hpp:93</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html_aed9cce82f3b09c3ec32a9fdc898d3b7f"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#aed9cce82f3b09c3ec32a9fdc898d3b7f">Ra::Core::Utils::ColorBase::Blue</a></div><div class="ttdeci">static ColorBase&lt; _Scalar &gt; Blue()</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00116">Color.hpp:116</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html_a1b7a2d694cf0fe9382aa80868253f0d1"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1b7a2d694cf0fe9382aa80868253f0d1">Ra::Core::Utils::ColorBase::Red</a></div><div class="ttdeci">static ColorBase&lt; _Scalar &gt; Red()</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00108">Color.hpp:108</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html_a230dfe167e462895abd14a207bf7bc29"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a230dfe167e462895abd14a207bf7bc29">Ra::Core::Utils::ColorBase&lt; Scalar &gt;::fromRGB</a></div><div class="ttdeci">static ColorBase fromRGB(const Eigen::MatrixBase&lt; Derived &gt; &amp;rgb, Scalar alpha=Scalar(1.))</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00086">Color.hpp:86</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_a847b1262d9272f37005c731601da5580"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Ra::Core::Utils::Color</a></div><div class="ttdeci">ColorBase&lt; Scalar &gt; Color</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00265">Color.hpp:265</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html">Utils</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">ColorBase</a></li>
-    <li class="footer">Generated on Tue May 24 2022 07:33:45 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 17:57:18 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
