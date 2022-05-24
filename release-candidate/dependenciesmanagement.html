@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -105,7 +105,8 @@ $(document).ready(function(){initNavTree('dependenciesmanagement.html',''); init
 <li class="level1"><a href="#autotoc_md18">User provided external dependencies</a></li>
 </ul>
 </div>
-<div class="textblock"><p>Radium relies on several external libraries to load files or to represent some data:</p><ul>
+<div class="textblock"><p>Radium relies on several external libraries to load files or to represent some data:</p>
+<ul>
 <li>[Core] <a class="el" href="namespaceEigen.html">Eigen</a>, <a class="el" href="namespaceOpenMesh.html">OpenMesh</a>, nlohmann_json</li>
 <li>[Engine] glm, globjects, glbindings, tinyEXR</li>
 <li>[IO] Assimp</li>
@@ -116,7 +117,8 @@ $(document).ready(function(){initNavTree('dependenciesmanagement.html',''); init
 <p>We developed a series of tools to fetch and compile these dependencies easily, except for Qt, which needs to be installed and passed to cmake through the variables <code>Qt5_DIR</code> OR <code>Qt6_DIR</code> (see documentation at <a href="https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started">https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started</a>).</p>
 <h1><a class="anchor" id="autotoc_md15"></a>
 Dependencies management systems</h1>
-<p>We offer two different systems to handle external dependencies (see details and how-to in the following sections):</p><ol type="1">
+<p>We offer two different systems to handle external dependencies (see details and how-to in the following sections):</p>
+<ol type="1">
 <li><b>[recommended]</b> external build: the user compiles and installs once for all the dependencies using a dedicated cmake project. Then, Radium cmake project is configured to link with installed dependencies.</li>
 <li>manual management: users can also provide their own version of the dependencies through cmake packages.</li>
 </ol>
@@ -186,47 +188,47 @@ User provided external dependencies</h1>
 </ul>
 <p>Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record</p>
 <ul>
-<li>assimp: <a href="https://github.com/assimp/assimp.git,">https://github.com/assimp/assimp.git,</a> [tags/v5.0.1],<ul>
+<li>assimp: <a href="https://github.com/assimp/assimp.git">https://github.com/assimp/assimp.git</a>, [tags/v5.0.1],<ul>
 <li>with options <code>-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True</code></li>
 </ul>
 </li>
-<li>tinyply: <a href="https://github.com/ddiakopoulos/tinyply.git,">https://github.com/ddiakopoulos/tinyply.git,</a> [tags/2.3.2],<ul>
+<li>tinyply: <a href="https://github.com/ddiakopoulos/tinyply.git">https://github.com/ddiakopoulos/tinyply.git</a>, [tags/2.3.2],<ul>
 <li>with options <code>-DSHARED_LIB=TRUE</code></li>
 </ul>
 </li>
-<li>glm: <a href="https://github.com/g-truc/glm.git,">https://github.com/g-truc/glm.git,</a> [0.9.9.5],<ul>
+<li>glm: <a href="https://github.com/g-truc/glm.git">https://github.com/g-truc/glm.git</a>, [0.9.9.5],<ul>
 <li>with options <code>-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib</code></li>
 </ul>
 </li>
-<li>glbinding: <a href="https://github.com/cginternals/glbinding.git,">https://github.com/cginternals/glbinding.git,</a> [663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c],<ul>
+<li>glbinding: <a href="https://github.com/cginternals/glbinding.git">https://github.com/cginternals/glbinding.git</a>, [663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c],<ul>
 <li>with options <code>-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF</code></li>
 </ul>
 </li>
-<li>globjects: <a href="https://github.com/dlyr/globjects.git,">https://github.com/dlyr/globjects.git,</a> [11c559a07d9e310abb2f53725fd47cfaf538f8b1],<ul>
+<li>globjects: <a href="https://github.com/dlyr/globjects.git">https://github.com/dlyr/globjects.git</a>, [11c559a07d9e310abb2f53725fd47cfaf538f8b1],<ul>
 <li>with options <code>-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR}</code></li>
 </ul>
 </li>
-<li>stb: <a href="https://github.com/nothings/stb.git,">https://github.com/nothings/stb.git,</a> [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],<ul>
+<li>stb: <a href="https://github.com/nothings/stb.git">https://github.com/nothings/stb.git</a>, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],<ul>
 <li>with options <code>None</code></li>
 </ul>
 </li>
-<li>tinyEXR: <a href="https://github.com/MathiasPaulin/tinyexr.git,">https://github.com/MathiasPaulin/tinyexr.git,</a> [origin/radium],<ul>
+<li>tinyEXR: <a href="https://github.com/MathiasPaulin/tinyexr.git">https://github.com/MathiasPaulin/tinyexr.git</a>, [origin/radium],<ul>
 <li>with options <code>-DBUILD_INSTALLABLE_LIB=ON</code></li>
 </ul>
 </li>
-<li>Eigen3: <a href="https://gitlab.com/libeigen/eigen.git,">https://gitlab.com/libeigen/eigen.git,</a> [e80ec243],<ul>
+<li>Eigen3: <a href="https://gitlab.com/libeigen/eigen.git">https://gitlab.com/libeigen/eigen.git</a>, [e80ec243],<ul>
 <li>with options <code>-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF</code></li>
 </ul>
 </li>
-<li><a class="el" href="namespaceOpenMesh.html">OpenMesh</a>: <a href="https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git,">https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git,</a> [tags/OpenMesh-8.1],<ul>
+<li><a class="el" href="namespaceOpenMesh.html">OpenMesh</a>: <a href="https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git">https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git</a>, [tags/OpenMesh-8.1],<ul>
 <li>with options <code>-DBUILD_APPS=OFF</code></li>
 </ul>
 </li>
-<li>cpplocate: <a href="https://github.com/cginternals/cpplocate.git,">https://github.com/cginternals/cpplocate.git,</a> [tags/v2.2.0],<ul>
+<li>cpplocate: <a href="https://github.com/cginternals/cpplocate.git">https://github.com/cginternals/cpplocate.git</a>, [tags/v2.2.0],<ul>
 <li>with options <code>-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF</code></li>
 </ul>
 </li>
-<li>nlohmann_json: <a href="https://github.com/nlohmann/json.git,">https://github.com/nlohmann/json.git,</a> [release/3.10.5],<ul>
+<li>nlohmann_json: <a href="https://github.com/nlohmann/json.git">https://github.com/nlohmann/json.git</a>, [release/3.10.5],<ul>
 <li>with options <code>-DJSON_Install=ON -DJSON_BuildTests=OFF</code></li>
 </ul>
 </li>
@@ -239,7 +241,7 @@ User provided external dependencies</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

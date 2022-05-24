@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -136,7 +136,8 @@ Import and export</h2>
 <p>Core and Engine (and the plugins) are compiled as dynamic libraries, therefore you must be careful about which symbols need exporting, especially on Windows. Every module has a specific header file (<code><a class="el" href="RaCore_8hpp.html">RaCore.hpp</a></code> for Core) which must be included first in all other headers of the module. In particular it defines the <code>*_API</code> macros which help exporting and importing symbols on Windows.</p>
 <h1><a class="anchor" id="autotoc_md92"></a>
 Core Libs</h1>
-<p><code>Core</code> contains most of the basic code on which the rest of the software is built.</p><ul>
+<p><code>Core</code> contains most of the basic code on which the rest of the software is built.</p>
+<ul>
 <li><code><a class="el" href="CoreMacros_8hpp.html">CoreMacros.hpp</a></code> has definitions of basic types, build configuration and useful macros.</li>
 <li><code>Math</code> is our math library, which is a wrapper around <em><a class="el" href="namespaceEigen.html">Eigen</a></em>. The most useful files are <code><a class="el" href="Math_8hpp.html">Math.hpp</a></code> which has mathematical constants and simple functions, and <code><a class="el" href="LinearAlgebra_8hpp.html">LinearAlgebra.hpp</a></code> which contains the type definitions of most basic vector and matrix types.</li>
 <li><code>Containers</code> has some specially useful std-like containers, most importantly <code><a class="el" href="VectorArray_8hpp.html">VectorArray.hpp</a></code> which defines a dynamic array of vectors with both a<code>std::vector</code>-like interface and compatibility with <a class="el" href="namespaceEigen.html">Eigen</a>.</li>
@@ -153,7 +154,8 @@ Engine Object Model</h1>
 Entities</h2>
 <p><em>Entities</em> are the base object manipulated by the engine. You can think of them as "game objects", something that represent an object in the scene. Entity data include a world space to object space transform and a list of <em>Components</em></p>
 <p>The entity's role is only to hold together this transform and the list of components. The entity uses double buffering to prevent transforms from being updated more than once per frame.</p>
-<p>When creating an entity, if you set its transform, <em>do not forget</em> to call <code>Entity::swapTransformBuffers</code>, this might prevent you some headache. Example : </p><div class="fragment"><div class="line"><a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a>* entity = theEntityManager-&gt;getOrCreate( <span class="stringliteral">&quot;MyEntity&quot;</span> );</div>
+<p>When creating an entity, if you set its transform, <em>do not forget</em> to call <code>Entity::swapTransformBuffers</code>, this might prevent you some headache. Example :</p>
+<div class="fragment"><div class="line"><a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a>* entity = theEntityManager-&gt;getOrCreate( <span class="stringliteral">&quot;MyEntity&quot;</span> );</div>
 <div class="line"><a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a> transform( Ra::Core::Transform::Identity() );</div>
 <div class="line">transform.translation = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>( 42, 13, 37 );</div>
 <div class="line">entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a3d2c816d8383d6967fd283839a9485ff">setTransform</a>( transform );</div>
@@ -181,7 +183,8 @@ ItemEntry : Handles to engine objects</h2>
 <p>Item entries are mainly used to harmonize the interface to manipulate objects in the GUI.</p>
 <h2><a class="anchor" id="autotoc_md99"></a>
 Object manipulation and editable transforms</h2>
-<p>Components have an interface through which transforms can be edited with three functions :</p><ul>
+<p>Components have an interface through which transforms can be edited with three functions :</p>
+<ul>
 <li><code>canEdit()</code></li>
 <li><code>getTransform()</code></li>
 <li><code>setTransform()</code></li>
@@ -197,7 +200,8 @@ The plugin framework</h1>
 <p>We use a compile-time plugins loading mechanism. When running <code>cmake</code>, it will list the contents of the <code>src/Plugins/</code> directory and add them to be compiled with the project, and automatically generate the code to include the plugins Systems in the main application.</p>
 <h2><a class="anchor" id="autotoc_md102"></a>
 Requirements</h2>
-<p>For this automated build to work the plugins are required to follow these requirements</p><ul>
+<p>For this automated build to work the plugins are required to follow these requirements</p>
+<ul>
 <li>The plugin code must be in a sub-folder of the <code>src/Plugins/</code> directory.</li>
 <li>The folder name is taken to be the <em>base name</em> of the plugin. If the directory name is <code>BaseName</code>, then<ul>
 <li>Plugin code must be in <code>namespace BaseNamePlugin</code></li>
@@ -209,7 +213,8 @@ Requirements</h2>
 </ul>
 <h2><a class="anchor" id="autotoc_md103"></a>
 Default plugins</h2>
-<p>See the structure of the default plugins for an example of a working plugin. So far three default plugin exist:</p><ul>
+<p>See the structure of the default plugins for an example of a working plugin. So far three default plugin exist:</p>
+<ul>
 <li><em>Animation</em> handles an animation skeleton and can play keyframe animations.</li>
 <li><em>Skinning</em> uses a geometric skinning method (like linear blend skinning or dual quaternion).</li>
 </ul>
@@ -226,7 +231,7 @@ Default plugins</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

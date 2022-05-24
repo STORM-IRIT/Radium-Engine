@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -109,7 +109,8 @@ Animation in Radium</h1>
 <p>In Radium, the animation of any data can be done through the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code> template. It stores the data keyframes, i.e. time-value couples, which are interpolated when the value for a given time is requested.</p>
 <h2><a class="anchor" id="autotoc_md43"></a>
 Using KeyFramedValue to animate data</h2>
-<p>There are two ways data can be animated using <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>:</p><ul>
+<p>There are two ways data can be animated using <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>:</p>
+<ul>
 <li>When the data is directly specified as a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>. In this case, particular values at specific times can be specified to create the animation keyframes, and then used when requested: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValue_8hpp.html">Core/Animation/KeyFramedValue.hpp</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValueInterpolators_8hpp.html">Core/Animation/KeyFramedValueInterpolators.hpp</a>&gt;</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keyword">struct </span>MyStruct {</div>
@@ -181,7 +182,8 @@ Using KeyFramedValue to animate data</h2>
 <h2><a class="anchor" id="autotoc_md44"></a>
 Character Animation</h2>
 <h3>Character Animation Basics</h3>
-<p>In order to animate a digital character, one may choose from two main animation techniques:</p><ul>
+<p>In order to animate a digital character, one may choose from two main animation techniques:</p>
+<ul>
 <li>skeleton-based animation, in which the character's mesh is bound to an animation skeleton composed of joints, sometimes called bones.</li>
 <li>cage-based animation, in which the character's mesh is bound to a set of points defining an englobing deformation cage.</li>
 </ul>
@@ -189,7 +191,8 @@ Character Animation</h2>
 <h3>Character Animation in Radium</h3>
 <p>The Radium Engine provides the basic classes for character animation.</p>
 <p>Starting from a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html">Ra::Core::Animation::HandleArray</a></code>, which represents a deformation metaphor, such as <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Ra::Core::Animation::Cage</a></code> or <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Ra::Core::Animation::Skeleton</a></code>, one must associate influence weights to each vertex of a mesh within a <code><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Ra::Core::Animation::WeightMatrix</a></code> (rows representing vertices, columns handles). These influence weights, or skinning weights, are then used by a skinning algorithm to deform the associated mesh vertices w.r.t. the handles deformation defined by the animation pose. The mesh is also linked to each handle through a <code>bindMatrix</code> that expresses the transformation from the mesh's local frame to the handle's local frame.</p>
-<p>In the case of character animation, an animation is a set of <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a>&lt;<a class="el" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a>&gt;</code>, one for each joint, which are interpolated by default as follows:</p><ul>
+<p>In the case of character animation, an animation is a set of <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a>&lt;<a class="el" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a>&gt;</code>, one for each joint, which are interpolated by default as follows:</p>
+<ul>
 <li>the translation and scale channels are linearly interpolated;</li>
 <li>the rotation channel is linearly interpolated in quaternion space.</li>
 </ul>
@@ -197,7 +200,8 @@ Character Animation</h2>
 <p>Hence, in order to deform the character's mesh, one must first use the handle's <code>bindMatrix</code> to express the mesh vertices position into the handles' local space before combining the handles local transformations to deform the mesh vertices.</p>
 <p><em>Note</em>: As of now, cage-based character animation is not implemented in the Radium Engine.</p>
 <h4>Skeleton-Based Character Animation in Radium</h4>
-<p>The Radium Engine provides a system specific to the skeleton-based animation of a character, the `Ra::Engine::Scene::SkeletonBasedAnimationSystem. This system is responsible for transmitting calls to/from animation-related processes to 2 specific <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Scene::Component</a></code>:</p><ul>
+<p>The Radium Engine provides a system specific to the skeleton-based animation of a character, the `Ra::Engine::Scene::SkeletonBasedAnimationSystem. This system is responsible for transmitting calls to/from animation-related processes to 2 specific<code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Scene::Component</a></code>:</p>
+<ul>
 <li>the <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">Ra::Engine::Scene::SkeletonComponent</a></code>, which manages user interactions with the animation skeleton, enabling posing the character and playing the animations;</li>
 <li>the <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html" title="The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj...">Ra::Engine::Scene::SkinningComponent</a></code>, which is responsible for deforming the object's mesh vertices according to the desired skinning method.</li>
 </ul>
@@ -205,7 +209,8 @@ Character Animation</h2>
 <p>The Radium Engine also provides a user interface for Skeleton-based character animation parameters: the <code><a class="el" href="classRa_1_1Gui_1_1SkeletonBasedAnimationUI.html">Ra::Gui::SkeletonBasedAnimationUI</a></code>, which allows the user to edit animations, running parameters, skeleton display, skinning parameters and skinning weights display.</p>
 <h4>Importing skeleton-based character animation data into Radium</h4>
 <p>In order to import animation related data into Radium, the default loader would be the <code>Ra::IO::AssimpLoader</code>, which deals with several standard animation formats (fbx, collada, ...). In case one need to develop his own loader because using a file format not managed by the Assimp library, the Radium Engine provides a set of classes in <code>Core/Asset</code> defining data wrappers filled by loaders (see the specific documentation &ndash; which does not exist for now). For now, <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html">Ra::Core::Asset::FileLoaderInterface</a></code>s in the Radium Engine produce only one <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></code> per loaded file.</p>
-<p>Regarding character animation data, there are a few things to do in order to ensure correct import by the animation and skinning plugins:</p><ul>
+<p>Regarding character animation data, there are a few things to do in order to ensure correct import by the animation and skinning plugins:</p>
+<ul>
 <li>The generated <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></code> must contain exactly one <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></code> per animated object, as much <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html">Ra::Core::Asset::AnimationData</a></code> as needed per animated object and may contain several or no <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a></code>. Note: for objects composed of several mesh parts, these must be referred by their name when filling the <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></code>.</li>
 <li>The animation skeleton, i.e. the bones and hierarchy, must be loaded into the <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></code>, as well as the skinning weights. The bone hierarchy will be defined by the <code>Ra::Core::Asset::EdgeData</code>. Each bone will be represented by a <code><a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html">Ra::Core::Asset::HandleComponentData</a></code>, storing the bone's name, transform in model space and its per-skinned mesh offset matrix and vertex skinning weights. The offset matrix stores the transformation from mesh space to the node's local space.</li>
 <li>Animation keyframes, i.e. couples of time and pose (in local space), if any, must be loaded into an <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html">Ra::Core::Asset::AnimationData</a></code>. The whole animation must be stored bone-wise in <code><a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html">Ra::Core::Asset::HandleAnimation</a></code>s, whose name must match the bone's. </li>
@@ -225,7 +230,7 @@ Character Animation</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -119,13 +119,17 @@ Radium cmake utilities</h1>
 <p>Once installed, either from source or from pre-built binaries, Radium could be used and extended in any application, library or plugin as a cmake package.</p>
 <h2><a class="anchor" id="autotoc_md49"></a>
 Using Radium in your application</h2>
-<p>To integrate the Radium libraries into your build-chain configuration, you have to ask cmake to find the Radium package. As for any cmake package, this could be done by adding the following line into your <code>CMakeLists.txt</code> file: </p><div class="fragment"><div class="line">find_package(Radium REQUIRED)</div>
+<p>To integrate the Radium libraries into your build-chain configuration, you have to ask cmake to find the Radium package. As for any cmake package, this could be done by adding the following line into your <code>CMakeLists.txt</code> file:</p>
+<div class="fragment"><div class="line">find_package(Radium REQUIRED)</div>
 </div><!-- fragment --><p>This will bring only Radium Core component. See below how to select the components you need.</p>
 <p>Remember to configure your project by giving the cmake command line option <code>-DRadium_DIR=/path/to/installed/Radium/lib/cmake/Radium</code> or <code>-DCMAKE_PREFIX_PATH=/path/to/installed/Radium/lib/cmake</code> so that the <code>find_package</code> command could find the Radium package definition. Once found, the Radium package defines a cmake target for each found components in the cmake namespace <code>Radium</code>.</p>
-<p>When configuring your own target in your <code>CMakeLists.txt</code> file, you just need to link with those targets to get access to all the public interface of Radium (include search path, libraries, ...), for instance: </p><div class="fragment"><div class="line">target_link_libraries (myTarget PUBLIC Radium::Core Radium::Engine)</div>
+<p>When configuring your own target in your <code>CMakeLists.txt</code> file, you just need to link with those targets to get access to all the public interface of Radium (include search path, libraries, ...), for instance:</p>
+<div class="fragment"><div class="line">target_link_libraries (myTarget PUBLIC Radium::Core Radium::Engine)</div>
 </div><!-- fragment --><h3>Using Radium components</h3>
-<p>If your application needs another component than Core, you should select which ones you want with </p><div class="fragment"><div class="line">find_package(Radium REQUIRED COMPONENTS &lt;list of required components&gt;)</div>
-</div><!-- fragment --><p>The Radium components are :</p><ul>
+<p>If your application needs another component than Core, you should select which ones you want with</p>
+<div class="fragment"><div class="line">find_package(Radium REQUIRED COMPONENTS &lt;list of required components&gt;)</div>
+</div><!-- fragment --><p>The Radium components are :</p>
+<ul>
 <li>Core : search only for the availability of the target Radium::Core</li>
 <li>Engine : search for the availability of the target Radium::Engine and the following dependency<ul>
 <li>Radium::Core</li>
@@ -150,13 +154,15 @@ Using Radium in your application</h2>
 </ul>
 <p class="startli">On this target, you might also ask for support of several file loaders using the following properties defined on the target Radium::IO</p><ul>
 <li>RADIUM_IO_USE_ASSIMP : Identify if Radium::IO was compiled with assimp support</li>
-<li>RADIUM_IO_USE_TINYPLY : Identify if Radium::IO was compiled with tinyply support. You might use these properties to define compilation macro in your code <div class="fragment"><div class="line">get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)</div>
+<li>RADIUM_IO_USE_TINYPLY : Identify if Radium::IO was compiled with tinyply support. You might use these properties to define compilation macro in your code</li>
+</ul>
+</li>
+</ul>
+<div class="fragment"><div class="line">get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)</div>
 <div class="line">if (${USE_ASSIMP})</div>
 <div class="line"> target_compile_definitions(yourTarget PRIVATE ADD_ASSIMP_LOADER)</div>
 <div class="line">endif()</div>
-</div><!-- fragment --></li>
-</ul>
-</li>
+</div><!-- fragment --><ul>
 <li>Headless : search for the availability of the target Radium::Headless and its dependencies<ul>
 <li>Radium::Core</li>
 <li>Radium::Engine</li>
@@ -164,7 +170,8 @@ Using Radium in your application</h2>
 </li>
 </ul>
 <p>The Radium package also defines several cmake functions, described below, that you can use to ease the configuration of your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their own build-tree.</p>
-<p>The functions defined by the Radium package are the following:</p><ol type="1">
+<p>The functions defined by the Radium package are the following:</p>
+<ol type="1">
 <li>Client application configuration<ul>
 <li><a href="#configure_radium_app"><code>configure_radium_app</code></a>.</li>
 </ul>
@@ -211,7 +218,8 @@ configure_radium_app</h3>
 <div class="line">|   ...</div>
 </div><!-- fragment --><p>For <code>MACOSX_BUNDLE</code> applications, a standard <code>.app</code> MacOsX application is generated (See <a href="https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html#//apple_ref/doc/uid/10000123i-CH101-SW19">https://developer.apple.com/.../BundleTypes/BundleTypes.html</a> for bundle structure documentation).</p>
 <h3>Limitations</h3>
-<p>For now (Radium version of May 2021):</p><ul>
+<p>For now (Radium version of May 2021):</p>
+<ul>
 <li>Applications on Linux can be relocated only on the build system (AppImages will come soon).</li>
 </ul>
 <p>To get relocatable packages, download pre-built binaries here: <a href="https://github.com/STORM-IRIT/Radium-Releases/releases">https://github.com/STORM-IRIT/Radium-Releases/releases</a></p>
@@ -260,7 +268,8 @@ configure_radium_library</h3>
 <div class="line"><span class="preprocessor">#else</span></div>
 <div class="line"><span class="preprocessor">#    define &lt;TARGET&gt;_API DLL_IMPORT</span></div>
 <div class="line"><span class="preprocessor">#endif</span></div>
-</div><!-- fragment --><p>Then, in the library source code, each exported symbol should be prefixed by <code>&lt;TARGET&gt;_API</code> e.g. </p><div class="fragment"><div class="line"><span class="preprocessor">#pragma once</span></div>
+</div><!-- fragment --><p>Then, in the library source code, each exported symbol should be prefixed by <code>&lt;TARGET&gt;_API</code> e.g.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#pragma once</span></div>
 <div class="line"><span class="preprocessor">#include &lt; &lt;TARGET&gt;</span>/&lt;TARGET&gt;Macros.hpp &gt;</div>
 <div class="line">class &lt;TARGET&gt;_API MyAwesomeMaterial : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></div>
 <div class="line">{</div>
@@ -268,7 +277,8 @@ configure_radium_library</h3>
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line">&lt;TARGET&gt;_API <span class="keywordtype">bool</span> initializeMyLibrary();</div>
-</div><!-- fragment --><p>Assuming a library <code>MyLib</code> was configured as follows: </p><div class="fragment"><div class="line">...</div>
+</div><!-- fragment --><p>Assuming a library <code>MyLib</code> was configured as follows:</p>
+<div class="fragment"><div class="line">...</div>
 <div class="line">configure_radium_library(</div>
 <div class="line">    TARGET MyLib</div>
 <div class="line">    NAMESPACE MyLib</div>
@@ -276,7 +286,8 @@ configure_radium_library</h3>
 <div class="line">    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake</div>
 <div class="line">    FILES &quot;${public_headers};${public_inlines}&quot;</div>
 <div class="line">)</div>
-</div><!-- fragment --><p>This library could be used either from its installed binaries : </p><div class="fragment"><div class="line">find_package(MyLib)</div>
+</div><!-- fragment --><p>This library could be used either from its installed binaries :</p>
+<div class="fragment"><div class="line">find_package(MyLib)</div>
 <div class="line">...</div>
 <div class="line">target_link_libraries(</div>
 <div class="line">    MyProject</div>
@@ -285,7 +296,8 @@ configure_radium_library</h3>
 <div class="line">    Radium::Engine</div>
 <div class="line">    MyLib::MyLib</div>
 <div class="line">)</div>
-</div><!-- fragment --><p>or from the same build tree : </p><div class="fragment"><div class="line">add_subdirectory(MyLibSource)</div>
+</div><!-- fragment --><p>or from the same build tree :</p>
+<div class="fragment"><div class="line">add_subdirectory(MyLibSource)</div>
 <div class="line">...</div>
 <div class="line">target_link_libraries(</div>
 <div class="line">    MyProject</div>
@@ -317,18 +329,21 @@ install_target_resources</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>&lt;FILES&gt; file1 file2 ...</code> </td><td class="markdownTableBodyNone">If given, this allow to install only the given files from <code>&lt;DIRECTORY&gt;</code>. If not, all the files from <code>&lt;DIRECTORY&gt;</code> will be installed.  </td></tr>
 </table>
-<p>For a Radium-based software component, resources can be of several types:</p><ul>
+<p>For a Radium-based software component, resources can be of several types:</p>
+<ul>
 <li>Text files, that contain some glsl source code used for shaders.</li>
 <li>Images used internally as textures or source of data.</li>
 <li>Precomputed data, stored in whatever format.</li>
 </ul>
-<p>To access resources, the component might rely on a Ra::Core::Resources::ResourcesLocator object. Such an object allows accessing files located in some predefined directories:</p><ul>
+<p>To access resources, the component might rely on a Ra::Core::Resources::ResourcesLocator object. Such an object allows accessing files located in some predefined directories:</p>
+<ul>
 <li>Radium default resource directory. This directory is located at <code>&lt;prefix&gt;/Resources/Radium</code> where <code>&lt;prefix&gt;</code> is the Radium installation directory.</li>
 <li>Current executable directory. This directory is where the currently running executable is located.</li>
 </ul>
 <p>In order to allow client component to access its own resources, and to allow that either on the build-tree or once the component is installed without having to recompile or modify anything, this function both links (on supported systems, copy elsewhere) and installs the component resources at the given places.</p>
 <p>As the process must be system and component independent it is the responsibility of the client package to configure the proper paths for resources management.</p>
-<p>According to the installation layout of the Radium lib, that matches the GNU standard, but also to the macOS bundle architecture, Resources might be localized relatively to any binary object (library, executable, plugin, ...) The Radium installation hierarchy, that embeds base libraries, their resources and some executable files is the following: </p><div class="fragment"><div class="line">&lt;prefix&gt;/</div>
+<p>According to the installation layout of the Radium lib, that matches the GNU standard, but also to the macOS bundle architecture, Resources might be localized relatively to any binary object (library, executable, plugin, ...) The Radium installation hierarchy, that embeds base libraries, their resources and some executable files is the following:</p>
+<div class="fragment"><div class="line">&lt;prefix&gt;/</div>
 <div class="line">├── include/</div>
 <div class="line">|   ├── Core/</div>
 <div class="line">|   ├── Engine/</div>
@@ -347,7 +362,8 @@ install_target_resources</h3>
 <div class="line">|   |   └── Config/</div>
 <div class="line">|   ...</div>
 </div><!-- fragment --><p>In this hierarchy, Resources are located in the relative path <code>../Resources/</code> from any binary (executable or lib). The source code structure of the Radium libraries allows to have the same property on the build tree. When a Radium component needs to access some resources, it could either use the Ra::Core::Resources::ResourcesLocator::getRadiumResourcesDir() method or search for the resource relatively to a symbol defined in the component.</p>
-<p>To do this, the source code (.cpp file) of the component could contain the following. </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;MyComponent.hpp&gt;</span></div>
+<p>To do this, the source code (.cpp file) of the component could contain the following.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;MyComponent.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <span class="keywordtype">int</span> MyComponentMagick = 0x0F0F0F0F;</div>
 <div class="line">...</div>
@@ -411,7 +427,8 @@ radium_exported_resources</h3>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>&lt;PREFIX&gt; resourcesPrefix</code> </td><td class="markdownTableBodyNone">Name of the directory in which the resources are installed.  </td></tr>
 </table>
-<p>As described above, the installation tree of any installed target, if configured with radium cmake utilities, looks like the following </p><div class="fragment"><div class="line">prefix/</div>
+<p>As described above, the installation tree of any installed target, if configured with radium cmake utilities, looks like the following</p>
+<div class="fragment"><div class="line">prefix/</div>
 <div class="line">├── include/</div>
 <div class="line">|   ├── ...</div>
 <div class="line">├── lib/</div>
@@ -447,7 +464,8 @@ configure_radium_plugin</h3>
 <td class="markdownTableBodyNone"><code>[INSTALL_IN_RADIUM_BUNDLE]</code> </td><td class="markdownTableBodyNone">Optional. If given, the plugin is installed in the Radium general bundle (<code>${RADIUM_ROOT_DIR}/Plugins</code>) instead of being installed in the <code>${CMAKE_INSTALL_PREFIX}</code>  </td></tr>
 </table>
 <p>The <code>pluginName</code> target must be a dynamic library that exports a class inheriting from <code><a class="el" href="classQObject.html">QObject</a></code> and <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html" title="Interface class for Radiums plugins.">Ra::Plugins::RadiumPluginInterface</a>. The optional resources associated with the plugin are own resources that the plugin needs to be functional and will be installed as described below. The optional helper libraries can be local targets, configured in the same build tree, or imported targets, resulting from a <code>find_package(...)</code>. If a helper library need to access its own resources, it must be configured using <a href="#configure_radium_library"><code>configure_radium_library</code></a> if it is a local target or imported from an installed target configured the same way.</p>
-<p>The directory hierarchy in which a plugin will be installed (or where the build target will be) is the following: </p><div class="fragment"><div class="line">&lt;prefix&gt;/</div>
+<p>The directory hierarchy in which a plugin will be installed (or where the build target will be) is the following:</p>
+<div class="fragment"><div class="line">&lt;prefix&gt;/</div>
 <div class="line">├── lib/</div>
 <div class="line">|   ├──  libpluginName.so (or.dylib, .dll)</div>
 <div class="line">|   ├──  helperlib1</div>
@@ -456,7 +474,8 @@ configure_radium_plugin</h3>
 <div class="line">|   ├── pluginName</div>
 <div class="line">|   |     ├── ResourceDir1</div>
 <div class="line">|   |     ...</div>
-</div><!-- fragment --><p>where <code>&lt;prefix&gt;</code> refer to the base plugin dir into the build tree or the installation directory.</p><ul>
+</div><!-- fragment --><p>where <code>&lt;prefix&gt;</code> refer to the base plugin dir into the build tree or the installation directory.</p>
+<ul>
 <li>In the build tree, <code>&lt;prefix&gt;</code> refers to the directory <code>${CMAKE_CURRENT_BINARY_DIR}/Plugins</code>. Resources directories are linked into <code>Resources</code> directory on system that supports links, copied otherwise. Helper libs are not copied into the hierarchy.</li>
 <li>When installed into the Radium distribution bundle, <code>&lt;prefix&gt;</code> refers to <code>${RADIUM_ROOT_DIR}/Plugins</code>. Optional resources directories are copied into <code>Resources</code> directory.</li>
 <li>When installed in the user specified install location, <code>&lt;prefix&gt;</code> refers to <code>${CMAKE_INSTALL_PREFIX}</code>. Optional resources directories are copied into <code>Resources</code> directory.</li>
@@ -470,21 +489,23 @@ Adding a new component to the Radium package</h2>
 <ul>
 <li>Add a subdirectory <code>NewComponent</code> in the <code>&lt;Radium_source_dir&gt;/src</code> with component's source and header files</li>
 <li>Configure the <code>CMakeLists.txt</code> as described in the <a href="#configureLibrary">Configuring client and extension libraries</a>.</li>
-<li>In this <code>CMakeLists.txt</code> configuration script, configure the main target library by using the <code>COMPONENT</code> option of the function <code>configure_radium_library</code> and add this target to the <code>RADIUM_COMPONENT</code> variable : <div class="fragment"><div class="line">configure_radium_library(</div>
+<li>In this <code>CMakeLists.txt</code> configuration script, configure the main target library by using the <code>COMPONENT</code> option of the function <code>configure_radium_library</code> and add this target to the <code>RADIUM_COMPONENT</code> variable :</li>
+</ul>
+<div class="fragment"><div class="line">configure_radium_library(</div>
 <div class="line">    TARGET &lt;NewComponent_Target&gt; COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in</div>
 <div class="line">    FILES &quot;&lt;NewComponentHeaders&gt;&quot;</div>
 <div class="line">)</div>
 <div class="line">set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} &lt;NewComponent_Target&gt; PARENT_SCOPE)</div>
-</div><!-- fragment --></li>
+</div><!-- fragment --><p>where <code>${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in</code> contains the configuration of the installed component as described below.</p>
+<ul>
+<li>Modify <code>&lt;Radium_source_dir&gt;/src/CMakeLists.txt</code> to add the subdirectory that contains the component source code</li>
 </ul>
-<p>where <code>${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in</code> contains the configuration of the installed component as described below.</p><ul>
-<li>Modify <code>&lt;Radium_source_dir&gt;/src/CMakeLists.txt</code> to add the subdirectory that contains the component source code <div class="fragment"><div class="line">add_subdirectory(NewComponent)</div>
-</div><!-- fragment --></li>
-</ul>
-<p>Hence, Radium compilation and install include <code>NewComponent</code>.</p>
+<div class="fragment"><div class="line">add_subdirectory(NewComponent)</div>
+</div><!-- fragment --><p>Hence, Radium compilation and install include <code>NewComponent</code>.</p>
 <h3>Configure component's cmake setup</h3>
 <p>During Radium install, cmake generates a configuration file for the component, from <code>Config.cmake.in</code> file located in the source directory of the component. The generation setup is done by <code>configure_radium_library</code>. This file provides components informations needed by <code>find_package(Radium COMPONENT NewComponent)</code></p>
-<p>Here is a simple example of <code>Config.cmake.in</code> for the NewComponent example. </p><div class="fragment"><div class="line"># Check if the component is requested for import and is not already imported</div>
+<p>Here is a simple example of <code>Config.cmake.in</code> for the NewComponent example.</p>
+<div class="fragment"><div class="line"># Check if the component is requested for import and is not already imported</div>
 <div class="line">if(NewComponent_FOUND and NOT TARGET NewComponent)</div>
 <div class="line">    # This helper variable will be ON if the component targets should be imported</div>
 <div class="line">    set(Configure_NewComponent ON)</div>
@@ -548,12 +569,14 @@ General cmake preamble</h2>
 </div><!-- fragment --><p>Then, according to the type of the targets defined in your project (application, single library, set of libraries, plugin, mix of them), you might configure your project according to the following guidelines.</p>
 <h2><a class="anchor" id="autotoc_md56"></a>
 Configuring client application</h2>
-<p>Configuring an installable and relocatable application is very easy with Radium cmake scripts. First, an executable target that depends on Radium libraries (internal Radium libraries or client libraries) should be configured with a cmake script such as </p><div class="fragment"><div class="line">...</div>
+<p>Configuring an installable and relocatable application is very easy with Radium cmake scripts. First, an executable target that depends on Radium libraries (internal Radium libraries or client libraries) should be configured with a cmake script such as</p>
+<div class="fragment"><div class="line">...</div>
 <div class="line"># Configure an relocatable executable target (here a bundle on MacOsX)</div>
 <div class="line">add_executable(${PROJECT_NAME} MACOSX_BUNDLE</div>
 <div class="line">    ...</div>
 <div class="line">)</div>
-</div><!-- fragment --><p>Then, the application is configured to be relocatable after installation with </p><div class="fragment"><div class="line"># Configure the Radium application installation</div>
+</div><!-- fragment --><p>Then, the application is configured to be relocatable after installation with</p>
+<div class="fragment"><div class="line"># Configure the Radium application installation</div>
 <div class="line">configure_radium_app(</div>
 <div class="line">    NAME &lt;applicationName&gt;</div>
 <div class="line">    USE_PLUGINS</div>
@@ -565,7 +588,8 @@ Configuring client application</h2>
 <h2><a class="anchor" id="configureLibrary"></a>
 Configuring client and extension libraries</h2>
 <h3>Configuring the library target</h3>
-<p>An installable library could be used to add functionalities built over the Radium libraries and to make these functionalities available to developers. Once installed, a library consists in:</p><ul>
+<p>An installable library could be used to add functionalities built over the Radium libraries and to make these functionalities available to developers. Once installed, a library consists in:</p>
+<ul>
 <li>a set of public headers</li>
 <li>a dynamic library (<code>.so</code>, <code>.dylib</code> or <code>.dll</code>)</li>
 <li>a cmake config file so that the library could be fetched by the cmake command <code>find_package</code></li>
@@ -628,7 +652,8 @@ Configuring client and extension libraries</h2>
 <h3>Configuring the cmake find_package module</h3>
 <p>When configuring a library, a cmake package configuration file should be written so that the cmake package configuration module is installed alongside the library. Meanwhile, when several libraries must be used as components in a single package (e.g. the Radium internal libraries are all gathered into the single Radium package), a more general configuration module has to be defined.</p>
 <p>For this, instead of defining a configuration package for each configured library, the parameter <code>PACKAGE_CONFIG</code> of the function <a href="#configure_radium_library"><code>configure_radium_library</code></a> should be omitted and the function <a href="#configurePackage"><code>configure_radium_package</code></a> should be used.</p>
-<p>Standard usage of this function requires to have some libraries configured like the following: </p><div class="fragment"><div class="line">...</div>
+<p>Standard usage of this function requires to have some libraries configured like the following:</p>
+<div class="fragment"><div class="line">...</div>
 <div class="line">add_library(</div>
 <div class="line">    &lt;firstLib&gt; SHARED</div>
 <div class="line">    ...</div>
@@ -654,13 +679,15 @@ Configuring client and extension libraries</h2>
 <div class="line">    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake</div>
 <div class="line">)</div>
 <div class="line">...</div>
-</div><!-- fragment --><p>Once this is done, the package should be configured using </p><div class="fragment"><div class="line">...</div>
+</div><!-- fragment --><p>Once this is done, the package should be configured using</p>
+<div class="fragment"><div class="line">...</div>
 <div class="line">configure_radium_package(</div>
 <div class="line">    NAME &lt;packageName&gt;</div>
 <div class="line">    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake</div>
 <div class="line">    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/&lt;packageName&gt;Config.cmake.in</div>
 <div class="line">)</div>
-</div><!-- fragment --><p>Where the configuration file <code>&lt;packageName&gt;Config.cmake.in</code> should be written as the example below. (see <a href="https://cmake.org/cmake/help/v3.13/manual/cmake-packages.7.html">cmake documentation</a> for deeper explanations on how to write a package configuration file). </p><div class="fragment"><div class="line"># list the supported components</div>
+</div><!-- fragment --><p>Where the configuration file <code>&lt;packageName&gt;Config.cmake.in</code> should be written as the example below. (see <a href="https://cmake.org/cmake/help/v3.13/manual/cmake-packages.7.html">cmake documentation</a> for deeper explanations on how to write a package configuration file).</p>
+<div class="fragment"><div class="line"># list the supported components</div>
 <div class="line">set(&lt;packageName&gt;_supported_components &lt;firstLib&gt; &lt;secondLib&gt;)</div>
 <div class="line"> </div>
 <div class="line"># mark the package as found</div>
@@ -713,16 +740,19 @@ Configuring client and extension libraries</h2>
 <div class="line">endif()</div>
 </div><!-- fragment --><p>Based on the above example, once the package <code>&lt;packageName&gt;</code> is found, the targets <code>&lt;namespace&gt;::&lt;firstLib&gt;</code> and <code>&lt;namespace&gt;::&lt;secondLib&gt;</code> will be imported in the current project and should be used as any imported Radium targets.</p>
 <h3>Configuring library resources</h3>
-<p>When a library need to access resources, the <a href="#install_target_resources"><code>install_target_resources</code></a> must be called once the library target is configured as explain above. This result, as an example, in the following cmake snippet if the library <code>${NAME_OF_LIBRARY}</code> need to access glsl source file from the resource directory <code>${CMAKE_CURRENT_SOURCE_DIR}/Shaders</code> in the source tree. </p><div class="fragment"><div class="line"># Optional, if the library need resources</div>
+<p>When a library need to access resources, the <a href="#install_target_resources"><code>install_target_resources</code></a> must be called once the library target is configured as explain above. This result, as an example, in the following cmake snippet if the library <code>${NAME_OF_LIBRARY}</code> need to access glsl source file from the resource directory <code>${CMAKE_CURRENT_SOURCE_DIR}/Shaders</code> in the source tree.</p>
+<div class="fragment"><div class="line"># Optional, if the library need resources</div>
 <div class="line">install_target_resources(</div>
 <div class="line">        TARGET ${NAME_OF_LIBRARY}</div>
 <div class="line">        DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Shaders</div>
 <div class="line">)</div>
-</div><!-- fragment --><p>In this case, the library must also associate its resources with its exported target so that, when the library is imported in an application, plugin or other library, the resources will be made available. For doing this, the corresponding package configuration file (e.g. <code>&lt;packageName&gt;Config.cmake.in</code>) should add properties to all exported targets describing their resources. The following properties should be added to the corresponding targets:</p><ul>
+</div><!-- fragment --><p>In this case, the library must also associate its resources with its exported target so that, when the library is imported in an application, plugin or other library, the resources will be made available. For doing this, the corresponding package configuration file (e.g. <code>&lt;packageName&gt;Config.cmake.in</code>) should add properties to all exported targets describing their resources. The following properties should be added to the corresponding targets:</p>
+<ul>
 <li><code>RADIUM_TARGET_RESOURCES_PREFIX</code> defines the directory prefix to access the library resources</li>
 <li><code>RADIUM_TARGET_INSTALLED_RESOURCES</code> specifies where are installed the resources on the system.</li>
 </ul>
-<p>These properties, located in the installation tree, are the same as those defined when installing resources for a library and should be set by using the function <a href="#radium_exported_resources"><code>radium_exported_resources</code></a> in the <code>&lt;packageName&gt;Config.cmake.in</code> such as </p><div class="fragment"><div class="line">radium_exported_resources(</div>
+<p>These properties, located in the installation tree, are the same as those defined when installing resources for a library and should be set by using the function <a href="#radium_exported_resources"><code>radium_exported_resources</code></a> in the <code>&lt;packageName&gt;Config.cmake.in</code> such as</p>
+<div class="fragment"><div class="line">radium_exported_resources(</div>
 <div class="line">    TARGET &lt;namespace&gt;::&lt;libtarget&gt;</div>
 <div class="line">    ACCESS_FROM_PACKAGE &lt;pathFromPackageToResourcesInInstallTree&gt;</div>
 <div class="line">    PREFIX &lt;resourcesPrefix&gt;</div>
@@ -740,7 +770,7 @@ Configuring an application plugin</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

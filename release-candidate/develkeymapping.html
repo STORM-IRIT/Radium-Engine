@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('develkeymapping.html',''); initResizab
 <div class="toc"><h3>Table of Contents</h3>
 <ul><li class="level1"><a href="#autotoc_md75">Usage</a></li>
 <li class="level1"><a href="#autotoc_md76">Implementation note</a></li>
-<li class="level1"><a href="#autotoc_md77">Key mapping and inheritence.</a></li>
+<li class="level1"><a href="#autotoc_md77">Key mapping and inheritence</a></li>
 <li class="level1"><a href="#autotoc_md78">Limits</a></li>
 </ul>
 </div>
@@ -185,7 +185,7 @@ Implementation note</h1>
 <div class="line">        }</div>
 <div class="line">    }</div>
 </div><!-- fragment --> <h1><a class="anchor" id="autotoc_md77"></a>
-Key mapping and inheritence.</h1>
+Key mapping and inheritence</h1>
 <p>If you want to define a derived class that inherits a base class with key mapping, and you want to have key mapping management in this derived, you have to consider the following implementation details:</p>
 <ul>
 <li>Base and derived classes will have two different contexts.</li>
@@ -206,10 +206,10 @@ Key mapping and inheritence.</h1>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span>  MyViewer::setupKeyMappingCallbacks() {</div>
-<div class="line">    <span class="comment">// Setup keymapping for base</span></div>
+<div class="line"> <span class="comment">// Setup keymapping for base</span></div>
 <div class="line">    base::setupKeyMappingCallbacks();</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">// then extend</span></div>
+<div class="line"> <span class="comment">// then extend</span></div>
 <div class="line">    <span class="keyword">auto</span> keyMappingManager = Gui::KeyMappingManager::getInstance();</div>
 <div class="line">    keyMappingManager-&gt;addListener( thisKeyMapping::configureKeyMapping );</div>
 <div class="line">}</div>
@@ -225,7 +225,7 @@ Key mapping and inheritence.</h1>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#define KMA_VALUE( XX ) XX = keyMappingManager-&gt;getActionIndex( thisKeyMapping::m_keyMappingContext, #XX );</span></div>
 <div class="line"> </div>
-<div class="line">    KeyMappingMyViewer</div>
+<div class="line"> KeyMappingMyViewer</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"><span class="preprocessor">}</span></div>
@@ -251,7 +251,7 @@ Limits</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

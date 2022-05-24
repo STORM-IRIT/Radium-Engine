@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -118,7 +118,8 @@ $(document).ready(function(){initNavTree('develmaterials.html',''); initResizabl
 <p>The Radium Engine exposes some predefined materials, the <em>Radium Material Library</em>, with render techniques corresponding to the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">Ra::Engine::Rendering::ForwardRenderer</a> default renderer.</p>
 <h1><a class="anchor" id="autotoc_md82"></a>
 Content of the Radium Material Library</h1>
-<p>The Radium Material Library defines two default material :</p><ul>
+<p>The Radium Material Library defines two default material :</p>
+<ul>
 <li>BlinnPhong, <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html">Ra::Engine::Data::BlinnPhongMaterial</a>, corresponding to the Blinn-Phong BSDF.</li>
 <li>Plain, <a class="el" href="classRa_1_1Engine_1_1Data_1_1PlainMaterial.html">Ra::Engine::Data::PlainMaterial</a>, corresponding to a diffuse, lambertian BSDF.</li>
 </ul>
@@ -144,7 +145,8 @@ Extending the Radium Material Library</h1>
 <p>In order to make these extensions available to each Radium developer, the <em>Radium Material Library</em> defines several interfaces and factories for material management.</p>
 <p>A material is defined by two programming interfaces. The <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a> that defines the <a href="#cpp-mtl-lib">C++ interface</a> made available for applications and plugins and a <a href="#glsl-mtl-lib">GLSL interface</a> that allows shader reuse and composition for OpenGL rendering.</p>
 <p>The C++ interface is implemented in a <code>NameOfTheMaterial.hpp/.cpp</code> source file.</p>
-<p>The GLSL interface is composed of several parts :</p><ol type="1">
+<p>The GLSL interface is composed of several parts :</p>
+<ol type="1">
 <li>The implementation of a <a href="#bsdf-interface">BSDF interface</a> and a <a href="#microgeometry-interface">micro-geometry interface</a> in a <code>NameOfBSDF.glsl</code> file that will be included in every fragment shaders that need the implementation of the bsdf.</li>
 <li>The implementation of one or several vertex shaders that will compute the data used by the <a href="#vrtx-attr-interface">vertex attrib interface</a>. These shaders are renderer-specific and the programmer must at least give one for the Radium default renderer.</li>
 <li>The implementation of one or several fragment shaders that, by using the <a href="#vrtx-attr-interface">vertex attrib interface</a>, will compute the final color of a fragment using the <a href="#bsdf-interface">BSDF interface</a> and the <a href="#microgeometry-interface">micro-geometry interface</a>. These shaders are renderer-specific and the programmer must at least give one for the Radium default renderer.</li>
@@ -152,7 +154,8 @@ Extending the Radium Material Library</h1>
 <h2><a class="anchor" id="cpp-mtl-lib"></a>
 C++ interface</h2>
 <p>The <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a> interface defines the internal abstract representation of a Material. This interface defines all the methods required to parametrized the OpenGL pipeline for rendering and will be used mainly by the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> and the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a> classes.</p>
-<p>When implementing this interface, and in order to make the material available to all applications or plugins, two static methods to register and unregister the material into the <em>Radium Material Library</em> must also be developed. These method will populate the <em>Radium Material Library</em> factories with specific helper functions to use the material in the default Radium forward renderer. Mainly, the <code>registerMaterial()</code> method will record an helper function to build a material-related <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> dedicated to the Radium forward renderer. </p><div class="fragment"><div class="line"><span class="keyword">class </span>MyMaterial : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a> {</div>
+<p>When implementing this interface, and in order to make the material available to all applications or plugins, two static methods to register and unregister the material into the <em>Radium Material Library</em> must also be developed. These method will populate the <em>Radium Material Library</em> factories with specific helper functions to use the material in the default Radium forward renderer. Mainly, the <code>registerMaterial()</code> method will record an helper function to build a material-related <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> dedicated to the Radium forward renderer.</p>
+<div class="fragment"><div class="line"><span class="keyword">class </span>MyMaterial : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a> {</div>
 <div class="line"><span class="keyword">public</span>:</div>
 <div class="line">    <span class="comment">// implementation of the abstract interface</span></div>
 <div class="line">    ...</div>
@@ -196,7 +199,8 @@ Vertex attrib interface</h3>
 <p>In order to keep the appearance computation agnostic on the way vertex attribs are named or accessed, we must propose an abstract interface. But, and this is particular to these attributes, one can access to the attributes himself, on the vertex, or to the attributes interpolated by the rasterizer, on the fragment. Accessing the Attribute directly on the vertex (i.e. on a vertex shader) does not necessitate an interface as each shader must define its attributes and as the <a class="el" href="mesh_8md.html">Mesh API</a> allows to communicate between C++ and GLSL.</p>
 <p>Note that the attributes accessed through the Vertex attrib interface <b>must</b> be defined in world space. Even if not necessarily efficient (some transformations might be computed twice), this will ensure more simple lighting computation. This might be changed in future version of Radium.</p>
 <p>Each glsl component that needs to access to fragment-interpolated attributes must do that through this interface. The default declaration and implementation of this fragment interface is given in the file <code>Shaders/Materials/VertexAttribInterface.frag.glsl</code>. This interface might be included in any <b>fragment shader</b> that want to use it by <code>#include "VertexAttribInterface.frag.glsl"</code>.</p>
-<p>It relies on some standard vertex attribute that have to be set by the vertex shader with respect to the following out binding : </p><div class="fragment"><div class="line"><span class="comment">// All attributes are given in world space</span></div>
+<p>It relies on some standard vertex attribute that have to be set by the vertex shader with respect to the following out binding :</p>
+<div class="fragment"><div class="line"><span class="comment">// All attributes are given in world space</span></div>
 <div class="line">layout (location = 0) out vec3 position;</div>
 <div class="line">layout (location = 1) out vec3 normal;</div>
 <div class="line">layout (location = 2) out vec3 texcoord;</div>
@@ -242,7 +246,8 @@ Microgeometry interface</h3>
 BSDF interface</h3>
 <p>Implementing or using the GLSL BSDF interface is based on the fact that the method <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a12b6f71b149e59868927a7a5f76d9f08">Ra::Engine::Data::Material::getMaterialName()</a> must return a string that contains the <code>name_of_the_BSDF</code> implemented in a file named <code>name_of_the_BSDF.glsl</code>. This file is preloaded at <a href="#registration-mtl-lib">material registration</a> into a <code>glNamedString</code> to allow inclusion by others.</p>
 <p>In order to be composable by Radium applications and renderers, this glsl file must only contains the implementation of the BSDF interface, with no <code>void main(){...}</code>, the implementation of the micro-geometry interface and must only access to vertex attribs by using the vertex attribute interface or so on ...</p>
-<p>This file must contain an inclusion guard : </p><div class="fragment"><div class="line"><span class="preprocessor">#ifndef METALLICROUGHNESS_GLSL</span></div>
+<p>This file must contain an inclusion guard :</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#ifndef METALLICROUGHNESS_GLSL</span></div>
 <div class="line"><span class="preprocessor">#define METALLICROUGHNESS_GLSL</span></div>
 <div class="line">.</div>
 <div class="line">.</div>
@@ -294,13 +299,15 @@ BSDF interface</h3>
 <div class="line"><span class="keywordtype">float</span> getGGXRoughness(Material material, vec3 texCoord);</div>
 </div><!-- fragment --><h3><a class="anchor" id="emissivity-interface"></a>
 Emissivity interface</h3>
-<p>Some materials are not only reflective, hence implementing the BSDF interface, but also can be emissive. To allow a renderer to access the emissivity of a material the following GLSL function must defined in the same GLSL file than the BSDF and microgeometry interface : </p><div class="fragment"><div class="line">// Return the emissivity of the material</div>
+<p>Some materials are not only reflective, hence implementing the BSDF interface, but also can be emissive. To allow a renderer to access the emissivity of a material the following GLSL function must defined in the same GLSL file than the BSDF and microgeometry interface :</p>
+<div class="fragment"><div class="line"><span class="comment">// Return the emissivity of the material</span></div>
 <div class="line">vec3 getEmissiveColor(GLTFCommon material, vec3 textCoord);</div>
 </div><!-- fragment --><h2><a class="anchor" id="registration-mtl-lib"></a>
 Material registration into the Engine</h2>
 <p>When implementing the <a href="#glsl-mtl-lib">GLSL interface</a> of a Material, the user can rely on several glsl components defined by the Engine. Glsl components are helper functions and data structure that could be used to develop specific shaders.</p>
 <p>To make this common component available to users, and also each user defined component that want to be available to others, the Radium Engine defines a material component registration system that allows to populate and extend the <em>Radium Material Library</em>.</p>
-<p>The registration and glsl component access system is made of 3 parts</p><ol type="1">
+<p>The registration and glsl component access system is made of 3 parts</p>
+<ol type="1">
 <li>Registration of OpenGL/GLSL named string : defining a re-usable GLSL component.</li>
 <li>Registration of OpenGL/GLSL Program configuration : defining how to link shaders into a program for a specific rendering step.</li>
 <li>Render Technique factory : defining which Program configurations must be used for each renderer-specific task.</li>
@@ -314,7 +321,8 @@ Material registration into the Engine</h2>
 <div class="line">    <span class="stringliteral">&quot;/SharedComponent.glsl&quot;</span>, <span class="stringliteral">&quot;/absolute/path/to/file/SharedComponent.glsl&quot;</span> );</div>
 </div><!-- fragment --><h3>Registration of OpenGL/GLSL Program configuration</h3>
 <p>The use of GLSL component to render object requires the building of a render-task specific OpenGL Program that link together the GLSL component and shaders addressing stages of the OpenGL Pipeline. According to the OpenGL specification, A vertex shader and a fragment shader stage are mandatory whereas tesselation end geometry shader are optional and depends only of the way one want to configure its pipeline for rendering.</p>
-<p>To describe the OpenGL program configuration, and make it reusable, the configuration must be registered in the <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">Ra::Engine::Data::ShaderConfigurationFactory</a>. To do that, for each reusable configuration, one just need to do the following </p><div class="fragment"><div class="line"><span class="comment">// build the configuration</span></div>
+<p>To describe the OpenGL program configuration, and make it reusable, the configuration must be registered in the <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">Ra::Engine::Data::ShaderConfigurationFactory</a>. To do that, for each reusable configuration, one just need to do the following</p>
+<div class="fragment"><div class="line"><span class="comment">// build the configuration</span></div>
 <div class="line"><a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> myConfig(</div>
 <div class="line">    <span class="stringliteral">&quot;ConfigName&quot;</span>,</div>
 <div class="line">    <span class="stringliteral">&quot;absolute/path/to/vertexshader.vert.glsl&quot;</span>,</div>
@@ -323,7 +331,8 @@ Material registration into the Engine</h2>
 <div class="line">...</div>
 <div class="line"><span class="comment">// Register the configuration to the factory</span></div>
 <div class="line">Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration( myConfig );</div>
-</div><!-- fragment --><p>once registered, a shader configuration could be fetched from the factory by its name : </p><div class="fragment"><div class="line"><span class="keyword">auto</span> theConfig =</div>
+</div><!-- fragment --><p>once registered, a shader configuration could be fetched from the factory by its name :</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> theConfig =</div>
 <div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration</a>( <span class="stringliteral">&quot;ConfigName&quot;</span> );</div>
 </div><!-- fragment --><h3>Registering a RenderTechnique</h3>
 <p>A <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> describes which <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> a renderer will use for each of its rendering passes. Such a render technique could encompass a <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a> but its meaning is larger than just computing the BSDF. In order to make a GLSL component that compute the appearance of a 3D object usable by a the default Radium renderer, one must define which shader configuration to use for each pass of the renderer. A Render technique will be used to configure the rendering of a geometry and the association between the geometry and the render technique is made in a <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a>. Making a GLSL component available for the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">Ra::Engine::Rendering::ForwardRenderer</a> default renderer in Radium, on must define which <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> to use for the passes Ra::Engine::Rendering::DefaultRenderingPasses::LIGHTING_OPAQUE, Ra::Engine::Rendering::DefaultRenderingPasses::Z_PREPASS and, if the appearance might be transparent, Ra::Engine::Rendering::DefaultRenderingPasses::LIGHTING_TRANSPARENT.</p>
@@ -351,7 +360,8 @@ Material registration into the Engine</h2>
 <div class="line">                                     <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942adb4f8703ab187adf671e953a1163bf17">DefaultRenderingPasses::LIGHTING_TRANSPARENT</a> );</div>
 <div class="line">            }</div>
 <div class="line">        } );</div>
-</div><!-- fragment --><p>once registered, the render technique could then be associated with any render object using the following principle : </p><div class="fragment"><div class="line"><span class="comment">// Construct and initialize a Ra::Engine::Rendering::RenderTechnique object</span></div>
+</div><!-- fragment --><p>once registered, the render technique could then be associated with any render object using the following principle :</p>
+<div class="fragment"><div class="line"><span class="comment">// Construct and initialize a Ra::Engine::Rendering::RenderTechnique object</span></div>
 <div class="line"><a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> rt;</div>
 <div class="line"><span class="comment">// Associate a Ra::engine::Material with the render technique if needed</span></div>
 <div class="line"><span class="keywordtype">bool</span> isMaterialTransparent = <span class="keyword">false</span>;</div>
@@ -377,7 +387,8 @@ Rendering without using Materials</h2>
 <li>If the shaders have uniform parameters, implement a specific <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a> and associate an instance of the parameter provider to the render technique.</li>
 <li>Associate the render technique with a geometry in a <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a></li>
 </ol>
-<p>Here is an example snippet. </p><div class="fragment"><div class="line"><span class="comment">// 1. Implement a parameter provider to provide the uniforms for the shader</span></div>
+<p>Here is an example snippet.</p>
+<div class="fragment"><div class="line"><span class="comment">// 1. Implement a parameter provider to provide the uniforms for the shader</span></div>
 <div class="line"><span class="keyword">class </span>MyParameterProvider : <span class="keyword">public</span> <a class="code" href="namespaceRa.html">Ra</a>:Engine::Data::ShaderParameterProvider {</div>
 <div class="line"><span class="keyword">public</span>:</div>
 <div class="line">  MyParameterProvider() {}</div>
@@ -390,9 +401,9 @@ Rendering without using Materials</h2>
 <div class="line">  }</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordtype">void</span> setOrComputeTheParameterValues() {</div>
-<div class="line">    <span class="comment">// client side computation of the parameters, e.g.</span></div>
-<div class="line">    m_colorParameter = Ra::Core::Color::Red();</div>
-<div class="line">    m_scalarParameter = .5_ra;</div>
+<div class="line"> <span class="comment">// client side computation of the parameters, e.g.</span></div>
+<div class="line"> m_colorParameter = Ra::Core::Color::Red();</div>
+<div class="line"> m_scalarParameter = .5_ra;</div>
 <div class="line">  }</div>
 <div class="line"><span class="keyword">private</span>:</div>
 <div class="line">  <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Ra::Core::Color</a> m_colorParameter;</div>
@@ -452,39 +463,39 @@ Rendering without using Materials</h2>
 Manipulating ShaderConfigurations</h2>
 <p>Basically, a shader configuration is a simple container with a name, and shader objects names.</p>
 <p>There are two valid ways to build a shader configuration :</p>
-<div class="fragment"><div class="line">#include &lt;Engine/RenderTechnique/ShaderProgram.hpp&gt;</div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Engine/RenderTechnique/ShaderProgram.hpp&gt;</span></div>
 <div class="line"> </div>
-<div class="line">ShaderConfiguration config(&quot;BlinnPhongWireframe&quot;);</div>
-<div class="line">/*</div>
-<div class="line"> Or :</div>
-<div class="line"> ShaderConfiguration config;</div>
-<div class="line"> config.m_name = &quot;BlinnPhongWireframe&quot;;</div>
-<div class="line"> */</div>
-<div class="line">config.addShader(Ra::Engine::ShaderType_VERTEX, &quot;../Shaders/BlinnPhongWireframe.vert.glsl&quot;);</div>
-<div class="line">config.addShader(Ra::Engine::ShaderType_FRAGMENT, &quot;../Shaders/BlinnPhongWireframe.frag.glsl&quot;);</div>
-<div class="line">config.addShader(Ra::Engine::ShaderType_GEOMETRY, &quot;../Shaders/BlinnPhongWireframe.geom.glsl&quot;);</div>
+<div class="line">ShaderConfiguration config(<span class="stringliteral">&quot;BlinnPhongWireframe&quot;</span>);</div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> Or :</span></div>
+<div class="line"><span class="comment"> ShaderConfiguration config;</span></div>
+<div class="line"><span class="comment"> config.m_name = &quot;BlinnPhongWireframe&quot;;</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line">config.addShader(<a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa8bbdcc8ba9b8e142121b67d0b22697fb">Ra::Engine::ShaderType_VERTEX</a>, <span class="stringliteral">&quot;../Shaders/BlinnPhongWireframe.vert.glsl&quot;</span>);</div>
+<div class="line">config.addShader(<a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aae7dbcc0003f1362e8584f516c5ebddab">Ra::Engine::ShaderType_FRAGMENT</a>, <span class="stringliteral">&quot;../Shaders/BlinnPhongWireframe.frag.glsl&quot;</span>);</div>
+<div class="line">config.addShader(<a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa2958a1e82afde512a71ad84e1c5db247">Ra::Engine::ShaderType_GEOMETRY</a>, <span class="stringliteral">&quot;../Shaders/BlinnPhongWireframe.geom.glsl&quot;</span>);</div>
 </div><!-- fragment --><p>The second way is similar, but enables adding directly vertex and fragment shader through the constructor</p>
-<div class="fragment"><div class="line">ShaderConfiguration config(&quot;Plain&quot;, &quot;../Shaders/Plain.vert.glsl&quot;, &quot;../Shaders/Plain.frag.glsl&quot;);</div>
-<div class="line">// config.addShader(Ra::Engine::ShaderType_FOO, &quot;../Shaders/Bar.foo.glsl&quot;);</div>
-<div class="line">// ...</div>
+<div class="fragment"><div class="line">ShaderConfiguration config(<span class="stringliteral">&quot;Plain&quot;</span>, <span class="stringliteral">&quot;../Shaders/Plain.vert.glsl&quot;</span>, <span class="stringliteral">&quot;../Shaders/Plain.frag.glsl&quot;</span>);</div>
+<div class="line"><span class="comment">// config.addShader(Ra::Engine::ShaderType_FOO, &quot;../Shaders/Bar.foo.glsl&quot;);</span></div>
+<div class="line"><span class="comment">// ...</span></div>
 </div><!-- fragment --><h3>ShaderConfigurationFactory</h3>
 <p>If you know you will have to access the same shader configuration in multiple locations of your plugin(s), you can add it to the <code>ShaderConfigurationFactory</code> and then access it easier :</p>
-<div class="fragment"><div class="line">#include &lt;Engine/Renderer/RenderTechnique/ShaderProgram.hpp&gt;</div>
-<div class="line">#include &lt;Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp&gt;</div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Engine/Renderer/RenderTechnique/ShaderProgram.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp&gt;</span></div>
 <div class="line"> </div>
-<div class="line">// Build BlinnPhong&#39;s configuration</div>
-<div class="line">Ra::Engine::ShaderConfiguration blinnPhongConfig(&quot;BlinnPhong&quot;, &quot;../Shaders/BlinnPhong.vert.glsl&quot;, &quot;../Shaders/BlinnPhong.frag.glsl&quot;);</div>
+<div class="line"><span class="comment">// Build BlinnPhong&#39;s configuration</span></div>
+<div class="line">Ra::Engine::ShaderConfiguration blinnPhongConfig(<span class="stringliteral">&quot;BlinnPhong&quot;</span>, <span class="stringliteral">&quot;../Shaders/BlinnPhong.vert.glsl&quot;</span>, <span class="stringliteral">&quot;../Shaders/BlinnPhong.frag.glsl&quot;</span>);</div>
 <div class="line"> </div>
-<div class="line">// Add it to the factory</div>
-<div class="line">Ra::Engine::ShaderConfigurationFactory::addConfiguration(&quot;BlinnPhong&quot;, blinnPhongConfig);</div>
-<div class="line">/*</div>
-<div class="line">  Please note that you can also use</div>
-<div class="line">Ra::Engine::ShaderConfigurationFactory::addConfiguration(blinnPhongConfig);</div>
-<div class="line">  which will use the shader configuration&#39;s name.</div>
-<div class="line">*/</div>
+<div class="line"><span class="comment">// Add it to the factory</span></div>
+<div class="line"><a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">Ra::Engine::ShaderConfigurationFactory::addConfiguration</a>(<span class="stringliteral">&quot;BlinnPhong&quot;</span>, blinnPhongConfig);</div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment">  Please note that you can also use</span></div>
+<div class="line"><span class="comment">Ra::Engine::ShaderConfigurationFactory::addConfiguration(blinnPhongConfig);</span></div>
+<div class="line"><span class="comment">  which will use the shader configuration&#39;s name.</span></div>
+<div class="line"><span class="comment">*/</span></div>
 <div class="line"> </div>
-<div class="line">// You can then access anywhere else by its name</div>
-<div class="line">Ra::Engine::ShaderConfiguration config = ShaderConfigurationFactory::getConfiguration(&quot;BlinnPhong&quot;);</div>
+<div class="line"><span class="comment">// You can then access anywhere else by its name</span></div>
+<div class="line">Ra::Engine::ShaderConfiguration config = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">ShaderConfigurationFactory::getConfiguration</a>(<span class="stringliteral">&quot;BlinnPhong&quot;</span>);</div>
 </div><!-- fragment --><p>Using first or second <em>adder</em> will work only if the name is not empty. Otherwise it will warn and return.</p>
 <p>You also have to add your configuration to the factory if you want to be able to change a render object to this shader from the UI. </p>
 </div></div><!-- contents -->
@@ -501,6 +512,7 @@ Manipulating ShaderConfigurations</h2>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a00918835250fbd8bbe4deae59ecd6dde"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration</a></div><div class="ttdeci">void addConfiguration(const ShaderConfiguration &amp;config)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00016">ShaderConfigFactory.cpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObject_html_afe02bfade7fd3fe985d553fcf0a88410"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#afe02bfade7fd3fe985d553fcf0a88410">Ra::Engine::Rendering::RenderObject::createRenderObject</a></div><div class="ttdeci">static RenderObject * createRenderObject(const std::string &amp;name, Scene::Component *comp, const RenderObjectType &amp;type, std::shared_ptr&lt; Data::Displayable &gt; mesh, const RenderTechnique &amp;techniqueConfig=RenderTechnique::createDefaultRenderTechnique())</div><div class="ttdef"><b>Definition:</b> <a href="RenderObject_8cpp_source.html#l00042">RenderObject.cpp:42</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">Ra::Engine::Rendering::LIGHTING_OPAQUE</a></div><div class="ttdeci">@ LIGHTING_OPAQUE</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8hpp_source.html#l00037">RenderTechnique.hpp:37</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_html_a7c546bc5ccbcfd57b78b5f4b689b1e5aa2958a1e82afde512a71ad84e1c5db247"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa2958a1e82afde512a71ad84e1c5db247">Ra::Engine::Data::ShaderType_GEOMETRY</a></div><div class="ttdeci">@ ShaderType_GEOMETRY</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8hpp_source.html#l00021">ShaderConfiguration.hpp:21</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Mesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Mesh.html">Ra::Engine::Data::Mesh</a></div><div class="ttdoc">Mesh, own a Core::Geometry::TriangleMesh.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00400">Mesh.hpp:400</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderConfiguration_html_a817ed4e22a81e034776cc21e8cfc6b8b"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a817ed4e22a81e034776cc21e8cfc6b8b">Ra::Engine::Data::ShaderConfiguration::addShaderSource</a></div><div class="ttdeci">void addShaderSource(ShaderType type, const std::string &amp;source)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8cpp_source.html#l00061">ShaderConfiguration.cpp:61</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_html_a7c546bc5ccbcfd57b78b5f4b689b1e5aae7dbcc0003f1362e8584f516c5ebddab"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aae7dbcc0003f1362e8584f516c5ebddab">Ra::Engine::Data::ShaderType_FRAGMENT</a></div><div class="ttdeci">@ ShaderType_FRAGMENT</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8hpp_source.html#l00020">ShaderConfiguration.hpp:20</a></div></div>
@@ -517,7 +529,7 @@ Manipulating ShaderConfigurations</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

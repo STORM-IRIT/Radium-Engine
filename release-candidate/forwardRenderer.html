@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -109,7 +109,8 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 <p>Here is a summary of the different passes of the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">Ra::Engine::Rendering::ForwardRenderer</a></p>
 <h1><a class="anchor" id="autotoc_md31"></a>
 1. Depth, ambient color and "deferred info" pass</h1>
-<p>This pass</p><ul>
+<p>This pass</p>
+<ul>
 <li>only concerns opaque objects AND opaque fragment on transparent objects. It is mainly used to fill in the Z-buffer, allowing to activate early z-test for next passes since the depth buffer is already filled,</li>
 <li>initialize the color buffer by computing e.g. the ambient color for each object,</li>
 <li>generate several pictures of the scene allowing to implement composition effects later :<ul>
@@ -123,7 +124,8 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 <p>Note that the shader associated to the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c">Ra::Engine::Rendering::Z_PREPASS</a> pass must draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
 <h1><a class="anchor" id="autotoc_md32"></a>
 2. Lighting pass</h1>
-<p>This pass is a classic forward lighting pass that accumulates the color of each light source. Before this pass, blending (one, one) is enabled and it does </p><div class="fragment"><div class="line">for each light do</div>
+<p>This pass is a classic forward lighting pass that accumulates the color of each light source. Before this pass, blending (one, one) is enabled and it does</p>
+<div class="fragment"><div class="line">for each light do</div>
 <div class="line">  Get light parameters</div>
 <div class="line">  for each object</div>
 <div class="line">    bind shader</div>
@@ -135,7 +137,8 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 <p>Note that the shader associated to the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">Ra::Engine::Rendering::LIGHTING_OPAQUE</a> pass must lit and draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
 <h1><a class="anchor" id="autotoc_md33"></a>
 3. Ordered independent transparency</h1>
-<p>Rendering transparent objects in Radium is done according to the algorithm described in</p><ul>
+<p>Rendering transparent objects in Radium is done according to the algorithm described in</p>
+<ul>
 <li>Weighted Blended Order-Independent Transparency, Morgan McGuire, Louis Bavoil - NVIDIA, Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013, <a href="http://jcgt.org/published/0002/02/09/">http://jcgt.org/published/0002/02/09/</a></li>
 </ul>
 <p>This pass contains one scene rendering pass and one composition pass.</p>
@@ -148,7 +151,8 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 <p>This pass takes the color buffer, representing colors in linear RGB space) and apply gamma correction to the image</p>
 <h1><a class="anchor" id="autotoc_md35"></a>
 5. Debug and UI render objects</h1>
-<p>Those objects are drawn with their own shader, and without lighting. They do not write in the depth map but they have different depth testing behaviour :</p><ul>
+<p>Those objects are drawn with their own shader, and without lighting. They do not write in the depth map but they have different depth testing behaviour :</p>
+<ul>
 <li>func is <code>LESS</code> for debug objects (drawn only if visible)</li>
 <li>func is <code>ALWAYS</code> for UI objects (drawn in front of everything else)</li>
 </ul>
@@ -162,7 +166,7 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

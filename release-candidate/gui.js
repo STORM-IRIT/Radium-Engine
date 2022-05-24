@@ -3,7 +3,7 @@ var gui =
     [ "KeyMapping", "develkeymapping.html", [
       [ "Usage", "develkeymapping.html#autotoc_md75", null ],
       [ "Implementation note", "develkeymapping.html#autotoc_md76", null ],
-      [ "Key mapping and inheritence.", "develkeymapping.html#autotoc_md77", null ],
+      [ "Key mapping and inheritence", "develkeymapping.html#autotoc_md77", null ],
       [ "Limits", "develkeymapping.html#autotoc_md78", null ]
     ] ],
     [ "Camera manipulation in Radium", "develCameraManipulator.html", [

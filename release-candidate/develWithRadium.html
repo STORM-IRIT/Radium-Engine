@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -111,14 +111,16 @@ Radium libraries</h1>
 <p>Direct contributions to master are closed. We defer merge to master after our radium based projects (public or private) CI tests. To this end, please select release_candidate as a base branch of your pull requests.</p>
 <h1><a class="anchor" id="autotoc_md67"></a>
 Pre commit hook</h1>
-<p>We provide a configuration file for <a href="https://pre-commit.com/">pre-commit</a>. Please install and use it, e.g. </p><div class="fragment"><div class="line">pip install pre-commit</div>
+<p>We provide a configuration file for <a href="https://pre-commit.com/">pre-commit</a>. Please install and use it, e.g.</p>
+<div class="fragment"><div class="line">pip install pre-commit</div>
 <div class="line">pre-commit install</div>
 </div><!-- fragment --><p>This hook will check several formatting convention and cleanup your files' style on each commit. If some checks fail, it might have update automatically your code (hence just add again the modified file to your commit) or needs manual intervention. These script are also added as CI github check (to show any problems in case you have troubles to install the hook script).</p>
 <h1><a class="anchor" id="autotoc_md68"></a>
 Radium test suite</h1>
 <h2><a class="anchor" id="autotoc_md69"></a>
 Preliminaries</h2>
-<p>Radium testing is done using two tools:</p><ul>
+<p>Radium testing is done using two tools:</p>
+<ul>
 <li>CTest: the test system by CMake. It provides compilation, running and basic reporting mechanisms for tests.</li>
 <li>Continuous Integration system: github action and codecov.io. We use these services to call CTest on several platforms (windows, ubuntu and MacOs) with several compilers, and validate any change made to the main repository.</li>
 </ul>
@@ -158,7 +160,8 @@ How to write tests</h2>
 </div><!-- fragment --> <h1><a class="anchor" id="autotoc_md71"></a>
 Code coverage</h1>
 <p>On PR, code coverage analysis is performed through a github action with help of codecov.io report.</p>
-<p>You can run such analysis on your own (on linux system, not tested on other plateform) using lcov. First install <code>lcov</code>, <code>sed</code> and <code>xmllint</code> for the tests. It's probably on your system repositories, e.g.:</p><ul>
+<p>You can run such analysis on your own (on linux system, not tested on other plateform) using lcov. First install <code>lcov</code>, <code>sed</code> and <code>xmllint</code> for the tests. It's probably on your system repositories, e.g.:</p>
+<ul>
 <li>for Debian: <code>sudo apt install lcov libxml2-utils</code></li>
 <li>on MacOS: <code>brew install lcov libxml2</code></li>
 </ul>
@@ -175,11 +178,13 @@ Code coverage</h1>
 </div><!-- fragment --><p>output report is <code>./lcov/index.html</code>.</p>
 <p><code>lcov</code> is quite slow to process files, <a href="https://github.com/RPGillespie6/fastcov/blob/master/fastcov.py"><code>fastcov</code></a> is a parallel alternative. To install fastcov: <code>pip3 install fastcov</code>.</p>
 <p>Note: fastcov is currently supported by GNU gcov only, so we enable it only on UNIX systems, excluding MacOS. See more details at: <a href="https://github.com/RPGillespie6/fastcov/issues/36">https://github.com/RPGillespie6/fastcov/issues/36</a>.</p>
-<p>and to run the analysis: </p><div class="fragment"><div class="line"># in you build path</div>
+<p>and to run the analysis:</p>
+<div class="fragment"><div class="line"># in you build path</div>
 <div class="line">cmake -DCMAKE_BUILD_TYPE=Debug -DRADIUM_ENABLE_COVERAGE=ON -C RADIUM_CONFIG RADIUM_SOURCE</div>
 <div class="line">make coverage_fastcov  #build everything, with coverage enable, run test, perform analysis</div>
 </div><!-- fragment --><p>report is <code>./coverage_fastcov/index.html</code></p>
-<p>For comparison on a Intel(R) Xeon(R) Silver 4210 CPU @ 2.20GHz (with radium built already done).</p><ul>
+<p>For comparison on a Intel(R) Xeon(R) Silver 4210 CPU @ 2.20GHz (with radium built already done).</p>
+<ul>
 <li><code>time make lcov</code> -&gt; real 1m13.289s</li>
 <li><code>time make coverage_fastcov</code> -&gt; real 0m11.717s </li>
 </ul>
@@ -198,7 +203,7 @@ Code coverage</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

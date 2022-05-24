@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -108,14 +108,12 @@ $(document).ready(function(){initNavTree('develCameraManipulator.html',''); init
 Implementing a CameraManipulator</h1>
 <p>In order to extend the set of <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> available in Radium or to develop a dedicated <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> for a <code><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></code>-based application, programmers are intended to do the following, demonstrated by the class <code>FlightCameraManipulator</code>.</p>
 <ol type="1">
-<li><p class="startli">Define the class that must inherits from <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> and, in order to receive interaction events, from <code><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></code>. Note that a CameraManipulator is a <code>Q_OBJECT</code></p>
-<div class="fragment"><div class="line"><span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> FlightCameraManipulator : <span class="keyword">public</span> CameraManipulator,</div>
+<li>Define the class that must inherits from <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> and, in order to receive interaction events, from <code><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></code>. Note that a CameraManipulator is a <code>Q_OBJECT</code> <div class="fragment"><div class="line"><span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> FlightCameraManipulator : <span class="keyword">public</span> CameraManipulator,</div>
 <div class="line">                                           <span class="keyword">public</span> KeyMappingManageable&lt;FlightCameraManipulator&gt;</div>
 <div class="line">{</div>
 <div class="line">    Q_OBJECT</div>
 </div><!-- fragment --></li>
-<li><p class="startli">Implement the constructors (default, copy). Note that it is also very important to implement a constructor that will take any <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> and will copy the base class before initializing the current manipulator.</p>
-<div class="fragment"><div class="line">Gui::FlightCameraManipulator::FlightCameraManipulator( <span class="keyword">const</span> CameraManipulator&amp; other ) :</div>
+<li>Implement the constructors (default, copy). Note that it is also very important to implement a constructor that will take any <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> and will copy the base class before initializing the current manipulator. <div class="fragment"><div class="line">Gui::FlightCameraManipulator::FlightCameraManipulator( <span class="keyword">const</span> CameraManipulator&amp; other ) :</div>
 <div class="line">    CameraManipulator( other ),</div>
 <div class="line">    m_rotateAround( true ),</div>
 <div class="line">    m_cameraRotateMode( false ),</div>
@@ -125,8 +123,7 @@ Implementing a CameraManipulator</h1>
 <div class="line">    initializeFixedUpVector();</div>
 <div class="line">}</div>
 </div><!-- fragment --></li>
-<li><p class="startli">Implement the <code><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></code> part of the class. This implies defining the method <code>void FlightCameraManipulator::configureKeyMapping_impl()</code> according to the semantic imposed by <code><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></code>. It is recommended that, when implementing this keymapping initialisation callback, a default configuration is defined and saved to the xml keymapping configuration file if this later does not already contains a configuration. This will allow the users to edit and customize the proposed keymapping configuration.</p>
-<div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Gui.html#afa4c7a727b010be2aa0fe037e9faccf4">FlightCameraKeyMapping</a> = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt;FlightCameraManipulator&gt;</a>;</div>
+<li>Implement the <code><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></code> part of the class. This implies defining the method <code>void FlightCameraManipulator::configureKeyMapping_impl()</code> according to the semantic imposed by <code><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></code>. It is recommended that, when implementing this keymapping initialisation callback, a default configuration is defined and saved to the xml keymapping configuration file if this later does not already contains a configuration. This will allow the users to edit and customize the proposed keymapping configuration. <div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Gui.html#afa4c7a727b010be2aa0fe037e9faccf4">FlightCameraKeyMapping</a> = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt;FlightCameraManipulator&gt;</a>;</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction Gui::FlightCameraManipulator::XX;</span></div>
 <div class="line"><a class="code" href="FlightCameraManipulator_8hpp.html#a548a2cdef611b0b5977e76ddc6f4cb3f">KeyMappingFlightManipulator</a></div>
@@ -207,9 +204,11 @@ Extending/Specializing an existing CameraManipulator</h1>
 </div><!-- fragment --> <h1><a class="anchor" id="autotoc_md47"></a>
 Using a CameraManipulator</h1>
 <p>Using a <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> in a <code><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></code>-based application is quite straightforward.</p>
-<p>If one wants to set a first camera manipulator to a viewer </p><div class="fragment"><div class="line">myViewer-&gt;setCameraManipulator(</div>
+<p>If one wants to set a first camera manipulator to a viewer</p>
+<div class="fragment"><div class="line">myViewer-&gt;setCameraManipulator(</div>
 <div class="line">        <span class="keyword">new</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html">Ra::Gui::FlightCameraManipulator</a>( width, height );</div>
-</div><!-- fragment --><p>If one wants to change the manipulator while keeping the actual visual state </p><div class="fragment"><div class="line">myViewer-&gt;setCameraManipulator(</div>
+</div><!-- fragment --><p>If one wants to change the manipulator while keeping the actual visual state</p>
+<div class="fragment"><div class="line">myViewer-&gt;setCameraManipulator(</div>
 <div class="line">        <span class="keyword">new</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html">Ra::Gui::FlightCameraManipulator</a>( *( m_viewer-&gt;getCameraManipulator() ) ) );</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -231,7 +230,7 @@ Using a CameraManipulator</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

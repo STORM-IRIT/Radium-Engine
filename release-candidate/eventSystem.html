@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -125,7 +125,8 @@ Events registering</h2>
 <p>Any plugin could also ask the engine the ID of other plugins events, to subscribe to.</p>
 <h2><a class="anchor" id="autotoc_md30"></a>
 Events queue</h2>
-<p>When an event occurs, the sender adds it to engine's event queue, with associated data (<em>any</em> ftw !). Then at each frame, events could be handled this way :</p><ul>
+<p>When an event occurs, the sender adds it to engine's event queue, with associated data (<em>any</em> ftw !). Then at each frame, events could be handled this way :</p>
+<ul>
 <li>Send all events / data to each system</li>
 <li>Send events to systems that have subscribed for it</li>
 <li>Call system functions bound to an event (given at subscribe time) </li>
@@ -137,7 +138,7 @@ Events queue</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

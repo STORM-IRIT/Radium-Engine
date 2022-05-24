@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.35</span>
+   &#160;<span id="projectnumber">1.2.36</span>
    </div>
   </td>
  </tr>
@@ -114,7 +114,8 @@ Supported compiler and platforms</h1>
 <li><em>Linux</em> : gcc 8 or higher, clang</li>
 </ul>
 <p>See also our Continuous Integration system at <a href="https://github.com/STORM-IRIT/Radium-Engine/actions">https://github.com/STORM-IRIT/Radium-Engine/actions</a>.</p>
-<p>Minimal requirements</p><ul>
+<p>Minimal requirements</p>
+<ul>
 <li>OpenGL 4.1+ / GLSL 410+</li>
 <li>CMake 3.16+</li>
 <li>Qt5 (minimal version 5.15) or Qt6 (experimental)</li>
@@ -137,10 +138,12 @@ Folder structure</h2>
 <li>For Debug or RelWithDebInfo build</li>
 </ul>
 <div class="fragment"><div class="line">set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})</div>
-</div><!-- fragment --><p>It has the following structure </p><div class="fragment"><div class="line">Bundle-*</div>
+</div><!-- fragment --><p>It has the following structure</p>
+<div class="fragment"><div class="line">Bundle-*</div>
 <div class="line"> - bin/  include/  lib/  LICENSE  README.md  Resources/</div>
 </div><!-- fragment --><h3>Configure build options</h3>
-<p>Radium offers the following build options: </p><div class="fragment"><div class="line">// Enable coverage, gcc only. Experimental, need ENABLE_TESTING</div>
+<p>Radium offers the following build options:</p>
+<div class="fragment"><div class="line">// Enable coverage, gcc only. Experimental, need ENABLE_TESTING</div>
 <div class="line">RADIUM_ENABLE_COVERAGE:BOOL=OFF</div>
 <div class="line">--</div>
 <div class="line">// Enable testing. Tests are automatically built with target all</div>
@@ -221,7 +224,8 @@ Running the <code>install</code> target is recommended as it will copy all the r
 <h2><a class="anchor" id="autotoc_md14"></a>
 Integration with Visual Studio (Microsoft Windows)</h2>
 <h3>Supported versions of MSVC</h3>
-<p>Radium requires MSVC 2019 or superior, as it relies on:</p><ul>
+<p>Radium requires MSVC 2019 or superior, as it relies on:</p>
+<ul>
 <li>C++11/C++14/C++17 features such as <code>constexpr</code>,</li>
 <li>cmake built-in support</li>
 </ul>
@@ -230,7 +234,8 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <p>Use precompiled libraries for VS 2017 or 2019 - 64 bits (minimal version required: 5.14). You will probably have to manually point cmake to the Qt folder.</p>
 <h3>Getting started with Visual Studio</h3>
 <p>Thanks to the integrated support of CMake in Visual Studio, you don't need a VS solution to build your project: open the Radium folder (via <em>File</em> &gt; <em>Open</em> &gt; <em>Folder ...</em> or <code>devenv.exe &lt;foldername&gt;</code>). VS should run cmake, generate the target builds (Debug and Release by default). Other build types can be added by editing <code>CMakeSettings.json</code>.</p>
-<p>You may have Cmake errors occurring at the first run. To fix them, you need to edit the VS-specific file <code>CMakeSettings.json</code>, via <em>CMake</em> &gt; <em>Change CMake Settings</em> &gt; path-to-CMakeLists (configuration-name) from the main menu. For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries. To fix it, edit <code>CMakeSettings.json</code>, such that </p><div class="fragment"><div class="line">{</div>
+<p>You may have Cmake errors occurring at the first run. To fix them, you need to edit the VS-specific file <code>CMakeSettings.json</code>, via <em>CMake</em> &gt; <em>Change CMake Settings</em> &gt; path-to-CMakeLists (configuration-name) from the main menu. For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries. To fix it, edit <code>CMakeSettings.json</code>, such that</p>
+<div class="fragment"><div class="line">{</div>
 <div class="line">  &quot;configurations&quot;: [</div>
 <div class="line">    {</div>
 <div class="line">      &quot;name&quot;: &quot;x64-Release&quot;,</div>
@@ -266,7 +271,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Thu May 19 2022 13:38:30 for Radium Engine by
+    <li class="footer">Generated on Tue May 24 2022 07:33:44 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
