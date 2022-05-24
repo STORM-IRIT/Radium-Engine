@@ -442,12 +442,21 @@ class RA_ENGINE_API GeneralMesh : public IndexedGeometry<Core::Geometry::General
     Core::AlignedStdVector<IndexType> m_triangleIndices {};
 };
 
+template <typename CoreMeshType>
+CoreMeshType createEdgeWithDegeneratedTriangle( const Ra::Core::Asset::GeometryData* data ) {
+    const auto& edges = data->getEdges();
+    indices.reserve( edges.size() );
+    std::transform(
+        edges.begin(), edges.end(), std::back_inserter( indices ), []( Ra::Core::Vector2ui v ) {
+            return ( typename CoreMeshType::IndexType { v( 0 ), v( 1 ), v( 1 ) } );
+        } );
+}
+
 /// create a TriangleMesh, GeneralMesh or other Core::*Mesh from GeometryData
 template <typename CoreMeshType>
 CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData* data ) {
     CoreMeshType mesh;
-    typename CoreMeshType::IndexContainerType indices;
-    if ( !data->isLineMesh() ) {
+    0 if ( !data->isLineMesh() ) {
         const auto& faces = data->getFaces<typename CoreMeshType::IndexType>();
         indices.reserve( faces.size() );
         std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
