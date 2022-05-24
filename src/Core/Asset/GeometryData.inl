@@ -35,7 +35,7 @@ inline std::size_t GeometryData::getVerticesSize() const {
 }
 
 inline Vector3Array& GeometryData::getVertices() {
-    return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_POSITION ).getDataWithLock();
+    return m_multiIndexedGeometry.verticesWithLock();
 }
 
 inline const Vector3Array& GeometryData::getVertices() const {
