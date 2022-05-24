@@ -30,7 +30,7 @@ inline void GeometryData::setFrame( const Transform& frame ) {
 inline std::size_t GeometryData::getVerticesSize() const {
     auto& n      = getAttribName( Geometry::MeshAttrib::VERTEX_POSITION );
     auto h       = m_multiIndexedGeometry.getAttribHandle<Vector3>( n );
-    auto& attrib = m_multiIndexedGeometry.getAttrib( h );
+    const auto& attrib = m_multiIndexedGeometry.getAttrib( h );
     return attrib.data().size();
 }
 
