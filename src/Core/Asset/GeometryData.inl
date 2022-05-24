@@ -28,14 +28,14 @@ inline void GeometryData::setFrame( const Transform& frame ) {
 }
 
 inline std::size_t GeometryData::getVerticesSize() const {
-    auto& n      = getAttribName( Geometry::MeshAttrib::VERTEX_POSITION );
+    const auto& n      = getAttribName( Geometry::MeshAttrib::VERTEX_POSITION );
     auto h       = m_multiIndexedGeometry.getAttribHandle<Vector3>( n );
-    auto& attrib = m_multiIndexedGeometry.getAttrib( h );
+    const auto& attrib = m_multiIndexedGeometry.getAttrib( h );
     return attrib.data().size();
 }
 
 inline Vector3Array& GeometryData::getVertices() {
-    return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_POSITION ).getDataWithLock();
+    return m_multiIndexedGeometry.verticesWithLock();
 }
 
 inline const Vector3Array& GeometryData::getVertices() const {
@@ -262,10 +262,7 @@ inline Utils::Attrib<T>& GeometryData::getAttrib( const Geometry::MeshAttrib& na
 template <typename V>
 inline void GeometryData::setAttribData( const Geometry::MeshAttrib& name,
                                          const VectorArray<V>& attribDataList ) {
-    auto& attrib = getAttrib<V>( name );
-    auto& data   = attrib.getDataWithLock();
-    internal::copyData( attribDataList, data );
-    attrib.unlock();
+    getAttrib<V>( name ).setData(attribDataList);
 }
 
 template <typename V>
