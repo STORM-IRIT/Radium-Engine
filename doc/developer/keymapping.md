@@ -1,7 +1,6 @@
 \page develkeymapping  KeyMapping
 [TOC]
 
-
 # Usage
 
 You first need to add into every configuration file (located in the `install_dir/Configs/` folder) an entry which will bind your action to a key.
@@ -95,10 +94,11 @@ The idea is that at a key press or mouse press event, the viewer is capable of d
 For instance see `Viewer.cpp` `Viewer::mousePressEvent`:
  \snippet Gui/Viewer/Viewer.cpp event dispatch
 
-# Key mapping and inheritence.
+# Key mapping and inheritence
+
 If you want to define a derived class that inherits a base class with key mapping, and you want to have key mapping management in this derived, you have to consider the following implementation details:
 
-*  Base and derived classes will have two different contexts.
+* Base and derived classes will have two different contexts.
 * Derived  `setupKeymappingcallbacks` should call base  `setupKeymappingcallbacks`, hence derived `configureKeymapping_impl` should only care about its own `KeyMappingAction`.
 
 Here is an example snippets.
@@ -118,10 +118,10 @@ class MyViewer : public Ra::Gui::Viewer, public Ra::Gui::KeyMappingManageable<My
 }
 
 void  MyViewer::setupKeyMappingCallbacks() {
-	// Setup keymapping for base
+ // Setup keymapping for base
     base::setupKeyMappingCallbacks();
 
-	// then extend
+ // then extend
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
     keyMappingManager->addListener( thisKeyMapping::configureKeyMapping );
 }
@@ -137,7 +137,7 @@ void MyViewer::configureKeyMapping_impl() {
 
 #define KMA_VALUE( XX ) XX = keyMappingManager->getActionIndex( thisKeyMapping::m_keyMappingContext, #XX );
 
-	KeyMappingMyViewer
+ KeyMappingMyViewer
 
 #undef KMA_VALUE
 }

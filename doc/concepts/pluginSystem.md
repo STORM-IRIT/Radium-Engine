@@ -7,6 +7,7 @@ could be a plug-in to support animation. ImGui, for instance, is implemented as
 a plugin.
 
 Current possibilities include:
+
 + Export QWidgets to the main interface. Will appear in the **toolbox**.
 + Export RenderObjects to be rendered by the application renderer.
 + Communicate with other plugins via the `ComponentMessenger` class.
@@ -16,12 +17,14 @@ Current possibilities include:
 A plugin is integrated by placing the corresponding `.so` into `./Plugins/bin`.
 
 A plugin generally contains the following classes:
+
 + `FooPlugin`: defines the interface functions needed to be accepted by radium,
 and exports the widgets.
 + `FooSystem`: the system will manage and update every component.
 + `FooComponent`: object that has the ability to communicate with other components.
 
 One could also add:
+
 + `FooTask`: add some tasks (threads) to the `TaskManager`.
 + `FooRenderObject`: define a new render object that will be rendered just like
 any others thanks to `RenderObjectManager`.
