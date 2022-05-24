@@ -4,47 +4,42 @@
 
 The following is a set of guidelines for contributing to the Radium-Engine echosystem, which are hosted in the [STORM-IRIT Organization](https://github.com/STORM-IRIT) on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
-
-#### Table Of Contents
+## Table Of Contents
 
 [Code of Conduct](#code-of-conduct)
 
 [I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
 
 [What should I know before I get started?](#what-should-i-know-before-i-get-started)
-  * [Radium Libraries](#radium-libraries)
-  * [Radium Applications and Plugins](#radium-applications-and-plugins)
-  * [Radium Design Decisions](#design-decisions)
+
+* [Radium Libraries](#radium-libraries)
+* [Radium Applications and Plugins](#radium-applications-and-plugins)
+* [Radium Design Decisions](#design-decisions)
 
 [How Can I Contribute?](#how-can-i-contribute)
-  * [Reporting Bugs](#reporting-bugs)
-  * [Suggesting Enhancements](#suggesting-enhancements)
-  * [Your First Code Contribution](#your-first-code-contribution)
-  * [Pull Requests](#pull-requests)
+
+* [Reporting Bugs](#reporting-bugs)
+* [Suggesting Enhancements](#suggesting-enhancements)
+* [Your First Code Contribution](#your-first-code-contribution)
+* [Pull Requests](#pull-requests)
 
 [Styleguides](#styleguides)
-  * [Git Commit Messages](#git-commit-messages)
-  * [Specs Styleguide](#specs-styleguide)
-  * [Documentation Styleguide](#documentation-styleguide)
+
+* [Git Commit Messages](#git-commit-messages)
+* [Specs Styleguide](#specs-styleguide)
+* [Documentation Styleguide](#documentation-styleguide)
 
 [Additional Notes](#additional-notes)
-  * [Issue and Pull Request Labels](#issue-and-pull-request-labels)
 
+* [Issue and Pull Request Labels](#issue-and-pull-request-labels)
 
-## I don't want to read this whole thing I just have a question!!!
+## I don't want to read this whole thing I just have a question
 
 > **Note:** As the size of the Radium community remains limited, we keep using github issue system to provide support for users. If you have a question, first try to find a solution in this file, then browse the existing issues, and, if you still need support, open a new issue stating your problem.
 
 ## What should I know before I get started?
 
-### Radium Libraries
-
-Radium provides .......
-
-### Radium Applications and Plugins
-
-### Design Decisions
-
+Check Radium-Engine's [README](https://github.com/STORM-IRIT/Radium-Engine) and documentation about [concepts](https://storm-irit.github.io/Radium-Engine/master/conceptsmanual.html) and [basics](https://storm-irit.github.io/Radium-Engine/master/basicsmanual.html)
 
 ## How Can I Contribute?
 
@@ -55,10 +50,6 @@ This section guides you through submitting a bug report for Radium. Following th
 Before creating bug reports, please check [this list](#before-submitting-a-bug-report) as you might find out that you don't need to create one. When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report). Fill out [the required template](ISSUE_TEMPLATE.md), the information it asks for helps us resolve issues faster.
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
-
-#### Before Submitting A Bug Report
-
-
 
 #### How Do I Submit A (Good) Bug Report?
 
@@ -72,7 +63,8 @@ Explain the problem and include additional details to help maintainers reproduce
 * **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
 * **Explain which behavior you expected to see instead and why.**
 * **Include screenshots and animated GIFs** which show you following the described steps and clearly demonstrate the problem, when it relates to GUI and applications. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
-* **If you're reporting that Radium crashed**, include a crash report with a stack trace from the operating system. On macOS, the crash report will be available in `Console.app` under "Diagnostic and usage information" > "User diagnostic reports". Include the crash report in the issue in a [code block](https://help.github.com/articles/markdown-basics/#multiple-lines), a [file attachment](https://help.github.com/articles/file-attachments-on-issues-and-pull-requests/), or put it in a [gist](https://gist.github.com/) and provide link to that gist.
+* **If you're reporting that Radium crashed**, include a crash report with a stack trace from the operating system. On macOS, the crash report will be available in `Console.app` under "Diagnostic and usage information" > "User diagnostic reports".
+Include the crash report in the issue in a [code block](https://help.github.com/articles/markdown-basics/#multiple-lines), a [file attachment](https://help.github.com/articles/file-attachments-on-issues-and-pull-requests/), or put it in a [gist](https://gist.github.com/) and provide link to that gist.
 * **If the problem wasn't triggered by a specific action**, describe what you were doing before the problem happened and share more information using the guidelines below.
 
 Provide more context by answering these questions:
@@ -90,7 +82,6 @@ Include details about your configuration and environment:
 * **What's the name and version of the compiler you're using**?
 * **Are you running Radium in a virtual machine?** If so, which VM software are you using and which operating systems and versions are used for the host and the guest?
 * **Which [plugins](#radium-applications-and-plugins) do you have installed?** Radium Main App prints the list of loaded plugins when starting.
-
 
 ### Suggesting Enhancements
 
@@ -123,20 +114,20 @@ Unsure where to begin contributing to Radium? You can start by looking through t
 
 Both issue lists are sorted by total number of comments. While not perfect, number of comments is a reasonable proxy for impact a given change will have.
 
-
 ### Pull Requests
 
 * Fill in [the required template](PULL_REQUEST_TEMPLATE.md)
 * Do not include issue numbers in the PR title
 * Include screenshots and animated GIFs in your pull request whenever possible.
-* Follow the [DEFINE CODE GUIDELINES](#).
+* Follow the [coding convention](https://storm-irit.github.io/Radium-Engine/master/develCodingConvention.html)
 * Document new code based on the [Documentation Styleguide](#documentation-styleguide)
 * Avoid platform-dependent code
-*
+
 ## Styleguides
 
 ### Git Commit Messages
 
+* Start commit message with a tag to identify main modified components, e.g. [core], [doc], [tests], [engine], [cmake], [github]
 * Use the present tense ("Add feature" not "Added feature")
 * Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
 * Limit the first line to 72 characters or less

@@ -19,9 +19,11 @@ The Radium Engine exposes some predefined materials, the _Radium Material Librar
 to the Ra::Engine::Rendering::ForwardRenderer default renderer.
 
 # Content of the Radium Material Library
+
 The Radium Material Library defines two default material :
-  - BlinnPhong, Ra::Engine::Data::BlinnPhongMaterial, corresponding to the Blinn-Phong BSDF.
-  - Plain, Ra::Engine::Data::PlainMaterial, corresponding to a diffuse, lambertian BSDF.
+
+- BlinnPhong, Ra::Engine::Data::BlinnPhongMaterial, corresponding to the Blinn-Phong BSDF.
+- Plain, Ra::Engine::Data::PlainMaterial, corresponding to a diffuse, lambertian BSDF.
 
 The _Radium Material Library_ can be used as this by any Radium Application or can be extended by an application or a
 Radium Plugin by implementing the corresponding interfaces as described in the
@@ -85,6 +87,7 @@ allows shader reuse and composition for OpenGL rendering.
 The C++ interface is implemented in a `NameOfTheMaterial.hpp/.cpp` source file.
 
 The GLSL interface is composed of several parts :
+
 1. The implementation of a [BSDF interface](#bsdf-interface) and a [micro-geometry interface](#microgeometry-interface)
 in a `NameOfBSDF.glsl` file that will be included in every fragment shaders that need the implementation of the bsdf.
 2. The implementation of one or several vertex shaders that will compute the data used by the
@@ -96,6 +99,7 @@ give one for the Radium default renderer.
 renderer-specific and the programmer must at least give one for the Radium default renderer.
 
 ## C++ interface {#cpp-mtl-lib}
+
 The Ra::Engine::Data::Material interface defines the internal abstract representation of a Material.
 This interface defines all the methods required to parametrized the OpenGL pipeline for rendering and will be used
 mainly by the Ra::Engine::Rendering::RenderTechnique and the Ra::Engine::Rendering::Renderer classes.
@@ -106,6 +110,7 @@ These method will populate the _Radium Material Library_ factories with specific
 in the default Radium forward renderer.
 Mainly, the `registerMaterial()` method will record an helper function to build a material-related
 Ra::Engine::Rendering::RenderTechnique dedicated to the Radium forward renderer.
+
 ~~~{.cpp}
 class MyMaterial : public Ra::Engine::Data::Material {
 public:
@@ -121,15 +126,17 @@ public:
     ...
 }
 ~~~
+
 See the [Render technique management](./rendertechnique) for documentation on how to build such an helper function.
 
 ## GLSL interface {#glsl-mtl-lib}
+
 Being able to compose shaders in a specific renderer while taking profit of Radium Material Library
 (either included in the base engine or defined in plugins) require a clean definition of appearance computation
 process and the definition of a glsl interface.
 
-
 ## Appearance computation needs
+
 In order to compute the appearance of an object, and according to the OpenGL/GLSL approach of rendering, several
 aspects might be taken into account and might be integrated into the interface definition to make a material
 renderer-agnostic.
@@ -148,6 +155,7 @@ these functionalities and concentrate its effort in developing the required func
     - Microfacet - based BSDF (added by plugins such as GLTF-2 or PBRT)
 
 ### Vertex attrib interface {#vrtx-attr-interface}
+
 In order to compute the appearance of an object, one need to rely on parameters defined directly on the geometry of
 the object. Such parameters (position, normal, tangent, ...) are passed to the shader systems as vertex attributes.
 
@@ -169,6 +177,7 @@ want to use it by `#include "VertexAttribInterface.frag.glsl"`.
 
 It relies on some standard vertex attribute that have to be set by the vertex shader with respect to the following
 out binding :
+
 ~~~{.cpp}~
 // All attributes are given in world space
 layout (location = 0) out vec3 position;
@@ -177,6 +186,7 @@ layout (location = 2) out vec3 texcoord;
 layout (location = 3) out vec3 vertexcolor;
 layout (location = 4) out vec3 tangent;
 ~~~
+
 The default implementation of the fragment interface is robust to inactive attributes, i.e. attributes that are not set
 by the vertex shader.
 
@@ -211,8 +221,8 @@ vec3 getPerVertexSpecularColor();
 
 Note also that if a function is not needed by a shader, there is no need to implement its interface.
 
-
 ### Microgeometry interface {#microgeometry-interface}
+
 Defining the micro-geometry procedurally or by using textures allows to de-correlates the geometric sampling from the
 appearance parameters sampling.
 The best example of procedural micro-geometry is normal mapping.
@@ -238,8 +248,8 @@ vec3 getNormal(Material material, vec3 texCoord, vec3 N, vec3 T, vec3 B);
 bool toDiscard(Material material, vec4 color);
 ~~~
 
-
 ### BSDF interface {#bsdf-interface}
+
 Implementing or using the GLSL BSDF interface is based on the fact that the method Ra::Engine::Data::Material::getMaterialName()
  must return a string that contains the `name_of_the_BSDF` implemented in a file named `name_of_the_BSDF.glsl`.
 This file is preloaded at [material registration](#registration-mtl-lib) into a `glNamedString` to allow inclusion by others.
@@ -249,6 +259,7 @@ of the BSDF interface, with no `void main(){...}`, the implementation of the mic
 access to vertex attribs by using the vertex attribute interface or so on ...
 
 This file must contain an inclusion guard :
+
 ~~~{.cpp}
 #ifndef METALLICROUGHNESS_GLSL
 #define METALLICROUGHNESS_GLSL
@@ -307,15 +318,18 @@ float getGGXRoughness(Material material, vec3 texCoord);
 ~~~
 
 ### Emissivity interface {#emissivity-interface}
+
 Some materials are not only reflective, hence implementing the BSDF interface, but also can be emissive.
 To allow a renderer to access the emissivity of a material the following GLSL function  must
 defined in the same GLSL file than the BSDF and microgeometry interface :
-~~~
+
+~~~{.cpp}
 // Return the emissivity of the material
 vec3 getEmissiveColor(GLTFCommon material, vec3 textCoord);
 ~~~
 
 ## Material registration into the Engine {#registration-mtl-lib}
+
 When implementing the [GLSL interface](#glsl-mtl-lib) of a Material, the user can rely on several
 glsl components defined by the Engine. Glsl components are helper functions and data structure that could
 be used to develop specific shaders.
@@ -325,6 +339,7 @@ others, the Radium Engine defines a material component registration system that 
 _Radium Material Library_.
 
 The registration and glsl component access system is made of 3 parts
+
 1. Registration of OpenGL/GLSL named string : defining a re-usable GLSL component.
 2. Registration of OpenGL/GLSL Program configuration : defining how to link shaders into a program for a specific
 rendering step.
@@ -334,6 +349,7 @@ a fourth part, optional, could be defined to convert a Ra::Core::Asset:MaterialD
 to a Ra::Engine::Data::Material.
 
 ### Registration of OpenGL/GLSL named string
+
 Relying on already developed GLSL component require that this component could be included in the client code.
 In GLSL, this is done using the preprocessor directive ``#include </ComponentPath/ComponentName.glsl>``.
 As specified by the ARB_shading_language_include specification, included files must be preloaded in a
@@ -349,6 +365,7 @@ by ``#include </SharedComponent.glsl>``, one just need to do the following
 ~~~
 
 ### Registration of OpenGL/GLSL Program configuration
+
 The use of GLSL component to render object requires the building of a render-task specific OpenGL Program that link
 together the GLSL component and shaders addressing stages of the OpenGL Pipeline. According to the OpenGL specification,
 A vertex shader and a fragment shader stage are mandatory whereas tesselation end geometry shader are optional and
@@ -356,6 +373,7 @@ depends only of the way one want to configure its pipeline for rendering.
 
 To describe the OpenGL program configuration, and make it reusable, the configuration must be registered in the
 Ra::Engine::Data::ShaderConfigurationFactory. To do that, for each reusable configuration, one just need to do the following
+
 ~~~{.cpp}
     // build the configuration
     Ra::Engine::Data::ShaderConfiguration myConfig(
@@ -369,12 +387,14 @@ Ra::Engine::Data::ShaderConfigurationFactory. To do that, for each reusable conf
 ~~~
 
 once registered, a shader configuration could be fetched from the factory by its name :
+
 ~~~{.cpp}
 auto theConfig =
                 Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration( "ConfigName" );
 ~~~
 
 ### Registering a RenderTechnique
+
 A Ra::Engine::Rendering::RenderTechnique describes which Ra::Engine::Data::ShaderConfiguration a renderer will use for each of its
 rendering passes. Such a render technique could encompass a Ra::Engine::Data::Material but its meaning is larger than just
 computing the BSDF.
@@ -417,6 +437,7 @@ Ra::Engine::Rendering::EngineRenderTechniques::registerDefaultTechnique(
 ~~~
 
 once registered, the render technique could then be associated with any render object using the following principle :
+
 ~~~{.cpp}
 // Construct and initialize a Ra::Engine::Rendering::RenderTechnique object
 Ra::Engine::Rendering::RenderTechnique rt;
@@ -434,8 +455,8 @@ auto builder = Ra::Engine::Rendering::EngineRenderTechniques::getDefaultTechniqu
 builder.second( rt, isMaterialTransparent );
 ~~~
 
-
 ## Rendering without using Materials {#non-bsdf-rendering}
+
 The _Radium Material Library_ and related components are mainly designed to manage Materials as a representation of a _Bidirectional Scattering Distribution function (BSDF)_.
 
 When rendering, it is sometime useful to compute the final color of an object that do not rely on a bsdf but just on a specific color for each geometry fragment.
@@ -449,6 +470,7 @@ To define a custom fragment's color computation shader and use it with applicati
 5. Associate the render technique with a geometry in a Ra::Engine::Rendering::RenderObject
 
 Here is an example snippet.
+
 ~~~{.cpp}
 // 1. Implement a parameter provider to provide the uniforms for the shader
 class MyParameterProvider : public Ra:Engine::Data::ShaderParameterProvider {
@@ -463,9 +485,9 @@ public:
   }
 
   void setOrComputeTheParameterValues() {
-	// client side computation of the parameters, e.g.
-	m_colorParameter = Ra::Core::Color::Red();
-	m_scalarParameter = .5_ra;
+ // client side computation of the parameters, e.g.
+ m_colorParameter = Ra::Core::Color::Red();
+ m_scalarParameter = .5_ra;
   }
 private:
   Ra::Core::Color m_colorParameter;
@@ -521,7 +543,6 @@ addRenderObject( renderObject );
 Then the draw call of ``renderObject`` uses the ``myConfig`` as shader configuration.
 Before rendering, the method ``updateGL`` on the ``parameterProvider`` instance is called so that the shader's uniforms values are updated according the one stored in ``parameterProvider``.
 
-
 # \todo TO UPDATE
 
 Shader programs are managed through their `ShaderConfiguration`, which contains the _shader objects_ (vertex, fragment, ... shader) and the _shader properties_ (not used for now though).
@@ -529,11 +550,12 @@ Shader programs are managed through their `ShaderConfiguration`, which contains 
 Unless you are sure you have access to an OpenGL context (which means you are in `Ra::Gui::Viewer::startRendering()` or its callees), you must only manipulate the materials' render technique's shader configuration.
 
 ## Manipulating ShaderConfigurations
+
 Basically, a shader configuration is a simple container with a name, and shader objects names.
 
 There are two valid ways to build a shader configuration :
 
-```
+~~~{.cpp}
 #include <Engine/RenderTechnique/ShaderProgram.hpp>
 
 ShaderConfiguration config("BlinnPhongWireframe");
@@ -545,20 +567,21 @@ ShaderConfiguration config("BlinnPhongWireframe");
 config.addShader(Ra::Engine::ShaderType_VERTEX, "../Shaders/BlinnPhongWireframe.vert.glsl");
 config.addShader(Ra::Engine::ShaderType_FRAGMENT, "../Shaders/BlinnPhongWireframe.frag.glsl");
 config.addShader(Ra::Engine::ShaderType_GEOMETRY, "../Shaders/BlinnPhongWireframe.geom.glsl");
-```
+~~~
 
 The second way is similar, but enables adding directly vertex and fragment shader through the constructor
 
-```
+~~~{.cpp}
 ShaderConfiguration config("Plain", "../Shaders/Plain.vert.glsl", "../Shaders/Plain.frag.glsl");
 // config.addShader(Ra::Engine::ShaderType_FOO, "../Shaders/Bar.foo.glsl");
 // ...
-```
+~~~
 
 ### ShaderConfigurationFactory
+
 If you know you will have to access the same shader configuration in multiple locations of your plugin(s), you can add it to the `ShaderConfigurationFactory` and then access it easier :
 
-```
+~~~{.cpp}
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
@@ -575,7 +598,7 @@ Ra::Engine::ShaderConfigurationFactory::addConfiguration(blinnPhongConfig);
 
 // You can then access anywhere else by its name
 Ra::Engine::ShaderConfiguration config = ShaderConfigurationFactory::getConfiguration("BlinnPhong");
-```
+~~~
 
 Using first or second _adder_ will work only if the name is not empty. Otherwise it will warn and return.
 

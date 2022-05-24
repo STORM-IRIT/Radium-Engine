@@ -1,5 +1,6 @@
 \page develanimation  Animation pipeline
 [TOC]
+
 # Animation in Radium
 
 The Radium Engine provides a set of classes dedicated to animation,
@@ -12,13 +13,14 @@ interpolated when the value for a given time is requested.
 ## Using KeyFramedValue to animate data
 
 There are two ways data can be animated using `Ra::Core::Animation::KeyFramedValue`:
- - When the data is directly specified as a `Ra::Core::Animation::KeyFramedValue`.
+
+- When the data is directly specified as a `Ra::Core::Animation::KeyFramedValue`.
    In this case, particular values at specific times can be specified to create the animation
    keyframes, and then used when requested:
    \snippet unittest/Core/animation.cpp include keyframed
    \snippet unittest/Core/animation.cpp declare MyStruct
    \snippet unittest/Core/animation.cpp use MyStruct
- - When the data is not specified as a `Ra::Core::Animation::KeyFramedValue` but one wants to animate it.
+- When the data is not specified as a `Ra::Core::Animation::KeyFramedValue` but one wants to animate it.
    In this case, one must use the `Ra::Core::Animation::KeyFramedValueController` to animate the data:
    \snippet unittest/Core/animation.cpp include keyframedvaluecontroller
    \snippet unittest/Core/animation.cpp declare MyStructAnimator
@@ -29,9 +31,10 @@ There are two ways data can be animated using `Ra::Core::Animation::KeyFramedVal
 ### Character Animation Basics
 
 In order to animate a digital character, one may choose from two main animation techniques:
- - skeleton-based animation, in which the character's mesh is bound to an
+
+- skeleton-based animation, in which the character's mesh is bound to an
 animation skeleton composed of joints, sometimes called bones.
- - cage-based animation, in which the character's mesh is bound to a set of
+- cage-based animation, in which the character's mesh is bound to a set of
 points defining an englobing deformation cage.
 
 In both cases, the character's mesh is bound to the handles (skeleton joints or
@@ -54,8 +57,9 @@ transformation from the mesh's local frame to the handle's local frame.
 
 In the case of character animation, an animation is a set of `Ra::Core::Animation::KeyFramedValue<Ra::Core::Transform>`,
 one for each joint, which are interpolated by default as follows:
- - the translation and scale channels are linearly interpolated;
- - the rotation channel is linearly interpolated in quaternion space.
+
+- the translation and scale channels are linearly interpolated;
+- the rotation channel is linearly interpolated in quaternion space.
 
 Animations are stored in local space, i.e. each handle transformation is expressed
 in the handle's frame (transformation from bone's parent for skeleton bones,
@@ -72,11 +76,12 @@ handles local transformations to deform the mesh vertices.
 The Radium Engine provides a system specific to the skeleton-based animation of a
 character, the `Ra::Engine::Scene::SkeletonBasedAnimationSystem.
 This system is responsible for transmitting calls to/from animation-related processes
-to 2 specific `Ra::Engine::Scene::Component`:
- - the `Ra::Engine::Scene::SkeletonComponent`, which manages user interactions
+to 2 specific`Ra::Engine::Scene::Component`:
+
+- the `Ra::Engine::Scene::SkeletonComponent`, which manages user interactions
    with the animation skeleton, enabling posing the character and playing the
    animations;
- - the `Ra::Engine::Scene::SkinningComponent`, which is responsible for deforming
+- the `Ra::Engine::Scene::SkinningComponent`, which is responsible for deforming
    the object's mesh vertices according to the desired skinning method.
 
 The Radium Engine provides 4 skinning methods: Linear-Blend Skinning,
@@ -99,14 +104,15 @@ For now, `Ra::Core::Asset::FileLoaderInterface`s in the Radium Engine produce on
 
 Regarding character animation data, there are a few things to do in order to ensure correct import by the
 animation and skinning plugins:
- * The generated `Ra::Core::Asset::FileData` must contain exactly one `Ra::Core::Asset::HandleData` per animated object, as much `Ra::Core::Asset::AnimationData`
+
+- The generated `Ra::Core::Asset::FileData` must contain exactly one `Ra::Core::Asset::HandleData` per animated object, as much `Ra::Core::Asset::AnimationData`
    as needed per animated object and may contain several or no `Ra::Core::Asset::GeometryData`.
    Note: for objects composed of several mesh parts, these must be referred by their name when filling the `Ra::Core::Asset::HandleData`.
- * The animation skeleton, i.e. the bones and hierarchy, must be loaded into the
+- The animation skeleton, i.e. the bones and hierarchy, must be loaded into the
    `Ra::Core::Asset::HandleData`, as well as the skinning weights.
    The bone hierarchy will be defined by the `Ra::Core::Asset::EdgeData`.
    Each bone will be represented by a `Ra::Core::Asset::HandleComponentData`, storing the bone's name,
    transform in model space and its per-skinned mesh offset matrix and vertex skinning weights.
    The offset matrix stores the transformation from mesh space to the node's local space.
- * Animation keyframes, i.e. couples of time and pose (in local space), if any, must be loaded into an `Ra::Core::Asset::AnimationData`.
+- Animation keyframes, i.e. couples of time and pose (in local space), if any, must be loaded into an `Ra::Core::Asset::AnimationData`.
    The whole animation must be stored bone-wise in `Ra::Core::Asset::HandleAnimation`s, whose name must match the bone's.

@@ -3,41 +3,45 @@
 [TOC]
 
 # Source code organization
-*   `src` contains the main source code of the engine libs
 
-    *   `Core` : the Core module (dynamic library) contains the foundation
+* `src` contains the main source code of the engine libs
+
+  * `Core` : the Core module (dynamic library) contains the foundation
  classes such as math classes, containers, adapters to the standard
  library, etc.
 
-    *   `Engine` the Engine module (dynamic library) contains all graphics related code and engine subsystems running.
+  * `Engine` the Engine module (dynamic library) contains all graphics related code and engine subsystems running.
 
-    *   `Gui` has the Qt-based GUI classes.
+  * `Gui` has the Qt-based GUI classes.
 
-*   `Plugins` contains the plugins which add Systems and Components to the engine.
+* `Plugins` contains the plugins which add Systems and Components to the engine.
 
-*   `Shaders` contains the OpenGL Shaders used by the renderer.
+* `Shaders` contains the OpenGL Shaders used by the renderer.
 
-*   `Applications` contains applications build with the engine. Currently it contains a minimal example application and the full-fledged `main-app`
+* `Applications` contains applications build with the engine. Currently it contains a minimal example application and the full-fledged `main-app`
 
-*   `3rdPartyLibs` contains any library dependency. CMake will automatically look in this folder to find the libraries if they are not installed on your system.
+* `3rdPartyLibs` contains any library dependency. CMake will automatically look in this folder to find the libraries if they are not installed on your system.
 
 ## Import and export
+
 Core and Engine (and the plugins) are compiled as dynamic libraries, therefore you must be careful about which symbols
 need exporting, especially on Windows. Every module has a specific header file (`RaCore.hpp` for Core) which must
 be included first in all other headers of the module. In particular it defines the `*_API` macros which help exporting
 and importing symbols on Windows.
 
 # Core Libs
+
 `Core` contains most of the basic code on which the rest of the software is built.
-*   `CoreMacros.hpp` has definitions of basic types, build configuration and useful macros.
-*   `Math` is our math library, which is a wrapper around _Eigen_. The most useful files are `Math.hpp` which has mathematical constants and simple functions, and `LinearAlgebra.hpp` which contains the type definitions of most basic vector and matrix types.
-*   `Containers` has some specially useful std-like containers, most importantly `VectorArray.hpp` which defines a dynamic array of vectors with both a`std::vector`-like interface and compatibility with Eigen.
-*   `Mesh` contains our basic mesh geometry primitives, including the representation of a simple triangle mesh and many functions to operate on geometry.
-*   `String` contains utilities extending `std::string`.
-*   `Log` is a wrapper around the header-only _EasyLogger_ library which allows us to log various events.
-*   `Time` contains utilities around `std::chrono` for precise timings.
-*   `Tasks` contains the definition for the basic Tasks system and the task queue.
-*   `Utils` contains generic utilities such as a Singleton template.
+
+* `CoreMacros.hpp` has definitions of basic types, build configuration and useful macros.
+* `Math` is our math library, which is a wrapper around _Eigen_. The most useful files are `Math.hpp` which has mathematical constants and simple functions, and `LinearAlgebra.hpp` which contains the type definitions of most basic vector and matrix types.
+* `Containers` has some specially useful std-like containers, most importantly `VectorArray.hpp` which defines a dynamic array of vectors with both a`std::vector`-like interface and compatibility with Eigen.
+* `Mesh` contains our basic mesh geometry primitives, including the representation of a simple triangle mesh and many functions to operate on geometry.
+* `String` contains utilities extending `std::string`.
+* `Log` is a wrapper around the header-only _EasyLogger_ library which allows us to log various events.
+* `Time` contains utilities around `std::chrono` for precise timings.
+* `Tasks` contains the definition for the basic Tasks system and the task queue.
+* `Utils` contains generic utilities such as a Singleton template.
 
 # Engine Object Model
 
@@ -53,6 +57,7 @@ more than once per frame.
 
 When creating an entity, if you set its transform, _do not forget_ to call
 `Entity::swapTransformBuffers`, this might prevent you some headache. Example :
+
 ~~~{.cpp}
 Ra::Engine::Scene::Entity* entity = theEntityManager->getOrCreate( "MyEntity" );
 Ra::Core::Transform transform( Ra::Core::Transform::Identity() );
@@ -123,9 +128,10 @@ Item entries are mainly used to harmonize the interface to manipulate objects in
 ## Object manipulation and editable transforms
 
 Components have an interface through which transforms can be edited with three functions :
-*   `canEdit()`
-*   `getTransform()`
-*   `setTransform()`
+
+* `canEdit()`
+* `getTransform()`
+* `setTransform()`
 
 Each of these functions takes a render object index as argument, as sometimes a component exposes multiple objects whose
 transform can be edited. Function `canEdit()` tells whether a given idnex can be used as a handle for the other two functions.
@@ -146,20 +152,22 @@ We use a compile-time plugins loading mechanism. When running `cmake`, it will l
 ## Requirements
 
 For this automated build to work the plugins are required to follow these requirements
-*   The plugin code must be in a sub-folder of the `src/Plugins/` directory.
 
-*   The folder name is taken to be the _base name_ of the plugin. If the directory name is `BaseName`, then
-    *   Plugin code must be in `namespace BaseNamePlugin`
-    *   The system defined by the plugin must be named `BaseNamePlugin::BaseNameSystem`
-    *   It must be defined in a header located at the top of the plugin sub-folder, named `BaseNameSystem.hpp` (its full path should be `src/Plugins/Basename/BasenameSystem.hpp`)
-    *   The system must inherit from `Engine::Scene::System` and have a default empty constructor.
+* The plugin code must be in a sub-folder of the `src/Plugins/` directory.
+
+* The folder name is taken to be the _base name_ of the plugin. If the directory name is `BaseName`, then
+  * Plugin code must be in `namespace BaseNamePlugin`
+  * The system defined by the plugin must be named `BaseNamePlugin::BaseNameSystem`
+  * It must be defined in a header located at the top of the plugin sub-folder, named `BaseNameSystem.hpp` (its full path should be `src/Plugins/Basename/BasenameSystem.hpp`)
+  * The system must inherit from `Engine::Scene::System` and have a default empty constructor.
 
 ## Default plugins
 
 See the structure of the default plugins for an example of a working plugin.
 So far three default plugin exist:
-*   _Animation_ handles an animation skeleton and can play keyframe animations.
 
-*   _Skinning_ uses a geometric skinning method (like linear blend skinning or dual quaternion).
+* _Animation_ handles an animation skeleton and can play keyframe animations.
+
+* _Skinning_ uses a geometric skinning method (like linear blend skinning or dual quaternion).
 
 See also the Radium-PluginExample project: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample) for ToonShader and LaplacianSmoothing.

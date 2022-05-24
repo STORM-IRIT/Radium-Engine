@@ -2,10 +2,10 @@
 
 [TOC]
 
-Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.html
-
+Mainly inspired by <https://google-styleguide.googlecode.com/svn/trunk/cppguide.html>
 
 # Code style
+
 Please follow the scripts/clang-format coding style (tested `with clang-format 9.0`).
 We also provide a pre commit hook that checks the committed files are correctly formatted.
 To install both hooks and clang-format, simply run `./scripts/install-scripts-linux.sh` on linux, or adapt to your OS.
@@ -24,24 +24,26 @@ To install both hooks and clang-format, simply run `./scripts/install-scripts-li
 * line length should be kept at 80 (soft limit) and not exceed 120 (hard limit)
 * no need for () for a return statement.
 
-# Headers #
+# Headers
 
 * Every .cpp must have an associated .hpp file
 * use .inl files for inline functions definitions and include it in the .hpp
 * Two types of include guards are accepted (modern is preferred):
-   * Legacy: `#ifndef HEADER_NAME_HPP_`
-   * Modern: `#pragma once`
+  * Legacy: `#ifndef HEADER_NAME_HPP_`
+  * Modern: `#pragma once`
 * Every class should have its own header.
 * Always use < > in include directives and never " "
 * Keep headers in order : Class header, system libraries, other libraries, other headers from project.
 * forward declare as much as you can
 
 # Functions
+
 * use const reference or value to pass input parameters
 * use references for passing output parameters
 * output parameters appear last.
 
 # Scope and names
+
 * use anonymous namespaces for file local variables / functions. no classes with only static functions !
 * Use `namespace Ra { }` for all radium engine code, plus a sub-namespace for each module (e.g. `Ra::Physics`)
 * never use  the `using` instruction for a whole namespace
@@ -50,6 +52,7 @@ To install both hooks and clang-format, simply run `./scripts/install-scripts-li
 * macros and defined constants should be in capitals.
 
 # Variables
+
 * declarations should always be made on separate lines; (no `int a, b, c;`)
 * initialize variables on the line of declaration whenever possible
 * no global variables. If really necessary, prefix with `g_`
@@ -57,6 +60,7 @@ To install both hooks and clang-format, simply run `./scripts/install-scripts-li
 * use `auto` only when it helps readability.
 
 # Scalar types
+
 * Radium defines a default type `Scalar`, set either as `float` or `double` depending on the cmake
 option `RADIUM_WITH_DOUBLE_PRECISION`
 * Always use `Scalar` type to represent floating point numbers, except when interfacing with external
@@ -67,6 +71,7 @@ use `Scalar()` or `_ra` suffix when defining numbers from literals (e.g. `auto a
 * Equality between Scalar values needs to be computed using `Ra::almost_equals` (see CoreMacros.hpp).
 
 # Class design
+
 * Constructors should be trival. All complex work goes in an `init()` function
 * Try to order class members by size (biggest to smallest)
 * Any class containing a fixed-size `Ra::Core::Vector` or `Matrix`member must declare `RA_CORE_ALIGNED_NEW`
@@ -91,6 +96,7 @@ everything else.
 * getters and setter should have a consistent name with the variable.
 
 # Non-negociable
+
 * Exceptions are forbidden, except when mimicking or using `std` containers (e.g., by throwing `std::out_of_range`).
 In any cases, exceptions must be used in exceptional cases, and should not be used as an event system.
 * No gotos.

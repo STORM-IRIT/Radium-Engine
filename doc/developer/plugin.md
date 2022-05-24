@@ -2,7 +2,8 @@
 [TOC]
 
 # Radium Plugin
-Tutorial and documentation here: https://github.com/STORM-IRIT/Radium-PluginExample
+
+Tutorial and documentation here: <https://github.com/STORM-IRIT/Radium-PluginExample>
 
 In addition to the Ra::Plugins::RadiumPluginInterface API,
 Radium provides a set of tools simplifying the deployment of plugins, which take care of the portability of the binaries.
@@ -75,19 +76,19 @@ configure_radium_plugin(
      )
 ```
 
--   `NAME nameOfTheTargetOtInstall`. This parameter, mandatory, will configure how to install the target
+- `NAME nameOfTheTargetOtInstall`. This parameter, mandatory, will configure how to install the target
     `nameOfTheTargetOtInstall`. This target must correspond to a configured target such the one obtained by
     `target_link_libraries(nameOfTheTargetOtInstall PUBLIC Radium::Core Radium::Engine Radium::PluginBase ${Qt_LIBRARIES} )`
 
--   `RESOURCES ListOfResourcesDirectory`. This parameter, optional, will install several resources, needed by the plugin for its correct execution,
+- `RESOURCES ListOfResourcesDirectory`. This parameter, optional, will install several resources, needed by the plugin for its correct execution,
     so that the Radium resource locator system will be able to find them.
        Resources could be shader source files, images, data files, etc...
 
--   `HELPER_LIBS ListofHelperLibraries`. This parameter, optional, will allow fetching and install, alongside the plugin,
+- `HELPER_LIBS ListofHelperLibraries`. This parameter, optional, will allow fetching and install, alongside the plugin,
     libraries and their resources used by the plugin and not available in the Radium Bundle. This is useful when a
     plugin just defines the radium application interface toward services offered in an external, radium dependent, library.
 
--   `INSTALL_IN_RADIUM_BUNDLE`. This parameter, optional, will install the plugin and its associated resources directly
+- `INSTALL_IN_RADIUM_BUNDLE`. This parameter, optional, will install the plugin and its associated resources directly
     into the Radium Bundle installation directory. This will allow to have Plugins relocatable at the same time as
     the Radium Bundle. If this parameter is given, it replaces the installed location configuration that uses
      the cmake standard  option `-DCMAKE_INSTALL_PREFIX=whereToInstallThings`
@@ -102,7 +103,7 @@ during the plugin development.
 
 There are three main uses cases we can identify :
 
-1.  You are developing/testing your plugin. There is no need to install the plugin and no install option is needed when configuring using cmake.
+1. You are developing/testing your plugin. There is no need to install the plugin and no install option is needed when configuring using cmake.
     Any plugin compatible application might find and use it from its build tree (e.g `build-release/Plugins`).
     For this, you have to configure once your application by adding the build path of the plugin
     to the plugin search path of the application. Each time you will launch this application, it will search in all its
@@ -111,7 +112,7 @@ There are three main uses cases we can identify :
     and efficient update of the Plugin resources as Resources directories are _linked_ (symbolic links on systems that
     support them) into the build tree.
 
-2.  You have finished developing the plugin, and will only occasionally recompile it for maintenance. If you developed several plugins, for your own usage, and you want your
+2. You have finished developing the plugin, and will only occasionally recompile it for maintenance. If you developed several plugins, for your own usage, and you want your
     plugin compatible applications to find and load them quickly,
      you might install your plugins in one unique location and tell the applications to load plugins from
     there. To do so, use the cmake configuration option `-DCMAKE_INSTALL_PREFIX=thePathToTheInstalledPlugins` and do a `make install`
@@ -119,10 +120,9 @@ There are three main uses cases we can identify :
     Each time the application will start, all the plugins from this `thePathToTheInstalledPlugins` will be
     loaded, even those installed here after the configuration of the plugin location in the application.
 
-3.  You want to distribute plugins binaries alongside the Radium bundle.
+3. You want to distribute plugins binaries alongside the Radium bundle.
     In this case, you have to configure the plugin with the`INSTALL_IN_RADIUM_BUNDLE`option and do a `make install` to
     install the plugins in the Radium Bundle. Note that this requires write access to the Radium Bundle.
-
 
 Once you have chosen the adequate use case, you can configure the plugin using cmake.
 
@@ -149,7 +149,6 @@ If you install the plugin, execute the command `cmake --install`
 that will install the plugin according to your configuration choice as described above (default installation destination, user defined installation directory or Radium Bundle installation).
 The dynamic library will then be copied into  `pathToInstallPlugins/lib` and the Resources will be copied into
 `pathToInstallPlugins/Resources`.
-
 
 Remember that resources associated with the plugin using the option `RESOURCES ListOfResourcesDirectory` of the
 `configure_radium_plugin` command are _linked_ into the build-tree (on systems supporting symbolic links)
