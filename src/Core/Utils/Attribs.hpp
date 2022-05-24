@@ -353,7 +353,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
          * // Must be explicitly unlocked.
          * tgt.unlock();
          *
-         * // txc and btg are automatically unlocked as the unlocker gets out of scope
+         * // txc and btg are automatically unlocked when the unlocker's dtor is called (i.e. gets out of scope)
          * }
          */
 
