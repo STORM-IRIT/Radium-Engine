@@ -338,7 +338,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
          * ).getDataWithLock();
          * // ... write to tgt
          *
-         * // enable auto-unlock for all folowinf write access requests
+         * // enable auto-unlock for all folowing write access requests
          * auto unlocker = geometry->getAttribManager().getUnlocker();
          *
          * // get write access to several attribs
