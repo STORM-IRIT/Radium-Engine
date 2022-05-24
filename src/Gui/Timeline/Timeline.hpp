@@ -1,13 +1,4 @@
 #pragma once
-/*!
- * \brief Custom Qt widget for animation (timeline)
- * \author Gauthier Bouyjou (email : gauthierbouyjou@aol.com)
- * \date april 2019
- *
- * For question send me mail or add issue to initial
- * github repo : https://github.com/hiergaut/AnimTimeline.git
- * current commit id : aaa363ee8ec0247e9299a8949e5bd334b10dc413
- */
 
 #include <Gui/RaGui.hpp>
 
@@ -38,7 +29,11 @@ namespace Ra::Gui {
  * Regarding KeyFramedValues, the Timeline provides their edition / manipulation.
  * To do so, KeyFramedValues must be registered into the Timeline, which can be
  * done using the registerKeyFramedValue methods (see the related Documentation page ).
+ *
+ * Initial implementation from https://github.com/hiergaut/AnimTimeline.git Gauthier Bouyjou (email
+ * gauthierbouyjou@aol.com), april 2019.
  */
+
 class RA_GUI_API Timeline : public QDialog
 {
     Q_OBJECT
