@@ -46,6 +46,7 @@ set(core_sources
     Resources/Resources.cpp
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
+    Utils/Color.cpp
     Utils/CircularIndex.cpp
     Utils/StackTrace.cpp
     Utils/StringUtils.cpp
