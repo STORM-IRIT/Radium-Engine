@@ -29,7 +29,7 @@ inline void GeometryData::setFrame( const Transform& frame ) {
 
 inline std::size_t GeometryData::getVerticesSize() const {
     const auto& n      = getAttribName( Geometry::MeshAttrib::VERTEX_POSITION );
-    auto h       = m_multiIndexedGeometry.getAttribHandle<Vector3>( n );
+    auto h             = m_multiIndexedGeometry.getAttribHandle<Vector3>( n );
     const auto& attrib = m_multiIndexedGeometry.getAttrib( h );
     return attrib.data().size();
 }
@@ -103,7 +103,7 @@ inline void GeometryData::setPolyhedra( const Container& polyList ) {
 }
 
 inline Vector3Array& GeometryData::getNormals() {
-    return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_NORMAL ).getDataWithLock();
+    return m_multiIndexedGeometry.normalsWithLock();
 }
 
 inline const Vector3Array& GeometryData::getNormals() const {
@@ -262,43 +262,36 @@ inline Utils::Attrib<T>& GeometryData::getAttrib( const Geometry::MeshAttrib& na
 template <typename V>
 inline void GeometryData::setAttribData( const Geometry::MeshAttrib& name,
                                          const VectorArray<V>& attribDataList ) {
-    getAttrib<V>( name ).setData(attribDataList);
+    getAttrib<V>( name ).setData( attribDataList );
 }
 
 template <typename V>
 inline VectorArray<V>&
 GeometryData::getDataFromLayerBase( Geometry::GeometryIndexLayerBase& geomBase ) {
-    auto& v    = dynamic_cast<Geometry::GeometryIndexLayer<V>&>( geomBase );
-    auto& data = v.collection();
-    return data;
+    return static_cast<Geometry::GeometryIndexLayer<V>&>( geomBase ).collection();
 }
 
 template <typename V>
 inline const VectorArray<V>&
 GeometryData::getDataFromLayerBase( const Geometry::GeometryIndexLayerBase& geomBase ) const {
-    const auto& v    = dynamic_cast<const Geometry::GeometryIndexLayer<V>&>( geomBase );
-    const auto& data = v.collection();
-    return data;
+    return static_cast<const Geometry::GeometryIndexLayer<V>&>( geomBase ).collection();
 }
 
 template <typename L>
 inline Geometry::GeometryIndexLayerBase&
 GeometryData::getLayerBaseWithLock( const bool& firstOccurrence, const std::string& name ) {
-    auto& geomBase =
-        ( firstOccurrence )
-            ? m_multiIndexedGeometry.getFirstLayerOccurrenceWithLock( L::staticSemanticName ).second
-            : m_multiIndexedGeometry.getLayerWithLock( { L::staticSemanticName }, name );
-    return geomBase;
+    return ( firstOccurrence )
+               ? m_multiIndexedGeometry.getFirstLayerOccurrenceWithLock( L::staticSemanticName )
+                     .second
+               : m_multiIndexedGeometry.getLayerWithLock( { L::staticSemanticName }, name );
 }
 
 template <typename L>
 inline const Geometry::GeometryIndexLayerBase&
 GeometryData::getLayerBase( const bool& firstOccurrence, const std::string& name ) const {
-    const auto& geomBase =
-        ( firstOccurrence )
-            ? m_multiIndexedGeometry.getFirstLayerOccurrence( L::staticSemanticName ).second
-            : m_multiIndexedGeometry.getLayer( { L::staticSemanticName }, name );
-    return geomBase;
+    return ( firstOccurrence )
+               ? m_multiIndexedGeometry.getFirstLayerOccurrence( L::staticSemanticName ).second
+               : m_multiIndexedGeometry.getLayer( { L::staticSemanticName }, name );
 }
 
 template <typename V, typename L>
@@ -322,12 +315,6 @@ inline VectorArray<V>& GeometryData::findIndexDataWithLock( const std::string& n
     if ( std::is_same<V, Vector2ui>::value ) {
         return getIndexedDataWithLock<V, Geometry::LineIndexLayer>( firstOccurrence, name );
     }
-    /* else if (std::is_same<V, Vector3ui>::value){
-        return getIndexedDataWithLock<V, Geometry::TriangleIndexLayer>( firstOccurrence, name );
-    }
-    else if (std::is_same<V, Vector4ui>::value){
-        return getIndexedDataWithLock<V, Geometry::QuadIndexLayer>( firstOccurrence, name );
-    } */
     else {
         return getIndexedDataWithLock<V, Geometry::PolyIndexLayer>( firstOccurrence, name );
     }
@@ -340,14 +327,6 @@ inline const VectorArray<V>& GeometryData::getIndexedData( const std::string& na
         auto& geomBase = getLayerBase<Geometry::LineIndexLayer>( firstOccurrence, name );
         return getDataFromLayerBase<V>( geomBase );
     }
-    /*else if (std::is_same<V, Vector3ui>::value){
-        auto& geomBase = getLayerBase<Geometry::TriangleIndexLayer>( firstOccurrence, name );
-        return getDataFromLayerBase<V>( geomBase );
-    }
-    else if (std::is_same<V, Vector4ui>::value){
-        auto& geomBase = getLayerBase<Geometry::QuadIndexLayer>( firstOccurrence, name );
-        return getDataFromLayerBase<V>( geomBase );
-    }*/
     else {
         auto& geomBase = getLayerBase<Geometry::PolyIndexLayer>( firstOccurrence, name );
         return getDataFromLayerBase<V>( geomBase );
@@ -360,12 +339,6 @@ inline void GeometryData::indexedDataUnlock( const GeometryType& type, const std
         m_multiIndexedGeometry.unlockLayer(
             { { Core::Geometry::LineIndexLayer::staticSemanticName }, name } );
         break;
-    case GeometryType::TRI_MESH:
-        // m_multiIndexedGeometry.unlockLayer( {{
-        // Core::Geometry::TriangleIndexLayer::staticSemanticName }, name }); break;
-    case GeometryType::QUAD_MESH:
-        // m_multiIndexedGeometry.unlockLayer( {{ Core::Geometry::QuadIndexLayer::staticSemanticName
-        // }, name }); break;
     default:
         m_multiIndexedGeometry.unlockLayer(
             { { Core::Geometry::PolyIndexLayer::staticSemanticName }, name } );

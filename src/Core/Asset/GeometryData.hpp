@@ -73,14 +73,12 @@ class RA_CORE_API GeometryData : public AssetData
     inline std::size_t getVerticesSize() const;
 
     /// Return the list of vertices.
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
+    [[deprecated( "Use verticesWithLock() "
                   "instead." )]] inline Vector3Array&
     getVertices();
 
     /// Return the (const) list of vertices.
-    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
-                  "list." )]] inline const Vector3Array&
-    getVertices() const;
+    [[deprecated( "Use vertices() instead. " )]] inline const Vector3Array& getVertices() const;
 
     /// Set the mesh vertices.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
@@ -158,14 +156,10 @@ class RA_CORE_API GeometryData : public AssetData
     setPolyhedra( const Container& polyList );
 
     /// Return the list of vertex normals.
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
-                  "instead." )]] inline Vector3Array&
-    getNormals();
+    [[deprecated( "Use normalsWithLock() instead." )]] inline Vector3Array& getNormals();
 
     /// Return the (const) list of vertex normals.
-    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
-                  "list." )]] inline const Vector3Array&
-    getNormals() const;
+    [[deprecated( "Use normals() instead. " )]] inline const Vector3Array& getNormals() const;
 
     /// Set the vertex normals.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
