@@ -262,10 +262,7 @@ inline Utils::Attrib<T>& GeometryData::getAttrib( const Geometry::MeshAttrib& na
 template <typename V>
 inline void GeometryData::setAttribData( const Geometry::MeshAttrib& name,
                                          const VectorArray<V>& attribDataList ) {
-    auto& attrib = getAttrib<V>( name );
-    auto& data   = attrib.getDataWithLock();
-    internal::copyData( attribDataList, data );
-    attrib.unlock();
+    getAttrib<V>( name ).setData(attribDataList);
 }
 
 template <typename V>
