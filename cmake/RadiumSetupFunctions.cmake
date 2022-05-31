@@ -964,10 +964,7 @@ function(configure_radium_library)
         target_link_libraries(${ARGS_TARGET} PUBLIC OpenMP::OpenMP_CXX)
     endif(OPENMP_FOUND)
     target_compile_definitions(${ARGS_TARGET} PRIVATE ${ARGS_TARGET}_EXPORTS)
-    target_include_directories(
-        ${ARGS_TARGET} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-                              $<INSTALL_INTERFACE:include/${ARGS_TARGET_DIR}>
-    )
+    target_include_directories(${ARGS_TARGET} PUBLIC $<INSTALL_INTERFACE:include/>)
     add_library(${ARGS_NAMESPACE}::${ARGS_TARGET} ALIAS ${ARGS_TARGET})
 
     install(

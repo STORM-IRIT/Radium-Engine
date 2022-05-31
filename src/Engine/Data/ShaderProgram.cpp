@@ -1,5 +1,5 @@
-#include "OpenGL.hpp"
 #include <Engine/Data/ShaderProgram.hpp>
+#include <Engine/OpenGL.hpp>
 
 #include <glbinding/gl/enum.h>
 #include <globjects/NamedString.h>

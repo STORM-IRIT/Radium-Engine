@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Core/Containers/VectorArray.hpp>
-#include <RaCore.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {

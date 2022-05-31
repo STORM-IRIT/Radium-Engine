@@ -1,6 +1,6 @@
-#include <VolumesLoader/VolumeLoader.hpp>
+#include <IO/VolumesLoader/VolumeLoader.hpp>
 
-#include <VolumesLoader/pvmutils.hpp>
+#include <IO/VolumesLoader/pvmutils.hpp>
 
 #include <Core/Asset/FileData.hpp>
 #include <Core/Geometry/Volume.hpp>
