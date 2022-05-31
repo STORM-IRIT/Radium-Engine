@@ -186,7 +186,7 @@ void Viewer::startRendering( const Scalar dt ) {
         // to fit scene only
         // auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
         // to fit also debug and system entity aabb
-        Core::Aabb aabb;
+        Core::Aabb aabb {};
         for ( const auto& entity : entityManager->getEntities() ) {
             // entity aabb is in world space
             aabb.extend( entity->computeAabb() );

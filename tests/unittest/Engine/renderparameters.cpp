@@ -1,9 +1,9 @@
-#include "Data/Texture.hpp"
-#include "Types.hpp"
-#include "Utils/Color.hpp"
 #include <catch2/catch.hpp>
 
+#include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
 #include <Engine/Data/RenderParameters.hpp>
+#include <Engine/Data/Texture.hpp>
 #include <Engine/RadiumEngine.hpp>
 
 using namespace Ra::Engine::Data;

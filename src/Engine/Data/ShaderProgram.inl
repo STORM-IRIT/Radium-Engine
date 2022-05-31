@@ -1,5 +1,5 @@
 #pragma once
-#include "CoreMacros.hpp"
+#include <Core/CoreMacros.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
 
 #include <globjects/Program.h>
