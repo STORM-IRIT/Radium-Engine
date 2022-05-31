@@ -91,7 +91,7 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
      * "#define theProperty". Shaders that support the given property could then fully render the
      * material. Others migh render the meterial eroneously.
      *
-     * The defaul implementation returns an empty list.
+     * The default implementation returns an empty list.
      *
      * \todo : Validate this proposal
      * \todo : make the property list modifiable as well
@@ -138,6 +138,22 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
   private:
     /// Unique material name that can be used to identify the material class
     std::string m_materialName;
+};
+
+/**
+ * Editable interface for the material class
+ */
+class RA_ENGINE_API EditableMaterial
+{
+  public:
+    virtual ~EditableMaterial() = default;
+
+    /**
+     * Get a json containing metadata about the parameters of the material.
+     *
+     * @return the metadata in json format
+     */
+    virtual nlohmann::json getParametersMetadata() const = 0;
 };
 
 } // namespace Data

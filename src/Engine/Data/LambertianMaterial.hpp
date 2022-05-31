@@ -16,7 +16,7 @@ namespace Data {
  * to true.
  *
  */
-class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial
+class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial, public EditableMaterial
 {
   public:
     /**
