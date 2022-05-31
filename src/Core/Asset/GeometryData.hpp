@@ -83,19 +83,19 @@ class RA_CORE_API GeometryData : public AssetData
     /// Set the mesh vertices.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead. " )]] inline void
+    [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_POSITION ).setData( "
+                  "vertexList ) instead. " )]] inline void
     setVertices( const Container& vertexList );
 
     /// Return the list of lines.
     /// \note For line meshes only.
-    [[deprecated(
-        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
-        "instead." )]] inline Vector2uArray&
+    [[deprecated( "Use findIndexDataWithLock<Vector2ui>( \"in_edge\" ) "
+                  "instead." )]] inline Vector2uArray&
     getEdges();
 
     /// Return the list of lines.
     /// \note For line meshes only.
-    [[deprecated( "Use getIndexedData( const GeometryType& type, const std::string& name ) "
+    [[deprecated( "Use getIndexedData<Vector2ui>( \"in_edge\" ) "
                   "instead." )]] inline const Vector2uArray&
     getEdges() const;
 
@@ -104,21 +104,19 @@ class RA_CORE_API GeometryData : public AssetData
     /// \note Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
-    [[deprecated(
-        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
-        "instead." )]] inline void
+    [[deprecated( "Use setIndexedData( GeometryType::LINE_MESH, edgeList, \"in_edge\" ) "
+                  "instead." )]] inline void
     setEdges( const Container& edgeList );
 
     /// Return the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    [[deprecated(
-        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
-        "instead." )]] inline VectorNuArray&
+    [[deprecated( "Use findIndexDataWithLock<VectorNui>( \"in_face\" ) "
+                  "instead." )]] inline VectorNuArray&
     getFaces();
 
     /// Return the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    [[deprecated( "Use getIndexedData( const GeometryType& type, const std::string& name ) "
+    [[deprecated( "Use getIndexedData<VectorNui>( \"in_face\" ) "
                   "instead." )]] inline const VectorNuArray&
     getFaces() const;
 
@@ -127,21 +125,19 @@ class RA_CORE_API GeometryData : public AssetData
     /// \note Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
-    [[deprecated(
-        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
-        "instead." )]] inline void
+    [[deprecated( "Use findIndexDataWithLock<VectorNui>( \"in_polyhedron\" ) "
+                  "instead." )]] inline void
     setFaces( const Container& faceList );
 
     /// Return the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    [[deprecated(
-        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
-        "instead." )]] inline VectorNuArray&
+    [[deprecated( "Use findIndexDataWithLock<VectorNui>( \"in_polyhedron\" ) "
+                  "instead." )]] inline VectorNuArray&
     getPolyhedra();
 
     /// Return the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    [[deprecated( "Use getIndexedData( const GeometryType& type, const std::string& name ) "
+    [[deprecated( "Use getIndexedData<VectorNui>( \"in_polyhedron\" ) "
                   "instead." )]] inline const VectorNuArray&
     getPolyhedra() const;
 
@@ -150,9 +146,8 @@ class RA_CORE_API GeometryData : public AssetData
     /// \note Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence )
     /// instead.
     template <typename Container>
-    [[deprecated(
-        "Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence ) "
-        "instead." )]] inline void
+    [[deprecated( "Use setIndexedData( GeometryType::POLY_MESH, polyList, \"in_polyhedron\" ) "
+                  "instead." )]] inline void
     setPolyhedra( const Container& polyList );
 
     /// Return the list of vertex normals.
@@ -164,55 +159,62 @@ class RA_CORE_API GeometryData : public AssetData
     /// Set the vertex normals.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead." )]] inline void
+    [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_NORMAL ).setData( "
+                  "normalList ) instead." )]] inline void
     setNormals( const Container& normalList );
 
     /// Return the list of vertex tangent vectors.
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
-                  "instead." )]] inline Vector3Array&
+    [[deprecated(
+        "Use getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_TANGENT ).getDataWithLock() "
+        "instead." )]] inline Vector3Array&
     getTangents();
 
     /// Return the (const) list of vertex tangents vectors.
-    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
-                  "list." )]] inline const Vector3Array&
+    [[deprecated( "Use getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_TANGENT ).data() "
+                  "instead " )]] inline const Vector3Array&
     getTangents() const;
 
     /// Set the vertex tangent vectors.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead." )]] inline void
+    [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_TANGENT ).setData( "
+                  "tangentList ) instead." )]] inline void
     setTangents( const Container& tangentList );
 
     /// Return the list of vertex bitangent vectors.
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
-                  "instead." )]] inline Vector3Array&
+    [[deprecated(
+        "Use getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_BITANGENT ).getDataWithLock() "
+        "instead." )]] inline Vector3Array&
     getBiTangents();
 
     /// Return the (const) list of vertex bitangent vectors.
-    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
-                  "list." )]] inline const Vector3Array&
+    [[deprecated( "Use getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_BITANGENT "
+                  ").data() " )]] inline const Vector3Array&
     getBiTangents() const;
 
     /// Set the vertex bitangent vectors.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead." )]] inline void
+    [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_BITANGENT ).setData( "
+                  "bitangentList ) instead." )]] inline void
     setBitangents( const Container& bitangentList );
 
     /// Return the list of vertex texture coordinates.
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) "
-                  "instead." )]] inline Vector3Array&
+    [[deprecated(
+        "Use getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_TEXCOORD ).getDataWithLock() "
+        "instead." )]] inline Vector3Array&
     getTexCoords();
 
     /// Return the (const) list of vertex texture coordinates.
-    [[deprecated( "Use getMultiIndexedGeometry() and related functions to obtain the "
-                  "list." )]] inline const Vector3Array&
+    [[deprecated( "Use getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_TEXCOORD "
+                  ").data() " )]] inline const Vector3Array&
     getTexCoords() const;
 
     /// Set the vertex texture coordinates.
     /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
     template <typename Container>
-    [[deprecated( "Use getAttrib( const Geometry::MeshAttrib& name ) instead." )]] inline void
+    [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_TEXCOORD ).setData( "
+                  "texCoordList ) instead." )]] inline void
     setTextureCoordinates( const Container& texCoordList );
 
     /// Return the MaterialData associated to the objet.
@@ -300,10 +302,18 @@ class RA_CORE_API GeometryData : public AssetData
      * @tparam T
      * @param name
      * @return Attrib<T> from m_multiIndexedGeometry.
-     * @note This function is only to avoid redundant code of function like getNormals().
      */
     template <typename T>
     inline Utils::Attrib<T>& getAttrib( const Geometry::MeshAttrib& name );
+
+    /**
+     *
+     * @tparam T
+     * @param name
+     * @return Attrib<T> from m_multiIndexedGeometry.
+     */
+    template <typename T>
+    inline const Utils::Attrib<T>& getAttrib( const Geometry::MeshAttrib& name ) const;
 
     /**
      *
@@ -311,9 +321,8 @@ class RA_CORE_API GeometryData : public AssetData
      * @param name
      * @param firstOccurrence
      * @return Initialize (if necessary) and get a VectorArray<V> contain in layer.
-     * @note This function is only to avoid redundant code of function like getEdges().
-     * If firstOccurrence == true, it allow to function to be more efficient but the name isn't use
-     * to find the layer.
+     * @note If firstOccurrence == true, it allow to function to be more efficient but the name
+     * isn't use to find the layer.
      * @warning This function lock the layer, user has read-write access, when done, call
      * indexedDataUnlock ( const GeometryType& type, const std::string& name ).
      */
@@ -326,9 +335,8 @@ class RA_CORE_API GeometryData : public AssetData
      * @tparam V
      * @param name
      * @param firstOccurrence
-     * @note This function is only to avoid redundant code of function like getEdges().
-     * If firstOccurrence == true, it allow to function to be more efficient but the name isn't use
-     * to find the layer.
+     * @note If firstOccurrence == true, it allow to function to be more efficient but the name
+     * isn't use to find the layer.
      * @return VectorArray<V>& stored in the layer.
      */
     template <typename V>
@@ -363,7 +371,6 @@ class RA_CORE_API GeometryData : public AssetData
      * @param name
      * @param attribDataList
      * @brief Copy data from attribDataList into the attrib obtain with name.
-     * @note This function is only to avoid redundant code of function like setNormals().
      *
      */
     template <typename V>
@@ -377,7 +384,6 @@ class RA_CORE_API GeometryData : public AssetData
      * @param type
      * @param name
      * @brief Copy data from indexedDataList into the layer obtain with name and type.
-     * @note This function is only to avoid redundant code of function like setEdges().
      */
     template <typename V>
     inline void setIndexedData( const GeometryType& type,
