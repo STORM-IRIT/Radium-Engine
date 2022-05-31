@@ -120,9 +120,7 @@ inline Vector3Array& GeometryData::getTangents() {
 }
 
 inline const Vector3Array& GeometryData::getTangents() const {
-    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_TANGENT );
-    auto h     = m_multiIndexedGeometry.getAttribHandle<Vector3>( name );
-    return m_multiIndexedGeometry.getAttrib( h ).data();
+    return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_TANGENT ).data();
 }
 
 template <typename Container>
@@ -135,9 +133,7 @@ inline Vector3Array& GeometryData::getBiTangents() {
 }
 
 inline const Vector3Array& GeometryData::getBiTangents() const {
-    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_BITANGENT );
-    auto h     = m_multiIndexedGeometry.getAttribHandle<Vector3>( name );
-    return m_multiIndexedGeometry.getAttrib( h ).data();
+    return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_BITANGENT ).data();
 }
 
 template <typename Container>
@@ -150,9 +146,7 @@ inline Vector3Array& GeometryData::getTexCoords() {
 }
 
 inline const Vector3Array& GeometryData::getTexCoords() const {
-    auto& name = getAttribName( Geometry::MeshAttrib::VERTEX_TEXCOORD );
-    auto h     = m_multiIndexedGeometry.getAttribHandle<Vector3>( name );
-    return m_multiIndexedGeometry.getAttrib( h ).data();
+    return getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_TEXCOORD ).data();
 }
 
 template <typename Container>
@@ -255,6 +249,14 @@ template <typename T>
 inline Utils::Attrib<T>& GeometryData::getAttrib( const Geometry::MeshAttrib& name ) {
     const auto& n = getAttribName( name );
     auto h        = m_multiIndexedGeometry.addAttrib<T>( n );
+    auto& attrib  = m_multiIndexedGeometry.getAttrib( h );
+    return attrib;
+}
+
+template <typename T>
+const inline Utils::Attrib<T>& GeometryData::getAttrib( const Geometry::MeshAttrib& name ) const {
+    const auto& n = getAttribName( name );
+    auto h        = m_multiIndexedGeometry.getAttribHandle<T>( n );
     auto& attrib  = m_multiIndexedGeometry.getAttrib( h );
     return attrib;
 }
