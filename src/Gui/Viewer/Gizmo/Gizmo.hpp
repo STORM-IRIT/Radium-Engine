@@ -17,7 +17,6 @@ namespace Engine {
 
 namespace Data {
 class PlainMaterial;
-class RenderObject;
 } // namespace Data
 
 namespace Scene {
@@ -26,7 +25,8 @@ class Component;
 
 namespace Rendering {
 class RenderTechnique;
-}
+class RenderObject;
+} // namespace Rendering
 } // namespace Engine
 
 namespace Gui {
