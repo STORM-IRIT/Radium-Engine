@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Data/Material.hpp"
 #include <Engine/Data/SimpleMaterial.hpp>
 
 namespace Ra {
@@ -16,7 +17,7 @@ namespace Data {
  * to true.
  *
  */
-class RA_ENGINE_API PlainMaterial final : public SimpleMaterial
+class RA_ENGINE_API PlainMaterial final : public SimpleMaterial, public EditableMaterial
 {
   public:
     /**

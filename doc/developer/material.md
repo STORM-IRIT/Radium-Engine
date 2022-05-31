@@ -125,6 +125,94 @@ public:
 
 See the [Render technique management](./rendertechnique) for documentation on how to build such an helper function.
 
+### Editable interface {#editable-interface}
+The Ra::Engine::Data::EditableMaterial interface defines if a material is editable.
+This interface defines all the method getParametersMetadata required to get the constraints when editing.
+
+When implementing this interface, you need to return a correctly specified JSON.
+
+#### The Material metadata specification
+
+##### Booleans
+
+~~~{json}
+"key": {
+  "description": "an optional description of the parameter",
+  "editable": false,
+  "name": "shortName",
+  "type": "boolean"
+},
+~~~
+The "editable" property specifies whether the boolean is editable, for instance it is not editable when it is linked with the presence of a texture.
+
+##### Enums
+~~~{json}
+"key": {
+  "name": "shortName",
+  "description": "an optional description of the parameter",
+  "type": "enum",
+  "values": [
+    "NAME0",
+    "NAME1",
+    "NAME2"
+  ]
+}
+~~~
+
+##### Numbers
+This is an unbounded number :
+~~~{json}
+"key": {
+  "description": "an optional description of the parameter"
+  "name": "shortName",
+  "type": "number"
+}
+~~~
+
+A number can have a minimum and/or a maximum :
+~~~{json}
+"key": {
+  "name": "shortName",
+  "minimum": 0.0,
+  "maximum": 1.0,
+  "type": "number"
+}
+~~~
+
+A number can alternatively have an array of ranges where it is defined :
+~~~{json}
+"key": {
+  "name": "shortName",
+  "oneOf": [
+    {
+      "minimum": 0.0,
+      "maximum": 0.0
+    },
+    {
+      "minimum": 1.0
+    }
+  ],
+  "type": "number"
+}
+~~~
+In this instance the number is ether 0 or greater than or equal to 1.0.
+
+##### Arrays
+~~~{json}
+"shortName": {
+  "name": "shortName",
+  "description": "an optional description of the parameter",
+  "type": "array",
+  "items": {
+    "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+  "minItems": 3,
+  "maxItems": 3
+}
+~~~
+
 ## GLSL interface {#glsl-mtl-lib}
 
 Being able to compose shaders in a specific renderer while taking profit of Radium Material Library
