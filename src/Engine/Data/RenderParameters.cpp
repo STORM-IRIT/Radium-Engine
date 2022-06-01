@@ -41,15 +41,15 @@ void RenderParameters::addParameter( const std::string& name, Scalar value ) {
 
 ///!! array version
 
-void RenderParameters::addParameter( const std::string& name, std::vector<int> value ) {
+void RenderParameters::addParameter( const std::string& name, const std::vector<int>& value ) {
     m_intsParamsVector[name] = IntsParameter( name, value );
 }
 
-void RenderParameters::addParameter( const std::string& name, std::vector<uint> value ) {
+void RenderParameters::addParameter( const std::string& name, const std::vector<uint>& value ) {
     m_uintsParamsVector[name] = UIntsParameter( name, value );
 }
 
-void RenderParameters::addParameter( const std::string& name, std::vector<Scalar> value ) {
+void RenderParameters::addParameter( const std::string& name, const std::vector<Scalar>& value ) {
     m_scalarsParamsVector[name] = ScalarsParameter( name, value );
 }
 

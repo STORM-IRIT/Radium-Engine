@@ -141,9 +141,9 @@ class RA_ENGINE_API RenderParameters final
     void addParameter( const std::string& name, uint value );
     void addParameter( const std::string& name, Scalar value );
 
-    void addParameter( const std::string& name, std::vector<int> values );
-    void addParameter( const std::string& name, std::vector<uint> values );
-    void addParameter( const std::string& name, std::vector<Scalar> values );
+    void addParameter( const std::string& name, const std::vector<int>& values );
+    void addParameter( const std::string& name, const std::vector<uint>& values );
+    void addParameter( const std::string& name, const std::vector<Scalar>& values );
 
     void addParameter( const std::string& name, const Core::Vector2& value );
     void addParameter( const std::string& name, const Core::Vector3& value );
