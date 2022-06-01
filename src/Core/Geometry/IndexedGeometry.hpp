@@ -426,7 +426,7 @@ struct RA_CORE_API QuadIndexLayer : public GeometryIndexLayer<Vector4ui> {
 
   protected:
     template <class... SemanticNames>
-    inline QuadIndexLayer( SemanticNames... names );
+    explicit inline QuadIndexLayer( SemanticNames... names );
 };
 
 struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
