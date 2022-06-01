@@ -38,6 +38,7 @@ set(gui_sources
     Widgets/PowerSlider.cpp
     Widgets/CheckingSpinBox.cpp
     Widgets/MatrixEditor.cpp
+    Widgets/VectorEditor.cpp
     MaterialParameterEditor/MaterialParameterEditor.cpp
 )
 
@@ -80,6 +81,7 @@ set(gui_headers
     Widgets/PowerSlider.hpp
     Widgets/CheckingSpinBox.hpp
     Widgets/MatrixEditor.hpp
+    Widgets/VectorEditor.hpp
     MaterialParameterEditor/MaterialParameterEditor.hpp
 )
 
