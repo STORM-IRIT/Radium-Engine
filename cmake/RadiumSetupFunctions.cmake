@@ -491,7 +491,7 @@ ${CMAKE_INSTALL_PREFIX}/${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${
     # Install in the install tree Identify the individual files( to preserve directory structure )
     # set the target properties
     get_target_property(resourceDir ${ARGS_TARGET} RADIUM_TARGET_RESOURCES_DIRECTORIES)
-    if(${resourceDir} STREQUAL "resourceDir-NOTFOUND")
+    if("${resourceDir}" STREQUAL "resourceDir-NOTFOUND")
         set(resourceDir "")
     endif()
     list(APPEND resourceDir ${ARGS_RESOURCES_DIR})
