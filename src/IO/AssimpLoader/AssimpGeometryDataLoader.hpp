@@ -70,9 +70,6 @@ class RA_IO_API AssimpGeometryDataLoader : public Core::Asset::DataLoader<Core::
     void fetchType( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
 
     /// Fill \p data with the vertices from \p mesh.
-    /// @warning This function lock the vertices attrib, you must unlock the attrib with unlock()
-    /// using getAttribManager() and getAttribBase( const Index &idx ) or by using an getUnlocker().
-    /// @see Unlocker
     void fetchVertices( const aiMesh& mesh, Core::Asset::GeometryData& data );
 
     /// Fill \p data with the lines from \p mesh.
@@ -85,27 +82,15 @@ class RA_IO_API AssimpGeometryDataLoader : public Core::Asset::DataLoader<Core::
     void fetchPolyhedron( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
 
     /// Fill \p data with the vertex normals from \p mesh.
-    /// @warning This function lock the normals attrib, you must unlock the attrib with unlock()
-    /// using getAttribManager() and getAttribBase( const Index &idx ) or by using an getUnlocker().
-    /// @see Unlocker
     void fetchNormals( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
 
     /// Fill \p data with the vertex tangent vectors from \p mesh.
-    /// @warning This function lock the tangents attrib, you must unlock the attrib with unlock()
-    /// using getAttribManager() and getAttribBase( const Index &idx ) or by using an getUnlocker().
-    /// @see Unlocker
     void fetchTangents( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
 
     /// Fill \p data with the vertex bitangent vectors from \p mesh.
-    /// @warning This function lock the biTangents attrib, you must unlock the attrib with unlock()
-    /// using getAttribManager() and getAttribBase( const Index &idx ) or by using an getUnlocker().
-    /// @see Unlocker
     void fetchBitangents( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
 
     /// Fill \p data with the vertex texture coordinates from \p mesh.
-    /// @warning This function lock the texCoords attrib, you must unlock the attrib with unlock()
-    /// using getAttribManager() and getAttribBase( const Index &idx ) or by using an getUnlocker().
-    /// @see Unlocker
     void fetchTextureCoordinates( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
 
     /// Fill \p data with the vertex colors from \p mesh.
