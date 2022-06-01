@@ -98,11 +98,13 @@ class SurfaceMeshComponent : public GeometryComponent
     std::shared_ptr<RenderMeshType> m_displayMesh { nullptr };
 };
 
-using TriangleMeshComponent = SurfaceMeshComponent<Ra::Core::Geometry::TriangleMesh>;
-using QuadMeshComponent =
-    SurfaceMeshComponent<Ra::Core::Geometry::GeneralMesh<Ra::Core::Vector4ui>>;
-using PolyMeshComponent =
-    SurfaceMeshComponent<Ra::Core::Geometry::GeneralMesh<Ra::Core::VectorNui>>;
+using triMesh  = Ra::Core::Geometry::TriangleMesh;
+using quadMesh = Ra::Core::Geometry::PolyMesh<Ra::Core::Vector4ui>;
+using polyMesh = Ra::Core::Geometry::PolyMesh<>;
+
+using TriangleMeshComponent = SurfaceMeshComponent<triMesh>;
+using QuadMeshComponent     = SurfaceMeshComponent<quadMesh>;
+using PolyMeshComponent     = SurfaceMeshComponent<polyMesh>;
 
 /// \warning, WIP
 /// \todo doc.

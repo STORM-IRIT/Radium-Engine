@@ -565,7 +565,7 @@ LineMesh::LineMesh( const std::string& name,
 LineMesh::LineMesh( const std::string& name, typename base::MeshRenderMode renderMode ) :
     base( name, renderMode ) {}
 
-/////////  GeneralMesh ///////////
+/////////  PolyMesh ///////////
 
 template <typename T>
 size_t GeneralMesh<T>::getNumFaces() const {

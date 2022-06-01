@@ -420,14 +420,14 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
   private:
 };
 
-/// GeneralMesh, own a Core::Geometry::GeneralMesh
+/// PolyMesh, own a Core::Geometry::PolyMesh
 /// This class handle the GPU representation of a polyhedron mesh.
 /// Each face of the polyhedron (typically quads) are assume to be planar and convex.
 /// Simple triangulation is performed on the fly before sending data to the GPU.
 template <typename T = Ra::Core::VectorNui>
-class RA_ENGINE_API GeneralMesh : public IndexedGeometry<Core::Geometry::GeneralMesh<T>>
+class RA_ENGINE_API GeneralMesh : public IndexedGeometry<Core::Geometry::PolyMesh<T>>
 {
-    using base      = IndexedGeometry<Core::Geometry::GeneralMesh<T>>;
+    using base      = IndexedGeometry<Core::Geometry::PolyMesh<T>>;
     using IndexType = Core::Vector3ui;
 
   public:
@@ -452,7 +452,7 @@ CoreMeshType createEdgeWithDegeneratedTriangle( const Ra::Core::Asset::GeometryD
         } );
 }
 
-/// create a TriangleMesh, GeneralMesh or other Core::*Mesh from GeometryData
+/// create a TriangleMesh, PolyMesh or other Core::*Mesh from GeometryData
 template <typename CoreMeshType>
 CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData* data ) {
     CoreMeshType mesh;
@@ -501,12 +501,12 @@ struct getType<Ra::Core::Geometry::TriangleMesh> {
 };
 
 template <typename T>
-struct getType<Ra::Core::Geometry::GeneralMesh<T>> {
+struct getType<Ra::Core::Geometry::PolyMesh<T>> {
     using Type = Ra::Engine::Data::GeneralMesh<T>;
 };
 } // namespace RenderMeshType
 
-/// create Mesh, GeneralMesh Engine::Data::*Mesh * from GeometryData
+/// create Mesh, PolyMesh Engine::Data::*Mesh * from GeometryData
 template <typename CoreMeshType>
 typename RenderMeshType::getType<CoreMeshType>::Type*
 createMeshFromGeometryData( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {

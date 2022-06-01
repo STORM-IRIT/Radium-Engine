@@ -315,12 +315,12 @@ LineMesh TopologicalMesh::toLineMesh() {
 
     return out;
 }
-GeneralMesh<> TopologicalMesh::toPolyMesh() {
+PolyMesh<> TopologicalMesh::toPolyMesh() {
     // first cleanup deleted element
     garbage_collection();
 
-    GeneralMesh<> out;
-    GeneralMesh<>::IndexContainerType indices;
+    PolyMesh<> out;
+    PolyMesh<>::IndexContainerType indices;
 
     /// add attribs to out
     std::vector<AttribHandle<Scalar>> wedgeFloatAttribHandles;
@@ -356,7 +356,7 @@ GeneralMesh<> TopologicalMesh::toPolyMesh() {
 
     for ( TopologicalMesh::FaceIter f_it = faces_sbegin(); f_it != faces_end(); ++f_it ) {
         int i = 0;
-        GeneralMesh<>::IndexType faceIndices( valence( *f_it ) );
+        PolyMesh<>::IndexType faceIndices( valence( *f_it ) );
         // iterator over vertex (through halfedge to get access to halfedge normals)
         for ( TopologicalMesh::ConstFaceHalfedgeIter fh_it = cfh_iter( *f_it ); fh_it.is_valid();
               ++fh_it ) {

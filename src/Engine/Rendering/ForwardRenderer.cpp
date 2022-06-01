@@ -452,9 +452,9 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
 
                 using trimesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::TriangleMesh>;
                 using quadmesh =
-                    Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::GeneralMesh<Vector4ui>>;
+                    Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh<Vector4ui>>;
                 using polymesh =
-                    Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::GeneralMesh<VectorNui>>;
+                    Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh<VectorNui>>;
 
                 auto displayable = ro->getMesh();
                 auto tm          = std::dynamic_pointer_cast<trimesh>( displayable );

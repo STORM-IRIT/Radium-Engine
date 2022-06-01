@@ -16,7 +16,7 @@ See inheritance diagram of Ra::Core::Geometry::AbstractGeometry :
     - Ra::Core::Geometry::IndexedPointCloud *
     - Ra::Core::Geometry::LineMesh *
     - Ra::Core::Geometry::TriangleMesh *
-    - Ra::Core::Geometry::GeneralMesh *
+    - Ra::Core::Geometry::PolyMesh *
 2. Ra::Core::Geometry::TopologicalMesh, which is an half-edge data structure.
 A converter allows to go back and forth to `TriangleMesh`
 without loss of data, but during the conversion, vertices with the same position represents the same topological point (and are hence merged).
@@ -33,7 +33,7 @@ See inheritance diagram of Ra::Engine::Data::AttribArrayDisplayable
     - Ra::Engine::Data::IndexedAttribArrayDisplayable
     - Ra::Engine::Data::LineMesh *
     - Ra::Engine::Data::Mesh *
-    - Ra::Engine::Data::GeneralMesh *
+    - Ra::Engine::Data::PolyMesh *
 
 `*` : the starred classes are the one you want to instanciate, the other are more for code factoring or abstraction.
 
@@ -128,7 +128,7 @@ During conversion from Core::Geometry::*Mesh to Core::Geometry::TopologicalMesh,
 Some meshes have multiple times the **same** vertices with **different** values for attributes inside a **single** face.
 This kind of situation can either raise degenerated faces, (in case of triangle mesh) or valid faces for some cases for polymesh.
 
-\todo will be supported when TopologicalMesh will support GeneralMesh.
+\todo will be supported when TopologicalMesh will support PolyMesh.
 
 In the latter case, the face is cleaned from the duplicated position and added to the TopologicalMesh, using the first encountered wedge value.
 The following figure illustrate this.

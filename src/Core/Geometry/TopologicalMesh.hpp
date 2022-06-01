@@ -145,7 +145,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \note This is a costly operation.
      * \warning It uses the attributes defined on wedges
      */
-    GeneralMesh<> toPolyMesh();
+    PolyMesh<> toPolyMesh();
 
     LineMesh toLineMesh();
 
