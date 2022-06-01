@@ -34,6 +34,11 @@ set(gui_sources
     Viewer/TrackballCameraManipulator.cpp
     Viewer/Viewer.cpp
     Viewer/WindowQt.cpp
+    Widgets/ControlPanel.cpp
+    Widgets/PowerSlider.cpp
+    Widgets/CheckingSpinBox.cpp
+    Widgets/MatrixEditor.cpp
+    MaterialParameterEditor/MaterialParameterEditor.cpp
 )
 
 set(gui_headers
@@ -71,6 +76,11 @@ set(gui_headers
     Viewer/TrackballCameraManipulator.hpp
     Viewer/Viewer.hpp
     Viewer/WindowQt.hpp
+    Widgets/ControlPanel.hpp
+    Widgets/PowerSlider.hpp
+    Widgets/CheckingSpinBox.hpp
+    Widgets/MatrixEditor.hpp
+    MaterialParameterEditor/MaterialParameterEditor.hpp
 )
 
 set(gui_inlines Viewer/WindowQt.inl)
