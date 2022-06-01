@@ -81,7 +81,8 @@ class RA_CORE_API GeometryData : public AssetData
     [[deprecated( "Use vertices() instead. " )]] inline const Vector3Array& getVertices() const;
 
     /// Set the mesh vertices.
-    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_POSITION ).setData( vertexList
+    /// ) instead.
     template <typename Container>
     [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_POSITION ).setData( "
                   "vertexList ) instead. " )]] inline void
@@ -101,8 +102,8 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of lines.
     /// \note For line meshes only.
-    /// \note Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence )
-    /// instead.
+    /// \note Use findIndexDataWithLock<Vector2ui>( "in_edge" ), then modify value of the
+    /// vectorArray and unlock it. instead.
     template <typename Container>
     [[deprecated( "Use setIndexedData( GeometryType::LINE_MESH, edgeList, \"in_edge\" ) "
                   "instead." )]] inline void
@@ -122,10 +123,10 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of faces.
     /// \note For triangle/quadrangle/polygonal meshes only.
-    /// \note Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence )
-    /// instead.
+    /// \note Use findIndexDataWithLock<VectorNui>( "in_face" ), then modify value of the
+    /// vectorArray and unlock it. instead.
     template <typename Container>
-    [[deprecated( "Use findIndexDataWithLock<VectorNui>( \"in_polyhedron\" ) "
+    [[deprecated( "Use setIndexedData( GeometryType::POLY_MESH, faceList, \"in_face\" ) "
                   "instead." )]] inline void
     setFaces( const Container& faceList );
 
@@ -143,8 +144,8 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// Set the list of polyhedra.
     /// \note For tetrahedron/hexahedron meshes only.
-    /// \note Use findIndexDataWithLock( const std::string& name, const bool& firstOccurrence )
-    /// instead.
+    /// \note Use findIndexDataWithLock<VectorNui>( "in_polyhedron" ), then modify value of the
+    /// vectorArray and unlock it. instead.
     template <typename Container>
     [[deprecated( "Use setIndexedData( GeometryType::POLY_MESH, polyList, \"in_polyhedron\" ) "
                   "instead." )]] inline void
@@ -157,7 +158,8 @@ class RA_CORE_API GeometryData : public AssetData
     [[deprecated( "Use normals() instead. " )]] inline const Vector3Array& getNormals() const;
 
     /// Set the vertex normals.
-    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_NORMAL ).setData( normalList )
+    /// instead.
     template <typename Container>
     [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_NORMAL ).setData( "
                   "normalList ) instead." )]] inline void
@@ -175,7 +177,8 @@ class RA_CORE_API GeometryData : public AssetData
     getTangents() const;
 
     /// Set the vertex tangent vectors.
-    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_TANGENT ).setData( tangentList
+    /// ) instead.
     template <typename Container>
     [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_TANGENT ).setData( "
                   "tangentList ) instead." )]] inline void
@@ -193,7 +196,8 @@ class RA_CORE_API GeometryData : public AssetData
     getBiTangents() const;
 
     /// Set the vertex bitangent vectors.
-    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_BITANGENT ).setData(
+    /// bitangentList ) instead.
     template <typename Container>
     [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_BITANGENT ).setData( "
                   "bitangentList ) instead." )]] inline void
@@ -211,7 +215,8 @@ class RA_CORE_API GeometryData : public AssetData
     getTexCoords() const;
 
     /// Set the vertex texture coordinates.
-    /// \note Use getAttrib( const Geometry::MeshAttrib& name ) instead.
+    /// \note Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_TEXCOORD ).setData(
+    /// texCoordList ) instead.
     template <typename Container>
     [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_TEXCOORD ).setData( "
                   "texCoordList ) instead." )]] inline void
