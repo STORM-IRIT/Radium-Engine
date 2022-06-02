@@ -62,7 +62,7 @@ void LambertianMaterial::unregisterMaterial() {
     Rendering::EngineRenderTechniques::removeDefaultTechnique( materialName );
 }
 
-void LambertianMaterial::updateState() {
+void LambertianMaterial::updateFromParameters() {
     m_color = m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.color" )
                   .m_value;
     m_perVertexColor =

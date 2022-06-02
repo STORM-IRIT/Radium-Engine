@@ -1,4 +1,3 @@
-#include "Data/RenderParameters.hpp"
 #include <Engine/Data/SimpleMaterial.hpp>
 #include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>

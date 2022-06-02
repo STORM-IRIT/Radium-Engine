@@ -1,7 +1,8 @@
-#include "MaterialParameterEditor.hpp"
+#include <Gui/MaterialParameterEditor/MaterialParameterEditor.hpp>
+
+#include <Gui/Widgets/ControlPanel.hpp>
 
 // include the Material Definition
-#include <Data/RenderParameters.hpp>
 #include <Engine/Data/Material.hpp>
 
 #include <QBoxLayout>

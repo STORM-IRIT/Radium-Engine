@@ -49,7 +49,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public EditableM
     ~BlinnPhongMaterial() override;
 
     void updateGL() override;
-    void updateState() override;
+    void updateFromParameters() override;
     bool isTransparent() const override;
 
     /**

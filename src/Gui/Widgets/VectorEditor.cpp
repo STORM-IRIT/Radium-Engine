@@ -6,7 +6,10 @@
 
 #include <memory>
 
-namespace Ra::Gui::Widgets {
+namespace Ra {
+namespace Gui {
+namespace Widgets {
+
 VectorEditor::VectorEditor( const std::vector<double>& vector, int dec, QWidget* parent ) :
     QWidget( parent ), m_vector( vector ) {
 
@@ -32,4 +35,6 @@ VectorEditor::VectorEditor( const std::vector<double>& vector, int dec, QWidget*
 const std::vector<double>& VectorEditor::vector() {
     return m_vector;
 }
-} // namespace Ra::Gui::Widgets
+} // namespace Widgets
+} // namespace Gui
+} // namespace Ra

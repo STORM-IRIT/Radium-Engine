@@ -23,9 +23,7 @@ set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 # ------------------------------------------------------------------------------
-if(NOT IN_RADIUM_BUILD_TREE)
-    find_package(Radium REQUIRED Core Engine Gui)
-endif()
+find_package(Radium REQUIRED COMPONENTS Gui)
 
 find_qt_package(COMPONENTS Core Widgets REQUIRED)
 set(Qt_LIBRARIES Qt::Core Qt::Widgets)
@@ -33,9 +31,12 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # ------------------------------------------------------------------------------
-option(LIBGLTF_FILE_HANDLING "Enable saving files with libGltf" OFF)
+option(USE_RADIUMGLTF "Enable loading/saving files with RadiumGltf extension" OFF)
 
-if(LIBGLTF_FILE_HANDLING)
+if(USE_RADIUMGLTF)
+    message(STATUS "Material editor demo uses RadiumGltf extension")
+    # TODO : find why this find_package is needed (at least on MacOs whe ).
+    find_package(OpenMP QUIET)
     find_package(RadiumGlTF REQUIRED)
 endif()
 # --------------------------------------------------------------------------------------------------
@@ -51,12 +52,10 @@ set(app_resources)
 
 add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_resources})
 
-target_link_libraries(
-    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui ${Qt_LIBRARIES}
-)
+target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Gui ${Qt_LIBRARIES})
 
-if(LIBGLTF_FILE_HANDLING)
-    target_compile_definitions(${PROJECT_NAME} PUBLIC LIBGLTF_FILE_HANDLING)
+if(USE_RADIUMGLTF)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC USE_RADIUMGLTF)
     target_link_libraries(${PROJECT_NAME} PUBLIC RadiumGlTF::RadiumGlTF)
 endif()
 

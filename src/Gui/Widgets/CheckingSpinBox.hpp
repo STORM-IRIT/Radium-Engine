@@ -4,7 +4,9 @@
 #include <QSpinBox>
 #include <QWidget>
 
-namespace Ra::Gui::Widgets {
+namespace Ra {
+namespace Gui {
+namespace Widgets {
 
 /**
  * A DoubleSpinBox that check if its value match a condition defined by a predicate
@@ -19,10 +21,10 @@ class RA_GUI_API CheckingSpinBox : public QWidget
      */
     /** @{ */
     explicit CheckingSpinBox( QWidget* parent = nullptr );
-    CheckingSpinBox( const CheckingSpinBox& )            = delete;
+    CheckingSpinBox( const CheckingSpinBox& ) = delete;
     CheckingSpinBox& operator=( const CheckingSpinBox& ) = delete;
     CheckingSpinBox( CheckingSpinBox&& )                 = delete;
-    CheckingSpinBox&& operator=( CheckingSpinBox&& )     = delete;
+    CheckingSpinBox&& operator=( CheckingSpinBox&& ) = delete;
     /**@}*/
 
     /**
@@ -81,4 +83,6 @@ class RA_GUI_API CheckingSpinBox : public QWidget
     double m_value;
 };
 
-} // namespace Ra::Gui::Widgets
+} // namespace Widgets
+} // namespace Gui
+} // namespace Ra

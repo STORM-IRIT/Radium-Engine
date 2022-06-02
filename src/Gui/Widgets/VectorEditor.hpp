@@ -8,7 +8,9 @@
 
 #include <vector>
 
-namespace Ra::Gui::Widgets {
+namespace Ra {
+namespace Gui {
+namespace Widgets {
 /**
  * A Widget to edit vectors
  */
@@ -22,10 +24,10 @@ class RA_GUI_API VectorEditor : public QWidget
     explicit VectorEditor( const std::vector<double>& vector,
                            int dec         = 3,
                            QWidget* parent = nullptr );
-    VectorEditor( const VectorEditor& )            = delete;
+    VectorEditor( const VectorEditor& ) = delete;
     VectorEditor& operator=( const VectorEditor& ) = delete;
     VectorEditor( VectorEditor&& )                 = delete;
-    VectorEditor&& operator=( VectorEditor&& )     = delete;
+    VectorEditor&& operator=( VectorEditor&& ) = delete;
     /**@}*/
 
     /**
@@ -39,4 +41,6 @@ class RA_GUI_API VectorEditor : public QWidget
   private:
     std::vector<double> m_vector;
 };
-} // namespace Ra::Gui::Widgets
+} // namespace Widgets
+} // namespace Gui
+} // namespace Ra

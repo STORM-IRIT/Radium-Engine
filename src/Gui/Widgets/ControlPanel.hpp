@@ -11,7 +11,9 @@
 
 #include <Core/Utils/Color.hpp>
 
-namespace Ra::Gui::Widgets {
+namespace Ra {
+namespace Gui {
+namespace Widgets {
 /**
  * Simple panel for Qt gui.
  * A control panel will expose all configurable options the bject its decorate to allow the user to
@@ -26,11 +28,11 @@ class RA_GUI_API ControlPanel : public QFrame
      */
     /** @{ */
     explicit ControlPanel( const std::string& name, bool hline = true, QWidget* parent = nullptr );
-    ControlPanel( const ControlPanel& )            = delete;
+    ControlPanel( const ControlPanel& ) = delete;
     ControlPanel& operator=( const ControlPanel& ) = delete;
     ControlPanel( ControlPanel&& )                 = delete;
-    ControlPanel& operator=( ControlPanel&& )      = delete;
-    ~ControlPanel() override                       = default;
+    ControlPanel& operator=( ControlPanel&& ) = delete;
+    ~ControlPanel() override                  = default;
     /**@}*/
 
     /**Methods to populate the panel with dedicated ui elements.
@@ -261,4 +263,6 @@ class RA_GUI_API ControlPanel : public QFrame
     std::stack<QBoxLayout*> m_layouts;
 };
 
-} // namespace Ra::Gui::Widgets
+} // namespace Widgets
+} // namespace Gui
+} // namespace Ra
