@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Data/Material.hpp"
 #include <Engine/Data/SimpleMaterial.hpp>
 
 namespace Ra {
@@ -46,7 +45,7 @@ class RA_ENGINE_API PlainMaterial final : public SimpleMaterial, public Editable
      */
     static void unregisterMaterial();
 
-    void updateState() override;
+    void updateFromParameters() override;
 
     /**
      * Get a json containing metadata about the parameters of the material.

@@ -1,4 +1,3 @@
-#include "Data/RenderParameters.hpp"
 #include <Engine/Data/VolumetricMaterial.hpp>
 
 #include <Engine/Data/ShaderConfigFactory.hpp>
@@ -30,7 +29,7 @@ void VolumetricMaterial::updateGL() {
     updateRenderingParameters();
 }
 
-void VolumetricMaterial::updateState() {
+void VolumetricMaterial::updateFromParameters() {
     m_sigma_a =
         m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.sigma_a" )
             .m_value;
@@ -57,7 +56,9 @@ void VolumetricMaterial::updateRenderingParameters() {
                                       m_texture->depth() * m_texture->depth() ) );
         m_renderParameters.addParameter( "material.stepsize", 1._ra / dim );
     }
-    else { m_renderParameters.addParameter( "material.stepsize", m_stepsize ); }
+    else {
+        m_renderParameters.addParameter( "material.stepsize", m_stepsize );
+    }
     m_renderParameters.addParameter( "material.density", m_texture );
     m_renderParameters.addParameter( "material.modelToDensity", m_modelToMedium.matrix() );
 }

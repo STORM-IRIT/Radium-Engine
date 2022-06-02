@@ -1,4 +1,3 @@
-#include "Widgets/VectorEditor.hpp"
 #include <Gui/Widgets/ControlPanel.hpp>
 
 #include <Gui/Widgets/CheckingSpinBox.hpp>
@@ -12,7 +11,6 @@
 #include <QColorDialog>
 #include <QComboBox>
 #include <QDialog>
-#include <QDialogButtonBox>
 #include <QDoubleSpinBox>
 #include <QFileDialog>
 #include <QPlainTextEdit>
@@ -265,7 +263,9 @@ void ControlPanel::addFileInput( const std::string& name,
             fileList.erase( fileList.size() - 1 );
             callback( fileList );
         }
-        else { callback( "" ); }
+        else {
+            callback( "" );
+        }
     };
     connect( button, &QPushButton::clicked, fileDialog );
     m_currentLayout->addWidget( button );

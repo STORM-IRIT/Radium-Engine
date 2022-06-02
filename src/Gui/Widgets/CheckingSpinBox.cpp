@@ -3,7 +3,9 @@
 #include <algorithm>
 #include <qspinbox.h>
 
-namespace Ra::Gui::Widgets {
+namespace Ra {
+namespace Gui {
+namespace Widgets {
 
 CheckingSpinBox::CheckingSpinBox( QWidget* parent ) : QWidget( parent ) {
     m_spinbox           = new QDoubleSpinBox();
@@ -52,7 +54,11 @@ void CheckingSpinBox::spinboxValueChanged( double val ) {
         m_value = val;
         emit valueChanged( val );
     }
-    else { m_spinbox->setStyleSheet( "background-color: #FF8080" ); }
+    else {
+        m_spinbox->setStyleSheet( "background-color: #FF8080" );
+    }
 }
 
-} // namespace Ra::Gui::Widgets
+} // namespace Widgets
+} // namespace Gui
+} // namespace Ra

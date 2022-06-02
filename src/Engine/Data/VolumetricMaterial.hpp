@@ -39,7 +39,7 @@ class RA_ENGINE_API VolumetricMaterial final : public Material, public EditableM
     ~VolumetricMaterial() override;
 
     void updateGL() override;
-    void updateState() override;
+    void updateFromParameters() override;
     bool isTransparent() const override;
 
     /**

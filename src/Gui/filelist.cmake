@@ -7,6 +7,7 @@
 set(gui_sources
     AboutDialog/AboutDialog.cpp
     BaseApplication.cpp
+    MaterialParameterEditor/MaterialParameterEditor.cpp
     RadiumWindow/SimpleWindow.cpp
     SelectionManager/SelectionManager.cpp
     SkeletonBasedAnimation/SkeletonBasedAnimationUI.cpp
@@ -39,13 +40,13 @@ set(gui_sources
     Widgets/CheckingSpinBox.cpp
     Widgets/MatrixEditor.cpp
     Widgets/VectorEditor.cpp
-    MaterialParameterEditor/MaterialParameterEditor.cpp
 )
 
 set(gui_headers
     AboutDialog/AboutDialog.hpp
     BaseApplication.hpp
     MainWindowInterface.hpp
+    MaterialParameterEditor/MaterialParameterEditor.hpp
     RaGui.hpp
     RadiumWindow/SimpleWindow.hpp
     RadiumWindow/SimpleWindowFactory.hpp
@@ -82,7 +83,6 @@ set(gui_headers
     Widgets/CheckingSpinBox.hpp
     Widgets/MatrixEditor.hpp
     Widgets/VectorEditor.hpp
-    MaterialParameterEditor/MaterialParameterEditor.hpp
 )
 
 set(gui_inlines Viewer/WindowQt.inl)

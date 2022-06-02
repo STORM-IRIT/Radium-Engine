@@ -1,5 +1,4 @@
 #pragma once
-#include <Data/RenderParameters.hpp>
 #include <Gui/RaGui.hpp>
 
 #include <QWidget>
@@ -10,9 +9,6 @@
 
 #include <nlohmann/json.hpp>
 
-#include <Gui/Widgets/ControlPanel.hpp>
-#include <memory>
-
 namespace Ra {
 namespace Engine {
 namespace Data {
@@ -20,15 +16,16 @@ class Material;
 class RenderParameters;
 } // namespace Data
 } // namespace Engine
-} // namespace Ra
 
-namespace Ra::Gui {
+namespace Gui {
+namespace Widgets {
+class ControlPanel;
+}
 /**
  * Simple Widget for Material edition
  * A material editor will show information about the selected material and expose a control panel
  * containing all of its editable parameters to allow the user to edit them.
  */
-
 class RA_GUI_API MaterialParameterEditor : public QWidget
 {
     Q_OBJECT
@@ -37,11 +34,11 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
      */
     /** @{ */
     explicit MaterialParameterEditor( QWidget* parent = nullptr );
-    MaterialParameterEditor( const MaterialParameterEditor& )            = delete;
+    MaterialParameterEditor( const MaterialParameterEditor& ) = delete;
     MaterialParameterEditor& operator=( const MaterialParameterEditor& ) = delete;
     MaterialParameterEditor( MaterialParameterEditor&& )                 = delete;
-    MaterialParameterEditor&& operator=( MaterialParameterEditor&& )     = delete;
-    ~MaterialParameterEditor() override                                  = default;
+    MaterialParameterEditor&& operator=( MaterialParameterEditor&& ) = delete;
+    ~MaterialParameterEditor() override                              = default;
     /** @} */
 
     /**
@@ -100,4 +97,5 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
     bool m_showUnspecified = false;
 };
 
-} // namespace Ra::Gui
+} // namespace Gui
+} // namespace Ra

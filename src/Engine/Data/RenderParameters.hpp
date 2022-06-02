@@ -197,7 +197,7 @@ class RA_ENGINE_API RenderParameters final
      * Check if a typed parameter exists
      * @tparam T the type of the parameter to get
      * @param name The name of the parameter to get
-     * @return if the parameter exists
+     * @return true if the parameter exists
      */
     template <typename T>
     bool containsParameter( const std::string& name ) const;
@@ -253,24 +253,25 @@ class RA_ENGINE_API ShaderParameterProvider
     virtual RenderParameters& getParameters() { return m_renderParameters; }
     virtual const RenderParameters& getParameters() const { return m_renderParameters; }
     /**
-     * Update the OpenGL states used by the ShaderParameterProvider.
+     * \brief Update the OpenGL states used by the ShaderParameterProvider.
      * These state could be the ones from an associated material (textures, precomputed tables or
      * whatever data associated to the material)  or some parameters that are
-     * specific to the provider sementic.
+     * specific to the provider semantic.
      */
     virtual void updateGL() = 0;
 
     /**
-     * Update the state of the ShaderParameterProvider using the renderParameters
+     * \brief Update the attributes of the ShaderParameterProvider to their actual values stored in
+     * the renderParameters.
      */
-    virtual void updateState() {};
+    virtual void updateFromParameters() {};
 
     /**
-     * Get the list of properties the provider migh use in a shader.
+     * \brief Get the list of properties the provider might use in a shader.
      * Each property will be added to the shader used for rendering under the form
      * "#define theProperty" when the provider is associated with the render technique.
      *
-     * The defaul implementation returns an empty list.
+     * The default implementation returns an empty list.
      *
      * @todo : Validate this proposal
      */

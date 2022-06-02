@@ -7,7 +7,9 @@
 #include <Core/Types.hpp>
 #include <stack>
 
-namespace Ra::Gui::Widgets {
+namespace Ra {
+namespace Gui {
+namespace Widgets {
 /**
  * A simple widget to edit matrices
  */
@@ -20,12 +22,13 @@ class RA_GUI_API MatrixEditor : public QWidget
      */
     /** @{ */
     explicit MatrixEditor( const Ra::Core::MatrixN& matrix, int dec, QWidget* parent = nullptr );
-    MatrixEditor( const MatrixEditor& )            = delete;
+    MatrixEditor( const MatrixEditor& ) = delete;
     MatrixEditor& operator=( const MatrixEditor& ) = delete;
     MatrixEditor( MatrixEditor&& )                 = delete;
-    MatrixEditor&& operator=( MatrixEditor&& )     = delete;
+    MatrixEditor&& operator=( MatrixEditor&& ) = delete;
     /**@}*/
 
+    /// Get the edited matrix
     const Ra::Core::MatrixN& matrix() const;
 
     /**
@@ -45,4 +48,6 @@ class RA_GUI_API MatrixEditor : public QWidget
   private:
     Ra::Core::MatrixN m_matrix;
 };
-} // namespace Ra::Gui::Widgets
+} // namespace Widgets
+} // namespace Gui
+} // namespace Ra

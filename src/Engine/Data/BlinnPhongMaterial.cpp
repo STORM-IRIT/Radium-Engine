@@ -1,18 +1,15 @@
-#include "CoreMacros.hpp"
-#include "Data/RenderParameters.hpp"
-#include "Utils/Color.hpp"
-#include <Engine/Data/BlinnPhongMaterial.hpp>
-
-#include <fstream>
-
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
+#include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
+#include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
+
+#include <fstream>
 
 namespace Ra {
 namespace Engine {
@@ -74,7 +71,7 @@ void BlinnPhongMaterial::updateGL() {
     updateRenderingParameters();
 }
 
-void BlinnPhongMaterial::updateState() {
+void BlinnPhongMaterial::updateFromParameters() {
     m_kd =
         m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.kd" ).m_value;
     m_perVertexColor =

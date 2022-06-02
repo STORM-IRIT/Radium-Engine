@@ -45,7 +45,7 @@ class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial, public Edi
      */
     static void unregisterMaterial();
 
-    void updateState() override;
+    void updateFromParameters() override;
 
     /**
      * Get a json containing metadata about the parameters of the material.

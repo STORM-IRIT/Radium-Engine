@@ -1,4 +1,5 @@
 #include <Gui/Widgets/MatrixEditor.hpp>
+
 #include <QDoubleSpinBox>
 #include <QGridLayout>
 #include <QLabel>

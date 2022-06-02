@@ -61,7 +61,7 @@ void PlainMaterial::unregisterMaterial() {
     Rendering::EngineRenderTechniques::removeDefaultTechnique( "Plain" );
 }
 
-void PlainMaterial::updateState() {
+void PlainMaterial::updateFromParameters() {
     m_color = m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.color" )
                   .m_value;
     m_perVertexColor =

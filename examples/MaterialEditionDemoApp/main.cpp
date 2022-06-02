@@ -32,12 +32,11 @@
 #include <QMenuBar>
 #include <QSettings>
 
-// radium file loading
-#include <Core/Asset/FileLoaderInterface.hpp>
-
-#ifdef LIBGLTF_FILE_HANDLING
+#ifdef USE_RADIUMGLTF
 #    include <Engine/Scene/SystemDisplay.hpp>
+#    include <RadiumGlTF/IO/Gltf/Loader/glTFFileLoader.hpp>
 #    include <RadiumGlTF/IO/Gltf/Writer/glTFFileWriter.hpp>
+#    include <RadiumGlTF/glTFLibrary.hpp>
 #endif
 
 using namespace Ra::Gui::Widgets;
@@ -93,7 +92,13 @@ class DemoWindow : public Ra::Gui::SimpleWindow
         };
         connect( fileOpenAction, &QAction::triggered, openFile );
 
-#ifdef LIBGLTF_FILE_HANDLING
+#ifdef USE_RADIUMGLTF
+        // register the gltf loader
+        std::shared_ptr<Ra::Core::Asset::FileLoaderInterface> loader =
+            std::make_shared<GLTF::glTFFileLoader>();
+        Ra::Engine::RadiumEngine::getInstance()->registerFileLoader( loader );
+
+        // allow to save in gltf format
         auto fileSaveAction = new QAction( "&Save..." );
         fileSaveAction->setShortcuts( QKeySequence::Save );
         fileSaveAction->setStatusTip( "Save as GLTF." );
@@ -174,6 +179,12 @@ int main( int argc, char* argv[] ) {
 
     //! [Initializing the application]
     app.initialize( DemoWindowFactory() );
+#ifdef USE_RADIUMGLTF
+    app.m_mainWindow->getViewer()->makeCurrent();
+    // initialize the use of GLTF library
+    GLTF::initializeGltf();
+    app.m_mainWindow->getViewer()->doneCurrent();
+#endif
     app.setContinuousUpdate( false );
     //! [Initializing the application]
 
