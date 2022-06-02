@@ -13,7 +13,7 @@ MatrixEditor::MatrixEditor( const Ra::Core::MatrixN& matrix, int dec, QWidget* p
     QWidget( parent ), m_matrix( matrix ) {
 
     QGridLayout* layout = new QGridLayout;
-    layout->setMargin( 0 );
+    layout->setContentsMargins( {} ); // margins are set to 0, see Qt documentation
     layout->setSpacing( 0 );
 
     for ( long i = 0; i < m_matrix.rows(); ++i ) {
