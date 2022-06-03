@@ -22,6 +22,9 @@
 // Gui tools
 #include <Gui/MaterialParameterEditor/MaterialParameterEditor.hpp>
 
+// radium file loading
+#include <Core/Asset/FileLoaderInterface.hpp>
+
 #include <memory>
 
 // Qt Widgets
