@@ -73,12 +73,14 @@ class RA_CORE_API GeometryData : public AssetData
     inline std::size_t getVerticesSize() const;
 
     /// Return the list of vertices.
-    [[deprecated( "Use verticesWithLock() "
+    [[deprecated( "Use getMultiIndexedGeometry().verticesWithLock() "
                   "instead." )]] inline Vector3Array&
     getVertices();
 
     /// Return the (const) list of vertices.
-    [[deprecated( "Use vertices() instead. " )]] inline const Vector3Array& getVertices() const;
+    [[deprecated(
+        "Use getMultiIndexedGeometry().vertices() instead. " )]] inline const Vector3Array&
+    getVertices() const;
 
     /// Set the mesh vertices.
     /// \note Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_POSITION ).setData( vertexList
@@ -152,17 +154,19 @@ class RA_CORE_API GeometryData : public AssetData
     setPolyhedra( const Container& polyList );
 
     /// Return the list of vertex normals.
-    [[deprecated( "Use normalsWithLock() instead." )]] inline Vector3Array& getNormals();
+    [[deprecated(
+        "Use getMultiIndexedGeometry().normalsWithLock() instead." )]] inline Vector3Array&
+    getNormals();
 
     /// Return the (const) list of vertex normals.
-    [[deprecated( "Use normals() instead. " )]] inline const Vector3Array& getNormals() const;
+    [[deprecated( "Use getMultiIndexedGeometry().normals() instead. " )]] inline const Vector3Array&
+    getNormals() const;
 
     /// Set the vertex normals.
     /// \note Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_NORMAL ).setData( normalList )
     /// instead.
     template <typename Container>
-    [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_NORMAL ).setData( "
-                  "normalList ) instead." )]] inline void
+    [[deprecated( "Use getMultiIndexedGeometry().setNormals( normalList  ) instead." )]] inline void
     setNormals( const Container& normalList );
 
     /// Return the list of vertex tangent vectors.
