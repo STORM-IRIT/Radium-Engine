@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,12 +96,12 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8cpp_source.html'
 <div class="title">ShaderProgramManager.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="ShaderProgramManager_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ShaderConfiguration_8hpp.html">Engine/Data/ShaderConfiguration.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ShaderProgram_8hpp.html">Engine/Data/ShaderProgram.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ShaderProgramManager_8hpp.html">Engine/Data/ShaderProgramManager.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/ShaderConfiguration.hpp&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/ShaderProgram.hpp&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/ShaderProgramManager.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="MakeShared_8hpp.html">Core/Containers/MakeShared.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/MakeShared.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;globjects/NamedString.h&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;globjects/Shader.h&gt;</span></div>
@@ -112,11 +112,11 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8cpp_source.html'
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>Data {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">using namespace </span>Core::Utils; <span class="comment">// log</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data.html#a63859c67d3d36ad1b057b416b238bf0e">   17</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a63859c67d3d36ad1b057b416b238bf0e">ShaderProgramPtr</a> = std::shared_ptr&lt;Data::ShaderProgram&gt;;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">using</span> ShaderProgramPtr = std::shared_ptr&lt;Data::ShaderProgram&gt;;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a55f0fcd4bed0c3b6b2fdbb44e83818d8">   19</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a55f0fcd4bed0c3b6b2fdbb44e83818d8">ShaderProgramManager::ShaderProgramManager</a>() {}</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#af6cafb46067863a9a4407dff9218073e">   21</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#af6cafb46067863a9a4407dff9218073e">ShaderProgramManager::~ShaderProgramManager</a>() {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;ShaderProgramManager::~ShaderProgramManager() {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    m_shaderPrograms.clear();</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
@@ -125,12 +125,12 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8cpp_source.html'
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">auto</span> el = m_namedStrings.find( includepath );</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">if</span> ( el != m_namedStrings.end() ) {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">if</span> ( el-&gt;second.first-&gt;filePath() != realfile ) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> )</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            LOG( logWARNING )</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;[ShaderProgramManager] A named string already exists with this key: &quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                &lt;&lt; includepath &lt;&lt; <span class="stringliteral">&quot; --&gt; &quot;</span> &lt;&lt; el-&gt;second.first-&gt;filePath();</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;[ShaderProgramManager] Named string already inserted, skipping: &quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;[ShaderProgramManager] Named string already inserted, skipping: &quot;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                           &lt;&lt; includepath &lt;&lt; <span class="stringliteral">&quot; --&gt; &quot;</span> &lt;&lt; realfile;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
@@ -159,7 +159,7 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8cpp_source.html'
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> ( found != m_shaderPrograms.end() ) { <span class="keywordflow">return</span> found-&gt;second.get(); }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">// add named strings</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; p : config.<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ad8bb2ef1fd8225e667ec4499d35666f7">getNamedStrings</a>() ) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; p : config.getNamedStrings() ) {</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        addNamedString( p.first, p.second );</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
@@ -172,14 +172,14 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8cpp_source.html'
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">logERROR</a> ) &lt;&lt; <span class="stringliteral">&quot;Error occurred while loading shader program &quot;</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                        &lt;&lt; config.<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ada1d8dcd8956d77a89ad351ae305de92">getName</a>().c_str() &lt;&lt; <span class="stringliteral">&quot;:\nDefault shader program used instead.&quot;</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Error occurred while loading shader program &quot;</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                        &lt;&lt; config.getName().c_str() &lt;&lt; <span class="stringliteral">&quot;:\nDefault shader program used instead.&quot;</span>;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; strings : config.<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ad8bb2ef1fd8225e667ec4499d35666f7">getNamedStrings</a>() ) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; strings : config.getNamedStrings() ) {</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keyword">auto</span> el = m_namedStrings.find( strings.first );</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">if</span> ( el != m_namedStrings.end() ) {</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                <span class="keywordflow">if</span> ( el-&gt;second.first-&gt;filePath() == strings.second ) {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                    <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;[ShaderProgramManager] Removing named string &quot;</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                    LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;[ShaderProgramManager] Removing named string &quot;</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                   &lt;&lt; strings.first &lt;&lt; <span class="stringliteral">&quot; --&gt; &quot;</span> &lt;&lt; strings.second;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                }</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            }</div>
@@ -202,7 +202,7 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8cpp_source.html'
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Data::ShaderProgram</a>*</div>
 <div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a17bac2f07d312be7a01ab2722bd810df">  105</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a73db5789bbbb51ef1c4e4722999da2d8">ShaderProgramManager::getShaderProgram</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; config ) {</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">auto</span> res = addShaderProgram( config );</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classbool.html">bool</a>( res ) ? *res : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> bool( res ) ? *res : <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
 <div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#aead39c6f80671dcd10102c572da40bc1">  110</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#aead39c6f80671dcd10102c572da40bc1">ShaderProgramManager::reloadAllShaderPrograms</a>() {</div>
@@ -231,8 +231,8 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8cpp_source.html'
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keywordtype">void</span> ShaderProgramManager::insertShader( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; config,</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                                         <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a63859c67d3d36ad1b057b416b238bf0e">ShaderProgramPtr</a>&amp; shader ) {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    m_shaderProgramIds.insert( { config.<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ada1d8dcd8956d77a89ad351ae305de92">getName</a>(), config } );</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                                         <span class="keyword">const</span> ShaderProgramPtr&amp; shader ) {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    m_shaderProgramIds.insert( { config.getName(), config } );</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    m_shaderPrograms.insert( { config, shader } );</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
@@ -241,35 +241,21 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8cpp_source.html'
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aShaderConfiguration_8hpp_html"><div class="ttname"><a href="ShaderConfiguration_8hpp.html">ShaderConfiguration.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">Ra::Core::Utils::logINFO</a></div><div class="ttdeci">@ logINFO</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00018">Log.hpp:18</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderConfiguration_html_ad8bb2ef1fd8225e667ec4499d35666f7"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ad8bb2ef1fd8225e667ec4499d35666f7">Ra::Engine::Data::ShaderConfiguration::getNamedStrings</a></div><div class="ttdeci">const std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp; getNamedStrings() const</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8cpp_source.html#l00159">ShaderConfiguration.cpp:159</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Ra::Engine::Data::ShaderProgram</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8hpp_source.html#l00031">ShaderProgram.hpp:31</a></div></div>
-<div class="ttc" id="aMakeShared_8hpp_html"><div class="ttname"><a href="MakeShared_8hpp.html">MakeShared.hpp</a></div></div>
-<div class="ttc" id="aShaderProgramManager_8hpp_html"><div class="ttname"><a href="ShaderProgramManager_8hpp.html">ShaderProgramManager.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderConfiguration_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8hpp_source.html#l00061">ShaderConfiguration.hpp:61</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderConfiguration_html_ada1d8dcd8956d77a89ad351ae305de92"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ada1d8dcd8956d77a89ad351ae305de92">Ra::Engine::Data::ShaderConfiguration::getName</a></div><div class="ttdeci">const std::string &amp; getName() const</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8hpp_source.html#l00134">ShaderConfiguration.hpp:134</a></div></div>
-<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html_a55f0fcd4bed0c3b6b2fdbb44e83818d8"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a55f0fcd4bed0c3b6b2fdbb44e83818d8">Ra::Engine::Data::ShaderProgramManager::ShaderProgramManager</a></div><div class="ttdeci">ShaderProgramManager()</div><div class="ttdoc">Rule of three needed here to prevent copy on this manager (only movable)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8cpp_source.html#l00019">ShaderProgramManager.cpp:19</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html_a0316994e83106528893d55eefc851ca0"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a0316994e83106528893d55eefc851ca0">Ra::Engine::Data::ShaderProgramManager::reloadNotCompiledShaderPrograms</a></div><div class="ttdeci">void reloadNotCompiledShaderPrograms()</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8cpp_source.html#l00123">ShaderProgramManager.cpp:123</a></div></div>
-<div class="ttc" id="aclassbool_html"><div class="ttname"><a href="classbool.html">bool</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html_a4b346bfdb26bd4c0dcb3372f6e6b1dad"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a4b346bfdb26bd4c0dcb3372f6e6b1dad">Ra::Engine::Data::ShaderProgramManager::addShaderProgram</a></div><div class="ttdeci">Core::Utils::optional&lt; const Data::ShaderProgram * &gt; addShaderProgram(const Data::ShaderConfiguration &amp;config)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8cpp_source.html#l00058">ShaderProgramManager.cpp:58</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_html_a63859c67d3d36ad1b057b416b238bf0e"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data.html#a63859c67d3d36ad1b057b416b238bf0e">Ra::Engine::Data::ShaderProgramPtr</a></div><div class="ttdeci">std::shared_ptr&lt; Data::ShaderProgram &gt; ShaderProgramPtr</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8cpp_source.html#l00017">ShaderProgramManager.cpp:17</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html_aead39c6f80671dcd10102c572da40bc1"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#aead39c6f80671dcd10102c572da40bc1">Ra::Engine::Data::ShaderProgramManager::reloadAllShaderPrograms</a></div><div class="ttdeci">void reloadAllShaderPrograms()</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8cpp_source.html#l00110">ShaderProgramManager.cpp:110</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html_ad66d3c5dc3db4aefeb767e68dcd016f7"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#ad66d3c5dc3db4aefeb767e68dcd016f7">Ra::Engine::Data::ShaderProgramManager::reloadNamedString</a></div><div class="ttdeci">void reloadNamedString()</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8cpp_source.html#l00049">ShaderProgramManager.cpp:49</a></div></div>
-<div class="ttc" id="aShaderProgram_8hpp_html"><div class="ttname"><a href="ShaderProgram_8hpp.html">ShaderProgram.hpp</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">Ra::Core::Utils::logERROR</a></div><div class="ttdeci">@ logERROR</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00016">Log.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html_a73db5789bbbb51ef1c4e4722999da2d8"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a73db5789bbbb51ef1c4e4722999da2d8">Ra::Engine::Data::ShaderProgramManager::getShaderProgram</a></div><div class="ttdeci">const Data::ShaderProgram * getShaderProgram(const std::string &amp;id)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8cpp_source.html#l00097">ShaderProgramManager.cpp:97</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html_af6cafb46067863a9a4407dff9218073e"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#af6cafb46067863a9a4407dff9218073e">Ra::Engine::Data::ShaderProgramManager::~ShaderProgramManager</a></div><div class="ttdeci">~ShaderProgramManager()</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8cpp_source.html#l00021">ShaderProgramManager.cpp:21</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html_ae775537f28c1b2f538babc04d315d494"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#ae775537f28c1b2f538babc04d315d494">Ra::Engine::Data::ShaderProgramManager::addNamedString</a></div><div class="ttdeci">bool addNamedString(const std::string &amp;includepath, const std::string &amp;realfile)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8cpp_source.html#l00025">ShaderProgramManager.cpp:25</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="ShaderProgramManager_8cpp.html">ShaderProgramManager.cpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>ShaderProgramManager.cpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

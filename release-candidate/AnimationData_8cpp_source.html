@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,19 +96,19 @@ $(document).ready(function(){initNavTree('AnimationData_8cpp_source.html',''); i
 <div class="title">AnimationData.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="AnimationData_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AnimationData_8hpp.html">Core/Asset/AnimationData.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/AnimationData.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Asset.html">    5</a></span>&#160;<span class="keyword">namespace </span>Asset {</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Asset {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html#a9eb084b9644499141aab36712469bb40">    7</a></span>&#160;<a class="code" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html#a9eb084b9644499141aab36712469bb40">HandleAnimation::HandleAnimation</a>( <span class="keyword">const</span> std::string&amp; name ) :</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    m_name( name ), m_anim( -1, <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Transform</a>::Identity() ) {}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;HandleAnimation::HandleAnimation( <span class="keyword">const</span> std::string&amp; name ) :</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    m_name( name ), m_anim( -1, Transform::Identity() ) {}</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a00a1c6f6d2215c0b1c0e1b18451b4d89">   10</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a00a1c6f6d2215c0b1c0e1b18451b4d89">AnimationData::AnimationData</a>( <span class="keyword">const</span> std::string&amp; name ) :</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a>( name ), m_time(), m_dt( 0.0 ), m_keyFrame() {}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;AnimationData::AnimationData( <span class="keyword">const</span> std::string&amp; name ) :</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    AssetData( name ), m_time(), m_dt( 0.0 ), m_keyFrame() {}</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae4c8da9704e51c9011d32a7132c589a8">   13</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae4c8da9704e51c9011d32a7132c589a8">AnimationData::~AnimationData</a>() {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;AnimationData::~AnimationData() {}</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace Asset</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace Core</span></div>
@@ -116,17 +116,11 @@ $(document).ready(function(){initNavTree('AnimationData_8cpp_source.html',''); i
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00082">Types.hpp:82</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Asset_1_1HandleAnimation_html_a9eb084b9644499141aab36712469bb40"><div class="ttname"><a href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html#a9eb084b9644499141aab36712469bb40">Ra::Core::Asset::HandleAnimation::HandleAnimation</a></div><div class="ttdeci">HandleAnimation(const std::string &amp;name=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> <a href="AnimationData_8cpp_source.html#l00007">AnimationData.cpp:7</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AnimationData_html_ae4c8da9704e51c9011d32a7132c589a8"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae4c8da9704e51c9011d32a7132c589a8">Ra::Core::Asset::AnimationData::~AnimationData</a></div><div class="ttdeci">~AnimationData()</div><div class="ttdef"><b>Definition:</b> <a href="AnimationData_8cpp_source.html#l00013">AnimationData.cpp:13</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00016">AssetData.hpp:16</a></div></div>
-<div class="ttc" id="aAnimationData_8hpp_html"><div class="ttname"><a href="AnimationData_8hpp.html">AnimationData.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AnimationData_html_a00a1c6f6d2215c0b1c0e1b18451b4d89"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a00a1c6f6d2215c0b1c0e1b18451b4d89">Ra::Core::Asset::AnimationData::AnimationData</a></div><div class="ttdeci">AnimationData(const std::string &amp;name=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> <a href="AnimationData_8cpp_source.html#l00010">AnimationData.cpp:10</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="AnimationData_8cpp.html">AnimationData.cpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><b>AnimationData.cpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

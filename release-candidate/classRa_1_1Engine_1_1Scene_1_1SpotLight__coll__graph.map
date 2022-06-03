@@ -1,17 +1,8 @@
 <map id="Ra::Engine::Scene::SpotLight" name="Ra::Engine::Scene::SpotLight">
-<area shape="rect" id="node1" title=" " alt="" coords="191,2065,398,2392"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="201,1792,389,2016"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="184,1401,405,1743"/>
-<area shape="rect" id="node4" title=" " alt="" coords="215,784,377,876"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title=" " alt="" coords="59,145,242,648"/>
-<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="17,755,191,905"/>
-<area shape="rect" id="node6" href="$classint.html" title=" " alt="" coords="131,5,170,83"/>
-<area shape="rect" id="node7" title="STL class." alt="" coords="273,358,402,435"/>
-<area shape="rect" id="node10" title=" " alt="" coords="416,769,619,891"/>
-<area shape="rect" id="node8" title=" " alt="" coords="318,5,357,83"/>
-<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="425,1049,637,1258"/>
-<area shape="rect" id="node11" title=" " alt="" coords="538,343,769,450"/>
-<area shape="rect" id="node12" title="STL class." alt="" coords="666,1115,753,1192"/>
-<area shape="rect" id="node13" title="STL class." alt="" coords="643,784,781,876"/>
-<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="5,968,216,1339"/>
+<area shape="rect" id="node1" title=" " alt="" coords="95,1317,301,1644"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="104,1044,292,1268"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="87,639,309,995"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,286,217,495"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="241,205,451,576"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="259,5,433,156"/>
 </map>

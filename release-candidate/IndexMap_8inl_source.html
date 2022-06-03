@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,8 +96,8 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="title">IndexMap.inl</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="IndexMap_8inl.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="IndexMap_8hpp.html">Core/Utils/IndexMap.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/IndexMap.hpp&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Core {</div>
@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// CONSTRUCTOR</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// ===============================================================================</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a122641445020c8aa9c0f0643381e4b9a">   12</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a122641445020c8aa9c0f0643381e4b9a">IndexMap&lt;T&gt;::IndexMap</a>() : m_data(), m_index(), m_free( 1, <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>( 0 ) ) {}</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a122641445020c8aa9c0f0643381e4b9a">   12</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a122641445020c8aa9c0f0643381e4b9a">IndexMap&lt;T&gt;::IndexMap</a>() : m_data(), m_index(), m_free( 1, Index( 0 ) ) {}</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a4312eeb3e68cdc068d68c17aba252fb8">   15</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::IndexMap</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap</a>&amp; id_map ) :</div>
@@ -123,8 +123,8 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// INSERT</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// ===============================================================================</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a99b6c31cd342322f4b45be677f550ddb">   28</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::insert</a>( <span class="keyword">const</span> T&amp; obj ) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a> idx;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a99b6c31cd342322f4b45be677f550ddb">   28</a></span>&#160;<span class="keyword">inline</span> Index <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::insert</a>( <span class="keyword">const</span> T&amp; obj ) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    Index idx;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> ( pop_free_index( idx ) ) {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">typename</span> std::deque&lt;Index&gt;::iterator it =</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            std::lower_bound( m_index.begin(), m_index.end(), idx );</div>
@@ -139,8 +139,8 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a7f185a02c277a244bcd8fe94ebf88730">   44</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::emplace</a>( <span class="keyword">const</span> Args&amp;&amp;... args ) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a> idx;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a7f185a02c277a244bcd8fe94ebf88730">   44</a></span>&#160;Index <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::emplace</a>( <span class="keyword">const</span> Args&amp;&amp;... args ) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    Index idx;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> ( pop_free_index( idx ) ) {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">typename</span> std::deque&lt;Index&gt;::iterator it =</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            std::lower_bound( m_index.begin(), m_index.end(), idx );</div>
@@ -157,7 +157,7 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">// REMOVE</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// ===============================================================================</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a766cb2c7e1a38ca746898a543ee7bcf5">   62</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::remove</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; idx ) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a766cb2c7e1a38ca746898a543ee7bcf5">   62</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::remove</a>( <span class="keyword">const</span> Index&amp; idx ) {</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">typename</span> std::deque&lt;Index&gt;::iterator it = std::find( m_index.begin(), m_index.end(), idx );</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> ( it == m_index.end() ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    m_data.erase( itfromIndex( it ) );</div>
@@ -170,17 +170,17 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">// ACCESS</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">// ===============================================================================</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a23c7cb9f877a305ca08d601344f9a73b">   75</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::at</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; idx )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a23c7cb9f877a305ca08d601344f9a73b">   75</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::at</a>( <span class="keyword">const</span> Index&amp; idx )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">typename</span> std::deque&lt;Index&gt;::const_iterator it =</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        std::find( m_index.begin(), m_index.end(), idx );</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( it != m_index.end(), <span class="stringliteral">&quot;Index not found&quot;</span> );</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    CORE_ASSERT( it != m_index.end(), <span class="stringliteral">&quot;Index not found&quot;</span> );</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> m_data.at( idxfromIndex( it ) );</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a9984f567657c7109e3601bc2c9653369">   83</a></span>&#160;<span class="keyword">inline</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::access</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; idx ) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a9984f567657c7109e3601bc2c9653369">   83</a></span>&#160;<span class="keyword">inline</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::access</a>( <span class="keyword">const</span> Index&amp; idx ) {</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">typename</span> std::deque&lt;Index&gt;::iterator it = std::find( m_index.begin(), m_index.end(), idx );</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( ( it != m_index.end() ), <span class="stringliteral">&quot;Index not found&quot;</span> );</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    CORE_ASSERT( ( it != m_index.end() ), <span class="stringliteral">&quot;Index not found&quot;</span> );</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> *itfromIndex( it );</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
@@ -188,8 +188,8 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">// SIZE</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">// ===============================================================================</span></div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a37f01f69128313aba7f8bf3211535607">   93</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::size</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">return</span> m_data.<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a37f01f69128313aba7f8bf3211535607">size</a>();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::size</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">return</span> m_data.size();</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
@@ -197,7 +197,7 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    m_index.<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a7a4b194fab5c3797286249c34bb76101">clear</a>();</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    m_data.clear();</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    m_free.clear();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    m_free.push_back( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>( 0 ) );</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    m_free.push_back( Index( 0 ) );</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">// ===============================================================================</span></div>
@@ -214,14 +214,14 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#acb554fd4aa42ddfb1b72802738121b95">  119</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::contains</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; idx )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#acb554fd4aa42ddfb1b72802738121b95">  119</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::contains</a>( <span class="keyword">const</span> Index&amp; idx )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">typename</span> std::deque&lt;Index&gt;::const_iterator it =</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        std::find( m_index.begin(), m_index.end(), idx );</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">return</span> !( it == m_index.end() );</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a0afafd61b469733092e2c90cb573857e">  126</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::index</a>( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a0afafd61b469733092e2c90cb573857e">  126</a></span>&#160;<span class="keyword">inline</span> Index <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::index</a>( <span class="keyword">const</span> uint i )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">if</span> ( i &gt;= m_index.size() ) { <span class="keywordflow">return</span> Index::Invalid(); }</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> m_index.at( i );</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
@@ -230,12 +230,12 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">// OPERATOR</span></div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">// ===============================================================================</span></div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#aeaf95fa6e8b899ee5baeaa1fdd7fea36">  135</a></span>&#160;<span class="keyword">inline</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::operator[]</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; idx ) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#aeaf95fa6e8b899ee5baeaa1fdd7fea36">  135</a></span>&#160;<span class="keyword">inline</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::operator[]</a>( <span class="keyword">const</span> Index&amp; idx ) {</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">return</span> access( idx );</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#ad70eef6df985ea30792a72303ad302d6">  140</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::operator[]</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; idx )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#ad70eef6df985ea30792a72303ad302d6">  140</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::operator[]</a>( <span class="keyword">const</span> Index&amp; idx )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">return</span> at( idx );</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
@@ -289,17 +289,17 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">// FREE LIST</span></div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">// ===============================================================================</span></div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::push_free_index</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; idx ) {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::push_free_index</a>( <span class="keyword">const</span> Index&amp; idx ) {</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    std::deque&lt;Index&gt;::iterator free_it = std::lower_bound( m_free.begin(), m_free.end(), idx );</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    m_free.insert( free_it, idx );</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">if</span> ( m_data.empty() ) {</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        m_free.clear();</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        m_free.push_back( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>( 0 ) );</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        m_free.push_back( Index( 0 ) );</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    }</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;}</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::pop_free_index</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; idx ) {</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">IndexMap&lt;T&gt;::pop_free_index</a>( Index&amp; idx ) {</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">if</span> ( m_free.empty() ) {</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        idx = Index::Invalid();</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -309,7 +309,7 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordflow">if</span> ( m_free.empty() ) {</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        Index next = idx + 1;</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordflow">if</span> ( next.isValid() ) {</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keywordflow">if</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>( next.getValue() ) &gt; m_data.size() ) { m_free.push_back( next ); }</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keywordflow">if</span> ( uint( next.getValue() ) &gt; m_data.size() ) { m_free.push_back( next ); }</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        }</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    }</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
@@ -345,18 +345,13 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aIndexMap_8hpp_html"><div class="ttname"><a href="IndexMap_8hpp.html">IndexMap.hpp</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html_aac091462210fc136485409abb6edf3d7"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#aac091462210fc136485409abb6edf3d7">Ra::Core::Utils::IndexMap::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Clear the IndexMap.</div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8inl_source.html#l00109">IndexMap.inl:109</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html_a8d73f792a9394326e77a7769f279b52e"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a8d73f792a9394326e77a7769f279b52e">Ra::Core::Utils::IndexMap::ConstIndexIterator</a></div><div class="ttdeci">typename IndexContainer::const_iterator ConstIndexIterator</div><div class="ttdoc">Where the indices are stored.</div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8hpp_source.html#l00033">IndexMap.hpp:33</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html_a37f01f69128313aba7f8bf3211535607"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a37f01f69128313aba7f8bf3211535607">Ra::Core::Utils::IndexMap::size</a></div><div class="ttdeci">size_t size() const</div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8inl_source.html#l00093">IndexMap.inl:93</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html_ae623a78346f941adcc39554efe3b5988"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#ae623a78346f941adcc39554efe3b5988">Ra::Core::Utils::IndexMap::ConstIterator</a></div><div class="ttdeci">typename Container::const_iterator ConstIterator</div><div class="ttdoc">Iterator to the list of objects of the IndexMap.</div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8hpp_source.html#l00037">IndexMap.hpp:37</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html_adc909f9bacad8dd304a0b84cc9ecf499"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#adc909f9bacad8dd304a0b84cc9ecf499">Ra::Core::Utils::IndexMap::Iterator</a></div><div class="ttdeci">typename Container::iterator Iterator</div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8hpp_source.html#l00036">IndexMap.hpp:36</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html_ac6092f77ac75b0f5aca1255488a56059"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#ac6092f77ac75b0f5aca1255488a56059">Ra::Core::Utils::IndexMap::cbegin</a></div><div class="ttdeci">ConstIterator cbegin() const</div><div class="ttdoc">Return a iterator to the end of the object list in the IndexMap.</div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8inl_source.html#l00181">IndexMap.inl:181</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html_a6ca917aaa0831588dd5afa041e1d9cf5"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a6ca917aaa0831588dd5afa041e1d9cf5">Ra::Core::Utils::IndexMap::end</a></div><div class="ttdeci">Iterator end()</div><div class="ttdoc">Return a iterator to the first object in the IndexMap.</div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8inl_source.html#l00166">IndexMap.inl:166</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00349">CoreMacros.hpp:349</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html_a122641445020c8aa9c0f0643381e4b9a"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#a122641445020c8aa9c0f0643381e4b9a">Ra::Core::Utils::IndexMap::IndexMap</a></div><div class="ttdeci">IndexMap()</div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8inl_source.html#l00012">IndexMap.inl:12</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html_aebf24216b9f58b78ce3427df72d43faa"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html#aebf24216b9f58b78ce3427df72d43faa">Ra::Core::Utils::IndexMap::cend</a></div><div class="ttdeci">ConstIterator cend() const</div><div class="ttdoc">Return a const iterator to the first object in the IndexMap.</div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8inl_source.html#l00186">IndexMap.inl:186</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">Ra::Core::Utils::IndexMap</a></div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8hpp_source.html#l00023">IndexMap.hpp:23</a></div></div>
@@ -365,8 +360,8 @@ $(document).ready(function(){initNavTree('IndexMap_8inl_source.html',''); initRe
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="IndexMap_8inl.html">IndexMap.inl</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><b>IndexMap.inl</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

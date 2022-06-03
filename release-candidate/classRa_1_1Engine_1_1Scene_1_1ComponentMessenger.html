@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -116,544 +116,55 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This describes the function pointers accepted for each type.  <a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html">CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4609a14647a34c0a88e20ed5c22238f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a4609a14647a34c0a88e20ed5c22238f8">ComponentMessenger</a> ()=default</td></tr>
-<tr class="separator:a4609a14647a34c0a88e20ed5c22238f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdb1d67866fa6dc2a0c390452aaf0f40"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:afdb1d67866fa6dc2a0c390452aaf0f40"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Getter&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#afdb1d67866fa6dc2a0c390452aaf0f40">getterCallback</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
+<tr class="memitem:afdb1d67866fa6dc2a0c390452aaf0f40"><td class="memTemplParams" colspan="2"><a id="afdb1d67866fa6dc2a0c390452aaf0f40"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:afdb1d67866fa6dc2a0c390452aaf0f40"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Getter&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getterCallback</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
 <tr class="separator:afdb1d67866fa6dc2a0c390452aaf0f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abec69dd761a403fcd9ba351d92e0f7a3"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:abec69dd761a403fcd9ba351d92e0f7a3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::ReadWrite&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#abec69dd761a403fcd9ba351d92e0f7a3">rwCallback</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
+<tr class="memitem:abec69dd761a403fcd9ba351d92e0f7a3"><td class="memTemplParams" colspan="2"><a id="abec69dd761a403fcd9ba351d92e0f7a3"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:abec69dd761a403fcd9ba351d92e0f7a3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::ReadWrite&#160;</td><td class="memTemplItemRight" valign="bottom"><b>rwCallback</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
 <tr class="separator:abec69dd761a403fcd9ba351d92e0f7a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27ab969fa6bcac29008a1fee7c07aadb"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:a27ab969fa6bcac29008a1fee7c07aadb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Setter&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a27ab969fa6bcac29008a1fee7c07aadb">setterCallback</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
+<tr class="memitem:a27ab969fa6bcac29008a1fee7c07aadb"><td class="memTemplParams" colspan="2"><a id="a27ab969fa6bcac29008a1fee7c07aadb"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:a27ab969fa6bcac29008a1fee7c07aadb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Setter&#160;</td><td class="memTemplItemRight" valign="bottom"><b>setterCallback</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
 <tr class="separator:a27ab969fa6bcac29008a1fee7c07aadb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d361720b74ab4b82ef882a33232ca97"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:a4d361720b74ab4b82ef882a33232ca97"><td class="memTemplItemLeft" align="right" valign="top">const ReturnType &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a4d361720b74ab4b82ef882a33232ca97">get</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
+<tr class="memitem:a4d361720b74ab4b82ef882a33232ca97"><td class="memTemplParams" colspan="2"><a id="a4d361720b74ab4b82ef882a33232ca97"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:a4d361720b74ab4b82ef882a33232ca97"><td class="memTemplItemLeft" align="right" valign="top">const ReturnType &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>get</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
 <tr class="separator:a4d361720b74ab4b82ef882a33232ca97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2df47f7e8d255e1150c30d99991fc9e1"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:a2df47f7e8d255e1150c30d99991fc9e1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a2df47f7e8d255e1150c30d99991fc9e1">canGet</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
+<tr class="memitem:a2df47f7e8d255e1150c30d99991fc9e1"><td class="memTemplParams" colspan="2"><a id="a2df47f7e8d255e1150c30d99991fc9e1"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:a2df47f7e8d255e1150c30d99991fc9e1"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>canGet</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
 <tr class="separator:a2df47f7e8d255e1150c30d99991fc9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd51806f170c507db8bc102a1d8032ac"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:afd51806f170c507db8bc102a1d8032ac"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#afd51806f170c507db8bc102a1d8032ac">canSet</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
+<tr class="memitem:afd51806f170c507db8bc102a1d8032ac"><td class="memTemplParams" colspan="2"><a id="afd51806f170c507db8bc102a1d8032ac"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:afd51806f170c507db8bc102a1d8032ac"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>canSet</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
 <tr class="separator:afd51806f170c507db8bc102a1d8032ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94c22ee7d0265a3bb5b6fca114e762bb"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:a94c22ee7d0265a3bb5b6fca114e762bb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a94c22ee7d0265a3bb5b6fca114e762bb">canRw</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
+<tr class="memitem:a94c22ee7d0265a3bb5b6fca114e762bb"><td class="memTemplParams" colspan="2"><a id="a94c22ee7d0265a3bb5b6fca114e762bb"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:a94c22ee7d0265a3bb5b6fca114e762bb"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>canRw</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const std::string &amp;id)</td></tr>
 <tr class="separator:a94c22ee7d0265a3bb5b6fca114e762bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e5df894f64c1df1dbc26745ae4009a7"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:a8e5df894f64c1df1dbc26745ae4009a7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a8e5df894f64c1df1dbc26745ae4009a7">registerOutput</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *comp, const std::string &amp;id, const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Getter &amp;cb)</td></tr>
+<tr class="memitem:a8e5df894f64c1df1dbc26745ae4009a7"><td class="memTemplParams" colspan="2"><a id="a8e5df894f64c1df1dbc26745ae4009a7"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:a8e5df894f64c1df1dbc26745ae4009a7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>registerOutput</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *comp, const std::string &amp;id, const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Getter &amp;cb)</td></tr>
 <tr class="separator:a8e5df894f64c1df1dbc26745ae4009a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbd58bbce05f8723fd623502b3050f77"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:adbd58bbce05f8723fd623502b3050f77"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#adbd58bbce05f8723fd623502b3050f77">registerReadWrite</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *comp, const std::string &amp;id, const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::ReadWrite &amp;cb)</td></tr>
+<tr class="memitem:adbd58bbce05f8723fd623502b3050f77"><td class="memTemplParams" colspan="2"><a id="adbd58bbce05f8723fd623502b3050f77"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:adbd58bbce05f8723fd623502b3050f77"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>registerReadWrite</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *comp, const std::string &amp;id, const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::ReadWrite &amp;cb)</td></tr>
 <tr class="separator:adbd58bbce05f8723fd623502b3050f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8882f6f095ccf5ca2fbd4d4c524f736a"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType &gt; </td></tr>
-<tr class="memitem:a8882f6f095ccf5ca2fbd4d4c524f736a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a8882f6f095ccf5ca2fbd4d4c524f736a">registerInput</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *comp, const std::string &amp;id, const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Setter &amp;cb)</td></tr>
+<tr class="memitem:a8882f6f095ccf5ca2fbd4d4c524f736a"><td class="memTemplParams" colspan="2"><a id="a8882f6f095ccf5ca2fbd4d4c524f736a"></a>
+template&lt;typename ReturnType &gt; </td></tr>
+<tr class="memitem:a8882f6f095ccf5ca2fbd4d4c524f736a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>registerInput</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *comp, const std::string &amp;id, const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Setter &amp;cb)</td></tr>
 <tr class="separator:a8882f6f095ccf5ca2fbd4d4c524f736a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class allows components to communicate data to each other in a type safe way When a component is created, after being attached to an entity, it can declare output (get), input (set) or read/write functions on arbitrary type parameters. Then any component (typically belonging to the same entity) can try to access the given data through the functions. Declaring I/O is done by registering a function pointer with the correct prototype ( returning <code>const T*</code> for getters, accepting <code>const T*</code> for setters and returning a <code>T*</code> for read/write getters). Each function is identified by its entity, a name and the return type. Then, another component can try to query the messenger to check if a data of the relevant type, entity and string-id is available, with the <a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a2df47f7e8d255e1150c30d99991fc9e1">canGet()</a>, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#afd51806f170c507db8bc102a1d8032ac">canSet()</a> and <a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a94c22ee7d0265a3bb5b6fca114e762bb">canRw()</a> functions. It is then possible to directly read or write this data with the <a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a4d361720b74ab4b82ef882a33232ca97">get()</a>, set() and rw() functions. For more efficiency the underlying function pointers are directly accessible as well and can be queried with the same identifiers. </p>
+<div class="textblock"><p>This class allows components to communicate data to each other in a type safe way When a component is created, after being attached to an entity, it can declare output (get), input (set) or read/write functions on arbitrary type parameters. Then any component (typically belonging to the same entity) can try to access the given data through the functions. Declaring I/O is done by registering a function pointer with the correct prototype ( returning <code>const T*</code> for getters, accepting <code>const T*</code> for setters and returning a <code>T*</code> for read/write getters). Each function is identified by its entity, a name and the return type. Then, another component can try to query the messenger to check if a data of the relevant type, entity and string-id is available, with the canGet(), canSet() and canRw() functions. It is then possible to directly read or write this data with the get(), set() and rw() functions. For more efficiency the underlying function pointers are directly accessible as well and can be queried with the same identifiers. </p>
 
 <p class="definition">Definition at line <a class="el" href="ComponentMessenger_8hpp_source.html#l00039">39</a> of file <a class="el" href="ComponentMessenger_8hpp_source.html">ComponentMessenger.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4609a14647a34c0a88e20ed5c22238f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4609a14647a34c0a88e20ed5c22238f8">&#9670;&nbsp;</a></span>ComponentMessenger()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ra::Engine::Scene::ComponentMessenger::ComponentMessenger </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2df47f7e8d255e1150c30d99991fc9e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2df47f7e8d255e1150c30d99991fc9e1">&#9670;&nbsp;</a></span>canGet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Engine::Scene::ComponentMessenger::canGet </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00052">52</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-
-</div>
-</div>
-<a id="a94c22ee7d0265a3bb5b6fca114e762bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94c22ee7d0265a3bb5b6fca114e762bb">&#9670;&nbsp;</a></span>canRw()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Engine::Scene::ComponentMessenger::canRw </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00086">86</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-
-</div>
-</div>
-<a id="afd51806f170c507db8bc102a1d8032ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd51806f170c507db8bc102a1d8032ac">&#9670;&nbsp;</a></span>canSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Engine::Scene::ComponentMessenger::canSet </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00069">69</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-
-</div>
-</div>
-<a id="a4d361720b74ab4b82ef882a33232ca97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d361720b74ab4b82ef882a33232ca97">&#9670;&nbsp;</a></span>get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const ReturnType &amp; Ra::Engine::Scene::ComponentMessenger::get </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00040">40</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger_a4d361720b74ab4b82ef882a33232ca97_cgraph.svg" width="443" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="afdb1d67866fa6dc2a0c390452aaf0f40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afdb1d67866fa6dc2a0c390452aaf0f40">&#9670;&nbsp;</a></span>getterCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">ComponentMessenger::CallbackTypes</a>&lt; ReturnType &gt;::Getter Ra::Engine::Scene::ComponentMessenger::getterCallback </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00014">14</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-
-</div>
-</div>
-<a id="a8882f6f095ccf5ca2fbd4d4c524f736a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8882f6f095ccf5ca2fbd4d4c524f736a">&#9670;&nbsp;</a></span>registerInput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Scene::ComponentMessenger::registerInput </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *&#160;</td>
-          <td class="paramname"><em>comp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Setter &amp;&#160;</td>
-          <td class="paramname"><em>cb</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00144">144</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger_a8882f6f095ccf5ca2fbd4d4c524f736a_cgraph.svg" width="399" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a8e5df894f64c1df1dbc26745ae4009a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e5df894f64c1df1dbc26745ae4009a7">&#9670;&nbsp;</a></span>registerOutput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Scene::ComponentMessenger::registerOutput </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *&#160;</td>
-          <td class="paramname"><em>comp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Getter &amp;&#160;</td>
-          <td class="paramname"><em>cb</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00104">104</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger_a8e5df894f64c1df1dbc26745ae4009a7_cgraph.svg" width="399" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="adbd58bbce05f8723fd623502b3050f77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbd58bbce05f8723fd623502b3050f77">&#9670;&nbsp;</a></span>registerReadWrite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Scene::ComponentMessenger::registerReadWrite </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *&#160;</td>
-          <td class="paramname"><em>comp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::ReadWrite &amp;&#160;</td>
-          <td class="paramname"><em>cb</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00124">124</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger_adbd58bbce05f8723fd623502b3050f77_cgraph.svg" width="399" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="abec69dd761a403fcd9ba351d92e0f7a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abec69dd761a403fcd9ba351d92e0f7a3">&#9670;&nbsp;</a></span>rwCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">ComponentMessenger::CallbackTypes</a>&lt; ReturnType &gt;::ReadWrite Ra::Engine::Scene::ComponentMessenger::rwCallback </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00023">23</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-
-</div>
-</div>
-<a id="a27ab969fa6bcac29008a1fee7c07aadb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27ab969fa6bcac29008a1fee7c07aadb">&#9670;&nbsp;</a></span>setterCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReturnType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">ComponentMessenger::CallbackTypes</a>&lt; ReturnType &gt;::Setter Ra::Engine::Scene::ComponentMessenger::setterCallback </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ComponentMessenger_8inl_source.html#l00032">32</a> of file <a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="ComponentMessenger_8hpp_source.html">ComponentMessenger.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a></li>
 </ul>
@@ -662,8 +173,8 @@ template&lt;typename ReturnType &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Scene.html">Scene</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html">ComponentMessenger</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:18 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Scene</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html">ComponentMessenger</a></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:09 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

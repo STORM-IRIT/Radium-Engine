@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -138,21 +138,21 @@ How to write tests</h2>
 </blockquote>
 <p>To add a unit test, create the test file in tests/unittest/LIB/mytestfile.cpp where LIB correspond to the library you are testing (Core, Engine, Gui, IO). Edit <code>tests/unittest/CMakeLists.txt</code> and add your test to the list of sources of <code>add_executable(unittests ...</code>. If your test needs data, add them to <code>tests/unittest/data</code>. unittest working dir is <code>tests/unittest</code> so you can refer your data with a relative path starting with <code>data</code>. No output file are allowed in unittest. <code>TEST_CASE</code> first argument is the unique test name, second argument is a list of optional tags. You can add independent <code>TEST_SECTION</code>s to your test, please refer to <a href="https://github.com/catchorg/Catch2/tree/devel/docs">catch2 documentation</a>.</p>
 <p>Here is an example:</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Obb_8hpp.html">Core/Geometry/Obb.hpp</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Math_8hpp.html">Core/Math/Math.hpp</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Geometry/Obb.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/Math/Math.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;catch2/catch.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line">TEST_CASE( <span class="stringliteral">&quot;Core/Geometry/Obb&quot;</span>, <span class="stringliteral">&quot;[Core][Core/Geometry][Obb]&quot;</span> ) {</div>
 <div class="line"> </div>
-<div class="line">    <span class="keyword">using namespace </span><a class="code" href="namespaceRa_1_1Core.html">Ra::Core</a>;</div>
+<div class="line">    <span class="keyword">using namespace </span>Ra::Core;</div>
 <div class="line">    SECTION( <span class="stringliteral">&quot;Simple tests&quot;</span> ) {</div>
 <div class="line">        <span class="comment">// Check Obb and empty aabb</span></div>
-<div class="line">        <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Aabb</a> aabb;</div>
+<div class="line">        Aabb aabb;</div>
 <div class="line">        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Obb.html">Geometry::Obb</a> obb( aabb, Transform::Identity() );</div>
 <div class="line">        REQUIRE( obb.toAabb().isEmpty() );</div>
 <div class="line">        REQUIRE( obb.toAabb().isApprox( aabb ) );</div>
-<div class="line">        obb.transform().rotate( <a class="code" href="namespaceRa_1_1Core.html#a074dc1e99d57862739cab73a09cc49c1">AngleAxis</a>( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ae85a94d4f706d35cfcd6864480aee5b3">Math::Pi</a>, Vector3::UnitX() ) );</div>
+<div class="line">        obb.transform().rotate( AngleAxis( Math::Pi, Vector3::UnitX() ) );</div>
 <div class="line">        REQUIRE( obb.toAabb().isEmpty() );</div>
 <div class="line">        REQUIRE( obb.toAabb().isApprox( aabb ) );</div>
 <div class="line">    }</div>
@@ -191,19 +191,12 @@ Code coverage</h1>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_1_1Core_html"><div class="ttname"><a href="namespaceRa_1_1Core.html">Ra::Core</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00006">BulgeCorrection.cpp:6</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Obb_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Obb.html">Ra::Core::Geometry::Obb</a></div><div class="ttdoc">An oriented bounding box.</div><div class="ttdef"><b>Definition:</b> <a href="Obb_8hpp_source.html#l00011">Obb.hpp:11</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a66854efd74c5507e9b15f998ccda8f96"><div class="ttname"><a href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Ra::Core::Aabb</a></div><div class="ttdeci">Eigen::AlignedBox&lt; Scalar, 3 &gt; Aabb</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00086">Types.hpp:86</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ae85a94d4f706d35cfcd6864480aee5b3"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ae85a94d4f706d35cfcd6864480aee5b3">Ra::Core::Math::Pi</a></div><div class="ttdeci">constexpr Scalar Pi</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00013">Math.hpp:13</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a074dc1e99d57862739cab73a09cc49c1"><div class="ttname"><a href="namespaceRa_1_1Core.html#a074dc1e99d57862739cab73a09cc49c1">Ra::Core::AngleAxis</a></div><div class="ttdeci">Eigen::AngleAxis&lt; Scalar &gt; AngleAxis</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00090">Types.hpp:90</a></div></div>
-<div class="ttc" id="aObb_8hpp_html"><div class="ttname"><a href="Obb_8hpp.html">Obb.hpp</a></div></div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="aMath_8hpp_html"><div class="ttname"><a href="Math_8hpp.html">Math.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:17 for Radium Engine by
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

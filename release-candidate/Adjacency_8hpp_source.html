@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,15 +96,15 @@ $(document).ready(function(){initNavTree('Adjacency_8hpp_source.html',''); initR
 <div class="title">Adjacency.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Adjacency_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AlignedStdVector_8hpp.html">Core/Containers/AlignedStdVector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VectorArray_8hpp.html">Core/Containers/VectorArray.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/AlignedStdVector.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/VectorArray.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Geometry</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Geometry {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// //////////////// //</span></div>
@@ -115,10 +115,10 @@ $(document).ready(function(){initNavTree('Adjacency_8hpp_source.html',''); initR
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//      A( i, j ) = f( i, j ) , if exist the edge from i to j</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//      A( i, j ) = 0         , otherwise</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// where f( i, j ) is a generic function defined over an edge</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">   23</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> = <a class="code" href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Ra::Core::Sparse</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#ac53fa6a857881d3cf4ce22e62460295c">   24</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#ac53fa6a857881d3cf4ce22e62460295c">VVAdj</a>           = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a3e0f88f91694be82e42e063cc6546420">   25</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a3e0f88f91694be82e42e063cc6546420">VTAdj</a>           = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a1062343333ca765f8ba2da46bce32d6a">   26</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a1062343333ca765f8ba2da46bce32d6a">TVAdj</a>           = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using</span> AdjacencyMatrix = Ra::Core::Sparse;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">using</span> VVAdj           = AdjacencyMatrix;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">using</span> VTAdj           = AdjacencyMatrix;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">using</span> TVAdj           = AdjacencyMatrix;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * Return the AdjacencyMatrix for the given set of points and triangles.</span></div>
@@ -126,8 +126,8 @@ $(document).ready(function(){initNavTree('Adjacency_8hpp_source.html',''); initR
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> *       f( i, j ) = 1 , if exist the edge from i to j</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *       f( i, j ) = 0 , otherwise</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a997391e4c468de4d0cdf9467a2aee2a8">uniformAdjacency</a>( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> point_size,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                              <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T );</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;RA_CORE_API AdjacencyMatrix uniformAdjacency( <span class="keyword">const</span> uint point_size,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                              <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T );</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> * Return the AdjacencyMatrix for the given set of points and triangles.</span></div>
@@ -135,8 +135,8 @@ $(document).ready(function(){initNavTree('Adjacency_8hpp_source.html',''); initR
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> *       f( i, j ) = 1 , if exist the edge from i to j</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> *       f( i, j ) = 0 , otherwise</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a997391e4c468de4d0cdf9467a2aee2a8">uniformAdjacency</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                              <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T );</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;RA_CORE_API AdjacencyMatrix uniformAdjacency( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                              <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T );</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * Return the AdjacencyMatrix for the given set of points and triangles.</span></div>
@@ -144,8 +144,8 @@ $(document).ready(function(){initNavTree('Adjacency_8hpp_source.html',''); initR
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> *       f( i, j ) = 1 , if Triangle i contains to vertex j</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> *       f( i, j ) = 0 , otherwise</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a1062343333ca765f8ba2da46bce32d6a">TVAdj</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4222426df43c98a23b9964a2b46dad3d">triangleUniformAdjacency</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                            <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T );</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;RA_CORE_API TVAdj triangleUniformAdjacency( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                            <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T );</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"> * Return the AdjacencyMatrix Adj for the given set of points and triangles.</span></div>
@@ -153,9 +153,9 @@ $(document).ready(function(){initNavTree('Adjacency_8hpp_source.html',''); initR
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment"> *       f( i, j ) = 1 , if exist the edge from i to j</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment"> *       f( i, j ) = 0 , otherwise</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a997391e4c468de4d0cdf9467a2aee2a8">uniformAdjacency</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                       <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                       <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; Adj );</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">void</span> uniformAdjacency( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                       <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                       AdjacencyMatrix&amp; Adj );</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> * Return the AdjacencyMatrix for the given set of points and triangles.</span></div>
@@ -164,8 +164,8 @@ $(document).ready(function(){initNavTree('Adjacency_8hpp_source.html',''); initR
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment"> *       f( i, j ) = 0                                          , otherwise</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"> * where alpha_ij and beta_ij are the angles opposite the edge</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2215f56c1b05bd702c2fb410f05e8d42">cotangentWeightAdjacency</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                                      <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T );</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;RA_CORE_API AdjacencyMatrix cotangentWeightAdjacency( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                                      <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T );</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">// ///////////// //</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">// DEGREE MATRIX //</span></div>
@@ -175,12 +175,12 @@ $(document).ready(function(){initNavTree('Adjacency_8hpp_source.html',''); initR
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">//      D( i, j ) = sum( A( i ) ) , if i == j</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">//      D( i, j ) = 0             , if i != j</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">// where A( i ) is the i-th row of a AdjacencyMatrix</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">   83</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a> = <a class="code" href="namespaceRa_1_1Core.html#a81b408d392b91c7e7c2ff25a9918ae2f">Diagonal</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">using</span> DegreeMatrix = Diagonal;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment"> * Return the DegreeMatrix of the given AdjacencyMatrix A.</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa417df196e460b57f4e51c93420755cc">adjacencyDegree</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; A );</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;RA_CORE_API DegreeMatrix adjacencyDegree( <span class="keyword">const</span> AdjacencyMatrix&amp; A );</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">// using OneRing = Graph::ChildrenList;</span></div>
@@ -195,31 +195,12 @@ $(document).ready(function(){initNavTree('Adjacency_8hpp_source.html',''); initR
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a1062343333ca765f8ba2da46bce32d6a"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a1062343333ca765f8ba2da46bce32d6a">Ra::Core::Geometry::TVAdj</a></div><div class="ttdeci">AdjacencyMatrix TVAdj</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00026">Adjacency.hpp:26</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a3e0f88f91694be82e42e063cc6546420"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a3e0f88f91694be82e42e063cc6546420">Ra::Core::Geometry::VTAdj</a></div><div class="ttdeci">AdjacencyMatrix VTAdj</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00025">Adjacency.hpp:25</a></div></div>
-<div class="ttc" id="aVectorArray_8hpp_html"><div class="ttname"><a href="VectorArray_8hpp.html">VectorArray.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aAlignedStdVector_8hpp_html"><div class="ttname"><a href="AlignedStdVector_8hpp.html">AlignedStdVector.hpp</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_ac53fa6a857881d3cf4ce22e62460295c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#ac53fa6a857881d3cf4ce22e62460295c">Ra::Core::Geometry::VVAdj</a></div><div class="ttdeci">AdjacencyMatrix VVAdj</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00024">Adjacency.hpp:24</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_af92c7779fab4fbe6087e668e5dae8735"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">Ra::Core::Geometry::AdjacencyMatrix</a></div><div class="ttdeci">Ra::Core::Sparse AdjacencyMatrix</div><div class="ttdoc">GLOBAL MATRIX ///.</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00023">Adjacency.hpp:23</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a997391e4c468de4d0cdf9467a2aee2a8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a997391e4c468de4d0cdf9467a2aee2a8">Ra::Core::Geometry::uniformAdjacency</a></div><div class="ttdeci">AdjacencyMatrix uniformAdjacency(const uint point_size, const AlignedStdVector&lt; Vector3ui &gt; &amp;T)</div><div class="ttdoc">GLOBAL MATRIX ///.</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8cpp_source.html#l00016">Adjacency.cpp:16</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; Vector3 &gt;</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a4222426df43c98a23b9964a2b46dad3d"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a4222426df43c98a23b9964a2b46dad3d">Ra::Core::Geometry::triangleUniformAdjacency</a></div><div class="ttdeci">TVAdj triangleUniformAdjacency(const VectorArray&lt; Vector3 &gt; &amp;p, const AlignedStdVector&lt; Vector3ui &gt; &amp;T)</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8cpp_source.html#l00062">Adjacency.cpp:62</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a2215f56c1b05bd702c2fb410f05e8d42"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a2215f56c1b05bd702c2fb410f05e8d42">Ra::Core::Geometry::cotangentWeightAdjacency</a></div><div class="ttdeci">AdjacencyMatrix cotangentWeightAdjacency(const VectorArray&lt; Vector3 &gt; &amp;p, const AlignedStdVector&lt; Vector3ui &gt; &amp;T)</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8cpp_source.html#l00078">Adjacency.cpp:78</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Ra::Engine::Rendering::RenderObjectType::Geometry</a></div><div class="ttdeci">@ Geometry</div><div class="ttdoc">&quot;Geometry&quot; render objects are those loaded using Radium::IO and generated by GeometrySystem</div></div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a5dfd567b8393406acccb48683482e9d8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">Ra::Core::Geometry::DegreeMatrix</a></div><div class="ttdeci">Diagonal DegreeMatrix</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00083">Adjacency.hpp:83</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a81b408d392b91c7e7c2ff25a9918ae2f"><div class="ttname"><a href="namespaceRa_1_1Core.html#a81b408d392b91c7e7c2ff25a9918ae2f">Ra::Core::Diagonal</a></div><div class="ttdeci">Eigen::SparseMatrix&lt; Scalar &gt; Diagonal</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00070">Types.hpp:70</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa417df196e460b57f4e51c93420755cc"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa417df196e460b57f4e51c93420755cc">Ra::Core::Geometry::adjacencyDegree</a></div><div class="ttdeci">DegreeMatrix adjacencyDegree(const AdjacencyMatrix &amp;A)</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8cpp_source.html#l00109">Adjacency.cpp:109</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a2d49896125fe4ece22bcf8449f9c1423"><div class="ttname"><a href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Ra::Core::Sparse</a></div><div class="ttdeci">Eigen::SparseMatrix&lt; Scalar &gt; Sparse</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00072">Types.hpp:72</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="Adjacency_8hpp.html">Adjacency.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>Adjacency.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

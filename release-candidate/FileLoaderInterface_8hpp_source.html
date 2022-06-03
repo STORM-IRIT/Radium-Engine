@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,30 +96,30 @@ $(document).ready(function(){initNavTree('FileLoaderInterface_8hpp_source.html',
 <div class="title">FileLoaderInterface.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="FileLoaderInterface_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Asset {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>FileData;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html">FileLoaderInterface</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>FileLoaderInterface</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a178902889508bb262c9f47aa6c85a89f">~FileLoaderInterface</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">virtual</span> ~FileLoaderInterface() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a87155782e0258eeba232f60cc8d905a9">getFileExtensions</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">virtual</span> std::vector&lt;std::string&gt; getFileExtensions() <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a0bd4215d6e780ef5a733dba508a7dafe">handleFileExtension</a>( <span class="keyword">const</span> std::string&amp; extension ) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> handleFileExtension( <span class="keyword">const</span> std::string&amp; extension ) <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html">FileData</a>* <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a00cd047e34ff18ba46d469830ed33421">loadFile</a>( <span class="keyword">const</span> std::string&amp; filename ) = 0;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">virtual</span> FileData* loadFile( <span class="keyword">const</span> std::string&amp; filename ) = 0;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a8f1bc65a927da037686cc3ff889fb149">name</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">virtual</span> std::string name() <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;};</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace Asset</span></div>
@@ -128,19 +128,11 @@ $(document).ready(function(){initNavTree('FileLoaderInterface_8hpp_source.html',
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileLoaderInterface_html_a87155782e0258eeba232f60cc8d905a9"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a87155782e0258eeba232f60cc8d905a9">Ra::Core::Asset::FileLoaderInterface::getFileExtensions</a></div><div class="ttdeci">virtual std::vector&lt; std::string &gt; getFileExtensions() const =0</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileLoaderInterface_html_a00cd047e34ff18ba46d469830ed33421"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a00cd047e34ff18ba46d469830ed33421">Ra::Core::Asset::FileLoaderInterface::loadFile</a></div><div class="ttdeci">virtual FileData * loadFile(const std::string &amp;filename)=0</div><div class="ttdoc">Try to load file, returns nullptr in case of failure.</div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileLoaderInterface_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html">Ra::Core::Asset::FileLoaderInterface</a></div><div class="ttdef"><b>Definition:</b> <a href="FileLoaderInterface_8hpp_source.html#l00013">FileLoaderInterface.hpp:13</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileLoaderInterface_html_a178902889508bb262c9f47aa6c85a89f"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a178902889508bb262c9f47aa6c85a89f">Ra::Core::Asset::FileLoaderInterface::~FileLoaderInterface</a></div><div class="ttdeci">virtual ~FileLoaderInterface()=default</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00019">FileData.hpp:19</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileLoaderInterface_html_a8f1bc65a927da037686cc3ff889fb149"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a8f1bc65a927da037686cc3ff889fb149">Ra::Core::Asset::FileLoaderInterface::name</a></div><div class="ttdeci">virtual std::string name() const =0</div><div class="ttdoc">Unique name of the loader.</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileLoaderInterface_html_a0bd4215d6e780ef5a733dba508a7dafe"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html#a0bd4215d6e780ef5a733dba508a7dafe">Ra::Core::Asset::FileLoaderInterface::handleFileExtension</a></div><div class="ttdeci">virtual bool handleFileExtension(const std::string &amp;extension) const =0</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="FileLoaderInterface_8hpp.html">FileLoaderInterface.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><b>FileLoaderInterface.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

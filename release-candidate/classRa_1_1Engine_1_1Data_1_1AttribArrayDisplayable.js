@@ -1,6 +1,5 @@
 var classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable =
 [
-    [ "AttribObserver", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_1_1AttribObserver.html", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_1_1AttribObserver" ],
     [ "MeshRenderMode", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0", [
       [ "RM_POINTS", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0a700e82b3fc78fad0516fb8959ae64414", null ],
       [ "RM_LINES", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0abc4cf3c998d996ec7e08de382863e342", null ],

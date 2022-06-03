@@ -1,6 +1,5 @@
 var classRa_1_1Gui_1_1WindowQt =
 [
-    [ "ScopedGLContext", "classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html", "classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext" ],
     [ "WindowQt", "classRa_1_1Gui_1_1WindowQt.html#aeaf44d6f885ecf78f4c44045ef69aeea", null ],
     [ "~WindowQt", "classRa_1_1Gui_1_1WindowQt.html#ab2b17163135b98c3eed80326f5d6e40c", null ],
     [ "activateScopedContext", "classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587", null ],

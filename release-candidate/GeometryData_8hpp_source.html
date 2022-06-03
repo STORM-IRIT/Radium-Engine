@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,20 +96,20 @@ $(document).ready(function(){initNavTree('GeometryData_8hpp_source.html',''); in
 <div class="title">GeometryData.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="GeometryData_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VectorArray_8hpp.html">Core/Containers/VectorArray.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Attribs_8hpp.html">Core/Utils/Attribs.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Index_8hpp.html">Core/Utils/Index.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/VectorArray.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Attribs.hpp&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Index.hpp&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssetData_8hpp.html">Core/Asset/AssetData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="MaterialData_8hpp.html">Core/Asset/MaterialData.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/AssetData.hpp&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/MaterialData.hpp&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>Core {</div>
@@ -117,24 +117,24 @@ $(document).ready(function(){initNavTree('GeometryData_8hpp_source.html',''); in
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span>MaterialData;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">GeometryData</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">   25</a></span>&#160;<span class="keyword">class </span>RA_CORE_API <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">GeometryData</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4aa5b2242d0f388dac227358fd4c9fe0">   29</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4aa5b2242d0f388dac227358fd4c9fe0">ColorArray</a> = Vector4Array;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">using</span> ColorArray = Vector4Array;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05">   37</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05">GeometryType</a> {</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a8e8ecf873b3b2975fa4a00aaeb924d93">   38</a></span>&#160;        UNKNOWN     = 1 &lt;&lt; 0,</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a70c20fd43bb71a0034f5da1aaff3b3d7">   39</a></span>&#160;        POINT_CLOUD = 1 &lt;&lt; 1,</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05ae1bb87a4816190e90261e9451ec08e40">   40</a></span>&#160;        LINE_MESH   = 1 &lt;&lt; 2,</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a2cf0967daa553d39d8e9f58968e8ccbb">   41</a></span>&#160;        TRI_MESH    = 1 &lt;&lt; 3,</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a13e5f722c94fb5c6f563c7ba26d6d994">   42</a></span>&#160;        QUAD_MESH   = 1 &lt;&lt; 4,</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05af07d6f60122fc51d93ef56460f9e6ebc">   43</a></span>&#160;        POLY_MESH   = 1 &lt;&lt; 5,</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a9d4e27e140431894028e1efba1a1156d">   44</a></span>&#160;        TETRA_MESH  = 1 &lt;&lt; 6,</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05ae10118df9038bb2204318b8ea402459e">   45</a></span>&#160;        HEX_MESH    = 1 &lt;&lt; 7</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        UNKNOWN     = 1 &lt;&lt; 0,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        POINT_CLOUD = 1 &lt;&lt; 1,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        LINE_MESH   = 1 &lt;&lt; 2,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        TRI_MESH    = 1 &lt;&lt; 3,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        QUAD_MESH   = 1 &lt;&lt; 4,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        POLY_MESH   = 1 &lt;&lt; 5,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        TETRA_MESH  = 1 &lt;&lt; 6,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        HEX_MESH    = 1 &lt;&lt; 7</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    };</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">GeometryData</a>( <span class="keyword">const</span> std::string&amp; name = <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">const</span> GeometryType&amp; type = UNKNOWN );</div>
@@ -150,9 +150,9 @@ $(document).ready(function(){initNavTree('GeometryData_8hpp_source.html',''); in
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setType( <span class="keyword">const</span> GeometryType&amp; type );</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">inline</span> <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Transform</a> getFrame() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">inline</span> Transform getFrame() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setFrame( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Transform</a>&amp; frame );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setFrame( <span class="keyword">const</span> Transform&amp; frame );</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">inline</span> std::size_t getVerticesSize() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
@@ -256,7 +256,7 @@ $(document).ready(function(){initNavTree('GeometryData_8hpp_source.html',''); in
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">Utils::AttribManager</a>&amp; getAttribManager() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00243"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a3616b32edc97f5e4bd113f0e00938339">  243</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Transform</a> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a3616b32edc97f5e4bd113f0e00938339">m_frame</a>;</div>
+<div class="line"><a name="l00243"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a3616b32edc97f5e4bd113f0e00938339">  243</a></span>&#160;    Transform <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a3616b32edc97f5e4bd113f0e00938339">m_frame</a>;</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
 <div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a40e5038e701cf3b77594cc13f34036a6">  246</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05">GeometryType</a> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a40e5038e701cf3b77594cc13f34036a6">m_type</a>;</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
@@ -285,34 +285,23 @@ $(document).ready(function(){initNavTree('GeometryData_8hpp_source.html',''); in
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;} <span class="comment">// namespace Core</span></div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="GeometryData_8inl.html">Core/Asset/GeometryData.inl</a>&gt;</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/GeometryData.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab95ef80a98549aa42f6244fd8f90eb10"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab95ef80a98549aa42f6244fd8f90eb10">Ra::Core::Asset::GeometryData::m_vertexAttribs</a></div><div class="ttdeci">Utils::AttribManager m_vertexAttribs</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00277">GeometryData.hpp:277</a></div></div>
-<div class="ttc" id="aGeometryData_8inl_html"><div class="ttname"><a href="GeometryData_8inl.html">GeometryData.inl</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a7c14c3f40ef4807db914a60c8f8e5f10"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a7c14c3f40ef4807db914a60c8f8e5f10">Ra::Core::Asset::GeometryData::m_polyhedron</a></div><div class="ttdeci">VectorNuArray m_polyhedron</div><div class="ttdoc">The list of polyhedra.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00258">GeometryData.hpp:258</a></div></div>
-<div class="ttc" id="aVectorArray_8hpp_html"><div class="ttname"><a href="VectorArray_8hpp.html">VectorArray.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00082">Types.hpp:82</a></div></div>
-<div class="ttc" id="aAssetData_8hpp_html"><div class="ttname"><a href="AssetData_8hpp.html">AssetData.hpp</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_aaa84fafefaa9f7da310a868150a5d921"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#aaa84fafefaa9f7da310a868150a5d921">Ra::Core::Asset::GeometryData::m_normal</a></div><div class="ttdeci">Vector3Array m_normal</div><div class="ttdoc">The list of vertex normals.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00261">GeometryData.hpp:261</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a2f813e1a9e308c0e87ccdc6d0a371fe7"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2f813e1a9e308c0e87ccdc6d0a371fe7">Ra::Core::Asset::GeometryData::m_texCoord</a></div><div class="ttdeci">Vector3Array m_texCoord</div><div class="ttdoc">The list of vertex texture coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00270">GeometryData.hpp:270</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a3616b32edc97f5e4bd113f0e00938339"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a3616b32edc97f5e4bd113f0e00938339">Ra::Core::Asset::GeometryData::m_frame</a></div><div class="ttdeci">Transform m_frame</div><div class="ttdoc">The transformation of the object.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00243">GeometryData.hpp:243</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a4aa5b2242d0f388dac227358fd4c9fe0"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4aa5b2242d0f388dac227358fd4c9fe0">Ra::Core::Asset::GeometryData::ColorArray</a></div><div class="ttdeci">Vector4Array ColorArray</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00029">GeometryData.hpp:29</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_af703576ee787bd2a97d2ed4d382fbe74"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#af703576ee787bd2a97d2ed4d382fbe74">Ra::Core::Asset::GeometryData::m_bitangent</a></div><div class="ttdeci">Vector3Array m_bitangent</div><div class="ttdoc">The list of vertex bitangent vectors.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00267">GeometryData.hpp:267</a></div></div>
-<div class="ttc" id="aIndex_8hpp_html"><div class="ttname"><a href="Index_8hpp.html">Index.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a9e353109475d914e253605729bc41b82"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a9e353109475d914e253605729bc41b82">Ra::Core::Asset::GeometryData::m_edge</a></div><div class="ttdeci">Vector2uArray m_edge</div><div class="ttdoc">The list of lines.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00252">GeometryData.hpp:252</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a95f180b4883d57acfa2ee50ab3dc4673"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a95f180b4883d57acfa2ee50ab3dc4673">Ra::Core::Asset::GeometryData::m_material</a></div><div class="ttdeci">std::shared_ptr&lt; MaterialData &gt; m_material</div><div class="ttdoc">The MaterialData for the object.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00273">GeometryData.hpp:273</a></div></div>
-<div class="ttc" id="aAttribs_8hpp_html"><div class="ttname"><a href="Attribs_8hpp.html">Attribs.hpp</a></div></div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">Ra::Core::Utils::AttribManager</a></div><div class="ttdoc">The AttribManager provides attributes management by handles.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00194">Attribs.hpp:194</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a4b9756ac30b00f91da7e656268325c06"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4b9756ac30b00f91da7e656268325c06">Ra::Core::Asset::GeometryData::m_tangent</a></div><div class="ttdeci">Vector3Array m_tangent</div><div class="ttdoc">The list of vertex tangent vectors.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00264">GeometryData.hpp:264</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1MaterialData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">Ra::Core::Asset::MaterialData</a></div><div class="ttdoc">represent material data loaded by a file loader. Material data must be identified by a unique name....</div><div class="ttdef"><b>Definition:</b> <a href="MaterialData_8hpp_source.html#l00039">MaterialData.hpp:39</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a40e5038e701cf3b77594cc13f34036a6"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a40e5038e701cf3b77594cc13f34036a6">Ra::Core::Asset::GeometryData::m_type</a></div><div class="ttdeci">GeometryType m_type</div><div class="ttdoc">The type of geometry for the object.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00246">GeometryData.hpp:246</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a></div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00025">GeometryData.hpp:25</a></div></div>
-<div class="ttc" id="aMaterialData_8hpp_html"><div class="ttname"><a href="MaterialData_8hpp.html">MaterialData.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00016">AssetData.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05">Ra::Core::Asset::GeometryData::GeometryType</a></div><div class="ttdeci">GeometryType</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00037">GeometryData.hpp:37</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab59a813b6bf3bccd6252bb933f571380"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab59a813b6bf3bccd6252bb933f571380">Ra::Core::Asset::GeometryData::m_vertex</a></div><div class="ttdeci">Vector3Array m_vertex</div><div class="ttdoc">The list of vertices.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00249">GeometryData.hpp:249</a></div></div>
@@ -320,8 +309,8 @@ $(document).ready(function(){initNavTree('GeometryData_8hpp_source.html',''); in
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="GeometryData_8hpp.html">GeometryData.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><b>GeometryData.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

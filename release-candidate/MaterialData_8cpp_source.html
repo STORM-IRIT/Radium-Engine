@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,8 +96,8 @@ $(document).ready(function(){initNavTree('MaterialData_8cpp_source.html',''); in
 <div class="title">MaterialData.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="MaterialData_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="MaterialData_8hpp.html">Core/Asset/MaterialData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/MaterialData.hpp&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Core {</div>
@@ -106,11 +106,11 @@ $(document).ready(function(){initNavTree('MaterialData_8cpp_source.html',''); in
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a82ae1319e8f37ffbac735919accfc29e">    9</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a82ae1319e8f37ffbac735919accfc29e">MaterialData::MaterialData</a>( <span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; type ) :</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a>( name ), m_type( type ) {}</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a87eb3a70c9b73af61b25d5eb85f41e16">   12</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a87eb3a70c9b73af61b25d5eb85f41e16">MaterialData::~MaterialData</a>() {}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;MaterialData::~MaterialData() {}</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a00f4db6cc18273238ebbd9d05a4faf4d">   15</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a00f4db6cc18273238ebbd9d05a4faf4d">MaterialData::displayInfo</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">using namespace </span>Core::Utils; <span class="comment">// log</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">logERROR</a> ) &lt;&lt; <span class="stringliteral">&quot;MaterialData : unkonwn material type : &quot;</span> &lt;&lt; m_type;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;MaterialData : unkonwn material type : &quot;</span> &lt;&lt; m_type;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace Asset</span></div>
@@ -120,18 +120,13 @@ $(document).ready(function(){initNavTree('MaterialData_8cpp_source.html',''); in
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1MaterialData_html_a82ae1319e8f37ffbac735919accfc29e"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a82ae1319e8f37ffbac735919accfc29e">Ra::Core::Asset::MaterialData::MaterialData</a></div><div class="ttdeci">MaterialData(const std::string &amp;name=&quot;&quot;, const std::string &amp;type=&quot;AbstractMaterial&quot;)</div><div class="ttdoc">MATERIAL DATA.</div><div class="ttdef"><b>Definition:</b> <a href="MaterialData_8cpp_source.html#l00009">MaterialData.cpp:9</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1MaterialData_html_a87eb3a70c9b73af61b25d5eb85f41e16"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a87eb3a70c9b73af61b25d5eb85f41e16">Ra::Core::Asset::MaterialData::~MaterialData</a></div><div class="ttdeci">virtual ~MaterialData()</div><div class="ttdef"><b>Definition:</b> <a href="MaterialData_8cpp_source.html#l00012">MaterialData.cpp:12</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1MaterialData_html_a00f4db6cc18273238ebbd9d05a4faf4d"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a00f4db6cc18273238ebbd9d05a4faf4d">Ra::Core::Asset::MaterialData::displayInfo</a></div><div class="ttdeci">virtual void displayInfo() const</div><div class="ttdoc">DEBUG.</div><div class="ttdef"><b>Definition:</b> <a href="MaterialData_8cpp_source.html#l00015">MaterialData.cpp:15</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="aMaterialData_8hpp_html"><div class="ttname"><a href="MaterialData_8hpp.html">MaterialData.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00016">AssetData.hpp:16</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">Ra::Core::Utils::logERROR</a></div><div class="ttdeci">@ logERROR</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00016">Log.hpp:16</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="MaterialData_8cpp.html">MaterialData.cpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><b>MaterialData.cpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

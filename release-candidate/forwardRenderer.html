@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -120,8 +120,8 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 </ul>
 </li>
 </ul>
-<p>In this pass, each <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a> is drawn with the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c">Ra::Engine::Rendering::Z_PREPASS</a> argument so that the corresponding shader (if it exists) will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::Z_PREPASS );</code>)</p>
-<p>Note that the shader associated to the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c">Ra::Engine::Rendering::Z_PREPASS</a> pass must draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
+<p>In this pass, each <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a> is drawn with the Ra::Engine::Rendering::Z_PREPASS argument so that the corresponding shader (if it exists) will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::Z_PREPASS );</code>)</p>
+<p>Note that the shader associated to the Ra::Engine::Rendering::Z_PREPASS pass must draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
 <h1><a class="anchor" id="autotoc_md32"></a>
 2. Lighting pass</h1>
 <p>This pass is a classic forward lighting pass that accumulates the color of each light source. Before this pass, blending (one, one) is enabled and it does</p>
@@ -133,8 +133,8 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 <div class="line">    render mesh</div>
 <div class="line">  done</div>
 <div class="line">done</div>
-</div><!-- fragment --><p>In this pass, each RenderObject drawn with the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">Ra::Engine::Rendering::LIGHTING_OPAQUE</a> argument so that the corresponding shader will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::LIGHTING_OPAQUE );</code>)</p>
-<p>Note that the shader associated to the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">Ra::Engine::Rendering::LIGHTING_OPAQUE</a> pass must lit and draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
+</div><!-- fragment --><p>In this pass, each RenderObject drawn with the Ra::Engine::Rendering::LIGHTING_OPAQUE argument so that the corresponding shader will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::LIGHTING_OPAQUE );</code>)</p>
+<p>Note that the shader associated to the Ra::Engine::Rendering::LIGHTING_OPAQUE pass must lit and draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
 <h1><a class="anchor" id="autotoc_md33"></a>
 3. Ordered independent transparency</h1>
 <p>Rendering transparent objects in Radium is done according to the algorithm described in</p>
@@ -166,7 +166,7 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:17 for Radium Engine by
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

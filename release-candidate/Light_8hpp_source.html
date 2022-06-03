@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,11 +96,11 @@ $(document).ready(function(){initNavTree('Light_8hpp_source.html',''); initResiz
 <div class="title">Light.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Light_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Color_8hpp.html">Core/Utils/Color.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Component_8hpp.html">Engine/Scene/Component.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Color.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Engine/RaEngine.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/Component.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Engine {</div>
@@ -114,22 +114,22 @@ $(document).ready(function(){initNavTree('Light_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">// Radium-V2 : this class could totally be renamed LightComponent and get a Light struct embedded.</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// Thoughts are welcome !</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Light.html">   22</a></span>&#160;<span class="comment"></span><span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Light</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Light.html">   22</a></span>&#160;<span class="comment"></span><span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Light</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02a2e9788ad471003e2ae8a74c6cb169bb3">   29</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">LightType</a> { DIRECTIONAL = 0, POINT, <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02a2e9788ad471003e2ae8a74c6cb169bb3">SPOT</a>, POLYGONAL };</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">   29</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">LightType</a> { DIRECTIONAL = 0, POINT, SPOT, POLYGONAL };</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html">   36</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html">Attenuation</a> {</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a1310d6dfd9df2b6c6d923fa61e67e73f">   37</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> constant { 1 };</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a5c3937f6b97223c2a6b57ecc76b966ae">   38</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> linear { 0 };</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html#a6beef8226d33156dbbe499ba8fe9173f">   39</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> quadratic { 0 };</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        Scalar constant { 1 };</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        Scalar linear { 0 };</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        Scalar quadratic { 0 };</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html">Attenuation</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    };</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Light</a>( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity, <span class="keyword">const</span> LightType&amp; type, <span class="keyword">const</span> std::string&amp; name = <span class="stringliteral">&quot;light&quot;</span> );</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Light</a>( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity, <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">LightType</a>&amp; type, <span class="keyword">const</span> std::string&amp; name = <span class="stringliteral">&quot;light&quot;</span> );</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Light</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&amp; getColor() <span class="keyword">const</span>;</div>
@@ -148,7 +148,7 @@ $(document).ready(function(){initNavTree('Light_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> initialize() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_color = <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81">Core::Utils::Color::White</a>();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_color = Core::Utils::Color::White();</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    LightType m_type { LightType::DIRECTIONAL };</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
@@ -157,32 +157,24 @@ $(document).ready(function(){initNavTree('Light_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace Engine</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Light_8inl.html">Light.inl</a>&quot;</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#include &quot;Light.inl&quot;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aLight_8inl_html"><div class="ttname"><a href="Light_8inl.html">Light.inl</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Light_html_aff5fe72f3c665098c2c985a22ed46e6f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f">Ra::Engine::Scene::Light::setPosition</a></div><div class="ttdeci">virtual void setPosition(const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="Light_8hpp_source.html#l00077">Light.hpp:77</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html_a467dad42627c64495356c4fd21b3ac81"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81">Ra::Core::Utils::ColorBase&lt; Scalar &gt;::White</a></div><div class="ttdeci">static ColorBase&lt; Scalar &gt; White()</div><div class="ttdef"><b>Definition:</b> <a href="Color_8hpp_source.html#l00132">Color.hpp:132</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
-<div class="ttc" id="aComponent_8hpp_html"><div class="ttname"><a href="Component_8hpp.html">Component.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Light_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Light.html">Ra::Engine::Scene::Light</a></div><div class="ttdef"><b>Definition:</b> <a href="Light_8hpp_source.html#l00022">Light.hpp:22</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; Scalar &gt;</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html">Ra::Engine::Scene::Light::Attenuation</a></div><div class="ttdef"><b>Definition:</b> <a href="Light_8hpp_source.html#l00036">Light.hpp:36</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Light_html_ae0f8f50409ee68466a207b46f6f82fb7"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7">Ra::Engine::Scene::Light::setDirection</a></div><div class="ttdeci">virtual void setDirection(const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="Light_8hpp_source.html#l00071">Light.hpp:71</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00257">CoreMacros.hpp:257</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:22</a></div></div>
-<div class="ttc" id="aColor_8hpp_html"><div class="ttname"><a href="Color_8hpp.html">Color.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Light_html_a52e3749e54468d1b5de68ac8bf3bbf02a2e9788ad471003e2ae8a74c6cb169bb3"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02a2e9788ad471003e2ae8a74c6cb169bb3">Ra::Engine::Scene::Light::SPOT</a></div><div class="ttdeci">@ SPOT</div><div class="ttdef"><b>Definition:</b> <a href="Light_8hpp_source.html#l00029">Light.hpp:29</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1RenderParameters_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00024">RenderParameters.hpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Light_html_a52e3749e54468d1b5de68ac8bf3bbf02"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">Ra::Engine::Scene::Light::LightType</a></div><div class="ttdeci">LightType</div><div class="ttdef"><b>Definition:</b> <a href="Light_8hpp_source.html#l00029">Light.hpp:29</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="Light_8hpp.html">Light.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>Light.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

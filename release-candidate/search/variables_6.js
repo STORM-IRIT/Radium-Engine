@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['g_6976',['g',['../structRa_1_1Engine_1_1Data_1_1PfmReader_1_1HDRPIXEL.html#abeda49123ee7c335120074c1b23a6867',1,'Ra::Engine::Data::PfmReader::HDRPIXEL']]],
-  ['g_5factivekey_6977',['g_activeKey',['../namespaceRa_1_1Gui.html#ac6dc52e25524b8c56cdfc177bfe52abe',1,'Ra::Gui']]],
-  ['g_5fkeypresses_6978',['g_keypresses',['../namespaceRa_1_1Gui.html#aa33244211c5adb020945572645406a7b',1,'Ra::Gui']]],
-  ['gitchangeset_6979',['gitChangeSet',['../namespaceRa_1_1Version.html#a135171b9b4168656ee8075732389a76e',1,'Ra::Version']]],
-  ['group_5f_6980',['group_',['../classCLI_1_1App.html#ac31738f617c3ce7aaf9fd94c3f54fc0f',1,'CLI::App::group_()'],['../classCLI_1_1OptionBase.html#ad0d8bd0637023f7d87a8e95315e8fb21',1,'CLI::OptionBase::group_()']]]
+  ['name_2874',['name',['../structRa_1_1Engine_1_1Data_1_1TextureParameters.html#af2b44c812ac7ea2acce2ecdaa74c546f',1,'Ra::Engine::Data::TextureParameters']]]
 ];

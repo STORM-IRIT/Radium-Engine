@@ -8,7 +8,7 @@ var dir_a2f0e5642e47e7ed59fe0f0829eafb5f =
     [ "Resources", "dir_05ad645af30ba5694f9d87fa8078b2c2.html", "dir_05ad645af30ba5694f9d87fa8078b2c2" ],
     [ "Tasks", "dir_6e64eaae7c83dd6a6b1a1e366964c0d6.html", "dir_6e64eaae7c83dd6a6b1a1e366964c0d6" ],
     [ "Utils", "dir_ff87cf903db18af0fdb6c342683ece25.html", "dir_ff87cf903db18af0fdb6c342683ece25" ],
-    [ "CoreMacros.hpp", "CoreMacros_8hpp.html", "CoreMacros_8hpp" ],
-    [ "RaCore.hpp", "RaCore_8hpp.html", "RaCore_8hpp" ],
-    [ "Types.hpp", "Types_8hpp.html", "Types_8hpp" ]
+    [ "CoreMacros.hpp", "CoreMacros_8hpp_source.html", null ],
+    [ "RaCore.hpp", "RaCore_8hpp_source.html", null ],
+    [ "Types.hpp", "Types_8hpp_source.html", null ]
 ];

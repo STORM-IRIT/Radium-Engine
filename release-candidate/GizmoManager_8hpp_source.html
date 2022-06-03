@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('GizmoManager_8hpp_source.html',''); in
 <div class="title">GizmoManager.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="GizmoManager_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TransformEditor_8hpp.html">Gui/TransformEditor/TransformEditor.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="KeyMappingManager_8hpp.html">Gui/Utils/KeyMappingManager.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Gizmo_8hpp.html">Gui/Viewer/Gizmo/Gizmo.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Gui/TransformEditor/TransformEditor.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Gui/Utils/KeyMappingManager.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Gui/Viewer/Gizmo/Gizmo.hpp&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QMouseEvent&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
@@ -115,19 +115,19 @@ $(document).ready(function(){initNavTree('GizmoManager_8hpp_source.html',''); in
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1GizmoManager.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a> : <span class="keyword">public</span> <a class="code" href="classQObject.html">QObject</a>,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1TransformEditor.html">Gui::TransformEditor</a>,</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1GizmoManager.html">   23</a></span>&#160;<span class="keyword">class </span>RA_GUI_API <a class="code" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a> : <span class="keyword">public</span> QObject,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                <span class="keyword">public</span> Gui::TransformEditor,</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                                <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a>&lt;GizmoManager&gt;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    Q_OBJECT</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1GizmoManager.html#a3dbe77dfc116c4f4954ae97e64832fde">   28</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a>&lt;<a class="code" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a>&gt;;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a>&lt;<a class="code" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a>&gt;;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055caa1791576dbb4a62b9862d8d5c428a46a">   33</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055c">GizmoType</a> { NONE, <a class="code" href="classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055caa1791576dbb4a62b9862d8d5c428a46a">TRANSLATION</a>, ROTATION, SCALE };</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">enum</span> GizmoType { NONE, TRANSLATION, ROTATION, SCALE };</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a>( <a class="code" href="classQObject.html">QObject</a>* parent = <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a>( QObject* parent = <span class="keyword">nullptr</span> );</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    ~<a class="code" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">public</span>:</div>
@@ -146,7 +146,7 @@ $(document).ready(function(){initNavTree('GizmoManager_8hpp_source.html',''); in
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">public</span> slots:</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> setEditable( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Engine::Scene::ItemEntry</a>&amp; ent ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa6ae112380ba99284cc2261740886c55">cleanup</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> handlePickingResult( <span class="keywordtype">int</span> drawableId );</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
@@ -157,7 +157,7 @@ $(document).ready(function(){initNavTree('GizmoManager_8hpp_source.html',''); in
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> updateValues() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">bool</span> isValidAction( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Gui::KeyMappingManager::KeyMappingAction</a>&amp; action ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">bool</span> isValidAction( <span class="keyword">const</span> Gui::KeyMappingManager::KeyMappingAction&amp; action ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// Helper method to change the current gizmo</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> updateGizmo();</div>
@@ -168,47 +168,35 @@ $(document).ready(function(){initNavTree('GizmoManager_8hpp_source.html',''); in
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::array&lt;std::unique_ptr&lt;Gizmo&gt;, 3&gt; m_gizmos; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    GizmoType m_currentGizmoType;                   </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Gizmo.html#a86af48cbefd323b7efd8e6fffb15f4fd">Gizmo::Mode</a> m_mode;                             </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    Gizmo::Mode m_mode;                             </div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> configureKeyMapping_impl();</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="GizmoManager_8hpp.html#a0d609d410644a58c4c67ccbe894e9534">   87</a></span>&#160;<span class="preprocessor">#define KeyMappingGizmo                    \</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#define KeyMappingGizmo                    \</span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">    KMA_VALUE( GIZMOMANAGER_MANIPULATION ) \</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">    KMA_VALUE( GIZMOMANAGER_STEP )         \</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">    KMA_VALUE( GIZMOMANAGER_WHOLE )        \</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">    KMA_VALUE( GIZMOMANAGER_STEP_WHOLE )</span></div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="GizmoManager_8hpp.html#ab1478fa43039cf1b62157b0375df9960">   93</a></span>&#160;<span class="preprocessor">#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="GizmoManager_8hpp.html#a0d609d410644a58c4c67ccbe894e9534">KeyMappingGizmo</a></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    KeyMappingGizmo</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace Gui</span></div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassQObject_html"><div class="ttname"><a href="classQObject.html">QObject</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_a86af48cbefd323b7efd8e6fffb15f4fd"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#a86af48cbefd323b7efd8e6fffb15f4fd">Ra::Gui::Gizmo::Mode</a></div><div class="ttdeci">Mode</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00044">Gizmo.hpp:44</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00208">KeyMappingManager.hpp:208</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TransformEditor_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TransformEditor.html">Ra::Gui::TransformEditor</a></div><div class="ttdef"><b>Definition:</b> <a href="TransformEditor_8hpp_source.html#l00008">TransformEditor.hpp:8</a></div></div>
-<div class="ttc" id="aGizmoManager_8hpp_html_a0d609d410644a58c4c67ccbe894e9534"><div class="ttname"><a href="GizmoManager_8hpp.html#a0d609d410644a58c4c67ccbe894e9534">KeyMappingGizmo</a></div><div class="ttdeci">#define KeyMappingGizmo</div><div class="ttdef"><b>Definition:</b> <a href="GizmoManager_8hpp_source.html#l00087">GizmoManager.hpp:87</a></div></div>
-<div class="ttc" id="aTransformEditor_8hpp_html"><div class="ttname"><a href="TransformEditor_8hpp.html">TransformEditor.hpp</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1GizmoManager_html_aa7760db4989497dec299372c3226055c"><div class="ttname"><a href="classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055c">Ra::Gui::GizmoManager::GizmoType</a></div><div class="ttdeci">GizmoType</div><div class="ttdef"><b>Definition:</b> <a href="GizmoManager_8hpp_source.html#l00033">GizmoManager.hpp:33</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a></div><div class="ttdoc">Camera class storing the Camera frame and the projection properties The view direction is -z in camer...</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8hpp_source.html#l00015">Camera.hpp:15</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1GizmoManager_html_aa7760db4989497dec299372c3226055caa1791576dbb4a62b9862d8d5c428a46a"><div class="ttname"><a href="classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055caa1791576dbb4a62b9862d8d5c428a46a">Ra::Gui::GizmoManager::TRANSLATION</a></div><div class="ttdeci">@ TRANSLATION</div><div class="ttdef"><b>Definition:</b> <a href="GizmoManager_8hpp_source.html#l00033">GizmoManager.hpp:33</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_aa6ae112380ba99284cc2261740886c55"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa6ae112380ba99284cc2261740886c55">Ra::Engine::Data::EngineMaterialConverters::cleanup</a></div><div class="ttdeci">bool cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00045">MaterialConverters.cpp:45</a></div></div>
-<div class="ttc" id="aGizmo_8hpp_html"><div class="ttname"><a href="Gizmo_8hpp.html">Gizmo.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html">Ra::Gui::Gizmo</a></div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00041">Gizmo.hpp:41</a></div></div>
-<div class="ttc" id="aKeyMappingManager_8hpp_html"><div class="ttname"><a href="KeyMappingManager_8hpp.html">KeyMappingManager.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1GizmoManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1GizmoManager.html">Ra::Gui::GizmoManager</a></div><div class="ttdef"><b>Definition:</b> <a href="GizmoManager_8hpp_source.html#l00023">GizmoManager.hpp:23</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00025">ItemEntry.hpp:25</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="dir_48f4a0e7ee74be957161ce5a9fe8f935.html">Gizmo</a></li><li class="navelem"><a class="el" href="GizmoManager_8hpp.html">GizmoManager.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="dir_48f4a0e7ee74be957161ce5a9fe8f935.html">Gizmo</a></li><li class="navelem"><b>GizmoManager.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,7 +1,0 @@
-<map id="Ra::Engine::Data::DrawPrimitives::Spline" name="Ra::Engine::Data::DrawPrimitives::Spline">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,244,112"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1Spline.html#aa5bd25d48429d2187c1c123b96c43983" title=" " alt="" coords="298,5,449,47"/>
-<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Geometry.html#a9bf7b8f0db1eacfcae5bd58d00c1c906" title="Get the name expected for a given attrib." alt="" coords="298,71,449,112"/>
-<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="292,137,455,163"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="503,13,669,39"/>
-</map>

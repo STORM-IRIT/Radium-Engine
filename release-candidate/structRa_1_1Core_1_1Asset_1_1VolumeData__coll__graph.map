@@ -1,15 +1,8 @@
 <map id="Ra::Core::Asset::VolumeData" name="Ra::Core::Asset::VolumeData">
-<area shape="rect" id="node1" title=" " alt="" coords="408,1409,617,1487"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="5,991,201,1112"/>
-<area shape="rect" id="node3" title="STL class." alt="" coords="60,389,147,466"/>
-<area shape="rect" id="node4" title="STL class." alt="" coords="34,5,173,97"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="226,771,415,1332"/>
-<area shape="rect" id="node6" title=" " alt="" coords="183,381,346,473"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="370,147,559,708"/>
-<area shape="rect" id="node8" title=" " alt="" coords="377,5,552,97"/>
-<area shape="rect" id="node9" title=" " alt="" coords="439,1005,586,1097"/>
-<area shape="rect" id="node10" title=" " alt="" coords="611,1013,793,1090"/>
-<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html" title=" " alt="" coords="817,895,979,1207"/>
-<area shape="rect" id="node12" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="715,308,892,547"/>
-<area shape="rect" id="node13" title=" " alt="" coords="916,389,1067,466"/>
+<area shape="rect" id="node1" title=" " alt="" coords="216,1268,425,1375"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="5,849,201,971"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="226,629,415,1191"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="225,5,414,567"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html" title=" " alt="" coords="443,754,604,1066"/>
+<area shape="rect" id="node6" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="439,167,616,405"/>
 </map>

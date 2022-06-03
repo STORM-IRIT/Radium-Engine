@@ -1,7 +1,6 @@
 var classRa_1_1Engine_1_1Scene_1_1ComponentMessenger =
 [
     [ "CallbackTypes", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes" ],
-    [ "CallbackTypes< std::shared_ptr< T > >", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4" ],
     [ "ComponentMessenger", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a4609a14647a34c0a88e20ed5c22238f8", null ],
     [ "canGet", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a2df47f7e8d255e1150c30d99991fc9e1", null ],
     [ "canRw", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a94c22ee7d0265a3bb5b6fca114e762bb", null ],

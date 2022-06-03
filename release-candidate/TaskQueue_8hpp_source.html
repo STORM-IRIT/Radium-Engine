@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,9 +96,9 @@ $(document).ready(function(){initNavTree('TaskQueue_8hpp_source.html',''); initR
 <div class="title">TaskQueue.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="TaskQueue_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;deque&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
@@ -107,8 +107,8 @@ $(document).ready(function(){initNavTree('TaskQueue_8hpp_source.html',''); initR
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Index_8hpp.html">Core/Utils/Index.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Core_2Utils_2Timer_8hpp.html">Core/Utils/Timer.hpp</a>&gt;</span> <span class="comment">// Ra::Core::TimePoint</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Index.hpp&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Timer.hpp&gt;</span> <span class="comment">// Ra::Core::TimePoint</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Core {</div>
@@ -118,20 +118,20 @@ $(document).ready(function(){initNavTree('TaskQueue_8hpp_source.html',''); initR
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">TaskQueue</a></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html">   31</a></span>&#160;<span class="keyword">class </span>RA_CORE_API <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">TaskQueue</a></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">   35</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TaskId</a> = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Utils::Index</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">   35</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> = Utils::Index;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">   38</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">TimerData</a> {</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a53cd614f3d3c3b95bf82be54e76822cf">   39</a></span>&#160;        <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">Utils::TimePoint</a> <a class="code" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a53cd614f3d3c3b95bf82be54e76822cf">start</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a2fa7c1ee93c982f8507e0ffb7d6812af">   40</a></span>&#160;        <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">Utils::TimePoint</a> <a class="code" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a2fa7c1ee93c982f8507e0ffb7d6812af">end</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a7eda7b398daa9ca3048e9445bbcd7ff6">   41</a></span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> <a class="code" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a7eda7b398daa9ca3048e9445bbcd7ff6">threadId</a>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a0542ddb7af5f63e65cbd1fe4bbcac4c9">   42</a></span>&#160;        std::string <a class="code" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a0542ddb7af5f63e65cbd1fe4bbcac4c9">taskName</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        Utils::TimePoint start;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        Utils::TimePoint end;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        uint threadId;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        std::string taskName;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    };</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">TaskQueue</a>( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> numThreads );</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">TaskQueue</a>( uint numThreads );</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    ~<a class="code" href="classRa_1_1Core_1_1TaskQueue.html">TaskQueue</a>();</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
@@ -139,15 +139,15 @@ $(document).ready(function(){initNavTree('TaskQueue_8hpp_source.html',''); initR
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// Task management</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">//</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TaskId</a> registerTask( <a class="code" href="classRa_1_1Core_1_1Task.html">Task</a>* task );</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> registerTask( <a class="code" href="classRa_1_1Core_1_1Task.html">Task</a>* task );</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> addDependency( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TaskId</a> predecessor, <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TaskId</a> successor );</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> addDependency( <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> predecessor, <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> successor );</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> addDependency( <span class="keyword">const</span> std::string&amp; predecessors, <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TaskId</a> successor );</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">bool</span> addDependency( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TaskId</a> predecessor, <span class="keyword">const</span> std::string&amp; successors );</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> addDependency( <span class="keyword">const</span> std::string&amp; predecessors, <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> successor );</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">bool</span> addDependency( <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> predecessor, <span class="keyword">const</span> std::string&amp; successors );</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> addPendingDependency( <span class="keyword">const</span> std::string&amp; predecessors, <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TaskId</a> successor );</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> addPendingDependency( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TaskId</a> predecessor, <span class="keyword">const</span> std::string&amp; successors );</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> addPendingDependency( <span class="keyword">const</span> std::string&amp; predecessors, <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> successor );</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> addPendingDependency( <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> predecessor, <span class="keyword">const</span> std::string&amp; successors );</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">//</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment">// Task queue operations</span></div>
@@ -164,9 +164,9 @@ $(document).ready(function(){initNavTree('TaskQueue_8hpp_source.html',''); initR
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> printTaskGraph( std::ostream&amp; output ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> runThread( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> runThread( uint <span class="keywordtype">id</span> );</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> queueTask( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">TaskId</a> task );</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> queueTask( <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> task );</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> detectCycles();</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
@@ -188,7 +188,7 @@ $(document).ready(function(){initNavTree('TaskQueue_8hpp_source.html',''); initR
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    std::vector&lt;uint&gt; m_remainingDependencies;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    std::deque&lt;TaskId&gt; m_taskQueue;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> m_processingTasks;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    uint m_processingTasks;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">bool</span> m_shuttingDown;</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    std::condition_variable m_threadNotifier;</div>
@@ -200,25 +200,15 @@ $(document).ready(function(){initNavTree('TaskQueue_8hpp_source.html',''); initR
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Core_1_1Task_html"><div class="ttname"><a href="classRa_1_1Core_1_1Task.html">Ra::Core::Task</a></div><div class="ttdef"><b>Definition:</b> <a href="Task_8hpp_source.html#l00013">Task.hpp:13</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1TaskQueue_1_1TimerData_html"><div class="ttname"><a href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">Ra::Core::TaskQueue::TimerData</a></div><div class="ttdoc">Record of a task's start and end time.</div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00038">TaskQueue.hpp:38</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1TaskQueue_1_1TimerData_html_a0542ddb7af5f63e65cbd1fe4bbcac4c9"><div class="ttname"><a href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a0542ddb7af5f63e65cbd1fe4bbcac4c9">Ra::Core::TaskQueue::TimerData::taskName</a></div><div class="ttdeci">std::string taskName</div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00042">TaskQueue.hpp:42</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_acb8047597f13436538ee03f0a4f31211"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">Ra::Core::Utils::TimePoint</a></div><div class="ttdeci">std::chrono::time_point&lt; Clock &gt; TimePoint</div><div class="ttdef"><b>Definition:</b> <a href="Core_2Utils_2Timer_8hpp_source.html#l00012">Timer.hpp:12</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1TaskQueue_1_1TimerData_html_a53cd614f3d3c3b95bf82be54e76822cf"><div class="ttname"><a href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a53cd614f3d3c3b95bf82be54e76822cf">Ra::Core::TaskQueue::TimerData::start</a></div><div class="ttdeci">Utils::TimePoint start</div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00039">TaskQueue.hpp:39</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1TaskQueue_1_1TimerData_html_a2fa7c1ee93c982f8507e0ffb7d6812af"><div class="ttname"><a href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a2fa7c1ee93c982f8507e0ffb7d6812af">Ra::Core::TaskQueue::TimerData::end</a></div><div class="ttdeci">Utils::TimePoint end</div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00040">TaskQueue.hpp:40</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
-<div class="ttc" id="aIndex_8hpp_html"><div class="ttname"><a href="Index_8hpp.html">Index.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
-<div class="ttc" id="aCore_2Utils_2Timer_8hpp_html"><div class="ttname"><a href="Core_2Utils_2Timer_8hpp.html">Timer.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a></div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00031">TaskQueue.hpp:31</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1TaskQueue_1_1TimerData_html_a7eda7b398daa9ca3048e9445bbcd7ff6"><div class="ttname"><a href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html#a7eda7b398daa9ca3048e9445bbcd7ff6">Ra::Core::TaskQueue::TimerData::threadId</a></div><div class="ttdeci">uint threadId</div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00041">TaskQueue.hpp:41</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a95e06345125fdbfe4c0960fcff50246a"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Ra::Core::TaskQueue::TaskId</a></div><div class="ttdeci">Utils::Index TaskId</div><div class="ttdoc">Identifier for a task in the task queue.</div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00035">TaskQueue.hpp:35</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_6e64eaae7c83dd6a6b1a1e366964c0d6.html">Tasks</a></li><li class="navelem"><a class="el" href="TaskQueue_8hpp.html">TaskQueue.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_6e64eaae7c83dd6a6b1a1e366964c0d6.html">Tasks</a></li><li class="navelem"><b>TaskQueue.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

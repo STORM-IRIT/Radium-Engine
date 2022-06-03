@@ -1,4 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classQScrollArea.html" title=" " alt="" coords="5,5,104,32"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1TimelineScrollArea.html" title=" " alt="" coords="152,5,352,32"/>
+<area shape="rect" id="node1" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="9,234,196,275"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="248,173,447,214"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html" title=" " alt="" coords="252,241,443,268"/>
+<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="514,5,681,61"/>
+<area shape="rect" id="node4" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="514,85,681,141"/>
+<area shape="rect" id="node5" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="514,165,681,221"/>
+<area shape="rect" id="node6" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="514,245,681,301"/>
+<area shape="rect" id="node7" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title="Typed index collection." alt="" coords="495,326,700,367"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="5,169,200,210"/>
 </map>

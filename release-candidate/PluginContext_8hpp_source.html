@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,9 +96,9 @@ $(document).ready(function(){initNavTree('PluginContext_8hpp_source.html',''); i
 <div class="title">PluginContext.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="PluginContext_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaPluginBase_8hpp.html">PluginBase/RaPluginBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;PluginBase/RaPluginBase.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
@@ -116,19 +116,19 @@ $(document).ready(function(){initNavTree('PluginContext_8hpp_source.html',''); i
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>Plugins {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1Context.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaPluginBase_8hpp.html#ac3a45a4ecf1e0c59cf170c721b8cdce2">RA_PLUGINBASE_API</a> <a class="code" href="classRa_1_1Plugins_1_1Context.html">Context</a> : <span class="keyword">public</span> <a class="code" href="classQObject.html">QObject</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1Context.html">   22</a></span>&#160;<span class="keyword">class </span>RA_PLUGINBASE_API <a class="code" href="classRa_1_1Plugins_1_1Context.html">Context</a> : <span class="keyword">public</span> QObject</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    Q_OBJECT</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1Context.html#a08ba1ce3ef1c693c96015a2cef1e6201">   27</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Plugins_1_1Context.html#a08ba1ce3ef1c693c96015a2cef1e6201">Context</a>( <a class="code" href="classQObject.html">QObject</a>* parent = <span class="keyword">nullptr</span> ) : <a class="code" href="classQObject.html">QObject</a>( parent ) {}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Plugins_1_1Context.html">Context</a>( QObject* parent = <span class="keyword">nullptr</span> ) : QObject( parent ) {}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1Context.html#ae70b6c4a2049566c4d5809000184c699">   29</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* m_engine { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1Context.html#a67b1571dbd8fbed0b9de8c194d216f57">   30</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1SelectionManager.html">Gui::SelectionManager</a>* m_selectionManager { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1Context.html#adadb36690af645bc0027a2bc6019f485">   31</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Timeline.html">Gui::Timeline</a>* m_timeline { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1Context.html#afdefc51431d25b29cccbfaf663886113">   32</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1PickingManager.html">Gui::PickingManager</a>* m_pickingManager { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1Context.html#a9a7f4b4dd1a023fd7995ee7ba955e4eb">   33</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Viewer.html">Gui::Viewer</a>* m_viewer { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1Context.html#a332a6a37b4d0d7cf38cadff880fedc17">   34</a></span>&#160;    std::string m_exportDir { <span class="stringliteral">&quot;.&quot;</span> };</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* m_engine { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    Gui::SelectionManager* m_selectionManager { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Timeline.html">Gui::Timeline</a>* m_timeline { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    Gui::PickingManager* m_pickingManager { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Viewer.html">Gui::Viewer</a>* m_viewer { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    std::string m_exportDir { <span class="stringliteral">&quot;.&quot;</span> };</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  signals:</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> setContinuousUpdate( <span class="keywordtype">bool</span> b );</div>
@@ -139,22 +139,16 @@ $(document).ready(function(){initNavTree('PluginContext_8hpp_source.html',''); i
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Plugins_1_1Context_html_a08ba1ce3ef1c693c96015a2cef1e6201"><div class="ttname"><a href="classRa_1_1Plugins_1_1Context.html#a08ba1ce3ef1c693c96015a2cef1e6201">Ra::Plugins::Context::Context</a></div><div class="ttdeci">Context(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="PluginContext_8hpp_source.html#l00027">PluginContext.hpp:27</a></div></div>
-<div class="ttc" id="aclassQObject_html"><div class="ttname"><a href="classQObject.html">QObject</a></div></div>
-<div class="ttc" id="aRaPluginBase_8hpp_html"><div class="ttname"><a href="RaPluginBase_8hpp.html">RaPluginBase.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html">Ra::Engine::RadiumEngine</a></div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8hpp_source.html#l00047">RadiumEngine.hpp:47</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:53</a></div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1Context_html"><div class="ttname"><a href="classRa_1_1Plugins_1_1Context.html">Ra::Plugins::Context</a></div><div class="ttdoc">Data passed to the plugin constructor.</div><div class="ttdef"><b>Definition:</b> <a href="PluginContext_8hpp_source.html#l00022">PluginContext.hpp:22</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1PickingManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1PickingManager.html">Ra::Gui::PickingManager</a></div><div class="ttdef"><b>Definition:</b> <a href="PickingManager_8hpp_source.html#l00009">PickingManager.hpp:9</a></div></div>
-<div class="ttc" id="aRaPluginBase_8hpp_html_ac3a45a4ecf1e0c59cf170c721b8cdce2"><div class="ttname"><a href="RaPluginBase_8hpp.html#ac3a45a4ecf1e0c59cf170c721b8cdce2">RA_PLUGINBASE_API</a></div><div class="ttdeci">#define RA_PLUGINBASE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaPluginBase_8hpp_source.html#l00010">RaPluginBase.hpp:10</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1SelectionManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1SelectionManager.html">Ra::Gui::SelectionManager</a></div><div class="ttdef"><b>Definition:</b> <a href="SelectionManager_8hpp_source.html#l00011">SelectionManager.hpp:11</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Timeline_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Timeline.html">Ra::Gui::Timeline</a></div><div class="ttdoc">The Timeline class provides display and management of time, as well as keyframes.</div><div class="ttdef"><b>Definition:</b> <a href="Timeline_8hpp_source.html#l00042">Timeline.hpp:42</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Timeline_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Timeline.html">Ra::Gui::Timeline</a></div><div class="ttdoc">The Timeline class provides display and management of time, as well as keyframes.</div><div class="ttdef"><b>Definition:</b> <a href="Timeline_8hpp_source.html#l00037">Timeline.hpp:37</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1b07f77798358fd74e92420363fd4633.html">PluginBase</a></li><li class="navelem"><a class="el" href="PluginContext_8hpp.html">PluginContext.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1b07f77798358fd74e92420363fd4633.html">PluginBase</a></li><li class="navelem"><b>PluginContext.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

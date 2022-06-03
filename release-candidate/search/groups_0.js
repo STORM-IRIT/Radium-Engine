@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['errors_7971',['Errors',['../group__error__group.html',1,'']]]
+  ['opengl_20context_20management_2971',['OpenGL context management',['../group__context.html',1,'']]]
 ];

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,26 +96,26 @@ $(document).ready(function(){initNavTree('BVH_8hpp_source.html',''); initResizab
 <div class="title">BVH.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="BVH_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Eigen/Geometry&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Frustum_8hpp.html">Core/Geometry/Frustum.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/Frustum.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Containers.html">   13</a></span>&#160;<span class="keyword">namespace </span>Containers {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>Containers {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Containers_1_1BVH.html">   27</a></span>&#160;<span class="keyword">class </span>[[deprecated( &quot;Neither used nor tested&quot; )]] <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html">BVH</a> {</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">using</span> Aabb = Eigen::AlignedBox&lt;Scalar, 3&gt;;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">class </span>Node</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">explicit</span> <span class="keyword">inline</span> Node( <span class="keyword">const</span> std::shared_ptr&lt;T&gt;&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">explicit</span> <span class="keyword">inline</span> Node( <span class="keyword">const</span> std::shared_ptr&lt;T&gt;&amp; t );</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">inline</span> Node( <span class="keyword">const</span> std::shared_ptr&lt;Node&gt;&amp; l, <span class="keyword">const</span> std::shared_ptr&lt;Node&gt;&amp; r );</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
@@ -137,9 +137,9 @@ $(document).ready(function(){initNavTree('BVH_8hpp_source.html',''); initResizab
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// public types and constants.</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Containers_1_1BVH.html#a40020030e0ab1509843044ee9dc849b3">   54</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html#a40020030e0ab1509843044ee9dc849b3">NodePtr</a> = std::shared_ptr&lt;Node&gt;;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">using</span> NodePtr = std::shared_ptr&lt;Node&gt;;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Containers_1_1BVH.html#a323dc22e53e2b5f66b0a428bee865835">   56</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html#a323dc22e53e2b5f66b0a428bee865835">Nodep</a> = Node*;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">using</span> Nodep = Node*;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
@@ -149,7 +149,7 @@ $(document).ready(function(){initNavTree('BVH_8hpp_source.html',''); initResizab
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html">BVH</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html">BVH</a>&amp; other ) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html">BVH</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html">BVH</a>&amp; other ) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> insertLeaf( <span class="keyword">const</span> std::shared_ptr&lt;T&gt;&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> );</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> insertLeaf( <span class="keyword">const</span> std::shared_ptr&lt;T&gt;&amp; t );</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// TODO removeLeaf()</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
@@ -164,40 +164,29 @@ $(document).ready(function(){initNavTree('BVH_8hpp_source.html',''); initResizab
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// TODO void buildTopDown();</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> getInFrustumSlow( std::vector&lt;std::shared_ptr&lt;T&gt;&gt; &amp; objects,</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                           <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1Frustum.html">Geometry::Frustum</a>&amp; frustum ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                           <span class="keyword">const</span> Geometry::Frustum&amp; frustum ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Containers_1_1BVH.html#ac060fcbae3af0ccd79372f64ec81b1ef">   84</a></span>&#160;    std::vector&lt;NodePtr&gt; <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html#ac060fcbae3af0ccd79372f64ec81b1ef">m_leaves</a>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Containers_1_1BVH.html#aaac635032ab233d0467e98d8c08e4cb3">   85</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html#a40020030e0ab1509843044ee9dc849b3">NodePtr</a> <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html#aaac635032ab233d0467e98d8c08e4cb3">m_root</a>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Containers_1_1BVH.html#ad0a037cc696e598bb7fe44611521e662">   86</a></span>&#160;    Aabb <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html#ad0a037cc696e598bb7fe44611521e662">m_root_aabb</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    std::vector&lt;NodePtr&gt; m_leaves;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    NodePtr m_root;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    Aabb m_root_aabb;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Containers_1_1BVH.html#afe1f8a7f2e87181f14f86494a71d2e1e">   88</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Containers_1_1BVH.html#afe1f8a7f2e87181f14f86494a71d2e1e">m_upToDate</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">bool</span> m_upToDate;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace Containers</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace Core</span></div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="BVH_8inl.html">Core/Containers/BVH.inl</a>&gt;</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/BVH.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aBVH_8inl_html"><div class="ttname"><a href="BVH_8inl.html">BVH.inl</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aFrustum_8hpp_html"><div class="ttname"><a href="Frustum_8hpp.html">Frustum.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Containers_1_1BVH_html_ac060fcbae3af0ccd79372f64ec81b1ef"><div class="ttname"><a href="classRa_1_1Core_1_1Containers_1_1BVH.html#ac060fcbae3af0ccd79372f64ec81b1ef">Ra::Core::Containers::BVH::m_leaves</a></div><div class="ttdeci">std::vector&lt; NodePtr &gt; m_leaves</div><div class="ttdef"><b>Definition:</b> <a href="BVH_8hpp_source.html#l00084">BVH.hpp:84</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1Frustum_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1Frustum.html">Ra::Core::Geometry::Frustum</a></div><div class="ttdef"><b>Definition:</b> <a href="Frustum_8hpp_source.html#l00009">Frustum.hpp:9</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Containers_1_1BVH_html"><div class="ttname"><a href="classRa_1_1Core_1_1Containers_1_1BVH.html">Ra::Core::Containers::BVH</a></div><div class="ttdoc">Stores a 3-dimensional hierarchy of meshes of arbitrary type.</div><div class="ttdef"><b>Definition:</b> <a href="BVH_8hpp_source.html#l00027">BVH.hpp:27</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Containers_1_1BVH_html_afe1f8a7f2e87181f14f86494a71d2e1e"><div class="ttname"><a href="classRa_1_1Core_1_1Containers_1_1BVH.html#afe1f8a7f2e87181f14f86494a71d2e1e">Ra::Core::Containers::BVH::m_upToDate</a></div><div class="ttdeci">bool m_upToDate</div><div class="ttdef"><b>Definition:</b> <a href="BVH_8hpp_source.html#l00088">BVH.hpp:88</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Containers_1_1BVH_html_a323dc22e53e2b5f66b0a428bee865835"><div class="ttname"><a href="classRa_1_1Core_1_1Containers_1_1BVH.html#a323dc22e53e2b5f66b0a428bee865835">Ra::Core::Containers::BVH::Nodep</a></div><div class="ttdeci">Node * Nodep</div><div class="ttdef"><b>Definition:</b> <a href="BVH_8hpp_source.html#l00056">BVH.hpp:56</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Containers_1_1BVH_html_a40020030e0ab1509843044ee9dc849b3"><div class="ttname"><a href="classRa_1_1Core_1_1Containers_1_1BVH.html#a40020030e0ab1509843044ee9dc849b3">Ra::Core::Containers::BVH::NodePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; NodePtr</div><div class="ttdef"><b>Definition:</b> <a href="BVH_8hpp_source.html#l00054">BVH.hpp:54</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Containers_1_1BVH_html_aaac635032ab233d0467e98d8c08e4cb3"><div class="ttname"><a href="classRa_1_1Core_1_1Containers_1_1BVH.html#aaac635032ab233d0467e98d8c08e4cb3">Ra::Core::Containers::BVH::m_root</a></div><div class="ttdeci">NodePtr m_root</div><div class="ttdef"><b>Definition:</b> <a href="BVH_8hpp_source.html#l00085">BVH.hpp:85</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Containers_1_1BVH_html_ad0a037cc696e598bb7fe44611521e662"><div class="ttname"><a href="classRa_1_1Core_1_1Containers_1_1BVH.html#ad0a037cc696e598bb7fe44611521e662">Ra::Core::Containers::BVH::m_root_aabb</a></div><div class="ttdeci">Aabb m_root_aabb</div><div class="ttdef"><b>Definition:</b> <a href="BVH_8hpp_source.html#l00086">BVH.hpp:86</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_1456dd235032e023892318efbecb420b.html">Containers</a></li><li class="navelem"><a class="el" href="BVH_8hpp.html">BVH.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_1456dd235032e023892318efbecb420b.html">Containers</a></li><li class="navelem"><b>BVH.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

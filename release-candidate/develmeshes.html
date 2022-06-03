@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -109,19 +109,19 @@ $(document).ready(function(){initNavTree('develmeshes.html',''); initResizable()
 Geometry types</h1>
 <p>There is three kind of geometry representation included in radium source :</p>
 <ol type="1">
-<li><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Ra::Core::Geometry</a>::*, which handles geometry data and connectivity as a indexed vertex array. Each vertex is a unique set of position, normal, and other attributes. If indexed, faces are defined with VectorXui, where X is 1 for point, 2 for lines, 3 for triangles, and N for polygons. See inheritance diagram of <a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a> :<ul>
+<li>Ra::Core::Geometry::*, which handles geometry data and connectivity as a indexed vertex array. Each vertex is a unique set of position, normal, and other attributes. If indexed, faces are defined with VectorXui, where X is 1 for point, 2 for lines, 3 for triangles, and N for polygons. See inheritance diagram of <a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a> :<ul>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="A single layer MultiIndexedGeometry.">Ra::Core::Geometry::IndexedGeometry</a></li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1LineStrip.html">Ra::Core::Geometry::LineStrip</a> *</li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1PointCloud.html">Ra::Core::Geometry::PointCloud</a> *</li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html">Ra::Core::Geometry::IndexedPointCloud</a> *</li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1LineMesh.html">Ra::Core::Geometry::LineMesh</a> *</li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a> *</li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1PolyMesh.html">Ra::Core::Geometry::PolyMesh</a> *</li>
+<li>Ra::Core::Geometry::LineStrip *</li>
+<li>Ra::Core::Geometry::PointCloud *</li>
+<li>Ra::Core::Geometry::IndexedPointCloud *</li>
+<li>Ra::Core::Geometry::LineMesh *</li>
+<li>Ra::Core::Geometry::TriangleMesh *</li>
+<li>Ra::Core::Geometry::PolyMesh *</li>
 </ul>
 </li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a>, which is an half-edge data structure. A converter allows to go back and forth to <code>TriangleMesh</code> without loss of data, but during the conversion, vertices with the same position represents the same topological point (and are hence merged). <b>Soon deprecated:</b> The other vertex attributes are stored on half-edges (to manage multiple normals per 3D positions for instance). <b>New:</b> The other vertex attributes are stored on wedges. Each half-edge has one wedge index. If multiple half-edge have the same set of attributes (including vertex position) they have the same wedge index at construction. See section <a href="#wedges">wedges</a> below.</li>
-<li><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Ra::Engine::Data</a>::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call). See inheritance diagram of <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a><ul>
+<li>Ra::Engine::Data::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call). See inheritance diagram of <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a><ul>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Ra::Engine::Data::Displayable</a></li>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a></li>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.">Ra::Engine::Data::CoreGeometryDisplayable</a></li>
@@ -146,7 +146,7 @@ Data consistency</h1>
 Mesh creation</h1>
 <p><code>GeometryComponent</code> is in charge of loading a <code>GeometryData</code> and create the corresponding <code>Mesh</code>.</p>
 <p>The user can add on the fly new vertex attributes to a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a> An attribute is defined by a unique name (std::string) and then represented as a <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html" title="An attrib handle basically store an Index and a name.">Ra::Core::Utils::AttribHandle</a>. The type of the attribute is defined by the caller using the template parameter of the method <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a>. To ensure consistency, it is strongly recommended to store the handle returned by the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a> method:</p>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> handle1 = m.addAttrib&lt;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&gt;( <span class="stringliteral">&quot;vector3_attrib&quot;</span> );</div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> handle1 = m.addAttrib&lt;Vector3&gt;( <span class="stringliteral">&quot;vector3_attrib&quot;</span> );</div>
 </div><!-- fragment --><p>Attribute names <code>in_position</code> and <code>in_normals</code> are reserved. Note that handles to existing attributes can be retrieved by name (see <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59">Ra::Core::Geometry::AttribArrayGeometry::getAttrib</a>), however the caller have to provide the type of the associate attribute. There is no type check on this access, and we recommend not to use this. We keep this method for convenience in some specific cases such as copy of attributes, however note that it might be marked as deprecated at any time.</p>
 <p>There is no (in the current version) data checking, and attributes are simple <code>std::vector</code>s added to the attribute manager. It's meant to be used as vector of data, such as vertices and normals, with the same size and accessed with the vertices indices. But please be aware no check nor allocation are done, so the allocation has to be performed on client side.</p>
 <p>When copying a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a> or one of its descendent class, all its attributes are copied, unless it is done through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a1828a9428b47dc4a3f5cebec0681fc83">Ra::Core::Geometry::AttribArrayGeometry::copyBaseGeometry</a>, for which no attribute is copied. In order to copy some/all of the attributes, the dedicated methods must be used.</p>
@@ -169,7 +169,7 @@ Mesh creation</h1>
 <li><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a36eee2128af8869a7dafebb8fc60690f">Ra::Core::Utils::Attrib::getDataWithLock</a> to get a writable reference to the data array</li>
 <li>Ra::Core::Utils::Attrib::unlock to release the writable reference</li>
 </ul>
-<p>For instance </p><div class="fragment"></div><!-- fragment --><p> Other examples are provided in <a class="el" href="DrawPrimitives_8cpp.html">DrawPrimitives.cpp</a></p>
+<p>For instance </p><div class="fragment"></div><!-- fragment --><p> Other examples are provided in <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a></p>
 <h2><a class="anchor" id="wedges"></a>
 Wedges</h2>
 <div class="image">
@@ -187,33 +187,32 @@ Mesh to Topo conversion for faces with multiples times the same 3D position</div
    <p>TopologicalMesh methods and types related to wedges:</p>
 <ul>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">Ra::Core::Geometry::TopologicalMesh::WedgeData</a> the actual wedge data, with one vector array for each of the supported types (float, Vector2, Vector3, Vector4). The order in these arrays follow the names found in getXXXAttribNames referenced below.</li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a904a07c44d020f2f0a2ac6b854532aa7">Ra::Core::Geometry::TopologicalMesh::WedgeIndex</a></li>
+<li>Ra::Core::Geometry::TopologicalMesh::WedgeIndex</li>
 <li>Ra::Core::Geometry::TopologicalMesh::vertex_wedges</li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">Ra::Core::Geometry::TopologicalMesh::getWedgeData</a></li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a749c3f1b1fd167ebfde302c2f2534a60">Ra::Core::Geometry::TopologicalMesh::setWedgeData</a></li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a226d5c166fcf83f949a0241b4a22ae4d">Ra::Core::Geometry::TopologicalMesh::getVec4AttribNames</a></li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a3cce1f3046115108f2f5678889b2ed40">Ra::Core::Geometry::TopologicalMesh::getVec3AttribNames</a></li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a90c0fc635f1b2f00e46e727f107809d9">Ra::Core::Geometry::TopologicalMesh::getVec2AttribNames</a></li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af8fc9107dd9bcb2eb4d769ef303b2b88">Ra::Core::Geometry::TopologicalMesh::getFloatAttribNames</a></li>
+<li>Ra::Core::Geometry::TopologicalMesh::getVec4AttribNames</li>
+<li>Ra::Core::Geometry::TopologicalMesh::getVec3AttribNames</li>
+<li>Ra::Core::Geometry::TopologicalMesh::getVec2AttribNames</li>
+<li>Ra::Core::Geometry::TopologicalMesh::getFloatAttribNames</li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a717f9e6f73f9a9d322d34fdf45ebdedf" title="true if more than one wedge arount vertex vh, false if only one wedge">Ra::Core::Geometry::TopologicalMesh::isFeatureVertex</a></li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4f2209deb980debd0c4676c9a72c9570">Ra::Core::Geometry::TopologicalMesh::isFeatureEdge</a></li>
-<li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1c787a24f4cb95e0b32fd56d9581fe00">Ra::Core::Geometry::TopologicalMesh::getWedgeIndexPph</a></li>
+<li>Ra::Core::Geometry::TopologicalMesh::getWedgeIndexPph</li>
 </ul>
-<dl class="section warning"><dt>Warning</dt><dd>To delete face, one need to call <code><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8217e23b6dd7ac9297aba305661d42f5">Ra::Core::Geometry::TopologicalMesh::delete_face</a></code>, not the <code><a class="el" href="namespaceOpenMesh.html">OpenMesh</a></code> vanilla <code>delete_face</code></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>make <a class="el" href="namespaceOpenMesh.html">OpenMesh</a> inheritance private.</dd></dl>
-<p>Use <code><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad76327ced50411f7fcb9f7a17cae3d17">Ra::Core::Geometry::TopologicalMesh::collapseWedge</a></code> to perform halfedge collapse (works on triangle only ...). The following figure show the nasty updates: </p><div class="image">
+<dl class="section warning"><dt>Warning</dt><dd>To delete face, one need to call <code>Ra::Core::Geometry::TopologicalMesh::delete_face</code>, not the <code>OpenMesh</code> vanilla <code>delete_face</code></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>make OpenMesh inheritance private.</dd></dl>
+<p>Use <code>Ra::Core::Geometry::TopologicalMesh::collapseWedge</code> to perform halfedge collapse (works on triangle only ...). The following figure show the nasty updates: </p><div class="image">
 <object type="image/svg+xml" data="wedge-collapse.svg" style="pointer-events: none;"></object>
 <div class="caption">
 Halfedge collapse and wedge.</div></div>
     </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:17 for Radium Engine by
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

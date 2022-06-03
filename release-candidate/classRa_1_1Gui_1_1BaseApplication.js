@@ -1,6 +1,5 @@
 var classRa_1_1Gui_1_1BaseApplication =
 [
-    [ "WindowFactory", "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html", "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory" ],
     [ "BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html#a206dc5c82ced974ba84956de4cb8cd26", null ],
     [ "~BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html#a297cbe045fd3dff905d91a45070a606d", null ],
     [ "addApplicationExtension", "classRa_1_1Gui_1_1BaseApplication.html#a2af7ea85d1a58e2e3581a8a97f81e7b0", null ],

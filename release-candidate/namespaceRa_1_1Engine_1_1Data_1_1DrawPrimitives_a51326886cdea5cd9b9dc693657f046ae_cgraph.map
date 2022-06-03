@@ -1,8 +1,3 @@
 <map id="Ra::Engine::Data::DrawPrimitives::Disk" name="Ra::Engine::Data::DrawPrimitives::Disk">
-<area shape="rect" id="node1" title=" " alt="" coords="5,57,244,98"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8" title=" " alt="" coords="327,5,475,32"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#a9bf7b8f0db1eacfcae5bd58d00c1c906" title="Get the name expected for a given attrib." alt="" coords="326,57,477,98"/>
-<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title=" " alt="" coords="292,122,511,163"/>
-<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="559,129,712,156"/>
-<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title=" " alt="" coords="760,129,935,156"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,29,244,71"/>
 </map>

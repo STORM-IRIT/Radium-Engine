@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,26 +96,26 @@ $(document).ready(function(){initNavTree('WindowQt_8inl_source.html',''); initRe
 <div class="title">WindowQt.inl</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="WindowQt_8inl.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="WindowQt_8hpp.html">Gui/Viewer/WindowQt.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;Gui/Viewer/WindowQt.hpp&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Gui {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">WindowQt::ScopedGLContext</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">class </span>WindowQt::ScopedGLContext</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#a9378b68b0560d1c5b003b30f826fc52a">   10</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#a9378b68b0560d1c5b003b30f826fc52a">ScopedGLContext</a>( <a class="code" href="classRa_1_1Gui_1_1WindowQt.html">WindowQt</a>* window ) : m_window( window ) { window-&gt;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">makeCurrent</a>(); }</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#abbf78fbf092de16138580a137288a58f">   11</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#abbf78fbf092de16138580a137288a58f">~ScopedGLContext</a>() { m_window-&gt;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">doneCurrent</a>(); }</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#a9378b68b0560d1c5b003b30f826fc52a">ScopedGLContext</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">ScopedGLContext</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">ScopedGLContext</a>&amp; <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#aa5f13bf7e330c8c63c4072187006648a">operator=</a>( <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">ScopedGLContext</a> <span class="keyword">const</span>&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">explicit</span> ScopedGLContext( WindowQt* window ) : m_window( window ) { window-&gt;makeCurrent(); }</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    ~ScopedGLContext() { m_window-&gt;doneCurrent(); }</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    ScopedGLContext( <span class="keyword">const</span> ScopedGLContext&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    ScopedGLContext&amp; operator=( ScopedGLContext <span class="keyword">const</span>&amp; ) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html">WindowQt</a>* m_window;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    WindowQt* m_window;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;};</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587">   19</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">WindowQt::ScopedGLContext</a> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587">WindowQt::activateScopedContext</a>() {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">ScopedGLContext</a> { <span class="keyword">this</span> };</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587">   19</a></span>&#160;<span class="keyword">inline</span> WindowQt::ScopedGLContext <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587">WindowQt::activateScopedContext</a>() {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> ScopedGLContext { <span class="keyword">this</span> };</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace Gui</span></div>
@@ -124,19 +124,11 @@ $(document).ready(function(){initNavTree('WindowQt_8inl_source.html',''); initRe
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a306cc7425eb608c8de3a58f3f560f587"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587">Ra::Gui::WindowQt::activateScopedContext</a></div><div class="ttdeci">ScopedGLContext activateScopedContext()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8inl_source.html#l00019">WindowQt.inl:19</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html">Ra::Gui::WindowQt</a></div><div class="ttdoc">Base class for OpenGL widgets, compatble with Qt and globjects/glbindings.</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00027">WindowQt.hpp:27</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext_html"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">Ra::Gui::WindowQt::ScopedGLContext</a></div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8inl_source.html#l00007">WindowQt.inl:7</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_acd31b9e580f049491d13c16ef954d964"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">Ra::Gui::WindowQt::doneCurrent</a></div><div class="ttdeci">void doneCurrent()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00075">WindowQt.cpp:75</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext_html_a9378b68b0560d1c5b003b30f826fc52a"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#a9378b68b0560d1c5b003b30f826fc52a">Ra::Gui::WindowQt::ScopedGLContext::ScopedGLContext</a></div><div class="ttdeci">ScopedGLContext(WindowQt *window)</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8inl_source.html#l00010">WindowQt.inl:10</a></div></div>
-<div class="ttc" id="aWindowQt_8hpp_html"><div class="ttname"><a href="WindowQt_8hpp.html">WindowQt.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext_html_abbf78fbf092de16138580a137288a58f"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#abbf78fbf092de16138580a137288a58f">Ra::Gui::WindowQt::ScopedGLContext::~ScopedGLContext</a></div><div class="ttdeci">~ScopedGLContext()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8inl_source.html#l00011">WindowQt.inl:11</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext_html_aa5f13bf7e330c8c63c4072187006648a"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html#aa5f13bf7e330c8c63c4072187006648a">Ra::Gui::WindowQt::ScopedGLContext::operator=</a></div><div class="ttdeci">ScopedGLContext &amp; operator=(ScopedGLContext const &amp;)=delete</div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a78476baacd2df24a260f604d02c8ddc4"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">Ra::Gui::WindowQt::makeCurrent</a></div><div class="ttdeci">void makeCurrent()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00064">WindowQt.cpp:64</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="WindowQt_8inl.html">WindowQt.inl</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>WindowQt.inl</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

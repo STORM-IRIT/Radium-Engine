@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,17 +96,17 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="title">AssimpHandleDataLoader.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="AssimpHandleDataLoader_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssimpHandleDataLoader_8hpp.html">IO/AssimpLoader/AssimpHandleDataLoader.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;IO/AssimpLoader/AssimpHandleDataLoader.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;assimp/mesh.h&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;assimp/scene.h&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;set&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="HandleData_8hpp.html">Core/Asset/HandleData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/HandleData.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssimpWrapper_8hpp.html">IO/AssimpLoader/AssimpWrapper.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;IO/AssimpLoader/AssimpWrapper.hpp&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>IO {</div>
@@ -114,29 +114,29 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">using namespace </span>Core::Utils; <span class="comment">// log</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">using namespace </span>Core::Asset;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#a273bfdefebe957234af644f4d68df8cf">   20</a></span>&#160;<a class="code" href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#a273bfdefebe957234af644f4d68df8cf">AssimpHandleDataLoader::AssimpHandleDataLoader</a>( <span class="keyword">const</span> <span class="keywordtype">bool</span> VERBOSE_MODE ) :</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">DataLoader</a>&lt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">HandleData</a>&gt;( VERBOSE_MODE ) {}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;AssimpHandleDataLoader::AssimpHandleDataLoader( <span class="keyword">const</span> <span class="keywordtype">bool</span> VERBOSE_MODE ) :</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    DataLoader&lt;HandleData&gt;( VERBOSE_MODE ) {}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<a class="code" href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#a972d089e633723b8f83b48804fdd3a17">AssimpHandleDataLoader::~AssimpHandleDataLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;AssimpHandleDataLoader::~AssimpHandleDataLoader() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#ae4cda7d5e392e3f2e98a9efcb34c6996">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#ae4cda7d5e392e3f2e98a9efcb34c6996">AssimpHandleDataLoader::loadData</a>( <span class="keyword">const</span> aiScene* scene,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keywordtype">void</span> AssimpHandleDataLoader::loadData( <span class="keyword">const</span> aiScene* scene,</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                                       std::vector&lt;std::unique_ptr&lt;HandleData&gt;&gt;&amp; data ) {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    data.clear();</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> ( scene == <span class="keyword">nullptr</span> ) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;AssimpHandleDataLoader : scene is nullptr.&quot;</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;AssimpHandleDataLoader : scene is nullptr.&quot;</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a> ) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;File contains handle.&quot;</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Handle Loading begin...&quot;</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( m_verbose ) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;File contains handle.&quot;</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Handle Loading begin...&quot;</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    loadHandleData( scene, data );</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a> ) { <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Handle Loading end.\n&quot;</span>; }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> ( m_verbose ) { LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Handle Loading end.\n&quot;</span>; }</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
@@ -144,11 +144,11 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;aiNode* findMeshNode( aiNode* node, <span class="keyword">const</span> aiScene* scene, <span class="keyword">const</span> aiString&amp; meshName ) {</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// look inside the node</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i = 0; i &lt; node-&gt;mNumMeshes; ++i ) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; node-&gt;mNumMeshes; ++i ) {</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> ( scene-&gt;mMeshes[node-&gt;mMeshes[i]]-&gt;mName == meshName ) { <span class="keywordflow">return</span> node; }</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// repeat on children</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i = 0; i &lt; node-&gt;mNumChildren; ++i ) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; node-&gt;mNumChildren; ++i ) {</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        aiNode* n = findMeshNode( node-&gt;mChildren[i], scene, meshName );</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> ( n != <span class="keyword">nullptr</span> ) { <span class="keywordflow">return</span> n; }</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
@@ -156,8 +156,8 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">void</span> initMarks( <span class="keyword">const</span> aiNode* node, std::map&lt;std::string, bool&gt;&amp; flags, <span class="keywordtype">bool</span> flag = <span class="keyword">false</span> ) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    flags[<a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( node-&gt;mName )] = flag;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i = 0; i &lt; node-&gt;mNumChildren; ++i ) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    flags[assimpToCore( node-&gt;mName )] = flag;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; node-&gt;mNumChildren; ++i ) {</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        initMarks( node-&gt;mChildren[i], flags, flag );</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
@@ -166,7 +166,7 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                  <span class="keyword">const</span> aiScene* scene,</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                  <span class="keyword">const</span> std::vector&lt;aiNode*&gt;&amp; meshParents,</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                  std::map&lt;std::string, bool&gt;&amp; flag ) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">const</span> std::string nodeName = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( node-&gt;mName );</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">const</span> std::string nodeName = assimpToCore( node-&gt;mName );</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> ( flag[nodeName] ) {</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="comment">// skip already visited up-tree.</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span>;</div>
@@ -199,10 +199,10 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">// load the HandleComponentData for all meshes</span></div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::map&lt;std::string, HandleComponentData&gt; mapBone2Data;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> n = 0; n &lt; scene-&gt;mNumMeshes; ++n ) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">for</span> ( uint n = 0; n &lt; scene-&gt;mNumMeshes; ++n ) {</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">const</span> aiMesh* mesh = scene-&gt;mMeshes[n];</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="comment">// fetch mesh name as registered by the GeometryLoader</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        std::string meshName = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( mesh-&gt;mName );</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        std::string meshName = assimpToCore( mesh-&gt;mName );</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">while</span> ( meshNames.find( meshName ) != meshNames.end() ) {</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            meshName.append( <span class="stringliteral">&quot;_&quot;</span> );</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        }</div>
@@ -219,10 +219,10 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        }</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="comment">// deal with skeleton</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j = 0; j &lt; mesh-&gt;mNumBones; ++j ) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">for</span> ( uint j = 0; j &lt; mesh-&gt;mNumBones; ++j ) {</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <span class="keyword">const</span> aiBone* bone = mesh-&gt;mBones[j];</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="comment">// fetch bone data</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <span class="keyword">const</span> std::string boneName = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( bone-&gt;mName );</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <span class="keyword">const</span> std::string boneName = assimpToCore( bone-&gt;mName );</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="comment">// if data doesn&#39;t exist yet, create it</span></div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            mapBone2Data[boneName].m_name = boneName;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="comment">// fill skinning weights and offset matrix for this mesh</span></div>
@@ -235,7 +235,7 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <span class="comment">// check children since end bones may not have weights</span></div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <span class="keywordflow">if</span> ( node-&gt;mNumChildren == 1 ) {</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                <span class="keyword">const</span> aiNode* child         = node-&gt;mChildren[0];</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                <span class="keyword">const</span> std::string childName = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( child-&gt;mName );</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                <span class="keyword">const</span> std::string childName = assimpToCore( child-&gt;mName );</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                <span class="comment">// mark as needed</span></div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                needNode[childName] = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                <span class="comment">// if data doesn&#39;t exist yet, create it</span></div>
@@ -246,9 +246,9 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="comment">// also add bone nodes for skeletons not attached to a mesh</span></div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">auto</span> rootNode = scene-&gt;mRootNode;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i = 0; i &lt; rootNode-&gt;mNumChildren; ++i ) {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; rootNode-&gt;mNumChildren; ++i ) {</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keyword">auto</span> node = rootNode-&gt;mChildren[i];</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span> ( needNode[<a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( node-&gt;mName )] ) { <span class="keywordflow">continue</span>; }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span> ( needNode[assimpToCore( node-&gt;mName )] ) { <span class="keywordflow">continue</span>; }</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="comment">// check not up from a mesh</span></div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">auto</span> res =</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            std::find_if( meshParents.begin(), meshParents.end(), [node]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; nodes ) {</div>
@@ -269,8 +269,8 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        mapBone2Data[n.first].m_name = n.first;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="comment">// link to children</span></div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keyword">const</span> aiNode* node = scene-&gt;mRootNode-&gt;FindNode( aiString( n.first ) );</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j = 0; j &lt; node-&gt;mNumChildren; ++j ) {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            <span class="keyword">const</span> std::string childName = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( node-&gt;mChildren[j]-&gt;mName );</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">for</span> ( uint j = 0; j &lt; node-&gt;mNumChildren; ++j ) {</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            <span class="keyword">const</span> std::string childName = assimpToCore( node-&gt;mChildren[j]-&gt;mName );</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            <span class="keywordflow">if</span> ( needNode.at( childName ) ) {</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                <span class="comment">// if data doesn&#39;t exist, create it (bone with no weight)</span></div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                mapBone2Data[childName].m_name = childName;</div>
@@ -299,14 +299,14 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="comment">// build one HandleData per root</span></div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> root : roots ) {</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        HandleData* handle = <span class="keyword">new</span> HandleData();</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        handle-&gt;setType( <a class="code" href="classRa_1_1Core_1_1Asset_1_1HandleData.html#a2cc9bdddd2a8a9966c0e5afb38090a7ea51e777accf1e07dea3551e2481f20a21">HandleData::SKELETON</a> );</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        handle-&gt;setType( HandleData::SKELETON );</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        handle-&gt;setName( root );</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a> frame = Ra::Core::Transform::Identity();</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        Ra::Core::Transform frame = Ra::Core::Transform::Identity();</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        aiNode* node              = scene-&gt;mRootNode-&gt;FindNode( aiString( root ) );</div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">while</span> ( node-&gt;mParent != <span class="keyword">nullptr</span> ) {</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            node  = node-&gt;mParent;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            frame = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( node-&gt;mTransformation ) * frame;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            frame = assimpToCore( node-&gt;mTransformation ) * frame;</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        }</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        handle-&gt;setFrame( frame );</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
@@ -350,7 +350,7 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    data.m_frame.setIdentity();</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    aiNode* node = scene-&gt;mRootNode-&gt;FindNode( boneName );</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">while</span> ( node != <span class="keyword">nullptr</span> ) {</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        data.m_frame = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( node-&gt;mTransformation ) * data.m_frame;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        data.m_frame = assimpToCore( node-&gt;mTransformation ) * data.m_frame;</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        node         = node-&gt;mParent;</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    }</div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;}</div>
@@ -359,11 +359,11 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                                                             <span class="keyword">const</span> std::string&amp; meshName,</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                                                             HandleComponentData&amp; data )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="comment">// fetch skinning weigthts</span></div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j = 0; j &lt; bone-&gt;mNumWeights; ++j ) {</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordflow">for</span> ( uint j = 0; j &lt; bone-&gt;mNumWeights; ++j ) {</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        std::pair&lt;uint, Scalar&gt; weight( bone-&gt;mWeights[j].mVertexId, bone-&gt;mWeights[j].mWeight );</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        data.m_weights[meshName].push_back( weight );</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    }</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    data.m_bindMatrices[meshName] = <a class="code" href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">assimpToCore</a>( bone-&gt;mOffsetMatrix );</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    data.m_bindMatrices[meshName] = assimpToCore( bone-&gt;mOffsetMatrix );</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;}</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="keywordtype">void</span> AssimpHandleDataLoader::fillHandleData(</div>
@@ -373,7 +373,7 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    std::map&lt;std::string, uint&gt;&amp; nameTable,</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    HandleData* data )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="comment">// register the HandleComponentData for the bone</span></div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    nameTable[node] = <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>( data-&gt;getComponentData().size() );</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    nameTable[node] = uint( data-&gt;getComponentData().size() );</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    data-&gt;getComponentData().push_back( mapBone2Data.at( node ) );</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="comment">// bind meshes bound to the bone</span></div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; mesh : mapBone2Data.at( node ).m_weights ) {</div>
@@ -393,28 +393,12 @@ $(document).ready(function(){initNavTree('AssimpHandleDataLoader_8cpp_source.htm
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpHandleDataLoader_html_a972d089e633723b8f83b48804fdd3a17"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#a972d089e633723b8f83b48804fdd3a17">Ra::IO::AssimpHandleDataLoader::~AssimpHandleDataLoader</a></div><div class="ttdeci">~AssimpHandleDataLoader() override</div><div class="ttdoc">DESTRUCTOR.</div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00082">Types.hpp:82</a></div></div>
-<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
-<div class="ttc" id="aHandleData_8hpp_html"><div class="ttname"><a href="HandleData_8hpp.html">HandleData.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1HandleData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></div><div class="ttdef"><b>Definition:</b> <a href="HandleData_8hpp_source.html#l00042">HandleData.hpp:42</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a64e2a801c2efdc31b83683e8f69885fe"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">Ra::Core::Asset::DataLoader&lt; Core::Asset::HandleData &gt;::m_verbose</a></div><div class="ttdeci">bool m_verbose</div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00030">DataLoader.hpp:30</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpHandleDataLoader_html_a273bfdefebe957234af644f4d68df8cf"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#a273bfdefebe957234af644f4d68df8cf">Ra::IO::AssimpHandleDataLoader::AssimpHandleDataLoader</a></div><div class="ttdeci">AssimpHandleDataLoader(const bool VERBOSE_MODE=false)</div><div class="ttdoc">CONSTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpHandleDataLoader_8cpp_source.html#l00020">AssimpHandleDataLoader.cpp:20</a></div></div>
-<div class="ttc" id="aAssimpHandleDataLoader_8hpp_html"><div class="ttname"><a href="AssimpHandleDataLoader_8hpp.html">AssimpHandleDataLoader.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpHandleDataLoader_html_ae4cda7d5e392e3f2e98a9efcb34c6996"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#ae4cda7d5e392e3f2e98a9efcb34c6996">Ra::IO::AssimpHandleDataLoader::loadData</a></div><div class="ttdeci">void loadData(const aiScene *scene, std::vector&lt; std::unique_ptr&lt; Core::Asset::HandleData &gt;&gt; &amp;data) override</div><div class="ttdoc">LOAD.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpHandleDataLoader_8cpp_source.html#l00028">AssimpHandleDataLoader.cpp:28</a></div></div>
-<div class="ttc" id="aAssimpWrapper_8hpp_html"><div class="ttname"><a href="AssimpWrapper_8hpp.html">AssimpWrapper.hpp</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1HandleData_html_a2cc9bdddd2a8a9966c0e5afb38090a7ea51e777accf1e07dea3551e2481f20a21"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1HandleData.html#a2cc9bdddd2a8a9966c0e5afb38090a7ea51e777accf1e07dea3551e2481f20a21">Ra::Core::Asset::HandleData::SKELETON</a></div><div class="ttdeci">@ SKELETON</div><div class="ttdef"><b>Definition:</b> <a href="HandleData_8hpp_source.html#l00050">HandleData.hpp:50</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">Ra::Core::Utils::logDEBUG</a></div><div class="ttdeci">@ logDEBUG</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00019">Log.hpp:19</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">Ra::Core::Asset::DataLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00012">DataLoader.hpp:12</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1IO_html_aef6c50424873964fcea0008be55d4a34"><div class="ttname"><a href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">Ra::IO::assimpToCore</a></div><div class="ttdeci">Core::Vector3 assimpToCore(const aiVector3D &amp;v)</div><div class="ttdef"><b>Definition:</b> <a href="AssimpWrapper_8hpp_source.html#l00015">AssimpWrapper.hpp:15</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_7788c5f37a81918c772c9185f759a19f.html">AssimpLoader</a></li><li class="navelem"><a class="el" href="AssimpHandleDataLoader_8cpp.html">AssimpHandleDataLoader.cpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_7788c5f37a81918c772c9185f759a19f.html">AssimpLoader</a></li><li class="navelem"><b>AssimpHandleDataLoader.cpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

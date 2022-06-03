@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,9 +96,9 @@ $(document).ready(function(){initNavTree('Observable_8hpp_source.html',''); init
 <div class="title">Observable.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Observable_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
@@ -116,8 +116,8 @@ $(document).ready(function(){initNavTree('Observable_8hpp_source.html',''); init
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4b2542963e7be1fd2f306420cbe36b11">Observable</a>()                    = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4b2542963e7be1fd2f306420cbe36b11">Observable</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#aa755a5614695dfcc4f656178567b9086">operator=</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a817ec0cc8b11da60ced6fc2c5800ad3f">~Observable</a>()                      = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>()                      = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">   46</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">copyObserversTo</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&amp; other )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; o : m_observers ) {</div>
@@ -154,7 +154,7 @@ $(document).ready(function(){initNavTree('Observable_8hpp_source.html',''); init
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">int</span> m_currentId { 0 };</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">   90</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">ObservableVoid</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&lt;&gt;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">class </span>RA_CORE_API ObservableVoid : <span class="keyword">public</span> Observable&lt;&gt;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;{};</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">// namespace Utils</span></div>
@@ -165,8 +165,6 @@ $(document).ready(function(){initNavTree('Observable_8hpp_source.html',''); init
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4e8b57fbe22d3aaafb71938a3db2a207"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">Ra::Core::Utils::Observable::detachAll</a></div><div class="ttdeci">void detachAll()</div><div class="ttdoc">Detach all observers.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00073">Observable.hpp:73</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4851931d5bedb5e17121a0ff806a9f6d"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">Ra::Core::Utils::Observable::attach</a></div><div class="ttdeci">int attach(Observer observer)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00054">Observable.hpp:54</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a817ec0cc8b11da60ced6fc2c5800ad3f"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a817ec0cc8b11da60ced6fc2c5800ad3f">Ra::Core::Utils::Observable::~Observable</a></div><div class="ttdeci">virtual ~Observable()=default</div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4b2542963e7be1fd2f306420cbe36b11"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4b2542963e7be1fd2f306420cbe36b11">Ra::Core::Utils::Observable::Observable</a></div><div class="ttdeci">Observable()=default</div><div class="ttdoc">Default constructor ... do nothing ;)</div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a5b2d48be6db6b982ac70610c526d3870"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Ra::Core::Utils::Observable&lt; int, int, int, int &gt;::Observer</a></div><div class="ttdeci">std::function&lt; void(Args...)&gt; Observer</div><div class="ttdoc">Observer functor type.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00037">Observable.hpp:37</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a93c242f277f524f8f60d2a0e910efc2b"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">Ra::Core::Utils::Observable::attachMember</a></div><div class="ttdeci">int attachMember(T *object, void(T::*observer)(Args...))</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00063">Observable.hpp:63</a></div></div>
@@ -174,14 +172,11 @@ $(document).ready(function(){initNavTree('Observable_8hpp_source.html',''); init
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_ad350a9161840df5089517360cc3a3b17"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">Ra::Core::Utils::Observable::copyObserversTo</a></div><div class="ttdeci">void copyObserversTo(Observable &amp;other) const</div><div class="ttdoc">explicit copy of all attached observers the other Observable</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00046">Observable.hpp:46</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a></div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00033">Observable.hpp:33</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a88d70b5bc3b4a783bbcc02eddcc56507"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">Ra::Core::Utils::Observable::detach</a></div><div class="ttdeci">void detach(int observerId)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00077">Observable.hpp:77</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_aa755a5614695dfcc4f656178567b9086"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#aa755a5614695dfcc4f656178567b9086">Ra::Core::Utils::Observable::operator=</a></div><div class="ttdeci">Observable &amp; operator=(const Observable &amp;)=delete</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ObservableVoid_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">Ra::Core::Utils::ObservableVoid</a></div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00090">Observable.hpp:90</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="Observable_8hpp.html">Observable.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><b>Observable.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

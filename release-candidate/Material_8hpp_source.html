@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,23 +96,23 @@ $(document).ready(function(){initNavTree('Material_8hpp_source.html',''); initRe
 <div class="title">Material.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Material_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Engine/RaEngine.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// This include brings only the macro EIGEN_MAKE_ALIGNED_OPERATOR_NEW in the file scope.</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// Need to be separated to reduce compilation time</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RenderParameters_8hpp.html">Engine/Data/RenderParameters.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/RenderParameters.hpp&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>Engine {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Data {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Material.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Data::ShaderParameterProvider</a></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Material.html">   23</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Data::ShaderParameterProvider</a></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">   31</a></span>&#160;    <span class="keyword">enum class</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> {</div>
@@ -126,7 +126,7 @@ $(document).ready(function(){initNavTree('Material_8hpp_source.html',''); initRe
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>( <span class="keyword">const</span> std::string&amp; instanceName,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                       <span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#ab14deb10a6a9567429937cd824f5be57">materialName</a>,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                       <span class="keyword">const</span> std::string&amp; materialName,</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                       MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setMaterialName( std::string newName );</div>
@@ -160,24 +160,18 @@ $(document).ready(function(){initNavTree('Material_8hpp_source.html',''); initRe
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">// namespace Data</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">// namespace Engine</span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Material_8inl.html">Engine/Data/Material.inl</a>&gt;</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/Material.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aRenderParameters_8hpp_html"><div class="ttname"><a href="RenderParameters_8hpp.html">RenderParameters.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderParameterProvider_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00231">RenderParameters.hpp:231</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html_accea1b072e372d94e28bc461e63daab2"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">Ra::Engine::Data::Material::MaterialAspect</a></div><div class="ttdeci">MaterialAspect</div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00031">Material.hpp:31</a></div></div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_html_ab14deb10a6a9567429937cd824f5be57"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data.html#ab14deb10a6a9567429937cd824f5be57">Ra::Engine::Data::materialName</a></div><div class="ttdeci">static const std::string materialName</div><div class="ttdef"><b>Definition:</b> <a href="BlinnPhongMaterial_8cpp_source.html#l00015">BlinnPhongMaterial.cpp:15</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00023">Material.hpp:23</a></div></div>
-<div class="ttc" id="aMaterial_8inl_html"><div class="ttname"><a href="Material_8inl.html">Material.inl</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="Material_8hpp.html">Material.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>Material.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

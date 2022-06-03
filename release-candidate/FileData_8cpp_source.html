@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('FileData_8cpp_source.html',''); initRe
 <div class="title">FileData.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="FileData_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="FileData_8hpp.html">Core/Asset/FileData.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/FileData.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Asset {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a6c6922d3a44c55a0942918702060f7cb">    8</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a6c6922d3a44c55a0942918702060f7cb">FileData::FileData</a>( <span class="keyword">const</span> std::string&amp; filename, <span class="keyword">const</span> <span class="keywordtype">bool</span> VERBOSE_MODE ) :</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;FileData::FileData( <span class="keyword">const</span> std::string&amp; filename, <span class="keyword">const</span> <span class="keywordtype">bool</span> VERBOSE_MODE ) :</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    m_filename( filename ),</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    m_loadingTime( 0.0 ),</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    m_geometryData(),</div>
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('FileData_8cpp_source.html',''); initRe
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    m_processed( false ),</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    m_verbose( VERBOSE_MODE ) {}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a4a80a80914a94b8f891ddb55760d306f">   20</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a4a80a80914a94b8f891ddb55760d306f">FileData::~FileData</a>() {}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;FileData::~FileData() {}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace Asset</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace Core</span></div>
@@ -121,14 +121,11 @@ $(document).ready(function(){initNavTree('FileData_8cpp_source.html',''); initRe
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a6c6922d3a44c55a0942918702060f7cb"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a6c6922d3a44c55a0942918702060f7cb">Ra::Core::Asset::FileData::FileData</a></div><div class="ttdeci">FileData(const std::string &amp;filename=&quot;&quot;, const bool VERBOSE_MODE=false)</div><div class="ttdoc">CONSTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8cpp_source.html#l00008">FileData.cpp:8</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a4a80a80914a94b8f891ddb55760d306f"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a4a80a80914a94b8f891ddb55760d306f">Ra::Core::Asset::FileData::~FileData</a></div><div class="ttdeci">~FileData()</div><div class="ttdoc">DESTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8cpp_source.html#l00020">FileData.cpp:20</a></div></div>
-<div class="ttc" id="aFileData_8hpp_html"><div class="ttname"><a href="FileData_8hpp.html">FileData.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="FileData_8cpp.html">FileData.cpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><b>FileData.cpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

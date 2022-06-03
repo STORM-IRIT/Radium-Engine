@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,24 +96,24 @@ $(document).ready(function(){initNavTree('Adjacency_8cpp_source.html',''); initR
 <div class="title">Adjacency.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Adjacency_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Adjacency_8hpp.html">Core/Geometry/Adjacency.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="LinearAlgebra_8hpp.html">Core/Math/LinearAlgebra.hpp</a>&gt;</span> <span class="comment">// Math::cotan</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/Adjacency.hpp&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;Core/Math/LinearAlgebra.hpp&gt;</span> <span class="comment">// Math::cotan</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Geometry</a> {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Geometry {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// //////////////// //</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// ADJACENCY MATRIX //</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// //////////////// //</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a997391e4c468de4d0cdf9467a2aee2a8">   16</a></span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a997391e4c468de4d0cdf9467a2aee2a8">uniformAdjacency</a>( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> point_size, <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T ) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> A( point_size, point_size );</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> : T ) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i             = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 0 );</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j             = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 1 );</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k             = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 2 );</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;AdjacencyMatrix uniformAdjacency( <span class="keyword">const</span> uint point_size, <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T ) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    AdjacencyMatrix A( point_size, point_size );</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : T ) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        uint i             = t( 0 );</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        uint j             = t( 1 );</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        uint k             = t( 2 );</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        A.coeffRef( i, j ) = 1;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        A.coeffRef( j, k ) = 1;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        A.coeffRef( k, i ) = 1;</div>
@@ -121,13 +121,13 @@ $(document).ready(function(){initNavTree('Adjacency_8cpp_source.html',''); initR
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> A;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a6f56ddb73ecf2c2e3b229701aa6eccc7">   29</a></span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a997391e4c468de4d0cdf9467a2aee2a8">uniformAdjacency</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                  <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T ) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> A( p.size(), p.size() );</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> : T ) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i             = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 0 );</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j             = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 1 );</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k             = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 2 );</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;AdjacencyMatrix uniformAdjacency( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                  <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T ) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    AdjacencyMatrix A( p.size(), p.size() );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : T ) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        uint i             = t( 0 );</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        uint j             = t( 1 );</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        uint k             = t( 2 );</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        A.coeffRef( i, j ) = 1;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        A.coeffRef( j, k ) = 1;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        A.coeffRef( k, i ) = 1;</div>
@@ -135,16 +135,16 @@ $(document).ready(function(){initNavTree('Adjacency_8cpp_source.html',''); initR
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> A;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a9514e20dcdf801525a00748b2b313abe">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a997391e4c468de4d0cdf9467a2aee2a8">uniformAdjacency</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                       <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                       <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; Adj ) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">void</span> uniformAdjacency( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                       <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                       AdjacencyMatrix&amp; Adj ) {</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    Adj.resize( p.size(), p.size() );</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> n = 0; n &lt; <a class="code" href="classint.html">int</a>( T.size() ); ++n ) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a6e69e1ca0449e686252cd65e67063521">Vector3ui</a>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> = T[n];</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i       = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 0 );</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j       = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 1 );</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k       = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 2 );</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> n = 0; n &lt; int( T.size() ); ++n ) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">const</span> Vector3ui&amp; t = T[n];</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">const</span> uint i       = t( 0 );</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">const</span> uint j       = t( 1 );</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">const</span> uint k       = t( 2 );</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#pragma omp critical</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        {</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            Adj.coeffRef( i, j ) = 1;</div>
@@ -154,38 +154,38 @@ $(document).ready(function(){initNavTree('Adjacency_8cpp_source.html',''); initR
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a4222426df43c98a23b9964a2b46dad3d">   62</a></span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a1062343333ca765f8ba2da46bce32d6a">TVAdj</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4222426df43c98a23b9964a2b46dad3d">triangleUniformAdjacency</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T ) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> p_size = p.size();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> t_size = T.size();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a1062343333ca765f8ba2da46bce32d6a">TVAdj</a> A( t_size, p_size );</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> = 0; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> &lt; t_size; ++<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i       = T[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>]( 0 );</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j       = T[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>]( 1 );</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k       = T[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>]( 2 );</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        A.coeffRef( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>, i ) = 1;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        A.coeffRef( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>, j ) = 1;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        A.coeffRef( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>, k ) = 1;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;TVAdj triangleUniformAdjacency( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T ) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> uint p_size = p.size();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">const</span> uint t_size = T.size();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    TVAdj A( t_size, p_size );</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">for</span> ( uint t = 0; t &lt; t_size; ++t ) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">const</span> uint i       = T[t]( 0 );</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">const</span> uint j       = T[t]( 1 );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">const</span> uint k       = T[t]( 2 );</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        A.coeffRef( t, i ) = 1;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        A.coeffRef( t, j ) = 1;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        A.coeffRef( t, k ) = 1;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> A;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a2215f56c1b05bd702c2fb410f05e8d42">   78</a></span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2215f56c1b05bd702c2fb410f05e8d42">cotangentWeightAdjacency</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                          <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T ) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a> A( p.size(), p.size() );</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;AdjacencyMatrix cotangentWeightAdjacency( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                          <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T ) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    AdjacencyMatrix A( p.size(), p.size() );</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::vector&lt;Eigen::Triplet&lt;Scalar&gt;&gt; triplets( T.size() * 6 );</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> t_ = 0; t_ &lt; <a class="code" href="classint.html">int</a>( T.size() ); ++t_ ) {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>        = T[t_];</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i               = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 0 );</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j               = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 1 );</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k               = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 2 );</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> IJ     = p[j] - p[i];</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> JK     = p[k] - p[j];</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> KI     = p[i] - p[k];</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> cotI    = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a8667e211f2182821346ba4bcfe07b053">Math::cotan</a>( IJ, ( -KI ).eval() );</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> cotJ    = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a8667e211f2182821346ba4bcfe07b053">Math::cotan</a>( JK, ( -IJ ).eval() );</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> cotK    = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a8667e211f2182821346ba4bcfe07b053">Math::cotan</a>( KI, ( -JK ).eval() );</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> t_ = 0; t_ &lt; int( T.size() ); ++t_ ) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t        = T[t_];</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        uint i               = t( 0 );</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        uint j               = t( 1 );</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        uint k               = t( 2 );</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">const</span> Vector3 IJ     = p[j] - p[i];</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">const</span> Vector3 JK     = p[k] - p[j];</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">const</span> Vector3 KI     = p[i] - p[k];</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">const</span> Scalar cotI    = Math::cotan( IJ, ( -KI ).eval() );</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">const</span> Scalar cotJ    = Math::cotan( JK, ( -IJ ).eval() );</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keyword">const</span> Scalar cotK    = Math::cotan( KI, ( -JK ).eval() );</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        triplets[6 * t_]     = Eigen::Triplet&lt;Scalar&gt;( i, j, cotK );</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        triplets[6 * t_ + 1] = Eigen::Triplet&lt;Scalar&gt;( j, i, cotK );</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        triplets[6 * t_ + 2] = Eigen::Triplet&lt;Scalar&gt;( j, k, cotI );</div>
@@ -201,8 +201,8 @@ $(document).ready(function(){initNavTree('Adjacency_8cpp_source.html',''); initR
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">// DEGREE MATRIX //</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">// ///////////// //</span></div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#aa417df196e460b57f4e51c93420755cc">  109</a></span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa417df196e460b57f4e51c93420755cc">adjacencyDegree</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; A ) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a> D( A.rows(), A.cols() );</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;DegreeMatrix adjacencyDegree( <span class="keyword">const</span> AdjacencyMatrix&amp; A ) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    DegreeMatrix D( A.rows(), A.cols() );</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    D.reserve( A.rows() );</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; D.diagonal().size(); ++i ) {</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        D.coeffRef( i, i ) = A.row( i ).sum();</div>
@@ -215,31 +215,12 @@ $(document).ready(function(){initNavTree('Adjacency_8cpp_source.html',''); initR
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aAdjacency_8hpp_html"><div class="ttname"><a href="Adjacency_8hpp.html">Adjacency.hpp</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
-<div class="ttc" id="aLinearAlgebra_8hpp_html"><div class="ttname"><a href="LinearAlgebra_8hpp.html">LinearAlgebra.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a1062343333ca765f8ba2da46bce32d6a"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a1062343333ca765f8ba2da46bce32d6a">Ra::Core::Geometry::TVAdj</a></div><div class="ttdeci">AdjacencyMatrix TVAdj</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00026">Adjacency.hpp:26</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_af92c7779fab4fbe6087e668e5dae8735"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">Ra::Core::Geometry::AdjacencyMatrix</a></div><div class="ttdeci">Ra::Core::Sparse AdjacencyMatrix</div><div class="ttdoc">GLOBAL MATRIX ///.</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00023">Adjacency.hpp:23</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a997391e4c468de4d0cdf9467a2aee2a8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a997391e4c468de4d0cdf9467a2aee2a8">Ra::Core::Geometry::uniformAdjacency</a></div><div class="ttdeci">AdjacencyMatrix uniformAdjacency(const uint point_size, const AlignedStdVector&lt; Vector3ui &gt; &amp;T)</div><div class="ttdoc">GLOBAL MATRIX ///.</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8cpp_source.html#l00016">Adjacency.cpp:16</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a8667e211f2182821346ba4bcfe07b053"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a8667e211f2182821346ba4bcfe07b053">Ra::Core::Math::cotan</a></div><div class="ttdeci">Scalar cotan(const Vector_ &amp;v1, const Vector_ &amp;v2)</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8inl_source.html#l00061">LinearAlgebra.inl:61</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; Vector3 &gt;</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a6e69e1ca0449e686252cd65e67063521"><div class="ttname"><a href="namespaceRa_1_1Core.html#a6e69e1ca0449e686252cd65e67063521">Ra::Core::Vector3ui</a></div><div class="ttdeci">Eigen::Matrix&lt; uint, 3, 1 &gt; Vector3ui</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00040">Types.hpp:40</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a4222426df43c98a23b9964a2b46dad3d"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a4222426df43c98a23b9964a2b46dad3d">Ra::Core::Geometry::triangleUniformAdjacency</a></div><div class="ttdeci">TVAdj triangleUniformAdjacency(const VectorArray&lt; Vector3 &gt; &amp;p, const AlignedStdVector&lt; Vector3ui &gt; &amp;T)</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8cpp_source.html#l00062">Adjacency.cpp:62</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a2215f56c1b05bd702c2fb410f05e8d42"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a2215f56c1b05bd702c2fb410f05e8d42">Ra::Core::Geometry::cotangentWeightAdjacency</a></div><div class="ttdeci">AdjacencyMatrix cotangentWeightAdjacency(const VectorArray&lt; Vector3 &gt; &amp;p, const AlignedStdVector&lt; Vector3ui &gt; &amp;T)</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8cpp_source.html#l00078">Adjacency.cpp:78</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Ra::Engine::Rendering::RenderObjectType::Geometry</a></div><div class="ttdeci">@ Geometry</div><div class="ttdoc">&quot;Geometry&quot; render objects are those loaded using Radium::IO and generated by GeometrySystem</div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a5dfd567b8393406acccb48683482e9d8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">Ra::Core::Geometry::DegreeMatrix</a></div><div class="ttdeci">Diagonal DegreeMatrix</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00083">Adjacency.hpp:83</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa417df196e460b57f4e51c93420755cc"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa417df196e460b57f4e51c93420755cc">Ra::Core::Geometry::adjacencyDegree</a></div><div class="ttdeci">DegreeMatrix adjacencyDegree(const AdjacencyMatrix &amp;A)</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8cpp_source.html#l00109">Adjacency.cpp:109</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00257">CoreMacros.hpp:257</a></div></div>
-<div class="ttc" id="aclassint_html"><div class="ttname"><a href="classint.html">int</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="Adjacency_8cpp.html">Adjacency.cpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>Adjacency.cpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -171,13 +171,13 @@ Scalar types</h1>
 <ul>
 <li>Radium defines a default type <code>Scalar</code>, set either as <code>float</code> or <code>double</code> depending on the cmake option <code>RADIUM_WITH_DOUBLE_PRECISION</code></li>
 <li>Always use <code>Scalar</code> type to represent floating point numbers, except when interfacing with external libraries using a fixed floating point type (e.g. Qt).</li>
-<li>Radium offers operators to create <code>Scalar</code> from integer and floating point numbers: always use <code><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar()</a></code> or <code>_ra</code> suffix when defining numbers from literals (e.g. <code>auto a = .5_ra;</code>, <code>Scalar b = a * Scalar( 2 );</code> or <code>Scalar c = a / 2_ra;</code>).</li>
-<li>Equality between Scalar values needs to be computed using <code>Ra::almost_equals</code> (see <a class="el" href="CoreMacros_8hpp.html">CoreMacros.hpp</a>).</li>
+<li>Radium offers operators to create <code>Scalar</code> from integer and floating point numbers: always use <code>Scalar()</code> or <code>_ra</code> suffix when defining numbers from literals (e.g. <code>auto a = .5_ra;</code>, <code>Scalar b = a * Scalar( 2 );</code> or <code>Scalar c = a / 2_ra;</code>).</li>
+<li>Equality between Scalar values needs to be computed using <code>Ra::almost_equals</code> (see <a class="el" href="CoreMacros_8hpp_source.html">CoreMacros.hpp</a>).</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md64"></a>
 Class design</h1>
 <ul>
-<li>Constructors should be trival. All complex work goes in an <code><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#aee60cb09fb64ad0d55bb9af3d9707b48">init()</a></code> function</li>
+<li>Constructors should be trival. All complex work goes in an <code>init()</code> function</li>
 <li>Try to order class members by size (biggest to smallest)</li>
 <li>Any class containing a fixed-size <code>Ra::Core::Vector</code> or <code>Matrix</code>member must declare <code>RA_CORE_ALIGNED_NEW</code></li>
 <li>Try to declare these fixed-size vectors all together, and preferably first in the class.</li>
@@ -212,7 +212,7 @@ Non-negociable</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:17 for Radium Engine by
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

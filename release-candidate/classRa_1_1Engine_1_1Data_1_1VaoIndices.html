@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1VaoIndice
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1VaoIndices__coll__graph.svg" width="508" height="523"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1VaoIndices__coll__graph.svg" width="219" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
@@ -130,15 +130,18 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a96bb526c20fa4d8ec65d90587e56239c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a96bb526c20fa4d8ec65d90587e56239c">setIndicesDirty</a> ()</td></tr>
-<tr class="memdesc:a96bb526c20fa4d8ec65d90587e56239c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag the indices as dirty, asking for a update to gpu.  <a href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a96bb526c20fa4d8ec65d90587e56239c">More...</a><br /></td></tr>
+<tr class="memitem:a96bb526c20fa4d8ec65d90587e56239c"><td class="memItemLeft" align="right" valign="top"><a id="a96bb526c20fa4d8ec65d90587e56239c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a96bb526c20fa4d8ec65d90587e56239c">setIndicesDirty</a> ()</td></tr>
+<tr class="memdesc:a96bb526c20fa4d8ec65d90587e56239c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag the indices as dirty, asking for a update to gpu. <br /></td></tr>
 <tr class="separator:a96bb526c20fa4d8ec65d90587e56239c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a0ea4121a626bb2e4c962346d267c47ba"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; globjects::Buffer &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a0ea4121a626bb2e4c962346d267c47ba">m_indices</a> { nullptr }</td></tr>
+<tr class="memitem:a0ea4121a626bb2e4c962346d267c47ba"><td class="memItemLeft" align="right" valign="top"><a id="a0ea4121a626bb2e4c962346d267c47ba"></a>
+std::unique_ptr&lt; globjects::Buffer &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_indices</b> { nullptr }</td></tr>
 <tr class="separator:a0ea4121a626bb2e4c962346d267c47ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14a7ffaa6e46d73d768e8c8658843303"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a14a7ffaa6e46d73d768e8c8658843303">m_indicesDirty</a> { true }</td></tr>
+<tr class="memitem:a14a7ffaa6e46d73d768e8c8658843303"><td class="memItemLeft" align="right" valign="top"><a id="a14a7ffaa6e46d73d768e8c8658843303"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_indicesDirty</b> { true }</td></tr>
 <tr class="separator:a14a7ffaa6e46d73d768e8c8658843303"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11b320e9d53d4ee572c64fd7e1e2a077"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a11b320e9d53d4ee572c64fd7e1e2a077">m_numElements</a> { 0 }</td></tr>
 <tr class="separator:a11b320e9d53d4ee572c64fd7e1e2a077"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,85 +150,7 @@ Protected Attributes</h2></td></tr>
 <div class="textblock"><p>Concept class to ensure consistent naming of <a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes.">VaoIndices</a> accross derived classes. </p>
 
 <p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00160">160</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a96bb526c20fa4d8ec65d90587e56239c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96bb526c20fa4d8ec65d90587e56239c">&#9670;&nbsp;</a></span>setIndicesDirty()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::VaoIndices::setIndicesDirty </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Tag the indices as dirty, asking for a update to gpu. </p>
-
-<p class="definition">Definition at line <a class="el" href="Mesh_8inl_source.html#l00027">27</a> of file <a class="el" href="Mesh_8inl_source.html">Mesh.inl</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a0ea4121a626bb2e4c962346d267c47ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ea4121a626bb2e4c962346d267c47ba">&#9670;&nbsp;</a></span>m_indices</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unique_ptr&lt;globjects::Buffer&gt; Ra::Engine::Data::VaoIndices::m_indices { nullptr }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00180">180</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a14a7ffaa6e46d73d768e8c8658843303"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14a7ffaa6e46d73d768e8c8658843303">&#9670;&nbsp;</a></span>m_indicesDirty</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Engine::Data::VaoIndices::m_indicesDirty { true }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00181">181</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
-
-</div>
-</div>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a11b320e9d53d4ee572c64fd7e1e2a077"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a11b320e9d53d4ee572c64fd7e1e2a077">&#9670;&nbsp;</a></span>m_numElements</h2>
 
@@ -260,8 +185,8 @@ Protected Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Data</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html">VaoIndices</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:18 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html">VaoIndices</a></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:09 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

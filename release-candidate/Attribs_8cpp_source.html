@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,29 +96,29 @@ $(document).ready(function(){initNavTree('Attribs_8cpp_source.html',''); initRes
 <div class="title">Attribs.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Attribs_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Attribs_8hpp.html">Core/Utils/Attribs.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Attribs.hpp&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html">    7</a></span>&#160;<span class="keyword">namespace </span>Utils {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Utils {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#a229448de41b2243652f151d7635e78e3">    9</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#a229448de41b2243652f151d7635e78e3">AttribBase::~AttribBase</a>() {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;AttribBase::~AttribBase() {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">detachAll</a>();</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a7992a786626602afbf4dc895e199917c">   14</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a22aa759e2775c3ce4bf8c4a036dfca0a">Attrib&lt;float&gt;::getNumberOfComponents</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">size_t</span> Attrib&lt;float&gt;::getNumberOfComponents()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#afe3d36dc34a9f72ac0d5d3bb5c179fa2">   19</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a22aa759e2775c3ce4bf8c4a036dfca0a">Attrib&lt;double&gt;::getNumberOfComponents</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">size_t</span> Attrib&lt;double&gt;::getNumberOfComponents()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a8ee04a8a449c7c935cc2574e1187ea39">   23</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a8ee04a8a449c7c935cc2574e1187ea39">AttribManager::~AttribManager</a>() {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;AttribManager::~AttribManager() {</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda">clear</a>();</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
@@ -147,7 +147,7 @@ $(document).ready(function(){initNavTree('Attribs_8cpp_source.html',''); initRes
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a>( h ).setData( <span class="keyword">static_cast&lt;</span><a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib&lt;Vector4&gt;</a>*<span class="keyword">&gt;</span>( attr.get() )-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">data</a>() );</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Warning, copy of mesh attribute &quot;</span> &lt;&lt; attr-&gt;getName()</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            LOG( logWARNING ) &lt;&lt; <span class="stringliteral">&quot;Warning, copy of mesh attribute &quot;</span> &lt;&lt; attr-&gt;getName()</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                              &lt;&lt; <span class="stringliteral">&quot; type is not supported (only float, vec2, vec3 nor vec4 are &quot;</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                 <span class="stringliteral">&quot;supported) [from AttribManager::copyAllAttribute()]&quot;</span>;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
@@ -173,27 +173,19 @@ $(document).ready(function(){initNavTree('Attribs_8cpp_source.html',''); initRes
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4e8b57fbe22d3aaafb71938a3db2a207"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">Ra::Core::Utils::Observable&lt;&gt;::detachAll</a></div><div class="ttdeci">void detachAll()</div><div class="ttdoc">Detach all observers.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00073">Observable.hpp:73</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribBase_html_a229448de41b2243652f151d7635e78e3"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#a229448de41b2243652f151d7635e78e3">Ra::Core::Utils::AttribBase::~AttribBase</a></div><div class="ttdeci">virtual ~AttribBase()</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00009">Attribs.cpp:9</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_ae0cb7281ec72606a5392602b4ea50d2c"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Ra::Core::Utils::AttribManager::getAttrib</a></div><div class="ttdeci">Attrib&lt; T &gt; &amp; getAttrib(const AttribHandle&lt; T &gt; &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8inl_source.html#l00201">Attribs.inl:201</a></div></div>
-<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_a8ee04a8a449c7c935cc2574e1187ea39"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a8ee04a8a449c7c935cc2574e1187ea39">Ra::Core::Utils::AttribManager::~AttribManager</a></div><div class="ttdeci">~AttribManager() override</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00023">Attribs.cpp:23</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Attrib_html_a4179dd4435a6d89f2ab3cadace7fca51"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51">Ra::Core::Utils::Attrib::data</a></div><div class="ttdeci">const Container &amp; data() const</div><div class="ttdoc">Read-only acccess to the attribute content.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8inl_source.html#l00084">Attribs.inl:84</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_a406dc2c2d82a535130d7af3c388c7f8f"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f">Ra::Core::Utils::AttribManager::copyAllAttributes</a></div><div class="ttdeci">void copyAllAttributes(const AttribManager &amp;m)</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00032">Attribs.cpp:32</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_ae99bb77d3d29e9d99b4bcc257919ecda"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda">Ra::Core::Utils::AttribManager::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">clear all attribs, invalidate handles.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00027">Attribs.cpp:27</a></div></div>
-<div class="ttc" id="aAttribs_8hpp_html"><div class="ttname"><a href="Attribs_8hpp.html">Attribs.hpp</a></div></div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_a191ecf090eaf0b6d52ed390938e1e0c5"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5">Ra::Core::Utils::AttribManager::hasSameAttribs</a></div><div class="ttdeci">bool hasSameAttribs(const AttribManager &amp;other)</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00058">Attribs.cpp:58</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">Ra::Core::Utils::AttribManager</a></div><div class="ttdoc">The AttribManager provides attributes management by handles.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00194">Attribs.hpp:194</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Attrib_html_a22aa759e2775c3ce4bf8c4a036dfca0a"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a22aa759e2775c3ce4bf8c4a036dfca0a">Ra::Core::Utils::Attrib::getNumberOfComponents</a></div><div class="ttdeci">size_t getNumberOfComponents() const override</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8inl_source.html#l00139">Attribs.inl:139</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Attrib_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Ra::Core::Utils::Attrib</a></div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00021">Attribs.hpp:21</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="Attribs_8cpp.html">Attribs.cpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><b>Attribs.cpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

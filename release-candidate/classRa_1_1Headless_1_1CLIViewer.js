@@ -1,6 +1,5 @@
 var classRa_1_1Headless_1_1CLIViewer =
 [
-    [ "ViewerParameters", "structRa_1_1Headless_1_1CLIViewer_1_1ViewerParameters.html", "structRa_1_1Headless_1_1CLIViewer_1_1ViewerParameters" ],
     [ "CLIViewer", "classRa_1_1Headless_1_1CLIViewer.html#a9680b6eb40620a7542032b7c9561670d", null ],
     [ "~CLIViewer", "classRa_1_1Headless_1_1CLIViewer.html#a2e0eb12c974c7a1eed6a7dfb938a898c", null ],
     [ "addDataFileLoader", "classRa_1_1Headless_1_1CLIViewer.html#a25b1ed478e9263f096e6533f3bff9a99", null ],

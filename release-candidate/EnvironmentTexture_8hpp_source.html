@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,12 +96,12 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8hpp_source.html','
 <div class="title">EnvironmentTexture.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="EnvironmentTexture_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;Engine/RaEngine.hpp&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Mesh_8hpp.html">Engine/Data/Mesh.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Texture_8hpp.html">Engine/Data/Texture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/Mesh.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/Texture.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
@@ -111,7 +111,7 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8hpp_source.html','
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>ShaderProgram;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>ViewingParameters;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">   19</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#ae79b881460e54b289c8e54eddb4a82c8">   31</a></span>&#160;    <span class="keyword">enum class</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#ae79b881460e54b289c8e54eddb4a82c8">EnvMapType</a> { ENVMAP_PFM, ENVMAP_CUBE, ENVMAP_LATLON };</div>
@@ -126,7 +126,7 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8hpp_source.html','
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> saveShProjection( <span class="keyword">const</span> std::string&amp; filename );</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Ra::Core::Matrix4</a>&amp; getShMatrix( <span class="keywordtype">int</span> channel );</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">const</span> Ra::Core::Matrix4&amp; getShMatrix( <span class="keywordtype">int</span> channel );</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> render( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">Ra::Engine::Data::ViewingParameters</a>&amp; viewParams );</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
@@ -164,7 +164,7 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8hpp_source.html','
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordtype">size_t</span> m_width { 0 };</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordtype">size_t</span> m_height { 0 };</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordtype">float</span> m_shcoefs[9][3];</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Ra::Core::Matrix4</a> m_shMatrices[3];</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    Ra::Core::Matrix4 m_shMatrices[3];</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    std::unique_ptr&lt;Ra::Engine::Data::Texture&gt; m_shtexture { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">bool</span> m_isSkyBox { <span class="keyword">false</span> };</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    std::unique_ptr&lt;Ra::Engine::Data::Mesh&gt; m_displayMesh { <span class="keyword">nullptr</span> };</div>
@@ -177,7 +177,7 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8hpp_source.html','
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;} <span class="comment">// namespace Engine</span></div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="EnvironmentTexture_8inl.html">Engine/Data/EnvironmentTexture.inl</a>&gt;</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/EnvironmentTexture.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1EnvironmentTexture_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">Ra::Engine::Data::EnvironmentTexture</a></div><div class="ttdoc">Defines a spherical, infinite light sources and, optionally, sky boxes. An operator to convert an Env...</div><div class="ttdef"><b>Definition:</b> <a href="EnvironmentTexture_8hpp_source.html#l00019">EnvironmentTexture.hpp:19</a></div></div>
@@ -185,19 +185,12 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8hpp_source.html','
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Ra::Engine::Data::ShaderProgram</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8hpp_source.html#l00031">ShaderProgram.hpp:31</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1EnvironmentTexture_html_ae79b881460e54b289c8e54eddb4a82c8"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#ae79b881460e54b289c8e54eddb4a82c8">Ra::Engine::Data::EnvironmentTexture::EnvMapType</a></div><div class="ttdeci">EnvMapType</div><div class="ttdoc">Environment map type inferred from file names and format. Supported environment type.</div><div class="ttdef"><b>Definition:</b> <a href="EnvironmentTexture_8hpp_source.html#l00031">EnvironmentTexture.hpp:31</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1ViewingParameters_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">Ra::Engine::Data::ViewingParameters</a></div><div class="ttdoc">the set of viewing parameters extracted from the camera and given to the renderer</div><div class="ttdef"><b>Definition:</b> <a href="ViewingParameters_8hpp_source.html#l00010">ViewingParameters.hpp:10</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
-<div class="ttc" id="aTexture_8hpp_html"><div class="ttname"><a href="Texture_8hpp.html">Texture.hpp</a></div></div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Texture_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Texture.html">Ra::Engine::Data::Texture</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00086">Texture.hpp:86</a></div></div>
-<div class="ttc" id="aEnvironmentTexture_8inl_html"><div class="ttname"><a href="EnvironmentTexture_8inl.html">EnvironmentTexture.inl</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_aae0c29088c6a4c7ab0d9ecb5398c9c18"><div class="ttname"><a href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Ra::Core::Matrix4</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 4, 4 &gt; Matrix4</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00052">Types.hpp:52</a></div></div>
-<div class="ttc" id="aMesh_8hpp_html"><div class="ttname"><a href="Mesh_8hpp.html">Mesh.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="EnvironmentTexture_8hpp.html">EnvironmentTexture.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>EnvironmentTexture.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

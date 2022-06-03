@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -102,357 +102,100 @@ $(document).ready(function(){initNavTree('classRa_1_1IO_1_1AssimpGeometryDataLoa
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="AssimpGeometryDataLoader_8hpp_source.html">IO/AssimpLoader/AssimpGeometryDataLoader.hpp</a>&gt;</code></p>
+
+<p>Inherits Ra::Core::Asset::DataLoader&lt; DATA &gt;.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Ra::IO::AssimpGeometryDataLoader:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for Ra::IO::AssimpGeometryDataLoader:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Collaboration diagram for Ra::IO::AssimpGeometryDataLoader:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader__coll__graph.svg" width="258" height="382"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5f41da5dd02e9914348c56b16389feca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5f41da5dd02e9914348c56b16389feca">AssimpGeometryDataLoader</a> (const std::string &amp;filepath, const <a class="el" href="classbool.html">bool</a> VERBOSE_MODE=false)</td></tr>
+<tr class="memitem:a5f41da5dd02e9914348c56b16389feca"><td class="memItemLeft" align="right" valign="top"><a id="a5f41da5dd02e9914348c56b16389feca"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AssimpGeometryDataLoader</b> (const std::string &amp;filepath, const bool VERBOSE_MODE=false)</td></tr>
 <tr class="separator:a5f41da5dd02e9914348c56b16389feca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4aea8ff57b978047124829e10100602"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac4aea8ff57b978047124829e10100602">~AssimpGeometryDataLoader</a> () override</td></tr>
-<tr class="separator:ac4aea8ff57b978047124829e10100602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6c1ada49b7dbf1ef90fa318c39699f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa6c1ada49b7dbf1ef90fa318c39699f7">loadData</a> (const aiScene *scene, std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;data) override</td></tr>
-<tr class="memdesc:aa6c1ada49b7dbf1ef90fa318c39699f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert all the geometry data from <code>scene</code> into <code>data</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa6c1ada49b7dbf1ef90fa318c39699f7">More...</a><br /></td></tr>
+<tr class="memitem:aa6c1ada49b7dbf1ef90fa318c39699f7"><td class="memItemLeft" align="right" valign="top"><a id="aa6c1ada49b7dbf1ef90fa318c39699f7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa6c1ada49b7dbf1ef90fa318c39699f7">loadData</a> (const aiScene *scene, std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;data) override</td></tr>
+<tr class="memdesc:aa6c1ada49b7dbf1ef90fa318c39699f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert all the geometry data from <code>scene</code> into <code>data</code>. <br /></td></tr>
 <tr class="separator:aa6c1ada49b7dbf1ef90fa318c39699f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">Ra::Core::Asset::DataLoader&lt; Core::Asset::GeometryData &gt;</a></td></tr>
-<tr class="memitem:a90d41626cc50ed6b29d65059bfe3b579 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a90d41626cc50ed6b29d65059bfe3b579">DataLoader</a> (const <a class="el" href="classbool.html">bool</a> VERBOSE_MODE=false)</td></tr>
-<tr class="memdesc:a90d41626cc50ed6b29d65059bfe3b579 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="mdescLeft">&#160;</td><td class="mdescRight">CONSTRUCTOR.  <a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a90d41626cc50ed6b29d65059bfe3b579">More...</a><br /></td></tr>
-<tr class="separator:a90d41626cc50ed6b29d65059bfe3b579 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a166aadc9a0a2d9cff4b99b082c42638a inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a166aadc9a0a2d9cff4b99b082c42638a">~DataLoader</a> ()=default</td></tr>
-<tr class="memdesc:a166aadc9a0a2d9cff4b99b082c42638a inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="mdescLeft">&#160;</td><td class="mdescRight">DESTRUCTOR.  <a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a166aadc9a0a2d9cff4b99b082c42638a">More...</a><br /></td></tr>
-<tr class="separator:a166aadc9a0a2d9cff4b99b082c42638a inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a822057bdad414151dc84e937ba17bc25 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a822057bdad414151dc84e937ba17bc25">isVerbose</a> () const</td></tr>
-<tr class="memdesc:a822057bdad414151dc84e937ba17bc25 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="mdescLeft">&#160;</td><td class="mdescRight">VERBOSE.  <a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a822057bdad414151dc84e937ba17bc25">More...</a><br /></td></tr>
-<tr class="separator:a822057bdad414151dc84e937ba17bc25 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62690d7a19221ba23e3c95ac199c40bb inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a62690d7a19221ba23e3c95ac199c40bb">setVerbose</a> (const <a class="el" href="classbool.html">bool</a> VERBOSE_MODE)</td></tr>
-<tr class="separator:a62690d7a19221ba23e3c95ac199c40bb inherit pub_methods_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ac4a70c22b1d918ba74252a9d0becbafd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac4a70c22b1d918ba74252a9d0becbafd">sceneHasGeometry</a> (const aiScene *scene) const</td></tr>
-<tr class="memdesc:ac4a70c22b1d918ba74252a9d0becbafd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if the given scene has geometry data.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac4a70c22b1d918ba74252a9d0becbafd">More...</a><br /></td></tr>
+<tr class="memitem:ac4a70c22b1d918ba74252a9d0becbafd"><td class="memItemLeft" align="right" valign="top"><a id="ac4a70c22b1d918ba74252a9d0becbafd"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac4a70c22b1d918ba74252a9d0becbafd">sceneHasGeometry</a> (const aiScene *scene) const</td></tr>
+<tr class="memdesc:ac4a70c22b1d918ba74252a9d0becbafd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if the given scene has geometry data. <br /></td></tr>
 <tr class="separator:ac4a70c22b1d918ba74252a9d0becbafd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d494bbdf71dd227648375b2c59d74a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5d494bbdf71dd227648375b2c59d74a8">sceneGeometrySize</a> (const aiScene *scene) const</td></tr>
-<tr class="memdesc:a5d494bbdf71dd227648375b2c59d74a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of AssImp geometry data in the given scene.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5d494bbdf71dd227648375b2c59d74a8">More...</a><br /></td></tr>
+<tr class="memitem:a5d494bbdf71dd227648375b2c59d74a8"><td class="memItemLeft" align="right" valign="top"><a id="a5d494bbdf71dd227648375b2c59d74a8"></a>
+uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5d494bbdf71dd227648375b2c59d74a8">sceneGeometrySize</a> (const aiScene *scene) const</td></tr>
+<tr class="memdesc:a5d494bbdf71dd227648375b2c59d74a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of AssImp geometry data in the given scene. <br /></td></tr>
 <tr class="separator:a5d494bbdf71dd227648375b2c59d74a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6c762bcaad871e6771ee2ad4d6c777b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b">loadGeometryData</a> (const aiScene *scene, std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;data)</td></tr>
-<tr class="memdesc:ac6c762bcaad871e6771ee2ad4d6c777b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with all the GeometryData from <code>scene</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b">More...</a><br /></td></tr>
+<tr class="memitem:ac6c762bcaad871e6771ee2ad4d6c777b"><td class="memItemLeft" align="right" valign="top"><a id="ac6c762bcaad871e6771ee2ad4d6c777b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b">loadGeometryData</a> (const aiScene *scene, std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;data)</td></tr>
+<tr class="memdesc:ac6c762bcaad871e6771ee2ad4d6c777b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with all the GeometryData from <code>scene</code>. <br /></td></tr>
 <tr class="separator:ac6c762bcaad871e6771ee2ad4d6c777b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2490e79d44ac73891d0495d8978e2c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3">loadMeshAttrib</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data, std::set&lt; std::string &gt; &amp;usedNames)</td></tr>
-<tr class="memdesc:ac2490e79d44ac73891d0495d8978e2c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the GeometryData from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3">More...</a><br /></td></tr>
+<tr class="memitem:ac2490e79d44ac73891d0495d8978e2c3"><td class="memItemLeft" align="right" valign="top"><a id="ac2490e79d44ac73891d0495d8978e2c3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac2490e79d44ac73891d0495d8978e2c3">loadMeshAttrib</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data, std::set&lt; std::string &gt; &amp;usedNames)</td></tr>
+<tr class="memdesc:ac2490e79d44ac73891d0495d8978e2c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the GeometryData from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:ac2490e79d44ac73891d0495d8978e2c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60bc6c1f8c09845639f9783a1c59a0fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc">loadMaterial</a> (const aiMaterial &amp;material, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:a60bc6c1f8c09845639f9783a1c59a0fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the Material data from <code>material</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc">More...</a><br /></td></tr>
+<tr class="memitem:a60bc6c1f8c09845639f9783a1c59a0fc"><td class="memItemLeft" align="right" valign="top"><a id="a60bc6c1f8c09845639f9783a1c59a0fc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc">loadMaterial</a> (const aiMaterial &amp;material, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:a60bc6c1f8c09845639f9783a1c59a0fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the Material data from <code>material</code>. <br /></td></tr>
 <tr class="separator:a60bc6c1f8c09845639f9783a1c59a0fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97efd0cc7bfcc4d7af4dcde8960e8e2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a97efd0cc7bfcc4d7af4dcde8960e8e2d">loadMeshFrame</a> (const aiNode *node, const <a class="el" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> &amp;parentFrame, const std::map&lt; <a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>, size_t &gt; &amp;indexTable, std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;data) const</td></tr>
-<tr class="memdesc:a97efd0cc7bfcc4d7af4dcde8960e8e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the transformation data from <code>node</code> and <code>parentFrame</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a97efd0cc7bfcc4d7af4dcde8960e8e2d">More...</a><br /></td></tr>
+<tr class="memitem:a97efd0cc7bfcc4d7af4dcde8960e8e2d"><td class="memItemLeft" align="right" valign="top"><a id="a97efd0cc7bfcc4d7af4dcde8960e8e2d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a97efd0cc7bfcc4d7af4dcde8960e8e2d">loadMeshFrame</a> (const aiNode *node, const Core::Transform &amp;parentFrame, const std::map&lt; uint, size_t &gt; &amp;indexTable, std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;data) const</td></tr>
+<tr class="memdesc:a97efd0cc7bfcc4d7af4dcde8960e8e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the transformation data from <code>node</code> and <code>parentFrame</code>. <br /></td></tr>
 <tr class="separator:a97efd0cc7bfcc4d7af4dcde8960e8e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a338d8b0b7ce312143ac262cb2cc97e69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a338d8b0b7ce312143ac262cb2cc97e69">fetchName</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data, std::set&lt; std::string &gt; &amp;usedNames) const</td></tr>
 <tr class="separator:a338d8b0b7ce312143ac262cb2cc97e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02ec7c18b9af17d19b0dcfd3a39c2ac8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a02ec7c18b9af17d19b0dcfd3a39c2ac8">fetchType</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:a02ec7c18b9af17d19b0dcfd3a39c2ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the GeometryType from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a02ec7c18b9af17d19b0dcfd3a39c2ac8">More...</a><br /></td></tr>
+<tr class="memitem:a02ec7c18b9af17d19b0dcfd3a39c2ac8"><td class="memItemLeft" align="right" valign="top"><a id="a02ec7c18b9af17d19b0dcfd3a39c2ac8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a02ec7c18b9af17d19b0dcfd3a39c2ac8">fetchType</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:a02ec7c18b9af17d19b0dcfd3a39c2ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the GeometryType from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:a02ec7c18b9af17d19b0dcfd3a39c2ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a015c0e61580e9cf1b72ae9751844df68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a015c0e61580e9cf1b72ae9751844df68">fetchVertices</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data)</td></tr>
 <tr class="memdesc:a015c0e61580e9cf1b72ae9751844df68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertices from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a015c0e61580e9cf1b72ae9751844df68">More...</a><br /></td></tr>
 <tr class="separator:a015c0e61580e9cf1b72ae9751844df68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e91cabef1beb70fac2c31804d1133a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a0e91cabef1beb70fac2c31804d1133a1">fetchEdges</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:a0e91cabef1beb70fac2c31804d1133a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the lines from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a0e91cabef1beb70fac2c31804d1133a1">More...</a><br /></td></tr>
+<tr class="memitem:a0e91cabef1beb70fac2c31804d1133a1"><td class="memItemLeft" align="right" valign="top"><a id="a0e91cabef1beb70fac2c31804d1133a1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a0e91cabef1beb70fac2c31804d1133a1">fetchEdges</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:a0e91cabef1beb70fac2c31804d1133a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the lines from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:a0e91cabef1beb70fac2c31804d1133a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc78d9c380370c35302444b879b2c9a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#adc78d9c380370c35302444b879b2c9a3">fetchFaces</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:adc78d9c380370c35302444b879b2c9a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the faces from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#adc78d9c380370c35302444b879b2c9a3">More...</a><br /></td></tr>
+<tr class="memitem:adc78d9c380370c35302444b879b2c9a3"><td class="memItemLeft" align="right" valign="top"><a id="adc78d9c380370c35302444b879b2c9a3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#adc78d9c380370c35302444b879b2c9a3">fetchFaces</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:adc78d9c380370c35302444b879b2c9a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the faces from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:adc78d9c380370c35302444b879b2c9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0c33c7a06e92fc4da9f4d15a5b447ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa0c33c7a06e92fc4da9f4d15a5b447ba">fetchPolyhedron</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:aa0c33c7a06e92fc4da9f4d15a5b447ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the polyhedra from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa0c33c7a06e92fc4da9f4d15a5b447ba">More...</a><br /></td></tr>
+<tr class="memitem:aa0c33c7a06e92fc4da9f4d15a5b447ba"><td class="memItemLeft" align="right" valign="top"><a id="aa0c33c7a06e92fc4da9f4d15a5b447ba"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa0c33c7a06e92fc4da9f4d15a5b447ba">fetchPolyhedron</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:aa0c33c7a06e92fc4da9f4d15a5b447ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the polyhedra from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:aa0c33c7a06e92fc4da9f4d15a5b447ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbeb774acac5f2f63059aa4d1b778562"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#adbeb774acac5f2f63059aa4d1b778562">fetchNormals</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:adbeb774acac5f2f63059aa4d1b778562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex normals from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#adbeb774acac5f2f63059aa4d1b778562">More...</a><br /></td></tr>
+<tr class="memitem:adbeb774acac5f2f63059aa4d1b778562"><td class="memItemLeft" align="right" valign="top"><a id="adbeb774acac5f2f63059aa4d1b778562"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#adbeb774acac5f2f63059aa4d1b778562">fetchNormals</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:adbeb774acac5f2f63059aa4d1b778562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex normals from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:adbeb774acac5f2f63059aa4d1b778562"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcead4d8442c09504783d497e200ac4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#abcead4d8442c09504783d497e200ac4a">fetchTangents</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:abcead4d8442c09504783d497e200ac4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex tangent vectors from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#abcead4d8442c09504783d497e200ac4a">More...</a><br /></td></tr>
+<tr class="memitem:abcead4d8442c09504783d497e200ac4a"><td class="memItemLeft" align="right" valign="top"><a id="abcead4d8442c09504783d497e200ac4a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#abcead4d8442c09504783d497e200ac4a">fetchTangents</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:abcead4d8442c09504783d497e200ac4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex tangent vectors from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:abcead4d8442c09504783d497e200ac4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaba5e6585d54ed47bffeff90ae9b7d95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aaba5e6585d54ed47bffeff90ae9b7d95">fetchBitangents</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:aaba5e6585d54ed47bffeff90ae9b7d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex bitangent vectors from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aaba5e6585d54ed47bffeff90ae9b7d95">More...</a><br /></td></tr>
+<tr class="memitem:aaba5e6585d54ed47bffeff90ae9b7d95"><td class="memItemLeft" align="right" valign="top"><a id="aaba5e6585d54ed47bffeff90ae9b7d95"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aaba5e6585d54ed47bffeff90ae9b7d95">fetchBitangents</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:aaba5e6585d54ed47bffeff90ae9b7d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex bitangent vectors from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:aaba5e6585d54ed47bffeff90ae9b7d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab50bdaa647338a54137c7ce33186379"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aab50bdaa647338a54137c7ce33186379">fetchTextureCoordinates</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:aab50bdaa647338a54137c7ce33186379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex texture coordinates from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aab50bdaa647338a54137c7ce33186379">More...</a><br /></td></tr>
+<tr class="memitem:aab50bdaa647338a54137c7ce33186379"><td class="memItemLeft" align="right" valign="top"><a id="aab50bdaa647338a54137c7ce33186379"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aab50bdaa647338a54137c7ce33186379">fetchTextureCoordinates</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:aab50bdaa647338a54137c7ce33186379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex texture coordinates from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:aab50bdaa647338a54137c7ce33186379"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ded2f744190df2500bc3fbac919e49d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a1ded2f744190df2500bc3fbac919e49d">fetchColors</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
-<tr class="memdesc:a1ded2f744190df2500bc3fbac919e49d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex colors from <code>mesh</code>.  <a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a1ded2f744190df2500bc3fbac919e49d">More...</a><br /></td></tr>
+<tr class="memitem:a1ded2f744190df2500bc3fbac919e49d"><td class="memItemLeft" align="right" valign="top"><a id="a1ded2f744190df2500bc3fbac919e49d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a1ded2f744190df2500bc3fbac919e49d">fetchColors</a> (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data) const</td></tr>
+<tr class="memdesc:a1ded2f744190df2500bc3fbac919e49d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill <code>data</code> with the vertex colors from <code>mesh</code>. <br /></td></tr>
 <tr class="separator:a1ded2f744190df2500bc3fbac919e49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_classRa_1_1Core_1_1Asset_1_1DataLoader"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Core_1_1Asset_1_1DataLoader')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">Ra::Core::Asset::DataLoader&lt; Core::Asset::GeometryData &gt;</a></td></tr>
-<tr class="memitem:a64e2a801c2efdc31b83683e8f69885fe inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a></td></tr>
-<tr class="separator:a64e2a801c2efdc31b83683e8f69885fe inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1DataLoader"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html">AssimpGeometryDataLoader</a> converts geometry data from the Assimp format to the Asset::GeometryData format. </p>
 
 <p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8hpp_source.html#l00026">26</a> of file <a class="el" href="AssimpGeometryDataLoader_8hpp_source.html">AssimpGeometryDataLoader.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5f41da5dd02e9914348c56b16389feca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f41da5dd02e9914348c56b16389feca">&#9670;&nbsp;</a></span>AssimpGeometryDataLoader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ra::IO::AssimpGeometryDataLoader::AssimpGeometryDataLoader </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filepath</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classbool.html">bool</a>&#160;</td>
-          <td class="paramname"><em>VERBOSE_MODE</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00019">19</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac4aea8ff57b978047124829e10100602"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4aea8ff57b978047124829e10100602">&#9670;&nbsp;</a></span>~AssimpGeometryDataLoader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ra::IO::AssimpGeometryDataLoader::~AssimpGeometryDataLoader </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aaba5e6585d54ed47bffeff90ae9b7d95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaba5e6585d54ed47bffeff90ae9b7d95">&#9670;&nbsp;</a></span>fetchBitangents()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::fetchBitangents </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the vertex bitangent vectors from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00231">231</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_aaba5e6585d54ed47bffeff90ae9b7d95_cgraph.svg" width="467" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a1ded2f744190df2500bc3fbac919e49d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ded2f744190df2500bc3fbac919e49d">&#9670;&nbsp;</a></span>fetchColors()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::fetchColors </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the vertex colors from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00253">253</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0e91cabef1beb70fac2c31804d1133a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e91cabef1beb70fac2c31804d1133a1">&#9670;&nbsp;</a></span>fetchEdges()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::fetchEdges </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the lines from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00184">184</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_a0e91cabef1beb70fac2c31804d1133a1_cgraph.svg" width="467" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="adc78d9c380370c35302444b879b2c9a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc78d9c380370c35302444b879b2c9a3">&#9670;&nbsp;</a></span>fetchFaces()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::fetchFaces </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the faces from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00194">194</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_adc78d9c380370c35302444b879b2c9a3_cgraph.svg" width="467" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a338d8b0b7ce312143ac262cb2cc97e69"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a338d8b0b7ce312143ac262cb2cc97e69">&#9670;&nbsp;</a></span>fetchName()</h2>
 
@@ -495,244 +238,12 @@ Additional Inherited Members</h2></td></tr>
 <p>Fill <code>data</code> with the name from <code>mesh</code>. </p><dl class="section note"><dt>Note</dt><dd>If the name is already in use, then appends as much "_" as needed. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00121">121</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_a338d8b0b7ce312143ac262cb2cc97e69_cgraph.svg" width="467" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="adbeb774acac5f2f63059aa4d1b778562"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbeb774acac5f2f63059aa4d1b778562">&#9670;&nbsp;</a></span>fetchNormals()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::fetchNormals </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the vertex normals from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00210">210</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_adbeb774acac5f2f63059aa4d1b778562_cgraph.svg" width="467" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="aa0c33c7a06e92fc4da9f4d15a5b447ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0c33c7a06e92fc4da9f4d15a5b447ba">&#9670;&nbsp;</a></span>fetchPolyhedron()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::fetchPolyhedron </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the polyhedra from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00204">204</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abcead4d8442c09504783d497e200ac4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcead4d8442c09504783d497e200ac4a">&#9670;&nbsp;</a></span>fetchTangents()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::fetchTangents </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the vertex tangent vectors from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00221">221</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_abcead4d8442c09504783d497e200ac4a_cgraph.svg" width="467" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="aab50bdaa647338a54137c7ce33186379"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab50bdaa647338a54137c7ce33186379">&#9670;&nbsp;</a></span>fetchTextureCoordinates()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::fetchTextureCoordinates </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the vertex texture coordinates from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00241">241</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_aab50bdaa647338a54137c7ce33186379_cgraph.svg" width="487" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a02ec7c18b9af17d19b0dcfd3a39c2ac8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02ec7c18b9af17d19b0dcfd3a39c2ac8">&#9670;&nbsp;</a></span>fetchType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::fetchType </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the GeometryType from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00132">132</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-9-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_a02ec7c18b9af17d19b0dcfd3a39c2ac8_cgraph.svg" width="467" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_a338d8b0b7ce312143ac262cb2cc97e69_cgraph.svg" width="467" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -777,340 +288,12 @@ Additional Inherited Members</h2></td></tr>
 <p>#pragma omp parallel for for ( int i = 0; i &lt; size; ++i ) { output[i] = assimpToCore( input[i] ); } } </p>
 
 <p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00173">173</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_a015c0e61580e9cf1b72ae9751844df68_cgraph.svg" width="467" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="aa6c1ada49b7dbf1ef90fa318c39699f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6c1ada49b7dbf1ef90fa318c39699f7">&#9670;&nbsp;</a></span>loadData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::loadData </td>
-          <td>(</td>
-          <td class="paramtype">const aiScene *&#160;</td>
-          <td class="paramname"><em>scene</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Convert all the geometry data from <code>scene</code> into <code>data</code>. </p>
-
-<p>Implements <a class="el" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a88cbbb91eb8688abd48139dc8a6bc3da">Ra::Core::Asset::DataLoader&lt; Core::Asset::GeometryData &gt;</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00025">25</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_aa6c1ada49b7dbf1ef90fa318c39699f7_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="ac6c762bcaad871e6771ee2ad4d6c777b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6c762bcaad871e6771ee2ad4d6c777b">&#9670;&nbsp;</a></span>loadGeometryData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::loadGeometryData </td>
-          <td>(</td>
-          <td class="paramtype">const aiScene *&#160;</td>
-          <td class="paramname"><em>scene</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with all the GeometryData from <code>scene</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00337">337</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_ac6c762bcaad871e6771ee2ad4d6c777b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a60bc6c1f8c09845639f9783a1c59a0fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60bc6c1f8c09845639f9783a1c59a0fc">&#9670;&nbsp;</a></span>loadMaterial()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::loadMaterial </td>
-          <td>(</td>
-          <td class="paramtype">const aiMaterial &amp;&#160;</td>
-          <td class="paramname"><em>material</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the Material data from <code>material</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00259">259</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_a60bc6c1f8c09845639f9783a1c59a0fc_cgraph.svg" width="467" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="ac2490e79d44ac73891d0495d8978e2c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2490e79d44ac73891d0495d8978e2c3">&#9670;&nbsp;</a></span>loadMeshAttrib()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::loadMeshAttrib </td>
-          <td>(</td>
-          <td class="paramtype">const aiMesh &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::set&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>usedNames</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the GeometryData from <code>mesh</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00065">65</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-14-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_ac2490e79d44ac73891d0495d8978e2c3_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a97efd0cc7bfcc4d7af4dcde8960e8e2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97efd0cc7bfcc4d7af4dcde8960e8e2d">&#9670;&nbsp;</a></span>loadMeshFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::IO::AssimpGeometryDataLoader::loadMeshFrame </td>
-          <td>(</td>
-          <td class="paramtype">const aiNode *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> &amp;&#160;</td>
-          <td class="paramname"><em>parentFrame</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::map&lt; <a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>, size_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>indexTable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fill <code>data</code> with the transformation data from <code>node</code> and <code>parentFrame</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00100">100</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-15-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_a97efd0cc7bfcc4d7af4dcde8960e8e2d_cgraph.svg" width="432" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a5d494bbdf71dd227648375b2c59d74a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d494bbdf71dd227648375b2c59d74a8">&#9670;&nbsp;</a></span>sceneGeometrySize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> Ra::IO::AssimpGeometryDataLoader::sceneGeometrySize </td>
-          <td>(</td>
-          <td class="paramtype">const aiScene *&#160;</td>
-          <td class="paramname"><em>scene</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Return the number of AssImp geometry data in the given scene. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00053">53</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac4a70c22b1d918ba74252a9d0becbafd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4a70c22b1d918ba74252a9d0becbafd">&#9670;&nbsp;</a></span>sceneHasGeometry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::IO::AssimpGeometryDataLoader::sceneHasGeometry </td>
-          <td>(</td>
-          <td class="paramtype">const aiScene *&#160;</td>
-          <td class="paramname"><em>scene</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Return true if the given scene has geometry data. </p>
-
-<p class="definition">Definition at line <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html#l00049">49</a> of file <a class="el" href="AssimpGeometryDataLoader_8cpp_source.html">AssimpGeometryDataLoader.cpp</a>.</p>
-<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-16-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_ac4a70c22b1d918ba74252a9d0becbafd_cgraph.svg" width="486" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1IO_1_1AssimpGeometryDataLoader_a015c0e61580e9cf1b72ae9751844df68_cgraph.svg" width="467" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1125,8 +308,8 @@ Additional Inherited Members</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1IO.html">IO</a></li><li class="navelem"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html">AssimpGeometryDataLoader</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:19 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>IO</b></li><li class="navelem"><a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html">AssimpGeometryDataLoader</a></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:09 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

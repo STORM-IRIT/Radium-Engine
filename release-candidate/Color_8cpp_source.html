@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,9 +96,9 @@ $(document).ready(function(){initNavTree('Color_8cpp_source.html',''); initResiz
 <div class="title">Color.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Color_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// from</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// from</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// https://github.com/sammycage/lunasvg/blob/7f82e941270aad040922798c210ce0e2c1eb58aa/source/parser.cpp</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Color_8hpp.html">Core/Utils/Color.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Color.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('Color_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Utils {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html#acdcc2ef1688c4a90b9699156215e03fc">   13</a></span>&#160;<span class="keyword">static</span> <span class="keyword">const</span> std::map&lt;std::string_view, uint32_t&gt; <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acdcc2ef1688c4a90b9699156215e03fc">s_colormap</a> = {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">static</span> <span class="keyword">const</span> std::map&lt;std::string_view, uint32_t&gt; s_colormap = {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    { <span class="stringliteral">&quot;aliceblue&quot;</span>, 0xF0F8FF },</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    { <span class="stringliteral">&quot;antiquewhite&quot;</span>, 0xFAEBD7 },</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    { <span class="stringliteral">&quot;aqua&quot;</span>, 0x00FFFF },</div>
@@ -258,9 +258,9 @@ $(document).ready(function(){initNavTree('Color_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    { <span class="stringliteral">&quot;yellow&quot;</span>, 0xFFFF00 },</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    { <span class="stringliteral">&quot;yellowgreen&quot;</span>, 0x9ACD32 } };</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html#a5b0c9e3a485d577f28384bdbd3104c1c">  163</a></span>&#160;uint32_t <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a5b0c9e3a485d577f28384bdbd3104c1c">getNamedColorCode</a>( std::string_view name ) {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keyword">auto</span> itr = <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acdcc2ef1688c4a90b9699156215e03fc">s_colormap</a>.find( name );</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">if</span> ( itr == <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acdcc2ef1688c4a90b9699156215e03fc">s_colormap</a>.end() ) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;uint32_t getNamedColorCode( std::string_view name ) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keyword">auto</span> itr = s_colormap.find( name );</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">if</span> ( itr == s_colormap.end() ) <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">return</span> itr-&gt;second;</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;} <span class="comment">// namespace Utils</span></div>
@@ -269,14 +269,11 @@ $(document).ready(function(){initNavTree('Color_8cpp_source.html',''); initResiz
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_a5b0c9e3a485d577f28384bdbd3104c1c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#a5b0c9e3a485d577f28384bdbd3104c1c">Ra::Core::Utils::getNamedColorCode</a></div><div class="ttdeci">uint32_t getNamedColorCode(std::string_view name)</div><div class="ttdef"><b>Definition:</b> <a href="Color_8cpp_source.html#l00163">Color.cpp:163</a></div></div>
-<div class="ttc" id="aColor_8hpp_html"><div class="ttname"><a href="Color_8hpp.html">Color.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_acdcc2ef1688c4a90b9699156215e03fc"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#acdcc2ef1688c4a90b9699156215e03fc">Ra::Core::Utils::s_colormap</a></div><div class="ttdeci">static const std::map&lt; std::string_view, uint32_t &gt; s_colormap</div><div class="ttdef"><b>Definition:</b> <a href="Color_8cpp_source.html#l00013">Color.cpp:13</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="Color_8cpp.html">Color.cpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><b>Color.cpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

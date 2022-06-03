@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['geometrytype_7605',['GeometryType',['../classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05',1,'Ra::Core::Asset::GeometryData']]],
-  ['gizmotype_7606',['GizmoType',['../classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055c',1,'Ra::Gui::GizmoManager']]]
+  ['lighttype_2928',['LightType',['../classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc',1,'Ra::Core::Asset::LightData::LightType()'],['../classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02',1,'Ra::Engine::Scene::Light::LightType()']]],
+  ['logentrytype_2929',['LogEntryType',['../classRa_1_1IO_1_1FileManager.html#a87ebdf961e743bc6630d96c1d0a5fba9',1,'Ra::IO::FileManager']]]
 ];

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,26 +96,26 @@ $(document).ready(function(){initNavTree('TimelineTimeScale_8hpp_source.html',''
 <div class="title">TimelineTimeScale.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="TimelineTimeScale_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;QFrame&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Gui.html">Ra::Gui</a> {</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Ra::Gui {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">class </span>TimelineScrollArea;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;}</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Gui.html">Ra::Gui</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Ra::Gui {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineTimeScale.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1TimelineTimeScale.html">TimelineTimeScale</a> : <span class="keyword">public</span> <a class="code" href="classQFrame.html">QFrame</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineTimeScale.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1TimelineTimeScale.html">TimelineTimeScale</a> : <span class="keyword">public</span> QFrame</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    Q_OBJECT</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1TimelineTimeScale.html#ac31c7de147891bba4a421c75f4bf9b7a">TimelineTimeScale</a>( QWidget* parent = <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1TimelineTimeScale.html">TimelineTimeScale</a>( QWidget* parent = <span class="keyword">nullptr</span> );</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineTimeScale.html#a4ebbeb34adeeadce19d9cc12005bd466">setScrollArea</a>( <a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html">TimelineScrollArea</a>* scrollArea );</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TimelineTimeScale.html#a254823f2b9c52dc33a607e71cf0df842">paintEvent</a>( QPaintEvent* event ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> paintEvent( QPaintEvent* event ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TimelineScrollArea.html">TimelineScrollArea</a>* m_scrollArea { <span class="keyword">nullptr</span> };</div>
@@ -124,18 +124,14 @@ $(document).ready(function(){initNavTree('TimelineTimeScale_8hpp_source.html',''
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace Ra::Gui</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassQFrame_html"><div class="ttname"><a href="classQFrame.html">QFrame</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Gui_html"><div class="ttname"><a href="namespaceRa_1_1Gui.html">Ra::Gui</a></div><div class="ttdef"><b>Definition:</b> <a href="AboutDialog_8cpp_source.html#l00007">AboutDialog.cpp:7</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineScrollArea_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineScrollArea.html">Ra::Gui::TimelineScrollArea</a></div><div class="ttdef"><b>Definition:</b> <a href="TimelineScrollArea_8hpp_source.html#l00015">TimelineScrollArea.hpp:15</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineTimeScale_html_ac31c7de147891bba4a421c75f4bf9b7a"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineTimeScale.html#ac31c7de147891bba4a421c75f4bf9b7a">Ra::Gui::TimelineTimeScale::TimelineTimeScale</a></div><div class="ttdeci">TimelineTimeScale(QWidget *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="TimelineTimeScale_8cpp_source.html#l00009">TimelineTimeScale.cpp:9</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineTimeScale_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineTimeScale.html">Ra::Gui::TimelineTimeScale</a></div><div class="ttdef"><b>Definition:</b> <a href="TimelineTimeScale_8hpp_source.html#l00015">TimelineTimeScale.hpp:15</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TimelineTimeScale_html_a4ebbeb34adeeadce19d9cc12005bd466"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineTimeScale.html#a4ebbeb34adeeadce19d9cc12005bd466">Ra::Gui::TimelineTimeScale::setScrollArea</a></div><div class="ttdeci">void setScrollArea(TimelineScrollArea *scrollArea)</div><div class="ttdoc">Set the TimelineScrollArea for which to display the scale.</div><div class="ttdef"><b>Definition:</b> <a href="TimelineTimeScale_8cpp_source.html#l00011">TimelineTimeScale.cpp:11</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TimelineTimeScale_html_a254823f2b9c52dc33a607e71cf0df842"><div class="ttname"><a href="classRa_1_1Gui_1_1TimelineTimeScale.html#a254823f2b9c52dc33a607e71cf0df842">Ra::Gui::TimelineTimeScale::paintEvent</a></div><div class="ttdeci">virtual void paintEvent(QPaintEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="TimelineTimeScale_8cpp_source.html#l00015">TimelineTimeScale.cpp:15</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><a class="el" href="TimelineTimeScale_8hpp.html">TimelineTimeScale.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><b>TimelineTimeScale.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

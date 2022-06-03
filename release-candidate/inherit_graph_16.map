@@ -1,9 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,305,89,331"/>
-<area shape="rect" id="node2" href="$structCLI_1_1detail_1_1is__readable__container_3_01T_00_01conditional__t_3_01false_00_01void__t_a11f17935a0aadb8dce82cbccb9f2c68.html" title=" " alt="" coords="137,5,348,105"/>
-<area shape="rect" id="node3" href="$structCLI_1_1detail_1_1is__wrapper_3_01T_00_01conditional__t_3_01false_00_01void__t_3_01typename64a0c6feb904f77c98810c843e4d2f1f.html" title=" " alt="" coords="141,129,344,200"/>
-<area shape="rect" id="node4" href="$structCLI_1_1detail_1_1pair__adaptor_3_01T_00_01conditional__t_3_01false_00_01void__t_3_01typenac7f3d35561ff46242630d08443185a90.html" title=" " alt="" coords="141,224,344,324"/>
-<area shape="rect" id="node5" href="$structCLI_1_1is__bool_3_01bool_01_4.html" title="Check to see if something is bool (true if actually a bool)" alt="" coords="165,349,320,375"/>
-<area shape="rect" id="node6" href="$structCLI_1_1is__shared__ptr_3_01const_01std_1_1shared__ptr_3_01T_01_4_01_4.html" title="Check to see if something is a shared pointer (True if really a shared pointer)" alt="" coords="169,399,317,455"/>
-<area shape="rect" id="node7" href="$structCLI_1_1is__shared__ptr_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html" title="Check to see if something is a shared pointer (True if really a shared pointer)" alt="" coords="149,480,336,521"/>
+<area shape="rect" id="node1" href="$classRa_1_1Core_1_1DualQuaternion.html" title=" " alt="" coords="5,5,192,32"/>
 </map>

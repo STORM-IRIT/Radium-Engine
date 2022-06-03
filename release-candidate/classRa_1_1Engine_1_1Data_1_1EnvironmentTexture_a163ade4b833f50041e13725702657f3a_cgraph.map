@@ -1,11 +1,8 @@
 <map id="Ra::Engine::Data::EnvironmentTexture::render" name="Ra::Engine::Data::EnvironmentTexture::render">
-<area shape="rect" id="node1" title="Render the envmap as a textured cube. This method does nothing if the envmap is not a skybox." alt="" coords="5,188,227,229"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a9dfb84794bbcd246d93413cfe64dcec0" title=" " alt="" coords="309,5,491,47"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="317,71,483,98"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a" title="Get the pointer on the active camera data." alt="" coords="275,123,525,164"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="310,188,490,229"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="309,253,491,295"/>
-<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="319,319,481,346"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a5e83b9459c30cfd045cf55482c0eb941" title="Update the OpenGL state of the envmap : texture, skybox and shaders if needed." alt="" coords="289,371,511,412"/>
-<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a817ed4e22a81e034776cc21e8cfc6b8b" title=" " alt="" coords="573,371,804,412"/>
+<area shape="rect" id="node1" title="Render the envmap as a textured cube. This method does nothing if the envmap is not a skybox." alt="" coords="5,104,227,145"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a" title="Get the pointer on the active camera data." alt="" coords="275,5,525,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="310,71,490,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="309,136,491,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a5e83b9459c30cfd045cf55482c0eb941" title="Update the OpenGL state of the envmap : texture, skybox and shaders if needed." alt="" coords="289,201,511,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a817ed4e22a81e034776cc21e8cfc6b8b" title=" " alt="" coords="573,201,804,243"/>
 </map>

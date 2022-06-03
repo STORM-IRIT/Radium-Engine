@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,9 +96,9 @@ $(document).ready(function(){initNavTree('TreeModel_8hpp_source.html',''); initR
 <div class="title">TreeModel.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="TreeModel_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGui_8hpp.html">Gui/RaGui.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Gui/RaGui.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
@@ -110,11 +110,11 @@ $(document).ready(function(){initNavTree('TreeModel_8hpp_source.html',''); initR
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>Gui {</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeItem.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeItem.html">   28</a></span>&#160;<span class="keyword">class </span>RA_GUI_API <a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeItem.html#af9d23b09870bdd989c194bdf4bdfb4ef">   31</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TreeItem.html#af9d23b09870bdd989c194bdf4bdfb4ef">TreeItem</a>() {}</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeItem.html#abd7bd7554e41ab15a12d88035a30e8bb">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Gui_1_1TreeItem.html#abd7bd7554e41ab15a12d88035a30e8bb">~TreeItem</a>() {}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a>() {}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a>() {}</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a>&amp; ) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a>&amp; ) = <span class="keyword">delete</span>;</div>
@@ -128,28 +128,28 @@ $(document).ready(function(){initNavTree('TreeModel_8hpp_source.html',''); initR
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">int</span> getIndexInParent() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeItem.html#affc576e291577adc8867b4f4e11544ce">   58</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1TreeItem.html#affc576e291577adc8867b4f4e11544ce">isChecked</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_checked; }</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeItem.html#a759654769c039301a51d8cecae7db630">   59</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TreeItem.html#a759654769c039301a51d8cecae7db630">setChecked</a>( <span class="keywordtype">bool</span> checked = <span class="keyword">true</span> ) { m_checked = checked; }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">bool</span> isChecked()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_checked; }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> setChecked( <span class="keywordtype">bool</span> checked = <span class="keyword">true</span> ) { m_checked = checked; }</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeItem.html#a08e551d60e06e477050bca13a50096ef">   65</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a>* m_parent { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TreeItem.html">TreeItem</a>* m_parent { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeItem.html#ae24b2ab2c8007d16a9b1f116db996890">   68</a></span>&#160;    std::vector&lt;std::unique_ptr&lt;TreeItem&gt;&gt; <a class="code" href="classRa_1_1Gui_1_1TreeItem.html#ae24b2ab2c8007d16a9b1f116db996890">m_children</a>;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">bool</span> m_checked { <span class="keyword">true</span> };</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;};</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeModel.html">   76</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1TreeModel.html">TreeModel</a> : <span class="keyword">public</span> <a class="code" href="classQAbstractItemModel.html">QAbstractItemModel</a></div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeModel.html">   76</a></span>&#160;<span class="keyword">class </span>RA_GUI_API <a class="code" href="classRa_1_1Gui_1_1TreeModel.html">TreeModel</a> : <span class="keyword">public</span> QAbstractItemModel</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    Q_OBJECT</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeModel.html#a3d5ee0d1658837c54a1ec9379edce84f">   81</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TreeModel.html#a3d5ee0d1658837c54a1ec9379edce84f">TreeModel</a>( <a class="code" href="classQObject.html">QObject</a>* parent = <span class="keyword">nullptr</span> ) : <a class="code" href="classQAbstractItemModel.html">QAbstractItemModel</a>( parent ) {}</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TreeModel.html">TreeModel</a>( QObject* parent = <span class="keyword">nullptr</span> ) : QAbstractItemModel( parent ) {}</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">int</span> rowCount( <span class="keyword">const</span> QModelIndex&amp; parent = QModelIndex() ) <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
 <div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TreeModel.html#a7a27dbc11ff97f4ba58714e0f1c98b75">   97</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classRa_1_1Gui_1_1TreeModel.html#a7a27dbc11ff97f4ba58714e0f1c98b75">columnCount</a>( <span class="keyword">const</span> QModelIndex&amp; parent = QModelIndex() )<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a>( parent );</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        CORE_UNUSED( parent );</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
@@ -196,27 +196,17 @@ $(document).ready(function(){initNavTree('TreeModel_8hpp_source.html',''); initR
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassQObject_html"><div class="ttname"><a href="classQObject.html">QObject</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TreeItem_html_af9d23b09870bdd989c194bdf4bdfb4ef"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeItem.html#af9d23b09870bdd989c194bdf4bdfb4ef">Ra::Gui::TreeItem::TreeItem</a></div><div class="ttdeci">TreeItem()</div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00031">TreeModel.hpp:31</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html"><div class="ttname"><a href="RaGui_8hpp.html">RaGui.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TreeModel_html_a7a27dbc11ff97f4ba58714e0f1c98b75"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeModel.html#a7a27dbc11ff97f4ba58714e0f1c98b75">Ra::Gui::TreeModel::columnCount</a></div><div class="ttdeci">int columnCount(const QModelIndex &amp;parent=QModelIndex()) const override</div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00097">TreeModel.hpp:97</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TreeModel_html_a3d5ee0d1658837c54a1ec9379edce84f"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeModel.html#a3d5ee0d1658837c54a1ec9379edce84f">Ra::Gui::TreeModel::TreeModel</a></div><div class="ttdeci">TreeModel(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00081">TreeModel.hpp:81</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TreeModel_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00076">TreeModel.hpp:76</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_acc27193ddd9e038bd500a917835f869e"><div class="ttname"><a href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a></div><div class="ttdeci">#define CORE_UNUSED(X)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00145">CoreMacros.hpp:145</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TreeItem_html_abd7bd7554e41ab15a12d88035a30e8bb"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeItem.html#abd7bd7554e41ab15a12d88035a30e8bb">Ra::Gui::TreeItem::~TreeItem</a></div><div class="ttdeci">virtual ~TreeItem()</div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00032">TreeModel.hpp:32</a></div></div>
-<div class="ttc" id="aclassQAbstractItemModel_html"><div class="ttname"><a href="classQAbstractItemModel.html">QAbstractItemModel</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TreeItem_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeItem.html">Ra::Gui::TreeItem</a></div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00028">TreeModel.hpp:28</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TreeModel_html_a8d0cc46e99cdc90558231ceb1f72be57"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeModel.html#a8d0cc46e99cdc90558231ceb1f72be57">Ra::Gui::TreeModel::m_rootItem</a></div><div class="ttdeci">std::unique_ptr&lt; TreeItem &gt; m_rootItem</div><div class="ttdoc">Root of the tree.</div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00181">TreeModel.hpp:181</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TreeItem_html_affc576e291577adc8867b4f4e11544ce"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeItem.html#affc576e291577adc8867b4f4e11544ce">Ra::Gui::TreeItem::isChecked</a></div><div class="ttdeci">bool isChecked() const</div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00058">TreeModel.hpp:58</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TreeItem_html_a759654769c039301a51d8cecae7db630"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeItem.html#a759654769c039301a51d8cecae7db630">Ra::Gui::TreeItem::setChecked</a></div><div class="ttdeci">void setChecked(bool checked=true)</div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00059">TreeModel.hpp:59</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TreeItem_html_ae24b2ab2c8007d16a9b1f116db996890"><div class="ttname"><a href="classRa_1_1Gui_1_1TreeItem.html#ae24b2ab2c8007d16a9b1f116db996890">Ra::Gui::TreeItem::m_children</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; TreeItem &gt; &gt; m_children</div><div class="ttdoc">Children of item in the tree.</div><div class="ttdef"><b>Definition:</b> <a href="TreeModel_8hpp_source.html#l00068">TreeModel.hpp:68</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_f30395c19e34f6b3913797f7dee7a7f3.html">TreeModel</a></li><li class="navelem"><a class="el" href="TreeModel_8hpp.html">TreeModel.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_f30395c19e34f6b3913797f7dee7a7f3.html">TreeModel</a></li><li class="navelem"><b>TreeModel.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

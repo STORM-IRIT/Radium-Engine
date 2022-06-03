@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,9 +96,9 @@ $(document).ready(function(){initNavTree('Pose_8hpp_source.html',''); initResiza
 <div class="title">Pose.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Pose_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AlignedStdVector_8hpp.html">Core/Containers/AlignedStdVector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/AlignedStdVector.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Core {</div>
@@ -107,16 +107,16 @@ $(document).ready(function(){initNavTree('Pose_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * The Pose is represented just as a vector of Transforms.</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">   16</a></span>&#160;<span class="keyword">using</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Pose</a> = <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Eigen::Transform&lt;Scalar, 3, Eigen::Affine&gt;</a>&gt;;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">using</span> Pose = AlignedStdVector&lt;Eigen::Transform&lt;Scalar, 3, Eigen::Affine&gt;&gt;;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// Typedef for code readability purposes only.</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#abae9cd5d9ecaa84d5d8a24e4a127943a">   19</a></span>&#160;<span class="keyword">using</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">RestPose</a> = <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#aac25bf2c8ceeed957deccee3d89d846d">   20</a></span>&#160;<span class="keyword">using</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">RefPose</a>  = <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#abae9cd5d9ecaa84d5d8a24e4a127943a">RestPose</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">using</span> RestPose = Pose;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">using</span> RefPose  = RestPose;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#a38e3ab202ade34f8f7cbd8c657049922">   22</a></span>&#160;<span class="keyword">using</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">LocalPose</a> = <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#a50cfe29ba4c88079f54f67627befb52d">   23</a></span>&#160;<span class="keyword">using</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">ModelPose</a> = <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">using</span> LocalPose = Pose;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using</span> ModelPose = Pose;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Animation.html#affe0bf876395bf39e177d5484441a139">   25</a></span>&#160;<span class="keyword">using</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">RelativePose</a> = <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Pose</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">using</span> RelativePose = Pose;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace Animation</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace Core</span></div>
@@ -124,15 +124,11 @@ $(document).ready(function(){initNavTree('Pose_8hpp_source.html',''); initResiza
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aAlignedStdVector_8hpp_html"><div class="ttname"><a href="AlignedStdVector_8hpp.html">AlignedStdVector.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_abae9cd5d9ecaa84d5d8a24e4a127943a"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#abae9cd5d9ecaa84d5d8a24e4a127943a">Ra::Core::Animation::RestPose</a></div><div class="ttdeci">Pose RestPose</div><div class="ttdef"><b>Definition:</b> <a href="Pose_8hpp_source.html#l00019">Pose.hpp:19</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a9d0610a873baebcd700af02ac834fa38"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a9d0610a873baebcd700af02ac834fa38">Ra::Core::Animation::Pose</a></div><div class="ttdeci">AlignedStdVector&lt; Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; &gt; Pose</div><div class="ttdef"><b>Definition:</b> <a href="Pose_8hpp_source.html#l00016">Pose.hpp:16</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><a class="el" href="Pose_8hpp.html">Pose.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:15 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><b>Pose.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('WindowQt_8hpp_source.html',''); initRe
 <div class="title">WindowQt.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="WindowQt_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// This file si picked and slightly adapted from</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// This file si picked and slightly adapted from</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// globjects/source/examples/qtexample/WindowQt.h</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// so that update in globjects is easy</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Radium Viewer derive this class</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGui_8hpp.html">Gui/RaGui.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Gui/RaGui.hpp&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;QScopedPointer&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;QWindow&gt;</span></div>
@@ -117,10 +117,10 @@ $(document).ready(function(){initNavTree('WindowQt_8hpp_source.html',''); initRe
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>Gui {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html">WindowQt</a> : <span class="keyword">public</span> <a class="code" href="classQWindow.html">QWindow</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html">   27</a></span>&#160;<span class="keyword">class </span>RA_GUI_API <a class="code" href="classRa_1_1Gui_1_1WindowQt.html">WindowQt</a> : <span class="keyword">public</span> QWindow</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">ScopedGLContext</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">class </span>ScopedGLContext;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html">WindowQt</a>( QScreen* screen );</div>
@@ -138,14 +138,14 @@ $(document).ready(function(){initNavTree('WindowQt_8hpp_source.html',''); initRe
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> doneCurrent();</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">ScopedGLContext</a> activateScopedContext();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">inline</span> ScopedGLContext activateScopedContext();</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    QOpenGLContext* context();</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">// note when updating from globjets</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment">// updateGL done by base app rendering loop</span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5">   89</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5">isOpenGlInitialized</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_glInitialized.load(); }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">bool</span> isOpenGlInitialized()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_glInitialized.load(); }</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">public</span> slots:</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> cleanupGL();</div>
@@ -153,10 +153,10 @@ $(document).ready(function(){initNavTree('WindowQt_8hpp_source.html',''); initRe
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">// OpenglContext used with this widget</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">   98</a></span>&#160;    std::unique_ptr&lt;QOpenGLContext&gt; <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">m_context</a>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    std::unique_ptr&lt;QOpenGLContext&gt; m_context;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#af022c0986f1c5c62c5341518c29c08e0">  100</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#af022c0986f1c5c62c5341518c29c08e0">m_updatePending</a>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">  101</a></span>&#160;    std::atomic_bool <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">m_glInitialized</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">bool</span> m_updatePending;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    std::atomic_bool m_glInitialized;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">void</span> initialize();</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> resizeInternal( QResizeEvent* event );</div>
@@ -183,25 +183,16 @@ $(document).ready(function(){initNavTree('WindowQt_8hpp_source.html',''); initRe
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace Gui</span></div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="WindowQt_8inl.html">WindowQt.inl</a>&quot;</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#include &quot;WindowQt.inl&quot;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassQWindow_html"><div class="ttname"><a href="classQWindow.html">QWindow</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html"><div class="ttname"><a href="RaGui_8hpp.html">RaGui.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html">Ra::Gui::WindowQt</a></div><div class="ttdoc">Base class for OpenGL widgets, compatble with Qt and globjects/glbindings.</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00027">WindowQt.hpp:27</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext_html"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt_1_1ScopedGLContext.html">Ra::Gui::WindowQt::ScopedGLContext</a></div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8inl_source.html#l00007">WindowQt.inl:7</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_af022c0986f1c5c62c5341518c29c08e0"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#af022c0986f1c5c62c5341518c29c08e0">Ra::Gui::WindowQt::m_updatePending</a></div><div class="ttdeci">bool m_updatePending</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00100">WindowQt.hpp:100</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a5829f24c3ea2936025df81c65d7e4854"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">Ra::Gui::WindowQt::m_glInitialized</a></div><div class="ttdeci">std::atomic_bool m_glInitialized</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00101">WindowQt.hpp:101</a></div></div>
-<div class="ttc" id="aWindowQt_8inl_html"><div class="ttname"><a href="WindowQt_8inl.html">WindowQt.inl</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a2e0925fd8de20599b9f604043ecea8b5"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5">Ra::Gui::WindowQt::isOpenGlInitialized</a></div><div class="ttdeci">bool isOpenGlInitialized() const</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00089">WindowQt.hpp:89</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a491aec3ef3823063794a0412ff9673df"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">Ra::Gui::WindowQt::m_context</a></div><div class="ttdeci">std::unique_ptr&lt; QOpenGLContext &gt; m_context</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00098">WindowQt.hpp:98</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="WindowQt_8hpp.html">WindowQt.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>WindowQt.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

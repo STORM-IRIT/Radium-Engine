@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('OpenGL_8hpp_source.html',''); initResi
 <div class="title">OpenGL.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="OpenGL_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;glbinding/gl45core/gl.h&gt;</span></div>
@@ -115,14 +115,14 @@ $(document).ready(function(){initNavTree('OpenGL_8hpp_source.html',''); initResi
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// use always float on the OpenGL side, since double have some unresolved func with globjects.</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// maybe fix this to allow GL_DOUBLE ? in this change data conversion in color or mesh attrib gpu</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">// data transfer.</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a7115ab24bb95f1fdca73face844bbec9">   25</a></span>&#160;<span class="preprocessor">#define GL_SCALAR GL_FLOAT</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a2a4c53f44d6b572da82674b892ef967a">   26</a></span>&#160;<span class="preprocessor">#define GL_SCALAR_PLAIN float</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define GL_SCALAR GL_FLOAT</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#define GL_SCALAR_PLAIN float</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a4535d2fd17ceb415ebb19b2824560e14">   29</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="OpenGL_8hpp.html#a4535d2fd17ceb415ebb19b2824560e14">checkOpenGLContext</a>() {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> checkOpenGLContext() {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> glGetString( gl::GL_VERSION ) != <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a9fdaf775301ae8cb9b8407e9f16a65b1">   34</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="OpenGL_8hpp.html#a9fdaf775301ae8cb9b8407e9f16a65b1">glErrorString</a>( gl::GLenum err ) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* glErrorString( gl::GLenum err ) {</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">using namespace </span>gl45core;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">using namespace </span>gl45ext;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">using namespace </span>gl;</div>
@@ -160,8 +160,8 @@ $(document).ready(function(){initNavTree('OpenGL_8hpp_source.html',''); initResi
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#ifdef _DEBUG</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#    include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#    include &lt;<a class="code" href="StackTrace_8hpp.html">Core/Utils/StackTrace.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#    include &lt;Core/Utils/Log.hpp&gt;</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#    include &lt;Core/Utils/StackTrace.hpp&gt;</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#    define GL_ASSERT( x )                                                                       \</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">        x;                                                                                       \</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">        {                                                                                        \</span></div>
@@ -193,24 +193,20 @@ $(document).ready(function(){initNavTree('OpenGL_8hpp_source.html',''); initResi
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#    define glFlushError() glGetError()</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#else // Release version ignores the checks and errors.</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a81e6062268dd32422a0bbf8da9964562">  107</a></span>&#160;<span class="preprocessor">#    define GL_ASSERT( x ) x</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a56aaa83bc346bbef34e231c43cb3b443">  108</a></span>&#160;<span class="preprocessor">#    define GL_CHECK_ERROR \</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#    define GL_ASSERT( x ) x</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#    define GL_CHECK_ERROR \</span></div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">        {}</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="OpenGL_8hpp.html#a97007bb0a091dea04c918017274427e5">  110</a></span>&#160;<span class="preprocessor">#    define glFlushError() \</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#    define glFlushError() \</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">        {}</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#endif // _DEBUG</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aOpenGL_8hpp_html_a9fdaf775301ae8cb9b8407e9f16a65b1"><div class="ttname"><a href="OpenGL_8hpp.html#a9fdaf775301ae8cb9b8407e9f16a65b1">glErrorString</a></div><div class="ttdeci">const char * glErrorString(gl::GLenum err)</div><div class="ttdoc">Gets the openGL error string (emulates gluErrorString())</div><div class="ttdef"><b>Definition:</b> <a href="OpenGL_8hpp_source.html#l00034">OpenGL.hpp:34</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aOpenGL_8hpp_html_a4535d2fd17ceb415ebb19b2824560e14"><div class="ttname"><a href="OpenGL_8hpp.html#a4535d2fd17ceb415ebb19b2824560e14">checkOpenGLContext</a></div><div class="ttdeci">bool checkOpenGLContext()</div><div class="ttdoc">Checks that an openGLContext is available (mostly for debug checks and asserts).</div><div class="ttdef"><b>Definition:</b> <a href="OpenGL_8hpp_source.html#l00029">OpenGL.hpp:29</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="aStackTrace_8hpp_html"><div class="ttname"><a href="StackTrace_8hpp.html">StackTrace.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="OpenGL_8hpp.html">OpenGL.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><b>OpenGL.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

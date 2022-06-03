@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('RadiumPluginInterface_8hpp_source.html
 <div class="title">RadiumPluginInterface.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="RadiumPluginInterface_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('RadiumPluginInterface_8hpp_source.html
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QtPlugin&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="PluginContext_8hpp.html">PluginBase/PluginContext.hpp</a>&gt;</span> <span class="comment">// do not use forward declaration to ease usage in Plugin</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;PluginBase/PluginContext.hpp&gt;</span> <span class="comment">// do not use forward declaration to ease usage in Plugin</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>QWidget;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>QMenu;</div>
@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('RadiumPluginInterface_8hpp_source.html
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#ad8ab2898d0e4c4da7fdf90abd2a14c34">   76</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#ad8ab2898d0e4c4da7fdf90abd2a14c34">~RadiumPluginInterface</a>() {}</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">RadiumPluginInterface</a>() {}</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a2110ad3a554613113b415cf3f7ee9db4">registerPlugin</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Plugins_1_1Context.html">Context</a>&amp; context ) = 0;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
@@ -164,12 +164,11 @@ $(document).ready(function(){initNavTree('RadiumPluginInterface_8hpp_source.html
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;} <span class="comment">// namespace Plugins</span></div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="RadiumPluginInterface_8hpp.html#a3a2a8a56417f0d2ef3b39050e3275453">  196</a></span>&#160;<span class="preprocessor">#define RadiumPluginInterface_IID &quot;RadiumEngine.PluginInterface&quot;</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;Q_DECLARE_INTERFACE( <a class="code" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">Ra::Plugins::RadiumPluginInterface</a>, <a class="code" href="RadiumPluginInterface_8hpp.html#a3a2a8a56417f0d2ef3b39050e3275453">RadiumPluginInterface_IID</a> )</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">#define RadiumPluginInterface_IID &quot;RadiumEngine.PluginInterface&quot;</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;Q_DECLARE_INTERFACE( <a class="code" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">Ra::Plugins::RadiumPluginInterface</a>, RadiumPluginInterface_IID )</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_a6feecf052a9c12e6f85b07e3eaaf0a9a"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a6feecf052a9c12e6f85b07e3eaaf0a9a">Ra::Plugins::RadiumPluginInterface::doAddROpenGLInitializer</a></div><div class="ttdeci">virtual bool doAddROpenGLInitializer()</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00191">RadiumPluginInterface.hpp:191</a></div></div>
-<div class="ttc" id="aRadiumPluginInterface_8hpp_html_a3a2a8a56417f0d2ef3b39050e3275453"><div class="ttname"><a href="RadiumPluginInterface_8hpp.html#a3a2a8a56417f0d2ef3b39050e3275453">RadiumPluginInterface_IID</a></div><div class="ttdeci">#define RadiumPluginInterface_IID</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00196">RadiumPluginInterface.hpp:196</a></div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_a3fe610032c1dbb240e179b139d00624f"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a3fe610032c1dbb240e179b139d00624f">Ra::Plugins::RadiumPluginInterface::addFileLoaders</a></div><div class="ttdeci">virtual void addFileLoaders(std::vector&lt; std::shared_ptr&lt; Core::Asset::FileLoaderInterface &gt;&gt; *)</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00162">RadiumPluginInterface.hpp:162</a></div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_a2110ad3a554613113b415cf3f7ee9db4"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a2110ad3a554613113b415cf3f7ee9db4">Ra::Plugins::RadiumPluginInterface::registerPlugin</a></div><div class="ttdeci">virtual void registerPlugin(const Context &amp;context)=0</div><div class="ttdoc">Pass arguments for plugin initialization. This method must create and register all the services that ...</div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
@@ -185,13 +184,11 @@ $(document).ready(function(){initNavTree('RadiumPluginInterface_8hpp_source.html
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_a4f25e725a265ba2d82ce3972acf64185"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a4f25e725a265ba2d82ce3972acf64185">Ra::Plugins::RadiumPluginInterface::addRenderers</a></div><div class="ttdeci">virtual void addRenderers(std::vector&lt; std::shared_ptr&lt; Ra::Engine::Rendering::Renderer &gt;&gt; *)</div><div class="ttdoc">addRenderers</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00149">RadiumPluginInterface.hpp:149</a></div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_ac67c90cbc774815037521ec11b9fdbc5"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#ac67c90cbc774815037521ec11b9fdbc5">Ra::Plugins::RadiumPluginInterface::doAddAction</a></div><div class="ttdeci">virtual bool doAddAction(int &amp;nb)=0</div><div class="ttdoc">Tells wether the plugin wants to add actions or not. If it does, getAction() will be called for each ...</div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_ad6ba57281f8237263a2c5e1b718a4689"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#ad6ba57281f8237263a2c5e1b718a4689">Ra::Plugins::RadiumPluginInterface::doAddRenderer</a></div><div class="ttdeci">virtual bool doAddRenderer()</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00139">RadiumPluginInterface.hpp:139</a></div></div>
-<div class="ttc" id="aPluginContext_8hpp_html"><div class="ttname"><a href="PluginContext_8hpp.html">PluginContext.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_ad8ab2898d0e4c4da7fdf90abd2a14c34"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#ad8ab2898d0e4c4da7fdf90abd2a14c34">Ra::Plugins::RadiumPluginInterface::~RadiumPluginInterface</a></div><div class="ttdeci">virtual ~RadiumPluginInterface()</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00076">RadiumPluginInterface.hpp:76</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1b07f77798358fd74e92420363fd4633.html">PluginBase</a></li><li class="navelem"><a class="el" href="RadiumPluginInterface_8hpp.html">RadiumPluginInterface.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1b07f77798358fd74e92420363fd4633.html">PluginBase</a></li><li class="navelem"><b>RadiumPluginInterface.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

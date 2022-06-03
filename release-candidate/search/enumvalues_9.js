@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['join_7700',['Join',['../namespaceCLI.html#a991a3264d3459575fc7e83eb54d73d2baa286d9991c6a547ae25a5f5216164b8f',1,'CLI']]]
+  ['open_5funiform_2959',['OPEN_UNIFORM',['../classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596',1,'Ra::Core::Geometry::Spline']]]
 ];

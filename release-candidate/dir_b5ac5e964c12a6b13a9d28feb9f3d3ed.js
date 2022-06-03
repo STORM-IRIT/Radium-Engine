@@ -10,13 +10,8 @@ var dir_b5ac5e964c12a6b13a9d28feb9f3d3ed =
     [ "TreeModel", "dir_f30395c19e34f6b3913797f7dee7a7f3.html", "dir_f30395c19e34f6b3913797f7dee7a7f3" ],
     [ "Utils", "dir_53dbd7b5b1f80ee648ea4591020754f4.html", "dir_53dbd7b5b1f80ee648ea4591020754f4" ],
     [ "Viewer", "dir_b04feb2291820e8d3d098807c21e4559.html", "dir_b04feb2291820e8d3d098807c21e4559" ],
-    [ "BaseApplication.cpp", "BaseApplication_8cpp.html", "BaseApplication_8cpp" ],
-    [ "BaseApplication.hpp", "BaseApplication_8hpp.html", [
-      [ "BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html", "classRa_1_1Gui_1_1BaseApplication" ],
-      [ "WindowFactory", "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html", "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory" ]
-    ] ],
-    [ "MainWindowInterface.hpp", "MainWindowInterface_8hpp.html", [
-      [ "MainWindowInterface", "classRa_1_1Gui_1_1MainWindowInterface.html", "classRa_1_1Gui_1_1MainWindowInterface" ]
-    ] ],
-    [ "RaGui.hpp", "RaGui_8hpp.html", "RaGui_8hpp" ]
+    [ "BaseApplication.cpp", "BaseApplication_8cpp_source.html", null ],
+    [ "BaseApplication.hpp", "BaseApplication_8hpp_source.html", null ],
+    [ "MainWindowInterface.hpp", "MainWindowInterface_8hpp_source.html", null ],
+    [ "RaGui.hpp", "RaGui_8hpp_source.html", null ]
 ];

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,9 +96,9 @@ $(document).ready(function(){initNavTree('StdUtils_8hpp_source.html',''); initRe
 <div class="title">StdUtils.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="StdUtils_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
@@ -106,16 +106,16 @@ $(document).ready(function(){initNavTree('StdUtils_8hpp_source.html',''); initRe
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Utils {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html#a30e35f0f7a756d55c245268805e592d8">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a30e35f0f7a756d55c245268805e592d8">hash_combine</a>( std::size_t&amp; seed, <span class="keyword">const</span> T&amp; key ) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> hash_combine( std::size_t&amp; seed, <span class="keyword">const</span> T&amp; key ) {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    std::hash&lt;T&gt; hasher;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    seed ^= hasher( key ) + 0x9e3779b9 + ( seed &lt;&lt; 6 ) + ( seed &gt;&gt; 2 );</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html#a506ead42f4a389109add354976630390">   23</a></span>&#160;<span class="keyword">inline</span> std::size_t <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a506ead42f4a389109add354976630390">hash</a>( <span class="keyword">const</span> std::pair&lt;T1, T2&gt;&amp; p ) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">inline</span> std::size_t hash( <span class="keyword">const</span> std::pair&lt;T1, T2&gt;&amp; p ) {</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    std::size_t result( 0 );</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a30e35f0f7a756d55c245268805e592d8">hash_combine</a>( result, p.first );</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a30e35f0f7a756d55c245268805e592d8">hash_combine</a>( result, p.second );</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    hash_combine( result, p.first );</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    hash_combine( result, p.second );</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">return</span> result;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace Utils</span></div>
@@ -124,14 +124,11 @@ $(document).ready(function(){initNavTree('StdUtils_8hpp_source.html',''); initRe
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_a30e35f0f7a756d55c245268805e592d8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#a30e35f0f7a756d55c245268805e592d8">Ra::Core::Utils::hash_combine</a></div><div class="ttdeci">void hash_combine(std::size_t &amp;seed, const T &amp;key)</div><div class="ttdef"><b>Definition:</b> <a href="StdUtils_8hpp_source.html#l00016">StdUtils.hpp:16</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_a506ead42f4a389109add354976630390"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#a506ead42f4a389109add354976630390">Ra::Core::Utils::hash</a></div><div class="ttdeci">std::size_t hash(const std::pair&lt; T1, T2 &gt; &amp;p)</div><div class="ttdoc">Hashes a std::pair of items.</div><div class="ttdef"><b>Definition:</b> <a href="StdUtils_8hpp_source.html#l00023">StdUtils.hpp:23</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="StdUtils_8hpp.html">StdUtils.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><b>StdUtils.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:07 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

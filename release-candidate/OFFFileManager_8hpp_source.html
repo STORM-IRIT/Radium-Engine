@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,16 +96,16 @@ $(document).ready(function(){initNavTree('OFFFileManager_8hpp_source.html',''); 
 <div class="title">OFFFileManager.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="OFFFileManager_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TriangleMesh_8hpp.html">Core/Geometry/TriangleMesh.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaIO_8hpp.html">IO/RaIO.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="FileManager_8hpp.html">IO/deprecated/FileManager.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/TriangleMesh.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;IO/RaIO.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;IO/deprecated/FileManager.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>IO {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1OFFFileManager.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaIO_8hpp.html#ae6f06bdce6dc491b76bf7374fae10bad">RA_IO_API</a> <a class="code" href="classRa_1_1IO_1_1OFFFileManager.html">OFFFileManager</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1IO_1_1FileManager.html">FileManager</a>&lt;Core::Geometry::TriangleMesh&gt;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1OFFFileManager.html">   18</a></span>&#160;<span class="keyword">class </span>RA_IO_API <a class="code" href="classRa_1_1IO_1_1OFFFileManager.html">OFFFileManager</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1IO_1_1FileManager.html">FileManager</a>&lt;Core::Geometry::TriangleMesh&gt;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="classRa_1_1IO_1_1OFFFileManager.html">OFFFileManager</a>();</div>
@@ -116,27 +116,22 @@ $(document).ready(function(){initNavTree('OFFFileManager_8hpp_source.html',''); 
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::string header() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    std::string fileExtension() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> importData( std::istream&amp; file, <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Core::Geometry::TriangleMesh</a>&amp; data ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">bool</span> exportData( std::ostream&amp; file, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Core::Geometry::TriangleMesh</a>&amp; data ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> importData( std::istream&amp; file, Core::Geometry::TriangleMesh&amp; data ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">bool</span> exportData( std::ostream&amp; file, <span class="keyword">const</span> Core::Geometry::TriangleMesh&amp; data ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace IO</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aTriangleMesh_8hpp_html"><div class="ttname"><a href="TriangleMesh_8hpp.html">TriangleMesh.hpp</a></div></div>
-<div class="ttc" id="aRaIO_8hpp_html"><div class="ttname"><a href="RaIO_8hpp.html">RaIO.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TriangleMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00512">IndexedGeometry.hpp:512</a></div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1FileManager_html"><div class="ttname"><a href="classRa_1_1IO_1_1FileManager.html">Ra::IO::FileManager</a></div><div class="ttdef"><b>Definition:</b> <a href="FileManager_8hpp_source.html#l00018">FileManager.hpp:18</a></div></div>
-<div class="ttc" id="aRaIO_8hpp_html_ae6f06bdce6dc491b76bf7374fae10bad"><div class="ttname"><a href="RaIO_8hpp.html#ae6f06bdce6dc491b76bf7374fae10bad">RA_IO_API</a></div><div class="ttdeci">#define RA_IO_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaIO_8hpp_source.html#l00010">RaIO.hpp:10</a></div></div>
 <div class="ttc" id="aclassRa_1_1IO_1_1OFFFileManager_html"><div class="ttname"><a href="classRa_1_1IO_1_1OFFFileManager.html">Ra::IO::OFFFileManager</a></div><div class="ttdef"><b>Definition:</b> <a href="OFFFileManager_8hpp_source.html#l00018">OFFFileManager.hpp:18</a></div></div>
-<div class="ttc" id="aFileManager_8hpp_html"><div class="ttname"><a href="FileManager_8hpp.html">FileManager.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_01a8c2f0fadc2dca82cf84211ec91544.html">deprecated</a></li><li class="navelem"><a class="el" href="OFFFileManager_8hpp.html">OFFFileManager.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_01a8c2f0fadc2dca82cf84211ec91544.html">deprecated</a></li><li class="navelem"><b>OFFFileManager.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

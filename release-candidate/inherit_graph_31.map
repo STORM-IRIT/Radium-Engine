@@ -1,27 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title="STL class." alt="" coords="5,272,120,299"/>
-<area shape="rect" id="node2" title="STL class." alt="" coords="168,272,307,299"/>
-<area shape="rect" id="node3" href="$classCLI_1_1Error.html" title="All errors derive from this one." alt="" coords="355,272,436,299"/>
-<area shape="rect" id="node4" href="$classCLI_1_1ConstructionError.html" title="Construction errors (not in parsing)" alt="" coords="484,81,647,108"/>
-<area shape="rect" id="node8" href="$classCLI_1_1OptionNotFound.html" title="Thrown when counting a non&#45;existent option." alt="" coords="488,272,643,299"/>
-<area shape="rect" id="node9" href="$classCLI_1_1ParseError.html" title="Anything that can error in Parse." alt="" coords="507,436,623,463"/>
-<area shape="rect" id="node5" href="$classCLI_1_1BadNameString.html" title="Thrown on construction of a bad name." alt="" coords="713,5,865,32"/>
-<area shape="rect" id="node6" href="$classCLI_1_1IncorrectConstruction.html" title="Thrown when an option is set to conflicting values (non&#45;vector and multi args, for example)" alt="" coords="695,56,884,83"/>
-<area shape="rect" id="node7" href="$classCLI_1_1OptionAlreadyAdded.html" title="Thrown when an option already exists." alt="" coords="697,107,881,133"/>
-<area shape="rect" id="node10" href="$classCLI_1_1ArgumentMismatch.html" title="Thrown when the wrong number of arguments has been received." alt="" coords="700,157,879,184"/>
-<area shape="rect" id="node11" href="$classCLI_1_1ConfigError.html" title="Thrown when extra values are found in an INI file." alt="" coords="728,208,851,235"/>
-<area shape="rect" id="node12" href="$classCLI_1_1ConversionError.html" title="Thrown when conversion call back fails, such as when an int fails to coerce to a string." alt="" coords="712,259,867,285"/>
-<area shape="rect" id="node13" href="$classCLI_1_1ExcludesError.html" title="Thrown when an excludes option is present." alt="" coords="720,309,859,336"/>
-<area shape="rect" id="node14" href="$classCLI_1_1ExtrasError.html" title="Thrown when too many positionals or options are found." alt="" coords="728,360,851,387"/>
-<area shape="rect" id="node15" href="$classCLI_1_1FileError.html" title="Thrown when parsing an INI file and it is missing." alt="" coords="737,411,841,437"/>
-<area shape="rect" id="node16" href="$classCLI_1_1HorribleError.html" title=" " alt="" coords="723,461,856,488"/>
-<area shape="rect" id="node17" href="$classCLI_1_1InvalidError.html" title="Thrown when validation fails before parsing." alt="" coords="727,512,852,539"/>
-<area shape="rect" id="node18" href="$classCLI_1_1RequiredError.html" title="Thrown when a required option is missing." alt="" coords="720,563,859,589"/>
-<area shape="rect" id="node19" href="$classCLI_1_1RequiresError.html" title="Thrown when a requires option is missing." alt="" coords="720,613,859,640"/>
-<area shape="rect" id="node20" href="$classCLI_1_1RuntimeError.html" title=" " alt="" coords="721,664,857,691"/>
-<area shape="rect" id="node21" href="$classCLI_1_1Success.html" title="This is a successful completion on parsing, supposed to exit." alt="" coords="738,715,841,741"/>
-<area shape="rect" id="node25" href="$classCLI_1_1ValidationError.html" title="Thrown when validation of results fails." alt="" coords="716,765,863,792"/>
-<area shape="rect" id="node22" href="$classCLI_1_1CallForAllHelp.html" title="Usually something like –help&#45;all on command line." alt="" coords="932,664,1075,691"/>
-<area shape="rect" id="node23" href="$classCLI_1_1CallForHelp.html" title="&#45;h or –help on command line" alt="" coords="941,715,1066,741"/>
-<area shape="rect" id="node24" href="$classCLI_1_1CallForVersion.html" title="&#45;v or –version on command line" alt="" coords="932,765,1075,792"/>
+<area shape="rect" id="node1" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html" title=" " alt="" coords="5,5,227,47"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['opengl_20context_20management_7972',['OpenGL context management',['../group__context.html',1,'']]]
+  ['window_20management_20from_20an_20opengl_20context_2972',['Window management from an openGL context',['../group__window.html',1,'']]]
 ];

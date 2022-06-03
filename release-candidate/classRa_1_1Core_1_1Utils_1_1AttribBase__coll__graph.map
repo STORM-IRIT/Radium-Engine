@@ -1,7 +1,4 @@
 <map id="Ra::Core::Utils::AttribBase" name="Ra::Core::Utils::AttribBase">
-<area shape="rect" id="node1" title=" " alt="" coords="157,765,348,1077"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title=" " alt="" coords="5,595,231,672"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="9,292,227,501"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="19,5,217,229"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="255,551,519,716"/>
+<area shape="rect" id="node1" title=" " alt="" coords="42,219,233,531"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="5,5,269,171"/>
 </map>

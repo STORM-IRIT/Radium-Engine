@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -121,11 +121,11 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1ShaderPar
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a297bbb78c79d4f9ef3ce44a782928e9c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a297bbb78c79d4f9ef3ce44a782928e9c">~ShaderParameterProvider</a> ()=default</td></tr>
-<tr class="separator:a297bbb78c79d4f9ef3ce44a782928e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab18a41ad288a780a3ab302203aa6e731"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ab18a41ad288a780a3ab302203aa6e731">getParameters</a> ()</td></tr>
+<tr class="memitem:ab18a41ad288a780a3ab302203aa6e731"><td class="memItemLeft" align="right" valign="top"><a id="ab18a41ad288a780a3ab302203aa6e731"></a>
+virtual <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getParameters</b> ()</td></tr>
 <tr class="separator:ab18a41ad288a780a3ab302203aa6e731"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7da3601a26ed84cc50fe7036f4c0dd9"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ad7da3601a26ed84cc50fe7036f4c0dd9">getParameters</a> () const</td></tr>
+<tr class="memitem:ad7da3601a26ed84cc50fe7036f4c0dd9"><td class="memItemLeft" align="right" valign="top"><a id="ad7da3601a26ed84cc50fe7036f4c0dd9"></a>
+virtual const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getParameters</b> () const</td></tr>
 <tr class="separator:ad7da3601a26ed84cc50fe7036f4c0dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845c8bdbf880511e008d940e260b0820"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">updateGL</a> ()=0</td></tr>
 <tr class="separator:a845c8bdbf880511e008d940e260b0820"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,99 +134,16 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:afe197479fc8dc4697a71543e803776da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a></td></tr>
-<tr class="memdesc:afe197479fc8dc4697a71543e803776da"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parameters to set for a shader.  <a href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">More...</a><br /></td></tr>
+<tr class="memitem:afe197479fc8dc4697a71543e803776da"><td class="memItemLeft" align="right" valign="top"><a id="afe197479fc8dc4697a71543e803776da"></a>
+<a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a></td></tr>
+<tr class="memdesc:afe197479fc8dc4697a71543e803776da"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parameters to set for a shader. <br /></td></tr>
 <tr class="separator:afe197479fc8dc4697a71543e803776da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shader program parameter provider. a <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> is an object that is associated to a render technique to provide the uniform parameter set for the program. When an RenderObject is drawn using a given rendertechnique, the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> associated to the renderTechnique is responsible to set all the uniforms needed by the rendertechnique. </p>
 
 <p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00231">231</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a297bbb78c79d4f9ef3ce44a782928e9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a297bbb78c79d4f9ef3ce44a782928e9c">&#9670;&nbsp;</a></span>~ShaderParameterProvider()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual Ra::Engine::Data::ShaderParameterProvider::~ShaderParameterProvider </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab18a41ad288a780a3ab302203aa6e731"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab18a41ad288a780a3ab302203aa6e731">&#9670;&nbsp;</a></span>getParameters() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a>&amp; Ra::Engine::Data::ShaderParameterProvider::getParameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#aaee09d32ae7e803e4cbdd13869a21adc">Ra::Engine::Data::RawShaderMaterial</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00235">235</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad7da3601a26ed84cc50fe7036f4c0dd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7da3601a26ed84cc50fe7036f4c0dd9">&#9670;&nbsp;</a></span>getParameters() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a>&amp; Ra::Engine::Data::ShaderParameterProvider::getParameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#a5114b93128b4c9ff3180f2716e91fa86">Ra::Engine::Data::RawShaderMaterial</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00236">236</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae73e4271a8d07ae0eab25782831814ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae73e4271a8d07ae0eab25782831814ee">&#9670;&nbsp;</a></span>getPropertyList()</h2>
 
@@ -283,34 +200,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider sementic. </p>
 
-<p>Implemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#a02ceaac5e16d5a0061098e2b2f5f6391">Ra::Engine::Data::RawShaderMaterial</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a10d18365a6ea94692a1097a7a2f49b57">Ra::Engine::Data::SimpleMaterial</a>, <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html#a01cb615e7bf97fd6213c369272218dd6">Ra::Engine::Rendering::PointCloudParameterProvider</a>, <a class="el" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a74efd7ab1556f13cb24c6ad40a9c7d57">Ra::Gui::Gizmo::UiSelectionControler</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af66d6609fafb6c0544e8470a680d833b">Ra::Engine::Data::BlinnPhongMaterial</a>, and <a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a92159439586f9783d1334576b1aa1b88">Ra::Engine::Data::VolumetricMaterial</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="afe197479fc8dc4697a71543e803776da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe197479fc8dc4697a71543e803776da">&#9670;&nbsp;</a></span>m_renderParameters</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> Ra::Engine::Data::ShaderParameterProvider::m_renderParameters</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The parameters to set for a shader. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00254">254</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p>Implemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#a02ceaac5e16d5a0061098e2b2f5f6391">Ra::Engine::Data::RawShaderMaterial</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a10d18365a6ea94692a1097a7a2f49b57">Ra::Engine::Data::SimpleMaterial</a>, <a class="el" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a74efd7ab1556f13cb24c6ad40a9c7d57">Ra::Gui::Gizmo::UiSelectionControler</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af66d6609fafb6c0544e8470a680d833b">Ra::Engine::Data::BlinnPhongMaterial</a>, and <a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a92159439586f9783d1334576b1aa1b88">Ra::Engine::Data::VolumetricMaterial</a>.</p>
 
 </div>
 </div>
@@ -322,8 +212,8 @@ Protected Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Data</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:18 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:09 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

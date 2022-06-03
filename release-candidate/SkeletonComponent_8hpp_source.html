@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.37</span>
+   &#160;<span id="projectnumber">1.2.38</span>
    </div>
   </td>
  </tr>
@@ -96,15 +96,15 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8hpp_source.html',''
 <div class="title">SkeletonComponent.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="SkeletonComponent_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="HandleWeight_8hpp.html">Core/Animation/HandleWeight.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValue_8hpp.html">Core/Animation/KeyFramedValue.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Skeleton_8hpp.html">Core/Animation/Skeleton.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AnimationData_8hpp.html">Core/Asset/AnimationData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="HandleData_8hpp.html">Core/Asset/HandleData.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Animation/HandleWeight.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Animation/KeyFramedValue.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Animation/Skeleton.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/AnimationData.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/HandleData.hpp&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Component_8hpp.html">Engine/Scene/Component.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/Component.hpp&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>Engine {</div>
@@ -122,10 +122,10 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8hpp_source.html',''
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span>SkeletonBoneRenderObject;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">class </span>SkeletonBasedAnimationSystem;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">   42</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">SkeletonComponent</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">   42</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">SkeletonComponent</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#ab2566228983b2d40471d4b2c26250a9a">   45</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html">SkeletonBasedAnimationSystem</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html">SkeletonBasedAnimationSystem</a>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a66500edcc07c1b347066bb9ba090e13b">   48</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a66500edcc07c1b347066bb9ba090e13b">Animation</a> = std::vector&lt;Core::Animation::KeyFramedValue&lt;Core::Transform&gt;&gt;;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
@@ -137,11 +137,11 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8hpp_source.html',''
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a57316334f6cf00c960729c0f05e07475">   58</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a57316334f6cf00c960729c0f05e07475">initialize</a>()<span class="keyword"> override </span>{}</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">bool</span> canEdit( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>&amp; roIdx ) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">bool</span> canEdit( <span class="keyword">const</span> Core::Utils::Index&amp; roIdx ) <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> getTransform( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>&amp; roIdx ) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    Core::Transform getTransform( <span class="keyword">const</span> Core::Utils::Index&amp; roIdx ) <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> setTransform( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>&amp; roIdx, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a>&amp; transform ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> setTransform( <span class="keyword">const</span> Core::Utils::Index&amp; roIdx, <span class="keyword">const</span> Core::Transform&amp; transform ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> handleSkeletonLoading( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Core::Asset::HandleData</a>* data );</div>
@@ -170,15 +170,15 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8hpp_source.html',''
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">size_t</span> getAnimationId() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> update( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> time );</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> update( Scalar time );</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> getAnimationTime() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    Scalar getAnimationTime() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    std::pair&lt;Scalar, Scalar&gt; getAnimationTimeInterval() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">void</span> setSpeed( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> value );</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">void</span> setSpeed( <span class="keyword">const</span> Scalar value );</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> getSpeed() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    Scalar getSpeed() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">void</span> autoRepeat( <span class="keyword">const</span> <span class="keywordtype">bool</span> status );</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
@@ -217,7 +217,7 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8hpp_source.html',''
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keyword">const</span> Animation* getAnimationOutput() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>* getTimeOutput() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">const</span> Scalar* getTimeOutput() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span>* getWasReset() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
@@ -232,9 +232,9 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8hpp_source.html',''
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordtype">size_t</span> m_animationID { 0 };</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_animationTime { 0_ra };</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    Scalar m_animationTime { 0_ra };</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_speed { 1_ra };</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    Scalar m_speed { 1_ra };</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keywordtype">bool</span> m_autoRepeat { <span class="keyword">false</span> };</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
@@ -261,34 +261,24 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8hpp_source.html',''
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonComponent_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">Ra::Engine::Scene::SkeletonComponent</a></div><div class="ttdef"><b>Definition:</b> <a href="SkeletonComponent_8hpp_source.html#l00042">SkeletonComponent.hpp:42</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00082">Types.hpp:82</a></div></div>
-<div class="ttc" id="aHandleData_8hpp_html"><div class="ttname"><a href="HandleData_8hpp.html">HandleData.hpp</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonComponent_html_a36868833e751c9cf5cd89c96cbebeb6f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a36868833e751c9cf5cd89c96cbebeb6f">Ra::Engine::Scene::SkeletonComponent::getAnimationCount</a></div><div class="ttdeci">size_t getAnimationCount() const</div><div class="ttdoc">Return the number of animations.</div><div class="ttdef"><b>Definition:</b> <a href="SkeletonComponent_8hpp_source.html#l00090">SkeletonComponent.hpp:90</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html">Ra::Engine::Scene::SkeletonBasedAnimationSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="SkeletonBasedAnimationSystem_8hpp_source.html#l00014">SkeletonBasedAnimationSystem.hpp:14</a></div></div>
-<div class="ttc" id="aHandleWeight_8hpp_html"><div class="ttname"><a href="HandleWeight_8hpp.html">HandleWeight.hpp</a></div></div>
-<div class="ttc" id="aKeyFramedValue_8hpp_html"><div class="ttname"><a href="KeyFramedValue_8hpp.html">KeyFramedValue.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonComponent_html_a66099ef3e67929069547f51f54900530"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a66099ef3e67929069547f51f54900530">Ra::Engine::Scene::SkeletonComponent::getSkelName</a></div><div class="ttdeci">const std::string &amp; getSkelName() const</div><div class="ttdoc">Returns the name of the skeleton.</div><div class="ttdef"><b>Definition:</b> <a href="SkeletonComponent_8hpp_source.html#l00081">SkeletonComponent.hpp:81</a></div></div>
-<div class="ttc" id="aComponent_8hpp_html"><div class="ttname"><a href="Component_8hpp.html">Component.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1HandleData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></div><div class="ttdef"><b>Definition:</b> <a href="HandleData_8hpp_source.html#l00042">HandleData.hpp:42</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonComponent_html_a88bfaf8b0c3de753319158bfd54d428a"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a88bfaf8b0c3de753319158bfd54d428a">Ra::Engine::Scene::SkeletonComponent::getAnimation</a></div><div class="ttdeci">const Animation &amp; getAnimation(const size_t i) const</div><div class="ttdoc">Return the i -th animation.</div><div class="ttdef"><b>Definition:</b> <a href="SkeletonComponent_8hpp_source.html#l00093">SkeletonComponent.hpp:93</a></div></div>
-<div class="ttc" id="aSkeleton_8hpp_html"><div class="ttname"><a href="Skeleton_8hpp.html">Skeleton.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonComponent_html_a66500edcc07c1b347066bb9ba090e13b"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a66500edcc07c1b347066bb9ba090e13b">Ra::Engine::Scene::SkeletonComponent::Animation</a></div><div class="ttdeci">std::vector&lt; Core::Animation::KeyFramedValue&lt; Core::Transform &gt; &gt; Animation</div><div class="ttdoc">Animations are lists of keyframed transforms (one per bone).</div><div class="ttdef"><b>Definition:</b> <a href="SkeletonComponent_8hpp_source.html#l00048">SkeletonComponent.hpp:48</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00257">CoreMacros.hpp:257</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Skeleton_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Ra::Core::Animation::Skeleton</a></div><div class="ttdef"><b>Definition:</b> <a href="Skeleton_8hpp_source.html#l00024">Skeleton.hpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:22</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonComponent_html_ac6983870d1329e7d69bd285a2126b354"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#ac6983870d1329e7d69bd285a2126b354">Ra::Engine::Scene::SkeletonComponent::getSkeleton</a></div><div class="ttdeci">const Core::Animation::Skeleton * getSkeleton()</div><div class="ttdoc">Returns the animation skeleton.</div><div class="ttdef"><b>Definition:</b> <a href="SkeletonComponent_8hpp_source.html#l00087">SkeletonComponent.hpp:87</a></div></div>
-<div class="ttc" id="aAnimationData_8hpp_html"><div class="ttname"><a href="AnimationData_8hpp.html">AnimationData.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Skeleton_html_a330f9262f3ad5310075b1940c34c778f"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a330f9262f3ad5310075b1940c34c778f">Ra::Core::Animation::Skeleton::Manipulation</a></div><div class="ttdeci">Manipulation</div><div class="ttdef"><b>Definition:</b> <a href="Skeleton_8hpp_source.html#l00029">Skeleton.hpp:29</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonComponent_html_a57316334f6cf00c960729c0f05e07475"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a57316334f6cf00c960729c0f05e07475">Ra::Engine::Scene::SkeletonComponent::initialize</a></div><div class="ttdeci">void initialize() override</div><div class="ttdoc">Pure virtual method to be overridden by any component. When this method is called you are guaranteed ...</div><div class="ttdef"><b>Definition:</b> <a href="SkeletonComponent_8hpp_source.html#l00058">SkeletonComponent.hpp:58</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonComponent_html_a4a4b2f9fa4751841972870b83bdce2be"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a4a4b2f9fa4751841972870b83bdce2be">Ra::Engine::Scene::SkeletonComponent::getAnimation</a></div><div class="ttdeci">Animation &amp; getAnimation(const size_t i)</div><div class="ttdoc">Return the i -th animation.</div><div class="ttdef"><b>Definition:</b> <a href="SkeletonComponent_8hpp_source.html#l00096">SkeletonComponent.hpp:96</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="SkeletonComponent_8hpp.html">SkeletonComponent.hpp</a></li>
-    <li class="footer">Generated on Tue May 24 2022 17:57:16 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>SkeletonComponent.hpp</b></li>
+    <li class="footer">Generated on Fri Jun 3 2022 14:21:08 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
