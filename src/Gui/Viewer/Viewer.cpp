@@ -588,7 +588,7 @@ void Viewer::showEvent( QShowEvent* ev ) {
 }
 
 void Viewer::focusOutEvent( QFocusEvent* ) {
-    keyReleased( activeKey() );
+    releaseAllKeys();
 }
 
 std::tuple<KeyMappingManager::KeyMappingAction,
