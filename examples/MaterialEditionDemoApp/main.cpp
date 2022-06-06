@@ -128,7 +128,7 @@ class DemoWindow : public Ra::Gui::SimpleWindow
 
         // add the dock with a MaterialParameterEditor
         m_dock = new QDockWidget( "Material editor" );
-        m_dock->setFeatures( QDockWidget::DockWidgetMovable );
+        m_dock->setFeatures( QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable );
 
         m_matParamsEditor = new Ra::Gui::MaterialParameterEditor;
 
