@@ -209,11 +209,11 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
 
             if ( iu != U && iv != V ) {
                 indices.push_back( Vector3ui( iu * ( V + 1 ) + iv,
-                                              ( ( iu + 1 ) ) * ( V + 1 ) + iv,
-                                              iu * ( V + 1 ) + ( ( iv + 1 ) ) ) );
-                indices.push_back( Vector3ui( ( ( iu + 1 ) ) * ( V + 1 ) + iv,
-                                              ( ( iu + 1 ) ) * ( V + 1 ) + ( ( iv + 1 ) ),
-                                              iu * ( V + 1 ) + ( ( iv + 1 ) ) ) );
+                                              ( iu + 1 ) * ( V + 1 ) + iv,
+                                              iu * ( V + 1 ) + ( iv + 1 ) ) );
+                indices.push_back( Vector3ui( ( iu + 1 ) * ( V + 1 ) + iv,
+                                              ( iu + 1 ) * ( V + 1 ) + ( iv + 1 ),
+                                              iu * ( V + 1 ) + ( iv + 1 ) ) );
             }
         }
     }
