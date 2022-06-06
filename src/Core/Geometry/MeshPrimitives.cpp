@@ -195,7 +195,7 @@ TriangleMesh makeSharpBox( const Aabb& aabb,
             Vector3( 0, 1, 0 ),
         };
 
-        if ( generateTexCoord ) result.addAttrib( "in_texcoord", std::move( texCoords ) );
+        result.addAttrib( "in_texcoord", std::move( texCoords ) );
     }
 
     result.setIndices( {
