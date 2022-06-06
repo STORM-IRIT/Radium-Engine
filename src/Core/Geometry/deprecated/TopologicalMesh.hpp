@@ -70,7 +70,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      *
      * \tparam NonManifoldFaceCommand Command executed when non-manifold faces are
      * found. API and default implementation:
-     * \snippet Core/Geometry/TopologicalMesh.cpp Default command implementation
+     * \snippet Core/Geometry/deprecated/TopologicalMesh.cpp Default command implementation
      *
      */
     template <typename NonManifoldFaceCommand>
