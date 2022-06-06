@@ -1,11 +1,11 @@
 #pragma once
 #include <Gui/RaGui.hpp>
 
+#include <QGroupBox>
+#include <QLabel>
+#include <QPlainTextEdit>
+#include <QVBoxLayout>
 #include <QWidget>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QPlainTextEdit>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
 
 #include <nlohmann/json.hpp>
 
@@ -42,17 +42,27 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
     /** @} */
 
     /**
-     * Update the different UI element with the given material
-     * Display the properties of the material and populate the widget with widgets to edit its
-     * editable parameters.
-     * @param material The pointer to the material to edit
+     * \brief Update the different UI element with the given renderParameter, using the given
+     * constraints. \param params the parameter set to edit \param constraints the parameter
+     * constraints descriptor \param name (optional) the name to display in top of the editor
+     */
+    void setupFromParameters( Engine::Data::RenderParameters& params,
+                              const nlohmann::json& constraints,
+                              const std::string name = "" );
+
+    /**
+     * Update the different UI element with the given material.
+     * This helper function calls setupFromParameters with the given material parameter set and
+     * constraints but also displays the properties of the material and populate the widget
+     * with widgets to edit its editable parameters.
+     * \param material The pointer to the material to edit
      */
     void setupFromMaterial( std::shared_ptr<Ra::Engine::Data::Material> material );
 
     /**
      * Wether to show parameters without associated metadata
      *
-     * @param enable
+     * \param enable
      */
     void showUnspecified( bool enable );
 
@@ -95,6 +105,9 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
     Widgets::ControlPanel* m_parametersControlPanel;
     /// wether to show the unspecified materials
     bool m_showUnspecified = false;
+
+    // matInfoGroup
+    QGroupBox* m_matInfoGroup;
 };
 
 } // namespace Gui

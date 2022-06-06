@@ -7,7 +7,6 @@
 
 #include <QBoxLayout>
 #include <QFormLayout>
-#include <QGroupBox>
 #include <QLabel>
 #include <QPlainTextEdit>
 #include <QString>
@@ -21,25 +20,29 @@ namespace Ra::Gui {
 MaterialParameterEditor::MaterialParameterEditor( QWidget* parent ) : QWidget( parent ) {
     // setup the GUI
     auto verticalLayout = new QVBoxLayout( this );
-    auto matInfoGroup   = new QGroupBox();
-    matInfoGroup->setTitle( "Selected Material Informations" );
-    matInfoGroup->setCheckable( false );
-    auto matInfoForm = new QFormLayout( matInfoGroup );
 
-    m_matNameLabel         = new QLabel();
     m_matInstanceNameLabel = new QLabel();
+    m_matNameLabel         = new QLabel();
     m_matProperties        = new QPlainTextEdit();
     m_matProperties->setReadOnly( true );
 
-    matInfoForm->addRow( tr( "Material Instance Name :" ), m_matInstanceNameLabel );
-    matInfoForm->addRow( tr( "Material Name :" ), m_matNameLabel );
-    matInfoForm->addRow( tr( "Material Properties :" ), m_matProperties );
+    auto nameLayout = new QHBoxLayout();
+    nameLayout->addWidget( new QLabel( "Instance name :" ) );
+    nameLayout->addWidget( m_matInstanceNameLabel );
+    verticalLayout->addLayout( nameLayout );
 
-    matInfoGroup->setMaximumHeight( 150 );
-    verticalLayout->addWidget( matInfoGroup );
+    m_matInfoGroup = new QGroupBox();
+    m_matInfoGroup->setTitle( "Material Informations" );
+    m_matInfoGroup->setCheckable( false );
+    auto matInfoForm = new QFormLayout( m_matInfoGroup );
+    matInfoForm->addRow( tr( "Material Type :" ), m_matNameLabel );
+    matInfoForm->addRow( tr( "Instance Properties :" ), m_matProperties );
+    m_matInfoGroup->setMaximumHeight( 150 );
+    verticalLayout->addWidget( m_matInfoGroup );
+    m_matInfoGroup->setVisible( false );
 
     auto matParamsGroup = new QGroupBox();
-    matParamsGroup->setTitle( "Edit Material Parameters" );
+    matParamsGroup->setTitle( "Edit Parameters" );
     matParamsGroup->setEnabled( true );
     matParamsGroup->setCheckable( false );
 
@@ -47,6 +50,8 @@ MaterialParameterEditor::MaterialParameterEditor( QWidget* parent ) : QWidget( p
     m_matParamsLayout        = new QVBoxLayout( matParamsGroup );
     m_parametersControlPanel = new Widgets::ControlPanel( "Material Parameters", false );
     m_matParamsLayout->addWidget( m_parametersControlPanel );
+
+    verticalLayout->addStretch();
 }
 
 using json = nlohmann::json;
@@ -177,7 +182,6 @@ void MaterialParameterEditor::addMatrixParameterWidget( const std::string& key,
 void MaterialParameterEditor::setupFromMaterial(
     std::shared_ptr<Ra::Engine::Data::Material> material ) {
     auto editable = std::dynamic_pointer_cast<Ra::Engine::Data::EditableMaterial>( material );
-    m_matInstanceNameLabel->setText( QString::fromStdString( material->getInstanceName() ) );
     m_matNameLabel->setText( QString::fromStdString( material->getMaterialName() ) );
     m_matProperties->clear();
     for ( auto& prop : material->getPropertyList() ) {
@@ -191,6 +195,20 @@ void MaterialParameterEditor::setupFromMaterial(
     auto& params  = material->getParameters();
     auto metadata = editable->getParametersMetadata();
 
+    setupFromParameters( params, metadata, material->getInstanceName() );
+
+    m_matInfoGroup->setVisible( true );
+}
+
+void MaterialParameterEditor::setupFromParameters( Engine::Data::RenderParameters& params,
+                                                   const nlohmann::json& constraints,
+                                                   const std::string name ) {
+
+    m_matInfoGroup->setVisible( false );
+    if ( !name.empty() ) { m_matInstanceNameLabel->setText( QString::fromStdString( name ) ); }
+    else {
+        m_matInstanceNameLabel->setText( "Parameter set" );
+    }
     // clear the old control panel
     m_matParamsLayout->removeWidget( m_parametersControlPanel );
     delete m_parametersControlPanel;
@@ -206,9 +224,9 @@ void MaterialParameterEditor::setupFromMaterial(
             params.addParameter( key, val );
             emit materialParametersModified();
         };
-        if ( metadata.contains( key ) ) {
-            if ( metadata[key]["editable"] ) {
-                const auto& m           = metadata[key];
+        if ( constraints.contains( key ) ) {
+            if ( constraints[key]["editable"] ) {
+                const auto& m           = constraints[key];
                 std::string description = m.contains( "description" ) ? m["description"] : "";
                 m_parametersControlPanel->addOption(
                     m["name"], onBoolParameterChanged, value.m_value, description );
@@ -222,31 +240,31 @@ void MaterialParameterEditor::setupFromMaterial(
     // Add widgets to edit int parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::IntParameter>() ) {
-        if ( metadata.contains( key ) && metadata[key]["type"] == "enum" ) {
-            addEnumParameterWidget( key, value.m_value, params, metadata );
+        if ( constraints.contains( key ) && constraints[key]["type"] == "enum" ) {
+            addEnumParameterWidget( key, value.m_value, params, constraints );
         }
         else {
             // case number
-            addNumberParameterWidget( key, value.m_value, params, metadata );
+            addNumberParameterWidget( key, value.m_value, params, constraints );
         }
     }
 
     // Add widgets to edit unsigned parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::UIntParameter>() ) {
-        if ( metadata.contains( key ) && metadata[key]["type"] == "enum" ) {
-            addEnumParameterWidget( key, value.m_value, params, metadata );
+        if ( constraints.contains( key ) && constraints[key]["type"] == "enum" ) {
+            addEnumParameterWidget( key, value.m_value, params, constraints );
         }
         else {
             // case number
-            addNumberParameterWidget( key, value.m_value, params, metadata );
+            addNumberParameterWidget( key, value.m_value, params, constraints );
         }
     }
 
     // Add widgets to edit scalar parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::ScalarParameter>() ) {
-        addNumberParameterWidget( key, value.m_value, params, metadata );
+        addNumberParameterWidget( key, value.m_value, params, constraints );
     }
 
     // Add widgets to edit color parameters
@@ -265,8 +283,8 @@ void MaterialParameterEditor::setupFromMaterial(
             params.addParameter( key, color );
             emit materialParametersModified();
         };
-        if ( metadata.contains( key ) ) {
-            const auto& m           = metadata[key];
+        if ( constraints.contains( key ) ) {
+            const auto& m           = constraints[key];
             std::string description = m.contains( "description" ) ? m["description"] : "";
             m_parametersControlPanel->addColorInput(
                 m["name"], onColorParameterChanged, value.m_value, description );
@@ -285,55 +303,55 @@ void MaterialParameterEditor::setupFromMaterial(
     // populate widgets for Ints parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::IntsParameter>() ) {
-        addVectorParameterWidget( key, value.m_value, params, metadata );
+        addVectorParameterWidget( key, value.m_value, params, constraints );
     }
 
     // populate widgets for UInts parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::UIntsParameter>() ) {
-        addVectorParameterWidget( key, value.m_value, params, metadata );
+        addVectorParameterWidget( key, value.m_value, params, constraints );
     }
 
     // populate widgets for Scalars parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::ScalarsParameter>() ) {
-        addVectorParameterWidget( key, value.m_value, params, metadata );
+        addVectorParameterWidget( key, value.m_value, params, constraints );
     }
 
     // populate widgets for Vec2 parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::Vec2Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, metadata );
+        addMatrixParameterWidget( key, value.m_value, params, constraints );
     }
 
     // populate widgets for Vec3 parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::Vec3Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, metadata );
+        addMatrixParameterWidget( key, value.m_value, params, constraints );
     }
 
     // populate widgets for Vec4 parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::Vec4Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, metadata );
+        addMatrixParameterWidget( key, value.m_value, params, constraints );
     }
 
     // populate widgets for Mat2 parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::Mat2Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, metadata );
+        addMatrixParameterWidget( key, value.m_value, params, constraints );
     }
 
     // populate widgets for Mat3 parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::Mat3Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, metadata );
+        addMatrixParameterWidget( key, value.m_value, params, constraints );
     }
 
     // populate widgets for Mat4 parameters
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::Mat4Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, metadata );
+        addMatrixParameterWidget( key, value.m_value, params, constraints );
     }
 
     m_parametersControlPanel->addStretch();
