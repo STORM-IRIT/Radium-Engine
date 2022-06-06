@@ -43,6 +43,40 @@ cmake --build build-d --parallel
 
 If not given on the command line, the installation directory is set by default to `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}` for Release, and  `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}` for any other CMAKE_BUILD_TYPE`.
 
+### Getting started with Visual Studio
+
+Open `external/CMakeLists.txt` and edit cmake settings or `CMakeSettings.json`. External build and install have to be outside Radium-Engine source directory. For instance
+
+~~~{.json}
+{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}/../../radium-externals/build/${name}",
+      "installRoot": "${projectDir}/../../radium-externals/install/${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "x64-Release",
+      "generator": "Ninja",
+      "configurationType": "RelWithDebInfo",
+      "buildRoot": "${projectDir}/../../radium-externals/build/${name}",
+      "installRoot": "${projectDir}/../../radium-externals/install/${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "variables": []
+    }
+  ]
+}
+~~~
+
 ## Configuration of Radium
 
 To compile Radium-Engine, you have to indicate where cmake can find each dependency.
