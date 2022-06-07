@@ -61,9 +61,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     class WedgeData;
-    using WedgeIndex = Ra::Core::Utils::Index;
+    using WedgeIndex       = Ra::Core::Utils::Index;
+    using WedgeAttribIndex = Ra::Core::Utils::Index;
 
     /**
      * Construct an empty topological mesh, only initialize mandatory properties.
@@ -135,8 +135,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /**
      * Return a triangleMesh from the topological mesh.
      * \note This is a costly operation.
-     * \warning It uses the attributes defined on halfedges. Do not work well if attribs are defined
-     * on wedges (initWithWedge), in this case use toTriangleMeshFromWedges()
      */
     TriangleMesh toTriangleMesh();
 
@@ -299,10 +297,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * The old wedge is "deleted". If wedge data correspond to an already
      * present wedge, it's index is used.
      */
-    inline void replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd );
+    inline WedgeIndex replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd );
 
     template <typename T>
-    inline int addWedgeAttrib( const std::string& name, T value = {} ) {
+    inline WedgeAttribIndex addWedgeAttrib( const std::string& name, T value = {} ) {
         return m_wedges.addAttrib<T>( name, value );
     }
 
@@ -507,7 +505,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                                     const T& value );
 
         template <typename T>
-        inline int getWedgeAttribIndex( const std::string& name );
+        inline WedgeAttribIndex getWedgeAttribIndex( const std::string& name );
 
         inline bool setWedgePosition( const WedgeIndex& idx, const Vector3& value );
 
@@ -520,11 +518,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         // not checks are performed
         // return the index of the the newly added attrib.
         template <typename T>
-        int addAttribName( const std::string& name );
+        WedgeAttribIndex addAttribName( const std::string& name );
 
         // add attrib to all wedges with default value value
         template <typename T>
-        int addAttrib( const std::string& name, const T& value = {} );
+        WedgeAttribIndex addAttrib( const std::string& name, const T& value = {} );
 
         /// return the offset ot apply to each wedgeindex so that
         /// after garbageCollection all indices are valid and coherent.
