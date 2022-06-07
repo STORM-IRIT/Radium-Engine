@@ -202,7 +202,7 @@ void MaterialParameterEditor::setupFromMaterial(
 
 void MaterialParameterEditor::setupFromParameters( Engine::Data::RenderParameters& params,
                                                    const nlohmann::json& constraints,
-                                                   const std::string name ) {
+                                                   const std::string& name ) {
 
     m_matInfoGroup->setVisible( false );
     if ( !name.empty() ) { m_matInstanceNameLabel->setText( QString::fromStdString( name ) ); }
