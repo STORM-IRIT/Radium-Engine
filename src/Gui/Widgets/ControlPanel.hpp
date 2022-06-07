@@ -225,11 +225,11 @@ class RA_GUI_API ControlPanel : public QFrame
      * @param filters The filters to apply to filenames
      * @param tooltip The tooltip text
      */
-    void addFileOuput( const std::string& name,
-                       std::function<void( std::string )> callback,
-                       const std::string& rootDirectory,
-                       const std::string& filters,
-                       const std::string& tooltip = "" );
+    void addFileOutput( const std::string& name,
+                        std::function<void( std::string )> callback,
+                        const std::string& rootDirectory,
+                        const std::string& filters,
+                        const std::string& tooltip = "" );
 
     /** Add a combobox to the panel
      * Allow the user to select values from a combobox

@@ -212,31 +212,47 @@ void ControlPanel::addColorInput(
     const std::function<void( const Ra::Core::Utils::Color& clr )>& callback,
     Ra::Core::Utils::Color color,
     const std::string& tooltip ) {
-    auto button = new QPushButton( name.c_str(), this );
+    auto button    = new QPushButton( name.c_str(), this );
+    auto srgbColor = Ra::Core::Utils::Color::linearRGBTosRGB( color );
+    auto clrBttn   = QColor::fromRgb(
+        int( srgbColor[0] * 255 ), int( srgbColor[1] * 255 ), int( srgbColor[2] * 255 ) );
+
+    auto clrDlg = [callback, clrBttn, button, name]() mutable {
+        clrBttn = QColorDialog::getColor( clrBttn, button, name.c_str() );
+        if ( clrBttn.isValid() ) {
+            // update the background color of the viewer
+            auto lum = 0.2126_ra * Scalar( clrBttn.redF() ) +
+                       0.7151_ra * Scalar( clrBttn.greenF() ) +
+                       0.0721_ra * Scalar( clrBttn.blueF() );
+            auto bgk = Ra::Core::Utils::Color::sRGBToLinearRGB(
+                Ra::Core::Utils::Color( Scalar( clrBttn.redF() ),
+                                        Scalar( clrBttn.greenF() ),
+                                        Scalar( clrBttn.blueF() ),
+                                        Scalar( 0 ) ) );
+            callback( bgk );
+            QString qss = QString( "background-color: %1" ).arg( clrBttn.name() );
+            if ( lum > 1_ra / 3_ra ) { qss += QString( "; color: #000000" ); }
+            else {
+                qss += QString( "; color: #FFFFFF" );
+            }
+            button->setStyleSheet( qss );
+        }
+    };
+
     if ( !tooltip.empty() ) {
         button->setToolTip(
             QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
     }
-    auto rgbValue = color.rgb();
-    auto clrBttn  = QColor::fromRgb(
-        int( rgbValue[0] * 255 ), int( rgbValue[1] * 255 ), int( rgbValue[2] * 255 ) );
-    {
-        QString qss = QString( "background-color: %1" ).arg( clrBttn.name() );
-        button->setStyleSheet( qss );
+    // for contrast computation : see
+    // https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html
+    auto lum    = 0.2126_ra * srgbColor[0] + 0.7151_ra * srgbColor[1] + 0.0721_ra * srgbColor[2];
+    QString qss = QString( "background-color: %1" ).arg( clrBttn.name() );
+    if ( lum > 1_ra / 3_ra ) { qss += QString( "; color: #000000" ); }
+    else {
+        qss += QString( "; color: #FFFFFF" );
     }
-    auto clrDlg = [callback, clrBttn, button, name]() mutable {
-        QColor c = QColorDialog::getColor( clrBttn, button, name.c_str() );
-        if ( c.isValid() ) {
-            // update the background coolor of the viewer
-            auto bgk = Ra::Core::Utils::Color::sRGBToLinearRGB( Ra::Core::Utils::Color(
-                Scalar( c.redF() ), Scalar( c.greenF() ), Scalar( c.blueF() ), Scalar( 0 ) ) );
-            callback( bgk );
-            clrBttn     = c;
-            QString qss = QString( "background-color: %1" ).arg( c.name() );
-            button->setStyleSheet( qss );
-        }
-        return c;
-    };
+    button->setStyleSheet( qss );
+
     connect( button, &QPushButton::clicked, clrDlg );
     m_currentLayout->addWidget( button );
 }
@@ -246,12 +262,8 @@ void ControlPanel::addFileInput( const std::string& name,
                                  const std::string& rootDirectory,
                                  const std::string& filters,
                                  const std::string& tooltip ) {
-    auto button = new QPushButton( name.c_str(), this );
-    if ( !tooltip.empty() ) {
-        button->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
-    }
-    auto fileDialog = [this, callback, rootDirectory, filters]() {
+
+    auto openFile = [this, callback, rootDirectory, filters]() {
         auto fltrs    = QString::fromStdString( filters );
         auto pathList = QFileDialog::getOpenFileNames(
             this, "Open files", QString::fromStdString( rootDirectory ), fltrs );
@@ -267,28 +279,23 @@ void ControlPanel::addFileInput( const std::string& name,
             callback( "" );
         }
     };
-    connect( button, &QPushButton::clicked, fileDialog );
-    m_currentLayout->addWidget( button );
+
+    addButton( name, openFile, tooltip );
 }
 
-void ControlPanel::addFileOuput( const std::string& name,
-                                 std::function<void( std::string )> callback,
-                                 const std::string& rootDirectory,
-                                 const std::string& filters,
-                                 const std::string& tooltip ) {
-    auto button = new QPushButton( name.c_str(), this );
-    if ( !tooltip.empty() ) {
-        button->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
-    }
-    auto fileDialog = [this, callback, rootDirectory, filters]() {
+void ControlPanel::addFileOutput( const std::string& name,
+                                  std::function<void( std::string )> callback,
+                                  const std::string& rootDirectory,
+                                  const std::string& filters,
+                                  const std::string& tooltip ) {
+
+    auto saveFile = [this, callback, rootDirectory, filters]() {
         auto fltrs    = QString::fromStdString( filters );
         auto filename = QFileDialog::getSaveFileName(
             this, "Save file", QString::fromStdString( rootDirectory ), fltrs );
         if ( !filename.isEmpty() ) { callback( filename.toStdString() ); }
     };
-    connect( button, &QPushButton::clicked, fileDialog );
-    m_currentLayout->addWidget( button );
+    addButton( name, saveFile, tooltip );
 }
 
 void ControlPanel::beginLayout( QBoxLayout::Direction dir ) {

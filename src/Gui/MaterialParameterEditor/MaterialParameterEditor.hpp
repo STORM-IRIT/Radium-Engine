@@ -48,7 +48,7 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
      */
     void setupFromParameters( Engine::Data::RenderParameters& params,
                               const nlohmann::json& constraints,
-                              const std::string name = "" );
+                              const std::string& name = "" );
 
     /**
      * Update the different UI element with the given material.
