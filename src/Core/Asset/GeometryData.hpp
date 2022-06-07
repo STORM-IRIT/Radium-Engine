@@ -86,8 +86,7 @@ class RA_CORE_API GeometryData : public AssetData
     /// \note Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_POSITION ).setData( vertexList
     /// ) instead.
     template <typename Container>
-    [[deprecated( "Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_POSITION ).setData( "
-                  "vertexList ) instead. " )]] inline void
+    [[deprecated( "Use getMultiIndexedGeometry().setVertices(data); instead." )]] inline void
     setVertices( const Container& vertexList );
 
     /// Return the list of lines.
@@ -166,13 +165,13 @@ class RA_CORE_API GeometryData : public AssetData
     /// \note Use getAttrib<Vector3ui>( Geometry::MeshAttrib::VERTEX_NORMAL ).setData( normalList )
     /// instead.
     template <typename Container>
-    [[deprecated( "Use getMultiIndexedGeometry().setNormals( normalList  ) instead." )]] inline void
-    setNormals( const Container& normalList );
+    [[deprecated( "Use getMultiIndexedGeometry().setNormals( data ) instead." )]] inline void
+    setNormals( const Container& );
 
     /// Return the list of vertex tangent vectors.
-    [[deprecated(
-        "Use getAttrib<Vector3>( Geometry::MeshAttrib::VERTEX_TANGENT ).getDataWithLock() "
-        "instead." )]] inline Vector3Array&
+    [[deprecated( "Use getAttrib<Vector3>( getAttribName(Geometry::MeshAttrib::VERTEX_TANGENT) "
+                  ").getDataWithLock() "
+                  "instead." )]] inline Vector3Array&
     getTangents();
 
     /// Return the (const) list of vertex tangents vectors.
@@ -308,24 +307,6 @@ class RA_CORE_API GeometryData : public AssetData
 
     /**
      *
-     * @tparam T
-     * @param name
-     * @return Attrib<T> from m_multiIndexedGeometry.
-     */
-    template <typename T>
-    inline Utils::Attrib<T>& getAttrib( const Geometry::MeshAttrib& name );
-
-    /**
-     *
-     * @tparam T
-     * @param name
-     * @return Attrib<T> from m_multiIndexedGeometry.
-     */
-    template <typename T>
-    inline const Utils::Attrib<T>& getAttrib( const Geometry::MeshAttrib& name ) const;
-
-    /**
-     *
      * @tparam V
      * @param name
      * @param firstOccurrence
@@ -374,18 +355,6 @@ class RA_CORE_API GeometryData : public AssetData
     std::shared_ptr<MaterialData> m_material;
 
   private:
-    /**
-     *
-     * @tparam Container
-     * @param name
-     * @param attribDataList
-     * @brief Copy data from attribDataList into the attrib obtain with name.
-     *
-     */
-    template <typename V>
-    inline void setAttribData( const Geometry::MeshAttrib& name,
-                               const VectorArray<V>& attribDataList );
-
     /**
      *
      * @tparam V

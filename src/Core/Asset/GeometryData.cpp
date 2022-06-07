@@ -1,3 +1,4 @@
+#include "Core/Geometry/StandardAttribNames.hpp"
 #include <Core/Asset/GeometryData.hpp>
 
 #include <Core/Utils/Log.hpp>
@@ -46,10 +47,16 @@ void GeometryData::displayInfo() const {
         break;
     }
 
+    using namespace Geometry;
+
     LOG( logINFO ) << "======== MESH INFO ========";
     LOG( logINFO ) << " Name           : " << m_name;
     LOG( logINFO ) << " Type           : " << type;
-    LOG( logINFO ) << " Vertex #       : " << ( hasVertices() ? getVertices().size() : 0 );
+    LOG( logINFO ) << " Vertex #       : "
+                   << ( getMultiIndexedGeometry().hasAttrib(
+                            getAttribName( MeshAttrib::VERTEX_POSITION ) )
+                            ? getMultiIndexedGeometry().vertices().size()
+                            : 0 );
     LOG( logINFO ) << " Edge #         : " << ( hasEdges() ? getEdges().size() : 0 );
     LOG( logINFO ) << " Face #         : " << ( hasFaces() ? getFaces().size() : 0 );
     LOG( logINFO ) << " Normal ?       : " << ( ( !hasNormals() ) ? "NO" : "YES" );
