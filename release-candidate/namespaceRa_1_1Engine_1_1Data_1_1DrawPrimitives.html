@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.38</span>
+   &#160;<span id="projectnumber">1.2.39</span>
    </div>
   </td>
  </tr>
@@ -141,8 +141,10 @@ LineMeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="separator:a185400772c9aa5ffd41b559acc966968"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d998fb49864a940afd6009f12a484c"><td class="memItemLeft" align="right" valign="top"><a id="ab0d998fb49864a940afd6009f12a484c"></a>
 MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab0d998fb49864a940afd6009f12a484c">Sphere</a> (const Core::Vector3 &amp;center, Scalar radius, const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;color)</td></tr>
-<tr class="memdesc:ab0d998fb49864a940afd6009f12a484c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays sphere computed with given center and radius. <br /></td></tr>
+<tr class="memdesc:ab0d998fb49864a940afd6009f12a484c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays geodesic sphere computed with given center and radius. <br /></td></tr>
 <tr class="separator:ab0d998fb49864a940afd6009f12a484c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b63bdba5d53344f27d6147f6c516cd1"><td class="memItemLeft" align="right" valign="top">MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a4b63bdba5d53344f27d6147f6c516cd1">ParametricSphere</a> (const Core::Vector3 &amp;center, Scalar radius, const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;color, bool generateTexCoord)</td></tr>
+<tr class="separator:a4b63bdba5d53344f27d6147f6c516cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a59d32879ec0d4d6692fbd463d802b1"><td class="memItemLeft" align="right" valign="top"><a id="a0a59d32879ec0d4d6692fbd463d802b1"></a>
 MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a0a59d32879ec0d4d6692fbd463d802b1">Capsule</a> (const Core::Vector3 &amp;p1, const Core::Vector3 &amp;p2, Scalar radius, const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;color)</td></tr>
 <tr class="memdesc:a0a59d32879ec0d4d6692fbd463d802b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays a capsule computed with given endpoints and radius. <br /></td></tr>
@@ -340,7 +342,7 @@ MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="n
 </div><div class="memdoc">
 <p>Displays disk (filled circle) computed with given center and radius, in plane normal to given vector in wireframe </p><dl class="section note"><dt>Note</dt><dd>normal must be a normalized vector. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00306">306</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00314">314</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -379,7 +381,7 @@ MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="n
 </div><div class="memdoc">
 <p>Displays a 3D frame representing the given transform. Each axis has length 'scale' and are in usual colors (X,Y,Z = red, green blue) Remainder : the transform will be drawn relative to the component's entity transform. </p>
 
-<p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00393">393</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00401">401</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
 
 </div>
 </div>
@@ -434,7 +436,7 @@ MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="n
 </div><div class="memdoc">
 <p>Create a res*res square grid centered on center, in plane defined by the vectors x and y. </p>
 
-<p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00423">423</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00431">431</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
 
 </div>
 </div>
@@ -477,13 +479,69 @@ MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="n
 </div><div class="memdoc">
 <p>Displays a normal vector emanating from the given point as a vector arrow and a normal plane of size 'scale'. </p>
 
-<p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00345">345</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00353">353</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_aa9438814ccaa8de9aaed2dbf5e0bd6aa_cgraph.svg" width="250" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a4b63bdba5d53344f27d6147f6c516cd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b63bdba5d53344f27d6147f6c516cd1">&#9670;&nbsp;</a></span>ParametricSphere()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RA_ENGINE_API MeshPtr Ra::Engine::Data::DrawPrimitives::ParametricSphere </td>
+          <td>(</td>
+          <td class="paramtype">const Core::Vector3 &amp;&#160;</td>
+          <td class="paramname"><em>center</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Scalar&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>generateTexCoord</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Displays uv sphere computed with given center and radius </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">generateTexCoord</td><td>ask texture coordinate generation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00259">259</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_a4b63bdba5d53344f27d6147f6c516cd1_cgraph.svg" width="250" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -517,11 +575,11 @@ MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="n
 <p>Renturn a render object to display the given geometry </p>
 
 <p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00027">27</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_aeb2f6005289276eda6e9ba9037b8eabf_cgraph.svg" width="250" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -576,11 +634,11 @@ MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="n
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000029">Todo:</a></b></dt><dd>continue to convert mesh creation and remove call to deprecated <a class="el" href="classRa_1_1Engine_1_1Data_1_1Mesh.html#a215a55acdff155ac1705812ddeab2198">Mesh::loadGeometry</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00140">140</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_af81e60e77d19429515e20639f43c2432_cgraph.svg" width="250" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -633,11 +691,11 @@ MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="n
 <p>Displays given triangle ABC, either in wireframe (fill = false) or filled with the color(fill = true). </p>
 
 <p class="definition">Definition at line <a class="el" href="DrawPrimitives_8cpp_source.html#l00114">114</a> of file <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_a5ff500d17cce57978b811c14a5757111_cgraph.svg" width="250" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -650,7 +708,7 @@ MeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="n
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html">DrawPrimitives</a></li>
-    <li class="footer">Generated on Fri Jun 3 2022 14:21:09 for Radium Engine by
+    <li class="footer">Generated on Tue Jun 7 2022 09:21:31 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

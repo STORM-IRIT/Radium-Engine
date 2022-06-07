@@ -1,5 +1,6 @@
 var NAVTREEINDEX8 =
 {
+"classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html#a44aaa2b2cb23b615836b259691eff23e":[10,0,0,1,0,28,0,1],
 "classRa_1_1Engine_1_1Data_1_1VolumeObject.html":[10,0,0,1,0,30],
 "classRa_1_1Engine_1_1Data_1_1VolumeObject.html#a14303333f4597c68a503a6c6a1ad7271":[10,0,0,1,0,30,10],
 "classRa_1_1Engine_1_1Data_1_1VolumeObject.html#a1e7ba208a83c4b9df6534bd3d0c9a1a9":[10,0,0,1,0,30,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX8 =
 "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab14ff49e794cd718b77db013c9fae556":[10,0,0,1,1,2,28],
 "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab2baf3d6c8478d9af5918a45393c68a2":[10,0,0,1,1,2,52],
 "classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab2e57f89c3b014f49d34f6797ab62ace":[10,0,0,1,1,2,61],
-"classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab8bd7377df698283d3f916cb53d90be5":[10,0,0,1,1,2,22],
-"classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abad46a9149c0d4578327325450b2472e":[10,0,0,1,1,2,41]
+"classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab8bd7377df698283d3f916cb53d90be5":[10,0,0,1,1,2,22]
 };

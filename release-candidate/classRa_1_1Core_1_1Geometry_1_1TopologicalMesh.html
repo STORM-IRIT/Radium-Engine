@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.38</span>
+   &#160;<span id="projectnumber">1.2.39</span>
    </div>
   </td>
  </tr>
@@ -125,6 +125,9 @@ Public Types</h2></td></tr>
 <tr class="memitem:a904a07c44d020f2f0a2ac6b854532aa7"><td class="memItemLeft" align="right" valign="top"><a id="a904a07c44d020f2f0a2ac6b854532aa7"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>WedgeIndex</b> = Ra::Core::Utils::Index</td></tr>
 <tr class="separator:a904a07c44d020f2f0a2ac6b854532aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc7c1dfd6f4df4622d5ef59008ba2cec"><td class="memItemLeft" align="right" valign="top"><a id="afc7c1dfd6f4df4622d5ef59008ba2cec"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>WedgeAttribIndex</b> = Ra::Core::Utils::Index</td></tr>
+<tr class="separator:afc7c1dfd6f4df4622d5ef59008ba2cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -214,12 +217,12 @@ template&lt;typename T &gt; </td></tr>
 <tr class="separator:aa274a29cbe633b101abb2cdf2618f629"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5df40b6a44c071e39aa9367455128ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">WedgeData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af5df40b6a44c071e39aa9367455128ab">newWedgeData</a> (HalfedgeHandle he) const</td></tr>
 <tr class="separator:af5df40b6a44c071e39aa9367455128ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac557f5f97d22704bfc3dfedec806e109"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ac557f5f97d22704bfc3dfedec806e109">replaceWedge</a> (OpenMesh::HalfedgeHandle he, const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">WedgeData</a> &amp;wd)</td></tr>
-<tr class="separator:ac557f5f97d22704bfc3dfedec806e109"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef59fb099c9c4caf84e1f92e0f430a66"><td class="memTemplParams" colspan="2"><a id="aef59fb099c9c4caf84e1f92e0f430a66"></a>
+<tr class="memitem:a2f9edf9c78cb2d1d060b8a7d99fe87e9"><td class="memItemLeft" align="right" valign="top">WedgeIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9">replaceWedge</a> (OpenMesh::HalfedgeHandle he, const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">WedgeData</a> &amp;wd)</td></tr>
+<tr class="separator:a2f9edf9c78cb2d1d060b8a7d99fe87e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a937613180986bd2561465cafc79aeb73"><td class="memTemplParams" colspan="2"><a id="a937613180986bd2561465cafc79aeb73"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aef59fb099c9c4caf84e1f92e0f430a66"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addWedgeAttrib</b> (const std::string &amp;name, T value={})</td></tr>
-<tr class="separator:aef59fb099c9c4caf84e1f92e0f430a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a937613180986bd2561465cafc79aeb73"><td class="memTemplItemLeft" align="right" valign="top">WedgeAttribIndex&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addWedgeAttrib</b> (const std::string &amp;name, T value={})</td></tr>
+<tr class="separator:a937613180986bd2561465cafc79aeb73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20d3efd4604adfb62144d193d61a7c56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a20d3efd4604adfb62144d193d61a7c56">replaceWedgeIndex</a> (OpenMesh::HalfedgeHandle he, const WedgeIndex &amp;widx)</td></tr>
 <tr class="separator:a20d3efd4604adfb62144d193d61a7c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d18bb4bf4fcfeffa145797122118004"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">mergeEqualWedges</a> ()</td></tr>
@@ -395,7 +398,7 @@ template&lt;typename MeshIndex &gt; </div>
 <dl class="section see"><dt>See also</dt><dd>TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&amp;, NonManifoldFaceCommand) </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>, when <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> will be operational, will this replace the above ? </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00416">416</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00419">419</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -494,7 +497,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>, when <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> will be operational, will this replace the above ?</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00422">422</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00425">425</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -599,7 +602,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Return a handle to the halfedge property storing vertices indices within the TriangleMesh *this has been built on. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00700">700</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00706">706</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -627,7 +630,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Return a handle to the halfedge property storing vertices indices within the TriangleMesh returned by <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa9a2d79990cf7cfb6abac7a2a648440f">toTriangleMesh()</a>. </p><dl class="section note"><dt>Note</dt><dd>This property is valid only after <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa9a2d79990cf7cfb6abac7a2a648440f">toTriangleMesh()</a> has been called. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00705">705</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00711">711</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -656,7 +659,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Return the set of WedgeIndex incident to a given Vertex <em>vh</em>. only valid non deleted wedges are present in the set. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00710">710</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00716">716</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -690,7 +693,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00749">749</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00755">755</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -719,7 +722,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>get the wedge index associated with an halfedge </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00721">721</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00727">727</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -748,7 +751,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Return the wedge refcount, for debug purpose. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00725">725</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00731">731</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -787,7 +790,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Return the half-edge associated with a given vertex and face. </p><dl class="section note"><dt>Note</dt><dd>Asserts if vh is not a member of fh. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00690">690</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00696">696</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -826,7 +829,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000024">Todo:</a></b></dt><dd>and "cross face ?" </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00439">439</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00442">442</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -863,7 +866,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>true if at least one of edge's vertex as two different wedge arount the edge. false if the two vertices have the same wedge for both face aside the edge. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00807">807</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00816">816</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -920,7 +923,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>call mergeEquelWedges( vh ) for every vertices of the mesh. </p><dl class="section see"><dt>See also</dt><dd>void <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa459f5689069654aabe66cd8d72d2ea6">mergeEqualWedges( OpenMesh::VertexHandle vh )</a>; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00776">776</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00785">785</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -954,7 +957,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00782">782</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00791">791</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -990,7 +993,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>return a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">WedgeData</a> with all attrib initialized to default values </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8hpp_source.html#l00290">290</a> of file <a class="el" href="TopologicalMesh_8hpp_source.html">TopologicalMesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8hpp_source.html#l00288">288</a> of file <a class="el" href="TopologicalMesh_8hpp_source.html">TopologicalMesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -1019,7 +1022,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>return a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">WedgeData</a> with position (and vertex handle) initialized from the value of he's to vertex. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8hpp_source.html#l00293">293</a> of file <a class="el" href="TopologicalMesh_8hpp_source.html">TopologicalMesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8hpp_source.html#l00291">291</a> of file <a class="el" href="TopologicalMesh_8hpp_source.html">TopologicalMesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -1048,7 +1051,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Set the normal n to all the wedges that share to vh. If you work with vertex normals, please call this function on all vertex handles before convertion with toTriangleMesh. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00676">676</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00682">682</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -1060,8 +1063,8 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 
 </div>
 </div>
-<a id="ac557f5f97d22704bfc3dfedec806e109"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac557f5f97d22704bfc3dfedec806e109">&#9670;&nbsp;</a></span>replaceWedge()</h2>
+<a id="a2f9edf9c78cb2d1d060b8a7d99fe87e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f9edf9c78cb2d1d060b8a7d99fe87e9">&#9670;&nbsp;</a></span>replaceWedge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1070,7 +1073,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Ra::Core::Geometry::TopologicalMesh::replaceWedge </td>
+          <td class="memname">TopologicalMesh::WedgeIndex Ra::Core::Geometry::TopologicalMesh::replaceWedge </td>
           <td>(</td>
           <td class="paramtype">OpenMesh::HalfedgeHandle&#160;</td>
           <td class="paramname"><em>he</em>, </td>
@@ -1095,7 +1098,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Replace the wedge data associated with an halfedge. The old wedge is "deleted". If wedge data correspond to an already present wedge, it's index is used. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00765">765</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00771">771</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1134,7 +1137,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Replace the wedge index associated with an halfedge. The old wedge is "deleted". The new wedge reference count is incremented. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00770">770</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00779">779</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1181,7 +1184,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Change the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">WedgeData</a> associated for <em>idx</em>, for attrib <em>name</em> to <em>value</em>. The data is changed for all halfedges referencing this wedge. </p><dl class="section return"><dt>Returns</dt><dd>true if the wedge is set, false if nothing set, i.e. if name is not an attrib of type T. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00730">730</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00736">736</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1226,7 +1229,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00743">743</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00749">749</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1331,7 +1334,6 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
       </table>
 </div><div class="memdoc">
 <p>Return a triangleMesh from the topological mesh. </p><dl class="section note"><dt>Note</dt><dd>This is a costly operation. </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>It uses the attributes defined on halfedges. Do not work well if attribs are defined on wedges (initWithWedge), in this case use toTriangleMeshFromWedges() </dd></dl>
 <p>add attribs to out</p>
 <p>Wedges are output vertices !</p>
 
@@ -1380,7 +1382,7 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Geometry</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a></li>
-    <li class="footer">Generated on Fri Jun 3 2022 14:21:09 for Radium Engine by
+    <li class="footer">Generated on Tue Jun 7 2022 09:21:30 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
