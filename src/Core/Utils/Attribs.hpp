@@ -251,26 +251,38 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     ///@{
     /// Get attribute by handle.
     /// \complexity \f$ O(1) \f$
-    /// \warning There is no check on the handle validity.
+    /// \warning There is no check on the handle validity. Attrib is statically cast to T without
+    /// other checks.
+    ///
     template <typename T>
     inline Attrib<T>& getAttrib( const AttribHandle<T>& h );
-
-    template <typename T>
-    inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h );
-
-    /// Get attribute by handle (const).
-    /// \complexity \f$ O(1) \f$
-    /// \warning There is no check on the handle validity.
     template <typename T>
     inline const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const;
+    template <typename T>
+    inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h );
+    template <typename T>
+    inline const Attrib<T>* getAttribPtr( const AttribHandle<T>& h ) const;
+    ///@}
 
+    ///@{
+    /// Get attribute by name.
+    /// First search name to index correpondance \complexity \f$ O(getNumAttribs()) \f$
+    /// \warning There is no check on the name validity. Attrib is statically cast to T without
+    /// other checks.
+    template <typename T>
+    inline Attrib<T>& getAttrib( const std::string& name );
+    template <typename T>
+    inline const Attrib<T>& getAttrib( const std::string& name ) const;
+    ///@}
+
+    ///@{
     /// Return a AttribBase ptr to the attrib identified by name.
     /// to give access to AttribBase method, regardless of the type of element
     /// stored in the attrib.
     inline AttribBase* getAttribBase( const std::string& name );
-
-    /// \see getAttribBase( const std::string& name );
+    inline const AttribBase* getAttribBase( const std::string& name ) const;
     inline AttribBase* getAttribBase( const Index& idx );
+    inline const AttribBase* getAttribBase( const Index& idx ) const;
     ///@}
 
     ///@{
@@ -353,7 +365,8 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
          * // Must be explicitly unlocked.
          * tgt.unlock();
          *
-         * // txc and btg are automatically unlocked when the unlocker's dtor is called (i.e. gets out of scope)
+         * // txc and btg are automatically unlocked when the unlocker's dtor is called (i.e. gets
+         * out of scope)
          * }
          */
 
