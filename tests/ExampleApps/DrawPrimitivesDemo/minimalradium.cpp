@@ -14,6 +14,7 @@
 #include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/Data/TextureManager.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
@@ -42,6 +43,7 @@ const bool ENABLE_POLYS     = true;
 const bool ENABLE_LOGO      = true;
 const bool ENABLE_COLLAPSE  = true;
 const bool ENABLE_SPLIT     = true;
+const bool ENABLE_TORUS     = true;
 
 using namespace Ra;
 using namespace Ra::Core;
@@ -72,10 +74,25 @@ void updateCellCorner( Vector3& cellCorner, const Scalar cellSize, const int nCe
 /// This function is called when the component is properly
 /// setup, i.e. it has an entity.
 void MinimalComponent::initialize() {
+    auto rp = Resources::getResourcesPath();
+
     auto blinnPhongMaterial              = make_shared<BlinnPhongMaterial>( "Shaded Material" );
     blinnPhongMaterial->m_perVertexColor = true;
     blinnPhongMaterial->m_ks             = Color::White();
     blinnPhongMaterial->m_ns             = 100_ra;
+
+    auto blinnPhongTexturedMaterial = make_shared<BlinnPhongMaterial>( "Shaded Textured Material" );
+    blinnPhongTexturedMaterial->m_perVertexColor = true;
+    blinnPhongTexturedMaterial->m_ks             = Color::White();
+    blinnPhongTexturedMaterial->m_ns             = 100_ra;
+
+    Ra::Engine::Data::TextureParameters textureParameters;
+    textureParameters.name      = *rp + "/DrawPrimitivesApp/Assets/grid.png";
+    textureParameters.wrapS     = GL_REPEAT;
+    textureParameters.wrapT     = GL_REPEAT;
+    textureParameters.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+    blinnPhongTexturedMaterial->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE,
+                                            textureParameters );
 
     auto plainMaterial              = make_shared<PlainMaterial>( "Plain Material" );
     plainMaterial->m_perVertexColor = true;
@@ -122,17 +139,25 @@ void MinimalComponent::initialize() {
     //// CUBES ////
     if ( ENABLE_CUBES ) {
         std::shared_ptr<Mesh> cube1( new Mesh( "Cube" ) );
-        auto coord = cellSize / 8_ra;
-        cube1->loadGeometry( Geometry::makeSharpBox( Vector3 { coord, coord, coord } ) );
-        cube1->getCoreGeometry().addAttrib(
-            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
-            Vector4Array { cube1->getNumVertices(), Color::Green() } );
-
+        auto coord = cellSize / 16_ra;
+        cube1->loadGeometry(
+            Geometry::makeSharpBox( Vector3 { coord, coord, coord }, Color::Green() ) );
         auto renderObject1 = RenderObject::createRenderObject(
             "Cube1", this, RenderObjectType::Geometry, cube1, {} );
         renderObject1->setLocalTransform( Transform { Translation( cellCorner ) } );
         renderObject1->setMaterial( blinnPhongMaterial );
         addRenderObject( renderObject1 );
+
+        std::shared_ptr<Mesh> texCube( new Mesh( "Cube" ) );
+        texCube->loadGeometry( Geometry::makeSharpBox(
+            Vector3 { 1.2_ra * coord, 1.2_ra * coord, 1.2_ra * coord }, Color::White(), true ) );
+        auto renderObjectTexCube = RenderObject::createRenderObject(
+            "TexCube", this, RenderObjectType::Geometry, texCube, {} );
+        renderObjectTexCube->setLocalTransform(
+            Transform { Translation( cellCorner + Vector3 { 0_ra, coord * 3.5_ra, 0_ra } ) } );
+        renderObjectTexCube->setMaterial( blinnPhongTexturedMaterial );
+
+        addRenderObject( renderObjectTexCube );
 
         // another cube
         std::shared_ptr<Mesh> cube2( new Mesh( "Cube" ) );
@@ -148,7 +173,7 @@ void MinimalComponent::initialize() {
             "CubeRO_2", this, RenderObjectType::Geometry, cube2, {} );
         coord = cellSize / 2_ra;
         renderObject2->setLocalTransform(
-            Transform { Translation( cellCorner + Vector3( coord, coord, coord ) ) } );
+            Transform { Translation( cellCorner + Vector3 { coord, coord, coord } ) } );
         renderObject2->setMaterial( lambertianMaterial );
         addRenderObject( renderObject2 );
     }
@@ -434,6 +459,20 @@ void MinimalComponent::initialize() {
                 {} );
             sphere->setMaterial( blinnPhongMaterial );
             addRenderObject( sphere );
+
+            auto texSphere = RenderObject::createRenderObject(
+                "test_tex_sphere",
+                this,
+                RenderObjectType::Geometry,
+                DrawPrimitives::ParametricSphere(
+                    Vector3 { 0_ra, 0_ra, 0_ra }, 0.05_ra, Color::White(), true ),
+                {} );
+            texSphere->setMaterial( blinnPhongTexturedMaterial );
+            texSphere->setLocalTransform(
+                Transform { Translation( cellCorner + Vector3 { 0_ra, cellSize / 2_ra, 0_ra } ) *
+                            AngleAxis( Math::Pi / 2_ra, Vector3( 1_ra, 0_ra, 0_ra ) ) } );
+
+            addRenderObject( texSphere );
         }
         numberOfSphere = 32;
         for ( uint i = 0; i < numberOfSphere; ++i ) {
@@ -657,7 +696,6 @@ void MinimalComponent::initialize() {
 
 #ifdef IO_USE_ASSIMP
         auto l               = IO::AssimpFileLoader();
-        auto rp              = Resources::getResourcesPath();
         std::string filename = *rp + "/DrawPrimitivesApp/Assets/radium-logo.dae";
         data                 = l.loadFile( filename );
 #endif
@@ -1013,6 +1051,41 @@ void MinimalComponent::initialize() {
 
         // with "flat face" wedges
         addSplitScene( pos, points2, colors2, indices4, points1[5], points1[2] );
+    }
+
+    if ( ENABLE_TORUS ) {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        {
+            using Ra::Engine::Data::Mesh;
+            {
+                auto torusGeom = makeParametricTorus<32, 16>( .04_ra, .01_ra, Color::White() );
+                auto torusMesh = make_shared<Mesh>( "Torus", std::move( torusGeom ) );
+                auto torus     = RenderObject::createRenderObject(
+                    "test_torus", this, RenderObjectType::Geometry, torusMesh, {} );
+                torus->setMaterial( blinnPhongMaterial );
+                torus->setLocalTransform(
+                    Transform { Translation( cellCorner ) *
+                                AngleAxis( Math::Pi / 2_ra, Vector3( 1_ra, 0_ra, 0_ra ) ) } );
+                addRenderObject( torus );
+            }
+
+            {
+                auto texTorusGeom =
+                    makeParametricTorus<64, 16>( .1_ra, .05_ra, Color::White(), true );
+                auto texTorusMesh =
+                    make_shared<Mesh>( "Textured Torus", std::move( texTorusGeom ) );
+                auto texTorus = RenderObject::createRenderObject(
+                    "test_tex_torus", this, RenderObjectType::Geometry, texTorusMesh, {} );
+                texTorus->setMaterial( blinnPhongTexturedMaterial );
+                texTorus->setLocalTransform( Transform {
+                    Translation( cellCorner + toCellCenter ) *
+                    AngleAxis( -Math::Pi / 4_ra, Vector3( 1_ra, 1_ra, 1_ra ).normalized() ) } );
+
+                addRenderObject( texTorus );
+            }
+        }
     }
 }
 
