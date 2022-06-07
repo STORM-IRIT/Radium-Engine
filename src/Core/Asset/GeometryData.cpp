@@ -19,9 +19,6 @@ void GeometryData::displayInfo() const {
     using namespace Core::Utils; // log
     std::string type;
     switch ( m_type ) {
-    case UNKNOWN:
-        type = "UNKNOWN";
-        break;
     case POINT_CLOUD:
         type = "POINT CLOUD";
         break;
@@ -42,6 +39,10 @@ void GeometryData::displayInfo() const {
         break;
     case HEX_MESH:
         type = "HEX MESH";
+        break;
+    case UNKNOWN:
+    default:
+        type = "UNKNOWN";
         break;
     }
 
