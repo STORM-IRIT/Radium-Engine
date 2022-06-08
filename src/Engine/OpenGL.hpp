@@ -28,7 +28,7 @@ using namespace gl;
 
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext() {
-    return glGetString( gl::GL_VERSION ) != nullptr;
+    return gl::glGetString( gl::GL_VERSION ) != nullptr;
 }
 
 /// Gets the openGL error string (emulates gluErrorString())
@@ -75,7 +75,7 @@ inline const char* glErrorString( gl::GLenum err ) {
 #    define GL_ASSERT( x )                                                                       \
         x;                                                                                       \
         {                                                                                        \
-            gl::GLenum err = glGetError();                                                       \
+            gl::GLenum err = gl::glGetError();                                                   \
             if ( err != gl::GL_NO_ERROR ) {                                                      \
                 const char* errBuf = glErrorString( err );                                       \
                 LOG( Ra::Core::Utils::logERROR )                                                 \
@@ -89,7 +89,7 @@ inline const char* glErrorString( gl::GLenum err ) {
 /// This macro will query the last openGL error.
 #    define GL_CHECK_ERROR                                                                   \
         {                                                                                    \
-            gl::GLenum err = glGetError();                                                   \
+            gl::GLenum err = gl::glGetError();                                               \
             if ( err != gl::GL_NO_ERROR ) {                                                  \
                 const char* errBuf = glErrorString( err );                                   \
                 LOG( Ra::Core::Utils::logERROR )                                             \
