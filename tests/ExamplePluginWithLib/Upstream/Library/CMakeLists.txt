@@ -47,7 +47,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine)
 
 # Client libraries source code organisation is not restricted to the Radium internal configuration.
 # If the directory structure is similar to the Radium directory structure, all is managed
-# automatically by the function configure_radium_library If the directory structure is different,
+# automatically by the function configure_radium_library. If the directory structure is different,
 # client libraries should manage their include directories property according to the directory
 # structures in their source tree (BUILD_INTERFACE) or in their install tree (INSTALL_INTERFACE)
 # Here, source code organisation is flat, so include_directories in the build tree is
