@@ -170,7 +170,7 @@ class RA_GUI_API BaseApplication : public QApplication
 
     void updateRadiumFrameIfNeeded() {
         // Main loop
-        if ( m_isUpdateNeeded.load() ) radiumFrame();
+        if ( !m_isAboutToQuit && m_isUpdateNeeded.load() ) radiumFrame();
         if ( m_continuousUpdateRequest <= 0 ) {
             m_continuousUpdateRequest.store( 0 );
             m_isUpdateNeeded.store( false );
