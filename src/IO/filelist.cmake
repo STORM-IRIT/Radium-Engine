@@ -45,6 +45,8 @@ if(RADIUM_IO_ASSIMP)
         AssimpLoader/AssimpWrapper.hpp
     )
 
+    list(APPEND io_inlines AssimpLoader/AssimpGeometryDataLoader.inl)
+
 endif(RADIUM_IO_ASSIMP)
 
 if(RADIUM_IO_TINYPLY)

@@ -12,6 +12,39 @@
 namespace Ra {
 namespace IO {
 
+template <typename T>
+struct AssimpTypeWrapper {};
+
+template <>
+struct AssimpTypeWrapper<aiVector3D> {
+    using Type = Core::Vector3;
+};
+
+template <>
+struct AssimpTypeWrapper<aiQuaternion> {
+    using Type = Core::Quaternion;
+};
+
+template <>
+struct AssimpTypeWrapper<aiMatrix4x4> {
+    using Type = Core::Transform;
+};
+
+template <>
+struct AssimpTypeWrapper<aiColor3D> {
+    using Type = Core::Utils::Color;
+};
+
+template <>
+struct AssimpTypeWrapper<aiColor4D> {
+    using Type = Core::Utils::Color;
+};
+
+template <>
+struct AssimpTypeWrapper<aiString> {
+    using Type = std::string;
+};
+
 inline Core::Vector3 assimpToCore( const aiVector3D& v ) {
     return Core::Vector3( v.x, v.y, v.z );
 }
@@ -61,12 +94,21 @@ inline std::string assimpToCore( const aiString& string ) {
     return result.empty() ? "default" : result;
 }
 
-inline Core::VectorNi assimpToCore( const uint* index, const uint size ) {
-    Core::VectorNi v( size );
+inline Core::VectorNui assimpToCore( const uint* index, const uint size ) {
+    Core::VectorNui v( size );
     for ( uint i = 0; i < size; ++i ) {
         v[i] = index[i];
     }
 
+    return v;
+}
+
+template <typename T>
+inline T assimpToCore( const uint* index, const uint size ) {
+    T v;
+    for ( uint i = 0; i < size; ++i ) {
+        v[i] = index[i];
+    }
     return v;
 }
 
