@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.39</span>
+   &#160;<span id="projectnumber">1.2.40</span>
    </div>
   </td>
  </tr>
@@ -455,54 +455,55 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8hpp_source.html','');
 <div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;            LOG( logWARNING ) &lt;&lt; <span class="stringliteral">&quot;Invalid face handle returned : face not added &quot;</span> + m_details;</div>
 <div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;        }</div>
 <div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">void</span> postProcess( TopologicalMesh&amp; ) {}</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160; </div>
 <div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;      <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;        std::string m_details;</div>
 <div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;    };</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160; </div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;    WedgeData interpolateWedgeAttributes( <span class="keyword">const</span> WedgeData&amp;, <span class="keyword">const</span> WedgeData&amp;, Scalar alpha );</div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160; </div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> copyAttribToWedgeData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a>&amp; mesh,</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;                                       <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vindex,</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;                                       <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;T&gt;&gt;&amp; attrHandleVec,</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;                                       VectorArray&lt;T&gt;* to );</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160; </div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> copyMeshToWedgeData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a>&amp; mesh,</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;                                     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vindex,</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;                                     <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;Scalar&gt;&gt;&amp; wprop_float,</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;                                     <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;Vector2&gt;&gt;&amp; wprop_vec2,</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;                                     <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;Vector3&gt;&gt;&amp; wprop_vec3,</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;                                     <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;Vector4&gt;&gt;&amp; wprop_vec4,</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                                     TopologicalMesh::WedgeData* wd );</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160; </div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    <span class="keyword">using</span> HandleAndValueVector =</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;        std::vector&lt;std::pair&lt;AttribHandle&lt;T&gt;, T&gt;,</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;                    Eigen::aligned_allocator&lt;std::pair&lt;AttribHandle&lt;T&gt;, T&gt;&gt;&gt;;</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160; </div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    <span class="keywordtype">void</span> split_copy( EdgeHandle _eh, VertexHandle _vh );</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    <span class="keywordtype">void</span> split( EdgeHandle _eh, VertexHandle _vh );</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160; </div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;    OpenMesh::HPropHandleT&lt;WedgeIndex&gt; m_wedgeIndexPph; </div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    WedgeCollection m_wedges;                           </div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;    OpenMesh::HPropHandleT&lt;Index&gt; m_inputTriangleMeshIndexPph;</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    OpenMesh::HPropHandleT&lt;Index&gt; m_outputTriangleMeshIndexPph;</div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160; </div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    <span class="keywordtype">int</span> m_normalsIndex { -1 };</div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    <span class="comment">// vertex handle idx -&gt; face handle idx -&gt; wedge idx with the same normal</span></div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    std::vector&lt;std::map&lt;int, std::vector&lt;int&gt;&gt;&gt; m_vertexFaceWedgesWithSameNormals;</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160; </div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TMOperations;</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;};</div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160; </div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;<span class="comment">// heplers</span></div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;<span class="keywordtype">void</span> printWedgesInfo( <span class="keyword">const</span> TopologicalMesh&amp; );</div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160; </div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;} <span class="comment">// namespace Geometry</span></div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160; </div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/TopologicalMesh.inl&gt;</span></div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160; </div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;    WedgeData interpolateWedgeAttributes( <span class="keyword">const</span> WedgeData&amp;, <span class="keyword">const</span> WedgeData&amp;, Scalar alpha );</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160; </div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> copyAttribToWedgeData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a>&amp; mesh,</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;                                       <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vindex,</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;                                       <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;T&gt;&gt;&amp; attrHandleVec,</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;                                       VectorArray&lt;T&gt;* to );</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160; </div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> copyMeshToWedgeData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a>&amp; mesh,</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;                                     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vindex,</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;                                     <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;Scalar&gt;&gt;&amp; wprop_float,</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;                                     <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;Vector2&gt;&gt;&amp; wprop_vec2,</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;                                     <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;Vector3&gt;&gt;&amp; wprop_vec3,</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                                     <span class="keyword">const</span> std::vector&lt;AttribHandle&lt;Vector4&gt;&gt;&amp; wprop_vec4,</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;                                     TopologicalMesh::WedgeData* wd );</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160; </div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    <span class="keyword">using</span> HandleAndValueVector =</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;        std::vector&lt;std::pair&lt;AttribHandle&lt;T&gt;, T&gt;,</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;                    Eigen::aligned_allocator&lt;std::pair&lt;AttribHandle&lt;T&gt;, T&gt;&gt;&gt;;</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160; </div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    <span class="keywordtype">void</span> split_copy( EdgeHandle _eh, VertexHandle _vh );</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;    <span class="keywordtype">void</span> split( EdgeHandle _eh, VertexHandle _vh );</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160; </div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    OpenMesh::HPropHandleT&lt;WedgeIndex&gt; m_wedgeIndexPph; </div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;    WedgeCollection m_wedges;                           </div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;    OpenMesh::HPropHandleT&lt;Index&gt; m_inputTriangleMeshIndexPph;</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;    OpenMesh::HPropHandleT&lt;Index&gt; m_outputTriangleMeshIndexPph;</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160; </div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    <span class="keywordtype">int</span> m_normalsIndex { -1 };</div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    <span class="comment">// vertex handle idx -&gt; face handle idx -&gt; wedge idx with the same normal</span></div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    std::vector&lt;std::map&lt;int, std::vector&lt;int&gt;&gt;&gt; m_vertexFaceWedgesWithSameNormals;</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160; </div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TMOperations;</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;};</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160; </div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;<span class="comment">// heplers</span></div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;<span class="keywordtype">void</span> printWedgesInfo( <span class="keyword">const</span> TopologicalMesh&amp; );</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160; </div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;} <span class="comment">// namespace Geometry</span></div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160; </div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/TopologicalMesh.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
@@ -518,7 +519,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8hpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>TopologicalMesh.hpp</b></li>
-    <li class="footer">Generated on Tue Jun 7 2022 09:21:29 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 9 2022 13:42:09 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

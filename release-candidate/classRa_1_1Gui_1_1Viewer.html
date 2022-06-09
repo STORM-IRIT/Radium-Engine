@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.39</span>
+   &#160;<span id="projectnumber">1.2.40</span>
    </div>
   </td>
  </tr>
@@ -358,6 +358,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:af993e161d72ea7e41a3bc49a9671a74e"><td class="memItemLeft" align="right" valign="top"><a id="af993e161d72ea7e41a3bc49a9671a74e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>showEvent</b> (QShowEvent *ev) override</td></tr>
 <tr class="separator:af993e161d72ea7e41a3bc49a9671a74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae47faabf11e9ece9e74b00365c524436"><td class="memItemLeft" align="right" valign="top"><a id="ae47faabf11e9ece9e74b00365c524436"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#ae47faabf11e9ece9e74b00365c524436">focusOutEvent</a> (QFocusEvent *event) override</td></tr>
+<tr class="memdesc:ae47faabf11e9ece9e74b00365c524436"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset key pressed, in case a key is pressed when focus lost <br /></td></tr>
+<tr class="separator:ae47faabf11e9ece9e74b00365c524436"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>If GL is initialized, do the viewer stuff, and call handle*Event to perform actual event handling, according to keyMapping. If event is not processed by <a class="el" href="classRa_1_1Gui_1_1Viewer.html">Viewer</a>, it's forwarded to parent() (if any). </p>
 </div></td></tr>
@@ -571,7 +575,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 <p>[event dispatch]</p>
 <p>[event dispatch]</p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00693">693</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00697">697</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -741,7 +745,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <p>Prepare the viewer to display a scene. This will ask the renderer to build its specific OenGL related objects and set the camera to its default state </p><dl class="section return"><dt>Returns</dt><dd>true if the scene is ready to display. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00832">832</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00836">836</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -890,7 +894,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <p>Array of custom key event handler Index is KeyEventType </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00330">330</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00333">333</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -915,7 +919,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000094">Todo:</a></b></dt><dd>make the following private: Owning pointer to the renderers. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00307">307</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00310">310</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -927,7 +931,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a5a23e360fb4500aeea04e83e2a5c8f36"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a5a23e360fb4500aeea04e83e2a5c8f36">Ra::Gui::Viewer::addRenderer</a></div><div class="ttdeci">int addRenderer(const std::shared_ptr&lt; Engine::Rendering::Renderer &gt; &amp;e)</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00143">Viewer.cpp:143</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:53</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a0522b4876b6a6e84ba5c8e40f66b714f"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">Ra::Gui::Viewer::m_camera</a></div><div class="ttdeci">std::unique_ptr&lt; CameraManipulator &gt; m_camera</div><div class="ttdoc">Owning pointer to the camera.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00318">Viewer.hpp:318</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a0522b4876b6a6e84ba5c8e40f66b714f"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">Ra::Gui::Viewer::m_camera</a></div><div class="ttdeci">std::unique_ptr&lt; CameraManipulator &gt; m_camera</div><div class="ttdoc">Owning pointer to the camera.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00321">Viewer.hpp:321</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1Renderer_html_a1937407357a05fef64bd1f0bafa50492"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1937407357a05fef64bd1f0bafa50492">Ra::Engine::Rendering::Renderer::initialize</a></div><div class="ttdeci">void initialize(uint width, uint height)</div><div class="ttdoc">Initialize renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00056">Renderer.cpp:56</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a94ca6b2d9205f3affdc98703e5d22a13"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a94ca6b2d9205f3affdc98703e5d22a13">Ra::Gui::Viewer::changeRenderer</a></div><div class="ttdeci">bool changeRenderer(int index)</div><div class="ttdoc">Set the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00336">Viewer.cpp:336</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aa494c3894be5858ef29cd48bf67d9e96"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aa494c3894be5858ef29cd48bf67d9e96">Ra::Gui::Viewer::getRenderer</a></div><div class="ttdeci">const Engine::Rendering::Renderer * getRenderer() const</div><div class="ttdoc">Read-only access to renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00135">Viewer.cpp:135</a></div></div>
@@ -935,7 +939,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Viewer</a></li>
-    <li class="footer">Generated on Tue Jun 7 2022 09:21:31 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 9 2022 13:42:12 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

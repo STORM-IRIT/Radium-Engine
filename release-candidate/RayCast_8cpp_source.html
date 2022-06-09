@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.39</span>
+   &#160;<span id="projectnumber">1.2.40</span>
    </div>
   </td>
  </tr>
@@ -210,7 +210,7 @@ $(document).ready(function(){initNavTree('RayCast_8cpp_source.html',''); initRes
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keywordtype">bool</span> RayCastPlane( <span class="keyword">const</span> Ray&amp; r,</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                   <span class="keyword">const</span> Core::Vector3 a,</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                   <span class="keyword">const</span> Core::Vector3&amp; a,</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                   <span class="keyword">const</span> Core::Vector3&amp; normal,</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                   std::vector&lt;Scalar&gt;&amp; hitsOut ) {</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    CORE_ASSERT( r.direction().squaredNorm() &gt; 0.f, <span class="stringliteral">&quot;Invalid Ray&quot;</span> );</div>
@@ -367,7 +367,7 @@ $(document).ready(function(){initNavTree('RayCast_8cpp_source.html',''); initRes
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;}</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keywordtype">bool</span> RayCastTriangle( <span class="keyword">const</span> Ray&amp; ray,</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                      <span class="keyword">const</span> Vector3 a,</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                      <span class="keyword">const</span> Vector3&amp; a,</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                      <span class="keyword">const</span> Vector3&amp; b,</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                      <span class="keyword">const</span> Vector3&amp; c,</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                      std::vector&lt;Scalar&gt;&amp; hitsOut ) {</div>
@@ -441,7 +441,7 @@ $(document).ready(function(){initNavTree('RayCast_8cpp_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>RayCast.cpp</b></li>
-    <li class="footer">Generated on Tue Jun 7 2022 09:21:29 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 9 2022 13:42:10 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

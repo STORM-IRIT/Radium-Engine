@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.39</span>
+   &#160;<span id="projectnumber">1.2.40</span>
    </div>
   </td>
  </tr>
@@ -169,7 +169,42 @@ Mesh creation</h1>
 <li><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a36eee2128af8869a7dafebb8fc60690f">Ra::Core::Utils::Attrib::getDataWithLock</a> to get a writable reference to the data array</li>
 <li>Ra::Core::Utils::Attrib::unlock to release the writable reference</li>
 </ul>
-<p>For instance </p><div class="fragment"></div><!-- fragment --><p> Other examples are provided in <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a></p>
+<p>For instance </p><div class="fragment"><div class="line">    <span class="keyword">using</span> Ra::Core::Geometry::TriangleMesh;</div>
+<div class="line">    TriangleMesh m;</div>
+<div class="line">    TriangleMesh::PointAttribHandle::Container vertices;</div>
+<div class="line">    TriangleMesh::NormalAttribHandle::Container normals;</div>
+<div class="line">    TriangleMesh::IndexContainerType indices;</div>
+<div class="line"> </div>
+<div class="line">    vertices.push_back( { 0, 0, 0 } );</div>
+<div class="line">    vertices.push_back( { 1, 0, 0 } );</div>
+<div class="line">    vertices.push_back( { 0, 2, 0 } );</div>
+<div class="line">    normals.push_back( { 0, 0, 1 } );</div>
+<div class="line">    normals.push_back( { 0, 0, 1 } );</div>
+<div class="line">    normals.push_back( { 0, 0, 1 } );</div>
+<div class="line"> </div>
+<div class="line">    m.setVertices( std::move( vertices ) );</div>
+<div class="line">    m.setNormals( std::move( normals ) );</div>
+<div class="line"> </div>
+<div class="line">    m.setIndices( { { 0, 1, 2 } } );</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">auto</span> handle1  = m.addAttrib&lt;Vector3&gt;( <span class="stringliteral">&quot;vector3_attrib&quot;</span> );</div>
+<div class="line">    <span class="keyword">auto</span>&amp; attrib1 = m.getAttrib( handle1 );</div>
+<div class="line">    <span class="keyword">auto</span>&amp; buf     = attrib1.getDataWithLock();</div>
+<div class="line"> </div>
+<div class="line">    buf.reserve( 3 );</div>
+<div class="line">    buf.push_back( { 1, 1, 1 } );</div>
+<div class="line">    buf.push_back( { 2, 2, 2 } );</div>
+<div class="line">    buf.push_back( { 3, 3, 3 } );</div>
+<div class="line">    attrib1.unlock();</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">auto</span> handle2  = m.addAttrib&lt;<span class="keywordtype">float</span>&gt;( <span class="stringliteral">&quot;float_attrib&quot;</span> );</div>
+<div class="line">    <span class="keyword">auto</span>&amp; attrib2 = m.getAttrib( handle2 );</div>
+<div class="line">    attrib2.setData( { 1.f, 2.f, 3.f } );</div>
+<div class="line"> </div>
+<div class="line">    TriangleMesh m2;</div>
+<div class="line">    m2.copyBaseGeometry( m );</div>
+<div class="line">    m2.copyAttributes( m, handle1 );</div>
+</div><!-- fragment --><p> Other examples are provided in <a class="el" href="DrawPrimitives_8cpp_source.html">DrawPrimitives.cpp</a></p>
 <h2><a class="anchor" id="wedges"></a>
 Wedges</h2>
 <div class="image">
@@ -212,7 +247,7 @@ Halfedge collapse and wedge.</div></div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Tue Jun 7 2022 09:21:30 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 9 2022 13:42:11 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

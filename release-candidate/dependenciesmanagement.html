@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.39</span>
+   &#160;<span id="projectnumber">1.2.40</span>
    </div>
   </td>
  </tr>
@@ -136,7 +136,36 @@ Configuration and compilation of the dependencies</h2>
 <div class="line">cmake cmake Radium-Source-Tree/external -DCMAKE_BUILD_TYPE=Debug -B build-d/ -DCMAKE_INSTALL_PREFIX=`pwd`/install-d</div>
 <div class="line">cmake --build build-d --parallel</div>
 </div><!-- fragment --><p>If not given on the command line, the installation directory is set by default to <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}</code> for Release, and <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}</code> for any other CMAKE_BUILD_TYPE`.</p>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h3>Getting started with Visual Studio</h3>
+<p>Open <code>external/CMakeLists.txt</code> and edit cmake settings or <code>CMakeSettings.json</code>. External build and install have to be outside Radium-Engine source directory. For instance</p>
+<div class="fragment"><div class="line">{</div>
+<div class="line">  &quot;configurations&quot;: [</div>
+<div class="line">    {</div>
+<div class="line">      &quot;name&quot;: &quot;x64-Debug&quot;,</div>
+<div class="line">      &quot;generator&quot;: &quot;Ninja&quot;,</div>
+<div class="line">      &quot;configurationType&quot;: &quot;Debug&quot;,</div>
+<div class="line">      &quot;inheritEnvironments&quot;: [ &quot;msvc_x64_x64&quot; ],</div>
+<div class="line">      &quot;buildRoot&quot;: &quot;${projectDir}/../../radium-externals/build/${name}&quot;,</div>
+<div class="line">      &quot;installRoot&quot;: &quot;${projectDir}/../../radium-externals/install/${name}&quot;,</div>
+<div class="line">      &quot;cmakeCommandArgs&quot;: &quot;&quot;,</div>
+<div class="line">      &quot;buildCommandArgs&quot;: &quot;&quot;,</div>
+<div class="line">      &quot;ctestCommandArgs&quot;: &quot;&quot;</div>
+<div class="line">    },</div>
+<div class="line">    {</div>
+<div class="line">      &quot;name&quot;: &quot;x64-Release&quot;,</div>
+<div class="line">      &quot;generator&quot;: &quot;Ninja&quot;,</div>
+<div class="line">      &quot;configurationType&quot;: &quot;RelWithDebInfo&quot;,</div>
+<div class="line">      &quot;buildRoot&quot;: &quot;${projectDir}/../../radium-externals/build/${name}&quot;,</div>
+<div class="line">      &quot;installRoot&quot;: &quot;${projectDir}/../../radium-externals/install/${name}&quot;,</div>
+<div class="line">      &quot;cmakeCommandArgs&quot;: &quot;&quot;,</div>
+<div class="line">      &quot;buildCommandArgs&quot;: &quot;&quot;,</div>
+<div class="line">      &quot;ctestCommandArgs&quot;: &quot;&quot;,</div>
+<div class="line">      &quot;inheritEnvironments&quot;: [ &quot;msvc_x64_x64&quot; ],</div>
+<div class="line">      &quot;variables&quot;: []</div>
+<div class="line">    }</div>
+<div class="line">  ]</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md17"></a>
 Configuration of Radium</h2>
 <p>To compile Radium-Engine, you have to indicate where cmake can find each dependency.</p>
 <p>For convenience, dependencies install procedure create a configuration file, you can use this configuration with the <code>-C</code> option of cmake. The cmake config file <code>/path/to/external/install/radium-options.cmake</code> contains, depending on your dependency configuration:</p>
@@ -241,7 +270,7 @@ User provided external dependencies</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Tue Jun 7 2022 09:21:30 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 9 2022 13:42:11 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

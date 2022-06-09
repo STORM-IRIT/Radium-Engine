@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.39</span>
+   &#160;<span id="projectnumber">1.2.40</span>
    </div>
   </td>
  </tr>
@@ -440,7 +440,18 @@ template&lt;typename MeshIndex , typename NonManifoldFaceCommand &gt; </div>
 <p>Construct a topological mesh from a triangle mesh. This operation merges vertex with same position, but keeps vertex attributes on halfedges, so that TriangleMesh vertices with the same 3D position are represented only once in the topological mesh. </p><dl class="section note"><dt>Note</dt><dd>This is a costly operation.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">NonManifoldFaceCommand</td><td>Command executed when non-manifold faces are found. API and default implementation: <div class="fragment"></div><!-- fragment --></td></tr>
+    <tr><td class="paramname">NonManifoldFaceCommand</td><td>Command executed when non-manifold faces are found. API and default implementation: <div class="fragment"><div class="line">    <span class="keyword">struct </span>DefaultNonManifoldFaceCommand {</div>
+<div class="line">        DefaultNonManifoldFaceCommand( <span class="keyword">const</span> std::string&amp; details = {} ) : m_details { details } {}</div>
+<div class="line">        <span class="keyword">inline</span> <span class="keywordtype">void</span> initialize( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a>&amp; ) {}</div>
+<div class="line">        <span class="keyword">inline</span> <span class="keywordtype">void</span> process( <span class="keyword">const</span> std::vector&lt;TopologicalMesh::VertexHandle&gt;&amp; <span class="comment">/*face_vhandles*/</span> ) {</div>
+<div class="line">            LOG( logWARNING ) &lt;&lt; <span class="stringliteral">&quot;Invalid face handle returned : face not added &quot;</span> + m_details;</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keyword">inline</span> <span class="keywordtype">void</span> postProcess( <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6">TopologicalMesh</a>&amp; ) {}</div>
+<div class="line"> </div>
+<div class="line">      <span class="keyword">private</span>:</div>
+<div class="line">        std::string m_details;</div>
+<div class="line">    };</div>
+</div><!-- fragment --></td></tr>
   </table>
   </dd>
 </dl>
@@ -491,7 +502,18 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 <p>Construct a topological mesh from a triangle mesh. This operation merges vertex with same position, but keeps vertex attributes on halfedges, so that TriangleMesh vertices with the same 3D position are represented only once in the topological mesh. </p><dl class="section note"><dt>Note</dt><dd>This is a costly operation.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">NonManifoldFaceCommand</td><td>Command executed when non-manifold faces are found. API and default implementation: <div class="fragment"></div><!-- fragment --> </td></tr>
+    <tr><td class="paramname">NonManifoldFaceCommand</td><td>Command executed when non-manifold faces are found. API and default implementation: <div class="fragment"><div class="line">    <span class="keyword">struct </span>DefaultNonManifoldFaceCommand {</div>
+<div class="line">        DefaultNonManifoldFaceCommand( <span class="keyword">const</span> std::string&amp; details = {} ) : m_details { details } {}</div>
+<div class="line">        <span class="keyword">inline</span> <span class="keywordtype">void</span> initialize( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a>&amp; ) {}</div>
+<div class="line">        <span class="keyword">inline</span> <span class="keywordtype">void</span> process( <span class="keyword">const</span> std::vector&lt;TopologicalMesh::VertexHandle&gt;&amp; <span class="comment">/*face_vhandles*/</span> ) {</div>
+<div class="line">            LOG( logWARNING ) &lt;&lt; <span class="stringliteral">&quot;Invalid face handle returned : face not added &quot;</span> + m_details;</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keyword">inline</span> <span class="keywordtype">void</span> postProcess( <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6">TopologicalMesh</a>&amp; ) {}</div>
+<div class="line"> </div>
+<div class="line">      <span class="keyword">private</span>:</div>
+<div class="line">        std::string m_details;</div>
+<div class="line">    };</div>
+</div><!-- fragment --> </td></tr>
   </table>
   </dd>
 </dl>
@@ -1378,11 +1400,13 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a></div><div class="ttdoc">AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00133">IndexedGeometry.hpp:133</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ab71f7b807bf20ff4b85d03a4db6961e6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a></div><div class="ttdeci">TopologicalMesh()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00185">TopologicalMesh.cpp:185</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Geometry</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a></li>
-    <li class="footer">Generated on Tue Jun 7 2022 09:21:30 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 9 2022 13:42:11 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
