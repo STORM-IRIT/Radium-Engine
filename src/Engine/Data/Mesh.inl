@@ -567,37 +567,40 @@ LineMesh::LineMesh( const std::string& name, typename base::MeshRenderMode rende
 
 /////////  PolyMesh ///////////
 
-size_t PolyMesh::getNumFaces() const {
-    return getCoreGeometry().getIndices().size();
+template <typename T>
+size_t GeneralMesh<T>::getNumFaces() const {
+    return this->getCoreGeometry().getIndices().size();
 }
 
-void PolyMesh::updateGL_specific_impl() {
-    if ( !m_indices ) {
-        m_indices      = globjects::Buffer::create();
-        m_indicesDirty = true;
+template <typename T>
+void GeneralMesh<T>::updateGL_specific_impl() {
+    if ( !this->m_indices ) {
+        this->m_indices      = globjects::Buffer::create();
+        this->m_indicesDirty = true;
     }
-    if ( m_indicesDirty ) {
+    if ( this->m_indicesDirty ) {
         triangulate();
         /// this one do not work since m_indices is not a std::vector
         // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
-        m_numElements = m_triangleIndices.size() * PolyMesh::IndexType::RowsAtCompileTime;
+        this->m_numElements = m_triangleIndices.size() * GeneralMesh::IndexType::RowsAtCompileTime;
 
-        m_indices->setData(
-            static_cast<gl::GLsizeiptr>( m_triangleIndices.size() * sizeof( PolyMesh::IndexType ) ),
-            m_triangleIndices.data(),
-            GL_STATIC_DRAW );
-        m_indicesDirty = false;
+        this->m_indices->setData( static_cast<gl::GLsizeiptr>( m_triangleIndices.size() *
+                                                               sizeof( GeneralMesh::IndexType ) ),
+                                  m_triangleIndices.data(),
+                                  GL_STATIC_DRAW );
+        this->m_indicesDirty = false;
     }
     if ( !base::m_vao ) { base::m_vao = globjects::VertexArray::create(); }
     base::m_vao->bind();
-    base::m_vao->bindElementBuffer( m_indices.get() );
+    base::m_vao->bindElementBuffer( this->m_indices.get() );
     base::m_vao->unbind();
 }
 
-void PolyMesh::triangulate() {
+template <typename T>
+void GeneralMesh<T>::triangulate() {
     m_triangleIndices.clear();
-    m_triangleIndices.reserve( m_mesh.getIndices().size() );
-    for ( const auto& face : m_mesh.getIndices() ) {
+    m_triangleIndices.reserve( this->m_mesh.getIndices().size() );
+    for ( const auto& face : this->m_mesh.getIndices() ) {
         if ( face.size() == 3 ) { m_triangleIndices.push_back( face ); }
         else {
             /// simple sew triangulation
@@ -614,6 +617,17 @@ void PolyMesh::triangulate() {
                 }
             }
         }
+    }
+}
+
+template <>
+inline void GeneralMesh<Core::Geometry::QuadMesh>::triangulate() {
+    m_triangleIndices.clear();
+    m_triangleIndices.reserve( 2 * this->m_mesh.getIndices().size() );
+    // assume quads are convex
+    for ( const auto& face : this->m_mesh.getIndices() ) {
+        m_triangleIndices.emplace_back( face[0], face[1], face[2] );
+        m_triangleIndices.emplace_back( face[0], face[2], face[3] );
     }
 }
 

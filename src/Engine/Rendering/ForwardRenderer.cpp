@@ -452,10 +452,12 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
 
                 using trimesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::TriangleMesh>;
                 using polymesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh>;
+                using quadmesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::QuadMesh>;
 
                 auto displayable = ro->getMesh();
                 auto tm          = std::dynamic_pointer_cast<trimesh>( displayable );
                 auto tp          = std::dynamic_pointer_cast<polymesh>( displayable );
+                auto tq          = std::dynamic_pointer_cast<quadmesh>( displayable );
 
                 auto processLineMesh = []( auto cm, std::shared_ptr<Data::LineMesh>& lm ) {
                     if ( cm->getRenderMode() ==
@@ -465,6 +467,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 };
                 if ( tm ) { processLineMesh( tm, disp ); }
                 if ( tp ) { processLineMesh( tp, disp ); }
+                if ( tq ) { processLineMesh( tq, disp ); }
 
                 m_wireframes[ro.get()] = disp;
                 wro                    = disp;

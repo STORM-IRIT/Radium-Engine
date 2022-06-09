@@ -75,10 +75,7 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
     Ra::Core::Geometry::PointCloud mesh;
 
     // add custom attribs
-    mesh.vertexAttribs().copyAllAttributes( data->getAttribManager() );
-
-    // To be discussed: Should not weights be part of the geometry ?
-    //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
+    mesh.vertexAttribs().copyAllAttributes( data->getGeometry().vertexAttribs() );
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
