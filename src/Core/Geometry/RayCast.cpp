@@ -113,7 +113,7 @@ bool RayCastSphere( const Ray& r,
 }
 
 bool RayCastPlane( const Ray& r,
-                   const Core::Vector3 a,
+                   const Core::Vector3& a,
                    const Core::Vector3& normal,
                    std::vector<Scalar>& hitsOut ) {
     CORE_ASSERT( r.direction().squaredNorm() > 0.f, "Invalid Ray" );
@@ -272,7 +272,7 @@ bool RayCastCylinder( const Ray& r,
 }
 
 bool RayCastTriangle( const Ray& ray,
-                      const Vector3 a,
+                      const Vector3& a,
                       const Vector3& b,
                       const Vector3& c,
                       std::vector<Scalar>& hitsOut ) {

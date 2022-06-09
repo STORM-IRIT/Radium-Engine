@@ -5,9 +5,10 @@
 /// GL_ASSERT(x) : executes code x and, if in debug, asserts when an openGL error is detected.
 /// GL_CHECK_ERROR : queries the last openGL error in debug (no effect in release)
 /// glFlushError() : Ignores the previous openGL errors (no effect in release).
-
+#include <glbinding/gl/gl.h>
 #include <glbinding/gl45core/gl.h>
 #include <glbinding/gl45ext/gl.h>
+
 namespace Ra {
 namespace Engine {
 // use glbinding namespace only in Ra::Engine to avoid namespace clash with e.g. Qt.

@@ -114,8 +114,9 @@ if(DOXYGEN_FOUND)
     set(DOXYGEN_FORCE_LOCAL_INCLUDES "NO")
     set(DOXYGEN_RECURSIVE "YES")
     set(DOXYGEN_STRIP_FROM_INC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../src")
-    set(DOXYGEN_EXAMPLE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../tests"
-                             "${CMAKE_CURRENT_SOURCE_DIR}/../src"
+    set(DOXYGEN_EXAMPLE_PATH
+        "${CMAKE_CURRENT_SOURCE_DIR}/../tests" "${CMAKE_CURRENT_SOURCE_DIR}/../tests/ExampleApps"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../src"
     )
     set(DOXYGEN_EXAMPLE_PATTERNS "*.cpp" "*.h" "*.cu")
     set(DOXYGEN_EXAMPLE_RECURSIVE "YES")

@@ -28,5 +28,12 @@ int activeKey() {
     return g_activeKey;
 }
 
+void releaseAllKeys() {
+    for ( auto& k : g_keypresses ) {
+        k.second = false;
+    }
+    g_activeKey = -1;
+}
+
 } // namespace Gui
 } // namespace Ra

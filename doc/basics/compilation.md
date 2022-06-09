@@ -5,7 +5,7 @@
 
 The following platforms and tool chains have been tested and should work :
 
-* *Windows* : IDEs: Visual Studio 2019 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017 or 2019) .
+* *Windows* : IDEs: Visual Studio 2019, 2022 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017, 2019, 2022) .
 * *Mac OSX* : gcc 10 or higher, Apple clang
 * *Linux* : gcc 8  or higher, clang
 
@@ -180,42 +180,41 @@ Thanks to the integrated support of CMake in Visual Studio, you don't need a VS 
 VS should run cmake, generate the target builds (Debug and Release by default).
 Other build types can be added by editing `CMakeSettings.json`.
 
-You may have Cmake errors occurring at the first run.
-To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu.
-For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries.
-To fix it, edit `CMakeSettings.json`, such that
+Configure cmake option (see official doc [here](https://docs.microsoft.com/cpp/build/customize-cmake-settings))
+You have to provide path to Qt installation and external dependencies configuration. For instance, with directory structure for externals as defined in \ref dependenciesmanagement, the configuration is
 
 ~~~{.json}
-{
-  "configurations": [
-    {
-      "name": "x64-Release",
-      "generator": "Ninja",
-      "configurationType": "Release",
-      "inheritEnvironments": [ "msvc_x64_x64" ],
-      "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
-      "installRoot": "C:/Users/XXX/Dev/Radium-install",
-      "cmakeCommandArgs": "-C external-install-dir/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
-      "buildCommandArgs": "",
-      "ctestCommandArgs": ""
-    },
+ "configurations": [
     {
       "name": "x64-Debug",
       "generator": "Ninja",
       "configurationType": "Debug",
       "inheritEnvironments": [ "msvc_x64_x64" ],
-      "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
-      "installRoot": "C:/Users/XXX/Dev/Radium-installdbg",
-      "cmakeCommandArgs": "-C external-install-dir/install-r/radium-options.cmake -DCMAKE_PREFIX_PATH=C:/Qt-5.15/5.15.0/msvc2017_64",
+      "buildRoot": "${projectDir}/out/build/${name}",
+      "installRoot": "${projectDir}/out/install/${name}",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt/5.15.2/msvc2019_64/ -C ${projectDir}/../radium-externals/install/${name}/radium-options.cmake",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
+    },
+    {
+      "name": "x64-Release",
+      "generator": "Ninja",
+      "configurationType": "Release",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}/out/build/${name}",
+      "installRoot": "${projectDir}/out/install/${name}",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt/5.15.2/msvc2019_64/ -C ${projectDir}/../radium-externals/install/${name}/radium-options.cmake",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      ]
     }
   ]
 }
 ~~~
 
 \note It is strongly encouraged to use `/` separators in your path, instead of `\\`. See <https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u>
-*Note*: When compiling the dependencies you may hit the max path length fixed by Microsoft OS (260 characters). To fix this, you might need to change the path of your build dir to shorten it, or to change the limit on your system, see: <https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later>
+
+\note When compiling the dependencies you may hit the max path length fixed by Microsoft OS (260 characters). To fix this, you might need to change the path of your build dir to shorten it, or to change the limit on your system, see: <https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later>
 
 ### Compilation
 
