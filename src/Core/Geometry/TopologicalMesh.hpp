@@ -97,7 +97,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      *
      * \tparam NonManifoldFaceCommand Command executed when non-manifold faces are
      * found. API and default implementation:
-     * \snippet Core/Geometry/TopologicalMesh.cpp Default command implementation
+     * \snippet Core/Geometry/TopologicalMesh.hpp Default command implementation
      *
      */
     template <typename MeshIndex, typename NonManifoldFaceCommand>
@@ -114,7 +114,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      *
      * \tparam NonManifoldFaceCommand Command executed when non-manifold faces are
      * found. API and default implementation:
-     * \snippet Core/Geometry/TopologicalMesh.cpp Default command implementation
+     * \snippet Core/Geometry/TopologicalMesh.hpp Default command implementation
      * @todo, when MultiIndexedGeometry will be operational, will this replace the above ?
      *
      */
@@ -578,8 +578,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         const Ra::Core::Geometry::MultiIndexedGeometry& m_triMesh;
     };
 
-    //! [Default command implementation]
     /// \todo add layerKey
+    //! [Default command implementation]
     struct DefaultNonManifoldFaceCommand {
         /// \brief details string is printed along with the message
         DefaultNonManifoldFaceCommand( const std::string& details = {} ) : m_details { details } {}
@@ -591,10 +591,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         }
         /// \brief If needed, apply post-processing on the Ra::Core::Geometry::TopologicalMesh
         inline void postProcess( TopologicalMesh& ) {}
-        //! [Default command implementation]
+
       private:
         std::string m_details;
     };
+    //! [Default command implementation]
 
     WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
 

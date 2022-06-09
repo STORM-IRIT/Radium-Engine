@@ -98,7 +98,7 @@ or
 - Ra::Core::Utils::Attrib::unlock to release the writable reference
 
 For instance
-\snippet unittest/Core/mesh.cpp create TriangleMesh
+\snippet unittest/Core/indexview.cpp create TriangleMesh
 
 Other examples are provided in DrawPrimitives.cpp
 
