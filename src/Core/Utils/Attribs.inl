@@ -198,6 +198,21 @@ inline AttribHandle<T> AttribManager::findAttrib( const std::string& name ) cons
 }
 
 template <typename T>
+typename Attrib<T>::Container& AttribManager::getDataWithLock( const AttribHandle<T>& h ) {
+    return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->getDataWithLock();
+}
+
+template <typename T>
+const typename Attrib<T>::Container& AttribManager::getData( const AttribHandle<T>& h ) {
+    return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->data();
+}
+
+template <typename T>
+void AttribManager::unlock( const AttribHandle<T>& h ) {
+    static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->unlock();
+}
+
+template <typename T>
 inline Attrib<T>& AttribManager::getAttrib( const AttribHandle<T>& h ) {
     return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
 }

@@ -447,6 +447,7 @@ void TopologicalMesh::initWithWedge(
     const auto& abstractLayer = mesh.getLayer( layerKey );
 
     if ( !abstractLayer.hasSemantic( TriangleIndexLayer::staticSemanticName ) &&
+         !abstractLayer.hasSemantic( QuadIndexLayer::staticSemanticName ) &&
          !abstractLayer.hasSemantic( PolyIndexLayer::staticSemanticName ) ) {
         LOG( logWARNING ) << "TopologicalMesh: mesh does not contains faces. Aborting conversion";
         return;
@@ -454,12 +455,8 @@ void TopologicalMesh::initWithWedge(
 
     clean();
 
-    LOG( logINFO )
-        << "TopologicalMesh: load mesh with "
-        << ( abstractLayer.hasSemantic( TriangleIndexLayer::staticSemanticName )
-                 ? static_cast<const TriangleIndexLayer&>( abstractLayer ).collection().size()
-                 : static_cast<const PolyIndexLayer&>( abstractLayer ).collection().size() )
-        << " faces and " << mesh.vertices().size() << " vertices.";
+    LOG( logINFO ) << "TopologicalMesh: load mesh with " << abstractLayer.getSize() << " faces and "
+                   << mesh.vertices().size() << " vertices.";
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
