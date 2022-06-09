@@ -1,14 +1,11 @@
 #include <IO/AssimpLoader/AssimpGeometryDataLoader.hpp>
 
 #include <assimp/mesh.h>
-
 #include <assimp/scene.h>
 
-#include <Core/Asset/GeometryData.hpp>
 #include <Core/Utils/Log.hpp>
 
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
-#include <IO/AssimpLoader/AssimpWrapper.hpp>
 
 namespace Ra {
 namespace IO {
@@ -65,36 +62,77 @@ uint AssimpGeometryDataLoader::sceneGeometrySize( const aiScene* scene ) const {
 void AssimpGeometryDataLoader::loadMeshAttrib( const aiMesh& mesh,
                                                GeometryData& data,
                                                std::set<std::string>& usedNames ) {
+    // Translate general identification of the mesh
     fetchName( mesh, data, usedNames );
     fetchType( mesh, data );
-    fetchVertices( mesh, data );
-    if ( data.isLineMesh() ) { fetchEdges( mesh, data ); }
-    else {
-        fetchFaces( mesh, data );
+
+    // Translate Geometry data
+    auto& geo = data.getGeometry();
+
+    // Translate all vertex attributes
+    fetchAttribute(
+        mesh.mVertices, mesh.mNumVertices, geo, Core::Geometry::MeshAttrib::VERTEX_POSITION );
+    if ( mesh.HasNormals() ) {
+        fetchAttribute( mesh.mNormals,
+                        mesh.mNumVertices,
+                        data.getGeometry(),
+                        Core::Geometry::MeshAttrib::VERTEX_NORMAL );
     }
-
-    if ( data.isTetraMesh() || data.isHexMesh() ) { fetchPolyhedron( mesh, data ); }
-
-    if ( mesh.HasNormals() ) { fetchNormals( mesh, data ); }
-
     if ( mesh.HasTangentsAndBitangents() ) {
-        fetchTangents( mesh, data );
-        fetchBitangents( mesh, data );
+        fetchAttribute( mesh.mTangents,
+                        mesh.mNumVertices,
+                        data.getGeometry(),
+                        Core::Geometry::MeshAttrib::VERTEX_TANGENT );
+        fetchAttribute( mesh.mBitangents,
+                        mesh.mNumVertices,
+                        data.getGeometry(),
+                        Core::Geometry::MeshAttrib::VERTEX_BITANGENT );
     }
-
     // Radium V2 : allow to have several UV channels
     // use MATKEY_UVWSRC to know if any
     if ( mesh.GetNumUVChannels() > 1 ) {
         LOG( logWARNING )
             << "Assimp loader : several UV channels are set, Radium will use only the 1st";
     }
-    if ( mesh.HasTextureCoords( 0 ) ) { fetchTextureCoordinates( mesh, data ); }
+    if ( mesh.HasTextureCoords( 0 ) ) {
+        fetchAttribute( mesh.mTextureCoords[0],
+                        mesh.mNumVertices,
+                        data.getGeometry(),
+                        Core::Geometry::MeshAttrib::VERTEX_TEXCOORD );
+    }
+    // Radium V2 : allow to have several color channels
+    if ( mesh.HasVertexColors( 0 ) ) {
+        fetchAttribute( mesh.mColors[0],
+                        mesh.mNumVertices,
+                        data.getGeometry(),
+                        Core::Geometry::MeshAttrib::VERTEX_COLOR );
+    }
 
-    /*
-     if( mesh.HasVertexColors() ) {
-     fetchColors( mesh, data );
-     }
-     */
+    // Translate mesh topology
+    data.setPrimitiveNum( mesh.mNumFaces );
+    switch ( data.getType() ) {
+    case GeometryData::GeometryType::LINE_MESH:
+        fetchIndexLayer<Core::Geometry::LineIndexLayer>( mesh.mFaces, mesh.mNumFaces, geo );
+        break;
+    case GeometryData::GeometryType::TRI_MESH:
+        fetchIndexLayer<Core::Geometry::TriangleIndexLayer>( mesh.mFaces, mesh.mNumFaces, geo );
+        break;
+    case GeometryData::GeometryType::QUAD_MESH:
+        fetchIndexLayer<Core::Geometry::QuadIndexLayer>( mesh.mFaces, mesh.mNumFaces, geo );
+        break;
+    case GeometryData::GeometryType::POLY_MESH:
+        fetchIndexLayer<Core::Geometry::PolyIndexLayer>( mesh.mFaces, mesh.mNumFaces, geo );
+        break;
+    case GeometryData::GeometryType::POINT_CLOUD:
+    default: {
+        auto pil =
+            std::make_unique<Core::Geometry::PointCloudIndexLayer>( size_t( mesh.mNumVertices ) );
+        geo.addLayer( std::move( pil ) );
+        data.setPrimitiveNum( mesh.mNumVertices );
+    } break;
+    }
+    // TODO : Polyhedrons are not supported yet in Radium core geometry
+    if ( data.isTetraMesh() || data.isHexMesh() ) { fetchPolyhedron( mesh, data ); }
 }
 
 void AssimpGeometryDataLoader::loadMeshFrame(
@@ -131,147 +169,40 @@ void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh,
 
 void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, GeometryData& data ) const {
     data.setType( GeometryData::UNKNOWN );
-    uint face_type = 0;
+    uint face_min = std::numeric_limits<uint>::max();
+    uint face_max = 0;
+
     for ( uint i = 0; i < mesh.mNumFaces; ++i ) {
-        face_type = std::max( face_type, mesh.mFaces[i].mNumIndices );
+        face_max = std::max( face_max, mesh.mFaces[i].mNumIndices );
+        face_min = std::min( face_min, mesh.mFaces[i].mNumIndices );
     }
-    if ( face_type != 1 ) {
-        switch ( face_type ) {
-        case 0: {
-            data.setType( GeometryData::POINT_CLOUD );
-        } break;
-        case 2: {
-            data.setType( GeometryData::LINE_MESH );
-        } break;
-        case 3: {
-            data.setType( GeometryData::TRI_MESH );
-        } break;
-        case 4: {
-            data.setType( GeometryData::QUAD_MESH );
-        } break;
-        default: {
+    switch ( face_max ) {
+    case 0:
+    case 1:
+        data.setType( GeometryData::POINT_CLOUD );
+        break;
+    case 2:
+        data.setType( GeometryData::LINE_MESH );
+        break;
+    case 3:
+        data.setType( GeometryData::TRI_MESH );
+        break;
+    case 4:
+        if ( face_max - face_min == 0 ) { data.setType( GeometryData::QUAD_MESH ); }
+        else {
             data.setType( GeometryData::POLY_MESH );
-        } break;
         }
+        break;
+    default: {
+        data.setType( GeometryData::POLY_MESH );
+    } break;
     }
-}
-/** \todo have something like
-template <typename I, typename TYPE, int DIM>
-void fetchVectorData( size_t sz,
-                      const I& input,
-                      Core::VectorArray<Eigen::Matrix<TYPE, DIM, 1>>& output ) {
-    const auto size = int( sz );
-    output.resize( sz );
-
-#pragma omp parallel for
-    for ( int i = 0; i < size; ++i )
-    {
-        output[i] = assimpToCore( input[i] );
-    }
-}
-*/
-void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& data ) {
-    const int size = mesh.mNumVertices;
-    auto& attrib   = data.getMultiIndexedGeometry().getAttrib<Core::Vector3>(
-        getAttribName( Core::Geometry::MeshAttrib::VERTEX_POSITION ) );
-    auto& vertex = attrib.getDataWithLock();
-    vertex.resize( mesh.mNumVertices );
-#pragma omp parallel for
-    for ( int i = 0; i < size; ++i ) {
-        vertex[i] = assimpToCore( mesh.mVertices[i] );
-    }
-    //    fetchVectorData( mesh.mNumVertices, mesh.mVertices, vertex );
-    attrib.unlock();
-}
-
-void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& data ) const {
-    const int size = mesh.mNumFaces;
-    auto& edge     = data.getEdges();
-    edge.resize( mesh.mNumFaces );
-#pragma omp parallel for
-    for ( int i = 0; i < size; ++i ) {
-        edge[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
-    }
-    data.indexedDataUnlock( GeometryData::GeometryType::LINE_MESH, "in_edge" );
-}
-
-void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& data ) const {
-    const int size = mesh.mNumFaces;
-    auto& face     = data.getFaces();
-    face.resize( mesh.mNumFaces );
-#pragma omp parallel for
-    for ( int i = 0; i < size; ++i ) {
-        face[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
-    }
-    data.indexedDataUnlock( GeometryData::GeometryType::POLY_MESH, "in_face" );
 }
 
 void AssimpGeometryDataLoader::fetchPolyhedron( const aiMesh& mesh, GeometryData& data ) const {
     CORE_UNUSED( mesh );
     CORE_UNUSED( data );
     // TO DO
-}
-
-void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& data ) const {
-    const int size = mesh.mNumVertices;
-    auto& attrib   = data.getMultiIndexedGeometry().getAttrib<Core::Vector3>(
-        getAttribName( Core::Geometry::MeshAttrib::VERTEX_NORMAL ) );
-    auto& normal = attrib.getDataWithLock();
-    normal.resize( mesh.mNumVertices, Core::Vector3::Zero() );
-#pragma omp parallel for
-    for ( int i = 0; i < size; ++i ) {
-        normal[i] = assimpToCore( mesh.mNormals[i] );
-        normal[i].normalize();
-    }
-    attrib.unlock();
-}
-
-void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& data ) const {
-    const int size    = mesh.mNumVertices;
-    auto attribHandle = data.getMultiIndexedGeometry().addAttrib<Core::Vector3>(
-        getAttribName( Core::Geometry::MeshAttrib::VERTEX_TANGENT ) );
-    auto& attrib  = data.getMultiIndexedGeometry().getAttrib( attribHandle );
-    auto& tangent = attrib.getDataWithLock();
-    tangent.resize( mesh.mNumVertices, Core::Vector3::Zero() );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i ) {
-        tangent[i] = assimpToCore( mesh.mTangents[i] );
-    }
-    attrib.unlock();
-}
-
-void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData& data ) const {
-    const int size = mesh.mNumVertices;
-    auto& attrib   = data.getMultiIndexedGeometry().getAttrib<Core::Vector3>(
-        getAttribName( Core::Geometry::MeshAttrib::VERTEX_BITANGENT ) );
-    auto& bitangent = attrib.getDataWithLock();
-    bitangent.resize( mesh.mNumVertices );
-#pragma omp parallel for
-    for ( int i = 0; i < size; ++i ) {
-        bitangent[i] = assimpToCore( mesh.mBitangents[i] );
-    }
-    attrib.unlock();
-}
-
-void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
-                                                        GeometryData& data ) const {
-    const int size = mesh.mNumVertices;
-    auto& attrib   = data.getMultiIndexedGeometry().getAttrib<Core::Vector3>(
-        getAttribName( Core::Geometry::MeshAttrib::VERTEX_TEXCOORD ) );
-    auto& texcoord = attrib.getDataWithLock();
-    texcoord.resize( mesh.mNumVertices );
-#pragma omp parallel for
-    for ( int i = 0; i < size; ++i ) {
-        // Radium V2 : allow to have several UV channels
-        texcoord.at( i ) = assimpToCore( mesh.mTextureCoords[0][i] );
-    }
-    attrib.unlock();
-}
-
-void AssimpGeometryDataLoader::fetchColors( const aiMesh& mesh, GeometryData& data ) const {
-    // TO DO
-    CORE_UNUSED( mesh );
-    CORE_UNUSED( data );
 }
 
 void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
@@ -361,9 +292,10 @@ void AssimpGeometryDataLoader::loadGeometryData(
     for ( uint i = 0; i < size; ++i ) {
         aiMesh* mesh = scene->mMeshes[i];
         if ( mesh->HasPositions() ) {
+            if ( m_verbose ) { LOG( logINFO ) << "Loading mesh attribs..."; }
             auto geometry = new GeometryData();
             loadMeshAttrib( *mesh, *geometry, usedNames );
-
+            if ( m_verbose ) { LOG( logINFO ) << "Mesh attribs loaded."; }
             // This returns always true (see assimp documentation)
             if ( scene->HasMaterials() ) {
                 const uint matID = mesh->mMaterialIndex;

@@ -193,9 +193,9 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     // a unique name is required by the component messaging system
     static int nameId { 0 };
-    auto geometry = std::make_unique<GeometryData>( "PC_" + std::to_string( ++nameId ),
+    auto geomData = std::make_unique<GeometryData>( "PC_" + std::to_string( ++nameId ),
                                                     GeometryData::POINT_CLOUD );
-    geometry->setFrame( Core::Transform::Identity() );
+    geomData->setFrame( Core::Transform::Identity() );
 
     /// request for vertex position
     auto vertBuffer { initBuffer( "vertex", { "x", "y", "z" } ) };
@@ -230,19 +230,18 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     // read requested buffers (and only those) from file content
     file.read( *file_stream );
     {
-        auto unlocker = geometry->getAttribManager().getUnlocker();
-        copyBufferToContainer( vertBuffer, geometry->getVertices() );
-        copyBufferToContainer( normalBuffer, geometry->getNormals() );
+        auto unlocker = geomData->getGeometry().vertexAttribs().getUnlocker();
+        copyBufferToContainer( vertBuffer, geomData->getGeometry().verticesWithLock() );
+        copyBufferToContainer( normalBuffer, geomData->getGeometry().normalsWithLock() );
     }
 
-    auto& attribManager = geometry->getAttribManager();
+    auto& vertexAttribs = geomData->getGeometry().vertexAttribs();
 
     size_t colorCount = colorBuffer ? colorBuffer->count : 0;
     if ( colorCount != 0 ) {
-        auto handle = attribManager.addAttrib<Core::Vector4>(
+        auto handle = vertexAttribs.addAttrib<Core::Vector4>(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ) );
-        auto& attrib    = attribManager.getAttrib( handle );
-        auto& container = attrib.getDataWithLock();
+        auto& container = vertexAttribs.getDataWithLock( handle );
 
         if ( alphaBuffer && alphaBuffer->count == colorCount ) {
             uint8_t* al     = alphaBuffer->buffer.get();
@@ -263,13 +262,12 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
                                         1_ra );
             }
         }
-        attrib.unlock();
+        vertexAttribs.unlock( handle );
     }
 
     //// Save other attributes
     for ( const auto& a : allAttributes ) {
         // For now manage scalar properties only
-        /// @todo, when all vertex attribs are managed through the attrib manager, add here
         if ( a.second->isList ) {
             LOG( logWARNING ) << "[TinyPLY] unmanaged vector attribute " << a.first;
             continue;
@@ -279,16 +277,15 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         std::replace( attribName.begin(), attribName.end(), '-', '_' );
         LOG( logINFO ) << "[TinyPLY] Adding custom attrib with name " << attribName << " (was "
                        << a.first << ")";
-        auto handle     = attribManager.addAttrib<Scalar>( attribName );
-        auto& attrib    = attribManager.getAttrib( handle );
-        auto& container = attrib.getDataWithLock();
+        auto handle     = vertexAttribs.addAttrib<Scalar>( attribName );
+        auto& container = vertexAttribs.getDataWithLock( handle );
         copyBufferToContainer( a.second, container );
-        attrib.unlock();
+        vertexAttribs.unlock( handle );
     }
 
     fileData->m_geometryData.clear();
     fileData->m_geometryData.reserve( 1 );
-    fileData->m_geometryData.push_back( std::move( geometry ) );
+    fileData->m_geometryData.push_back( std::move( geomData ) );
 
     fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 

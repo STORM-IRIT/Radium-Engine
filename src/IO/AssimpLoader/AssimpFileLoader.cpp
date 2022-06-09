@@ -44,7 +44,9 @@ bool AssimpFileLoader::handleFileExtension( const std::string& extension ) const
 }
 
 FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
+
     auto fileData = new FileData( filename );
+    // fileData->setVerbose( true );
 
     if ( !fileData->isInitialized() ) { return nullptr; }
 
