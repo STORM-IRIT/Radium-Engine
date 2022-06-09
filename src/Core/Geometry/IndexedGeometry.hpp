@@ -14,7 +14,6 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-///
 /// \brief Base class for index collections stored in MultiIndexedGeometry
 class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
                                            public Utils::ObjectWithSemantic,
@@ -398,8 +397,18 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     std::unordered_map<LayerKeyType, EntryType, KeyHash> m_indices;
 };
 
+/// \name Predefined index layers
+/// The use of these layers helps in generic management of geometries
+/// \{
+
+/// \brief Index layer for a point cloud
 struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
+    /// \brief Constructor of an empty layer
     inline PointCloudIndexLayer();
+
+    /// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
+    /// \f$n-1\f$
+    inline PointCloudIndexLayer( size_t n );
 
     /// \brief Generate linearly spaced indices with same size as \p attr vertex buffer
     void linearIndices( const AttribArrayGeometry& attr );
@@ -411,6 +420,8 @@ struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
     inline PointCloudIndexLayer( SemanticNames... names );
 };
 
+/// \brief Index layer for triangle mesh.
+/// \note, This layer ensures that all faces have exactly 3 vertices
 struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
     inline TriangleIndexLayer();
     static constexpr const char* staticSemanticName = "TriangleMesh";
@@ -420,6 +431,20 @@ struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
     inline TriangleIndexLayer( SemanticNames... names );
 };
 
+/// \brief Index layer for quadrilateral mesh.
+/// \note, This layer ensures that all faces have exactly 4 vertices
+struct RA_CORE_API QuadIndexLayer : public GeometryIndexLayer<Vector4ui> {
+    inline QuadIndexLayer();
+    static constexpr const char* staticSemanticName = "QuadMesh";
+
+  protected:
+    template <class... SemanticNames>
+    inline QuadIndexLayer( SemanticNames... names );
+};
+
+/// \brief Index layer for polygonal mesh.
+/// \note, Using this layer, all faces might have more than 4 vertices or have different number of
+/// vertices.
 struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
     inline PolyIndexLayer();
     static constexpr const char* staticSemanticName = "PolyMesh";
@@ -429,6 +454,8 @@ struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
     inline PolyIndexLayer( SemanticNames... names );
 };
 
+/// \brief Index layer for line mesh.
+/// \note, This layer ensures that all faces have exactly 2 vertices
 struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
     inline LineIndexLayer();
     static constexpr const char* staticSemanticName = "LineMesh";
@@ -437,6 +464,8 @@ struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
     template <class... SemanticNames>
     inline LineIndexLayer( SemanticNames... names );
 };
+
+/// \}
 
 /// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
 /// This class will be marked as deprecated soon.
@@ -452,6 +481,11 @@ struct getType<Vector2ui> {
 template <>
 struct getType<Vector3ui> {
     using Type = Ra::Core::Geometry::TriangleIndexLayer;
+};
+
+template <>
+struct getType<Vector4ui> {
+    using Type = Ra::Core::Geometry::QuadIndexLayer;
 };
 
 template <>
@@ -512,6 +546,9 @@ class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
 {};
 
 class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
+{};
+
+class RA_CORE_API QuadMesh : public IndexedGeometry<Vector4ui>
 {};
 
 class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>

@@ -11,7 +11,7 @@ GeometryData::GeometryData( const std::string& name, const GeometryType& type ) 
     AssetData( name ),
     m_frame( Transform::Identity() ),
     m_type( type ),
-    m_multiIndexedGeometry(),
+    m_geometry(),
     m_material() {}
 
 GeometryData::~GeometryData() {}
@@ -47,22 +47,27 @@ void GeometryData::displayInfo() const {
         break;
     }
 
-    using namespace Geometry;
+    auto attribSize = [this]( Geometry::MeshAttrib a ) -> size_t {
+        const auto& name = getAttribName( a );
+        return getGeometry().hasAttrib( name ) ? getGeometry().getAttribBase( name )->getSize() : 0;
+    };
 
+    auto hasAttrib = [this]( Geometry::MeshAttrib a ) -> std::string {
+        return getGeometry().hasAttrib( getAttribName( a ) ) ? "YES" : "NO";
+    };
+
+    using namespace Geometry;
     LOG( logINFO ) << "======== MESH INFO ========";
     LOG( logINFO ) << " Name           : " << m_name;
     LOG( logINFO ) << " Type           : " << type;
-    LOG( logINFO ) << " Vertex #       : "
-                   << ( getMultiIndexedGeometry().hasAttrib(
-                            getAttribName( MeshAttrib::VERTEX_POSITION ) )
-                            ? getMultiIndexedGeometry().vertices().size()
-                            : 0 );
-    LOG( logINFO ) << " Edge #         : " << ( hasEdges() ? getEdges().size() : 0 );
-    LOG( logINFO ) << " Face #         : " << ( hasFaces() ? getFaces().size() : 0 );
-    LOG( logINFO ) << " Normal ?       : " << ( ( !hasNormals() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tangent ?      : " << ( ( !hasTangents() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Bitangent ?    : " << ( ( !hasBiTangents() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( !hasTextureCoordinates() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Edge #         : " << ( hasEdges() ? getPrimitiveNum() : 0 );
+    LOG( logINFO ) << " Face #         : " << ( hasFaces() ? getPrimitiveNum() : 0 );
+    LOG( logINFO ) << " Vertex #       : " << attribSize( MeshAttrib::VERTEX_POSITION );
+    LOG( logINFO ) << " Normal ?       : " << hasAttrib( MeshAttrib::VERTEX_NORMAL );
+    LOG( logINFO ) << " Tangent ?      : " << hasAttrib( MeshAttrib::VERTEX_TANGENT );
+    LOG( logINFO ) << " Bitangent ?    : " << hasAttrib( MeshAttrib::VERTEX_BITANGENT );
+    LOG( logINFO ) << " Tex.Coord. ?   : " << hasAttrib( MeshAttrib::VERTEX_TEXCOORD );
+    LOG( logINFO ) << " Color ?        : " << hasAttrib( MeshAttrib::VERTEX_COLOR );
     LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
 
     if ( hasMaterial() ) { m_material->displayInfo(); }

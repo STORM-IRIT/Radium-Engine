@@ -221,6 +221,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
 
     /// Copy all attributes from \p m.
     /// \note If some attrib already exists, it will be replaced.
+    /// \todo allow to copy all attributes, even those with non-standard type
     void copyAllAttributes( const AttribManager& m );
 
     /// clear all attribs, invalidate handles.
@@ -247,6 +248,33 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      */
     template <typename T>
     inline AttribHandle<T> findAttrib( const std::string& name ) const;
+
+    /*!
+     * \brief Get the locked data container from the attrib handle
+     * \tparam T The type of the attribute data
+     * \param h the attribute handle
+     * \return the attribute's data container
+     */
+    template <typename T>
+    typename Attrib<T>::Container& getDataWithLock( const AttribHandle<T>& h );
+
+    /*!
+     * \brief Get read access to the data container from the attrib handle
+     * \tparam T The type of the attribute data
+     * \param h the attribute handle
+     * \return the attribute's data container
+     */
+    template <typename T>
+    const typename Attrib<T>::Container& getData( const AttribHandle<T>& h );
+
+    /*!
+     * \brief Unlock the handle data
+     * \tparam T
+     * \param h
+     * \return
+     */
+    template <typename T>
+    void unlock( const AttribHandle<T>& h );
 
     ///@{
     /// Get attribute by handle.
@@ -332,51 +360,49 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     /// Return the number of attributes
     inline int getNumAttribs() const;
 
-    /// Unlocker class, unlock all attribs (which are locked after the creation of the unlocker
-    /// object) after destruct.
+    /**
+     * \brief Scope unlocker for attributes.
+     * Unlock all attribs locked after the creation of the unlocker object) when the unlocker object
+     * gets out of scope. \code{.cpp}
+     * {
+     * auto g = new AttribArrayGeometry();
+     *
+     * // get write access. The attrib must be explicitly unlocked after usage
+     * auto& attrib1 = g->getAttrib<Ra::Core::Vector3>( "attrib1" ).getDataWithLock();
+     * // ... write to attribOne
+     *
+     * // enable auto-unlock for all following write access requests
+     * auto unlocker = g->vertexAttribs().getUnlocker();
+     *
+     * // get write access to several attribs
+     * auto& attrib2 = g->getAttrib<Ra::Core::Vector3>( "attrib2" ).getDataWithLock();
+     * // ... write to attrib2
+     * auto& attrib3 = g->getAttrib<Ra::Core::Vector3>( "attrib3" ).getDataWithLock();
+     * // ... write to attrib3
+     *
+     * // attrib1 is still locked as it was locked outside of the unlocker scope.
+     * // Must be explicitly unlocked.
+     * attrib1.unlock();
+     *
+     * // attrib2 and attrib3 are automatically unlocked when the unlocker's destructor
+     * is called (i.e. gets out of scope)
+     * }
+     */
     class Unlocker
     {
       public:
         /**
          *
-         * @param a the AttribManager on which locking will be supervised
-         * @brief Constructor, save lock state of all attribs from attribManager
-         * \code{.cpp}
-         * {
-         * auto geometry = new GeometryData();
-         *
-         * // get write access. The attrib must be explicitly unlocked after usage
-         * auto tgt = geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_TANGENT
-         * ).getDataWithLock();
-         * // ... write to tgt
-         *
-         * // enable auto-unlock for all folowing write access requests
-         * auto unlocker = geometry->getAttribManager().getUnlocker();
-         *
-         * // get write access to several attribs
-         * auto txc = geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_TEXCOORD
-         * ).getDataWithLock();
-         * // ... write to txc
-         * auto btg = geometry->getAttrib<Ra::Core::Vector3>( MeshAttrib::VERTEX_BITANGENT
-         * ).getDataWithLock();
-         * // ... write to btg
-         *
-         * // tgt is still locked as it was locked outside of the unlocker scope.
-         * // Must be explicitly unlocked.
-         * tgt.unlock();
-         *
-         * // txc and btg are automatically unlocked when the unlocker's dtor is called (i.e. gets
-         * out of scope)
-         * }
+         * \param a the AttribManager on which locking will be supervised
+         * \brief Constructor, save lock state of all attribs from attribManager
          */
-
-        explicit Unlocker( AttribManager* a ) : m_a { a } {
+        explicit Unlocker( AttribManager* a ) {
             a->for_each_attrib( [this]( const auto& attr ) {
                 return ( v.push_back( std::make_pair( attr, attr->isLocked() ) ) );
             } );
         }
         /**
-         * @brief Destructor, unlock all attribs from attribManager which have been locked after the
+         * \brief Destructor, unlock all attribs whose have been locked after the
          * initialization of the Unlocker.
          */
         ~Unlocker() {
@@ -386,10 +412,10 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
         }
 
       private:
-        AttribManager* m_a;
         std::vector<std::pair<AttribBase*, bool>> v;
     };
 
+    /// Returns a scope unlocker for managed attribs
     Unlocker getUnlocker() { return Unlocker { this }; }
 
   private:

@@ -127,7 +127,7 @@ inline void FileData::displayInfo() const {
     using namespace Core::Utils; // log
     uint64_t vtxCount = 0;
     for ( const auto& geom : m_geometryData ) {
-        vtxCount += geom->getVerticesSize();
+        vtxCount += geom->getGeometry().vertices().size();
     }
     LOG( logINFO ) << "======== LOADING SUMMARY ========";
     LOG( logINFO ) << "Mesh loaded        : " << m_geometryData.size();
