@@ -121,10 +121,10 @@ class RA_CORE_API GeometryData : public AssetData
     inline bool hasMaterial() const;
 
     /// Used to track easily the number of primitives in the geometry data
-    inline void setPrimitiveNum( int n );
+    inline void setPrimitiveCount( int n );
 
     /// Return the number of primitives in the geometry data
-    inline int getPrimitiveNum() const;
+    inline int getPrimitiveCount() const;
 
     /// \}
 
@@ -142,7 +142,7 @@ class RA_CORE_API GeometryData : public AssetData
     Core::Geometry::MultiIndexedGeometry m_geometry;
 
     /// Simple tracking of geometric primitive number
-    int m_numPrimitives { -1 };
+    int m_primitiveCount { -1 };
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;

@@ -230,7 +230,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     // read requested buffers (and only those) from file content
     file.read( *file_stream );
     {
-        auto unlocker = geomData->getGeometry().vertexAttribs().getUnlocker();
+        auto unlocker = geomData->getGeometry().vertexAttribs().getScopedLockState();
         copyBufferToContainer( vertBuffer, geomData->getGeometry().verticesWithLock() );
         copyBufferToContainer( normalBuffer, geomData->getGeometry().normalsWithLock() );
     }
