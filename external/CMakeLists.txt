@@ -96,6 +96,8 @@ else()
     option(RADIUM_IO_ASSIMP "Provide loaders based on Assimp library." ON)
     option(RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library." ON)
     add_subdirectory(IO)
+    # add Gui dependencies
+    add_subdirectory(Gui)
 
     message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")
 

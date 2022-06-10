@@ -6,13 +6,13 @@ Radium relies on several external libraries to load files or to represent some d
 * [Core] Eigen, OpenMesh, nlohmann_json
 * [Engine] glm, globjects, glbindings, tinyEXR
 * [IO] Assimp
-* [Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 at least, Qt6 support is experimental)
+* [Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 at least, Qt6 support is experimental), PowerSlider
 * [doc] Doxygen-awesome-css
 * stb_image
 
 We developed a series of tools to fetch and compile these dependencies easily, except for
-Qt, which needs to be installed and passed to cmake through the variables `Qt5_DIR` OR `Qt6_DIR` (see documentation at
-<https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started>).
+Qt, which needs to be installed and passed to cmake through the variables `CMAKE_PREFIX_PATH` or `Qt5_DIR` OR `Qt6_DIR`
+(see documentation at <https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started>).
 
 # Dependencies management systems
 
@@ -97,6 +97,7 @@ set(assimp_DIR        "${RADIUM_DEP_PREFIX}/lib/cmake/assimp-5.0/" CACHE PATH "M
 set(tinyply_DIR       "${RADIUM_DEP_PREFIX}/lib/cmake/tinyply/" CACHE PATH "My tinyply")
 set(tinyEXR_DIR       "${RADIUM_DEP_PREFIX}/share/tinyEXR/cmake/"  CACHE PATH "My tinyEXR")
 set(nlohmann_json_DIR "${RADIUM_DEP_PREFIX}/lib/cmake/nlohmann_json/" CACHE PATH "My json")
+set(PowerSlider_DIR   "${RADIUM_DEP_PREFIX}/lib/cmake/PowerSlider/" CACHE PATH "My PowerSlider")
 set(RADIUM_IO_ASSIMP   ON CACHE BOOL "Radium uses assimp io")
 set(RADIUM_IO_TINYPLY  ON CACHE BOOL "Radium uses tinyply io")
 ~~~
@@ -114,6 +115,7 @@ cmake \
 -Dglm_DIR           /path/to/external/install/lib/cmake/glm/ \
 -Dglbinding_DIR     /path/to/external/install/share/glbinding/ \
 -Dglobjects_DIR     /path/to/external/install/share/globjects/ \
+-DPowerSlider_DIR   /path/to/external/install/lib/cmake/PowerSlider \
 -Dstb_DIR           /path/to/external/install/include/stb/ \
 -Dassimp_DIR        /path/to/external/install/lib/cmake/assimp-5.0/ \
 -Dtinyply_DIR       /path/to/external/install/lib/cmake/tinyply/ \
@@ -129,42 +131,45 @@ To this end, just provide the corresponding '*_DIR' to cmake at configuration ti
 Currently supported (note that these paths must refer to the installation directory of the corresponding library):
 <!--  (generated running ../script/list_dep.py from Radium-Engine/external directory) -->
 
+* `Eigen3_DIR`
+* `OpenMesh_DIR`
+* `cpplocate_DIR`
+* `nlohmann_json_DIR`
 * `assimp_DIR`
 * `tinyply_DIR`
+* `PowerSlider_DIR`
 * `glm_DIR`
 * `glbinding_DIR`
 * `globjects_DIR`
 * `stb_DIR`
 * `tinyEXR_DIR`
-* `Eigen3_DIR`
-* `OpenMesh_DIR`
-* `cpplocate_DIR`
-* `nlohmann_json_DIR`
 
 Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record
 
-* assimp: <https://github.com/assimp/assimp.git>, [tags/v5.0.1],
-  * with options `-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True`
-* tinyply: <https://github.com/ddiakopoulos/tinyply.git>, [tags/2.3.2],
-  * with options `-DSHARED_LIB=TRUE`
-* glm: <https://github.com/g-truc/glm.git>, [0.9.9.5],
-  * with options `-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib`
-* glbinding: <https://github.com/cginternals/glbinding.git>, [663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c],
-  * with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF`
-* globjects: <https://github.com/dlyr/globjects.git>, [11c559a07d9e310abb2f53725fd47cfaf538f8b1],
-  * with options `-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR}`
-* stb: <https://github.com/nothings/stb.git>, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],
-  * with options `None`
-* tinyEXR: <https://github.com/MathiasPaulin/tinyexr.git>, [origin/radium],
-  * with options `-DBUILD_INSTALLABLE_LIB=ON`
-* Eigen3: <https://gitlab.com/libeigen/eigen.git>, [e80ec243],
+* Eigen3: https://gitlab.com/libeigen/eigen.git, [e80ec243],
   * with options `-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF`
-* OpenMesh: <https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git>, [tags/OpenMesh-8.1],
+* OpenMesh: https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git, [tags/OpenMesh-8.1],
   * with options `-DBUILD_APPS=OFF`
-* cpplocate: <https://github.com/cginternals/cpplocate.git>, [tags/v2.2.0],
+* cpplocate: https://github.com/cginternals/cpplocate.git, [tags/v2.2.0],
   * with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF`
-* nlohmann_json: <https://github.com/nlohmann/json.git>, [release/3.10.5],
+* nlohmann_json: https://github.com/nlohmann/json.git, [release/3.10.5],
   * with options `-DJSON_Install=ON -DJSON_BuildTests=OFF`
+* assimp: https://github.com/assimp/assimp.git, [tags/v5.0.1],
+  * with options `-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True`
+* tinyply: https://github.com/ddiakopoulos/tinyply.git, [tags/2.3.2],
+  * with options `-DSHARED_LIB=TRUE`
+* PowerSlider: https://github.com/dlyr/PowerSlider.git, [origin/master],
+  * with options `-DBUILD_DESIGNER_PLUGIN=OFF -DBUILD_EXAMPLE_APP=OFF`
+* glm: https://github.com/g-truc/glm.git, [0.9.9.5],
+  * with options `-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib`
+* glbinding: https://github.com/cginternals/glbinding.git, [663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c],
+  * with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF`
+* globjects: https://github.com/dlyr/globjects.git, [11c559a07d9e310abb2f53725fd47cfaf538f8b1],
+  * with options `-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR}`
+* stb: https://github.com/nothings/stb.git, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],
+  * with options `None`
+* tinyEXR: https://github.com/MathiasPaulin/tinyexr.git, [origin/radium],
+  * with options `-DBUILD_INSTALLABLE_LIB=ON`
 
 <!--  (end script copy) -->
 

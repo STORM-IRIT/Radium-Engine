@@ -10,5 +10,6 @@ set(assimp_DIR        "${RADIUM_DEP_PREFIX}/lib/cmake/assimp-5.0/" CACHE PATH "M
 set(tinyply_DIR       "${RADIUM_DEP_PREFIX}/lib/cmake/tinyply/" CACHE PATH "My tinyply")
 set(tinyEXR_DIR       "${RADIUM_DEP_PREFIX}/share/tinyEXR/cmake/"  CACHE PATH "My tinyEXR")
 set(nlohmann_json_DIR "${RADIUM_DEP_PREFIX}/lib/cmake/nlohmann_json/" CACHE PATH "My json")
+set(PowerSlider_DIR   "${RADIUM_DEP_PREFIX}/lib/cmake/PowerSlider/" CACHE PATH "My PowerSlider")
 set(RADIUM_IO_ASSIMP   @RADIUM_IO_ASSIMP@ CACHE BOOL "Radium uses assimp io")
 set(RADIUM_IO_TINYPLY  @RADIUM_IO_TINYPLY@ CACHE BOOL "Radium uses tinyply io")

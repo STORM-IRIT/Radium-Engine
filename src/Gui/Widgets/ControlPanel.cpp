@@ -2,21 +2,21 @@
 
 #include <Gui/Widgets/CheckingSpinBox.hpp>
 #include <Gui/Widgets/MatrixEditor.hpp>
-#include <Gui/Widgets/PowerSlider.hpp>
 #include <Gui/Widgets/VectorEditor.hpp>
 
-#include <QLabel>
-#include <QVBoxLayout>
+#include <PowerSlider/PowerSlider.hpp>
 
 #include <QColorDialog>
 #include <QComboBox>
 #include <QDialog>
 #include <QDoubleSpinBox>
 #include <QFileDialog>
+#include <QLabel>
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSlider>
+#include <QVBoxLayout>
 
 namespace Ra::Gui::Widgets {
 
