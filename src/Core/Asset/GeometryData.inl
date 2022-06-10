@@ -102,11 +102,11 @@ Geometry::MultiIndexedGeometry& GeometryData::getGeometry() {
     return m_geometry;
 }
 
-inline void GeometryData::setPrimitiveNum( int n ) {
-    m_numPrimitives = n;
+inline void GeometryData::setPrimitiveCount( int n ) {
+    m_primitiveCount = n;
 }
-inline int GeometryData::getPrimitiveNum() const {
-    return m_numPrimitives;
+inline int GeometryData::getPrimitiveCount() const {
+    return m_primitiveCount;
 }
 
 } // namespace Asset

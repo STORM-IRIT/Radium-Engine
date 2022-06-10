@@ -60,8 +60,8 @@ void GeometryData::displayInfo() const {
     LOG( logINFO ) << "======== MESH INFO ========";
     LOG( logINFO ) << " Name           : " << m_name;
     LOG( logINFO ) << " Type           : " << type;
-    LOG( logINFO ) << " Edge #         : " << ( hasEdges() ? getPrimitiveNum() : 0 );
-    LOG( logINFO ) << " Face #         : " << ( hasFaces() ? getPrimitiveNum() : 0 );
+    LOG( logINFO ) << " Edge #         : " << ( hasEdges() ? getPrimitiveCount() : 0 );
+    LOG( logINFO ) << " Face #         : " << ( hasFaces() ? getPrimitiveCount() : 0 );
     LOG( logINFO ) << " Vertex #       : " << attribSize( MeshAttrib::VERTEX_POSITION );
     LOG( logINFO ) << " Normal ?       : " << hasAttrib( MeshAttrib::VERTEX_NORMAL );
     LOG( logINFO ) << " Tangent ?      : " << hasAttrib( MeshAttrib::VERTEX_TANGENT );

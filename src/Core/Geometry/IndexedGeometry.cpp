@@ -221,8 +221,8 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
         CORE_ASSERT( !pos->second.first, "try to get already locked layer" );
         pos->second.first = true;
     }
-    /// TODO What happens to the unique ptr when it is not inserted ? (The problem was the same in
-    /// the previous version).
+    /// If not inserted, the pointer is deleted. So the caller must ensure this possible deletion
+    /// is safe before calling this method.
 
     return { inserted, *( pos->second.second ) };
 }

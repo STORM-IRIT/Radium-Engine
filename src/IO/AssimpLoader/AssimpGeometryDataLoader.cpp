@@ -109,7 +109,7 @@ void AssimpGeometryDataLoader::loadMeshAttrib( const aiMesh& mesh,
     }
 
     // Translate mesh topology
-    data.setPrimitiveNum( mesh.mNumFaces );
+    data.setPrimitiveCount( mesh.mNumFaces );
     switch ( data.getType() ) {
     case GeometryData::GeometryType::LINE_MESH:
         fetchIndexLayer<Core::Geometry::LineIndexLayer>( mesh.mFaces, mesh.mNumFaces, geo );
@@ -128,7 +128,7 @@ void AssimpGeometryDataLoader::loadMeshAttrib( const aiMesh& mesh,
         auto pil =
             std::make_unique<Core::Geometry::PointCloudIndexLayer>( size_t( mesh.mNumVertices ) );
         geo.addLayer( std::move( pil ) );
-        data.setPrimitiveNum( mesh.mNumVertices );
+        data.setPrimitiveCount( mesh.mNumVertices );
     } break;
     }
     // TODO : Polyhedrons are not supported yet in Radium core geometry

@@ -361,8 +361,8 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     inline int getNumAttribs() const;
 
     /**
-     * \brief Scope unlocker for attributes.
-     * Unlock all attribs locked after the creation of the unlocker object) when the unlocker object
+     * \brief Scope lock state management for attributes.
+     * Unlock all attribs locked after the creation of the ScopedLockState object when it
      * gets out of scope. \code{.cpp}
      * {
      * auto g = new AttribArrayGeometry();
@@ -372,7 +372,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      * // ... write to attribOne
      *
      * // enable auto-unlock for all following write access requests
-     * auto unlocker = g->vertexAttribs().getUnlocker();
+     * auto unlocker = g->vertexAttribs().getScopedLockState();
      *
      * // get write access to several attribs
      * auto& attrib2 = g->getAttrib<Ra::Core::Vector3>( "attrib2" ).getDataWithLock();
@@ -388,7 +388,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      * is called (i.e. gets out of scope)
      * }
      */
-    class Unlocker
+    class ScopedLockState
     {
       public:
         /**
@@ -396,7 +396,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
          * \param a the AttribManager on which locking will be supervised
          * \brief Constructor, save lock state of all attribs from attribManager
          */
-        explicit Unlocker( AttribManager* a ) {
+        explicit ScopedLockState( AttribManager* a ) {
             a->for_each_attrib( [this]( const auto& attr ) {
                 return ( v.push_back( std::make_pair( attr, attr->isLocked() ) ) );
             } );
@@ -405,7 +405,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
          * \brief Destructor, unlock all attribs whose have been locked after the
          * initialization of the Unlocker.
          */
-        ~Unlocker() {
+        ~ScopedLockState() {
             for ( auto& p : v ) {
                 if ( !p.second && p.first->isLocked() ) { p.first->unlock(); }
             }
@@ -416,7 +416,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     };
 
     /// Returns a scope unlocker for managed attribs
-    Unlocker getUnlocker() { return Unlocker { this }; }
+    ScopedLockState getScopedLockState() { return ScopedLockState { this }; }
 
   private:
     /// Attrib list, better using attribs() to go through.
