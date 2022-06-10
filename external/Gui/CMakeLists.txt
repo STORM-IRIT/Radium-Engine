@@ -33,6 +33,22 @@ elseif(DEFINED Qt5_DIR)
     set(Qt_DIR "-DQt5_DIR=${Qt5_DIR}")
 endif()
 
+# configure RPATH as expected to be used under Radium
+list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+if("${isSystemDir}" STREQUAL "-1")
+    if(APPLE)
+        set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib;@executable_path/../lib")
+    else()
+        set(CMAKE_INSTALL_RPATH "\$ORIGIN:\$ORIGIN/../lib")
+    endif()
+endif("${isSystemDir}" STREQUAL "-1")
+
+set(RPATH_CONFIG
+    "-DCMAKE_SKIP_BUILD_RPATH=FALSE -DCMAKE_BUILD_WITH_INSTALL_RPATH=FALSE -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_INSTALL_RPATH=\"${CMAKE_INSTALL_RPATH}\""
+)
+
+# set(RPATH_CONFIG "")
+
 if(NOT DEFINED PowerSlider_DIR)
     check_externals_prerequisite()
     status_message("[GuiExternal]" "PowerSlider" "remote git")
@@ -44,7 +60,8 @@ if(NOT DEFINED PowerSlider_DIR)
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} ${Qt_DIR} -DBUILD_DESIGNER_PLUGIN=OFF
-                   -DBUILD_EXAMPLE_APP=OFF -DCMAKE_MESSAGE_INDENT=${indent_string}\;
+                   ${RPATH_CONFIG} -DBUILD_EXAMPLE_APP=OFF
+                   -DCMAKE_MESSAGE_INDENT=${indent_string}\;
     )
     add_dependencies(GuiExternals PowerSlider)
 else()
