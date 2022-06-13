@@ -710,6 +710,9 @@ void MinimalComponent::initialize() {
                         createMeshFromGeometryData<Geometry::TriangleMesh>( "logo", gd ) };
                     break;
                 case Ra::Core::Asset::GeometryData::QUAD_MESH:
+                    mesh = std::shared_ptr<Data::QuadMesh> {
+                        createMeshFromGeometryData<Geometry::QuadMesh>( "logo", gd ) };
+                    break;
                 case Ra::Core::Asset::GeometryData::POLY_MESH:
                     mesh = std::shared_ptr<Data::PolyMesh> {
                         createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd ) };
