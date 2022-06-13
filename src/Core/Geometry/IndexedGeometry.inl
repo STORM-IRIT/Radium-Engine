@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/Geometry/IndexedGeometry.hpp>
+#include <memory>
 
 namespace Ra {
 namespace Core {
@@ -126,13 +127,7 @@ MultiIndexedGeometry::countLayers( const MultiIndexedGeometry::LayerSemanticColl
 
 inline const GeometryIndexLayerBase&
 MultiIndexedGeometry::getLayer( const MultiIndexedGeometry::LayerKeyType& layerKey ) const {
-    return *( m_indices.at( layerKey ).second );
-}
-
-inline const GeometryIndexLayerBase&
-MultiIndexedGeometry::getLayer( const MultiIndexedGeometry::LayerSemanticCollection& semantics,
-                                const std::string& layerName ) const {
-    return getLayer( { semantics, layerName } );
+    return *( m_indices.at( layerKey ).second.get() );
 }
 
 inline GeometryIndexLayerBase& MultiIndexedGeometry::getLayerWithLock(
