@@ -64,7 +64,7 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
 
     inline size_t getSize() const override final;
 
-    inline GeometryIndexLayerBase* clone() override final;
+    inline std::unique_ptr<GeometryIndexLayerBase> clone() override final;
 
     inline size_t getNumberOfComponents() const override final;
 
@@ -237,6 +237,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
     inline const GeometryIndexLayerBase& getLayer( const LayerKeyType& layerKey ) const;
+
     /// \copybrief getLayer( const LayerKeyType& ) const
     ///
     /// Convenience function.
@@ -289,6 +290,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \throws std::out_of_range
     inline GeometryIndexLayerBase& getLayerWithLock( const LayerSemanticCollection& semantics,
                                                      const std::string& layerName );
+
     /// \copybrief getLayerWithLock( const LayerKeyType& )
     ///
     /// Convenience function.
@@ -321,6 +323,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
     void unlockLayer( const LayerKeyType& layerKey );
+    void unlockLayer2( const LayerKeyType& layerKey );
 
     /// \copybrief unlockLayer( const LayerKeyType& )
     ///
@@ -384,7 +387,8 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
 
     /// Note: we cannot store unique_ptr here has unordered_map needs its
     /// elements to be copy-constructible
-    using EntryType = std::pair<bool, GeometryIndexLayerBase*>;
+    using EntryType = std::pair<bool, std::unique_ptr<GeometryIndexLayerBase>>;
+
     struct RA_CORE_API KeyHash {
         std::size_t operator()( const LayerKeyType& k ) const;
     };

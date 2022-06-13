@@ -61,7 +61,9 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
         auto it = m_indices.find( key );
         if ( it == m_indices.end() ) // copy entire layer
         {
-            m_indices[key]    = value;
+            m_indices[key] = std::make_pair(
+                value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
+
             dataHasBeenCopied = true;
         }
         else {
@@ -123,7 +125,8 @@ size_t MultiIndexedGeometry::countLayers( const LayerSemanticCollection& semanti
 std::pair<MultiIndexedGeometry::LayerKeyType, const GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemantic& semanticName ) const {
     for ( const auto& [key, value] : m_indices ) {
-        if ( key.first.find( semanticName ) != key.first.end() ) return { key, *( value.second ) };
+        if ( key.first.find( semanticName ) != key.first.end() )
+            return { key, *( value.second.get() ) };
     }
     throw std::out_of_range( "Layer entry not found" );
 }
@@ -131,7 +134,7 @@ MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemantic& semanticName
 std::pair<MultiIndexedGeometry::LayerKeyType, const GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemanticCollection& semantics ) const {
     for ( const auto& [key, value] : m_indices ) {
-        if ( key.first == semantics ) return { key, *( value.second ) };
+        if ( key.first == semantics ) return { key, *( value.second.get() ) };
     }
     throw std::out_of_range( "Layer entry not found" );
 }
@@ -145,7 +148,7 @@ MultiIndexedGeometry::getFirstLayerOccurrenceWithLock( const LayerSemantic& sema
         if ( key.first.find( semanticName ) != key.first.end() ) {
             CORE_ASSERT( !value.first, "try to get already locked layer" );
             value.first = true;
-            return { key, *( value.second ) };
+            return { key, *( value.second.get() ) };
         }
     }
     throw std::out_of_range( "Layer entry not found" );
@@ -157,7 +160,7 @@ MultiIndexedGeometry::getFirstLayerOccurrenceWithLock( const LayerSemanticCollec
         if ( key.first == semantics ) {
             CORE_ASSERT( !value.first, "try to get already locked layer" );
             value.first = true;
-            return { key, *( value.second ) };
+            return { key, *( value.second.get() ) };
         }
     }
     throw std::out_of_range( "Layer entry not found" );
@@ -167,7 +170,7 @@ GeometryIndexLayerBase& MultiIndexedGeometry::getLayerWithLock( const LayerKeyTy
     auto& p = m_indices.at( layerKey );
     CORE_ASSERT( !p.first, "try to get already locked layer" );
     p.first = true;
-    return *( p.second );
+    return *( p.second.get() );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -212,9 +215,8 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
                                 const bool withLock,
                                 const std::string& layerName ) {
     LayerKeyType key { layer->semantics(), layerName };
-    std::pair<LayerKeyType, EntryType> elt { key, std::make_pair( false, layer.get() ) };
+    std::pair<LayerKeyType, EntryType> elt { key, std::make_pair( false, std::move( layer ) ) };
     auto [pos, inserted] = m_indices.insert( std::move( elt ) );
-    if ( inserted ) { layer.release(); }
     notify();
 
     if ( withLock ) {
@@ -226,17 +228,17 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
 
     return { inserted, *( pos->second.second ) };
 }
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 void MultiIndexedGeometry::deepCopy( const MultiIndexedGeometry& other ) {
-    m_indices = other.m_indices;
-    for ( auto& el : m_indices )
-        el.second.second = el.second.second->clone(); // replace copied entries by duplicates
+    for ( const auto& [key, value] : other.m_indices ) {
+        m_indices[key] = std::make_pair(
+            value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
+    }
 }
+
 void MultiIndexedGeometry::deepClear() {
-    for ( auto& el : m_indices )
-        delete el.second.second;
     m_indices.clear();
 }
 
