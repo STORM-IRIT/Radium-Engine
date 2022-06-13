@@ -32,7 +32,7 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     virtual ~GeometryIndexLayerBase();
 
     /// \brief Create new layer with duplicated content
-    virtual GeometryIndexLayerBase* clone() = 0;
+    virtual std::unique_ptr<GeometryIndexLayerBase> clone() = 0;
 
     /// \brief Append content from another layer
     /// \return false if data cannot be appended, e.g., different semantics

@@ -91,8 +91,8 @@ inline const void* GeometryIndexLayer<T>::dataPtr() const {
 }
 
 template <typename T>
-inline GeometryIndexLayerBase* GeometryIndexLayer<T>::clone() {
-    auto copy          = new GeometryIndexLayer<T>( *this );
+inline std::unique_ptr<GeometryIndexLayerBase> GeometryIndexLayer<T>::clone() {
+    auto copy          = std::make_unique<GeometryIndexLayer<T>>( *this );
     copy->m_collection = m_collection;
     return copy;
 }
