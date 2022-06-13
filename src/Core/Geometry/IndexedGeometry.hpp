@@ -410,7 +410,7 @@ struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
 
     /// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
     /// \f$n-1\f$
-    inline PointCloudIndexLayer( size_t n );
+    inline explicit PointCloudIndexLayer( size_t n );
 
     /// \brief Generate linearly spaced indices with same size as \p attr vertex buffer
     void linearIndices( const AttribArrayGeometry& attr );
@@ -430,7 +430,7 @@ struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
 
   protected:
     template <class... SemanticNames>
-    inline TriangleIndexLayer( SemanticNames... names );
+    inline explicit TriangleIndexLayer( SemanticNames... names );
 };
 
 /// \brief Index layer for quadrilateral mesh.
@@ -441,7 +441,7 @@ struct RA_CORE_API QuadIndexLayer : public GeometryIndexLayer<Vector4ui> {
 
   protected:
     template <class... SemanticNames>
-    inline QuadIndexLayer( SemanticNames... names );
+    inline explicit QuadIndexLayer( SemanticNames... names );
 };
 
 /// \brief Index layer for polygonal mesh.
@@ -453,7 +453,7 @@ struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
 
   protected:
     template <class... SemanticNames>
-    inline PolyIndexLayer( SemanticNames... names );
+    inline explicit PolyIndexLayer( SemanticNames... names );
 };
 
 /// \brief Index layer for line mesh.
@@ -464,7 +464,7 @@ struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
 
   protected:
     template <class... SemanticNames>
-    inline LineIndexLayer( SemanticNames... names );
+    inline explicit LineIndexLayer( SemanticNames... names );
 };
 
 /// \}
