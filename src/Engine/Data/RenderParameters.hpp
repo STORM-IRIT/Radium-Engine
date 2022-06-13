@@ -35,7 +35,7 @@ class RA_ENGINE_API RenderParameters final
         virtual ~Parameter() = default;
         /** Bind the parameter uniform on the shader program
          *
-         * @param shader The shader to bind to.
+         * \param shader The shader to bind to.
          */
         virtual void bind( const Data::ShaderProgram* shader ) const = 0;
         /** The name of the parameter.
@@ -46,7 +46,7 @@ class RA_ENGINE_API RenderParameters final
 
     /** Typed parameter.
      * Define a Parameter with a typed value
-     * @tparam T The type of the parameter's value.
+     * \tparam T The type of the parameter's value.
      */
     template <typename T>
     class TParameter final : public Parameter
@@ -82,7 +82,7 @@ class RA_ENGINE_API RenderParameters final
     /** Set of typed parameters
      * For a given shader Program, all the parameters are stored by type, in several parameter sets.
      *
-     * @tparam T The type of parameteres in the set.
+     * \tparam T The type of parameteres in the set.
      */
     template <typename T>
     class UniformBindableSet final
@@ -95,7 +95,7 @@ class RA_ENGINE_API RenderParameters final
       public:
         /** Bind the whole parameter set to the corresponding shader uniforms
          *
-         * @param shader The shader to bind to.
+         * \param shader The shader to bind to.
          */
         void bind( const Data::ShaderProgram* shader ) const;
     };
@@ -134,7 +134,7 @@ class RA_ENGINE_API RenderParameters final
   public:
     /**
      * Overloaded operators to set shader parameters
-     * @{
+     * \{
      */
     void addParameter( const std::string& name, bool value );
     void addParameter( const std::string& name, int value );
@@ -161,11 +161,11 @@ class RA_ENGINE_API RenderParameters final
      * If texUnit is given, then uniform binding will be made at this explicit location.
      */
     void addParameter( const std::string& name, Data::Texture* tex, int texUnit = -1 );
-    /**@}*/
+    /**\}*/
 
     /**
      * Merges a RenderParameters \a params with this
-     * @param params the render parameter to merge with the current.
+     * \param params the render parameter to merge with the current.
      * Existing parameter value are kept from this
      * \see mergeReplaceParameters
      */
@@ -173,7 +173,7 @@ class RA_ENGINE_API RenderParameters final
 
     /**
      * Merges a RenderParameters \a params with this
-     * @param params the render parameter to merge with the current.
+     * \param params the render parameter to merge with the current.
      * Existing parameter values are replaced by params's one.
      * \see mergeKeepParameters
      */
@@ -181,32 +181,33 @@ class RA_ENGINE_API RenderParameters final
 
     /** Bind the parameter uniform on the shader program
      *
-     * @param shader The shader to bind to.
+     * \param shader The shader to bind to.
      */
     void bind( const Data::ShaderProgram* shader ) const;
 
     /**
      * Get a typed parameter set
-     * @tparam T the type of the parameter set to get
-     * @return The corresponding set parameter
+     * \tparam T the type of the parameter set to get
+     * \return The corresponding set parameter
      */
     template <typename T>
     const UniformBindableSet<T>& getParameterSet() const;
 
     /**
      * Check if a typed parameter exists
-     * @tparam T the type of the parameter to get
-     * @param name The name of the parameter to get
-     * @return true if the parameter exists
+     * \tparam T the type of the parameter to get
+     * \param name The name of the parameter to get
+     * \return true if the parameter exists
      */
     template <typename T>
     bool containsParameter( const std::string& name ) const;
 
     /**
      * Get a typed parameter
-     * @tparam T the type of the parameter to get
-     * @param name The name of the parameter to get
-     * @return The corresponding parameter
+     * \tparam T the type of the parameter to get
+     * \param name The name of the parameter to get
+     * \return The corresponding parameter
+     * \throw std::out_of_range if the container does not have an parameter with the specified name
      */
     template <typename T>
     const T& getParameter( const std::string& name ) const;
@@ -214,9 +215,9 @@ class RA_ENGINE_API RenderParameters final
   private:
     /**
      * Storage of the parameters
-     * @todo : find a way to simplify this (à la Ra::Core::Geometry::AttribArrayGeometry
+     * \todo : find a way to simplify this (à la Ra::Core::Geometry::AttribArrayGeometry
      */
-    ///@{
+    ///\{
     UniformBindableSet<BoolParameter> m_boolParamsVector;
     UniformBindableSet<IntParameter> m_intParamsVector;
     UniformBindableSet<UIntParameter> m_uintParamsVector;
@@ -236,7 +237,7 @@ class RA_ENGINE_API RenderParameters final
     UniformBindableSet<Mat4Parameter> m_mat4ParamsVector;
 
     UniformBindableSet<TextureParameter> m_texParamsVector;
-    /**@}*/
+    /**\}*/
 };
 
 /**
@@ -273,7 +274,7 @@ class RA_ENGINE_API ShaderParameterProvider
      *
      * The default implementation returns an empty list.
      *
-     * @todo : Validate this proposal
+     * \todo : Validate this proposal
      */
     virtual std::list<std::string> getPropertyList() const { return {}; };
 
