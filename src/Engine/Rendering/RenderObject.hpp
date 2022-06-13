@@ -119,6 +119,13 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     void toggleTransparent();
     bool isTransparent() const;
 
+    /// \warning Works only for BlinnPhongMaterial and SimpleMaterial
+    void setPerVertexColor( bool state );
+    /// \copydoc setPerVertexColor
+    void togglePerVertexColor();
+    /// \copydoc setPerVertexColor
+    bool isPerVertexColor() const;
+
     bool isDirty() const;
 
     void setRenderTechnique( std::shared_ptr<RenderTechnique> technique );
