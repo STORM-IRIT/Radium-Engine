@@ -133,8 +133,9 @@ QAction* SkeletonBasedAnimationUI::getAction( int i ) {
         return ui->actionSTBSLBS;
     case 5:
         return ui->actionSTBSDQS;
+    default:
+        return nullptr;
     }
-    return nullptr;
 }
 
 void SkeletonBasedAnimationUI::postLoadFile( Engine::Scene::Entity* entity ) {
