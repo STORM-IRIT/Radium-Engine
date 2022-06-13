@@ -385,8 +385,6 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \brief Clear attributes stored as pointers
     void deepClear();
 
-    /// Note: we cannot store unique_ptr here has unordered_map needs its
-    /// elements to be copy-constructible
     using EntryType = std::pair<bool, std::unique_ptr<GeometryIndexLayerBase>>;
 
     struct RA_CORE_API KeyHash {
