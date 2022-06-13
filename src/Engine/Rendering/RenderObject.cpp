@@ -14,10 +14,10 @@
 #include <Engine/Scene/Entity.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Engine/Data/ShaderProgram.hpp>
-#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Data/SimpleMaterial.hpp>
+#include <Engine/Data/ViewingParameters.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -126,25 +126,21 @@ bool RenderObject::isTransparent() const {
 }
 
 template <typename F>
-void processPerVertexColor( RenderObject* ro, F f ){
+void processPerVertexColor( RenderObject* ro, F f ) {
     auto m = ro->getMaterial();
 
-    if (Data::BlinnPhongMaterial* bpmat = dynamic_cast<Data::BlinnPhongMaterial*>(m.get()))
-    {
-        if ( f(bpmat->m_perVertexColor) )
-            bpmat->needUpdate();
+    if ( Data::BlinnPhongMaterial* bpmat = dynamic_cast<Data::BlinnPhongMaterial*>( m.get() ) ) {
+        if ( f( bpmat->m_perVertexColor ) ) bpmat->needUpdate();
     }
-    else if (Data::SimpleMaterial* smat = dynamic_cast<Data::SimpleMaterial*>(m.get()))
-    {
-        if ( f(smat->m_perVertexColor) )
-            smat->needUpdate();
+    else if ( Data::SimpleMaterial* smat = dynamic_cast<Data::SimpleMaterial*>( m.get() ) ) {
+        if ( f( smat->m_perVertexColor ) ) smat->needUpdate();
     }
 }
 
 void RenderObject::setPerVertexColor( bool state ) {
     processPerVertexColor( this, [state]( bool& mstate ) {
         bool tmp = mstate;
-        mstate = state;
+        mstate   = state;
         return tmp != mstate;
     } );
 }
@@ -159,12 +155,12 @@ void RenderObject::togglePerVertexColor() {
 bool RenderObject::isPerVertexColor() const {
     auto m = getMaterial();
 
-    if (const Data::BlinnPhongMaterial* bpmat = dynamic_cast<const Data::BlinnPhongMaterial*>(m.get()))
-    {
+    if ( const Data::BlinnPhongMaterial* bpmat =
+             dynamic_cast<const Data::BlinnPhongMaterial*>( m.get() ) ) {
         return bpmat->m_perVertexColor;
     }
-    else if (const Data::SimpleMaterial* smat = dynamic_cast<const Data::SimpleMaterial*>(m.get()))
-    {
+    else if ( const Data::SimpleMaterial* smat =
+                  dynamic_cast<const Data::SimpleMaterial*>( m.get() ) ) {
         return smat->m_perVertexColor;
     }
     return false;
