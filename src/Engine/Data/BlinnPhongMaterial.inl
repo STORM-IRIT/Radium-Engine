@@ -43,6 +43,17 @@ inline Texture* BlinnPhongMaterial::getTexture( const TextureSemantic& semantic 
 
     return tex;
 }
+
+inline void BlinnPhongMaterial::setColoredByVertexAttrib( bool state ) {
+    bool oldState    = m_perVertexColor;
+    m_perVertexColor = state;
+    if ( oldState != m_perVertexColor ) { needUpdate(); }
+};
+
+inline bool BlinnPhongMaterial::isColoredByVertexAttrib() const {
+    return m_perVertexColor;
+};
+
 } // namespace Data
 } // namespace Engine
 } // namespace Ra
