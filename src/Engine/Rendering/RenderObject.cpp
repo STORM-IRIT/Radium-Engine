@@ -125,44 +125,18 @@ bool RenderObject::isTransparent() const {
     return m_transparent;
 }
 
-template <typename F>
-void processPerVertexColor( RenderObject* ro, F f ) {
-    auto m = ro->getMaterial();
+void RenderObject::setColoredByVertexAttrib( bool state ) {
+    if ( m_material ) { m_material->setColoredByVertexAttrib( state ); }
+}
 
-    if ( Data::BlinnPhongMaterial* bpmat = dynamic_cast<Data::BlinnPhongMaterial*>( m.get() ) ) {
-        if ( f( bpmat->m_perVertexColor ) ) bpmat->needUpdate();
-    }
-    else if ( Data::SimpleMaterial* smat = dynamic_cast<Data::SimpleMaterial*>( m.get() ) ) {
-        if ( f( smat->m_perVertexColor ) ) smat->needUpdate();
+void RenderObject::toggleColoredByVertexAttrib() {
+    if ( m_material ) {
+        m_material->setColoredByVertexAttrib( !m_material->isColoredByVertexAttrib() );
     }
 }
 
-void RenderObject::setPerVertexColor( bool state ) {
-    processPerVertexColor( this, [state]( bool& mstate ) {
-        bool tmp = mstate;
-        mstate   = state;
-        return tmp != mstate;
-    } );
-}
-
-void RenderObject::togglePerVertexColor() {
-    processPerVertexColor( this, []( bool& mstate ) {
-        mstate = !mstate;
-        return true;
-    } );
-}
-
-bool RenderObject::isPerVertexColor() const {
-    auto m = getMaterial();
-
-    if ( const Data::BlinnPhongMaterial* bpmat =
-             dynamic_cast<const Data::BlinnPhongMaterial*>( m.get() ) ) {
-        return bpmat->m_perVertexColor;
-    }
-    else if ( const Data::SimpleMaterial* smat =
-                  dynamic_cast<const Data::SimpleMaterial*>( m.get() ) ) {
-        return smat->m_perVertexColor;
-    }
+bool RenderObject::isColoredByVertexAttrib() const {
+    if ( m_material ) { return m_material->isColoredByVertexAttrib(); }
     return false;
 }
 

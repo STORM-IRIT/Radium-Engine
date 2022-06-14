@@ -78,6 +78,10 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
      */
     static void unregisterMaterial();
 
+    inline void setColoredByVertexAttrib( bool state ) override;
+
+    inline bool isColoredByVertexAttrib() const override;
+
   public:
     Core::Utils::Color m_kd { 0.7, 0.7, 0.7, 1.0 };
     Core::Utils::Color m_ks { 0.3, 0.3, 0.3, 1.0 };
