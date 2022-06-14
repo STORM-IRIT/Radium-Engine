@@ -72,26 +72,47 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
     };
 
     // For general vertices retrieve normals and texCoords from vhIndex
-    auto wedgeSetterGeneric =
-        [wedgeSetter, &topoNormals, &topoTexCoords]( int vhIndex, TopologicalMesh::FaceHandle fh ) {
-            wedgeSetter( vhIndex, fh, topoNormals[vhIndex], topoTexCoords[vhIndex] );
-        };
+    auto wedgeSetterGeneric = [wedgeSetter,
+                               &topoMesh,
+                               &vhandles,
+                               &topoNormals,
+                               &topoTexCoords,
+                               whNormal,
+                               whTexCoord,
+                               gtc]( int vhIndex, TopologicalMesh::FaceHandle fh ) {
+        wedgeSetter( vhIndex, fh, topoNormals[vhIndex], topoTexCoords[vhIndex] );
+    };
 
     // take seams into account when u =1
-    auto wedgeSetterSeam = [wedgeSetter, &topoTexCoords, &topoNormals, whTexCoord](
-                               int u, int vhIndex, TopologicalMesh::FaceHandle fh ) {
+    auto wedgeSetterSeam = [wedgeSetter,
+                            &topoMesh,
+                            &vhandles,
+                            &topoTexCoords,
+                            &topoNormals,
+                            whNormal,
+                            whTexCoord,
+                            slices,
+                            gtc]( int u, int vhIndex, TopologicalMesh::FaceHandle fh ) {
         Vector3 t = topoTexCoords[vhIndex];
         if ( u == slices - 1 ) t[0] = 0_ra;
         wedgeSetter( vhIndex, fh, topoNormals[vhIndex], t );
     };
 
     // special for poles
-    auto wedgeSetterPole = [wedgeSetter, &topoTexCoords]( bool north,
-                                                          int id,
-                                                          int baseSlice,
-                                                          int nextSlice,
-                                                          int u,
-                                                          TopologicalMesh::FaceHandle fh ) {
+    auto wedgeSetterPole = [wedgeSetter,
+                            &topoMesh,
+                            &vhandles,
+                            &topoTexCoords,
+                            &topoNormals,
+                            whNormal,
+                            whTexCoord,
+                            slices,
+                            gtc]( bool north,
+                                  int id,
+                                  int baseSlice,
+                                  int nextSlice,
+                                  int u,
+                                  TopologicalMesh::FaceHandle fh ) {
         // pole vertex use "midpoint" texCoord
         Scalar bu = topoTexCoords[baseSlice][0];
         Scalar nu = ( u == slices - 1 ) ? 0_ra : topoTexCoords[nextSlice][0];
