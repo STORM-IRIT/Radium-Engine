@@ -1,3 +1,5 @@
+#include <Engine/Data/ShaderConfigFactory.hpp>
+#include <Engine/Data/ShaderConfiguration.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
@@ -81,6 +83,7 @@ void ForwardRenderer::initShaders() {
                                           resourcesRootDir + "Shaders/Lines/Wireframe.frag.glsl" };
     wireframe.addShader( Data::ShaderType::ShaderType_GEOMETRY,
                          resourcesRootDir + "Shaders/Lines/Wireframe.geom.glsl" );
+    Data::ShaderConfigurationFactory::addConfiguration( wireframe );
     m_shaderProgramManager->addShaderProgram( wireframe );
 }
 
@@ -560,29 +563,35 @@ void ForwardRenderer::uiInternal( const Data::ViewingParameters& renderData ) {
     for ( const auto& ro : m_uiRenderObjects ) {
         if ( ro->isVisible() ) {
             auto shader = ro->getRenderTechnique()->getShader();
+            if ( !shader ) {
+                LOG( logERROR ) << "shader not found" << ro->getName() << " "
+                                << ro->getRenderTechnique()->getConfiguration().getName();
+            }
+            else {
 
-            // bind data
-            shader->bind();
+                // bind data
+                shader->bind();
 
-            Core::Matrix4 M  = ro->getTransformAsMatrix();
-            Core::Matrix4 MV = renderData.viewMatrix * M;
-            Core::Vector3 V  = MV.block<3, 1>( 0, 3 );
-            Scalar d         = V.norm();
+                Core::Matrix4 M  = ro->getTransformAsMatrix();
+                Core::Matrix4 MV = renderData.viewMatrix * M;
+                Core::Vector3 V  = MV.block<3, 1>( 0, 3 );
+                Scalar d         = V.norm();
 
-            Core::Matrix4 S    = Core::Matrix4::Identity();
-            S.coeffRef( 0, 0 ) = S.coeffRef( 1, 1 ) = S.coeffRef( 2, 2 ) = d;
+                Core::Matrix4 S    = Core::Matrix4::Identity();
+                S.coeffRef( 0, 0 ) = S.coeffRef( 1, 1 ) = S.coeffRef( 2, 2 ) = d;
 
-            M = M * S;
+                M = M * S;
 
-            shader->setUniform( "transform.proj", renderData.projMatrix );
-            shader->setUniform( "transform.view", renderData.viewMatrix );
-            shader->setUniform( "transform.model", M );
+                shader->setUniform( "transform.proj", renderData.projMatrix );
+                shader->setUniform( "transform.view", renderData.viewMatrix );
+                shader->setUniform( "transform.model", M );
 
-            auto shaderParameter = ro->getRenderTechnique()->getParametersProvider();
-            if ( shaderParameter != nullptr ) shaderParameter->getParameters().bind( shader );
+                auto shaderParameter = ro->getRenderTechnique()->getParametersProvider();
+                if ( shaderParameter != nullptr ) shaderParameter->getParameters().bind( shader );
 
-            // render
-            ro->getMesh()->render( shader );
+                // render
+                ro->getMesh()->render( shader );
+            }
         }
     }
     m_uiXrayFbo->unbind();
