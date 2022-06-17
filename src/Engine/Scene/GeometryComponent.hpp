@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Engine/Rendering/RenderObjectTypes.hpp"
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Asset/VolumeData.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
@@ -99,6 +100,7 @@ class SurfaceMeshComponent : public GeometryComponent
 };
 
 using TriangleMeshComponent = SurfaceMeshComponent<Ra::Core::Geometry::TriangleMesh>;
+using LineMeshComponent     = SurfaceMeshComponent<Ra::Core::Geometry::LineMesh>;
 using QuadMeshComponent     = SurfaceMeshComponent<Ra::Core::Geometry::QuadMesh>;
 using PolyMeshComponent     = SurfaceMeshComponent<Ra::Core::Geometry::PolyMesh>;
 

@@ -3,11 +3,11 @@
 #include <Engine/Scene/GeometryComponent.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderObjectTypes.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 
@@ -29,7 +29,8 @@ SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent( const std::string& nam
                                                           Entity* entity,
                                                           CoreMeshType&& mesh,
                                                           Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ), m_displayMesh( new Data::Mesh( name, std::move( mesh ) ) ) {
+    GeometryComponent( name, entity ),
+    m_displayMesh( new RenderMeshType( name, std::move( mesh ) ) ) {
     setContentName( name );
     finalizeROFromGeometry( mat, Core::Transform::Identity() );
 }
