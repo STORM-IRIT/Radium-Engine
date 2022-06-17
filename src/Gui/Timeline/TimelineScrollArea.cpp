@@ -121,6 +121,9 @@ void TimelineScrollArea::keyPressEvent( QKeyEvent* event ) {
 
     case Qt::Key_R:
         emit redo();
+        break;
+    default:
+        break;
     }
 }
 
