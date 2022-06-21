@@ -133,7 +133,19 @@ class DemoWindow : public Ra::Gui::SimpleWindow
         m_matParamsEditor = new Ra::Gui::MaterialParameterEditor;
 
         // Update the viewer whenever a parameter gets modified
-        auto on_materialParametersModified = [this]() { getViewer()->needUpdate(); };
+        auto on_materialParametersModified = [this]() {
+            if ( m_editedRo ) {
+                // manage transparency status changes
+                // TODO this should be done automatically by Material/renderTechnique update
+                // And this should be simplified by removing duplicates in the storage of material
+                // parameters
+                // --> store only material data in the RenderParameter ?s
+                m_editedRo->getMaterial()->updateFromParameters();
+                m_editedRo->setTransparent( m_editedRo->getMaterial()->isTransparent() );
+            }
+
+            getViewer()->needUpdate();
+        };
         connect( m_matParamsEditor,
                  &Ra::Gui::MaterialParameterEditor::materialParametersModified,
                  on_materialParametersModified );
@@ -149,9 +161,9 @@ class DemoWindow : public Ra::Gui::SimpleWindow
     void handlePicking( const Ra::Engine::Rendering::Renderer::PickingResult& pickingResult ) {
         //! [processing the picking info]
         if ( pickingResult.getRoIdx().isValid() ) {
-            auto roManager = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-            auto pickedMaterial =
-                roManager->getRenderObject( pickingResult.getRoIdx() )->getMaterial();
+            auto roManager      = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+            m_editedRo          = roManager->getRenderObject( pickingResult.getRoIdx() );
+            auto pickedMaterial = m_editedRo->getMaterial();
             m_matParamsEditor->setupFromMaterial( pickedMaterial );
         }
     }
@@ -159,6 +171,7 @@ class DemoWindow : public Ra::Gui::SimpleWindow
   private:
     QDockWidget* m_dock { nullptr };
     Ra::Gui::MaterialParameterEditor* m_matParamsEditor;
+    std::shared_ptr<Ra::Engine::Rendering::RenderObject> m_editedRo { nullptr };
 };
 
 class DemoWindowFactory : public Ra::Gui::BaseApplication::WindowFactory
