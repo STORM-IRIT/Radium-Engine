@@ -21,7 +21,7 @@ class ShaderProgram;
  * @todo This material does not implement the MaterialGLSL interface. Shader compositing is not
  * allowed.
  */
-class RA_ENGINE_API VolumetricMaterial final : public Material, public EditableMaterial
+class RA_ENGINE_API VolumetricMaterial final : public Material, public ParameterSetEditionInterface
 {
 
   public:
