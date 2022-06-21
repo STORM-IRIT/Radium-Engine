@@ -214,11 +214,16 @@ void ControlPanel::addColorInput(
     const std::string& tooltip ) {
     auto button    = new QPushButton( name.c_str(), this );
     auto srgbColor = Ra::Core::Utils::Color::linearRGBTosRGB( color );
-    auto clrBttn   = QColor::fromRgb(
-        int( srgbColor[0] * 255 ), int( srgbColor[1] * 255 ), int( srgbColor[2] * 255 ) );
-
-    auto clrDlg = [callback, clrBttn, button, name]() mutable {
-        clrBttn = QColorDialog::getColor( clrBttn, button, name.c_str() );
+    auto clrBttn   = QColor::fromRgbF( srgbColor[0], srgbColor[1], srgbColor[2] );
+    auto clrDlg    = [callback, clrBttn, button, name]() mutable {
+        clrBttn = QColorDialog::getColor( clrBttn,
+                                          nullptr,
+                                          name.c_str()
+#ifndef OS_MACOS
+                                              ,
+                                          QColorDialog::DontUseNativeDialog
+#endif
+        );
         if ( clrBttn.isValid() ) {
             // update the background color of the viewer
             auto lum = 0.2126_ra * Scalar( clrBttn.redF() ) +
