@@ -96,10 +96,11 @@ class RA_GUI_API ControlPanel : public QFrame
 
     /** Add a color input button.
      * This button, when pressed, will open a color chooser and call the associated callback.
-     * The button is also painted with the choosen color.
+     * The button is also painted with the chosen color.
      * @param name The name of the color to choose
-     * @param callback The function to call when the state changed
-     * @param color The initial value of the color
+     * @param callback The function to call when the state changed. The color give to the callback
+     * is in linearRGB color space.
+     * @param color The initial value of the color, in linearRGB color space.
      * @param tooltip The tooltip text
      */
     void addColorInput( const std::string& name,
