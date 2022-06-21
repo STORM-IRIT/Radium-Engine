@@ -93,12 +93,12 @@ void MaterialParameterEditor::addNumberParameterWidget( const std::string& key,
         std::string description = m.contains( "description" ) ? m["description"] : "";
 
         if ( m.contains( "oneOf" ) ) {
-            // the variable has mutiple valid bounds
-            auto bounds = std::vector<std::pair<T, T>>();
+            // the variable has multiple valid bounds
+            std::vector<std::pair<T, T>> bounds;
             bounds.reserve( m["oneOf"].size() );
             for ( const auto& bound : m["oneOf"] ) {
-                int mini = bound.contains( "minimum" ) ? T( bound["minimum"] ) : min;
-                int maxi = bound.contains( "maximum" ) ? T( bound["maximum"] ) : max;
+                T mini = bound.contains( "minimum" ) ? T( bound["minimum"] ) : min;
+                T maxi = bound.contains( "maximum" ) ? T( bound["maximum"] ) : max;
                 bounds.push_back( std::pair( mini, maxi ) );
             }
             auto predicate = [bounds]( double value ) {
