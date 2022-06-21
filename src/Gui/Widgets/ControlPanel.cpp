@@ -211,17 +211,19 @@ void ControlPanel::addColorInput(
     const std::string& name,
     const std::function<void( const Ra::Core::Utils::Color& clr )>& callback,
     Ra::Core::Utils::Color color,
+    bool withAlpha,
     const std::string& tooltip ) {
     auto button    = new QPushButton( name.c_str(), this );
     auto srgbColor = Ra::Core::Utils::Color::linearRGBTosRGB( color );
-    auto clrBttn   = QColor::fromRgbF( srgbColor[0], srgbColor[1], srgbColor[2] );
-    auto clrDlg    = [callback, clrBttn, button, name]() mutable {
-        clrBttn = QColorDialog::getColor( clrBttn,
-                                          nullptr,
-                                          name.c_str()
+    auto clrBttn   = QColor::fromRgbF( srgbColor[0], srgbColor[1], srgbColor[2], srgbColor[3] );
+    auto clrDlg    = [callback, clrBttn, withAlpha, button, name]() mutable {
+        clrBttn = QColorDialog::getColor(
+            clrBttn,
+            nullptr,
+            name.c_str(),
+            ( withAlpha ? QColorDialog::ShowAlphaChannel : QColorDialog::ColorDialogOptions() )
 #ifndef OS_MACOS
-                                              ,
-                                          QColorDialog::DontUseNativeDialog
+                | QColorDialog::DontUseNativeDialog
 #endif
         );
         if ( clrBttn.isValid() ) {
@@ -233,7 +235,7 @@ void ControlPanel::addColorInput(
                 Ra::Core::Utils::Color( Scalar( clrBttn.redF() ),
                                         Scalar( clrBttn.greenF() ),
                                         Scalar( clrBttn.blueF() ),
-                                        Scalar( 0 ) ) );
+                                        Scalar( clrBttn.alphaF() ) ) );
             callback( bgk );
             QString qss = QString( "background-color: %1" ).arg( clrBttn.name() );
             if ( lum > 1_ra / 3_ra ) { qss += QString( "; color: #000000" ); }
