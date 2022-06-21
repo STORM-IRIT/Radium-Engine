@@ -5,6 +5,8 @@
 #include <set>
 #include <vector>
 
+#include <nlohmann/json.hpp>
+
 #include <Core/Containers/AlignedAllocator.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
@@ -238,6 +240,21 @@ class RA_ENGINE_API RenderParameters final
 
     UniformBindableSet<TextureParameter> m_texParamsVector;
     /**\}*/
+};
+/**
+ * Interface to define metadata (constraints, description, ...) for the edition of parameter set
+ */
+class RA_ENGINE_API ParameterSetEditionInterface
+{
+  public:
+    virtual ~ParameterSetEditionInterface() = default;
+
+    /**
+     * \brief Get a json containing metadata about the parameters.
+     *
+     * \return the metadata in json format
+     */
+    virtual nlohmann::json getParametersMetadata() const = 0;
 };
 
 /**

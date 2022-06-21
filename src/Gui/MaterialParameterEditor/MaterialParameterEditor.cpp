@@ -181,7 +181,8 @@ void MaterialParameterEditor::addMatrixParameterWidget( const std::string& key,
 
 void MaterialParameterEditor::setupFromMaterial(
     std::shared_ptr<Ra::Engine::Data::Material> material ) {
-    auto editable = std::dynamic_pointer_cast<Ra::Engine::Data::EditableMaterial>( material );
+    auto hasMetadata =
+        std::dynamic_pointer_cast<Ra::Engine::Data::ParameterSetEditionInterface>( material );
     m_matNameLabel->setText( QString::fromStdString( material->getMaterialName() ) );
     m_matProperties->clear();
     for ( auto& prop : material->getPropertyList() ) {
@@ -193,7 +194,7 @@ void MaterialParameterEditor::setupFromMaterial(
     m_matProperties->setTextCursor( tmpCursor );
 
     auto& params  = material->getParameters();
-    auto metadata = editable->getParametersMetadata();
+    auto metadata = ( hasMetadata ) ? hasMetadata->getParametersMetadata() : nlohmann::json {};
 
     setupFromParameters( params, metadata, material->getInstanceName() );
 
