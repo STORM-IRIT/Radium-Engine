@@ -272,32 +272,21 @@ void MaterialParameterEditor::setupFromParameters( Engine::Data::RenderParameter
     for ( auto& [key, value] :
           params.getParameterSet<Ra::Engine::Data::RenderParameters::ColorParameter>() ) {
         auto onColorParameterChanged =
-            [this, &params, key = key, &value = value]( const Ra::Core::Utils::Color& val ) {
-                auto color    = Ra::Core::Utils::Color( val );
-                color.alpha() = value.m_value.alpha();
-                params.addParameter( key, color );
+            [this, &params, key = key]( const Ra::Core::Utils::Color& val ) {
+                params.addParameter( key, val );
                 emit materialParametersModified();
             };
-        auto onAlphaChanged = [this, &params, key = key, &value = value]( Scalar val ) {
-            auto color    = Ra::Core::Utils::Color( value.m_value );
-            color.alpha() = val;
-            params.addParameter( key, color );
-            emit materialParametersModified();
-        };
         if ( constraints.contains( key ) ) {
             const auto& m           = constraints[key];
             std::string description = m.contains( "description" ) ? m["description"] : "";
-            m_parametersControlPanel->addColorInput(
-                m["name"], onColorParameterChanged, value.m_value, description );
-            if ( m["maxItems"] == 4 ) {
-                m_parametersControlPanel->addPowerSliderInput(
-                    "alpha", onAlphaChanged, value.m_value.alpha(), 0.0, 1.0 );
-            }
+            m_parametersControlPanel->addColorInput( m["name"],
+                                                     onColorParameterChanged,
+                                                     value.m_value,
+                                                     m["maxItems"] == 4,
+                                                     description );
         }
         else if ( m_showUnspecified ) {
             m_parametersControlPanel->addColorInput( key, onColorParameterChanged, value.m_value );
-            m_parametersControlPanel->addPowerSliderInput(
-                "alpha", onAlphaChanged, value.m_value.alpha(), 0.0, 1.0 );
         }
     }
 
