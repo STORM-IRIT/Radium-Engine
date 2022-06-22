@@ -650,6 +650,13 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
             }
             bool isPluginDebug = metadata["isDebug"].toString().compare( "true" ) == 0;
             if ( expectPluginsDebug == isPluginDebug ) {
+                const auto [it, success] = m_loadedPlugins.insert( { basename, pluginsPath } );
+                if ( !success ) {
+                    LOG( logDEBUG )
+                        << "Unable to load plugin " << basename << " from " << pluginsPath
+                        << ".\n\t\tPlugin was already loaded from " << it->second;
+                    continue;
+                }
                 LOG( logINFO ) << "Found plugin " << filename.toStdString();
                 // load the plugin
                 QObject* plugin = pluginLoader.instance();
