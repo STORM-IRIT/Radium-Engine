@@ -116,7 +116,6 @@ KeyMappingManager::Context KeyMappingManager::addContext( const std::string& con
         m_contextNameToIndex[contextName] = contextIndex;
         m_actionNameToIndex.emplace_back();
         m_mappingAction.emplace_back();
-
         CORE_ASSERT( m_actionNameToIndex.size() == size_t( contextIndex + 1 ),
                      "Corrupted actionName DB" );
         CORE_ASSERT( m_mappingAction.size() == size_t( contextIndex + 1 ),
