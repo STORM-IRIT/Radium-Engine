@@ -119,6 +119,13 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     void toggleTransparent();
     bool isTransparent() const;
 
+    /// \brief manage usage of VERTEX_COLOR attribute by the material
+    void setColoredByVertexAttrib( bool state );
+    /// \copydoc setColoredByVertexAttrib
+    void toggleColoredByVertexAttrib();
+    /// \copydoc setColoredByVertexAttrib
+    bool isColoredByVertexAttrib() const;
+
     bool isDirty() const;
 
     void setRenderTechnique( std::shared_ptr<RenderTechnique> technique );

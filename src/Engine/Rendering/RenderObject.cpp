@@ -14,7 +14,9 @@
 #include <Engine/Scene/Entity.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
+#include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
+#include <Engine/Data/SimpleMaterial.hpp>
 #include <Engine/Data/ViewingParameters.hpp>
 
 namespace Ra {
@@ -121,6 +123,21 @@ void RenderObject::toggleTransparent() {
 
 bool RenderObject::isTransparent() const {
     return m_transparent;
+}
+
+void RenderObject::setColoredByVertexAttrib( bool state ) {
+    if ( m_material ) { m_material->setColoredByVertexAttrib( state ); }
+}
+
+void RenderObject::toggleColoredByVertexAttrib() {
+    if ( m_material ) {
+        m_material->setColoredByVertexAttrib( !m_material->isColoredByVertexAttrib() );
+    }
+}
+
+bool RenderObject::isColoredByVertexAttrib() const {
+    if ( m_material ) { return m_material->isColoredByVertexAttrib(); }
+    return false;
 }
 
 bool RenderObject::isDirty() const {

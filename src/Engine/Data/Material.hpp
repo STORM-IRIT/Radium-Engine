@@ -91,9 +91,24 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
      *
      * The defaul implementation returns an empty list.
      *
-     * @todo : Validate this proposal
+     * \todo : Validate this proposal
+     * \todo : make the property list modifiable as well
      */
     std::list<std::string> getPropertyList() const override;
+
+    /**
+     * \brief Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered
+     * geometry \param state activate (true) or deactivate (false) VERTEX_COLOR attribute usage
+     *
+     * Any material that support per-vertex color parameterization should implement this method
+     * accordingly
+     */
+    virtual void setColoredByVertexAttrib( bool /* state */ ) {};
+
+    /**
+     * \brief Indicates if the material takes the VERTEX_COLOR attribute into account.
+     */
+    virtual bool isColoredByVertexAttrib() const { return false; }
 
     /** Mark the Material as needing update before the next OpenGL call
      *

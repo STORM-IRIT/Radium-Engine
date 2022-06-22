@@ -29,6 +29,16 @@ inline Texture* SimpleMaterial::getTexture( const TextureSemantic& semantic ) co
     return tex;
 }
 
+inline void SimpleMaterial::setColoredByVertexAttrib( bool state ) {
+    bool oldState    = m_perVertexColor;
+    m_perVertexColor = state;
+    if ( oldState != m_perVertexColor ) { needUpdate(); }
+}
+
+inline bool SimpleMaterial::isColoredByVertexAttrib() const {
+    return m_perVertexColor;
+}
+
 } // namespace Data
 } // namespace Engine
 } // namespace Ra
