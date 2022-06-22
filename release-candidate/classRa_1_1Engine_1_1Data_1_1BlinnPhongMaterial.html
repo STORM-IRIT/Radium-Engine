@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.40</span>
+   &#160;<span id="projectnumber">1.2.41</span>
    </div>
   </td>
  </tr>
@@ -156,6 +156,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5eec16e112028d0e921755dd77019e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8e89544b5da028dda7e38896dc27213"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#aa8e89544b5da028dda7e38896dc27213">getTexture</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;semantic) const</td></tr>
 <tr class="separator:aa8e89544b5da028dda7e38896dc27213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc60e7282b200f28fac471a024737ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">setColoredByVertexAttrib</a> (bool state) override</td></tr>
+<tr class="memdesc:acfc60e7282b200f28fac471a024737ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry.  <a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">More...</a><br /></td></tr>
+<tr class="separator:acfc60e7282b200f28fac471a024737ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30540d1c981585466637a7ebdeadb72e"><td class="memItemLeft" align="right" valign="top"><a id="a30540d1c981585466637a7ebdeadb72e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a30540d1c981585466637a7ebdeadb72e">isColoredByVertexAttrib</a> () const override</td></tr>
+<tr class="memdesc:a30540d1c981585466637a7ebdeadb72e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if the material takes the VERTEX_COLOR attribute into account. <br /></td></tr>
+<tr class="separator:a30540d1c981585466637a7ebdeadb72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d61cc79d8a25f5d1b4b728c8797e5cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a9d61cc79d8a25f5d1b4b728c8797e5cf">addTexture</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;semantic, const <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;texture)</td></tr>
 <tr class="separator:a9d61cc79d8a25f5d1b4b728c8797e5cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
@@ -505,6 +512,53 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="acfc60e7282b200f28fac471a024737ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfc60e7282b200f28fac471a024737ea">&#9670;&nbsp;</a></span>setColoredByVertexAttrib()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::BlinnPhongMaterial::setColoredByVertexAttrib </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>activate (true) or deactivate (false) VERTEX_COLOR attribute usage</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Any material that support per-vertex color parameterization should implement this method accordingly </p>
+
+<p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a9fe87b88b7d2ce2020373aaf7d5cc85e">Ra::Engine::Data::Material</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8inl_source.html#l00047">47</a> of file <a class="el" href="BlinnPhongMaterial_8inl_source.html">BlinnPhongMaterial.inl</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_acfc60e7282b200f28fac471a024737ea_cgraph.svg" width="500" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="af10c9fac9f32f1966eb2331e2790a6d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af10c9fac9f32f1966eb2331e2790a6d1">&#9670;&nbsp;</a></span>unregisterMaterial()</h2>
 
@@ -530,11 +584,11 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <p>Remove the material from the material library. After removal, the material is no more available, ... </p>
 
 <p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00154">154</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_af10c9fac9f32f1966eb2331e2790a6d1_cgraph.svg" width="528" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -582,7 +636,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html">BlinnPhongMaterial</a></li>
-    <li class="footer">Generated on Thu Jun 9 2022 13:42:11 for Radium Engine by
+    <li class="footer">Generated on Wed Jun 22 2022 06:26:32 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

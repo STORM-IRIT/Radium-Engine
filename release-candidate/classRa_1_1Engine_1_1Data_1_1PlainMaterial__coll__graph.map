@@ -1,9 +1,9 @@
 <map id="Ra::Engine::Data::PlainMaterial" name="Ra::Engine::Data::PlainMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="119,2341,343,2463"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title=" " alt="" coords="139,2127,322,2292"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="28,1664,220,1903"/>
+<area shape="rect" id="node1" title=" " alt="" coords="121,2371,345,2492"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title=" " alt="" coords="127,2127,339,2321"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="15,1649,227,1917"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="5,1084,229,1235"/>
 <area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html" title=" " alt="" coords="10,5,225,816"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="252,1503,441,2064"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="253,1503,443,2064"/>
 <area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="253,879,443,1440"/>
 </map>

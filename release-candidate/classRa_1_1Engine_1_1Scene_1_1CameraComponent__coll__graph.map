@@ -1,8 +1,8 @@
 <map id="Ra::Engine::Scene::CameraComponent" name="Ra::Engine::Scene::CameraComponent">
-<area shape="rect" id="node1" title=" " alt="" coords="291,2251,475,2460"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="185,1845,406,2201"/>
+<area shape="rect" id="node1" title=" " alt="" coords="287,2339,471,2548"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="181,1933,402,2289"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,286,217,495"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="241,205,451,576"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="329,5,504,156"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html" title=" " alt="" coords="376,600,601,1821"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html" title=" " alt="" coords="372,600,605,1909"/>
 </map>

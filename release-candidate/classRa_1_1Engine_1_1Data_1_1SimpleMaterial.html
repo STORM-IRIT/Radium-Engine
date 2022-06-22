@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.40</span>
+   &#160;<span id="projectnumber">1.2.41</span>
    </div>
   </td>
  </tr>
@@ -148,6 +148,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2400959096aa242594e5b46c6c05ce5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accda5c85bc9f61813b53acbae2ba70a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#accda5c85bc9f61813b53acbae2ba70a1">getTexture</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443">TextureSemantic</a> &amp;semantic) const</td></tr>
 <tr class="separator:accda5c85bc9f61813b53acbae2ba70a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77238ce2e04c31a52e68c64b64a6e11c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c">setColoredByVertexAttrib</a> (bool state) override</td></tr>
+<tr class="memdesc:a77238ce2e04c31a52e68c64b64a6e11c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry.  <a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c">More...</a><br /></td></tr>
+<tr class="separator:a77238ce2e04c31a52e68c64b64a6e11c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a188bef043565e521f7ba56026cc4764d"><td class="memItemLeft" align="right" valign="top"><a id="a188bef043565e521f7ba56026cc4764d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a188bef043565e521f7ba56026cc4764d">isColoredByVertexAttrib</a> () const override</td></tr>
+<tr class="memdesc:a188bef043565e521f7ba56026cc4764d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if the material takes the VERTEX_COLOR attribute into account. <br /></td></tr>
+<tr class="separator:a188bef043565e521f7ba56026cc4764d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
 <tr class="memitem:a04361b455663fd68ec7235f4219262f0 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a04361b455663fd68ec7235f4219262f0">getInstanceName</a> () const</td></tr>
 <tr class="separator:a04361b455663fd68ec7235f4219262f0 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,9 +184,7 @@ Public Attributes</h2></td></tr>
 <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a7952c720bee62a0035f814f56fac8717">m_color</a> { 0.9, 0.9, 0.9, 1.0 }</td></tr>
 <tr class="memdesc:a7952c720bee62a0035f814f56fac8717"><td class="mdescLeft">&#160;</td><td class="mdescRight">The base color of the material. <br /></td></tr>
 <tr class="separator:a7952c720bee62a0035f814f56fac8717"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af42767eb5f9fb9e8b28eeeb86a11244b"><td class="memItemLeft" align="right" valign="top"><a id="af42767eb5f9fb9e8b28eeeb86a11244b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#af42767eb5f9fb9e8b28eeeb86a11244b">m_perVertexColor</a> { false }</td></tr>
-<tr class="memdesc:af42767eb5f9fb9e8b28eeeb86a11244b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if the material will takes its base color from vertices' attributes. <br /></td></tr>
+<tr class="memitem:af42767eb5f9fb9e8b28eeeb86a11244b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#af42767eb5f9fb9e8b28eeeb86a11244b">m_perVertexColor</a> { false }</td></tr>
 <tr class="separator:af42767eb5f9fb9e8b28eeeb86a11244b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
@@ -416,6 +421,53 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="a77238ce2e04c31a52e68c64b64a6e11c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77238ce2e04c31a52e68c64b64a6e11c">&#9670;&nbsp;</a></span>setColoredByVertexAttrib()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::SimpleMaterial::setColoredByVertexAttrib </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>activate (true) or deactivate (false) VERTEX_COLOR attribute usage</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Any material that support per-vertex color parameterization should implement this method accordingly </p>
+
+<p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a9fe87b88b7d2ce2020373aaf7d5cc85e">Ra::Engine::Data::Material</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="SimpleMaterial_8inl_source.html#l00032">32</a> of file <a class="el" href="SimpleMaterial_8inl_source.html">SimpleMaterial.inl</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1SimpleMaterial_a77238ce2e04c31a52e68c64b64a6e11c_cgraph.svg" width="464" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="a10d18365a6ea94692a1097a7a2f49b57"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a10d18365a6ea94692a1097a7a2f49b57">&#9670;&nbsp;</a></span>updateGL()</h2>
 
@@ -443,14 +495,32 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="SimpleMaterial_8cpp_source.html#l00039">39</a> of file <a class="el" href="SimpleMaterial_8cpp_source.html">SimpleMaterial.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1SimpleMaterial_a10d18365a6ea94692a1097a7a2f49b57_cgraph.svg" width="444" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="af42767eb5f9fb9e8b28eeeb86a11244b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af42767eb5f9fb9e8b28eeeb86a11244b">&#9670;&nbsp;</a></span>m_perVertexColor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Ra::Engine::Data::SimpleMaterial::m_perVertexColor { false }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Indicates if the material will takes its base color from vertices' attributes. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000053">Todo:</a></b></dt><dd>make this private ? </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SimpleMaterial_8hpp_source.html#l00080">80</a> of file <a class="el" href="SimpleMaterial_8hpp_source.html">SimpleMaterial.hpp</a>.</p>
 
 </div>
 </div>
@@ -465,7 +535,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html">SimpleMaterial</a></li>
-    <li class="footer">Generated on Thu Jun 9 2022 13:42:11 for Radium Engine by
+    <li class="footer">Generated on Wed Jun 22 2022 06:26:32 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
