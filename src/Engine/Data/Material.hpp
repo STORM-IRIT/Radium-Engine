@@ -97,15 +97,6 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
     std::list<std::string> getPropertyList() const override;
 
     /**
-     * Get a json containing metadata about the parameters of the material.
-     *
-     * The default implementation returns an empty json
-     *
-     * @return the metadata in json format
-     */
-    virtual const nlohmann::json getParametersMetadata() const { return {}; };
-
-    /**
      * \brief Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered
      * geometry \param state activate (true) or deactivate (false) VERTEX_COLOR attribute usage
      *
