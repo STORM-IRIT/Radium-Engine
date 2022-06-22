@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.41</span>
+   &#160;<span id="projectnumber">1.2.42</span>
    </div>
   </td>
  </tr>
@@ -744,124 +744,131 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;            }</div>
 <div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;            <span class="keywordtype">bool</span> isPluginDebug = metadata[<span class="stringliteral">&quot;isDebug&quot;</span>].toString().compare( <span class="stringliteral">&quot;true&quot;</span> ) == 0;</div>
 <div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;            <span class="keywordflow">if</span> ( expectPluginsDebug == isPluginDebug ) {</div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;                LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;Found plugin &quot;</span> &lt;&lt; filename.toStdString();</div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;                <span class="comment">// load the plugin</span></div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;                QObject* plugin = pluginLoader.instance();</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;                <span class="keywordflow">if</span> ( plugin ) {</div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;                    <span class="keyword">auto</span> loadedPlugin = qobject_cast&lt;Plugins::RadiumPluginInterface*&gt;( plugin );</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;                    <span class="keywordflow">if</span> ( loadedPlugin ) {</div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;                        ++pluginCpt;</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;                        loadedPlugin-&gt;registerPlugin( m_pluginContext );</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;                        <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a05e5c3fec95387d7c83671afa24acfa1">m_mainWindow</a>-&gt;updateUi( loadedPlugin );</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160; </div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;                        <span class="keywordflow">if</span> ( loadedPlugin-&gt;doAddRenderer() ) {</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;                            std::vector&lt;std::shared_ptr&lt;Engine::Rendering::Renderer&gt;&gt; tmpR;</div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;                            loadedPlugin-&gt;addRenderers( &amp;tmpR );</div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;                            CORE_ASSERT( !tmpR.empty(),</div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;                                         <span class="stringliteral">&quot;This plugin is expected to add a renderer&quot;</span> );</div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;                            <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ptr : tmpR ) {</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;                                std::string name =</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;                                    ptr-&gt;getRendererName() + <span class="stringliteral">&quot;(&quot;</span> + filename.toStdString() + <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a05e5c3fec95387d7c83671afa24acfa1">m_mainWindow</a>-&gt;addRenderer( name, ptr );</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;                            }</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;                        }</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160; </div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;                        <span class="keywordflow">if</span> ( loadedPlugin-&gt;doAddFileLoader() ) {</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;                            std::vector&lt;std::shared_ptr&lt;FileLoaderInterface&gt;&gt; tmpL;</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;                            loadedPlugin-&gt;addFileLoaders( &amp;tmpL );</div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;                            CORE_ASSERT( !tmpL.empty(),</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;                                         <span class="stringliteral">&quot;This plugin is expected to add file loaders&quot;</span> );</div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;                            <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; ptr : tmpL ) {</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a31d6887781c5240c4ace2333c3a16dec">m_engine</a>-&gt;registerFileLoader( ptr );</div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;                            }</div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;                        }</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160; </div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;                        <span class="keywordflow">if</span> ( loadedPlugin-&gt;doAddROpenGLInitializer() ) {</div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;                            <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ad0fdcf0d615e734439f4a19681d8afb8">m_viewer</a>-&gt;isOpenGlInitialized() ) {</div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;                                LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Direct OpenGL initialization for plugin &quot;</span></div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;                                                &lt;&lt; filename.toStdString();</div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;                                <span class="comment">// OpenGL is ready, initialize openGL part of the plugin</span></div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ad0fdcf0d615e734439f4a19681d8afb8">m_viewer</a>-&gt;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">makeCurrent</a>();</div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;                                loadedPlugin-&gt;openGlInitialize( m_pluginContext );</div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ad0fdcf0d615e734439f4a19681d8afb8">m_viewer</a>-&gt;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">doneCurrent</a>();</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;                            }</div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;                            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;                                <span class="comment">// Defer OpenGL initialisation</span></div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;                                LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Defered OpenGL initialization for plugin &quot;</span></div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;                                                &lt;&lt; filename.toStdString();</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#aa03789cc55362c61aa85c156c7476b71">m_openGLPlugins</a>.push_back( loadedPlugin );</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;                            }</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;                        }</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;                    }</div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;                    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;                        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Something went wrong while trying to cast plugin &quot;</span></div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;                                        &lt;&lt; filename.toStdString();</div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;                        res = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;                    }</div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;                }</div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                    LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Something went wrong while trying to load plugin &quot;</span></div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                                    &lt;&lt; filename.toStdString() &lt;&lt; <span class="stringliteral">&quot; : &quot;</span></div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;                                    &lt;&lt; pluginLoader.errorString().toStdString();</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;                    res = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;                }</div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;            }</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;                LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Skipped plugin &quot;</span> &lt;&lt; filename.toStdString()</div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;                                &lt;&lt; <span class="stringliteral">&quot; : invalid build mode. Full path: &quot;</span></div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;                                &lt;&lt; pluginsDir.absoluteFilePath( filename ).toStdString();</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;                res = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;            }</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;        }</div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;    }</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160; </div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;    <span class="keywordflow">if</span> ( pluginCpt == 0 ) { LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;No plugin found or loaded.&quot;</span>; }</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;        LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;Loaded &quot;</span> &lt;&lt; pluginCpt &lt;&lt; <span class="stringliteral">&quot; plugins.&quot;</span>;</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;    }</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160; </div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;}</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160; </div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="keywordtype">void</span> BaseApplication::setRecordTimings( <span class="keywordtype">bool</span> on ) {</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a44f6cefbfc79dc8572511e3284ea9731">m_recordTimings</a> = on;</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;}</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> [it, success] = <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a4342737fdebef90a7afdf1c2bef58430">m_loadedPlugins</a>.insert( { basename, pluginsPath } );</div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;                <span class="keywordflow">if</span> ( !success ) {</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;                    LOG( logDEBUG )</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;                        &lt;&lt; <span class="stringliteral">&quot;Unable to load plugin &quot;</span> &lt;&lt; basename &lt;&lt; <span class="stringliteral">&quot; from &quot;</span> &lt;&lt; pluginsPath</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;                        &lt;&lt; <span class="stringliteral">&quot;.\n\t\tPlugin was already loaded from &quot;</span> &lt;&lt; it-&gt;second;</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;                    <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;                }</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;                LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;Found plugin &quot;</span> &lt;&lt; filename.toStdString();</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;                <span class="comment">// load the plugin</span></div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;                QObject* plugin = pluginLoader.instance();</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;                <span class="keywordflow">if</span> ( plugin ) {</div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;                    <span class="keyword">auto</span> loadedPlugin = qobject_cast&lt;Plugins::RadiumPluginInterface*&gt;( plugin );</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;                    <span class="keywordflow">if</span> ( loadedPlugin ) {</div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;                        ++pluginCpt;</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;                        loadedPlugin-&gt;registerPlugin( m_pluginContext );</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;                        <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a05e5c3fec95387d7c83671afa24acfa1">m_mainWindow</a>-&gt;updateUi( loadedPlugin );</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160; </div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;                        <span class="keywordflow">if</span> ( loadedPlugin-&gt;doAddRenderer() ) {</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;                            std::vector&lt;std::shared_ptr&lt;Engine::Rendering::Renderer&gt;&gt; tmpR;</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;                            loadedPlugin-&gt;addRenderers( &amp;tmpR );</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;                            CORE_ASSERT( !tmpR.empty(),</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;                                         <span class="stringliteral">&quot;This plugin is expected to add a renderer&quot;</span> );</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;                            <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ptr : tmpR ) {</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;                                std::string name =</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;                                    ptr-&gt;getRendererName() + <span class="stringliteral">&quot;(&quot;</span> + filename.toStdString() + <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a05e5c3fec95387d7c83671afa24acfa1">m_mainWindow</a>-&gt;addRenderer( name, ptr );</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;                            }</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;                        }</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160; </div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;                        <span class="keywordflow">if</span> ( loadedPlugin-&gt;doAddFileLoader() ) {</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;                            std::vector&lt;std::shared_ptr&lt;FileLoaderInterface&gt;&gt; tmpL;</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;                            loadedPlugin-&gt;addFileLoaders( &amp;tmpL );</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;                            CORE_ASSERT( !tmpL.empty(),</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;                                         <span class="stringliteral">&quot;This plugin is expected to add file loaders&quot;</span> );</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;                            <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; ptr : tmpL ) {</div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a31d6887781c5240c4ace2333c3a16dec">m_engine</a>-&gt;registerFileLoader( ptr );</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;                            }</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;                        }</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160; </div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;                        <span class="keywordflow">if</span> ( loadedPlugin-&gt;doAddROpenGLInitializer() ) {</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;                            <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ad0fdcf0d615e734439f4a19681d8afb8">m_viewer</a>-&gt;isOpenGlInitialized() ) {</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;                                LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Direct OpenGL initialization for plugin &quot;</span></div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;                                                &lt;&lt; filename.toStdString();</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;                                <span class="comment">// OpenGL is ready, initialize openGL part of the plugin</span></div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ad0fdcf0d615e734439f4a19681d8afb8">m_viewer</a>-&gt;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">makeCurrent</a>();</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;                                loadedPlugin-&gt;openGlInitialize( m_pluginContext );</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ad0fdcf0d615e734439f4a19681d8afb8">m_viewer</a>-&gt;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">doneCurrent</a>();</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;                            }</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;                            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;                                <span class="comment">// Defer OpenGL initialisation</span></div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;                                LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Defered OpenGL initialization for plugin &quot;</span></div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;                                                &lt;&lt; filename.toStdString();</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;                                <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#aa03789cc55362c61aa85c156c7476b71">m_openGLPlugins</a>.push_back( loadedPlugin );</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;                            }</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;                        }</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                    }</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Something went wrong while trying to cast plugin &quot;</span></div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;                                        &lt;&lt; filename.toStdString();</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;                        res = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;                    }</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                }</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;                    LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Something went wrong while trying to load plugin &quot;</span></div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;                                    &lt;&lt; filename.toStdString() &lt;&lt; <span class="stringliteral">&quot; : &quot;</span></div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;                                    &lt;&lt; pluginLoader.errorString().toStdString();</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;                    res = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;                }</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;            }</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;                LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Skipped plugin &quot;</span> &lt;&lt; filename.toStdString()</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;                                &lt;&lt; <span class="stringliteral">&quot; : invalid build mode. Full path: &quot;</span></div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;                                &lt;&lt; pluginsDir.absoluteFilePath( filename ).toStdString();</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;                res = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;            }</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        }</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    }</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160; </div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;    <span class="keywordflow">if</span> ( pluginCpt == 0 ) { LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;No plugin found or loaded.&quot;</span>; }</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;        LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;Loaded &quot;</span> &lt;&lt; pluginCpt &lt;&lt; <span class="stringliteral">&quot; plugins.&quot;</span>;</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;    }</div>
 <div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160; </div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;<span class="keywordtype">void</span> BaseApplication::setRecordGraph( <span class="keywordtype">bool</span> on ) {</div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a073b017eb86507c18841b8063ef62be6">m_recordGraph</a> = on;</div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;}</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160; </div>
-<div class="line"><a name="l00740"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc">  740</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc">BaseApplication::addPluginDirectory</a>( <span class="keyword">const</span> std::string&amp; pluginDir ) {</div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;    QSettings settings;</div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;    QStringList pluginPaths = settings.value( <span class="stringliteral">&quot;plugins/paths&quot;</span> ).value&lt;QStringList&gt;();</div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;    LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;Registered plugin paths are : &quot;</span>;</div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : pluginPaths ) {</div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;        LOG( logINFO ) &lt;&lt; s.toStdString();</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;    }</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;    pluginPaths.append( pluginDir.c_str() );</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;    settings.setValue( <span class="stringliteral">&quot;plugins/paths&quot;</span>, pluginPaths );</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ade2850bde46ffa889f9ca3a4c542d2e2">loadPlugins</a>( pluginDir, QStringList(), QStringList() );</div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;}</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160; </div>
-<div class="line"><a name="l00752"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#a6e96a76acc7b48d015b8fc34b60311df">  752</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a6e96a76acc7b48d015b8fc34b60311df">BaseApplication::clearPluginDirectories</a>() {</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    QSettings settings;</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;    settings.setValue( <span class="stringliteral">&quot;plugins/paths&quot;</span>, QStringList() );</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;}</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160; </div>
-<div class="line"><a name="l00757"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#abc645d784bfc19bf1bd68d041da50a9e">  757</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#abc645d784bfc19bf1bd68d041da50a9e">BaseApplication::editSettings</a>() {</div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;    QMessageBox notYetImplemented;</div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;    notYetImplemented.setText( <span class="stringliteral">&quot;Settings editor is not yet available !&quot;</span> );</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;    notYetImplemented.exec();</div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;}</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160; </div>
-<div class="line"><a name="l00763"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#a9a91a4de67b4a0886fa70ed0e53c3048">  763</a></span>&#160;std::string <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a9a91a4de67b4a0886fa70ed0e53c3048">BaseApplication::getHelpText</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;    std::string helpText { <span class="stringliteral">&quot;&lt;h1&gt;BaseApplication command line parameters&lt;/h1&gt;&lt;\n&gt;&quot;</span> };</div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;    helpText += <span class="stringliteral">&quot;&lt;p&gt;Not yet written.&lt;/p&gt;&lt;br/&gt;&lt;\n&gt;&quot;</span>;</div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    <span class="keywordflow">return</span> helpText;</div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;}</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160; </div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;}</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160; </div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;<span class="keywordtype">void</span> BaseApplication::setRecordTimings( <span class="keywordtype">bool</span> on ) {</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a44f6cefbfc79dc8572511e3284ea9731">m_recordTimings</a> = on;</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;}</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160; </div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="keywordtype">void</span> BaseApplication::setRecordGraph( <span class="keywordtype">bool</span> on ) {</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a073b017eb86507c18841b8063ef62be6">m_recordGraph</a> = on;</div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;}</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160; </div>
+<div class="line"><a name="l00747"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc">  747</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc">BaseApplication::addPluginDirectory</a>( <span class="keyword">const</span> std::string&amp; pluginDir ) {</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;    QSettings settings;</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    QStringList pluginPaths = settings.value( <span class="stringliteral">&quot;plugins/paths&quot;</span> ).value&lt;QStringList&gt;();</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;    LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;Registered plugin paths are : &quot;</span>;</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : pluginPaths ) {</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;        LOG( logINFO ) &lt;&lt; s.toStdString();</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    }</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;    pluginPaths.append( pluginDir.c_str() );</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;    settings.setValue( <span class="stringliteral">&quot;plugins/paths&quot;</span>, pluginPaths );</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ade2850bde46ffa889f9ca3a4c542d2e2">loadPlugins</a>( pluginDir, QStringList(), QStringList() );</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;}</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160; </div>
+<div class="line"><a name="l00759"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#a6e96a76acc7b48d015b8fc34b60311df">  759</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a6e96a76acc7b48d015b8fc34b60311df">BaseApplication::clearPluginDirectories</a>() {</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;    QSettings settings;</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;    settings.setValue( <span class="stringliteral">&quot;plugins/paths&quot;</span>, QStringList() );</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;}</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160; </div>
+<div class="line"><a name="l00764"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#abc645d784bfc19bf1bd68d041da50a9e">  764</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#abc645d784bfc19bf1bd68d041da50a9e">BaseApplication::editSettings</a>() {</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;    QMessageBox notYetImplemented;</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    notYetImplemented.setText( <span class="stringliteral">&quot;Settings editor is not yet available !&quot;</span> );</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    notYetImplemented.exec();</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;}</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160; </div>
+<div class="line"><a name="l00770"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#a9a91a4de67b4a0886fa70ed0e53c3048">  770</a></span>&#160;std::string <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a9a91a4de67b4a0886fa70ed0e53c3048">BaseApplication::getHelpText</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;    std::string helpText { <span class="stringliteral">&quot;&lt;h1&gt;BaseApplication command line parameters&lt;/h1&gt;&lt;\n&gt;&quot;</span> };</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;    helpText += <span class="stringliteral">&quot;&lt;p&gt;Not yet written.&lt;/p&gt;&lt;br/&gt;&lt;\n&gt;&quot;</span>;</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;    <span class="keywordflow">return</span> helpText;</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;}</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160; </div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aaae0a0c0c419bd1dc8f0296214120a7d"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d">Ra::Gui::Viewer::setupKeyMappingCallbacks</a></div><div class="ttdeci">virtual void setupKeyMappingCallbacks()</div><div class="ttdoc">add observers to keyMappingManager for gizmo, camera and viewer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00072">Viewer.cpp:72</a></div></div>
@@ -873,11 +880,11 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1IO_1_1AssimpFileLoader_html"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpFileLoader.html">Ra::IO::AssimpFileLoader</a></div><div class="ttdoc">This class loads scenes containing MESHES only (not point-clouds)</div><div class="ttdef"><b>Definition:</b> <a href="AssimpFileLoader_8hpp_source.html#l00012">AssimpFileLoader.hpp:12</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a5c82472cd2a9b87417cdf42a96ebd776"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a5c82472cd2a9b87417cdf42a96ebd776">Ra::Gui::BaseApplication::m_frameTimer</a></div><div class="ttdeci">QTimer * m_frameTimer</div><div class="ttdoc">Timer to wake us up at every frame start.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00242">BaseApplication.hpp:242</a></div></div>
 <div class="ttc" id="astructRa_1_1FrameTimerData_html"><div class="ttname"><a href="structRa_1_1FrameTimerData.html">Ra::FrameTimerData</a></div><div class="ttdoc">This struct holds all timings for one frame of the engine.</div><div class="ttdef"><b>Definition:</b> <a href="FrameTimerData_8hpp_source.html#l00016">FrameTimerData.hpp:16</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_abc645d784bfc19bf1bd68d041da50a9e"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#abc645d784bfc19bf1bd68d041da50a9e">Ra::Gui::BaseApplication::editSettings</a></div><div class="ttdeci">void editSettings()</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00757">BaseApplication.cpp:757</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_abc645d784bfc19bf1bd68d041da50a9e"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#abc645d784bfc19bf1bd68d041da50a9e">Ra::Gui::BaseApplication::editSettings</a></div><div class="ttdeci">void editSettings()</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00764">BaseApplication.cpp:764</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a073b017eb86507c18841b8063ef62be6"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a073b017eb86507c18841b8063ef62be6">Ra::Gui::BaseApplication::m_recordGraph</a></div><div class="ttdeci">bool m_recordGraph</div><div class="ttdoc">If true, print the task graph;.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00266">BaseApplication.hpp:266</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_aa3b381c4587b319e2a0d46823a509990"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#aa3b381c4587b319e2a0d46823a509990">Ra::Gui::BaseApplication::m_realFrameRate</a></div><div class="ttdeci">bool m_realFrameRate</div><div class="ttdoc">If true, use the wall clock to advance the engine. If false, use a fixed time step.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00255">BaseApplication.hpp:255</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a12da0e6456afc0e7a13a85636ec852d8"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a12da0e6456afc0e7a13a85636ec852d8">Ra::Gui::Viewer::getContext</a></div><div class="ttdeci">QOpenGLContext * getContext() const</div><div class="ttdoc">Access to the OpenGL context of the Viewer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00079">Viewer.hpp:79</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a6e96a76acc7b48d015b8fc34b60311df"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a6e96a76acc7b48d015b8fc34b60311df">Ra::Gui::BaseApplication::clearPluginDirectories</a></div><div class="ttdeci">void clearPluginDirectories()</div><div class="ttdoc">Remove all registered plugin directories (except the default Radium Bundle one)</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00752">BaseApplication.cpp:752</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a6e96a76acc7b48d015b8fc34b60311df"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a6e96a76acc7b48d015b8fc34b60311df">Ra::Gui::BaseApplication::clearPluginDirectories</a></div><div class="ttdeci">void clearPluginDirectories()</div><div class="ttdoc">Remove all registered plugin directories (except the default Radium Bundle one)</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00759">BaseApplication.cpp:759</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_ace35b8a957082a5c72c54c5088a6f437"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#ace35b8a957082a5c72c54c5088a6f437">Ra::Gui::BaseApplication::engineBaseInitialization</a></div><div class="ttdeci">virtual void engineBaseInitialization()</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00389">BaseApplication.cpp:389</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a7fe9e4ee3c0e41954143a2266c3549da"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a7fe9e4ee3c0e41954143a2266c3549da">Ra::Gui::BaseApplication::createConnections</a></div><div class="ttdeci">void createConnections()</div><div class="ttdoc">Create signal / slots connections.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00409">BaseApplication.cpp:409</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a1ffe7aaecf91a91d6b1e98fb9dc75e5a"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a1ffe7aaecf91a91d6b1e98fb9dc75e5a">Ra::Gui::Viewer::swapBuffers</a></div><div class="ttdeci">void swapBuffers()</div><div class="ttdoc">Blocks until rendering is finished.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00219">Viewer.cpp:219</a></div></div>
@@ -891,8 +898,8 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html">Ra::Engine::Scene::SkeletonBasedAnimationSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="SkeletonBasedAnimationSystem_8hpp_source.html#l00014">SkeletonBasedAnimationSystem.hpp:14</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a206dc5c82ced974ba84956de4cb8cd26"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a206dc5c82ced974ba84956de4cb8cd26">Ra::Gui::BaseApplication::BaseApplication</a></div><div class="ttdeci">BaseApplication(int &amp;argc, char **argv, QString applicationName=&quot;RadiumEngine&quot;, QString organizationName=&quot;STORM-IRIT&quot;)</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00062">BaseApplication.cpp:62</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a46ddcfcbd872c4e7e29aac63a3d521fb"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a46ddcfcbd872c4e7e29aac63a3d521fb">Ra::Gui::BaseApplication::initialize</a></div><div class="ttdeci">void initialize(const WindowFactory &amp;factory)</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00248">BaseApplication.cpp:248</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a02484e9e37b76e8f69fb59f984d54cbc"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc">Ra::Gui::BaseApplication::addPluginDirectory</a></div><div class="ttdeci">void addPluginDirectory(const std::string &amp;pluginDir)</div><div class="ttdoc">Allow the user to register a specific plugin directory for the application.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00740">BaseApplication.cpp:740</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a9a91a4de67b4a0886fa70ed0e53c3048"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a9a91a4de67b4a0886fa70ed0e53c3048">Ra::Gui::BaseApplication::getHelpText</a></div><div class="ttdeci">virtual std::string getHelpText() const</div><div class="ttdoc">Get the html formatted help text.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00763">BaseApplication.cpp:763</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a02484e9e37b76e8f69fb59f984d54cbc"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc">Ra::Gui::BaseApplication::addPluginDirectory</a></div><div class="ttdeci">void addPluginDirectory(const std::string &amp;pluginDir)</div><div class="ttdoc">Allow the user to register a specific plugin directory for the application.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00747">BaseApplication.cpp:747</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a9a91a4de67b4a0886fa70ed0e53c3048"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a9a91a4de67b4a0886fa70ed0e53c3048">Ra::Gui::BaseApplication::getHelpText</a></div><div class="ttdeci">virtual std::string getHelpText() const</div><div class="ttdoc">Get the html formatted help text.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00770">BaseApplication.cpp:770</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a6066c952ba53278ad3d4d35dac78d6ab"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a6066c952ba53278ad3d4d35dac78d6ab">Ra::Gui::Viewer::getPickingManager</a></div><div class="ttdeci">PickingManager * getPickingManager()</div><div class="ttdoc">Access to the feature picking manager.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00162">Viewer.cpp:162</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a395de709a6de437639db84c60a17b059"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a395de709a6de437639db84c60a17b059">Ra::Gui::BaseApplication::radiumFrame</a></div><div class="ttdeci">void radiumFrame()</div><div class="ttdoc">Advance the engine for one frame.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00466">BaseApplication.cpp:466</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_ade2850bde46ffa889f9ca3a4c542d2e2"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#ade2850bde46ffa889f9ca3a4c542d2e2">Ra::Gui::BaseApplication::loadPlugins</a></div><div class="ttdeci">bool loadPlugins(const std::string &amp;pluginsPath, const QStringList &amp;loadList, const QStringList &amp;ignoreList)</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00578">BaseApplication.cpp:578</a></div></div>
@@ -915,6 +922,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a78476baacd2df24a260f604d02c8ddc4"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">Ra::Gui::WindowQt::makeCurrent</a></div><div class="ttdeci">void makeCurrent()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00064">WindowQt.cpp:64</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_ae577a7986a8a4b7a9386a8e52fac7f6c"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">Ra::Engine::Scene::Component::addRenderObject</a></div><div class="ttdeci">Core::Utils::Index addRenderObject(Rendering::RenderObject *renderObject)</div><div class="ttdoc">Add a new render object to the component. This adds the RO to the manager for drawing.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8cpp_source.html#l00037">Component.cpp:37</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a6c00e85efcad67823ec51dad9d3a0d98"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a6c00e85efcad67823ec51dad9d3a0d98">Ra::Gui::BaseApplication::initializeGl</a></div><div class="ttdeci">virtual void initializeGl()</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00542">BaseApplication.cpp:542</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a4342737fdebef90a7afdf1c2bef58430"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a4342737fdebef90a7afdf1c2bef58430">Ra::Gui::BaseApplication::m_loadedPlugins</a></div><div class="ttdeci">std::map&lt; std::string, std::string &gt; m_loadedPlugins</div><div class="ttdoc">maps name and paths of already loaded plugins</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00281">BaseApplication.hpp:281</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a28796c4fbdf7c1808ca207a4d083c075"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a28796c4fbdf7c1808ca207a4d083c075">Ra::Gui::BaseApplication::m_recordFrames</a></div><div class="ttdeci">bool m_recordFrames</div><div class="ttdoc">If true, dump each frame to a PNG file.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00262">BaseApplication.hpp:262</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a190a81dd418c60026d3579333c2cc94d"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d">Ra::Gui::WindowQt::cleanupGL</a></div><div class="ttdeci">void cleanupGL()</div><div class="ttdoc">call deinitializeGL if needed, with context activated</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00152">WindowQt.cpp:152</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_aef589ecabd4d142a6119721d411ee47f"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#aef589ecabd4d142a6119721d411ee47f">Ra::Gui::BaseApplication::starting</a></div><div class="ttdeci">void starting()</div><div class="ttdoc">Fired when the engine has just started, before the frame timer is set.</div></div>
@@ -925,7 +933,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><b>BaseApplication.cpp</b></li>
-    <li class="footer">Generated on Wed Jun 22 2022 06:26:31 for Radium Engine by
+    <li class="footer">Generated on Wed Jun 22 2022 15:13:47 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

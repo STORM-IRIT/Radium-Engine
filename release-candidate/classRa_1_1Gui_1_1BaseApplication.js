@@ -48,6 +48,7 @@ var classRa_1_1Gui_1_1BaseApplication =
     [ "m_isAboutToQuit", "classRa_1_1Gui_1_1BaseApplication.html#aa7f501997064fb803d0a0b5759c087e0", null ],
     [ "m_isUpdateNeeded", "classRa_1_1Gui_1_1BaseApplication.html#a38c902dc0cceb147d8a007a8a9ae5011", null ],
     [ "m_lastFrameStart", "classRa_1_1Gui_1_1BaseApplication.html#a715e880b6bdfa8fb651826bbb05c6f7b", null ],
+    [ "m_loadedPlugins", "classRa_1_1Gui_1_1BaseApplication.html#a4342737fdebef90a7afdf1c2bef58430", null ],
     [ "m_mainWindow", "classRa_1_1Gui_1_1BaseApplication.html#a05e5c3fec95387d7c83671afa24acfa1", null ],
     [ "m_maxThreads", "classRa_1_1Gui_1_1BaseApplication.html#a79e1e07dacb7f339d75160d2a0e1fbd5", null ],
     [ "m_numFrames", "classRa_1_1Gui_1_1BaseApplication.html#a0e7528302c4373486f1e6c3b2f8cff0c", null ],

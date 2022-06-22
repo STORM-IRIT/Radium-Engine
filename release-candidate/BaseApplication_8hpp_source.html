@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.41</span>
+   &#160;<span id="projectnumber">1.2.42</span>
    </div>
   </td>
  </tr>
@@ -272,9 +272,11 @@ $(document).ready(function(){initNavTree('BaseApplication_8hpp_source.html','');
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <a class="code" href="classRa_1_1Plugins_1_1Context.html">Plugins::Context</a> m_pluginContext;</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    QCommandLineParser* m_parser;</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;};</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#a4342737fdebef90a7afdf1c2bef58430">  281</a></span>&#160;    std::map&lt;std::string, std::string&gt; <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a4342737fdebef90a7afdf1c2bef58430">m_loadedPlugins</a>;</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;};</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
@@ -297,6 +299,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8hpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a2af7ea85d1a58e2e3581a8a97f81e7b0"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a2af7ea85d1a58e2e3581a8a97f81e7b0">Ra::Gui::BaseApplication::addApplicationExtension</a></div><div class="ttdeci">virtual void addApplicationExtension()</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00119">BaseApplication.hpp:119</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html">Ra::Gui::BaseApplication</a></div><div class="ttdoc">This class contains the main application logic. It owns the engine and the GUI.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00029">BaseApplication.hpp:29</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1MainWindowInterface_html"><div class="ttname"><a href="classRa_1_1Gui_1_1MainWindowInterface.html">Ra::Gui::MainWindowInterface</a></div><div class="ttdef"><b>Definition:</b> <a href="MainWindowInterface_8hpp_source.html#l00027">MainWindowInterface.hpp:27</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a4342737fdebef90a7afdf1c2bef58430"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a4342737fdebef90a7afdf1c2bef58430">Ra::Gui::BaseApplication::m_loadedPlugins</a></div><div class="ttdeci">std::map&lt; std::string, std::string &gt; m_loadedPlugins</div><div class="ttdoc">maps name and paths of already loaded plugins</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00281">BaseApplication.hpp:281</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a28796c4fbdf7c1808ca207a4d083c075"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a28796c4fbdf7c1808ca207a4d083c075">Ra::Gui::BaseApplication::m_recordFrames</a></div><div class="ttdeci">bool m_recordFrames</div><div class="ttdoc">If true, dump each frame to a PNG file.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00262">BaseApplication.hpp:262</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_a31d6887781c5240c4ace2333c3a16dec"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#a31d6887781c5240c4ace2333c3a16dec">Ra::Gui::BaseApplication::m_engine</a></div><div class="ttdeci">std::unique_ptr&lt; Engine::RadiumEngine &gt; m_engine</div><div class="ttdoc">Instance of the radium engine.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00226">BaseApplication.hpp:226</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_html_af98ecc6673ba133ae93c8a02e8182e50"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication.html#af98ecc6673ba133ae93c8a02e8182e50">Ra::Gui::BaseApplication::m_exportFoldername</a></div><div class="ttdeci">std::string m_exportFoldername</div><div class="ttdoc">Name of the folder where exported data goes.</div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00259">BaseApplication.hpp:259</a></div></div>
@@ -305,7 +308,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8hpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><b>BaseApplication.hpp</b></li>
-    <li class="footer">Generated on Wed Jun 22 2022 06:26:31 for Radium Engine by
+    <li class="footer">Generated on Wed Jun 22 2022 15:13:47 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

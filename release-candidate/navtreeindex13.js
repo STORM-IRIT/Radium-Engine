@@ -1,5 +1,6 @@
 var NAVTREEINDEX13 =
 {
+"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a1ded2f744190df2500bc3fbac919e49d":[10,0,0,4,3,3],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a338d8b0b7ce312143ac262cb2cc97e69":[10,0,0,4,3,6],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5d494bbdf71dd227648375b2c59d74a8":[10,0,0,4,3,18],
 "classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5f41da5dd02e9914348c56b16389feca":[10,0,0,4,3,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX13 =
 "eventSystem.html#autotoc_md30":[3,1,0,4],
 "files.html":[11,0],
 "forwardRenderer.html":[3,3],
-"forwardRenderer.html#autotoc_md31":[3,3,0],
-"forwardRenderer.html#autotoc_md32":[3,3,1]
+"forwardRenderer.html#autotoc_md31":[3,3,0]
 };
