@@ -34,6 +34,7 @@ option(
     "Enable testing. Tests are automatically built with target all, run with target check or test"
     ON
 )
+option(RADIUM_ENABLE_EXAMPLES "Enable examples app." OFF)
 option(RADIUM_ENABLE_COVERAGE "Enable coverage, gcc only. Experimental, need ENABLE_TESTING" OFF)
 option(RADIUM_USE_DOUBLE "Use double precision for Scalar" OFF)
 option(RADIUM_GENERATE_LIB_CORE "Include Radium::Core in CMake project" ON)
@@ -201,6 +202,10 @@ if(RADIUM_ENABLE_TESTING)
     enable_testing()
     include(CTest)
     add_subdirectory(tests)
+endif()
+
+if(RADIUM_ENABLE_EXAMPLES)
+    add_subdirectory(examples)
     add_dependencies(RadiumExampleApps RadiumLibs)
 endif()
 
@@ -220,7 +225,6 @@ if(ENABLE_COVERAGE)
             $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
             DEPENDENCIES
             RadiumLibs
-            RadiumExampleApps
             unittests
             integration
             EXCLUDE
@@ -261,6 +265,7 @@ message_setting("CMAKE_BUILD_TYPE")
 message_info("  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message_info("  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message_info(" ")
+message_setting("RADIUM_ENABLE_EXAMPLES")
 message_setting("RADIUM_ENABLE_TESTING")
 message_setting("RADIUM_ENABLE_COVERAGE")
 message_setting("RADIUM_USE_DOUBLE")

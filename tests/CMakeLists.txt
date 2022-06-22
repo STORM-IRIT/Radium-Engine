@@ -70,9 +70,6 @@ add_test(NAME integration_CoreExampleApp WORKING_DIRECTORY ${CMAKE_CURRENT_SOURC
          COMMAND "$<TARGET_FILE:CoreExampleApp>"
 )
 
-# example apps are simple complete application, no test for now. TODO : we can imagine to capture
-# screen output and compare to refs
-add_subdirectory(ExampleApps)
 add_subdirectory(ExamplePluginWithLib)
 
 # Convenience targets for fast testing, they depends on binaries (so the build is triggered, when
