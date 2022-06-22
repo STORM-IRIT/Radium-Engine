@@ -276,6 +276,9 @@ class RA_GUI_API BaseApplication : public QApplication
 
     Plugins::Context m_pluginContext;
     QCommandLineParser* m_parser;
+
+    /// maps name and paths of already loaded plugins
+    std::map<std::string, std::string> m_loadedPlugins;
 };
 } // namespace Gui
 } // namespace Ra
