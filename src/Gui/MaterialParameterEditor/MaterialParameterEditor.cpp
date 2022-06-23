@@ -81,14 +81,14 @@ void MaterialParameterEditor::addNumberParameterWidget( const std::string& key,
                                                         T initial,
                                                         Ra::Engine::Data::RenderParameters& params,
                                                         const json& metadata ) {
-    auto onNumberParameterChanged = [this, &params, &key]( double value ) {
-        params.addParameter( key, T( value ) );
+    auto onNumberParameterChanged = [this, &params, &key]( T value ) {
+        params.addParameter( key, value );
         emit materialParametersModified();
     };
     if ( metadata.contains( key ) ) {
         auto m                  = metadata[key];
-        T min                   = std::numeric_limits<T>::min();
-        T max                   = std::numeric_limits<T>::max();
+        auto min                = std::numeric_limits<T>::min();
+        auto max                = std::numeric_limits<T>::max();
         int dec                 = std::numeric_limits<T>::is_integer ? 0 : 3;
         std::string description = m.contains( "description" ) ? m["description"] : "";
 
@@ -97,11 +97,11 @@ void MaterialParameterEditor::addNumberParameterWidget( const std::string& key,
             std::vector<std::pair<T, T>> bounds;
             bounds.reserve( m["oneOf"].size() );
             for ( const auto& bound : m["oneOf"] ) {
-                T mini = bound.contains( "minimum" ) ? T( bound["minimum"] ) : min;
-                T maxi = bound.contains( "maximum" ) ? T( bound["maximum"] ) : max;
+                auto mini = bound.contains( "minimum" ) ? T( bound["minimum"] ) : min;
+                auto maxi = bound.contains( "maximum" ) ? T( bound["maximum"] ) : max;
                 bounds.push_back( std::pair( mini, maxi ) );
             }
-            auto predicate = [bounds]( double value ) {
+            auto predicate = [bounds]( T value ) {
                 bool valid = false;
                 auto it    = bounds.begin();
                 while ( !valid && it != bounds.end() ) {
@@ -110,8 +110,9 @@ void MaterialParameterEditor::addNumberParameterWidget( const std::string& key,
                 }
                 return valid;
             };
-            m_parametersControlPanel->addCheckingScalarInput(
-                m["name"], onNumberParameterChanged, initial, predicate, dec, description );
+
+            m_parametersControlPanel->addCheckingNumberInput<T>(
+                m["name"], onNumberParameterChanged, initial, predicate, description, dec );
         }
         else if ( m.contains( "minimum" ) && m.contains( "maximum" ) ) {
             min = m["minimum"] > min ? T( m["minimum"] ) : min;
@@ -122,12 +123,12 @@ void MaterialParameterEditor::addNumberParameterWidget( const std::string& key,
         else {
             min = m.contains( "minimum" ) ? T( m["minimum"] ) : min;
             max = m.contains( "maximum" ) ? T( m["maximum"] ) : max;
-            m_parametersControlPanel->addScalarInput(
-                m["name"], onNumberParameterChanged, initial, min, max, dec, description );
+            m_parametersControlPanel->addNumberInput<T>(
+                m["name"], onNumberParameterChanged, initial, min, max, description, dec );
         }
     }
     else if ( m_showUnspecified ) {
-        m_parametersControlPanel->addScalarInput( key, onNumberParameterChanged, initial );
+        m_parametersControlPanel->addNumberInput<T>( key, onNumberParameterChanged, initial );
     }
 }
 

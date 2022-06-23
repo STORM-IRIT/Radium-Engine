@@ -112,37 +112,42 @@ class RA_GUI_API ControlPanel : public QFrame
 
     /** Add a scalar input spinbox.
      *  This input will return a scalar value within  given bounds.
+     * \tparam T The type of value to edit (default Scalar)
      * \param name The name of the scalar value
      * \param callback The function to call when the state changed
      * \param initial The initial value of the scalar
      * \param min The min bound of the value
      * \param max The max bound of the value
-     * \param dec The display precision (decimals) of the value
      * \param tooltip The tooltip text
+     * \param dec The display precision (decimals) of the value
      */
-    void addScalarInput( const std::string& name,
-                         std::function<void( Scalar )> callback,
-                         Scalar initial,
-                         Scalar min                 = 0,
-                         Scalar max                 = 100,
-                         int dec                    = 3,
-                         const std::string& tooltip = "" );
 
-    /** Add a checking scalar input spinbox.
-     *  This input will return a scalar value that meet the conditions of a given predicate
+    template <typename T = Scalar>
+    void addNumberInput( const std::string& name,
+                         std::function<void( T )> callback,
+                         T initial,
+                         T min                      = 0,
+                         T max                      = 100,
+                         const std::string& tooltip = "",
+                         int dec                    = 3 );
+
+    /** Add a checking scalar (real number) input spinbox.
+     *  This input will return a scalar value that meet the conditions of a given predicate.
+     * \tparam T The type of value to edit (default Scalar)
      * \param name The name of the scalar value
      * \param callback The function to call when the state changed
      * \param initial The initial value of the scalar
      * \param predicate defines a set of conditions that the scalar should meet
-     * \param dec The display precision (decimals) of the value
      * \param tooltip The tooltip text
+     * \param dec The display precision (decimals) of the value
      */
-    void addCheckingScalarInput( const std::string& name,
-                                 std::function<void( Scalar )> callback,
+    template <typename T = Scalar>
+    void addCheckingNumberInput( const std::string& name,
+                                 std::function<void( T )> callback,
                                  Scalar initial,
-                                 std::function<bool( double )> predicate,
-                                 int dec                    = 3,
-                                 const std::string& tooltip = "" );
+                                 std::function<bool( T )> predicate,
+                                 const std::string& tooltip = "",
+                                 int dec                    = 3 );
 
     /** Add an horizontal slider input.
      *  This input will return a scalar value within  given bounds.
@@ -269,3 +274,5 @@ class RA_GUI_API ControlPanel : public QFrame
 } // namespace Widgets
 } // namespace Gui
 } // namespace Ra
+
+#include <Gui/Widgets/ControlPanel.inl>
