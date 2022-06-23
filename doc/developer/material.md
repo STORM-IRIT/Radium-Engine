@@ -125,16 +125,19 @@ public:
 
 See the [Render technique management](./rendertechnique) for documentation on how to build such an helper function.
 
-### Editable interface {#editable-interface}
+### Making a material editable {#editable-interface}
 
-The Ra::Engine::Data::EditableMaterial interface defines if a material is editable.
-This interface defines all the method getParametersMetadata required to get the constraints when editing.
+Material which implement the Ra::Engine::Data::ParameterSetEditionInterface might be modified at runtime.
+
+This interface exposes the method Ra::Engine::Data::ParameterSetEditionInterface::getParametersMetadata
+which return a json-formatted parameter set informations containing type, constraints and documentation on each
+editable parameter.
 
 When implementing this interface, you need to return a correctly specified JSON.
 
-#### The Material metadata specification
+### The Material metadata specification
 
-##### Booleans
+#### Booleans
 
 ~~~{json}
 "key": {
@@ -147,7 +150,7 @@ When implementing this interface, you need to return a correctly specified JSON.
 
 The "editable" property specifies whether the boolean is editable, for instance it is not editable when it is linked with the presence of a texture.
 
-##### Enums
+#### Enums
 
 ~~~{json}
 "key": {
@@ -162,7 +165,7 @@ The "editable" property specifies whether the boolean is editable, for instance 
 }
 ~~~
 
-##### Numbers
+#### Numbers
 
 This is an unbounded number :
 
@@ -205,7 +208,7 @@ A number can alternatively have an array of ranges where it is defined :
 
 In this instance the number is ether 0 or greater than or equal to 1.0.
 
-##### Arrays
+#### Arrays
 
 ~~~{json}
 "shortName": {
