@@ -6,15 +6,14 @@
 
 #include <PowerSlider/PowerSlider.hpp>
 
+#include <QCheckBox>
 #include <QColorDialog>
 #include <QComboBox>
 #include <QDialog>
-#include <QDoubleSpinBox>
 #include <QFileDialog>
 #include <QLabel>
 #include <QPlainTextEdit>
 #include <QPushButton>
-#include <QRadioButton>
 #include <QSlider>
 #include <QVBoxLayout>
 
@@ -41,7 +40,7 @@ void ControlPanel::addOption( const std::string& name,
                               std::function<void( bool )> callback,
                               bool set,
                               const std::string& tooltip ) {
-    auto button = new QRadioButton( name.c_str(), this );
+    auto button = new QCheckBox( name.c_str(), this );
     button->setLayoutDirection( Qt::RightToLeft );
     button->setAutoExclusive( false );
     button->setChecked( set );
@@ -50,7 +49,7 @@ void ControlPanel::addOption( const std::string& name,
             QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
     }
     m_currentLayout->addWidget( button );
-    connect( button, &QRadioButton::toggled, std::move( callback ) );
+    connect( button, &QCheckBox::stateChanged, std::move( callback ) );
 }
 
 void ControlPanel::addLabel( const std::string& text ) {
@@ -70,59 +69,6 @@ void ControlPanel::addButton( const std::string& name,
     connect( button, &QPushButton::clicked, std::move( callback ) );
 }
 
-void ControlPanel::addScalarInput( const std::string& name,
-                                   std::function<void( Scalar )> callback,
-                                   Scalar initial,
-                                   Scalar min,
-                                   Scalar max,
-                                   int dec,
-                                   const std::string& tooltip ) {
-    auto inputLayout = new QHBoxLayout();
-
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
-    auto inputField = new QDoubleSpinBox( this );
-
-    if ( !tooltip.empty() ) {
-        inputLabel->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
-    }
-    inputField->setMinimum( min );
-    inputField->setMaximum( max );
-    inputField->setDecimals( dec );
-    inputField->setValue( initial );
-
-    inputLayout->addWidget( inputLabel );
-    inputLayout->addWidget( inputField );
-    connect(
-        inputField, QOverload<double>::of( &QDoubleSpinBox::valueChanged ), std::move( callback ) );
-    m_currentLayout->addLayout( inputLayout );
-}
-
-void ControlPanel::addCheckingScalarInput( const std::string& name,
-                                           std::function<void( Scalar )> callback,
-                                           Scalar initial,
-                                           std::function<bool( double )> predicate,
-                                           int dec,
-                                           const std::string& tooltip ) {
-    auto inputLayout = new QHBoxLayout();
-
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
-    auto inputField = new CheckingSpinBox( this );
-
-    if ( !tooltip.empty() ) {
-        inputLabel->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
-    }
-    inputField->setDecimals( dec );
-    inputField->setValue( initial );
-    inputField->setPredicate( predicate );
-
-    inputLayout->addWidget( inputLabel );
-    inputLayout->addWidget( inputField );
-    connect( inputField, &CheckingSpinBox::valueChanged, std::move( callback ) );
-    m_currentLayout->addLayout( inputLayout );
-}
-
 void ControlPanel::addSliderInput( const std::string& name,
                                    std::function<void( int )> callback,
                                    int initial,
@@ -139,6 +85,7 @@ void ControlPanel::addSliderInput( const std::string& name,
     inputField->setRange( min, max );
     inputField->setValue( initial );
     inputLayout->addWidget( inputLabel );
+    inputLayout->addStretch();
     inputLayout->addWidget( inputField );
     connect( inputField, &QSlider::valueChanged, std::move( callback ) );
     m_currentLayout->addLayout( inputLayout );
@@ -162,6 +109,7 @@ void ControlPanel::addPowerSliderInput( const std::string& name,
     inputField->setValue( initial );
     inputField->setSingleStep( 0.01 );
     inputLayout->addWidget( inputLabel );
+    inputLayout->addStretch();
     inputLayout->addWidget( inputField );
     connect( inputField, &PowerSlider::valueChanged, std::move( callback ) );
     m_currentLayout->addLayout( inputLayout );

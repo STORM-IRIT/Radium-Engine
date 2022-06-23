@@ -85,7 +85,7 @@ set(gui_headers
     Widgets/VectorEditor.hpp
 )
 
-set(gui_inlines Viewer/WindowQt.inl)
+set(gui_inlines Viewer/WindowQt.inl Widgets/CheckingSpinBox.inl Widgets/ControlPanel.inl)
 
 set(gui_uis AboutDialog/AboutDialog.ui SkeletonBasedAnimation/SkeletonBasedAnimationUI.ui
             Timeline/HelpDialog.ui Timeline/Timeline.ui
