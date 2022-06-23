@@ -12,6 +12,9 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
+/// \brief This class represents vertex + attributes per vertex. Toplogy is handled in
+/// MultiIndexedGeometry subclass.
+///
 /// Attributes are unique per vertex, so that same position with different
 /// normals are two vertices.
 /// Points and Normals, defining the geometry, are always present.
@@ -88,28 +91,39 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     template <typename T>
     inline bool isValid( const Utils::AttribHandle<T>& h ) const;
 
-    /// Get attribute by handle.
-    /// \see AttribManager::getAttrib() for more info.
+    /// @name Wrappers to Utils::AttribManager.
+    /// @{
+
+    /// \see Utils::AttribManager::getAttrib
     template <typename T>
     inline Utils::Attrib<T>& getAttrib( const Utils::AttribHandle<T>& h );
-
-    /// Get attribute by handle.
-    /// \see AttribManager::getAttrib() for more info.
-    template <typename T>
-    inline Utils::Attrib<T>* getAttribPtr( const Utils::AttribHandle<T>& h );
-
-    /// Get attribute by handle (const).
-    /// \see AttribManager::getAttrib() for more info.
+    ///  \see Utils::AttribManager::getAttrib
     template <typename T>
     inline const Utils::Attrib<T>& getAttrib( const Utils::AttribHandle<T>& h ) const;
 
-    /// Get attribute by handle (const).
-    /// \see AttribManager::getAttrib() for more info.
+    /// \see Utils::AttribManager::getAttrib
+    template <typename T>
+    inline Utils::Attrib<T>& getAttrib( const std::string& name );
+    /// \see Utils::AttribManager::getAttrib
+    template <typename T>
+    inline const Utils::Attrib<T>& getAttrib( const std::string& name ) const;
+
+    /// \see Utils::AttribManager::getAttribPtr
+    template <typename T>
+    inline Utils::Attrib<T>* getAttribPtr( const Utils::AttribHandle<T>& h );
+    /// \see Utils::AttribManager::getAttribPtr
+    template <typename T>
+    inline const Utils::Attrib<T>* getAttribPtr( const Utils::AttribHandle<T>& h ) const;
+
+    /// \see Utils::AttribManager::getAttribBase
     inline Utils::AttribBase* getAttribBase( const std::string& name );
+    /// \see Utils::AttribManager::getAttribBase
+    inline const Utils::AttribBase* getAttribBase( const std::string& name ) const;
+    ///@}
 
     /// Check if an attribute exists with the given name.
     /// \see AttribManager::contains for more info.
-    inline bool hasAttrib( const std::string& name );
+    inline bool hasAttrib( const std::string& name ) const;
 
     ///@{
     /// Add attribute with the given name.
@@ -172,6 +186,7 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 
     /// Return the vertexAttribs manager. In case you want to have direct access
     /// to Utils::AttribManager functionality.
+    /// \todo rename to getAttribManager ?
     inline Utils::AttribManager& vertexAttribs();
 
     /// Return the vertexAttribs manager. In case you want to have direct access

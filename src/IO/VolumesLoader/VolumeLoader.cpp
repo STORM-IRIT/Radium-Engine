@@ -145,7 +145,7 @@ Ra::Core::Asset::FileData* VolumeLoader::loadPvmFile( const std::string& filenam
         auto fillRadiumVolume = []( auto container, auto densityData ) {
             std::generate( container->data().begin(), container->data().end(), [&densityData]() {
                 auto d = *densityData++;
-                return Scalar( d ) / std::numeric_limits<decltype( d )>::max();
+                return Scalar( d ) / Scalar( std::numeric_limits<decltype( d )>::max() );
             } );
         };
         Ra::Core::Vector3 binSize { Scalar( scalex ), Scalar( scaley ), Scalar( scalez ) };

@@ -608,7 +608,7 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
             Ra::Core::Utils::Color color {
                 Ra::Core::Utils::Color::linearRGBTosRGB( lcolor * 0.05_ra ) };
 
-            auto clpfnct = []( Scalar x ) { return std::clamp( x, 0_ra, 1_ra ); };
+            auto clpfnct = []( Scalar value ) { return std::clamp( value, 0_ra, 1_ra ); };
 
             color.unaryExpr( clpfnct );
             thepixels[4 * ( j * ambientWidth + i ) + 0] =

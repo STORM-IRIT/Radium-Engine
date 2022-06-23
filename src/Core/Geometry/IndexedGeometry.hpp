@@ -14,7 +14,6 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-///
 /// \brief Base class for index collections stored in MultiIndexedGeometry
 class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
                                            public Utils::ObjectWithSemantic,
@@ -33,7 +32,7 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     virtual ~GeometryIndexLayerBase();
 
     /// \brief Create new layer with duplicated content
-    virtual GeometryIndexLayerBase* clone() = 0;
+    virtual std::unique_ptr<GeometryIndexLayerBase> clone() = 0;
 
     /// \brief Append content from another layer
     /// \return false if data cannot be appended, e.g., different semantics
@@ -65,7 +64,7 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
 
     inline size_t getSize() const override final;
 
-    inline GeometryIndexLayerBase* clone() override final;
+    inline std::unique_ptr<GeometryIndexLayerBase> clone() override final;
 
     inline size_t getNumberOfComponents() const override final;
 
@@ -238,6 +237,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
     inline const GeometryIndexLayerBase& getLayer( const LayerKeyType& layerKey ) const;
+
     /// \copybrief getLayer( const LayerKeyType& ) const
     ///
     /// Convenience function.
@@ -290,6 +290,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \throws std::out_of_range
     inline GeometryIndexLayerBase& getLayerWithLock( const LayerSemanticCollection& semantics,
                                                      const std::string& layerName );
+
     /// \copybrief getLayerWithLock( const LayerKeyType& )
     ///
     /// Convenience function.
@@ -322,6 +323,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
     void unlockLayer( const LayerKeyType& layerKey );
+    void unlockLayer2( const LayerKeyType& layerKey );
 
     /// \copybrief unlockLayer( const LayerKeyType& )
     ///
@@ -365,8 +367,10 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     ///
     /// \warning Takes the ownership of the layer
     ///
-    bool addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
-                   const std::string& layerName = "" );
+    std::pair<bool, GeometryIndexLayerBase&>
+    addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
+              const bool withLock          = false,
+              const std::string& layerName = "" );
 
     /// \brief Range on layer keys (read-only)
     ///
@@ -381,9 +385,8 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \brief Clear attributes stored as pointers
     void deepClear();
 
-    /// Note: we cannot store unique_ptr here has unordered_map needs its
-    /// elements to be copy-constructible
-    using EntryType = std::pair<bool, GeometryIndexLayerBase*>;
+    using EntryType = std::pair<bool, std::unique_ptr<GeometryIndexLayerBase>>;
+
     struct RA_CORE_API KeyHash {
         std::size_t operator()( const LayerKeyType& k ) const;
     };
@@ -396,8 +399,18 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     std::unordered_map<LayerKeyType, EntryType, KeyHash> m_indices;
 };
 
+/// \name Predefined index layers
+/// The use of these layers helps in generic management of geometries
+/// \{
+
+/// \brief Index layer for a point cloud
 struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
+    /// \brief Constructor of an empty layer
     inline PointCloudIndexLayer();
+
+    /// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
+    /// \f$n-1\f$
+    inline explicit PointCloudIndexLayer( size_t n );
 
     /// \brief Generate linearly spaced indices with same size as \p attr vertex buffer
     void linearIndices( const AttribArrayGeometry& attr );
@@ -409,32 +422,52 @@ struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
     inline PointCloudIndexLayer( SemanticNames... names );
 };
 
+/// \brief Index layer for triangle mesh.
+/// \note, This layer ensures that all faces have exactly 3 vertices
 struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
     inline TriangleIndexLayer();
     static constexpr const char* staticSemanticName = "TriangleMesh";
 
   protected:
     template <class... SemanticNames>
-    inline TriangleIndexLayer( SemanticNames... names );
+    inline explicit TriangleIndexLayer( SemanticNames... names );
 };
 
+/// \brief Index layer for quadrilateral mesh.
+/// \note, This layer ensures that all faces have exactly 4 vertices
+struct RA_CORE_API QuadIndexLayer : public GeometryIndexLayer<Vector4ui> {
+    inline QuadIndexLayer();
+    static constexpr const char* staticSemanticName = "QuadMesh";
+
+  protected:
+    template <class... SemanticNames>
+    inline explicit QuadIndexLayer( SemanticNames... names );
+};
+
+/// \brief Index layer for polygonal mesh.
+/// \note, Using this layer, all faces might have more than 4 vertices or have different number of
+/// vertices.
 struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
     inline PolyIndexLayer();
     static constexpr const char* staticSemanticName = "PolyMesh";
 
   protected:
     template <class... SemanticNames>
-    inline PolyIndexLayer( SemanticNames... names );
+    inline explicit PolyIndexLayer( SemanticNames... names );
 };
 
+/// \brief Index layer for line mesh.
+/// \note, This layer ensures that all faces have exactly 2 vertices
 struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
     inline LineIndexLayer();
     static constexpr const char* staticSemanticName = "LineMesh";
 
   protected:
     template <class... SemanticNames>
-    inline LineIndexLayer( SemanticNames... names );
+    inline explicit LineIndexLayer( SemanticNames... names );
 };
+
+/// \}
 
 /// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
 /// This class will be marked as deprecated soon.
@@ -450,6 +483,11 @@ struct getType<Vector2ui> {
 template <>
 struct getType<Vector3ui> {
     using Type = Ra::Core::Geometry::TriangleIndexLayer;
+};
+
+template <>
+struct getType<Vector4ui> {
+    using Type = Ra::Core::Geometry::QuadIndexLayer;
 };
 
 template <>
@@ -510,6 +548,9 @@ class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
 {};
 
 class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
+{};
+
+class RA_CORE_API QuadMesh : public IndexedGeometry<Vector4ui>
 {};
 
 class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>

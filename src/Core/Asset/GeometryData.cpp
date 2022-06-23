@@ -1,3 +1,4 @@
+#include "Core/Geometry/StandardAttribNames.hpp"
 #include <Core/Asset/GeometryData.hpp>
 
 #include <Core/Utils/Log.hpp>
@@ -10,14 +11,7 @@ GeometryData::GeometryData( const std::string& name, const GeometryType& type ) 
     AssetData( name ),
     m_frame( Transform::Identity() ),
     m_type( type ),
-    m_vertex(),
-    m_edge(),
-    m_faces(),
-    m_polyhedron(),
-    m_normal(),
-    m_tangent(),
-    m_bitangent(),
-    m_texCoord(),
+    m_geometry(),
     m_material() {}
 
 GeometryData::~GeometryData() {}
@@ -26,9 +20,6 @@ void GeometryData::displayInfo() const {
     using namespace Core::Utils; // log
     std::string type;
     switch ( m_type ) {
-    case UNKNOWN:
-        type = "UNKNOWN";
-        break;
     case POINT_CLOUD:
         type = "POINT CLOUD";
         break;
@@ -50,17 +41,33 @@ void GeometryData::displayInfo() const {
     case HEX_MESH:
         type = "HEX MESH";
         break;
+    case UNKNOWN:
+    default:
+        type = "UNKNOWN";
+        break;
     }
+
+    auto attribSize = [this]( Geometry::MeshAttrib a ) -> size_t {
+        const auto& name = getAttribName( a );
+        return getGeometry().hasAttrib( name ) ? getGeometry().getAttribBase( name )->getSize() : 0;
+    };
+
+    auto hasAttrib = [this]( Geometry::MeshAttrib a ) -> std::string {
+        return getGeometry().hasAttrib( getAttribName( a ) ) ? "YES" : "NO";
+    };
+
+    using namespace Geometry;
     LOG( logINFO ) << "======== MESH INFO ========";
     LOG( logINFO ) << " Name           : " << m_name;
     LOG( logINFO ) << " Type           : " << type;
-    LOG( logINFO ) << " Vertex #       : " << m_vertex.size();
-    LOG( logINFO ) << " Edge #         : " << m_edge.size();
-    LOG( logINFO ) << " Face #         : " << m_faces.size();
-    LOG( logINFO ) << " Normal ?       : " << ( ( m_normal.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tangent ?      : " << ( ( m_tangent.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Bitangent ?    : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( m_texCoord.empty() ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Edge #         : " << ( hasEdges() ? getPrimitiveCount() : 0 );
+    LOG( logINFO ) << " Face #         : " << ( hasFaces() ? getPrimitiveCount() : 0 );
+    LOG( logINFO ) << " Vertex #       : " << attribSize( MeshAttrib::VERTEX_POSITION );
+    LOG( logINFO ) << " Normal ?       : " << hasAttrib( MeshAttrib::VERTEX_NORMAL );
+    LOG( logINFO ) << " Tangent ?      : " << hasAttrib( MeshAttrib::VERTEX_TANGENT );
+    LOG( logINFO ) << " Bitangent ?    : " << hasAttrib( MeshAttrib::VERTEX_BITANGENT );
+    LOG( logINFO ) << " Tex.Coord. ?   : " << hasAttrib( MeshAttrib::VERTEX_TEXCOORD );
+    LOG( logINFO ) << " Color ?        : " << hasAttrib( MeshAttrib::VERTEX_COLOR );
     LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
 
     if ( hasMaterial() ) { m_material->displayInfo(); }

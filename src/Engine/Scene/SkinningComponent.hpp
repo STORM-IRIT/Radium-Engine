@@ -188,11 +188,17 @@ class RA_ENGINE_API SkinningComponent : public Component
     /// Whether the skinned mesh is a TriangleMesh or a PolyMesh.
     bool m_meshIsPoly { false };
 
+    /// Whether the skinned mesh is a TriangleMesh or a PolyMesh.
+    bool m_meshIsQuad { false };
+
     /// Getter/Setter to the skinned mesh, in case it is a TriangleMesh.
     ReadWrite<Core::Geometry::TriangleMesh> m_triMeshWriter;
 
     /// Getter/Setter to the skinned mesh, in case it is a PolyMesh.
     ReadWrite<Core::Geometry::PolyMesh> m_polyMeshWriter;
+
+    /// Getter/Setter to the skinned mesh, in case it is a QuadMesh.
+    ReadWrite<Core::Geometry::QuadMesh> m_quadMeshWriter;
 
     /// The Topological mesh used to geometrically recompute the normals.
     Core::Geometry::TopologicalMesh m_topoMesh;

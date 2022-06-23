@@ -221,6 +221,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
 
     /// Copy all attributes from \p m.
     /// \note If some attrib already exists, it will be replaced.
+    /// \todo allow to copy all attributes, even those with non-standard type
     void copyAllAttributes( const AttribManager& m );
 
     /// clear all attribs, invalidate handles.
@@ -248,29 +249,68 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     template <typename T>
     inline AttribHandle<T> findAttrib( const std::string& name ) const;
 
+    /*!
+     * \brief Get the locked data container from the attrib handle
+     * \tparam T The type of the attribute data
+     * \param h the attribute handle
+     * \return the attribute's data container
+     */
+    template <typename T>
+    typename Attrib<T>::Container& getDataWithLock( const AttribHandle<T>& h );
+
+    /*!
+     * \brief Get read access to the data container from the attrib handle
+     * \tparam T The type of the attribute data
+     * \param h the attribute handle
+     * \return the attribute's data container
+     */
+    template <typename T>
+    const typename Attrib<T>::Container& getData( const AttribHandle<T>& h );
+
+    /*!
+     * \brief Unlock the handle data
+     * \tparam T
+     * \param h
+     * \return
+     */
+    template <typename T>
+    void unlock( const AttribHandle<T>& h );
+
     ///@{
     /// Get attribute by handle.
     /// \complexity \f$ O(1) \f$
-    /// \warning There is no check on the handle validity.
+    /// \warning There is no check on the handle validity. Attrib is statically cast to T without
+    /// other checks.
+    ///
     template <typename T>
     inline Attrib<T>& getAttrib( const AttribHandle<T>& h );
-
-    template <typename T>
-    inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h );
-
-    /// Get attribute by handle (const).
-    /// \complexity \f$ O(1) \f$
-    /// \warning There is no check on the handle validity.
     template <typename T>
     inline const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const;
+    template <typename T>
+    inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h );
+    template <typename T>
+    inline const Attrib<T>* getAttribPtr( const AttribHandle<T>& h ) const;
+    ///@}
 
+    ///@{
+    /// Get attribute by name.
+    /// First search name to index correpondance \complexity \f$ O(getNumAttribs()) \f$
+    /// \warning There is no check on the name validity. Attrib is statically cast to T without
+    /// other checks.
+    template <typename T>
+    inline Attrib<T>& getAttrib( const std::string& name );
+    template <typename T>
+    inline const Attrib<T>& getAttrib( const std::string& name ) const;
+    ///@}
+
+    ///@{
     /// Return a AttribBase ptr to the attrib identified by name.
     /// to give access to AttribBase method, regardless of the type of element
     /// stored in the attrib.
     inline AttribBase* getAttribBase( const std::string& name );
-
-    /// \see getAttribBase( const std::string& name );
+    inline const AttribBase* getAttribBase( const std::string& name ) const;
     inline AttribBase* getAttribBase( const Index& idx );
+    inline const AttribBase* getAttribBase( const Index& idx ) const;
     ///@}
 
     ///@{
@@ -319,6 +359,64 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
 
     /// Return the number of attributes
     inline int getNumAttribs() const;
+
+    /**
+     * \brief Scope lock state management for attributes.
+     * Unlock all attribs locked after the creation of the ScopedLockState object when it
+     * gets out of scope. \code{.cpp}
+     * {
+     * auto g = new AttribArrayGeometry();
+     *
+     * // get write access. The attrib must be explicitly unlocked after usage
+     * auto& attrib1 = g->getAttrib<Ra::Core::Vector3>( "attrib1" ).getDataWithLock();
+     * // ... write to attribOne
+     *
+     * // enable auto-unlock for all following write access requests
+     * auto unlocker = g->vertexAttribs().getScopedLockState();
+     *
+     * // get write access to several attribs
+     * auto& attrib2 = g->getAttrib<Ra::Core::Vector3>( "attrib2" ).getDataWithLock();
+     * // ... write to attrib2
+     * auto& attrib3 = g->getAttrib<Ra::Core::Vector3>( "attrib3" ).getDataWithLock();
+     * // ... write to attrib3
+     *
+     * // attrib1 is still locked as it was locked outside of the unlocker scope.
+     * // Must be explicitly unlocked.
+     * attrib1.unlock();
+     *
+     * // attrib2 and attrib3 are automatically unlocked when the unlocker's destructor
+     * is called (i.e. gets out of scope)
+     * }
+     */
+    class ScopedLockState
+    {
+      public:
+        /**
+         *
+         * \param a the AttribManager on which locking will be supervised
+         * \brief Constructor, save lock state of all attribs from attribManager
+         */
+        explicit ScopedLockState( AttribManager* a ) {
+            a->for_each_attrib( [this]( const auto& attr ) {
+                return ( v.push_back( std::make_pair( attr, attr->isLocked() ) ) );
+            } );
+        }
+        /**
+         * \brief Destructor, unlock all attribs whose have been locked after the
+         * initialization of the Unlocker.
+         */
+        ~ScopedLockState() {
+            for ( auto& p : v ) {
+                if ( !p.second && p.first->isLocked() ) { p.first->unlock(); }
+            }
+        }
+
+      private:
+        std::vector<std::pair<AttribBase*, bool>> v;
+    };
+
+    /// Returns a scope unlocker for managed attribs
+    ScopedLockState getScopedLockState() { return ScopedLockState { this }; }
 
   private:
     /// Attrib list, better using attribs() to go through.

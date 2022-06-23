@@ -1,6 +1,8 @@
 #pragma once
 
 #include <Core/Asset/DataLoader.hpp>
+#include <Core/Asset/GeometryData.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Types.hpp>
 #include <IO/RaIO.hpp>
 
@@ -9,6 +11,7 @@
 
 struct aiScene;
 struct aiMesh;
+struct aiFace;
 struct aiNode;
 struct aiMaterial;
 
@@ -46,11 +49,6 @@ class RA_IO_API AssimpGeometryDataLoader : public Core::Asset::DataLoader<Core::
     void loadGeometryData( const aiScene* scene,
                            std::vector<std::unique_ptr<Core::Asset::GeometryData>>& data );
 
-    /// Fill \p data with the GeometryData from \p mesh.
-    void loadMeshAttrib( const aiMesh& mesh,
-                         Core::Asset::GeometryData& data,
-                         std::set<std::string>& usedNames );
-
     /// Fill \p data with the Material data from \p material.
     void loadMaterial( const aiMaterial& material, Core::Asset::GeometryData& data ) const;
 
@@ -59,6 +57,12 @@ class RA_IO_API AssimpGeometryDataLoader : public Core::Asset::DataLoader<Core::
                         const Core::Transform& parentFrame,
                         const std::map<uint, size_t>& indexTable,
                         std::vector<std::unique_ptr<Core::Asset::GeometryData>>& data ) const;
+
+  private:
+    /// Fill \p data with the GeometryData from \p mesh.
+    void loadMeshAttrib( const aiMesh& mesh,
+                         Core::Asset::GeometryData& data,
+                         std::set<std::string>& usedNames );
 
     /// Fill \p data with the name from \p mesh.
     /// \note If the name is already in use, then appends as much "_" as needed.
@@ -69,37 +73,27 @@ class RA_IO_API AssimpGeometryDataLoader : public Core::Asset::DataLoader<Core::
     /// Fill \p data with the GeometryType from \p mesh.
     void fetchType( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
 
-    /// Fill \p data with the vertices from \p mesh.
-    void fetchVertices( const aiMesh& mesh, Core::Asset::GeometryData& data );
-
-    /// Fill \p data with the lines from \p mesh.
-    void fetchEdges( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
-
-    /// Fill \p data with the faces from \p mesh.
-    void fetchFaces( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
-
     /// Fill \p data with the polyhedra from \p mesh.
     void fetchPolyhedron( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
 
-    /// Fill \p data with the vertex normals from \p mesh.
-    void fetchNormals( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
+    /// Fill the Radium geometry attribute \p a of \p data from assimp data \p aiData
+    template <typename T>
+    void fetchAttribute( T* aiData,
+                         int size,
+                         Core::Geometry::MultiIndexedGeometry& data,
+                         Core::Geometry::MeshAttrib a ) const;
 
-    /// Fill \p data with the vertex tangent vectors from \p mesh.
-    void fetchTangents( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
+    /// Fill the index layer using ai mesh topology
+    template <typename T>
+    void fetchIndexLayer( aiFace* faces,
+                          int numFaces,
+                          Core::Geometry::MultiIndexedGeometry& data ) const;
 
-    /// Fill \p data with the vertex bitangent vectors from \p mesh.
-    void fetchBitangents( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
-
-    /// Fill \p data with the vertex texture coordinates from \p mesh.
-    void fetchTextureCoordinates( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
-
-    /// Fill \p data with the vertex colors from \p mesh.
-    void fetchColors( const aiMesh& mesh, Core::Asset::GeometryData& data ) const;
-
-  private:
     /// The loaded file path (used to retrieve material texture files).
     std::string m_filepath;
 };
 
 } // namespace IO
 } // namespace Ra
+
+#include <IO/AssimpLoader/AssimpGeometryDataLoader.inl>

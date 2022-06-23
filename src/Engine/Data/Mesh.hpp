@@ -420,13 +420,14 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
   private:
 };
 
-/// PolyMesh, own a Core::Geometry::PolyMesh
+/// GeneralMesh, own a Mesh of type T ( e.g. Core::Geometry::PolyMesh or Core::Geometry::QuadMesh)
 /// This class handle the GPU representation of a polyhedron mesh.
 /// Each face of the polyhedron (typically quads) are assume to be planar and convex.
 /// Simple triangulation is performed on the fly before sending data to the GPU.
-class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
+template <typename T>
+class RA_ENGINE_API GeneralMesh : public IndexedGeometry<T>
 {
-    using base      = IndexedGeometry<Core::Geometry::PolyMesh>;
+    using base      = IndexedGeometry<T>;
     using IndexType = Core::Vector3ui;
 
   public:
@@ -441,55 +442,45 @@ class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
     Core::AlignedStdVector<IndexType> m_triangleIndices;
 };
 
+using PolyMesh = GeneralMesh<Core::Geometry::PolyMesh>;
+using QuadMesh = GeneralMesh<Core::Geometry::QuadMesh>;
+
 /// create a TriangleMesh, PolyMesh or other Core::*Mesh from GeometryData
+/// \todo replace the copy of all geometry data by reference to original data.
 template <typename CoreMeshType>
 CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData* data ) {
     CoreMeshType mesh;
-    typename CoreMeshType::PointAttribHandle::Container vertices;
-    typename CoreMeshType::NormalAttribHandle::Container normals;
     typename CoreMeshType::IndexContainerType indices;
 
-    vertices.reserve( data->getVerticesSize() );
-    std::copy(
-        data->getVertices().begin(), data->getVertices().end(), std::back_inserter( vertices ) );
-
-    if ( data->hasNormals() ) {
-        normals.reserve( data->getVerticesSize() );
-        std::copy(
-            data->getNormals().begin(), data->getNormals().end(), std::back_inserter( normals ) );
+    if ( !data->isLineMesh() ) {
+        auto& geo = data->getGeometry();
+        const auto& [layerKeyType, layerBase] =
+            geo.getFirstLayerOccurrence( mesh.getLayerKey().first );
+        const auto& layer = static_cast<
+            const Core::Geometry::GeometryIndexLayer<typename CoreMeshType::IndexType>&>(
+            layerBase );
+        const auto& faces = layer.collection();
+        indices.reserve( faces.size() );
+        std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
     }
-
-    const auto& faces = data->getFaces();
-    indices.reserve( faces.size() );
-    std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
-    mesh.setVertices( std::move( vertices ) );
-    mesh.setNormals( std::move( normals ) );
-
-    // \todo remove when data will handle all the attributes in a coherent way.
-    if ( data->hasTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TANGENT ),
-                        data->getTangents() );
+#if 0
+    // TODO manage line meshes in a "usual" way, i.e. as an indexed geometry with specific
+    //  rendering properties (i.e. shader, as it is the case for point clouds)
+    // Create a degenerated triangle to handle edges case.
+    else {
+        const auto& edges = ... access the LineIndexLayer
+        indices.reserve( edges.size() );
+        std::transform(
+            edges.begin(), edges.end(), std::back_inserter( indices ), []( Ra::Core::Vector2ui v ) {
+                return ( Ra::Core::Vector3ui { v( 0 ), v( 1 ), v( 1 ) } );
+            } );
     }
-
-    if ( data->hasBiTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_BITANGENT ),
-                        data->getBiTangents() );
-    }
-
-    if ( data->hasTextureCoordinates() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TEXCOORD ),
-                        data->getTexCoords() );
-    }
-
-    // add custom attribs
-    // only attributs not handled before are handled by data->getAttribManager()
-    // but futur plan will handle also "usual" attibutes this way
-    mesh.vertexAttribs().copyAllAttributes( data->getAttribManager() );
-
-    // also this one will be automatically done with the futur behavior
-    //        mesh->addData( Ra::Core::Geometry::VERTEX_WEIGHTS, meshData.weights );
+#endif
 
     mesh.setIndices( std::move( indices ) );
+
+    // This copy only "usual" attributes. See Core::Geometry::AttribManager::copyAllAttributes
+    mesh.vertexAttribs().copyAllAttributes( data->getGeometry().vertexAttribs() );
 
     return mesh;
 }
@@ -510,6 +501,11 @@ struct getType<Ra::Core::Geometry::TriangleMesh> {
 };
 
 template <>
+struct getType<Ra::Core::Geometry::QuadMesh> {
+    using Type = Ra::Engine::Data::QuadMesh;
+};
+
+template <>
 struct getType<Ra::Core::Geometry::PolyMesh> {
     using Type = Ra::Engine::Data::PolyMesh;
 };
@@ -521,7 +517,7 @@ typename RenderMeshType::getType<CoreMeshType>::Type*
 createMeshFromGeometryData( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {
     using MeshType = typename RenderMeshType::getType<CoreMeshType>::Type;
 
-    CoreMeshType mesh = createCoreMeshFromGeometryData<CoreMeshType>( data );
+    auto mesh = createCoreMeshFromGeometryData<CoreMeshType>( data );
 
     MeshType* ret = new MeshType { name };
     ret->loadGeometry( std::move( mesh ) );
