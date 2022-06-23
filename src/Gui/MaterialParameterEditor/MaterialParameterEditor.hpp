@@ -22,7 +22,7 @@ namespace Widgets {
 class ControlPanel;
 }
 /**
- * Simple Widget for Material edition
+ * \brief Simple Widget for Material/RenderParameter edition
  * A material editor will show information about the selected material and expose a control panel
  * containing all of its editable parameters to allow the user to edit them.
  */
@@ -43,8 +43,11 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
 
     /**
      * \brief Update the different UI element with the given renderParameter, using the given
-     * constraints. \param params the parameter set to edit \param constraints the parameter
-     * constraints descriptor \param name (optional) the name to display in top of the editor
+     * constraints.
+     * \param params the parameter set to edit
+     * \param constraints the parameter
+     * constraints descriptor
+     * \param name (optional) the name to display in top of the editor
      */
     void setupFromParameters( Engine::Data::RenderParameters& params,
                               const nlohmann::json& constraints,

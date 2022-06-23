@@ -10,19 +10,31 @@ namespace Ra {
 namespace Gui {
 namespace Widgets {
 
+/**
+ * \brief Validate a given value against user-defined predicates.
+ * \tparam T Type of the data to validate
+ */
 template <typename T>
 class SpinValueValidator
 {
   public:
     using Predicate = std::function<bool( T )>;
+    /// Set the predicate to evaluate
     inline void setPredicate( Predicate p ) { m_p = p; }
-
+    /**
+     * \brief Validate a value
+     * \param s
+     * \return true if the value is valid according to the stored predicate, false otherwise.
+     */
     inline bool isValid( T s ) const { return m_p( s ); }
 
   private:
     Predicate m_p = []( T ) { return true; };
 };
 
+/**
+ * \brief Associates Qt spinbox type to a given numeric type
+ */
 namespace QtSpinBox {
 template <typename T>
 struct getType {
@@ -40,8 +52,14 @@ struct getType<double> {
 };
 } // namespace QtSpinBox
 
+/**
+ * \brief Constrained input spin box.
+ * The constraint to apply to any input value is verified using the user-define predicate associated
+ * to the object. \tparam T Type of the constrained value to input
+ */
 template <typename T>
-class RA_GUI_API CheckingSpinBox : public QtSpinBox::getType<T>::Type, public SpinValueValidator<T>
+class RA_GUI_API ConstrainedNumericSpinBox : public QtSpinBox::getType<T>::Type,
+                                             public SpinValueValidator<T>
 {
   public:
     using BaseWidget = typename QtSpinBox::getType<T>::Type;
@@ -53,4 +71,4 @@ class RA_GUI_API CheckingSpinBox : public QtSpinBox::getType<T>::Type, public Sp
 } // namespace Gui
 } // namespace Ra
 
-#include <Gui/Widgets/CheckingSpinBox.inl>
+#include <Gui/Widgets/ConstrainedNumericSpinBox.inl>

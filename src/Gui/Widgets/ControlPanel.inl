@@ -1,25 +1,25 @@
 #include <Gui/Widgets/ControlPanel.hpp>
 #include <QLabel>
 
-#include <Gui/Widgets/CheckingSpinBox.hpp>
+#include <Gui/Widgets/ConstrainedNumericSpinBox.hpp>
 
 namespace Ra {
 namespace Gui {
 namespace Widgets {
 
 template <typename T>
-void ControlPanel::addCheckingNumberInput( const std::string& name,
-                                           std::function<void( T )> callback,
-                                           Scalar initial,
-                                           std::function<bool( T )> predicate,
-                                           const std::string& tooltip,
-                                           int dec ) {
+void ControlPanel::addConstrainedNumberInput( const std::string& name,
+                                              std::function<void( T )> callback,
+                                              Scalar initial,
+                                              std::function<bool( T )> predicate,
+                                              const std::string& tooltip,
+                                              int dec ) {
     auto inputLayout = new QHBoxLayout();
     auto inputLabel  = new QLabel( tr( name.c_str() ), this );
 
-    auto inputField = new CheckingSpinBox<T>( this );
+    auto inputField = new ConstrainedNumericSpinBox<T>( this );
     inputField->setValue( initial );
-    connect( inputField, &CheckingSpinBox<T>::valueChanged, std::move( callback ) );
+    connect( inputField, &ConstrainedNumericSpinBox<T>::valueChanged, std::move( callback ) );
     inputField->setPredicate( predicate );
 
     if constexpr ( std::is_floating_point_v<T> ) { inputField->setDecimals( dec ); }

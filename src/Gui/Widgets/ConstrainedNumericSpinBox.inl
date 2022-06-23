@@ -1,14 +1,14 @@
 
-#include <Gui/Widgets/CheckingSpinBox.hpp>
+#include <Gui/Widgets/ConstrainedNumericSpinBox.hpp>
 
 namespace Ra {
 namespace Gui {
 namespace Widgets {
 
 template <typename T>
-QValidator::State CheckingSpinBox<T>::validate( QString& input, int& ) const {
+QValidator::State ConstrainedNumericSpinBox<T>::validate( QString& input, int& ) const {
     auto valid = this->isValid( this->valueFromText( input ) );
-    auto& spin = const_cast<CheckingSpinBox&>( *this );
+    auto& spin = const_cast<ConstrainedNumericSpinBox&>( *this );
     spin.blockSignals( !valid );
     if ( valid ) { spin.setStyleSheet( "" ); }
     else {
