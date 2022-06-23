@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.42</span>
+   &#160;<span id="projectnumber">1.2.43</span>
    </div>
   </td>
  </tr>
@@ -651,57 +651,71 @@ $(document).ready(function(){initNavTree('Mesh_8inl_source.html',''); initResiza
 <div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;    base( name, renderMode ) {}</div>
 <div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160; </div>
 <div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160; </div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;<span class="keywordtype">size_t</span> PolyMesh::getNumFaces()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a166c11d14412bdfc7fe13fa9242dd63f">getCoreGeometry</a>().getIndices().size();</div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;}</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160; </div>
-<div class="line"><a name="l00574"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html#a42de560e0eb764a13c5bc6ac2ba2acf2">  574</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html#a42de560e0eb764a13c5bc6ac2ba2acf2">PolyMesh::updateGL_specific_impl</a>() {</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;    <span class="keywordflow">if</span> ( !m_indices ) {</div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;        m_indices      = globjects::Buffer::create();</div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;        m_indicesDirty = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;    }</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;    <span class="keywordflow">if</span> ( m_indicesDirty ) {</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;        triangulate();</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;        <span class="comment">// m_indices-&gt;setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );</span></div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a11b320e9d53d4ee572c64fd7e1e2a077">m_numElements</a> = m_triangleIndices.size() * PolyMesh::IndexType::RowsAtCompileTime;</div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160; </div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;        m_indices-&gt;setData(</div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;            <span class="keyword">static_cast&lt;</span>gl::GLsizeiptr<span class="keyword">&gt;</span>( m_triangleIndices.size() * <span class="keyword">sizeof</span>( PolyMesh::IndexType ) ),</div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;            m_triangleIndices.data(),</div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;            GL_STATIC_DRAW );</div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;        m_indicesDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;    }</div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;    <span class="keywordflow">if</span> ( !base::m_vao ) { base::m_vao = globjects::VertexArray::create(); }</div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;    base::m_vao-&gt;bind();</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;    base::m_vao-&gt;bindElementBuffer( m_indices.get() );</div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    base::m_vao-&gt;unbind();</div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;}</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160; </div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="keywordtype">void</span> PolyMesh::triangulate() {</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    m_triangleIndices.clear();</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;    m_triangleIndices.reserve( m_mesh.getIndices().size() );</div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; face : m_mesh.getIndices() ) {</div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;        <span class="keywordflow">if</span> ( face.size() == 3 ) { m_triangleIndices.push_back( face ); }</div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;            <span class="keywordtype">int</span> minus { int( face.size() ) - 1 };</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;            <span class="keywordtype">int</span> plus { 0 };</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;            <span class="keywordflow">while</span> ( plus + 1 &lt; minus ) {</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;                <span class="keywordflow">if</span> ( ( plus - minus ) % 2 ) {</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;                    m_triangleIndices.emplace_back( face[plus], face[plus + 1], face[minus] );</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;                    ++plus;</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;                }</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;                    m_triangleIndices.emplace_back( face[minus], face[plus], face[minus - 1] );</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;                    --minus;</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;                }</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;            }</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;        }</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    }</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;}</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160; </div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;<span class="keywordtype">size_t</span> GeneralMesh&lt;T&gt;::getNumFaces()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    <span class="keywordflow">return</span> this-&gt;getCoreGeometry().getIndices().size();</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;}</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160; </div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00576"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html#a7428bd97ca8225f6962df8ae15ebbdfb">  576</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html#a7428bd97ca8225f6962df8ae15ebbdfb">GeneralMesh&lt;T&gt;::updateGL_specific_impl</a>() {</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;    <span class="keywordflow">if</span> ( !this-&gt;m_indices ) {</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;        this-&gt;m_indices      = globjects::Buffer::create();</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;        this-&gt;m_indicesDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;    }</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;    <span class="keywordflow">if</span> ( this-&gt;m_indicesDirty ) {</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;        triangulate();</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;        <span class="comment">// m_indices-&gt;setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );</span></div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;        this-&gt;m_numElements = m_triangleIndices.size() * GeneralMesh::IndexType::RowsAtCompileTime;</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160; </div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;        this-&gt;m_indices-&gt;setData( <span class="keyword">static_cast&lt;</span>gl::GLsizeiptr<span class="keyword">&gt;</span>( m_triangleIndices.size() *</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;                                                               <span class="keyword">sizeof</span>( GeneralMesh::IndexType ) ),</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;                                  m_triangleIndices.data(),</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;                                  GL_STATIC_DRAW );</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;        this-&gt;m_indicesDirty = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;    }</div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;    <span class="keywordflow">if</span> ( !base::m_vao ) { base::m_vao = globjects::VertexArray::create(); }</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    base::m_vao-&gt;bind();</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;    base::m_vao-&gt;bindElementBuffer( this-&gt;m_indices.get() );</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    base::m_vao-&gt;unbind();</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;}</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160; </div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">GeneralMesh&lt;T&gt;::triangulate</a>() {</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    m_triangleIndices.clear();</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    m_triangleIndices.reserve( this-&gt;m_mesh.getIndices().size() );</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; face : this-&gt;m_mesh.getIndices() ) {</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;        <span class="keywordflow">if</span> ( face.size() == 3 ) { m_triangleIndices.push_back( face ); }</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;            <span class="keywordtype">int</span> minus { int( face.size() ) - 1 };</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;            <span class="keywordtype">int</span> plus { 0 };</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;            <span class="keywordflow">while</span> ( plus + 1 &lt; minus ) {</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;                <span class="keywordflow">if</span> ( ( plus - minus ) % 2 ) {</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;                    m_triangleIndices.emplace_back( face[plus], face[plus + 1], face[minus] );</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;                    ++plus;</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;                }</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                    m_triangleIndices.emplace_back( face[minus], face[plus], face[minus - 1] );</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;                    --minus;</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;                }</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;            }</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;        }</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;    }</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;}</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160; </div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> GeneralMesh&lt;Core::Geometry::QuadMesh&gt;::triangulate() {</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;    m_triangleIndices.clear();</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    m_triangleIndices.reserve( 2 * this-&gt;m_mesh.getIndices().size() );</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;    <span class="comment">// assume quads are convex</span></div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; face : this-&gt;m_mesh.getIndices() ) {</div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;        m_triangleIndices.emplace_back( face[0], face[1], face[2] );</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;        m_triangleIndices.emplace_back( face[0], face[2], face[3] );</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;    }</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;}</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160; </div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface_html_af0f7c3faea5748b2931bbd94b930b634"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#af0f7c3faea5748b2931bbd94b930b634">Ra::Core::Utils::ContainerIntrospectionInterface::dataPtr</a></div><div class="ttdeci">virtual const void * dataPtr() const =0</div></div>
@@ -713,7 +727,6 @@ $(document).ready(function(){initNavTree('Mesh_8inl_source.html',''); initResiza
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html">Ra::Engine::Data::CoreGeometryDisplayable</a></div><div class="ttdoc">Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00215">Mesh.hpp:215</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a99500dff926ac595781cfb4d2b1340c1"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">Ra::Engine::Data::CoreGeometryDisplayable::loadGeometry</a></div><div class="ttdeci">virtual void loadGeometry(CoreGeometry &amp;&amp;mesh)</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00315">Mesh.inl:315</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4851931d5bedb5e17121a0ff806a9f6d"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">Ra::Core::Utils::Observable::attach</a></div><div class="ttdeci">int attach(Observer observer)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00054">Observable.hpp:54</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1PolyMesh_html_a42de560e0eb764a13c5bc6ac2ba2acf2"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html#a42de560e0eb764a13c5bc6ac2ba2acf2">Ra::Engine::Data::PolyMesh::updateGL_specific_impl</a></div><div class="ttdeci">void updateGL_specific_impl() override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00574">Mesh.inl:574</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html">Ra::Engine::Data::MultiIndexedGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00342">Mesh.hpp:342</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Ra::Core::Utils::AttribBase</a></div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00026">Attribs.hpp:26</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1IndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">Ra::Engine::Data::IndexedGeometry</a></div><div class="ttdoc">An engine mesh owning CoreGeometry, with indices.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00321">Mesh.hpp:321</a></div></div>
@@ -721,6 +734,7 @@ $(document).ready(function(){initNavTree('Mesh_8inl_source.html',''); initResiza
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface_html_a61a035c5d5357d01e2df74bc441b770e"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a61a035c5d5357d01e2df74bc441b770e">Ra::Core::Utils::ContainerIntrospectionInterface::getStride</a></div><div class="ttdeci">virtual int getStride() const =0</div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html_a9fce3bf8c466aea7e724f3a6d73e3169"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a9fce3bf8c466aea7e724f3a6d73e3169">Ra::Engine::Data::AttribArrayDisplayable::setRenderMode</a></div><div class="ttdeci">void setRenderMode(MeshRenderMode mode)</div><div class="ttdoc">Set the render mode.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00016">Mesh.inl:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a185171226018c59fb689efcb2154619b"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b">Ra::Engine::Data::CoreGeometryDisplayable::updateGL</a></div><div class="ttdeci">void updateGL() override</div><div class="ttdoc">Update (i.e. send to GPU) the buffers marked as dirty.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00320">Mesh.inl:320</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1GeneralMesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">Ra::Engine::Data::GeneralMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00428">Mesh.hpp:428</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_ae933f13adcd54a11de0ed7e0663aea5c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae933f13adcd54a11de0ed7e0663aea5c">Ra::Engine::Data::CoreGeometryDisplayable::addAttrib</a></div><div class="ttdeci">Ra::Core::Utils::AttribHandle&lt; A &gt; addAttrib(const std::string &amp;name, const typename Core::VectorArray&lt; A &gt; &amp;data)</div><div class="ttdoc">Helper function that calls Ra::Core::CoreGeometry::addAttrib()</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00304">Mesh.inl:304</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html">Ra::Engine::Data::VaoIndices::IndicesObserver</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00167">Mesh.hpp:167</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; T &gt;</a></div></div>
@@ -731,13 +745,13 @@ $(document).ready(function(){initNavTree('Mesh_8inl_source.html',''); initResiza
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_aa0a7553db5400216c22e3c941895b10a"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#aa0a7553db5400216c22e3c941895b10a">Ra::Engine::Data::CoreGeometryDisplayable::getAbstractGeometry</a></div><div class="ttdeci">const Core::Geometry::AbstractGeometry &amp; getAbstractGeometry() const override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00165">Mesh.inl:165</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a166c11d14412bdfc7fe13fa9242dd63f"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a166c11d14412bdfc7fe13fa9242dd63f">Ra::Engine::Data::CoreGeometryDisplayable::getCoreGeometry</a></div><div class="ttdeci">const CoreGeometry &amp; getCoreGeometry() const</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00187">Mesh.inl:187</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html_ad089d928906d89959f0955c699a715d0"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0">Ra::Engine::Data::AttribArrayDisplayable::MeshRenderMode</a></div><div class="ttdeci">MeshRenderMode</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00056">Mesh.hpp:56</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_html_a11b320e9d53d4ee572c64fd7e1e2a077"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a11b320e9d53d4ee572c64fd7e1e2a077">Ra::Engine::Data::VaoIndices::m_numElements</a></div><div class="ttdeci">size_t m_numElements</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00184">Mesh.hpp:184</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_html_a96bb526c20fa4d8ec65d90587e56239c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a96bb526c20fa4d8ec65d90587e56239c">Ra::Engine::Data::VaoIndices::setIndicesDirty</a></div><div class="ttdeci">void setIndicesDirty()</div><div class="ttdoc">Tag the indices as dirty, asking for a update to gpu.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00027">Mesh.inl:27</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface_html_ada4b796b352795c049579cadb3d946ba"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#ada4b796b352795c049579cadb3d946ba">Ra::Core::Utils::ContainerIntrospectionInterface::getBufferSize</a></div><div class="ttdeci">virtual size_t getBufferSize() const =0</div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a6e0b7b73ee551f76171df59f0a17fcfc"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a6e0b7b73ee551f76171df59f0a17fcfc">Ra::Engine::Data::CoreGeometryDisplayable::autoVertexAttribPointer</a></div><div class="ttdeci">void autoVertexAttribPointer(const ShaderProgram *prog)</div><div class="ttdoc">assume m_vao is bound.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00230">Mesh.inl:230</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a4fe995da981ed6990d0869990d788a2c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a4fe995da981ed6990d0869990d788a2c">Ra::Engine::Data::CoreGeometryDisplayable::addAttribObserver</a></div><div class="ttdeci">void addAttribObserver(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00206">Mesh.inl:206</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1GeneralMesh_html_a7428bd97ca8225f6962df8ae15ebbdfb"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html#a7428bd97ca8225f6962df8ae15ebbdfb">Ra::Engine::Data::GeneralMesh::updateGL_specific_impl</a></div><div class="ttdeci">void updateGL_specific_impl() override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00576">Mesh.inl:576</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a329baecc8f523cbf4183382bf8c99de8"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a329baecc8f523cbf4183382bf8c99de8">Ra::Engine::Data::CoreGeometryDisplayable::getAttribArrayGeometry</a></div><div class="ttdeci">const Core::Geometry::AttribArrayGeometry &amp; getAttribArrayGeometry() const override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00176">Mesh.inl:176</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00021">TriangleMesh.hpp:21</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></div><div class="ttdoc">This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00024">TriangleMesh.hpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html_a398f75c85b7dbcd3c266c6602bb6c01f"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f">Ra::Engine::Data::AttribArrayDisplayable::getRenderMode</a></div><div class="ttdeci">MeshRenderMode getRenderMode() const</div><div class="ttdoc">Get the render mode.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8inl_source.html#l00021">Mesh.inl:21</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface_html_a709e66ce8c7c2f28a6330df869fc57ce"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a709e66ce8c7c2f28a6330df869fc57ce">Ra::Core::Utils::ContainerIntrospectionInterface::getSize</a></div><div class="ttdeci">virtual size_t getSize() const =0</div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribBase_html_ae2dd0a9753d036b781460b05348c13ca"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca">Ra::Core::Utils::AttribBase::getName</a></div><div class="ttdeci">std::string getName() const</div><div class="ttdoc">Return the attribute's name.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8inl_source.html#l00008">Attribs.inl:8</a></div></div>
@@ -745,7 +759,7 @@ $(document).ready(function(){initNavTree('Mesh_8inl_source.html',''); initResiza
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>Mesh.inl</b></li>
-    <li class="footer">Generated on Wed Jun 22 2022 15:13:47 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 23 2022 06:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

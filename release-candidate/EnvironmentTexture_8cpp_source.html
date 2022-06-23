@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.42</span>
+   &#160;<span id="projectnumber">1.2.43</span>
    </div>
   </td>
  </tr>
@@ -704,7 +704,7 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8cpp_source.html','
 <div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::Color</a> color {</div>
 <div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;                <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a2a69bad748649d27a7b04eaed0d358e7">Ra::Core::Utils::Color::linearRGBTosRGB</a>( lcolor * 0.05_ra ) };</div>
 <div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160; </div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;            <span class="keyword">auto</span> clpfnct = []( Scalar x ) { <span class="keywordflow">return</span> std::clamp( x, 0_ra, 1_ra ); };</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;            <span class="keyword">auto</span> clpfnct = []( Scalar value ) { <span class="keywordflow">return</span> std::clamp( value, 0_ra, 1_ra ); };</div>
 <div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160; </div>
 <div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;            color.unaryExpr( clpfnct );</div>
 <div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;            thepixels[4 * ( j * ambientWidth + i ) + 0] =</div>
@@ -857,7 +857,7 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8cpp_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>EnvironmentTexture.cpp</b></li>
-    <li class="footer">Generated on Wed Jun 22 2022 15:13:47 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 23 2022 06:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

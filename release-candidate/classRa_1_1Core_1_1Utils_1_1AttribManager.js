@@ -19,9 +19,16 @@ var classRa_1_1Core_1_1Utils_1_1AttribManager =
     [ "for_each_attrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#aebe4f9163305d76dec2fc1b8c34d68fb", null ],
     [ "getAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c", null ],
     [ "getAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a82f535bd1842e79ffc7c3858bcc1c37e", null ],
+    [ "getAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#aaca2665ae7a5b7883aa1137c9ecf59b5", null ],
+    [ "getAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#ace414c6177269f571901a7e56f8b4970", null ],
     [ "getAttribBase", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a3b4135249de533d7b0089fe0d76c72ae", null ],
+    [ "getAttribBase", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a10880357df8307e45189cdf375e99bff", null ],
     [ "getAttribBase", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a4a0ff80a4bcffeab304c30145cd555ef", null ],
+    [ "getAttribBase", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#afc441ab078f84d79a8b03130b19e0998", null ],
     [ "getAttribPtr", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a813cb2188a9f22a58dd9109322104c98", null ],
+    [ "getAttribPtr", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a113565d03c7452da9f482a51ecc10999", null ],
+    [ "getData", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#af0a7180b89036f36bc18de3f2ab11098", null ],
+    [ "getDataWithLock", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a9390e919ed5f3551a602d625043f29c1", null ],
     [ "getNumAttribs", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a4da7309507eb5e305acbc59e1983de03", null ],
     [ "hasSameAttribs", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5", null ],
     [ "isValid", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f", null ],
@@ -30,5 +37,5 @@ var classRa_1_1Core_1_1Utils_1_1AttribManager =
     [ "removeAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#aeb28dcc5c1980e1fc7da191eb69bcbcb", null ],
     [ "setAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e", null ],
     [ "setAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#aaf13ef227f69c96fbf3f950b621ae3ed", null ],
-    [ "::Ra::Core::Geometry::TopologicalMesh", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a2539d55dfd09040e0602be7b324e8d26", null ]
+    [ "unlock", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#ab76945f695e62832d9e758d24f66c268", null ]
 ];

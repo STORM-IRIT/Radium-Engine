@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.42</span>
+   &#160;<span id="projectnumber">1.2.43</span>
    </div>
   </td>
  </tr>
@@ -375,8 +375,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Use the given geometry as base for a display mesh. This will move <code>mesh</code> and *this will take the ownership of the data. The currently owned mesh is deleted, if any. This method should be called to set or replace the CoreGeometry, if you want to update attributes or indices, use getCoreGeometry and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Core::Geometry::AttribArrayGeometry</a> setters instead. </p><dl class="section warning"><dt>Warning</dt><dd>For indices, you must call setIndicesDirty after modification. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000042">Todo:</a></b></dt><dd>add observer mecanism for indices. </dd></dl>
+<p>Use the given geometry as base for a display mesh. This will move <code>mesh</code> and *this will take the ownership of the data. The currently owned mesh is deleted, if any. This method should be called to set or replace the CoreGeometry, if you want to update attributes or indices, use getCoreGeometry and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">Core::Geometry::AttribArrayGeometry</a> setters instead. </p><dl class="section warning"><dt>Warning</dt><dd>For indices, you must call setIndicesDirty after modification. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000044">Todo:</a></b></dt><dd>add observer mecanism for indices. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;</a>.</p>
 
@@ -442,6 +442,8 @@ template&lt;typename T &gt; </div>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html">Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html#a7428bd97ca8225f6962df8ae15ebbdfb">Ra::Engine::Data::GeneralMesh&lt; T &gt;</a>.</p>
+
 <p class="definition">Definition at line <a class="el" href="Mesh_8inl_source.html#l00433">433</a> of file <a class="el" href="Mesh_8inl_source.html">Mesh.inl</a>.</p>
 
 </div>
@@ -456,7 +458,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">IndexedGeometry</a></li>
-    <li class="footer">Generated on Wed Jun 22 2022 15:13:48 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 23 2022 06:27:56 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

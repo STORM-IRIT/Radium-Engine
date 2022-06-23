@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.42</span>
+   &#160;<span id="projectnumber">1.2.43</span>
    </div>
   </td>
  </tr>
@@ -429,112 +429,107 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;};</div>
 <div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
-<div class="line"><a name="l00427"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">  427</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">PolyMesh</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">IndexedGeometry</a>&lt;Core::Geometry::PolyMesh&gt;</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;{</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">base</a>      = <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">IndexedGeometry&lt;Core::Geometry::PolyMesh&gt;</a>;</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    <span class="keyword">using</span> IndexType = Core::Vector3ui;</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <span class="keyword">using</span> base::IndexedGeometry;</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">size_t</span> getNumFaces() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160; </div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> updateGL_specific_impl() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160; </div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> triangulate();</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Core::AlignedStdVector&lt;IndexType&gt;</a> m_triangleIndices;</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;};</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160; </div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreMeshType&gt;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;CoreMeshType createCoreMeshFromGeometryData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a>* data ) {</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    CoreMeshType mesh;</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    <span class="keyword">typename</span> CoreMeshType::PointAttribHandle::Container vertices;</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    <span class="keyword">typename</span> CoreMeshType::NormalAttribHandle::Container normals;</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="keyword">typename</span> CoreMeshType::IndexContainerType indices;</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160; </div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    vertices.reserve( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab6d428e893d8214e7d25cfe8302d6e39">getVerticesSize</a>() );</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    std::copy(</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;        data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a343a1ef88bb043988108858b6c6de313">getVertices</a>().begin(), data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a343a1ef88bb043988108858b6c6de313">getVertices</a>().end(), std::back_inserter( vertices ) );</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160; </div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    <span class="keywordflow">if</span> ( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac6a98d1d64d63da77c59b9e9c9b87112">hasNormals</a>() ) {</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;        normals.reserve( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab6d428e893d8214e7d25cfe8302d6e39">getVerticesSize</a>() );</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        std::copy(</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;            data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2efe57cb294fc84bec35d413d16a69a5">getNormals</a>().begin(), data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2efe57cb294fc84bec35d413d16a69a5">getNormals</a>().end(), std::back_inserter( normals ) );</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    }</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160; </div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; faces = data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab6a1417d3aea242d4be51240e8c662a5">getFaces</a>();</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    indices.reserve( faces.size() );</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    mesh.setVertices( std::move( vertices ) );</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    mesh.setNormals( std::move( normals ) );</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="comment">// \todo remove when data will handle all the attributes in a coherent way.</span></div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    <span class="keywordflow">if</span> ( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#af2915cec9f0eda10e9469bf26fd755af">hasTangents</a>() ) {</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TANGENT ),</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                        data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2e735dfcbd47f18f28072b989b3a9224">getTangents</a>() );</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;    }</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160; </div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    <span class="keywordflow">if</span> ( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae1380c755066e114a74c184af2333bca">hasBiTangents</a>() ) {</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_BITANGENT ),</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                        data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a1e3871c31bed0bd00be8d06c3452581d">getBiTangents</a>() );</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00428"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">  428</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">GeneralMesh</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">IndexedGeometry</a>&lt;T&gt;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;{</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">base</a>      = <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">IndexedGeometry&lt;T&gt;</a>;</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    <span class="keyword">using</span> IndexType = Core::Vector3ui;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    <span class="keyword">using</span> base::IndexedGeometry;</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">size_t</span> getNumFaces() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160; </div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> updateGL_specific_impl() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> triangulate();</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Core::AlignedStdVector&lt;IndexType&gt;</a> m_triangleIndices;</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;};</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160; </div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="keyword">using</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">PolyMesh</a> = <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">GeneralMesh&lt;Core::Geometry::PolyMesh&gt;</a>;</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="keyword">using</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">QuadMesh</a> = <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">GeneralMesh&lt;Core::Geometry::QuadMesh&gt;</a>;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreMeshType&gt;</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;CoreMeshType createCoreMeshFromGeometryData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a>* data ) {</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    CoreMeshType mesh;</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keyword">typename</span> CoreMeshType::IndexContainerType indices;</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160; </div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    <span class="keywordflow">if</span> ( !data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a0de3cde9db9923f6ba5e0a43342988e3">isLineMesh</a>() ) {</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        <span class="keyword">auto</span>&amp; geo = data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a8d05725649ec315b28b422fbbc856af4">getGeometry</a>();</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; [layerKeyType, layerBase] =</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;            geo.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a6be22f11eba7a83457e81cc50b2cae25">getFirstLayerOccurrence</a>( mesh.getLayerKey().first );</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; layer = <span class="keyword">static_cast&lt;</span></div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;            <span class="keyword">const </span><a class="code" href="structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html">Core::Geometry::GeometryIndexLayer&lt;typename CoreMeshType::IndexType&gt;</a>&amp;<span class="keyword">&gt;</span>(</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;            layerBase );</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; faces = layer.collection();</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        indices.reserve( faces.size() );</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;        std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    }</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="preprocessor">#if 0</span></div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    <span class="comment">// TODO manage line meshes in a &quot;usual&quot; way, i.e. as an indexed geometry with specific</span></div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="comment">//  rendering properties (i.e. shader, as it is the case for point clouds)</span></div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    <span class="comment">// Create a degenerated triangle to handle edges case.</span></div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; edges = ... access the <a class="code" href="structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html">LineIndexLayer</a></div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;        indices.reserve( edges.size() );</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        std::transform(</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;            edges.begin(), edges.end(), std::back_inserter( indices ), []( Ra::Core::Vector2ui v ) {</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;                return ( Ra::Core::Vector3ui { v( 0 ), v( 1 ), v( 1 ) } );</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;            } );</div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;    }</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160; </div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    <span class="keywordflow">if</span> ( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4613a77be8c92ae9d1ea906b0d9b5d9d">hasTextureCoordinates</a>() ) {</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TEXCOORD ),</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;                        data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a401dc38d3ba67efbb915efcf6e30cc6a">getTexCoords</a>() );</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;    }</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160; </div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;    <span class="comment">// add custom attribs</span></div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;    <span class="comment">// only attributs not handled before are handled by data-&gt;getAttribManager()</span></div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    <span class="comment">// but futur plan will handle also &quot;usual&quot; attibutes this way</span></div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;    mesh.vertexAttribs().copyAllAttributes( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac0639140eb38750d87d3c3dd9df1bc10">getAttribManager</a>() );</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160; </div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;    <span class="comment">// also this one will be automatically done with the futur behavior</span></div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <span class="comment">//        mesh-&gt;addData( Ra::Core::Geometry::VERTEX_WEIGHTS, meshData.weights );</span></div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160; </div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    mesh.setIndices( std::move( indices ) );</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160; </div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    <span class="keywordflow">return</span> mesh;</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;}</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160; </div>
-<div class="line"><a name="l00498"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1RenderMeshType.html">  498</a></span>&#160;<span class="keyword">namespace </span>RenderMeshType {</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> CoreMeshT&gt;</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;<span class="keyword">struct </span>getType {};</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160; </div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="keyword">struct </span>getType&lt;<a class="code" href="namespaceRa.html">Ra</a>::Core::Geometry::LineMesh&gt; {</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    <span class="keyword">using</span> Type = <a class="code" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html">Ra::Engine::Data::LineMesh</a>;</div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;};</div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160; </div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="keyword">struct </span>getType&lt;<a class="code" href="namespaceRa.html">Ra</a>::Core::Geometry::TriangleMesh&gt; {</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    <span class="keyword">using</span> Type = <a class="code" href="classRa_1_1Engine_1_1Data_1_1Mesh.html">Ra::Engine::Data::Mesh</a>;</div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;};</div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;<span class="keyword">struct </span>getType&lt;<a class="code" href="namespaceRa.html">Ra</a>::Core::Geometry::PolyMesh&gt; {</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;    <span class="keyword">using</span> Type = <a class="code" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">Ra::Engine::Data::PolyMesh</a>;</div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;};</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;} <span class="comment">// namespace RenderMeshType</span></div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160; </div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreMeshType&gt;</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="keyword">typename</span> RenderMeshType::getType&lt;CoreMeshType&gt;::Type*</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;createMeshFromGeometryData( <span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a>* data ) {</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    <span class="keyword">using</span> MeshType = <span class="keyword">typename</span> RenderMeshType::getType&lt;CoreMeshType&gt;::Type;</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160; </div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;    CoreMeshType mesh = createCoreMeshFromGeometryData&lt;CoreMeshType&gt;( data );</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160; </div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;    MeshType* ret = <span class="keyword">new</span> MeshType { name };</div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    ret-&gt;loadGeometry( std::move( mesh ) );</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160; </div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;}</div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160; </div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/Mesh.inl&gt;</span></div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160; </div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    mesh.setIndices( std::move( indices ) );</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160; </div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;    <span class="comment">// This copy only &quot;usual&quot; attributes. See Core::Geometry::AttribManager::copyAllAttributes</span></div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;    mesh.vertexAttribs().copyAllAttributes( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a8d05725649ec315b28b422fbbc856af4">getGeometry</a>().<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a31d0673f24d7d2ace4452f77310cbf5a">vertexAttribs</a>() );</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160; </div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;    <span class="keywordflow">return</span> mesh;</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;}</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160; </div>
+<div class="line"><a name="l00489"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1RenderMeshType.html">  489</a></span>&#160;<span class="keyword">namespace </span>RenderMeshType {</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> CoreMeshT&gt;</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;<span class="keyword">struct </span>getType {};</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160; </div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;<span class="keyword">struct </span>getType&lt;<a class="code" href="namespaceRa.html">Ra</a>::Core::Geometry::LineMesh&gt; {</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    <span class="keyword">using</span> Type = <a class="code" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html">Ra::Engine::Data::LineMesh</a>;</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;};</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160; </div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="keyword">struct </span>getType&lt;<a class="code" href="namespaceRa.html">Ra</a>::Core::Geometry::TriangleMesh&gt; {</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    <span class="keyword">using</span> Type = <a class="code" href="classRa_1_1Engine_1_1Data_1_1Mesh.html">Ra::Engine::Data::Mesh</a>;</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;};</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160; </div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="keyword">struct </span>getType&lt;<a class="code" href="namespaceRa.html">Ra</a>::Core::Geometry::QuadMesh&gt; {</div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    <span class="keyword">using</span> Type = <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">Ra::Engine::Data::QuadMesh</a>;</div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;};</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160; </div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="keyword">struct </span>getType&lt;<a class="code" href="namespaceRa.html">Ra</a>::Core::Geometry::PolyMesh&gt; {</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <span class="keyword">using</span> Type = <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">Ra::Engine::Data::PolyMesh</a>;</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;};</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;} <span class="comment">// namespace RenderMeshType</span></div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160; </div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreMeshType&gt;</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="keyword">typename</span> RenderMeshType::getType&lt;CoreMeshType&gt;::Type*</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;createMeshFromGeometryData( <span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a>* data ) {</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;    <span class="keyword">using</span> MeshType = <span class="keyword">typename</span> RenderMeshType::getType&lt;CoreMeshType&gt;::Type;</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160; </div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;    <span class="keyword">auto</span> mesh = createCoreMeshFromGeometryData&lt;CoreMeshType&gt;( data );</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160; </div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    MeshType* ret = <span class="keyword">new</span> MeshType { name };</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;    ret-&gt;loadGeometry( std::move( mesh ) );</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160; </div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;}</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160; </div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/Mesh.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribHandle_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Ra::Core::Utils::AttribHandle</a></div><div class="ttdoc">An attrib handle basically store an Index and a name.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00136">Attribs.hpp:136</a></div></div>
@@ -543,12 +538,10 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html">Ra::Engine::Data::CoreGeometryDisplayable</a></div><div class="ttdoc">Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00215">Mesh.hpp:215</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html">Ra::Engine::Data::MultiIndexedGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00342">Mesh.hpp:342</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1IndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">Ra::Engine::Data::IndexedGeometry</a></div><div class="ttdoc">An engine mesh owning CoreGeometry, with indices.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00321">Mesh.hpp:321</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a0de3cde9db9923f6ba5e0a43342988e3"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a0de3cde9db9923f6ba5e0a43342988e3">Ra::Core::Asset::GeometryData::isLineMesh</a></div><div class="ttdeci">bool isLineMesh() const</div><div class="ttdoc">Return true if the object is a Line Mesh.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00043">GeometryData.inl:43</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html">Ra::Engine::Data::IndexedAttribArrayDisplayable</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00191">Mesh.hpp:191</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a4613a77be8c92ae9d1ea906b0d9b5d9d"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4613a77be8c92ae9d1ea906b0d9b5d9d">Ra::Core::Asset::GeometryData::hasTextureCoordinates</a></div><div class="ttdeci">bool hasTextureCoordinates() const</div><div class="ttdoc">Return true if the object has vertex texture coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00218">GeometryData.inl:218</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a2e735dfcbd47f18f28072b989b3a9224"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2e735dfcbd47f18f28072b989b3a9224">Ra::Core::Asset::GeometryData::getTangents</a></div><div class="ttdeci">Vector3Array &amp; getTangents()</div><div class="ttdoc">Return the list of vertex tangent vectors.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00115">GeometryData.inl:115</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a401dc38d3ba67efbb915efcf6e30cc6a"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a401dc38d3ba67efbb915efcf6e30cc6a">Ra::Core::Asset::GeometryData::getTexCoords</a></div><div class="ttdeci">Vector3Array &amp; getTexCoords()</div><div class="ttdoc">Return the list of vertex texture coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00141">GeometryData.inl:141</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a343a1ef88bb043988108858b6c6de313"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a343a1ef88bb043988108858b6c6de313">Ra::Core::Asset::GeometryData::getVertices</a></div><div class="ttdeci">Vector3Array &amp; getVertices()</div><div class="ttdoc">Return the list of vertices.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00034">GeometryData.inl:34</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab6a1417d3aea242d4be51240e8c662a5"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab6a1417d3aea242d4be51240e8c662a5">Ra::Core::Asset::GeometryData::getFaces</a></div><div class="ttdeci">VectorNuArray &amp; getFaces()</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00076">GeometryData.inl:76</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1GeneralMesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">Ra::Engine::Data::GeneralMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00428">Mesh.hpp:428</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_a31d0673f24d7d2ace4452f77310cbf5a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a31d0673f24d7d2ace4452f77310cbf5a">Ra::Core::Geometry::AttribArrayGeometry::vertexAttribs</a></div><div class="ttdeci">Utils::AttribManager &amp; vertexAttribs()</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00192">TriangleMesh.inl:192</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html">Ra::Engine::Data::VaoIndices::IndicesObserver</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00167">Mesh.hpp:167</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Vao_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Vao.html">Ra::Engine::Data::Vao</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00034">Mesh.hpp:34</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ObjectWithSemantic_html_a2154019cc96a06c7b82cb9f08b2e56fc"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html#a2154019cc96a06c7b82cb9f08b2e56fc">Ra::Core::Utils::ObjectWithSemantic::SemanticNameCollection</a></div><div class="ttdeci">std::set&lt; SemanticName &gt; SemanticNameCollection</div><div class="ttdoc">Store in set to allow for logarithmic search.</div><div class="ttdef"><b>Definition:</b> <a href="ObjectWithSemantic_8hpp_source.html#l00023">ObjectWithSemantic.hpp:23</a></div></div>
@@ -556,32 +549,28 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; T &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1LineMesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1LineMesh.html">Ra::Engine::Data::LineMesh</a></div><div class="ttdoc">LineMesh, own a Core::Geometry::LineMesh.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00381">Mesh.hpp:381</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1AbstractGeometry_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="AbstractGeometry_8hpp_source.html#l00017">AbstractGeometry.hpp:17</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a1e3871c31bed0bd00be8d06c3452581d"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a1e3871c31bed0bd00be8d06c3452581d">Ra::Core::Asset::GeometryData::getBiTangents</a></div><div class="ttdeci">Vector3Array &amp; getBiTangents()</div><div class="ttdoc">Return the list of vertex bitangent vectors.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00128">GeometryData.inl:128</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver_html_a44aaa2b2cb23b615836b259691eff23e"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html#a44aaa2b2cb23b615836b259691eff23e">Ra::Engine::Data::VaoIndices::IndicesObserver::operator()</a></div><div class="ttdeci">void operator()()</div><div class="ttdoc">not tested</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00173">Mesh.hpp:173</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_abe5708d0ea108dc37eba0088ab7cf35c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#abe5708d0ea108dc37eba0088ab7cf35c">Ra::Engine::Data::CoreGeometryDisplayable&lt; Core::Geometry::LineMesh &gt;::TranslationTable</a></div><div class="ttdeci">std::map&lt; std::string, std::string &gt; TranslationTable</div><div class="ttdoc">Core::Mesh attrib name to Render::Mesh attrib name.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00289">Mesh.hpp:289</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1LineIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html">Ra::Core::Geometry::LineIndexLayer</a></div><div class="ttdoc">Index layer for line mesh.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00461">IndexedGeometry.hpp:461</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a8d05725649ec315b28b422fbbc856af4"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a8d05725649ec315b28b422fbbc856af4">Ra::Core::Asset::GeometryData::getGeometry</a></div><div class="ttdeci">Geometry::MultiIndexedGeometry &amp; getGeometry()</div><div class="ttdoc">Read/write access to the multiIndexedGeometry;.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00097">GeometryData.inl:97</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Ra::Engine::Data::Displayable</a></div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00021">DisplayableObject.hpp:21</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_af2915cec9f0eda10e9469bf26fd755af"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#af2915cec9f0eda10e9469bf26fd755af">Ra::Core::Asset::GeometryData::hasTangents</a></div><div class="ttdeci">bool hasTangents() const</div><div class="ttdoc">Return true if the object has vertex tangent vectors.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00210">GeometryData.inl:210</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00050">Mesh.hpp:50</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ae1380c755066e114a74c184af2333bca"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae1380c755066e114a74c184af2333bca">Ra::Core::Asset::GeometryData::hasBiTangents</a></div><div class="ttdeci">bool hasBiTangents() const</div><div class="ttdoc">Return true if the object has vertex bitangent vectors.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00214">GeometryData.inl:214</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html">Ra::Engine::Data::VaoIndices</a></div><div class="ttdoc">Concept class to ensure consistent naming of VaoIndices accross derived classes.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00160">Mesh.hpp:160</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html_ad089d928906d89959f0955c699a715d0"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0">Ra::Engine::Data::AttribArrayDisplayable::MeshRenderMode</a></div><div class="ttdeci">MeshRenderMode</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00056">Mesh.hpp:56</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector&lt; IndexType &gt;</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ac6a98d1d64d63da77c59b9e9c9b87112"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac6a98d1d64d63da77c59b9e9c9b87112">Ra::Core::Asset::GeometryData::hasNormals</a></div><div class="ttdeci">bool hasNormals() const</div><div class="ttdoc">Return true if the object has vertex normals.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00206">GeometryData.inl:206</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab6d428e893d8214e7d25cfe8302d6e39"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab6d428e893d8214e7d25cfe8302d6e39">Ra::Core::Asset::GeometryData::getVerticesSize</a></div><div class="ttdeci">std::size_t getVerticesSize() const</div><div class="ttdoc">Return the number of vertices.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00030">GeometryData.inl:30</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1PointCloud_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1PointCloud.html">Ra::Engine::Data::PointCloud</a></div><div class="ttdoc">A PointCloud without indices.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00297">Mesh.hpp:297</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">Ra::Core::Utils::AttribManager</a></div><div class="ttdoc">The AttribManager provides attributes management by handles.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00194">Attribs.hpp:194</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1PolyMesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">Ra::Engine::Data::PolyMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00427">Mesh.hpp:427</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html">Ra::Core::Geometry::GeometryIndexLayer</a></div><div class="ttdoc">Typed index collection.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00053">IndexedGeometry.hpp:53</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html_a8cc588360ff97fc9d3d0b05d54f4671c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a8cc588360ff97fc9d3d0b05d54f4671c">Ra::Engine::Data::Displayable::getName</a></div><div class="ttdeci">const std::string &amp; getName() const</div><div class="ttdoc">Returns the name of the mesh.</div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00042">DisplayableObject.hpp:42</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a2efe57cb294fc84bec35d413d16a69a5"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2efe57cb294fc84bec35d413d16a69a5">Ra::Core::Asset::GeometryData::getNormals</a></div><div class="ttdeci">Vector3Array &amp; getNormals()</div><div class="ttdoc">Return the list of vertex normals.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00102">GeometryData.inl:102</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a></div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00025">GeometryData.hpp:25</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00021">TriangleMesh.hpp:21</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a></div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00026">GeometryData.hpp:26</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></div><div class="ttdoc">This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00024">TriangleMesh.hpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver_html_a3bc53ce437e64113cf2237483baeb98a"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html#a3bc53ce437e64113cf2237483baeb98a">Ra::Engine::Data::VaoIndices::IndicesObserver::IndicesObserver</a></div><div class="ttdeci">IndicesObserver(VaoIndices *displayable)</div><div class="ttdoc">not tested</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00171">Mesh.hpp:171</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ac0639140eb38750d87d3c3dd9df1bc10"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac0639140eb38750d87d3c3dd9df1bc10">Ra::Core::Asset::GeometryData::getAttribManager</a></div><div class="ttdeci">Utils::AttribManager &amp; getAttribManager()</div><div class="ttdoc">Access to the attrib manager.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00226">GeometryData.inl:226</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry_html_a6be22f11eba7a83457e81cc50b2cae25"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a6be22f11eba7a83457e81cc50b2cae25">Ra::Core::Geometry::MultiIndexedGeometry::getFirstLayerOccurrence</a></div><div class="ttdeci">std::pair&lt; LayerKeyType, const GeometryIndexLayerBase &amp; &gt; getFirstLayerOccurrence(const LayerSemanticCollection &amp;semantics) const</div><div class="ttdoc">Read-only access to a layer.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8cpp_source.html#l00135">IndexedGeometry.cpp:135</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>Mesh.hpp</b></li>
-    <li class="footer">Generated on Wed Jun 22 2022 15:13:47 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 23 2022 06:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

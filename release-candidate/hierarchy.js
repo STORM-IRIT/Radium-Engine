@@ -12,6 +12,7 @@ var hierarchy =
           [ "Ra::Core::Geometry::IndexedGeometry< Vector1ui >", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", null ],
           [ "Ra::Core::Geometry::IndexedGeometry< Vector2ui >", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", null ],
           [ "Ra::Core::Geometry::IndexedGeometry< Vector3ui >", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", null ],
+          [ "Ra::Core::Geometry::IndexedGeometry< Vector4ui >", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", null ],
           [ "Ra::Core::Geometry::IndexedGeometry< VectorNui >", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", null ],
           [ "Ra::Core::Geometry::IndexedGeometry< T >", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", null ]
         ] ]
@@ -83,10 +84,21 @@ var hierarchy =
     [ "Ra::Engine::Scene::ComponentMessenger", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html", null ],
     [ "Ra::Core::Utils::ContainerIntrospectionInterface", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html", [
       [ "Ra::Core::Geometry::GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", [
-        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector1ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", null ],
-        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector2ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", null ],
-        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector3ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", null ],
-        [ "Ra::Core::Geometry::GeometryIndexLayer< VectorNui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", null ],
+        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector1ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
+          [ "Ra::Core::Geometry::PointCloudIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html", null ]
+        ] ],
+        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector2ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
+          [ "Ra::Core::Geometry::LineIndexLayer", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html", null ]
+        ] ],
+        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector3ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
+          [ "Ra::Core::Geometry::TriangleIndexLayer", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html", null ]
+        ] ],
+        [ "Ra::Core::Geometry::GeometryIndexLayer< Vector4ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
+          [ "Ra::Core::Geometry::QuadIndexLayer", "structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html", null ]
+        ] ],
+        [ "Ra::Core::Geometry::GeometryIndexLayer< VectorNui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
+          [ "Ra::Core::Geometry::PolyIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html", null ]
+        ] ],
         [ "Ra::Core::Geometry::GeometryIndexLayer< T >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", null ]
       ] ],
       [ "Ra::Core::Utils::AttribBase", "classRa_1_1Core_1_1Utils_1_1AttribBase.html", null ]
@@ -104,18 +116,15 @@ var hierarchy =
         [ "Ra::Engine::Data::CoreGeometryDisplayable< Core::Geometry::PointCloud >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", [
           [ "Ra::Engine::Data::PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", null ]
         ] ],
-        [ "Ra::Engine::Data::CoreGeometryDisplayable< Core::Geometry::PolyMesh >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", [
-          [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::PolyMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", [
-            [ "Ra::Engine::Data::PolyMesh", "classRa_1_1Engine_1_1Data_1_1PolyMesh.html", null ]
-          ] ]
-        ] ],
         [ "Ra::Engine::Data::CoreGeometryDisplayable< Core::Geometry::TriangleMesh >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", [
           [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::TriangleMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", [
             [ "Ra::Engine::Data::Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", null ]
           ] ]
         ] ],
         [ "Ra::Engine::Data::CoreGeometryDisplayable< T >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", [
-          [ "Ra::Engine::Data::IndexedGeometry< T >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ],
+          [ "Ra::Engine::Data::IndexedGeometry< T >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", [
+            [ "Ra::Engine::Data::GeneralMesh< T >", "classRa_1_1Engine_1_1Data_1_1GeneralMesh.html", null ]
+          ] ],
           [ "Ra::Engine::Data::MultiIndexedGeometry< T >", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html", null ]
         ] ],
         [ "Ra::Engine::Data::IndexedAttribArrayDisplayable< I >", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html", null ]
@@ -286,7 +295,6 @@ var hierarchy =
     [ "Ra::Engine::Data::Vao", "classRa_1_1Engine_1_1Data_1_1Vao.html", null ],
     [ "Ra::Engine::Data::VaoIndices", "classRa_1_1Engine_1_1Data_1_1VaoIndices.html", [
       [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::LineMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ],
-      [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::PolyMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ],
       [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::TriangleMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ],
       [ "Ra::Engine::Data::IndexedAttribArrayDisplayable< I >", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html", null ],
       [ "Ra::Engine::Data::IndexedGeometry< T >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ]

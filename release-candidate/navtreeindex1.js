@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"PickingManager_8cpp_source.html":[11,0,0,2,8,4],
 "PickingManager_8hpp_source.html":[11,0,0,2,8,5],
 "PlainMaterial_8cpp_source.html":[11,0,0,1,0,19],
 "PlainMaterial_8hpp_source.html":[11,0,0,1,0,20],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c68c776ddd42eff4a3f5b880a39667d":[10,0,0,0,0,1,12],
 "classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e":[10,0,0,0,0,1,6],
 "classRa_1_1Core_1_1Animation_1_1HandleArray.html#a2a3dcef897350c7a61275fc648f3a4a7":[10,0,0,0,0,1,16],
-"classRa_1_1Core_1_1Animation_1_1HandleArray.html#a4066d2ff41133125732e90ccb1f85536":[10,0,0,0,0,1,14],
-"classRa_1_1Core_1_1Animation_1_1HandleArray.html#a53d93cfbeb4aee61d6d241e22cfd7aff":[10,0,0,0,0,1,5]
+"classRa_1_1Core_1_1Animation_1_1HandleArray.html#a4066d2ff41133125732e90ccb1f85536":[10,0,0,0,0,1,14]
 };

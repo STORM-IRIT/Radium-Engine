@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.42</span>
+   &#160;<span id="projectnumber">1.2.43</span>
    </div>
   </td>
  </tr>
@@ -220,7 +220,7 @@ $(document).ready(function(){initNavTree('FileData_8inl_source.html',''); initRe
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">using namespace </span>Core::Utils; <span class="comment">// log</span></div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    uint64_t vtxCount = 0;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; geom : m_geometryData ) {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        vtxCount += geom-&gt;getVerticesSize();</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        vtxCount += geom-&gt;getGeometry().vertices().size();</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;======== LOADING SUMMARY ========&quot;</span>;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;Mesh loaded        : &quot;</span> &lt;&lt; m_geometryData.size();</div>
@@ -241,7 +241,7 @@ $(document).ready(function(){initNavTree('FileData_8inl_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><b>FileData.inl</b></li>
-    <li class="footer">Generated on Wed Jun 22 2022 15:13:46 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 23 2022 06:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

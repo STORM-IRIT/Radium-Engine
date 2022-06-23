@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.42</span>
+   &#160;<span id="projectnumber">1.2.43</span>
    </div>
   </td>
  </tr>
@@ -101,6 +101,9 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Geometry_1_1AttribA
 </div><!--header-->
 <div class="contents">
 
+<p>This class represents vertex + attributes per vertex. Toplogy is handled in <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> subclass.  
+ <a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="TriangleMesh_8hpp_source.html">Core/Geometry/TriangleMesh.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Ra::Core::Geometry::AttribArrayGeometry:</div>
@@ -164,7 +167,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acfa0fc88202889dece552a7cb354006a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75f68d38992c5b5554ce6ebd852fac5f"><td class="memItemLeft" align="right" valign="top"><a id="a75f68d38992c5b5554ce6ebd852fac5f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a75f68d38992c5b5554ce6ebd852fac5f">clear</a> () override</td></tr>
-<tr class="memdesc:a75f68d38992c5b5554ce6ebd852fac5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases all data, making the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a> empty. <br /></td></tr>
+<tr class="memdesc:a75f68d38992c5b5554ce6ebd852fac5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases all data, making the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a> empty. <br /></td></tr>
 <tr class="separator:a75f68d38992c5b5554ce6ebd852fac5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a887411177386edbcdc35d0c6bf78a83a"><td class="memItemLeft" align="right" valign="top"><a id="a887411177386edbcdc35d0c6bf78a83a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a">setVertices</a> (PointAttribHandle::Container &amp;&amp;<a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>)</td></tr>
@@ -198,25 +201,14 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a2cd9847705449eab392277990c858fff"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a2cd9847705449eab392277990c858fff">isValid</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;h) const</td></tr>
 <tr class="memdesc:a2cd9847705449eab392277990c858fff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if <code>h</code> refers to an existing attribute in *this. <br /></td></tr>
 <tr class="separator:a2cd9847705449eab392277990c858fff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb68d9cd8cf8c1e05886a23f0ad33c59"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aeb68d9cd8cf8c1e05886a23f0ad33c59"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59">getAttrib</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;h)</td></tr>
-<tr class="separator:aeb68d9cd8cf8c1e05886a23f0ad33c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b1a1e47cf1ef5cae112149a18ebbdd7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a4b1a1e47cf1ef5cae112149a18ebbdd7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a4b1a1e47cf1ef5cae112149a18ebbdd7">getAttribPtr</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;h)</td></tr>
-<tr class="separator:a4b1a1e47cf1ef5cae112149a18ebbdd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4bdcb574f40ab7eecc5760ecc66a9a2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ad4bdcb574f40ab7eecc5760ecc66a9a2"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ad4bdcb574f40ab7eecc5760ecc66a9a2">getAttrib</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;h) const</td></tr>
-<tr class="separator:ad4bdcb574f40ab7eecc5760ecc66a9a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cd323203765bad4d7ab0118f61669cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Utils::AttribBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a9cd323203765bad4d7ab0118f61669cc">getAttribBase</a> (const std::string &amp;name)</td></tr>
-<tr class="separator:a9cd323203765bad4d7ab0118f61669cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a377baa027aad5620615d0f876a5698e0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a377baa027aad5620615d0f876a5698e0">hasAttrib</a> (const std::string &amp;name)</td></tr>
-<tr class="separator:a377baa027aad5620615d0f876a5698e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f1aba3459c43d7dc9108f56006f365"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a67f1aba3459c43d7dc9108f56006f365">hasAttrib</a> (const std::string &amp;name) const</td></tr>
+<tr class="separator:a67f1aba3459c43d7dc9108f56006f365"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac46efab2f82a6946ea1d11d440fb10b5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ac46efab2f82a6946ea1d11d440fb10b5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ac46efab2f82a6946ea1d11d440fb10b5">removeAttrib</a> (<a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;h)</td></tr>
 <tr class="separator:ac46efab2f82a6946ea1d11d440fb10b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad00432ab7e8d5ab576f7339679d0f92c"><td class="memItemLeft" align="right" valign="top"><a id="ad00432ab7e8d5ab576f7339679d0f92c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ad00432ab7e8d5ab576f7339679d0f92c">clearAttributes</a> ()</td></tr>
-<tr class="memdesc:ad00432ab7e8d5ab576f7339679d0f92c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases all attributes, leaving the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a> with geometry only. <br /></td></tr>
+<tr class="memdesc:ad00432ab7e8d5ab576f7339679d0f92c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases all attributes, leaving the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a> with geometry only. <br /></td></tr>
 <tr class="separator:ad00432ab7e8d5ab576f7339679d0f92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1828a9428b47dc4a3f5cebec0681fc83"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a1828a9428b47dc4a3f5cebec0681fc83">copyBaseGeometry</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a> &amp;other)</td></tr>
 <tr class="separator:a1828a9428b47dc4a3f5cebec0681fc83"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -247,6 +239,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a71452620a83df6e6f6b995a503dc8a52">normalsUnlock</a> ()</td></tr>
 <tr class="memdesc:a71452620a83df6e6f6b995a503dc8a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release lock on vertices normals. <br /></td></tr>
 <tr class="separator:a71452620a83df6e6f6b995a503dc8a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Wrappers to Utils::AttribManager.</div></td></tr>
+<tr class="memitem:aeb68d9cd8cf8c1e05886a23f0ad33c59"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aeb68d9cd8cf8c1e05886a23f0ad33c59"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59">getAttrib</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;h)</td></tr>
+<tr class="separator:aeb68d9cd8cf8c1e05886a23f0ad33c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4bdcb574f40ab7eecc5760ecc66a9a2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad4bdcb574f40ab7eecc5760ecc66a9a2"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ad4bdcb574f40ab7eecc5760ecc66a9a2">getAttrib</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;h) const</td></tr>
+<tr class="separator:ad4bdcb574f40ab7eecc5760ecc66a9a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad54597b36d6141b5cc21beffb4e7054f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad54597b36d6141b5cc21beffb4e7054f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ad54597b36d6141b5cc21beffb4e7054f">getAttrib</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:ad54597b36d6141b5cc21beffb4e7054f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaca7e326bd0c5cfac93e4e35b8f63554"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aaca7e326bd0c5cfac93e4e35b8f63554"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aaca7e326bd0c5cfac93e4e35b8f63554">getAttrib</a> (const std::string &amp;name) const</td></tr>
+<tr class="separator:aaca7e326bd0c5cfac93e4e35b8f63554"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b1a1e47cf1ef5cae112149a18ebbdd7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4b1a1e47cf1ef5cae112149a18ebbdd7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a4b1a1e47cf1ef5cae112149a18ebbdd7">getAttribPtr</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;h)</td></tr>
+<tr class="separator:a4b1a1e47cf1ef5cae112149a18ebbdd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accec98ac722d92eb9857002627b580ba"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:accec98ac722d92eb9857002627b580ba"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#accec98ac722d92eb9857002627b580ba">getAttribPtr</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;h) const</td></tr>
+<tr class="separator:accec98ac722d92eb9857002627b580ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cd323203765bad4d7ab0118f61669cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Utils::AttribBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a9cd323203765bad4d7ab0118f61669cc">getAttribBase</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:a9cd323203765bad4d7ab0118f61669cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9c135426724254fe4309ab5cfabbd50"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Utils::AttribBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ad9c135426724254fe4309ab5cfabbd50">getAttribBase</a> (const std::string &amp;name) const</td></tr>
+<tr class="separator:ad9c135426724254fe4309ab5cfabbd50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:ae1956b0396dadd84f55a12f2160e5671"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ae1956b0396dadd84f55a12f2160e5671"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">addAttrib</a> (const std::string &amp;name)</td></tr>
@@ -285,9 +300,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setAabb</b> (const Co
 <tr class="separator:a5279cc29d76310a739c2764308b9c9d2 inherit pro_methods_structRa_1_1Core_1_1Geometry_1_1AbstractGeometry"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Attributes are unique per vertex, so that same position with different normals are two vertices. Points and Normals, defining the geometry, are always present. They can be accessed through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions.">vertices()</a> and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals.">normals()</a>. Other attribs could be added with <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">addAttrib()</a> and accesssed with <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59">getAttrib()</a>. </p><dl class="section note"><dt>Note</dt><dd>Mesh attribute VERTEX_POSITION and VERTEX_NORMAL are reserved and pre-allocated. </dd></dl>
+<div class="textblock"><p>This class represents vertex + attributes per vertex. Toplogy is handled in <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> subclass. </p>
+<p>Attributes are unique per vertex, so that same position with different normals are two vertices. Points and Normals, defining the geometry, are always present. They can be accessed through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions.">vertices()</a> and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals.">normals()</a>. Other attribs could be added with <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">addAttrib()</a> and accesssed with <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59">getAttrib()</a>. </p><dl class="section note"><dt>Note</dt><dd>Mesh attribute VERTEX_POSITION and VERTEX_NORMAL are reserved and pre-allocated. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00021">21</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00024">24</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac89c414c6ac9db9b0cedf946dc0ce525"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac89c414c6ac9db9b0cedf946dc0ce525">&#9670;&nbsp;</a></span>AttribArrayGeometry() <span class="overload">[1/2]</span></h2>
@@ -390,7 +406,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>handle to set the attrib data with getAttrib(handle).setData() </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00146">146</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00161">161</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -446,7 +462,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00153">153</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00168">168</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -502,7 +518,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00163">163</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00178">178</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -529,7 +545,7 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Appends another <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a> to this one, but only if they have the same attributes. Return True if <code>other</code> has been successfully appended. </p><dl class="section warning"><dt>Warning</dt><dd>There is no error check on the handles attribute type. </dd></dl>
+<p>Appends another <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a> to this one, but only if they have the same attributes. Return True if <code>other</code> has been successfully appended. </p><dl class="section warning"><dt>Warning</dt><dd>There is no error check on the handles attribute type. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TriangleMesh_8cpp_source.html#l00011">11</a> of file <a class="el" href="TriangleMesh_8cpp_source.html">TriangleMesh.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -558,7 +574,7 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Utility function colorzing the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a> with a given color. </p><dl class="section note"><dt>Note</dt><dd>Add the color attribute if needed. </dd></dl>
+<p>Utility function colorzing the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a> with a given color. </p><dl class="section note"><dt>Note</dt><dd>Add the color attribute if needed. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TriangleMesh_8cpp_source.html#l00038">38</a> of file <a class="el" href="TriangleMesh_8cpp_source.html">TriangleMesh.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -597,7 +613,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Copy all the attributes from <code>input</code>. Existing attributes are kept untouched, except if overwritten by attributes copied from <code>other</code>. </p><dl class="section return"><dt>Returns</dt><dd>True if the attributes have been sucessfully copied, false otherwise. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>*this and <code>input</code> must have the same number of vertices. </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>The original handles are not valid for the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a> copy. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The original handles are not valid for the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a> copy. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00069">69</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -648,7 +664,7 @@ template&lt;typename... Handles&gt; </div>
 </div><div class="memdoc">
 <p>Copy only the required attributes from <code>input</code>. Existing attributes are kept untouched, except if overwritten by attributes copied from <code>other</code>. </p><dl class="section return"><dt>Returns</dt><dd>True if the attributes have been sucessfully copied, false otherwise. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>*this and <code>input</code> must have the same number of vertices. </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>The original handles are not valid for the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a> copy. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The original handles are not valid for the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a> copy. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00060">60</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -699,8 +715,86 @@ template&lt;typename... Handles&gt; </div>
 
 </div>
 </div>
+<a id="ad54597b36d6141b5cc21beffb4e7054f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad54597b36d6141b5cc21beffb4e7054f">&#9670;&nbsp;</a></span>getAttrib() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; &amp; Ra::Core::Geometry::AttribArrayGeometry::getAttrib </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Utils::AttribManager::getAttrib</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00152">152</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_ad54597b36d6141b5cc21beffb4e7054f_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="aaca7e326bd0c5cfac93e4e35b8f63554"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaca7e326bd0c5cfac93e4e35b8f63554">&#9670;&nbsp;</a></span>getAttrib() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt; T &gt; &amp; Ra::Core::Geometry::AttribArrayGeometry::getAttrib </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Utils::AttribManager::getAttrib</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00147">147</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_aaca7e326bd0c5cfac93e4e35b8f63554_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="aeb68d9cd8cf8c1e05886a23f0ad33c59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb68d9cd8cf8c1e05886a23f0ad33c59">&#9670;&nbsp;</a></span>getAttrib() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb68d9cd8cf8c1e05886a23f0ad33c59">&#9670;&nbsp;</a></span>getAttrib() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -724,14 +818,14 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get attribute by handle. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">AttribManager::getAttrib()</a> for more info. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Utils::AttribManager::getAttrib</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00128">128</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_aeb68d9cd8cf8c1e05886a23f0ad33c59_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -739,7 +833,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ad4bdcb574f40ab7eecc5760ecc66a9a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4bdcb574f40ab7eecc5760ecc66a9a2">&#9670;&nbsp;</a></span>getAttrib() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4bdcb574f40ab7eecc5760ecc66a9a2">&#9670;&nbsp;</a></span>getAttrib() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -763,14 +857,14 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get attribute by handle (const). </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">AttribManager::getAttrib()</a> for more info. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Utils::AttribManager::getAttrib</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00133">133</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
-<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_ad4bdcb574f40ab7eecc5760ecc66a9a2_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -778,7 +872,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a9cd323203765bad4d7ab0118f61669cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cd323203765bad4d7ab0118f61669cc">&#9670;&nbsp;</a></span>getAttribBase()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cd323203765bad4d7ab0118f61669cc">&#9670;&nbsp;</a></span>getAttribBase() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -800,15 +894,52 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get attribute by handle (const). </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">AttribManager::getAttrib()</a> for more info. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a4a0ff80a4bcffeab304c30145cd555ef">Utils::AttribManager::getAttribBase</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00137">137</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
-<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_a9cd323203765bad4d7ab0118f61669cc_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="ad9c135426724254fe4309ab5cfabbd50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9c135426724254fe4309ab5cfabbd50">&#9670;&nbsp;</a></span>getAttribBase() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Utils::AttribBase</a> * Ra::Core::Geometry::AttribArrayGeometry::getAttribBase </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a4a0ff80a4bcffeab304c30145cd555ef">Utils::AttribManager::getAttribBase</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00142">142</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_ad9c135426724254fe4309ab5cfabbd50_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -842,11 +973,11 @@ template&lt;typename T &gt; </div>
 <p>Return the Handle to the attribute with the given name if it exists, an invalid handle otherwise. </p><dl class="section see"><dt>See also</dt><dd>AttribManager::getAttribHandle() for more info. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00118">118</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
-<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_a25adccb0a28277580c023e2cd4adb0b0_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -854,7 +985,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a4b1a1e47cf1ef5cae112149a18ebbdd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b1a1e47cf1ef5cae112149a18ebbdd7">&#9670;&nbsp;</a></span>getAttribPtr()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b1a1e47cf1ef5cae112149a18ebbdd7">&#9670;&nbsp;</a></span>getAttribPtr() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -878,12 +1009,41 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get attribute by handle. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">AttribManager::getAttrib()</a> for more info. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>Utils::AttribManager::getAttribPtr </dd></dl>
 
 </div>
 </div>
-<a id="a377baa027aad5620615d0f876a5698e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a377baa027aad5620615d0f876a5698e0">&#9670;&nbsp;</a></span>hasAttrib()</h2>
+<a id="accec98ac722d92eb9857002627b580ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accec98ac722d92eb9857002627b580ba">&#9670;&nbsp;</a></span>getAttribPtr() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Utils::Attrib</a>&lt;T&gt;* Ra::Core::Geometry::AttribArrayGeometry::getAttribPtr </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Utils::AttribHandle</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>h</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd>Utils::AttribManager::getAttribPtr </dd></dl>
+
+</div>
+</div>
+<a id="a67f1aba3459c43d7dc9108f56006f365"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67f1aba3459c43d7dc9108f56006f365">&#9670;&nbsp;</a></span>hasAttrib()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -896,7 +1056,7 @@ template&lt;typename T &gt; </div>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -907,13 +1067,13 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Check if an attribute exists with the given name. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#acf143d6db7f6e39edb18ed21d45b3317" title="contains Check if an attribute with the given name exists.">AttribManager::contains</a> for more info. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00141">141</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
-<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00156">156</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-15-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_a377baa027aad5620615d0f876a5698e0_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_a67f1aba3459c43d7dc9108f56006f365_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -943,12 +1103,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Read/write access the vertices normals. </p><dl class="section warning"><dt>Warning</dt><dd>need to call normalsUnlock when job done. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00193">193</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
-<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00208">208</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_a365e4d1e66fb093b775a17562408126c_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1010,11 +1170,11 @@ template&lt;typename T &gt; </div>
 <p>Assignment operator, copy all the data (geometry, attributes). </p><dl class="section warning"><dt>Warning</dt><dd>Handles on <code>other</code> are not valid for *this. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00022">22</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
-<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_a6ba5cb884c4d2878102a07d644067ebf_cgraph.svg" width="100%" height="412"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1048,12 +1208,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Remove attribute by handle. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#aeb28dcc5c1980e1fc7da191eb69bcbcb">AttribManager::removeAttrib()</a> for more info. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00172">172</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
-<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00187">187</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_ac46efab2f82a6946ea1d11d440fb10b5_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1082,9 +1242,9 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Return the vertexAttribs manager. In case you want to have direct access to <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles.">Utils::AttribManager</a> functionality. </p>
+<p>Return the vertexAttribs manager. In case you want to have direct access to <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles.">Utils::AttribManager</a> functionality. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000024">Todo:</a></b></dt><dd>rename to getAttribManager ? </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00177">177</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00192">192</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1138,12 +1298,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Read/write access to the vertices positions. </p><dl class="section warning"><dt>Warning</dt><dd>need to call verticesUnlock when job done. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00185">185</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
-<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00200">200</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_a7f57cb8c0c0a79c2c69bffe5b8a20357_cgraph.svg" width="442" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1161,7 +1321,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Geometry</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a></li>
-    <li class="footer">Generated on Wed Jun 22 2022 15:13:48 for Radium Engine by
+    <li class="footer">Generated on Thu Jun 23 2022 06:27:55 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
