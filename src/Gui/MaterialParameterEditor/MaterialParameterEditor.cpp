@@ -111,7 +111,7 @@ void MaterialParameterEditor::addNumberParameterWidget( const std::string& key,
                 return valid;
             };
 
-            m_parametersControlPanel->addCheckingNumberInput<T>(
+            m_parametersControlPanel->addConstrainedNumberInput<T>(
                 m["name"], onNumberParameterChanged, initial, predicate, description, dec );
         }
         else if ( m.contains( "minimum" ) && m.contains( "maximum" ) ) {

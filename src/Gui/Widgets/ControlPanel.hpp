@@ -142,12 +142,12 @@ class RA_GUI_API ControlPanel : public QFrame
      * \param dec The display precision (decimals) of the value
      */
     template <typename T = Scalar>
-    void addCheckingNumberInput( const std::string& name,
-                                 std::function<void( T )> callback,
-                                 Scalar initial,
-                                 std::function<bool( T )> predicate,
-                                 const std::string& tooltip = "",
-                                 int dec                    = 3 );
+    void addConstrainedNumberInput( const std::string& name,
+                                    std::function<void( T )> callback,
+                                    Scalar initial,
+                                    std::function<bool( T )> predicate,
+                                    const std::string& tooltip = "",
+                                    int dec                    = 3 );
 
     /** Add an horizontal slider input.
      *  This input will return a scalar value within  given bounds.

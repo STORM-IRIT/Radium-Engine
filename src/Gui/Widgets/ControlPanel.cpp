@@ -1,6 +1,5 @@
 #include <Gui/Widgets/ControlPanel.hpp>
 
-#include <Gui/Widgets/CheckingSpinBox.hpp>
 #include <Gui/Widgets/MatrixEditor.hpp>
 #include <Gui/Widgets/VectorEditor.hpp>
 
