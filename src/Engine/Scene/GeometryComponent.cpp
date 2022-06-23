@@ -73,42 +73,9 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
     m_displayMesh->setRenderMode( Data::AttribArrayDisplayable::RM_POINTS );
 
     Ra::Core::Geometry::PointCloud mesh;
-    Ra::Core::Geometry::PointCloud::PointAttribHandle::Container vertices;
-    Ra::Core::Geometry::PointCloud::NormalAttribHandle::Container normals;
-
-    vertices.reserve( data->getVerticesSize() );
-    std::copy(
-        data->getVertices().begin(), data->getVertices().end(), std::back_inserter( vertices ) );
-
-    if ( data->hasNormals() ) {
-        normals.reserve( data->getVerticesSize() );
-        std::copy(
-            data->getNormals().begin(), data->getNormals().end(), std::back_inserter( normals ) );
-    }
-
-    mesh.setVertices( std::move( vertices ) );
-    mesh.setNormals( std::move( normals ) );
-
-    if ( data->hasTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TANGENT ),
-                        data->getTangents() );
-    }
-
-    if ( data->hasBiTangents() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_BITANGENT ),
-                        data->getBiTangents() );
-    }
-
-    if ( data->hasTextureCoordinates() ) {
-        mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TEXCOORD ),
-                        data->getTexCoords() );
-    }
 
     // add custom attribs
-    mesh.vertexAttribs().copyAllAttributes( data->getAttribManager() );
-
-    // To be discussed: Should not weights be part of the geometry ?
-    //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
+    mesh.vertexAttribs().copyAllAttributes( data->getGeometry().vertexAttribs() );
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 

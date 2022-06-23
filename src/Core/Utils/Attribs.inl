@@ -198,12 +198,46 @@ inline AttribHandle<T> AttribManager::findAttrib( const std::string& name ) cons
 }
 
 template <typename T>
+typename Attrib<T>::Container& AttribManager::getDataWithLock( const AttribHandle<T>& h ) {
+    return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->getDataWithLock();
+}
+
+template <typename T>
+const typename Attrib<T>::Container& AttribManager::getData( const AttribHandle<T>& h ) {
+    return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->data();
+}
+
+template <typename T>
+void AttribManager::unlock( const AttribHandle<T>& h ) {
+    static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->unlock();
+}
+
+template <typename T>
 inline Attrib<T>& AttribManager::getAttrib( const AttribHandle<T>& h ) {
     return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
 }
 
 template <typename T>
+inline const Attrib<T>& AttribManager::getAttrib( const AttribHandle<T>& h ) const {
+    return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
+}
+template <typename T>
+inline Attrib<T>& AttribManager::getAttrib( const std::string& name ) {
+    return getAttrib( findAttrib<T>( name ) );
+}
+
+template <typename T>
+inline const Attrib<T>& AttribManager::getAttrib( const std::string& name ) const {
+    return getAttrib( findAttrib<T>( name ) );
+}
+
+template <typename T>
 inline Attrib<T>* AttribManager::getAttribPtr( const AttribHandle<T>& h ) {
+    return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
+}
+
+template <typename T>
+inline const Attrib<T>* AttribManager::getAttribPtr( const AttribHandle<T>& h ) const {
     return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
 }
 
@@ -219,22 +253,25 @@ inline void AttribManager::setAttrib( const AttribHandle<T>& h,
     static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->setData( data );
 }
 
-template <typename T>
-inline const Attrib<T>& AttribManager::getAttrib( const AttribHandle<T>& h ) const {
-    return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
-}
-
-AttribBase* AttribManager::getAttribBase( const std::string& name ) {
+inline AttribBase* AttribManager::getAttribBase( const std::string& name ) {
     auto c = m_attribsIndex.find( name );
     if ( c != m_attribsIndex.end() ) return m_attribs[c->second].get();
-
     return nullptr;
 }
 
-AttribBase* AttribManager::getAttribBase( const Index& idx ) {
+inline const AttribBase* AttribManager::getAttribBase( const std::string& name ) const {
+    auto c = m_attribsIndex.find( name );
+    if ( c != m_attribsIndex.end() ) return m_attribs[c->second].get();
+    return nullptr;
+}
 
+inline AttribBase* AttribManager::getAttribBase( const Index& idx ) {
     if ( idx.isValid() ) return m_attribs[idx].get();
+    return nullptr;
+}
 
+inline const AttribBase* AttribManager::getAttribBase( const Index& idx ) const {
+    if ( idx.isValid() ) return m_attribs[idx].get();
     return nullptr;
 }
 

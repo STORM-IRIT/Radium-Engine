@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/Geometry/IndexedGeometry.hpp>
+#include <memory>
 
 namespace Ra {
 namespace Core {
@@ -90,8 +91,8 @@ inline const void* GeometryIndexLayer<T>::dataPtr() const {
 }
 
 template <typename T>
-inline GeometryIndexLayerBase* GeometryIndexLayer<T>::clone() {
-    auto copy          = new GeometryIndexLayer<T>( *this );
+inline std::unique_ptr<GeometryIndexLayerBase> GeometryIndexLayer<T>::clone() {
+    auto copy          = std::make_unique<GeometryIndexLayer<T>>( *this );
     copy->m_collection = m_collection;
     return copy;
 }
@@ -126,13 +127,7 @@ MultiIndexedGeometry::countLayers( const MultiIndexedGeometry::LayerSemanticColl
 
 inline const GeometryIndexLayerBase&
 MultiIndexedGeometry::getLayer( const MultiIndexedGeometry::LayerKeyType& layerKey ) const {
-    return *( m_indices.at( layerKey ).second );
-}
-
-inline const GeometryIndexLayerBase&
-MultiIndexedGeometry::getLayer( const MultiIndexedGeometry::LayerSemanticCollection& semantics,
-                                const std::string& layerName ) const {
-    return getLayer( { semantics, layerName } );
+    return *( m_indices.at( layerKey ).second.get() );
 }
 
 inline GeometryIndexLayerBase& MultiIndexedGeometry::getLayerWithLock(
@@ -154,6 +149,11 @@ MultiIndexedGeometry::unlockLayer( const MultiIndexedGeometry::LayerSemanticColl
 // PointCloudIndexLayer
 inline PointCloudIndexLayer::PointCloudIndexLayer() :
     GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName ) {}
+inline PointCloudIndexLayer::PointCloudIndexLayer( size_t n ) :
+    GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName ) {
+    collection().resize( n );
+    collection().getMap() = IndexContainerType::Matrix::LinSpaced( n, 0, n - 1 );
+}
 template <class... SemanticNames>
 inline PointCloudIndexLayer::PointCloudIndexLayer( SemanticNames... names ) :
     GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName, names... ) {}
@@ -163,6 +163,12 @@ inline TriangleIndexLayer::TriangleIndexLayer() :
 template <class... SemanticNames>
 inline TriangleIndexLayer::TriangleIndexLayer( SemanticNames... names ) :
     GeometryIndexLayer( TriangleIndexLayer::staticSemanticName, names... ) {}
+// QuadIndexLayer
+inline QuadIndexLayer::QuadIndexLayer() :
+    GeometryIndexLayer( QuadIndexLayer::staticSemanticName ) {}
+template <class... SemanticNames>
+inline QuadIndexLayer::QuadIndexLayer( SemanticNames... names ) :
+    GeometryIndexLayer( QuadIndexLayer::staticSemanticName, names... ) {}
 // PolyIndexLayer
 inline PolyIndexLayer::PolyIndexLayer() :
     GeometryIndexLayer( PolyIndexLayer::staticSemanticName ) {}

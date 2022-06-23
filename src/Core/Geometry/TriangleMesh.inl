@@ -138,7 +138,22 @@ inline Utils::AttribBase* AttribArrayGeometry::getAttribBase( const std::string&
     return m_vertexAttribs.getAttribBase( name );
 }
 
-inline bool AttribArrayGeometry::hasAttrib( const std::string& name ) {
+inline const Utils::AttribBase*
+AttribArrayGeometry::getAttribBase( const std::string& name ) const {
+    return m_vertexAttribs.getAttribBase( name );
+}
+
+template <typename T>
+inline const Utils::Attrib<T>& AttribArrayGeometry::getAttrib( const std::string& name ) const {
+    return m_vertexAttribs.getAttrib<T>( name );
+}
+
+template <typename T>
+inline Utils::Attrib<T>& AttribArrayGeometry::getAttrib( const std::string& name ) {
+    return m_vertexAttribs.getAttrib<T>( name );
+}
+
+inline bool AttribArrayGeometry::hasAttrib( const std::string& name ) const {
     return m_vertexAttribs.contains( name );
 }
 
