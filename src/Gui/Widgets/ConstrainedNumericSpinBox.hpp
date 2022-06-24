@@ -38,18 +38,22 @@ class SpinValueValidator
 namespace QtSpinBox {
 template <typename T>
 struct getType {
-    using Type = QSpinBox;
+    using Type       = QSpinBox;
+    using SignalType = int;
 };
 
 template <>
 struct getType<float> {
-    using Type = QDoubleSpinBox;
+    using Type       = QDoubleSpinBox;
+    using SignalType = double;
 };
 
 template <>
 struct getType<double> {
-    using Type = QDoubleSpinBox;
+    using Type       = QDoubleSpinBox;
+    using SignalType = double;
 };
+
 } // namespace QtSpinBox
 
 /**

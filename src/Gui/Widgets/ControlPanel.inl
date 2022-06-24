@@ -19,7 +19,10 @@ void ControlPanel::addConstrainedNumberInput( const std::string& name,
 
     auto inputField = new ConstrainedNumericSpinBox<T>( this );
     inputField->setValue( initial );
-    connect( inputField, &ConstrainedNumericSpinBox<T>::valueChanged, std::move( callback ) );
+    connect( inputField,
+             qOverload<typename QtSpinBox::getType<T>::SignalType>(
+                 &ConstrainedNumericSpinBox<T>::valueChanged ),
+             std::move( callback ) );
     inputField->setPredicate( predicate );
 
     if constexpr ( std::is_floating_point_v<T> ) { inputField->setDecimals( dec ); }
@@ -48,26 +51,16 @@ void ControlPanel::addNumberInput( const std::string& name,
 
     auto inputLabel = new QLabel( tr( name.c_str() ), this );
 
-    QAbstractSpinBox* widget;
-    if constexpr ( std::is_floating_point_v<T> ) {
-        auto inputField = new QDoubleSpinBox( this );
-        inputField->setDecimals( dec );
-        inputField->setMinimum( min );
-        inputField->setMaximum( max );
-        inputField->setValue( initial );
-        connect( inputField,
-                 QOverload<double>::of( &QDoubleSpinBox::valueChanged ),
-                 std::move( callback ) );
-        widget = inputField;
-    }
-    else {
-        auto inputField = new QSpinBox( this );
-        inputField->setMinimum( min );
-        inputField->setMaximum( max );
-        inputField->setValue( initial );
-        connect( inputField, &QSpinBox::valueChanged, std::move( callback ) );
-        widget = inputField;
-    }
+    using WidgetType = typename QtSpinBox::getType<T>::Type;
+    auto inputField  = new WidgetType( this );
+    inputField->setMinimum( min );
+    inputField->setMaximum( max );
+    inputField->setValue( initial );
+    connect( inputField,
+             qOverload<typename QtSpinBox::getType<T>::SignalType>( &WidgetType::valueChanged ),
+             std::move( callback ) );
+
+    if constexpr ( std::is_floating_point_v<T> ) { inputField->setDecimals( dec ); }
 
     if ( !tooltip.empty() ) {
         inputLabel->setToolTip(
@@ -75,7 +68,7 @@ void ControlPanel::addNumberInput( const std::string& name,
     }
     inputLayout->addWidget( inputLabel );
     // inputLayout->addStretch();
-    inputLayout->addWidget( widget );
+    inputLayout->addWidget( inputField );
     m_currentLayout->addLayout( inputLayout );
 }
 
