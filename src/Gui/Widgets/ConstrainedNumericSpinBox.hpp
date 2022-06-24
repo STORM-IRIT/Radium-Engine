@@ -58,8 +58,7 @@ struct getType<double> {
  * to the object. \tparam T Type of the constrained value to input
  */
 template <typename T>
-class RA_GUI_API ConstrainedNumericSpinBox : public QtSpinBox::getType<T>::Type,
-                                             public SpinValueValidator<T>
+class ConstrainedNumericSpinBox : public QtSpinBox::getType<T>::Type, public SpinValueValidator<T>
 {
   public:
     using BaseWidget = typename QtSpinBox::getType<T>::Type;
