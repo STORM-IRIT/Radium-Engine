@@ -87,4 +87,63 @@ configure_radium_library(
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_core_target} PARENT_SCOPE)
 
+target_precompile_headers(
+    ${ra_core_target}
+    PRIVATE
+    <algorithm>
+    <array>
+    <assert.h>
+    <cassert>
+    <chrono>
+    <cmath>
+    <condition_variable>
+    <cpplocate/cpplocate.h>
+    <cstdarg>
+    <cstddef>
+    <cstdint>
+    <cstdio>
+    <cstdlib>
+    <ctime>
+    <deque>
+    <Eigen/Eigenvalues>
+    <Eigen/Geometry>
+    <Eigen/Householder>
+    <Eigen/LU>
+    <Eigen/Sparse>
+    <Eigen/StdVector>
+    <Eigen/SVD>
+    <filesystem>
+    <fstream>
+    <functional>
+    <glm/glm.hpp>
+    <initializer_list>
+    <iosfwd>
+    <iostream>
+    <iterator>
+    <limits>
+    <map>
+    <math.h>
+    <memory>
+    <mutex>
+    <new>
+    <numeric>
+    <optional>
+    <ostream>
+    <random>
+    <set>
+    <sstream>
+    <stack>
+    <stdexcept>
+    <string>
+    <string_view>
+    <thread>
+    <tuple>
+    <typeinfo>
+    <type_traits>
+    <unordered_map>
+    <unsupported/Eigen/AlignedVector3>
+    <utility>
+    <vector>
+)
+
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

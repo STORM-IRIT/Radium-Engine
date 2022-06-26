@@ -65,4 +65,21 @@ configure_radium_library(
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_io_target} PARENT_SCOPE)
 
+target_precompile_headers(
+    ${ra_io_target}
+    PRIVATE
+    ${core_headers}
+    <assimp/color4.h>
+    <assimp/Importer.hpp>
+    <assimp/matrix4x4.h>
+    <assimp/quaternion.h>
+    <assimp/types.h>
+    <assimp/vector3.h>
+    <fstream>
+    <map>
+    <memory>
+    <set>
+    <string>
+)
+
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

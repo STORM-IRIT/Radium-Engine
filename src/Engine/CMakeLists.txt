@@ -68,4 +68,37 @@ install_target_resources(
 
 target_compile_options(${ra_engine_target} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)
 
+target_precompile_headers(
+    ${ra_engine_target}
+    PRIVATE
+    ${core_headers}
+    <algorithm>
+    <array>
+    <chrono>
+    <Eigen/Geometry>
+    <functional>
+    <iosfwd>
+    <iostream>
+    <iterator>
+    <list>
+    <map>
+    <memory>
+    <mutex>
+    <ostream>
+    <set>
+    <stack>
+    <stddef.h>
+    <stdint.h>
+    <string>
+    <thread>
+    <tuple>
+    <typeindex>
+    <type_traits>
+    <unordered_map>
+    <utility>
+    <vector>
+    <globjects/Texture.h>
+    <globjects/Framebuffer.h>
+)
+
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
