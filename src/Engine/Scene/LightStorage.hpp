@@ -5,8 +5,7 @@
 
 namespace Ra {
 namespace Engine {
-
-namespace Rendering {
+namespace Data {
 class RenderParameters;
 }
 
