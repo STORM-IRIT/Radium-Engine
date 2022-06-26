@@ -66,4 +66,42 @@ install_target_resources(
     TARGET ${ra_gui_target} RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Configs
     RESOURCES_INSTALL_DIR "Radium"
 )
+
+target_precompile_headers(
+    ${ra_gui_target}
+    PRIVATE
+    ${core_headers}
+    ${engine_headers}
+    <atomic>
+    <chrono>
+    <iomanip>
+    <iostream>
+    <memory>
+    <QAbstractItemModel>
+    <QApplication>
+    <QDialog>
+    <QDoubleSpinBox>
+    <QFrame>
+    <QItemSelectionModel>
+    <QKeyEvent>
+    <QLabel>
+    <QLayout>
+    <QMainWindow>
+    <QMessageBox>
+    <QMouseEvent>
+    <QObject>
+    <QScopedPointer>
+    <QScrollArea>
+    <QSpacerItem>
+    <QThread>
+    <QToolButton>
+    <QtXml/QtXml>
+    <QVariant>
+    <QWidget>
+    <QWindow>
+    <QXmlStreamWriter>
+    <set>
+    <vector>
+)
+
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
