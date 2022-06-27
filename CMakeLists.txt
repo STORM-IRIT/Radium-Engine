@@ -197,16 +197,21 @@ add_custom_target(
     COMMENT "Forcing Radium installation"
 )
 
+# examples
+if(RADIUM_ENABLE_EXAMPLES)
+    add_subdirectory(examples)
+    add_dependencies(RadiumExampleApps RadiumLibs)
+endif()
+
 # Testing
 if(RADIUM_ENABLE_TESTING)
     enable_testing()
     include(CTest)
+    # prepare integration tests
+    if(NOT RADIUM_ENABLE_EXAMPLES)
+        add_subdirectory(examples/CoreExampleApp)
+    endif()
     add_subdirectory(tests)
-endif()
-
-if(RADIUM_ENABLE_EXAMPLES)
-    add_subdirectory(examples)
-    add_dependencies(RadiumExampleApps RadiumLibs)
 endif()
 
 if(ENABLE_COVERAGE)
