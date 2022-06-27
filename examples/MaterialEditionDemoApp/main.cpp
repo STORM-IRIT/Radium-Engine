@@ -133,7 +133,7 @@ class DemoWindow : public Ra::Gui::SimpleWindow
         m_matParamsEditor = new Ra::Gui::MaterialParameterEditor;
 
         // Update the viewer whenever a parameter gets modified
-        auto on_materialParametersModified = [this]() {
+        auto on_materialParametersModified = [this]( const std::string& ) {
             if ( m_editedRo ) {
                 // manage transparency status changes
                 // TODO this should be done automatically by Material/renderTechnique update
