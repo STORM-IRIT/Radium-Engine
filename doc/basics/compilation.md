@@ -181,34 +181,61 @@ VS should run cmake, generate the target builds (Debug and Release by default).
 Other build types can be added by editing `CMakeSettings.json`.
 
 Configure cmake option (see official doc [here](https://docs.microsoft.com/cpp/build/customize-cmake-settings))
-You have to provide path to Qt installation and external dependencies configuration. For instance, with directory structure for externals as defined in \ref dependenciesmanagement, the configuration is
+You have to provide path to Qt installation, glfw installation (for headless support) and external dependencies configuration.
+In order to execute Radium demos from the buildtree (installing them takes time due to qt deployement procedure),
+you also need to define environment variables that point to the various dlls used by Radium components that will be used on the per-target `launch.vs.json` configuration file.
+Note that it is recommended to compile or install glfw as a static library, the example below assume that.
+
+For instance, with directory structure for externals as defined in \ref dependenciesmanagement, the configuration is
 
 ~~~{.json}
- "configurations": [
+{
+    "environments": [
     {
-      "name": "x64-Debug",
-      "generator": "Ninja",
-      "configurationType": "Debug",
-      "inheritEnvironments": [ "msvc_x64_x64" ],
-      "buildRoot": "${projectDir}/out/build/${name}",
-      "installRoot": "${projectDir}/out/install/${name}",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt/5.15.2/msvc2019_64/ -C ${projectDir}/../radium-externals/install/${name}/radium-options.cmake",
-      "buildCommandArgs": "",
-      "ctestCommandArgs": ""
+        "QtDir": "C:/Qt/5.15.2/msvc2019_64/"
+        "glfwDir" : "C:/path/to/glfwInstallation"
+    }
+    ],
+    "configurations": [
+    {
+        "name": "x64-Debug",
+        "generator": "Ninja",
+        "configurationType": "Debug",
+        "inheritEnvironments": [ "msvc_x64_x64" ],
+        "buildRoot": "${projectDir}/out/build/${name}",
+        "installRoot": "${projectDir}/out/install/${name}",
+        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=\"${env.QtDir};${env.glfwDir}/lib/cmake\" -C ${projectDir}/../radium-externals/install/${name}/radium-options.cmake",
+        "buildCommandArgs": "",
+        "ctestCommandArgs": "",
+        "environments": [
+        {
+            "environment": "RadiumDllsLocations",
+            "ExternalDllsDIR": "${projectDir}/../radium-externals/install/${name}/bin",
+            "QtDllsDIR": "${env.QtDir}/bin",
+            "RadiumDlls": "${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase"
+        }
+        ]
     },
     {
-      "name": "x64-Release",
-      "generator": "Ninja",
-      "configurationType": "Release",
-      "inheritEnvironments": [ "msvc_x64_x64" ],
-      "buildRoot": "${projectDir}/out/build/${name}",
-      "installRoot": "${projectDir}/out/install/${name}",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt/5.15.2/msvc2019_64/ -C ${projectDir}/../radium-externals/install/${name}/radium-options.cmake",
-      "buildCommandArgs": "",
-      "ctestCommandArgs": "",
-      ]
+        "name": "x64-Release",
+        "generator": "Ninja",
+        "configurationType": "Release",
+        "inheritEnvironments": [ "msvc_x64_x64" ],
+        "buildRoot": "${projectDir}/out/build/${name}",
+        "installRoot": "${projectDir}/out/install/${name}",
+        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=\"${env.QtDir};${env.glfwDir}/lib/cmake\" -C ${projectDir}/../radium-externals/install/${name}/radium-options.cmake",
+        "buildCommandArgs": "",
+        "ctestCommandArgs": "",
+        "environments": [
+        {
+            "environment": "RadiumDllsLocations",
+            "ExternalDllsDIR": "${projectDir}/../radium-externals/install/${name}/bin",
+            "QtDllsDIR": "${env.QtDir}/bin",
+            "RadiumDlls": "${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase"
+        }
+        ]
     }
-  ]
+    ]
 }
 ~~~
 
@@ -219,4 +246,40 @@ You have to provide path to Qt installation and external dependencies configurat
 ### Compilation
 
 Right click on `CMakeList.txt > build > all`.
+
+### Execution of a demo app
+
+To execute a demo/test application, select in the `Startup Item` list the target you want to execute. For instance, `DrawPrimitiveDemo.exe (test/...)`.
+Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitiveDemo` and modify the `launch.vs.json` file that is opened so that it contains the following.
+
+~~~{.json}
+{
+ "version": "0.2.1",
+ "defaults": {},
+ "configurations": [
+   {
+     "type": "default",
+     "project": "CMakeLists.txt",
+     "projectTarget": "DrawPrimitivesDemo.exe (tests\\ExampleApps\\DrawPrimitivesDemo\\DrawPrimitivesDemo.exe)",
+     "name": "DrawPrimitivesDemo.exe (tests\\ExampleApps\\DrawPrimitivesDemo\\DrawPrimitivesDemo.exe)",
+     "inheritEnvironments": [ "RadiumDllLocations" ],
+     "env": {
+       "PATH": "${env.QtDllsDIR};${env.ExternalDllsDIR};${env.RadiumDlls};${env.PATH}"
+     }
+   }
+ ]
+}
+~~~
+
+For any target you want to execute, the same should be done, i.e. adding the following to the target configuration
+
+~~~{.json}
+ "inheritEnvironments": [ "RadiumDllLocations" ],
+ "env": {
+   "PATH": "${env.QtDllsDIR};${env.ExternalDllsDIR};${env.RadiumDlls};${env.PATH}"
+ }
+~~~
+
+### installation
+
 To install, you need to run any installation target, e.g. `Engine.dll (install)` or to select the menu `<Build>/<Install radiumproject>`
