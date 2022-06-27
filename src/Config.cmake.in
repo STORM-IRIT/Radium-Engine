@@ -5,10 +5,12 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
 #--------------------------- Base configuration for installation and rpath settings ----------------
 # Custom Install target, used in run target in source/CMakeLists.txt
-add_custom_target(
-    Install_${PROJECT_NAME} COMMAND "${CMAKE_COMMAND}" --build . --target install
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-)
+# This is commented out as we need to find how to define per-target install command using the options OPTIONAL and
+# EXCLUDE_FROM_ALL on per-target install commands
+#add_custom_target(
+#    Install_${PROJECT_NAME} COMMAND "${CMAKE_COMMAND}" --build . --target install
+#    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+#)
 
 # --------------------------------------------------------------------------------------------------
 # Load Radium rpath configuration

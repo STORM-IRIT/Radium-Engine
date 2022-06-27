@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
-cmake_policy(SET CMP0071 NEW)
 cmake_policy(SET CMP0042 NEW)
 
-project(CustomCameraManipulator VERSION 1.0.0)
+project(HeadlessExample VERSION 1.0.2)
 
 # ------------------------------------------------------------------------------
 # set wanted application defaults for cmake settings
@@ -24,25 +23,14 @@ set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 # ------------------------------------------------------------------------------
-find_package(Radium REQUIRED Core Engine Gui)
+find_package(Radium REQUIRED COMPONENTS Headless)
 
-find_qt_package(COMPONENTS Core Widgets REQUIRED)
-set(Qt_LIBRARIES Qt::Core Qt::Widgets)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-# ------------------------------------------------------------------------------
+option(USE_RADIUM_IO_ASSIMPLOADER "Use assimp data loader from Radium IO" ON)
+message(STATUS "Configuring ${PROJECT_NAME} application with Radium ${Radium_VERSION}")
 
 set(app_sources main.cpp)
-set(app_headers)
 
-set(app_uis)
-qt_wrap_ui(app_uis_moc ${app_uis})
-
-set(app_resources)
-
-# to install the app as a redistribuable bundle on macos, add MACOSX_BUNDLE when calling
-# add_executable
-add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_resources})
+add_executable(${PROJECT_NAME} ${app_sources})
 
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
     target_compile_options(
@@ -63,15 +51,25 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
     )
 endif()
 
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
-target_include_directories(
-    ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc
-                            ${CMAKE_CURRENT_SOURCE_DIR}
-)
+target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Headless)
 
-target_link_libraries(
-    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui ${Qt_LIBRARIES}
-)
+if(USE_RADIUM_IO_ASSIMPLOADER)
+    if(IN_RADIUM_BUILD_TREE)
+        set(USE_RADIUM_ASSIMP ${RADIUM_IO_ASSIMP})
+    else()
+        get_target_property(USE_RADIUM_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
+    endif()
+    if(${USE_RADIUM_ASSIMP})
+        message(STATUS "[${PROJECT_NAME}] Enabling assimp loader from Radium::IO")
+        target_compile_definitions(${PROJECT_NAME} PRIVATE ADD_ASSIMP_LOADER)
+    else()
+        message(STATUS "[${PROJECT_NAME}] Assimp loader from Radium::IO not detected")
+    endif()
+endif()
+
+target_compile_options(${PROJECT_NAME} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)
 
 # configure the application
-configure_radium_app(NAME ${PROJECT_NAME})
+configure_radium_app(
+    NAME ${PROJECT_NAME} PREFIX Examples RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Assets
+)

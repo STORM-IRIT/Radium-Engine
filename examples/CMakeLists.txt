@@ -1,36 +1,26 @@
 #-------------------------------------------------------------------------------
 # exampleApp executables setup
 
-project(RadiumExampleApps)
+project(RadiumExamples)
+
+list(APPEND CMAKE_MESSAGE_INDENT "[Examples] ")
 
 # short convenience target
 add_custom_target(${PROJECT_NAME})
 
-# Test if this cmake project is included and built in the Radium project build tree
-if(${CMAKE_PROJECT_NAME} STREQUAL "radiumproject")
-    # Configure in_project build ... These variable are normally set by the find_package(Radium) for
-    # client applications
-    set(RADIUM_ROOT_DIR "${CMAKE_INSTALL_PREFIX}/")
-    set(RADIUM_RESOURCES_DIR "${CMAKE_INSTALL_PREFIX}/Resources/Radium")
-    set(RADIUM_PLUGINS_DIR "${CMAKE_INSTALL_PREFIX}/Plugins")
-    # This allow to compile the example apps without searching the Radium package when building the
-    # demos in the Radium buildtree
-    set(IN_RADIUM_BUILD_TREE TRUE)
-endif()
-
 foreach(
     APP
-    CoreExampleApp
+    CoreExample
     CustomCameraManipulator
-    DrawPrimitivesDemo
-    EntityAnimationDemo
-    EnvMapDemo
+    DrawPrimitives
+    EntityAnimation
+    EnvMap
     HelloRadium
-    KeyEventDemoApp
-    PickingDemoApp
+    KeyEvent
+    Picking
     RawShaderMaterial
-    SimpleAnimationApp
-    SimpleSimulationApp
+    SimpleAnimation
+    SimpleSimulation
     TexturedQuad
 )
     add_subdirectory(${APP})
@@ -40,13 +30,26 @@ endforeach()
 # VolumeDemoApp
 get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
 if(${HAS_VOLUMES})
-    add_subdirectory(VolumeDemoApp)
-    add_dependencies(${PROJECT_NAME} VolumeDemoApp)
+    add_subdirectory(Volume)
+    add_dependencies(${PROJECT_NAME} Volume)
 endif()
 
 # HeadlessDemo headless demo is available only if Radium::headless is available
 find_package(Radium COMPONENTS Headless QUIET)
 if(Radium_FOUND)
-    add_subdirectory(HeadlessDemo)
-    add_dependencies(${PROJECT_NAME} HeadlessDemo)
+    add_subdirectory(HeadlessExample)
+    add_dependencies(${PROJECT_NAME} HeadlessExample)
 endif()
+
+# Define specific installation procedure for this example to prevent mixed installation with Radium
+# bundle
+set(OLD_CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/PluginsExample")
+add_subdirectory(PluginsWithLib EXCLUDE_FROM_ALL)
+set(CMAKE_INSTALL_PREFIX "${OLD_CMAKE_INSTALL_PREFIX}")
+add_dependencies(${PROJECT_NAME} PluginsWithLib)
+install(
+    CODE "execute_process(COMMAND ${CMAKE_COMMAND} --build \"${CMAKE_CURRENT_BINARY_DIR}/PluginsWithLib\" --target install)"
+)
+
+list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

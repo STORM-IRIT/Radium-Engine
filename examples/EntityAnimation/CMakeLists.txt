@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
-cmake_policy(SET CMP0071 NEW)
 cmake_policy(SET CMP0042 NEW)
 
-project(CustomCameraManipulator VERSION 1.0.0)
+project(EntityAnimation VERSION 1.0.0)
 
 # ------------------------------------------------------------------------------
 # set wanted application defaults for cmake settings
@@ -33,16 +32,10 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # ------------------------------------------------------------------------------
 
 set(app_sources main.cpp)
-set(app_headers)
-
-set(app_uis)
-qt_wrap_ui(app_uis_moc ${app_uis})
-
-set(app_resources)
 
 # to install the app as a redistribuable bundle on macos, add MACOSX_BUNDLE when calling
 # add_executable
-add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_resources})
+add_executable(${PROJECT_NAME} ${app_sources})
 
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
     target_compile_options(
@@ -63,15 +56,11 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
     )
 endif()
 
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
-target_include_directories(
-    ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc
-                            ${CMAKE_CURRENT_SOURCE_DIR}
+target_link_libraries(
+    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::IO Radium::Gui ${Qt_LIBRARIES}
 )
 
-target_link_libraries(
-    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui ${Qt_LIBRARIES}
-)
+target_compile_options(${PROJECT_NAME} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)
 
 # configure the application
 configure_radium_app(NAME ${PROJECT_NAME})

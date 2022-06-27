@@ -24,9 +24,7 @@ set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 # ------------------------------------------------------------------------------
-if(NOT IN_RADIUM_BUILD_TREE)
-    find_package(Radium REQUIRED Core Engine Gui)
-endif()
+find_package(Radium REQUIRED Core Engine Gui)
 
 find_qt_package(COMPONENTS Core Widgets REQUIRED)
 set(Qt_LIBRARIES Qt::Core Qt::Widgets)
@@ -75,4 +73,5 @@ target_link_libraries(
     ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui ${Qt_LIBRARIES}
 )
 
+# configure the application
 configure_radium_app(NAME ${PROJECT_NAME})

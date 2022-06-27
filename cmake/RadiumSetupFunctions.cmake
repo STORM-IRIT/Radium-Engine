@@ -88,7 +88,7 @@ function(configure_cmdline_radium_app)
     # Configure the application own resources installation
     if(ARGS_RESOURCES)
         foreach(resLocation ${ARGS_RESOURCES})
-            message(STATUS "[configure_cmdline_radium_app] Installing resources ${resLocation}"
+            message(STATUS "[configure_cmdline_radium_app] Registering resources ${resLocation}"
                            " for ${ARGS_NAME} "
             )
             install_target_resources(
@@ -255,7 +255,7 @@ function(configure_bundled_radium_app)
     # Configure the resources installation
     if(ARGS_RESOURCES)
         foreach(resLocation ${ARGS_RESOURCES})
-            message(STATUS "[configure_bundled_radium_app] Installing resources ${resLocation}"
+            message(STATUS "[configure_bundled_radium_app] Registering resources ${resLocation}"
                            "for ${ARGS_NAME} "
             )
             install_target_resources(
@@ -313,7 +313,6 @@ function(install_plugin_resources)
             VERBATIM
         )
     endif()
-
     # Install in the Radium install tree Identify the individual files (to preserve directory
     # structure)
     message(STATUS "[install_plugin_resources] configuring install for requested files "
@@ -328,6 +327,7 @@ function(install_plugin_resources)
                 DESTINATION ${ARGS_INSTALL_LOCATION}/Resources/${ARGS_TARGET}/${rsc_dir}/${file_dir}
         )
     endforeach()
+
 endfunction()
 
 # ------------------------------------------------------------------------------
@@ -464,7 +464,7 @@ ${CMAKE_INSTALL_PREFIX}/${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${
     # installing resources in the buildtree (link if available, copy if not)
     message(
         STATUS
-            "[install_target_resources] BINARY_DIR Linking resources directory ${ARGS_RESOURCES_DIR} for target ${ARGS_TARGET} into ${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}"
+            "[install_target_resources] Linking resources directory ${ARGS_RESOURCES_DIR} for target ${ARGS_TARGET} into build dir ${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}"
     )
     file(MAKE_DIRECTORY "${RESOURCES_BINARY_DIR}")
     if(MSVC OR MSVC_IDE OR MINGW)
@@ -643,7 +643,7 @@ function(configure_windows_radium_app)
     # Configure the application own resources installation
     if(ARGS_RESOURCES)
         foreach(resLocation ${ARGS_RESOURCES})
-            message(STATUS "[configure_cmdline_radium_app] Installing resources ${resLocation}"
+            message(STATUS "[configure_cmdline_radium_app] Registering resources ${resLocation}"
                            " for ${ARGS_NAME} "
             )
             install_target_resources(
@@ -677,7 +677,7 @@ function(configure_radium_app)
     # "declare" and parse parameters
     cmake_parse_arguments(
         ARGS "USE_PLUGINS" "NAME" "RESOURCES" # list of directories containing the resources to
-                                              # install - optional
+        # install - optional
         ${ARGN}
     )
     if(NOT ARGS_NAME)
@@ -685,10 +685,15 @@ function(configure_radium_app)
             FATAL_ERROR "[configure_radium_app] You must provide the main target of the application"
         )
     endif()
-    # configure the application
+
     message(STATUS "[configure_radium_app] Configuring application ${ARGS_NAME}"
                    " for being relocatable after installation."
     )
+    add_custom_target(
+        Install_${ARGS_NAME} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_CURRENT_BINARY_DIR}"
+                                     --target install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+    )
+
     if(APPLE)
         get_target_property(IsMacBundle ${ARGS_NAME} MACOSX_BUNDLE)
         if(IsMacBundle)
@@ -747,8 +752,10 @@ function(configure_radium_plugin)
             FATAL_ERROR "[configure_radium_plugin] You must provide the main target of the plugin"
         )
     endif()
-    set_target_properties(
-        ${ARGS_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Plugins/lib
+
+    add_custom_target(
+        Install_${ARGS_NAME} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_CURRENT_BINARY_DIR}"
+                                     --target install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
     )
 
     if(CMAKE_BUILD_TYPE MATCHES Debug)
@@ -795,7 +802,7 @@ function(configure_radium_plugin)
                 set(OriginalLib ${helperLib})
             endif()
             message(STATUS "[configure_radium_plugin] Install the helper library ${helperLib}"
-                           "for plugin ${ARGS_NAME}"
+                           " for plugin ${ARGS_NAME} into ${${ARGS_NAME}_INSTALL_DIR}/lib"
             )
             # gets the resource install property of the target
             get_target_property(
@@ -952,6 +959,11 @@ function(configure_radium_library)
     if(NOT ARGS_NAMESPACE)
         set(ARGS_NAMESPACE "Radium")
     endif()
+
+    add_custom_target(
+        Install_${ARGS_TARGET} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_CURRENT_BINARY_DIR}"
+                                       --target install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+    )
 
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${ARGS_TARGET} PUBLIC _DEBUG)
