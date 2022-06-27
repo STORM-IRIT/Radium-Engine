@@ -23,6 +23,9 @@ If not already done, follow instructions at \ref dependenciesmanagement.
 
 Radium follows a standard cmake structure, so any IDE supporting cmake should be able to configure and build it.
 
+Several targets allowing to build or install only a specific part of Radium-Engine are defined by the cmake configuration.
+The standard targets `all` and `install` are also available as a shortcut to build all the configured components and to install the main components.
+
 \note We strongly recommend to have dedicated build and install directories for each build type (Release, Debug).
 Remember that compiling Radium in Debug mode needs to have the dependencies compiled and installed in Debug mode
 (due to a limitation in assimp).
@@ -65,6 +68,11 @@ RADIUM_ENABLE_COVERAGE:BOOL=OFF
 --
 // Enable testing. Tests are automatically built with target all
 RADIUM_ENABLE_TESTING:BOOL=ON
+--
+// Enable Radium examples.
+// Examples are automatically built with target all but are not installed with target isntall.
+// To install examples, the target Install_Examples should be explicitely built
+RADIUM_ENABLE_EXAMPLES:BOOL=OFF
 --
 // Include Radium::Core in CMake project
 RADIUM_GENERATE_LIB_CORE:BOOL=ON

@@ -128,7 +128,7 @@ endif()
 # ------------------------------------------------------------------------------
 # Custom Install target, used in run target in source/CMakeLists.txt
 add_custom_target(
-    Install_ COMMAND "${CMAKE_COMMAND}" --build . --target install
+    Install_Radium COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target install
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
 
@@ -199,8 +199,19 @@ add_custom_target(
 
 # examples
 if(RADIUM_ENABLE_EXAMPLES)
-    add_subdirectory(examples)
-    add_dependencies(RadiumExampleApps RadiumLibs)
+    # add examples subdirectory
+    add_subdirectory(examples EXCLUDE_FROM_ALL)
+    add_dependencies(RadiumExamples RadiumLibs)
+    # add a target to build example within the all target
+    add_custom_target(Build_Example ALL)
+    add_dependencies(Build_Example RadiumExamples)
+    # add a specific target to install examples on request
+    add_custom_target(Install_Examples)
+    add_dependencies(Install_Examples Build_Example)
+    add_custom_command(
+        TARGET Install_Examples POST_BUILD
+        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR}/examples --target install
+    )
 endif()
 
 # Testing
@@ -209,7 +220,7 @@ if(RADIUM_ENABLE_TESTING)
     include(CTest)
     # prepare integration tests
     if(NOT RADIUM_ENABLE_EXAMPLES)
-        add_subdirectory(examples/CoreExampleApp)
+        add_subdirectory(examples/CoreExample EXCLUDE_FROM_ALL)
     endif()
     add_subdirectory(tests)
 endif()

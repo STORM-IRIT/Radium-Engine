@@ -103,6 +103,7 @@ The functions defined by the Radium package are the following:
 ~~~{.cmake}
 configure_radium_app(
     NAME applicationName                        # The name of the executable target to configure as a relocatable application
+    [INSTALL ON|OFF]                            # Require the installation of the given target using the install build rule. Default is ON.
     [USE_PLUGINS]                               # Set this if the application uses installed plugins.
     [RESOURCES ResourceDir1 ResourceDir2 ...]   # List of directories to install as application resources
 )
@@ -116,6 +117,7 @@ This function takes the following parameters:
 *Parameter name*                            | *Parameter description*
 --------------------------------------------|--------------------
 `<NAME> applicationName`                    | The name of the *executable* target to configure and install
+`<INSTALL> ON or OFF`                       | Request the installation of the given target using the install build rule. Default is ON.
 `<USE_PLUGINS>`                             | If this option is given, the plugins installed into the Radium bundle at
 the installation time will be copied into the application bundle.
 `<RESOURCES> ResourceDir1 ResourceDir2 ...` | Optional list of directories to be considered as application resources
