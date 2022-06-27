@@ -73,7 +73,7 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
     /**
      * Signal emitted whenever a parameter is modified
      */
-    void materialParametersModified();
+    void materialParametersModified( const std::string& name );
 
   private:
     template <typename T>

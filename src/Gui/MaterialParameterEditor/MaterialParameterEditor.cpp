@@ -69,7 +69,7 @@ void MaterialParameterEditor::addEnumParameterWidget( const std::string& key,
     }
     auto onEnumParameterChanged = [this, &params, &key]( T value ) {
         params.addParameter( key, value );
-        emit materialParametersModified();
+        emit materialParametersModified( key );
     };
     std::string description = m.contains( "description" ) ? m["description"] : "";
     m_parametersControlPanel->addComboBox(
@@ -83,7 +83,7 @@ void MaterialParameterEditor::addNumberParameterWidget( const std::string& key,
                                                         const json& metadata ) {
     auto onNumberParameterChanged = [this, &params, &key]( T value ) {
         params.addParameter( key, value );
-        emit materialParametersModified();
+        emit materialParametersModified( key );
     };
     if ( metadata.contains( key ) ) {
         auto m                  = metadata[key];
@@ -140,7 +140,7 @@ void MaterialParameterEditor::addVectorParameterWidget( const std::string& key,
     auto onVectorParameterChanged = [this, &params, &key]( const std::vector<double>& value ) {
         std::vector<T> vecT( value.begin(), value.end() );
         params.addParameter( key, vecT );
-        emit materialParametersModified();
+        emit materialParametersModified( key );
     };
 
     std::vector<double> init( initial.begin(), initial.end() );
@@ -165,7 +165,7 @@ void MaterialParameterEditor::addMatrixParameterWidget( const std::string& key,
     auto onMatrixParameterChanged = [this, &params, &key]( const Ra::Core::MatrixN& value ) {
         auto mat3 = T( value );
         params.addParameter( key, mat3 );
-        emit materialParametersModified();
+        emit materialParametersModified( key );
     };
 
     if ( metadata.contains( key ) ) {
@@ -224,7 +224,7 @@ void MaterialParameterEditor::setupFromParameters( Engine::Data::RenderParameter
           params.getParameterSet<Ra::Engine::Data::RenderParameters::BoolParameter>() ) {
         auto onBoolParameterChanged = [this, &params, key = key]( bool val ) {
             params.addParameter( key, val );
-            emit materialParametersModified();
+            emit materialParametersModified( key );
         };
         if ( constraints.contains( key ) ) {
             if ( constraints[key]["editable"] ) {
@@ -275,7 +275,7 @@ void MaterialParameterEditor::setupFromParameters( Engine::Data::RenderParameter
         auto onColorParameterChanged =
             [this, &params, key = key]( const Ra::Core::Utils::Color& val ) {
                 params.addParameter( key, val );
-                emit materialParametersModified();
+                emit materialParametersModified( key );
             };
         if ( constraints.contains( key ) ) {
             const auto& m           = constraints[key];
