@@ -52,6 +52,24 @@ define_property(
 # entry points.
 #
 
+# this allow to customize custom install target depending on the generator. Note that only Ninj (and
+# all its derivative) and Unix Makefiles were tested
+macro(add_custom_install_target TARGET)
+    # does this works also with Makefile generator --> NO ?
+    if(CMAKE_GENERATOR MATCHES "Ninja")
+        file(RELATIVE_PATH targetPath ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+        add_custom_target(
+            Install_${TARGET} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}" --target
+                                      "${targetPath}/install"
+        )
+    else()
+        add_custom_target(
+            Install_${TARGET} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_CURRENT_BINARY_DIR}"
+                                      --target install
+        )
+    endif()
+endmacro()
+
 # Configuration of the build and installation procedure for cmdline Radium application Allows to
 # install application with dependent resources usage :
 # ~~~
@@ -689,10 +707,8 @@ function(configure_radium_app)
     message(STATUS "[configure_radium_app] Configuring application ${ARGS_NAME}"
                    " for being relocatable after installation."
     )
-    add_custom_target(
-        Install_${ARGS_NAME} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_CURRENT_BINARY_DIR}"
-                                     --target install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-    )
+    # add the cmake command to install target
+    add_custom_install_target(${ARGS_NAME})
 
     if(APPLE)
         get_target_property(IsMacBundle ${ARGS_NAME} MACOSX_BUNDLE)
@@ -753,10 +769,8 @@ function(configure_radium_plugin)
         )
     endif()
 
-    add_custom_target(
-        Install_${ARGS_NAME} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_CURRENT_BINARY_DIR}"
-                                     --target install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-    )
+    # add the cmake command to install target
+    add_custom_install_target(${ARGS_NAME})
 
     if(CMAKE_BUILD_TYPE MATCHES Debug)
         message(STATUS "[configure_radium_plugin] Plugin compiled with debug info")
@@ -960,10 +974,8 @@ function(configure_radium_library)
         set(ARGS_NAMESPACE "Radium")
     endif()
 
-    add_custom_target(
-        Install_${ARGS_TARGET} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_CURRENT_BINARY_DIR}"
-                                       --target install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-    )
+    # add the cmake command to install target
+    add_custom_install_target(${ARGS_TARGET})
 
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${ARGS_TARGET} PUBLIC _DEBUG)

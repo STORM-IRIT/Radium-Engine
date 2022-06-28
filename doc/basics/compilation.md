@@ -22,6 +22,8 @@ Minimal requirements
 If not already done, follow instructions at \ref dependenciesmanagement.
 
 Radium follows a standard cmake structure, so any IDE supporting cmake should be able to configure and build it.
+Note however that cmake scripts are only compatible with generators `Ninja` and derivatives or `Unix Makefiles`
+Support for other generator (e.g. `XCode`) was not tested.
 
 Several targets allowing to build or install only a specific part of Radium-Engine are defined by the cmake configuration.
 The standard targets `all` and `install` are also available as a shortcut to build all the configured components and to install the main components.
@@ -172,6 +174,7 @@ Radium requires MSVC 2019 or superior, as it relies on:
 
 * C++11/C++14/C++17 features such as `constexpr`,
 * cmake built-in support
+* Ninja built-in support
 
 Our Continuous Integration systems uses Microsoft Compiler 2017, in combination with cmake and ninja.
 Using Visual Studio 2017 with cmake support is however not possible: VS is shipped with cmake: 3.12, while Radium requires cmake 3.13 at least. We recommend to use Visual Studio 2019 in that case.

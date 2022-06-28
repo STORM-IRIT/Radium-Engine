@@ -48,8 +48,15 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/PluginsExample")
 add_subdirectory(PluginsWithLib EXCLUDE_FROM_ALL)
 set(CMAKE_INSTALL_PREFIX "${OLD_CMAKE_INSTALL_PREFIX}")
 add_dependencies(${PROJECT_NAME} PluginsWithLib)
-install(
-    CODE "execute_process(COMMAND ${CMAKE_COMMAND} --build \"${CMAKE_CURRENT_BINARY_DIR}/PluginsWithLib\" --target install)"
-)
+if(CMAKE_GENERATOR MATCHES "Ninja")
+    file(RELATIVE_PATH thisSubdirectory ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+    install(
+        CODE "execute_process(COMMAND ${CMAKE_COMMAND} --build \"${CMAKE_BINARY_DIR}\" --target \"${thisSubdirectory}/PluginsWithLib/install\")"
+    )
+else()
+    install(
+        CODE "execute_process(COMMAND ${CMAKE_COMMAND} --build \"${CMAKE_CURRENT_BINARY_DIR}/PluginsWithLib\" --target install)"
+    )
+endif()
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
