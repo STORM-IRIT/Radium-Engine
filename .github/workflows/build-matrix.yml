@@ -206,7 +206,7 @@ jobs:
           ${{ matrix.config.extra-flags }} \
           -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT \
           -DRADIUM_USE_DOUBLE=${{ matrix.precision.value }} -DRADIUM_UPDATE_VERSION=OFF \
-          -DRADIUM_INSTALL_DOC=OFF -DRADIUM_ENABLE_TESTING=ON -DRADIUM_ENABLE_COVERAGE=${{ matrix.coverage }} \
+          -DRADIUM_INSTALL_DOC=OFF -DRADIUM_ENABLE_TESTING=ON -DRADIUM_ENABLE_EXAMPLES=ON -DRADIUM_ENABLE_COVERAGE=${{ matrix.coverage }} \
           -C ${{ env.ext-dir }}/radium-options.cmake \
           -DCMAKE_INSTALL_PREFIX=../../install/
       - name: Build Radium
@@ -221,7 +221,9 @@ jobs:
       - name: Run CoreExample as a build and install test
         if: runner.os != 'Windows'
         run: |
-          cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target Install_CoreExample
+          cd build/Radium-Engine
+          cmake --build . --parallel --config ${{ matrix.build-type }} --target Install_CoreExample
+          cd ../..
           ./build/Radium-Engine/examples/CoreExample/CoreExample
           ./install/bin/CoreExample
       - name: Extract ref for badges prefix
