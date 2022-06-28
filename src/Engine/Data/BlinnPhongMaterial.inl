@@ -1,8 +1,11 @@
 #pragma once
 
+#include <Engine/Data/BlinnPhongMaterial.hpp>
+
 namespace Ra {
 namespace Engine {
 namespace Data {
+
 // Add a texture as material parameter from an already existing Radium Texture
 inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic, Texture* texture ) {
     m_textures[semantic] = texture;
@@ -48,11 +51,11 @@ inline void BlinnPhongMaterial::setColoredByVertexAttrib( bool state ) {
     bool oldState    = m_perVertexColor;
     m_perVertexColor = state;
     if ( oldState != m_perVertexColor ) { needUpdate(); }
-};
+}
 
 inline bool BlinnPhongMaterial::isColoredByVertexAttrib() const {
     return m_perVertexColor;
-};
+}
 
 } // namespace Data
 } // namespace Engine
