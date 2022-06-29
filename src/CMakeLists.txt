@@ -131,24 +131,24 @@ set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
 #     BUNDLE DESTINATION "."
 #     RUNTIME DESTINATION bin)
 # ~~~
-# Using macro from cmake/cleanCpppExtensions.cpp included on the top Provides exampleApp-run and
-# exampleApp-dbg
+# Using macro from cmake/CleanCppExtensions.cpp included on the top Provides run_exampleApp and
+# gdb_exampleApp
 # ~~~
 # add_run_and_debug_targets(exampleApp)
 # ~~~
 #
 # short convenience target from cmake/cleanCpppExtensions.cpp
 # ~~~
-# add_custom_target(run DEPENDS exampleApp-run)
+# add_custom_target(run DEPENDS run_exampleApp)
 # ~~~
 #
 # Manually specified convenience target for running the binary, we use macro
 # ~~~
-# add_custom_target(exampleApp-run
+# add_custom_target(run_exampleApp
 #     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
 #     USES_TERMINAL
 #     COMMAND ./exampleApp
-#     DEPENDS Install_)
+#     DEPENDS exampleApp)
 # ~~~
 # And this would add -DBAR_ENABLE_FEATURE or equivalent to build command
 # ~~~
