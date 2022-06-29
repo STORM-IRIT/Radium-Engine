@@ -1,4 +1,6 @@
-#-------------------------------------------------------------------------------
+cmake_minimum_required(VERSION 3.16)
+
+# -------------------------------------------------------------------------------
 # exampleApp executables setup
 
 project(RadiumExamples)
@@ -7,6 +9,7 @@ list(APPEND CMAKE_MESSAGE_INDENT "[Examples] ")
 
 # short convenience target
 add_custom_target(${PROJECT_NAME})
+add_custom_target(Install_${PROJECT_NAME})
 
 foreach(
     APP
@@ -25,13 +28,18 @@ foreach(
 )
     add_subdirectory(${APP})
     add_dependencies(${PROJECT_NAME} ${APP})
+    add_dependencies(Install_${APP} ${APP})
+    add_dependencies(Install_${PROJECT_NAME} Install_${APP})
 endforeach()
 
 # VolumeDemoApp
-get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
+find_package(Radium REQUIRED IO)
+get_target_property(HAS_VOLUMES Radium::IO RADIUM_IO_HAS_VOLUMES)
 if(${HAS_VOLUMES})
     add_subdirectory(Volume)
     add_dependencies(${PROJECT_NAME} Volume)
+    add_dependencies(Install_Volume Volume)
+    add_dependencies(Install_${PROJECT_NAME} Install_Volume)
 endif()
 
 # HeadlessDemo headless demo is available only if Radium::headless is available
@@ -39,6 +47,7 @@ find_package(Radium COMPONENTS Headless QUIET)
 if(Radium_FOUND)
     add_subdirectory(HeadlessExample)
     add_dependencies(${PROJECT_NAME} HeadlessExample)
+    add_dependencies(Install_${PROJECT_NAME} Install_HeadlessExample)
 endif()
 
 # Define specific installation procedure for this example to prevent mixed installation with Radium
@@ -48,15 +57,10 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/PluginsExample")
 add_subdirectory(PluginsWithLib EXCLUDE_FROM_ALL)
 set(CMAKE_INSTALL_PREFIX "${OLD_CMAKE_INSTALL_PREFIX}")
 add_dependencies(${PROJECT_NAME} PluginsWithLib)
-if(CMAKE_GENERATOR MATCHES "Ninja")
-    file(RELATIVE_PATH thisSubdirectory ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
-    install(
-        CODE "execute_process(COMMAND ${CMAKE_COMMAND} --build \"${CMAKE_BINARY_DIR}\" --target \"${thisSubdirectory}/PluginsWithLib/install\")"
-    )
-else()
-    install(
-        CODE "execute_process(COMMAND ${CMAKE_COMMAND} --build \"${CMAKE_CURRENT_BINARY_DIR}/PluginsWithLib\" --target install)"
-    )
-endif()
+add_custom_target(
+    Install_PluginsWithLib COMMAND "${CMAKE_COMMAND}" -P
+                                   ${CMAKE_CURRENT_BINARY_DIR}/PluginsWithLib/cmake_install.cmake
+)
+add_dependencies(Install_PluginsWithLib PluginsWithLib)
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

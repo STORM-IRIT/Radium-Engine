@@ -202,25 +202,6 @@ if(RADIUM_ENABLE_EXAMPLES)
     # add examples subdirectory
     add_subdirectory(examples EXCLUDE_FROM_ALL)
     add_dependencies(RadiumExamples RadiumLibs)
-    # add a target to build example within the all target
-    add_custom_target(Build_Example ALL)
-    add_dependencies(Build_Example RadiumExamples)
-    # add a specific target to install examples on request
-    add_custom_target(Install_Examples)
-    add_dependencies(Install_Examples Build_Example)
-
-    if(CMAKE_GENERATOR MATCHES "Ninja")
-        add_custom_command(
-            TARGET Install_Examples POST_BUILD
-            COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}" --target "examples/install"
-        )
-    else()
-        add_custom_command(
-            TARGET Install_Examples POST_BUILD
-            COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}/examples" --target install
-        )
-    endif()
-
 endif()
 
 # Testing
