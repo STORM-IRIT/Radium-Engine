@@ -22,8 +22,6 @@ Minimal requirements
 If not already done, follow instructions at \ref dependenciesmanagement.
 
 Radium follows a standard cmake structure, so any IDE supporting cmake should be able to configure and build it.
-Note however that cmake scripts are only compatible with generators `Ninja` and derivatives or `Unix Makefiles`
-Support for other generator (e.g. `XCode`) was not tested.
 
 Several targets allowing to build or install only a specific part of Radium-Engine are defined by the cmake configuration.
 The standard targets `all` and `install` are also available as a shortcut to build all the configured components and to install the main components.
