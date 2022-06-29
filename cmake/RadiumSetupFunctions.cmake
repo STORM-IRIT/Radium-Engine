@@ -56,6 +56,7 @@ macro(add_custom_install_target TARGET)
         Install_${TARGET} COMMAND "${CMAKE_COMMAND}" -P
                                   ${CMAKE_CURRENT_BINARY_DIR}/cmake_install.cmake
     )
+    add_dependencies(Install_${TARGET} ${TARGET})
 endmacro()
 
 # Configuration of the build and installation procedure for cmdline Radium application Allows to
