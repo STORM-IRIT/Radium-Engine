@@ -150,6 +150,17 @@ void AttribArrayDisplayable::setDirty( const Ra::Core::Geometry::MeshAttrib& typ
     m_isDirty = true;
 }
 
+Ra::Core::Utils::optional<gl::GLuint> AttribArrayDisplayable::getVaoHandle() {
+    if ( m_vao ) return m_vao->id();
+    return {};
+}
+Ra::Core::Utils::optional<gl::GLuint>
+AttribArrayDisplayable::getVboHandle( const std::string& name ) {
+    auto idx = m_handleToBuffer.find( name );
+    if ( idx != m_handleToBuffer.end() && m_vbos[idx->second] ) return m_vbos[idx->second]->id();
+    return {};
+}
+
 void PointCloud::render( const ShaderProgram* prog ) {
     if ( m_vao ) {
         autoVertexAttribPointer( prog );
