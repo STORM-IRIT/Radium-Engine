@@ -23,7 +23,7 @@ endif()
 
 # Radium and Qt stuff
 message(STATUS "[Plugins sharing lib] : configure plugin ${PROJECT_NAME}")
-find_package(Radium REQUIRED PluginBase)
+find_package(Radium COMPONENTS PluginBase REQUIRED)
 
 find_qt_package(COMPONENTS Core Widgets REQUIRED)
 set(Qt_LIBRARIES Qt::Core Qt::Widgets)

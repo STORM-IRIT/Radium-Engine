@@ -30,7 +30,7 @@ endif()
 message(STATUS "[Plugins sharing lib] : configure library ${PROJECT_NAME}")
 
 # Radium and Qt stuff
-find_package(Radium REQUIRED Engine)
+find_package(Radium COMPONENTS Engine REQUIRED)
 
 set(markdowns README.md)
 set(sources ExampleLibrary.cpp)

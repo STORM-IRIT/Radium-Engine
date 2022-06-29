@@ -2,6 +2,7 @@ message(STATUS "[Plugins sharing lib] : configure plugin ${PROJECT_NAME}")
 # This Plugin uses an external helper library (UpstreamLibrary). This library can be searched and
 # used in its build tree or from an installation one.
 find_package(UpstreamLibrary REQUIRED)
+find_package(Radium COMPONENTS PluginBase REQUIRED)
 # once found (or used from the same buildtree than this project), the helper library has name
 # RadiumDemo::UpstreamLibrary
 

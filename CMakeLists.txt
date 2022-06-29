@@ -202,6 +202,9 @@ if(RADIUM_ENABLE_EXAMPLES)
     # add examples subdirectory
     add_subdirectory(examples EXCLUDE_FROM_ALL)
     add_dependencies(RadiumExamples RadiumLibs)
+    # compile the examples within the all target (but do not install them within the install target)
+    add_custom_target(BuildExamples ALL)
+    add_dependencies(BuildExamples RadiumExamples)
 endif()
 
 # Testing

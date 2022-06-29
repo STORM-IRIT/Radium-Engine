@@ -43,3 +43,10 @@ add_dependencies(${PROJECT_NAME} DownstreamPlugin)
 
 # documentation (to be updated)
 add_custom_target(${PROJECT_NAME}-Doc SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+
+# install
+add_custom_target(
+    Install_${PROJECT_NAME} COMMAND "${CMAKE_COMMAND}" -P
+                                    ${CMAKE_CURRENT_BINARY_DIR}/cmake_install.cmake
+)
+add_dependencies(Install_${PROJECT_NAME} ${PROJECT_NAME})
