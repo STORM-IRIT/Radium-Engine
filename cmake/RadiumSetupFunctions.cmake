@@ -48,26 +48,14 @@ define_property(
 )
 
 # ------------------------------------------------------------------------------
-# Internal functions, not to be called directly by the user. Radium client might prefer to use main
-# entry points.
+# Internal functions, not to be called directly by the user. Radium client might prefer to use
+# configure[_*]_radium[_*] entry points.
 #
-
-# this allow to customize custom install target depending on the generator. Note that only Ninj (and
-# all its derivative) and Unix Makefiles were tested
 macro(add_custom_install_target TARGET)
-    # does this works also with Makefile generator --> NO ?
-    if(CMAKE_GENERATOR MATCHES "Ninja")
-        file(RELATIVE_PATH targetPath ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
-        add_custom_target(
-            Install_${TARGET} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}" --target
-                                      "${targetPath}/install"
-        )
-    else()
-        add_custom_target(
-            Install_${TARGET} COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_CURRENT_BINARY_DIR}"
-                                      --target install
-        )
-    endif()
+    add_custom_target(
+        Install_${TARGET} COMMAND "${CMAKE_COMMAND}" -P
+                                  ${CMAKE_CURRENT_BINARY_DIR}/cmake_install.cmake
+    )
 endmacro()
 
 # Configuration of the build and installation procedure for cmdline Radium application Allows to
