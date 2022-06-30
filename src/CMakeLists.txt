@@ -32,25 +32,35 @@ set(ConfigPackageLocation lib/cmake/Radium)
 # -----------------------------------------------------------------------------------
 # Include sources and declare components
 set(PACKAGE_COMPONENTS "")
+
 if(RADIUM_GENERATE_LIB_CORE)
     add_subdirectory(Core)
+    add_dependencies(RadiumLibs Core)
 endif()
 
 if(RADIUM_GENERATE_LIB_ENGINE)
     add_subdirectory(Engine)
+    add_dependencies(RadiumLibs Engine)
 endif()
+
 if(RADIUM_GENERATE_LIB_IO)
     add_subdirectory(IO)
+    add_dependencies(RadiumLibs IO)
 endif()
+
 if(RADIUM_GENERATE_LIB_PLUGINBASE)
     add_subdirectory(PluginBase)
+    add_dependencies(RadiumLibs PluginBase)
 endif()
+
 if(RADIUM_GENERATE_LIB_GUI)
     add_subdirectory(Gui)
+    add_dependencies(RadiumLibs Gui)
 endif()
 
 if(RADIUM_GENERATE_LIB_HEADLESS)
     add_subdirectory(Headless)
+    add_dependencies(RadiumLibs Headless)
 endif()
 
 # -----------------------------------------------------------------------------------
@@ -99,102 +109,6 @@ endif()
 # propagate global to parent
 set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
 
-# ---- exampleApp executable setup ----
-
-# ~~~
-# # #set(ICON_RESOURCE "")
-# if(WIN32) #windows icon resource file, provided from /packaging directory
-#     set(ICON_RESOURCE "${PROJECT_BINARY_DIR}/exampleApp.icon.rc")
-# elseif (APPLE) #osx icon ressource file, provided from /packaging directory
-#     set(ICON_RESOURCE "${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns")
-# endif()
-#
-# add_executable(exampleApp MACOSX_BUNDLE
-#     ${ICON_RESOURCE}
-#     ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
-#     SomeClass.cpp
-#     SomeClass.h
-#     main.cpp)
-# add_dependencies(exampleApp versionFileTouchForRebuild) # We want precise time of build in version
-# target_include_directories(exampleApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-# target_link_libraries (exampleApp PRIVATE Threads::Threads)
-#
-# if(APPLE)
-#     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "exampleApp")
-#     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_GUI_IDENTIFIER "com.exampleApp.exampleApp")
-#     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_ICON_FILE exampleApp.icns)
-#     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in)
-#     set_source_files_properties(${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-# endif()
-#
-# install(TARGETS exampleApp
-#     BUNDLE DESTINATION "."
-#     RUNTIME DESTINATION bin)
-# ~~~
-# Using macro from cmake/CleanCppExtensions.cpp included on the top Provides run_exampleApp and
-# gdb_exampleApp
-# ~~~
-# add_run_and_debug_targets(exampleApp)
-# ~~~
-#
-# short convenience target from cmake/cleanCpppExtensions.cpp
-# ~~~
-# add_custom_target(run DEPENDS run_exampleApp)
-# ~~~
-#
-# Manually specified convenience target for running the binary, we use macro
-# ~~~
-# add_custom_target(run_exampleApp
-#     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
-#     USES_TERMINAL
-#     COMMAND ./exampleApp
-#     DEPENDS exampleApp)
-# ~~~
-# And this would add -DBAR_ENABLE_FEATURE or equivalent to build command
-# ~~~
-# target_compile_definitions(exampleApp PRIVATE BAR_ENABLE_FEATURE)
-# ~~~
-#
-# Add compile time definition based on option option(OPTION_NAME "description for end user" OFF)
-# ~~~
-# if(OPTION_NAME)
-#     # you can do anything here, eg. setup new optional executable
-#     target_compile_definitions(exampleApp PRIVATE DEFINE_NAME)
-# endif()
-# ~~~
-#
-# Add building new shared library
-# ~~~
-# add_library(exampleLibrary SHARED ${LIBRARY_SOURCES})
-# target_link_libraries (exampleLibrary ${CMAKE_THREAD_LIBS_INIT})
-# set_property(TARGET exampleLibrary PROPERTY CXX_STANDARD 14) # we want C++14
-# ~~~
-#
-# How to include and link OpenGL and GLUT libraries
-# ~~~
-# find_package(OpenGL REQUIRED)
-# find_package(GLUT REQUIRED)
-# target_include_directories(exampleApp SYSTEM ${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS} )
-# target_link_libraries(exampleApp ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
-# ~~~
-#
-# How to use some other standard packages
-# ~~~
-# find_package(ZLIB REQUIRED)
-# target_link_libraries (exampleApp PRIVATE ZLIB::ZLIB)
-#
-# find_package(OpenSSL REQUIRED)
-# target_link_libraries (exampleApp PRIVATE OpenSSL::SSL OpenSSL::Crypto)
-#
-# find_package(CURL REQUIRED)
-# target_link_libraries (exampleApp PRIVATE CURL::libcurl)
-# ~~~
-
-# ------------------------------------------------------------------------------
-# Unit tests
-
-# add_subdirectory(unittest)
-
 # -------------------------------------------------------------------------------
 # Copy MINGW needed libraries for building on windows
 
@@ -217,4 +131,3 @@ endif(MINGW)
 
 # Adds misc targets: format, cppcheck, tidy, see cmake/CleanCppExtensions.cmake
 set(FORMAT_STYLE_FILENAME ${RADIUM_SRC_DIR}/scripts/clang-format)
-add_misc_targets()

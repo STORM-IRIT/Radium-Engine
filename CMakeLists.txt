@@ -175,27 +175,14 @@ set(LocalDependencies)
 
 # Images, databases and other data which needs to be installed for project add_subdirectory(data)
 
+# Add this target so that some IDE could propose to build all radium libs and examples at once
+add_custom_target(RadiumLibs)
+
 # Source code
 add_subdirectory(src)
 
 # Enable find_package(RadiumEngine) for the current build.
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR}/src)
-
-# Add this target so that some IDE could propose to build all radium libs and examples at once
-add_custom_target(RadiumLibs DEPENDS Core Engine Gui IO PluginBase)
-
-# add a target allowing to force the installation of the library
-
-set(RadiumForceInstallCommutators "")
-if(MSVC)
-    set(RadiumForceInstallCommutators "/p:Configuration=${CMAKE_BUILD_TYPE}")
-endif(MSVC)
-
-add_custom_target(
-    ForceRadiumInstallation COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target install --
-                                    ${RadiumForceInstallCommutators}
-    COMMENT "Forcing Radium installation"
-)
 
 # examples
 if(RADIUM_ENABLE_EXAMPLES)
