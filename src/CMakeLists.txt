@@ -31,7 +31,7 @@ set(CONFIG_PACKAGE_LOCATION lib/cmake/Radium)
 
 # -----------------------------------------------------------------------------------
 # Include sources and declare components
-set(PACKAGE_COMPONENTS "")
+set(RADIUM_COMPONENTS "")
 
 foreach(lib Core Engine IO PluginBase Gui Headless)
     string(TOUPPER ${lib} upcase_lib)
@@ -103,9 +103,3 @@ if(MINGW)
 
     install(FILES ${GCC_PATH}/${LIBGCC} ${GCC_PATH}/libstdc++-6.dll DESTINATION ./bin/)
 endif(MINGW)
-
-# ------------------------------------------------------------------------------
-# Other MISC targets
-
-# Adds misc targets: format, cppcheck, tidy, see cmake/CleanCppExtensions.cmake
-set(FORMAT_STYLE_FILENAME ${RADIUM_SRC_DIR}/scripts/clang-format)
