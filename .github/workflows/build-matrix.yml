@@ -208,7 +208,8 @@ jobs:
           -DRADIUM_USE_DOUBLE=${{ matrix.precision.value }} -DRADIUM_UPDATE_VERSION=OFF \
           -DRADIUM_INSTALL_DOC=OFF -DRADIUM_ENABLE_TESTING=ON -DRADIUM_ENABLE_EXAMPLES=ON -DRADIUM_ENABLE_COVERAGE=${{ matrix.coverage }} \
           -C ${{ env.ext-dir }}/radium-options.cmake \
-          -DCMAKE_INSTALL_PREFIX=../../install/
+          -DCMAKE_INSTALL_PREFIX=../../install/ \
+          ${{ env.glfw-path }}
       - name: Build Radium
         run: |
           cd build/Radium-Engine
