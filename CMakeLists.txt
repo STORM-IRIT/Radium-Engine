@@ -175,7 +175,7 @@ set(LocalDependencies)
 
 # Images, databases and other data which needs to be installed for project add_subdirectory(data)
 
-# Add this target so that some IDE could propose to build all radium libs and examples at once
+# Add this target so that some IDE could propose to build all radium libs at once
 add_custom_target(RadiumLibs)
 
 # Source code
