@@ -179,6 +179,7 @@ set(LocalDependencies)
 add_custom_target(RadiumLibs)
 
 # Source code
+set(RADIUM_COMPONENTS "")
 add_subdirectory(src)
 
 # Enable find_package(RadiumEngine) for the current build.
@@ -271,6 +272,8 @@ message_setting("RADIUM_GENERATE_LIB_GUI")
 message_setting("RADIUM_GENERATE_LIB_HEADLESS")
 message_setting("RADIUM_GENERATE_LIB_IO")
 message_setting("RADIUM_GENERATE_LIB_PLUGINBASE")
+string(REPLACE ";" " " COMPONENTS_LIST "${RADIUM_COMPONENTS}")
+message_info("Actual configured components: ${COMPONENTS_LIST}")
 message_setting("RADIUM_GIT_UPDATE_SUBMODULE")
 message_setting("RADIUM_IO_ASSIMP")
 message_setting("RADIUM_IO_TINYPLY")
