@@ -33,35 +33,13 @@ set(ConfigPackageLocation lib/cmake/Radium)
 # Include sources and declare components
 set(PACKAGE_COMPONENTS "")
 
-if(RADIUM_GENERATE_LIB_CORE)
-    add_subdirectory(Core)
-    add_dependencies(RadiumLibs Core)
-endif()
-
-if(RADIUM_GENERATE_LIB_ENGINE)
-    add_subdirectory(Engine)
-    add_dependencies(RadiumLibs Engine)
-endif()
-
-if(RADIUM_GENERATE_LIB_IO)
-    add_subdirectory(IO)
-    add_dependencies(RadiumLibs IO)
-endif()
-
-if(RADIUM_GENERATE_LIB_PLUGINBASE)
-    add_subdirectory(PluginBase)
-    add_dependencies(RadiumLibs PluginBase)
-endif()
-
-if(RADIUM_GENERATE_LIB_GUI)
-    add_subdirectory(Gui)
-    add_dependencies(RadiumLibs Gui)
-endif()
-
-if(RADIUM_GENERATE_LIB_HEADLESS)
-    add_subdirectory(Headless)
-    add_dependencies(RadiumLibs Headless)
-endif()
+foreach(LIB Core Engine IO PluginBase Gui Headless)
+    string(TOUPPER ${LIB} UPCASE_LIB)
+    if(RADIUM_GENERATE_LIB_${UPCASE_LIB})
+        add_subdirectory(${LIB})
+        add_dependencies(RadiumLibs ${LIB})
+    endif()
+endforeach()
 
 # -----------------------------------------------------------------------------------
 # Prepare the RadiumConfigTemplate.in file:
