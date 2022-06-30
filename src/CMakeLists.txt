@@ -20,24 +20,24 @@ endif()
 find_package(OpenMP QUIET)
 
 # -----------------------------------------------------------------------------------
-function(cat IN_FILE OUT_FILE)
-    file(READ ${IN_FILE} CONTENTS)
-    file(APPEND ${OUT_FILE} "${CONTENTS}")
+function(cat in_file out_file)
+    file(READ ${in_file} CONTENTS)
+    file(APPEND ${out_file} "${CONTENTS}")
 endfunction()
 
 # Prepare cmake package
 include(CMakePackageConfigHelpers)
-set(ConfigPackageLocation lib/cmake/Radium)
+set(CONFIG_PACKAGE_LOCATION lib/cmake/Radium)
 
 # -----------------------------------------------------------------------------------
 # Include sources and declare components
 set(PACKAGE_COMPONENTS "")
 
-foreach(LIB Core Engine IO PluginBase Gui Headless)
-    string(TOUPPER ${LIB} UPCASE_LIB)
-    if(RADIUM_GENERATE_LIB_${UPCASE_LIB})
-        add_subdirectory(${LIB})
-        add_dependencies(RadiumLibs ${LIB})
+foreach(lib Core Engine IO PluginBase Gui Headless)
+    string(TOUPPER ${lib} upcase_lib)
+    if(RADIUM_GENERATE_LIB_${upcase_lib})
+        add_subdirectory(${lib})
+        add_dependencies(RadiumLibs ${lib})
     endif()
 endforeach()
 
@@ -63,7 +63,7 @@ install(
           "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/QtFunctions.cmake"
           "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/FindFilesystem.cmake"
           "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/RPath.cmake"
-    DESTINATION ${ConfigPackageLocation}
+    DESTINATION ${CONFIG_PACKAGE_LOCATION}
 )
 
 # copy scripts in the buildtree to be available when searching package in the buildtree
@@ -77,7 +77,7 @@ file(
 
 if(MSVC OR MSVC_IDE OR MINGW)
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/Windeployqt.cmake"
-            DESTINATION ${ConfigPackageLocation}
+            DESTINATION ${CONFIG_PACKAGE_LOCATION}
     )
     file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/Windeployqt.cmake"
          DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
@@ -94,14 +94,14 @@ if(MINGW)
     message(STATUS "MinGW detected")
     get_filename_component(GCC_PATH ${CMAKE_C_COMPILER} PATH)
     if(${GCC_PATH} MATCHES "mingw64/bin")
-        set(libgcc "libgcc_s_seh-1.dll") # 64bit
+        set(LIBGCC "libgcc_s_seh-1.dll") # 64bit
         message(STATUS "  64bit dlls is building")
     else()
-        set(libgcc "libgcc_s_dw2-1.dll") # 32bit
+        set(LIBGCC "libgcc_s_dw2-1.dll") # 32bit
         message(STATUS "  32bit dlls is building")
     endif()
 
-    install(FILES ${GCC_PATH}/${libgcc} ${GCC_PATH}/libstdc++-6.dll DESTINATION ./bin/)
+    install(FILES ${GCC_PATH}/${LIBGCC} ${GCC_PATH}/libstdc++-6.dll DESTINATION ./bin/)
 endif(MINGW)
 
 # ------------------------------------------------------------------------------
