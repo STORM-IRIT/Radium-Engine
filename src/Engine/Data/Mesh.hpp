@@ -113,12 +113,12 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     virtual Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry()             = 0;
     ///@}
 
-    /// get opengl's vbo handle (uint) corresponding to attrib \b name.
-    /// if vbo is not initialized or name do not correponds to an actual attrib name, the returned
+    /// \brief Get opengl's vbo handle (uint) corresponding to attrib \b name.
+    /// If vbo is not initialized or name do not correponds to an actual attrib name, the returned
     /// optional is empty
     Ra::Core::Utils::optional<gl::GLuint> getVboHandle( const std::string& name );
-    /// get opengl's vao handle (uint)
-    /// if vao is not initialized, the returned optional is empty
+    /// \brief Get opengl's vao handle (uint)
+    /// If vao is not initialized, the returned optional is empty
     Ra::Core::Utils::optional<gl::GLuint> getVaoHandle();
 
   protected:
