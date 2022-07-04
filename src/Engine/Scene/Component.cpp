@@ -6,6 +6,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
+#include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 #include <Engine/Scene/SignalManager.hpp>
 #include <Engine/Scene/System.hpp>
@@ -26,6 +27,9 @@ Component::~Component() {
         getRoMgr()->removeRenderObject( ro );
     }
     if ( m_system ) { m_system->unregisterComponent( getEntity(), this ); }
+    auto cm = ComponentMessenger::getInstance();
+    cm->unregisterAll( getEntity(), this );
+
     RadiumEngine::getInstance()->getSignalManager()->fireComponentRemoved(
         ItemEntry( getEntity(), this ) );
 }

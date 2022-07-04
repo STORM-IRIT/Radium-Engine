@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>About Radium Engine</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>

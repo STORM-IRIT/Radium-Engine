@@ -141,6 +141,8 @@ class RA_GUI_API BaseApplication : public QApplication
     /// Get the html formatted help text
     virtual std::string getHelpText() const;
 
+    void addRadiumMenu();
+
   signals:
     /// Fired when the engine has just started, before the frame timer is set.
     void starting();
@@ -168,7 +170,7 @@ class RA_GUI_API BaseApplication : public QApplication
 
     void updateRadiumFrameIfNeeded() {
         // Main loop
-        if ( m_isUpdateNeeded.load() ) radiumFrame();
+        if ( !m_isAboutToQuit && m_isUpdateNeeded.load() ) radiumFrame();
         if ( m_continuousUpdateRequest <= 0 ) {
             m_continuousUpdateRequest.store( 0 );
             m_isUpdateNeeded.store( false );

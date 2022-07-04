@@ -1,3 +1,5 @@
+#pragma once
+
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
 namespace Ra {

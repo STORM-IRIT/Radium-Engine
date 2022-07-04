@@ -1,11 +1,13 @@
 #pragma once
 
+/// \file StdMapIterators.hpp
+/// This file contains utilities and wrapper to iterate over Map and OrderedMap values/keys
+/// Source: https://gist.github.com/eruffaldi/93d09ed6644ae3fa279f
+
 #include <map>
 #include <type_traits> // conditionals
 #include <unordered_map>
 
-/// \file This file contains utilities and wrapper to iterate over Map and OrderedMap values/keys
-/// Source: https://gist.github.com/eruffaldi/93d09ed6644ae3fa279f
 namespace Ra {
 namespace Core {
 namespace Utils {
