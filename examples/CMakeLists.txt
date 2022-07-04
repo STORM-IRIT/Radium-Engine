@@ -25,6 +25,7 @@ foreach(
     SimpleAnimation
     SimpleSimulation
     TexturedQuad
+    CurveEditor
 )
     add_subdirectory(${APP})
     add_dependencies(${PROJECT_NAME} ${APP})
