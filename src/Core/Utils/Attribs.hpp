@@ -362,8 +362,10 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
 
     /**
      * \brief Scope lock state management for attributes.
+     *
      * Unlock all attribs locked after the creation of the ScopedLockState object when it
-     * gets out of scope. \code{.cpp}
+     * gets out of scope.
+     * \code{.cpp}
      * {
      * auto g = new AttribArrayGeometry();
      *
@@ -385,14 +387,14 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      * attrib1.unlock();
      *
      * // attrib2 and attrib3 are automatically unlocked when the unlocker's destructor
-     * is called (i.e. gets out of scope)
+     * // is called (i.e. gets out of scope)
      * }
+     * \endcode
      */
     class ScopedLockState
     {
       public:
         /**
-         *
          * \param a the AttribManager on which locking will be supervised
          * \brief Constructor, save lock state of all attribs from attribManager
          */
@@ -422,8 +424,8 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     /// Attrib list, better using attribs() to go through.
     Container m_attribs;
 
-    // Map between the attrib's name and its index, used to speedup finding the
-    // handle index from the attribute name.
+    /// Map between the attrib's name and its index, used to speedup finding the handle index from
+    /// the attribute name.
     std::map<std::string, Index> m_attribsIndex;
 
     // Ease wrapper
