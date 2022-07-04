@@ -277,6 +277,8 @@ class RA_ENGINE_API Renderer
 
     inline void setBrushRadius( Scalar brushRadius );
 
+    inline Scalar getBrushRadius();
+
     /// Tell if the renderer has an usable light.
     bool hasLight() const;
 

@@ -109,6 +109,10 @@ inline void Renderer::setBrushRadius( Scalar brushRadius ) {
     m_brushRadius = brushRadius;
 }
 
+inline Scalar Renderer::getBrushRadius() {
+    return m_brushRadius;
+}
+
 inline void Renderer::setBackgroundColor( const Core::Utils::Color& color ) {
     m_backgroundColor = color;
 }
