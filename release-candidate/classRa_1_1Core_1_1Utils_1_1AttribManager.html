@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.44</span>
+   &#160;<span id="projectnumber">1.2.45</span>
    </div>
   </td>
  </tr>
@@ -93,8 +93,10 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Utils_1_1AttribMana
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classRa_1_1Core_1_1Utils_1_1AttribManager-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Ra::Core::Utils::AttribManager Class Reference</div>  </div>
@@ -122,6 +124,12 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Utils_1_1AttribMana
 </div>
 </div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager_1_1ScopedLockState.html">ScopedLockState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scope lock state management for attributes.  <a href="classRa_1_1Core_1_1Utils_1_1AttribManager_1_1ScopedLockState.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a738dd214957077c18a1e79176cb12c30"><td class="memItemLeft" align="right" valign="top"><a id="a738dd214957077c18a1e79176cb12c30"></a>
@@ -206,6 +214,10 @@ template&lt;typename T &gt; </td></tr>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a4da7309507eb5e305acbc59e1983de03">getNumAttribs</a> () const</td></tr>
 <tr class="memdesc:a4da7309507eb5e305acbc59e1983de03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of attributes. <br /></td></tr>
 <tr class="separator:a4da7309507eb5e305acbc59e1983de03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c240f2ad8c5d806006a4961ec95b65d"><td class="memItemLeft" align="right" valign="top"><a id="a5c240f2ad8c5d806006a4961ec95b65d"></a>
+<a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager_1_1ScopedLockState.html">ScopedLockState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a5c240f2ad8c5d806006a4961ec95b65d">getScopedLockState</a> ()</td></tr>
+<tr class="memdesc:a5c240f2ad8c5d806006a4961ec95b65d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a scope unlocker for managed attribs. <br /></td></tr>
+<tr class="separator:a5c240f2ad8c5d806006a4961ec95b65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:ae0cb7281ec72606a5392602b4ea50d2c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ae0cb7281ec72606a5392602b4ea50d2c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">getAttrib</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; T &gt; &amp;h)</td></tr>
@@ -286,6 +298,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a4e8b57fbe22d3aaafb71938a3db2a207 inherit pub_methods_classRa_1_1Core_1_1Utils_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88d70b5bc3b4a783bbcc02eddcc56507 inherit pub_methods_classRa_1_1Core_1_1Utils_1_1Observable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">detach</a> (int observerId)</td></tr>
 <tr class="separator:a88d70b5bc3b4a783bbcc02eddcc56507 inherit pub_methods_classRa_1_1Core_1_1Utils_1_1Observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a2539d55dfd09040e0602be7b324e8d26"><td class="memItemLeft" align="right" valign="top"><a id="a2539d55dfd09040e0602be7b324e8d26"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>::Ra::Core::Geometry::TopologicalMesh</b></td></tr>
+<tr class="separator:a2539d55dfd09040e0602be7b324e8d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles.">AttribManager</a> provides attributes management by handles. </p>
@@ -881,7 +899,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Utils</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">AttribManager</a></li>
-    <li class="footer">Generated on Mon Jun 27 2022 06:07:31 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 4 2022 09:41:40 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

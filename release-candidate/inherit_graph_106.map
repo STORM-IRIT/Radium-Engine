@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Gui_1_1HelpDialog.html" title="Dialog to display navigation/interaction controls." alt="" coords="5,5,155,32"/>
+<area shape="rect" id="node1" href="$classRa_1_1Gui_1_1Gizmo.html" title=" " alt="" coords="5,56,124,83"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1RotateGizmo.html" title="A RotateGizmo manipulates the rotational part of a transformation." alt="" coords="180,5,343,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1ScaleGizmo.html" title=" " alt="" coords="184,56,339,83"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1TranslateGizmo.html" title="A TranslateGizmo manipulates the translational part of a transformation." alt="" coords="172,107,351,133"/>
 </map>

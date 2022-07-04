@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.44</span>
+   &#160;<span id="projectnumber">1.2.45</span>
    </div>
   </td>
  </tr>
@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Scene_1_1Componen
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger__coll__graph.svg" width="204" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger__coll__graph.svg" width="204" height="264"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
@@ -159,6 +159,10 @@ template&lt;typename ReturnType &gt; </td></tr>
 template&lt;typename ReturnType &gt; </td></tr>
 <tr class="memitem:a8882f6f095ccf5ca2fbd4d4c524f736a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>registerInput</b> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *comp, const std::string &amp;id, const typename <a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt; ReturnType &gt;::Setter &amp;cb)</td></tr>
 <tr class="separator:a8882f6f095ccf5ca2fbd4d4c524f736a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaebd35c0c84995568869d8fe07f915c"><td class="memItemLeft" align="right" valign="top"><a id="abaebd35c0c84995568869d8fe07f915c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#abaebd35c0c84995568869d8fe07f915c">unregisterAll</a> (const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a> *component)</td></tr>
+<tr class="memdesc:abaebd35c0c84995568869d8fe07f915c"><td class="mdescLeft">&#160;</td><td class="mdescRight">unregister all callbacks attached to <b>entity's</b> <b>component</b> <br /></td></tr>
+<tr class="separator:abaebd35c0c84995568869d8fe07f915c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class allows components to communicate data to each other in a type safe way When a component is created, after being attached to an entity, it can declare output (get), input (set) or read/write functions on arbitrary type parameters. Then any component (typically belonging to the same entity) can try to access the given data through the functions. Declaring I/O is done by registering a function pointer with the correct prototype ( returning <code>const T*</code> for getters, accepting <code>const T*</code> for setters and returning a <code>T*</code> for read/write getters). Each function is identified by its entity, a name and the return type. Then, another component can try to query the messenger to check if a data of the relevant type, entity and string-id is available, with the canGet(), canSet() and canRw() functions. It is then possible to directly read or write this data with the get(), set() and rw() functions. For more efficiency the underlying function pointers are directly accessible as well and can be queried with the same identifiers. </p>
@@ -166,6 +170,7 @@ template&lt;typename ReturnType &gt; </td></tr>
 <p class="definition">Definition at line <a class="el" href="ComponentMessenger_8hpp_source.html#l00039">39</a> of file <a class="el" href="ComponentMessenger_8hpp_source.html">ComponentMessenger.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="ComponentMessenger_8hpp_source.html">ComponentMessenger.hpp</a></li>
+<li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="ComponentMessenger_8cpp_source.html">ComponentMessenger.cpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="ComponentMessenger_8inl_source.html">ComponentMessenger.inl</a></li>
 </ul>
 </div><!-- contents -->
@@ -174,7 +179,7 @@ template&lt;typename ReturnType &gt; </td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Scene</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html">ComponentMessenger</a></li>
-    <li class="footer">Generated on Mon Jun 27 2022 06:07:31 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 4 2022 09:41:40 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

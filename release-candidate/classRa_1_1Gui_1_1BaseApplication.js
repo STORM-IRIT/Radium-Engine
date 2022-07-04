@@ -4,6 +4,7 @@ var classRa_1_1Gui_1_1BaseApplication =
     [ "~BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html#a297cbe045fd3dff905d91a45070a606d", null ],
     [ "addApplicationExtension", "classRa_1_1Gui_1_1BaseApplication.html#a2af7ea85d1a58e2e3581a8a97f81e7b0", null ],
     [ "addPluginDirectory", "classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc", null ],
+    [ "addRadiumMenu", "classRa_1_1Gui_1_1BaseApplication.html#a445d3ef9d6302fffc1dd1640bf97aa61", null ],
     [ "appNeedsToQuit", "classRa_1_1Gui_1_1BaseApplication.html#a9576c0542f29e5929e0efd229cf3f1d9", null ],
     [ "askForUpdate", "classRa_1_1Gui_1_1BaseApplication.html#a4f8e0209256e00daa18315b201bc3df1", null ],
     [ "clearPluginDirectories", "classRa_1_1Gui_1_1BaseApplication.html#a6e96a76acc7b48d015b8fc34b60311df", null ],

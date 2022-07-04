@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.44</span>
+   &#160;<span id="projectnumber">1.2.45</span>
    </div>
   </td>
  </tr>
@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('Gizmo_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Color.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Index.hpp&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
@@ -224,7 +224,7 @@ $(document).ready(function(){initNavTree('Gizmo_8hpp_source.html',''); initResiz
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_ae733abf00f867def770eb5605f0f320c"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#ae733abf00f867def770eb5605f0f320c">Ra::Gui::Gizmo::m_comp</a></div><div class="ttdeci">Engine::Scene::Component * m_comp</div><div class="ttdoc">Engine Ui component.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00123">Gizmo.hpp:123</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html_a11f8714168f0fc3470ff7c749a91a5d8"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8">Ra::Gui::Gizmo::UiSelectionControler::setState</a></div><div class="ttdeci">void setState()</div><div class="ttdoc">Set the state of the controler to true.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8cpp_source.html#l00120">Gizmo.cpp:120</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_a75595aa737702bdda5306e8421c98dc5"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#a75595aa737702bdda5306e8421c98dc5">Ra::Gui::Gizmo::ros</a></div><div class="ttdeci">const std::vector&lt; Engine::Rendering::RenderObject * &gt; &amp; ros() const</div><div class="ttdoc">read access to the gizmo render objects id</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00101">Gizmo.hpp:101</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_ae5548219f2292a8da641c857ae698d8f"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#ae5548219f2292a8da641c857ae698d8f">Ra::Gui::Gizmo::mouseMove</a></div><div class="ttdeci">virtual Core::Transform mouseMove(const Core::Asset::Camera &amp;cam, const Core::Vector2 &amp;nextXY, bool stepped=false, bool whole=false)=0</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_ab84b5d13d6f0d5730df97d1354114999"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#ab84b5d13d6f0d5730df97d1354114999">Ra::Gui::Gizmo::isSelected</a></div><div class="ttdeci">virtual bool isSelected()=0</div><div class="ttdoc">return the selection state of the gizmo: true if the gizmo is selected, false if not.</div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
@@ -239,6 +239,7 @@ $(document).ready(function(){initNavTree('Gizmo_8hpp_source.html',''); initResiz
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_a6ad53eca5654b426a0b467ab716a2704"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#a6ad53eca5654b426a0b467ab716a2704">Ra::Gui::Gizmo::selectConstraint</a></div><div class="ttdeci">virtual void selectConstraint(int drawableIndex)=0</div><div class="ttdoc">Called when one of the drawables of the gizmo has been selected.</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_a24b665856d7f50f8441a139e3b2ce0b6"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#a24b665856d7f50f8441a139e3b2ce0b6">Ra::Gui::Gizmo::m_mode</a></div><div class="ttdeci">Mode m_mode</div><div class="ttdoc">local or global.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00124">Gizmo.hpp:124</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; Scalar &gt;</a></div></div>
+<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_a10af7510f144cfd950233a1a173fabf7"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#a10af7510f144cfd950233a1a173fabf7">Ra::Gui::Gizmo::s_material</a></div><div class="ttdeci">static std::array&lt; std::shared_ptr&lt; Ra::Engine::Data::PlainMaterial &gt;, 3 &gt; s_material</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00118">Gizmo.hpp:118</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_a2fc380738268508ca2d46ac856c2f98a"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#a2fc380738268508ca2d46ac856c2f98a">Ra::Gui::Gizmo::updateTransform</a></div><div class="ttdeci">virtual void updateTransform(Mode mode, const Core::Transform &amp;worldTo, const Core::Transform &amp;t)=0</div><div class="ttdoc">Called every time the underlying transform may have changed.</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html">Ra::Gui::Gizmo</a></div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00041">Gizmo.hpp:41</a></div></div>
@@ -253,7 +254,7 @@ $(document).ready(function(){initNavTree('Gizmo_8hpp_source.html',''); initResiz
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="dir_48f4a0e7ee74be957161ce5a9fe8f935.html">Gizmo</a></li><li class="navelem"><b>Gizmo.hpp</b></li>
-    <li class="footer">Generated on Mon Jun 27 2022 06:07:30 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 4 2022 09:41:39 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

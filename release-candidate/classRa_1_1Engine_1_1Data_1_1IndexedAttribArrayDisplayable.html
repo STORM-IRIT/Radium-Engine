@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.44</span>
+   &#160;<span id="projectnumber">1.2.45</span>
    </div>
   </td>
  </tr>
@@ -156,6 +156,7 @@ std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>
 std::map&lt; std::string, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_handleToBuffer</b></td></tr>
 <tr class="separator:add391c9ff0cb2e0846cb1496c0b24beb inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9832e391e3bf85e7900ea3b22145da40 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a9832e391e3bf85e7900ea3b22145da40">m_isDirty</a> { false }</td></tr>
+<tr class="memdesc:a9832e391e3bf85e7900ea3b22145da40 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="mdescLeft">&#160;</td><td class="mdescRight">General dirty bit of the mesh.  <a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a9832e391e3bf85e7900ea3b22145da40">More...</a><br /></td></tr>
 <tr class="separator:a9832e391e3bf85e7900ea3b22145da40 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classRa_1_1Engine_1_1Data_1_1Displayable"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Engine_1_1Data_1_1Displayable')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Ra::Engine::Data::Displayable</a></td></tr>
 <tr class="memitem:a1733f08a6d0b511d1189e9713de9918b inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Displayable"><td class="memItemLeft" align="right" valign="top"><a id="a1733f08a6d0b511d1189e9713de9918b"></a>
@@ -225,6 +226,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0">MeshRenderMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f">getRenderMode</a> () const</td></tr>
 <tr class="memdesc:a398f75c85b7dbcd3c266c6602bb6c01f inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the render mode. <br /></td></tr>
 <tr class="separator:a398f75c85b7dbcd3c266c6602bb6c01f inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ffc167e09652074c44b0c5c3335fefa inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memItemLeft" align="right" valign="top">Ra::Core::Utils::optional&lt; gl::GLuint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a6ffc167e09652074c44b0c5c3335fefa">getVboHandle</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:a6ffc167e09652074c44b0c5c3335fefa inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get opengl's vbo handle (uint) corresponding to attrib <b>name</b>.  <a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a6ffc167e09652074c44b0c5c3335fefa">More...</a><br /></td></tr>
+<tr class="separator:a6ffc167e09652074c44b0c5c3335fefa inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4ae19bec86de07b7f5828575f45fee2 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memItemLeft" align="right" valign="top">Ra::Core::Utils::optional&lt; gl::GLuint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad4ae19bec86de07b7f5828575f45fee2">getVaoHandle</a> ()</td></tr>
+<tr class="memdesc:ad4ae19bec86de07b7f5828575f45fee2 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get opengl's vao handle (uint).  <a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad4ae19bec86de07b7f5828575f45fee2">More...</a><br /></td></tr>
+<tr class="separator:ad4ae19bec86de07b7f5828575f45fee2 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cc588360ff97fc9d3d0b05d54f4671c inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memItemLeft" align="right" valign="top"><a id="a8cc588360ff97fc9d3d0b05d54f4671c"></a>
 const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a8cc588360ff97fc9d3d0b05d54f4671c">getName</a> () const</td></tr>
 <tr class="memdesc:a8cc588360ff97fc9d3d0b05d54f4671c inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the mesh. <br /></td></tr>
@@ -235,7 +242,8 @@ const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a cl
 <tr class="separator:a7d02575428eaf4589f438c9ed00e3369 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55d0abcf1efc4e64aaf0698f24e3e859 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a55d0abcf1efc4e64aaf0698f24e3e859">setDirty</a> (unsigned int index)</td></tr>
 <tr class="separator:a55d0abcf1efc4e64aaf0698f24e3e859 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a517b61bc7823cbb8b65bb1a9fc9bd057 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Core::Geometry::AttribArrayGeometry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a517b61bc7823cbb8b65bb1a9fc9bd057">getAttribArrayGeometry</a> () const =0</td></tr>
+<tr class="memitem:a517b61bc7823cbb8b65bb1a9fc9bd057 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memItemLeft" align="right" valign="top"><a id="a517b61bc7823cbb8b65bb1a9fc9bd057"></a>
+virtual const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Core::Geometry::AttribArrayGeometry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAttribArrayGeometry</b> () const =0</td></tr>
 <tr class="separator:a517b61bc7823cbb8b65bb1a9fc9bd057 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51cdfbea34d086fa20ccf011155d6324 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable"><td class="memItemLeft" align="right" valign="top"><a id="a51cdfbea34d086fa20ccf011155d6324"></a>
 virtual <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Core::Geometry::AttribArrayGeometry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAttribArrayGeometry</b> ()=0</td></tr>
@@ -281,7 +289,7 @@ class Ra::Engine::Data::IndexedAttribArrayDisplayable&lt; I &gt;</h3>
 
 <p>This class handles an attrib array displayable on gpu only, without core geometry. Use only when you don't need to access the cpu geometry again, or when you need to specify special indices. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00191">191</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00203">203</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Data/<a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Data/<a class="el" href="Mesh_8inl_source.html">Mesh.inl</a></li>
@@ -292,7 +300,7 @@ class Ra::Engine::Data::IndexedAttribArrayDisplayable&lt; I &gt;</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html">IndexedAttribArrayDisplayable</a></li>
-    <li class="footer">Generated on Mon Jun 27 2022 06:07:31 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 4 2022 09:41:40 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

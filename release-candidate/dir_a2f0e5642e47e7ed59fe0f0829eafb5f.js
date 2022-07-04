@@ -10,5 +10,5 @@ var dir_a2f0e5642e47e7ed59fe0f0829eafb5f =
     [ "Utils", "dir_ff87cf903db18af0fdb6c342683ece25.html", "dir_ff87cf903db18af0fdb6c342683ece25" ],
     [ "CoreMacros.hpp", "CoreMacros_8hpp_source.html", null ],
     [ "RaCore.hpp", "RaCore_8hpp_source.html", null ],
-    [ "Types.hpp", "Types_8hpp_source.html", null ]
+    [ "Types.hpp", "Types_8hpp.html", "Types_8hpp" ]
 ];

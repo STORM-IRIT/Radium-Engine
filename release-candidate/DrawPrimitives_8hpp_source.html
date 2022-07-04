@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.44</span>
+   &#160;<span id="projectnumber">1.2.45</span>
    </div>
   </td>
  </tr>
@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8hpp_source.html',''); 
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/Obb.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/Spline.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Color.hpp&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
@@ -226,7 +226,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8hpp_source.html',''); 
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a787adc450fb23508e84afb0aff0f0371"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a787adc450fb23508e84afb0aff0f0371">Ra::Engine::Data::DrawPrimitives::Frame</a></div><div class="ttdeci">MeshPtr Frame(const Core::Transform &amp;frameFromEntity, Scalar scale)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00401">DrawPrimitives.cpp:401</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a51326886cdea5cd9b9dc693657f046ae"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a51326886cdea5cd9b9dc693657f046ae">Ra::Engine::Data::DrawPrimitives::Disk</a></div><div class="ttdeci">MeshPtr Disk(const Core::Vector3 &amp;center, const Core::Vector3 &amp;normal, Scalar radius, uint segments, const Core::Utils::Color &amp;color)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00314">DrawPrimitives.cpp:314</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_ad10130fea53a693f02d20eb4c1c6a155"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ad10130fea53a693f02d20eb4c1c6a155">Ra::Engine::Data::DrawPrimitives::Point</a></div><div class="ttdeci">LineMeshPtr Point(const Core::Vector3 &amp;point, const Core::Utils::Color &amp;color, Scalar scale)</div><div class="ttdoc">Displays given point shown as the crossing of 3 lines of length 'scale'.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00051">DrawPrimitives.cpp:51</a></div></div>
@@ -239,6 +239,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8hpp_source.html',''); 
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_aa9438814ccaa8de9aaed2dbf5e0bd6aa"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Ra::Engine::Data::DrawPrimitives::Normal</a></div><div class="ttdeci">LineMeshPtr Normal(const Core::Vector3 &amp;point, const Core::Vector3 &amp;normal, const Core::Utils::Color &amp;color, Scalar scale)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00353">DrawPrimitives.cpp:353</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a97676e22e9412b6bbbae221d135875d9"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a97676e22e9412b6bbbae221d135875d9">Ra::Engine::Data::DrawPrimitives::Grid</a></div><div class="ttdeci">MeshPtr Grid(const Core::Vector3 &amp;center, const Core::Vector3 &amp;x, const Core::Vector3 &amp;y, const Core::Utils::Color &amp;color, Scalar cellSize, uint res)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00431">DrawPrimitives.cpp:431</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a4b63bdba5d53344f27d6147f6c516cd1"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a4b63bdba5d53344f27d6147f6c516cd1">Ra::Engine::Data::DrawPrimitives::ParametricSphere</a></div><div class="ttdeci">MeshPtr ParametricSphere(const Core::Vector3 &amp;center, Scalar radius, const Core::Utils::Color &amp;color, bool generateTexCoord)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00259">DrawPrimitives.cpp:259</a></div></div>
+<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_aa8a3aa92c1fac4d113d7c10b87684e0c"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa8a3aa92c1fac4d113d7c10b87684e0c">Ra::Engine::Data::DrawPrimitives::LineStrip</a></div><div class="ttdeci">MeshPtr LineStrip(const Core::Vector3Array &amp;vertices, const Core::Vector4Array &amp;colors)</div><div class="ttdoc">Display a line strip.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00554">DrawPrimitives.cpp:554</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a185400772c9aa5ffd41b559acc966968"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a185400772c9aa5ffd41b559acc966968">Ra::Engine::Data::DrawPrimitives::CircleArc</a></div><div class="ttdeci">LineMeshPtr CircleArc(const Core::Vector3 &amp;center, const Core::Vector3 &amp;normal, Scalar radius, Scalar angle, uint segments, const Core::Utils::Color &amp;color)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00208">DrawPrimitives.cpp:208</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a6e1258c6c5fc039cd512a9f7f653d7fc"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a6e1258c6c5fc039cd512a9f7f653d7fc">Ra::Engine::Data::DrawPrimitives::AABB</a></div><div class="ttdeci">MeshPtr AABB(const Core::Aabb &amp;aabb, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Display a wireframe AABB.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00477">DrawPrimitives.cpp:477</a></div></div>
@@ -250,7 +251,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8hpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>DrawPrimitives.hpp</b></li>
-    <li class="footer">Generated on Mon Jun 27 2022 06:07:30 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 4 2022 09:41:39 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -238,6 +238,7 @@ var hierarchy =
     ] ],
     [ "Ra::Engine::Data::RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", null ],
     [ "Ra::Engine::Rendering::RenderTechnique", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html", null ],
+    [ "Ra::Core::Utils::AttribManager::ScopedLockState", "classRa_1_1Core_1_1Utils_1_1AttribManager_1_1ScopedLockState.html", null ],
     [ "Ra::Core::Geometry::SegmentToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html", null ],
     [ "Ra::Core::Animation::Sequence", "classRa_1_1Core_1_1Animation_1_1Sequence.html", null ],
     [ "Ra::Engine::Data::ShaderConfiguration", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html", null ],

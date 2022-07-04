@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.44</span>
+   &#160;<span id="projectnumber">1.2.45</span>
    </div>
   </td>
  </tr>
@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('Volume_8hpp_source.html',''); initResi
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/AbstractGeometry.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define RA_REQUIRE_OPTIONAL</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/StdOptional.hpp&gt;</span> <span class="comment">// trigger an error if optional is not found</span></div>
@@ -341,7 +341,7 @@ $(document).ready(function(){initNavTree('Volume_8hpp_source.html',''); initResi
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1VolumeGrid_html_aa99bccce1f2743308f1b24049ad29c4b"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html#aa99bccce1f2743308f1b24049ad29c4b">Ra::Core::Geometry::VolumeGrid::updateStorage</a></div><div class="ttdeci">void updateStorage() override</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00240">Volume.hpp:240</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractVolume_html_a464097665750f5d25a9f5aa40f1ff2e2"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a464097665750f5d25a9f5aa40f1ff2e2">Ra::Core::Geometry::AbstractVolume::ValueType</a></div><div class="ttdeci">Scalar ValueType</div><div class="ttdoc">Type of value encoded in the volume.</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00044">Volume.hpp:44</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume_html_acc43fd53785386c5eaf99372033083cd"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html#acc43fd53785386c5eaf99372033083cd">Ra::Core::Geometry::AbstractDiscreteVolume::size</a></div><div class="ttdeci">const Vector3i &amp; size() const</div><div class="ttdoc">return the size (number of bins ni each dimension) of the volume</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00115">Volume.hpp:115</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1VolumeGrid_html_ab7dac2bf6db32c3961699d174a0877db"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html#ab7dac2bf6db32c3961699d174a0877db">Ra::Core::Geometry::VolumeGrid::getBinValue</a></div><div class="ttdeci">Utils::optional&lt; ValueType &gt; getBinValue(typename IndexType::Scalar idx) const override</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00229">Volume.hpp:229</a></div></div>
@@ -363,6 +363,7 @@ $(document).ready(function(){initNavTree('Volume_8hpp_source.html',''); initResi
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1VolumeGrid_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html">Ra::Core::Geometry::VolumeGrid</a></div><div class="ttdoc">Discrete volume data storing values in a regular grid.</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00181">Volume.hpp:181</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume_html_afc8253f4097cfd01cf11dcc9557edea2"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html#afc8253f4097cfd01cf11dcc9557edea2">Ra::Core::Geometry::AbstractDiscreteVolume::addToBin</a></div><div class="ttdeci">bool addToBin(const ValueType &amp;value, Eigen::Ref&lt; const IndexType &gt; p)</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00150">Volume.hpp:150</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractVolume_html_af47a833432339c14be0c735b0e9b7d91"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#af47a833432339c14be0c735b0e9b7d91">Ra::Core::Geometry::AbstractVolume::getType</a></div><div class="ttdeci">VolumeStorageType getType() const</div><div class="ttdoc">Return the type of geometry.</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00055">Volume.hpp:55</a></div></div>
+<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1VolumeGrid_html_aa29c66c1978e7abb1a38c27b43fe6ae9"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html#aa29c66c1978e7abb1a38c27b43fe6ae9">Ra::Core::Geometry::VolumeGrid::addToAllBins</a></div><div class="ttdeci">void addToAllBins(const ValueType &amp;value)</div><div class="ttdoc">Add a value to all bins.</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00209">Volume.hpp:209</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractVolume_html_a975088f25fa3c2ed0b4f16faa540c308"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a975088f25fa3c2ed0b4f16faa540c308">Ra::Core::Geometry::AbstractVolume::m_type</a></div><div class="ttdeci">VolumeStorageType m_type</div><div class="ttdoc">The type of geometry for the object.</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00085">Volume.hpp:85</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1VolumeGrid_html_a7c2abed96c4f0783572112f77ec82679"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html#a7c2abed96c4f0783572112f77ec82679">Ra::Core::Geometry::VolumeGrid::hasGradients</a></div><div class="ttdeci">bool hasGradients() const</div><div class="ttdoc">Test if gradients are defined.</div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00216">Volume.hpp:216</a></div></div>
@@ -375,7 +376,7 @@ $(document).ready(function(){initNavTree('Volume_8hpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>Volume.hpp</b></li>
-    <li class="footer">Generated on Mon Jun 27 2022 06:07:30 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 4 2022 09:41:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

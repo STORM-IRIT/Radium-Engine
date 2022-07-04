@@ -24,6 +24,8 @@ var classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable =
     [ "getAttribArrayGeometry", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a51cdfbea34d086fa20ccf011155d6324", null ],
     [ "getName", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a8cc588360ff97fc9d3d0b05d54f4671c", null ],
     [ "getRenderMode", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f", null ],
+    [ "getVaoHandle", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad4ae19bec86de07b7f5828575f45fee2", null ],
+    [ "getVboHandle", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a6ffc167e09652074c44b0c5c3335fefa", null ],
     [ "operator=", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#af36d927e071757e33a42408d9e51816f", null ],
     [ "setDirty", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a02623fcf3679861530e1bce1f5d88808", null ],
     [ "setDirty", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a7d02575428eaf4589f438c9ed00e3369", null ],

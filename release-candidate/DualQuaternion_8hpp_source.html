@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.44</span>
+   &#160;<span id="projectnumber">1.2.45</span>
    </div>
   </td>
  </tr>
@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('DualQuaternion_8hpp_source.html',''); 
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Types.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Core {</div>
@@ -158,13 +158,14 @@ $(document).ready(function(){initNavTree('DualQuaternion_8hpp_source.html',''); 
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#include &lt;Core/Math/DualQuaternion.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a2b5cdd730d414ff7fd5e3a391ad32572"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a2b5cdd730d414ff7fd5e3a391ad32572">Ra::Core::DualQuaternion::transform</a></div><div class="ttdeci">Vector3 transform(const Vector3 &amp;p) const</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00049">DualQuaternion.inl:49</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_aac90a90e6f101b43c2dc8e304f1ff186"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#aac90a90e6f101b43c2dc8e304f1ff186">Ra::Core::DualQuaternion::normalize</a></div><div class="ttdeci">void normalize()</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00042">DualQuaternion.inl:42</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ab983ecae50eaae679eeafc8631d64d79"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ab983ecae50eaae679eeafc8631d64d79">Ra::Core::DualQuaternion::getQ0</a></div><div class="ttdeci">const Quaternion &amp; getQ0() const</div><div class="ttdoc">Getters and setters.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00008">DualQuaternion.inl:8</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ac5d767c7ed2acdace145f2079284e07a"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a">Ra::Core::DualQuaternion::DualQuaternion</a></div><div class="ttdeci">DualQuaternion(const Quaternion &amp;q0, const Quaternion &amp;qe)</div><div class="ttdoc">Construct a dual-quaternion from two quaternions.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00027">DualQuaternion.hpp:27</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_aba5d1a3846359656848eb27a5a6f2126"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#aba5d1a3846359656848eb27a5a6f2126">Ra::Core::DualQuaternion::rotate</a></div><div class="ttdeci">Vector3 rotate(const Vector3 &amp;p) const</div><div class="ttdoc">Apply only the rotational part of the dual quaternion to the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00055">DualQuaternion.inl:55</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ab0d4d7d13f5614050efcdeb1874d2d07"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ab0d4d7d13f5614050efcdeb1874d2d07">Ra::Core::DualQuaternion::translate</a></div><div class="ttdeci">Vector3 translate(const Vector3 &amp;p) const</div><div class="ttdoc">Apply only the translational part of the dual quaternion to the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00061">DualQuaternion.inl:61</a></div></div>
+<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a0ec075a8261a5bcfa1edab1f9e6cafe9"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">Ra::Core::DualQuaternion::DualQuaternion</a></div><div class="ttdeci">EIGEN_MAKE_ALIGNED_OPERATOR_NEW DualQuaternion()</div><div class="ttdoc">Construct an uninitialized dual quaternion.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00024">DualQuaternion.hpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a0e9fbf03265fb5dd5a4c390503a1cb36"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a0e9fbf03265fb5dd5a4c390503a1cb36">Ra::Core::DualQuaternion::setFromTransform</a></div><div class="ttdeci">void setFromTransform(const Transform &amp;t)</div><div class="ttdoc">Other methods.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00082">DualQuaternion.inl:82</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a6ea4938479b4cf3e98e7c91386987071"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a6ea4938479b4cf3e98e7c91386987071">Ra::Core::DualQuaternion::getTransform</a></div><div class="ttdeci">Transform getTransform() const</div><div class="ttdoc">Return the corresponding rigid transform. Assume a unit dual quaternion.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00071">DualQuaternion.inl:71</a></div></div>
@@ -174,7 +175,7 @@ $(document).ready(function(){initNavTree('DualQuaternion_8hpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_a1f42069ba95676f6b9abbd5065ccf6d.html">Math</a></li><li class="navelem"><b>DualQuaternion.hpp</b></li>
-    <li class="footer">Generated on Mon Jun 27 2022 06:07:30 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 4 2022 09:41:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

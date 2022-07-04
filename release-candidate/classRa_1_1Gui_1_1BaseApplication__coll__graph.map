@@ -1,5 +1,5 @@
 <map id="Ra::Gui::BaseApplication" name="Ra::Gui::BaseApplication">
-<area shape="rect" id="node1" title="This class contains the main application logic. It owns the engine and the GUI." alt="" coords="394,3320,637,4189"/>
+<area shape="rect" id="node1" title="This class contains the main application logic. It owns the engine and the GUI." alt="" coords="394,3320,637,4204"/>
 <area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html" title=" " alt="" coords="502,1852,729,3088"/>
 <area shape="rect" id="node13" href="$classRa_1_1Plugins_1_1Context.html" title="Data passed to the plugin constructor." alt="" coords="323,3151,497,3257"/>
 <area shape="rect" id="node3" href="$classRa_1_1Gui_1_1WindowQt.html" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="232,1169,431,1555"/>

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.44</span>
+   &#160;<span id="projectnumber">1.2.45</span>
    </div>
   </td>
  </tr>
@@ -138,7 +138,7 @@ Geometry types</h1>
 <h1><a class="anchor" id="autotoc_md87"></a>
 Colaboration between Core and Engine</h1>
 <p>A Core Geometry can be used on its own.</p>
-<p>Engine Geometry must own a Core Geometry, either set at construction, or later with loadGeometry. The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#adf6f87ad353e84d1f6fd5a145e4fbd3d">Ra::Engine::Data::Displayable::getAbstractGeometry</a> or <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a166c11d14412bdfc7fe13fa9242dd63f">Ra::Engine::Data::CoreGeometryDisplayable::getCoreGeometry</a></p>
+<p>Engine Geometry must own a Core Geometry, either set at construction, or later with loadGeometry. The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#adf6f87ad353e84d1f6fd5a145e4fbd3d">Ra::Engine::Data::Displayable::getAbstractGeometry</a> or Ra::Engine::Data::CoreGeometryDisplayable::getCoreGeometry</p>
 <h1><a class="anchor" id="autotoc_md88"></a>
 Data consistency</h1>
 <p>As soon as a Core Geometry is owned by a Engine Geometry, each data update on the Core Geometry attribute trigger a observator method to mark the corresponding GPU data as dirty. On the next <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b" title="Update (i.e. send to GPU) the buffers marked as dirty.">Ra::Engine::Data::CoreGeometryDisplayable::updateGL</a>, the dirty data will be updated on the GPU.</p>
@@ -247,7 +247,7 @@ Halfedge collapse and wedge.</div></div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Mon Jun 27 2022 06:07:30 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 4 2022 09:41:40 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.44</span>
+   &#160;<span id="projectnumber">1.2.45</span>
    </div>
   </td>
  </tr>
@@ -233,24 +233,24 @@ $(document).ready(function(){initNavTree('ComponentMessenger_8hpp_source.html','
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                               <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>,</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                               <span class="keyword">const</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::Setter&amp; cb );</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    std::unordered_map&lt;const Entity*, CallbackMap&gt;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        m_entityGetLists; </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    std::unordered_map&lt;const Entity*, CallbackMap&gt;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        m_entitySetLists; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    std::unordered_map&lt;const Entity*, CallbackMap&gt;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        m_entityRwLists; </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;};</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/ComponentMessenger.inl&gt;</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordtype">void</span> unregisterAll( <span class="keyword">const</span> Entity* entity, Component* component );</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keyword">using</span> EntityMap = std::unordered_map&lt;const Entity*, CallbackMap&gt;;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    EntityMap m_entityGetLists; </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    EntityMap m_entitySetLists; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    EntityMap m_entityRwLists;  </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;};</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/ComponentMessenger.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html_a0102c735e12324054c60c3d16c571d23"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a0102c735e12324054c60c3d16c571d23">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::getHelper</a></div><div class="ttdeci">static const T &amp; getHelper(const Getter &amp;g)</div><div class="ttdoc">Calls the callback and retrieves the object.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00056">ComponentMessenger.hpp:56</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html_ad3b421fdb7fe4703e3773b622076b373"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::Getter</a></div><div class="ttdeci">std::function&lt; const T *(void)&gt; Getter</div><div class="ttdoc">Function pointer for a getter function.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00048">ComponentMessenger.hpp:48</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">Ra::Engine::Scene::ComponentMessenger::CallbackTypes</a></div><div class="ttdoc">This describes the function pointers accepted for each type.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00046">ComponentMessenger.hpp:46</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html_a06292bfe7ce6eb822834273ae0a60fce"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a06292bfe7ce6eb822834273ae0a60fce">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::Setter</a></div><div class="ttdeci">std::function&lt; void(const T *)&gt; Setter</div><div class="ttdoc">Function pointer for a setter function.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00050">ComponentMessenger.hpp:50</a></div></div>
@@ -260,7 +260,7 @@ $(document).ready(function(){initNavTree('ComponentMessenger_8hpp_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>ComponentMessenger.hpp</b></li>
-    <li class="footer">Generated on Mon Jun 27 2022 06:07:30 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 4 2022 09:41:39 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
