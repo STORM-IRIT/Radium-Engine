@@ -77,7 +77,6 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     AttribArrayDisplayable( const AttribArrayDisplayable& rhs ) = delete;
     void operator=( const AttribArrayDisplayable& rhs ) = delete;
 
-    // no need to detach listener since TriangleMesh is owned by Mesh.
     ~AttribArrayDisplayable() {}
 
     using Displayable::getName;
@@ -107,11 +106,23 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     /// It will update the necessary openGL buffers.
     void updateGL() override = 0;
 
+    /// @name
+    /// Core::Geometry getters.
     ///@{
-    /**  Returns the underlying CoreGeometry as an Core::Geometry::AttribArrayGeometry */
     virtual const Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() const = 0;
     virtual Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry()             = 0;
     ///@}
+
+    /// \brief Get opengl's vbo handle (uint) corresponding to attrib \b name.
+    ///
+    /// If vbo is not initialized or name do not correponds to an actual attrib name, the returned
+    /// optional is empty
+    Ra::Core::Utils::optional<gl::GLuint> getVboHandle( const std::string& name );
+
+    /// \brief Get opengl's vao handle (uint).
+    ///
+    /// If vao is not initialized, the returned optional is empty
+    Ra::Core::Utils::optional<gl::GLuint> getVaoHandle();
 
   protected:
     /// Update the picking render mode according to the object render mode
@@ -151,8 +162,9 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     // buffer id are indices in m_vbos and m_dataDirty
     std::map<std::string, unsigned int> m_handleToBuffer;
 
-    /// General dirty bit of the mesh. Must be equivalent of the "or" of the other dirty flags.
-    /// an empty mesh is not dirty
+    /// \brief General dirty bit of the mesh.
+    ///
+    /// Must be equivalent of the "or" of the other dirty flags. An empty mesh is not dirty
     bool m_isDirty { false };
 };
 
@@ -221,17 +233,18 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     explicit CoreGeometryDisplayable( const std::string& name,
                                       MeshRenderMode renderMode = RM_TRIANGLES );
 
+    // no need to detach observer in dtor since CoreGeometry is owned by this, and CoreGeometry dtor
+    // will detachAll observers.
+
+    /// @name
+    /// Core::Geometry getters
     ///@{
-    /**  Returns the underlying CoreGeometry as an Core::Geometry::AbstractGeometry */
     inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const override;
     inline Core::Geometry::AbstractGeometry& getAbstractGeometry() override;
-    ///@}
 
     inline const Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() const override;
     inline Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() override;
 
-    ///@{
-    /// Returns the underlying CoreGeometry
     inline const CoreGeometry& getCoreGeometry() const;
     inline CoreGeometry& getCoreGeometry();
     ///@}

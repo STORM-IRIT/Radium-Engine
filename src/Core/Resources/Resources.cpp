@@ -15,8 +15,6 @@ namespace Resources {
 using namespace Ra::Core::Utils;
 namespace fs = ::std::filesystem;
 
-// This exclude the functions in the \cond LABEL ... \endcond section if LABEL is not defined
-// in the ENABLED_SECTIONS variable of the doxygen configuration file
 // see https://www.doxygen.nl/manual/commands.html#cmdcond
 /// \cond IMPLEMENTATION_DETAIL
 /// wrapper to cpplocate::locatePath to find a path into the filesystem

@@ -14,6 +14,7 @@ int main( int argc, char* argv[] ) {
     //! [Creating the application]
     Ra::Gui::BaseApplication app( argc, argv );
     app.initialize( Ra::Gui::SimpleWindowFactory {} );
+    app.addRadiumMenu();
     //! [Creating the application]
 
     //! [Creating the cube]
@@ -43,12 +44,6 @@ int main( int argc, char* argv[] ) {
     //! [Tell the window that something is to be displayed]
     app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
-
-    // terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.
-    auto close_timer = new QTimer( &app );
-    close_timer->setInterval( 4000 );
-    QObject::connect( close_timer, &QTimer::timeout, [&app]() { app.appNeedsToQuit(); } );
-    close_timer->start();
 
     return app.exec();
 }

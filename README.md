@@ -5,6 +5,11 @@
 Radium is a research 3D Engine for rendering, animation and processing.
 It is developed and maintained by the [STORM research group](https://www.irit.fr/STORM/site/).
 
+Radium-Engine comes in two flavors:
+
+- the stable [https://github.com/STORM-IRIT/Radium-Engine/tree/master](master) branch.
+- the unstable bleeding edge [https://github.com/STORM-IRIT/Radium-Engine/tree/release-candidate](release-candidate) branch.
+
 <p align="center">
   <b>
   [<a href="https://github.com/STORM-IRIT/Radium-Releases/releases">Click here to download Precompiled binaries</a>]
