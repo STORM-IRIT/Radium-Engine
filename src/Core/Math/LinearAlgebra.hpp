@@ -1,7 +1,5 @@
 #pragma once
 
-/// This file contains definitions of aliases for basic vector classes and functions
-
 #include <Core/RaCore.hpp>
 
 #include <Eigen/Core>
@@ -158,4 +156,5 @@ inline void getSwingTwist( const Quaternion& in, Quaternion& swingOut, Quaternio
 } // namespace Math
 } // namespace Core
 } // namespace Ra
+
 #include <Core/Math/LinearAlgebra.inl>
