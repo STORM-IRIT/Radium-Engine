@@ -42,4 +42,7 @@ else()
     )
     set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_headless_target} PARENT_SCOPE)
 endif()
+
+target_precompile_headers(${ra_headless_target} PRIVATE pch.hpp)
+
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
