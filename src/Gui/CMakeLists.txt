@@ -67,41 +67,6 @@ install_target_resources(
     RESOURCES_INSTALL_DIR "Radium"
 )
 
-target_precompile_headers(
-    ${ra_gui_target}
-    PRIVATE
-    ${core_headers}
-    ${engine_headers}
-    <atomic>
-    <chrono>
-    <iomanip>
-    <iostream>
-    <memory>
-    <QAbstractItemModel>
-    <QApplication>
-    <QDialog>
-    <QDoubleSpinBox>
-    <QFrame>
-    <QItemSelectionModel>
-    <QKeyEvent>
-    <QLabel>
-    <QLayout>
-    <QMainWindow>
-    <QMessageBox>
-    <QMouseEvent>
-    <QObject>
-    <QScopedPointer>
-    <QScrollArea>
-    <QSpacerItem>
-    <QThread>
-    <QToolButton>
-    <QtXml/QtXml>
-    <QVariant>
-    <QWidget>
-    <QWindow>
-    <QXmlStreamWriter>
-    <set>
-    <vector>
-)
+target_precompile_headers(${ra_gui_target} PRIVATE pch.hpp)
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
