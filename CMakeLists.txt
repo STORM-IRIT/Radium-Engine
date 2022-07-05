@@ -31,26 +31,30 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CompilerOptions.cmake)
 
 option(
     RADIUM_ENABLE_TESTING
-    "Enable testing. Tests are automatically built with target all, run with target check or test"
+    "Enable testing. Tests are automatically built with target all, run with target check or test."
     ON
 )
-option(RADIUM_ENABLE_EXAMPLES "Enable examples app." OFF)
+option(
+    RADIUM_ENABLE_EXAMPLES
+    "Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples."
+    OFF
+)
 option(RADIUM_ENABLE_COVERAGE "Enable coverage, gcc only. Experimental, need ENABLE_TESTING" OFF)
-option(RADIUM_USE_DOUBLE "Use double precision for Scalar" OFF)
-option(RADIUM_GENERATE_LIB_CORE "Include Radium::Core in CMake project" ON)
-option(RADIUM_GENERATE_LIB_IO "Include Radium::IO in CMake project" ON)
-option(RADIUM_GENERATE_LIB_ENGINE "Include Radium::Engine in CMake project" ON)
-option(RADIUM_GENERATE_LIB_GUI "Include Radium::Gui in CMake project" ON)
-option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project" ON)
-option(RADIUM_GENERATE_LIB_HEADLESS "Include Radium::Headless in CMake project" ON)
+option(RADIUM_USE_DOUBLE "Use double precision for Scalar." OFF)
+option(RADIUM_GENERATE_LIB_CORE "Include Radium::Core in CMake project." ON)
+option(RADIUM_GENERATE_LIB_IO "Include Radium::IO in CMake project." ON)
+option(RADIUM_GENERATE_LIB_ENGINE "Include Radium::Engine in CMake project." ON)
+option(RADIUM_GENERATE_LIB_GUI "Include Radium::Gui in CMake project." ON)
+option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project." ON)
+option(RADIUM_GENERATE_LIB_HEADLESS "Include Radium::Headless in CMake project." ON)
 option(
     RADIUM_UPDATE_VERSION
-    "Update version file each time the project is compiled (update compilation time in version.cpp)"
+    "Update version file each time the project is compiled (update compilation time in version.cpp)."
     ON
 )
 option(
     RADIUM_INSTALL_DOC
-    "Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target"
+    "Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target."
     ON
 )
 
@@ -138,7 +142,7 @@ find_package(Git QUIET)
 
 if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
     option(RADIUM_GIT_UPDATE_SUBMODULE
-           "Check submodules during build (will be automatically disabled after run)" ON
+           "Check submodules during build (will be automatically disabled after run)." ON
     )
     execute_process(
         COMMAND ${GIT_EXECUTABLE} rev-parse HEAD WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
