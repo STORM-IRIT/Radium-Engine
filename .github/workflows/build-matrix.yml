@@ -212,13 +212,11 @@ jobs:
           ${{ env.glfw-path }}
       - name: Build Radium
         run: |
-          cd build/Radium-Engine
-          cmake --build . --parallel --config ${{ matrix.build-type }} --target install
+          cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target install
       - name: Run unit tests
         if: runner.os != 'Windows'
         run: |
-          cd build/Radium-Engine
-          cmake --build . --parallel --config ${{ matrix.build-type }} --target check
+          cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target check
       - name: Run CoreExample as a build and install test
         if: runner.os != 'Windows'
         run: |
