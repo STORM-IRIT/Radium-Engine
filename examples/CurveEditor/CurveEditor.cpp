@@ -7,10 +7,9 @@
 
 
 #include "CurveEditor.hpp"
-#include "Painty/CubicBezier.hpp"
 #include "Painty/CubicBezierApproximation.hpp"
 
-CurveEditor::CurveEditor( std::vector<Ra::Core::Vector2f> polyline, MyViewer* viewer )
+CurveEditor::CurveEditor( const Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector>& polyline, MyViewer* viewer )
   : Ra::Engine::Scene::Entity( "Curve Editor" ),
   m_viewer( viewer )
 {
@@ -18,9 +17,11 @@ CurveEditor::CurveEditor( std::vector<Ra::Core::Vector2f> polyline, MyViewer* vi
     m_roMgr = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
 
     // Approximate polyline with bezier
-    CubicBezierApproximation2f approximator;
+    CubicBezierApproximation approximator;
     approximator.init( polyline );
+    std::cout << "INITED" << std::endl;
     approximator.compute();
+    std::cout << "COMPUTED" << std::endl;
     auto solution = approximator.getSolution();
     auto solutionPts = solution.getCtrlPoints();
 

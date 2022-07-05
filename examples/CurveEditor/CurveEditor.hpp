@@ -1,4 +1,5 @@
 #include "Gui/MyViewer.hpp"
+#include <Core/Geometry/Curve2D.hpp>
 #include <Engine/Rendering/Renderer.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
@@ -8,7 +9,7 @@
 class CurveEditor : public Ra::Engine::Scene::Entity {
 
 public:
-  CurveEditor( std::vector<Ra::Core::Vector2f> polyline, MyViewer* viewer );
+  CurveEditor( const Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector>& polyline, MyViewer* viewer );
   ~CurveEditor();
 
   void addPointAtEnd( const Ra::Core::Vector3& worldPos ); 

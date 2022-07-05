@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Core/Geometry/Curve2D.hpp>
+
 #include <Engine/Rendering/Renderer.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 
@@ -35,7 +37,7 @@ public:
   Ra::Core::Vector3 getWorldPos( int x, int y );
   void handleHover( int mouseX, int mouseY ); 
   void handlePicking( int mouseX, int mouseY ); 
-  void setPolyline( std::vector<Ra::Core::Vector2f> polyline ) { m_polyline = polyline; }
+  void setPolyline( Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector> polyline ) { m_polyline = polyline; }
   void setInitialStroke( Ra::Engine::Scene::Entity* e ) { m_initialStroke = e; }
 
 public slots:
@@ -68,7 +70,7 @@ private:
   bool m_isTracking { false };
   bool m_hovering { false };
   bool m_edited { false };
-  std::vector<Ra::Core::Vector2f> m_polyline;
+  Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector> m_polyline;
   Ra::Engine::Scene::Entity* m_initialStroke;
 
   CurveEditor* m_curveEditor { nullptr };

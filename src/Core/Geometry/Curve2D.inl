@@ -36,6 +36,8 @@ Curve2D::Vector CubicBezier::fdf( Scalar t, Vector& grad ) const {
            3.0 * oneMinusT * t2 * m_points[2] + t3 * m_points[3];
 }
 
+
+
 /*--------------------------------------------------*/
 
 void Line::addPoint( const Curve2D::Vector p ) {

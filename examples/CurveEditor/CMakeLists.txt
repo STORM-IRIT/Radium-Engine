@@ -50,7 +50,6 @@ set(app_headers
         CurveFactory.hpp
         PointComponent.hpp
         PointFactory.hpp
-        Painty/CubicBezier.hpp
         Painty/CubicBezierApproximation.hpp
         Painty/LeastSquareSystem.hpp
         CurveEditor.hpp
