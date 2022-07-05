@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Core/Geometry/Curve2D.hpp>
+
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/Renderer.hpp>
 
@@ -36,7 +38,9 @@ class MainWindow : public Ra::Gui::MainWindowInterface
     Ra::Core::Vector3 getWorldPos( int x, int y );
     void handleHover( int mouseX, int mouseY );
     void handlePicking( int mouseX, int mouseY );
-    void setPolyline( std::vector<Ra::Core::Vector2f> polyline ) { m_polyline = polyline; }
+    void setPolyline( Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector> polyline ) {
+        m_polyline = polyline;
+    }
     void setInitialStroke( Ra::Engine::Scene::Entity* e ) { m_initialStroke = e; }
 
   public slots:
@@ -54,6 +58,24 @@ class MainWindow : public Ra::Gui::MainWindowInterface
     void onSymetryButtonClicked();
   signals:
     void frameUpdate();
+
+  private:
+    void createConnections();
+    MyViewer* m_viewer;
+    Ra::Gui::SelectionManager* m_selectionManager;
+    Ra::Gui::ItemModel* m_sceneModel;
+    Ra::Engine::RadiumEngine* m_engine;
+    QDockWidget* m_dockWidget;
+    QPushButton* m_button;
+    QPushButton* m_editCurveButton;
+    QPushButton* m_hideStrokeButton;
+    QPushButton* m_symetryButton;
+    bool m_clicked = false;
+    bool m_isTracking { false };
+    bool m_hovering { false };
+    bool m_edited { false };
+    Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector> m_polyline;
+    Ra::Engine::Scene::Entity* m_initialStroke;
 
   private:
     void createConnections();
