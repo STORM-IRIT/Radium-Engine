@@ -1,23 +1,23 @@
 #pragma once
 
-#include "CubicBezier.hpp"
+#include <Core/Geometry/Curve2D.hpp>
+#include <Core/Utils/Log.hpp>
+//#include "CubicBezier.hpp"
 #include "LeastSquareSystem.hpp"
 #include <Core/Utils/Log.hpp>
 #include <set>
 
 #include <fstream>
 
-template <typename T>
+using namespace Ra::Core;
+using namespace Ra::Core::Geometry;
+
 class CubicBezierApproximation
 {
   public:
-    using ControlPoint  = T;
-    using CubicBz       = CubicBezier<T>;
-    using CubicBzSpline = CubicBezierSpline<T>;
-
     CubicBezierApproximation() {}
 
-    void init( const std::vector<ControlPoint>& data,
+    void init( const VectorArray<Curve2D::Vector>& data,
                int nb_min_bz          = 1,
                float epsilon          = 0.1,
                std::ofstream* logfile = nullptr ) {
@@ -26,7 +26,8 @@ class CubicBezierApproximation
             ( *logfile ) << "eps= " << epsilon << ";" << std::endl;
         }
 
-        m_data          = data;
+        m_data = data;
+        std::cout << "DATA SIZE: " << m_data.size() << std::endl;
         m_distThreshold = epsilon;
         m_logfile       = logfile;
 
@@ -43,6 +44,7 @@ class CubicBezierApproximation
 
     bool compute() {
         using namespace Ra::Core::Utils;
+        std::cout << "INIT COMPUTE" << std::endl;
 
         if ( !m_isInitialized ) {
             LOG( logERROR ) << "CubicBezierApproximation is not initialized";
@@ -63,16 +65,24 @@ class CubicBezierApproximation
 
         ++m_step;
         printPolygonMatlab( m_data, "P_" + std::to_string( m_step ) );
+        std::cout << "END M_DATA PRING" << std::endl;
 
+        std::cout << "COMPUTE LSS" << std::endl;
         auto okflag = computeLeastSquareSolution();
         if ( !okflag ) { return false; }
+        std::cout << "END COMPUTE LSS" << std::endl;
 
+        std::cout << "START M_CUR_SOL PRINT" << std::endl;
+        std::cout << m_curSol.getCtrlPoints().size() << std::endl;
         printPolygonMatlab( m_curSol.getCtrlPoints(), "B_" + std::to_string( m_step ) );
+        std::cout << "END M_CUR_SOL PRINT" << std::endl;
 
         float err = evaluateSolution();
 
         if ( err > m_distThreshold ) {
+            std::cout << "COMPUTE JUNC" << std::endl;
             bool stopFlag { recomputeJunctions( m_bzjunctions.size() + 1 ) };
+            std::cout << "END JUNC" << std::endl;
 
             if ( !stopFlag ) { return false; }
 
@@ -81,6 +91,7 @@ class CubicBezierApproximation
 
         m_hasComputed = true;
 
+        std::cout << "END COMPUTE" << std::endl;
         return true;
     }
 
@@ -106,10 +117,13 @@ class CubicBezierApproximation
 
         ++m_step;
         printPolygonMatlab( m_data, "P_" + std::to_string( m_step ) );
+        std::cout << "END POLYGON DATA" << std::endl;
 
+        std::cout << "COMPUTE LSS" << std::endl;
         auto okflag = computeLeastSquareSolution();
         if ( !okflag ) { return false; }
 
+        std::cout << "START M_CUR_SOL PRINT" << std::endl;
         printPolygonMatlab( m_curSol.getCtrlPoints(), "B_" + std::to_string( m_step ) );
 
         if ( m_curSol.getNbBezier() < nbz ) {
@@ -125,7 +139,7 @@ class CubicBezierApproximation
         return true;
     }
 
-    CubicBzSpline getSolution() const { return m_curSol; }
+    CubicBezierSpline getSolution() const { return m_curSol; }
 
     int getNstep() const { return m_step; }
 
@@ -135,10 +149,10 @@ class CubicBezierApproximation
     int m_dim { 0 };
     int m_step { 0 };
     float m_distThreshold;
-    std::vector<ControlPoint> m_data;
+    VectorArray<Curve2D::Vector> m_data;
     std::vector<float> m_params;
     std::set<int> m_bzjunctions;
-    CubicBzSpline m_curSol;
+    CubicBezierSpline m_curSol;
 
     std::ofstream* m_logfile { nullptr };
 
@@ -169,7 +183,7 @@ class CubicBezierApproximation
         }
     }
 
-    float errorAt( int i ) { return ( m_data[i] - m_curSol.pointAt( m_params[i] ) ).squaredNorm(); }
+    float errorAt( int i ) { return ( m_data[i] - m_curSol.f( m_params[i] ) ).squaredNorm(); }
 
     bool recomputeJunctions( int nb_junctions ) {
         m_bzjunctions.clear();
@@ -208,8 +222,8 @@ class CubicBezierApproximation
 
         auto computePointDistanceConstraint = [nbz]( float u ) {
             std::map<int, float> A_cstr;
-            auto locpar = CubicBzSpline::getLocalParameter( u, nbz );
-            auto bcoefs = CubicBz::bernsteinCoefsAt( locpar.second );
+            auto locpar = CubicBezierSpline::getLocalParameter( u, nbz );
+            auto bcoefs = CubicBezier::bernsteinCoefsAt( locpar.second );
             int bi      = locpar.first;
 
             for ( int i = 0; i < 4; ++i ) {
@@ -237,8 +251,8 @@ class CubicBezierApproximation
             }
             else {
                 // Bezier segment is constrained by less than 4 points => degenerated case
-                std::vector<ControlPoint> data( m_data.cbegin() + s0, m_data.cbegin() + s1 + 1 );
-                std::vector<ControlPoint> cpts;
+                VectorArray<Curve2D::Vector> data( m_data.cbegin() + s0, m_data.cbegin() + s1 + 1 );
+                VectorArray<Curve2D::Vector> cpts;
 
                 // The problem is underconstrained : we compute one solution that perfectly fits the
                 // data And we constrain the control points of the solution to match this solution
@@ -255,6 +269,7 @@ class CubicBezierApproximation
     bool computeLeastSquareSolution() {
         int nbz { (int)( m_bzjunctions.size() ) - 1 };
         int nvar { 3 * nbz + 1 };
+        std::cout << "nvar: " << nvar << std::endl;
 
         if ( nbz < 1 ) {
             using namespace Ra::Core::Utils;
@@ -268,18 +283,19 @@ class CubicBezierApproximation
         Eigen::MatrixXf sol;
         if ( !lss.solve( sol ) ) { return false; }
 
-        std::vector<ControlPoint> cpts( nvar );
+        VectorArray<Curve2D::Vector> cpts( nvar );
         for ( int i = 0; i < nvar; ++i ) {
-            cpts[i] = ControlPoint( sol.row( i ) );
+            cpts[i] = Curve2D::Vector( sol.row( i ) );
         }
 
         m_curSol.setCtrlPoints( cpts );
+        std::cout << "cpts size: " << cpts.size() << std::endl;
 
         return true;
     }
 
-    bool computeDegeneratedSolution( const std::vector<ControlPoint>& data,
-                                     std::vector<ControlPoint>& cpts ) {
+    bool computeDegeneratedSolution( const VectorArray<Curve2D::Vector>& data,
+                                     VectorArray<Curve2D::Vector>& cpts ) {
 
         int npts { (int)data.size() };
         if ( ( npts == 0 ) || ( npts >= 4 ) ) { return false; }
@@ -338,21 +354,21 @@ class CubicBezierApproximation
     }
 
     bool computeDegeneratedSolution() {
-        std::vector<ControlPoint> cpts;
+        VectorArray<Curve2D::Vector> cpts;
         if ( !computeDegeneratedSolution( m_data, cpts ) ) { return false; }
         m_curSol.setCtrlPoints( cpts );
         return true;
     }
 
-    void printPolygonMatlab( const std::vector<ControlPoint>& poly, const std::string& varname ) {
+    void printPolygonMatlab( const VectorArray<Curve2D::Vector>& poly,
+                             const std::string& varname ) {
         if ( m_logfile == nullptr ) { return; }
         ( *m_logfile ) << varname << "= [";
-        for ( const auto& p : poly ) {
-            ( *m_logfile ) << "[" << p[0] << ";" << p[1] << "] ";
+        for ( unsigned int i = 0; i < poly.size(); i++ ) {
+            std::cout << "POINT:" << std::endl;
+            std::cout << poly[i].x() << " " << poly[i].y() << std::endl;
+            ( *m_logfile ) << "[" << poly[i].x() << ";" << poly[i].y() << "] ";
         }
         ( *m_logfile ) << "];" << std::endl;
     }
 };
-
-using CubicBezierApproximation2f = CubicBezierApproximation<Ra::Core::Vector2f>;
-using CubicBezierApproximation3f = CubicBezierApproximation<Ra::Core::Vector3f>;

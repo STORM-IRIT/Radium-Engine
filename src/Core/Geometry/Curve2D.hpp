@@ -3,6 +3,7 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/Spline.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/Log.hpp>
 #include <vector>
 
 namespace Ra {
@@ -67,6 +68,73 @@ class CubicBezier : public Curve2D
     inline Vector df( Scalar u ) const override;
     inline Vector fdf( Scalar t, Vector& grad ) const override;
 
+    /**
+     * @brief Computes the cubic Bernstein coefficients for parameter t
+     * @param t parameter of the coefficients
+     * @param deriv derivative order
+     * @return a vector of 4 scalar coefficients
+     */
+    static std::vector<float> bernsteinCoefsAt( float u, int deriv = 0 ) {
+        if ( deriv == 2 ) {
+            return { 6 * ( 1 - u ), 6 * ( -2 + 3 * u ), 6 * ( 1 - 3 * u ), 6 * u };
+        }
+        else if ( deriv == 1 )
+            return { -3 * powf( 1 - u, 2 ),
+                     3 * ( 1 - u ) * ( 1 - 3 * u ),
+                     3 * u * ( 2 - 3 * u ),
+                     3 * powf( u, 2 ) };
+        else
+            return { powf( 1 - u, 3 ),
+                     3 * u * powf( 1 - u, 2 ),
+                     3 * powf( u, 2 ) * ( 1 - u ),
+                     powf( u, 3 ) };
+    }
+
+    /**
+     * @brief get a list of curviline abscisses
+     * @param distance in cm accross the curve that separate two params value
+     * @param step sampling [0, 1]
+     * @return list of params [0, 1]
+     */
+    std::vector<float> getArcLengthParameterization( float resolution, float epsilon ) const {
+        std::vector<float> params;
+        float start    = 0.0f;
+        float end      = 1.0f;
+        float curParam = start;
+        float curDist  = 0.0f;
+
+        params.push_back( curParam );
+
+        Vector p0 = f( curParam );
+        curParam += epsilon;
+
+        while ( curParam <= end ) {
+            Vector p1 = f( curParam );
+            curDist += sqrt( pow( p0.x() - p1.x(), 2 ) + pow( p0.y() - p1.y(), 2 ) );
+            if ( curDist >= resolution ) {
+                params.push_back( curParam );
+                curDist = 0.0f;
+            }
+            p0 = p1;
+            curParam += epsilon;
+        }
+
+        // push last sample point to the end to ensure bounds [0, 1]
+        params[params.size() - 1] = end;
+
+        return params;
+    }
+
+    const VectorArray<Vector> getCtrlPoints() const {
+        VectorArray<Vector> ctrlPts;
+        ctrlPts.reserve( 4 );
+        ctrlPts.push_back( m_points[0] );
+        ctrlPts.push_back( m_points[1] );
+        ctrlPts.push_back( m_points[2] );
+        ctrlPts.push_back( m_points[3] );
+        return ctrlPts;
+    }
+
   private:
     Vector m_points[4];
 };
@@ -105,6 +173,209 @@ class SplineCurve : public Curve2D
 
   private:
     Core::VectorArray<Vector> m_points;
+};
+
+class CubicBezierSpline : public Curve2D
+{
+  public:
+    CubicBezierSpline() {}
+
+    /**
+     * @brief Spline of cubic Bézier segments. Construction guarantees C0 continuity.
+     *        ie extremities of successive segments share the same coordinates
+     * @param vector of control points, should be 3*n+1 points where n is the number of segments
+     */
+    CubicBezierSpline( const Core::VectorArray<Vector>& cpoints ) { setCtrlPoints( cpoints ); }
+
+    CubicBezierSpline( const CubicBezierSpline& other ) { setCtrlPoints( other.getCtrlPoints() ); }
+
+    int getNbBezier() const { return spline.size(); }
+
+    const std::vector<CubicBezier> getSplines() const { return spline; }
+
+    /**
+     * @brief Computes a sample point in the bezier spline
+     * @param u global parameter of the sample, should be in [0,nbz]
+     *        integer part of u represents the id of the Bézier segment
+     *        while decimal part of u represents the local Bézier parameter
+     * @param deriv derivative order of the sampling
+     * @return coordinates of the sample point
+     */
+    inline Vector f( float u ) const override {
+        using namespace Ra::Core::Utils;
+        std::pair<int, float> locpar { getLocalParameter( u ) };
+
+        if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
+            LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
+            Vector p;
+            p.fill( 0 );
+            return p;
+        }
+
+        return spline[locpar.first].f( locpar.second );
+    }
+
+    inline Vector df( float u ) const override {
+        using namespace Ra::Core::Utils;
+        std::pair<int, float> locpar { getLocalParameter( u ) };
+
+        if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
+            LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
+            Vector p;
+            p.fill( 0 );
+            return p;
+        }
+
+        return spline[locpar.first].df( locpar.second );
+    }
+
+    inline Vector fdf( Scalar t, Vector& grad ) const override {
+        using namespace Ra::Core::Utils;
+        std::pair<int, float> locpar { getLocalParameter( t ) };
+
+        if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
+            LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
+            Vector p;
+            p.fill( 0 );
+            return p;
+        }
+
+        return spline[locpar.first].fdf( locpar.second, grad );
+    }
+
+    /**
+     * @brief Computes a list of samples points in the bezier spline
+     * @param list of u global parameter of the sample, should be in [0,nbz]
+     *        integer part of u represents the id of the Bézier segment
+     *        while decimal part of u represents the local Bézier parameter
+     * @param deriv derivative order of the sampling
+     * @return coordinates of the sample point
+     */
+    VectorArray<Vector> f( std::vector<float> params ) const {
+        VectorArray<Vector> controlPoints;
+
+        for ( int i = 0; i < (int)params.size(); ++i ) {
+            controlPoints.push_back( f( params[i] ) );
+        }
+
+        return controlPoints;
+    }
+
+    VectorArray<Vector> getCtrlPoints() const {
+        VectorArray<Curve2D::Vector> cp;
+        std::cout << "nb bezier: " << getNbBezier() << std::endl;
+        cp.reserve( 3 * getNbBezier() + 1 );
+        std::cout << "spline size: " << spline.size() << std::endl;
+        std::cout << cp.size() << std::endl;
+        for ( unsigned int i = 0; i < spline.size(); i++ ) {
+            cp.push_back( spline[i].getCtrlPoints()[0] );
+            cp.push_back( spline[i].getCtrlPoints()[1] );
+            cp.push_back( spline[i].getCtrlPoints()[2] );
+        }
+        if ( !spline.empty() ) { cp.push_back( spline[spline.size() - 1].getCtrlPoints()[3] ); }
+        std::cout << "cp size: " << cp.size() << std::endl;
+
+        return cp;
+    }
+
+    void setCtrlPoints( const VectorArray<Vector>& cpoints ) {
+        int nbz { (int)( ( cpoints.size() - 1 ) / 3 ) };
+        spline.clear();
+        spline.reserve( nbz );
+        for ( int b = 0; b < nbz; ++b ) {
+            spline.emplace_back( CubicBezier(
+                cpoints[3 * b], cpoints[3 * b + 1], cpoints[3 * b + 2], cpoints[3 * b + 3] ) );
+        }
+    }
+
+    inline void addPoint( const Vector p ) override {
+
+    };
+
+    /**
+     * @brief Decomposes a spline global parameter into the local Bézier parameters (static)
+     * @param global parameter
+     * @param number of segments in the spline
+     * @return a pair (b,t) where b is the index of the bezier segment, and t the local parameter in
+     * the segment
+     */
+    static std::pair<int, float> getLocalParameter( float u, int nbz ) {
+        int b { (int)( std::floor( u ) ) };
+        float t { u - b };
+
+        if ( ( b == nbz ) && ( t == 0 ) ) {
+            b = nbz - 1;
+            t = 1;
+        }
+        return { b, t };
+    }
+
+    /**
+     * @brief Map a normalized parameter for the spline to a global parameter
+     * @param normalized parameter [0, 1]
+     * @param number of segments in the spline
+     * @return a global parameter t [0, nbz]
+     */
+    static float getGlobalParameter( float u, int nbz ) { return u * nbz; }
+
+    /**
+     * @brief equivalent to linspace function
+     * @param number of param
+     * @return a list of parameters t [0, nbz]
+     */
+    std::vector<float> getUniformParameterization( int nbSamples ) const {
+        std::vector<float> params;
+        params.resize( nbSamples );
+
+        float delta = { 1.0f / (float)( nbSamples - 1 ) };
+        float acc   = 0.0f;
+        int nbz     = getNbBezier();
+
+        params[0] = getGlobalParameter( 0.0f, nbz );
+        for ( int i = 1; i < nbSamples; ++i ) {
+            acc += delta;
+            params[i] = getGlobalParameter( acc, nbz );
+        }
+
+        params[params.size() - 1] = getGlobalParameter( 1.0f, nbz );
+
+        return params;
+    }
+
+    /**
+     * @brief get a list of curviline abscisses
+     * @param distance in cm accross the curve that separate two params value
+     * @param step sampling [0, 1]
+     * @return list of params [0, nbz]
+     */
+    std::vector<float> getArcLengthParameterization( float resolution, float epsilon ) const {
+
+        std::vector<float> params;
+        int nbz = getNbBezier();
+
+        if ( nbz <= 0 ) return params;
+
+        params = spline[0].getArcLengthParameterization( resolution, epsilon );
+
+        for ( int i = 1; i < nbz; ++i ) {
+            std::vector<float> tmpParams =
+                spline[i].getArcLengthParameterization( resolution, epsilon );
+            std::transform( tmpParams.begin(),
+                            tmpParams.end(),
+                            tmpParams.begin(),
+                            [&]( auto const& elem ) { return elem + i; } );
+            params.insert( params.end(), tmpParams.begin() + 1, tmpParams.end() );
+        }
+
+        return params;
+    }
+
+  private:
+    std::vector<CubicBezier> spline; // Vector of Bézier segments in the spline
+
+    std::pair<int, float> getLocalParameter( float u ) const {
+        return getLocalParameter( u, getNbBezier() );
+    }
 };
 
 /*--------------------------------------------------*/

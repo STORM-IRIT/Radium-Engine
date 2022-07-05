@@ -5,6 +5,8 @@
 
 #include <QOpenGLContext>
 
+#include <Core/Geometry/Curve2D.hpp>
+
 #include <Engine/Scene/EntityManager.hpp>
 #include <Gui/BaseApplication.hpp>
 #include <Gui/Viewer/RotateAroundCameraManipulator.hpp>
@@ -30,7 +32,7 @@ int main( int argc, char* argv[] ) {
     app.setContinuousUpdate( false );
 
     // Create polyline from stroke points
-    std::vector<Ra::Core::Vector2f> polyline = {
+    Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector> polyline = {
         { -7.07583, -7.77924 }, { -6.4575, -7.69091 },   { -5.35333, -7.33757 },
         { -3.27749, -6.54257 }, { -1.68749, -5.39423 },  { -0.671654, -4.20173 },
         { 0.123348, -3.18589 }, { 0.697517, -1.94923 },  { 1.44835, -0.270889 },
