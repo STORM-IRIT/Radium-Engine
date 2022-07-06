@@ -1,9 +1,5 @@
 #pragma once
 
-#include <glbinding/gl/gl.h>
-#include <glbinding/gl45core/gl.h>
-#include <glbinding/gl45ext/gl.h>
-
 #include <Core/Asset/Camera.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/CoreMacros.hpp>
@@ -33,10 +29,13 @@
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QObject>
-//#include <QOpenGLContext>
 #include <QPainter>
 #include <QTimer>
 #include <atomic>
 #include <iostream>
 #include <memory>
 #include <vector>
+// raise name resolution issue with glbinding, can be added if gl:: namespace is added everywhere
+//#include <QOpenGLContext>
+// and ensure include this before
+//#include <glbinding/gl/gl.h>
