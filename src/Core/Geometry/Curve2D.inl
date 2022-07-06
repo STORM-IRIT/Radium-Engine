@@ -115,18 +115,16 @@ Curve2D::Vector QuadraSpline::fdf( Scalar u, Vector& grad ) const {
 
 /*--------------------------------------------------*/
 
-inline Curve2D::Vector CubicBezierSpline::f( float u ) const {
-    using namespace Ra::Core::Utils;
+Curve2D::Vector CubicBezierSpline::f( float u ) const {
     std::pair<int, float> locpar { getLocalParameter( u ) };
 
     if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
-        LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
         Vector p;
         p.fill( 0 );
         return p;
     }
 
-    return spline[locpar.first].f( locpar.second );
+    return m_spline[locpar.first].f( locpar.second );
 }
 
 VectorArray<Curve2D::Vector> CubicBezierSpline::f( std::vector<float> params ) const {
@@ -140,36 +138,32 @@ VectorArray<Curve2D::Vector> CubicBezierSpline::f( std::vector<float> params ) c
 }
 
 Curve2D::Vector CubicBezierSpline::df( float u ) const {
-    using namespace Ra::Core::Utils;
     std::pair<int, float> locpar { getLocalParameter( u ) };
 
     if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
-        LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
         Vector p;
         p.fill( 0 );
         return p;
     }
 
-    return spline[locpar.first].df( locpar.second );
+    return m_spline[locpar.first].df( locpar.second );
 }
 
 Curve2D::Vector CubicBezierSpline::fdf( Scalar t, Vector& grad ) const {
-    using namespace Ra::Core::Utils;
     std::pair<int, float> locpar { getLocalParameter( t ) };
 
     if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
-        LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
         Vector p;
         p.fill( 0 );
         return p;
     }
 
-    return spline[locpar.first].fdf( locpar.second, grad );
+    return m_spline[locpar.first].fdf( locpar.second, grad );
 }
 
 void CubicBezierSpline::addPoint( const Curve2D::Vector p ) {
-    if ( spline[spline.size() - 1].getCtrlPoints().size() < 4 )
-        spline[spline.size() - 1].addPoint( p );
+    if ( m_spline[m_spline.size() - 1].getCtrlPoints().size() < 4 )
+        m_spline[m_spline.size() - 1].addPoint( p );
 }
 
 } // namespace Geometry

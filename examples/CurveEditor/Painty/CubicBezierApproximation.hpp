@@ -14,7 +14,6 @@ using namespace Ra::Core::Geometry;
 class CubicBezierApproximation
 {
   public:
-
     CubicBezierApproximation() {}
 
     void init( const VectorArray<Curve2D::Vector>& data,
@@ -27,7 +26,6 @@ class CubicBezierApproximation
         }
 
         m_data          = data;
-        std::cout << "DATA SIZE: " << m_data.size() << std::endl;
         m_distThreshold = epsilon;
         m_logfile       = logfile;
 
@@ -44,7 +42,6 @@ class CubicBezierApproximation
 
     bool compute() {
         using namespace Ra::Core::Utils;
-        std::cout << "INIT COMPUTE" << std::endl;
 
         if ( !m_isInitialized ) {
             LOG( logERROR ) << "CubicBezierApproximation is not initialized";
@@ -65,33 +62,22 @@ class CubicBezierApproximation
 
         ++m_step;
         printPolygonMatlab( m_data, "P_" + std::to_string( m_step ) );
-        std::cout << "END M_DATA PRING" << std::endl;
 
-        std::cout << "COMPUTE LSS" << std::endl;
         auto okflag = computeLeastSquareSolution();
         if ( !okflag ) { return false; }
-        std::cout << "END COMPUTE LSS" << std::endl;
 
-        std::cout << "START M_CUR_SOL PRINT" << std::endl;
-        std::cout << m_curSol.getCtrlPoints().size() << std::endl;
         printPolygonMatlab( m_curSol.getCtrlPoints(), "B_" + std::to_string( m_step ) );
-        std::cout << "END M_CUR_SOL PRINT" << std::endl;
 
         float err = evaluateSolution();
 
         if ( err > m_distThreshold ) {
-            std::cout << "COMPUTE JUNC" << std::endl;
             bool stopFlag { recomputeJunctions( m_bzjunctions.size() + 1 ) };
-            std::cout << "END JUNC" << std::endl;
-
             if ( !stopFlag ) { return false; }
-
             return compute();
         }
 
         m_hasComputed = true;
 
-        std::cout << "END COMPUTE" << std::endl;
         return true;
     }
 
@@ -117,13 +103,10 @@ class CubicBezierApproximation
 
         ++m_step;
         printPolygonMatlab( m_data, "P_" + std::to_string( m_step ) );
-        std::cout << "END POLYGON DATA" << std::endl;
 
-        std::cout << "COMPUTE LSS" << std::endl;
         auto okflag = computeLeastSquareSolution();
         if ( !okflag ) { return false; }
 
-        std::cout << "START M_CUR_SOL PRINT" << std::endl;
         printPolygonMatlab( m_curSol.getCtrlPoints(), "B_" + std::to_string( m_step ) );
 
         if ( m_curSol.getNbBezier() < nbz ) {
@@ -269,7 +252,6 @@ class CubicBezierApproximation
     bool computeLeastSquareSolution() {
         int nbz { (int)( m_bzjunctions.size() ) - 1 };
         int nvar { 3 * nbz + 1 };
-        std::cout << "nvar: " << nvar << std::endl;
 
         if ( nbz < 1 ) {
             using namespace Ra::Core::Utils;
@@ -289,7 +271,6 @@ class CubicBezierApproximation
         }
 
         m_curSol.setCtrlPoints( cpts );
-        std::cout << "cpts size: " << cpts.size() << std::endl;
 
         return true;
     }
@@ -360,12 +341,11 @@ class CubicBezierApproximation
         return true;
     }
 
-    void printPolygonMatlab( const VectorArray<Curve2D::Vector>& poly, const std::string& varname ) {
+    void printPolygonMatlab( const VectorArray<Curve2D::Vector>& poly,
+                             const std::string& varname ) {
         if ( m_logfile == nullptr ) { return; }
         ( *m_logfile ) << varname << "= [";
         for ( unsigned int i = 0; i < poly.size(); i++ ) {
-            std::cout << "POINT:" << std::endl;
-            std::cout << poly[i].x() << " " << poly[i].y() << std::endl;
             ( *m_logfile ) << "[" << poly[i].x() << ";" << poly[i].y() << "] ";
         }
         ( *m_logfile ) << "];" << std::endl;
