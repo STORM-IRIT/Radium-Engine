@@ -1,16 +1,17 @@
 #pragma once
 
+#include "PolylineComponent.hpp"
 #include <Core/Geometry/Curve2D.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 
-class StrokeFactory
+class PolylineFactory
 {
   public:
-    static StrokeComponent* createStrokeComponent( Ra::Engine::Scene::Entity* e,
-                                                   Ra::Core::Vector3Array strokePts ) {
-        auto c = new StrokeComponent( e, strokePts );
+    static PolylineComponent* createPolylineComponent( Ra::Engine::Scene::Entity* e,
+                                                       Ra::Core::Vector3Array polylinePts ) {
+        auto c = new PolylineComponent( e, polylinePts );
         c->initialize();
         return c;
     }
@@ -19,11 +20,11 @@ class StrokeFactory
                        const std::string& name ) {
         auto engine                  = Ra::Engine::RadiumEngine::getInstance();
         Ra::Engine::Scene::Entity* e = engine->getEntityManager()->createEntity( name );
-        Ra::Core::Vector3Array strokePts;
+        Ra::Core::Vector3Array polylinePts;
         for ( auto& pt : polyline ) {
-            strokePts.push_back( Ra::Core::Vector3( pt.x(), 0, pt.y() ) );
+            polylinePts.push_back( Ra::Core::Vector3( pt.x(), 0, pt.y() ) );
         }
-        createStrokeComponent( e, strokePts );
+        createPolylineComponent( e, polylinePts );
         return e;
     }
 

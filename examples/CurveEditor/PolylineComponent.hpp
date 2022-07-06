@@ -5,15 +5,15 @@
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-class StrokeComponent : public Ra::Engine::Scene::Component
+class PolylineComponent : public Ra::Engine::Scene::Component
 {
 
   public:
-    StrokeComponent( Ra::Engine::Scene::Entity* entity, Ra::Core::Vector3Array strokePoints );
+    PolylineComponent( Ra::Engine::Scene::Entity* entity, Ra::Core::Vector3Array polylinePoints );
 
     /// This function is called when the component is properly
     /// setup, i.e. it has an entity.
     void initialize() override;
 
-    Ra::Core::Vector3Array m_strokePts;
+    Ra::Core::Vector3Array m_polylinePts;
 };

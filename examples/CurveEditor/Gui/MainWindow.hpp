@@ -41,7 +41,7 @@ class MainWindow : public Ra::Gui::MainWindowInterface
     void setPolyline( Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector> polyline ) {
         m_polyline = polyline;
     }
-    void setInitialStroke( Ra::Engine::Scene::Entity* e ) { m_initialStroke = e; }
+    void setInitialPolyline( Ra::Engine::Scene::Entity* e ) { m_initialPolyline = e; }
 
   public slots:
     void prepareDisplay() override;
@@ -52,8 +52,8 @@ class MainWindow : public Ra::Gui::MainWindowInterface
     void handleMouseReleaseEvent( QMouseEvent* event );
     void handleMousePressEvent( QMouseEvent* event );
     void handleMouseDoubleClickEvent( QMouseEvent* event );
-    void onEditStrokeButtonPressed();
-    void onHideStrokeButtonClicked();
+    void onEditPolylineButtonPressed();
+    void onHidePolylineButtonClicked();
     void onSmoothButtonClicked();
     void onSymetryButtonClicked();
   signals:
@@ -68,32 +68,14 @@ class MainWindow : public Ra::Gui::MainWindowInterface
     QDockWidget* m_dockWidget;
     QPushButton* m_button;
     QPushButton* m_editCurveButton;
-    QPushButton* m_hideStrokeButton;
+    QPushButton* m_hidePolylineButton;
     QPushButton* m_symetryButton;
     bool m_clicked = false;
     bool m_isTracking { false };
     bool m_hovering { false };
     bool m_edited { false };
     Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector> m_polyline;
-    Ra::Engine::Scene::Entity* m_initialStroke;
-
-  private:
-    void createConnections();
-    MyViewer* m_viewer;
-    Ra::Gui::SelectionManager* m_selectionManager;
-    Ra::Gui::ItemModel* m_sceneModel;
-    Ra::Engine::RadiumEngine* m_engine;
-    QDockWidget* m_dockWidget;
-    QPushButton* m_button;
-    QPushButton* m_editCurveButton;
-    QPushButton* m_hideStrokeButton;
-    QPushButton* m_symetryButton;
-    bool m_clicked = false;
-    bool m_isTracking { false };
-    bool m_hovering { false };
-    bool m_edited { false };
-    std::vector<Ra::Core::Vector2f> m_polyline;
-    Ra::Engine::Scene::Entity* m_initialStroke;
+    Ra::Engine::Scene::Entity* m_initialPolyline;
 
     CurveEditor* m_curveEditor { nullptr };
 };
