@@ -5,12 +5,13 @@
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-class PointComponent : public Ra::Engine::Scene::Component {
+class PointComponent : public Ra::Engine::Scene::Component
+{
 
-public:
-    PointComponent( Ra::Engine::Scene::Entity* entity, 
+  public:
+    PointComponent( Ra::Engine::Scene::Entity* entity,
                     Ra::Core::Vector3 point,
-                    const std::vector<unsigned int>& curveId, 
+                    const std::vector<unsigned int>& curveId,
                     const std::string& name,
                     Ra::Core::Utils::Color color );
 

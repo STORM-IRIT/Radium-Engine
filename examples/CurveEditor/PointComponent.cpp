@@ -2,9 +2,9 @@
 
 #include <Core/Asset/FileData.hpp>
 #include <Core/Containers/MakeShared.hpp>
+#include <Core/Geometry/Curve2D.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
-#include <Core/Geometry/Curve2D.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
@@ -37,9 +37,11 @@ using namespace Ra::Engine::Scene;
  * supported by Radium
  */
 
-PointComponent::PointComponent( Ra::Engine::Scene::Entity* entity, Ra::Core::Vector3 point, 
-                                const std::vector<unsigned int>& curveId, 
-                                const std::string& name, Color color ) :
+PointComponent::PointComponent( Ra::Engine::Scene::Entity* entity,
+                                Ra::Core::Vector3 point,
+                                const std::vector<unsigned int>& curveId,
+                                const std::string& name,
+                                Color color ) :
     Ra::Engine::Scene::Component( name, entity ),
     m_point( point ),
     m_defaultPoint( point ),
@@ -50,18 +52,14 @@ PointComponent::PointComponent( Ra::Engine::Scene::Entity* entity, Ra::Core::Vec
 /// setup, i.e. it has an entity.
 void PointComponent::initialize() {
     auto plainMaterial              = make_shared<PlainMaterial>( "Plain Material" );
-    plainMaterial->m_color = m_color;
+    plainMaterial->m_color          = m_color;
     plainMaterial->m_perVertexColor = false;
 
     auto circle = RenderObject::createRenderObject(
         "contourPt_circle",
         this,
         RenderObjectType::Geometry,
-        DrawPrimitives::Disk( m_point,
-                                { 0_ra, 1_ra, 0_ra },
-                                0.1,
-                                64,
-                                Color::White() ),
+        DrawPrimitives::Disk( m_point, { 0_ra, 1_ra, 0_ra }, 0.1, 64, Color::White() ),
         {} );
     circle->setMaterial( plainMaterial );
     addRenderObject( circle );

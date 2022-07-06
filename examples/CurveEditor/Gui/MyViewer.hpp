@@ -4,17 +4,18 @@
 
 class MyViewer : public Ra::Gui::Viewer
 {
-  Q_OBJECT;
-public:
-  MyViewer ();
-  virtual ~MyViewer ();
+    Q_OBJECT;
 
-signals:
-  void onMouseDoubleClick( QMouseEvent* event );
+  public:
+    MyViewer();
+    virtual ~MyViewer();
 
-public slots:
-  void mouseDoubleClickEvent( QMouseEvent* event ) override;
+  signals:
+    void onMouseDoubleClick( QMouseEvent* event );
 
-private:
-  /* data */
+  public slots:
+    void mouseDoubleClickEvent( QMouseEvent* event ) override;
+
+  private:
+    /* data */
 };

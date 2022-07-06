@@ -5,10 +5,11 @@
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-class CurveComponent : public Ra::Engine::Scene::Component {
+class CurveComponent : public Ra::Engine::Scene::Component
+{
 
-public:
-    CurveComponent( Ra::Engine::Scene::Entity* entity, 
+  public:
+    CurveComponent( Ra::Engine::Scene::Entity* entity,
                     Ra::Core::Vector3Array ctrlPts,
                     const std::string& name );
 
