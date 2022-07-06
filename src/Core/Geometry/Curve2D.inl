@@ -36,8 +36,6 @@ Curve2D::Vector CubicBezier::fdf( Scalar t, Vector& grad ) const {
            3.0 * oneMinusT * t2 * m_points[2] + t3 * m_points[3];
 }
 
-
-
 /*--------------------------------------------------*/
 
 void Line::addPoint( const Curve2D::Vector p ) {
@@ -113,6 +111,65 @@ Curve2D::Vector QuadraSpline::fdf( Scalar u, Vector& grad ) const {
 
     grad = spline.df( u );
     return spline.f( u );
+}
+
+/*--------------------------------------------------*/
+
+inline Curve2D::Vector CubicBezierSpline::f( float u ) const {
+    using namespace Ra::Core::Utils;
+    std::pair<int, float> locpar { getLocalParameter( u ) };
+
+    if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
+        LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
+        Vector p;
+        p.fill( 0 );
+        return p;
+    }
+
+    return spline[locpar.first].f( locpar.second );
+}
+
+VectorArray<Curve2D::Vector> CubicBezierSpline::f( std::vector<float> params ) const {
+    VectorArray<Curve2D::Vector> controlPoints;
+
+    for ( int i = 0; i < (int)params.size(); ++i ) {
+        controlPoints.push_back( f( params[i] ) );
+    }
+
+    return controlPoints;
+}
+
+Curve2D::Vector CubicBezierSpline::df( float u ) const {
+    using namespace Ra::Core::Utils;
+    std::pair<int, float> locpar { getLocalParameter( u ) };
+
+    if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
+        LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
+        Vector p;
+        p.fill( 0 );
+        return p;
+    }
+
+    return spline[locpar.first].df( locpar.second );
+}
+
+Curve2D::Vector CubicBezierSpline::fdf( Scalar t, Vector& grad ) const {
+    using namespace Ra::Core::Utils;
+    std::pair<int, float> locpar { getLocalParameter( t ) };
+
+    if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
+        LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
+        Vector p;
+        p.fill( 0 );
+        return p;
+    }
+
+    return spline[locpar.first].fdf( locpar.second, grad );
+}
+
+void CubicBezierSpline::addPoint( const Curve2D::Vector p ) {
+    if ( spline[spline.size() - 1].getCtrlPoints().size() < 4 )
+        spline[spline.size() - 1].addPoint( p );
 }
 
 } // namespace Geometry

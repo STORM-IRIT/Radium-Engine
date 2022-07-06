@@ -29,6 +29,7 @@ set(core_sources
     Geometry/Adjacency.cpp
     Geometry/Area.cpp
     Geometry/CatmullClarkSubdivider.cpp
+    Geometry/Curve2D.cpp
     Geometry/deprecated/TopologicalMesh.cpp
     Geometry/HeatDiffusion.cpp
     Geometry/IndexedGeometry.cpp
