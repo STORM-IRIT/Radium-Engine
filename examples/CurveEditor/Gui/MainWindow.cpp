@@ -48,15 +48,15 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     QDockWidget* dockWidget = new QDockWidget( "Dock", this );
     QWidget* myWidget       = new QWidget();
     QVBoxLayout* layout     = new QVBoxLayout();
-    m_editCurveButton       = new QPushButton( "Edit stroke" );
+    m_editCurveButton       = new QPushButton( "Edit polyline" );
     m_button                = new QPushButton( "smooth" );
     m_button->setCheckable( true );
-    m_hideStrokeButton = new QPushButton( "Hide initial stroke" );
-    m_hideStrokeButton->setCheckable( true );
+    m_hidePolylineButton = new QPushButton( "Hide initial polyline" );
+    m_hidePolylineButton->setCheckable( true );
     m_symetryButton = new QPushButton( "Symetry" );
     m_symetryButton->setCheckable( true );
     m_symetryButton->setEnabled( false );
-    layout->addWidget( m_hideStrokeButton );
+    layout->addWidget( m_hidePolylineButton );
     layout->addWidget( m_editCurveButton );
     layout->addWidget( m_button );
     layout->addWidget( m_symetryButton );
@@ -110,9 +110,11 @@ void MainWindow::createConnections() {
     connect( getViewer(), &MyViewer::onMouseRelease, this, &MainWindow::handleMouseReleaseEvent );
     connect( getViewer(), &MyViewer::onMousePress, this, &MainWindow::handleMousePressEvent );
     connect(
-        m_editCurveButton, &QPushButton::pressed, this, &MainWindow::onEditStrokeButtonPressed );
-    connect(
-        m_hideStrokeButton, &QPushButton::clicked, this, &MainWindow::onHideStrokeButtonClicked );
+        m_editCurveButton, &QPushButton::pressed, this, &MainWindow::onEditPolylineButtonPressed );
+    connect( m_hidePolylineButton,
+             &QPushButton::clicked,
+             this,
+             &MainWindow::onHidePolylineButtonClicked );
     connect( m_button, &QPushButton::clicked, this, &MainWindow::onSmoothButtonClicked );
     connect( m_symetryButton, &QPushButton::clicked, this, &MainWindow::onSymetryButtonClicked );
     connect( getViewer(),
@@ -130,16 +132,17 @@ void MainWindow::onSymetryButtonClicked() {
     m_curveEditor->setSymetry( m_symetryButton->isChecked() );
 }
 
-void MainWindow::onHideStrokeButtonClicked() {
+void MainWindow::onHidePolylineButtonClicked() {
     auto roMgr = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-    auto ro = roMgr->getRenderObject( m_initialStroke->getComponents()[0]->getRenderObjects()[0] );
-    if ( m_hideStrokeButton->isChecked() ) { ro->setVisible( false ); }
+    auto ro =
+        roMgr->getRenderObject( m_initialPolyline->getComponents()[0]->getRenderObjects()[0] );
+    if ( m_hidePolylineButton->isChecked() ) { ro->setVisible( false ); }
     else
         ro->setVisible( true );
     m_viewer->needUpdate();
 }
 
-void MainWindow::onEditStrokeButtonPressed() {
+void MainWindow::onEditPolylineButtonPressed() {
     if ( m_polyline.empty() || m_edited ) return;
     m_edited      = true;
     m_curveEditor = new CurveEditor( m_polyline, m_viewer );

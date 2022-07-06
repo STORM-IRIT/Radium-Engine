@@ -32,7 +32,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # ------------------------------------------------------------------------------
 
-set(app_sources main.cpp CurveComponent.cpp StrokeComponent.cpp PointComponent.cpp
+set(app_sources main.cpp CurveComponent.cpp PolylineComponent.cpp PointComponent.cpp
                 Gui/MainWindow.cpp Gui/MyViewer.cpp CurveEditor.cpp
 )
 
@@ -40,7 +40,7 @@ set(app_headers
     Gui/MainWindow.hpp
     Gui/MyViewer.hpp
     CurveComponent.hpp
-    StrokeComponent.hpp
+    PolylineComponent.hpp
     CurveFactory.hpp
     PointComponent.hpp
     PointFactory.hpp
