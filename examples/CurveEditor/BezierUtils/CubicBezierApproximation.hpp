@@ -123,7 +123,7 @@ class CubicBezierApproximation
         return true;
     }
 
-    CubicBezierSpline getSolution() const { return m_curSol; }
+    PiecewiseCubicBezier getSolution() const { return m_curSol; }
 
     int getNstep() const { return m_step; }
 
@@ -136,7 +136,7 @@ class CubicBezierApproximation
     VectorArray<Curve2D::Vector> m_data;
     std::vector<float> m_params;
     std::set<int> m_bzjunctions;
-    CubicBezierSpline m_curSol;
+    PiecewiseCubicBezier m_curSol;
 
     std::ofstream* m_logfile { nullptr };
 
@@ -206,7 +206,7 @@ class CubicBezierApproximation
 
         auto computePointDistanceConstraint = [nbz]( float u ) {
             std::map<int, float> A_cstr;
-            auto locpar = CubicBezierSpline::getLocalParameter( u, nbz );
+            auto locpar = PiecewiseCubicBezier::getLocalParameter( u, nbz );
             auto bcoefs = CubicBezier::bernsteinCoefsAt( locpar.second );
             int bi      = locpar.first;
 
