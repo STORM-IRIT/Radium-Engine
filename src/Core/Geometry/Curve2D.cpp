@@ -63,7 +63,7 @@ const VectorArray<Curve2D::Vector> CubicBezier::getCtrlPoints() const {
 
 /*--------------------------------------------------*/
 
-std::pair<int, float> CubicBezierSpline::getLocalParameter( float u, int nbz ) {
+std::pair<int, float> PiecewiseCubicBezier::getLocalParameter( float u, int nbz ) {
     int b { (int)( std::floor( u ) ) };
     float t { u - b };
 
@@ -74,11 +74,11 @@ std::pair<int, float> CubicBezierSpline::getLocalParameter( float u, int nbz ) {
     return { b, t };
 }
 
-float CubicBezierSpline::getGlobalParameter( float u, int nbz ) {
+float PiecewiseCubicBezier::getGlobalParameter( float u, int nbz ) {
     return u * nbz;
 }
 
-VectorArray<Curve2D::Vector> CubicBezierSpline::getCtrlPoints() const {
+VectorArray<Curve2D::Vector> PiecewiseCubicBezier::getCtrlPoints() const {
     VectorArray<Curve2D::Vector> cp;
     cp.reserve( 3 * getNbBezier() + 1 );
     for ( unsigned int i = 0; i < m_spline.size(); i++ ) {
@@ -91,7 +91,7 @@ VectorArray<Curve2D::Vector> CubicBezierSpline::getCtrlPoints() const {
     return cp;
 }
 
-void CubicBezierSpline::setCtrlPoints( const VectorArray<Curve2D::Vector>& cpoints ) {
+void PiecewiseCubicBezier::setCtrlPoints( const VectorArray<Curve2D::Vector>& cpoints ) {
     int nbz { (int)( ( cpoints.size() - 1 ) / 3 ) };
     m_spline.clear();
     m_spline.reserve( nbz );
@@ -101,7 +101,7 @@ void CubicBezierSpline::setCtrlPoints( const VectorArray<Curve2D::Vector>& cpoin
     }
 }
 
-std::vector<float> CubicBezierSpline::getUniformParameterization( int nbSamples ) const {
+std::vector<float> PiecewiseCubicBezier::getUniformParameterization( int nbSamples ) const {
     std::vector<float> params;
     params.resize( nbSamples );
 
@@ -120,8 +120,8 @@ std::vector<float> CubicBezierSpline::getUniformParameterization( int nbSamples 
     return params;
 }
 
-std::vector<float> CubicBezierSpline::getArcLengthParameterization( float resolution,
-                                                                    float epsilon ) const {
+std::vector<float> PiecewiseCubicBezier::getArcLengthParameterization( float resolution,
+                                                                       float epsilon ) const {
 
     std::vector<float> params;
     int nbz = getNbBezier();

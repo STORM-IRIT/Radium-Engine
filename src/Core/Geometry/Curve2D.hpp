@@ -125,19 +125,21 @@ class SplineCurve : public Curve2D
     Core::VectorArray<Vector> m_points;
 };
 
-class CubicBezierSpline : public Curve2D
+class PiecewiseCubicBezier : public Curve2D
 {
   public:
-    CubicBezierSpline() {}
+    PiecewiseCubicBezier() {}
 
     /**
      * @brief Spline of cubic Bézier segments. Construction guarantees C0 continuity.
      *        ie extremities of successive segments share the same coordinates
      * @param vector of control points, should be 3*n+1 points where n is the number of segments
      */
-    CubicBezierSpline( const Core::VectorArray<Vector>& cpoints ) { setCtrlPoints( cpoints ); }
+    PiecewiseCubicBezier( const Core::VectorArray<Vector>& cpoints ) { setCtrlPoints( cpoints ); }
 
-    CubicBezierSpline( const CubicBezierSpline& other ) { setCtrlPoints( other.getCtrlPoints() ); }
+    PiecewiseCubicBezier( const PiecewiseCubicBezier& other ) {
+        setCtrlPoints( other.getCtrlPoints() );
+    }
 
     int getNbBezier() const { return m_spline.size(); }
 
@@ -323,7 +325,7 @@ Curve2D::Vector QuadraSpline::fdf( Scalar u, Vector& grad ) const {
 
 /*--------------------------------------------------*/
 
-Curve2D::Vector CubicBezierSpline::f( float u ) const {
+Curve2D::Vector PiecewiseCubicBezier::f( float u ) const {
     std::pair<int, float> locpar { getLocalParameter( u ) };
 
     if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
@@ -335,7 +337,7 @@ Curve2D::Vector CubicBezierSpline::f( float u ) const {
     return m_spline[locpar.first].f( locpar.second );
 }
 
-VectorArray<Curve2D::Vector> CubicBezierSpline::f( std::vector<float> params ) const {
+VectorArray<Curve2D::Vector> PiecewiseCubicBezier::f( std::vector<float> params ) const {
     VectorArray<Curve2D::Vector> controlPoints;
 
     for ( int i = 0; i < (int)params.size(); ++i ) {
@@ -345,7 +347,7 @@ VectorArray<Curve2D::Vector> CubicBezierSpline::f( std::vector<float> params ) c
     return controlPoints;
 }
 
-Curve2D::Vector CubicBezierSpline::df( float u ) const {
+Curve2D::Vector PiecewiseCubicBezier::df( float u ) const {
     std::pair<int, float> locpar { getLocalParameter( u ) };
 
     if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
@@ -357,7 +359,7 @@ Curve2D::Vector CubicBezierSpline::df( float u ) const {
     return m_spline[locpar.first].df( locpar.second );
 }
 
-Curve2D::Vector CubicBezierSpline::fdf( Scalar t, Vector& grad ) const {
+Curve2D::Vector PiecewiseCubicBezier::fdf( Scalar t, Vector& grad ) const {
     std::pair<int, float> locpar { getLocalParameter( t ) };
 
     if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
@@ -369,7 +371,7 @@ Curve2D::Vector CubicBezierSpline::fdf( Scalar t, Vector& grad ) const {
     return m_spline[locpar.first].fdf( locpar.second, grad );
 }
 
-void CubicBezierSpline::addPoint( const Curve2D::Vector p ) {
+void PiecewiseCubicBezier::addPoint( const Curve2D::Vector p ) {
     if ( m_spline[m_spline.size() - 1].getCtrlPoints().size() < 4 )
         m_spline[m_spline.size() - 1].addPoint( p );
 }
