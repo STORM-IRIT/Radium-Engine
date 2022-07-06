@@ -125,19 +125,21 @@ class SplineCurve : public Curve2D
     Core::VectorArray<Vector> m_points;
 };
 
-class CubicBezierSpline : public Curve2D
+class PiecewiseCubicBezier : public Curve2D
 {
   public:
-    CubicBezierSpline() {}
+    PiecewiseCubicBezier() {}
 
     /**
      * @brief Spline of cubic Bézier segments. Construction guarantees C0 continuity.
      *        ie extremities of successive segments share the same coordinates
      * @param vector of control points, should be 3*n+1 points where n is the number of segments
      */
-    CubicBezierSpline( const Core::VectorArray<Vector>& cpoints ) { setCtrlPoints( cpoints ); }
+    PiecewiseCubicBezier( const Core::VectorArray<Vector>& cpoints ) { setCtrlPoints( cpoints ); }
 
-    CubicBezierSpline( const CubicBezierSpline& other ) { setCtrlPoints( other.getCtrlPoints() ); }
+    PiecewiseCubicBezier( const PiecewiseCubicBezier& other ) {
+        setCtrlPoints( other.getCtrlPoints() );
+    }
 
     int getNbBezier() const { return m_spline.size(); }
 
