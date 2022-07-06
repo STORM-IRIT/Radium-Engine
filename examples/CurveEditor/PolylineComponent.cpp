@@ -1,4 +1,4 @@
-#include <StrokeComponent.hpp>
+#include <PolylineComponent.hpp>
 
 #include <Core/Asset/FileData.hpp>
 #include <Core/Containers/MakeShared.hpp>
@@ -36,12 +36,13 @@ using namespace Ra::Engine::Scene;
  * supported by Radium
  */
 
-StrokeComponent::StrokeComponent( Ra::Engine::Scene::Entity* entity, Vector3Array strokePoints ) :
-    Ra::Engine::Scene::Component( "Stroke Component", entity ), m_strokePts( strokePoints ) {}
+PolylineComponent::PolylineComponent( Ra::Engine::Scene::Entity* entity,
+                                      Vector3Array polylinePoints ) :
+    Ra::Engine::Scene::Component( "Polyline Component", entity ), m_polylinePts( polylinePoints ) {}
 
 /// This function is called when the component is properly
 /// setup, i.e. it has an entity.
-void StrokeComponent::initialize() {
+void PolylineComponent::initialize() {
     auto plainMaterial              = make_shared<PlainMaterial>( "Plain Material" );
     plainMaterial->m_perVertexColor = true;
 
@@ -50,8 +51,8 @@ void StrokeComponent::initialize() {
         "PolyMesh",
         this,
         RenderObjectType::Geometry,
-        DrawPrimitives::LineStrip( m_strokePts,
-                                   Vector4Array { m_strokePts.size(), { 0, 0, 0.7, 1 } } ),
+        DrawPrimitives::LineStrip( m_polylinePts,
+                                   Vector4Array { m_polylinePts.size(), { 0, 0, 0.7, 1 } } ),
         Ra::Engine::Rendering::RenderTechnique {} );
     renderObject1->setMaterial( plainMaterial );
     addRenderObject( renderObject1 );

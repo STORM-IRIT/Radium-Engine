@@ -15,7 +15,7 @@
 #include <Core/Resources/Resources.hpp>
 
 #include "Gui/MainWindow.hpp"
-#include "StrokeFactory.hpp"
+#include "PolylineFactory.hpp"
 
 class MainWindowFactory : public Ra::Gui::BaseApplication::WindowFactory
 {
@@ -31,7 +31,7 @@ int main( int argc, char* argv[] ) {
     app.initialize( MainWindowFactory() );
     app.setContinuousUpdate( false );
 
-    // Create polyline from stroke points
+    // Create polyline from polyline points
     Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector> polyline = {
         { -7.07583, -7.77924 }, { -6.4575, -7.69091 },   { -5.35333, -7.33757 },
         { -3.27749, -6.54257 }, { -1.68749, -5.39423 },  { -0.671654, -4.20173 },
@@ -49,8 +49,8 @@ int main( int argc, char* argv[] ) {
     auto window = static_cast<MainWindow*>( app.m_mainWindow.get() );
     window->setPolyline( polyline );
 
-    auto initialStroke = StrokeFactory::createCurveEntity( polyline, "Initial stroke" );
-    window->setInitialStroke( initialStroke );
+    auto initialPolyline = PolylineFactory::createCurveEntity( polyline, "Initial polyline" );
+    window->setInitialPolyline( initialPolyline );
 
     app.m_mainWindow->prepareDisplay();
 
