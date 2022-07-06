@@ -5,8 +5,8 @@
 #include <Engine/Data/ViewingParameters.hpp>
 #include <Gui/Viewer/CameraManipulator.hpp>
 
+#include "BezierUtils/CubicBezierApproximation.hpp"
 #include "CurveEditor.hpp"
-#include "Painty/CubicBezierApproximation.hpp"
 
 CurveEditor::CurveEditor(
     const Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector>& polyline,

@@ -1,5 +1,5 @@
 #include "MainWindow.hpp"
-#include "Painty/CubicBezierApproximation.hpp"
+#include "BezierUtils/CubicBezierApproximation.hpp"
 #include "PointFactory.hpp"
 #include <Core/Geometry/Curve2D.hpp>
 #include <Core/Geometry/RayCast.hpp>

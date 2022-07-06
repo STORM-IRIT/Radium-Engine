@@ -44,8 +44,8 @@ set(app_headers
     CurveFactory.hpp
     PointComponent.hpp
     PointFactory.hpp
-    Painty/CubicBezierApproximation.hpp
-    Painty/LeastSquareSystem.hpp
+    BezierUtils/CubicBezierApproximation.hpp
+    BezierUtils/LeastSquareSystem.hpp
     CurveEditor.hpp
 )
 
