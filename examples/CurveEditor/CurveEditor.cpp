@@ -18,9 +18,7 @@ CurveEditor::CurveEditor(
     // Approximate polyline with bezier
     CubicBezierApproximation approximator;
     approximator.init( polyline );
-    std::cout << "INITED" << std::endl;
     approximator.compute();
-    std::cout << "COMPUTED" << std::endl;
     auto solution    = approximator.getSolution();
     auto solutionPts = solution.getCtrlPoints();
 

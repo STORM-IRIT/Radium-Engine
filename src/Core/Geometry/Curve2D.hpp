@@ -3,7 +3,6 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/Spline.hpp>
 #include <Core/RaCore.hpp>
-#include <Core/Utils/Log.hpp>
 #include <vector>
 
 namespace Ra {
@@ -74,21 +73,7 @@ class CubicBezier : public Curve2D
      * @param deriv derivative order
      * @return a vector of 4 scalar coefficients
      */
-    static std::vector<float> bernsteinCoefsAt( float u, int deriv = 0 ) {
-        if ( deriv == 2 ) {
-            return { 6 * ( 1 - u ), 6 * ( -2 + 3 * u ), 6 * ( 1 - 3 * u ), 6 * u };
-        }
-        else if ( deriv == 1 )
-            return { -3 * powf( 1 - u, 2 ),
-                     3 * ( 1 - u ) * ( 1 - 3 * u ),
-                     3 * u * ( 2 - 3 * u ),
-                     3 * powf( u, 2 ) };
-        else
-            return { powf( 1 - u, 3 ),
-                     3 * u * powf( 1 - u, 2 ),
-                     3 * powf( u, 2 ) * ( 1 - u ),
-                     powf( u, 3 ) };
-    }
+    static std::vector<float> bernsteinCoefsAt( float u, int deriv = 0 );
 
     /**
      * @brief get a list of curviline abscisses
@@ -96,44 +81,9 @@ class CubicBezier : public Curve2D
      * @param step sampling [0, 1]
      * @return list of params [0, 1]
      */
-    std::vector<float> getArcLengthParameterization( float resolution, float epsilon ) const {
-        std::vector<float> params;
-        float start    = 0.0f;
-        float end      = 1.0f;
-        float curParam = start;
-        float curDist  = 0.0f;
+    std::vector<float> getArcLengthParameterization( float resolution, float epsilon ) const;
 
-        params.push_back( curParam );
-
-        Vector p0 = f( curParam );
-        curParam += epsilon;
-
-        while ( curParam <= end ) {
-            Vector p1 = f( curParam );
-            curDist += sqrt( pow( p0.x() - p1.x(), 2 ) + pow( p0.y() - p1.y(), 2 ) );
-            if ( curDist >= resolution ) {
-                params.push_back( curParam );
-                curDist = 0.0f;
-            }
-            p0 = p1;
-            curParam += epsilon;
-        }
-
-        // push last sample point to the end to ensure bounds [0, 1]
-        params[params.size() - 1] = end;
-
-        return params;
-    }
-
-    const VectorArray<Vector> getCtrlPoints() const {
-        VectorArray<Vector> ctrlPts;
-        ctrlPts.reserve( 4 );
-        ctrlPts.push_back( m_points[0] );
-        ctrlPts.push_back( m_points[1] );
-        ctrlPts.push_back( m_points[2] );
-        ctrlPts.push_back( m_points[3] );
-        return ctrlPts;
-    }
+    const VectorArray<Vector> getCtrlPoints() const;
 
   private:
     Vector m_points[4];
@@ -189,9 +139,9 @@ class CubicBezierSpline : public Curve2D
 
     CubicBezierSpline( const CubicBezierSpline& other ) { setCtrlPoints( other.getCtrlPoints() ); }
 
-    int getNbBezier() const { return spline.size(); }
+    int getNbBezier() const { return m_spline.size(); }
 
-    const std::vector<CubicBezier> getSplines() const { return spline; }
+    const std::vector<CubicBezier> getSplines() const { return m_spline; }
 
     /**
      * @brief Computes a sample point in the bezier spline
@@ -203,10 +153,6 @@ class CubicBezierSpline : public Curve2D
      */
     inline Vector f( float u ) const override;
 
-    inline Vector df( float u ) const override;
-
-    inline Vector fdf( Scalar t, Vector& grad ) const override;
-
     /**
      * @brief Computes a list of samples points in the bezier spline
      * @param list of u global parameter of the sample, should be in [0,nbz]
@@ -216,6 +162,10 @@ class CubicBezierSpline : public Curve2D
      * @return coordinates of the sample point
      */
     inline VectorArray<Vector> f( std::vector<float> params ) const;
+
+    inline Vector df( float u ) const override;
+
+    inline Vector fdf( Scalar t, Vector& grad ) const override;
 
     inline void addPoint( const Vector p ) override;
 
@@ -256,9 +206,11 @@ class CubicBezierSpline : public Curve2D
     std::vector<float> getArcLengthParameterization( float resolution, float epsilon ) const;
 
   private:
-    std::vector<CubicBezier> spline; // Vector of Bézier segments in the spline
+    std::vector<CubicBezier> m_spline; // Vector of Bézier segments in the spline
 
-    std::pair<int, float> getLocalParameter( float u ) const;
+    std::pair<int, float> getLocalParameter( float u ) const {
+        return getLocalParameter( u, getNbBezier() );
+    }
 };
 
 /*--------------------------------------------------*/
@@ -371,18 +323,16 @@ Curve2D::Vector QuadraSpline::fdf( Scalar u, Vector& grad ) const {
 
 /*--------------------------------------------------*/
 
-inline Curve2D::Vector CubicBezierSpline::f( float u ) const {
-    using namespace Ra::Core::Utils;
+Curve2D::Vector CubicBezierSpline::f( float u ) const {
     std::pair<int, float> locpar { getLocalParameter( u ) };
 
     if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
-        LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
         Vector p;
         p.fill( 0 );
         return p;
     }
 
-    return spline[locpar.first].f( locpar.second );
+    return m_spline[locpar.first].f( locpar.second );
 }
 
 VectorArray<Curve2D::Vector> CubicBezierSpline::f( std::vector<float> params ) const {
@@ -396,36 +346,32 @@ VectorArray<Curve2D::Vector> CubicBezierSpline::f( std::vector<float> params ) c
 }
 
 Curve2D::Vector CubicBezierSpline::df( float u ) const {
-    using namespace Ra::Core::Utils;
     std::pair<int, float> locpar { getLocalParameter( u ) };
 
     if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
-        LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
         Vector p;
         p.fill( 0 );
         return p;
     }
 
-    return spline[locpar.first].df( locpar.second );
+    return m_spline[locpar.first].df( locpar.second );
 }
 
 Curve2D::Vector CubicBezierSpline::fdf( Scalar t, Vector& grad ) const {
-    using namespace Ra::Core::Utils;
     std::pair<int, float> locpar { getLocalParameter( t ) };
 
     if ( locpar.first < 0 || locpar.first > getNbBezier() - 1 ) {
-        LOG( logERROR ) << "Cubic Bezier Spline : invalid parameter";
         Vector p;
         p.fill( 0 );
         return p;
     }
 
-    return spline[locpar.first].fdf( locpar.second, grad );
+    return m_spline[locpar.first].fdf( locpar.second, grad );
 }
 
 void CubicBezierSpline::addPoint( const Curve2D::Vector p ) {
-    if ( spline[spline.size() - 1].getCtrlPoints().size() < 4 )
-        spline[spline.size() - 1].addPoint( p );
+    if ( m_spline[m_spline.size() - 1].getCtrlPoints().size() < 4 )
+        m_spline[m_spline.size() - 1].addPoint( p );
 }
 
 } // namespace Geometry
