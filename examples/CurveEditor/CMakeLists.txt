@@ -32,28 +32,22 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # ------------------------------------------------------------------------------
 
-set(app_sources
-        main.cpp
-        CurveComponent.cpp
-        StrokeComponent.cpp
-        PointComponent.cpp
-        Gui/MainWindow.cpp
-        Gui/MyViewer.cpp
-        CurveEditor.cpp
-    )
+set(app_sources main.cpp CurveComponent.cpp StrokeComponent.cpp PointComponent.cpp
+                Gui/MainWindow.cpp Gui/MyViewer.cpp CurveEditor.cpp
+)
 
 set(app_headers
-        Gui/MainWindow.hpp
-        Gui/MyViewer.hpp
-        CurveComponent.hpp
-        StrokeComponent.hpp
-        CurveFactory.hpp
-        PointComponent.hpp
-        PointFactory.hpp
-        Painty/CubicBezierApproximation.hpp
-        Painty/LeastSquareSystem.hpp
-        CurveEditor.hpp
-    )
+    Gui/MainWindow.hpp
+    Gui/MyViewer.hpp
+    CurveComponent.hpp
+    StrokeComponent.hpp
+    CurveFactory.hpp
+    PointComponent.hpp
+    PointFactory.hpp
+    BezierUtils/CubicBezierApproximation.hpp
+    BezierUtils/LeastSquareSystem.hpp
+    CurveEditor.hpp
+)
 
 set(app_uis)
 qt_wrap_ui(app_uis_moc ${app_uis})
