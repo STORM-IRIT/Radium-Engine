@@ -59,6 +59,7 @@ class RA_ENGINE_API EnvironmentTexture
      * this.
      *
      * \note The envmap is transformed at loading/build time to the Radium global frame.
+     * \pre The file(s) given as mapName must exist.
      * \todo : if the file given to the constructor does not exist, generates a white envmap ?
      */
     explicit EnvironmentTexture( const std::string& mapName, bool isSkybox = false );
