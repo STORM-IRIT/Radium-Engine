@@ -1,9 +1,8 @@
 #pragma once
 
+#include "LeastSquareSystem.hpp"
 #include <Core/Geometry/Curve2D.hpp>
 #include <Core/Utils/Log.hpp>
-//#include "CubicBezier.hpp"
-#include "LeastSquareSystem.hpp"
 #include <set>
 
 #include <fstream>
