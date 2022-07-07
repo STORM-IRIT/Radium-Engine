@@ -36,32 +36,27 @@ CurveEditor::CurveEditor( const VectorArray<Curve2D::Vector>& polyline, MyViewer
                                Vector3( solutionPts[i + 1].x(), 0, solutionPts[i + 1].y() ),
                                Vector3( solutionPts[i + 2].x(), 0, solutionPts[i + 2].y() ),
                                Vector3( solutionPts[i + 3].x(), 0, solutionPts[i + 3].y() ) };
-        std::string name = "Curve_" + std::to_string( i / 3 );
-        auto e           = factory.createCurveComponent( this, ctrlPts, name );
+        auto e = factory.createCurveComponent( this, ctrlPts, i / 3 );
         m_curveEntities.push_back( e );
         allCtrlPts.push_back( ctrlPts );
     }
 
-    std::string namePt = "CtrlPt_" + std::to_string( 0 );
-    auto e =
-        PointFactory::createPointComponent( this, allCtrlPts[0][0], { 0 }, namePt, Color::Blue() );
+    auto e = PointFactory::createPointComponent( this, allCtrlPts[0][0], { 0 }, 0, Color::Blue() );
     m_pointEntities.push_back( e );
 
     int nameIndex = 1;
     for ( unsigned int i = 0; i < allCtrlPts.size(); i++ ) {
         for ( unsigned int j = 1; j < allCtrlPts[i].size() - 1; j++ ) {
-            namePt = "CtrlPt_" + std::to_string( nameIndex );
-            e      = PointFactory::createPointComponent( this, allCtrlPts[i][j], { i }, namePt );
+            e = PointFactory::createPointComponent( this, allCtrlPts[i][j], { i }, nameIndex );
             m_pointEntities.push_back( e );
             nameIndex++;
         }
-        namePt = "CtrlPt_" + std::to_string( nameIndex );
         if ( i == allCtrlPts.size() - 1 )
             e = PointFactory::createPointComponent(
-                this, allCtrlPts[i][3], { i }, namePt, Color::Blue() );
+                this, allCtrlPts[i][3], { i }, nameIndex, Color::Blue() );
         else
             e = PointFactory::createPointComponent(
-                this, allCtrlPts[i][3], { i, i + 1 }, namePt, Color::Blue() );
+                this, allCtrlPts[i][3], { i, i + 1 }, nameIndex, Color::Blue() );
         m_pointEntities.push_back( e );
         nameIndex++;
     }
@@ -180,18 +175,19 @@ inline float CurveEditor::distanceSquared( const Vector3f& pointA, const Vector3
     return dx * dx + dy * dy + dz * dz;
 }
 
-// De Casteljau algorithm
 void CurveEditor::subdivisionBezier( int vertexIndex,
                                      unsigned int curveIndex,
                                      const Vector3Array& ctrlPts ) {
-    auto bezier = Geometry::CubicBezier( Vector2( ctrlPts[0].x(), ctrlPts[0].z() ),
+
+    auto bezier       = Geometry::CubicBezier( Vector2( ctrlPts[0].x(), ctrlPts[0].z() ),
                                          Vector2( ctrlPts[1].x(), ctrlPts[1].z() ),
                                          Vector2( ctrlPts[2].x(), ctrlPts[2].z() ),
                                          Vector2( ctrlPts[3].x(), ctrlPts[3].z() ) );
-    float u     = float( vertexIndex ) / 100.f;
+    float u           = float( vertexIndex ) / 100.f;
+    Vector2 fu        = bezier.f( u );
+    auto clickedPoint = Vector3( fu.x(), 0, fu.y() );
 
-    Vector2 fu          = bezier.f( u );
-    auto clickedPoint   = Vector3( fu.x(), 0, fu.y() );
+    // De Casteljau
     Vector3 firstPoint  = Math::linearInterpolate( ctrlPts[0], ctrlPts[1], u );
     Vector3 sndPoint    = Math::linearInterpolate( ctrlPts[1], ctrlPts[2], u );
     Vector3 thirdPoint  = Math::linearInterpolate( ctrlPts[2], ctrlPts[3], u );
@@ -202,7 +198,8 @@ void CurveEditor::subdivisionBezier( int vertexIndex,
     newCtrlPts[1]   = firstPoint;
     newCtrlPts[2]   = fourthPoint;
     newCtrlPts[3]   = clickedPoint;
-    auto nameCurve  = m_curveEntities[curveIndex]->getName();
+
+    auto nameCurve = m_curveEntities[curveIndex]->getName();
     removeComponent( nameCurve );
     m_curveEntities[curveIndex] = CurveFactory::createCurveComponent( this, newCtrlPts, nameCurve );
 
@@ -210,16 +207,15 @@ void CurveEditor::subdivisionBezier( int vertexIndex,
     refreshPoint( curveIndex * 3 + 2, thirdPoint );
 
     auto firstInsertionIdx = curveIndex * 3 + 2;
-    std::string namePt     = "CtrlPt_" + std::to_string( m_pointEntities.size() );
     auto ptE               = PointFactory::createPointComponent(
-        this, clickedPoint, { curveIndex, curveIndex + 1 }, namePt, Color::Blue() );
+        this, clickedPoint, { curveIndex, curveIndex + 1 }, m_pointEntities.size(), Color::Blue() );
     m_pointEntities.insert( m_pointEntities.begin() + firstInsertionIdx, ptE );
-    namePt = "CtrlPt_" + std::to_string( m_pointEntities.size() );
-    ptE    = PointFactory::createPointComponent( this, fourthPoint, { curveIndex }, namePt );
+    ptE = PointFactory::createPointComponent(
+        this, fourthPoint, { curveIndex }, m_pointEntities.size() );
     m_pointEntities.insert( m_pointEntities.begin() + firstInsertionIdx, ptE );
 
-    namePt = "CtrlPt_" + std::to_string( m_pointEntities.size() );
-    ptE    = PointFactory::createPointComponent( this, fifthPoint, { curveIndex + 1 }, namePt );
+    ptE = PointFactory::createPointComponent(
+        this, fifthPoint, { curveIndex + 1 }, m_pointEntities.size() );
     m_pointEntities.insert( m_pointEntities.begin() + ( ( curveIndex + 1 ) * 3 + 1 ), ptE );
 
     Vector3Array newCtrlPts1;
@@ -228,8 +224,7 @@ void CurveEditor::subdivisionBezier( int vertexIndex,
     newCtrlPts1.push_back( thirdPoint );
     newCtrlPts1.push_back( ctrlPts[3] );
 
-    nameCurve   = "Curve_" + std::to_string( m_curveEntities.size() );
-    auto curveE = CurveFactory::createCurveComponent( this, newCtrlPts1, nameCurve );
+    auto curveE = CurveFactory::createCurveComponent( this, newCtrlPts1, m_curveEntities.size() );
 
     m_curveEntities.insert( m_curveEntities.begin() + curveIndex + 1, curveE );
 
@@ -242,37 +237,32 @@ void CurveEditor::subdivisionBezier( int vertexIndex,
 }
 
 void CurveEditor::addPointAtEnd( const Vector3& worldPos ) {
-    Vector3Array ctrlPts;
     auto lastIndex  = m_pointEntities.size() - 1;
     auto beforeLast = m_pointEntities[lastIndex - 1];
     auto last       = m_pointEntities[lastIndex];
     Vector3 diff    = ( last->m_point - beforeLast->m_point );
     diff.normalize();
+
     Vector3 secondPt  = ( last->m_point + diff );
     Vector3 thirdDiff = ( last->m_point - worldPos );
     thirdDiff.normalize();
     Vector3 thirdPt = ( worldPos - diff );
-    ctrlPts.push_back( last->m_point );
-    ctrlPts.push_back( secondPt );
-    ctrlPts.push_back( thirdPt );
-    ctrlPts.push_back( worldPos );
-    std::string name = "Curve_" + std::to_string( m_curveEntities.size() );
-    auto e           = CurveFactory::createCurveComponent( this, ctrlPts, name );
+
+    Vector3Array ctrlPts { last->m_point, secondPt, thirdPt, worldPos };
+
+    auto e = CurveFactory::createCurveComponent( this, ctrlPts, m_curveEntities.size() );
     m_curveEntities.push_back( e );
 
     unsigned int pointIndex = lastIndex + 1;
     last->m_curveId.push_back( ( pointIndex / 3 ) );
-    std::string namePt = "CtrlPt_" + std::to_string( pointIndex );
     auto ptC =
-        PointFactory::createPointComponent( this, ctrlPts[1], { ( pointIndex / 3 ) }, namePt );
+        PointFactory::createPointComponent( this, ctrlPts[1], { ( pointIndex / 3 ) }, pointIndex );
     m_pointEntities.push_back( ptC );
-    namePt = "CtrlPt_" + std::to_string( pointIndex + 1 );
-    auto eb =
-        PointFactory::createPointComponent( this, ctrlPts[2], { ( pointIndex / 3 ) }, namePt );
+    auto eb = PointFactory::createPointComponent(
+        this, ctrlPts[2], { ( pointIndex / 3 ) }, pointIndex + 1 );
     m_pointEntities.push_back( eb );
-    namePt = "CtrlPt_" + std::to_string( pointIndex + 2 );
-    ptC    = PointFactory::createPointComponent(
-        this, ctrlPts[3], { ( pointIndex / 3 ) }, namePt, Color::Blue() );
+    ptC = PointFactory::createPointComponent(
+        this, ctrlPts[3], { ( pointIndex / 3 ) }, pointIndex + 2, Color::Blue() );
     m_pointEntities.push_back( ptC );
 }
 
@@ -281,16 +271,17 @@ void CurveEditor::addPointInCurve( const Vector3& worldPos, int mouseX, int mous
     auto radius = int( m_viewer->getRenderer()->getBrushRadius() );
     bool found  = false;
     Rendering::Renderer::PickingResult pres;
+
     for ( int i = mouseX - radius; i < mouseX + radius && !found; i++ ) {
         for ( int j = mouseY - radius; j < mouseY + radius; j++ ) {
-            // m_viewer->cursor().setPos(m_viewer->mapToGlobal(QPoint(i, j)));
+
             Rendering::Renderer::PickingQuery query { Vector2( i, m_viewer->height() - j ),
                                                       Rendering::Renderer::SELECTION,
                                                       Rendering::Renderer::RO };
             Data::ViewingParameters renderData {
                 camera->getViewMatrix(), camera->getProjMatrix(), 0 };
-
             pres = m_viewer->getRenderer()->doPickingNow( query, renderData );
+
             if ( pres.getRoIdx().isValid() && m_roMgr->exists( pres.getRoIdx() ) ) {
                 auto ro = m_roMgr->getRenderObject( pres.getRoIdx() );
                 if ( ro->getMesh()->getNumVertices() == 2 ) continue;
@@ -324,9 +315,9 @@ void CurveEditor::addPointInCurve( const Vector3& worldPos, int mouseX, int mous
                     }
 
                     subdivisionBezier( vIndex, curveIndex, ctrlPts );
+                    found = true;
+                    break;
                 }
-                found = true;
-                break;
             }
         }
     }
@@ -380,6 +371,7 @@ void CurveEditor::processPicking( const Vector3& worldPos ) {
                 computePointTransform( pointComponent, pointMid->m_point, worldPos );
             auto ro = m_roMgr->getRenderObject( pointComponent->getRenderObjects()[0] );
             ro->setLocalTransform( symTransform );
+
             if ( m_tangentPoints.empty() ) { m_tangentPoints.push_back( m_currentPoint + 2 ); }
         }
         else if ( m_currentPoint % 3 == 1 ) {
@@ -389,6 +381,7 @@ void CurveEditor::processPicking( const Vector3& worldPos ) {
                 computePointTransform( pointComponent, pointMid->m_point, worldPos );
             auto ro = m_roMgr->getRenderObject( pointComponent->getRenderObjects()[0] );
             ro->setLocalTransform( symTransform );
+
             if ( m_tangentPoints.empty() ) { m_tangentPoints.push_back( m_currentPoint - 2 ); }
         }
         else if ( m_currentPoint % 3 == 0 ) {
@@ -396,10 +389,12 @@ void CurveEditor::processPicking( const Vector3& worldPos ) {
                 m_pointEntities[m_currentPoint - 1]->getRenderObjects()[0] );
             auto leftTransform = leftRo->getTransform() * transformTranslate;
             leftRo->setLocalTransform( leftTransform );
+
             auto rightRo = m_roMgr->getRenderObject(
                 m_pointEntities[m_currentPoint + 1]->getRenderObjects()[0] );
             auto rightTransform = rightRo->getTransform() * transformTranslate;
             rightRo->setLocalTransform( rightTransform );
+
             if ( m_tangentPoints.empty() ) {
                 m_tangentPoints.push_back( m_currentPoint - 1 );
                 m_tangentPoints.push_back( m_currentPoint + 1 );
