@@ -8,12 +8,17 @@
 #include "BezierUtils/CubicBezierApproximation.hpp"
 #include "CurveEditor.hpp"
 
-CurveEditor::CurveEditor(
-    const Ra::Core::VectorArray<Ra::Core::Geometry::Curve2D::Vector>& polyline,
-    MyViewer* viewer ) :
-    Ra::Engine::Scene::Entity( "Curve Editor" ), m_viewer( viewer ) {
-    m_entityMgr = Ra::Engine::RadiumEngine::getInstance()->getEntityManager();
-    m_roMgr     = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+using namespace Ra::Core;
+using namespace Ra::Core::Geometry;
+using namespace Ra::Core::Utils;
+using namespace Ra::Engine;
+using namespace Ra::Engine::Scene;
+
+CurveEditor::CurveEditor( const VectorArray<Curve2D::Vector>& polyline, MyViewer* viewer ) :
+    Entity( "Curve Editor" ), m_viewer( viewer ) {
+
+    m_entityMgr = RadiumEngine::getInstance()->getEntityManager();
+    m_roMgr     = RadiumEngine::getInstance()->getRenderObjectManager();
 
     // Approximate polyline with bezier
     CubicBezierApproximation approximator;
@@ -24,14 +29,13 @@ CurveEditor::CurveEditor(
 
     // Create and render solution entities
     CurveFactory factory;
-    std::vector<Ra::Core::Vector3Array> allCtrlPts;
+    std::vector<Vector3Array> allCtrlPts;
     m_viewer->makeCurrent();
     for ( unsigned int i = 0; i < solutionPts.size() - 3; i += 3 ) {
-        Ra::Core::Vector3Array ctrlPts;
-        ctrlPts.push_back( Ra::Core::Vector3( solutionPts[i].x(), 0, solutionPts[i].y() ) );
-        ctrlPts.push_back( Ra::Core::Vector3( solutionPts[i + 1].x(), 0, solutionPts[i + 1].y() ) );
-        ctrlPts.push_back( Ra::Core::Vector3( solutionPts[i + 2].x(), 0, solutionPts[i + 2].y() ) );
-        ctrlPts.push_back( Ra::Core::Vector3( solutionPts[i + 3].x(), 0, solutionPts[i + 3].y() ) );
+        Vector3Array ctrlPts { Vector3( solutionPts[i].x(), 0, solutionPts[i].y() ),
+                               Vector3( solutionPts[i + 1].x(), 0, solutionPts[i + 1].y() ),
+                               Vector3( solutionPts[i + 2].x(), 0, solutionPts[i + 2].y() ),
+                               Vector3( solutionPts[i + 3].x(), 0, solutionPts[i + 3].y() ) };
         std::string name = "Curve_" + std::to_string( i / 3 );
         auto e           = factory.createCurveComponent( this, ctrlPts, name );
         m_curveEntities.push_back( e );
@@ -39,9 +43,10 @@ CurveEditor::CurveEditor(
     }
 
     std::string namePt = "CtrlPt_" + std::to_string( 0 );
-    auto e             = PointFactory::createPointComponent(
-        this, allCtrlPts[0][0], { 0 }, namePt, Ra::Core::Utils::Color::Blue() );
+    auto e =
+        PointFactory::createPointComponent( this, allCtrlPts[0][0], { 0 }, namePt, Color::Blue() );
     m_pointEntities.push_back( e );
+
     int nameIndex = 1;
     for ( unsigned int i = 0; i < allCtrlPts.size(); i++ ) {
         for ( unsigned int j = 1; j < allCtrlPts[i].size() - 1; j++ ) {
@@ -53,10 +58,10 @@ CurveEditor::CurveEditor(
         namePt = "CtrlPt_" + std::to_string( nameIndex );
         if ( i == allCtrlPts.size() - 1 )
             e = PointFactory::createPointComponent(
-                this, allCtrlPts[i][3], { i }, namePt, Ra::Core::Utils::Color::Blue() );
+                this, allCtrlPts[i][3], { i }, namePt, Color::Blue() );
         else
             e = PointFactory::createPointComponent(
-                this, allCtrlPts[i][3], { i, i + 1 }, namePt, Ra::Core::Utils::Color::Blue() );
+                this, allCtrlPts[i][3], { i, i + 1 }, namePt, Color::Blue() );
         m_pointEntities.push_back( e );
         nameIndex++;
     }
@@ -69,8 +74,8 @@ CurveEditor::~CurveEditor() {}
 
 unsigned int CurveEditor::getPointIndex( unsigned int curveIdSize,
                                          unsigned int currentPtIndex,
-                                         const Ra::Core::Vector3& firstCtrlPt,
-                                         const Ra::Core::Vector3& currentPt ) {
+                                         const Vector3& firstCtrlPt,
+                                         const Vector3& currentPt ) {
     unsigned int pointIndex;
     if ( curveIdSize > 1 || currentPtIndex == m_pointEntities.size() - 1 ) {
         pointIndex = ( firstCtrlPt == currentPt ) ? 0 : 3;
@@ -84,7 +89,7 @@ unsigned int CurveEditor::getPointIndex( unsigned int curveIdSize,
 void CurveEditor::updateCurve( unsigned int curveId,
                                unsigned int curveIdSize,
                                PointComponent* pointComponent,
-                               const Ra::Core::Vector3& oldPoint,
+                               const Vector3& oldPoint,
                                unsigned int currentPoint ) {
     auto component = m_curveEntities[curveId];
     auto ctrlPts   = component->m_ctrlPts;
@@ -101,13 +106,13 @@ void CurveEditor::updateCurve( unsigned int curveId,
     m_curveEntities[curveId] = e;
 }
 
-void CurveEditor::refreshPoint( unsigned int pointIndex, const Ra::Core::Vector3& newPoint ) {
+void CurveEditor::refreshPoint( unsigned int pointIndex, const Vector3& newPoint ) {
     auto pointName      = m_pointEntities[pointIndex]->getName();
     auto pointComponent = m_pointEntities[pointIndex];
     auto pointColor     = pointComponent->m_color;
     auto pointCurve     = pointComponent->m_curveId;
-    Ra::Core::Vector3 point;
-    if ( newPoint == Ra::Core::Vector3::Zero() )
+    Vector3 point;
+    if ( newPoint == Vector3::Zero() )
         point = pointComponent->m_point;
     else
         point = newPoint;
@@ -134,9 +139,9 @@ void CurveEditor::updateCurves( bool onRelease ) {
     }
 
     for ( unsigned int i = 0; i < m_tangentPoints.size(); i++ ) {
-        auto tangentPtComponent     = m_pointEntities[m_tangentPoints[i]];
-        Ra::Core::Vector3 tangentPt = tangentPtComponent->m_point;
-        auto symCurveId             = tangentPtComponent->m_curveId[0];
+        auto tangentPtComponent = m_pointEntities[m_tangentPoints[i]];
+        Vector3 tangentPt       = tangentPtComponent->m_point;
+        auto symCurveId         = tangentPtComponent->m_curveId[0];
         updateCurve( symCurveId, 1, tangentPtComponent, tangentPt, m_tangentPoints[i] );
     }
 
@@ -154,11 +159,11 @@ void CurveEditor::updateCurves( bool onRelease ) {
     m_viewer->needUpdate();
 }
 
-Ra::Core::Transform CurveEditor::computePointTransform( PointComponent* pointCmp,
-                                                        const Ra::Core::Vector3& midPoint,
-                                                        const Ra::Core::Vector3& worldPos ) {
-    auto transform         = Ra::Core::Transform::Identity();
-    Ra::Core::Vector3 diff = ( midPoint - worldPos );
+Transform CurveEditor::computePointTransform( PointComponent* pointCmp,
+                                              const Vector3& midPoint,
+                                              const Vector3& worldPos ) {
+    auto transform = Transform::Identity();
+    Vector3 diff   = ( midPoint - worldPos );
     if ( m_symetry ) { transform.translate( ( midPoint + diff ) - pointCmp->m_defaultPoint ); }
     else {
         diff.normalize();
@@ -168,8 +173,7 @@ Ra::Core::Transform CurveEditor::computePointTransform( PointComponent* pointCmp
     return transform;
 }
 
-inline float CurveEditor::distanceSquared( const Ra::Core::Vector3f& pointA,
-                                           const Ra::Core::Vector3f& pointB ) {
+inline float CurveEditor::distanceSquared( const Vector3f& pointA, const Vector3f& pointB ) {
     float dx = pointA.x() - pointB.x();
     float dy = pointA.y() - pointB.y();
     float dz = pointA.z() - pointB.z();
@@ -179,21 +183,20 @@ inline float CurveEditor::distanceSquared( const Ra::Core::Vector3f& pointA,
 // De Casteljau algorithm
 void CurveEditor::subdivisionBezier( int vertexIndex,
                                      unsigned int curveIndex,
-                                     const Ra::Core::Vector3Array& ctrlPts ) {
-    auto bezier =
-        Ra::Core::Geometry::CubicBezier( Ra::Core::Vector2( ctrlPts[0].x(), ctrlPts[0].z() ),
-                                         Ra::Core::Vector2( ctrlPts[1].x(), ctrlPts[1].z() ),
-                                         Ra::Core::Vector2( ctrlPts[2].x(), ctrlPts[2].z() ),
-                                         Ra::Core::Vector2( ctrlPts[3].x(), ctrlPts[3].z() ) );
-    float u = float( vertexIndex ) / 100.f;
+                                     const Vector3Array& ctrlPts ) {
+    auto bezier = Geometry::CubicBezier( Vector2( ctrlPts[0].x(), ctrlPts[0].z() ),
+                                         Vector2( ctrlPts[1].x(), ctrlPts[1].z() ),
+                                         Vector2( ctrlPts[2].x(), ctrlPts[2].z() ),
+                                         Vector2( ctrlPts[3].x(), ctrlPts[3].z() ) );
+    float u     = float( vertexIndex ) / 100.f;
 
-    Ra::Core::Vector2 fu          = bezier.f( u );
-    auto clickedPoint             = Ra::Core::Vector3( fu.x(), 0, fu.y() );
-    Ra::Core::Vector3 firstPoint  = Ra::Core::Math::linearInterpolate( ctrlPts[0], ctrlPts[1], u );
-    Ra::Core::Vector3 sndPoint    = Ra::Core::Math::linearInterpolate( ctrlPts[1], ctrlPts[2], u );
-    Ra::Core::Vector3 thirdPoint  = Ra::Core::Math::linearInterpolate( ctrlPts[2], ctrlPts[3], u );
-    Ra::Core::Vector3 fourthPoint = Ra::Core::Math::linearInterpolate( firstPoint, sndPoint, u );
-    Ra::Core::Vector3 fifthPoint  = Ra::Core::Math::linearInterpolate( sndPoint, thirdPoint, u );
+    Vector2 fu          = bezier.f( u );
+    auto clickedPoint   = Vector3( fu.x(), 0, fu.y() );
+    Vector3 firstPoint  = Math::linearInterpolate( ctrlPts[0], ctrlPts[1], u );
+    Vector3 sndPoint    = Math::linearInterpolate( ctrlPts[1], ctrlPts[2], u );
+    Vector3 thirdPoint  = Math::linearInterpolate( ctrlPts[2], ctrlPts[3], u );
+    Vector3 fourthPoint = Math::linearInterpolate( firstPoint, sndPoint, u );
+    Vector3 fifthPoint  = Math::linearInterpolate( sndPoint, thirdPoint, u );
 
     auto newCtrlPts = ctrlPts;
     newCtrlPts[1]   = firstPoint;
@@ -208,11 +211,8 @@ void CurveEditor::subdivisionBezier( int vertexIndex,
 
     auto firstInsertionIdx = curveIndex * 3 + 2;
     std::string namePt     = "CtrlPt_" + std::to_string( m_pointEntities.size() );
-    auto ptE               = PointFactory::createPointComponent( this,
-                                                   clickedPoint,
-                                                   { curveIndex, curveIndex + 1 },
-                                                   namePt,
-                                                   Ra::Core::Utils::Color::Blue() );
+    auto ptE               = PointFactory::createPointComponent(
+        this, clickedPoint, { curveIndex, curveIndex + 1 }, namePt, Color::Blue() );
     m_pointEntities.insert( m_pointEntities.begin() + firstInsertionIdx, ptE );
     namePt = "CtrlPt_" + std::to_string( m_pointEntities.size() );
     ptE    = PointFactory::createPointComponent( this, fourthPoint, { curveIndex }, namePt );
@@ -222,7 +222,7 @@ void CurveEditor::subdivisionBezier( int vertexIndex,
     ptE    = PointFactory::createPointComponent( this, fifthPoint, { curveIndex + 1 }, namePt );
     m_pointEntities.insert( m_pointEntities.begin() + ( ( curveIndex + 1 ) * 3 + 1 ), ptE );
 
-    Ra::Core::Vector3Array newCtrlPts1;
+    Vector3Array newCtrlPts1;
     newCtrlPts1.push_back( clickedPoint );
     newCtrlPts1.push_back( fifthPoint );
     newCtrlPts1.push_back( thirdPoint );
@@ -241,17 +241,17 @@ void CurveEditor::subdivisionBezier( int vertexIndex,
     }
 }
 
-void CurveEditor::addPointAtEnd( const Ra::Core::Vector3& worldPos ) {
-    Ra::Core::Vector3Array ctrlPts;
-    auto lastIndex         = m_pointEntities.size() - 1;
-    auto beforeLast        = m_pointEntities[lastIndex - 1];
-    auto last              = m_pointEntities[lastIndex];
-    Ra::Core::Vector3 diff = ( last->m_point - beforeLast->m_point );
+void CurveEditor::addPointAtEnd( const Vector3& worldPos ) {
+    Vector3Array ctrlPts;
+    auto lastIndex  = m_pointEntities.size() - 1;
+    auto beforeLast = m_pointEntities[lastIndex - 1];
+    auto last       = m_pointEntities[lastIndex];
+    Vector3 diff    = ( last->m_point - beforeLast->m_point );
     diff.normalize();
-    Ra::Core::Vector3 secondPt  = ( last->m_point + diff );
-    Ra::Core::Vector3 thirdDiff = ( last->m_point - worldPos );
+    Vector3 secondPt  = ( last->m_point + diff );
+    Vector3 thirdDiff = ( last->m_point - worldPos );
     thirdDiff.normalize();
-    Ra::Core::Vector3 thirdPt = ( worldPos - diff );
+    Vector3 thirdPt = ( worldPos - diff );
     ctrlPts.push_back( last->m_point );
     ctrlPts.push_back( secondPt );
     ctrlPts.push_back( thirdPt );
@@ -272,23 +272,22 @@ void CurveEditor::addPointAtEnd( const Ra::Core::Vector3& worldPos ) {
     m_pointEntities.push_back( eb );
     namePt = "CtrlPt_" + std::to_string( pointIndex + 2 );
     ptC    = PointFactory::createPointComponent(
-        this, ctrlPts[3], { ( pointIndex / 3 ) }, namePt, Ra::Core::Utils::Color::Blue() );
+        this, ctrlPts[3], { ( pointIndex / 3 ) }, namePt, Color::Blue() );
     m_pointEntities.push_back( ptC );
 }
 
-void CurveEditor::addPointInCurve( const Ra::Core::Vector3& worldPos, int mouseX, int mouseY ) {
+void CurveEditor::addPointInCurve( const Vector3& worldPos, int mouseX, int mouseY ) {
     auto camera = m_viewer->getCameraManipulator()->getCamera();
     auto radius = int( m_viewer->getRenderer()->getBrushRadius() );
     bool found  = false;
-    Ra::Engine::Rendering::Renderer::PickingResult pres;
+    Rendering::Renderer::PickingResult pres;
     for ( int i = mouseX - radius; i < mouseX + radius && !found; i++ ) {
         for ( int j = mouseY - radius; j < mouseY + radius; j++ ) {
             // m_viewer->cursor().setPos(m_viewer->mapToGlobal(QPoint(i, j)));
-            Ra::Engine::Rendering::Renderer::PickingQuery query {
-                Ra::Core::Vector2( i, m_viewer->height() - j ),
-                Ra::Engine::Rendering::Renderer::SELECTION,
-                Ra::Engine::Rendering::Renderer::RO };
-            Ra::Engine::Data::ViewingParameters renderData {
+            Rendering::Renderer::PickingQuery query { Vector2( i, m_viewer->height() - j ),
+                                                      Rendering::Renderer::SELECTION,
+                                                      Rendering::Renderer::RO };
+            Data::ViewingParameters renderData {
                 camera->getViewMatrix(), camera->getProjMatrix(), 0 };
 
             pres = m_viewer->getRenderer()->doPickingNow( query, renderData );
@@ -308,7 +307,7 @@ void CurveEditor::addPointInCurve( const Ra::Core::Vector3& worldPos, int mouseX
                 if ( curveIndex < 0 ) continue;
 
                 auto meshPtr  = ro->getMesh().get();
-                auto mesh     = dynamic_cast<Ra::Engine::Data::Mesh*>( meshPtr );
+                auto mesh     = dynamic_cast<Data::Mesh*>( meshPtr );
                 auto curveCmp = static_cast<CurveComponent*>( ro->getComponent() );
                 auto ctrlPts  = curveCmp->m_ctrlPts;
 
@@ -333,7 +332,7 @@ void CurveEditor::addPointInCurve( const Ra::Core::Vector3& worldPos, int mouseX
     }
 }
 
-bool CurveEditor::processHover( std::shared_ptr<Ra::Engine::Rendering::RenderObject> ro ) {
+bool CurveEditor::processHover( std::shared_ptr<Rendering::RenderObject> ro ) {
     auto e = ro->getComponent();
 
     // if not a control point -> do nothing
@@ -345,8 +344,7 @@ bool CurveEditor::processHover( std::shared_ptr<Ra::Engine::Rendering::RenderObj
     }
     if ( m_currentPoint < 0 ) return false;
 
-    ro->getMaterial()->getParameters().addParameter( "material.color",
-                                                     Ra::Core::Utils::Color::Red() );
+    ro->getMaterial()->getParameters().addParameter( "material.color", Color::Red() );
     m_selectedRo = ro;
     return true;
 }
@@ -359,15 +357,15 @@ void CurveEditor::processUnhovering() {
     m_currentPoint = -1;
 }
 
-void CurveEditor::processPicking( const Ra::Core::Vector3& worldPos ) {
+void CurveEditor::processPicking( const Vector3& worldPos ) {
     if ( m_currentPoint < 0 ) return;
     auto pointComponent = static_cast<PointComponent*>( m_selectedRo->getComponent() );
     auto point          = pointComponent->m_point;
 
-    auto transformTranslate = Ra::Core::Transform::Identity();
+    auto transformTranslate = Transform::Identity();
     transformTranslate.translate( worldPos - point );
 
-    auto transform = Ra::Core::Transform::Identity();
+    auto transform = Transform::Identity();
     transform      = m_selectedRo->getLocalTransform() * transformTranslate;
     m_selectedRo->setLocalTransform( transform );
 
