@@ -250,8 +250,9 @@ Right click on `CMakeList.txt > build > all`.
 
 ### Execution of a demo app
 
-To execute a demo application, select in the `Startup Item` list the target you want to execute. For instance, `DrawPrimitiveDemo.exe (test/...)`.
-Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitiveDemo` and modify the `launch.vs.json` file that is opened so that it contains the following.
+To execute a demo application, select in the `Startup Item` list the target you want to execute.
+For instance, `DrawPrimitives.exe (examples/...)`.
+Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitives` and modify the `launch.vs.json` file that is opened so that it contains the following.
 
 ~~~{.json}
 {
@@ -261,8 +262,8 @@ Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitiveDe
    {
      "type": "default",
      "project": "CMakeLists.txt",
-     "projectTarget": "DrawPrimitivesDemo.exe (tests\\ExampleApps\\DrawPrimitivesDemo\\DrawPrimitivesDemo.exe)",
-     "name": "DrawPrimitivesDemo.exe (tests\\ExampleApps\\DrawPrimitivesDemo\\DrawPrimitivesDemo.exe)",
+     "projectTarget": "DrawPrimitives.exe (examples\\DrawPrimitives\\DrawPrimitives.exe)",
+     "name": "DrawPrimitives.exe (examples\\DrawPrimitives\\DrawPrimitives.exe)",
      "inheritEnvironments": [ "RadiumDllLocations" ],
      "env": {
        "PATH": "${env.QtDllsDIR};${env.ExternalDllsDIR};${env.RadiumDlls};${env.PATH}"
