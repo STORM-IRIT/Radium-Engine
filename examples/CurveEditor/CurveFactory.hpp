@@ -7,6 +7,13 @@
 class CurveFactory
 {
   public:
+    static CurveComponent*
+    createCurveComponent( Ra::Engine::Scene::Entity* e, Ra::Core::Vector3Array ctrlPts, int id ) {
+        std::string name = "Curve_" + std::to_string( id );
+        auto c           = new CurveComponent( e, ctrlPts, name );
+        c->initialize();
+        return c;
+    }
     static CurveComponent* createCurveComponent( Ra::Engine::Scene::Entity* e,
                                                  Ra::Core::Vector3Array ctrlPts,
                                                  const std::string& name ) {
