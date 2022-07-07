@@ -86,12 +86,12 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
         COMMAND
             bash -c
             "$<TARGET_FILE:integration_${INTEGRATION_TEST}>  ${CMAKE_CURRENT_BINARY_DIR} &&\
- ${LIBXML2_XMLLINT_EXECUTABLE} --c14n11  ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid.xml > ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
- ${LIBXML2_XMLLINT_EXECUTABLE} --c14n11  ${CMAKE_CURRENT_SOURCE_DIR}/data/inputs/keymapping-valid.xml > ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
- ${SED_EXECUTABLE} -i.orig '/<!--.*-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
- ${SED_EXECUTABLE} -i.orig '/<!--.*-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
- ${SED_EXECUTABLE} -i.orig '/<!--/,/-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
- ${SED_EXECUTABLE} -i.orig '/<!--/,/-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml; "
+ \"${LIBXML2_XMLLINT_EXECUTABLE}\" --c14n11  ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid.xml > ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
+ \"${LIBXML2_XMLLINT_EXECUTABLE}\" --c14n11  ${CMAKE_CURRENT_SOURCE_DIR}/data/inputs/keymapping-valid.xml > ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
+ \"${SED_EXECUTABLE}\" -i.orig '/<!--.*-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
+ \"${SED_EXECUTABLE}\" -i.orig '/<!--.*-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
+ \"${SED_EXECUTABLE}\" -i.orig '/<!--/,/-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
+ \"${SED_EXECUTABLE}\" -i.orig '/<!--/,/-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml; "
     )
 
     add_test(
