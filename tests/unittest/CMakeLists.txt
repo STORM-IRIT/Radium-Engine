@@ -42,7 +42,7 @@ target_compile_options(unittests PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
 target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Gui)
 
-add_dependencies(unittests Catch2 Core)
+add_dependencies(unittests Catch2 Core Gui)
 target_include_directories(unittests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(../external/Catch2/src/Catch2_download/contrib/Catch.cmake)
