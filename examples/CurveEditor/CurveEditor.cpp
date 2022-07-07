@@ -208,6 +208,7 @@ void CurveEditor::subdivisionBezier( int vertexIndex,
     auto ptE               = PointFactory::createPointComponent(
         this, clickedPoint, { curveIndex, curveIndex + 1 }, m_pointEntities.size(), Color::Blue() );
     m_pointEntities.insert( m_pointEntities.begin() + firstInsertionIdx, ptE );
+
     ptE = PointFactory::createPointComponent(
         this, fourthPoint, { curveIndex }, m_pointEntities.size() );
     m_pointEntities.insert( m_pointEntities.begin() + firstInsertionIdx, ptE );
@@ -223,7 +224,6 @@ void CurveEditor::subdivisionBezier( int vertexIndex,
     newCtrlPts1.push_back( ctrlPts[3] );
 
     auto curveE = CurveFactory::createCurveComponent( this, newCtrlPts1, m_curveEntities.size() );
-
     m_curveEntities.insert( m_curveEntities.begin() + curveIndex + 1, curveE );
 
     for ( unsigned int i = ( ( curveIndex + 1 ) * 3 + 2 ); i < m_pointEntities.size(); i++ ) {
@@ -253,12 +253,15 @@ void CurveEditor::addPointAtEnd( const Vector3& worldPos ) {
 
     unsigned int pointIndex = lastIndex + 1;
     last->m_curveId.push_back( ( pointIndex / 3 ) );
+
     auto ptC =
         PointFactory::createPointComponent( this, ctrlPts[1], { ( pointIndex / 3 ) }, pointIndex );
     m_pointEntities.push_back( ptC );
-    auto eb = PointFactory::createPointComponent(
+
+    ptC = PointFactory::createPointComponent(
         this, ctrlPts[2], { ( pointIndex / 3 ) }, pointIndex + 1 );
-    m_pointEntities.push_back( eb );
+    m_pointEntities.push_back( ptC );
+
     ptC = PointFactory::createPointComponent(
         this, ctrlPts[3], { ( pointIndex / 3 ) }, pointIndex + 2, Color::Blue() );
     m_pointEntities.push_back( ptC );
