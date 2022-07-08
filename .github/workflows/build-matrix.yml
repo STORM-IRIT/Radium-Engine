@@ -5,7 +5,6 @@ name: build
 # - push-master-ci.yml
 # - push-rc-ci.yml
 
-
 defaults:
   run:
     shell: bash
@@ -59,7 +58,6 @@ on:
         required: false
         type: string
         default: "true"
-
 
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
@@ -160,7 +158,7 @@ jobs:
           repository: glfw/glfw
           ref: 3.3.4
           path: glfw
-      - name: Install dep windows Config/Build shared library
+      - name: Build windows dep, config path
         if: runner.os == 'Windows'
         run: |
           mkdir $GITHUB_WORKSPACE/glfw_install/
@@ -168,6 +166,15 @@ jobs:
           cmake --build glfw/build-shared --parallel --config Release
           cmake --build glfw/build-shared --target install --config Release
           echo "glfw-path=-Dglfw3_DIR=\$GITHUB_WORKSPACE/glfw_install/lib/cmake/glfw3/" >> $GITHUB_ENV
+          # Setting paths to dll needed by catch2 and run in build dir
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Core" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Engine" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Gui" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Headless" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/IO" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/PluginBase" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/glfw_install/lib/cmake/glfw3/" >> $GITHUB_PATH
+          echo "${{ env.ext-dir }}/bin" >> $GITHUB_PATH
       - name: Prepare directories
         run: |
           mkdir -p install/
@@ -211,42 +218,10 @@ jobs:
           -DCMAKE_INSTALL_PREFIX=../../install/ \
           ${{ env.glfw-path }}
       - name: Build Radium
-        if: runner.os != 'Windows'
         run: |
-          cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target install
-      - name: Build Radium (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          # Setting paths to dll needed by catch2 to find tests
-          export PATH="$GITHUB_WORKSPACE/build/Radium-Engine/src/Core;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/Engine;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/Gui;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/Headless;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/IO;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/PluginBase;\
-          $GITHUB_WORKSPACE/glfw_install/lib/cmake/glfw3/;\
-          ${{ env.ext-dir }}/bin;\
-          $PATH"
           cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target install
       - name: Run unit tests
-        if: runner.os != 'Windows'
         run: |
-          cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target check
-          cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target Install_CoreExample
-          ./install/bin/CoreExample
-      - name: Run unit tests on windows
-        if: runner.os == 'Windows'
-        run: |
-          # Setting paths to dll needed by tests
-          export PATH="$GITHUB_WORKSPACE/build/Radium-Engine/src/Core;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/Engine;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/Gui;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/Headless;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/IO;\
-          $GITHUB_WORKSPACE/build/Radium-Engine/src/PluginBase;\
-          $GITHUB_WORKSPACE/glfw_install/lib/cmake/glfw3/;\
-          ${{ env.ext-dir }}/bin;\
-          $PATH"
           cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target check
           cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target Install_CoreExample
           ./install/bin/CoreExample
