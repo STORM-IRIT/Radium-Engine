@@ -1,27 +1,4 @@
 # Helper macro for creating convenient targets
-find_program(GDB_PATH gdb)
-
-# Adds -run and -dbg targets
-macro(add_run_and_debug_targets TARGET)
-    add_custom_target(
-        run_${TARGET}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        USES_TERMINAL
-        DEPENDS ${TARGET}
-        COMMAND ./${TARGET}
-    )
-
-    # convenience run gdb target
-    if(GDB_PATH)
-        add_custom_target(
-            gdb_${TARGET}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-            USES_TERMINAL
-            DEPENDS ${TARGET}
-            COMMAND ${GDB_PATH} ./${TARGET}
-        )
-    endif()
-endmacro()
 
 # ------------------------------------------------------------------------------
 # Usefull for adding header only libraries
@@ -113,75 +90,6 @@ macro(external_download_now_git LIBNAME REPOSITORY GIT_TAG)
     )
     # Add this as dependency to the general update target
     add_dependencies(update ${LIBNAME}_update)
-endmacro()
-
-# ------------------------------------------------------------------------------
-# Other MISC targets - formating, static analysis format, cppcheck, tidy
-macro(add_misc_targets)
-    list(APPEND CMAKE_MESSAGE_INDENT "[add_misc_targets] ")
-
-    file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.cc *.c)
-    file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
-
-    # Static analysis via clang-tidy target We check for program, since when it is not here, target
-    # makes no sense
-    find_program(TIDY_PATH clang-tidy PATHS /usr/local/Cellar/llvm/*/bin)
-    if(TIDY_PATH)
-        message(STATUS "clang-tidy - static analysis              YES ")
-        add_custom_target(tidy COMMAND ${TIDY_PATH} -header-filter=.* ${ALL_SOURCE_FILES} -p=./)
-    else()
-        message(STATUS "clang-tidy - static analysis              NO ")
-    endif()
-
-    # cpp check static analysis
-    find_program(CPPCHECK_PATH cppcheck)
-    if(CPPCHECK_PATH)
-        message(STATUS "cppcheck - static analysis                YES ")
-        add_custom_target(
-            cppcheck
-            COMMAND
-                ${CPPCHECK_PATH}
-                --enable=warning,performance,portability,information,missingInclude --std=c++11
-                --template=gcc --verbose --quiet ${ALL_SOURCE_FILES}
-        )
-    else()
-        message(STATUS "cppcheck - static analysis                NO ")
-    endif()
-
-    # run clang-format on all files
-    find_program(FORMAT_PATH clang-format)
-    if(FORMAT_PATH)
-        message(STATUS "clang-format - code formating             YES ")
-        if(FORMAT_STYLE_FILENAME)
-            add_custom_target(
-                format COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
-                               -style=file "${FORMAT_STYLE_FILENAME}"
-            )
-        else()
-            add_custom_target(
-                format COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
-            )
-        endif()
-    else()
-        message(STATUS "clang-format - code formating             NO ")
-    endif()
-
-    # Does not work well, left here for future work, but it would still only provides same info as
-    # tidy, only in html form.
-    #
-    # Produces html analysis in *.plist dirs in build dir or build/source directory
-    # ~~~
-    # add_custom_target(
-    #     analyze
-    #     COMMAND rm -rf ../*.plist
-    #     COMMAND rm -rf *.plist
-    #     COMMAND clang-check -analyze -extra-arg -Xclang -extra-arg -analyzer-output=html
-    #     ${ALL_SOURCE_FILES}
-    #     -p=./
-    #     COMMAND echo ""
-    #     )
-    # ~~~
-    list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
 endmacro()
 
 # ------------------------------------------------------------------------------

@@ -31,25 +31,30 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CompilerOptions.cmake)
 
 option(
     RADIUM_ENABLE_TESTING
-    "Enable testing. Tests are automatically built with target all, run with target check or test"
+    "Enable testing. Tests are automatically built with target all, run with target check or test."
     ON
 )
+option(
+    RADIUM_ENABLE_EXAMPLES
+    "Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples."
+    OFF
+)
 option(RADIUM_ENABLE_COVERAGE "Enable coverage, gcc only. Experimental, need ENABLE_TESTING" OFF)
-option(RADIUM_USE_DOUBLE "Use double precision for Scalar" OFF)
-option(RADIUM_GENERATE_LIB_CORE "Include Radium::Core in CMake project" ON)
-option(RADIUM_GENERATE_LIB_IO "Include Radium::IO in CMake project" ON)
-option(RADIUM_GENERATE_LIB_ENGINE "Include Radium::Engine in CMake project" ON)
-option(RADIUM_GENERATE_LIB_GUI "Include Radium::Gui in CMake project" ON)
-option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project" ON)
-option(RADIUM_GENERATE_LIB_HEADLESS "Include Radium::Headless in CMake project" ON)
+option(RADIUM_USE_DOUBLE "Use double precision for Scalar." OFF)
+option(RADIUM_GENERATE_LIB_CORE "Include Radium::Core in CMake project." ON)
+option(RADIUM_GENERATE_LIB_IO "Include Radium::IO in CMake project." ON)
+option(RADIUM_GENERATE_LIB_ENGINE "Include Radium::Engine in CMake project." ON)
+option(RADIUM_GENERATE_LIB_GUI "Include Radium::Gui in CMake project." ON)
+option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project." ON)
+option(RADIUM_GENERATE_LIB_HEADLESS "Include Radium::Headless in CMake project." ON)
 option(
     RADIUM_UPDATE_VERSION
-    "Update version file each time the project is compiled (update compilation time in version.cpp)"
+    "Update version file each time the project is compiled (update compilation time in version.cpp)."
     ON
 )
 option(
     RADIUM_INSTALL_DOC
-    "Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target"
+    "Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target."
     ON
 )
 
@@ -127,7 +132,7 @@ endif()
 # ------------------------------------------------------------------------------
 # Custom Install target, used in run target in source/CMakeLists.txt
 add_custom_target(
-    Install_ COMMAND "${CMAKE_COMMAND}" --build . --target install
+    Install_Radium COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target install
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
 
@@ -137,7 +142,7 @@ find_package(Git QUIET)
 
 if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
     option(RADIUM_GIT_UPDATE_SUBMODULE
-           "Check submodules during build (will be automatically disabled after run)" ON
+           "Check submodules during build (will be automatically disabled after run)." ON
     )
     execute_process(
         COMMAND ${GIT_EXECUTABLE} rev-parse HEAD WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -174,34 +179,35 @@ set(LocalDependencies)
 
 # Images, databases and other data which needs to be installed for project add_subdirectory(data)
 
+# Add this target so that some IDE could propose to build all radium libs at once
+add_custom_target(RadiumLibs)
+
 # Source code
+set(RADIUM_COMPONENTS "")
 add_subdirectory(src)
 
 # Enable find_package(RadiumEngine) for the current build.
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR}/src)
 
-# Add this target so that some IDE could propose to build all radium libs and examples at once
-add_custom_target(RadiumLibs DEPENDS Core Engine Gui IO PluginBase)
-
-# add a target allowing to force the installation of the library
-
-set(RadiumForceInstallCommutators "")
-if(MSVC)
-    set(RadiumForceInstallCommutators "/p:Configuration=${CMAKE_BUILD_TYPE}")
-endif(MSVC)
-
-add_custom_target(
-    ForceRadiumInstallation COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target install --
-                                    ${RadiumForceInstallCommutators}
-    COMMENT "Forcing Radium installation"
-)
+# examples
+if(RADIUM_ENABLE_EXAMPLES)
+    # add examples subdirectory
+    add_subdirectory(examples EXCLUDE_FROM_ALL)
+    add_dependencies(RadiumExamples RadiumLibs)
+    # compile the examples within the all target (but do not install them within the install target)
+    add_custom_target(BuildExamples ALL)
+    add_dependencies(BuildExamples RadiumExamples)
+endif()
 
 # Testing
 if(RADIUM_ENABLE_TESTING)
     enable_testing()
     include(CTest)
+    # prepare integration tests
+    if(NOT RADIUM_ENABLE_EXAMPLES)
+        add_subdirectory(examples/CoreExample EXCLUDE_FROM_ALL)
+    endif()
     add_subdirectory(tests)
-    add_dependencies(RadiumExampleApps RadiumLibs)
 endif()
 
 if(ENABLE_COVERAGE)
@@ -220,7 +226,6 @@ if(ENABLE_COVERAGE)
             $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
             DEPENDENCIES
             RadiumLibs
-            RadiumExampleApps
             unittests
             integration
             EXCLUDE
@@ -261,6 +266,7 @@ message_setting("CMAKE_BUILD_TYPE")
 message_info("  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message_info("  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message_info(" ")
+message_setting("RADIUM_ENABLE_EXAMPLES")
 message_setting("RADIUM_ENABLE_TESTING")
 message_setting("RADIUM_ENABLE_COVERAGE")
 message_setting("RADIUM_USE_DOUBLE")
@@ -270,6 +276,8 @@ message_setting("RADIUM_GENERATE_LIB_GUI")
 message_setting("RADIUM_GENERATE_LIB_HEADLESS")
 message_setting("RADIUM_GENERATE_LIB_IO")
 message_setting("RADIUM_GENERATE_LIB_PLUGINBASE")
+string(REPLACE ";" " " COMPONENTS_LIST "${RADIUM_COMPONENTS}")
+message_info("Actual configured components: ${COMPONENTS_LIST}")
 message_setting("RADIUM_GIT_UPDATE_SUBMODULE")
 message_setting("RADIUM_IO_ASSIMP")
 message_setting("RADIUM_IO_TINYPLY")

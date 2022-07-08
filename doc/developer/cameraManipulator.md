@@ -36,7 +36,7 @@ its behavior for a given context.
 In the following code, the `Ra::Gui::TrackballCameraManipulator` class is used to define a simple pan and zoom
 manipulator, simply by ignoring rotation events:
 
-\snippet ExampleApps/CustomCameraManipulator/main.cpp extend trackball
+\snippet CustomCameraManipulator/main.cpp extend trackball
 
 # Using a CameraManipulator
 

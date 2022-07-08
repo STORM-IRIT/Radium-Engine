@@ -67,21 +67,25 @@ TEST_CASE( "Gui/Utils/KeyMappingManager", "[Gui][Gui/Utils][KeyMappingManager]" 
     auto defaultConfigFile = resourcesRootDir + std::string( "Configs/default.xml" );
 
     SECTION( "key mapping file load" ) {
-        REQUIRE( defaultConfigFile == mgr->getLoadedFilename() );
+        REQUIRE( std::filesystem::path { defaultConfigFile } ==
+                 std::filesystem::path { mgr->getLoadedFilename() } );
         mgr->loadConfiguration( "dummy" );
-        REQUIRE( defaultConfigFile == mgr->getLoadedFilename() );
+        REQUIRE( std::filesystem::path { defaultConfigFile } ==
+                 std::filesystem::path { mgr->getLoadedFilename() } );
         std::cout << std::filesystem::current_path() << "\n";
         mgr->loadConfiguration( "data/keymapping-valid.xml" );
         REQUIRE( "data/keymapping-valid.xml" == mgr->getLoadedFilename() );
         // invalid xml should not be loaded, and switch to default
         mgr->loadConfiguration( "data/keymapping-invalid.xml" );
-        REQUIRE( defaultConfigFile == mgr->getLoadedFilename() );
+        REQUIRE( std::filesystem::path { defaultConfigFile } ==
+                 std::filesystem::path { mgr->getLoadedFilename() } );
         // while config error are loaded, with error message
         mgr->loadConfiguration( "data/keymapping-double-actions.xml" );
         REQUIRE( "data/keymapping-double-actions.xml" == mgr->getLoadedFilename() );
         // bad tag load defaults
         mgr->loadConfiguration( "data/keymapping-bad-tag.xml" );
-        REQUIRE( defaultConfigFile == mgr->getLoadedFilename() );
+        REQUIRE( std::filesystem::path { defaultConfigFile } ==
+                 std::filesystem::path { mgr->getLoadedFilename() } );
         // bad main tag loads with a warning
         mgr->loadConfiguration( "data/keymapping-bad-main.xml" );
         REQUIRE( "data/keymapping-bad-main.xml" == mgr->getLoadedFilename() );
