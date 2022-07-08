@@ -180,6 +180,8 @@ jobs:
           mkdir -p install/
           mkdir -p src/Radium-Engine
           mkdir -p build/Radium-Engine
+          mkdir -p external/install/
+          mkdir -p external/build/
       - name: Checkout remote head
         uses: actions/checkout@master
         with:
@@ -196,8 +198,6 @@ jobs:
       - name: Configure and build external
         if: steps.cache-external.outputs.cache-hit != 'true'
         run: |
-          mkdir -p external/install/
-          mkdir -p external/build/
           cd external/build/
           cmake ../../src/Radium-Engine/external  -GNinja -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
           -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
