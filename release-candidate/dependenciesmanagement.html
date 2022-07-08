@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.45</span>
+   &#160;<span id="projectnumber">1.2.46</span>
    </div>
   </td>
  </tr>
@@ -135,7 +135,7 @@ Configuration and compilation of the dependencies</h2>
 <div class="line"> </div>
 <div class="line">cmake cmake Radium-Source-Tree/external -DCMAKE_BUILD_TYPE=Debug -B build-d/ -DCMAKE_INSTALL_PREFIX=`pwd`/install-d</div>
 <div class="line">cmake --build build-d --parallel</div>
-</div><!-- fragment --><p>If not given on the command line, the installation directory is set by default to <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}</code> for Release, and <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}</code> for any other CMAKE_BUILD_TYPE`.</p>
+</div><!-- fragment --><p>If not given on the command line, the installation directory is set by default to <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}</code> for <code>CMAKE_BUILD_TYPE=Release</code>, and <code>{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}</code> for any other <code>CMAKE_BUILD_TYPE</code>.</p>
 <h3>Getting started with Visual Studio</h3>
 <p>Open <code>external/CMakeLists.txt</code> and edit cmake settings or <code>CMakeSettings.json</code>. External build and install have to be outside Radium-Engine source directory. For instance</p>
 <div class="fragment"><div class="line">{</div>
@@ -270,7 +270,7 @@ User provided external dependencies</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Mon Jul 4 2022 09:41:40 for Radium Engine by
+    <li class="footer">Generated on Fri Jul 8 2022 09:10:49 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
