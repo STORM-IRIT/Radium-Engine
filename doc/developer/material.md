@@ -53,17 +53,13 @@ To do that, the following steps must be done :
 \todo update snippets that are not available anymore.
 
 1. Create the Ra::Engine::Data::Mesh (see the [documentation about Meshes](@ref develmeshes))
-\snippet HelloRadium/main.cpp Creating the Engine Mesh
 
 2. Create the Ra::Engine::Data::Material
-\snippet HelloRadium/main.cpp Creating the Material
 
 3. Create the Ra::Engine::Rendering::RenderTechnique, here using the Ra::Engine::Rendering::EngineRenderTechniques factory, and associate it
 to the material
-\snippet HelloRadium/main.cpp Creating the RenderTechnique
 
 4. Create the Ra::Engine::Rendering::RenderObject and add it to the Ra::Engine::Scene::Component
-\snippet HelloRadium/main.cpp Creating the RenderObject
 
 Note that this way of using the _Radium Material Library_ is very related to the default Radium rendering capabilities
 exposed by the [Radium forward renderer](@ref forwardRenderer).

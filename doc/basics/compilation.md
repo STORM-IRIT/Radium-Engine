@@ -23,6 +23,9 @@ If not already done, follow instructions at \ref dependenciesmanagement.
 
 Radium follows a standard cmake structure, so any IDE supporting cmake should be able to configure and build it.
 
+Several targets allowing to build or install only a specific part of Radium-Engine are defined by the cmake configuration.
+The standard targets `all` and `install` are also available as a shortcut to build all the configured components and to install the main components.
+
 \note We strongly recommend to have dedicated build and install directories for each build type (Release, Debug).
 Remember that compiling Radium in Debug mode needs to have the dependencies compiled and installed in Debug mode
 (due to a limitation in assimp).
@@ -62,59 +65,56 @@ Radium offers the following build options:
 ~~~{.bash}
 // Enable coverage, gcc only. Experimental, need ENABLE_TESTING
 RADIUM_ENABLE_COVERAGE:BOOL=OFF
---
-// Enable testing. Tests are automatically built with target all
+
+// Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples.
+RADIUM_ENABLE_EXAMPLES:BOOL=OFF
+
+// Enable testing. Tests are automatically built with target all, run with target check or test.
 RADIUM_ENABLE_TESTING:BOOL=ON
---
-// Include Radium::Core in CMake project
+
+// Include Radium::Core in CMake project.
 RADIUM_GENERATE_LIB_CORE:BOOL=ON
---
-// Include Radium::Engine in CMake project
+
+// Include Radium::Engine in CMake project.
 RADIUM_GENERATE_LIB_ENGINE:BOOL=ON
---
-// Include Radium::Gui in CMake project
+
+// Include Radium::Gui in CMake project.
 RADIUM_GENERATE_LIB_GUI:BOOL=ON
---
-// Include Radium::IO in CMake project
+
+// Include Radium::Headless in CMake project.
+RADIUM_GENERATE_LIB_HEADLESS:BOOL=ON
+
+// Include Radium::IO in CMake project.
 RADIUM_GENERATE_LIB_IO:BOOL=ON
---
-// Include Radium::PluginBase in CMake project
+
+// Include Radium::PluginBase in CMake project.
 RADIUM_GENERATE_LIB_PLUGINBASE:BOOL=ON
---
-// Check submodules during build (will be automatically disabled after run)
+
+// Check submodules during build (will be automatically disabled after run).
 RADIUM_GIT_UPDATE_SUBMODULE:BOOL=ON
---
-// Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target
+
+// Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target.
 RADIUM_INSTALL_DOC:BOOL=ON
---
-// Value of CMAKE_INSTALL_MESSAGE for dependencies. See documentations of CMAKE_INSTALL_MESSAGE for possible values
-RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=NEVER
---
-// Disable Radium Log messages
-RADIUM_QUIET:BOOL=OFF
---
+
 // Provide loaders based on Assimp library
 RADIUM_IO_ASSIMP:BOOL=ON
---
-// Provide depricated loaders (to be removed without notice)
+
+// Provide deprecated loaders (to be removed without notice)
 RADIUM_IO_DEPRECATED:BOOL=ON
---
+
 // Provide loaders based on TinyPly library
 RADIUM_IO_TINYPLY:BOOL=ON
---
-// [addExternalFolder] Skip updating Core::external (disable for rebuild)
-RADIUM_SKIP_CORE_EXTERNAL:BOOL=ON
---
-// [addExternalFolder] Skip updating Engine::external (disable for rebuild)
-RADIUM_SKIP_ENGINE_EXTERNAL:BOOL=ON
---
-// [addExternalFolder] Skip updating IO::external (disable for rebuild)
-RADIUM_SKIP_IO_EXTERNAL:BOOL=ON
---
-// Update version file each time the project is compiled (update compilation time in version.cpp)
+
+// Provide loader for volume pvm file format
+RADIUM_IO_VOLUMES:BOOL=ON
+
+// Disable Radium Log messages
+RADIUM_QUIET:BOOL=OFF
+
+// Update version file each time the project is compiled (update compilation time in version.cpp).
 RADIUM_UPDATE_VERSION:BOOL=ON
---
-// Use double precision for Scalar
+
+// Use double precision for Scalar.
 RADIUM_USE_DOUBLE:BOOL=OFF
 ~~~
 
@@ -164,6 +164,7 @@ Radium requires MSVC 2019 or superior, as it relies on:
 
 * C++11/C++14/C++17 features such as `constexpr`,
 * cmake built-in support
+* Ninja built-in support
 
 Our Continuous Integration systems uses Microsoft Compiler 2017, in combination with cmake and ninja.
 Using Visual Studio 2017 with cmake support is however not possible: VS is shipped with cmake: 3.12, while Radium requires cmake 3.13 at least. We recommend to use Visual Studio 2019 in that case.
@@ -249,8 +250,9 @@ Right click on `CMakeList.txt > build > all`.
 
 ### Execution of a demo app
 
-To execute a demo/test application, select in the `Startup Item` list the target you want to execute. For instance, `DrawPrimitiveDemo.exe (test/...)`.
-Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitiveDemo` and modify the `launch.vs.json` file that is opened so that it contains the following.
+To execute a demo application, select in the `Startup Item` list the target you want to execute.
+For instance, `DrawPrimitives.exe (examples/...)`.
+Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitives` and modify the `launch.vs.json` file that is opened so that it contains the following.
 
 ~~~{.json}
 {
@@ -260,8 +262,8 @@ Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitiveDe
    {
      "type": "default",
      "project": "CMakeLists.txt",
-     "projectTarget": "DrawPrimitivesDemo.exe (tests\\ExampleApps\\DrawPrimitivesDemo\\DrawPrimitivesDemo.exe)",
-     "name": "DrawPrimitivesDemo.exe (tests\\ExampleApps\\DrawPrimitivesDemo\\DrawPrimitivesDemo.exe)",
+     "projectTarget": "DrawPrimitives.exe (examples\\DrawPrimitives\\DrawPrimitives.exe)",
+     "name": "DrawPrimitives.exe (examples\\DrawPrimitives\\DrawPrimitives.exe)",
      "inheritEnvironments": [ "RadiumDllLocations" ],
      "env": {
        "PATH": "${env.QtDllsDIR};${env.ExternalDllsDIR};${env.RadiumDlls};${env.PATH}"
@@ -278,6 +280,12 @@ For any target you want to execute, the same should be done, i.e. adding the fol
  "env": {
    "PATH": "${env.QtDllsDIR};${env.ExternalDllsDIR};${env.RadiumDlls};${env.PATH}"
  }
+~~~
+
+If you plan to execute the 'unittest.exe' target, you should also add the following configuration for the working directory
+
+~~~{.json}
+ "currentDir": "${projectDir}/tests/unittest"
 ~~~
 
 ### installation

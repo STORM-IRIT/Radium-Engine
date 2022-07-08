@@ -41,7 +41,7 @@ cmake cmake Radium-Source-Tree/external -DCMAKE_BUILD_TYPE=Debug -B build-d/ -DC
 cmake --build build-d --parallel
 ~~~
 
-If not given on the command line, the installation directory is set by default to `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}` for Release, and  `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}` for any other CMAKE_BUILD_TYPE`.
+If not given on the command line, the installation directory is set by default to `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}` for `CMAKE_BUILD_TYPE=Release`, and  `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}` for any other `CMAKE_BUILD_TYPE`.
 
 ### Getting started with Visual Studio
 

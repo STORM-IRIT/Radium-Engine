@@ -16,40 +16,6 @@ else()
     add_compile_options(-std=c++17 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 
-if(MSVC OR MSVC_IDE OR MINGW)
-    # must find the RadiumExternal directory. This will be set by RadiumConfig.cmake after install
-    #
-    # TODO : find a way to that more efficiently
-    if(DEFINED cpplocate_DIR)
-        find_dependency(cpplocate REQUIRED NO_DEFAULT_PATH)
-    endif()
-    if(DEFINED glbinding_DIR)
-        find_dependency(glbinding REQUIRED NO_DEFAULT_PATH)
-    endif()
-    if(DEFINED globjects_DIR)
-        find_dependency(globjects REQUIRED NO_DEFAULT_PATH)
-    endif()
-    if(RADIUM_IO_TINYPLY AND DEFINED tinyply_DIR)
-        find_dependency(tinyply REQUIRED NO_DEFAULT_PATH)
-    endif()
-    set(RadiumExternalDlls_location "")
-    if(cpplocate_DIR)
-        add_imported_dir(FROM cpplocate::cpplocate TO RadiumExternalDlls_location)
-    endif()
-    if(glbinding_DIR)
-        add_imported_dir(FROM glbinding::glbinding TO RadiumExternalDlls_location)
-    endif()
-    if(DEFINED globjects_DIR)
-        add_imported_dir(FROM globjects::globjects TO RadiumExternalDlls_location)
-    endif()
-    if(RADIUM_IO_TINYPLY AND DEFINED tinyply_DIR)
-        add_imported_dir(FROM tinyply TO RadiumExternalDlls_location)
-    endif()
-    if(TARGET Qt::Core)
-        get_target_property(QTLIB Qt::Core INTERFACE_LINK_LIBRARIES)
-        add_imported_dir(FROM ${QTLIB} TO RadiumExternalDlls_location)
-    endif()
-endif()
 # ------------------------------------------------------------------------------
 # ---- CTest test suite --------------------------------------------------------
 # use add_test() to add a new test to the test suit. When executed test fails (returns not 0), test
@@ -66,14 +32,9 @@ add_subdirectory(unittest)
 # etc.
 add_subdirectory(integration)
 
-add_test(NAME integration_CoreExampleApp WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
-         COMMAND "$<TARGET_FILE:CoreExampleApp>"
+add_test(NAME integration_CoreExample WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+         COMMAND "$<TARGET_FILE:CoreExample>"
 )
-
-# example apps are simple complete application, no test for now. TODO : we can imagine to capture
-# screen output and compare to refs
-add_subdirectory(ExampleApps)
-add_subdirectory(ExamplePluginWithLib)
 
 # Convenience targets for fast testing, they depends on binaries (so the build is triggered, when
 # sources were changed).
@@ -81,16 +42,16 @@ add_custom_target(
     check
     COMMAND echo [----] Running tests
     USES_TERMINAL
-    COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C Debug
-    DEPENDS RadiumExampleApps unittests integration
+    COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C ${CMAKE_BUILD_TYPE}
+    DEPENDS CoreExample unittests integration
 )
 
 add_custom_target(
     check_verbose
     COMMAND echo [----] Running tests
     USES_TERMINAL
-    COMMAND ${CMAKE_CTEST_COMMAND} -V --output-on-failure -C Debug
-    DEPENDS RadiumExampleApps unittests integration
+    COMMAND ${CMAKE_CTEST_COMMAND} -V --output-on-failure -C ${CMAKE_BUILD_TYPE}
+    DEPENDS CoreExample unittests integration
 )
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

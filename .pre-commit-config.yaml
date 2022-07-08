@@ -1,5 +1,8 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
+ci:
+    skip: [clang-tidy, cppcheck, cmake-lint]
+
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.3.0
@@ -14,19 +17,14 @@ repos:
   rev: v0.6.13
   hooks:
     - id: cmake-format
-#    - id: cmake-lint
-#- repo: https://github.com/pocc/pre-commit-hooks
-#  rev: v1.3.5
-#  hooks:
-#    - id: clang-format
-#      args: [--style=file, -i]
-#      - id: clang-tidy
-#        args: [-checks=clang-diagnostic-return-type]
-#      - id: oclint
-#        args: [-enable-clang-static-analyzer, -enable-global-analysis]
-#      - id: uncrustify
-#      - id: cppcheck
-#        args: [--enable=all]
+    - id: cmake-lint
+- repo: https://github.com/pocc/pre-commit-hooks
+  rev: v1.3.5
+  hooks:
+      - id: clang-tidy
+        args: [-checks=clang-diagnostic-return-type]
+      - id: cppcheck
+        args: [--enable=all]
 - repo: https://github.com/igorshubovych/markdownlint-cli
   rev: v0.31.1
   hooks:

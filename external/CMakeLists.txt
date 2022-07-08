@@ -93,8 +93,8 @@ else()
     # set dependencies between external targets
     add_dependencies(EngineExternals CoreExternals)
     # add IO dependencies, all activated by default by this cmake script
-    option(RADIUM_IO_ASSIMP "Provide loaders based on Assimp library" ON)
-    option(RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library" ON)
+    option(RADIUM_IO_ASSIMP "Provide loaders based on Assimp library." ON)
+    option(RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library." ON)
     add_subdirectory(IO)
 
     message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")

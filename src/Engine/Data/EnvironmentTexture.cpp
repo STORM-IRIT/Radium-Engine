@@ -382,7 +382,8 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
         n       = 4;
         if ( ret != TINYEXR_SUCCESS ) {
             if ( err ) {
-                std::cerr << "Error reading " << m_name << " : " << err << std::endl;
+                std::cerr << "EnvironmentTexture -- Error reading " << m_name << " : " << err
+                          << std::endl;
                 FreeEXRErrorMessage( err ); // release memory of error message.
             }
         }

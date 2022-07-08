@@ -5,7 +5,6 @@ name: build
 # - push-master-ci.yml
 # - push-rc-ci.yml
 
-
 defaults:
   run:
     shell: bash
@@ -59,7 +58,6 @@ on:
         required: false
         type: string
         default: "true"
-
 
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
@@ -160,7 +158,7 @@ jobs:
           repository: glfw/glfw
           ref: 3.3.4
           path: glfw
-      - name: Install dep windows Config/Build shared library
+      - name: Build windows dep, config path
         if: runner.os == 'Windows'
         run: |
           mkdir $GITHUB_WORKSPACE/glfw_install/
@@ -168,11 +166,22 @@ jobs:
           cmake --build glfw/build-shared --parallel --config Release
           cmake --build glfw/build-shared --target install --config Release
           echo "glfw-path=-Dglfw3_DIR=\$GITHUB_WORKSPACE/glfw_install/lib/cmake/glfw3/" >> $GITHUB_ENV
+          # Setting paths to dll needed by catch2 and run in build dir
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Core" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Engine" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Gui" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Headless" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/IO" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/PluginBase" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/glfw_install/lib/cmake/glfw3/" >> $GITHUB_PATH
+          echo "${{ env.ext-dir }}/bin" >> $GITHUB_PATH
       - name: Prepare directories
         run: |
           mkdir -p install/
           mkdir -p src/Radium-Engine
           mkdir -p build/Radium-Engine
+          mkdir -p external/install/
+          mkdir -p external/build/
       - name: Checkout remote head
         uses: actions/checkout@master
         with:
@@ -189,8 +198,6 @@ jobs:
       - name: Configure and build external
         if: steps.cache-external.outputs.cache-hit != 'true'
         run: |
-          mkdir -p external/install/
-          mkdir -p external/build/
           cd external/build/
           cmake ../../src/Radium-Engine/external  -GNinja -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
           -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
@@ -206,23 +213,18 @@ jobs:
           ${{ matrix.config.extra-flags }} \
           -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT \
           -DRADIUM_USE_DOUBLE=${{ matrix.precision.value }} -DRADIUM_UPDATE_VERSION=OFF \
-          -DRADIUM_INSTALL_DOC=OFF -DRADIUM_ENABLE_TESTING=ON -DRADIUM_ENABLE_COVERAGE=${{ matrix.coverage }} \
+          -DRADIUM_INSTALL_DOC=OFF -DRADIUM_ENABLE_TESTING=ON -DRADIUM_ENABLE_EXAMPLES=ON -DRADIUM_ENABLE_COVERAGE=${{ matrix.coverage }} \
           -C ${{ env.ext-dir }}/radium-options.cmake \
-          -DCMAKE_INSTALL_PREFIX=../../install/
+          -DCMAKE_INSTALL_PREFIX=../../install/ \
+          ${{ env.glfw-path }}
       - name: Build Radium
         run: |
-          cd build/Radium-Engine
-          cmake --build . --parallel --config ${{ matrix.build-type }} --target install
+          cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target install
       - name: Run unit tests
-        if: runner.os != 'Windows'
         run: |
-          cd build/Radium-Engine
-          cmake --build . --parallel --config ${{ matrix.build-type }} --target check
-      - name: Run CoreExampleApp as a build and install test
-        if: runner.os != 'Windows'
-        run: |
-          ./build/Radium-Engine/tests/ExampleApps/CoreExampleApp/CoreExampleApp
-          ./install/bin/CoreExampleApp
+          cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target check
+          cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target Install_CoreExample
+          ./install/bin/CoreExample
       - name: Extract ref for badges prefix
         if: always()
         shell: bash
