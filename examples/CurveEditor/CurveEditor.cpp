@@ -123,7 +123,6 @@ void CurveEditor::updateCurves( bool onRelease ) {
     auto oldPoint            = pointComponent->m_point;
     unsigned int curveIdSize = pointComponent->m_curveId.size();
 
-    CurveFactory factory;
     m_viewer->makeCurrent();
 
     for ( unsigned int i = 0; i < curveIdSize; i++ ) {
@@ -290,9 +289,9 @@ void CurveEditor::addPointInCurve( const Vector3& worldPos, int mouseX, int mous
                 auto e = ro->getComponent();
 
                 int curveIndex = -1;
-                for ( int i = 0; i < m_curveEntities.size(); i++ ) {
-                    if ( m_curveEntities[i] == e ) {
-                        curveIndex = i;
+                for ( int z = 0; z < m_curveEntities.size(); z++ ) {
+                    if ( m_curveEntities[z] == e ) {
+                        curveIndex = z;
                         break;
                     }
                 }
@@ -357,35 +356,14 @@ void CurveEditor::processPicking( const Vector3& worldPos ) {
     auto transformTranslate = Transform::Identity();
     transformTranslate.translate( worldPos - point );
 
-    auto transform = Transform::Identity();
-    transform      = m_selectedRo->getLocalTransform() * transformTranslate;
+    auto transform = m_selectedRo->getLocalTransform() * transformTranslate;
     m_selectedRo->setLocalTransform( transform );
 
-    if ( m_smooth && !( m_currentPoint == 0 || m_currentPoint == 1 ||
-                        m_currentPoint == m_pointEntities.size() - 2 ||
-                        m_currentPoint == m_pointEntities.size() - 1 ) ) {
+    if ( !( m_currentPoint == 0 || m_currentPoint == 1 ||
+            m_currentPoint == m_pointEntities.size() - 2 ||
+            m_currentPoint == m_pointEntities.size() - 1 ) ) {
 
-        if ( m_currentPoint % 3 == 2 ) {
-            auto pointMid  = m_pointEntities[m_currentPoint + 1];
-            pointComponent = m_pointEntities[m_currentPoint + 2];
-            auto symTransform =
-                computePointTransform( pointComponent, pointMid->m_point, worldPos );
-            auto ro = m_roMgr->getRenderObject( pointComponent->getRenderObjects()[0] );
-            ro->setLocalTransform( symTransform );
-
-            if ( m_tangentPoints.empty() ) { m_tangentPoints.push_back( m_currentPoint + 2 ); }
-        }
-        else if ( m_currentPoint % 3 == 1 ) {
-            auto pointMid  = m_pointEntities[m_currentPoint - 1];
-            pointComponent = m_pointEntities[m_currentPoint - 2];
-            auto symTransform =
-                computePointTransform( pointComponent, pointMid->m_point, worldPos );
-            auto ro = m_roMgr->getRenderObject( pointComponent->getRenderObjects()[0] );
-            ro->setLocalTransform( symTransform );
-
-            if ( m_tangentPoints.empty() ) { m_tangentPoints.push_back( m_currentPoint - 2 ); }
-        }
-        else if ( m_currentPoint % 3 == 0 ) {
+        if ( m_currentPoint % 3 == 0 ) {
             auto leftRo = m_roMgr->getRenderObject(
                 m_pointEntities[m_currentPoint - 1]->getRenderObjects()[0] );
             auto leftTransform = leftRo->getTransform() * transformTranslate;
@@ -399,6 +377,28 @@ void CurveEditor::processPicking( const Vector3& worldPos ) {
             if ( m_tangentPoints.empty() ) {
                 m_tangentPoints.push_back( m_currentPoint - 1 );
                 m_tangentPoints.push_back( m_currentPoint + 1 );
+            }
+        }
+        else if ( m_smooth ) {
+            if ( m_currentPoint % 3 == 2 ) {
+                auto pointMid  = m_pointEntities[m_currentPoint + 1];
+                pointComponent = m_pointEntities[m_currentPoint + 2];
+                auto symTransform =
+                    computePointTransform( pointComponent, pointMid->m_point, worldPos );
+                auto ro = m_roMgr->getRenderObject( pointComponent->getRenderObjects()[0] );
+                ro->setLocalTransform( symTransform );
+
+                if ( m_tangentPoints.empty() ) { m_tangentPoints.push_back( m_currentPoint + 2 ); }
+            }
+            else if ( m_currentPoint % 3 == 1 ) {
+                auto pointMid  = m_pointEntities[m_currentPoint - 1];
+                pointComponent = m_pointEntities[m_currentPoint - 2];
+                auto symTransform =
+                    computePointTransform( pointComponent, pointMid->m_point, worldPos );
+                auto ro = m_roMgr->getRenderObject( pointComponent->getRenderObjects()[0] );
+                ro->setLocalTransform( symTransform );
+
+                if ( m_tangentPoints.empty() ) { m_tangentPoints.push_back( m_currentPoint - 2 ); }
             }
         }
     }
