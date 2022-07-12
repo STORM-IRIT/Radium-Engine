@@ -29,7 +29,8 @@ class LeastSquareSystem
      * @param dimension of the variables (optional)
      * @param expected number of constraints (optional)
      */
-    LeastSquareSystem( int nvar, int dim = 1, int exp_ncstr = 0 ) : m_nvar( nvar ), m_dim( dim ) {
+    explicit LeastSquareSystem( int nvar, int dim = 1, int exp_ncstr = 0 ) :
+        m_nvar( nvar ), m_dim( dim ) {
         m_constrainedVar.resize( m_nvar, false );
         if ( exp_ncstr > 0 ) { m_bval.reserve( exp_ncstr ); }
     }
@@ -185,13 +186,6 @@ class LeastSquareSystem
             return false;
         }
 
-        return true;
-    }
-
-    bool simpleCholesky( const SparseMat& A, const VectorXf& b, VectorXf& x ) const {
-        Eigen::SimplicialCholesky<SparseMat> chol( A.transpose() * A );
-        if ( chol.info() != Eigen::Success ) { return false; }
-        x = chol.solve( A.transpose() * b );
         return true;
     }
 
