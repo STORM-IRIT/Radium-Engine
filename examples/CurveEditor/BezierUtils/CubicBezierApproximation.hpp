@@ -130,7 +130,7 @@ class CubicBezierApproximation
     bool m_hasComputed { false };
     int m_dim { 0 };
     int m_step { 0 };
-    float m_distThreshold;
+    float m_distThreshold { 0.f };
     VectorArray<Curve2D::Vector> m_data;
     std::vector<float> m_params;
     std::set<int> m_bzjunctions;
@@ -174,10 +174,10 @@ class CubicBezierApproximation
         int b { (int)( m_data.size() - 1 ) };
         float h = ( b - a ) / (float)( nb_junctions - 1 );
         std::vector<int> xs( nb_junctions );
-        typename std::vector<int>::iterator x;
+        typename std::vector<int>::iterator it;
         float val;
-        for ( x = xs.begin(), val = a; x != xs.end(); ++x, val += h )
-            *x = (int)val;
+        for ( it = xs.begin(), val = a; it != xs.end(); ++it, val += h )
+            *it = (int)val;
 
         for ( int x : xs ) {
             m_bzjunctions.insert( x );
