@@ -19,6 +19,9 @@ class PointComponent : public Ra::Engine::Scene::Component
     /// setup, i.e. it has an entity.
     void initialize() override;
 
+    enum State { DEFAULT = 0, SMOOTH, SYMETRIC };
+
+    State m_state { DEFAULT };
     Ra::Core::Vector3 m_point;
     Ra::Core::Vector3 m_defaultPoint;
     Ra::Core::Utils::Color m_color;

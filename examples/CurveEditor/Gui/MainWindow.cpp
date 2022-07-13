@@ -56,6 +56,7 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     m_symetryButton = new QPushButton( "Symetry" );
     m_symetryButton->setCheckable( true );
     m_symetryButton->setEnabled( false );
+    m_button->setEnabled( false );
     layout->addWidget( m_hidePolylineButton );
     layout->addWidget( m_editCurveButton );
     layout->addWidget( m_button );
@@ -105,10 +106,10 @@ void MainWindow::cleanup() {
 }
 
 void MainWindow::createConnections() {
-    connect( getViewer(), &MyViewer::toggleBrushPicking, this, &MainWindow::toggleCirclePicking );
-    connect( getViewer(), &MyViewer::onMouseMove, this, &MainWindow::handleMouseMoveEvent );
-    connect( getViewer(), &MyViewer::onMouseRelease, this, &MainWindow::handleMouseReleaseEvent );
-    connect( getViewer(), &MyViewer::onMousePress, this, &MainWindow::handleMousePressEvent );
+    connect( m_viewer, &MyViewer::toggleBrushPicking, this, &MainWindow::toggleCirclePicking );
+    connect( m_viewer, &MyViewer::onMouseMove, this, &MainWindow::handleMouseMoveEvent );
+    connect( m_viewer, &MyViewer::onMouseRelease, this, &MainWindow::handleMouseReleaseEvent );
+    connect( m_viewer, &MyViewer::onMousePress, this, &MainWindow::handleMousePressEvent );
     connect(
         m_editCurveButton, &QPushButton::pressed, this, &MainWindow::onEditPolylineButtonPressed );
     connect( m_hidePolylineButton,
@@ -117,15 +118,13 @@ void MainWindow::createConnections() {
              &MainWindow::onHidePolylineButtonClicked );
     connect( m_button, &QPushButton::clicked, this, &MainWindow::onSmoothButtonClicked );
     connect( m_symetryButton, &QPushButton::clicked, this, &MainWindow::onSymetryButtonClicked );
-    connect( getViewer(),
-             &MyViewer::onMouseDoubleClick,
-             this,
-             &MainWindow::handleMouseDoubleClickEvent );
+    connect(
+        m_viewer, &MyViewer::onMouseDoubleClick, this, &MainWindow::handleMouseDoubleClickEvent );
 }
 
 void MainWindow::onSmoothButtonClicked() {
-    m_symetryButton->setEnabled( m_button->isChecked() );
     m_curveEditor->setSmooth( m_button->isChecked() );
+    m_symetryButton->setEnabled( true );
 }
 
 void MainWindow::onSymetryButtonClicked() {
@@ -148,8 +147,41 @@ void MainWindow::onEditPolylineButtonPressed() {
     m_curveEditor = new CurveEditor( m_polyline, m_viewer );
 }
 
+void MainWindow::processSavedPoint() {
+    auto savedPoint = m_curveEditor->getSavedPoint();
+    if ( savedPoint ) {
+        if ( savedPoint->m_state == PointComponent::DEFAULT ) {
+            m_button->setChecked( false );
+            m_button->setEnabled( true );
+            m_symetryButton->setEnabled( false );
+            m_symetryButton->setChecked( false );
+        }
+        else if ( savedPoint->m_state == PointComponent::SMOOTH ) {
+            m_button->setEnabled( true );
+            m_button->setChecked( true );
+            m_symetryButton->setEnabled( true );
+            m_symetryButton->setChecked( false );
+        }
+        else {
+            m_button->setEnabled( true );
+            m_button->setChecked( true );
+            m_symetryButton->setEnabled( true );
+            m_symetryButton->setChecked( true );
+        }
+    }
+    else {
+        m_button->setEnabled( false );
+        m_button->setChecked( false );
+        m_symetryButton->setEnabled( false );
+        m_symetryButton->setChecked( false );
+    }
+}
+
 void MainWindow::handleMousePressEvent( QMouseEvent* event ) {
-    if ( event->button() == Qt::RightButton ) m_clicked = true;
+    if ( m_edited ) {
+        if ( event->button() == Qt::RightButton ) m_clicked = true;
+        processSavedPoint();
+    }
 }
 
 void MainWindow::displayHelpDialog() {
