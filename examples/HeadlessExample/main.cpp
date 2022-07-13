@@ -39,7 +39,7 @@ int main( int argc, const char* argv[] ) {
     //! [Setup the Scene to render]
     if ( viewer.getDataFileName().empty() ) {
         auto rp              = Ra::Core::Resources::getResourcesPath();
-        std::string filename = *rp + "/Demos/Assets/radium-logo.dae";
+        std::string filename = *rp + "/Examples/Headless/Assets/radium-logo.dae";
         viewer.setDataFileName( filename );
     }
     // load the given scene

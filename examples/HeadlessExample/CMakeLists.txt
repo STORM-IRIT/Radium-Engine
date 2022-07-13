@@ -71,5 +71,5 @@ target_compile_options(${PROJECT_NAME} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS}
 
 # configure the application
 configure_radium_app(
-    NAME ${PROJECT_NAME} PREFIX Examples RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Assets
+    NAME ${PROJECT_NAME} PREFIX Examples/Headless RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Assets
 )
