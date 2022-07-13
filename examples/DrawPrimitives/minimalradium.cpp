@@ -20,7 +20,7 @@
 #include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
 
-#ifdef IO_USE_ASSIMP
+#ifdef IO_HAS_ASSIMP
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
 
@@ -694,7 +694,7 @@ void MinimalComponent::initialize() {
 
         Asset::FileData* data { nullptr };
 
-#ifdef IO_USE_ASSIMP
+#ifdef IO_HAS_ASSIMP
         auto l               = IO::AssimpFileLoader();
         std::string filename = *rp + "/Examples/DrawPrimitives/Assets/radium-logo.dae";
         data                 = l.loadFile( filename );

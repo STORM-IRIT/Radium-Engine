@@ -197,6 +197,7 @@ if(RADIUM_ENABLE_EXAMPLES)
     # compile the examples within the all target (but do not install them within the install target)
     add_custom_target(BuildExamples ALL)
     add_dependencies(BuildExamples RadiumExamples)
+    add_dependencies(Install_RadiumExamples Install_Radium)
 endif()
 
 # Testing
