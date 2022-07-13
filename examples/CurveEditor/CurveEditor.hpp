@@ -58,8 +58,6 @@ class CurveEditor : public Ra::Engine::Scene::Entity
         m_currentPoint = -1;
     }
 
-    void resetSavedPoint() { m_savedPoint = -1; }
-
     PointComponent* getSavedPoint() {
         if ( m_savedPoint >= 0 )
             return m_pointEntities[m_savedPoint];
@@ -104,6 +102,7 @@ class CurveEditor : public Ra::Engine::Scene::Entity
                        const Ra::Core::Vector3& newPoint = Ra::Core::Vector3::Zero() );
 
     void smoothify( int pointId );
+
     void symmetrize( int pointId );
 
   private:
@@ -115,9 +114,6 @@ class CurveEditor : public Ra::Engine::Scene::Entity
     std::vector<unsigned int> m_tangentPoints;
     Ra::Engine::Rendering::RenderObjectManager* m_roMgr;
     int m_savedPoint { -1 };
-
-    bool m_smooth { false };
-    bool m_symetry { false };
 
     MyViewer* m_viewer { nullptr };
 };
