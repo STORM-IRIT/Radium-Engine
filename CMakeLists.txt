@@ -130,7 +130,7 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 
 # ------------------------------------------------------------------------------
-# Custom Install target, used in run target in source/CMakeLists.txt
+# Custom Install target
 add_custom_target(
     Install_Radium COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target install
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
