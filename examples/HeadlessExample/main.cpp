@@ -5,7 +5,7 @@
 
 #include <Core/Resources/Resources.hpp>
 
-#ifdef ADD_ASSIMP_LOADER
+#ifdef IO_USE_ASSIMP
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
 
@@ -27,7 +27,7 @@ int main( int argc, const char* argv[] ) {
 
     //! [Populating the viewer with needed services]
     viewer.setRenderer( new Ra::Engine::Rendering::ForwardRenderer() );
-#ifdef ADD_ASSIMP_LOADER
+#ifdef IO_USE_ASSIMP
     viewer.addDataFileLoader( new Ra::IO::AssimpFileLoader() );
 #endif
     //! [Populating the viewer with needed services]
