@@ -53,9 +53,9 @@ endif()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Headless)
 
-get_target_property(USE_ASSIMP Radium::IO IO_ASSIMP)
+get_target_property(USE_ASSIMP Radium::IO IO_HAS_ASSIMP)
 if(${USE_ASSIMP})
-    target_compile_definitions(${PROJECT_NAME} PRIVATE "-DIO_USE_ASSIMP")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "IO_HAS_ASSIMP")
 endif()
 
 target_compile_options(${PROJECT_NAME} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)

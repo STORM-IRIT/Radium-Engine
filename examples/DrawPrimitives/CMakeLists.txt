@@ -65,9 +65,9 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
     )
 endif()
 
-get_target_property(USE_ASSIMP Radium::IO IO_ASSIMP)
+get_target_property(USE_ASSIMP Radium::IO IO_HAS_ASSIMP)
 if(${USE_ASSIMP})
-    target_compile_definitions(${PROJECT_NAME} PRIVATE "-DIO_USE_ASSIMP")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "IO_HAS_ASSIMP")
 endif()
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
@@ -82,6 +82,6 @@ target_link_libraries(
 
 # configure the application
 configure_radium_app(
-    NAME ${PROJECT_NAME} PREFIX Examples/DrawPrimitives
+    NAME ${PROJECT_NAME} PREFIX Examples/${PROJECT_NAME}
     RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/Assets"
 )
