@@ -28,6 +28,7 @@ foreach(
 )
     add_subdirectory(${APP})
     add_dependencies(${PROJECT_NAME} ${APP})
+    add_dependencies(Install_${APP} Install_Radium)
     add_dependencies(Install_${PROJECT_NAME} Install_${APP})
 endforeach()
 
@@ -37,6 +38,7 @@ get_target_property(HAS_VOLUMES Radium::IO RADIUM_IO_HAS_VOLUMES)
 if(${HAS_VOLUMES})
     add_subdirectory(Volume)
     add_dependencies(${PROJECT_NAME} Volume)
+    add_dependencies(Install_Volume Install_Radium)
     add_dependencies(Install_${PROJECT_NAME} Install_Volume)
 endif()
 
@@ -45,6 +47,7 @@ find_package(Radium COMPONENTS Headless QUIET)
 if(Radium_FOUND)
     add_subdirectory(HeadlessExample)
     add_dependencies(${PROJECT_NAME} HeadlessExample)
+    add_dependencies(Install_HeadlessExample Install_Radium)
     add_dependencies(Install_${PROJECT_NAME} Install_HeadlessExample)
 endif()
 
@@ -55,6 +58,7 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/PluginsExample")
 
 add_subdirectory(PluginsWithLib EXCLUDE_FROM_ALL)
 add_dependencies(${PROJECT_NAME} PluginsWithLib)
+add_dependencies(Install_PluginsWithLib Install_Radium)
 add_dependencies(Install_${PROJECT_NAME} Install_PluginsWithLib)
 
 set(CMAKE_INSTALL_PREFIX "${OLD_CMAKE_INSTALL_PREFIX}")
