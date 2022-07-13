@@ -20,15 +20,15 @@ endif()
 
 if(Configure_IO)
     define_property(
-        TARGET PROPERTY RADIUM_IO_USE_ASSIMP BRIEF_DOCS "Radium::IO has assimp support."
+        TARGET PROPERTY IO_HAS_ASSIMP BRIEF_DOCS "Radium::IO has assimp support."
         FULL_DOCS "Identify if Radium::IO was compiled with assimp support."
     )
     define_property(
-        TARGET PROPERTY RADIUM_IO_USE_TINYPLY BRIEF_DOCS "Radium::IO has tinyply support."
+        TARGET PROPERTY IO_HAS_TINYPLY BRIEF_DOCS "Radium::IO has tinyply support."
         FULL_DOCS "Identify if Radium::IO was compiled with tinyply support."
     )
     define_property(TARGET
-        PROPERTY RADIUM_IO_HAS_VOLUMES
+        PROPERTY IO_HAS_VOLUMES
         BRIEF_DOCS "Radium::IO has volume loader support."
         FULL_DOCS "Identify if Radium::IO was compiled with volume loader support."
     )
@@ -36,7 +36,7 @@ if(Configure_IO)
 
     #Detect if library has been compiled with volumeIO support
     if(@RADIUM_IO_VOLUMES@)
-        set_target_properties(Radium::IO PROPERTIES RADIUM_IO_HAS_VOLUMES TRUE)
+        set_target_properties(Radium::IO PROPERTIES IO_HAS_VOLUMES TRUE)
     endif()
 
     # Detect if library has been compiled using assimp and tinyply
@@ -62,7 +62,7 @@ if(Configure_IO)
         if(MSVC OR MSVC_IDE OR MINGW)
             add_imported_dir(FROM assimp::assimp TO RadiumExternalDlls_location)
         endif()
-        set_target_properties(Radium::IO PROPERTIES RADIUM_IO_USE_ASSIMP TRUE)
+        set_target_properties(Radium::IO PROPERTIES IO_HAS_ASSIMP TRUE)
     endif()
     if(depTinyPLYFound GREATER_EQUAL "0")
         if("@tinyply_DIR@" STREQUAL "")
@@ -74,7 +74,7 @@ if(Configure_IO)
         if(MSVC OR MSVC_IDE OR MINGW)
             add_imported_dir(FROM tinyply TO RadiumExternalDlls_location)
         endif()
-        set_target_properties(Radium::IO PROPERTIES RADIUM_IO_USE_TINYPLY TRUE)
+        set_target_properties(Radium::IO PROPERTIES IO_HAS_TINYPLY TRUE)
     endif()
 
 endif()

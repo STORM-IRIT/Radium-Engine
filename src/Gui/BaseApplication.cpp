@@ -26,13 +26,13 @@
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <IO/CameraLoader/CameraLoader.hpp>
-#ifdef IO_USE_TINYPLY
+#ifdef IO_HAS_TINYPLY
 #    include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 #endif
-#ifdef IO_USE_ASSIMP
+#ifdef IO_HAS_ASSIMP
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
-#ifdef IO_HANDLE_VOLUMES
+#ifdef IO_HAS_VOLUMES
 #    include <IO/VolumesLoader/VolumeLoader.hpp>
 #endif
 #include <QCommandLineParser>
@@ -319,7 +319,7 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
     }
     // == Configure bundled Radium::IO services == //
     // Make builtin loaders the fallback if no plugins can load some file format
-#ifdef IO_USE_TINYPLY
+#ifdef IO_HAS_TINYPLY
     // Register before AssimpFileLoader, in order to ease override of such
     // custom loader (first loader able to load is taking the file)
     m_engine->registerFileLoader(
@@ -327,11 +327,11 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
 #endif
     m_engine->registerFileLoader(
         std::shared_ptr<FileLoaderInterface>( new IO::CameraFileLoader() ) );
-#ifdef IO_USE_ASSIMP
+#ifdef IO_HAS_ASSIMP
     m_engine->registerFileLoader(
         std::shared_ptr<FileLoaderInterface>( new IO::AssimpFileLoader() ) );
 #endif
-#ifdef IO_HANDLE_VOLUMES
+#ifdef IO_HAS_VOLUMES
     m_engine->registerFileLoader( std::shared_ptr<FileLoaderInterface>( new IO::VolumeLoader() ) );
 #endif
     // Allow derived application to add custom plugins and services

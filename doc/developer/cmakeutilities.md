@@ -65,12 +65,13 @@ The Radium components are :
 
   On this target, you might also ask for support of several file loaders using the following properties defined on the
   target Radium::IO
-  - RADIUM_IO_USE_ASSIMP : Identify if Radium::IO was compiled with assimp support
-  - RADIUM_IO_USE_TINYPLY : Identify if Radium::IO was compiled with tinyply support.
+  - IO_HAS_ASSIMP : Identify if Radium::IO was compiled with assimp support,
+  - IO_HAS_TINYPLY : Identify if Radium::IO was compiled with tinyply support,
+  - IO_HAS_VOLUMES : Identify if Radium::IO was compiled with pvm volume loader support.
   You might use these properties to define compilation macro in your code
 
   ~~~{.cmake}
-  get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
+  get_target_property(USE_ASSIMP Radium::IO IO_HAS_ASSIMP)
   if (${USE_ASSIMP})
    target_compile_definitions(yourTarget PRIVATE ADD_ASSIMP_LOADER)
   endif()
