@@ -30,7 +30,7 @@ using namespace Ra::Core::Utils;
 ///
 /// Radium resources are located in the Resources directory, searched from Radium lib location.
 /// \return the path to access Radium Resources if found, otherwise !has_value
-/// \note the pattern searched is "Resources/Shaders" since it's the basic resources dir.
+/// \note the pattern searched is "Resources/Radium" since it's the basic resources dir.
 RA_CORE_API optional<std::string> getRadiumResourcesPath();
 
 /// \brief Get the path of Radium embedded plugins.
