@@ -57,10 +57,7 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
     )
 endif()
 
-target_compile_definitions(
-    ${PROJECT_NAME}
-    PRIVATE DEMO_FILE="${CMAKE_CURRENT_SOURCE_DIR}/../../tests/unittest/data/Lobster.pvm"
-)
+target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_ASSETS)
 
 target_include_directories(
     ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc
@@ -71,5 +68,8 @@ target_link_libraries(
     ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui Radium::IO ${Qt_LIBRARIES}
 )
 
-# configure the application
-configure_radium_app(NAME ${PROJECT_NAME})
+# configure the application configure the application
+configure_radium_app(
+    NAME ${PROJECT_NAME} PREFIX Examples/${PROJECT_NAME}
+    RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/Assets"
+)

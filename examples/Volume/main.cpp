@@ -8,6 +8,10 @@
 #include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
 
+#ifdef HAS_ASSETS
+#    include <Core/Resources/Resources.hpp>
+#endif
+
 #include <QTimer>
 
 int main( int argc, char* argv[] ) {
@@ -16,8 +20,8 @@ int main( int argc, char* argv[] ) {
     app.initialize( Ra::Gui::SimpleWindowFactory {} );
     //! [Creating the application]
 
-// DEMO_FILE is set during configure time by cmake and defines the file to load in the demo
-#ifndef DEMO_FILE
+// HAS_ASSETS is set during configure time by cmake and defines that the asset file is available
+#ifndef HAS_ASSETS
     //! [Creating the Volume]
     auto density = new Ra::Core::Geometry::VolumeGrid();
     int sx       = 100;
@@ -95,7 +99,9 @@ int main( int argc, char* argv[] ) {
     app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
 #else
-    app.loadFile( DEMO_FILE );
+    auto rp              = Ra::Core::Resources::getResourcesPath();
+    std::string demoFile = *rp + "/Examples/Volume/Assets/Lobster.pvm";
+    app.loadFile( demoFile.c_str() );
     auto entities          = app.m_engine->getEntityManager()->getEntities();
     auto e                 = entities[entities.size() - 1];
     Ra::Core::Transform tr = Ra::Core::Transform::Identity();
