@@ -18,11 +18,11 @@ populate_local_dependencies(NAME "tinyply_DIR")
 
 if(RADIUM_IO_ASSIMP)
     find_package(assimp 5.0 REQUIRED NO_DEFAULT_PATH)
-    set_target_properties(${ra_io_target} PROPERTIES IO_ASSIMP ${RADIUM_IO_ASSIMP})
+    set_target_properties(${ra_io_target} PROPERTIES IO_HAS_ASSIMP ${RADIUM_IO_ASSIMP})
 endif(RADIUM_IO_ASSIMP)
 if(RADIUM_IO_TINYPLY)
     find_package(tinyply REQUIRED NO_DEFAULT_PATH)
-    set_target_properties(${ra_io_target} PROPERTIES IO_TINYPLY ${RADIUM_IO_TINYPLY})
+    set_target_properties(${ra_io_target} PROPERTIES IO_HAS_TINYPLY ${RADIUM_IO_TINYPLY})
 endif(RADIUM_IO_TINYPLY)
 
 if(RADIUM_IO_ASSIMP)
@@ -47,7 +47,7 @@ if(RADIUM_IO_TINYPLY)
 endif(RADIUM_IO_TINYPLY)
 
 if(RADIUM_IO_VOLUMES)
-    set_target_properties(${ra_io_target} PROPERTIES RADIUM_IO_HAS_VOLUMES ${RADIUM_IO_VOLUMES})
+    set_target_properties(${ra_io_target} PROPERTIES IO_HAS_VOLUMES ${RADIUM_IO_VOLUMES})
 endif()
 
 add_dependencies(${ra_io_target} Core)
