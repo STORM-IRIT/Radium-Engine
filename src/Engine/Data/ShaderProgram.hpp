@@ -80,7 +80,8 @@ class RA_ENGINE_API ShaderProgram final
                      const std::set<std::string>& props,
                      const std::vector<std::pair<std::string, Data::ShaderType>>& includes,
                      bool fromFile              = true,
-                     const std::string& version = "#version 410" );
+                     const std::string& version = "#version " +
+                                                  ShaderConfiguration::getGLSLVersion() );
 
     std::string preprocessIncludes( const std::string& name,
                                     const std::string& shader,
