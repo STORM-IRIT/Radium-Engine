@@ -87,6 +87,8 @@ configure_radium_library(
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_core_target} PARENT_SCOPE)
 
-target_precompile_headers(${ra_core_target} PRIVATE pch.hpp)
+if(RADIUM_ENABLE_PCH)
+    target_precompile_headers(${ra_core_target} PRIVATE pch.hpp)
+endif()
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

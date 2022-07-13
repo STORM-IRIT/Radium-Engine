@@ -43,6 +43,8 @@ else()
     set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_headless_target} PARENT_SCOPE)
 endif()
 
-target_precompile_headers(${ra_headless_target} PRIVATE pch.hpp)
+if(RADIUM_ENABLE_PCH)
+    target_precompile_headers(${ra_headless_target} PRIVATE pch.hpp)
+endif()
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
