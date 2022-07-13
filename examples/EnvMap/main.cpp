@@ -66,7 +66,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Setting the envmap on the renderer]
     auto rp            = Resources::getResourcesPath();
-    std::string envmap = *rp + "/Examples/Assets/studio_garden_2k.exr";
+    std::string envmap = *rp + "/Examples/EnvMap/Assets/studio_garden_2k.exr";
     auto r = static_cast<SkyBoxRenderer*>( app.m_mainWindow->getViewer()->getRenderer() );
 
     r->setEnvMap( envmap );

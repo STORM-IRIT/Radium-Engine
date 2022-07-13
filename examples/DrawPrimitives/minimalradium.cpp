@@ -87,7 +87,7 @@ void MinimalComponent::initialize() {
     blinnPhongTexturedMaterial->m_ns             = 100_ra;
 
     Ra::Engine::Data::TextureParameters textureParameters;
-    textureParameters.name      = *rp + "/Examples/Assets/grid.png";
+    textureParameters.name      = *rp + "/Examples/DrawPrimitives/Assets/grid.png";
     textureParameters.wrapS     = GL_REPEAT;
     textureParameters.wrapT     = GL_REPEAT;
     textureParameters.minFilter = GL_LINEAR_MIPMAP_LINEAR;
@@ -696,7 +696,7 @@ void MinimalComponent::initialize() {
 
 #ifdef IO_USE_ASSIMP
         auto l               = IO::AssimpFileLoader();
-        std::string filename = *rp + "/Examples/Assets/radium-logo.dae";
+        std::string filename = *rp + "/Examples/DrawPrimitives/Assets/radium-logo.dae";
         data                 = l.loadFile( filename );
 #endif
         if ( data != nullptr ) {
