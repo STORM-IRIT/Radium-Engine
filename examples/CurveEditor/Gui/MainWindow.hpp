@@ -61,6 +61,9 @@ class MainWindow : public Ra::Gui::MainWindowInterface
 
   private:
     void createConnections();
+
+    void processSavedPoint();
+
     MyViewer* m_viewer;
     Ra::Gui::SelectionManager* m_selectionManager;
     Ra::Gui::ItemModel* m_sceneModel;

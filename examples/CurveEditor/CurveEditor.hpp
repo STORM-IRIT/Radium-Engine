@@ -58,38 +58,53 @@ class CurveEditor : public Ra::Engine::Scene::Entity
         m_currentPoint = -1;
     }
 
+    void resetSavedPoint() { m_savedPoint = -1; }
+
+    PointComponent* getSavedPoint() {
+        if ( m_savedPoint >= 0 )
+            return m_pointEntities[m_savedPoint];
+        else
+            return nullptr;
+    }
+
     /**
      * @brief smooth to keep a G1 continuity
      * @param smooth state
      */
-    void setSmooth( bool smooth ) { m_smooth = smooth; }
+    void setSmooth( bool smooth );
 
     /**
      * @brief symetry to keep a C1 continuity
      * @param symetry state
      */
-    void setSymetry( bool symetry ) { m_symetry = symetry; }
+    void setSymetry( bool symetry );
 
   private:
     inline float distanceSquared( const Ra::Core::Vector3f& pointA,
                                   const Ra::Core::Vector3f& pointB );
+
     unsigned int getPointIndex( unsigned int curveIdSize,
                                 unsigned int currentPtIndex,
                                 const Ra::Core::Vector3& firstCtrlPt,
                                 const Ra::Core::Vector3& currentPt );
+
     void updateCurve( unsigned int curveId,
                       unsigned int curveIdSize,
                       PointComponent* pointComponent,
                       const Ra::Core::Vector3& currentPt,
                       unsigned int currentPoint );
+
     Ra::Core::Transform computePointTransform( PointComponent* pointCmp,
-                                               const Ra::Core::Vector3& midPoint,
+                                               PointComponent* midPoint,
                                                const Ra::Core::Vector3& worldPos );
     void subdivisionBezier( int vertexIndex,
                             unsigned int curveIndex,
                             const Ra::Core::Vector3Array& ctrlPts );
     void refreshPoint( unsigned int pointIndex,
                        const Ra::Core::Vector3& newPoint = Ra::Core::Vector3::Zero() );
+
+    void smoothify( int pointId );
+    void symmetrize( int pointId );
 
   private:
     Ra::Engine::Scene::EntityManager* m_entityMgr;
@@ -99,6 +114,7 @@ class CurveEditor : public Ra::Engine::Scene::Entity
     std::vector<CurveComponent*> m_curveEntities;
     std::vector<unsigned int> m_tangentPoints;
     Ra::Engine::Rendering::RenderObjectManager* m_roMgr;
+    int m_savedPoint { -1 };
 
     bool m_smooth { false };
     bool m_symetry { false };

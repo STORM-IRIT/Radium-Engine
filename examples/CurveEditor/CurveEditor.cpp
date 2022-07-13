@@ -104,6 +104,7 @@ void CurveEditor::refreshPoint( unsigned int pointIndex, const Vector3& newPoint
     auto pointComponent = m_pointEntities[pointIndex];
     auto pointColor     = pointComponent->m_color;
     auto pointCurve     = pointComponent->m_curveId;
+    auto pointState     = pointComponent->m_state;
     Vector3 point;
     if ( newPoint == Vector3::Zero() )
         point = pointComponent->m_point;
@@ -112,6 +113,7 @@ void CurveEditor::refreshPoint( unsigned int pointIndex, const Vector3& newPoint
     removeComponent( m_pointEntities[pointIndex]->getName() );
     auto pointEntity =
         PointFactory::createPointComponent( this, point, pointCurve, pointName, pointColor );
+    pointEntity->m_state        = pointState;
     m_pointEntities[pointIndex] = pointEntity;
 }
 
@@ -152,11 +154,14 @@ void CurveEditor::updateCurves( bool onRelease ) {
 }
 
 Transform CurveEditor::computePointTransform( PointComponent* pointCmp,
-                                              const Vector3& midPoint,
+                                              PointComponent* midPointCmp,
                                               const Vector3& worldPos ) {
     auto transform = Transform::Identity();
+    auto midPoint  = midPointCmp->m_point;
     Vector3 diff   = ( midPoint - worldPos );
-    if ( m_symetry ) { transform.translate( ( midPoint + diff ) - pointCmp->m_defaultPoint ); }
+    if ( midPointCmp->m_state == PointComponent::SYMETRIC ) {
+        transform.translate( ( midPoint + diff ) - pointCmp->m_defaultPoint );
+    }
     else {
         diff.normalize();
         auto actualdiff = diff * ( midPoint - pointCmp->m_point ).norm();
@@ -335,6 +340,12 @@ bool CurveEditor::processHover( std::shared_ptr<Rendering::RenderObject> ro ) {
     }
     if ( m_currentPoint < 0 ) return false;
 
+    if ( m_currentPoint % 3 == 0 )
+        m_savedPoint = m_currentPoint;
+    else if ( m_savedPoint >= 0 && m_savedPoint - 1 != m_currentPoint &&
+              m_savedPoint + 1 != m_currentPoint )
+        m_savedPoint = -1;
+
     ro->getMaterial()->getParameters().addParameter( "material.color", Color::Red() );
     m_selectedRo = ro;
     return true;
@@ -379,22 +390,22 @@ void CurveEditor::processPicking( const Vector3& worldPos ) {
                 m_tangentPoints.push_back( m_currentPoint + 1 );
             }
         }
-        else if ( m_smooth ) {
-            if ( m_currentPoint % 3 == 2 ) {
-                auto pointMid  = m_pointEntities[m_currentPoint + 1];
-                pointComponent = m_pointEntities[m_currentPoint + 2];
-                auto symTransform =
-                    computePointTransform( pointComponent, pointMid->m_point, worldPos );
+        else if ( m_currentPoint % 3 == 2 ) {
+            auto pointMid = m_pointEntities[m_currentPoint + 1];
+            if ( !( pointMid->m_state == PointComponent::DEFAULT ) ) {
+                pointComponent    = m_pointEntities[m_currentPoint + 2];
+                auto symTransform = computePointTransform( pointComponent, pointMid, worldPos );
                 auto ro = m_roMgr->getRenderObject( pointComponent->getRenderObjects()[0] );
                 ro->setLocalTransform( symTransform );
 
                 if ( m_tangentPoints.empty() ) { m_tangentPoints.push_back( m_currentPoint + 2 ); }
             }
-            else if ( m_currentPoint % 3 == 1 ) {
-                auto pointMid  = m_pointEntities[m_currentPoint - 1];
-                pointComponent = m_pointEntities[m_currentPoint - 2];
-                auto symTransform =
-                    computePointTransform( pointComponent, pointMid->m_point, worldPos );
+        }
+        else if ( m_currentPoint % 3 == 1 ) {
+            auto pointMid = m_pointEntities[m_currentPoint - 1];
+            if ( !( pointMid->m_state == PointComponent::DEFAULT ) ) {
+                pointComponent    = m_pointEntities[m_currentPoint - 2];
+                auto symTransform = computePointTransform( pointComponent, pointMid, worldPos );
                 auto ro = m_roMgr->getRenderObject( pointComponent->getRenderObjects()[0] );
                 ro->setLocalTransform( symTransform );
 
@@ -403,4 +414,113 @@ void CurveEditor::processPicking( const Vector3& worldPos ) {
         }
     }
     updateCurves();
+}
+
+void CurveEditor::setSmooth( bool smooth ) {
+    if ( m_savedPoint >= 0 ) {
+        if ( smooth ) {
+            m_pointEntities[m_savedPoint]->m_state = PointComponent::SMOOTH;
+            smoothify( m_savedPoint );
+        }
+        else
+            m_pointEntities[m_savedPoint]->m_state = PointComponent::DEFAULT;
+    }
+}
+
+void CurveEditor::setSymetry( bool symetry ) {
+    if ( m_savedPoint >= 0 ) {
+        if ( symetry ) {
+            m_pointEntities[m_savedPoint]->m_state = PointComponent::SYMETRIC;
+            symmetrize( m_savedPoint );
+        }
+        else
+            m_pointEntities[m_savedPoint]->m_state = PointComponent::SMOOTH;
+    }
+}
+
+void CurveEditor::smoothify( int pointId ) {
+    if ( ( pointId == 0 || pointId == 1 || pointId == m_pointEntities.size() - 2 ||
+           pointId == m_pointEntities.size() - 1 ) )
+        return;
+
+    m_viewer->makeCurrent();
+    Vector3 backPoint  = m_pointEntities[pointId - 1]->m_point;
+    Vector3 back       = backPoint - m_pointEntities[pointId]->m_point;
+    Vector3 frontPoint = m_pointEntities[pointId + 1]->m_point;
+    Vector3 front      = frontPoint - m_pointEntities[pointId]->m_point;
+
+    Vector3 newPointDir = back - front;
+    newPointDir.normalize();
+    newPointDir          = newPointDir * back.norm();
+    Vector3 newBackPoint = m_pointEntities[pointId]->m_point + newPointDir;
+
+    auto transform = Transform::Identity();
+    transform.translate( newBackPoint - m_pointEntities[pointId - 1]->m_point );
+    auto roIdx = m_pointEntities[pointId - 1]->getRenderObjects()[0];
+    auto ro    = m_roMgr->getRenderObject( roIdx );
+    ro->setLocalTransform( transform );
+    m_pointEntities[pointId - 1]->m_point = newBackPoint;
+
+    newPointDir.normalize();
+    newPointDir           = newPointDir * front.norm();
+    Vector3 newFrontPoint = m_pointEntities[pointId]->m_point - newPointDir;
+
+    transform = Transform::Identity();
+    transform.translate( newFrontPoint - m_pointEntities[pointId + 1]->m_point );
+    roIdx = m_pointEntities[pointId + 1]->getRenderObjects()[0];
+    ro    = m_roMgr->getRenderObject( roIdx );
+    ro->setLocalTransform( transform );
+    m_pointEntities[pointId + 1]->m_point = newFrontPoint;
+
+    m_currentPoint = pointId - 1;
+    updateCurves( true );
+    m_currentPoint = pointId + 1;
+    updateCurves( true );
+    m_currentPoint = -1;
+
+    m_viewer->doneCurrent();
+    m_viewer->getRenderer()->buildAllRenderTechniques();
+    m_viewer->needUpdate();
+}
+
+void CurveEditor::symmetrize( int pointId ) {
+    if ( ( pointId == 0 || pointId == 1 || pointId == m_pointEntities.size() - 2 ||
+           pointId == m_pointEntities.size() - 1 ) )
+        return;
+
+    m_viewer->makeCurrent();
+
+    Vector3 backPoint  = m_pointEntities[pointId - 1]->m_point;
+    Vector3 back       = backPoint - m_pointEntities[pointId]->m_point;
+    Vector3 frontPoint = m_pointEntities[pointId + 1]->m_point;
+    Vector3 front      = frontPoint - m_pointEntities[pointId]->m_point;
+
+    auto transform = Transform::Identity();
+    Index roIdx    = -1;
+    if ( std::min( back.norm(), front.norm() ) == back.norm() ) {
+        front.normalize();
+        front            = front * back.norm();
+        Vector3 newPoint = m_pointEntities[pointId]->m_point + front;
+        transform.translate( newPoint - m_pointEntities[pointId + 1]->m_point );
+        roIdx                                 = m_pointEntities[pointId + 1]->getRenderObjects()[0];
+        m_pointEntities[pointId + 1]->m_point = newPoint;
+        m_currentPoint                        = pointId + 1;
+    }
+    else {
+        back.normalize();
+        back             = back * front.norm();
+        Vector3 newPoint = m_pointEntities[pointId]->m_point + back;
+        transform.translate( newPoint - m_pointEntities[pointId - 1]->m_point );
+        roIdx                                 = m_pointEntities[pointId - 1]->getRenderObjects()[0];
+        m_pointEntities[pointId - 1]->m_point = newPoint;
+        m_currentPoint                        = pointId - 1;
+    }
+    auto ro = m_roMgr->getRenderObject( roIdx );
+    ro->setLocalTransform( transform );
+    updateCurves( true );
+    m_currentPoint = -1;
+
+    m_viewer->doneCurrent();
+    m_viewer->getRenderer()->buildAllRenderTechniques();
+    m_viewer->needUpdate();
 }
