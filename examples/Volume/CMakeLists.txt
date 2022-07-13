@@ -58,7 +58,8 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
 endif()
 
 target_compile_definitions(
-    ${PROJECT_NAME} PRIVATE DEMO_FILE="${CMAKE_CURRENT_SOURCE_DIR}/../../unittest/data/Lobster.pvm"
+    ${PROJECT_NAME}
+    PRIVATE DEMO_FILE="${CMAKE_CURRENT_SOURCE_DIR}/../../tests/unittest/data/Lobster.pvm"
 )
 
 target_include_directories(
