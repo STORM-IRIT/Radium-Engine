@@ -24,19 +24,11 @@
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-#include <cstdio>
 #include <iostream>
-#include <streambuf>
 #include <string>
-#include <thread>
 
 #include <glbinding-aux/ContextInfo.h>
-#include <glbinding-aux/debug.h>
-#include <glbinding-aux/types_to_string.h>
-#include <glbinding/Binding.h>
 #include <glbinding/Version.h>
-#include <glbinding/gl/gl.h>
-#include <glbinding/glbinding.h>
 
 namespace Ra {
 namespace Engine {
