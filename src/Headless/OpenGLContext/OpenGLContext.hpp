@@ -28,12 +28,15 @@ class HEADLESS_API OpenGLContext
     /**
      * Create an offscreen openGl context.
      * The created context has the following properties
-     *  - OpenGL version requested : >= 4.1
+     *  - OpenGL version requested : (default >= 4.1)
      *  - OpenGL context profile : Core Profile
      *  The created context is associated with a hidden window that can be shown later.
-     * @param size
+     *  \param glVersion (optional, default is 4.1) indicates the OpenGL version the context MUST
+     *  be compatible with. If there is no compatible context, the application will stop
+     * \param size
      */
-    explicit OpenGLContext( const std::array<int, 2>& size = { 1, 1 } );
+    explicit OpenGLContext( const std::string& glVersion   = "4.1",
+                            const std::array<int, 2>& size = { 1, 1 } );
     /// destructor
     ~OpenGLContext();
     /// make the context active

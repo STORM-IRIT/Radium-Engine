@@ -43,11 +43,17 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
         std::string m_dataFile = { "" };
     };
 
+  public:
+    /// Instance of the radium engine.
+    std::unique_ptr<Ra::Engine::RadiumEngine> m_engine;
+
+    /// To have the same API to access Engine than in Qt based application.
+    const Engine::RadiumEngine* getEngine() const { return m_engine.get(); }
+
   private:
     /// Headless OpenGLContext
     OpenGLContext m_glContext;
-    /// Instance of the radium engine.
-    std::unique_ptr<Ra::Engine::RadiumEngine> m_engine;
+
     /// Shared instance of the renderer
     std::shared_ptr<Ra::Engine::Rendering::Renderer> m_renderer;
 
@@ -64,8 +70,11 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     bool m_exposedWindow { false };
 
   public:
-    /// Base constructor.
-    CLIViewer();
+    /**
+     * \brief Construct the viewer using an OpenGL context of the given version
+     * \param glVersion
+     */
+    explicit CLIViewer( const std::string& glVersion = "4.1" );
     /// Base destructor
     virtual ~CLIViewer();
 
