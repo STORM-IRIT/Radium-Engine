@@ -11,6 +11,7 @@ var classRa_1_1Engine_1_1Data_1_1ShaderConfiguration =
     [ "addShader", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a42ec93f4772c0455149a81e9d8502d43", null ],
     [ "addShaderSource", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a817ed4e22a81e034776cc21e8cfc6b8b", null ],
     [ "getDefaultShaderConfig", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a3cccfd1b866104438bd209a42f0e3f76", null ],
+    [ "getGLSLVersion", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#af3fe87ba28fab9be56e20a1dc89e4771", null ],
     [ "getIncludes", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a08ad85fff1eaec5f85e0c2bda2709271", null ],
     [ "getName", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ada1d8dcd8956d77a89ad351ae305de92", null ],
     [ "getNamedStrings", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ad8bb2ef1fd8225e667ec4499d35666f7", null ],
@@ -21,6 +22,7 @@ var classRa_1_1Engine_1_1Data_1_1ShaderConfiguration =
     [ "removeInclude", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ae833f51d8fd0b89edfaac26b36d378e8", null ],
     [ "removeProperty", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a2528319b52e570628ed707755557b0fa", null ],
     [ "setName", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a8c35f3f058fb4e463f3d843782883067", null ],
+    [ "setOpenGLVersion", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a4a560489c4c9a87bc1e3b16d85b06e80", null ],
     [ "setVersion", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a872b7ab83ccaa805c70a18e9b978eac3", null ],
     [ "operator<<", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a3edf12827e83ece5e47fd89b65ac8562", null ],
     [ "ShaderProgram", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#aef20119bde6aff11ffd23f3ea2131b86", null ]

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.46</span>
+   &#160;<span id="projectnumber">1.2.47</span>
    </div>
   </td>
  </tr>
@@ -102,11 +102,11 @@ $(document).ready(function(){initNavTree('ShaderConfiguration_8cpp_source.html',
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">static</span> <span class="keyword">const</span> std::string defaultVertexShader {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a>().value_or(</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="stringliteral">&quot;[[Default resrouces path not found]]&quot;</span> ) +</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="stringliteral">&quot;[[Default resources path not found]]&quot;</span> ) +</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="stringliteral">&quot;Shaders/Materials/Plain/Plain.vert.glsl&quot;</span> };</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">static</span> <span class="keyword">const</span> std::string defaultFragmentShader {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a>().value_or(</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="stringliteral">&quot;[[Default resrouces path not found]]&quot;</span> ) +</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="stringliteral">&quot;[[Default resources path not found]]&quot;</span> ) +</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="stringliteral">&quot;Shaders/Materials/Plain/Plain.frag.glsl&quot;</span> };</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
@@ -139,12 +139,12 @@ $(document).ready(function(){initNavTree('ShaderConfiguration_8cpp_source.html',
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                                                defaultFragmentShader );</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ae0b13c681a725721cfb713b9b2902d07">   46</a></span>&#160;ShaderConfiguration::ShaderConfiguration( <span class="keyword">const</span> std::string&amp; name ) :</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    m_name { name }, m_version { <span class="stringliteral">&quot;#version 410&quot;</span> } {}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    m_name { name }, m_version { <span class="stringliteral">&quot;#version &quot;</span> + s_glslVersion } {}</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ab50de2605d25419e4d1292e24170ff1b">   49</a></span>&#160;ShaderConfiguration::ShaderConfiguration( <span class="keyword">const</span> std::string&amp; name,</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                          <span class="keyword">const</span> std::string&amp; vertexShader,</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                          <span class="keyword">const</span> std::string&amp; fragmentShader ) :</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    m_name { name }, m_version { <span class="stringliteral">&quot;#version 410&quot;</span> } {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    m_name { name }, m_version { <span class="stringliteral">&quot;#version &quot;</span> + s_glslVersion } {</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    m_shaders[ShaderType_VERTEX]   = { vertexShader, <span class="keyword">true</span> };</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    m_shaders[ShaderType_FRAGMENT] = { fragmentShader, <span class="keyword">true</span> };</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
@@ -255,9 +255,35 @@ $(document).ready(function(){initNavTree('ShaderConfiguration_8cpp_source.html',
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">return</span> m_named_strings;</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;}</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;std::string ShaderConfiguration::s_glslVersion { <span class="stringliteral">&quot;410&quot;</span> };</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keywordtype">void</span> ShaderConfiguration::setOpenGLVersion( <span class="keyword">const</span> std::string&amp; version ) {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    std::map&lt;std::string, std::string&gt; openGLToGLSL { { <span class="stringliteral">&quot;2.0&quot;</span>, <span class="stringliteral">&quot;110&quot;</span> },</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                                                      { <span class="stringliteral">&quot;2.1&quot;</span>, <span class="stringliteral">&quot;120&quot;</span> },</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                                                      { <span class="stringliteral">&quot;3.0&quot;</span>, <span class="stringliteral">&quot;130&quot;</span> },</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                                                      { <span class="stringliteral">&quot;3.1&quot;</span>, <span class="stringliteral">&quot;140&quot;</span> },</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                                                      { <span class="stringliteral">&quot;3.2&quot;</span>, <span class="stringliteral">&quot;150&quot;</span> },</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                                                      { <span class="stringliteral">&quot;3.3&quot;</span>, <span class="stringliteral">&quot;330&quot;</span> },</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                                                      { <span class="stringliteral">&quot;4.0&quot;</span>, <span class="stringliteral">&quot;400&quot;</span> },</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                                                      { <span class="stringliteral">&quot;4.1&quot;</span>, <span class="stringliteral">&quot;410&quot;</span> },</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                                                      { <span class="stringliteral">&quot;4.2&quot;</span>, <span class="stringliteral">&quot;420&quot;</span> },</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                                                      { <span class="stringliteral">&quot;4.3&quot;</span>, <span class="stringliteral">&quot;430&quot;</span> },</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                                                      { <span class="stringliteral">&quot;4.4&quot;</span>, <span class="stringliteral">&quot;440&quot;</span> },</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                                                      { <span class="stringliteral">&quot;4.5&quot;</span>, <span class="stringliteral">&quot;450&quot;</span> },</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                                                      { <span class="stringliteral">&quot;4.6&quot;</span>, <span class="stringliteral">&quot;460&quot;</span> } };</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keyword">auto</span> it = openGLToGLSL.find( version );</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">if</span> ( it != openGLToGLSL.end() ) { s_glslVersion = it-&gt;second; }</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        s_glslVersion = <span class="stringliteral">&quot;410&quot;</span>;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;std::string ShaderConfiguration::getGLSLVersion() {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">return</span> s_glslVersion;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
@@ -273,7 +299,7 @@ $(document).ready(function(){initNavTree('ShaderConfiguration_8cpp_source.html',
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>ShaderConfiguration.cpp</b></li>
-    <li class="footer">Generated on Fri Jul 8 2022 09:10:48 for Radium Engine by
+    <li class="footer">Generated on Fri Jul 15 2022 06:32:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
