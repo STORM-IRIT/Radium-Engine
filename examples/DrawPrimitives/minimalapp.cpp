@@ -5,12 +5,16 @@
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
+#include <QMainWindow>
+#include <QOpenGLContext>
+
+using namespace Ra;
 MinimalApp::MinimalApp( int& argc, char** argv ) :
     QApplication( argc, argv ),
     m_engine( nullptr ),
-    m_task_queue( nullptr ),
+    m_taskQueue( nullptr ),
     m_viewer( nullptr ),
-    m_frame_timer( nullptr ),
+    m_frameTimer( nullptr ),
     m_target_fps( 60 ) {
     // Set application and organization names in order to ensure uniform
     // QSettings configurations.
@@ -18,49 +22,72 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     QCoreApplication::setOrganizationName( "STORM-IRIT" );
     QCoreApplication::setApplicationName( "HelloRadium" );
 
-    // Initialize Engine.
-    m_engine.reset( Ra::Engine::RadiumEngine::createInstance() );
-    m_engine->initialize();
-
     ///\todo update when a basic viewer is implemented ... (to call setupKeyMappingCallbacks)
     Ra::Gui::KeyMappingManager::createInstance();
-    Ra::Gui::KeyMappingManager::getInstance()->addListener(
-        Ra::Gui::TrackballCameraManipulator::configureKeyMapping );
-    Ra::Gui::KeyMappingManager::getInstance()->addListener( Ra::Gui::Viewer::configureKeyMapping );
-
-    // Initialize taskqueue.
-    m_task_queue.reset( new Ra::Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
-    // Initialize viewer.
-    m_viewer.reset( new Ra::Gui::Viewer );
-
-    CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-    connect( m_viewer.get(),
-             &Ra::Gui::Viewer::requestEngineOpenGLInitialization,
-             this,
-             &MinimalApp::onGLInitialized );
-    m_viewer->setupKeyMappingCallbacks();
-
-    // Initialize timer for the spinning cube.
-    m_frame_timer = new QTimer( this );
-    m_frame_timer->setInterval( 1000 / m_target_fps );
 }
 
 MinimalApp::~MinimalApp() {
     // need to clean up everithing before engine is cleaned up.
-    m_task_queue.reset( nullptr );
+    m_taskQueue.reset( nullptr );
     m_viewer.reset( nullptr );
     m_engine->cleanup();
     m_engine.reset( nullptr );
 }
 
+void MinimalApp::initialize() {
+    QSurfaceFormat format;
+    format.setVersion( 4, 4 );
+    format.setProfile( QSurfaceFormat::CoreProfile );
+    format.setDepthBufferSize( 24 );
+    format.setStencilBufferSize( 8 );
+    format.setSamples( 16 );
+    format.setSwapBehavior( QSurfaceFormat::DoubleBuffer );
+    format.setSwapInterval( 0 );
+    QSurfaceFormat::setDefaultFormat( format );
+
+    // Initialize Engine.
+    m_engine.reset( Ra::Engine::RadiumEngine::createInstance() );
+    m_engine->initialize();
+
+    // Initialize taskqueue.
+    m_taskQueue.reset( new Ra::Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
+    // Initialize viewer.
+
+    m_viewer.reset( new Ra::Gui::Viewer );
+    CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
+    m_viewer->setObjectName( QStringLiteral( "m_viewer" ) );
+
+    auto viewerWidget = QWidget::createWindowContainer( m_viewer.get() );
+    viewerWidget->setAutoFillBackground( false );
+
+    m_viewer->setupKeyMappingCallbacks();
+
+    connect( m_viewer.get(),
+             &Ra::Gui::Viewer::requestEngineOpenGLInitialization,
+             this,
+             &MinimalApp::onGLInitialized );
+    connect( this, &QGuiApplication::lastWindowClosed, m_viewer.get(), &Gui::WindowQt::cleanupGL );
+
+    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
+    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
+
+    // Initialize timer for the spinning cube.
+    m_frameTimer = new QTimer( this );
+    m_frameTimer->setInterval( 1000 / m_target_fps );
+
+    viewerWidget->resize( 500, 500 );
+    viewerWidget->show();
+}
+
 void MinimalApp::onGLInitialized() {
+    std::cout << "engine gl init\n";
     // initialize here the OpenGL part of the engine used by the application
     m_engine->initializeGL();
     // add the renderer
     std::shared_ptr<Ra::Engine::Rendering::Renderer> e(
         new Ra::Engine::Rendering::ForwardRenderer() );
     m_viewer->addRenderer( e );
-    connect( m_frame_timer, &QTimer::timeout, this, &MinimalApp::frame );
+    connect( m_frameTimer, &QTimer::timeout, this, &MinimalApp::frame );
 }
 
 void MinimalApp::frame() {
@@ -69,10 +96,10 @@ void MinimalApp::frame() {
     const Scalar dt = 1.f / Scalar( m_target_fps );
 
     // Collect and run tasks
-    m_engine->getTasks( m_task_queue.get(), dt );
-    m_task_queue->startTasks();
-    m_task_queue->waitForTasks();
-    m_task_queue->flushTaskQueue();
+    m_engine->getTasks( m_taskQueue.get(), dt );
+    m_taskQueue->startTasks();
+    m_taskQueue->waitForTasks();
+    m_taskQueue->flushTaskQueue();
 
     // Starts the renderer
     m_viewer->startRendering( dt );

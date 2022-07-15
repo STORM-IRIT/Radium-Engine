@@ -18,8 +18,9 @@ class MinimalApp : public QApplication
         @see http://doc.qt.io/qt-5/qapplication.html#QApplication
     */
     MinimalApp( int& argc, char** argv );
-
     ~MinimalApp();
+
+    void initialize();
 
   public slots:
 
@@ -33,13 +34,13 @@ class MinimalApp : public QApplication
     std::unique_ptr<Ra::Engine::RadiumEngine> m_engine;
 
     // Task queue
-    std::unique_ptr<Ra::Core::TaskQueue> m_task_queue;
+    std::unique_ptr<Ra::Core::TaskQueue> m_taskQueue;
 
     // Pointer to Qt/OpenGL Viewer widget.
     std::unique_ptr<Ra::Gui::Viewer> m_viewer;
 
     // Timer to wake us up at every frame start.
-    QTimer* m_frame_timer;
+    QTimer* m_frameTimer;
 
     // Our framerate
     uint m_target_fps;
