@@ -32,10 +32,6 @@ add_subdirectory(unittest)
 # etc.
 add_subdirectory(integration)
 
-add_test(NAME integration_CoreExample WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
-         COMMAND "$<TARGET_FILE:CoreExample>"
-)
-
 # Convenience targets for fast testing, they depends on binaries (so the build is triggered, when
 # sources were changed).
 add_custom_target(
@@ -43,7 +39,7 @@ add_custom_target(
     COMMAND echo [----] Running tests
     USES_TERMINAL
     COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C ${CMAKE_BUILD_TYPE}
-    DEPENDS CoreExample unittests integration
+    DEPENDS unittests integration
 )
 
 add_custom_target(
@@ -51,7 +47,7 @@ add_custom_target(
     COMMAND echo [----] Running tests
     USES_TERMINAL
     COMMAND ${CMAKE_CTEST_COMMAND} -V --output-on-failure -C ${CMAKE_BUILD_TYPE}
-    DEPENDS CoreExample unittests integration
+    DEPENDS unittests integration
 )
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
