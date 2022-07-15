@@ -33,7 +33,7 @@ endforeach()
 
 # VolumeDemoApp
 find_package(Radium COMPONENTS IO REQUIRED)
-get_target_property(HAS_VOLUMES Radium::IO RADIUM_IO_HAS_VOLUMES)
+get_target_property(HAS_VOLUMES Radium::IO IO_HAS_VOLUMES)
 if(${HAS_VOLUMES})
     add_subdirectory(Volume)
     add_dependencies(${PROJECT_NAME} Volume)

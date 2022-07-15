@@ -53,23 +53,14 @@ endif()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Headless)
 
-if(USE_RADIUM_IO_ASSIMPLOADER)
-    if(IN_RADIUM_BUILD_TREE)
-        set(USE_RADIUM_ASSIMP ${RADIUM_IO_ASSIMP})
-    else()
-        get_target_property(USE_RADIUM_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)
-    endif()
-    if(${USE_RADIUM_ASSIMP})
-        message(STATUS "[${PROJECT_NAME}] Enabling assimp loader from Radium::IO")
-        target_compile_definitions(${PROJECT_NAME} PRIVATE ADD_ASSIMP_LOADER)
-    else()
-        message(STATUS "[${PROJECT_NAME}] Assimp loader from Radium::IO not detected")
-    endif()
+get_target_property(USE_ASSIMP Radium::IO IO_HAS_ASSIMP)
+if(${USE_ASSIMP})
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "IO_HAS_ASSIMP")
 endif()
 
 target_compile_options(${PROJECT_NAME} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)
 
 # configure the application
 configure_radium_app(
-    NAME ${PROJECT_NAME} PREFIX Examples RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Assets
+    NAME ${PROJECT_NAME} PREFIX Examples/Headless RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Assets
 )

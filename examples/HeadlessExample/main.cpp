@@ -5,7 +5,7 @@
 
 #include <Core/Resources/Resources.hpp>
 
-#ifdef ADD_ASSIMP_LOADER
+#ifdef IO_HAS_ASSIMP
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
 
@@ -27,7 +27,7 @@ int main( int argc, const char* argv[] ) {
 
     //! [Populating the viewer with needed services]
     viewer.setRenderer( new Ra::Engine::Rendering::ForwardRenderer() );
-#ifdef ADD_ASSIMP_LOADER
+#ifdef IO_HAS_ASSIMP
     viewer.addDataFileLoader( new Ra::IO::AssimpFileLoader() );
 #endif
     //! [Populating the viewer with needed services]
@@ -39,7 +39,7 @@ int main( int argc, const char* argv[] ) {
     //! [Setup the Scene to render]
     if ( viewer.getDataFileName().empty() ) {
         auto rp              = Ra::Core::Resources::getResourcesPath();
-        std::string filename = *rp + "/Demos/Assets/radium-logo.dae";
+        std::string filename = *rp + "/Examples/Headless/Assets/radium-logo.dae";
         viewer.setDataFileName( filename );
     }
     // load the given scene
