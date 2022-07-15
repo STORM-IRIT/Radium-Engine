@@ -24,11 +24,11 @@
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-#include <cstdio>
 #include <iostream>
-#include <streambuf>
 #include <string>
-#include <thread>
+
+#include <glbinding-aux/ContextInfo.h>
+#include <glbinding/Version.h>
 
 namespace Ra {
 namespace Engine {
@@ -68,6 +68,10 @@ void RadiumEngine::initialize() {
 }
 
 void RadiumEngine::initializeGL() {
+    // get the OpenGL/GLSL version of the bounded context as default shader version
+    Data::ShaderConfiguration::setOpenGLVersion(
+        glbinding::aux::ContextInfo::version().toString() );
+
     m_openglState = std::make_unique<globjects::State>( globjects::State::DeferredMode );
     registerDefaultPrograms();
     // needed to upload non multiple of 4 width texture loaded with stbi.
