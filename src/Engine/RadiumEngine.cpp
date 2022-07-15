@@ -69,14 +69,18 @@ void RadiumEngine::initialize() {
 
 void RadiumEngine::initializeGL() {
     // get the OpenGL/GLSL version of the bounded context as default shader version
-    Data::ShaderConfiguration::setOpenGLVersion(
-        glbinding::aux::ContextInfo::version().toString() );
+    m_glVersion = glbinding::aux::ContextInfo::version().toString();
+    Data::ShaderConfiguration::setOpenGLVersion( m_glVersion );
 
     m_openglState = std::make_unique<globjects::State>( globjects::State::DeferredMode );
     registerDefaultPrograms();
     // needed to upload non multiple of 4 width texture loaded with stbi.
     m_openglState->pixelStore( GL_UNPACK_ALIGNMENT, 1 );
     m_openglState->apply();
+}
+
+std::string RadiumEngine::getOpenGLVersion() const {
+    return m_glVersion;
 }
 
 void RadiumEngine::registerDefaultPrograms() {
