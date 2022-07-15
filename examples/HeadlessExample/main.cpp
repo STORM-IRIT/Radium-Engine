@@ -1,6 +1,7 @@
 #include <Headless/CLIViewer.hpp>
 #include <iostream>
 
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
 
 #include <Core/Resources/Resources.hpp>
@@ -16,7 +17,8 @@ using namespace Ra::Headless;
 int main( int argc, const char* argv[] ) {
     //! [Creating the viewer with custom parameters]
     bool showWindow { false };
-    CLIViewer viewer;
+    std::string glVersion { "4.4" };
+    CLIViewer viewer { glVersion };
     viewer.addFlag( "-w,--window", showWindow, "Map the viewer window." );
     //! [Creating the viewer with custom parameters]
 
@@ -24,6 +26,13 @@ int main( int argc, const char* argv[] ) {
     if ( int code = viewer.init( argc, argv ) ) { return code; }
     auto viewerParameters = viewer.getCommandLineParameters();
     //! [Configuring the viewer : initialize OpenGL and the Engine]
+
+    //! [Verifying the OpenGL version available to the engine]
+    if ( glVersion != viewer.m_engine->getOpenGLVersion() ) {
+        std::cout << "OpenGL version mismatch : requested " << glVersion << " -- available "
+                  << viewer.m_engine->getOpenGLVersion() << std::endl;
+    }
+    //! [Verifying the OpenGL version available to the engine]
 
     //! [Populating the viewer with needed services]
     viewer.setRenderer( new Ra::Engine::Rendering::ForwardRenderer() );
