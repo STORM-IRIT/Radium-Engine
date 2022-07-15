@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.47</span>
+   &#160;<span id="projectnumber">1.2.48</span>
    </div>
   </td>
  </tr>
@@ -153,12 +153,13 @@ Using Radium in your application</h2>
 <li>Radium::Core</li>
 </ul>
 <p class="startli">On this target, you might also ask for support of several file loaders using the following properties defined on the target Radium::IO</p><ul>
-<li>RADIUM_IO_USE_ASSIMP : Identify if Radium::IO was compiled with assimp support</li>
-<li>RADIUM_IO_USE_TINYPLY : Identify if Radium::IO was compiled with tinyply support. You might use these properties to define compilation macro in your code</li>
+<li>IO_HAS_ASSIMP : Identify if Radium::IO was compiled with assimp support,</li>
+<li>IO_HAS_TINYPLY : Identify if Radium::IO was compiled with tinyply support,</li>
+<li>IO_HAS_VOLUMES : Identify if Radium::IO was compiled with pvm volume loader support. You might use these properties to define compilation macro in your code</li>
 </ul>
 </li>
 </ul>
-<div class="fragment"><div class="line">get_target_property(USE_ASSIMP Radium::IO RADIUM_IO_USE_ASSIMP)</div>
+<div class="fragment"><div class="line">get_target_property(USE_ASSIMP Radium::IO IO_HAS_ASSIMP)</div>
 <div class="line">if (${USE_ASSIMP})</div>
 <div class="line"> target_compile_definitions(yourTarget PRIVATE ADD_ASSIMP_LOADER)</div>
 <div class="line">endif()</div>
@@ -769,7 +770,7 @@ Configuring an application plugin</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Fri Jul 15 2022 06:32:02 for Radium Engine by
+    <li class="footer">Generated on Fri Jul 15 2022 08:38:15 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

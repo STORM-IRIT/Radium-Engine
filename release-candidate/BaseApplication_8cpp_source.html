@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.47</span>
+   &#160;<span id="projectnumber">1.2.48</span>
    </div>
   </td>
  </tr>
@@ -124,13 +124,13 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;PluginBase/RadiumPluginInterface.hpp&gt;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;IO/CameraLoader/CameraLoader.hpp&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#ifdef IO_USE_TINYPLY</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#ifdef IO_HAS_TINYPLY</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#    include &lt;IO/TinyPlyLoader/TinyPlyFileLoader.hpp&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#ifdef IO_USE_ASSIMP</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#ifdef IO_HAS_ASSIMP</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#    include &lt;IO/AssimpLoader/AssimpFileLoader.hpp&gt;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#ifdef IO_HANDLE_VOLUMES</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#ifdef IO_HAS_VOLUMES</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#    include &lt;IO/VolumesLoader/VolumeLoader.hpp&gt;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;QCommandLineParser&gt;</span></div>
@@ -414,7 +414,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    }</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="comment">// == Configure bundled Radium::IO services == //</span></div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="comment">// Make builtin loaders the fallback if no plugins can load some file format</span></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="preprocessor">#ifdef IO_USE_TINYPLY</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="preprocessor">#ifdef IO_HAS_TINYPLY</span></div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="comment">// Register before AssimpFileLoader, in order to ease override of such</span></div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="comment">// custom loader (first loader able to load is taking the file)</span></div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a31d6887781c5240c4ace2333c3a16dec">m_engine</a>-&gt;registerFileLoader(</div>
@@ -422,11 +422,11 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a31d6887781c5240c4ace2333c3a16dec">m_engine</a>-&gt;registerFileLoader(</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        std::shared_ptr&lt;FileLoaderInterface&gt;( <span class="keyword">new</span> IO::CameraFileLoader() ) );</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="preprocessor">#ifdef IO_USE_ASSIMP</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="preprocessor">#ifdef IO_HAS_ASSIMP</span></div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a31d6887781c5240c4ace2333c3a16dec">m_engine</a>-&gt;registerFileLoader(</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        std::shared_ptr&lt;FileLoaderInterface&gt;( <span class="keyword">new</span> <a class="code" href="classRa_1_1IO_1_1AssimpFileLoader.html">IO::AssimpFileLoader</a>() ) );</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="preprocessor">#ifdef IO_HANDLE_VOLUMES</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="preprocessor">#ifdef IO_HAS_VOLUMES</span></div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a31d6887781c5240c4ace2333c3a16dec">m_engine</a>-&gt;registerFileLoader( std::shared_ptr&lt;FileLoaderInterface&gt;( <span class="keyword">new</span> <a class="code" href="classRa_1_1IO_1_1VolumeLoader.html">IO::VolumeLoader</a>() ) );</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="comment">// Allow derived application to add custom plugins and services</span></div>
@@ -936,7 +936,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><b>BaseApplication.cpp</b></li>
-    <li class="footer">Generated on Fri Jul 15 2022 06:32:01 for Radium Engine by
+    <li class="footer">Generated on Fri Jul 15 2022 08:38:14 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
