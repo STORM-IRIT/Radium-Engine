@@ -69,6 +69,13 @@ class RA_ENGINE_API RadiumEngine
     void initializeGL();
 
     /**
+     * \brief Get the currently used OpenGL version.
+     * \return the "Major.Minor" OpenGL version as a string.
+     * If openGL is not initialize, returns "Not initialized.",
+     */
+    std::string getOpenGLVersion() const;
+
+    /**
      * Free all resources acquired during initialize
      */
     void cleanup();
@@ -320,6 +327,8 @@ class RA_ENGINE_API RadiumEngine
     std::string getResourcesDir() { return m_resourcesRootDir; }
 
   private:
+    /// The OpenGL version used by the engine
+    std::string m_glVersion { "Not initialized." };
     /**
      * Register default shaders, materials and named strings
      */

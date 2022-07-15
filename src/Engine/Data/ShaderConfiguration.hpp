@@ -154,7 +154,16 @@ class RA_ENGINE_API ShaderConfiguration final
     static std::string s_glslVersion;
 
   public:
+    /**
+     * \brief set the OpenGL version to use in the generated header for shaders.
+     * \param version
+     */
     static void setOpenGLVersion( const std::string& version );
+
+    /**
+     * \brief get the OpenGL version used in the generated header for shaders.
+     * \return
+     */
     static std::string getGLSLVersion();
 };
 
