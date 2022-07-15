@@ -7,11 +7,11 @@
  */
 static const std::string defaultVertexShader {
     Ra::Core::Resources::getRadiumResourcesPath().value_or(
-        "[[Default resrouces path not found]]" ) +
+        "[[Default resources path not found]]" ) +
     "Shaders/Materials/Plain/Plain.vert.glsl" };
 static const std::string defaultFragmentShader {
     Ra::Core::Resources::getRadiumResourcesPath().value_or(
-        "[[Default resrouces path not found]]" ) +
+        "[[Default resources path not found]]" ) +
     "Shaders/Materials/Plain/Plain.frag.glsl" };
 
 namespace Ra {
@@ -44,12 +44,12 @@ ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "Default Program
                                                                 defaultFragmentShader );
 
 ShaderConfiguration::ShaderConfiguration( const std::string& name ) :
-    m_name { name }, m_version { "#version 410" } {}
+    m_name { name }, m_version { "#version " + s_glslVersion } {}
 
 ShaderConfiguration::ShaderConfiguration( const std::string& name,
                                           const std::string& vertexShader,
                                           const std::string& fragmentShader ) :
-    m_name { name }, m_version { "#version 410" } {
+    m_name { name }, m_version { "#version " + s_glslVersion } {
     m_shaders[ShaderType_VERTEX]   = { vertexShader, true };
     m_shaders[ShaderType_FRAGMENT] = { fragmentShader, true };
 }
@@ -158,6 +158,32 @@ const std::vector<std::pair<std::string, ShaderType>>& ShaderConfiguration::getI
 const std::vector<std::pair<std::string, std::string>>&
 ShaderConfiguration::getNamedStrings() const {
     return m_named_strings;
+}
+
+std::string ShaderConfiguration::s_glslVersion { "410" };
+
+void ShaderConfiguration::setOpenGLVersion( const std::string& version ) {
+    std::map<std::string, std::string> openGLToGLSL { { "2.0", "110" },
+                                                      { "2.1", "120" },
+                                                      { "3.0", "130" },
+                                                      { "3.1", "140" },
+                                                      { "3.2", "150" },
+                                                      { "3.3", "330" },
+                                                      { "4.0", "400" },
+                                                      { "4.1", "410" },
+                                                      { "4.2", "420" },
+                                                      { "4.3", "430" },
+                                                      { "4.4", "440" },
+                                                      { "4.5", "450" },
+                                                      { "4.6", "460" } };
+    auto it = openGLToGLSL.find( version );
+    if ( it != openGLToGLSL.end() ) { s_glslVersion = it->second; }
+    else {
+        s_glslVersion = "410";
+    }
+}
+std::string ShaderConfiguration::getGLSLVersion() {
+    return s_glslVersion;
 }
 
 } // namespace Data

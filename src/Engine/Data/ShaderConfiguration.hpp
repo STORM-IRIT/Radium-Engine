@@ -150,6 +150,12 @@ class RA_ENGINE_API ShaderConfiguration final
     std::vector<std::pair<std::string, std::string>> m_named_strings;
 
     static ShaderConfiguration m_defaultShaderConfig;
+
+    static std::string s_glslVersion;
+
+  public:
+    static void setOpenGLVersion( const std::string& version );
+    static std::string getGLSLVersion();
 };
 
 } // namespace Data
