@@ -20,7 +20,7 @@
 #include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
 
-#ifdef IO_USE_ASSIMP
+#ifdef IO_HAS_ASSIMP
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
 
@@ -87,7 +87,7 @@ void MinimalComponent::initialize() {
     blinnPhongTexturedMaterial->m_ns             = 100_ra;
 
     Ra::Engine::Data::TextureParameters textureParameters;
-    textureParameters.name      = *rp + "/Examples/Assets/grid.png";
+    textureParameters.name      = *rp + "/Examples/DrawPrimitives/Assets/grid.png";
     textureParameters.wrapS     = GL_REPEAT;
     textureParameters.wrapT     = GL_REPEAT;
     textureParameters.minFilter = GL_LINEAR_MIPMAP_LINEAR;
@@ -694,9 +694,9 @@ void MinimalComponent::initialize() {
 
         Asset::FileData* data { nullptr };
 
-#ifdef IO_USE_ASSIMP
+#ifdef IO_HAS_ASSIMP
         auto l               = IO::AssimpFileLoader();
-        std::string filename = *rp + "/Examples/Assets/radium-logo.dae";
+        std::string filename = *rp + "/Examples/DrawPrimitives/Assets/radium-logo.dae";
         data                 = l.loadFile( filename );
 #endif
         if ( data != nullptr ) {
