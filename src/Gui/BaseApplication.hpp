@@ -10,6 +10,8 @@
 #include <Gui/TimerData/FrameTimerData.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
+#include <glbinding/Version.h>
+
 class QTimer;
 class QCommandLineParser;
 namespace Ra {
@@ -80,7 +82,7 @@ class RA_GUI_API BaseApplication : public QApplication
      *     - loads the given scene, ...
      *
      * \param factory : a functor that instanciate the mainWindow
-     * \param glVersion : a string with "Major.Minor" definition of the requested OpenGL Version.
+     * \param glVersion : glbinding::Version of the requested OpenGL Version.
      * If no version is given, the default recommended version for Radium (4.1) will be requested.
      * @note The initialize method call virtual methods on the object being initialized to
      * configure the engine and application services.
@@ -91,7 +93,7 @@ class RA_GUI_API BaseApplication : public QApplication
      * \todo allow the user to ask for some "standard" systems to be added to the initialized
      * Engine.
      */
-    void initialize( const WindowFactory& factory, const std::string& glVersion = "4.1" );
+    void initialize( const WindowFactory& factory, const glbinding::Version& glVersion = { 4, 1 } );
 
     /**
      * This method configure the base, non opengl dependant, scene services.

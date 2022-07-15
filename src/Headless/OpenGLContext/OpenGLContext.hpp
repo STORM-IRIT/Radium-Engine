@@ -5,6 +5,9 @@
 #include <array>
 #include <functional>
 #include <string>
+
+#include <glbinding/Version.h>
+
 struct GLFWwindow;
 
 namespace Ra {
@@ -35,8 +38,8 @@ class HEADLESS_API OpenGLContext
      *  be compatible with. If there is no compatible context, the application will stop
      * \param size
      */
-    explicit OpenGLContext( const std::string& glVersion   = "4.1",
-                            const std::array<int, 2>& size = { 1, 1 } );
+    explicit OpenGLContext( const glbinding::Version& glVersion = { 4, 1 },
+                            const std::array<int, 2>& size      = { 1, 1 } );
     /// destructor
     ~OpenGLContext();
     /// make the context active

@@ -69,7 +69,7 @@ void RadiumEngine::initialize() {
 
 void RadiumEngine::initializeGL() {
     // get the OpenGL/GLSL version of the bounded context as default shader version
-    m_glVersion = glbinding::aux::ContextInfo::version().toString();
+    m_glVersion = glbinding::aux::ContextInfo::version();
     Data::ShaderConfiguration::setOpenGLVersion( m_glVersion );
 
     m_openglState = std::make_unique<globjects::State>( globjects::State::DeferredMode );
@@ -79,7 +79,7 @@ void RadiumEngine::initializeGL() {
     m_openglState->apply();
 }
 
-std::string RadiumEngine::getOpenGLVersion() const {
+glbinding::Version RadiumEngine::getOpenGLVersion() const {
     return m_glVersion;
 }
 

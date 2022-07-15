@@ -17,7 +17,7 @@ using namespace Ra::Headless;
 int main( int argc, const char* argv[] ) {
     //! [Creating the viewer with custom parameters]
     bool showWindow { false };
-    std::string glVersion { "4.4" };
+    glbinding::Version glVersion { 4, 4 };
     CLIViewer viewer { glVersion };
     viewer.addFlag( "-w,--window", showWindow, "Map the viewer window." );
     //! [Creating the viewer with custom parameters]
@@ -29,8 +29,9 @@ int main( int argc, const char* argv[] ) {
 
     //! [Verifying the OpenGL version available to the engine]
     if ( glVersion != viewer.m_engine->getOpenGLVersion() ) {
-        std::cout << "OpenGL version mismatch : requested " << glVersion << " -- available "
-                  << viewer.m_engine->getOpenGLVersion() << std::endl;
+        std::cout << "OpenGL version mismatch : requested " << glVersion.toString()
+                  << " -- available " << viewer.m_engine->getOpenGLVersion().toString()
+                  << std::endl;
     }
     //! [Verifying the OpenGL version available to the engine]
 
