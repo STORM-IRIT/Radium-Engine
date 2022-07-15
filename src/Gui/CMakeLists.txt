@@ -10,6 +10,8 @@ include(QtFunctions)
 
 # Find packages
 find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+set(QT_DEFAULT_MAJOR_VERSION ${QT_DEFAULT_MAJOR_VERSION} PARENT_SCOPE)
+
 find_package(OpenGL REQUIRED)
 
 # Qt
@@ -20,6 +22,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} # Moc
 )
+
 qt_wrap_ui(gui_uis ${gui_uis})
 
 add_library(
