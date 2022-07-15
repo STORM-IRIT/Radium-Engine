@@ -30,18 +30,15 @@ static void error( int errnum, const char* errmsg ) {
               << "0x" << std::hex << errnum << std::dec << ": " << errmsg << std::endl;
 }
 
-OpenGLContext::OpenGLContext( const std::string& glVersion, const std::array<int, 2>& size ) {
+OpenGLContext::OpenGLContext( const glbinding::Version& glVersion,
+                              const std::array<int, 2>& size ) {
     // initialize openGL
-    std::istringstream in { glVersion };
-    int glMajor, glMinor;
-    char dot;
-    in >> glMajor >> dot >> glMinor;
     if ( glfwInit() ) {
         glfwSetErrorCallback( error );
         glfwDefaultWindowHints();
         glfwWindowHint( GLFW_VISIBLE, false );
-        glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, glMajor );
-        glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, glMinor );
+        glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, glVersion.majorVersion() );
+        glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, glVersion.minorVersion() );
         glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, true );
         glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
         m_glfwContext =
@@ -60,8 +57,7 @@ OpenGLContext::OpenGLContext( const std::string& glVersion, const std::array<int
     }
     if ( code != GLFW_NO_ERROR ) {
         std::cerr << "OpenGL context creation failed. Terminate execution." << std::endl;
-        std::cerr << "\tError code : 0x" << std::hex << code << std::dec << std::endl
-                  << "\t error string : " << description << std::endl;
+        error( code, description );
         glfwTerminate();
         std::exit( -1 );
     }

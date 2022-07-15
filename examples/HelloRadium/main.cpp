@@ -13,7 +13,7 @@
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
     Ra::Gui::BaseApplication app( argc, argv );
-    std::string glVersion { "4.4" };
+    glbinding::Version glVersion { 4, 4 };
     app.initialize( Ra::Gui::SimpleWindowFactory {}, glVersion );
     app.addRadiumMenu();
     //! [Creating the application]
@@ -21,8 +21,8 @@ int main( int argc, char* argv[] ) {
     //! [Verifying the OpenGL version available to the engine]
     if ( glVersion != app.m_engine->getOpenGLVersion() ) {
         LOG( Ra::Core::Utils::logWARNING )
-            << "OpenGL version mismatch : requested " << glVersion << " -- available "
-            << app.m_engine->getOpenGLVersion() << std::endl;
+            << "OpenGL version mismatch : requested " << glVersion.toString() << " -- available "
+            << app.m_engine->getOpenGLVersion().toString() << std::endl;
     }
     //! [Verifying the OpenGL version available to the engine]
 
