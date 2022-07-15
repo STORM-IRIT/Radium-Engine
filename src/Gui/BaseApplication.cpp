@@ -245,10 +245,14 @@ BaseApplication::BaseApplication( int& argc,
     Gui::KeyMappingManager::createInstance();
 }
 
-void BaseApplication::initialize( const WindowFactory& factory ) {
+void BaseApplication::initialize( const WindowFactory& factory, const std::string& glVersion ) {
     // Create default format for Qt.
+    std::istringstream in { glVersion };
+    int glMajor, glMinor;
+    char dot;
+    in >> glMajor >> dot >> glMinor;
     QSurfaceFormat format;
-    format.setVersion( 4, 4 );
+    format.setVersion( glMajor, glMinor );
     format.setProfile( QSurfaceFormat::CoreProfile );
     format.setDepthBufferSize( 24 );
     format.setStencilBufferSize( 8 );
