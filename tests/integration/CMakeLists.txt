@@ -112,6 +112,57 @@ else()
 endif()
 
 # -----------------------------------------------------------------------------
+# ------------- run examples --------------------------------------------------
+# -----------------------------------------------------------------------------
+add_test(NAME integration_CoreExample WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+         COMMAND "$<TARGET_FILE:CoreExample>"
+)
+add_dependencies(integration CoreExample)
+
+set(INTEGRATION_TEST "HeadlessExample")
+
+if(UNIX)
+    find_program(XVFB_EXECUTABLE xvfb-run)
+    find_program(COMPARE_EXECUTABLE compare)
+
+    if(XVFB_EXECUTABLE)
+        add_test(NAME integration_${INTEGRATION_TEST} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+                 COMMAND ${XVFB_EXECUTABLE} -a "$<TARGET_FILE:${INTEGRATION_TEST}>"
+        )
+        add_dependencies(integration ${INTEGRATION_TEST})
+        add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
+
+        add_custom_command(
+            TARGET integration_${INTEGRATION_TEST}_create_ref
+            PRE_BUILD
+            COMMAND
+                ${XVFB_EXECUTABLE} -a "$<TARGET_FILE:${INTEGRATION_TEST}>" && cp
+                "${CMAKE_CURRENT_BINARY_DIR}/frame.png"
+                "${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png" DEPENDS
+                integration_${INTEGRATION_TEST}
+        )
+    else()
+        message(
+            STATUS
+                "could not run ${INTEGRATION_TEST} integration test, missing tools ${XVFB_EXECUTABLE}"
+        )
+    endif()
+    if(XVFB_EXECUTABLE AND COMPARE_EXECUTABLE)
+        add_test(
+            NAME integration_${INTEGRATION_TEST}_compare_to_ref
+            COMMAND
+                ${COMPARE_EXECUTABLE} -metric RMSE -fuzz 10%
+                "${CMAKE_CURRENT_BINARY_DIR}/frame.png"
+                "${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png" null
+        )
+    else()
+        message(
+            STATUS
+                "could not run ${INTEGRATION_TEST} integration test, missing tools ${XVFB_EXECUTABLE}, ${COMPARE_EXECUTABLE}"
+        )
+    endif()
+endif()
+# -----------------------------------------------------------------------------
 # ------------- includes ------------------------------------------------------
 # -----------------------------------------------------------------------------
 
