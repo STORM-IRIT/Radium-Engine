@@ -7,7 +7,6 @@
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Rendering/RenderObjectTypes.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 
