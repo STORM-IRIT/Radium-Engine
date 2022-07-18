@@ -9,6 +9,8 @@
 
 #include <nlohmann/json.hpp>
 
+#include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
+
 namespace Ra {
 namespace Engine {
 namespace Data {
@@ -18,9 +20,7 @@ class RenderParameters;
 } // namespace Engine
 
 namespace Gui {
-namespace Widgets {
-class ControlPanel;
-}
+
 /**
  * \brief Simple Widget for Material/RenderParameter edition
  * A material editor will show information about the selected material and expose a control panel
@@ -76,26 +76,6 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
     void materialParametersModified( const std::string& name );
 
   private:
-    template <typename T>
-    void addEnumParameterWidget( const std::string& name,
-                                 T initial,
-                                 Ra::Engine::Data::RenderParameters& params,
-                                 const nlohmann::json& paramMetadata );
-    template <typename T>
-    void addNumberParameterWidget( const std::string& name,
-                                   T initial,
-                                   Ra::Engine::Data::RenderParameters& params,
-                                   const nlohmann::json& metadata );
-    template <typename T>
-    void addVectorParameterWidget( const std::string& key,
-                                   const std::vector<T>& initial,
-                                   Ra::Engine::Data::RenderParameters& params,
-                                   const nlohmann::json& metadata );
-    template <typename T>
-    void addMatrixParameterWidget( const std::string& key,
-                                   const T& initial,
-                                   Ra::Engine::Data::RenderParameters& params,
-                                   const nlohmann::json& metadata );
     /// The label containing the instance name of the material
     QLabel* m_matInstanceNameLabel;
     /// The label containing the name of the material
@@ -105,7 +85,7 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
     /// The layout containing the control panel
     QVBoxLayout* m_matParamsLayout;
     /// The control panel re-generated whenever setupFromMaterial is called
-    Widgets::ControlPanel* m_parametersControlPanel;
+    ParameterSetEditor* m_parametersControlPanel;
     /// wether to show the unspecified materials
     bool m_showUnspecified = false;
 

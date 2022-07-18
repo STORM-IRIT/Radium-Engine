@@ -11,19 +11,31 @@
 namespace Ra {
 namespace Gui {
 namespace Widgets {
-/**
- * A Widget to edit vectors
- */
-class RA_GUI_API VectorEditor : public QWidget
+
+class RA_GUI_API VectorEditorSignals : public QWidget
 {
     Q_OBJECT
   public:
+    explicit VectorEditorSignals( QWidget* parent = nullptr ) : QWidget( parent ) {}
+  signals:
+    void valueChanged( const std::vector<int>& );
+    void valueChanged( const std::vector<unsigned int>& );
+    void valueChanged( const std::vector<float>& );
+    void valueChanged( const std::vector<double>& );
+};
+/**
+ * A Widget to edit vectors
+ */
+template <typename T = Scalar>
+class RA_GUI_API VectorEditor : public VectorEditorSignals
+{
+  public:
+    using WidgetType = typename QtSpinBox::getType<T>::Type;
+    using SignalType = typename QtSpinBox::getType<T>::SignalType;
     /** Constructors
      */
     /** @{ */
-    explicit VectorEditor( const std::vector<double>& vector,
-                           int dec         = 3,
-                           QWidget* parent = nullptr );
+    explicit VectorEditor( const std::vector<T>& vector, QWidget* parent = nullptr );
     VectorEditor( const VectorEditor& ) = delete;
     VectorEditor& operator=( const VectorEditor& ) = delete;
     VectorEditor( VectorEditor&& )                 = delete;
@@ -33,14 +45,13 @@ class RA_GUI_API VectorEditor : public QWidget
     /**
      * @return the value of the vector
      */
-    const std::vector<double>& vector();
-
-  signals:
-    void valueChanged( const std::vector<double>& );
+    const std::vector<T>& vector() const;
 
   private:
-    std::vector<double> m_vector;
+    std::vector<T> m_vector;
 };
 } // namespace Widgets
 } // namespace Gui
 } // namespace Ra
+
+#include <Gui/Widgets/VectorEditor.inl>

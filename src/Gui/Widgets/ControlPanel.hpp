@@ -121,13 +121,12 @@ class RA_GUI_API ControlPanel : public QFrame
      * \param tooltip The tooltip text
      * \param dec The display precision (decimals) of the value
      */
-
     template <typename T = Scalar>
     void addNumberInput( const std::string& name,
                          std::function<void( T )> callback,
                          T initial,
-                         T min                      = 0,
-                         T max                      = 100,
+                         T min                      = std::numeric_limits<T>::lowest(),
+                         T max                      = std::numeric_limits<T>::max(),
                          const std::string& tooltip = "",
                          int dec                    = 3 );
 
@@ -191,10 +190,10 @@ class RA_GUI_API ControlPanel : public QFrame
      * \param dec The display precision (decimals) of the value
      * \param tooltip The tooltip text
      */
+    template <typename T = Scalar>
     void addVectorInput( const std::string& name,
-                         std::function<void( const std::vector<double>& )> callback,
-                         const std::vector<double>& initial,
-                         int dec                    = 3,
+                         std::function<void( const std::vector<T>& )> callback,
+                         const std::vector<T>& initial,
                          const std::string& tooltip = "" );
 
     /** Add a matrix input.

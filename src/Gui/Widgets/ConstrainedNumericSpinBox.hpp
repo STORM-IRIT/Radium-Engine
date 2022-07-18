@@ -1,10 +1,9 @@
 #pragma once
 #include <Gui/RaGui.hpp>
 
-#include <QDoubleSpinBox>
-#include <QSpinBox>
-
 #include <QWidget>
+
+#include <Gui/Widgets/QtTypeWrapper.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -31,30 +30,6 @@ class SpinValueValidator
   private:
     Predicate m_p = []( T ) { return true; };
 };
-
-/**
- * \brief Associates Qt spinbox type to a given numeric type
- */
-namespace QtSpinBox {
-template <typename T>
-struct getType {
-    using Type       = QSpinBox;
-    using SignalType = int;
-};
-
-template <>
-struct getType<float> {
-    using Type       = QDoubleSpinBox;
-    using SignalType = double;
-};
-
-template <>
-struct getType<double> {
-    using Type       = QDoubleSpinBox;
-    using SignalType = double;
-};
-
-} // namespace QtSpinBox
 
 /**
  * \brief Constrained input spin box.

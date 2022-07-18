@@ -1,7 +1,6 @@
 #include <Gui/Widgets/ControlPanel.hpp>
 
 #include <Gui/Widgets/MatrixEditor.hpp>
-#include <Gui/Widgets/VectorEditor.hpp>
 
 #include <PowerSlider/PowerSlider.hpp>
 
@@ -26,11 +25,19 @@ ControlPanel::ControlPanel( const std::string& name, bool hline, QWidget* parent
     setLayout( m_currentLayout );
     if ( hline ) {
         auto panelName = new QLabel( this );
-        panelName->setFrameStyle( QFrame::HLine );
+        if ( !name.empty() ) {
+            panelName->setText( name.c_str() );
+            // panelName->setStyleSheet("border-bottom-width: 1px; border-bottom-style: solid;
+            // border-radius: 0px;");
+            panelName->setFrameStyle( QFrame::Box );
+        }
+        else {
+            panelName->setFrameStyle( QFrame::HLine );
+        }
         m_currentLayout->addWidget( panelName );
     }
-    // addSeparator();
     setVisible( false );
+    // setFrameStyle( QFrame::Panel );
     m_layouts.push( m_currentLayout );
 }
 
@@ -76,17 +83,29 @@ void ControlPanel::addSliderInput( const std::string& name,
                                    const std::string& tooltip ) {
     auto inputLayout = new QHBoxLayout();
     auto inputLabel  = new QLabel( tr( name.c_str() ), this );
-    auto inputField  = new QSlider( Qt::Horizontal, this );
+    inputLayout->addWidget( inputLabel );
+    inputLayout->addStretch();
+    auto sliderLayout = new QHBoxLayout();
+    auto inputField   = new QSlider( Qt::Horizontal, this );
     if ( !tooltip.empty() ) {
         inputLabel->setToolTip(
             QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
     }
+    auto spinbox = new QSpinBox( this );
     inputField->setRange( min, max );
     inputField->setValue( initial );
-    inputLayout->addWidget( inputLabel );
-    inputLayout->addStretch();
-    inputLayout->addWidget( inputField );
+    inputField->setTickPosition( QSlider::TicksAbove );
+    inputField->setTickInterval( 1 );
+    inputField->setFocusPolicy( Qt::StrongFocus );
+    spinbox->setRange( min, max );
+    spinbox->setValue( initial );
+    connect( inputField, &QSlider::valueChanged, [spinbox]( auto v ) { spinbox->setValue( v ); } );
+    connect(
+        spinbox, &QSpinBox::valueChanged, [inputField]( auto v ) { inputField->setValue( v ); } );
     connect( inputField, &QSlider::valueChanged, std::move( callback ) );
+    sliderLayout->addWidget( inputField );
+    sliderLayout->addWidget( spinbox );
+    inputLayout->addLayout( sliderLayout );
     m_currentLayout->addLayout( inputLayout );
 }
 
@@ -111,26 +130,6 @@ void ControlPanel::addPowerSliderInput( const std::string& name,
     inputLayout->addStretch();
     inputLayout->addWidget( inputField );
     connect( inputField, &PowerSlider::valueChanged, std::move( callback ) );
-    m_currentLayout->addLayout( inputLayout );
-}
-
-void ControlPanel::addVectorInput( const std::string& name,
-                                   std::function<void( const std::vector<double>& )> callback,
-                                   const std::vector<double>& initial,
-                                   int dec,
-                                   const std::string& tooltip ) {
-    auto inputLayout = new QHBoxLayout();
-
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
-    auto inputField = new VectorEditor( initial, dec, this );
-
-    if ( !tooltip.empty() ) {
-        inputLabel->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
-    }
-    inputLayout->addWidget( inputLabel );
-    inputLayout->addWidget( inputField );
-    connect( inputField, &VectorEditor::valueChanged, std::move( callback ) );
     m_currentLayout->addLayout( inputLayout );
 }
 
