@@ -20,7 +20,8 @@ using namespace Ra::Core::Utils;
 
 constexpr int defaultSystemPriority = 1000;
 
-CLIViewer::CLIViewer() : CLIBaseApplication(), m_glContext {} {
+CLIViewer::CLIViewer( const glbinding::Version& glVersion ) :
+    CLIBaseApplication(), m_glContext { glVersion } {
     // add ->required() to force user to give a filename;
     addOption( "-f,--file", m_parameters.m_dataFile, "Data file to process." )
         ->check( CLI::ExistingFile );

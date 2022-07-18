@@ -26,28 +26,38 @@ using namespace gl;
 using namespace glbinding;
 
 static void error( int errnum, const char* errmsg ) {
-    globjects::critical() << errnum << ": " << errmsg << std::endl;
+    std::cerr << "OpenGLContext::GLFW error -- "
+              << "0x" << std::hex << errnum << std::dec << ": " << errmsg << std::endl;
 }
 
-OpenGLContext::OpenGLContext( const std::array<int, 2>& size ) {
+OpenGLContext::OpenGLContext( const glbinding::Version& glVersion,
+                              const std::array<int, 2>& size ) {
     // initialize openGL
     if ( glfwInit() ) {
         glfwSetErrorCallback( error );
         glfwDefaultWindowHints();
         glfwWindowHint( GLFW_VISIBLE, false );
-        glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 4 );
-        glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 1 );
+        glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, glVersion.majorVersion() );
+        glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, glVersion.minorVersion() );
         glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, true );
         glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
         m_glfwContext =
             glfwCreateWindow( size[0], size[1], "Radium CommandLine Context", nullptr, nullptr );
     }
-    if ( m_glfwContext == nullptr ) {
+    const char* description;
+    int code = glfwGetError( &description );
+    if ( code == GLFW_VERSION_UNAVAILABLE ) {
+        // if the requested opengl version is not available, try to get the recommended version
+        // (4.1)
+        glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 4 );
+        glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 1 );
+        m_glfwContext =
+            glfwCreateWindow( size[0], size[1], "Radium CommandLine Context", nullptr, nullptr );
+        code = glfwGetError( &description );
+    }
+    if ( code != GLFW_NO_ERROR ) {
         std::cerr << "OpenGL context creation failed. Terminate execution." << std::endl;
-        const char* description;
-        int code = glfwGetError( &description );
-        std::cerr << "\tError code :" << code << std::endl
-                  << "\t error string : " << description << std::endl;
+        error( code, description );
         glfwTerminate();
         std::exit( -1 );
     }

@@ -13,9 +13,18 @@
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
     Ra::Gui::BaseApplication app( argc, argv );
-    app.initialize( Ra::Gui::SimpleWindowFactory {} );
+    glbinding::Version glVersion { 4, 4 };
+    app.initialize( Ra::Gui::SimpleWindowFactory {}, glVersion );
     app.addRadiumMenu();
     //! [Creating the application]
+
+    //! [Verifying the OpenGL version available to the engine]
+    if ( glVersion != app.m_engine->getOpenGLVersion() ) {
+        LOG( Ra::Core::Utils::logWARNING )
+            << "OpenGL version mismatch : requested " << glVersion.toString() << " -- available "
+            << app.m_engine->getOpenGLVersion().toString() << std::endl;
+    }
+    //! [Verifying the OpenGL version available to the engine]
 
     //! [Creating the cube]
     auto cube = Ra::Core::Geometry::makeSharpBox( { 0.1f, 0.1f, 0.1f } );
