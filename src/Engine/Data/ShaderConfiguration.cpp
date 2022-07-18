@@ -1,6 +1,7 @@
 #include <Core/Resources/Resources.hpp>
 #include <Engine/Data/ShaderConfiguration.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
+#include <glbinding/Version.h>
 
 /**
  * Plain will be the default shader program
@@ -162,7 +163,7 @@ ShaderConfiguration::getNamedStrings() const {
 
 std::string ShaderConfiguration::s_glslVersion { "410" };
 
-void ShaderConfiguration::setOpenGLVersion( const std::string& version ) {
+void ShaderConfiguration::setOpenGLVersion( const glbinding::Version& version ) {
     std::map<std::string, std::string> openGLToGLSL { { "2.0", "110" },
                                                       { "2.1", "120" },
                                                       { "3.0", "130" },
@@ -176,7 +177,7 @@ void ShaderConfiguration::setOpenGLVersion( const std::string& version ) {
                                                       { "4.4", "440" },
                                                       { "4.5", "450" },
                                                       { "4.6", "460" } };
-    auto it = openGLToGLSL.find( version );
+    auto it = openGLToGLSL.find( version.toString() );
     if ( it != openGLToGLSL.end() ) { s_glslVersion = it->second; }
     else {
         s_glslVersion = "410";

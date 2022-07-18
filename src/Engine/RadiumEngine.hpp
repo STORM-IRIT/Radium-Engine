@@ -4,6 +4,7 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Singleton.hpp>
 
+#include <glbinding/Version.h>
 #include <map>
 #include <memory>
 #include <stack>
@@ -67,6 +68,13 @@ class RA_ENGINE_API RadiumEngine
      *   All initialisations will be done in the bound openGl context.
      */
     void initializeGL();
+
+    /**
+     * \brief Get the currently used OpenGL version.
+     * \return the initialized glbinding::Version
+     * If openGL is not initialize, version is not valid (e.g. Version.isValid() == false)
+     */
+    glbinding::Version getOpenGLVersion() const;
 
     /**
      * Free all resources acquired during initialize
@@ -320,6 +328,8 @@ class RA_ENGINE_API RadiumEngine
     std::string getResourcesDir() { return m_resourcesRootDir; }
 
   private:
+    /// The OpenGL version used by the engine, can be read without Context active.
+    glbinding::Version m_glVersion {};
     /**
      * Register default shaders, materials and named strings
      */
