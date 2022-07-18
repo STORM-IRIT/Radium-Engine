@@ -23,6 +23,9 @@ MatrixEditor::MatrixEditor( const Ra::Core::MatrixN& matrix, int dec, QWidget* p
             auto spinbox = new QDoubleSpinBox();
             spinbox->setDecimals( dec );
             spinbox->setValue( elem );
+            spinbox->setMinimum( std::numeric_limits<Scalar>::lowest() );
+            spinbox->setMaximum( std::numeric_limits<Scalar>::max() );
+
             layout->addWidget( spinbox, i, j );
             auto updateMatrixOnChange = [this, &elem]( double value ) {
                 elem = value;
