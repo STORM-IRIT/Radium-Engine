@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.48</span>
+   &#160;<span id="projectnumber">1.2.49</span>
    </div>
   </td>
  </tr>
@@ -193,8 +193,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>selectedItem</b> (con
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a206dc5c82ced974ba84956de4cb8cd26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a206dc5c82ced974ba84956de4cb8cd26">BaseApplication</a> (int &amp;argc, char **argv, QString applicationName=&quot;RadiumEngine&quot;, QString organizationName=&quot;STORM-IRIT&quot;)</td></tr>
 <tr class="separator:a206dc5c82ced974ba84956de4cb8cd26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46ddcfcbd872c4e7e29aac63a3d521fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a46ddcfcbd872c4e7e29aac63a3d521fb">initialize</a> (const WindowFactory &amp;factory)</td></tr>
-<tr class="separator:a46ddcfcbd872c4e7e29aac63a3d521fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bcb4912dc4edb9e7c3a05f9697dfc5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a8bcb4912dc4edb9e7c3a05f9697dfc5e">initialize</a> (const WindowFactory &amp;factory, const glbinding::Version &amp;glVersion={ 4, 1 })</td></tr>
+<tr class="separator:a8bcb4912dc4edb9e7c3a05f9697dfc5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace35b8a957082a5c72c54c5088a6f437"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#ace35b8a957082a5c72c54c5088a6f437">engineBaseInitialization</a> ()</td></tr>
 <tr class="separator:ace35b8a957082a5c72c54c5088a6f437"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af7ea85d1a58e2e3581a8a97f81e7b0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a2af7ea85d1a58e2e3581a8a97f81e7b0">addApplicationExtension</a> ()</td></tr>
@@ -354,7 +354,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class contains the main application logic. It owns the engine and the GUI. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00029">29</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00031">31</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a206dc5c82ced974ba84956de4cb8cd26"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a206dc5c82ced974ba84956de4cb8cd26">&#9670;&nbsp;</a></span>BaseApplication()</h2>
@@ -491,7 +491,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <li></li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00119">119</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8hpp_source.html#l00123">123</a> of file <a class="el" href="BaseApplication_8hpp_source.html">BaseApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -511,7 +511,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 </div><div class="memdoc">
 <p>Open the QSetting editor for the current application </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000081">Todo:</a></b></dt><dd>implement the editor </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00766">766</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00767">767</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -543,12 +543,12 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 </ul>
 <p>The default implementation also configure the time system according to the user requested frame rate (app command line argument -framerate) or to the default 60fps. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00373">373</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00374">374</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a46ddcfcbd872c4e7e29aac63a3d521fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46ddcfcbd872c4e7e29aac63a3d521fb">&#9670;&nbsp;</a></span>initialize()</h2>
+<a id="a8bcb4912dc4edb9e7c3a05f9697dfc5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bcb4912dc4edb9e7c3a05f9697dfc5e">&#9670;&nbsp;</a></span>initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -557,8 +557,18 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
           <td class="memname">void Ra::Gui::BaseApplication::initialize </td>
           <td>(</td>
           <td class="paramtype">const WindowFactory &amp;&#160;</td>
-          <td class="paramname"><em>factory</em></td><td>)</td>
+          <td class="paramname"><em>factory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const glbinding::Version &amp;&#160;</td>
+          <td class="paramname"><em>glVersion</em> = <code>{&#160;4,&#160;1&#160;}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -586,6 +596,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">factory</td><td>: a functor that instanciate the mainWindow </td></tr>
+    <tr><td class="paramname">glVersion</td><td>: glbinding::Version of the requested OpenGL Version. If no version is given, the default recommended version for Radium (4.1) will be requested. </td></tr>
   </table>
   </dd>
 </dl>
@@ -599,7 +610,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1BaseApplication_a46ddcfcbd872c4e7e29aac63a3d521fb_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1BaseApplication_a8bcb4912dc4edb9e7c3a05f9697dfc5e_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -629,7 +640,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 </div><div class="memdoc">
 <p>slot called once the application window and its OpenGL services are ready. TODO : rename this to be more representative of post opengl &amp; gui operations </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00544">544</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00545">545</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -674,7 +685,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 </div><div class="memdoc">
 <p>Load plugins from the specified folder. If loadList is empty, attempts to load all DLLs in the folder (except those on the ignore list) If loadList contains names it will only look for DLLs in that folder with the given name. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00580">580</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00581">581</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -696,7 +707,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html">BaseApplication</a></li>
-    <li class="footer">Generated on Fri Jul 15 2022 08:38:16 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 18 2022 06:06:05 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

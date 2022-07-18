@@ -1,12 +1,13 @@
 var classRa_1_1Headless_1_1CLIViewer =
 [
-    [ "CLIViewer", "classRa_1_1Headless_1_1CLIViewer.html#a9680b6eb40620a7542032b7c9561670d", null ],
+    [ "CLIViewer", "classRa_1_1Headless_1_1CLIViewer.html#a719318e96a913fe243272c963d40045a", null ],
     [ "~CLIViewer", "classRa_1_1Headless_1_1CLIViewer.html#a2e0eb12c974c7a1eed6a7dfb938a898c", null ],
     [ "addDataFileLoader", "classRa_1_1Headless_1_1CLIViewer.html#a25b1ed478e9263f096e6533f3bff9a99", null ],
     [ "bindOpenGLContext", "classRa_1_1Headless_1_1CLIViewer.html#a655a4efaf27d60d1f7bf5d0530d54c03", null ],
     [ "compileScene", "classRa_1_1Headless_1_1CLIViewer.html#ae3e8afdbe2862a37e78a8d2780765571", null ],
     [ "getCommandLineParameters", "classRa_1_1Headless_1_1CLIViewer.html#a53433db4b0074b802d6db1258c23a337", null ],
     [ "getDataFileName", "classRa_1_1Headless_1_1CLIViewer.html#a5366a801abfbbe8bd26c3cf16e95619d", null ],
+    [ "getEngine", "classRa_1_1Headless_1_1CLIViewer.html#a11f484fbb7d7798a45e2990a3fed7292", null ],
     [ "getWindow", "classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c", null ],
     [ "grabFrame", "classRa_1_1Headless_1_1CLIViewer.html#a55222c0430456d683740e5102ace0a68", null ],
     [ "init", "classRa_1_1Headless_1_1CLIViewer.html#a199bd6c52650d5ae6a9b00754a445b73", null ],
@@ -19,5 +20,6 @@ var classRa_1_1Headless_1_1CLIViewer =
     [ "setDataFileName", "classRa_1_1Headless_1_1CLIViewer.html#a7b3b276e97c53f65b9df707da6fa1e0c", null ],
     [ "setImageNamePrefix", "classRa_1_1Headless_1_1CLIViewer.html#a5157a8c82134ed48de46ed1a384f3315", null ],
     [ "setRenderer", "classRa_1_1Headless_1_1CLIViewer.html#a776e954e74aa6631b5cfbdd2d27382fc", null ],
-    [ "showWindow", "classRa_1_1Headless_1_1CLIViewer.html#a1db79e131a45fe816c868f194ea67a12", null ]
+    [ "showWindow", "classRa_1_1Headless_1_1CLIViewer.html#a1db79e131a45fe816c868f194ea67a12", null ],
+    [ "m_engine", "classRa_1_1Headless_1_1CLIViewer.html#a07fddbb77f4a69d85672e5a833c63448", null ]
 ];

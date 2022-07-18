@@ -17,7 +17,7 @@ var classRa_1_1Gui_1_1BaseApplication =
     [ "getExportFolderName", "classRa_1_1Gui_1_1BaseApplication.html#afca678119eaec906225a89a57de7c6ea", null ],
     [ "getFrameCount", "classRa_1_1Gui_1_1BaseApplication.html#a0a809bf7d03d516047c365457f2ba043", null ],
     [ "getHelpText", "classRa_1_1Gui_1_1BaseApplication.html#a9a91a4de67b4a0886fa70ed0e53c3048", null ],
-    [ "initialize", "classRa_1_1Gui_1_1BaseApplication.html#a46ddcfcbd872c4e7e29aac63a3d521fb", null ],
+    [ "initialize", "classRa_1_1Gui_1_1BaseApplication.html#a8bcb4912dc4edb9e7c3a05f9697dfc5e", null ],
     [ "initializeGl", "classRa_1_1Gui_1_1BaseApplication.html#a6c00e85efcad67823ec51dad9d3a0d98", null ],
     [ "isRunning", "classRa_1_1Gui_1_1BaseApplication.html#acc56ded35e12ed379689322bdd157968", null ],
     [ "isUpdateNeeded", "classRa_1_1Gui_1_1BaseApplication.html#a2dfa7d8c7bb70a0ae4edab0979577167", null ],

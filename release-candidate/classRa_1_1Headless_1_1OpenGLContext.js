@@ -6,7 +6,7 @@ var classRa_1_1Headless_1_1OpenGLContext =
       [ "TIMEOUT", "group__window.html#gga6b9387dfd25cfc93f6f504cc5bda9817a070a0fb40f6c308ab544b227660aadff", null ],
       [ "NUM_MODES", "group__window.html#gga6b9387dfd25cfc93f6f504cc5bda9817a14c0cf4d663946795addcc2a6a7c029a", null ]
     ] ],
-    [ "OpenGLContext", "group__context.html#ga4e6a6f1633c5e7379f886bef00c065bb", null ],
+    [ "OpenGLContext", "group__context.html#ga65b9302e0098c3e3f1c370f4d966f927", null ],
     [ "~OpenGLContext", "group__context.html#ga4cd9ffa4fc7d7629b15e2e3cb97b715f", null ],
     [ "doneCurrent", "group__context.html#ga294af2892fbb87ec8bd168ce5ca79353", null ],
     [ "getInfo", "group__context.html#ga935a7352a5ee0ab0f51ecd2dcf1b96bd", null ],

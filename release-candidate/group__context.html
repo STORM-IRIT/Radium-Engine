@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.48</span>
+   &#160;<span id="projectnumber">1.2.49</span>
    </div>
   </td>
  </tr>
@@ -104,8 +104,8 @@ $(document).ready(function(){initNavTree('group__context.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga4e6a6f1633c5e7379f886bef00c065bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__context.html#ga4e6a6f1633c5e7379f886bef00c065bb">Ra::Headless::OpenGLContext::OpenGLContext</a> (const std::array&lt; int, 2 &gt; &amp;size={ 1, 1 })</td></tr>
-<tr class="separator:ga4e6a6f1633c5e7379f886bef00c065bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65b9302e0098c3e3f1c370f4d966f927"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__context.html#ga65b9302e0098c3e3f1c370f4d966f927">Ra::Headless::OpenGLContext::OpenGLContext</a> (const glbinding::Version &amp;glVersion={ 4, 1 }, const std::array&lt; int, 2 &gt; &amp;size={ 1, 1 })</td></tr>
+<tr class="separator:ga65b9302e0098c3e3f1c370f4d966f927"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4cd9ffa4fc7d7629b15e2e3cb97b715f"><td class="memItemLeft" align="right" valign="top"><a id="ga4cd9ffa4fc7d7629b15e2e3cb97b715f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__context.html#ga4cd9ffa4fc7d7629b15e2e3cb97b715f">Ra::Headless::OpenGLContext::~OpenGLContext</a> ()</td></tr>
 <tr class="memdesc:ga4cd9ffa4fc7d7629b15e2e3cb97b715f"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
@@ -129,8 +129,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Ra::Headless::
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>These methods allow to create and manipulate an openGLContext. Using this function, the openGL context created is an offscreen context with no exposed window. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga4e6a6f1633c5e7379f886bef00c065bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4e6a6f1633c5e7379f886bef00c065bb">&#9670;&nbsp;</a></span>OpenGLContext()</h2>
+<a id="ga65b9302e0098c3e3f1c370f4d966f927"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga65b9302e0098c3e3f1c370f4d966f927">&#9670;&nbsp;</a></span>OpenGLContext()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,9 +141,19 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Ra::Headless::
         <tr>
           <td class="memname">Ra::Headless::OpenGLContext::OpenGLContext </td>
           <td>(</td>
-          <td class="paramtype">const std::array&lt; int, 2 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>size</em> = <code>{&#160;1,&#160;1&#160;}</code></td><td>)</td>
+          <td class="paramtype">const glbinding::Version &amp;&#160;</td>
+          <td class="paramname"><em>glVersion</em> = <code>{&#160;4,&#160;1&#160;}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::array&lt; int, 2 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>size</em> = <code>{&#160;1,&#160;1&#160;}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -155,9 +165,10 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Ra::Headless::
 
 <p><code>#include &lt;/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Headless/OpenGLContext/OpenGLContext.hpp&gt;</code></p>
 <p>Create an offscreen openGl context. The created context has the following properties</p><ul>
-<li>OpenGL version requested : &gt;= 4.1</li>
+<li>OpenGL version requested : (default &gt;= 4.1)</li>
 <li>OpenGL context profile : Core Profile The created context is associated with a hidden window that can be shown later. <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">glVersion</td><td>(optional, default is 4.1) indicates the OpenGL version the context MUST be compatible with. If there is no compatible context, the application will stop </td></tr>
     <tr><td class="paramname">size</td><td></td></tr>
   </table>
   </dd>
@@ -165,7 +176,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Ra::Headless::
 </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLContext_8cpp_source.html#l00032">32</a> of file <a class="el" href="OpenGLContext_8cpp_source.html">OpenGLContext.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OpenGLContext_8cpp_source.html#l00033">33</a> of file <a class="el" href="OpenGLContext_8cpp_source.html">OpenGLContext.cpp</a>.</p>
 
 </div>
 </div>
@@ -174,7 +185,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Ra::Headless::
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Jul 15 2022 08:38:15 for Radium Engine by
+    <li class="footer">Generated on Mon Jul 18 2022 06:06:04 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
