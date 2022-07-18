@@ -20,7 +20,7 @@
 #include <Engine/Data/ShaderConfigFactory.hpp>
 
 // Gui tools
-#include <Gui/MaterialParameterEditor/MaterialParameterEditor.hpp>
+#include <Gui/ParameterSetEditor/MaterialParameterEditor.hpp>
 
 // radium file loading
 #include <Core/Asset/FileLoaderInterface.hpp>
@@ -133,7 +133,8 @@ class DemoWindow : public Ra::Gui::SimpleWindow
         m_matParamsEditor = new Ra::Gui::MaterialParameterEditor;
 
         // Update the viewer whenever a parameter gets modified
-        auto on_materialParametersModified = [this]( const std::string& ) {
+        auto on_materialParametersModified = [this]( const std::string& nm ) {
+            std::cout << "Edited parameter : " << nm << "\n";
             if ( m_editedRo ) {
                 // manage transparency status changes
                 // TODO this should be done automatically by Material/renderTechnique update

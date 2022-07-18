@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 cmake_policy(SET CMP0042 NEW)
 
-project(MaterialEditionDemoApp VERSION 0.0.1)
+project(ParameterEdition VERSION 1.0.0)
 
 # ------------------------------------------------------------------------------
 # set wanted application defaults for cmake settings
@@ -23,40 +23,39 @@ set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 # ------------------------------------------------------------------------------
-find_package(Radium REQUIRED COMPONENTS Gui)
+find_package(Radium REQUIRED Gui)
 
 find_qt_package(COMPONENTS Core Widgets REQUIRED)
 set(Qt_LIBRARIES Qt::Core Qt::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 # ------------------------------------------------------------------------------
-option(USE_RADIUMGLTF "Enable loading/saving files with RadiumGltf extension" OFF)
-
-if(USE_RADIUMGLTF)
-    message(STATUS "Material editor demo uses RadiumGltf extension")
-    # TODO : find why this find_package is needed (at least on MacOs whe ).
-    find_package(OpenMP QUIET)
-    find_package(RadiumGlTF REQUIRED)
-endif()
-# --------------------------------------------------------------------------------------------------
 
 set(app_sources main.cpp)
 
-set(app_headers)
+# to install the app as a redistribuable bundle on macos, add MACOSX_BUNDLE when calling
+# add_executable
+add_executable(${PROJECT_NAME} ${app_sources})
 
-set(app_uis)
-qt_wrap_ui(app_uis_moc ${app_uis})
-
-set(app_resources)
-
-add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_resources})
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+    target_compile_options(
+        ${PROJECT_NAME}
+        PRIVATE /MP
+                /W4
+                /wd4251
+                /wd4592
+                /wd4127
+                /Zm200
+                $<$<CONFIG:Release>:
+                /Gw
+                /GS-
+                /GL
+                /GF
+                >
+        PUBLIC
+    )
+endif()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Gui ${Qt_LIBRARIES})
-
-if(USE_RADIUMGLTF)
-    target_compile_definitions(${PROJECT_NAME} PUBLIC USE_RADIUMGLTF)
-    target_link_libraries(${PROJECT_NAME} PUBLIC RadiumGlTF::RadiumGlTF)
-endif()
 
 configure_radium_app(NAME ${PROJECT_NAME})
