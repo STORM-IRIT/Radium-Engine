@@ -1,7 +1,7 @@
 # -------------- Configuration of Radium IO targets and definitions -----------
 # Setup IO and check for dependencies
 
-# TODO : verify if this is needed
+# TODO: verify if this is needed
 if (IO_FOUND AND NOT TARGET IO)
     set(Configure_IO ON)
     # verify dependencies
@@ -11,7 +11,7 @@ if (IO_FOUND AND NOT TARGET IO)
             set(Core_FOUND TRUE)
         else()
             set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::IO : dependency Core not found")
+            set(Radium_NOT_FOUND_MESSAGE "Radium::IO: dependency Core not found")
             set(Configure_IO OFF)
         endif()
     endif()
