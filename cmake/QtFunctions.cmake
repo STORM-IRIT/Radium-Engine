@@ -36,3 +36,19 @@ endmacro()
 macro(find_qt_dependency)
     find_qt_package(${ARGN})
 endmacro()
+
+macro(check_and_set_qt_version RADIUM_QT_DEFAULT_MAJOR_VERSION)
+    if(NOT RADIUM_QT_DEFAULT_MAJOR_VERSION STREQUAL "")
+        if(QT_DEFAULT_MAJOR_VERSION AND NOT QT_DEFAULT_MAJOR_VERSION STREQUAL
+                                        "${RADIUM_QT_DEFAULT_MAJOR_VERSION}"
+        )
+            message(
+                FATAL_ERROR
+                    " Radium was compiled with Qt${RADIUM_QT_DEFAULT_MAJOR_VERSION}"
+                    " while current project defines Qt${QT_DEFAULT_MAJOR_VERSION}\n"
+                    " set correct version with -DQT_DEFAULT_MAJOR_VERSION=${RADIUM_QT_DEFAULT_MAJOR_VERSION}"
+            )
+        endif()
+        set(QT_DEFAULT_MAJOR_VERSION ${RADIUM_QT_DEFAULT_MAJOR_VERSION})
+    endif()
+endmacro()
