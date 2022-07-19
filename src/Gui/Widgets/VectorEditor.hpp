@@ -27,7 +27,7 @@ class RA_GUI_API VectorEditorSignals : public QWidget
  * A Widget to edit vectors
  */
 template <typename T = Scalar>
-class RA_GUI_API VectorEditor : public VectorEditorSignals
+class VectorEditor : public VectorEditorSignals
 {
   public:
     using WidgetType = typename QtSpinBox::getType<T>::Type;
