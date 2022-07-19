@@ -69,6 +69,9 @@ RADIUM_ENABLE_COVERAGE:BOOL=OFF
 // Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples.
 RADIUM_ENABLE_EXAMPLES:BOOL=OFF
 
+// Enable precompiled headers.
+RADIUM_ENABLE_PCH:BOOL=OFF
+
 // Enable testing. Tests are automatically built with target all, run with target check or test.
 RADIUM_ENABLE_TESTING:BOOL=ON
 
@@ -121,6 +124,11 @@ RADIUM_USE_DOUBLE:BOOL=OFF
 All radium related cmake options (with their current values) can be printed with `cmake -LAH | grep -B1 RADIUM` (on linux like system)
 
 \warning For computers with low RAM capacities (under 12G) we recommend to set the `CMAKE_BUILD_PARALLEL_LEVEL` environment variable to a reasonable value (i.e. 2) to prevent the computer from swapping.
+
+### Precompiled headers
+
+Radium build can take benefit of precompiled headers. To do so, set `RADIUM_ENABLE_PCH=ON` (OFF by default) at cmake configure time.
+Compilation speedup depends on what files you are currently editing, and full compilation is roughly 20% less with precompiled header enabled.
 
 ### Dependencies between libraries
 
