@@ -159,6 +159,8 @@ If qt is installed system wide (likely on linux), `-DQt5_DIR` is not needed.
 
 \note Qt6 support is experimental. To enable it, replace `-DQt5_DIR=path/to/qt5` by `-DQt6_DIR=path/to/qt6`.
 
+If both Qt5 and Qt6 are installed system wide, Qt6 is the default, `-DQT_DEFAULT_MAJOR_VERSION=5` allow select Qt5. During client application cmake setup `find_package(Radium COMPONENTS ... Gui ...)` will check Qt version consistency.
+
 \note Running the `install` target is recommended as it will copy all the radium related library in the same place,
 generate the cmake packages and bundle applications with their dependencies (on macos and windows).
 
