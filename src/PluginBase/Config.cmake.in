@@ -18,20 +18,7 @@ endif()
 
 if(Configure_PluginBase)
     include(${CMAKE_CURRENT_LIST_DIR}/../QtFunctions.cmake)
-    if(NOT "@QT_DEFAULT_MAJOR_VERSION@" STREQUAL "")
-        if(QT_DEFAULT_MAJOR_VERSION AND NOT QT_DEFAULT_MAJOR_VERSION STREQUAL
-                                        "@QT_DEFAULT_MAJOR_VERSION@"
-        )
-            message(
-                FATAL_ERROR
-                    " Radium::PluginBase was compiled with Qt@QT_DEFAULT_MAJOR_VERSION@"
-                    " while current project defines Qt${QT_DEFAULT_MAJOR_VERSION}\n"
-                    " set correct version with -DQT_DEFAULT_MAJOR_VERSION=@QT_DEFAULT_MAJOR_VERSION@"
-            )
-        endif()
-        set(QT_DEFAULT_MAJOR_VERSION "@QT_DEFAULT_MAJOR_VERSION@")
-    endif()
-
+    check_and_set_qt_version("@QT_DEFAULT_MAJOR_VERSION@")
     find_qt_dependency(COMPONENTS Core REQUIRED)
     include("${CMAKE_CURRENT_LIST_DIR}/PluginBaseTargets.cmake")
     if(MSVC OR MSVC_IDE OR MINGW)
