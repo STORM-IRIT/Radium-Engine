@@ -151,9 +151,10 @@ if(UNIX)
         add_test(
             NAME integration_${INTEGRATION_TEST}_compare_to_ref
             COMMAND
-                ${COMPARE_EXECUTABLE} -metric RMSE -fuzz 10%
-                "${CMAKE_CURRENT_BINARY_DIR}/frame.png"
-                "${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png" null
+                bash -c
+                "${COMPARE_EXECUTABLE} -metric PHASH \"${CMAKE_CURRENT_BINARY_DIR}/frame.png\" \"${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png\" null: > \"${CMAKE_CURRENT_BINARY_DIR}/value\" 2>&1;\
+                VALUE=$(cat \"${CMAKE_CURRENT_BINARY_DIR}/value\");\
+                if (( $(echo \"\${VALUE} > 0.01\" |bc -l) )); then false; fi"
         )
     else()
         message(
