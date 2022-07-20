@@ -5,25 +5,37 @@
 #include <ostream>
 #include <stdexcept>
 
+#include <typeinfo>
+
 namespace Ra {
 namespace Core {
 namespace Geometry {
 
 MultiIndexedGeometry::MultiIndexedGeometry( const MultiIndexedGeometry& other ) :
     AttribArrayGeometry( other ) {
+    std::cerr << "MultiIndexedGeometry & other\n";
     deepCopy( other );
 }
 
 MultiIndexedGeometry::MultiIndexedGeometry( MultiIndexedGeometry&& other ) :
-    AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {}
+    AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {
+
+    std::cerr << "MultiIndexedGeometry && other\n";
+}
 
 MultiIndexedGeometry::MultiIndexedGeometry( const AttribArrayGeometry& other ) :
-    AttribArrayGeometry( other ) {}
+    AttribArrayGeometry( other ) {
+    std::cerr << "MultiIndexedGeometry & other\n";
+}
 
 MultiIndexedGeometry::MultiIndexedGeometry( AttribArrayGeometry&& other ) :
-    AttribArrayGeometry( std::move( other ) ) {}
+    AttribArrayGeometry( std::move( other ) ) {
+    std::cerr << "MultiIndexedGeometry Atrib && other\n";
+}
 
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometry& other ) {
+    std::cerr << "MultiIndexedGeometry = & other\n";
+
     invalidateAabb();
     AttribArrayGeometry::operator=( other );
     deepCopy( other );
@@ -32,6 +44,8 @@ MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometr
 }
 
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( MultiIndexedGeometry&& other ) {
+    std::cerr << "MultiIndexedGeometry = && other\n";
+
     invalidateAabb();
     AttribArrayGeometry::operator=( std::move( other ) );
     m_indices = std::move( other.m_indices );
@@ -126,8 +140,12 @@ size_t MultiIndexedGeometry::countLayers( const LayerSemanticCollection& semanti
 std::pair<MultiIndexedGeometry::LayerKeyType, const GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemantic& semanticName ) const {
     for ( const auto& [key, value] : m_indices ) {
-        if ( key.first.find( semanticName ) != key.first.end() )
+        if ( key.first.find( semanticName ) != key.first.end() ) {
+
+            auto& tmp = *( value.second.get() );
+            std::cerr << "get typeinfo " << typeid( tmp ).name() << "\n";
             return { key, *( value.second.get() ) };
+        }
     }
     throw std::out_of_range( "Layer entry not found" );
 }
@@ -215,6 +233,9 @@ std::pair<bool, GeometryIndexLayerBase&>
 MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
                                 const bool withLock,
                                 const std::string& layerName ) {
+
+    auto& tmp1 = *( layer.get() );
+    std::cerr << "add layer typeinfo " << typeid( tmp1 ).name() << "\n";
     LayerKeyType key { layer->semantics(), layerName };
     auto elt             = std::make_pair( key, std::make_pair( false, std::move( layer ) ) );
     auto [pos, inserted] = m_indices.insert( std::move( elt ) );
@@ -224,8 +245,10 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
         CORE_ASSERT( !pos->second.first, "try to get already locked layer" );
         pos->second.first = true;
     }
-    /// If not inserted, the pointer is deleted. So the caller must ensure this possible deletion
-    /// is safe before calling this method.
+    /// If not inserted, the pointer is deleted. So the caller must ensure this possible
+    /// deletion is safe before calling this method.
+    auto& tmp = *( pos->second.second.get() );
+    std::cerr << "add layer inserted typeinfo " << typeid( tmp ).name() << "\n";
 
     return { inserted, *( pos->second.second ) };
 }

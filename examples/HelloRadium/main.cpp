@@ -27,7 +27,9 @@ int main( int argc, char* argv[] ) {
     //! [Verifying the OpenGL version available to the engine]
 
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.1f, 0.1f, 0.1f } );
+    std::cerr << "CREATE CUBE\n";
+    auto cube { std::move( Ra::Core::Geometry::makeSharpBox2( { 0.1f, 0.1f, 0.1f } ) ) };
+    std::cerr << "DONE CUBE\n";
     //! [Creating the cube]
 
     //! [Colorize the Cube]
