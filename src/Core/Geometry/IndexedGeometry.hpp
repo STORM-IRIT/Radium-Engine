@@ -63,7 +63,7 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
 
     inline size_t getSize() const override final;
 
-    inline std::unique_ptr<GeometryIndexLayerBase> clone() override final;
+    inline std::unique_ptr<GeometryIndexLayerBase> clone() override;
 
     inline size_t getNumberOfComponents() const override final;
 
@@ -383,6 +383,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \brief Clear attributes stored as pointers
     void deepClear();
 
+    /// bool -> locked, ptr -> actual data
     using LayerEntryType = std::pair<bool, std::unique_ptr<GeometryIndexLayerBase>>;
 
   public:
@@ -400,14 +401,25 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     std::unordered_map<LayerKeyType, LayerEntryType, LayerKeyHash> m_indices;
 };
 
+#define INDEX_LAYER_CLONE_IMPLEMENTATION( TYPE )                      \
+    inline std::unique_ptr<GeometryIndexLayerBase> clone() override { \
+        auto copy          = std::make_unique<TYPE>( *this );         \
+        copy->collection() = collection();                            \
+        return copy;                                                  \
+    }
+
 /// \name Predefined index layers
 /// The use of these layers helps in generic management of geometries
 /// \{
 
 /// \brief Index layer for a point cloud
 struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
+    using base = GeometryIndexLayer<Vector1ui>;
     /// \brief Constructor of an empty layer
     inline PointCloudIndexLayer();
+    inline PointCloudIndexLayer( const PointCloudIndexLayer& other )            = default;
+    inline PointCloudIndexLayer& operator=( const PointCloudIndexLayer& other ) = default;
+    inline PointCloudIndexLayer& operator=( PointCloudIndexLayer&& other )      = default;
 
     /// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
     /// \f$n-1\f$
@@ -417,6 +429,7 @@ struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
     void linearIndices( const AttribArrayGeometry& attr );
 
     static constexpr const char* staticSemanticName = "PointCloud";
+    INDEX_LAYER_CLONE_IMPLEMENTATION( PointCloudIndexLayer )
 
   protected:
     template <class... SemanticNames>
@@ -428,6 +441,7 @@ struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
 struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
     inline TriangleIndexLayer();
     static constexpr const char* staticSemanticName = "TriangleMesh";
+    INDEX_LAYER_CLONE_IMPLEMENTATION( TriangleIndexLayer )
 
   protected:
     template <class... SemanticNames>
@@ -439,6 +453,7 @@ struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
 struct RA_CORE_API QuadIndexLayer : public GeometryIndexLayer<Vector4ui> {
     inline QuadIndexLayer();
     static constexpr const char* staticSemanticName = "QuadMesh";
+    INDEX_LAYER_CLONE_IMPLEMENTATION( QuadIndexLayer )
 
   protected:
     template <class... SemanticNames>
@@ -451,6 +466,7 @@ struct RA_CORE_API QuadIndexLayer : public GeometryIndexLayer<Vector4ui> {
 struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
     inline PolyIndexLayer();
     static constexpr const char* staticSemanticName = "PolyMesh";
+    INDEX_LAYER_CLONE_IMPLEMENTATION( PolyIndexLayer )
 
   protected:
     template <class... SemanticNames>
@@ -462,6 +478,7 @@ struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
 struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
     inline LineIndexLayer();
     static constexpr const char* staticSemanticName = "LineMesh";
+    INDEX_LAYER_CLONE_IMPLEMENTATION( LineIndexLayer )
 
   protected:
     template <class... SemanticNames>
@@ -469,6 +486,8 @@ struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
 };
 
 /// \}
+
+#undef INDEX_LAYER_CLONE_IMPLEMENTATION
 
 /// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
 /// This class will be marked as deprecated soon.
