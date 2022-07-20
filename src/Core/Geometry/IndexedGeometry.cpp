@@ -215,7 +215,7 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
                                 const bool withLock,
                                 const std::string& layerName ) {
     LayerKeyType key { layer->semantics(), layerName };
-    std::pair<LayerKeyType, EntryType> elt { key, std::make_pair( false, std::move( layer ) ) };
+    auto elt             = std::make_pair( key, std::make_pair( false, std::move( layer ) ) );
     auto [pos, inserted] = m_indices.insert( std::move( elt ) );
     notify();
 
@@ -245,7 +245,7 @@ void MultiIndexedGeometry::deepClear() {
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-std::size_t MultiIndexedGeometry::KeyHash::operator()( const LayerKeyType& k ) const {
+std::size_t MultiIndexedGeometry::LayerKeyHash::operator()( const LayerKeyType& k ) const {
     // Mix semantic collection into a single identifier string
     std::ostringstream stream;
     std::copy( k.first.begin(), k.first.end(), std::ostream_iterator<std::string>( stream, "" ) );
