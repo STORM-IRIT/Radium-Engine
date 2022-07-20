@@ -383,18 +383,19 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \brief Clear attributes stored as pointers
     void deepClear();
 
-    using EntryType = std::pair<bool, std::unique_ptr<GeometryIndexLayerBase>>;
+    using LayerEntryType = std::pair<bool, std::unique_ptr<GeometryIndexLayerBase>>;
 
-    struct RA_CORE_API KeyHash {
+    struct RA_CORE_API LayerKeyHash {
         std::size_t operator()( const LayerKeyType& k ) const;
     };
 
+  private:
     /// Collection of pairs <lockStatus, Indices>
     /// \note There is no natural ordering for these elements, thus
     /// we need an unordered_map. In contrast to map, transparent hashing
     /// require c++20, so we need to implement them explicitely here
     /// https://en.cppreference.com/w/cpp/container/unordered_map/find
-    std::unordered_map<LayerKeyType, EntryType, KeyHash> m_indices;
+    std::unordered_map<LayerKeyType, LayerEntryType, LayerKeyHash> m_indices;
 };
 
 /// \name Predefined index layers
@@ -762,6 +763,7 @@ inline void IndexedGeometry<T>::setIndices( IndexContainerType&& indices ) {
     auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
     static_cast<IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection() =
         std::move( indices );
+    indicesUnlock();
     notify();
 }
 
@@ -769,6 +771,7 @@ template <typename T>
 inline void IndexedGeometry<T>::setIndices( const IndexContainerType& indices ) {
     auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
     static_cast<IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection() = indices;
+    indicesUnlock();
     notify();
 }
 
