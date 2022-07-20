@@ -1,3 +1,6 @@
+#include <Core/Geometry/IndexedGeometry.hpp>
+#include <Core/Utils/TypesUtils.hpp>
+#include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderConfiguration.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
@@ -202,6 +205,29 @@ void computeIndices( Core::Geometry::LineMesh::IndexContainerType& indices,
     indices.erase( std::unique( indices.begin(), indices.end() ), indices.end() );
 }
 
+template <typename IndexContainerType>
+void computeIndices2( Core::Geometry::LineIndexLayer::IndexContainerType& indices,
+                      const IndexContainerType& other ) {
+
+    for ( const auto& index : other ) {
+        auto s = index.size();
+        for ( unsigned int i = 0; i < s; ++i ) {
+            int i1 = index[i];
+            int i2 = index[( i + 1 ) % s];
+            if ( i1 > i2 ) std::swap( i1, i2 );
+            indices.emplace_back( i1, i2 );
+        }
+    }
+
+    std::sort( indices.begin(),
+               indices.end(),
+               []( const Core::Geometry::LineMesh::IndexType& a,
+                   const Core::Geometry::LineMesh::IndexType& b ) {
+                   return a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] );
+               } );
+    indices.erase( std::unique( indices.begin(), indices.end() ), indices.end() );
+}
+
 // store LineMesh and Core, define the observer functor to update data one core update for wireframe
 // linemesh
 template <typename CoreGeometry>
@@ -254,6 +280,34 @@ void setupLineMesh( std::shared_ptr<Data::LineMesh>& disp, CoreGeometry& core ) 
         core.attach( IndicesUpdater( disp, core ) );
     }
     else { disp.reset(); }
+}
+
+// create a linemesh to draw wireframe given a core mesh
+template <typename IndexLayer>
+void setupLineMesh( Data::GeometryDisplayable& displayable, const std::string& name ) {
+
+    std::cerr << "setup line mesh\n";
+    auto lineLayer     = std::make_unique<Core::Geometry::LineIndexLayer>();
+    auto& indices      = lineLayer->collection();
+    auto& coreGeometry = displayable.getCoreGeometry();
+
+    if ( coreGeometry.containsLayer( IndexLayer::staticSemanticName ) ) {
+        auto layerOccurence =
+            coreGeometry.getFirstLayerOccurrence( IndexLayer::staticSemanticName );
+        auto& layer = dynamic_cast<const IndexLayer&>( layerOccurence.second );
+        computeIndices2( indices, layer.collection() );
+
+        if ( indices.size() > 0 ) {
+
+            Geometry::MultiIndexedGeometry::LayerKeyType lineKey = {
+                { Core::Geometry::LineIndexLayer::staticSemanticName }, name };
+            auto layerAdded = coreGeometry.addLayer( std::move( lineLayer ), false, name );
+            if ( !layerAdded.first ) { LOG( logERROR ) << "failed to add wireframe"; }
+            else {
+                displayable.addRenderLayer( lineKey, Data::AttribArrayDisplayable::RM_LINES );
+            }
+        }
+    }
 }
 
 void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData ) {
@@ -391,13 +445,13 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
     // shader.
     // This pass render in its own FBO and copy the result to the main colortexture
     if ( m_lightmanagers[0]->count() > 0 ) {
-        if ( !m_volumetricRenderObjects.empty() ) {
+    if ( !m_volumetricRenderObjects.empty() ) {
 
-            m_volumeFbo->bind();
-            GL_ASSERT( glDrawBuffers( 1, buffers ) );
+        m_volumeFbo->bind();
+        GL_ASSERT( glDrawBuffers( 1, buffers ) );
             static const auto alpha = Core::Utils::Color::Alpha().cast<GL_SCALAR_PLAIN>().eval();
-            GL_ASSERT( glClearBufferfv( GL_COLOR, 0, alpha.data() ) );
-            GL_ASSERT( glDisable( GL_BLEND ) );
+        GL_ASSERT( glClearBufferfv( GL_COLOR, 0, alpha.data() ) );
+        GL_ASSERT( glDisable( GL_BLEND ) );
 
             Data::RenderParameters composeParams;
             composeParams.addParameter( "imageColor", m_textures[RendererTextures_HDR].get() );
@@ -405,30 +459,30 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             Data::RenderParameters passParams;
             passParams.addParameter( "compose_data", composeParams );
 
-            for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
-                const auto l = m_lightmanagers[0]->getLight( i );
+        for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
+            const auto l = m_lightmanagers[0]->getLight( i );
 
                 passParams.addParameter( "light_source", l->getRenderParameters() );
 
-                for ( const auto& ro : m_volumetricRenderObjects ) {
+            for ( const auto& ro : m_volumetricRenderObjects ) {
                     ro->render(
                         passParams, renderData, DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
-                }
             }
-            m_volumeFbo->unbind();
-            m_fbo->bind();
-            GL_ASSERT( glDrawBuffers( 1, buffers ) );
-            GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
-            GL_ASSERT( glEnable( GL_BLEND ) );
-            GL_ASSERT( glBlendFunc( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
-            {
-                auto shader = m_shaderProgramManager->getShaderProgram( "ComposeVolume" );
-                shader->bind();
-                shader->setUniform( "volumeImage", m_textures[RendererTextures_Volume].get(), 0 );
-                m_quadMesh->render( shader );
-            }
-            GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
         }
+        m_volumeFbo->unbind();
+        m_fbo->bind();
+        GL_ASSERT( glDrawBuffers( 1, buffers ) );
+        GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
+        GL_ASSERT( glEnable( GL_BLEND ) );
+        GL_ASSERT( glBlendFunc( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
+        {
+            auto shader = m_shaderProgramManager->getShaderProgram( "ComposeVolume" );
+            shader->bind();
+            shader->setUniform( "volumeImage", m_textures[RendererTextures_Volume].get(), 0 );
+            m_quadMesh->render( shader );
+        }
+        GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
+    }
     }
 
     if ( m_wireframe ) {
@@ -448,6 +502,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             if ( it == m_wireframes.end() ) {
                 std::shared_ptr<Data::LineMesh> disp;
 
+                using dispmesh = Ra::Engine::Data::GeometryDisplayable;
                 using trimesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::TriangleMesh>;
                 using polymesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh>;
                 using quadmesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::QuadMesh>;
@@ -456,6 +511,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 auto tm          = std::dynamic_pointer_cast<trimesh>( displayable );
                 auto tp          = std::dynamic_pointer_cast<polymesh>( displayable );
                 auto tq          = std::dynamic_pointer_cast<quadmesh>( displayable );
+                auto td          = std::dynamic_pointer_cast<dispmesh>( displayable );
 
                 auto processLineMesh = []( auto cm, std::shared_ptr<Data::LineMesh>& lm ) {
                     if ( cm->getRenderMode() ==
@@ -466,6 +522,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 if ( tm ) { processLineMesh( tm, disp ); }
                 if ( tp ) { processLineMesh( tp, disp ); }
                 if ( tq ) { processLineMesh( tq, disp ); }
+                //    if ( td ) { setupLineMesh() }
 
                 m_wireframes[ro.get()] = disp;
                 wro                    = disp;
@@ -485,6 +542,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                     shader->setUniform( "transform.view", renderData.viewMatrix );
                     shader->setUniform( "transform.model", modelMatrix );
                     shader->setUniform( "viewport", Core::Vector2 { m_width, m_height } );
+                    shader->setUniform( "pixelWidth", 1.8f );
                     wro->render( shader );
 
                     GL_CHECK_ERROR;
@@ -492,8 +550,83 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             }
         };
 
+        auto drawWireframeNew = [this, &renderData]( const auto& ro ) {
+            auto displayable = ro->getMesh();
+            using dispmesh   = Ra::Engine::Data::GeometryDisplayable;
+            auto td          = std::dynamic_pointer_cast<dispmesh>( displayable );
+            if ( td ) {
+                using namespace Core::Geometry;
+                using LayerKeyType   = Core::Geometry::MultiIndexedGeometry::LayerKeyType;
+                using LineIndexLayer = Core::Geometry::LineIndexLayer;
+
+                auto& coreGeom = td->getCoreGeometry();
+
+                LayerKeyType lineKey = { { LineIndexLayer::staticSemanticName },
+                                         "wireframe triangles" };
+
+                LayerKeyType lineKey2 = { { LineIndexLayer::staticSemanticName },
+                                          "wireframe main" };
+
+                bool hasTriangleLayer =
+                    coreGeom.containsLayer( TriangleIndexLayer::staticSemanticName );
+                bool hasQuadLayer = coreGeom.containsLayer( QuadIndexLayer::staticSemanticName );
+                bool hasPolyLayer = coreGeom.containsLayer( PolyIndexLayer::staticSemanticName );
+
+                if ( hasTriangleLayer && !coreGeom.containsLayer( lineKey ) ) {
+                    std::cerr << "setup line\n";
+                    setupLineMesh<TriangleIndexLayer>( *td, "wireframe triangles" );
+                }
+
+                if ( hasPolyLayer && !coreGeom.containsLayer( lineKey2 ) ) {
+                    std::cerr << "setup main line from poly\n";
+                    setupLineMesh<PolyIndexLayer>( *td, "wireframe main" );
+                }
+                else if ( hasQuadLayer && !coreGeom.containsLayer( lineKey2 ) ) {
+                    std::cerr << "setup main line from quad\n";
+                    setupLineMesh<QuadIndexLayer>( *td, "wireframe main" );
+                }
+
+                const Data::ShaderProgram* shader =
+                    m_shaderProgramManager->getShaderProgram( "Wireframe" );
+
+                if ( shader && ro->isVisible() ) {
+                    GL_CHECK_ERROR;
+                    td->updateGL();
+                    GL_CHECK_ERROR;
+                    shader->bind();
+                    GL_CHECK_ERROR;
+
+                    Core::Matrix4 modelMatrix = ro->getTransformAsMatrix();
+                    shader->setUniform( "transform.proj", renderData.projMatrix );
+                    shader->setUniform( "transform.view", renderData.viewMatrix );
+                    shader->setUniform( "transform.model", modelMatrix );
+                    shader->setUniform( "viewport", Core::Vector2 { m_width, m_height } );
+                    if ( hasTriangleLayer && ( hasQuadLayer || hasPolyLayer ) )
+                        shader->setUniform( "pixelWidth", 1.2f );
+                    else
+                        shader->setUniform( "pixelWidth", 2.8f );
+
+                    GL_CHECK_ERROR;
+                    td->render( shader, lineKey );
+
+                    if ( ( hasQuadLayer || hasPolyLayer ) ) {
+                        shader->setUniform( "pixelWidth", 2.8f );
+                        GL_CHECK_ERROR;
+                        td->render( shader, lineKey2 );
+                    }
+
+                    GL_CHECK_ERROR;
+                }
+            }
+            else {
+                std::cerr << "could not convert to geom disp "
+                          << Ra::Core::Utils::demangleType( displayable ) << "\n";
+            }
+        };
+
         for ( const auto& ro : m_fancyRenderObjects ) {
-            drawWireframe( ro );
+            //            drawWireframe( ro );
+            drawWireframeNew( ro );
         }
         for ( const auto& ro : m_transparentRenderObjects ) {
             drawWireframe( ro );
@@ -558,30 +691,30 @@ void ForwardRenderer::uiInternal( const Data::ViewingParameters& renderData ) {
             }
             else {
 
-                // bind data
-                shader->bind();
+            // bind data
+            shader->bind();
 
-                Core::Matrix4 M  = ro->getTransformAsMatrix();
-                Core::Matrix4 MV = renderData.viewMatrix * M;
-                Core::Vector3 V  = MV.block<3, 1>( 0, 3 );
-                Scalar d         = V.norm();
+            Core::Matrix4 M  = ro->getTransformAsMatrix();
+            Core::Matrix4 MV = renderData.viewMatrix * M;
+            Core::Vector3 V  = MV.block<3, 1>( 0, 3 );
+            Scalar d         = V.norm();
 
-                Core::Matrix4 S    = Core::Matrix4::Identity();
-                S.coeffRef( 0, 0 ) = S.coeffRef( 1, 1 ) = S.coeffRef( 2, 2 ) = d;
+            Core::Matrix4 S    = Core::Matrix4::Identity();
+            S.coeffRef( 0, 0 ) = S.coeffRef( 1, 1 ) = S.coeffRef( 2, 2 ) = d;
 
-                M = M * S;
+            M = M * S;
 
-                shader->setUniform( "transform.proj", renderData.projMatrix );
-                shader->setUniform( "transform.view", renderData.viewMatrix );
-                shader->setUniform( "transform.model", M );
+            shader->setUniform( "transform.proj", renderData.projMatrix );
+            shader->setUniform( "transform.view", renderData.viewMatrix );
+            shader->setUniform( "transform.model", M );
 
-                auto shaderParameter = ro->getRenderTechnique()->getParametersProvider();
-                if ( shaderParameter != nullptr ) shaderParameter->getParameters().bind( shader );
+            auto shaderParameter = ro->getRenderTechnique()->getParametersProvider();
+            if ( shaderParameter != nullptr ) shaderParameter->getParameters().bind( shader );
 
-                // render
-                ro->getMesh()->render( shader );
-            }
+            // render
+            ro->getMesh()->render( shader );
         }
+    }
     }
     m_uiXrayFbo->unbind();
 }

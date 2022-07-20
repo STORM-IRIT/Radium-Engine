@@ -344,6 +344,7 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
                                   typename Core::Geometry::MultiIndexedGeometry&& geom );
     virtual ~GeometryDisplayable();
     void render( const ShaderProgram* prog ) override;
+    void render( const ShaderProgram* prog, const LayerKeyType& key );
 
     ///@{
     /**  Returns the underlying CoreGeometry as an Core::Geometry::AbstractGeometry */
@@ -402,7 +403,7 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     void setupCoreMeshObservers();
 
     /// assume m_vao is bound.
-    void autoVertexAttribPointer( const ShaderProgram* prog );
+    void autoVertexAttribPointer( const ShaderProgram* prog, const LayerKeyType& key );
 
     /// m_mesh Observer method, called whenever an attrib is added or removed from
     /// m_mesh.
@@ -443,9 +444,10 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     /// "main" triangle layer
     LayerKeyType m_activeLayerKey;
 
-    using VBOCollection = std::vector<VBOEntryType>;
+    /// \todo use this in place of m_vbos
+    //    using VBOCollection = std::vector<VBOEntryType>;
     /// Collection of VBOs for per-vertex attributes
-    VBOCollection m_attribVBOs;
+    //    VBOCollection m_attribVBOs;
 
     using TranslationTable = std::map<std::string, std::string>;
     TranslationTable m_translationTableMeshToShader;
