@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/Geometry/TopologicalMesh.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
@@ -64,6 +65,18 @@ RA_CORE_API TriangleMesh makeSharpBox( const Vector3& halfExts = Vector3( .5_ra,
 
 /// Create an axis-aligned cubic mesh
 RA_CORE_API TriangleMesh makeSharpBox( const Aabb& aabb,
+                                       const Utils::optional<Utils::Color>& color = {},
+                                       bool generateTexCoord                      = false );
+
+/// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
+RA_CORE_API MultiIndexedGeometry makeSharpBox2( const Vector3& halfExts = Vector3( .5_ra,
+                                                                                   .5_ra,
+                                                                                   .5_ra ),
+                                                const Utils::optional<Utils::Color>& color = {},
+                                                bool generateTexCoord = false );
+
+/// Create an axis-aligned cubic mesh
+RA_CORE_API MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
                                        const Utils::optional<Utils::Color>& color = {},
                                        bool generateTexCoord                      = false );
 
