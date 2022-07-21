@@ -30,15 +30,6 @@ set(Qt_LIBRARIES Qt::Core Qt::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# ------------------------------------------------------------------------------
-option(USE_RADIUMGLTF "Enable loading/saving files with RadiumGltf extension" OFF)
-
-if(USE_RADIUMGLTF)
-    message(STATUS "Material editor demo uses RadiumGltf extension")
-    # TODO : find why this find_package is needed (at least on MacOs whe ).
-    find_package(OpenMP QUIET)
-    find_package(RadiumGlTF REQUIRED)
-endif()
 # --------------------------------------------------------------------------------------------------
 
 set(app_sources main.cpp)
@@ -54,7 +45,17 @@ add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_re
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Gui ${Qt_LIBRARIES})
 
+# ------------------------------------------------------------------------------
+# Before RadiumGlTF extension is included in the Radium distribution, the RadiumGlTF might be used
+# from the repository https://gitlab.irit.fr/storm/repos/radium/libgltf.git (branch
+# Material_Edition_#950)
+option(USE_RADIUMGLTF "Enable loading/saving files with RadiumGltf extension" OFF)
+
 if(USE_RADIUMGLTF)
+    message(STATUS "Material editor demo uses RadiumGltf extension")
+    # TODO : find why this find_package is needed (at least on MacOs whe ).
+    find_package(OpenMP QUIET)
+    find_package(RadiumGlTF REQUIRED)
     target_compile_definitions(${PROJECT_NAME} PUBLIC USE_RADIUMGLTF)
     target_link_libraries(${PROJECT_NAME} PUBLIC RadiumGlTF::RadiumGlTF)
 endif()
