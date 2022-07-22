@@ -9,6 +9,7 @@ var dir_a2f0e5642e47e7ed59fe0f0829eafb5f =
     [ "Tasks", "dir_6e64eaae7c83dd6a6b1a1e366964c0d6.html", "dir_6e64eaae7c83dd6a6b1a1e366964c0d6" ],
     [ "Utils", "dir_ff87cf903db18af0fdb6c342683ece25.html", "dir_ff87cf903db18af0fdb6c342683ece25" ],
     [ "CoreMacros.hpp", "CoreMacros_8hpp_source.html", null ],
+    [ "pch.hpp", "Core_2pch_8hpp_source.html", null ],
     [ "RaCore.hpp", "RaCore_8hpp_source.html", null ],
     [ "Types.hpp", "Types_8hpp.html", "Types_8hpp" ]
 ];

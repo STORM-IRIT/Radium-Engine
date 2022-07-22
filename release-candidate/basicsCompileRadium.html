@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.50</span>
+   &#160;<span id="projectnumber">1.2.51</span>
    </div>
   </td>
  </tr>
@@ -150,6 +150,9 @@ Folder structure</h2>
 <div class="line">// Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples.</div>
 <div class="line">RADIUM_ENABLE_EXAMPLES:BOOL=OFF</div>
 <div class="line"> </div>
+<div class="line">// Enable precompiled headers.</div>
+<div class="line">RADIUM_ENABLE_PCH:BOOL=OFF</div>
+<div class="line"> </div>
 <div class="line">// Enable testing. Tests are automatically built with target all, run with target check or test.</div>
 <div class="line">RADIUM_ENABLE_TESTING:BOOL=ON</div>
 <div class="line"> </div>
@@ -199,6 +202,8 @@ Folder structure</h2>
 <div class="line">RADIUM_USE_DOUBLE:BOOL=OFF</div>
 </div><!-- fragment --><p>All radium related cmake options (with their current values) can be printed with <code>cmake -LAH | grep -B1 RADIUM</code> (on linux like system)</p>
 <dl class="section warning"><dt>Warning</dt><dd>For computers with low RAM capacities (under 12G) we recommend to set the <code>CMAKE_BUILD_PARALLEL_LEVEL</code> environment variable to a reasonable value (i.e. 2) to prevent the computer from swapping.</dd></dl>
+<h3>Precompiled headers</h3>
+<p>Radium build can take benefit of precompiled headers. To do so, set <code>RADIUM_ENABLE_PCH=ON</code> (OFF by default) at cmake configure time. Compilation speedup depends on what files you are currently editing, and full compilation is roughly 20% less with precompiled header enabled.</p>
 <h3>Dependencies between libraries</h3>
 <p>The options <code>RADIUM_GENERATE_LIB_XXXX</code> allows to enable/disable each Radium library. The dependencies between libraries are set as follow:</p>
 <div class="fragment"><div class="line">add_dependencies (${ra_engine_target} PUBLIC Radium::Core)</div>
@@ -322,7 +327,7 @@ When compiling the dependencies you may hit the max path length fixed by Microso
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Wed Jul 20 2022 09:58:30 for Radium Engine by
+    <li class="footer">Generated on Fri Jul 22 2022 14:23:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

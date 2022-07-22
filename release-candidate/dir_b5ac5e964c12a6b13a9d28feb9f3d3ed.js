@@ -13,5 +13,6 @@ var dir_b5ac5e964c12a6b13a9d28feb9f3d3ed =
     [ "BaseApplication.cpp", "BaseApplication_8cpp_source.html", null ],
     [ "BaseApplication.hpp", "BaseApplication_8hpp_source.html", null ],
     [ "MainWindowInterface.hpp", "MainWindowInterface_8hpp_source.html", null ],
+    [ "pch.hpp", "Gui_2pch_8hpp_source.html", null ],
     [ "RaGui.hpp", "RaGui_8hpp_source.html", null ]
 ];
