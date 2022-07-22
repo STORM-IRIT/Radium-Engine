@@ -49,7 +49,7 @@ vec3 getEmissiveColor( Material material, vec3 textCoord ) {
 // Du to access to in_vertexColor this does not respect the "Material.glsl" interface as it access
 // data outside the material
 vec4 getDiffuseColor( Material material, vec3 texCoord ) {
-    vec4 dc = vec4( material.kd.rgb, material.alpha * material.kd.a );
+    vec4 dc = vec4( material.kd.rgb, material.alpha );
     if ( material.hasPerVertexKd == 1 ) { dc.rgb = getPerVertexBaseColor().rgb; }
     if ( material.tex.hasKd == 1 ) { dc.rgb = texture( material.tex.kd, texCoord.xy ).rgb; }
     if ( material.tex.hasAlpha == 1 ) { dc.a *= texture( material.tex.alpha, texCoord.xy ).r; }

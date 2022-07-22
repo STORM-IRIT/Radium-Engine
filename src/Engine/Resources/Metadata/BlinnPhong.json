@@ -13,8 +13,8 @@
   },
   "material.kd": {
     "description": "kd",
-    "minItems": 4,
-    "maxItems": 4,
+    "minItems": 3,
+    "maxItems": 3,
     "name": "Diffuse Color",
     "type": "array"
   },
