@@ -212,7 +212,7 @@ jobs:
           -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
           ${{ matrix.config.extra-flags }} \
           -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT \
-          -DRADIUM_USE_DOUBLE=${{ matrix.precision.value }} -DRADIUM_UPDATE_VERSION=OFF \
+          -DRADIUM_USE_DOUBLE=${{ matrix.precision.value }} -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_ENABLE_PCH=ON \
           -DRADIUM_INSTALL_DOC=OFF -DRADIUM_ENABLE_TESTING=ON -DRADIUM_ENABLE_EXAMPLES=ON -DRADIUM_ENABLE_COVERAGE=${{ matrix.coverage }} \
           -C ${{ env.ext-dir }}/radium-options.cmake \
           -DCMAKE_INSTALL_PREFIX=../../install/ \
