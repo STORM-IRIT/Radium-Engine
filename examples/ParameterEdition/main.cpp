@@ -1,4 +1,5 @@
 // Include Radium base application and its simple Gui
+
 #include <Engine/Data/RenderParameters.hpp>
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
 
@@ -8,10 +9,54 @@
 #include <QDialog>
 #include <QVBoxLayout>
 
+#include <typeinfo>
+
 using namespace Ra::Engine::Data;
 using namespace Ra::Gui;
 
 enum Values : int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
+
+template <typename RP>
+void printParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
+    if ( parameters.containsParameter<RP>( p ) )
+        std::cout << parameters.getParameter<RP>( p ).m_value << " ("
+                  << typeid( typename RP::value_type ).name() << ")";
+}
+
+template <typename T, int N>
+void printVectorParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
+    using RP = RenderParameters::TParameter<Eigen::Matrix<T, N, 1>>;
+    if ( parameters.containsParameter<RP>( p ) )
+        std::cout << parameters.getParameter<RP>( p ).m_value.transpose() << " ("
+                  << typeid( typename RP::value_type ).name() << ")";
+}
+
+void printColorParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
+    using RP = RenderParameters::ColorParameter;
+    if ( parameters.containsParameter<RP>( p ) )
+        std::cout << parameters.getParameter<RP>( p ).m_value.transpose() << " ("
+                  << typeid( typename RP::value_type ).name() << ")";
+}
+
+template <typename T, int N, int M>
+void printMatrixParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
+    using RP = RenderParameters::TParameter<Eigen::Matrix<T, N, M>>;
+    if ( parameters.containsParameter<RP>( p ) )
+        std::cout << "\n"
+                  << parameters.getParameter<RP>( p ).m_value << "\n ("
+                  << typeid( typename RP::value_type ).name() << ")";
+}
+
+template <typename T>
+void printCollectionParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
+    using RP = RenderParameters::TParameter<std::vector<T>>;
+    if ( parameters.containsParameter<RP>( p ) ) {
+        std::cout << "\n";
+        auto v = parameters.getParameter<RP>( p ).m_value;
+        std::copy( v.begin(), v.end(), std::ostream_iterator<T>( std::cout, " " ) );
+        std::cout << "\n (" << typeid( typename RP::value_type ).name() << ")";
+    }
+}
 
 int main( int argc, char* argv[] )
 
@@ -115,8 +160,23 @@ int main( int argc, char* argv[] )
 
     editor.setupFromParameters( parameters, parameterSet_metadata );
 
-    auto printParameter = []( const std::string& p ) {
-        std::cout << "Parameter " << p << " was modified.\n";
+    auto printParameter = [&parameters]( const std::string& p ) {
+        std::cout << "Parameter " << p << " was modified. New value is ";
+        printParameterValue<RenderParameters::IntParameter>( parameters, p );
+        printParameterValue<RenderParameters::BoolParameter>( parameters, p );
+        printParameterValue<RenderParameters::UIntParameter>( parameters, p );
+        printParameterValue<RenderParameters::ScalarParameter>( parameters, p );
+        printCollectionParameterValue<int>( parameters, p );
+        printCollectionParameterValue<unsigned int>( parameters, p );
+        printCollectionParameterValue<Scalar>( parameters, p );
+        printVectorParameterValue<Scalar, 2>( parameters, p );
+        printVectorParameterValue<Scalar, 3>( parameters, p );
+        printVectorParameterValue<Scalar, 4>( parameters, p );
+        printColorParameterValue( parameters, p );
+        printMatrixParameterValue<Scalar, 2, 2>( parameters, p );
+        printMatrixParameterValue<Scalar, 3, 3>( parameters, p );
+        printMatrixParameterValue<Scalar, 4, 4>( parameters, p );
+        std::cout << "\n";
     };
 
     QObject::connect( &editor, &ParameterSetEditor::parameterModified, printParameter );
