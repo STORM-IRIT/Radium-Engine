@@ -23,6 +23,15 @@ void RenderParameters::bind( const Data::ShaderProgram* shader ) const {
     m_texParamsVector.bind( shader );
 }
 
+void RenderParameters::addEnumConverter( const std::string& name,
+                                         const std::map<std::string, int>& converter ) {
+    m_enumConverters[name] = converter;
+}
+
+bool RenderParameters::containsEnumConverter( const std::string& name ) {
+    return m_enumConverters.find( name ) != m_enumConverters.end();
+}
+
 void RenderParameters::addParameter( const std::string& name, bool value ) {
     m_boolParamsVector[name] = BoolParameter( name, value );
 }
@@ -85,6 +94,26 @@ void RenderParameters::addParameter( const std::string& name, const Core::Matrix
 
 void RenderParameters::addParameter( const std::string& name, Data::Texture* tex, int texUnit ) {
     m_texParamsVector[name] = TextureParameter( name, tex, texUnit );
+}
+
+void RenderParameters::addParameter(
+    const std::string& name,
+    const std::pair<const std::string&, const std::string&> enumTypeAndValue ) {
+
+    auto converter = m_enumConverters.find( enumTypeAndValue.first );
+    if ( converter != m_enumConverters.end() ) {
+        auto value = converter->second.find( enumTypeAndValue.second );
+        if ( value != converter->second.end() )
+            addParameter( name, value->second );
+        else
+            LOG( Core::Utils::logERROR )
+                << "RenderParameters, value not found in converter " << enumTypeAndValue.first
+                << " " << enumTypeAndValue.second;
+    }
+    else {
+        LOG( Core::Utils::logERROR ) << "RenderParameters, try to set enum value without converter "
+                                     << enumTypeAndValue.first << " " << enumTypeAndValue.second;
+    }
 }
 
 // apply P_FUNC to each m_*ParamsVector

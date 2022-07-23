@@ -251,6 +251,11 @@ class RA_GUI_API ControlPanel : public QFrame
                       int initial,
                       const std::vector<std::string>& items,
                       const std::string& tooltip = "" );
+    void addComboBox( const std::string& name,
+                      std::function<void( const QString& )> callback,
+                      int initial,
+                      const std::vector<std::string>& items,
+                      const std::string& tooltip = "" );
 
     /** Add an arbitrary widget to the ui.
      * \param newWidget The widget to add to the ui.
