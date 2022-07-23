@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <Gui/Widgets/VectorEditor.inl>
@@ -22,7 +23,7 @@ VectorEditor<T>::VectorEditor( const std::vector<T>& vector, QWidget* parent ) :
     QVBoxLayout* layout = new QVBoxLayout;
 
     layout->setContentsMargins( 0, 0, 0, 0 );
-    layout->setSpacing( 6 );
+    layout->setSpacing( 0 );
     for ( auto& elem : m_vector ) {
         auto spinbox = new WidgetType( this );
         spinbox->setMinimum( std::numeric_limits<T>::lowest() );
