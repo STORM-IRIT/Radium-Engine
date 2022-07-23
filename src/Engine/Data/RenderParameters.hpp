@@ -54,6 +54,8 @@ class RA_ENGINE_API RenderParameters final
     class TParameter final : public Parameter
     {
       public:
+        using value_type = T;
+
         TParameter() = default;
         TParameter( const std::string& name, const T& value ) :
             Parameter( name ), m_value( value ) {}
