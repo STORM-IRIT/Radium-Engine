@@ -134,6 +134,9 @@ class RA_ENGINE_API RenderParameters final
     using Mat4Parameter = TParameter<Core::Matrix4>;
 
   public:
+    void addEnumConverter( const std::string& name, const std::map<std::string, int>& converter );
+    bool containsEnumConverter( const std::string& name );
+
     /**
      * Overloaded operators to set shader parameters
      * \{
@@ -155,6 +158,9 @@ class RA_ENGINE_API RenderParameters final
     void addParameter( const std::string& name, const Core::Matrix2& value );
     void addParameter( const std::string& name, const Core::Matrix3& value );
     void addParameter( const std::string& name, const Core::Matrix4& value );
+
+    void addParameter( const std::string& name,
+                       const std::pair<const std::string&, const std::string&> enumTypeAndValue );
 
     /**
      * Adding a texture parameter.
@@ -240,7 +246,10 @@ class RA_ENGINE_API RenderParameters final
 
     UniformBindableSet<TextureParameter> m_texParamsVector;
     /**\}*/
+
+    std::map<std::string, std::map<std::string, int>> m_enumConverters;
 };
+
 /**
  * Interface to define metadata (constraints, description, ...) for the edition of parameter set
  */

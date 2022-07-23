@@ -11,8 +11,7 @@
 using namespace Ra::Engine::Data;
 using namespace Ra::Gui;
 
-/// \todo use magicEnum to manage enumerations, string, value, .... for edition ?
-enum Values : int { VALUE_0, VALUE_1, VALUE_2 };
+enum Values : int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
 
 int main( int argc, char* argv[] )
 
@@ -25,7 +24,7 @@ int main( int argc, char* argv[] )
         "editable": true,
         "type": "boolean"
         },
-    "enum": {
+    "Values": {
         "name": "My Enum",
         "description": "unscoped enum, ranging from 0 to n",
         "type": "enum",
@@ -90,6 +89,11 @@ int main( int argc, char* argv[] )
     //! [Creating the edition dialog]
 
     RenderParameters parameters;
+    std::map<std::string, int> enumConverter = { { "VALUE_0", Values::VALUE_0 },
+                                                 { "VALUE_1", Values::VALUE_1 },
+                                                 { "VALUE_2", Values::VALUE_2 } };
+
+    parameters.addEnumConverter( "Values", enumConverter );
 
     parameters.addParameter( "bool", false );
     parameters.addParameter( "enum", Values::VALUE_0 );

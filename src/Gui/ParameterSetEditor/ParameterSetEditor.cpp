@@ -33,13 +33,25 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
     for ( const auto& value : m["values"] ) {
         items.push_back( value );
     }
-    auto onEnumParameterChanged = [this, &params, &key]( T value ) {
+    auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
+        params.addParameter( key, std::make_pair( key, value.toStdString() ) );
+        emit parameterModified( key );
+    };
+
+    auto onEnumParameterIntChanged = [this, &params, &key]( T value ) {
         params.addParameter( key, value );
         emit parameterModified( key );
     };
+
     std::string description = m.contains( "description" ) ? m["description"] : "";
     std::string nm          = m.contains( "name" ) ? m["name"] : key.c_str();
-    addComboBox( nm, onEnumParameterChanged, initial, items, description );
+    if ( params.containsEnumConverter( key ) )
+        addComboBox( nm, onEnumParameterStringChanged, initial, items, description );
+    else {
+        LOG( Core::Utils::logWARNING )
+            << "ParameterSet don't have converter for enum " << key << " use index<>int instead.";
+        addComboBox( nm, onEnumParameterIntChanged, initial, items, description );
+    }
 }
 
 template <typename T>
