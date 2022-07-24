@@ -3,12 +3,15 @@
 #include <minimalapp.hpp>
 
 #include <Gui/Utils/KeyMappingManager.hpp>
+#include <Gui/Viewer/RotateAroundCameraManipulator.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
 #include <QMainWindow>
 #include <QOpenGLContext>
 
 using namespace Ra;
+using namespace Ra::Gui;
+
 MinimalApp::MinimalApp( int& argc, char** argv ) :
     QApplication( argc, argv ),
     m_engine( nullptr ),
@@ -61,11 +64,15 @@ void MinimalApp::initialize() {
     viewerWidget->setAutoFillBackground( false );
 
     m_viewer->setupKeyMappingCallbacks();
+    auto keyMappingManager = KeyMappingManager::getInstance();
+    keyMappingManager->addListener(
+        RotateAroundCameraManipulator::KeyMapping::configureKeyMapping );
 
     connect( m_viewer.get(),
              &Ra::Gui::Viewer::requestEngineOpenGLInitialization,
              this,
-             &MinimalApp::onGLInitialized );
+             &MinimalApp::onRequestEngineOpenGLInitialization );
+    connect( m_viewer.get(), &Ra::Gui::Viewer::glInitialized, this, &MinimalApp::onGLInitialized );
     connect( this, &QGuiApplication::lastWindowClosed, m_viewer.get(), &Gui::WindowQt::cleanupGL );
 
     CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
@@ -80,14 +87,20 @@ void MinimalApp::initialize() {
 }
 
 void MinimalApp::onGLInitialized() {
-    std::cout << "engine gl init\n";
-    // initialize here the OpenGL part of the engine used by the application
-    m_engine->initializeGL();
     // add the renderer
     std::shared_ptr<Ra::Engine::Rendering::Renderer> e(
         new Ra::Engine::Rendering::ForwardRenderer() );
     m_viewer->addRenderer( e );
+
+    m_viewer->setCameraManipulator( new RotateAroundCameraManipulator(
+        *( m_viewer->getCameraManipulator() ), m_viewer.get() ) );
+
     connect( m_frameTimer, &QTimer::timeout, this, &MinimalApp::frame );
+}
+
+void MinimalApp::onRequestEngineOpenGLInitialization() {
+    // initialize here the OpenGL part of the engine used by the application
+    m_engine->initializeGL();
 }
 
 void MinimalApp::frame() {

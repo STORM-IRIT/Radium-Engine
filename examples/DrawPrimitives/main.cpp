@@ -5,7 +5,6 @@
 #include <QOpenGLContext>
 
 #include <Engine/Scene/EntityManager.hpp>
-#include <Gui/Viewer/RotateAroundCameraManipulator.hpp>
 
 #include <minimalapp.hpp>
 #include <minimalradium.hpp>
@@ -31,12 +30,6 @@ int main( int argc, char* argv[] ) {
 
     // prepare the viewer to render the scene (i.e. build RenderTechniques for the active renderer)
     app.m_viewer->prepareDisplay();
-
-    auto keyMappingManager = KeyMappingManager::getInstance();
-    keyMappingManager->addListener(
-        RotateAroundCameraManipulator::KeyMapping::configureKeyMapping );
-    app.m_viewer->setCameraManipulator( new ::RotateAroundCameraManipulator(
-        *( app.m_viewer->getCameraManipulator() ), app.m_viewer.get() ) );
 
     // Start the app.
     app.m_frameTimer->start();
