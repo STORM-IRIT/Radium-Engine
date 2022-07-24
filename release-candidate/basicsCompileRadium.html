@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.52</span>
+   &#160;<span id="projectnumber">1.2.53</span>
    </div>
   </td>
  </tr>
@@ -220,9 +220,9 @@ Command line instructions for building (on windows, mac and linux)</h2>
 <div class="fragment"><div class="line">cmake . -B build-r -DCMAKE_BUILD_TYPE=Release -C external/install-r/radium-options.cmake -DQt5_DIR=path/to/qt5</div>
 <div class="line">cmake --build build-r --target install --parallel</div>
 </div><!-- fragment --><p>If qt is installed system wide (likely on linux), <code>-DQt5_DIR</code> is not needed.</p>
-<dl class="section note"><dt>Note</dt><dd>Qt6 support is experimental. To enable it, replace <code>-DQt5_DIR=path/to/qt5</code> by <code>-DQt6_DIR=path/to/qt6</code>.</dd>
-<dd>
-Running the <code>install</code> target is recommended as it will copy all the radium related library in the same place, generate the cmake packages and bundle applications with their dependencies (on macos and windows).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Qt6 support is experimental. To enable it, replace <code>-DQt5_DIR=path/to/qt5</code> by <code>-DQt6_DIR=path/to/qt6</code>.</dd></dl>
+<p>If both Qt5 and Qt6 are installed system wide, Qt6 is the default, <code>-DQT_DEFAULT_MAJOR_VERSION=5</code> allow select Qt5. During client application cmake setup <code>find_package(Radium COMPONENTS ... Gui ...)</code> will check Qt version consistency.</p>
+<dl class="section note"><dt>Note</dt><dd>Running the <code>install</code> target is recommended as it will copy all the radium related library in the same place, generate the cmake packages and bundle applications with their dependencies (on macos and windows).</dd></dl>
 <p>Note that installation requires write access on the installation directory.</p>
 <h2><a class="anchor" id="autotoc_md14"></a>
 Integration with Visual Studio (Microsoft Windows)</h2>
@@ -327,7 +327,7 @@ When compiling the dependencies you may hit the max path length fixed by Microso
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Sat Jul 23 2022 05:44:56 for Radium Engine by
+    <li class="footer">Generated on Sun Jul 24 2022 05:22:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
