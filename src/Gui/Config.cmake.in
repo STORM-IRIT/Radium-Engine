@@ -1,9 +1,8 @@
-
 # -------------- Configuration of the Radium Gui targets and definitions -------
 # Setup Gui and check for dependencies
 
 # TODO : verify if this is needed
-if (Gui_FOUND AND NOT TARGET Gui)
+if(Gui_FOUND AND NOT TARGET Gui)
     set(Configure_Gui ON)
     # verify dependencies
     if(NOT Engine_FOUND)
@@ -12,7 +11,7 @@ if (Gui_FOUND AND NOT TARGET Gui)
             include(${CMAKE_CURRENT_LIST_DIR}/../Engine/RadiumEngineConfig.cmake)
         else()
             set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::Gui : dependency Engine not found")
+            set(Radium_NOT_FOUND_MESSAGE "Radium::Gui: dependency Engine not found")
             set(Configure_Gui OFF)
         endif()
     endif()
@@ -22,7 +21,7 @@ if (Gui_FOUND AND NOT TARGET Gui)
             include(${CMAKE_CURRENT_LIST_DIR}/../IO/RadiumIOConfig.cmake)
         else()
             set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::Gui : dependency IO not found")
+            set(Radium_NOT_FOUND_MESSAGE "Radium::Gui: dependency IO not found")
             set(Configure_Gui OFF)
         endif()
     endif()
@@ -34,6 +33,8 @@ if(Configure_Gui)
         include(${CMAKE_CURRENT_LIST_DIR}/../PluginBase/RadiumPluginBaseConfig.cmake)
     endif()
     include(${CMAKE_CURRENT_LIST_DIR}/../QtFunctions.cmake)
+
+    check_and_set_qt_version("@QT_DEFAULT_MAJOR_VERSION@")
     find_qt_dependency(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
     if(MSVC OR MSVC_IDE OR MINGW)
         get_target_property(QTLIB Qt::Core INTERFACE_LINK_LIBRARIES)
