@@ -28,6 +28,7 @@ class MinimalApp : public QApplication
     /// It starts the rendering then advance all systems by one frame.
     void frame();
     void onGLInitialized();
+    void onRequestEngineOpenGLInitialization();
 
   public:
     // Our instance of the engine
