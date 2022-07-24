@@ -39,6 +39,11 @@ foreach(lib Core Engine IO PluginBase Gui Headless)
         add_subdirectory(${lib})
     endif()
 endforeach()
+
+if(QT_DEFAULT_MAJOR_VERSION)
+    set(QT_DEFAULT_MAJOR_VERSION ${QT_DEFAULT_MAJOR_VERSION} PARENT_SCOPE)
+endif()
+
 add_dependencies(RadiumLibs ${RADIUM_COMPONENTS})
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} PARENT_SCOPE)
 
