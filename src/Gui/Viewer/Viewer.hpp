@@ -120,7 +120,9 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     // Rendering management
     //
 
-    /// Start rendering (potentially asynchronously in a separate thread)
+    /// \brief Start rendering (potentially asynchronously in a separate thread)
+    ///
+    /// first start by updating scene aabb and  TextureManager::updatePendingTextures()
     void startRendering( const Scalar dt );
 
     /// Blocks until rendering is finished.

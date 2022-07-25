@@ -27,13 +27,14 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb/stb_image_write.h>
 
+#include <Core/Asset/Camera.hpp>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
-
 #include <Engine/Data/ShaderProgramManager.hpp>
+#include <Engine/Data/TextureManager.hpp>
 #include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
 #include <Engine/Rendering/Renderer.hpp>
@@ -43,13 +44,9 @@
 #include <Engine/Scene/DirLight.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
-
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 #include <Gui/Utils/PickingManager.hpp>
-
-#include <Core/Asset/Camera.hpp>
-#include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Viewer/Gizmo/GizmoManager.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
@@ -180,7 +177,8 @@ void Viewer::startRendering( const Scalar dt ) {
     makeCurrent();
 
     // update znear/zfar to fit the scene ...
-    auto entityManager = Engine::RadiumEngine::getInstance()->getEntityManager();
+    auto engine        = Engine::RadiumEngine::getInstance();
+    auto entityManager = engine->getEntityManager();
     if ( entityManager ) {
 
         // to fit scene only
@@ -195,7 +193,7 @@ void Viewer::startRendering( const Scalar dt ) {
         if ( !aabb.isEmpty() ) { m_camera->getCamera()->fitZRange( aabb ); }
         else {
             auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
-                Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+                engine->getSystem( "DefaultCameraManager" ) );
 
             // scene is empty, reset to defaults bounds
             m_camera->setCameraZNear( cameraManager->defaultCamera.getZNear() );
@@ -211,6 +209,10 @@ void Viewer::startRendering( const Scalar dt ) {
         else
             LOG( logDEBUG ) << "Unable to attach the head light!";
     }
+
+    // Update texture (cpu->gpu)
+    engine->getTextureManager()->updatePendingTextures();
+
     Engine::Data::ViewingParameters data {
         m_camera->getCamera()->getViewMatrix(), m_camera->getCamera()->getProjMatrix(), dt };
     m_currentRenderer->render( data );
