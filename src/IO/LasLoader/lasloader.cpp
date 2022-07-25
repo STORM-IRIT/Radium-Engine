@@ -202,10 +202,10 @@ Ra::Core::Asset::FileData* LasLoader::loadFile (const string& filename)  {
         if (gps_time) {
             //computing GPS time if found
             if (data_format == 6) {
-                time.emplace_back()=(Scalar(*(double*)(point + 22)));
+                time.emplace_back(Scalar(*(double*)(point + 22)));
             }
             else {
-                time.emplace_back()=(Scalar(*(double*)(point + 20)));
+                time.emplace_back(Scalar(*(double*)(point + 20)));
             }
         }
     }
