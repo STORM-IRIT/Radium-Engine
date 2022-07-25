@@ -141,8 +141,6 @@ void TextureManager::deleteTexture( Texture* texture ) {
 }
 
 void TextureManager::updateTextureContent( const std::string& texture, void* content ) {
-    CORE_ASSERT( m_textures.find( texture ) != m_textures.end(),
-                 "Trying to update non existing texture" );
     m_pendingData[texture] = content;
 }
 
@@ -150,8 +148,11 @@ void TextureManager::updatePendingTextures() {
     if ( m_pendingData.empty() ) { return; }
 
     for ( auto& data : m_pendingData ) {
-        LOG( logINFO ) << "TextureManager::updateTextures \"" << data.first << "\".";
-        m_textures[data.first]->updateData( data.second );
+        auto itr = m_textures.find( data.first );
+        if ( itr != m_textures.end() ) { itr->second->updateData( data.second ); }
+        else
+            LOG( logWARNING ) << "TextureManager::updateTextures \"" << data.first
+                              << "\" not initialized yet.";
     }
     m_pendingData.clear();
 }
