@@ -121,6 +121,10 @@ class RA_GUI_API WindowQt : public QWindow
     static glbinding::ProcAddress getProcAddress( const char* name );
 
   private:
+    /// prevent direct call to QWindow::create, not adapted to our implementation.
+    /// use QWidget::createWindowContainer( WindowQt_ptr ) instead.;
+    using QWindow::create;
+
     static WindowQt* s_getProcAddressHelper;
     int m_contextActivationCount { 0 };
 };
