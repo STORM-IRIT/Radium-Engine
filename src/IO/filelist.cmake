@@ -62,3 +62,17 @@ if(RADIUM_IO_VOLUMES)
     list(APPEND io_headers VolumesLoader/pvmutils.hpp VolumesLoader/VolumeLoader.hpp)
 
 endif(RADIUM_IO_VOLUMES)
+
+if(RADIUM_IO_LAS)
+	list(APPEND io_sources LasLoader/lasloader.cpp)
+
+    list(APPEND io_headers LasLoader/lasloader.hpp)
+    
+endif(RADIUM_IO_LAS)
+
+if(RADIUM_IO_ASCIIPC)
+	list(APPEND io_sources AsciiPCLoader/asciipcloader.cpp)
+
+    list(APPEND io_headers AsciiPCLoader/asciipcloader.hpp)
+    
+endif(RADIUM_IO_ASCIIPC)
