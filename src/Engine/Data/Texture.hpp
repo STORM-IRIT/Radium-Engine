@@ -5,9 +5,8 @@
 #include <memory>
 #include <string>
 
-#include <Engine/OpenGL.hpp>
-
 #include <Core/Utils/Color.hpp>
+#include <Engine/OpenGL.hpp>
 
 namespace globjects {
 class Texture;
@@ -43,7 +42,7 @@ struct TextureParameters {
     /// Name of the texture
     std::string name {};
     /// OpenGL target
-    GLenum target { GL_TEXTURE_2D };
+    gl::GLenum target { GL_TEXTURE_2D };
     /// width of the texture (s dimension)
     size_t width { 1 };
     /// height of the texture (t dimension)
@@ -51,21 +50,21 @@ struct TextureParameters {
     /// width of the texture (p dimension)
     size_t depth { 1 };
     /// Format of the external data
-    GLenum format { GL_RGB };
+    gl::GLenum format { GL_RGB };
     /// OpenGL internal format (WARNING, for Integer textures, must be GL_XXX_INTEGER)
-    GLenum internalFormat { GL_RGB };
+    gl::GLenum internalFormat { GL_RGB };
     /// Type of the components in external data
-    GLenum type { GL_UNSIGNED_BYTE };
+    gl::GLenum type { GL_UNSIGNED_BYTE };
     /// OpenGL wrap mode in the s direction
-    GLenum wrapS { GL_CLAMP_TO_EDGE };
+    gl::GLenum wrapS { GL_CLAMP_TO_EDGE };
     /// OpenGL wrap mode in the t direction
-    GLenum wrapT { GL_CLAMP_TO_EDGE };
+    gl::GLenum wrapT { GL_CLAMP_TO_EDGE };
     /// OpenGL wrap mode in the p direction
-    GLenum wrapP { GL_CLAMP_TO_EDGE };
+    gl::GLenum wrapP { GL_CLAMP_TO_EDGE };
     /// OpenGL minification filter ( GL_LINEAR or GL_NEAREST or GL_XXX_MIPMAP_YYY )
-    GLenum minFilter { GL_LINEAR };
+    gl::GLenum minFilter { GL_LINEAR };
     /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
-    GLenum magFilter { GL_LINEAR };
+    gl::GLenum magFilter { GL_LINEAR };
     /// External data (ownership is left to caller, not stored after OpenGL texture creation).
     /// Note that, for cube-map texture, this is considered as a "void*[6]" array containing the 6
     /// faces of the cube corresponding to the targets. <br/>
@@ -133,7 +132,11 @@ class RA_ENGINE_API Texture final
      * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml
      * for documentation
      */
-    void bindImageTexture( int unit, GLint level, GLboolean layered, GLint layer, GLenum access );
+    void bindImageTexture( int unit,
+                           gl::GLint level,
+                           gl::GLboolean layered,
+                           gl::GLint layer,
+                           gl::GLenum access );
 
     /**
      * @return Name of the texture.
@@ -167,7 +170,7 @@ class RA_ENGINE_API Texture final
     /**
      * @return the pixel format of the texture
      */
-    GLenum format() const { return m_textureParameters.format; }
+    gl::GLenum format() const { return m_textureParameters.format; }
     /**
      * @return the width of the texture
      */
