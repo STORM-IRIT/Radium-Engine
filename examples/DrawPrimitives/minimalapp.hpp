@@ -32,18 +32,18 @@ class MinimalApp : public QApplication
 
   public:
     // Our instance of the engine
-    std::unique_ptr<Ra::Engine::RadiumEngine> m_engine;
+    std::unique_ptr<Ra::Engine::RadiumEngine> m_engine { nullptr };
 
     // Task queue
-    std::unique_ptr<Ra::Core::TaskQueue> m_taskQueue;
+    std::unique_ptr<Ra::Core::TaskQueue> m_taskQueue { nullptr };
 
     // Pointer to Qt/OpenGL Viewer widget.
-    std::unique_ptr<Ra::Gui::Viewer> m_viewer;
+    std::unique_ptr<Ra::Gui::Viewer> m_viewer { nullptr };
 
     // Timer to wake us up at every frame start.
-    QTimer* m_frameTimer;
+    QTimer* m_frameTimer { nullptr };
 
     // Our framerate
-    uint m_target_fps;
+    uint m_targetFps { 60 };
 
 }; // end class
