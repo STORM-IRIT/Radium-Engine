@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Core/Utils/Log.hpp"
 #include "TopologicalMesh.hpp"
 
 #include <typeinfo>
@@ -455,8 +456,8 @@ void TopologicalMesh::initWithWedge(
 
     clean();
 
-    LOG( logINFO ) << "TopologicalMesh: load mesh with " << abstractLayer.getSize() << " faces and "
-                   << mesh.vertices().size() << " vertices.";
+    LOG( logDEBUG ) << "TopologicalMesh: load mesh with " << abstractLayer.getSize()
+                    << " faces and " << mesh.vertices().size() << " vertices.";
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
@@ -484,7 +485,7 @@ void TopologicalMesh::initWithWedge(
         m_wedges.m_data.push_back( w );
     }
 
-    LOG( logINFO ) << "TopologicalMesh: have  " << m_wedges.size() << " wedges ";
+    LOG( logDEBUG ) << "TopologicalMesh: have  " << m_wedges.size() << " wedges ";
 
     const bool hasNormals = !mesh.normals().empty();
     if ( !hasNormals ) {
@@ -607,12 +608,12 @@ void TopologicalMesh::initWithWedge(
 
     if ( abstractLayer.hasSemantic( TriangleIndexLayer::staticSemanticName ) ) {
         const auto& faces = static_cast<const TriangleIndexLayer&>( abstractLayer ).collection();
-        LOG( logINFO ) << "TopologicalMesh: process " << faces.size() << " triangular faces ";
+        LOG( logDEBUG ) << "TopologicalMesh: process " << faces.size() << " triangular faces ";
         processFaces( faces );
     }
     else if ( abstractLayer.hasSemantic( PolyIndexLayer::staticSemanticName ) ) {
         const auto& faces = static_cast<const PolyIndexLayer&>( abstractLayer ).collection();
-        LOG( logINFO ) << "TopologicalMesh: process " << faces.size() << " polygonal faces ";
+        LOG( logDEBUG ) << "TopologicalMesh: process " << faces.size() << " polygonal faces ";
         processFaces( faces );
     }
 
@@ -649,7 +650,7 @@ void TopologicalMesh::initWithWedge(
             }
         }
     }
-    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
+    LOG( logDEBUG ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
 }
 
 template <typename T>
