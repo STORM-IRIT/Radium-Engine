@@ -10,13 +10,14 @@ using std::vector;
 namespace Ra {
 namespace IO {
 
-class RA_IO_API LasLoader : public Ra::Core::Asset::FileLoaderInterface {
-public:
-    LasLoader ();
-    virtual ~LasLoader ();
+class RA_IO_API LasLoader : public Ra::Core::Asset::FileLoaderInterface
+{
+  public:
+    LasLoader();
+    virtual ~LasLoader();
 
-    vector<string> getFileExtensions () const override;
-    bool handleFileExtension (const std::string& extension) const override;
+    vector<string> getFileExtensions() const override;
+    bool handleFileExtension( const std::string& extension ) const override;
 
     /** load vertices from .las file
      *
@@ -31,15 +32,15 @@ public:
      * @note LAS specification lists other attributes that can be loaded
      * for each point record (intensity, edge of flight line, scan direction, ...) however
      * only the attributes mentionned above are loaded. See the official LAS specification
-     * for more details <a href="https://www.asprs.org/divisions-committees/lidar-division/laser-las-file-format-exchange-activities">
+     * for more details <a
+     * href="https://www.asprs.org/divisions-committees/lidar-division/laser-las-file-format-exchange-activities">
      * here</a>
      * @param [in] filename file path
      * @return nullptr if file opening or geometry creation fails
      */
-    Ra::Core::Asset::FileData* loadFile (const std::string& filename) override;
-    string name () const override;
+    Ra::Core::Asset::FileData* loadFile( const std::string& filename ) override;
+    string name() const override;
 };
 
-} //namespace IO
-} //namespace Ra
-
+} // namespace IO
+} // namespace Ra
