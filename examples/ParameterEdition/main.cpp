@@ -69,7 +69,7 @@ int main( int argc, char* argv[] )
         "editable": true,
         "type": "boolean"
         },
-    "Values": {
+    "enum": {
         "name": "My Enum",
         "description": "unscoped enum, ranging from 0 to n",
         "type": "enum",
@@ -138,7 +138,7 @@ int main( int argc, char* argv[] )
                                                  { "VALUE_1", Values::VALUE_1 },
                                                  { "VALUE_2", Values::VALUE_2 } };
 
-    parameters.addEnumConverter( "Values", enumConverter );
+    parameters.addEnumConverter( "enum", enumConverter );
 
     parameters.addParameter( "bool", false );
     parameters.addParameter( "enum", Values::VALUE_0 );
