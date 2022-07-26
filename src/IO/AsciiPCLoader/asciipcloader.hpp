@@ -12,7 +12,7 @@ namespace IO {
 class RA_IO_API AsciiPointCloudLoader : public Ra::Core::Asset::FileLoaderInterface
 {
   public:
-    AsciiPointCloudLoader();
+    AsciiPointCloudLoader() = default;
 
     virtual ~AsciiPointCloudLoader();
 

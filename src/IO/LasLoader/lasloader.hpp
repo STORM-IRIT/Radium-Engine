@@ -13,7 +13,8 @@ namespace IO {
 class RA_IO_API LasLoader : public Ra::Core::Asset::FileLoaderInterface
 {
   public:
-    LasLoader();
+    LasLoader() = default;
+    
     virtual ~LasLoader();
 
     vector<string> getFileExtensions() const override;

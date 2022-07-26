@@ -15,8 +15,6 @@ const string lasExt( "las" );
 namespace Ra {
 namespace IO {
 
-LasLoader::LasLoader() {}
-
 LasLoader::~LasLoader() {}
 
 vector<string> LasLoader::getFileExtensions() const {

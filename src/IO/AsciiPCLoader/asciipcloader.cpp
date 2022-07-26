@@ -15,8 +15,6 @@ const string trajExt( "txt" );
 namespace Ra {
 namespace IO {
 
-AsciiPointCloudLoader::AsciiPointCloudLoader() {}
-
 AsciiPointCloudLoader::~AsciiPointCloudLoader() {}
 
 vector<string> AsciiPointCloudLoader::getFileExtensions() const {
