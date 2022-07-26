@@ -54,8 +54,7 @@ void LambertianMaterial::registerMaterial() {
         } );
 
     // Registering parameters metadata
-    std::ifstream metadata( resourcesRootDir + "Metadata/Simple.json" );
-    metadata >> s_parametersMetadata;
+    SimpleMaterial::loadMetaData( s_parametersMetadata );
 }
 
 void LambertianMaterial::unregisterMaterial() {

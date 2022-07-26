@@ -93,6 +93,10 @@ class RA_ENGINE_API SimpleMaterial : public Material
      * The textures that are associated with the material but ar not yet loaded nor initialized.
      */
     std::map<TextureSemantic, TextureParameters> m_pendingTextures;
+
+  protected:
+    /// Load the material parameter description
+    static void loadMetaData( nlohmann::json& destination );
 };
 
 } // namespace Data

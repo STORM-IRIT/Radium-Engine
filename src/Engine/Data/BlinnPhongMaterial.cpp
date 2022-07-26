@@ -148,8 +148,7 @@ void BlinnPhongMaterial::registerMaterial() {
         } );
 
     // Registering parameters metadata
-    std::ifstream metadata( resourcesRootDir + "Metadata/BlinnPhong.json" );
-    metadata >> s_parametersMetadata;
+    Material::loadMetaData( materialName, s_parametersMetadata );
 }
 
 void BlinnPhongMaterial::unregisterMaterial() {

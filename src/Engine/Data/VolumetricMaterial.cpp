@@ -122,8 +122,7 @@ void VolumetricMaterial::registerMaterial() {
         } );
 
     // Registering parameters metadata
-    std::ifstream metadata( resourcesRootDir + "Metadata/Volumetric.json" );
-    metadata >> s_parametersMetadata;
+    Material::loadMetaData( materialName, s_parametersMetadata );
 }
 
 void VolumetricMaterial::unregisterMaterial() {

@@ -52,9 +52,9 @@ void PlainMaterial::registerMaterial() {
             auto zprepass = Data::ShaderConfigurationFactory::getConfiguration( "ZprepassPlain" );
             rt.setConfiguration( *zprepass, Rendering::DefaultRenderingPasses::Z_PREPASS );
         } );
+
     // Registering parameters metadata
-    std::ifstream metadata( resourcesRootDir + "Metadata/Simple.json" );
-    metadata >> s_parametersMetadata;
+    SimpleMaterial::loadMetaData( s_parametersMetadata );
 }
 
 void PlainMaterial::unregisterMaterial() {
