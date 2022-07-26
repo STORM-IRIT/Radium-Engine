@@ -90,7 +90,7 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     stream.read( buffer, 1 );
     unsigned char data_format = *(unsigned char*)buffer;
 
-    if ( ( data_format < 0 ) || ( data_format > 3 && minor < 3 ) ||
+    if ( ( data_format > 3 && minor < 3 ) ||
          ( data_format > 5 && minor == 3 ) || ( data_format > 6 && minor == 4 ) ) {
         delete fileData;
         throw runtime_error( "Corrupted file. Unvalid data format" );
@@ -114,15 +114,15 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     stream.seekg( 131 );
     stream.read( buffer, 48 );
 
-    double scale_x  = *(double*)buffer;
-    double scale_y  = *(double*)( buffer + 8 );
-    double scale_z  = *(double*)( buffer + 16 );
-    double offset_x = *(double*)( buffer + 24 );
-    double offset_y = *(double*)( buffer + 32 );
-    double offset_z = *(double*)( buffer + 40 );
+    double scale_x = *(reinterpret_cast<double*>(buffer));
+    double scale_y = *(reinterpret_cast<double*>(buffer + 8));
+    double scale_z = *(reinterpret_cast<double*>(buffer + 16));
+    double offset_x = *(reinterpret_cast<double*>(buffer + 24));
+    double offset_y = *(reinterpret_cast<double*>(buffer + 32));
+    double offset_z = *(reinterpret_cast<double*>(buffer + 40));
 
     /*loading properties*/
-    char* point = (char*)malloc( data_len * sizeof( char ) );
+    vector<char> point ( data_len );
 
     VectorArray<Ra::Core::Vector3>& vertices = geometry->getGeometry().verticesWithLock();
     vertices.reserve( nb_data );
@@ -157,16 +157,16 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
         stream.seekg( pos );
 
         // reading point data
-        stream.read( point, data_len );
+        stream.read( point.data(), data_len );
 
         // extracting initial x y z coordinates
         int ix;
         int iy;
         int iz;
 
-        ix = *(int*)point;
-        iy = *(int*)( point + 4 );
-        iz = *(int*)( point + 8 );
+        ix = *(int*)point.data();
+        iy = *(int*)( point.data() + 4 );
+        iz = *(int*)( point.data() + 8 );
 
         // computing actual coordinates
         double x = (double)ix * scale_x + offset_x;
@@ -181,24 +181,26 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
             unsigned short red, green, blue;
 
             if ( data_format == 5 || data_format == 3 ) {
-                red   = *(unsigned short*)( point + 28 );
-                green = *(unsigned short*)( point + 30 );
-                blue  = *(unsigned short*)( point + 32 );
+                red   = *(unsigned short*)( point.data() + 28 );
+                green = *(unsigned short*)( point.data() + 30 );
+                blue  = *(unsigned short*)( point.data() + 32 );
             }
             else {
-                red   = *(unsigned short*)( point + 20 );
-                green = *(unsigned short*)( point + 22 );
-                blue  = *(unsigned short*)( point + 24 );
+                red   = *(unsigned short*)( point.data() + 20 );
+                green = *(unsigned short*)( point.data() + 22 );
+                blue  = *(unsigned short*)( point.data() + 24 );
             }
 
             color.emplace_back( Scalar( red ), Scalar( green ), Scalar( blue ), 1_ra );
         }
 
-        if ( gps_time ) {
-            // computing GPS time if found
-            if ( data_format == 6 ) { time.emplace_back( Scalar( *(double*)( point + 22 ) ) ); }
+        if (gps_time) {
+            //computing GPS time if found
+            if (data_format == 6) {
+                time.emplace_back(Scalar(*reinterpret_cast<double*>(point.data() + 22)));
+            }
             else {
-                time.emplace_back( Scalar( *(double*)( point + 20 ) ) );
+                time.emplace_back(Scalar(*reinterpret_cast<double*>(point.data() + 20)));
             }
         }
     }
@@ -214,7 +216,7 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     // removing gps time if not found
     if ( !gps_time ) { geometry->getGeometry().vertexAttribs().removeAttrib( handle_time ); }
 
-    free( point );
+    point.clear();
 
     // finalizing
     fileData->m_geometryData.clear();

@@ -41,7 +41,7 @@ Ra::Core::Asset::FileData* AsciiPointCloudLoader::loadFile( const string& filena
     // a unique name is required by the component messaging system
     static int id = 0;
     auto geometry =
-        make_unique<GeometryData>( "TRAJ_PC_" + to_string( ++id ), GeometryData::POINT_CLOUD );
+        make_unique<GeometryData>( "PC_" + to_string( ++id ), GeometryData::POINT_CLOUD );
     if ( geometry == nullptr ) {
         LOG( logERROR ) << "could not create geometry";
         return nullptr;
@@ -65,7 +65,7 @@ Ra::Core::Asset::FileData* AsciiPointCloudLoader::loadFile( const string& filena
 
     if ( !getline( stream, line ) ) {
         delete fileData;
-        LOG( logINFO ) << "file does not contain trajectory data format. aborting";
+        LOG( logINFO ) << "file does not contain data format. aborting";
         return nullptr;
     }
 
