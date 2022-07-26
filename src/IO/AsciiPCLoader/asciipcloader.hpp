@@ -12,7 +12,7 @@ namespace IO {
 class RA_IO_API AsciiPointCloudLoader : public Ra::Core::Asset::FileLoaderInterface
 {
   public:
-    AsciiPointCloudLoader() = default;
+    AsciiPointCloudLoader()          = default;
     virtual ~AsciiPointCloudLoader() = default;
 
     vector<string> getFileExtensions() const override;

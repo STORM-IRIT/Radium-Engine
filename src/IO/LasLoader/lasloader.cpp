@@ -90,8 +90,8 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     stream.read( buffer, 1 );
     unsigned char data_format = *(unsigned char*)buffer;
 
-    if ( ( data_format > 3 && minor < 3 ) ||
-         ( data_format > 5 && minor == 3 ) || ( data_format > 6 && minor == 4 ) ) {
+    if ( ( data_format > 3 && minor < 3 ) || ( data_format > 5 && minor == 3 ) ||
+         ( data_format > 6 && minor == 4 ) ) {
         delete fileData;
         throw runtime_error( "Corrupted file. Unvalid data format" );
         return nullptr;
@@ -114,15 +114,15 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     stream.seekg( 131 );
     stream.read( buffer, 48 );
 
-    double scale_x = *(reinterpret_cast<double*>(buffer));
-    double scale_y = *(reinterpret_cast<double*>(buffer + 8));
-    double scale_z = *(reinterpret_cast<double*>(buffer + 16));
-    double offset_x = *(reinterpret_cast<double*>(buffer + 24));
-    double offset_y = *(reinterpret_cast<double*>(buffer + 32));
-    double offset_z = *(reinterpret_cast<double*>(buffer + 40));
+    double scale_x  = *( reinterpret_cast<double*>( buffer ) );
+    double scale_y  = *( reinterpret_cast<double*>( buffer + 8 ) );
+    double scale_z  = *( reinterpret_cast<double*>( buffer + 16 ) );
+    double offset_x = *( reinterpret_cast<double*>( buffer + 24 ) );
+    double offset_y = *( reinterpret_cast<double*>( buffer + 32 ) );
+    double offset_z = *( reinterpret_cast<double*>( buffer + 40 ) );
 
     /*loading properties*/
-    vector<char> point ( data_len );
+    vector<char> point( data_len );
 
     VectorArray<Ra::Core::Vector3>& vertices = geometry->getGeometry().verticesWithLock();
     vertices.reserve( nb_data );
@@ -194,13 +194,13 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
             color.emplace_back( Scalar( red ), Scalar( green ), Scalar( blue ), 1_ra );
         }
 
-        if (gps_time) {
-            //computing GPS time if found
-            if (data_format == 6) {
-                time.emplace_back(Scalar(*reinterpret_cast<double*>(point.data() + 22)));
+        if ( gps_time ) {
+            // computing GPS time if found
+            if ( data_format == 6 ) {
+                time.emplace_back( Scalar( *reinterpret_cast<double*>( point.data() + 22 ) ) );
             }
             else {
-                time.emplace_back(Scalar(*reinterpret_cast<double*>(point.data() + 20)));
+                time.emplace_back( Scalar( *reinterpret_cast<double*>( point.data() + 20 ) ) );
             }
         }
     }
