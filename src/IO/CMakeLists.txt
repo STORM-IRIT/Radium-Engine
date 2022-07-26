@@ -25,7 +25,6 @@ if(RADIUM_IO_TINYPLY)
     set_target_properties(${ra_io_target} PROPERTIES IO_HAS_TINYPLY ${RADIUM_IO_TINYPLY})
 endif(RADIUM_IO_TINYPLY)
 
-
 if(RADIUM_IO_ASSIMP)
     if(MSVC)
         if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")

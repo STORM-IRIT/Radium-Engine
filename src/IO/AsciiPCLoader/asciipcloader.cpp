@@ -71,6 +71,7 @@ Ra::Core::Asset::FileData* AsciiPointCloudLoader::loadFile( const string& filena
         return nullptr;
     }
 
+    // Find mandatory fields
     timepos = line.find( "Time" );
     xpos    = line.find( " X" );
     ypos    = line.find( " Y" );

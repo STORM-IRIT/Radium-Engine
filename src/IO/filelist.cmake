@@ -4,14 +4,13 @@
 # ./generateFilelistForModule.sh IO
 # ----------------------------------------------------
 
-set(io_sources CameraLoader/CameraLoader.cpp
-		AsciiPCLoader/asciipcloader.cpp
-	   	LasLoader/lasloader.cpp)
+set(io_sources CameraLoader/CameraLoader.cpp AsciiPCLoader/asciipcloader.cpp
+               LasLoader/lasloader.cpp
+)
 
-set(io_headers CameraLoader/CameraLoader.hpp 
-		LasLoader/lasloader.hpp
-		AsciiPCLoader/asciipcloader.hpp
-		RaIO.hpp)
+set(io_headers CameraLoader/CameraLoader.hpp LasLoader/lasloader.hpp
+               AsciiPCLoader/asciipcloader.hpp RaIO.hpp
+)
 
 set(io_inlines)
 
@@ -67,5 +66,3 @@ if(RADIUM_IO_VOLUMES)
     list(APPEND io_headers VolumesLoader/pvmutils.hpp VolumesLoader/VolumeLoader.hpp)
 
 endif(RADIUM_IO_VOLUMES)
-
-
