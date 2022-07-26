@@ -119,48 +119,52 @@ add_test(NAME integration_CoreExample WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_D
 )
 add_dependencies(integration CoreExample)
 
-set(INTEGRATION_TEST "HeadlessExample")
+if(RADIUM_GENERATE_LIB_HEADLESS)
 
-if(UNIX)
-    find_program(XVFB_EXECUTABLE xvfb-run)
-    find_program(COMPARE_EXECUTABLE compare)
+    set(INTEGRATION_TEST "HeadlessExample")
 
-    if(XVFB_EXECUTABLE)
-        add_test(NAME integration_${INTEGRATION_TEST} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-                 COMMAND ${XVFB_EXECUTABLE} -a "$<TARGET_FILE:${INTEGRATION_TEST}>"
-        )
-        add_dependencies(integration ${INTEGRATION_TEST})
-        add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
+    if(UNIX)
+        find_program(XVFB_EXECUTABLE xvfb-run)
+        find_program(COMPARE_EXECUTABLE compare)
 
-        add_custom_command(
-            TARGET integration_${INTEGRATION_TEST}_create_ref
-            PRE_BUILD
-            COMMAND
-                ${XVFB_EXECUTABLE} -a "$<TARGET_FILE:${INTEGRATION_TEST}>" && cp
-                "${CMAKE_CURRENT_BINARY_DIR}/frame.png"
-                "${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png" DEPENDS
-                integration_${INTEGRATION_TEST}
-        )
-    else()
-        message(
-            STATUS
-                "could not run ${INTEGRATION_TEST} integration test, missing tools ${XVFB_EXECUTABLE}"
-        )
-    endif()
-    if(XVFB_EXECUTABLE AND COMPARE_EXECUTABLE)
-        add_test(
-            NAME integration_${INTEGRATION_TEST}_compare_to_ref
-            COMMAND
-                bash -c
-                "${COMPARE_EXECUTABLE} -metric PHASH \"${CMAKE_CURRENT_BINARY_DIR}/frame.png\" \"${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png\" null: > \"${CMAKE_CURRENT_BINARY_DIR}/value\" 2>&1;\
-                VALUE=$(cat \"${CMAKE_CURRENT_BINARY_DIR}/value\");\
-                if (( $(echo \"\${VALUE} > 0.01\" |bc -l) )); then false; fi"
-        )
-    else()
-        message(
-            STATUS
-                "could not run ${INTEGRATION_TEST} integration test, missing tools ${XVFB_EXECUTABLE}, ${COMPARE_EXECUTABLE}"
-        )
+        if(XVFB_EXECUTABLE)
+            add_test(NAME integration_${INTEGRATION_TEST}
+                     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+                     COMMAND ${XVFB_EXECUTABLE} -a "$<TARGET_FILE:${INTEGRATION_TEST}>"
+            )
+            add_dependencies(integration ${INTEGRATION_TEST})
+            add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
+
+            add_custom_command(
+                TARGET integration_${INTEGRATION_TEST}_create_ref
+                PRE_BUILD
+                COMMAND
+                    ${XVFB_EXECUTABLE} -a "$<TARGET_FILE:${INTEGRATION_TEST}>" && cp
+                    "${CMAKE_CURRENT_BINARY_DIR}/frame.png"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png" DEPENDS
+                    integration_${INTEGRATION_TEST}
+            )
+        else()
+            message(
+                STATUS
+                    "could not run ${INTEGRATION_TEST} integration test, missing tools ${XVFB_EXECUTABLE}"
+            )
+        endif()
+        if(XVFB_EXECUTABLE AND COMPARE_EXECUTABLE)
+            add_test(
+                NAME integration_${INTEGRATION_TEST}_compare_to_ref
+                COMMAND
+                    bash -c
+                    "${COMPARE_EXECUTABLE} -metric PHASH \"${CMAKE_CURRENT_BINARY_DIR}/frame.png\" \"${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png\" null: > \"${CMAKE_CURRENT_BINARY_DIR}/value\" 2>&1;\
+                    VALUE=$(cat \"${CMAKE_CURRENT_BINARY_DIR}/value\");\
+                    if (( $(echo \"\${VALUE} > 0.01\" |bc -l) )); then false; fi"
+            )
+        else()
+            message(
+                STATUS
+                    "could not run ${INTEGRATION_TEST} integration test, missing tools ${XVFB_EXECUTABLE}, ${COMPARE_EXECUTABLE}"
+            )
+        endif()
     endif()
 endif()
 # -----------------------------------------------------------------------------
