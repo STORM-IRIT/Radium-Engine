@@ -75,8 +75,8 @@ Ra::Core::Asset::FileData* AsciiPointCloudLoader::loadFile( const string& filena
     ypos    = line.find( " Y" );
     zpos    = line.find( " Z" );
 
-    if (( timepos == string::npos )  || ( xpos == string::npos ) 
-        || ( ypos == string::npos )  || ( zpos == string::npos )) {
+    if ( ( timepos == string::npos ) || ( xpos == string::npos ) || ( ypos == string::npos ) ||
+         ( zpos == string::npos ) ) {
         delete fileData;
         LOG( logINFO ) << "file does not contain mandatory properties (X, Y, Z, time). aborting";
         return nullptr;
