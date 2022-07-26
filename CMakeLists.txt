@@ -142,9 +142,6 @@ add_custom_target(
 find_package(Git QUIET)
 
 if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
-    option(RADIUM_GIT_UPDATE_SUBMODULE
-           "Check submodules during build (will be automatically disabled after run)." ON
-    )
     execute_process(
         COMMAND ${GIT_EXECUTABLE} rev-parse HEAD WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         OUTPUT_VARIABLE GIT_CHANGESET
@@ -290,7 +287,6 @@ if(NOT RADIUM_MISSING_COMPONTENT STREQUAL "")
     string(REPLACE ";" " " COMPONENTS_LIST "${RADIUM_MISSING_COMPONENTS}")
     message_info(" -- Missing components: ${COMPONENTS_LIST} (see log to find why)")
 endif()
-message_setting("RADIUM_GIT_UPDATE_SUBMODULE")
 message_setting("RADIUM_IO_ASSIMP")
 message_setting("RADIUM_IO_TINYPLY")
 message_setting("RADIUM_IO_VOLUMES")
