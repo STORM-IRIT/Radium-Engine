@@ -67,7 +67,7 @@ Ra::Core::Asset::FileData* AsciiPointCloudLoader::loadFile( const string& filena
 
     if ( !getline( stream, line ) ) {
         delete fileData;
-        LOG( logINFO ) << "file does not contain trajectory data format. aborting";
+        LOG( logINFO ) << "file does not contain data format. aborting";
         return nullptr;
     }
 
