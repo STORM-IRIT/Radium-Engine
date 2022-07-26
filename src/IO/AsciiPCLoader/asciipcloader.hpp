@@ -13,8 +13,7 @@ class RA_IO_API AsciiPointCloudLoader : public Ra::Core::Asset::FileLoaderInterf
 {
   public:
     AsciiPointCloudLoader() = default;
-
-    virtual ~AsciiPointCloudLoader();
+    virtual ~AsciiPointCloudLoader() = default;
 
     vector<string> getFileExtensions() const override;
     bool handleFileExtension( const std::string& extension ) const override;

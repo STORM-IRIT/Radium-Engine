@@ -14,8 +14,7 @@ class RA_IO_API LasLoader : public Ra::Core::Asset::FileLoaderInterface
 {
   public:
     LasLoader() = default;
-    
-    virtual ~LasLoader();
+    virtual ~LasLoader() = default;
 
     vector<string> getFileExtensions() const override;
     bool handleFileExtension( const std::string& extension ) const override;
