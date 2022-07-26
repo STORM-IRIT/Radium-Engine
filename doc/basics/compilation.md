@@ -93,9 +93,6 @@ RADIUM_GENERATE_LIB_IO:BOOL=ON
 // Include Radium::PluginBase in CMake project.
 RADIUM_GENERATE_LIB_PLUGINBASE:BOOL=ON
 
-// Check submodules during build (will be automatically disabled after run).
-RADIUM_GIT_UPDATE_SUBMODULE:BOOL=ON
-
 // Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target.
 RADIUM_INSTALL_DOC:BOOL=ON
 
