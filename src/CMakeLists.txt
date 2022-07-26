@@ -37,6 +37,7 @@ foreach(lib Core Engine IO PluginBase Gui Headless)
     string(TOUPPER ${lib} upcase_lib)
     if(RADIUM_GENERATE_LIB_${upcase_lib})
         add_subdirectory(${lib})
+        set(RADIUM_GENERATE_LIB_${upcase_lib} ${RADIUM_GENERATE_LIB_${upcase_lib}} PARENT_SCOPE)
     endif()
 endforeach()
 
