@@ -36,7 +36,7 @@ class RA_IO_API AsciiPointCloudLoader : public Ra::Core::Asset::FileLoaderInterf
      *
      * @todo add aggregation for normals/colors
      * @param [in] filename file path
-     * @return nullptr if file opening fails, geometry creation 
+     * @return nullptr if file opening fails, geometry creation
      * fails or one of the mandatory properties is not found
      */
     Ra::Core::Asset::FileData* loadFile( const std::string& filename ) override;
