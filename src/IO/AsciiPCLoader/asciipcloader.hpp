@@ -18,19 +18,26 @@ class RA_IO_API AsciiPointCloudLoader : public Ra::Core::Asset::FileLoaderInterf
     vector<string> getFileExtensions() const override;
     bool handleFileExtension( const std::string& extension ) const override;
 
-    /** load vertices from .txt file
-     *
-     * load x, y, z and time from ASCII .txt file
+    /** load vertices properties from ASCII .txt file
      *
      * expected content in file: header line + data records
      *
      * header line content : attribute names separated by blanks ( )
      *
      * example: Time X Y Z Roll Pitch Heading sdX sdY sdZ
-     * @note Although the header line can contain attributes other than coordinates and time,
-     * only these are loaded. X, Y, Z coordinates search in header line is case sensitive
+     *
+     * X, Y, Z and Time properties (case sensitive) are mandatory
+     * for file loading. Failure to find any of these properties
+     * results in file reading failure
+     *
+     * X, Y, Z properties are aggregated in geometry vertex array,
+     * while all other properties are loaded as custom attribs in
+     * Radium
+     *
+     * @todo add aggregation for normals/colors
      * @param [in] filename file path
-     * @return nullptr if file opening, geometry creation fails
+     * @return nullptr if file opening fails, geometry creation 
+     * fails or one of the mandatory properties is not found
      */
     Ra::Core::Asset::FileData* loadFile( const std::string& filename ) override;
     string name() const override;
