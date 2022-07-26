@@ -53,6 +53,9 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
      */
     inline void setMaterialName( std::string newName );
 
+    /// Load the material parameter description
+    static void loadMetaData( const std::string& basename, nlohmann::json& destination );
+
   public:
     virtual ~Material() = default;
 

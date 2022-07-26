@@ -2,6 +2,8 @@
 #include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>
 
+#include <fstream>
+
 namespace Ra {
 namespace Engine {
 namespace Data {
@@ -42,6 +44,9 @@ void SimpleMaterial::updateGL() {
     updateRenderingParameters();
 }
 
+void SimpleMaterial::loadMetaData( nlohmann::json& destination ) {
+    Material::loadMetaData( "Simple", destination );
+}
 } // namespace Data
 } // namespace Engine
 } // namespace Ra
