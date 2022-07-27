@@ -81,7 +81,9 @@ void Texture::initializeGL( bool linearize ) {
 
 void Texture::bind( int unit ) {
     if ( unit >= 0 ) { m_texture->bindActive( uint( unit ) ); }
-    else { m_texture->bind(); }
+    else {
+        m_texture->bind();
+    }
 }
 
 void Texture::bindImageTexture( int unit,
@@ -159,7 +161,9 @@ void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     m_textureParameters.depth  = d;
     m_textureParameters.texels = pix;
     if ( m_texture == nullptr ) { initializeGL( false ); }
-    else { updateSampler(); }
+    else {
+        updateSampler();
+    }
     if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
 
@@ -291,7 +295,9 @@ void Texture::sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlpha
             // Constants are described at https://en.wikipedia.org/wiki/SRGB
             float c = float( in ) / 255;
             if ( c < 0.04045 ) { c = c / 12.92f; }
-            else { c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), 2.4f ); }
+            else {
+                c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), 2.4f );
+            }
             return uint8_t( c * 255 );
         };
         uint numValues = hasAlphaChannel ? numComponent - 1 : numComponent;
