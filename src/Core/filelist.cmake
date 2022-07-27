@@ -132,6 +132,7 @@ set(core_headers
     Tasks/TaskQueue.hpp
     Types.hpp
     Utils/Attribs.hpp
+    Utils/BijectiveAssociation.hpp
     Utils/Chronometer.hpp
     Utils/CircularIndex.hpp
     Utils/Color.hpp
@@ -150,6 +151,7 @@ set(core_headers
     Utils/StdUtils.hpp
     Utils/StringUtils.hpp
     Utils/Timer.hpp
+    Utils/TypesUtils.hpp
     Utils/Version.hpp
 )
 
@@ -182,7 +184,9 @@ set(core_inlines
     Math/Math.inl
     Math/Quadric.inl
     Utils/Attribs.inl
+    Utils/BijectiveAssociation.inl
     Utils/CircularIndex.inl
     Utils/Index.inl
     Utils/IndexMap.inl
+    Utils/TypesUtils.inl
 )
