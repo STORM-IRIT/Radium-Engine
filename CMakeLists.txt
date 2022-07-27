@@ -129,6 +129,7 @@ endif()
 add_custom_target(
     Install_Radium COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target install
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+    COMMENT "Radium custom install command, call cmake --build . --target install"
 )
 
 # ------------------------------------------------------------------------------
@@ -172,7 +173,7 @@ set(LocalDependencies)
 # Images, databases and other data which needs to be installed for project add_subdirectory(data)
 
 # Add this target so that some IDE could propose to build all radium libs at once
-add_custom_target(RadiumLibs)
+add_custom_target(RadiumLibs COMMENT "Helper target for IDE.")
 
 # Source code
 set(RADIUM_COMPONENTS "")
@@ -188,7 +189,7 @@ if(RADIUM_ENABLE_EXAMPLES)
     add_subdirectory(examples EXCLUDE_FROM_ALL)
     add_dependencies(RadiumExamples RadiumLibs)
     # compile the examples within the all target (but do not install them within the install target)
-    add_custom_target(BuildExamples ALL)
+    add_custom_target(BuildExamples ALL COMMENT "Build Radium examples.")
     add_dependencies(BuildExamples RadiumExamples)
     add_dependencies(Install_RadiumExamples Install_Radium)
 endif()
