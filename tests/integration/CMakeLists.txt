@@ -1,8 +1,8 @@
-add_custom_target(integration)
+add_custom_target(integration COMMENT "integration test main target.")
 
 # this target generates all references files with HEAD version of the source code, use it when
 # updating the tests while not updating the libs
-add_custom_target(integration_create_ref)
+add_custom_target(integration_create_ref COMMENT "Create reference files for integration tests.")
 
 # -----------------------------------------------------------------------------
 # ------------- TinyPlyFileLoader ---------------------------------------------
@@ -14,16 +14,19 @@ add_executable(integration_${INTEGRATION_TEST} ${INTEGRATION_TEST}/main.cpp)
 target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 target_link_libraries(integration_${INTEGRATION_TEST} PUBLIC Core IO)
 
-add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
+add_custom_target(
+    integration_${INTEGRATION_TEST}_create_ref
+    COMMENT "Create reference file for ${INTEGRATION_TEST}."
+)
 add_dependencies(integration_create_ref integration_${INTEGRATION_TEST}_create_ref)
 
 add_custom_command(
     TARGET integration_${INTEGRATION_TEST}_create_ref
     PRE_BUILD
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
-    COMMAND
-        bash -c
-        "$<TARGET_FILE:integration_${INTEGRATION_TEST}>  2>&1 | cut -f4- -d: | grep -v \"Loading Time\" > ${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.txt"
+    COMMAND bash -c "$<TARGET_FILE:integration_${INTEGRATION_TEST}>  2>&1 | cut -f4- -d: |\
+ grep -v \"Loading Time\"\
+ > ${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.txt"
     COMMAND_EXPAND_LISTS VERBATIM
     COMMENT "generating references for integration_${INTEGRATION_TEST} integration test" DEPENDS
             integration_${INTEGRATION_TEST}
@@ -32,9 +35,9 @@ add_custom_command(
 add_test(
     NAME integration_${INTEGRATION_TEST}_save_output
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
-    COMMAND
-        bash -c
-        "$<TARGET_FILE:integration_${INTEGRATION_TEST}> 2>&1 | cut -f4- -d: | grep -v \"Loading Time\" > ${CMAKE_CURRENT_BINARY_DIR}/output.txt"
+    COMMAND bash -c "$<TARGET_FILE:integration_${INTEGRATION_TEST}> 2>&1 | cut -f4- -d: |\
+ grep -v \"Loading Time\"\
+ > ${CMAKE_CURRENT_BINARY_DIR}/output.txt"
 )
 
 add_test(
@@ -79,19 +82,28 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
                 -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE}
     )
 
-    add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
+    add_custom_target(
+        integration_${INTEGRATION_TEST}_create_ref
+        COMMENT "Create reference file for ${INTEGRATION_TEST}."
+    )
     add_test(
         NAME integration_${INTEGRATION_TEST}_save_output
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
         COMMAND
-            bash -c
-            "$<TARGET_FILE:integration_${INTEGRATION_TEST}>  ${CMAKE_CURRENT_BINARY_DIR} &&\
- \"${LIBXML2_XMLLINT_EXECUTABLE}\" --c14n11  ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid.xml > ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
- \"${LIBXML2_XMLLINT_EXECUTABLE}\" --c14n11  ${CMAKE_CURRENT_SOURCE_DIR}/data/inputs/keymapping-valid.xml > ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
- \"${SED_EXECUTABLE}\" -i.orig '/<!--.*-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
- \"${SED_EXECUTABLE}\" -i.orig '/<!--.*-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
- \"${SED_EXECUTABLE}\" -i.orig '/<!--/,/-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
- \"${SED_EXECUTABLE}\" -i.orig '/<!--/,/-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml; "
+            bash -c "$<TARGET_FILE:integration_${INTEGRATION_TEST}>  ${CMAKE_CURRENT_BINARY_DIR} &&\
+ \"${LIBXML2_XMLLINT_EXECUTABLE}\" --c14n11  ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid.xml >\
+ ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
+ \"${LIBXML2_XMLLINT_EXECUTABLE}\" --c14n11  \
+${CMAKE_CURRENT_SOURCE_DIR}/data/inputs/keymapping-valid.xml >\
+ ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
+ \"${SED_EXECUTABLE}\" -i.orig '/<!--.*-->/d' \
+${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
+ \"${SED_EXECUTABLE}\" -i.orig '/<!--.*-->/d' \
+${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
+ \"${SED_EXECUTABLE}\" -i.orig '/<!--/,/-->/d' \
+${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
+ \"${SED_EXECUTABLE}\" -i.orig '/<!--/,/-->/d' \
+${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml; "
     )
 
     add_test(
@@ -103,11 +115,15 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
             ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml
     )
 
+    set_tests_properties(
+        integration_${INTEGRATION_TEST}_compare_to_ref
+        PROPERTIES DEPENDS integration_${INTEGRATION_TEST}_save_output
+    )
+
     add_dependencies(integration integration_${INTEGRATION_TEST})
 else()
-    message(
-        WARNING
-            "Could not add integration test for KeyMappingManager: sed (${SED_EXECUTABLE}) or xmllint (${LIBXML2_XMLLINT_EXECUTABLE})"
+    message(WARNING "Could not add integration test for KeyMappingManager: \
+sed (${SED_EXECUTABLE}) or xmllint (${LIBXML2_XMLLINT_EXECUTABLE})"
     )
 endif()
 
@@ -126,11 +142,15 @@ if(UNIX AND TARGET ${INTEGRATION_TEST})
     find_program(COMPARE_EXECUTABLE compare)
 
     if(XVFB_EXECUTABLE)
-        add_test(NAME integration_${INTEGRATION_TEST} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        add_test(NAME integration_${INTEGRATION_TEST}_save_output
+                 WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                  COMMAND ${XVFB_EXECUTABLE} -a "$<TARGET_FILE:${INTEGRATION_TEST}>"
         )
         add_dependencies(integration ${INTEGRATION_TEST})
-        add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
+        add_custom_target(
+            integration_${INTEGRATION_TEST}_create_ref
+            COMMENT "Create reference file for ${INTEGRATION_TEST}."
+        )
 
         add_custom_command(
             TARGET integration_${INTEGRATION_TEST}_create_ref
@@ -140,11 +160,11 @@ if(UNIX AND TARGET ${INTEGRATION_TEST})
                 "${CMAKE_CURRENT_BINARY_DIR}/frame.png"
                 "${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png" DEPENDS
                 integration_${INTEGRATION_TEST}
+            COMMENT "Command to create reference file for ${INTEGRATION_TEST}."
         )
     else()
-        message(
-            STATUS
-                "could not run ${INTEGRATION_TEST} integration test, missing tools ${XVFB_EXECUTABLE}"
+        message(STATUS "could not run ${INTEGRATION_TEST} integration test,\
+ missing tools ${XVFB_EXECUTABLE}"
         )
     endif()
     if(XVFB_EXECUTABLE AND COMPARE_EXECUTABLE)
@@ -152,14 +172,20 @@ if(UNIX AND TARGET ${INTEGRATION_TEST})
             NAME integration_${INTEGRATION_TEST}_compare_to_ref
             COMMAND
                 bash -c
-                "${COMPARE_EXECUTABLE} -metric PHASH \"${CMAKE_CURRENT_BINARY_DIR}/frame.png\" \"${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png\" null: > \"${CMAKE_CURRENT_BINARY_DIR}/value\" 2>&1;\
+                "${COMPARE_EXECUTABLE} -metric PHASH \"${CMAKE_CURRENT_BINARY_DIR}/frame.png\"\
+ \"${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png\" null: > \
+\"${CMAKE_CURRENT_BINARY_DIR}/value\" 2>&1;\
                     VALUE=$(cat \"${CMAKE_CURRENT_BINARY_DIR}/value\");\
                     if (( $(echo \"\${VALUE} > 0.01\" |bc -l) )); then false; fi"
         )
+        set_tests_properties(
+            integration_${INTEGRATION_TEST}_compare_to_ref
+            PROPERTIES DEPENDS integration_${INTEGRATION_TEST}_save_output
+        )
+
     else()
-        message(
-            STATUS
-                "could not run ${INTEGRATION_TEST} integration test, missing tools ${XVFB_EXECUTABLE}, ${COMPARE_EXECUTABLE}"
+        message(STATUS "could not run ${INTEGRATION_TEST} integration test,\
+ missing tools ${XVFB_EXECUTABLE}, ${COMPARE_EXECUTABLE}"
         )
     endif()
 endif()
@@ -172,6 +198,7 @@ set(INTEGRATION_TEST includes)
 find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
 find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
+# create variables str_components_headers from component/filelist.cmake
 macro(generate_includes name)
     include(${CMAKE_SOURCE_DIR}/src/${name}/filelist.cmake)
     string(TOLOWER ${name} lowername)

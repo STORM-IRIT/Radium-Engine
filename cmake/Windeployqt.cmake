@@ -39,14 +39,14 @@ endif()
 # Qt runtime to the specified directory
 function(windeployqt target directory)
 
-    set(QT_OPTIONS "")
+    set(qt_options "")
     if(Qt5_FOUND)
-        set(QT_OPTIONS ${QT_OPTIONS} --no-angle)
+        set(qt_options ${qt_options} --no-angle)
     endif()
 
-    set(QT_BUILD_TYPE_OPTION --release)
+    set(qt_build_type_option --release)
     if(CMAKE_BUILD_TYPE MATCHES Debug)
-        set(QT_BUILD_TYPE_OPTION --debug)
+        set(qt_build_type_option --debug)
     endif()
 
     # execute windeployqt in a tmp directory after build
@@ -59,8 +59,8 @@ function(windeployqt target directory)
                 "${CMAKE_CURRENT_BINARY_DIR}/windeployqt-${target}"
         COMMAND
             "${WINDEPLOYQT_EXECUTABLE}" --dir "${CMAKE_CURRENT_BINARY_DIR}/windeployqt-${target}"
-            --verbose 0 --no-compiler-runtime --no-translations ${QT_BUILD_TYPE_OPTION}
-            --no-opengl-sw ${QT_OPTIONS} "$<TARGET_FILE:${target}>"
+            --verbose 0 --no-compiler-runtime --no-translations ${qt_build_type_option}
+            --no-opengl-sw ${qt_options} "$<TARGET_FILE:${target}>"
         COMMENT "Run WinQTDeploy on ${target}"
         USES_TERMINAL COMMAND_EXPAND_LISTS
     )
@@ -69,13 +69,14 @@ function(windeployqt target directory)
     install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/windeployqt-${target}/" DESTINATION ${directory})
 
     # windeployqt doesn't work correctly with the system runtime libraries, so we fall back to one
-    # of CMake's own modules for copying them over
+    # of CMake's own modules for copying them
+    #
+    # cmake-lint: disable=C0103
     set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
     include(InstallRequiredSystemLibraries)
     # foreach(lib ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}) get_filename_component(filename "${lib}"
     # NAME) add_custom_command(TARGET ${target} POST_BUILD COMMAND "${CMAKE_COMMAND}" -E
     # copy_if_different "${lib}" \"$<TARGET_FILE_DIR:${target}>\" ) endforeach()
-
 endfunction()
 
 mark_as_advanced(WINDEPLOYQT_EXECUTABLE)

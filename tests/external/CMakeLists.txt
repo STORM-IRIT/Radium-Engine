@@ -1,4 +1,4 @@
-add_custom_target(update)
+add_custom_target(update COMMENT "Update target for external dependencies.")
 external_download_now_git(Catch2 https://github.com/catchorg/Catch2.git v2.13.8)
 
 set(CATCH_USE_VALGRIND OFF CACHE BOOL "Perform SelfTests with Valgrind")
