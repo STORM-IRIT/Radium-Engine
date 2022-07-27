@@ -307,7 +307,7 @@ void ControlPanel::addComboBox( const std::string& name,
 
 void ControlPanel::addComboBox( const std::string& name,
                                 std::function<void( const QString& )> callback,
-                                int initial,
+                                const std::string& initial,
                                 const std::vector<std::string>& items,
                                 const std::string& tooltip ) {
     auto inputLayout = new QHBoxLayout();
@@ -320,7 +320,7 @@ void ControlPanel::addComboBox( const std::string& name,
         inputLabel->setToolTip(
             QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
     }
-    inputField->setCurrentIndex( initial );
+    inputField->setCurrentText( QString::fromStdString( initial ) );
     inputLayout->addWidget( inputLabel );
     inputLayout->addWidget( inputField );
     connect( inputField,
