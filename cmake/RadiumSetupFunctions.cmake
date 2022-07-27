@@ -1026,15 +1026,15 @@ function(configure_radium_library)
     endforeach()
 endfunction()
 
-# Simple macro to populate LocalDependencies variable according to cmake args NAME is the name of
+# Simple macro to populate LOCAL_DEPENDENCIES variable according to cmake args NAME is the name of
 # the variable to test, e.g. "Eigen3_DIR"
 macro(populate_local_dependencies)
     set(oneValueArgs NAME)
     cmake_parse_arguments(CHECKDEP "DUMMY_OPTION" "${oneValueArgs}" "DUMMY_MULTI" ${ARGN})
     if(${CHECKDEP_NAME})
         string(REPLACE "\\" "/" CHECKDEP_STRING ${${CHECKDEP_NAME}})
-        set(LocalDependencies "${LocalDependencies};-D${CHECKDEP_NAME}=${CHECKDEP_STRING}")
-        set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
+        set(LOCAL_DEPENDENCIES "${LOCAL_DEPENDENCIES};-D${CHECKDEP_NAME}=${CHECKDEP_STRING}")
+        set(LOCAL_DEPENDENCIES ${LOCAL_DEPENDENCIES} PARENT_SCOPE)
     endif()
 endmacro()
 

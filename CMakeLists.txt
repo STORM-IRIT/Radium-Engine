@@ -168,7 +168,7 @@ include(RadiumSetupFunctions)
 add_subdirectory(doc)
 
 # This var gather local dependencies in subdirectories
-set(LocalDependencies)
+set(LOCAL_DEPENDENCIES)
 
 # Images, databases and other data which needs to be installed for project add_subdirectory(data)
 
@@ -299,6 +299,6 @@ endif()
 message_end()
 message(NOTICE "")
 
-set(CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL
-                                                          "Previous value of CMAKE_INSTALL_PREFIX"
+set(_CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL
+                                                           "Previous value of CMAKE_INSTALL_PREFIX"
 )

@@ -12,7 +12,7 @@ include(filelist.cmake)
 
 add_library(${ra_io_target} SHARED ${io_sources} ${io_headers} ${io_inlines})
 
-# LocalDependencies form parent scope
+# LOCAL_DEPENDENCIES form parent scope
 populate_local_dependencies(NAME "assimp_DIR")
 populate_local_dependencies(NAME "tinyply_DIR")
 

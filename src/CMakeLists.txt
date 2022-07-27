@@ -90,7 +90,7 @@ if(MSVC OR MSVC_IDE OR MINGW)
 endif()
 
 # propagate global to parent
-set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
+set(LOCAL_DEPENDENCIES ${LOCAL_DEPENDENCIES} PARENT_SCOPE)
 
 # -------------------------------------------------------------------------------
 # Copy MINGW needed libraries for building on windows

@@ -18,7 +18,7 @@ add_library(${ra_engine_target} SHARED ${engine_sources} ${engine_headers} ${eng
 
 add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
 
-# LocalDependencies form parent scope
+# LOCAL_DEPENDENCIES form parent scope
 populate_local_dependencies(NAME "glm_DIR")
 populate_local_dependencies(NAME "glbinding_DIR")
 populate_local_dependencies(NAME "globjects_DIR")
