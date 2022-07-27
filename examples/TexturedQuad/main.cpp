@@ -1,6 +1,7 @@
 // Include Radium base application and its simple Gui
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/Viewer/Viewer.hpp>
 
 // include the Engine/entity/component interface
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
@@ -23,35 +24,80 @@ int main( int argc, char* argv[] ) {
     //! [Creating a quad geometry with texture coordinates]
 
     //! [Creating a texture]
-    unsigned char data[192 * 512];
+    constexpr int width  = 192;
+    constexpr int height = 512;
+    constexpr int size   = width * height;
+    unsigned char data[size];
     // fill with some function
-    for ( int i = 0; i < 192; ++i ) {
-        for ( int j = 0; j < 512; j++ ) {
-            data[( i * 512 + j )] =
+    for ( int i = 0; i < width; ++i ) {
+        for ( int j = 0; j < height; j++ ) {
+            data[( i * height + j )] =
                 (unsigned char)( 255.0 * std::abs( std::sin( j * i * M_PI / 64.0 ) *
                                                    std::cos( j * i * M_PI / 96.0 ) ) );
         }
     }
-    auto& myTexture = app.m_engine->getTextureManager()->addTexture( "myTexture", 192, 512, data );
+    auto& textureParameters =
+        app.m_engine->getTextureManager()->addTexture( "myTexture", width, height, data );
     // these values will be used when engine initialize texture GL representation.
-    myTexture.format         = gl::GLenum::GL_RED;
-    myTexture.internalFormat = gl::GLenum::GL_R8;
+    textureParameters.format         = gl::GLenum::GL_RED;
+    textureParameters.internalFormat = gl::GLenum::GL_R8;
     //! [Creating a texture]
 
     //! [Create an entity and component to draw or data]
     auto e = app.m_engine->getEntityManager()->createEntity( "Textured quad" );
 
     Ra::Core::Asset::BlinnPhongMaterialData matData( "myMaterialData" );
+    // remove glossy highlight
+    matData.m_specular    = Ra::Core::Utils::Color::Black();
+    matData.m_hasSpecular = true;
+
     matData.m_hasTexDiffuse = true;
     // this name has to be the same as texManager added texture name
     matData.m_texDiffuse = "myTexture";
 
     // the entity get's this new component ownership. a bit wired since hidden in ctor.
     new Ra::Engine::Scene::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), &matData );
+    //! [Create an entity and component to draw or data]
 
     //! [Tell the window that something is to be displayed]
     app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
+
+    // terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.
+    auto close_timer = new QTimer( &app );
+    close_timer->setInterval( 100 );
+    int dec = 0;
+
+        auto thread = std::thread([&app, &dec]() { // not worked
+//    QObject::connect( close_timer, &QTimer::timeout, [&app, &dec]() {
+        unsigned char newData[size];
+        for ( int i = 0; i < width; ++i ) {
+            for ( int j = 0; j < height; j++ ) {
+                newData[( i * height + j )] =
+                    (unsigned char)( 200.0 * std::abs( std::sin( float( dec ) / 4_ra ) ) *
+                                     std::abs( std::sin( j * i * M_PI / 64.0 ) *
+                                               std::cos( j * i * M_PI / 96.0 ) ) );
+            }
+        }
+
+        Ra::Engine::Data::TextureParameters textureParameters;
+        textureParameters.name = "myTexture";
+        auto texture = app.m_engine->getTextureManager()->getOrLoadTexture( textureParameters );
+
+        texture->updateData( newData ); // not worked
+
+//        auto& params = texture->getParameters();
+//        memcpy( params.texels, newData, size );
+//        app.m_mainWindow->getViewer()->makeCurrent();
+//        texture->initializeGL( false );
+//        app.m_mainWindow->getViewer()->doneCurrent();
+
+        std::cout << "update data with dec = " << dec << std::endl;
+        ++dec;
+        if ( dec == 40 ) app.appNeedsToQuit();
+    } );
+
+//    close_timer->start();
 
     return app.exec();
 }
