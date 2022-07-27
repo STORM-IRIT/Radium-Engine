@@ -1,7 +1,7 @@
 set(ra_engine_target Engine)
 list(APPEND CMAKE_MESSAGE_INDENT "[${ra_engine_target}] ")
 
-project(${ra_engine_target} LANGUAGES CXX VERSION ${Radium_VERSION})
+project(${ra_engine_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 
 include(filelist.cmake)
 set(engine_shaders_full ${engine_shaders})

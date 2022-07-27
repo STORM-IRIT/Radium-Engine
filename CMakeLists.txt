@@ -12,19 +12,19 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 # ~~~
 # Note: keep the project name lower case only for easy linux packaging support
 # ~~~
-file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" INPUT_Radium_VERSION)
-project(radiumproject VERSION ${INPUT_Radium_VERSION})
+file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" INPUT_RADIUM_VERSION)
+project(radiumproject VERSION ${INPUT_RADIUM_VERSION})
 
 site_name(VERSION_HOST) # read hostname to VERSION_HOST
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
-# Sets the Radium_VERSION* variables such that all components built in the Radium-buildtree are able
+# Sets the RADIUM_VERSION* variables such that all components built in the Radium-buildtree are able
 # to access them. Client applications, libraries and plugins will access these variable after their
 # find_package(Radium) ...
-set(Radium_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
-set(Radium_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-set(Radium_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-set(Radium_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(RADIUM_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(RADIUM_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CompilerVersion.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CompilerOptions.cmake)

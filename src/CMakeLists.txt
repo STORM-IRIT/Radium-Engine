@@ -59,7 +59,7 @@ cat(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/Radi
 # Generate cmake package
 configure_radium_package(
     NAME Radium PACKAGE_CONFIG ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in
-                               PACKAGE_VERSION ${Radium_VERSION}
+                               PACKAGE_VERSION ${RADIUM_VERSION}
 )
 
 # install general scripts

@@ -26,7 +26,7 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 find_package(Radium REQUIRED COMPONENTS Headless)
 
 option(USE_RADIUM_IO_ASSIMPLOADER "Use assimp data loader from Radium IO" ON)
-message(STATUS "Configuring ${PROJECT_NAME} application with Radium ${Radium_VERSION}")
+message(STATUS "Configuring ${PROJECT_NAME} application with Radium ${RADIUM_VERSION}")
 
 set(app_sources main.cpp)
 

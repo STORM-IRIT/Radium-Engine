@@ -1,7 +1,7 @@
 set(ra_io_target IO)
 list(APPEND CMAKE_MESSAGE_INDENT "[${ra_io_target}] ")
 
-project(${ra_io_target} LANGUAGES CXX VERSION ${Radium_VERSION})
+project(${ra_io_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 
 option(RADIUM_IO_DEPRECATED "Provide deprecated loaders (to be removed without notice)" ON)
 option(RADIUM_IO_ASSIMP "Provide loaders based on Assimp library" ON)

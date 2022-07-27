@@ -1,7 +1,7 @@
 set(ra_gui_target Gui)
 list(APPEND CMAKE_MESSAGE_INDENT "[${ra_gui_target}] ")
 
-project(${ra_gui_target} LANGUAGES CXX VERSION ${Radium_VERSION})
+project(${ra_gui_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 
 include(filelist.cmake)
 

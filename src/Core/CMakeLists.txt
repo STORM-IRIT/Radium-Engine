@@ -1,6 +1,6 @@
 set(ra_core_target Core)
 
-project(${ra_core_target} LANGUAGES CXX VERSION ${Radium_VERSION})
+project(${ra_core_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 
 option(RADIUM_QUIET "Disable Radium Log messages" OFF)
 list(APPEND CMAKE_MESSAGE_INDENT "[${ra_core_target}] ")

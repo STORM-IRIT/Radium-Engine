@@ -5,7 +5,7 @@ endif(APPLE)
 
 set(ra_headless_target Headless)
 list(APPEND CMAKE_MESSAGE_INDENT "[${ra_headless_target}] ")
-project(${ra_headless_target} LANGUAGES CXX VERSION ${Radium_VERSION})
+project(${ra_headless_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 # -----------------------------------------------------------------------------------
 # lib headless configuration
 # -----------------------------------------------------------------------------------

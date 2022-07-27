@@ -36,7 +36,7 @@ set(RA_DEFAULT_PROJECT_OPTIONS
     LINKER_LANGUAGE
     "CXX"
     VERSION
-    ${Radium_VERSION}
+    ${RADIUM_VERSION}
 )
 
 #
