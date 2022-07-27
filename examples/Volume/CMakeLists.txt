@@ -28,7 +28,7 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 find_package(Radium REQUIRED Core Engine Gui IO)
 
 find_qt_package(COMPONENTS Core Widgets REQUIRED)
-set(Qt_LIBRARIES Qt::Core Qt::Widgets)
+set(QT_LIBRARIES Qt::Core Qt::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # ------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ target_include_directories(
 )
 
 target_link_libraries(
-    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui Radium::IO ${Qt_LIBRARIES}
+    ${PROJECT_NAME} PUBLIC Radium::Core Radium::Engine Radium::Gui Radium::IO ${QT_LIBRARIES}
 )
 
 # configure the application configure the application

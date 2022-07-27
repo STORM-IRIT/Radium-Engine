@@ -1,7 +1,7 @@
-set(ra_gui_target Gui)
-list(APPEND CMAKE_MESSAGE_INDENT "[${ra_gui_target}] ")
+set(RA_GUI_TARGET Gui)
+list(APPEND CMAKE_MESSAGE_INDENT "[${RA_GUI_TARGET}] ")
 
-project(${ra_gui_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
+project(${RA_GUI_TARGET} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 
 include(filelist.cmake)
 
@@ -15,7 +15,7 @@ set(QT_DEFAULT_MAJOR_VERSION ${QT_DEFAULT_MAJOR_VERSION} PARENT_SCOPE)
 find_package(OpenGL REQUIRED)
 
 # Qt
-set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
+set(QT_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
@@ -26,52 +26,52 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} # Moc
 qt_wrap_ui(gui_uis ${gui_uis})
 
 add_library(
-    ${ra_gui_target} SHARED ${gui_sources} ${gui_headers} ${gui_inlines} ${gui_uis}
+    ${RA_GUI_TARGET} SHARED ${gui_sources} ${gui_headers} ${gui_inlines} ${gui_uis}
                             ${gui_resources}
 )
 
-add_dependencies(${ra_gui_target} Core Engine PluginBase IO)
-target_link_libraries(${ra_gui_target} PUBLIC Core Engine PluginBase IO)
-target_link_libraries(${ra_gui_target} PRIVATE ${Qt_LIBRARIES} OpenGL::GL)
+add_dependencies(${RA_GUI_TARGET} Core Engine PluginBase IO)
+target_link_libraries(${RA_GUI_TARGET} PUBLIC Core Engine PluginBase IO)
+target_link_libraries(${RA_GUI_TARGET} PRIVATE ${QT_LIBRARIES} OpenGL::GL)
 
-target_compile_options(${ra_gui_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+target_compile_options(${RA_GUI_TARGET} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
-    target_compile_definitions(${ra_gui_target} PUBLIC GUI_IS_COMPILED_WITH_DEBUG_INFO)
+    target_compile_definitions(${RA_GUI_TARGET} PUBLIC GUI_IS_COMPILED_WITH_DEBUG_INFO)
 endif()
 
 # Ask RadiumIO for supported loaders
 get_target_property(USE_ASSIMP IO IO_HAS_ASSIMP)
 if(${USE_ASSIMP})
-    target_compile_definitions(${ra_gui_target} PRIVATE "-DIO_HAS_ASSIMP")
+    target_compile_definitions(${RA_GUI_TARGET} PRIVATE "-DIO_HAS_ASSIMP")
 endif()
 get_target_property(USE_TINYPLY IO IO_HAS_TINYPLY)
 if(${USE_TINYPLY})
-    target_compile_definitions(${ra_gui_target} PRIVATE "-DIO_HAS_TINYPLY")
+    target_compile_definitions(${RA_GUI_TARGET} PRIVATE "-DIO_HAS_TINYPLY")
 endif()
 get_target_property(HAS_VOLUMES IO IO_HAS_VOLUMES)
 if(${HAS_VOLUMES})
-    target_compile_definitions(${ra_gui_target} PRIVATE "-DIO_HAS_VOLUMES")
+    target_compile_definitions(${RA_GUI_TARGET} PRIVATE "-DIO_HAS_VOLUMES")
 endif()
 
-target_compile_definitions(${ra_gui_target} PRIVATE "-DRA_GUI_EXPORTS")
+target_compile_definitions(${RA_GUI_TARGET} PRIVATE "-DRA_GUI_EXPORTS")
 
-message(STATUS "Configuring library ${ra_gui_target} with standard settings")
-configure_radium_target(${ra_gui_target})
+message(STATUS "Configuring library ${RA_GUI_TARGET} with standard settings")
+configure_radium_target(${RA_GUI_TARGET})
 configure_radium_library(
-    TARGET ${ra_gui_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    TARGET ${RA_GUI_TARGET} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
     FILES "${gui_headers};${gui_inlines}"
 )
-set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_gui_target} PARENT_SCOPE)
+set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${RA_GUI_TARGET} PARENT_SCOPE)
 
 message(STATUS "installing resources from Configs")
 install_target_resources(
-    TARGET ${ra_gui_target} RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Configs
+    TARGET ${RA_GUI_TARGET} RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Configs
     RESOURCES_INSTALL_DIR "Radium"
 )
 
 if(RADIUM_ENABLE_PCH)
-    target_precompile_headers(${ra_gui_target} PRIVATE pch.hpp)
+    target_precompile_headers(${RA_GUI_TARGET} PRIVATE pch.hpp)
 endif()
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

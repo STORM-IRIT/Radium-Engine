@@ -12,7 +12,7 @@ include(QtFunctions)
 find_qt_package(COMPONENTS Core REQUIRED)
 
 # Qt
-set(Qt_LIBRARIES Qt::Core)
+set(QT_LIBRARIES Qt::Core)
 set(CMAKE_AUTOMOC ON)
 
 add_library(

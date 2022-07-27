@@ -53,8 +53,8 @@ find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
 find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
 # Qt
-set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
-target_link_libraries(unittests PRIVATE ${Qt_LIBRARIES} PRIVATE std::filesystem)
+set(QT_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
+target_link_libraries(unittests PRIVATE ${QT_LIBRARIES} PRIVATE std::filesystem)
 target_compile_definitions(
     unittests
     PRIVATE -DCXX_FILESYSTEM_HAVE_FS

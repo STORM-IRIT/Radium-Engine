@@ -63,14 +63,14 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
     find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
     find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
-    set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
+    set(QT_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
 
     # KeyMappingManager saveConfiguration tests
     add_executable(integration_${INTEGRATION_TEST} ${INTEGRATION_TEST}/main.cpp)
     target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
     target_link_libraries(
-        integration_${INTEGRATION_TEST} PUBLIC Core Gui PRIVATE std::filesystem ${Qt_LIBRARIES}
+        integration_${INTEGRATION_TEST} PUBLIC Core Gui PRIVATE std::filesystem ${QT_LIBRARIES}
     )
     target_compile_definitions(
         integration_${INTEGRATION_TEST}
@@ -191,12 +191,12 @@ configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/includes.cpp.in" "${CMAKE_CURRENT_BINARY_DIR}/includes.cpp"
 )
 
-set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
+set(QT_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
 add_executable(integration_${INTEGRATION_TEST} "${CMAKE_CURRENT_BINARY_DIR}/includes.cpp")
 target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 target_link_libraries(
-    integration_${INTEGRATION_TEST} PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt_LIBRARIES}
+    integration_${INTEGRATION_TEST} PUBLIC Core Gui Engine PRIVATE std::filesystem ${QT_LIBRARIES}
 )
 
 target_compile_definitions(

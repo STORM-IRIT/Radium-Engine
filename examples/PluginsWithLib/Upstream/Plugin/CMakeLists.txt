@@ -26,7 +26,7 @@ message(STATUS "[Plugins sharing lib] : configure plugin ${PROJECT_NAME}")
 find_package(Radium COMPONENTS PluginBase REQUIRED)
 
 find_qt_package(COMPONENTS Core Widgets REQUIRED)
-set(Qt_LIBRARIES Qt::Core Qt::Widgets)
+set(QT_LIBRARIES Qt::Core Qt::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} # Moc
@@ -44,7 +44,7 @@ add_library(${PROJECT_NAME} SHARED ${sources} ${headers})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_EXPORTS)
 
 target_link_libraries(
-    ${PROJECT_NAME} Radium::Core Radium::Engine Radium::PluginBase ${Qt_LIBRARIES} UpstreamLibrary
+    ${PROJECT_NAME} Radium::Core Radium::Engine Radium::PluginBase ${QT_LIBRARIES} UpstreamLibrary
 )
 
 # -----------------------------------------------------------------------------------
