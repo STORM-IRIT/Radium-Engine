@@ -41,6 +41,7 @@ add_custom_target(
     COMMAND ${CMAKE_CTEST_COMMAND} ${CMAKE_CTEST_ARGUMENTS} --output-on-failure -C
             ${CMAKE_BUILD_TYPE}
     DEPENDS unittests integration
+    COMMENT "Build and run tests."
 )
 
 add_custom_target(
@@ -50,6 +51,7 @@ add_custom_target(
     COMMAND ${CMAKE_CTEST_COMMAND} ${CMAKE_CTEST_ARGUMENTS} -V --output-on-failure -C
             ${CMAKE_BUILD_TYPE}
     DEPENDS unittests integration
+    COMMENT "Build and run tests, verbose."
 )
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

@@ -4,7 +4,7 @@
 # For testing on the function/class level.
 
 # -----------------------------------------------------------------------------
-set(test_src
+set(TEST_SRC
     unittest.cpp
     unittestUtils.hpp
     Core/algebra.cpp
@@ -33,10 +33,10 @@ set(test_src
 get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
 if(${HAS_VOLUMES})
     message(STATUS "Compiling Volume loader unit test")
-    list(APPEND test_src IO/volumeloader.cpp)
+    list(APPEND TEST_SRC IO/volumeloader.cpp)
 endif()
 
-add_executable(unittests ${test_src})
+add_executable(unittests ${TEST_SRC})
 target_compile_options(unittests PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
@@ -54,7 +54,7 @@ find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
 # Qt
 set(QT_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
-target_link_libraries(unittests PRIVATE ${QT_LIBRARIES} PRIVATE std::filesystem)
+target_link_libraries(unittests PRIVATE ${QT_LIBRARIES} std::filesystem)
 target_compile_definitions(
     unittests
     PRIVATE -DCXX_FILESYSTEM_HAVE_FS
@@ -65,12 +65,17 @@ target_compile_definitions(
 # convenience target for running only the unit tests
 add_custom_target(
     run_unittests # this way we can use fake data from /tests/unittest/ dir (if we have any):
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} COMMAND $<TARGET_FILE:unittests>
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMAND $<TARGET_FILE:unittests>
     DEPENDS unittests
+    COMMENT "Run unittests only."
 )
 
 # Verbose printing of results
 add_custom_target(
-    run_unittests_verbose WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMAND $<TARGET_FILE:unittests> -s -a -r=compact DEPENDS unittests
+    run_unittests_verbose
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMAND $<TARGET_FILE:unittests> -s -a -r=compact
+    DEPENDS unittests
+    COMMENT "Run unittests only, verbose."
 )

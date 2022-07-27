@@ -566,7 +566,7 @@ function(configure_windows_radium_app)
     # Add the Qt bin dir ...
     list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
     # Add the Radium externals's dll location
-    list(APPEND FIX_LIBRARY_DIR "${RadiumExternalDlls_location}")
+    list(APPEND FIX_LIBRARY_DIR "${RADIUM_EXTERNAL_DLLS_LOCATION}")
     list(REMOVE_DUPLICATES FIX_LIBRARY_DIR)
 
     # build the list of resource directory from the linked libraries to copy into the bundle
