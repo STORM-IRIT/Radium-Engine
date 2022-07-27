@@ -187,7 +187,10 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
                 blue  = *(unsigned short*)( point.data() + 24 );
             }
 
-            colors.emplace_back(Scalar(red) / 65536_ra, Scalar(green) / 65536_ra, Scalar(blue) / 65536_ra, 1_ra);
+            colors.emplace_back( Scalar( red ) / 65536_ra,
+                                 Scalar( green ) / 65536_ra,
+                                 Scalar( blue ) / 65536_ra,
+                                 1_ra );
         }
 
         if ( handle_time.idx().isValid() ) {
