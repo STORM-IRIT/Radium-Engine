@@ -24,12 +24,25 @@ void RenderParameters::bind( const Data::ShaderProgram* shader ) const {
 }
 
 void RenderParameters::addEnumConverter( const std::string& name,
-                                         const std::map<std::string, int>& converter ) {
+                                         std::shared_ptr<AbstractEnumConverter> converter ) {
     m_enumConverters[name] = converter;
 }
 
-bool RenderParameters::containsEnumConverter( const std::string& name ) {
-    return m_enumConverters.find( name ) != m_enumConverters.end();
+std::optional<std::shared_ptr<RenderParameters::AbstractEnumConverter>>
+RenderParameters::containsEnumConverter( const std::string& name ) {
+    auto it = m_enumConverters.find( name );
+    if ( it != m_enumConverters.end() ) { return it->second; }
+    else {
+        return {};
+    }
+}
+
+std::string RenderParameters::getEnumString( const std::string& name, int value ) {
+    auto it = m_enumConverters.find( name );
+    if ( it != m_enumConverters.end() ) { return it->second->getEnumerator( value ); }
+    else {
+        return {};
+    }
 }
 
 void RenderParameters::addParameter( const std::string& name, bool value ) {
@@ -96,23 +109,14 @@ void RenderParameters::addParameter( const std::string& name, Data::Texture* tex
     m_texParamsVector[name] = TextureParameter( name, tex, texUnit );
 }
 
-void RenderParameters::addParameter(
-    const std::string& name,
-    const std::pair<const std::string&, const std::string&> enumTypeAndValue ) {
+void RenderParameters::addParameter( const std::string& name, const std::string& value ) {
 
-    auto converter = m_enumConverters.find( enumTypeAndValue.first );
-    if ( converter != m_enumConverters.end() ) {
-        auto value = converter->second.find( enumTypeAndValue.second );
-        if ( value != converter->second.end() )
-            addParameter( name, value->second );
-        else
-            LOG( Core::Utils::logERROR )
-                << "RenderParameters, value not found in converter " << enumTypeAndValue.first
-                << " " << enumTypeAndValue.second;
-    }
+    auto it = m_enumConverters.find( name );
+    if ( it != m_enumConverters.end() ) { it->second->setEnumValue( *this, name, value ); }
     else {
-        LOG( Core::Utils::logERROR ) << "RenderParameters, try to set enum value without converter "
-                                     << enumTypeAndValue.first << " " << enumTypeAndValue.second;
+        LOG( Core::Utils::logERROR )
+            << "RenderParameters, try to set enum value from string without converter " << name
+            << " " << value;
     }
 }
 
