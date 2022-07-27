@@ -1,22 +1,24 @@
-set(ra_engine_target Engine)
-list(APPEND CMAKE_MESSAGE_INDENT "[${ra_engine_target}] ")
+set(RA_ENGINE_TARGET Engine)
+list(APPEND CMAKE_MESSAGE_INDENT "[${RA_ENGINE_TARGET}] ")
 
-project(${ra_engine_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
+project(${RA_ENGINE_TARGET} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 
 include(filelist.cmake)
-set(engine_shaders_full ${engine_shaders})
+set(ENGINE_SHADERS_FULL ${engine_shaders})
 
 if(CMAKE_VERSION VERSION_LESS 3.16)
-    string(REGEX REPLACE "([^;]+)" "${RADIUM_SHADERS_DIR}/\\1" engine_shaders_full
+    string(REGEX REPLACE "([^;]+)" "${RADIUM_SHADERS_DIR}/\\1" ENGINE_SHADERS_FULL
                          "${engine_shaders}"
     )
 else()
-    list(TRANSFORM engine_shaders_full PREPEND ${RADIUM_SHADERS_DIR}/)
+    list(TRANSFORM ENGINE_SHADERS_FULL PREPEND ${RADIUM_SHADERS_DIR}/)
 endif()
 
-add_library(${ra_engine_target} SHARED ${engine_sources} ${engine_headers} ${engine_inlines})
+add_library(${RA_ENGINE_TARGET} SHARED ${engine_sources} ${engine_headers} ${engine_inlines})
 
-add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
+add_custom_target(
+    RadiumEngineShaders ALL SOURCES ${ENGINE_SHADERS_FULL} COMMENT "Shaders source list."
+)
 
 # LOCAL_DEPENDENCIES form parent scope
 populate_local_dependencies(NAME "glm_DIR")
@@ -31,45 +33,45 @@ find_package(Eigen3 REQUIRED NO_DEFAULT_PATH)
 find_package(tinyEXR REQUIRED NO_DEFAULT_PATH)
 
 # This one should be extracted directly from external project properties.
-target_compile_definitions(${ra_engine_target} PUBLIC GLOBJECTS_USE_EIGEN)
+target_compile_definitions(${RA_ENGINE_TARGET} PUBLIC GLOBJECTS_USE_EIGEN)
 
-target_compile_options(${ra_engine_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+target_compile_options(${RA_ENGINE_TARGET} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 target_include_directories(
-    ${ra_engine_target} PUBLIC $<BUILD_INTERFACE:${GLBINDING_INCLUDE_DIR}>
+    ${RA_ENGINE_TARGET} PUBLIC $<BUILD_INTERFACE:${GLBINDING_INCLUDE_DIR}>
                                $<BUILD_INTERFACE:${GLM_INCLUDE_DIR}>
 )
-add_dependencies(${ra_engine_target} Core RadiumEngineShaders)
+add_dependencies(${RA_ENGINE_TARGET} Core RadiumEngineShaders)
 target_link_libraries(
-    ${ra_engine_target} PUBLIC Core glm glbinding::glbinding glbinding::glbinding-aux
+    ${RA_ENGINE_TARGET} PUBLIC Core glm glbinding::glbinding glbinding::glbinding-aux
                                globjects::globjects tinyEXR::tinyEXR
 )
 
-target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
+target_compile_definitions(${RA_ENGINE_TARGET} PRIVATE "-DRA_ENGINE_EXPORTS")
 
-message(STATUS "Configuring library ${ra_engine_target} with standard settings")
-configure_radium_target(${ra_engine_target})
+message(STATUS "Configuring library ${RA_ENGINE_TARGET} with standard settings")
+configure_radium_target(${RA_ENGINE_TARGET})
 configure_radium_library(
-    TARGET ${ra_engine_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    TARGET ${RA_ENGINE_TARGET} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
     FILES "${engine_headers};${engine_inlines}"
 )
-set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_engine_target} PARENT_SCOPE)
+set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${RA_ENGINE_TARGET} PARENT_SCOPE)
 
 message(STATUS "installing resources from ${RADIUM_SHADERS_DIR}")
 install_target_resources(
-    TARGET ${ra_engine_target} RESOURCES_DIR ${RADIUM_SHADERS_DIR} RESOURCES_INSTALL_DIR "Radium"
+    TARGET ${RA_ENGINE_TARGET} RESOURCES_DIR ${RADIUM_SHADERS_DIR} RESOURCES_INSTALL_DIR "Radium"
     FILES ${engine_shaders}
 )
 message(STATUS "installing resources from ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Textures")
 install_target_resources(
-    TARGET ${ra_engine_target} RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Textures
+    TARGET ${RA_ENGINE_TARGET} RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Textures
     RESOURCES_INSTALL_DIR "Radium"
 )
 
-target_compile_options(${ra_engine_target} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)
+target_compile_options(${RA_ENGINE_TARGET} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTIONS} INTERFACE)
 
 if(RADIUM_ENABLE_PCH)
-    target_precompile_headers(${ra_engine_target} PRIVATE pch.hpp)
+    target_precompile_headers(${RA_ENGINE_TARGET} PRIVATE pch.hpp)
 endif()
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
