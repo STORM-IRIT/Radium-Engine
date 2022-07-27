@@ -1,7 +1,7 @@
 # ----------------------------------------------------
 # This file can be generated from a script:
-# To do so, run form ./scripts directory
-# ./generateFilelistForModule.sh Gui
+# To do so, run "./generateFilelistForModule.sh Gui"
+# from ./scripts directory
 # ----------------------------------------------------
 
 set(GUI_SOURCES

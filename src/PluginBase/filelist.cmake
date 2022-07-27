@@ -1,7 +1,7 @@
 # ----------------------------------------------------
 # This file can be generated from a script:
-# To do so, run form ./scripts directory
-# ./generateFilelistForModule.sh PluginBase
+# To do so, run "./generateFilelistForModule.sh PluginBase"
+# from ./scripts directory
 # ----------------------------------------------------
 
 set(PLUGINBASE_SOURCES RadiumPluginInterface.cpp)

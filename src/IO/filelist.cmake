@@ -1,7 +1,7 @@
 # ----------------------------------------------------
 # This file can be generated from a script:
-# To do so, run form ./scripts directory
-# ./generateFilelistForModule.sh IO
+# To do so, run "./generateFilelistForModule.sh IO"
+# from ./scripts directory
 # ----------------------------------------------------
 
 set(IO_SOURCES CameraLoader/CameraLoader.cpp)

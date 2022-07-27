@@ -1,7 +1,7 @@
 # ----------------------------------------------------
 # This file can be generated from a script:
-# To do so, run form ./scripts directory
-# ./generateFilelistForModule.sh Core
+# To do so, run "./generateFilelistForModule.sh Core"
+# from ./scripts directory
 # ----------------------------------------------------
 
 set(CORE_SOURCES
@@ -46,8 +46,8 @@ set(CORE_SOURCES
     Resources/Resources.cpp
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
-    Utils/Color.cpp
     Utils/CircularIndex.cpp
+    Utils/Color.cpp
     Utils/StackTrace.cpp
     Utils/StringUtils.cpp
 )
