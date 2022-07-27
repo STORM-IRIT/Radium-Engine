@@ -1,7 +1,7 @@
-set(ra_pluginbase_target PluginBase)
-list(APPEND CMAKE_MESSAGE_INDENT "[${ra_pluginbase_target}] ")
+set(RA_PLUGINBASE_TARGET PluginBase)
+list(APPEND CMAKE_MESSAGE_INDENT "[${RA_PLUGINBASE_TARGET}] ")
 
-project(${ra_pluginbase_target} LANGUAGES CXX VERSION ${RADIUM_VERSION})
+project(${RA_PLUGINBASE_TARGET} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 
 include(filelist.cmake)
 
@@ -16,29 +16,29 @@ set(QT_LIBRARIES Qt::Core)
 set(CMAKE_AUTOMOC ON)
 
 add_library(
-    ${ra_pluginbase_target} SHARED ${pluginbase_sources} ${pluginbase_headers}
+    ${RA_PLUGINBASE_TARGET} SHARED ${pluginbase_sources} ${pluginbase_headers}
                                    ${pluginbase_inlines} ${pluginbase_json}
 )
 
-add_dependencies(${ra_pluginbase_target} Core Engine)
-target_link_libraries(${ra_pluginbase_target} PUBLIC Core Engine)
-target_link_libraries(${ra_pluginbase_target} PRIVATE Qt::Core)
+add_dependencies(${RA_PLUGINBASE_TARGET} Core Engine)
+target_link_libraries(${RA_PLUGINBASE_TARGET} PUBLIC Core Engine)
+target_link_libraries(${RA_PLUGINBASE_TARGET} PRIVATE Qt::Core)
 
-target_compile_options(${ra_pluginbase_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+target_compile_options(${RA_PLUGINBASE_TARGET} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
-target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPORTS")
+target_compile_definitions(${RA_PLUGINBASE_TARGET} PRIVATE "-DRA_PLUGINBASE_EXPORTS")
 
-message(STATUS "Configuring library ${ra_pluginbase_target} with standard settings")
-configure_radium_target(${ra_pluginbase_target})
+message(STATUS "Configuring library ${RA_PLUGINBASE_TARGET} with standard settings")
+configure_radium_target(${RA_PLUGINBASE_TARGET})
 configure_radium_library(
-    TARGET ${ra_pluginbase_target} COMPONENT
+    TARGET ${RA_PLUGINBASE_TARGET} COMPONENT
     PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
     FILES "${pluginbase_headers};${pluginbase_inlines}"
 )
-set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_pluginbase_target} PARENT_SCOPE)
+set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${RA_PLUGINBASE_TARGET} PARENT_SCOPE)
 
 # install json configuration files
-install(FILES ${pluginbase_json} DESTINATION ${CONFIG_PACKAGE_LOCATION}/${ra_pluginbase_target})
+install(FILES ${pluginbase_json} DESTINATION ${CONFIG_PACKAGE_LOCATION}/${RA_PLUGINBASE_TARGET})
 file(COPY ${pluginbase_json} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
