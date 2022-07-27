@@ -69,7 +69,7 @@ int main( int argc, char* argv[] ) {
     viewer->doneCurrent();
 
     // terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.
-    auto thread = std::thread( [&app, &texture]() { // not worked
+    auto thread = std::thread( [=, &app, &texture]() {
         for ( int dec = 0; dec < 40; ++dec ) {
             unsigned char newData[size];
             for ( int i = 0; i < width; ++i ) {
