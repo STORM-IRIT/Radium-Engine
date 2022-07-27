@@ -134,6 +134,29 @@ inline const T& RenderParameters::getParameter( const std::string& name ) const 
     return params.at( name );
 }
 
+template <typename Enum>
+inline RenderParameters::EnumConverter<Enum>::EnumConverter(
+    std::initializer_list<std::pair<typename std::underlying_type_t<Enum>, std::string>> pairs ) :
+    AbstractEnumConverter(), m_stringToValue { pairs } {}
+
+template <typename Enum>
+inline void
+RenderParameters::EnumConverter<Enum>::setEnumValue( RenderParameters& p,
+                                                     const std::string& name,
+                                                     const std::string& enumerator ) const {
+    p.addParameter( name, m_stringToValue( enumerator ) );
+}
+
+template <typename Enum>
+inline std::string RenderParameters::EnumConverter<Enum>::getEnumerator( int v ) const {
+    return m_stringToValue( std::underlying_type_t<Enum>( v ) );
+}
+
+template <typename Enum>
+inline int RenderParameters::EnumConverter<Enum>::getEnumerator( const std::string& v ) const {
+    return m_stringToValue( v );
+}
+
 } // namespace Data
 } // namespace Engine
 } // namespace Ra

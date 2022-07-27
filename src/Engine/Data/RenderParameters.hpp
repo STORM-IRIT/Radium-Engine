@@ -9,6 +9,7 @@
 
 #include <Core/Containers/AlignedAllocator.hpp>
 #include <Core/Types.hpp>
+#include <Core/Utils/BijectiveAssociation.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
@@ -136,9 +137,115 @@ class RA_ENGINE_API RenderParameters final
     using Mat4Parameter = TParameter<Core::Matrix4>;
 
   public:
-    void addEnumConverter( const std::string& name, const std::map<std::string, int>& converter );
-    bool containsEnumConverter( const std::string& name );
+    /**
+     * \brief Management of parameter of enum trype
+     * This allow to set the parameter using a string representation of their value.
+     * Setting the parameter directly from the value is supported as for any other parameter but
+     * user should take care to call the right overloaded function given the underlying enumeration
+     * type. This is due to unscoped enum being implicitly convertible to any integral type.
+     * (https://en.cppreference.com/w/cpp/language/enum)
+     * \{
+     */
+    /**
+     * \brief This class allows to set and manipulate parameter as enumerations either using a
+     * string representation of the enumeration or its value.
+     */
+    class AbstractEnumConverter
+    {
+      public:
+        virtual ~AbstractEnumConverter() = default;
+        /**
+         * \brief Set the value of the enum corresponding to the given string and matching the
+         * enumeration underlying type \param p the renderParameter to update. \param name The name
+         * of the enum to set \param enumerator The enumerator, in std::string form
+         */
+        virtual void setEnumValue( RenderParameters& p,
+                                   const std::string& name,
+                                   const std::string& enumerator ) const = 0;
 
+        /**
+         * \brief Get the string form of an enumeration value
+         * \param v the value of the enumeration, implicitly converted to int for unscope enum,
+         * explicitely converted for scoped one. \return the string associated to this value
+         */
+        virtual std::string getEnumerator( int v ) const = 0;
+
+        /**
+         * \brief Get the value, converted to int, of the enumeration given its string expression
+         * \param v the string defining the enumerator
+         * \return the value of the enumerator
+         * \note that this method does not respect the underlying type of enumerations.
+         */
+        virtual int getEnumerator( const std::string& v ) const = 0;
+    };
+
+    /**
+     * \brief This class manage the bijective association between string anv integral representation
+     * of an enumeration.
+     *
+     * \tparam Enum the type of the enumeration to manage
+     */
+    template <typename Enum>
+    class EnumConverter : public AbstractEnumConverter
+    {
+      public:
+        explicit EnumConverter(
+            std::initializer_list<std::pair<typename std::underlying_type_t<Enum>, std::string>>
+                pairs );
+
+        void setEnumValue( RenderParameters& p,
+                           const std::string& name,
+                           const std::string& enumerator ) const override;
+        std::string getEnumerator( int v ) const override;
+        int getEnumerator( const std::string& v ) const override;
+
+      private:
+        Core::Utils::BijectiveAssociation<typename std::underlying_type_t<Enum>, std::string>
+            m_stringToValue;
+    };
+
+    /**
+     * \brief Associate a converter for enumerated type to the given parameter name
+     * \param name
+     * \param converter
+     */
+    void addEnumConverter( const std::string& name,
+                           std::shared_ptr<AbstractEnumConverter> converter );
+
+    /**
+     * \brief Search for a converter associated with a parameter
+     * \param name
+     * \return
+     */
+    std::optional<std::shared_ptr<AbstractEnumConverter>>
+    containsEnumConverter( const std::string& name );
+
+    /**
+     * \brief Return the string associated to the actual value of a parameter
+     * \param name
+     * \param
+     * \return
+     */
+    std::string getEnumString( const std::string& name, int value );
+
+    /**
+     * \brief set the value of the given parameter, according to a string representation of an enum.
+     * \note If there is no EnumConverter associated with the parameter name, do nothing.
+     * \param name
+     * \param value
+     */
+    void addParameter( const std::string& name, const std::string& value );
+
+  private:
+    /**
+     * \brief Store the enumeration converter.
+     * By storing a shared_ptr, the same converter could be used for several parameters.
+     */
+    std::map<std::string, std::shared_ptr<AbstractEnumConverter>> m_enumConverters;
+
+    /**\}*/
+
+  public:
     /**
      * Overloaded operators to set shader parameters
      * \{
@@ -160,9 +267,6 @@ class RA_ENGINE_API RenderParameters final
     void addParameter( const std::string& name, const Core::Matrix2& value );
     void addParameter( const std::string& name, const Core::Matrix3& value );
     void addParameter( const std::string& name, const Core::Matrix4& value );
-
-    void addParameter( const std::string& name,
-                       const std::pair<const std::string&, const std::string&> enumTypeAndValue );
 
     /**
      * Adding a texture parameter.
@@ -248,8 +352,6 @@ class RA_ENGINE_API RenderParameters final
 
     UniformBindableSet<TextureParameter> m_texParamsVector;
     /**\}*/
-
-    std::map<std::string, std::map<std::string, int>> m_enumConverters;
 };
 
 /**
