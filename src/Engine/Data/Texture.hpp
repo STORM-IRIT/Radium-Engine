@@ -6,6 +6,7 @@
 #include <string>
 
 #include <Engine/OpenGL.hpp>
+#include <Engine/Data/DirtyableObject.hpp>
 
 #include <Core/Utils/Color.hpp>
 
@@ -83,7 +84,7 @@ struct TextureParameters {
 /** Represent a Texture of the engine
  * See TextureManager for information about how unique texture are defined.
  */
-class RA_ENGINE_API Texture final
+class RA_ENGINE_API Texture final : public Dirtyable
 {
   public:
     /** Textures are not copyable, delete copy constructor.
@@ -216,6 +217,9 @@ class RA_ENGINE_API Texture final
         m_textureParameters = textureParameters;
     }
 
+protected:
+    void clean();
+
   private:
     friend class TextureManager;
     /**
@@ -249,8 +253,6 @@ class RA_ENGINE_API Texture final
     bool m_isMipMapped { false };
     /// Is the texture in LinearRGB ?
     bool m_isLinear { false };
-
-    bool m_dirty { true };
 };
 } // namespace Data
 } // namespace Engine

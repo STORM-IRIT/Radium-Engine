@@ -80,7 +80,6 @@ void Texture::initializeGL( bool linearize ) {
 }
 
 void Texture::bind( int unit ) {
-    if ( m_dirty ) { updateSampler(); }
     if ( unit >= 0 ) { m_texture->bindActive( uint( unit ) ); }
     else { m_texture->bind(); }
 }
@@ -96,7 +95,7 @@ void Texture::bindImageTexture( int unit,
 
 void Texture::updateData( void* newData ) {
     m_textureParameters.texels = newData;
-    m_dirty                    = true;
+    setDirty();
 }
 
 // let the compiler warn about case fallthrough
@@ -162,6 +161,11 @@ void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     if ( m_texture == nullptr ) { initializeGL( false ); }
     else { updateSampler(); }
     if ( m_isMipMapped ) { m_texture->generateMipmap(); }
+}
+
+void Texture::clean()
+{
+    updateSampler();
 }
 
 // private functions
@@ -278,7 +282,6 @@ void Texture::updateSampler() {
     } break;
     }
     GL_CHECK_ERROR;
-    m_dirty = false;
 }
 
 void Texture::sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel ) {

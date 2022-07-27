@@ -6,6 +6,7 @@
 
 set(engine_sources
     Data/BlinnPhongMaterial.cpp
+    Data/DirtyableObject.cpp
     Data/DrawPrimitives.cpp
     Data/EnvironmentTexture.cpp
     Data/LambertianMaterial.cpp
@@ -58,6 +59,7 @@ set(engine_sources
 
 set(engine_headers
     Data/BlinnPhongMaterial.hpp
+    Data/DirtyableObject.hpp
     Data/DisplayableObject.hpp
     Data/DrawPrimitives.hpp
     Data/EnvironmentTexture.hpp
