@@ -127,23 +127,25 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     VectorArray<Ra::Core::Vector3>& vertices = geometry->getGeometry().verticesWithLock();
     vertices.reserve( nb_data );
 
-    // checking for colors
-    bool colors = false;
-    if ( data_format == 2 || data_format == 3 || ( minor >= 3 && data_format == 5 ) ) {
-        auto handle_color = geometry->getGeometry().vertexAttribs().addAttrib<Ra::Core::Vector4>(
-            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ) );
-        colors = true;
-        LOG( logINFO ) << "\"red\", \"green\", \"blue\".";
+    //checking for colors
+    Ra::Core::Utils::AttribHandle< Ra::Core::Vector4 > handle_color;
+    Ra::Core::VectorArray< Ra::Core::Vector4 > colors;
+    if (data_format == 2 || data_format == 3 || (minor >= 3 && data_format == 5)) {
+        handle_color = geometry->getGeometry().vertexAttribs().addAttrib<Ra::Core::Vector4>(
+                    Ra::Core::Geometry::getAttribName(Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR));
+        LOG(logINFO) << "\"red\", \"green\", \"blue\".";
     }
 
-    // checking for GPS Time
-    bool gps_time = false;
-    if ( ( data_format == 1 ) || ( data_format == 3 ) ||
-         ( ( minor > 2 ) && ( data_format == 4 ) ) || ( ( minor > 2 ) && ( data_format == 5 ) ) ||
-         ( ( minor == 4 ) && ( data_format == 6 ) ) ) {
-        auto handle_time = geometry->getGeometry().vertexAttribs().addAttrib<Scalar>( "gps_time" );
-        gps_time         = true;
-        LOG( logINFO ) << "\"GPS time\".";
+    //checking for GPS Time
+    Ra::Core::Utils::AttribHandle< Scalar > handle_time;
+    Ra::Core::VectorArray< Scalar > gps_time;
+    if ((data_format == 1 )
+            || (data_format == 3)
+            || ((minor > 2) && (data_format == 4))
+            || ((minor > 2) && (data_format == 5))
+            || ((minor == 4) && (data_format == 6))) {
+        handle_time = geometry->getGeometry().vertexAttribs().addAttrib<Scalar>("gps_time");
+        LOG(logINFO) << "\"GPS time\".";
     }
 
     for ( unsigned int i = 0; i < nb_data; ++i ) {
@@ -172,44 +174,32 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
         // storing coordinates in vertices object
         vertices.emplace_back( Scalar( x ), Scalar( y ), Scalar( z ) );
 
-        // computing colors if found
-        if ( colors ) {
+        // loading colors if found
+        if (handle_color.idx().isValid()) {
             unsigned short red, green, blue;
 
-            if ( data_format == 5 || data_format == 3 ) {
-                red   = *(unsigned short*)( point.data() + 28 );
-                green = *(unsigned short*)( point.data() + 30 );
-                blue  = *(unsigned short*)( point.data() + 32 );
+            if (data_format == 5 || data_format == 3) {
+                red   = *(unsigned short*)(point.data() + 28);
+                green = *(unsigned short*)(point.data() + 30);
+                blue  = *(unsigned short*)(point.data() + 32);
             }
             else {
-                red   = *(unsigned short*)( point.data() + 20 );
-                green = *(unsigned short*)( point.data() + 22 );
-                blue  = *(unsigned short*)( point.data() + 24 );
+                red   = *(unsigned short*)(point.data() + 20);
+                green = *(unsigned short*)(point.data() + 22);
+                blue  = *(unsigned short*)(point.data() + 24);
             }
 
-            auto handle_colors =
-                geometry->getGeometry().vertexAttribs().findAttrib<Ra::Core::Vector4>(
-                    Ra::Core::Geometry::getAttribName(
-                        Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ) );
-            geometry->getGeometry()
-                .vertexAttribs()
-                .getDataWithLock( handle_colors )
-                .emplace_back( Scalar( red ), Scalar( green ), Scalar( blue ), 1_ra );
-            geometry->getGeometry().vertexAttribs().unlock( handle_colors );
+            colors.emplace_back(Scalar(red), Scalar(green), Scalar(blue), 1_ra);
         }
 
-        if ( gps_time ) {
-            // computing GPS time if found
-            auto handle_time =
-                geometry->getGeometry().vertexAttribs().findAttrib<Scalar>( "gps_time" );
-            auto& time = geometry->getGeometry().vertexAttribs().getDataWithLock( handle_time );
-            if ( data_format == 6 ) {
-                time.emplace_back( Scalar( *reinterpret_cast<double*>( point.data() + 22 ) ) );
+        if (handle_time.idx().isValid()) {
+            // loading GPS time if found
+            if (data_format == 6) {
+                gps_time.emplace_back(Scalar(*reinterpret_cast<double*>(point.data() + 22)));
             }
             else {
-                time.emplace_back( Scalar( *reinterpret_cast<double*>( point.data() + 20 ) ) );
+                gps_time.emplace_back(Scalar(*reinterpret_cast<double*>(point.data() + 20)));
             }
-            geometry->getGeometry().vertexAttribs().unlock( handle_time );
         }
     }
     stream.close();
@@ -217,6 +207,14 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     geometry->getGeometry().verticesUnlock();
 
     point.clear();
+
+    if (handle_color.idx().isValid()) {
+            geometry->getGeometry().vertexAttribs().getAttrib(handle_color).setData(colors);
+    }
+    if (handle_time.idx().isValid()) {
+            geometry->getGeometry().vertexAttribs().getAttrib(handle_time).setData(gps_time);
+    }
+
 
     // finalizing
     fileData->m_geometryData.clear();
