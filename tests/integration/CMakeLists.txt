@@ -121,7 +121,7 @@ add_dependencies(integration CoreExample)
 
 set(INTEGRATION_TEST "HeadlessExample")
 
-if(UNIX)
+if(UNIX AND TARGET ${INTEGRATION_TEST})
     find_program(XVFB_EXECUTABLE xvfb-run)
     find_program(COMPARE_EXECUTABLE compare)
 
@@ -153,8 +153,8 @@ if(UNIX)
             COMMAND
                 bash -c
                 "${COMPARE_EXECUTABLE} -metric PHASH \"${CMAKE_CURRENT_BINARY_DIR}/frame.png\" \"${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png\" null: > \"${CMAKE_CURRENT_BINARY_DIR}/value\" 2>&1;\
-                VALUE=$(cat \"${CMAKE_CURRENT_BINARY_DIR}/value\");\
-                if (( $(echo \"\${VALUE} > 0.01\" |bc -l) )); then false; fi"
+                    VALUE=$(cat \"${CMAKE_CURRENT_BINARY_DIR}/value\");\
+                    if (( $(echo \"\${VALUE} > 0.01\" |bc -l) )); then false; fi"
         )
     else()
         message(

@@ -142,9 +142,6 @@ add_custom_target(
 find_package(Git QUIET)
 
 if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
-    option(RADIUM_GIT_UPDATE_SUBMODULE
-           "Check submodules during build (will be automatically disabled after run)." ON
-    )
     execute_process(
         COMMAND ${GIT_EXECUTABLE} rev-parse HEAD WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         OUTPUT_VARIABLE GIT_CHANGESET
@@ -185,6 +182,7 @@ add_custom_target(RadiumLibs)
 
 # Source code
 set(RADIUM_COMPONENTS "")
+set(RADIUM_MISSING_COMPONENTS "")
 add_subdirectory(src)
 
 # Enable find_package(RadiumEngine) for the current build.
@@ -208,7 +206,10 @@ if(RADIUM_ENABLE_TESTING)
     # prepare integration tests
     if(NOT RADIUM_ENABLE_EXAMPLES)
         add_subdirectory(examples/CoreExample EXCLUDE_FROM_ALL)
-        add_subdirectory(examples/HeadlessExample EXCLUDE_FROM_ALL)
+        list(FIND RADIUM_COMPONENTS "Headless" res)
+        if(res GREATER "-1")
+            add_subdirectory(examples/HeadlessExample EXCLUDE_FROM_ALL)
+        endif()
     endif()
     add_subdirectory(tests)
 endif()
@@ -281,8 +282,11 @@ message_setting("RADIUM_GENERATE_LIB_HEADLESS")
 message_setting("RADIUM_GENERATE_LIB_IO")
 message_setting("RADIUM_GENERATE_LIB_PLUGINBASE")
 string(REPLACE ";" " " COMPONENTS_LIST "${RADIUM_COMPONENTS}")
-message_info(" -- Actual configured components: ${COMPONENTS_LIST}")
-message_setting("RADIUM_GIT_UPDATE_SUBMODULE")
+message_info(" -- Configured components: ${COMPONENTS_LIST}")
+if(NOT ${RADIUM_MISSING_COMPONENTS} STREQUAL "")
+    string(REPLACE ";" " " COMPONENTS_LIST "${RADIUM_MISSING_COMPONENTS}")
+    message_info(" -- Missing components: ${COMPONENTS_LIST} (see log to find why)")
+endif()
 message_setting("RADIUM_IO_ASSIMP")
 message_setting("RADIUM_IO_TINYPLY")
 message_setting("RADIUM_IO_VOLUMES")
