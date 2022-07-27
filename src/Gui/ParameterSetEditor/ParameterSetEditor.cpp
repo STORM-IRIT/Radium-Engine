@@ -27,29 +27,42 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
                                                  T initial,
                                                  Ra::Engine::Data::RenderParameters& params,
                                                  const json& metadata ) {
-    auto m     = metadata[key];
-    auto items = std::vector<std::string>();
-    items.reserve( m["values"].size() );
-    for ( const auto& value : m["values"] ) {
-        items.push_back( value );
-    }
-    auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
-        params.addParameter( key, std::make_pair( key, value.toStdString() ) );
-        emit parameterModified( key );
-    };
-
-    auto onEnumParameterIntChanged = [this, &params, &key]( T value ) {
-        params.addParameter( key, value );
-        emit parameterModified( key );
-    };
+    auto m = metadata[key];
 
     std::string description = m.contains( "description" ) ? m["description"] : "";
     std::string nm          = m.contains( "name" ) ? m["name"] : key.c_str();
-    if ( params.containsEnumConverter( key ) )
-        addComboBox( nm, onEnumParameterStringChanged, initial, items, description );
+    if ( auto ec = params.containsEnumConverter( key ) ) {
+        // TODO : replace this by an iterator over the enumConverter to obtain the right strings
+        auto items = std::vector<std::string>();
+        items.reserve( m["values"].size() );
+        for ( const auto& value : m["values"] ) {
+            items.push_back( value );
+        }
+
+        auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
+            params.addParameter( key, value.toStdString() );
+            emit parameterModified( key );
+        };
+        addComboBox( nm,
+                     onEnumParameterStringChanged,
+                     params.getEnumString( key, initial ),
+                     items,
+                     description );
+    }
     else {
         LOG( Core::Utils::logWARNING )
             << "ParameterSet don't have converter for enum " << key << " use index<>int instead.";
+
+        auto items = std::vector<std::string>();
+        items.reserve( m["values"].size() );
+        for ( const auto& value : m["values"] ) {
+            items.push_back( value );
+        }
+
+        auto onEnumParameterIntChanged = [this, &params, &key]( T value ) {
+            params.addParameter( key, value );
+            emit parameterModified( key );
+        };
         addComboBox( nm, onEnumParameterIntChanged, initial, items, description );
     }
 }
