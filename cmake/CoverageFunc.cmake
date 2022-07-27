@@ -3,7 +3,9 @@ macro(setup_coverage)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
         message(STATUS "[Tests] Enable Coverage ¡Warning! slow down execution ¡Warning!")
         set(CMAKE_CXX_FLAGS
-            "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage"
+            "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter\
+ -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual\
+ -Wwrite-strings -fprofile-arcs -ftest-coverage"
         )
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
@@ -11,27 +13,27 @@ macro(setup_coverage)
 
         # adapted from https://github.com/RWTH-HPC/CMake-codecov/blob/master/cmake/FindGcov.cmake
         get_property(ENABLED_LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES)
-        foreach(LANG ${ENABLED_LANGUAGES})
+        foreach(lang ${ENABLED_LANGUAGES})
             # Gcov evaluation is dependent on the used compiler. Check gcov support for each
             # compiler that is used. If gcov binary was already found for this compiler, do not try
             # to find it again.
-            if(NOT GCOV_${CMAKE_${LANG}_COMPILER_ID}_BIN)
-                get_filename_component(COMPILER_PATH "${CMAKE_${LANG}_COMPILER}" PATH)
+            if(NOT GCOV_${CMAKE_${lang}_COMPILER_ID}_BIN)
+                get_filename_component(COMPILER_PATH "${CMAKE_${lang}_COMPILER}" PATH)
 
-                if("${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "GNU")
+                if("${CMAKE_${lang}_COMPILER_ID}" STREQUAL "GNU")
                     # Some distributions like OSX (homebrew) ship gcov with the compiler version
                     # appended as gcov-x. To find this binary we'll build the suggested binary name
                     # with the compiler version.
-                    string(REGEX MATCH "^[0-9]+" GCC_VERSION "${CMAKE_${LANG}_COMPILER_VERSION}")
+                    string(REGEX MATCH "^[0-9]+" GCC_VERSION "${CMAKE_${lang}_COMPILER_VERSION}")
 
                     find_program(GCOV_BIN NAMES gcov-${GCC_VERSION} gcov HINTS ${COMPILER_PATH})
 
-                elseif("${CMAKE_${LANG}_COMPILER_ID}" MATCHES "^(Apple)?Clang$")
+                elseif("${CMAKE_${lang}_COMPILER_ID}" MATCHES "^(Apple)?Clang$")
                     # Some distributions like Debian ship llvm-cov with the compiler version
                     # appended as llvm-cov-x.y. To find this binary we'll build the suggested binary
                     # name with the compiler version.
                     string(REGEX MATCH "^[0-9]+.[0-9]+" LLVM_VERSION
-                                 "${CMAKE_${LANG}_COMPILER_VERSION}"
+                                 "${CMAKE_${lang}_COMPILER_VERSION}"
                     )
 
                     # llvm-cov prior version 3.5 seems to be not working with coverage evaluation
@@ -51,11 +53,11 @@ macro(setup_coverage)
                                 set(GCOV_BIN "${LLVM_COV_WRAPPER}" CACHE FILEPATH "")
 
                                 # set additional parameters
-                                set(GCOV_${CMAKE_${LANG}_COMPILER_ID}_ENV
+                                set(GCOV_${CMAKE_${lang}_COMPILER_ID}_ENV
                                     "LLVM_COV_BIN=${LLVM_COV_BIN}"
                                     CACHE STRING "Environment variables for llvm-cov-wrapper."
                                 )
-                                mark_as_advanced(GCOV_${CMAKE_${LANG}_COMPILER_ID}_ENV)
+                                mark_as_advanced(GCOV_${CMAKE_${lang}_COMPILER_ID}_ENV)
                             endif()
                         endif()
                     endif()
@@ -68,14 +70,14 @@ macro(setup_coverage)
                 endif()
 
                 if(GCOV_BIN)
-                    set(GCOV_${CMAKE_${LANG}_COMPILER_ID}_BIN "${GCOV_BIN}"
-                        CACHE STRING "${LANG} gcov binary."
+                    set(GCOV_${CMAKE_${lang}_COMPILER_ID}_BIN "${GCOV_BIN}"
+                        CACHE STRING "${lang} gcov binary."
                     )
 
                     if(NOT CMAKE_REQUIRED_QUIET)
-                        message(
-                            "-- Found gcov evaluation for ${LANG}"
-                            "${CMAKE_${LANG}_COMPILER_ID}: ${GCOV_BIN}    ${GCOV_${CMAKE_${LANG}_COMPILER_ID}_BIN}"
+                        message("-- Found gcov evaluation for ${lang}"
+                                "${CMAKE_${lang}_COMPILER_ID}: ${GCOV_BIN}\
+    ${GCOV_${CMAKE_${lang}_COMPILER_ID}_BIN}"
                         )
                     endif()
                     set(GCOV_BIN_FOR_LCOV ${GCOV_BIN} CACHE STRING "save gcov bin for lcov")
@@ -85,9 +87,8 @@ macro(setup_coverage)
         endforeach()
 
         if(NOT LCOV_BIN AND NOT GCOV_BIN_FOR_LCOV)
-            message(
-                FATAL_ERROR
-                    "lcov binary not found, while asking for coverage computation (RADIUM_ENABLE_COVERAGE=${RADIUM_ENABLE_COVERAGE}). Abort"
+            message(FATAL_ERROR "lcov binary not found, while asking for coverage computation \
+(RADIUM_ENABLE_COVERAGE=${RADIUM_ENABLE_COVERAGE}). Abort"
             )
         endif()
         set(RADIUM_ENABLE_TESTING "ON")
@@ -95,12 +96,16 @@ macro(setup_coverage)
     else()
         message(
             FATAL_ERROR
-                "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not available, only supported in DEBUG with GCC (i.e. GNU/Debug). Current configuration is ${CMAKE_CXX_COMPILER_ID}/${CMAKE_BUILD_TYPE}"
+                "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not available, only\
+ supported in DEBUG with GCC (i.e. GNU/Debug). Current configuration is \
+${CMAKE_CXX_COMPILER_ID}/${CMAKE_BUILD_TYPE}"
         )
     endif()
 endmacro()
 
 # might be needed, was needed ...
+#
+# cmake-lint: disable=C0301
 # https://stackoverflow.com/questions/37434946/how-do-i-iterate-over-all-cmake-targets-programmatically
 function(get_all_targets var)
     set(targets)
@@ -108,6 +113,7 @@ function(get_all_targets var)
     set(${var} ${targets} PARENT_SCOPE)
 endfunction()
 
+# gather all target currently defines
 macro(get_all_targets_recursive targets dir)
     get_property(subdirectories DIRECTORY ${dir} PROPERTY SUBDIRECTORIES)
     foreach(subdir ${subdirectories})
@@ -124,34 +130,37 @@ macro(get_all_targets_recursive targets dir)
     endforeach()
 endmacro()
 
-macro(setup_coverage_targets ENABLE_COVERAGE LCOV_REMOVES)
-    if(ENABLE_COVERAGE)
+# add custom coverage targets
+macro(setup_coverage_targets enable_coverage lcov_removes)
+    if(enable_coverage)
         add_custom_target(
             lcov_init
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --initial --capture --directory
                     ${CMAKE_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/init.info
             COMMAND
                 ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --remove ${CMAKE_BINARY_DIR}/init.info
-                ${LCOV_REMOVES} --output-file ${CMAKE_BINARY_DIR}/init.info
+                ${lcov_removes} --output-file ${CMAKE_BINARY_DIR}/init.info
             BYPRODUCTS ${CMAKE_BINARY_DIR}/init.info
+            COMMENT "lcov init"
         )
         add_custom_target(
             lcov_zerocounter COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --zerocounter
-                                     --directory ${CMAKE_BINARY_DIR}
+                                     --directory ${CMAKE_BINARY_DIR} COMMENT "lcov zero counters"
         )
         add_custom_target(
             lcov_capture
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --capture --directory .
                     --output-file ${CMAKE_BINARY_DIR}/coverage.info
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --remove coverage.info
-                    ${LCOV_REMOVES} --output-file ${CMAKE_BINARY_DIR}/coverage.info
+                    ${lcov_removes} --output-file ${CMAKE_BINARY_DIR}/coverage.info
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} -a ${CMAKE_BINARY_DIR}/init.info -a
                     ${CMAKE_BINARY_DIR}/coverage.info -o ${CMAKE_BINARY_DIR}/total.info
             BYPRODUCTS ${CMAKE_BINARY_DIR}/total.info
+            COMMENT "lcov capture"
         )
         add_custom_target(
             lcov_list COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --list
-                              ${CMAKE_BINARY_DIR}/total.info
+                              ${CMAKE_BINARY_DIR}/total.info COMMENT "lcov list coverage info"
         )
         add_custom_target(
             coverage_lcov
@@ -161,16 +170,19 @@ macro(setup_coverage_targets ENABLE_COVERAGE LCOV_REMOVES)
                     --parallel
             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target check --parallel
             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov_capture --parallel
+            COMMENT "set of lcov commande to compoute coverage"
         )
         add_custom_target(
             lcov_remove COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --remove coverage.info
-                                ${LCOV_REMOVES} --output-file ${CMAKE_BINARY_DIR}/coverage.info
+                                ${lcov_removes} --output-file ${CMAKE_BINARY_DIR}/coverage.info
+            COMMENT "lcov clean/remove unedded info"
         )
 
         find_program(GENHTML_BIN genhtml)
         if(GENHTML_BIN)
             add_custom_target(
                 coverage_report COMMAND ${GENHTML_BIN} -o ${CMAKE_BINARY_DIR}/lcov total.info
+                COMMENT "create html coverage report"
             )
         endif()
     endif()

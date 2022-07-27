@@ -1,5 +1,7 @@
 # Sources:
 # - https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/RPATH-handling
+#
+# cmake-lint: disable=C0301
 # - https://medium.com/@sushantsha/load-a-different-library-at-runtime-than-the-one-you-linked-against-cmake-26b4234fd271
 
 # use, i.e. don't skip the full RPATH for the build tree
