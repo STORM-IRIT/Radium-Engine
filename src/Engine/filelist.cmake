@@ -4,7 +4,7 @@
 # ./generateFilelistForModule.sh Engine
 # ----------------------------------------------------
 
-set(engine_sources
+set(ENGINE_SOURCES
     Data/BlinnPhongMaterial.cpp
     Data/DrawPrimitives.cpp
     Data/EnvironmentTexture.cpp
@@ -55,7 +55,7 @@ set(engine_sources
     Scene/SystemDisplay.cpp
 )
 
-set(engine_headers
+set(ENGINE_HEADERS
     Data/BlinnPhongMaterial.hpp
     Data/DisplayableObject.hpp
     Data/DrawPrimitives.hpp
@@ -115,7 +115,7 @@ set(engine_headers
     Scene/System.hpp
 )
 
-set(engine_inlines
+set(ENGINE_INLINES
     Data/BlinnPhongMaterial.inl
     Data/EnvironmentTexture.inl
     Data/Material.inl
@@ -139,7 +139,7 @@ set(engine_inlines
     Scene/SpotLight.inl
 )
 
-set(engine_shaders
+set(ENGINE_SHADERS
     2DShaders/Basic2D.vert.glsl
     2DShaders/CircleBrush.frag.glsl
     2DShaders/ComposeOIT.frag.glsl

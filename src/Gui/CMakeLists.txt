@@ -23,11 +23,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} # Moc
 )
 
-qt_wrap_ui(gui_uis ${gui_uis})
+qt_wrap_ui(GUI_UIS ${GUI_UIS})
 
 add_library(
-    ${RA_GUI_TARGET} SHARED ${gui_sources} ${gui_headers} ${gui_inlines} ${gui_uis}
-                            ${gui_resources}
+    ${RA_GUI_TARGET} SHARED ${GUI_SOURCES} ${GUI_HEADERS} ${GUI_INLINES} ${GUI_UIS}
+                            ${GUI_RESOURCES}
 )
 
 add_dependencies(${RA_GUI_TARGET} Core Engine PluginBase IO)
@@ -60,7 +60,7 @@ message(STATUS "Configuring library ${RA_GUI_TARGET} with standard settings")
 configure_radium_target(${RA_GUI_TARGET})
 configure_radium_library(
     TARGET ${RA_GUI_TARGET} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    FILES "${gui_headers};${gui_inlines}"
+    FILES "${GUI_HEADERS};${GUI_INLINES}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${RA_GUI_TARGET} PARENT_SCOPE)
 

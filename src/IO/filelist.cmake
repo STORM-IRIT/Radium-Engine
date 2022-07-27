@@ -4,27 +4,27 @@
 # ./generateFilelistForModule.sh IO
 # ----------------------------------------------------
 
-set(io_sources CameraLoader/CameraLoader.cpp)
+set(IO_SOURCES CameraLoader/CameraLoader.cpp)
 
-set(io_headers CameraLoader/CameraLoader.hpp RaIO.hpp)
+set(IO_HEADERS CameraLoader/CameraLoader.hpp RaIO.hpp)
 
-set(io_inlines)
+set(IO_INLINES)
 
 if(RADIUM_IO_DEPRECATED)
-    list(APPEND io_sources deprecated/OBJFileManager.cpp deprecated/OFFFileManager.cpp)
+    list(APPEND IO_SOURCES deprecated/OBJFileManager.cpp deprecated/OFFFileManager.cpp)
 
-    list(APPEND io_headers deprecated/FileManager.hpp deprecated/OBJFileManager.hpp
+    list(APPEND IO_HEADERS deprecated/FileManager.hpp deprecated/OBJFileManager.hpp
          deprecated/OFFFileManager.hpp
     )
 
-    list(APPEND io_inlines deprecated/FileManager.inl)
+    list(APPEND IO_INLINES deprecated/FileManager.inl)
 
 endif(RADIUM_IO_DEPRECATED)
 
 if(RADIUM_IO_ASSIMP)
     list(
         APPEND
-        io_sources
+        IO_SOURCES
         AssimpLoader/AssimpAnimationDataLoader.cpp
         AssimpLoader/AssimpCameraDataLoader.cpp
         AssimpLoader/AssimpFileLoader.cpp
@@ -35,7 +35,7 @@ if(RADIUM_IO_ASSIMP)
 
     list(
         APPEND
-        io_headers
+        IO_HEADERS
         AssimpLoader/AssimpAnimationDataLoader.hpp
         AssimpLoader/AssimpCameraDataLoader.hpp
         AssimpLoader/AssimpFileLoader.hpp
@@ -45,20 +45,20 @@ if(RADIUM_IO_ASSIMP)
         AssimpLoader/AssimpWrapper.hpp
     )
 
-    list(APPEND io_inlines AssimpLoader/AssimpGeometryDataLoader.inl)
+    list(APPEND IO_INLINES AssimpLoader/AssimpGeometryDataLoader.inl)
 
 endif(RADIUM_IO_ASSIMP)
 
 if(RADIUM_IO_TINYPLY)
-    list(APPEND io_sources TinyPlyLoader/TinyPlyFileLoader.cpp)
+    list(APPEND IO_SOURCES TinyPlyLoader/TinyPlyFileLoader.cpp)
 
-    list(APPEND io_headers TinyPlyLoader/TinyPlyFileLoader.hpp)
+    list(APPEND IO_HEADERS TinyPlyLoader/TinyPlyFileLoader.hpp)
 
 endif(RADIUM_IO_TINYPLY)
 
 if(RADIUM_IO_VOLUMES)
-    list(APPEND io_sources VolumesLoader/pvmutils.cpp VolumesLoader/VolumeLoader.cpp)
+    list(APPEND IO_SOURCES VolumesLoader/pvmutils.cpp VolumesLoader/VolumeLoader.cpp)
 
-    list(APPEND io_headers VolumesLoader/pvmutils.hpp VolumesLoader/VolumeLoader.hpp)
+    list(APPEND IO_HEADERS VolumesLoader/pvmutils.hpp VolumesLoader/VolumeLoader.hpp)
 
 endif(RADIUM_IO_VOLUMES)

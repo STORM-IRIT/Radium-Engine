@@ -4,9 +4,9 @@
 # ./generateFilelistForModule.sh Headless
 # ----------------------------------------------------
 
-set(headless_sources CLIBaseApplication.cpp CLIViewer.cpp OpenGLContext/OpenGLContext.cpp)
+set(HEADLESS_SOURCES CLIBaseApplication.cpp CLIViewer.cpp OpenGLContext/OpenGLContext.cpp)
 
-set(headless_headers
+set(HEADLESS_HEADERS
     CLI/App.hpp
     CLIBaseApplication.hpp
     CLI/CLI.hpp
@@ -28,4 +28,4 @@ set(headless_headers
     RaHeadless.hpp
 )
 
-set(headless_inlines CLIBaseApplication.inl CLIViewer.inl)
+set(HEADLESS_INLINES CLIBaseApplication.inl CLIViewer.inl)

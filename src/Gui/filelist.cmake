@@ -4,7 +4,7 @@
 # ./generateFilelistForModule.sh Gui
 # ----------------------------------------------------
 
-set(gui_sources
+set(GUI_SOURCES
     AboutDialog/AboutDialog.cpp
     BaseApplication.cpp
     RadiumWindow/SimpleWindow.cpp
@@ -36,7 +36,7 @@ set(gui_sources
     Viewer/WindowQt.cpp
 )
 
-set(gui_headers
+set(GUI_HEADERS
     AboutDialog/AboutDialog.hpp
     BaseApplication.hpp
     MainWindowInterface.hpp
@@ -73,12 +73,12 @@ set(gui_headers
     Viewer/WindowQt.hpp
 )
 
-set(gui_inlines Viewer/WindowQt.inl)
+set(GUI_INLINES Viewer/WindowQt.inl)
 
-set(gui_uis AboutDialog/AboutDialog.ui SkeletonBasedAnimation/SkeletonBasedAnimationUI.ui
+set(GUI_UIS AboutDialog/AboutDialog.ui SkeletonBasedAnimation/SkeletonBasedAnimationUI.ui
             Timeline/HelpDialog.ui Timeline/Timeline.ui
 )
 
-set(gui_resources QtResources/RadiumQtResources.qrc
+set(GUI_RESOURCES QtResources/RadiumQtResources.qrc
                   SkeletonBasedAnimation/SkeletonBasedAnimation.qrc Timeline/timeline.qrc
 )

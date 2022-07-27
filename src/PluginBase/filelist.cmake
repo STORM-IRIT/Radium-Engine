@@ -4,8 +4,8 @@
 # ./generateFilelistForModule.sh PluginBase
 # ----------------------------------------------------
 
-set(pluginbase_sources RadiumPluginInterface.cpp)
+set(PLUGINBASE_SOURCES RadiumPluginInterface.cpp)
 
-set(pluginbase_headers PluginContext.hpp RadiumPluginInterface.hpp RaPluginBase.hpp)
+set(PLUGINBASE_HEADERS PluginContext.hpp RadiumPluginInterface.hpp RaPluginBase.hpp)
 
-set(pluginbase_json pluginMetaDataDebug.json pluginMetaDataRelease.json)
+set(PLUGINBASE_JSON pluginMetaDataDebug.json pluginMetaDataRelease.json)

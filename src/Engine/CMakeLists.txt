@@ -4,17 +4,17 @@ list(APPEND CMAKE_MESSAGE_INDENT "[${RA_ENGINE_TARGET}] ")
 project(${RA_ENGINE_TARGET} LANGUAGES CXX VERSION ${RADIUM_VERSION})
 
 include(filelist.cmake)
-set(ENGINE_SHADERS_FULL ${engine_shaders})
+set(ENGINE_SHADERS_FULL ${ENGINE_SHADERS})
 
 if(CMAKE_VERSION VERSION_LESS 3.16)
     string(REGEX REPLACE "([^;]+)" "${RADIUM_SHADERS_DIR}/\\1" ENGINE_SHADERS_FULL
-                         "${engine_shaders}"
+                         "${ENGINE_SHADERS}"
     )
 else()
     list(TRANSFORM ENGINE_SHADERS_FULL PREPEND ${RADIUM_SHADERS_DIR}/)
 endif()
 
-add_library(${RA_ENGINE_TARGET} SHARED ${engine_sources} ${engine_headers} ${engine_inlines})
+add_library(${RA_ENGINE_TARGET} SHARED ${ENGINE_SOURCES} ${ENGINE_HEADERS} ${ENGINE_INLINES})
 
 add_custom_target(
     RadiumEngineShaders ALL SOURCES ${ENGINE_SHADERS_FULL} COMMENT "Shaders source list."
@@ -53,14 +53,14 @@ message(STATUS "Configuring library ${RA_ENGINE_TARGET} with standard settings")
 configure_radium_target(${RA_ENGINE_TARGET})
 configure_radium_library(
     TARGET ${RA_ENGINE_TARGET} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    FILES "${engine_headers};${engine_inlines}"
+    FILES "${ENGINE_HEADERS};${ENGINE_INLINES}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${RA_ENGINE_TARGET} PARENT_SCOPE)
 
 message(STATUS "installing resources from ${RADIUM_SHADERS_DIR}")
 install_target_resources(
     TARGET ${RA_ENGINE_TARGET} RESOURCES_DIR ${RADIUM_SHADERS_DIR} RESOURCES_INSTALL_DIR "Radium"
-    FILES ${engine_shaders}
+    FILES ${ENGINE_SHADERS}
 )
 message(STATUS "installing resources from ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Textures")
 install_target_resources(

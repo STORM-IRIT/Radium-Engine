@@ -4,7 +4,7 @@
 # ./generateFilelistForModule.sh Core
 # ----------------------------------------------------
 
-set(core_sources
+set(CORE_SOURCES
     Animation/BulgeCorrection.cpp
     Animation/Cage.cpp
     Animation/DualQuaternionSkinning.cpp
@@ -52,7 +52,7 @@ set(core_sources
     Utils/StringUtils.cpp
 )
 
-set(core_headers
+set(CORE_HEADERS
     Animation/BulgeCorrection.hpp
     Animation/Cage.hpp
     Animation/DualQuaternionSkinning.hpp
@@ -153,7 +153,7 @@ set(core_headers
     Utils/Version.hpp
 )
 
-set(core_inlines
+set(CORE_INLINES
     Animation/HandleArray.inl
     Animation/Sequence.inl
     Asset/AnimationData.inl

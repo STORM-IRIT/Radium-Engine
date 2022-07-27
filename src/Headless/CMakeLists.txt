@@ -23,7 +23,7 @@ else()
     include(filelist.cmake)
 
     add_library(
-        ${RA_HEADLESS_TARGET} SHARED ${headless_sources} ${headless_headers} ${headless_inlines}
+        ${RA_HEADLESS_TARGET} SHARED ${HEADLESS_SOURCES} ${HEADLESS_HEADERS} ${HEADLESS_INLINES}
     )
     add_dependencies(${RA_HEADLESS_TARGET} Core Engine IO)
     target_link_libraries(
@@ -36,7 +36,7 @@ else()
     configure_radium_target(${RA_HEADLESS_TARGET})
 
     # configure the component "Headless" of packages "Radium"
-    set(INSTALLED_HEADERS "${headless_headers};${headless_inlines}")
+    set(INSTALLED_HEADERS "${HEADLESS_HEADERS};${HEADLESS_INLINES}")
     configure_radium_library(
         TARGET ${RA_HEADLESS_TARGET} COMPONENT
         PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in FILES "${INSTALLED_HEADERS}"

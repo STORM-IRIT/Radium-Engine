@@ -25,7 +25,7 @@ find_package(Backtrace)
 include(filelist.cmake)
 
 add_library(
-    ${RA_CORE_TARGET} SHARED ${core_sources} ${core_headers} ${core_inlines} ${RA_VERSION_CPP}
+    ${RA_CORE_TARGET} SHARED ${CORE_SOURCES} ${CORE_HEADERS} ${CORE_INLINES} ${RA_VERSION_CPP}
 )
 
 populate_local_dependencies(NAME "Eigen3_DIR")
@@ -84,7 +84,7 @@ message(STATUS "Configuring library ${RA_CORE_TARGET} with standard settings")
 configure_radium_target(${RA_CORE_TARGET})
 configure_radium_library(
     TARGET ${RA_CORE_TARGET} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    FILES "${core_headers};${core_inlines}"
+    FILES "${CORE_HEADERS};${CORE_INLINES}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${RA_CORE_TARGET} PARENT_SCOPE)
 
