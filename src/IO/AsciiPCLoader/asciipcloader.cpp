@@ -95,19 +95,6 @@ Ra::Core::Asset::FileData* AsciiPointCloudLoader::loadFile( const string& filena
         LOG( logERROR ) << "file does not contain mandatory properties (X, Y, Z, Time). aborting";
         return nullptr;
     }
-    else {
-        LOG( logINFO ) << "loading properties: ";
-        string info = "";
-        for ( size_t i = 0; i < tokens.size(); ++i ) {
-            if ( i % 4 == 3 ) {
-                LOG( logINFO ) << info << tokens[i];
-                info = "";
-            }
-            else {
-                info += tokens[i] + ", ";
-            }
-        }
-    }
 
     Ra::Core::VectorArray<Ra::Core::Vector3>& vertices = geometry->getGeometry().verticesWithLock();
 
