@@ -38,7 +38,8 @@ add_custom_target(
     check
     COMMAND echo [----] Running tests
     USES_TERMINAL
-    COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C ${CMAKE_BUILD_TYPE}
+    COMMAND ${CMAKE_CTEST_COMMAND} ${CMAKE_CTEST_ARGUMENTS} --output-on-failure -C
+            ${CMAKE_BUILD_TYPE}
     DEPENDS unittests integration
 )
 
@@ -46,7 +47,8 @@ add_custom_target(
     check_verbose
     COMMAND echo [----] Running tests
     USES_TERMINAL
-    COMMAND ${CMAKE_CTEST_COMMAND} -V --output-on-failure -C ${CMAKE_BUILD_TYPE}
+    COMMAND ${CMAKE_CTEST_COMMAND} ${CMAKE_CTEST_ARGUMENTS} -V --output-on-failure -C
+            ${CMAKE_BUILD_TYPE}
     DEPENDS unittests integration
 )
 

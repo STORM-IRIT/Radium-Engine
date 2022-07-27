@@ -56,13 +56,15 @@ set(DISPLAY_WIDTH 80)
 if(RADIUM_USE_DOUBLE)
     add_definitions(-DCORE_USE_DOUBLE)
 endif()
+
 # Changing the default value for CMAKE_BUILD_PARALLEL_LEVEL
 if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
     include(ProcessorCount)
     ProcessorCount(N)
     if(NOT N EQUAL 0)
-        set(CTEST_BUILD_FLAGS -j${N})
-        set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
+        set(CTEST_BUILD_FLAGS --parallel ${N})
+        # available since cmake 3.17, but seems unused. At least we used it for check target.
+        set(CMAKE_CTEST_ARGUMENTS ${CMAKE_CTEST_ARGUMENTS} --parallel ${N})
         set(ENV{CMAKE_BUILD_PARALLEL_LEVEL} ${N})
     endif()
 endif()
