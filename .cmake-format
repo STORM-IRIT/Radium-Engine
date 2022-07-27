@@ -101,10 +101,9 @@ with section("lint"):
   macro_pattern = '[0-9a-z_]+'
   global_var_pattern = '[A-Z][0-9A-Z_]+'
   internal_var_pattern = '_[A-Z][0-9A-Z_]+'
-  local_var_pattern = '[a-z][a-z0-9_]+'
+  local_var_pattern = '[a-z][a-z0-9_]+|ARGS_[A-Z0-9_]+'
   private_var_pattern = '_[0-9a-z_]+'
   public_var_pattern = '[A-Z][0-9A-Z_]+|([A-Za-z][0-9A-Za-z_]+)?_(NOTFOUND|FOUND|DIR)[0-9A-Za-z_]*'
-
   argument_var_pattern = '[a-z][a-z0-9_]+'
   keyword_pattern = '[A-Z][0-9A-Z_]+'
   max_conditionals_custom_parser = 2

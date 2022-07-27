@@ -51,12 +51,13 @@ define_property(
 # Internal functions, not to be called directly by the user. Radium client might prefer to use
 # configure[_*]_radium[_*] entry points.
 #
-macro(add_custom_install_target TARGET)
+macro(add_custom_install_target target)
     add_custom_target(
-        Install_${TARGET} COMMAND "${CMAKE_COMMAND}" -P
+        Install_${target} COMMAND "${CMAKE_COMMAND}" -P
                                   ${CMAKE_CURRENT_BINARY_DIR}/cmake_install.cmake
+        COMMENT "Install ${target}."
     )
-    add_dependencies(Install_${TARGET} ${TARGET})
+    add_dependencies(Install_${target} ${target})
 endmacro()
 
 # Configuration of the build and installation procedure for cmdline Radium application Allows to
@@ -107,17 +108,19 @@ function(configure_cmdline_radium_app)
 endfunction()
 
 # internal Utility function to install Qt internal plugins into a macosX bundle
-macro(install_qt_plugin _qt_plugin_name _qt_plugins_var _destination)
-    get_target_property(_qt_plugin_path "${_qt_plugin_name}" LOCATION)
-    if(EXISTS "${_qt_plugin_path}")
-        get_filename_component(_qt_plugin_file "${_qt_plugin_path}" NAME)
-        get_filename_component(_qt_plugin_type "${_qt_plugin_path}" PATH)
-        get_filename_component(_qt_plugin_type "${_qt_plugin_type}" NAME)
-        set(_qt_plugin_dest "${_destination}/PlugIns/${_qt_plugin_type}")
-        install(FILES "${_qt_plugin_path}" DESTINATION "${_qt_plugin_dest}")
-        set(${_qt_plugins_var} "${${_qt_plugins_var}};${_qt_plugin_dest}/${_qt_plugin_file}")
+macro(install_qt_plugin arg_qt_plugin_name arg_qt_plugins_var arg_destination)
+    get_target_property(arg_qt_plugin_path "${arg_qt_plugin_name}" LOCATION)
+    if(EXISTS "${arg_qt_plugin_path}")
+        get_filename_component(arg_qt_plugin_file "${arg_qt_plugin_path}" NAME)
+        get_filename_component(arg_qt_plugin_type "${arg_qt_plugin_path}" PATH)
+        get_filename_component(arg_qt_plugin_type "${arg_qt_plugin_type}" NAME)
+        set(arg_qt_plugin_dest "${arg_destination}/PlugIns/${arg_qt_plugin_type}")
+        install(FILES "${arg_qt_plugin_path}" DESTINATION "${arg_qt_plugin_dest}")
+        set(${arg_qt_plugins_var}
+            "${${arg_qt_plugins_var}};${arg_qt_plugin_dest}/${arg_qt_plugin_file}"
+        )
     else()
-        message(FATAL_ERROR "[install_qt_plugin] QT plugin ${_qt_plugin_name} not found")
+        message(FATAL_ERROR "[install_qt_plugin] QT plugin ${arg_qt_plugin_name} not found")
     endif()
 endmacro()
 
@@ -201,7 +204,7 @@ function(configure_bundled_radium_app)
     list(FILTER linked_libraries INCLUDE REGEX "Qt*")
     list(LENGTH linked_libraries qt_libs_count)
     if((qt_libs_count GREATER 0) OR NOT (RadiumGuiIdx EQUAL -1))
-        set(DeployWithQt TRUE)
+        set(deploy_with_qt TRUE)
         # Retrieve the absolute path to qmake and then use that path to find the macdeployqt binary
         get_target_property(_qmake_executable Qt::qmake IMPORTED_LOCATION)
         get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
@@ -229,7 +232,8 @@ function(configure_bundled_radium_app)
         execute_process(COMMAND
             ${MACDEPLOYQT_EXECUTABLE}
             ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app
-            -libpath=${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/ -always-overwrite
+            -libpath=${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\
+ -always-overwrite
         )
         "
         )
@@ -242,11 +246,12 @@ function(configure_bundled_radium_app)
                 file(COPY \${rsc}
                      DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
             endforeach()
-            set( useQtDeploy  ${DeployWithQt})
+            set( useQtDeploy  ${deploy_with_qt})
             if( useQtDeploy )
                 message(STATUS \"Deploying ${ARGS_NAME} using ${MACDEPLOYQT_EXECUTABLE}\")
                 execute_process(COMMAND
-                    ${MACDEPLOYQT_EXECUTABLE} ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app -always-overwrite
+                    ${MACDEPLOYQT_EXECUTABLE} ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app\
+ -always-overwrite
                 )
             else()
                 message(STATUS \"Deploying ${ARGS_NAME} using fixup_bundle\")
