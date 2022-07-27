@@ -19,6 +19,7 @@ Texture::Texture( const TextureParameters& texParameters ) :
 Texture::~Texture() = default;
 
 void Texture::initializeGL( bool linearize ) {
+
     if ( ( m_textureParameters.target != GL_TEXTURE_1D ) &&
          ( m_textureParameters.target != GL_TEXTURE_2D ) &&
          ( m_textureParameters.target != GL_TEXTURE_RECTANGLE ) &&
@@ -73,16 +74,15 @@ void Texture::initializeGL( bool linearize ) {
                        m_textureParameters.minFilter == GL_LINEAR );
     updateParameters();
     // upload texture to the GPU
-    updateData( m_textureParameters.texels );
+    updateSampler();
     // Generate mip-map if needed.
     if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
 
 void Texture::bind( int unit ) {
+    if ( m_dirty ) { updateSampler(); }
     if ( unit >= 0 ) { m_texture->bindActive( uint( unit ) ); }
-    else {
-        m_texture->bind();
-    }
+    else { m_texture->bind(); }
 }
 
 void Texture::bindImageTexture( int unit,
@@ -94,7 +94,80 @@ void Texture::bindImageTexture( int unit,
         uint( unit ), level, layered, layer, access, m_textureParameters.internalFormat );
 }
 
-void Texture::updateData( const void* data ) {
+void Texture::updateData( void* newData ) {
+    m_textureParameters.texels = newData;
+    m_dirty                    = true;
+}
+
+// let the compiler warn about case fallthrough
+void Texture::updateParameters() {
+    switch ( m_texture->target() ) {
+    case GL_TEXTURE_CUBE_MAP:
+    case GL_TEXTURE_3D:
+        m_texture->setParameter( GL_TEXTURE_WRAP_R, m_textureParameters.wrapP );
+        GL_CHECK_ERROR;
+        [[fallthrough]];
+    case GL_TEXTURE_2D:
+    case GL_TEXTURE_RECTANGLE:
+        m_texture->setParameter( GL_TEXTURE_WRAP_T, m_textureParameters.wrapT );
+        GL_CHECK_ERROR;
+        [[fallthrough]];
+    case GL_TEXTURE_1D:
+        m_texture->setParameter( GL_TEXTURE_WRAP_S, m_textureParameters.wrapS );
+        GL_CHECK_ERROR;
+        break;
+    default:
+        break;
+    }
+    m_texture->setParameter( GL_TEXTURE_MIN_FILTER, m_textureParameters.minFilter );
+    GL_CHECK_ERROR;
+    m_texture->setParameter( GL_TEXTURE_MAG_FILTER, m_textureParameters.magFilter );
+    GL_CHECK_ERROR;
+}
+
+void Texture::linearize() {
+    if ( m_texture != nullptr ) {
+        LOG( logERROR ) << "Only non OpenGL initialized texture can be linearized.";
+        return;
+    }
+    // Only RGB and RGBA texture contains color information
+    // (others are not really colors and must be managed explicitly by the user)
+    uint numComp  = 0;
+    bool hasAlpha = false;
+    switch ( m_textureParameters.format ) {
+        // RED texture store a gray scale color. Verify if we need to convert
+    case GL_RED:
+        numComp = 1;
+        break;
+    case GL_RGB:
+        numComp = 3;
+        break;
+    case GL_RGBA:
+        numComp  = 4;
+        hasAlpha = true;
+        break;
+    default:
+        LOG( logERROR ) << "Textures with format " << m_textureParameters.format
+                        << " can't be linearized." << m_textureParameters.name;
+        return;
+    }
+    sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numComp, hasAlpha );
+}
+
+void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
+    m_textureParameters.width  = w;
+    m_textureParameters.height = h;
+    m_textureParameters.depth  = d;
+    m_textureParameters.texels = pix;
+    if ( m_texture == nullptr ) { initializeGL( false ); }
+    else { updateSampler(); }
+    if ( m_isMipMapped ) { m_texture->generateMipmap(); }
+}
+
+// private functions
+
+void Texture::updateSampler() {
+    //    CORE_ASSERT( m_textureParameters.texels != nullptr, "No cpu data" );
     switch ( m_texture->target() ) {
     case GL_TEXTURE_1D: {
         m_texture->image1D( 0,
@@ -103,7 +176,7 @@ void Texture::updateData( const void* data ) {
                             0,
                             m_textureParameters.format,
                             m_textureParameters.type,
-                            data );
+                            m_textureParameters.texels );
         GL_CHECK_ERROR
     } break;
     case GL_TEXTURE_2D:
@@ -115,7 +188,7 @@ void Texture::updateData( const void* data ) {
                             0,
                             m_textureParameters.format,
                             m_textureParameters.type,
-                            data );
+                            m_textureParameters.texels );
         GL_CHECK_ERROR
     } break;
     case GL_TEXTURE_3D: {
@@ -127,13 +200,15 @@ void Texture::updateData( const void* data ) {
                             0,
                             m_textureParameters.format,
                             m_textureParameters.type,
-                            data );
+                            m_textureParameters.texels );
         GL_CHECK_ERROR
     } break;
     case GL_TEXTURE_CUBE_MAP: {
         // Load the 6 faces of the cube-map
         static const void* nullTexels[6] { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
-        auto texels = data != nullptr ? (const void**)data : nullTexels;
+        auto texels = m_textureParameters.texels != nullptr
+                          ? (const void**)m_textureParameters.texels
+                          : nullTexels;
 
         m_texture->bind();
         // track globjects updates that will hopefully support direct loading of
@@ -203,61 +278,7 @@ void Texture::updateData( const void* data ) {
     } break;
     }
     GL_CHECK_ERROR;
-}
-
-// let the compiler warn about case fallthrough
-void Texture::updateParameters() {
-    switch ( m_texture->target() ) {
-    case GL_TEXTURE_CUBE_MAP:
-    case GL_TEXTURE_3D:
-        m_texture->setParameter( GL_TEXTURE_WRAP_R, m_textureParameters.wrapP );
-        GL_CHECK_ERROR;
-        [[fallthrough]];
-    case GL_TEXTURE_2D:
-    case GL_TEXTURE_RECTANGLE:
-        m_texture->setParameter( GL_TEXTURE_WRAP_T, m_textureParameters.wrapT );
-        GL_CHECK_ERROR;
-        [[fallthrough]];
-    case GL_TEXTURE_1D:
-        m_texture->setParameter( GL_TEXTURE_WRAP_S, m_textureParameters.wrapS );
-        GL_CHECK_ERROR;
-        break;
-    default:
-        break;
-    }
-    m_texture->setParameter( GL_TEXTURE_MIN_FILTER, m_textureParameters.minFilter );
-    GL_CHECK_ERROR;
-    m_texture->setParameter( GL_TEXTURE_MAG_FILTER, m_textureParameters.magFilter );
-    GL_CHECK_ERROR;
-}
-
-void Texture::linearize() {
-    if ( m_texture != nullptr ) {
-        LOG( logERROR ) << "Only non OpenGL initialized texture can be linearized.";
-        return;
-    }
-    // Only RGB and RGBA texture contains color information
-    // (others are not really colors and must be managed explicitly by the user)
-    uint numComp  = 0;
-    bool hasAlpha = false;
-    switch ( m_textureParameters.format ) {
-        // RED texture store a gray scale color. Verify if we need to convert
-    case GL_RED:
-        numComp = 1;
-        break;
-    case GL_RGB:
-        numComp = 3;
-        break;
-    case GL_RGBA:
-        numComp  = 4;
-        hasAlpha = true;
-        break;
-    default:
-        LOG( logERROR ) << "Textures with format " << m_textureParameters.format
-                        << " can't be linearized." << m_textureParameters.name;
-        return;
-    }
-    sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numComp, hasAlpha );
+    m_dirty = false;
 }
 
 void Texture::sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel ) {
@@ -268,9 +289,7 @@ void Texture::sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlpha
             // Constants are described at https://en.wikipedia.org/wiki/SRGB
             float c = float( in ) / 255;
             if ( c < 0.04045 ) { c = c / 12.92f; }
-            else {
-                c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), 2.4f );
-            }
+            else { c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), 2.4f ); }
             return uint8_t( c * 255 );
         };
         uint numValues = hasAlphaChannel ? numComponent - 1 : numComponent;
@@ -284,18 +303,6 @@ void Texture::sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlpha
             }
         }
     }
-}
-
-void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
-    m_textureParameters.width  = w;
-    m_textureParameters.height = h;
-    m_textureParameters.depth  = d;
-    m_textureParameters.texels = pix;
-    if ( m_texture == nullptr ) { initializeGL( false ); }
-    else {
-        updateData( m_textureParameters.texels );
-    }
-    if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
 
 void Texture::linearizeCubeMap( uint numComponent, bool hasAlphaChannel ) {

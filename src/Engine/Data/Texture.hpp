@@ -141,11 +141,11 @@ class RA_ENGINE_API Texture final
     inline std::string getName() const { return m_textureParameters.name; }
 
     /**
-     * Update the data contained by the texture
+     * Update the cpu representation of data contained by the texture
      * @param newData The new data, must contain the same number of elements than old data, no
      * check will be performed.
      */
-    void updateData( const void* newData );
+    void updateData( void* newData );
 
     /**
      * Update the parameters contained by the texture.
@@ -217,6 +217,14 @@ class RA_ENGINE_API Texture final
     }
 
   private:
+    friend class TextureManager;
+    /**
+     * Update the gpu representation of data contained by the texture
+     * @param newData The new data, must contain the same number of elements than old data, no
+     * check will be performed.
+     */
+    void updateSampler();
+
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
      * The content of the array of texels.
@@ -243,6 +251,8 @@ class RA_ENGINE_API Texture final
     bool m_isMipMapped { false };
     /// Is the texture in LinearRGB ?
     bool m_isLinear { false };
+
+    bool m_dirty { true };
 };
 } // namespace Data
 } // namespace Engine
