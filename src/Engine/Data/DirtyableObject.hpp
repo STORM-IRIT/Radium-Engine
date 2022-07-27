@@ -21,6 +21,14 @@ public:
 /// To do this we ask the user to specify how to update the data on the
 /// gpu side with the clean method.
 /// That we will do at most once per image for each dirtyable object.
+///
+/// This class could be the Displayable class by making all objects that
+/// have cpu and gpu data inherit from this class. The only drawback is
+/// that the Displayable class seems to be very close to the visible
+/// objects in the scene but a sampler is not visible in the scene as an object.
+/// For example pure virtual functions of Displayable like getAbsractGeometry,
+/// render, getNumFaces, getNumeVertices don't make sense for a texture.
+/// That's why I implemented a separate class.
 **/
 class Dirtyable {
 public:
