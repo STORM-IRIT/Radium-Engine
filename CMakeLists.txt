@@ -29,15 +29,11 @@ set(RADIUM_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CompilerVersion.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CompilerOptions.cmake)
 
-option(
-    RADIUM_ENABLE_TESTING
-    "Enable testing. Tests are automatically built with target all, run with target check or test."
-    ON
+option(RADIUM_ENABLE_TESTING "Enable testing. Tests are automatically built with target all,\
+ run with target check or test." ON
 )
-option(
-    RADIUM_ENABLE_EXAMPLES
-    "Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples."
-    OFF
+option(RADIUM_ENABLE_EXAMPLES "Enable examples app build. To install examples,\
+ build explicitly the target Install_RadiumExamples." OFF
 )
 option(RADIUM_ENABLE_COVERAGE "Enable coverage, gcc only. Experimental, need ENABLE_TESTING" OFF)
 option(RADIUM_ENABLE_PCH "Enable precompiled headers." OFF)
@@ -48,15 +44,11 @@ option(RADIUM_GENERATE_LIB_ENGINE "Include Radium::Engine in CMake project." ON)
 option(RADIUM_GENERATE_LIB_GUI "Include Radium::Gui in CMake project." ON)
 option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project." ON)
 option(RADIUM_GENERATE_LIB_HEADLESS "Include Radium::Headless in CMake project." ON)
-option(
-    RADIUM_UPDATE_VERSION
-    "Update version file each time the project is compiled (update compilation time in version.cpp)."
-    ON
+option(RADIUM_UPDATE_VERSION "Update version file each time the project is compiled\
+ (update compilation time in version.cpp)." ON
 )
-option(
-    RADIUM_INSTALL_DOC
-    "Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target."
-    ON
+option(RADIUM_INSTALL_DOC "Install documentation. If RadiumDoc is compiled,\
+ install documentation to bundle directory for install target." ON
 )
 
 set(DISPLAY_WIDTH 80)
@@ -256,7 +248,8 @@ message(NOTICE "")
 message_title(" Final overview for ${PROJECT_NAME} ")
 message_info(" ")
 message_info(
-    "Version:               ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} @ ${VERSION_HOST}"
+    "Version:               \
+${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} @ ${VERSION_HOST}"
 )
 message_info("Git Changeset: ${GIT_CHANGESET}")
 message_info(" ")
@@ -264,7 +257,8 @@ message_info("Install prefix: ")
 message_info("  ${CMAKE_INSTALL_PREFIX}")
 message_info(" ")
 message_info(
-    "Compiler: ${CMAKE_CXX_COMPILER} - ${CMAKE_CXX_COMPILER_ID} in version ${CMAKE_CXX_COMPILER_VERSION}."
+    "Compiler: ${CMAKE_CXX_COMPILER} - ${CMAKE_CXX_COMPILER_ID} in version\
+ ${CMAKE_CXX_COMPILER_VERSION}."
 )
 message_setting("CMAKE_BUILD_TYPE")
 message_info("  possible options: Debug Release RelWithDebInfo MinSizeRel")
