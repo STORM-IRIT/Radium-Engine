@@ -220,8 +220,6 @@ class RA_ENGINE_API Texture final
     friend class TextureManager;
     /**
      * Update the gpu representation of data contained by the texture
-     * @param newData The new data, must contain the same number of elements than old data, no
-     * check will be performed.
      */
     void updateSampler();
 
