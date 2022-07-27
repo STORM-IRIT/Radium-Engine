@@ -163,8 +163,7 @@ void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
 
-void Texture::clean()
-{
+void Texture::clean() {
     updateSampler();
 }
 

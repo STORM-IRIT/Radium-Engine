@@ -5,8 +5,8 @@
 #include <memory>
 #include <string>
 
-#include <Engine/OpenGL.hpp>
 #include <Engine/Data/DirtyableObject.hpp>
+#include <Engine/OpenGL.hpp>
 
 #include <Core/Utils/Color.hpp>
 
@@ -217,7 +217,7 @@ class RA_ENGINE_API Texture final : public Dirtyable
         m_textureParameters = textureParameters;
     }
 
-protected:
+  protected:
     void clean();
 
   private:

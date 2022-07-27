@@ -2,11 +2,12 @@
 
 class Dirtyable;
 
-class WashingMachine {
-public:
+class WashingMachine
+{
+  public:
     WashingMachine() = delete;
 
-    static void add(Dirtyable* dirtyable);
+    static void add( Dirtyable* dirtyable );
     static void start();
 };
 
@@ -30,8 +31,9 @@ public:
 /// render, getNumFaces, getNumeVertices don't make sense for a texture.
 /// That's why I implemented a separate class.
 **/
-class Dirtyable {
-public:
+class Dirtyable
+{
+  public:
     virtual ~Dirtyable() = default;
 
     // implement this function updating data from model to view (cpu -> gpu).
@@ -40,7 +42,7 @@ public:
     // call this method on client side when the model data is updated.
     void setDirty();
 
-private:
+  private:
     bool m_dirty { true };
 
     friend class WashingMachine;
