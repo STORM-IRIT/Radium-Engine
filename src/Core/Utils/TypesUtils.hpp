@@ -1,12 +1,14 @@
 #pragma once
 
+#include <Core/CoreMacros.hpp>
+
 /**
  * Get the Human readable type name.
  * from https://dbj.org/cpp-human-readable-type-names-on-both-platforms/
  *
  */
 
-#ifndef COMPILER_MSVC
+#ifndef _WIN32
 #    include <cxxabi.h>
 #    include <memory>
 #else
