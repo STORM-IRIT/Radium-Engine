@@ -218,7 +218,7 @@ class RA_ENGINE_API Texture final : public Synchronizable
     }
 
   protected:
-    void clean();
+    void updateGL() override;
 
   private:
     friend class TextureManager;

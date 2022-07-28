@@ -151,7 +151,6 @@ void TextureManager::updatePendingTextures() {
     for ( auto& data : m_pendingData ) {
         LOG( logINFO ) << "TextureManager::updateTextures \"" << data.first << "\".";
         m_textures[data.first]->updateData( data.second );
-        m_textures[data.first]->updateSampler();
     }
     m_pendingData.clear();
 }

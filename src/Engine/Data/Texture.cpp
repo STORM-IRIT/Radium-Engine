@@ -74,7 +74,7 @@ void Texture::initializeGL( bool linearize ) {
                        m_textureParameters.minFilter == GL_LINEAR );
     updateParameters();
     // upload texture to the GPU
-    updateSampler();
+    updateGL();
     // Generate mip-map if needed.
     if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
@@ -97,7 +97,7 @@ void Texture::bindImageTexture( int unit,
 
 void Texture::updateData( void* newData ) {
     m_textureParameters.texels = newData;
-    setDirty();
+    needSync();
 }
 
 // let the compiler warn about case fallthrough
@@ -161,19 +161,13 @@ void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     m_textureParameters.depth  = d;
     m_textureParameters.texels = pix;
     if ( m_texture == nullptr ) { initializeGL( false ); }
-    else {
-        updateSampler();
-    }
+    else { updateGL(); }
     if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
 
-void Texture::clean() {
-    updateSampler();
-}
+// protected functions
 
-// private functions
-
-void Texture::updateSampler() {
+void Texture::updateGL() {
     //    CORE_ASSERT( m_textureParameters.texels != nullptr, "No cpu data" );
     switch ( m_texture->target() ) {
     case GL_TEXTURE_1D: {
@@ -286,6 +280,8 @@ void Texture::updateSampler() {
     }
     GL_CHECK_ERROR;
 }
+
+// private functions
 
 void Texture::sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel ) {
     if ( !m_isLinear ) {
