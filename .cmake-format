@@ -96,7 +96,7 @@ with section("markup"):
   enable_markup = True
 
 with section("lint"):
-  disabled_codes = ["E1120","C0307"]
+  disabled_codes = ["E1120","C0307","C0113"]
   function_pattern = '[0-9a-z_]+'
   macro_pattern = '[0-9a-z_]+'
   global_var_pattern = '[A-Z][0-9A-Z_]+'
@@ -110,10 +110,10 @@ with section("lint"):
   min_statement_spacing = 1
   max_statement_spacing = 2
   max_returns = 6
-  max_branches = 12
+  max_branches = 20
   max_arguments = 5
   max_localvars = 15
-  max_statements = 50
+  max_statements = 100
 
 with section("encode"):
   emit_byteorder_mark = False
