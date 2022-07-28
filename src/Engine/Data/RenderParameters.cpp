@@ -28,7 +28,7 @@ void RenderParameters::addEnumConverter( const std::string& name,
     m_enumConverters[name] = converter;
 }
 
-std::optional<std::shared_ptr<RenderParameters::AbstractEnumConverter>>
+Core::Utils::optional<std::shared_ptr<RenderParameters::AbstractEnumConverter>>
 RenderParameters::containsEnumConverter( const std::string& name ) {
     auto it = m_enumConverters.find( name );
     if ( it != m_enumConverters.end() ) { return it->second; }
