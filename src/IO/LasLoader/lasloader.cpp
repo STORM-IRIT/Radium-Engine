@@ -23,10 +23,10 @@ bool LasLoader::handleFileExtension( const string& extension ) const {
     return extension.compare( lasExt ) == 0;
 }
 
-double readDouble (const char* buffer) {
+double readDouble( const char* buffer ) {
     double res;
-    char* converter = reinterpret_cast<char*>(&res);
-    std::copy(buffer, buffer + sizeof(double), converter);
+    char* converter = reinterpret_cast<char*>( &res );
+    std::copy( buffer, buffer + sizeof( double ), converter );
     return res;
 }
 
@@ -109,8 +109,8 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     }
     unsigned char data_format = *(unsigned char*)buffer;
 
-    if ( ( data_format > 3 && minor < 3 ) ||
-         ( data_format > 5 && minor == 3 ) || ( data_format > 6 && minor == 4 ) ) {
+    if ( ( data_format > 3 && minor < 3 ) || ( data_format > 5 && minor == 3 ) ||
+         ( data_format > 6 && minor == 4 ) ) {
         delete fileData;
         throw runtime_error( "Corrupted file. Unvalid data format" );
         return nullptr;
@@ -185,7 +185,7 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
         // reading point data
         if ( !stream.read( point.data(), data_len ) ) {
             delete fileData;
-            throw runtime_error( "Could not read point record " + to_string(i) );
+            throw runtime_error( "Could not read point record " + to_string( i ) );
             return nullptr;
         }
 
