@@ -1,19 +1,19 @@
 #pragma once
 
-class Dirtyable;
+class Synchronizable;
 
-class WashingMachine
+class Synchronizer
 {
   public:
-    WashingMachine() = delete;
+    Synchronizer() = delete;
 
-    static void add( Dirtyable* dirtyable );
+    static void add( Synchronizable* dirtyable );
     static void start();
 };
 
 /**
-/// \brief The Dirtyable class
-/// The Dirtyable class could be a parent class of all objects having
+/// \brief The Synchronizable class
+/// The Synchronizable class could be a parent class of all objects having
 /// data on the cpu side (model) and another representation on the gpu
 /// side (view). This class allows our client to prevent the gpu data
 /// is dirty/outdated with the aid of the setDirty method.
@@ -31,10 +31,10 @@ class WashingMachine
 /// render, getNumFaces, getNumeVertices don't make sense for a texture.
 /// That's why I implemented a separate class.
 **/
-class Dirtyable
+class Synchronizable
 {
   public:
-    virtual ~Dirtyable() = default;
+    virtual ~Synchronizable() = default;
 
     // implement this function updating data from model to view (cpu -> gpu).
     virtual void clean() = 0;
@@ -45,5 +45,5 @@ class Dirtyable
   private:
     bool m_dirty { true };
 
-    friend class WashingMachine;
+    friend class Synchronizer;
 };

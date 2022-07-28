@@ -393,7 +393,7 @@ void Renderer::updateRenderObjectsInternal( const Data::ViewingParameters& /*ren
     for ( auto& ro : m_uiRenderObjects ) {
         ro->updateGL();
     }
-    WashingMachine::start();
+    Synchronizer::start();
 }
 
 void Renderer::feedRenderQueuesInternal( const Data::ViewingParameters& /*renderData*/ ) {

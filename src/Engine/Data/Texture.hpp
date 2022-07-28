@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 
-#include <Engine/Data/DirtyableObject.hpp>
+#include <Engine/Data/SynchronizableObject.hpp>
 #include <Engine/OpenGL.hpp>
 
 #include <Core/Utils/Color.hpp>
@@ -84,7 +84,7 @@ struct TextureParameters {
 /** Represent a Texture of the engine
  * See TextureManager for information about how unique texture are defined.
  */
-class RA_ENGINE_API Texture final : public Dirtyable
+class RA_ENGINE_API Texture final : public Synchronizable
 {
   public:
     /** Textures are not copyable, delete copy constructor.
