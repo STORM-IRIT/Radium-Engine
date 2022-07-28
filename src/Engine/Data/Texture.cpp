@@ -161,7 +161,9 @@ void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     m_textureParameters.depth  = d;
     m_textureParameters.texels = pix;
     if ( m_texture == nullptr ) { initializeGL( false ); }
-    else { updateGL(); }
+    else {
+        updateGL();
+    }
     if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
 

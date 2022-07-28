@@ -76,7 +76,7 @@ int main( int argc, char* argv[] ) {
         int dec                 = 0;
 
         for ( int iSec = 0; iSec < nSec; ++iSec ) {
-            const auto& endChrono = startChrono + (iSec + 1) * std::chrono::milliseconds( 1000 );
+            const auto& endChrono = startChrono + ( iSec + 1 ) * std::chrono::milliseconds( 1000 );
 
             while ( std::chrono::high_resolution_clock::now() < endChrono ) {
                 unsigned char newData[size];
@@ -89,7 +89,8 @@ int main( int argc, char* argv[] ) {
                     }
                 }
 
-                texture->updateData( newData ); // update data multiple times per frame to check if only one update is done per frame.
+                texture->updateData( newData ); // update data multiple times per frame to check if
+                                                // only one update is done per frame.
                 ++dec;
             }
         }
