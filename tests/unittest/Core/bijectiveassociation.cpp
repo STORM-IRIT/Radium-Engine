@@ -11,14 +11,12 @@ TEST_CASE( "Core/Utils/BijectiveAssociation", "[Core][Core/Utils][BijectiveAssoc
     SECTION( "Bijection between different types" ) {
         BijectiveAssociation<std::string, int> myTranslator { { "One", 1 }, { "Two", 2 } };
         myTranslator.addAssociation( "Three", 3 );
-        myTranslator.addAssociation( 4, "Four" );
-        myTranslator.addAssociation( { "Five", 5 } );
-        myTranslator.addAssociation( { 6, "Six" } );
+        myTranslator.addAssociation( { "Four", 4 } );
 
         REQUIRE( myTranslator( "Four" ) == 4 );
-        REQUIRE( myTranslator( 3 ) == "Three" );
-        REQUIRE( myTranslator.inject( "One" ) == 1 );
-        REQUIRE( myTranslator.surject( 2 ) == "Two" );
+        REQUIRE( myTranslator.key( 3 ) == "Three" );
+        REQUIRE( myTranslator.value( "One" ) == 1 );
+        REQUIRE( myTranslator.key( 2 ) == "Two" );
     }
 
     SECTION( "Bijection between same types" ) {
@@ -26,9 +24,9 @@ TEST_CASE( "Core/Utils/BijectiveAssociation", "[Core][Core/Utils][BijectiveAssoc
                                                                       { "Two", "Deux" } };
         myTranslator.addAssociation( "Three", "Trois" );
         myTranslator.addAssociation( { "Four", "Quatre" } );
+
         REQUIRE( myTranslator( "Four" ) == "Quatre" );
-        REQUIRE( myTranslator.inject( "Three" ) == "Trois" );
-        REQUIRE( myTranslator.surject( "Deux" ) == "Two" );
-        REQUIRE( myTranslator.inject( "Two" ) == "Deux" );
+        REQUIRE( myTranslator.value( "Three" ) == "Trois" );
+        REQUIRE( myTranslator.key( "Deux" ) == "Two" );
     }
 }

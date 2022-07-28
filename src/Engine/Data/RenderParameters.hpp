@@ -12,6 +12,7 @@
 #include <Core/Utils/BijectiveAssociation.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Core/Utils/StdOptional.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -201,7 +202,7 @@ class RA_ENGINE_API RenderParameters final
 
       private:
         Core::Utils::BijectiveAssociation<typename std::underlying_type_t<Enum>, std::string>
-            m_stringToValue;
+            m_valueToString;
     };
 
     /**
@@ -217,7 +218,7 @@ class RA_ENGINE_API RenderParameters final
      * \param name
      * \return
      */
-    std::optional<std::shared_ptr<AbstractEnumConverter>>
+    Core::Utils::optional<std::shared_ptr<AbstractEnumConverter>>
     containsEnumConverter( const std::string& name );
 
     /**
