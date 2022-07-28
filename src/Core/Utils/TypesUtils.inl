@@ -5,7 +5,7 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-#ifdef COMPILER_MSVC
+#ifdef _WIN32
 template <typename T>
 const char* decypherType() noexcept {
     static auto demangled_name = []() { return { typeid( T ).name() }; }();
