@@ -8,8 +8,8 @@ namespace Utils {
 #ifdef _WIN32
 template <typename T>
 const char* decypherType() noexcept {
-    static auto demangled_name = []() { return { typeid( T ).name() }; }();
-    return demangled_name.data();
+    static auto demangled_name = typeid( T ).name();
+    return demangled_name;
 }
 #else
 template <typename T>
