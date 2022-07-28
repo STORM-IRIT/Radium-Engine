@@ -84,8 +84,8 @@ function(configure_cmdline_radium_app)
     endif()
     # configure the application
     if(APPLE)
-        get_target_property(IsMacBundle ${ARGS_NAME} MACOSX_BUNDLE)
-        if(IsMacBundle)
+        get_target_property(is_mac_bundle ${ARGS_NAME} MACOSX_BUNDLE)
+        if(is_mac_bundle)
             message(FATAL_ERROR "[configure_cmdline_radium_app] Error configuring ${ARGS_NAME}"
                                 "as a cmdline application. A bundle was asked for this target."
             )
@@ -149,10 +149,10 @@ function(configure_bundled_radium_app)
         )
     endif()
     # configure the application
-    get_target_property(IsMacBundle ${ARGS_NAME} MACOSX_BUNDLE)
-    if(NOT IsMacBundle)
+    get_target_property(is_mac_bundle ${ARGS_NAME} MACOSX_BUNDLE)
+    if(NOT is_mac_bundle)
         message(FATAL_ERROR "[configure_bundled_radium_app] Error configuring ${ARGS_NAME} "
-                            "as a Bundled application." "Only MacOsX is supported"
+                            "as a Bundled application. Only MacOsX is supported"
         )
     endif()
 
@@ -271,7 +271,7 @@ function(configure_bundled_radium_app)
                            "for ${ARGS_NAME} "
             )
             install_target_resources(
-                TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation}
+                MAC_BUNDLE TARGET ${ARGS_NAME} RESOURCES_DIR ${resLocation}
                 RESOURCES_INSTALL_DIR ${ARGS_PREFIX}
             )
         endforeach()
@@ -308,8 +308,8 @@ function(install_plugin_resources)
     set(buildtree_dir ${ARGS_BUILD_LOCATION})
     # installing resources in the buildtree (link if available, copy if not)
     message(
-        STATUS
-            "[install_plugin_resources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}"
+        STATUS "[install_plugin_resources] Linking resources directory ${ARGS_DIRECTORY} for target"
+               "${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}"
     )
     file(MAKE_DIRECTORY "${buildtree_dir}")
     if(MSVC OR MSVC_IDE OR MINGW)
@@ -400,16 +400,19 @@ endfunction()
 # This function also define the custom properties RADIUM_RESOURCE_DIRECTORY and
 # RADIUM_RESOURCE_FILES for the given target with the corresponding value. To be called with
 # ~~~
-# install_target_resources( TARGET theTarget
+# install_target_resources( [MAC_BUNDLE] TARGET theTarget
 #                  RESOURCES_DIR theBaseResourceDirectory
 #                           [RESOURCES_INSTALL_DIR where to link (in the build-tree) or install
 #                                                  (in the install tree]
 #                  [FILES[file1[file2...]]]
 # )
 # ~~~
+# add MAC_BUNDLE optional arg to install resources for a mac os Bundled application.
 function(install_target_resources)
     # "declare" and parse parameters
-    cmake_parse_arguments(ARGS "" "TARGET;RESOURCES_DIR;RESOURCES_INSTALL_DIR;" "FILES" ${ARGN})
+    cmake_parse_arguments(
+        ARGS "MAC_BUNDLE" "TARGET;RESOURCES_DIR;RESOURCES_INSTALL_DIR;" "FILES" ${ARGN}
+    )
 
     # verify that the function was called with expected parameters
     if(NOT ARGS_TARGET)
@@ -423,73 +426,74 @@ function(install_target_resources)
     endif()
 
     if(ARGS_RESOURCES_INSTALL_DIR)
-        set(RESOURCES_INSTALL_DIR "${ARGS_RESOURCES_INSTALL_DIR}")
+        set(resources_install_dir "${ARGS_RESOURCES_INSTALL_DIR}")
         set_target_properties(
-            ${ARGS_TARGET} PROPERTIES RADIUM_TARGET_RESOURCES_PREFIX ${RESOURCES_INSTALL_DIR}
+            ${ARGS_TARGET} PROPERTIES RADIUM_TARGET_RESOURCES_PREFIX ${resources_install_dir}
         )
     else()
-        set(RESOURCES_INSTALL_DIR "")
+        set(resources_install_dir "")
     endif()
 
-    get_target_property(TARGET_TYPE ${ARGS_TARGET} TYPE)
+    get_target_property(target_type ${ARGS_TARGET} TYPE)
     # get resrouces last directory from ${ARGS_RESOURCES_DIR}
-    get_filename_component(RESOURCES_LAST_DIR ${ARGS_RESOURCES_DIR} NAME)
+    get_filename_component(resources_last_dir ${ARGS_RESOURCES_DIR} NAME)
 
     # compute where to link the resources in the buildtree (as in a bundle :
-    # ${CMAKE_CURRENT_BINARY_DIR}/../Resources also set RESOURCES_DESTINATION_DIR
-    if(${TARGET_TYPE} STREQUAL "EXECUTABLE")
-        if(APPLE AND IsMacBundle)
-            set(RESOURCES_DESTINATION_DIR "bin/${ARGS_TARGET}.app/Contents/Resources/")
-            set(RESOURCES_BINARY_DIR
+    # ${CMAKE_CURRENT_BINARY_DIR}/../Resources also set resources_destination_dir
+    if(${target_type} STREQUAL "EXECUTABLE")
+        if(APPLE AND ARGS_MAC_BUNDLE)
+            set(resources_destination_dir "bin/${ARGS_TARGET}.app/Contents/Resources/")
+            set(resources_binary_dir
                 ${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}.app/Contents/Resources
             )
             install(
                 CODE "
                 # remove the link installed from the build-tree to copy the corresponding resources
                 file(REMOVE_RECURSE
-${CMAKE_INSTALL_PREFIX}/${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${RESOURCES_LAST_DIR})
+${CMAKE_INSTALL_PREFIX}/${resources_destination_dir}/${resources_install_dir}/${resources_last_dir})
             "
             )
         else()
-            set(RESOURCES_DESTINATION_DIR "Resources/")
-            set(RESOURCES_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
+            set(resources_destination_dir "Resources/")
+            set(resources_binary_dir ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
         endif()
-    elseif(${TARGET_TYPE} STREQUAL "SHARED_LIBRARY")
-        set(RESOURCES_DESTINATION_DIR "Resources/")
-        set(RESOURCES_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
+    elseif(${target_type} STREQUAL "SHARED_LIBRARY")
+        set(resources_destination_dir "Resources/")
+        set(resources_binary_dir ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
         set_target_properties(
             ${ARGS_TARGET} PROPERTIES RADIUM_TARGET_INSTALLED_RESOURCES
-                                      "${CMAKE_INSTALL_PREFIX}/Resources/${RESOURCES_INSTALL_DIR}"
+                                      "${CMAKE_INSTALL_PREFIX}/Resources/${resources_install_dir}"
         )
     else()
-        message(FATAL_ERROR "[install_target_resources] Unknown target type ${TARGET_TYPE}"
+        message(FATAL_ERROR "[install_target_resources] Unknown target type ${target_type}"
                             "for target ${ARGS_TARGET} "
         )
     endif()
 
     # append target specific resrouces install dir
-    set(RESOURCES_DESTINATION_DIR
-        "${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${RESOURCES_LAST_DIR}"
+    set(resources_destination_dir
+        "${resources_destination_dir}/${resources_install_dir}/${resources_last_dir}"
     )
-    set(RESOURCES_BINARY_DIR "${RESOURCES_BINARY_DIR}/${RESOURCES_INSTALL_DIR}")
+    set(resources_binary_dir "${resources_binary_dir}/${resources_install_dir}")
 
     # installing resources in the buildtree (link if available, copy if not)
     message(
         STATUS
-            "[install_target_resources] Linking resources directory ${ARGS_RESOURCES_DIR} for target ${ARGS_TARGET} into build dir ${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}"
+            "[install_target_resources] Linking resources directory ${ARGS_RESOURCES_DIR} "
+            "for target ${ARGS_TARGET} into build dir ${resources_binary_dir}/${resources_last_dir}"
     )
-    file(MAKE_DIRECTORY "${RESOURCES_BINARY_DIR}")
+    file(MAKE_DIRECTORY "${resources_binary_dir}")
     if(MSVC OR MSVC_IDE OR MINGW)
         add_custom_command(
             TARGET ${ARGS_TARGET} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARGS_RESOURCES_DIR}
-                    "${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}" VERBATIM
+                    "${resources_binary_dir}/${resources_last_dir}" VERBATIM
         )
     else()
         add_custom_command(
             TARGET ${ARGS_TARGET} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E create_symlink ${ARGS_RESOURCES_DIR}
-                    "${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}" VERBATIM
+                    "${resources_binary_dir}/${resources_last_dir}" VERBATIM
         )
     endif()
 
@@ -514,20 +518,19 @@ ${CMAKE_INSTALL_PREFIX}/${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${
     endif()
 
     # install resource for application or shared library
-    message(
-        STATUS
-            "[install_target_resources] Installing resources for target ${ARGS_TARGET} into Resources/${RESOURCES_INSTALL_DIR}/${RESOURCES_LAST_DIR}"
+    message(STATUS "[install_target_resources] Installing resources for target ${ARGS_TARGET} into "
+                   "Resources/${resources_install_dir}/${resources_last_dir}"
     )
 
-    if(${TARGET_TYPE} STREQUAL "EXECUTABLE" OR ${TARGET_TYPE} STREQUAL "SHARED_LIBRARY")
+    if(${target_type} STREQUAL "EXECUTABLE" OR ${target_type} STREQUAL "SHARED_LIBRARY")
         foreach(file ${ARGS_FILES})
             get_filename_component(FILE_DIR ${file} DIRECTORY)
             install(FILES ${ARGS_RESOURCES_DIR}/${file}
-                    DESTINATION ${RESOURCES_DESTINATION_DIR}/${FILE_DIR}
+                    DESTINATION ${resources_destination_dir}/${FILE_DIR}
             )
         endforeach()
     else()
-        message(FATAL_ERROR "[install_target_resources] Unknown target type ${TARGET_TYPE}"
+        message(FATAL_ERROR "[install_target_resources] Unknown target type ${target_type}"
                             "for target ${ARGS_TARGET} "
         )
     endif()
@@ -563,16 +566,16 @@ function(configure_windows_radium_app)
     message(STATUS "[configure_windows_radium_app] Installing  ${ARGS_NAME}"
                    "(Radium dll from ${RADIUM_ROOT_DIR}/bin)"
     )
-    set(RadiumDlls_Location ${RADIUM_ROOT_DIR}/bin)
+    set(radium_dlls_location ${RADIUM_ROOT_DIR}/bin)
 
     # Construction of the  dependency paths
-    set(FIX_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}")
-    list(APPEND FIX_LIBRARY_DIR "${RadiumDlls_Location}")
+    set(fix_library_dir "${CMAKE_INSTALL_PREFIX}")
+    list(APPEND fix_library_dir "${radium_dlls_location}")
     # Add the Qt bin dir ...
-    list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
+    list(APPEND fix_library_dir "${QtDlls_location}")
     # Add the Radium externals's dll location
-    list(APPEND FIX_LIBRARY_DIR "${RADIUM_EXTERNAL_DLLS_LOCATION}")
-    list(REMOVE_DUPLICATES FIX_LIBRARY_DIR)
+    list(APPEND fix_library_dir "${RADIUM_EXTERNAL_DLLS_LOCATION}")
+    list(REMOVE_DUPLICATES fix_library_dir)
 
     # build the list of resource directory from the linked libraries to copy into the bundle
     get_target_property(linkedLibs ${ARGS_NAME} LINK_LIBRARIES)
@@ -593,9 +596,8 @@ function(configure_windows_radium_app)
     list(FILTER linked_libraries INCLUDE REGEX "Qt*")
     list(LENGTH linked_libraries qt_libs_count)
     if(qt_libs_count GREATER 0)
-        message(
-            STATUS
-                "[configure_windows_radium_app] Preparing call to WinDeployQT for application ${ARGS_NAME}"
+        message(STATUS "[configure_windows_radium_app] Preparing call to WinDeployQT "
+                       "for application ${ARGS_NAME}"
         )
         windeployqt(${ARGS_NAME} bin)
     endif()
@@ -631,7 +633,7 @@ function(configure_windows_radium_app)
             list( APPEND InstalledPlugins ${CMAKE_INSTALL_PREFIX}/Plugins/lib/\${plugin} )
         endforeach ()
         fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe
-            \"\${InstalledPlugins}\" \"${FIX_LIBRARY_DIR};${CMAKE_INSTALL_PREFIX}/Plugins/lib\")
+            \"\${InstalledPlugins}\" \"${fix_library_dir};${CMAKE_INSTALL_PREFIX}/Plugins/lib\")
         "
         )
     else()
@@ -644,7 +646,7 @@ function(configure_windows_radium_app)
             foreach( rsc \${instRsc})
                 file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/Resources)
             endforeach()
-            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
+            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${fix_library_dir}\")
             "
         )
     endif()
@@ -785,17 +787,17 @@ function(configure_radium_plugin)
     # configure the plugin installation a plugin could be installed in the Radium Installation
     # Directory
     if(ARGS_INSTALL_IN_RADIUM_BUNDLE)
-        set(${ARGS_NAME}_INSTALL_DIR "${RADIUM_ROOT_DIR}/Plugins")
+        set(install_dir "${RADIUM_ROOT_DIR}/Plugins")
     else()
-        set(${ARGS_NAME}_INSTALL_DIR ${CMAKE_INSTALL_PREFIX})
+        set(install_dir ${CMAKE_INSTALL_PREFIX})
     endif()
     # On windows, plugins (dlls) are runtime and not libraries
     install(
         TARGETS ${ARGS_NAME}
-        DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
-        LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
-        RUNTIME DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
-        ARCHIVE DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+        DESTINATION ${install_dir}
+        LIBRARY DESTINATION ${install_dir}/lib
+        RUNTIME DESTINATION ${install_dir}/lib
+        ARCHIVE DESTINATION ${install_dir}/lib
     )
     # Configure the plugin helper library
     if(ARGS_HELPER_LIBS)
@@ -804,13 +806,13 @@ function(configure_radium_plugin)
             ${ARGS_NAME} PROPERTIES INSTALL_RPATH "@loader_path;${CMAKE_INSTALL_RPATH}"
         )
         foreach(helperLib ${ARGS_HELPER_LIBS})
-            # if helperLib is an alias, find the original name
-            get_target_property(OriginalLib "${helperLib}" ALIASED_TARGET)
-            if(${OriginalLib} STREQUAL "OriginalLib-NOTFOUND")
-                set(OriginalLib ${helperLib})
+            # if helperLib is an alias, find the original target name
+            get_target_property(target_name "${helperLib}" ALIASED_TARGET)
+            if(${target_name} STREQUAL "target_name-NOTFOUND")
+                set(target_name ${helperLib})
             endif()
             message(STATUS "[configure_radium_plugin] Install the helper library ${helperLib}"
-                           " for plugin ${ARGS_NAME} into ${${ARGS_NAME}_INSTALL_DIR}/lib"
+                           " for plugin ${ARGS_NAME} into ${install_dir}/lib"
             )
             # gets the resource install property of the target
             get_target_property(
@@ -823,7 +825,7 @@ function(configure_radium_plugin)
                     set(resourcePrefix "")
                 endif()
                 message(STATUS "[configure_radium_plugin] Installing ${helperLib} resources"
-                               " in ${${ARGS_NAME}_INSTALL_DIR}/Resources/${resourcePrefix}"
+                               " in ${install_dir}/Resources/${resourcePrefix}"
                 )
                 foreach(resourceDir ${resourceDirectories})
                     get_filename_component(rsc_dir ${resourceDir} NAME)
@@ -833,22 +835,22 @@ function(configure_radium_plugin)
                         install(
                             FILES ${resourceDir}/${file}
                             DESTINATION
-                                ${${ARGS_NAME}_INSTALL_DIR}/Resources/${resourcePrefix}/${rsc_dir}/${file_dir}
+                                ${install_dir}/Resources/${resourcePrefix}/${rsc_dir}/${file_dir}
                         )
                     endforeach()
                 endforeach()
             endif()
-            get_target_property(IsImported "${OriginalLib}" IMPORTED)
+            get_target_property(IsImported "${target_name}" IMPORTED)
             if(${IsImported})
-                get_target_property(OriginalLib ${OriginalLib} LOCATION)
-                install(FILES ${OriginalLib} DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib)
+                get_target_property(target_name ${target_name} LOCATION)
+                install(FILES ${target_name} DESTINATION ${install_dir}/lib)
             else()
                 install(
-                    TARGETS ${OriginalLib}
-                    DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
-                    LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
-                    RUNTIME DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
-                    ARCHIVE DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+                    TARGETS ${target_name}
+                    DESTINATION ${install_dir}
+                    LIBRARY DESTINATION ${install_dir}/lib
+                    RUNTIME DESTINATION ${install_dir}/lib
+                    ARCHIVE DESTINATION ${install_dir}/lib
                 )
             endif()
         endforeach()
@@ -862,7 +864,7 @@ function(configure_radium_plugin)
             install_plugin_resources(
                 TARGET ${ARGS_NAME} DIRECTORY ${resLocation}
                 BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Plugins/Resources/${ARGS_NAME}
-                INSTALL_LOCATION ${${ARGS_NAME}_INSTALL_DIR}
+                INSTALL_LOCATION ${install_dir}
             )
         endforeach()
     endif()
@@ -905,26 +907,26 @@ function(configure_radium_package)
     endif()
 
     if(ARGS_NAME_PREFIX)
-        set(CONFIG_FILE_NAME "${ARGS_NAME_PREFIX}${ARGS_NAME}Config")
+        set(config_file_name "${ARGS_NAME_PREFIX}${ARGS_NAME}Config")
     else()
-        set(CONFIG_FILE_NAME "${ARGS_NAME}Config")
+        set(config_file_name "${ARGS_NAME}Config")
     endif()
 
     configure_package_config_file(
-        ${ARGS_PACKAGE_CONFIG} "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
+        ${ARGS_PACKAGE_CONFIG} "${CMAKE_CURRENT_BINARY_DIR}/${config_file_name}.cmake"
         INSTALL_DESTINATION ${ARGS_PACKAGE_DIR}
     )
 
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${config_file_name}.cmake"
             DESTINATION ${ARGS_PACKAGE_DIR}
     )
 
     if(ARGS_PACKAGE_VERSION)
         write_basic_package_version_file(
-            "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/${config_file_name}Version.cmake"
             VERSION ${ARGS_PACKAGE_VERSION} COMPATIBILITY SameMajorVersion
         )
-        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
+        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${config_file_name}Version.cmake"
                 DESTINATION ${ARGS_PACKAGE_DIR}
         )
     endif()
@@ -1053,16 +1055,19 @@ function(print_target_properties tgt)
     string(REGEX REPLACE ";" "\\\\;" CMAKE_PROPERTY_LIST "${CMAKE_PROPERTY_LIST}")
     string(REGEX REPLACE "\n" ";" CMAKE_PROPERTY_LIST "${CMAKE_PROPERTY_LIST}")
     # Fix
+    # ~~~
+    # cmake-lint: disable=C0301
     # https://stackoverflow.com/questions/32197663/how-can-i-remove-the-the-location-property-may-not-be-read-from-target-error-i
+    # ~~~
     # list(FILTER CMAKE_PROPERTY_LIST EXCLUDE REGEX "^LOCATION$|^LOCATION_|_LOCATION$") For some
     # reason, "TYPE" shows up twice - others might too?
     list(REMOVE_DUPLICATES CMAKE_PROPERTY_LIST)
 
     unset(CMAKE_WHITELISTED_PROPERTY_LIST)
     foreach(prop ${CMAKE_PROPERTY_LIST})
-        if(prop
-           MATCHES
-           "^(INTERFACE|[_a-z]|IMPORTED_LIBNAME_|MAP_IMPORTED_CONFIG_)|^(COMPATIBLE_INTERFACE_(BOOL|NUMBER_MAX|NUMBER_MIN|STRING)|EXPORT_NAME|IMPORTED(_GLOBAL|_CONFIGURATIONS|_LIBNAME)?|NAME|TYPE|NO_SYSTEM_FROM_IMPORTED)$"
+        if(prop MATCHES "^(INTERFACE|[_a-z]|IMPORTED_LIBNAME_|MAP_IMPORTED_CONFIG_)|^\
+(COMPATIBLE_INTERFACE_(BOOL|NUMBER_MAX|NUMBER_MIN|STRING)|EXPORT_NAME|\
+IMPORTED(_GLOBAL|_CONFIGURATIONS|_LIBNAME)?|NAME|TYPE|NO_SYSTEM_FROM_IMPORTED)$"
         )
             list(APPEND CMAKE_WHITELISTED_PROPERTY_LIST ${prop})
         endif()
@@ -1078,15 +1083,15 @@ function(print_target_properties tgt)
 
     get_target_property(target_type ${tgt} TYPE)
     if(target_type STREQUAL "INTERFACE_LIBRARY")
-        set(PROP_LIST ${CMAKE_WHITELISTED_PROPERTY_LIST})
+        set(prop_list ${CMAKE_WHITELISTED_PROPERTY_LIST})
     else()
-        set(PROP_LIST ${CMAKE_PROPERTY_LIST})
+        set(prop_list ${CMAKE_PROPERTY_LIST})
     endif()
 
-    list(APPEND PROP_LIST "IMPORTED_LOCATION")
-    list(APPEND PROP_LIST "IMPORTED_LOCATION_RELEASE")
+    list(APPEND prop_list "IMPORTED_LOCATION")
+    list(APPEND prop_list "IMPORTED_LOCATION_RELEASE")
 
-    foreach(prop ${PROP_LIST})
+    foreach(prop ${prop_list})
         string(REPLACE "<CONFIG>" "${CMAKE_BUILD_TYPE}" prop ${prop})
         # message ("Checking ${prop}")
         get_property(propval TARGET ${tgt} PROPERTY ${prop} SET)
