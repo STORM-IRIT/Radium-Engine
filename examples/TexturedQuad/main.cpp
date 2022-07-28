@@ -11,6 +11,9 @@
 #include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
 
+#include <chrono>
+#include <thread>
+
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
     Ra::Gui::BaseApplication app( argc, argv );
@@ -66,24 +69,31 @@ int main( int argc, char* argv[] ) {
     auto texture = app.m_engine->getTextureManager()->getOrLoadTexture( textureParameters );
     viewer->doneCurrent();
 
-    // terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.
+    constexpr int nSec = 4;
+    // terminate the app after nSec second (approximatively). Camera can be moved using mouse moves.
     auto thread = std::thread( [=, &app, &texture]() {
-        for ( int dec = 0; dec < 40; ++dec ) {
-            unsigned char newData[size];
-            for ( int i = 0; i < width; ++i ) {
-                for ( int j = 0; j < height; j++ ) {
-                    newData[( i * height + j )] =
-                        (unsigned char)( 200.0 * std::abs( std::sin( float( dec ) / 4_ra ) ) *
-                                         std::abs( std::sin( j * i * M_PI / 64.0 ) *
-                                                   std::cos( j * i * M_PI / 96.0 ) ) );
+        const auto& startChrono = std::chrono::high_resolution_clock::now();
+        int dec                 = 0;
+
+        for ( int iSec = 0; iSec < nSec; ++iSec ) {
+            const auto& endChrono = startChrono + (iSec + 1) * std::chrono::milliseconds( 1000 );
+
+            while ( std::chrono::high_resolution_clock::now() < endChrono ) {
+                unsigned char newData[size];
+                for ( int i = 0; i < width; ++i ) {
+                    for ( int j = 0; j < height; j++ ) {
+                        newData[( i * height + j )] =
+                            (unsigned char)( 200.0 * std::abs( std::sin( float( dec ) / 40_ra ) ) *
+                                             std::abs( std::sin( j * i * M_PI / 64.0 ) *
+                                                       std::cos( j * i * M_PI / 96.0 ) ) );
+                    }
                 }
+
+                texture->updateData( newData ); // update data multiple times per frame to check if only one update is done per frame.
+                ++dec;
             }
-
-            texture->updateData( newData );
-
-            std::cout << "update image data with dec = " << dec << std::endl;
-            std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
         }
+        std::cout << dec / (float)nSec << " texture updates per second." << std::endl;
         app.appNeedsToQuit();
     } );
     thread.detach();

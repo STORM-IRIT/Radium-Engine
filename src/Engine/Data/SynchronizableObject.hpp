@@ -38,16 +38,16 @@ RA_ENGINE_API void start();
 class RA_ENGINE_API Synchronizable
 {
   public:
-    virtual ~Synchronizable() = default;
+    virtual ~Synchronizable();
 
     ///
     /// \brief updateGL
-    /// data update from model to view (cpu -> gpu).
+    /// Update data from model to view (cpu -> gpu).
     virtual void updateGL() = 0;
 
     ///
     /// \brief needSync
-    /// call this method on client side when the model data is updated.
+    /// Call this method on client side when the model data is updated.
     RA_ENGINE_API void needSync();
 };
 

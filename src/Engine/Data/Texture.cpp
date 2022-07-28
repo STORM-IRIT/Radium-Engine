@@ -169,6 +169,7 @@ void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
 
 void Texture::updateGL() {
     //    CORE_ASSERT( m_textureParameters.texels != nullptr, "No cpu data" );
+    CORE_ASSERT( m_texture != nullptr, "Cannot update non initialized texture" );
     switch ( m_texture->target() ) {
     case GL_TEXTURE_1D: {
         m_texture->image1D( 0,
