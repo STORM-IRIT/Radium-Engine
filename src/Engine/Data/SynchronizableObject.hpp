@@ -14,7 +14,6 @@ class Synchronizable;
 
 namespace Synchronizer {
 
-RA_ENGINE_API bool registerSynchronizable( Synchronizable* synchronizable );
 RA_ENGINE_API void start();
 
 } // namespace Synchronizer
@@ -48,7 +47,7 @@ class RA_ENGINE_API Synchronizable
     ///
     /// \brief needSync
     /// Call this method on client side when the model data is updated.
-    RA_ENGINE_API void needSync();
+    void needSync();
 };
 
 } // namespace Data
