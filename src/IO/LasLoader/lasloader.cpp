@@ -23,6 +23,13 @@ bool LasLoader::handleFileExtension( const string& extension ) const {
     return extension.compare( lasExt ) == 0;
 }
 
+double readDouble (const char* buffer) {
+    double res;
+    char* converter = reinterpret_cast<char*>(&res);
+    std::copy(buffer, buffer + sizeof(double), converter);
+    return res;
+}
+
 Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     using Ra::Core::VectorArray;
     using Ra::Core::Asset::FileData;
@@ -66,7 +73,11 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     // reading minor version (needed to check data format)
     stream.seekg( 0 );
     stream.seekg( 25 );
-    stream.read( buffer, 1 );
+    if ( !stream.read( buffer, 1 ) ) {
+        delete fileData;
+        throw runtime_error( "Could not read minor version" );
+        return nullptr;
+    }
     unsigned char minor = *(unsigned char*)buffer;
 
     if ( ( minor < 1 ) || ( minor > 4 ) ) {
@@ -81,16 +92,24 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     // reading distance from file start to first point record
     stream.seekg( 0 );
     stream.seekg( 96 );
-    stream.read( buffer, 4 );
+    if ( !stream.read( buffer, 4 ) ) {
+        delete fileData;
+        throw runtime_error( "Could not read offset to point records" );
+        return nullptr;
+    }
     unsigned int offset = *(unsigned int*)buffer;
 
     // reading point data format
     stream.seekg( 0 );
     stream.seekg( 104 );
-    stream.read( buffer, 1 );
+    if ( !stream.read( buffer, 1 ) ) {
+        delete fileData;
+        throw runtime_error( "Could not read data format" );
+        return nullptr;
+    }
     unsigned char data_format = *(unsigned char*)buffer;
 
-    if ( ( data_format < 0 ) || ( data_format > 3 && minor < 3 ) ||
+    if ( ( data_format > 3 && minor < 3 ) ||
          ( data_format > 5 && minor == 3 ) || ( data_format > 6 && minor == 4 ) ) {
         delete fileData;
         throw runtime_error( "Corrupted file. Unvalid data format" );
@@ -102,31 +121,42 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
     }
 
     // reading data record length (bytes)
-    stream.read( buffer, 2 );
+    if ( !stream.read( buffer, 2 ) ) {
+        delete fileData;
+        throw runtime_error( "Could not read point record length" );
+        return nullptr;
+    }
     unsigned short data_len = *(unsigned short*)buffer;
 
     // reading total number of data records
-    stream.read( buffer, 4 );
+    if ( !stream.read( buffer, 4 ) ) {
+        delete fileData;
+        throw runtime_error( "Could not read number of point records" );
+        return nullptr;
+    }
     unsigned int nb_data = *(unsigned int*)buffer;
 
     // reading scales and offsets (used for computing coordinates)
     stream.seekg( 0 );
     stream.seekg( 131 );
-    stream.read( buffer, 48 );
+    if ( !stream.read( buffer, 48 ) ) {
+        delete fileData;
+        throw runtime_error( "Could not read scale and offset fields" );
+        return nullptr;
+    }
 
-    double scale_x  = *( reinterpret_cast<double*>( buffer ) );
-    double scale_y  = *( reinterpret_cast<double*>( buffer + 8 ) );
-    double scale_z  = *( reinterpret_cast<double*>( buffer + 16 ) );
-    double offset_x = *( reinterpret_cast<double*>( buffer + 24 ) );
-    double offset_y = *( reinterpret_cast<double*>( buffer + 32 ) );
-    double offset_z = *( reinterpret_cast<double*>( buffer + 40 ) );
+    double scale_x  = readDouble( buffer );
+    double scale_y  = readDouble( buffer + 8 );
+    double scale_z  = readDouble( buffer + 16 );
+    double offset_x = readDouble( buffer + 24 );
+    double offset_y = readDouble( buffer + 32 );
+    double offset_z = readDouble( buffer + 40 );
 
     /*loading properties*/
     vector<char> point( data_len );
 
     VectorArray<Ra::Core::Vector3>& vertices = geometry->getGeometry().verticesWithLock();
     vertices.reserve( nb_data );
-
     // checking for colors
     Ra::Core::Utils::AttribHandle<Ra::Core::Vector4> handle_color;
     Ra::Core::VectorArray<Ra::Core::Vector4> colors;
@@ -153,7 +183,11 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
         stream.seekg( pos );
 
         // reading point data
-        stream.read( point.data(), data_len );
+        if ( !stream.read( point.data(), data_len ) ) {
+            delete fileData;
+            throw runtime_error( "Could not read point record " + to_string(i) );
+            return nullptr;
+        }
 
         // extracting initial x y z coordinates
         int ix;
@@ -164,7 +198,7 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
         iy = *(int*)( point.data() + 4 );
         iz = *(int*)( point.data() + 8 );
 
-        // computing actual coordinates
+        // scaling to obtain actual coordinates
         double x = (double)ix * scale_x + offset_x;
         double y = (double)iy * scale_y + offset_y;
         double z = (double)iz * scale_z + offset_z;
@@ -196,18 +230,17 @@ Ra::Core::Asset::FileData* LasLoader::loadFile( const string& filename ) {
         if ( handle_time.idx().isValid() ) {
             // loading GPS time if found
             if ( data_format == 6 ) {
-                gps_time.emplace_back( Scalar( *reinterpret_cast<double*>( point.data() + 22 ) ) );
+                gps_time.emplace_back( Scalar( readDouble( point.data() + 22 ) ) );
             }
             else {
-                gps_time.emplace_back( Scalar( *reinterpret_cast<double*>( point.data() + 20 ) ) );
+                gps_time.emplace_back( Scalar( readDouble( point.data() + 20 ) ) );
             }
         }
     }
     stream.close();
+    point.clear();
 
     geometry->getGeometry().verticesUnlock();
-
-    point.clear();
 
     if ( handle_color.idx().isValid() ) {
         geometry->getGeometry().vertexAttribs().getAttrib( handle_color ).setData( colors );
