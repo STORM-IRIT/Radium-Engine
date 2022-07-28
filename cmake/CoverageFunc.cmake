@@ -132,7 +132,7 @@ endmacro()
 
 # add custom coverage targets
 macro(setup_coverage_targets enable_coverage lcov_removes)
-    if(enable_coverage)
+    if(${enable_coverage})
         add_custom_target(
             lcov_init
             COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --initial --capture --directory
