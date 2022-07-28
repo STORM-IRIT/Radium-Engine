@@ -109,13 +109,13 @@ endfunction()
 
 # internal Utility function to install Qt internal plugins into a macosX bundle
 macro(install_qt_plugin arg_qt_plugin_name arg_qt_plugins_var arg_destination)
-    get_target_property(arg_qt_plugin_path "${arg_qt_plugin_name}" LOCATION)
-    if(EXISTS "${arg_qt_plugin_path}")
-        get_filename_component(arg_qt_plugin_file "${arg_qt_plugin_path}" NAME)
-        get_filename_component(arg_qt_plugin_type "${arg_qt_plugin_path}" PATH)
+    get_target_property(qt_plugin_path "${arg_qt_plugin_name}" LOCATION)
+    if(EXISTS "${qt_plugin_path}")
+        get_filename_component(arg_qt_plugin_file "${qt_plugin_path}" NAME)
+        get_filename_component(arg_qt_plugin_type "${qt_plugin_path}" PATH)
         get_filename_component(arg_qt_plugin_type "${arg_qt_plugin_type}" NAME)
         set(arg_qt_plugin_dest "${arg_destination}/PlugIns/${arg_qt_plugin_type}")
-        install(FILES "${arg_qt_plugin_path}" DESTINATION "${arg_qt_plugin_dest}")
+        install(FILES "${qt_plugin_path}" DESTINATION "${arg_qt_plugin_dest}")
         set(${arg_qt_plugins_var}
             "${${arg_qt_plugins_var}};${arg_qt_plugin_dest}/${arg_qt_plugin_file}"
         )

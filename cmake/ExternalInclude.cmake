@@ -34,8 +34,8 @@ set(RADIUM_EXTERNAL_CMAKE_OPTIONS
 )
 
 # First message formating function, need other to have better consistency
-macro(status_message MODULE NAME VAR)
-    message(STATUS "${MODULE} Using ${NAME} from ${VAR}")
+macro(status_message module name var)
+    message(STATUS "${module} Using ${name} from ${var}")
 endmacro()
 
 macro(check_externals_prerequisite)
