@@ -24,7 +24,7 @@ bool LasLoader::handleFileExtension( const string& extension ) const {
 }
 
 double readDouble( const char* buffer ) {
-    double res = 0;
+    double res      = 0;
     char* converter = reinterpret_cast<char*>( &res );
     std::copy( buffer, buffer + sizeof( double ), converter );
     return res;
