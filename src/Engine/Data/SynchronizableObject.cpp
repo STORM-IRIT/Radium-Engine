@@ -21,6 +21,11 @@ namespace Synchronizer {
 static std::set<Synchronizable*> s_synchronizables;
 static std::mutex s_mtx;
 
+///
+/// \brief registerSynchronizable object to the service
+/// \param synchronizable is an object that wants to be synchronized
+/// \return true if the registration was successful
+///
 bool registerSynchronizable( Synchronizable* synchronizable ) {
     // cannot add synchronizable object if the synchronizer is running
     s_mtx.lock();
