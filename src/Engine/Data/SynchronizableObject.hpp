@@ -39,7 +39,8 @@ RA_ENGINE_API void start();
 
 /**
 /// \brief The Synchronizable class allows a lazy update of the data visualization (view) when the
-/// user data (model) is updated. Please use this class if your class has a need to be visualized and
+/// user data (model) is updated. Please use this class if your class has a need to be visualized
+and
 /// can be updated in a client side that does not require/have access to the rendering context.
 /// The Synchronizable class could be a parent class of all objects having
 /// data on the cpu side (model) and another representation on the gpu
@@ -64,8 +65,8 @@ class RA_ENGINE_API Synchronizable
     virtual void updateGL() = 0;
 
     ///
-    /// \brief needSync function must be called by the user of this class when the cpu data is recently updated.
-    /// Call this method on client side when the model data is updated.
+    /// \brief needSync function must be called by the user of this class when the cpu data is
+    /// recently updated. Call this method on client side when the model data is updated.
     void needSync();
 };
 
