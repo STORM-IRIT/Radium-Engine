@@ -143,8 +143,11 @@ class RA_ENGINE_API Texture final : public Synchronizable
 
     /**
      * Update the cpu representation of data contained by the texture
-     * @param newData The new data, must contain the same number of elements than old data, no
-     * check will be performed.
+     * @param newData user image pointer to wrap,
+     * must contain the same number of elements than old data (no test perform).
+     * Texture use here existing pixel memory owned by the calling application.
+     * The texture does not own the pixel storage and will not free/delete that memory,
+     * even when the texture is destroyed.
      */
     void updateData( void* newData );
 
@@ -221,12 +224,6 @@ class RA_ENGINE_API Texture final : public Synchronizable
     void updateGL() override;
 
   private:
-    friend class TextureManager;
-    /**
-     * Update the gpu representation of data contained by the texture
-     */
-    void updateSampler();
-
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
      * The content of the array of texels.
