@@ -181,7 +181,7 @@ class RA_ENGINE_API RenderParameters final
     };
 
     /**
-     * \brief This class manage the bijective association between string anv integral representation
+     * \brief This class manage the bijective association between string and integral representation
      * of an enumeration.
      *
      * \tparam Enum the type of the enumeration to manage
