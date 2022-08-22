@@ -51,6 +51,26 @@ class BijectiveAssociation
      */
     key_type key( const value_type& k ) const;
 
+    /**
+     * \brief Gets an const iterator at beginning of the key to value map
+     */
+    typename std::map<key_type, value_type>::const_iterator begin();
+
+    /**
+     * \brief Gets a const iterator at beginning of the key to value map
+     */
+    typename std::map<key_type, value_type>::const_iterator cbegin();
+
+    /**
+     * \brief Gets a const iterator at the end of the key to value map
+     */
+    typename std::map<key_type, value_type>::const_iterator end();
+
+    /**
+     * \brief Gets a const iterator at the end of the key to value map
+     */
+    typename std::map<key_type, value_type>::const_iterator cend();
+
   private:
     std::map<key_type, value_type> m_TKeyToValue;
     std::map<value_type, key_type> m_ValueToKey;
