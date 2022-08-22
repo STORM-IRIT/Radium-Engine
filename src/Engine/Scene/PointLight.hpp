@@ -1,10 +1,18 @@
 #pragma once
 
+#include <Core/CoreMacros.hpp>
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/Light.hpp>
 
+#include <Eigen/Dense>
+
+#include <string>
+
 namespace Ra {
 namespace Engine {
+namespace Data {
+class RenderParameters;
+} // namespace Data
 
 namespace Scene {
 class Entity;
@@ -38,4 +46,5 @@ class RA_ENGINE_API PointLight final : public Ra::Engine::Scene::Light
 } // namespace Scene
 } // namespace Engine
 } // namespace Ra
+
 #include "PointLight.inl"
