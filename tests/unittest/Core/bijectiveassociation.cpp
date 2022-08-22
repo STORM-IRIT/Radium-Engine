@@ -29,4 +29,13 @@ TEST_CASE( "Core/Utils/BijectiveAssociation", "[Core][Core/Utils][BijectiveAssoc
         REQUIRE( myTranslator.value( "Three" ) == "Trois" );
         REQUIRE( myTranslator.key( "Deux" ) == "Two" );
     }
+
+    SECTION( "Iterators on Bijective association" ) {
+        BijectiveAssociation<std::string, std::string> myTranslator {
+            { "One", "Un" }, { "Two", "Deux" }, { "Three", "Trois" } };
+        for ( const auto& e : myTranslator ) {
+            REQUIRE( myTranslator.value( e.first ) == e.second );
+            REQUIRE( myTranslator.key( e.second ) == e.first );
+        }
+    }
 }

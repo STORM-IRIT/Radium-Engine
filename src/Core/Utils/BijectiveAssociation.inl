@@ -45,6 +45,26 @@ BijectiveAssociation<T1, T2>::value( const key_type& k ) const {
     return m_TKeyToValue.at( k );
 }
 
+template <typename T1, typename T2>
+typename std::map<T1, T2>::const_iterator BijectiveAssociation<T1, T2>::cbegin() {
+    return m_TKeyToValue.cbegin();
+}
+
+template <typename T1, typename T2>
+typename std::map<T1, T2>::const_iterator BijectiveAssociation<T1, T2>::cend() {
+    return m_TKeyToValue.cend();
+}
+
+template <typename T1, typename T2>
+typename std::map<T1, T2>::const_iterator BijectiveAssociation<T1, T2>::begin() {
+    return m_TKeyToValue.begin();
+}
+
+template <typename T1, typename T2>
+typename std::map<T1, T2>::const_iterator BijectiveAssociation<T1, T2>::end() {
+    return m_TKeyToValue.end();
+}
+
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
