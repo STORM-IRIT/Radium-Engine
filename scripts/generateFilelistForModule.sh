@@ -23,6 +23,7 @@ echo  "# from ./scripts directory" >> "${OUTPUT}"
 echo  "# ----------------------------------------------------" >> "${OUTPUT}"
 echo ""  >> "${OUTPUT}"
 
+export LC_ALL=C
 
 function genList(){
     ext=$1
