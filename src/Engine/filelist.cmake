@@ -1,7 +1,7 @@
 # ----------------------------------------------------
 # This file can be generated from a script:
-# To do so, run form ./scripts directory
-# ./generateFilelistForModule.sh Engine
+# To do so, run "./generateFilelistForModule.sh Engine"
+# from ./scripts directory
 # ----------------------------------------------------
 
 set(engine_sources
@@ -9,8 +9,8 @@ set(engine_sources
     Data/DrawPrimitives.cpp
     Data/EnvironmentTexture.cpp
     Data/LambertianMaterial.cpp
-    Data/MaterialConverters.cpp
     Data/Material.cpp
+    Data/MaterialConverters.cpp
     Data/Mesh.cpp
     Data/PlainMaterial.cpp
     Data/RawShaderMaterial.cpp
@@ -27,10 +27,10 @@ set(engine_sources
     RadiumEngine.cpp
     Rendering/DebugRender.cpp
     Rendering/ForwardRenderer.cpp
-    Rendering/Renderer.cpp
     Rendering/RenderObject.cpp
     Rendering/RenderObjectManager.cpp
     Rendering/RenderTechnique.cpp
+    Rendering/Renderer.cpp
     Scene/CameraComponent.cpp
     Scene/CameraManager.cpp
     Scene/Component.cpp
@@ -61,8 +61,8 @@ set(engine_headers
     Data/DrawPrimitives.hpp
     Data/EnvironmentTexture.hpp
     Data/LambertianMaterial.hpp
-    Data/MaterialConverters.hpp
     Data/Material.hpp
+    Data/MaterialConverters.hpp
     Data/Mesh.hpp
     Data/PlainMaterial.hpp
     Data/RawShaderMaterial.hpp
@@ -79,15 +79,15 @@ set(engine_headers
     Data/VolumetricMaterial.hpp
     FrameInfo.hpp
     OpenGL.hpp
-    RadiumEngine.hpp
     RaEngine.hpp
+    RadiumEngine.hpp
     Rendering/DebugRender.hpp
     Rendering/ForwardRenderer.hpp
-    Rendering/Renderer.hpp
     Rendering/RenderObject.hpp
     Rendering/RenderObjectManager.hpp
     Rendering/RenderObjectTypes.hpp
     Rendering/RenderTechnique.hpp
+    Rendering/Renderer.hpp
     Scene/CameraComponent.hpp
     Scene/CameraManager.hpp
     Scene/CameraStorage.hpp
@@ -111,8 +111,8 @@ set(engine_headers
     Scene/SkeletonComponent.hpp
     Scene/SkinningComponent.hpp
     Scene/SpotLight.hpp
-    Scene/SystemDisplay.hpp
     Scene/System.hpp
+    Scene/SystemDisplay.hpp
 )
 
 set(engine_inlines
@@ -126,8 +126,8 @@ set(engine_inlines
     Data/SimpleMaterial.inl
     Data/VolumeObject.inl
     Data/VolumetricMaterial.inl
-    Rendering/Renderer.inl
     Rendering/RenderTechnique.inl
+    Rendering/Renderer.inl
     Scene/Component.inl
     Scene/ComponentMessenger.inl
     Scene/DirLight.inl
@@ -152,10 +152,10 @@ set(engine_shaders
     Lights/DirectionalLight.glsl
     Lights/PointLight.glsl
     Lights/SpotLight.glsl
-    Lines/LinesAdjacency.geom.glsl
     Lines/Lines.frag.glsl
     Lines/Lines.geom.glsl
     Lines/Lines.vert.glsl
+    Lines/LinesAdjacency.geom.glsl
     Lines/Wireframe.frag.glsl
     Lines/Wireframe.geom.glsl
     Lines/Wireframe.vert.glsl
@@ -176,14 +176,14 @@ set(engine_shaders
     Materials/Volumetric/ComposeVolumeRender.frag.glsl
     Materials/Volumetric/Volumetric.frag.glsl
     Materials/Volumetric/Volumetric.glsl
-    Materials/Volumetric/VolumetricOIT.frag.glsl
     Materials/Volumetric/Volumetric.vert.glsl
+    Materials/Volumetric/VolumetricOIT.frag.glsl
     Picking/Picking.frag.glsl
-    Picking/PickingLinesAdjacency.geom.glsl
+    Picking/Picking.vert.glsl
     Picking/PickingLines.geom.glsl
+    Picking/PickingLinesAdjacency.geom.glsl
     Picking/PickingPoints.geom.glsl
     Picking/PickingTriangles.geom.glsl
-    Picking/Picking.vert.glsl
     Points/PointCloud.geom.glsl
     Transform/TransformStructs.glsl
 )
