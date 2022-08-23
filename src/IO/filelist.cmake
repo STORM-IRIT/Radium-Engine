@@ -1,7 +1,7 @@
 # ----------------------------------------------------
 # This file can be generated from a script:
-# To do so, run form ./scripts directory
-# ./generateFilelistForModule.sh IO
+# To do so, run "./generateFilelistForModule.sh IO"
+# from ./scripts directory
 # ----------------------------------------------------
 
 set(io_sources CameraLoader/CameraLoader.cpp)
@@ -57,8 +57,8 @@ if(RADIUM_IO_TINYPLY)
 endif(RADIUM_IO_TINYPLY)
 
 if(RADIUM_IO_VOLUMES)
-    list(APPEND io_sources VolumesLoader/pvmutils.cpp VolumesLoader/VolumeLoader.cpp)
+    list(APPEND io_sources VolumesLoader/VolumeLoader.cpp VolumesLoader/pvmutils.cpp)
 
-    list(APPEND io_headers VolumesLoader/pvmutils.hpp VolumesLoader/VolumeLoader.hpp)
+    list(APPEND io_headers VolumesLoader/VolumeLoader.hpp VolumesLoader/pvmutils.hpp)
 
 endif(RADIUM_IO_VOLUMES)
