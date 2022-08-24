@@ -1,7 +1,7 @@
 # ----------------------------------------------------
 # This file can be generated from a script:
-# To do so, run form ./scripts directory
-# ./generateFilelistForModule.sh Core
+# To do so, run "./generateFilelistForModule.sh Core"
+# from ./scripts directory
 # ----------------------------------------------------
 
 set(core_sources
@@ -29,7 +29,6 @@ set(core_sources
     Geometry/Adjacency.cpp
     Geometry/Area.cpp
     Geometry/CatmullClarkSubdivider.cpp
-    Geometry/deprecated/TopologicalMesh.cpp
     Geometry/HeatDiffusion.cpp
     Geometry/IndexedGeometry.cpp
     Geometry/Laplacian.cpp
@@ -43,11 +42,12 @@ set(core_sources
     Geometry/TriangleOperation.cpp
     Geometry/VertexDistance.cpp
     Geometry/Volume.cpp
+    Geometry/deprecated/TopologicalMesh.cpp
     Resources/Resources.cpp
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
-    Utils/Color.cpp
     Utils/CircularIndex.cpp
+    Utils/Color.cpp
     Utils/StackTrace.cpp
     Utils/StringUtils.cpp
 )
@@ -59,8 +59,8 @@ set(core_headers
     Animation/HandleArray.hpp
     Animation/HandleWeight.hpp
     Animation/HandleWeightOperation.hpp
-    Animation/KeyFramedValueController.hpp
     Animation/KeyFramedValue.hpp
+    Animation/KeyFramedValueController.hpp
     Animation/KeyFramedValueInterpolators.hpp
     Animation/LinearBlendSkinning.hpp
     Animation/Pose.hpp
@@ -100,7 +100,6 @@ set(core_headers
     Geometry/Area.hpp
     Geometry/CatmullClarkSubdivider.hpp
     Geometry/Curve2D.hpp
-    Geometry/deprecated/TopologicalMesh.hpp
     Geometry/DistanceQueries.hpp
     Geometry/Frustum.hpp
     Geometry/HeatDiffusion.hpp
@@ -120,6 +119,7 @@ set(core_headers
     Geometry/TriangleOperation.hpp
     Geometry/VertexDistance.hpp
     Geometry/Volume.hpp
+    Geometry/deprecated/TopologicalMesh.hpp
     Math/DualQuaternion.hpp
     Math/GlmAdapters.hpp
     Math/Interpolation.hpp
@@ -136,9 +136,9 @@ set(core_headers
     Utils/CircularIndex.hpp
     Utils/Color.hpp
     Utils/ContainerIntrospectionInterface.hpp
-    Utils/IndexedObject.hpp
     Utils/Index.hpp
     Utils/IndexMap.hpp
+    Utils/IndexedObject.hpp
     Utils/Log.hpp
     Utils/ObjectWithSemantic.hpp
     Utils/Observable.hpp
@@ -169,7 +169,6 @@ set(core_inlines
     Containers/Grid.inl
     Containers/Tex.inl
     Geometry/Curve2D.inl
-    Geometry/deprecated/TopologicalMesh.inl
     Geometry/DistanceQueries.inl
     Geometry/IndexedGeometry.inl
     Geometry/MeshPrimitives.inl
@@ -177,6 +176,7 @@ set(core_inlines
     Geometry/Spline.inl
     Geometry/TopologicalMesh.inl
     Geometry/TriangleMesh.inl
+    Geometry/deprecated/TopologicalMesh.inl
     Math/DualQuaternion.inl
     Math/LinearAlgebra.inl
     Math/Math.inl

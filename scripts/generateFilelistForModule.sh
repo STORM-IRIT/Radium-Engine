@@ -23,6 +23,7 @@ echo  "# from ./scripts directory" >> "${OUTPUT}"
 echo  "# ----------------------------------------------------" >> "${OUTPUT}"
 echo ""  >> "${OUTPUT}"
 
+export LC_ALL=C
 
 function genList(){
     ext=$1
@@ -31,7 +32,7 @@ function genList(){
     if [ ! -z "$L" ]
     then
         echo  "set(${LOWBASE}_${suffix}" >> "${OUTPUT}"
-        echo "${L}" | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> "${OUTPUT}"
+        echo "${L}" | cut -f 4- -d/ | grep -v pch.hpp | sort | xargs -n1 echo "   "  >> "${OUTPUT}"
         echo ")" >> "${OUTPUT}"
         echo ""  >> "${OUTPUT}"
     fi
@@ -44,7 +45,7 @@ function genListIo(){
     if [ ! -z "$L" ]
     then
         echo  "set(${LOWBASE}_${suffix}" >> "${OUTPUT}"
-        echo "${L}" | grep -v deprecated | grep -v AssimpLoader | grep -v TinyPlyLoader | grep -v VolumesLoader | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> "${OUTPUT}"
+        echo "${L}" | grep -v pch.hpp | grep -v deprecated | grep -v AssimpLoader | grep -v TinyPlyLoader | grep -v VolumesLoader | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> "${OUTPUT}"
         echo ")" >> "${OUTPUT}"
         echo ""  >> "${OUTPUT}"
     fi
