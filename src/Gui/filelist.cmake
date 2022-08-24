@@ -77,6 +77,7 @@ set(gui_headers
     Viewer/TrackballCameraManipulator.hpp
     Viewer/Viewer.hpp
     Viewer/WindowQt.hpp
+    Widgets/ConstrainedNumericSpinBox.hpp
     Widgets/ControlPanel.hpp
     Widgets/MatrixEditor.hpp
     Widgets/QtTypeWrapper.hpp
