@@ -6,7 +6,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 BASE=$1
-LOWBASE=${BASE,,}
+LOWBASE=$(echo "$BASE" | tr '[:upper:]' '[:lower:]')
 OUTPUT="../src/${BASE}/filelist.cmake"
 
 echo "generate [${BASE}] filelist"
@@ -28,7 +28,7 @@ export LC_ALL=C
 function genList(){
     ext=$1
     suffix=$2
-    L=$(find  "../src/${BASE}/" -name "*.${ext}")
+    L=$(find  "../src/${BASE}" -name "*.${ext}")
     if [ ! -z "$L" ]
     then
         echo  "set(${LOWBASE}_${suffix}" >> "${OUTPUT}"
@@ -41,7 +41,7 @@ function genList(){
 function genListIo(){
     ext=$1
     suffix=$2
-    L=$(find  "../src/${BASE}/" -name "*.${ext}")
+    L=$(find  "../src/${BASE}" -name "*.${ext}")
     if [ ! -z "$L" ]
     then
         echo  "set(${LOWBASE}_${suffix}" >> "${OUTPUT}"
@@ -54,7 +54,7 @@ function genListIo(){
 function genListIoAppend(){
     ext=$1
     suffix=$2
-    L=$(find  "../src/${BASE}/deprecated/" -name "*.${ext}")
+    L=$(find  "../src/${BASE}/deprecated" -name "*.${ext}")
     if [ ! -z "$L" ]
     then
         echo "list(APPEND ${LOWBASE}_${suffix}"  >> "${OUTPUT}"
@@ -69,7 +69,7 @@ function genListIoAppendSubdir(){
     ext=$1
     suffix=$2
     subdir=$3
-    L=$(find  "../src/${BASE}/${subdir}/" -name "*.${ext}")
+    L=$(find  "../src/${BASE}/${subdir}" -name "*.${ext}")
     if [ ! -z "$L" ]
     then
         echo "list(APPEND ${LOWBASE}_${suffix}"  >> "${OUTPUT}"
@@ -94,7 +94,7 @@ fi
 if [ "$BASE" = "Engine" ]; then
     echo ""  >> "${OUTPUT}"
     echo  "set(${LOWBASE}_shaders"  >> "${OUTPUT}"
-    find  "../Shaders/" -name "*.glsl" | grep -v Deprecated | cut -f 3- -d/ | sort | xargs -n1 echo "   "  >> "${OUTPUT}"
+    find  "../Shaders" -name "*.glsl" | grep -v Deprecated | cut -f 3- -d/ | sort | xargs -n1 echo "   "  >> "${OUTPUT}"
     echo ")"  >> "${OUTPUT}"
 fi
 
