@@ -6,7 +6,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 BASE=$1
-LOWBASE=${BASE,,}
+LOWBASE=$(echo $BASE | tr '[:upper:]' '[:lower:]')
 OUTPUT="../src/${BASE}/filelist.cmake"
 
 echo "generate [${BASE}] filelist"
