@@ -75,6 +75,9 @@ RADIUM_ENABLE_PCH:BOOL=OFF
 // Enable testing. Tests are automatically built with target all, run with target check or test.
 RADIUM_ENABLE_TESTING:BOOL=ON
 
+// Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON.
+RADIUM_ENABLE_GL_TESTING:BOOL=OFF
+
 // Include Radium::Core in CMake project.
 RADIUM_GENERATE_LIB_CORE:BOOL=ON
 
