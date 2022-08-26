@@ -17,6 +17,12 @@ TEST_CASE( "Core/Utils/BijectiveAssociation", "[Core][Core/Utils][BijectiveAssoc
         REQUIRE( myTranslator.key( 3 ) == "Three" );
         REQUIRE( myTranslator.value( "One" ) == 1 );
         REQUIRE( myTranslator.key( 2 ) == "Two" );
+
+        auto res = myTranslator.insert( "Four", 2 );
+        REQUIRE( !res );
+
+        auto n = myTranslator.size();
+        REQUIRE( n == 4 );
     }
 
     SECTION( "Bijection between same types" ) {
