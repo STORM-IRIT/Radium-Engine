@@ -152,6 +152,13 @@ The "editable" property specifies whether the boolean is editable, for instance 
 
 #### Enums
 
+When a parameter is referenced as an enum, the edition gui will present a combobox with the string representation of
+the enumaration values.
+Enumeration strings, could be defined in two ways.
+Either by associating a RenderParameter::EnumConverter with the material's parameter set or by defining the strings
+through the "values" field of the json object describing the enum.
+If the former is used, the "values" will not be used, even if present in the json description.
+
 ~~~{json}
 "key": {
   "name": "shortName",

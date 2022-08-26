@@ -32,14 +32,7 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
     std::string description = m.contains( "description" ) ? m["description"] : "";
     std::string nm          = m.contains( "name" ) ? m["name"] : key.c_str();
     if ( auto ec = params.containsEnumConverter( key ) ) {
-        // TODO : replace this by an iterator over the enumConverter to obtain the enumeration
-        // strings
-        auto items = std::vector<std::string>();
-        items.reserve( m["values"].size() );
-        for ( const auto& value : m["values"] ) {
-            items.push_back( value );
-        }
-
+        auto items                        = ( *ec )->getEnumerators();
         auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
             params.addParameter( key, value.toStdString() );
             emit parameterModified( key );
