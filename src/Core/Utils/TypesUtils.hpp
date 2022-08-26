@@ -23,11 +23,11 @@ namespace Utils {
 
 /// Return the human readable version of the type name T
 template <typename T>
-const char* decypherType() noexcept;
+const char* demangleType() noexcept;
 
 /// Return the human readable version of the given object's type
 template <typename T>
-const char* decypherType( const T& ) noexcept;
+const char* demangleType( const T& ) noexcept;
 
 } // namespace Utils
 } // namespace Core
