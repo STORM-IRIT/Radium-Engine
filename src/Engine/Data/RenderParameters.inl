@@ -157,6 +157,16 @@ inline int RenderParameters::EnumConverter<Enum>::getEnumerator( const std::stri
     return m_valueToString.key( v );
 }
 
+template <typename Enum>
+std::vector<std::string> RenderParameters::EnumConverter<Enum>::getEnumerators() const {
+    std::vector<std::string> keys;
+    keys.reserve( m_valueToString.size() );
+    for ( const auto& p : m_valueToString ) {
+        keys.push_back( p.second );
+    }
+    return keys;
+}
+
 } // namespace Data
 } // namespace Engine
 } // namespace Ra

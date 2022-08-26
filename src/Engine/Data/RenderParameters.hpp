@@ -157,25 +157,35 @@ class RA_ENGINE_API RenderParameters final
         virtual ~AbstractEnumConverter() = default;
         /**
          * \brief Set the value of the enum corresponding to the given string and matching the
-         * enumeration underlying type \param p the renderParameter to update. \param name The name
-         * of the enum to set \param enumerator The enumerator, in std::string form
+         * enumeration underlying type.
+         * \param p the renderParameter to update.
+         * \param name The name of the enum to set.
+         * \param enumerator The enumerator, in std::string form.
          */
         virtual void setEnumValue( RenderParameters& p,
                                    const std::string& name,
                                    const std::string& enumerator ) const = 0;
 
         /**
-         * \brief Get the string form of an enumeration value
+         * \brief Get the string form of an enumeration value.
          * \param v the value of the enumeration, implicitly converted to int for unscope enum,
-         * explicitely converted for scoped one. \return the string associated to this value
+         * explicitely converted for scoped one.
+         * \return the string associated to this value
          */
         virtual std::string getEnumerator( int v ) const = 0;
+
+        /**
+         * \brief Get all the string forms of the enumeration.
+         * \return the vector of strings associated to the enumeration.
+         */
+        virtual std::vector<std::string> getEnumerators() const = 0;
 
         /**
          * \brief Get the value, converted to int, of the enumeration given its string expression
          * \param v the string defining the enumerator
          * \return the value of the enumerator
-         * \note that this method does not respect the underlying type of enumerations.
+         * \note  This method does not respect the underlying type of enumerations as it returns
+         * always an int. Use setEnumValue to modify the parameter set in a type safe way.
          */
         virtual int getEnumerator( const std::string& v ) const = 0;
     };
@@ -199,6 +209,7 @@ class RA_ENGINE_API RenderParameters final
                            const std::string& enumerator ) const override;
         std::string getEnumerator( int v ) const override;
         int getEnumerator( const std::string& v ) const override;
+        std::vector<std::string> getEnumerators() const override;
 
       private:
         Core::Utils::BijectiveAssociation<typename std::underlying_type_t<Enum>, std::string>
