@@ -7,13 +7,13 @@ namespace Utils {
 
 #ifdef _WIN32
 template <typename T>
-const char* decypherType() noexcept {
+const char* demangleType() noexcept {
     static auto demangled_name = typeid( T ).name();
     return demangled_name;
 }
 #else
 template <typename T>
-const char* decypherType() noexcept {
+const char* demangleType() noexcept {
     // once per one type
     static auto demangled_name = []() {
         int error = 0;
@@ -43,8 +43,8 @@ const char* decypherType() noexcept {
 #endif
 // calling with instances
 template <typename T>
-const char* decypherType( const T& ) noexcept {
-    return decypherType<T>();
+const char* demangleType( const T& ) noexcept {
+    return demangleType<T>();
 }
 
 } // namespace Utils
