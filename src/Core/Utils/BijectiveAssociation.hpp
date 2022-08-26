@@ -28,13 +28,13 @@ class BijectiveAssociation
      * \brief Add a pair to the relation.
      * \return false if the pair was not added due to collision with an already inserted pair
      */
-    bool addAssociation( std::pair<key_type, value_type> p );
+    bool insert( std::pair<key_type, value_type> p );
 
     /**
      * \brief Add a pair to the relation.
      * \return false if the pair was not added due to collision with an already inserted pair
      */
-    bool addAssociation( key_type v1, value_type v2 );
+    bool insert( key_type v1, value_type v2 );
 
     /**
      * \brief Gets the value associated to the key
@@ -54,25 +54,30 @@ class BijectiveAssociation
     /**
      * \brief Gets an const iterator at beginning of the key to value map
      */
-    typename std::map<key_type, value_type>::const_iterator begin();
+    typename std::map<key_type, value_type>::const_iterator begin() const noexcept;
 
     /**
      * \brief Gets a const iterator at beginning of the key to value map
      */
-    typename std::map<key_type, value_type>::const_iterator cbegin();
+    typename std::map<key_type, value_type>::const_iterator cbegin() const noexcept;
 
     /**
      * \brief Gets a const iterator at the end of the key to value map
      */
-    typename std::map<key_type, value_type>::const_iterator end();
+    typename std::map<key_type, value_type>::const_iterator end() const noexcept;
 
     /**
      * \brief Gets a const iterator at the end of the key to value map
      */
-    typename std::map<key_type, value_type>::const_iterator cend();
+    typename std::map<key_type, value_type>::const_iterator cend() const noexcept;
+
+    /**
+     * \brief Gets the size of the association, i.e. the numer of <Key, Value> pairs
+     */
+    size_t size() const;
 
   private:
-    std::map<key_type, value_type> m_TKeyToValue;
+    std::map<key_type, value_type> m_KeyToValue;
     std::map<value_type, key_type> m_ValueToKey;
 };
 
