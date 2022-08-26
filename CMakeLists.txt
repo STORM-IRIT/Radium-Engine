@@ -215,7 +215,9 @@ if(RADIUM_ENABLE_TESTING)
 endif()
 
 if(ENABLE_COVERAGE)
-    set(LCOV_REMOVES "'/usr/*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'")
+    set(LCOV_REMOVES
+        "'/usr/*';'*examples*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'"
+    )
     setup_coverage_targets(${ENABLE_COVERAGE} "${LCOV_REMOVES}")
 
     # Fastcov is not supported with gcov llvm: disabling for MacOS Source:
@@ -234,6 +236,7 @@ if(ENABLE_COVERAGE)
             integration
             EXCLUDE
             "/usr/"
+            "examples"
             "external"
             "install"
             "/Catch2/"
