@@ -6,6 +6,8 @@ namespace Core {
 namespace Utils {
 
 #ifdef _WIN32
+// todo : verify this and use _unDName if needed
+// https://microsoft.public.vc.language.narkive.com/8qtqRoqZ/msvc-c-name-demangling
 template <typename T>
 const char* demangleType() noexcept {
     static auto demangled_name = typeid( T ).name();
