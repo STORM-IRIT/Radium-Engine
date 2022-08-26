@@ -11,6 +11,7 @@ set(test_src
     Core/camera.cpp
     Core/color.cpp
     Core/containers.cpp
+    Core/demangle.cpp
     Core/distance.cpp
     Core/geometryData.cpp
     Core/indexmap.cpp
