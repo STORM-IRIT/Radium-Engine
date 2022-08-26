@@ -24,6 +24,7 @@ set(test_src
     Core/string.cpp
     Core/topomesh.cpp
     Engine/environmentmap.cpp
+    Engine/materials.cpp
     Engine/signalmanager.cpp
     Engine/renderparameters.cpp
     Gui/keymapping.cpp
@@ -41,8 +42,14 @@ target_compile_options(unittests PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
 target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Gui)
-
 add_dependencies(unittests Catch2 Core Gui)
+
+if(RADIUM_ENABLE_GL_TESTING)
+    target_compile_definitions(unittests PRIVATE ENABLE_GL_TESTING)
+    target_link_libraries(unittests PRIVATE Headless)
+    add_dependencies(unittests Headless)
+endif()
+
 target_include_directories(unittests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(../external/Catch2/src/Catch2_download/contrib/Catch.cmake)

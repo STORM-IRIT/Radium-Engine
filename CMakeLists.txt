@@ -34,6 +34,14 @@ option(
     "Enable testing. Tests are automatically built with target all, run with target check or test."
     ON
 )
+include(CMakeDependentOption)
+cmake_dependent_option(
+    RADIUM_ENABLE_GL_TESTING
+    "Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON."
+    OFF
+    "RADIUM_ENABLE_TESTING"
+    OFF
+)
 option(
     RADIUM_ENABLE_EXAMPLES
     "Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples."
@@ -275,6 +283,7 @@ message_info("  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message_info(" ")
 message_setting("RADIUM_ENABLE_EXAMPLES")
 message_setting("RADIUM_ENABLE_TESTING")
+message_setting("RADIUM_ENABLE_GL_TESTING")
 message_setting("RADIUM_ENABLE_COVERAGE")
 message_setting("RADIUM_ENABLE_PCH")
 message_setting("RADIUM_USE_DOUBLE")
