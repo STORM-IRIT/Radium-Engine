@@ -41,7 +41,7 @@ add_executable(unittests ${test_src})
 target_compile_options(unittests PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
-target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Gui)
+target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Gui Engine)
 add_dependencies(unittests Catch2 Core Gui)
 
 if(RADIUM_ENABLE_GL_TESTING)
