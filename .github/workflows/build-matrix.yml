@@ -95,7 +95,7 @@ jobs:
           [[ "true" == "${{ inputs.qt6 }}" ]] && echo '{ "name" : "qt6", "value" : "6.2.0"}'
           echo '],'
           echo '"coverage" :'
-          [[ "true" == "${{ inputs.coverage }}" ]] && echo '["value" : "ON", "extra-flags" = "-DRADIUM_ENABLE_GL_TESTING=ON"]' || echo '["value" : "OFF", "extra-flags" = ""]'
+          [[ "true" == "${{ inputs.coverage }}" ]] && echo '[{"value" : "ON", "extra-flags" = "-DRADIUM_ENABLE_GL_TESTING=ON"}]' || echo '[{"alue" : "OFF", "extra-flags" = ""}]'
           echo "}"
           ) | jq -c .)
           echo $matrix
