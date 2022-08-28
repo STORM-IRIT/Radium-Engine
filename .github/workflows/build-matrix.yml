@@ -217,6 +217,7 @@ jobs:
         run: |
           cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target install
       - name: Run unit tests
+        if: ${{ inputs.coverage == 'false' }}
         run: |
           cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target check
           cmake --build build/Radium-Engine --parallel --config ${{ matrix.build-type }} --target Install_CoreExample
