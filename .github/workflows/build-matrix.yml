@@ -256,7 +256,7 @@ jobs:
           cd build/Radium-Engine
           cmake --build . --config Debug --target lcov_init
           cmake --build . --config Debug --target lcov_zerocounter
-          cmake --build . --config Debug --target check
+          xvfb-run -a cmake --build . --config Debug --target check
           cmake --build . --config Debug --target lcov_capture
           # show report for debug
           cmake --build . --config Debug --target lcov_list
