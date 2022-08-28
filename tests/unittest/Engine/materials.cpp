@@ -1,19 +1,11 @@
-/*
- * Right now, we are unable to run unitests requiring openGL on the CI platform.
- * Some more work is needed to allow them only on Linux.
- * This will be done ASAP.
- * This unit test is activated by giving the option -DRADIUM_ENABLE_GL_TESTING=ON (available only if
- * RADIUM_ENABLE_TESTING is ON) at configure time.
- */
-#ifdef ENABLE_GL_TESTING
-#    include <catch2/catch.hpp>
+#include <catch2/catch.hpp>
 
-#    include <Engine/Data/BlinnPhongMaterial.hpp>
-#    include <Engine/Data/LambertianMaterial.hpp>
-#    include <Engine/Data/PlainMaterial.hpp>
-#    include <Engine/RadiumEngine.hpp>
+#include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/LambertianMaterial.hpp>
+#include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/RadiumEngine.hpp>
 
-#    include <Headless/CLIViewer.hpp>
+#include <Headless/CLIViewer.hpp>
 
 using namespace Ra::Headless;
 using namespace Ra::Engine::Data;
@@ -89,4 +81,3 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         */
     }
 }
-#endif
