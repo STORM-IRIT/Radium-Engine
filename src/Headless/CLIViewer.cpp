@@ -34,6 +34,8 @@ CLIViewer::~CLIViewer() {
         m_glContext.makeCurrent();
         m_renderer.reset();
         m_engine->cleanup();
+        Ra::Engine::RadiumEngine::destroyInstance();
+        m_engine.release();
         m_glContext.doneCurrent();
     }
 }
