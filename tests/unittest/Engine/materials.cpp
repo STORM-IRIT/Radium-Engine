@@ -22,25 +22,36 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( code == 0 );
         BlinnPhongMaterial bp( "testBlinnPhong" );
 
+        /* Testing default values */
         REQUIRE( bp.m_alpha == 1.0 );
         REQUIRE( !bp.m_renderAsSplat );
 
+        /* Setting GL Parameters */
         bp.updateGL();
-        auto bpParameters = bp.getParameters();
-        /* The method containsParameter and getParameter will be added in PR #950 */
-        /*
+        auto& bpParameters = bp.getParameters();
+
         REQUIRE( bpParameters.containsParameter<RenderParameters::BoolParameter>(
             "material.renderAsSplat" ) );
         REQUIRE(
             bpParameters.containsParameter<RenderParameters::ScalarParameter>( "material.alpha" ) );
-
-        auto ras =
+        auto& ras =
             bpParameters.getParameter<RenderParameters::BoolParameter>( "material.renderAsSplat" );
         REQUIRE( ras.m_value == bp.m_renderAsSplat );
 
-        auto alp = bpParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" );
+        auto& alp =
+            bpParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" );
         REQUIRE( alp.m_value == bp.m_alpha );
-        */
+
+        /* changing parameter values */
+        bpParameters.addParameter( "material.renderAsSplat", !ras.m_value );
+        bpParameters.addParameter( "material.alpha", 0.5_ra );
+        REQUIRE( ras.m_value != bp.m_renderAsSplat );
+        REQUIRE( alp.m_value != bp.m_alpha );
+
+        /* Updating material parameters from GL parameters */
+        bp.updateFromParameters();
+        REQUIRE( ras.m_value == bp.m_renderAsSplat );
+        REQUIRE( alp.m_value == bp.m_alpha );
     }
 
     SECTION( "Lambertian material" ) {
@@ -50,16 +61,21 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( !mat.m_perVertexColor );
 
         mat.updateGL();
-        auto matParameters = mat.getParameters();
-        /* The method containsParameter and getParameter will be added in PR #950 */
-        /*
+        auto& matParameters = mat.getParameters();
+
         REQUIRE( matParameters.containsParameter<RenderParameters::BoolParameter>(
             "material.perVertexColor" ) );
-
-        auto pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
+        auto& pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
             "material.perVertexColor" );
         REQUIRE( pvc.m_value == mat.m_perVertexColor );
-        */
+
+        /* changing parameter values */
+        matParameters.addParameter( "material.perVertexColor", !pvc.m_value );
+        REQUIRE( pvc.m_value != mat.m_perVertexColor );
+
+        /* Updating material parameters from GL parameters */
+        mat.updateFromParameters();
+        REQUIRE( pvc.m_value == mat.m_perVertexColor );
     }
 
     SECTION( "Plain material" ) {
@@ -69,15 +85,20 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( !mat.m_perVertexColor );
 
         mat.updateGL();
-        auto matParameters = mat.getParameters();
-        /* The method containsParameter and getParameter will be added in PR #950 */
-        /*
+        auto& matParameters = mat.getParameters();
         REQUIRE( matParameters.containsParameter<RenderParameters::BoolParameter>(
             "material.perVertexColor" ) );
 
-        auto pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
+        auto& pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
             "material.perVertexColor" );
         REQUIRE( pvc.m_value == mat.m_perVertexColor );
-        */
+
+        /* changing parameter values */
+        matParameters.addParameter( "material.perVertexColor", !pvc.m_value );
+        REQUIRE( pvc.m_value != mat.m_perVertexColor );
+
+        /* Updating material parameters from GL parameters */
+        mat.updateFromParameters();
+        REQUIRE( pvc.m_value == mat.m_perVertexColor );
     }
 }
