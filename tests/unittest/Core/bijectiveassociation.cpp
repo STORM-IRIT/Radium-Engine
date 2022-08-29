@@ -29,7 +29,9 @@ TEST_CASE( "Core/Utils/BijectiveAssociation", "[Core][Core/Utils][BijectiveAssoc
         BijectiveAssociation<std::string, std::string> myTranslator { { "One", "Un" },
                                                                       { "Two", "Deux" } };
         myTranslator.insert( "Three", "Trois" );
-        myTranslator.insert( { "Four", "Quatre" } );
+        REQUIRE( myTranslator.insert( { "Four", "Quatre" } ) ); // first insert pass
+        REQUIRE( !myTranslator.insert(
+            { "Four", "Quatre" } ) ); // seconid insert failed since already present
 
         REQUIRE( myTranslator( "Four" ) == "Quatre" );
         REQUIRE( myTranslator.value( "Three" ) == "Trois" );
