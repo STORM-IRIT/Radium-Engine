@@ -57,7 +57,7 @@ MaterialParameterEditor::MaterialParameterEditor( QWidget* parent ) : QWidget( p
 void MaterialParameterEditor::setupFromMaterial(
     std::shared_ptr<Ra::Engine::Data::Material> material ) {
     auto hasMetadata =
-        std::dynamic_pointer_cast<Ra::Engine::Data::ParameterSetEditionInterface>( material );
+        std::dynamic_pointer_cast<Ra::Engine::Data::ParameterSetEditingInterface>( material );
     m_matNameLabel->setText( QString::fromStdString( material->getMaterialName() ) );
     m_matProperties->clear();
     for ( auto& prop : material->getPropertyList() ) {

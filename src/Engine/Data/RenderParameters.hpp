@@ -369,10 +369,10 @@ class RA_ENGINE_API RenderParameters final
 /**
  * Interface to define metadata (constraints, description, ...) for the edition of parameter set
  */
-class RA_ENGINE_API ParameterSetEditionInterface
+class RA_ENGINE_API ParameterSetEditingInterface
 {
   public:
-    virtual ~ParameterSetEditionInterface() = default;
+    virtual ~ParameterSetEditingInterface() = default;
 
     /**
      * \brief Get a json containing metadata about the parameters.

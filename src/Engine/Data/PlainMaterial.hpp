@@ -16,7 +16,7 @@ namespace Data {
  * to true.
  *
  */
-class RA_ENGINE_API PlainMaterial final : public SimpleMaterial, public ParameterSetEditionInterface
+class RA_ENGINE_API PlainMaterial final : public SimpleMaterial, public ParameterSetEditingInterface
 {
   public:
     /**
