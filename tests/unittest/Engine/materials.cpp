@@ -101,4 +101,24 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         mat.updateFromParameters();
         REQUIRE( pvc.m_value == mat.m_perVertexColor );
     }
+
+    SECTION( "Metadata verification" ) {
+        BlinnPhongMaterial bp( "testBlinnPhong" );
+        auto bpMetadata = bp.getParametersMetadata();
+        REQUIRE( bpMetadata.contains( "material.tex.ns" ) );
+        REQUIRE( bpMetadata["material.tex.ns"].contains( "type" ) );
+        REQUIRE( bpMetadata["material.tex.ns"]["type"] == "texture" );
+
+        LambertianMaterial lm( "test LambertianMaterial" );
+        auto lmMetadata = lm.getParametersMetadata();
+        REQUIRE( lmMetadata.contains( "material.tex.color" ) );
+        REQUIRE( lmMetadata["material.tex.color"].contains( "type" ) );
+        REQUIRE( lmMetadata["material.tex.color"]["type"] == "texture" );
+
+        PlainMaterial pm( "test PlainMaterial" );
+        auto pmMetadata = pm.getParametersMetadata();
+        REQUIRE( pmMetadata.contains( "material.tex.color" ) );
+        REQUIRE( pmMetadata["material.tex.color"].contains( "type" ) );
+        REQUIRE( pmMetadata["material.tex.color"]["type"] == "texture" );
+    }
 }
