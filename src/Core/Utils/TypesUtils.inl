@@ -6,12 +6,20 @@ namespace Core {
 namespace Utils {
 
 #ifdef _WIN32
-// todo : verify this and use _unDName if needed
-// https://microsoft.public.vc.language.narkive.com/8qtqRoqZ/msvc-c-name-demangling
+// On windows (since MSVC 2019), typeid( T ).name() returns the demangled name
 template <typename T>
 const char* demangleType() noexcept {
     static auto demangled_name = typeid( T ).name();
     return demangled_name;
+    static auto demangled_name = []() {
+        std::string retval { typeid( T ).name() };
+        removeAllInString( retval, "class " );
+        removeAllInString( retval, "struct " );
+        replaceAllInSgtring( retval, ",", ", " );
+        return retval;
+    };
+
+    return demangled_name.data();
 }
 #else
 template <typename T>
@@ -37,9 +45,10 @@ const char* demangleType() noexcept {
             break;
         }
         std::free( name );
+        removeAllInString( retval, "__1::" ); // or "::__1" ?
         return retval;
     }();
-    removeAllInString( demangled_name, "__1::" ); // or "::__1" ?
+
     return demangled_name.data();
 }
 #endif
