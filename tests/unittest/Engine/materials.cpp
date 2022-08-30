@@ -25,33 +25,36 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
 
         /* Testing default values */
         REQUIRE( bp.m_alpha == 1.0 );
-        REQUIRE( !bp.m_renderAsSplat );
+        REQUIRE( !bp.isColoredByVertexAttrib() );
 
+        bp.setColoredByVertexAttrib( true );
+        REQUIRE( bp.isColoredByVertexAttrib() );
         /* Setting GL Parameters */
         bp.updateGL();
         auto& bpParameters = bp.getParameters();
 
         REQUIRE( bpParameters.containsParameter<RenderParameters::BoolParameter>(
-            "material.renderAsSplat" ) );
+            "material.hasPerVertexKd" ) );
         REQUIRE(
             bpParameters.containsParameter<RenderParameters::ScalarParameter>( "material.alpha" ) );
-        auto& ras =
-            bpParameters.getParameter<RenderParameters::BoolParameter>( "material.renderAsSplat" );
-        REQUIRE( ras.m_value == bp.m_renderAsSplat );
+
+        auto& pvc =
+            bpParameters.getParameter<RenderParameters::BoolParameter>( "material.hasPerVertexKd" );
+        REQUIRE( pvc.m_value == bp.isColoredByVertexAttrib() );
 
         auto& alp =
             bpParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" );
         REQUIRE( alp.m_value == bp.m_alpha );
 
         /* changing parameter values */
-        bpParameters.addParameter( "material.renderAsSplat", !ras.m_value );
+        bpParameters.addParameter( "material.hasPerVertexKd", !pvc.m_value );
         bpParameters.addParameter( "material.alpha", 0.5_ra );
-        REQUIRE( ras.m_value != bp.m_renderAsSplat );
+        REQUIRE( pvc.m_value != bp.isColoredByVertexAttrib() );
         REQUIRE( alp.m_value != bp.m_alpha );
 
         /* Updating material parameters from GL parameters */
         bp.updateFromParameters();
-        REQUIRE( ras.m_value == bp.m_renderAsSplat );
+        REQUIRE( pvc.m_value == bp.isColoredByVertexAttrib() );
         REQUIRE( alp.m_value == bp.m_alpha );
     }
 
@@ -59,7 +62,10 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( code == 0 );
         LambertianMaterial mat( "test LambertianMaterial" );
 
-        REQUIRE( !mat.m_perVertexColor );
+        REQUIRE( !mat.isColoredByVertexAttrib() );
+
+        mat.setColoredByVertexAttrib( true );
+        REQUIRE( mat.isColoredByVertexAttrib() );
 
         mat.updateGL();
         auto& matParameters = mat.getParameters();
@@ -68,39 +74,42 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
             "material.perVertexColor" ) );
         auto& pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
             "material.perVertexColor" );
-        REQUIRE( pvc.m_value == mat.m_perVertexColor );
+        REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
         matParameters.addParameter( "material.perVertexColor", !pvc.m_value );
-        REQUIRE( pvc.m_value != mat.m_perVertexColor );
+        REQUIRE( pvc.m_value != mat.isColoredByVertexAttrib() );
 
         /* Updating material parameters from GL parameters */
         mat.updateFromParameters();
-        REQUIRE( pvc.m_value == mat.m_perVertexColor );
+        REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
     }
 
     SECTION( "Plain material" ) {
         REQUIRE( code == 0 );
         PlainMaterial mat( "test PlainMaterial" );
 
-        REQUIRE( !mat.m_perVertexColor );
+        REQUIRE( !mat.isColoredByVertexAttrib() );
+
+        mat.setColoredByVertexAttrib( true );
+        REQUIRE( mat.isColoredByVertexAttrib() );
 
         mat.updateGL();
         auto& matParameters = mat.getParameters();
+
         REQUIRE( matParameters.containsParameter<RenderParameters::BoolParameter>(
             "material.perVertexColor" ) );
-
         auto& pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
             "material.perVertexColor" );
-        REQUIRE( pvc.m_value == mat.m_perVertexColor );
+        REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
         matParameters.addParameter( "material.perVertexColor", !pvc.m_value );
-        REQUIRE( pvc.m_value != mat.m_perVertexColor );
+        REQUIRE( pvc.m_value != mat.isColoredByVertexAttrib() );
 
         /* Updating material parameters from GL parameters */
         mat.updateFromParameters();
-        REQUIRE( pvc.m_value == mat.m_perVertexColor );
+        REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
     }
 
     SECTION( "Volumetric material" ) {
@@ -166,5 +175,9 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( vmMetadata.contains( "material.sigma_a" ) );
         REQUIRE( vmMetadata["material.sigma_a"].contains( "type" ) );
         REQUIRE( vmMetadata["material.sigma_a"]["type"] == "array" );
+
+        nlohmann::json destination;
+        ParameterSetEditingInterface::loadMetaData( "UnknownMetadata", destination );
+        REQUIRE( destination.empty() );
     }
 }
