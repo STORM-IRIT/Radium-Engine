@@ -3,6 +3,7 @@
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/Data/VolumetricMaterial.hpp>
 #include <Engine/RadiumEngine.hpp>
 
 #include <Headless/CLIViewer.hpp>
@@ -102,6 +103,45 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( pvc.m_value == mat.m_perVertexColor );
     }
 
+    SECTION( "Volumetric material" ) {
+        REQUIRE( code == 0 );
+        VolumetricMaterial mat( "test VolumetricMaterial" );
+        float d = 1.f;
+        Texture density { { "simpleDensity",
+                            gl::GL_TEXTURE_3D,
+                            1,
+                            1,
+                            1,
+                            gl::GL_RED,
+                            gl::GL_RED,
+                            gl::GL_FLOAT,
+                            gl::GL_CLAMP_TO_EDGE,
+                            gl::GL_CLAMP_TO_EDGE,
+                            gl::GL_CLAMP_TO_EDGE,
+                            gl::GL_NEAREST,
+                            gl::GL_NEAREST,
+                            &d } };
+        mat.setTexture( &density );
+
+        REQUIRE( mat.m_g == 0_ra );
+
+        mat.updateGL();
+        auto& matParameters = mat.getParameters();
+        REQUIRE(
+            matParameters.containsParameter<RenderParameters::ScalarParameter>( "material.g" ) );
+
+        auto& g = matParameters.getParameter<RenderParameters::ScalarParameter>( "material.g" );
+        REQUIRE( g.m_value == 0_ra );
+
+        /* changing parameter values */
+        matParameters.addParameter( "material.g", 0.5_ra );
+        REQUIRE( g.m_value != mat.m_g );
+
+        /* Updating material parameters from GL parameters */
+        mat.updateFromParameters();
+        REQUIRE( g.m_value == mat.m_g );
+    }
+
     SECTION( "Metadata verification" ) {
         BlinnPhongMaterial bp( "testBlinnPhong" );
         auto bpMetadata = bp.getParametersMetadata();
@@ -120,5 +160,11 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( pmMetadata.contains( "material.tex.color" ) );
         REQUIRE( pmMetadata["material.tex.color"].contains( "type" ) );
         REQUIRE( pmMetadata["material.tex.color"]["type"] == "texture" );
+
+        VolumetricMaterial vm( "test VolumetricMaterial" );
+        auto vmMetadata = vm.getParametersMetadata();
+        REQUIRE( vmMetadata.contains( "material.sigma_a" ) );
+        REQUIRE( vmMetadata["material.sigma_a"].contains( "type" ) );
+        REQUIRE( vmMetadata["material.sigma_a"]["type"] == "array" );
     }
 }
