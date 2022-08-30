@@ -122,7 +122,7 @@ void VolumetricMaterial::registerMaterial() {
         } );
 
     // Registering parameters metadata
-    Material::loadMetaData( materialName, s_parametersMetadata );
+    ParameterSetEditingInterface::loadMetaData( materialName, s_parametersMetadata );
 }
 
 void VolumetricMaterial::unregisterMaterial() {

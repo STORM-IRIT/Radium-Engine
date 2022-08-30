@@ -381,6 +381,9 @@ class RA_ENGINE_API ParameterSetEditingInterface
      * \return the metadata in json format
      */
     virtual nlohmann::json getParametersMetadata() const = 0;
+
+    /// Load the ParameterSet  description
+    static void loadMetaData( const std::string& basename, nlohmann::json& destination );
 };
 
 /**

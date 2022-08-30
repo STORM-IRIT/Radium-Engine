@@ -16,8 +16,7 @@ namespace Data {
  * to true.
  *
  */
-class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial,
-                                               public ParameterSetEditingInterface
+class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial
 {
   public:
     /**
