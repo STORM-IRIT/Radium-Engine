@@ -240,14 +240,6 @@ class RA_ENGINE_API RenderParameters final
      */
     std::string getEnumString( const std::string& name, int value );
 
-    /**
-     * \brief set the value of the given parameter, according to a string representation of an enum.
-     * \note If there is no EnumConverter associated with the parameter name, do nothing.
-     * \param name
-     * \param value
-     */
-    void addParameter( const std::string& name, const std::string& value );
-
   private:
     /**
      * \brief Store the enumeration converter.
@@ -287,6 +279,15 @@ class RA_ENGINE_API RenderParameters final
      * If texUnit is given, then uniform binding will be made at this explicit location.
      */
     void addParameter( const std::string& name, Data::Texture* tex, int texUnit = -1 );
+
+    /**
+     * \brief set the value of the given parameter, according to a string representation of an enum.
+     * \note If there is no EnumConverter associated with the parameter name, do nothing.
+     * \param name
+     * \param value
+     */
+    void addParameter( const std::string& name, const std::string& value );
+    void addParameter( const std::string& name, const char* value );
     /**\}*/
 
     /**
