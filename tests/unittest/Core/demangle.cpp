@@ -6,6 +6,9 @@
 
 #include <iostream>
 
+namespace TypeTests {
+struct TypeName_struct {};
+} // namespace TypeTests
 TEST_CASE( "Core/Utils/TypesUtils", "[Core][Core/Utils][TypesUtils]" ) {
     SECTION( "Demangle from typename" ) {
         using Ra::Core::Utils::demangleType;
@@ -16,10 +19,14 @@ TEST_CASE( "Core/Utils/TypesUtils", "[Core][Core/Utils][TypesUtils]" ) {
         // TODO, verify type demangling on windows
 #ifndef _WIN32
         REQUIRE( std::string( demangleType<size_t>() ) == "unsigned long" );
-
+#else
+        REQUIRE( std::string( demangleType<size_t>() ) == "unsigned __int64" );
+#endif
         auto demangledName = std::string( demangleType<std::vector<int>>() );
         REQUIRE( demangledName == "std::vector<int, std::allocator<int> >" );
-#endif
+
+        demangledName = std::string( demangleType<TypeTests::TypeName_struct>() );
+        REQUIRE( demangledName == "TypeTests::TypeName_struct" );
     }
 
     SECTION( "Demangle from instance" ) {
@@ -35,11 +42,16 @@ TEST_CASE( "Core/Utils/TypesUtils", "[Core][Core/Utils][TypesUtils]" ) {
         REQUIRE( std::string( demangleType( u ) ) == "unsigned int" );
         // TODO, verify type demangling on windows
 #ifndef _WIN32
-        REQUIRE( std::string( demangleType<size_t>() ) == "unsigned long" );
-
+        REQUIRE( std::string( demangleType( s ) ) == "unsigned long" );
+#else
+        REQUIRE( std::string( demangleType( s ) ) == "unsigned __int64" );
+#endif
         std::vector<int> v;
         auto demangledName = std::string( demangleType( v ) );
         REQUIRE( demangledName == "std::vector<int, std::allocator<int> >" );
-#endif
+
+        TypeTests::TypeName_struct tns;
+        demangledName = std::string( demangleType( tns ) );
+        REQUIRE( demangledName == "TypeTests::TypeName_struct" );
     }
 }
