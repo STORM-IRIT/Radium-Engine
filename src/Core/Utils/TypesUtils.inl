@@ -9,15 +9,13 @@ namespace Utils {
 // On windows (since MSVC 2019), typeid( T ).name() returns the demangled name
 template <typename T>
 const char* demangleType() noexcept {
-    static auto demangled_name = typeid( T ).name();
-    return demangled_name;
     static auto demangled_name = []() {
         std::string retval { typeid( T ).name() };
         removeAllInString( retval, "class " );
         removeAllInString( retval, "struct " );
-        replaceAllInSgtring( retval, ",", ", " );
+        replaceAllInString( retval, ",", ", " );
         return retval;
-    };
+    }();
 
     return demangled_name.data();
 }
