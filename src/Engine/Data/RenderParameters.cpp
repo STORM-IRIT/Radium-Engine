@@ -110,7 +110,6 @@ void RenderParameters::addParameter( const std::string& name, Data::Texture* tex
 }
 
 void RenderParameters::addParameter( const std::string& name, const std::string& value ) {
-
     auto it = m_enumConverters.find( name );
     if ( it != m_enumConverters.end() ) { it->second->setEnumValue( *this, name, value ); }
     else {
@@ -118,6 +117,10 @@ void RenderParameters::addParameter( const std::string& name, const std::string&
             << "RenderParameters, try to set enum value from string without converter " << name
             << " " << value;
     }
+}
+
+void RenderParameters::addParameter( const std::string& name, const char* value ) {
+    addParameter( name, std::string( value ) );
 }
 
 // apply P_FUNC to each m_*ParamsVector
