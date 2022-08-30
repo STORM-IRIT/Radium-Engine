@@ -45,7 +45,7 @@ void SimpleMaterial::updateGL() {
 }
 
 void SimpleMaterial::loadMetaData( nlohmann::json& destination ) {
-    Material::loadMetaData( "Simple", destination );
+    ParameterSetEditingInterface::loadMetaData( "Simple", destination );
 }
 } // namespace Data
 } // namespace Engine

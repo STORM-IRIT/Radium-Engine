@@ -23,17 +23,6 @@ std::list<std::string> Material::getPropertyList() const {
     return ShaderParameterProvider::getPropertyList();
 }
 
-void Material::loadMetaData( const std::string& basename, nlohmann::json& destination ) {
-    auto resourcesRootDir { RadiumEngine::getInstance()->getResourcesDir() };
-    std::string metadataFileName = "Metadata/" + basename + ".json";
-    std::ifstream metadata( resourcesRootDir + metadataFileName );
-    if ( metadata ) { metadata >> destination; }
-    else {
-        LOG( Core::Utils::logERROR )
-            << "Material : failed to load metadata file " << metadataFileName;
-    }
-}
-
 } // namespace Data
 } // namespace Engine
 } // namespace Ra
