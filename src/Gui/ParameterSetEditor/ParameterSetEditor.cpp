@@ -31,7 +31,7 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
 
     std::string description = m.contains( "description" ) ? m["description"] : "";
     std::string nm          = m.contains( "name" ) ? m["name"] : key.c_str();
-    if ( auto ec = params.containsEnumConverter( key ) ) {
+    if ( auto ec = params.getEnumConverter( key ) ) {
         auto items                        = ( *ec )->getEnumerators();
         auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
             params.addParameter( key, value.toStdString() );
