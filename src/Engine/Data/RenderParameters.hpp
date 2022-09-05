@@ -139,7 +139,7 @@ class RA_ENGINE_API RenderParameters final
 
   public:
     /**
-     * \brief Management of parameter of enum trype
+     * \brief Management of parameter of enum type.
      * This allow to set the parameter using a string representation of their value.
      * Setting the parameter directly from the value is supported as for any other parameter but
      * user should take care to call the right overloaded function given the underlying enumeration
@@ -200,9 +200,8 @@ class RA_ENGINE_API RenderParameters final
     class EnumConverter : public AbstractEnumConverter
     {
       public:
-        explicit EnumConverter(
-            std::initializer_list<std::pair<typename std::underlying_type_t<Enum>, std::string>>
-                pairs );
+        using EnumBaseType = typename std::underlying_type_t<Enum>;
+        explicit EnumConverter( std::initializer_list<std::pair<EnumBaseType, std::string>> pairs );
 
         void setEnumValue( RenderParameters& p,
                            const std::string& name,
@@ -225,12 +224,12 @@ class RA_ENGINE_API RenderParameters final
                            std::shared_ptr<AbstractEnumConverter> converter );
 
     /**
-     * \brief Search for a converter associated with a parameter
-     * \param name
-     * \return
+     * \brief Search for a converter associated with an enumeration parameter
+     * \param name the name of the parameter
+     * \return an optional containing the converter or false if no converter is found.
      */
     Core::Utils::optional<std::shared_ptr<AbstractEnumConverter>>
-    containsEnumConverter( const std::string& name );
+    getEnumConverter( const std::string& name );
 
     /**
      * \brief Return the string associated to the actual value of a parameter

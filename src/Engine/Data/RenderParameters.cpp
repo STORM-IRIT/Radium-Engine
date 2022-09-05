@@ -32,7 +32,7 @@ void RenderParameters::addEnumConverter( const std::string& name,
 }
 
 Core::Utils::optional<std::shared_ptr<RenderParameters::AbstractEnumConverter>>
-RenderParameters::containsEnumConverter( const std::string& name ) {
+RenderParameters::getEnumConverter( const std::string& name ) {
     auto it = m_enumConverters.find( name );
     if ( it != m_enumConverters.end() ) { return it->second; }
     else {
