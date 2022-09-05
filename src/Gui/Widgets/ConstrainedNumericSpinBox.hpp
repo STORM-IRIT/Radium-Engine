@@ -10,14 +10,19 @@ namespace Gui {
 namespace Widgets {
 
 /**
- * \brief Validate a given value against user-defined predicates.
- * \tparam T Type of the data to validate
+ * \brief Constrained input spin box.
+ * The constraint to apply to any input value is verified using the user-define predicate associated
+ * to the object. \tparam T Type of the constrained value to input
  */
 template <typename T>
-class SpinValueValidator
+class ConstrainedNumericSpinBox : public QtSpinBox::getType<T>::Type
 {
   public:
-    using Predicate = std::function<bool( T )>;
+    using BaseWidget = typename QtSpinBox::getType<T>::Type;
+    using Predicate  = std::function<bool( T )>;
+    using BaseWidget::BaseWidget;
+    QValidator::State validate( QString& input, int& ) const override;
+
     /// Set the predicate to evaluate
     inline void setPredicate( Predicate p ) { m_p = p; }
     /**
@@ -29,20 +34,6 @@ class SpinValueValidator
 
   private:
     Predicate m_p = []( T ) { return true; };
-};
-
-/**
- * \brief Constrained input spin box.
- * The constraint to apply to any input value is verified using the user-define predicate associated
- * to the object. \tparam T Type of the constrained value to input
- */
-template <typename T>
-class ConstrainedNumericSpinBox : public QtSpinBox::getType<T>::Type, public SpinValueValidator<T>
-{
-  public:
-    using BaseWidget = typename QtSpinBox::getType<T>::Type;
-    using BaseWidget::BaseWidget;
-    QValidator::State validate( QString& input, int& ) const override;
 };
 
 } // namespace Widgets
