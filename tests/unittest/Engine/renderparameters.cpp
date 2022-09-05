@@ -210,10 +210,10 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         REQUIRE( valuesEnumConverter->getEnumerator( "VALUE_1" ) == Values::VALUE_1 );
         REQUIRE( valuesEnumConverter->getEnumerators().size() == 3 );
 
-        REQUIRE( !params.containsEnumConverter( "enum.semantic" ) );
+        REQUIRE( !params.getEnumConverter( "enum.semantic" ) );
         params.addEnumConverter( "enum.semantic", valuesEnumConverter );
-        REQUIRE( params.containsEnumConverter( "enum.semantic" ) );
-        REQUIRE( !params.containsEnumConverter( "enum.unknown" ) );
+        REQUIRE( params.getEnumConverter( "enum.semantic" ) );
+        REQUIRE( !params.getEnumConverter( "enum.unknown" ) );
 
         REQUIRE( params.getEnumString( "enum.semantic", Values::VALUE_0 ) == "VALUE_0" );
         REQUIRE( params.getEnumString( "enum.unknown", Unregistered::LOW ) == "" );
