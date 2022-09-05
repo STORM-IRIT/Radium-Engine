@@ -1,9 +1,5 @@
 #include <Engine/Data/Material.hpp>
 
-#include <Engine/RadiumEngine.hpp>
-
-#include <fstream>
-
 namespace Ra {
 namespace Engine {
 namespace Data {
