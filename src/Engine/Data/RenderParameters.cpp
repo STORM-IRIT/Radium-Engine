@@ -1,7 +1,10 @@
 #include <Core/Utils/Log.hpp>
+
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
+#include <Engine/RadiumEngine.hpp>
 
+#include <fstream>
 namespace Ra {
 namespace Engine {
 namespace Data {
@@ -23,6 +26,28 @@ void RenderParameters::bind( const Data::ShaderProgram* shader ) const {
     m_texParamsVector.bind( shader );
 }
 
+void RenderParameters::addEnumConverter( const std::string& name,
+                                         std::shared_ptr<AbstractEnumConverter> converter ) {
+    m_enumConverters[name] = converter;
+}
+
+Core::Utils::optional<std::shared_ptr<RenderParameters::AbstractEnumConverter>>
+RenderParameters::getEnumConverter( const std::string& name ) {
+    auto it = m_enumConverters.find( name );
+    if ( it != m_enumConverters.end() ) { return it->second; }
+    else {
+        return {};
+    }
+}
+
+std::string RenderParameters::getEnumString( const std::string& name, int value ) {
+    auto it = m_enumConverters.find( name );
+    if ( it != m_enumConverters.end() ) { return it->second->getEnumerator( value ); }
+    else {
+        return {};
+    }
+}
+
 void RenderParameters::addParameter( const std::string& name, bool value ) {
     m_boolParamsVector[name] = BoolParameter( name, value );
 }
@@ -41,15 +66,15 @@ void RenderParameters::addParameter( const std::string& name, Scalar value ) {
 
 ///!! array version
 
-void RenderParameters::addParameter( const std::string& name, std::vector<int> value ) {
+void RenderParameters::addParameter( const std::string& name, const std::vector<int>& value ) {
     m_intsParamsVector[name] = IntsParameter( name, value );
 }
 
-void RenderParameters::addParameter( const std::string& name, std::vector<uint> value ) {
+void RenderParameters::addParameter( const std::string& name, const std::vector<uint>& value ) {
     m_uintsParamsVector[name] = UIntsParameter( name, value );
 }
 
-void RenderParameters::addParameter( const std::string& name, std::vector<Scalar> value ) {
+void RenderParameters::addParameter( const std::string& name, const std::vector<Scalar>& value ) {
     m_scalarsParamsVector[name] = ScalarsParameter( name, value );
 }
 
@@ -85,6 +110,20 @@ void RenderParameters::addParameter( const std::string& name, const Core::Matrix
 
 void RenderParameters::addParameter( const std::string& name, Data::Texture* tex, int texUnit ) {
     m_texParamsVector[name] = TextureParameter( name, tex, texUnit );
+}
+
+void RenderParameters::addParameter( const std::string& name, const std::string& value ) {
+    auto it = m_enumConverters.find( name );
+    if ( it != m_enumConverters.end() ) { it->second->setEnumValue( *this, name, value ); }
+    else {
+        LOG( Core::Utils::logERROR )
+            << "RenderParameters, try to set enum value from string without converter " << name
+            << " " << value;
+    }
+}
+
+void RenderParameters::addParameter( const std::string& name, const char* value ) {
+    addParameter( name, std::string( value ) );
 }
 
 // apply P_FUNC to each m_*ParamsVector
@@ -128,6 +167,17 @@ void RenderParameters::mergeReplaceParameters( const RenderParameters& params ) 
 #undef P_FUNC
 #undef PARAM_FUNC_HELPER
 
+void ParameterSetEditingInterface::loadMetaData( const std::string& basename,
+                                                 nlohmann::json& destination ) {
+    auto resourcesRootDir { RadiumEngine::getInstance()->getResourcesDir() };
+    std::string metadataFileName = "Metadata/" + basename + ".json";
+    std::ifstream metadata( resourcesRootDir + metadataFileName );
+    if ( metadata ) { metadata >> destination; }
+    else {
+        LOG( Core::Utils::logERROR )
+            << "RenderParameters : failed to load metadata file " << metadataFileName;
+    }
+}
 } // namespace Data
 } // namespace Engine
 } // namespace Ra

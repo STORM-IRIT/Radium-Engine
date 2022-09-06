@@ -1,0 +1,39 @@
+{
+  "material.color": {
+    "description": "The base color of the material.",
+    "maxItems": 4,
+    "minItems": 4,
+    "name": "Color",
+    "type": "array"
+  },
+  "material.perVertexColor": {
+    "description": "Indicates if the material will takes its base color from vertices' attributes.",
+    "editable": true,
+    "name": "Per-vertex Color",
+    "type": "boolean"
+  },
+  "material.tex.hasColor": {
+    "description": "Whether the texture has color",
+    "editable": false,
+    "name": "Texture has Color",
+    "type": "boolean"
+  },
+  "material.tex.color": {
+    "description": "Texture's color",
+    "name": "tex.color",
+    "presenceKey": "material.tex.hasColor",
+    "type": "texture"
+  },
+  "material.tex.hasMask": {
+    "description": "Whether the texture has mask",
+    "editable": false,
+    "name": "tex.hasMask",
+    "type": "boolean"
+  },
+  "material.tex.mask": {
+    "description": "Texture's mask",
+    "name": "tex.mask",
+    "presenceKey": "material.tex.hasMask",
+    "type": "texture"
+  }
+}

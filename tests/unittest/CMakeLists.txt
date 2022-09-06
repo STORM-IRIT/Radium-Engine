@@ -7,9 +7,11 @@
 set(test_src
     Core/algebra.cpp
     Core/animation.cpp
+    Core/bijectiveassociation.cpp
     Core/camera.cpp
     Core/color.cpp
     Core/containers.cpp
+    Core/demangle.cpp
     Core/distance.cpp
     Core/geometryData.cpp
     Core/indexmap.cpp

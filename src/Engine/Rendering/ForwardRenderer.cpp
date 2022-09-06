@@ -148,7 +148,10 @@ void ForwardRenderer::initBuffers() {
 
 void ForwardRenderer::updateStepInternal( const Data::ViewingParameters& renderData ) {
     CORE_UNUSED( renderData );
-
+    // TODO : Improve the way RO are distributed in fancy (opaque), transparent and volume
+    // to simplify rendering loop and code maintenance
+    // i.e. Volume should considered as transparent but stored in the volumetric list and
+    // transparent-but-not-volume object should be kept in the fancy list, ...
     m_transparentRenderObjects.clear();
     m_volumetricRenderObjects.clear();
     for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); ) {
@@ -714,7 +717,9 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
     auto rt      = Core::make_shared<RenderTechnique>();
     // define the technique for rendering this RenderObject (here, using the default from
     // Material name)
-    builder.second( *rt, material->isTransparent() );
+    // NOTE : Setting transparency to true does not hurt performances here. It will just allow to
+    // change the transparency of an object online
+    builder.second( *rt, true /*material->isTransparent()*/ );
     // If renderObject is a point cloud,  add geometry shader for splatting
     auto RenderedGeometry = ro->getMesh().get();
 
