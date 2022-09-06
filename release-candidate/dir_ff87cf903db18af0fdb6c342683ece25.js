@@ -3,6 +3,8 @@ var dir_ff87cf903db18af0fdb6c342683ece25 =
     [ "Attribs.cpp", "Attribs_8cpp_source.html", null ],
     [ "Attribs.hpp", "Attribs_8hpp_source.html", null ],
     [ "Attribs.inl", "Attribs_8inl_source.html", null ],
+    [ "BijectiveAssociation.hpp", "BijectiveAssociation_8hpp_source.html", null ],
+    [ "BijectiveAssociation.inl", "BijectiveAssociation_8inl_source.html", null ],
     [ "Chronometer.hpp", "Chronometer_8hpp_source.html", null ],
     [ "CircularIndex.cpp", "CircularIndex_8cpp_source.html", null ],
     [ "CircularIndex.hpp", "CircularIndex_8hpp_source.html", null ],
@@ -31,5 +33,7 @@ var dir_ff87cf903db18af0fdb6c342683ece25 =
     [ "StringUtils.cpp", "StringUtils_8cpp_source.html", null ],
     [ "StringUtils.hpp", "StringUtils_8hpp_source.html", null ],
     [ "Timer.hpp", "Timer_8hpp_source.html", null ],
+    [ "TypesUtils.hpp", "TypesUtils_8hpp_source.html", null ],
+    [ "TypesUtils.inl", "TypesUtils_8inl_source.html", null ],
     [ "Version.hpp", "Version_8hpp_source.html", null ]
 ];

@@ -68,6 +68,7 @@ var namespaceRa =
         [ "AttribBase", "classRa_1_1Core_1_1Utils_1_1AttribBase.html", "classRa_1_1Core_1_1Utils_1_1AttribBase" ],
         [ "AttribHandle", "classRa_1_1Core_1_1Utils_1_1AttribHandle.html", "classRa_1_1Core_1_1Utils_1_1AttribHandle" ],
         [ "AttribManager", "classRa_1_1Core_1_1Utils_1_1AttribManager.html", "classRa_1_1Core_1_1Utils_1_1AttribManager" ],
+        [ "BijectiveAssociation", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation" ],
         [ "Chrono", "classRa_1_1Core_1_1Utils_1_1Chrono.html", "classRa_1_1Core_1_1Utils_1_1Chrono" ],
         [ "ColorBase", "classRa_1_1Core_1_1Utils_1_1ColorBase.html", "classRa_1_1Core_1_1Utils_1_1ColorBase" ],
         [ "ContainerIntrospectionInterface", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface" ],
@@ -107,6 +108,7 @@ var namespaceRa =
         [ "Material", "classRa_1_1Engine_1_1Data_1_1Material.html", "classRa_1_1Engine_1_1Data_1_1Material" ],
         [ "Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", "classRa_1_1Engine_1_1Data_1_1Mesh" ],
         [ "MultiIndexedGeometry", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry" ],
+        [ "ParameterSetEditingInterface", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface" ],
         [ "PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", "classRa_1_1Engine_1_1Data_1_1PlainMaterial" ],
         [ "PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", "classRa_1_1Engine_1_1Data_1_1PointCloud" ],
         [ "RawShaderMaterial", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial" ],
@@ -169,6 +171,12 @@ var namespaceRa =
       [ "RadiumEngine", "classRa_1_1Engine_1_1RadiumEngine.html", "classRa_1_1Engine_1_1RadiumEngine" ]
     ] ],
     [ "Gui", null, [
+      [ "Widgets", null, [
+        [ "ConstrainedNumericSpinBox", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox" ],
+        [ "ControlPanel", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel" ],
+        [ "MatrixEditor", "classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html", "classRa_1_1Gui_1_1Widgets_1_1MatrixEditor" ],
+        [ "VectorEditor", "classRa_1_1Gui_1_1Widgets_1_1VectorEditor.html", "classRa_1_1Gui_1_1Widgets_1_1VectorEditor" ]
+      ] ],
       [ "BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html", "classRa_1_1Gui_1_1BaseApplication" ],
       [ "CameraManipulator", "classRa_1_1Gui_1_1CameraManipulator.html", "classRa_1_1Gui_1_1CameraManipulator" ],
       [ "FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html", "classRa_1_1Gui_1_1FlightCameraManipulator" ],
@@ -179,6 +187,8 @@ var namespaceRa =
       [ "KeyMappingManageable", "classRa_1_1Gui_1_1KeyMappingManageable.html", "classRa_1_1Gui_1_1KeyMappingManageable" ],
       [ "KeyMappingManager", "classRa_1_1Gui_1_1KeyMappingManager.html", "classRa_1_1Gui_1_1KeyMappingManager" ],
       [ "MainWindowInterface", "classRa_1_1Gui_1_1MainWindowInterface.html", "classRa_1_1Gui_1_1MainWindowInterface" ],
+      [ "MaterialParameterEditor", "classRa_1_1Gui_1_1MaterialParameterEditor.html", "classRa_1_1Gui_1_1MaterialParameterEditor" ],
+      [ "ParameterSetEditor", "classRa_1_1Gui_1_1ParameterSetEditor.html", "classRa_1_1Gui_1_1ParameterSetEditor" ],
       [ "RotateGizmo", "classRa_1_1Gui_1_1RotateGizmo.html", "classRa_1_1Gui_1_1RotateGizmo" ],
       [ "ScaleGizmo", "classRa_1_1Gui_1_1ScaleGizmo.html", "classRa_1_1Gui_1_1ScaleGizmo" ],
       [ "SimpleWindow", "classRa_1_1Gui_1_1SimpleWindow.html", "classRa_1_1Gui_1_1SimpleWindow" ],

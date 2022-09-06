@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.60</span>
+   &#160;<span id="projectnumber">1.2.61</span>
    </div>
   </td>
  </tr>
@@ -114,6 +114,12 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1RenderPar
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">AbstractEnumConverter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Management of parameter of enum type. This allow to set the parameter using a string representation of their value. Setting the parameter directly from the value is supported as for any other parameter but user should take care to call the right overloaded function given the underlying enumeration type. This is due to unscoped enum being implicitly convertible to any integral type. (<a href="https://en.cppreference.com/w/cpp/language/enum">https://en.cppreference.com/w/cpp/language/enum</a>)  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html">EnumConverter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class manage the bijective association between string and integral representation of an enumeration.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TextureParameter.html">TextureParameter</a></td></tr>
@@ -189,6 +195,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adc35dc41b69e69225565f202d441468e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:adc35dc41b69e69225565f202d441468e"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1UniformBindableSet.html">UniformBindableSet</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e">getParameterSet</a> () const</td></tr>
 <tr class="separator:adc35dc41b69e69225565f202d441468e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c2517b1ca188ef73d6cd6ebfa5eeffa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9c2517b1ca188ef73d6cd6ebfa5eeffa"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9c2517b1ca188ef73d6cd6ebfa5eeffa">containsParameter</a> (const std::string &amp;name) const</td></tr>
+<tr class="separator:a9c2517b1ca188ef73d6cd6ebfa5eeffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4925c5ad9c53cf21012146fc3fb41b17"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4925c5ad9c53cf21012146fc3fb41b17"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a4925c5ad9c53cf21012146fc3fb41b17">getParameter</a> (const std::string &amp;name) const</td></tr>
+<tr class="separator:a4925c5ad9c53cf21012146fc3fb41b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae005d82f1311363657a20405db1ce8bf"><td class="memItemLeft" align="right" valign="top"><a id="ae005d82f1311363657a20405db1ce8bf"></a>
 template&lt;&gt; </td></tr>
 <tr class="memitem:ae005d82f1311363657a20405db1ce8bf"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1UniformBindableSet.html">RenderParameters::UniformBindableSet</a>&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">RenderParameters::BoolParameter</a> &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getParameterSet</b> () const</td></tr>
@@ -205,16 +217,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (con
 <tr class="memitem:a900ffd31c397cba0bb86dad3120c3c03"><td class="memItemLeft" align="right" valign="top"><a id="a900ffd31c397cba0bb86dad3120c3c03"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, Scalar value)</td></tr>
 <tr class="separator:a900ffd31c397cba0bb86dad3120c3c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a040d03b0c67f4a7b07df8eab7980f2e4"><td class="memItemLeft" align="right" valign="top"><a id="a040d03b0c67f4a7b07df8eab7980f2e4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a040d03b0c67f4a7b07df8eab7980f2e4">addParameter</a> (const std::string &amp;name, std::vector&lt; int &gt; values)</td></tr>
-<tr class="memdesc:a040d03b0c67f4a7b07df8eab7980f2e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">!! array version <br /></td></tr>
-<tr class="separator:a040d03b0c67f4a7b07df8eab7980f2e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17307687cd41a31fb2c0c231eceeed9d"><td class="memItemLeft" align="right" valign="top"><a id="a17307687cd41a31fb2c0c231eceeed9d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, std::vector&lt; uint &gt; values)</td></tr>
-<tr class="separator:a17307687cd41a31fb2c0c231eceeed9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2bc41c75f43199a4276fcc19894608d"><td class="memItemLeft" align="right" valign="top"><a id="ac2bc41c75f43199a4276fcc19894608d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, std::vector&lt; Scalar &gt; values)</td></tr>
-<tr class="separator:ac2bc41c75f43199a4276fcc19894608d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e1399d33382a2f0f883301c89005236"><td class="memItemLeft" align="right" valign="top"><a id="a7e1399d33382a2f0f883301c89005236"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a7e1399d33382a2f0f883301c89005236">addParameter</a> (const std::string &amp;name, const std::vector&lt; int &gt; &amp;values)</td></tr>
+<tr class="memdesc:a7e1399d33382a2f0f883301c89005236"><td class="mdescLeft">&#160;</td><td class="mdescRight">!! array version <br /></td></tr>
+<tr class="separator:a7e1399d33382a2f0f883301c89005236"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf3e56b44cdce72dd53ecd886a9b0f9d"><td class="memItemLeft" align="right" valign="top"><a id="abf3e56b44cdce72dd53ecd886a9b0f9d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const std::vector&lt; uint &gt; &amp;values)</td></tr>
+<tr class="separator:abf3e56b44cdce72dd53ecd886a9b0f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a713f649a95b946a7078604ad64484ba0"><td class="memItemLeft" align="right" valign="top"><a id="a713f649a95b946a7078604ad64484ba0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const std::vector&lt; Scalar &gt; &amp;values)</td></tr>
+<tr class="separator:a713f649a95b946a7078604ad64484ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae90b0205a462b349514065a9c1759149"><td class="memItemLeft" align="right" valign="top"><a id="ae90b0205a462b349514065a9c1759149"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae90b0205a462b349514065a9c1759149">addParameter</a> (const std::string &amp;name, const Core::Vector2 &amp;value)</td></tr>
 <tr class="memdesc:ae90b0205a462b349514065a9c1759149"><td class="mdescLeft">&#160;</td><td class="mdescRight">!! <br /></td></tr>
@@ -239,11 +251,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (con
 <tr class="separator:a27b64df6befbbd26a2d64d28046ee7af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad28126181232a358a18376aca393d37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aad28126181232a358a18376aca393d37">addParameter</a> (const std::string &amp;name, <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Data::Texture</a> *tex, int texUnit=-1)</td></tr>
 <tr class="separator:aad28126181232a358a18376aca393d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36b017c65c6ee8c11074b8b9726050c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a36b017c65c6ee8c11074b8b9726050c7">addParameter</a> (const std::string &amp;name, const std::string &amp;value)</td></tr>
+<tr class="memdesc:a36b017c65c6ee8c11074b8b9726050c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the value of the given parameter, according to a string representation of an enum.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a36b017c65c6ee8c11074b8b9726050c7">More...</a><br /></td></tr>
+<tr class="separator:a36b017c65c6ee8c11074b8b9726050c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9a080088cebc24deee74083e94bd7a"><td class="memItemLeft" align="right" valign="top"><a id="a9e9a080088cebc24deee74083e94bd7a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const char *value)</td></tr>
+<tr class="separator:a9e9a080088cebc24deee74083e94bd7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70d94cb9fabd271b896f6b1c12ea9039"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a70d94cb9fabd271b896f6b1c12ea9039">addEnumConverter</a> (const std::string &amp;name, std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">AbstractEnumConverter</a> &gt; converter)</td></tr>
+<tr class="memdesc:a70d94cb9fabd271b896f6b1c12ea9039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate a converter for enumerated type to the given parameter name.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a70d94cb9fabd271b896f6b1c12ea9039">More...</a><br /></td></tr>
+<tr class="separator:a70d94cb9fabd271b896f6b1c12ea9039"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe08e05e074099402f163c31a1951e8d"><td class="memItemLeft" align="right" valign="top">Core::Utils::optional&lt; std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">AbstractEnumConverter</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#abe08e05e074099402f163c31a1951e8d">getEnumConverter</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:abe08e05e074099402f163c31a1951e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a converter associated with an enumeration parameter.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#abe08e05e074099402f163c31a1951e8d">More...</a><br /></td></tr>
+<tr class="separator:abe08e05e074099402f163c31a1951e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c3b2b835cd2de955ec978e6cd3035e3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9c3b2b835cd2de955ec978e6cd3035e3">getEnumString</a> (const std::string &amp;name, int value)</td></tr>
+<tr class="memdesc:a9c3b2b835cd2de955ec978e6cd3035e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the string associated to the actual value of a parameter.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9c3b2b835cd2de955ec978e6cd3035e3">More...</a><br /></td></tr>
+<tr class="separator:a9c3b2b835cd2de955ec978e6cd3035e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Management of shader parameters with automatic binding of a named parameter to the corresponding glsl uniform. </p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00024">24</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00028">28</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a39e3dcd23c719f64e23af39ce94cc481"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a39e3dcd23c719f64e23af39ce94cc481">&#9670;&nbsp;</a></span>IntParameter</h2>
@@ -258,13 +285,52 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (con
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000049">Todo:</a></b></dt><dd>use array of parameter to templated uniform, as in globjects ? <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type int </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00105">105</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00111">111</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a70d94cb9fabd271b896f6b1c12ea9039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70d94cb9fabd271b896f6b1c12ea9039">&#9670;&nbsp;</a></span>addEnumConverter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::RenderParameters::addEnumConverter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">AbstractEnumConverter</a> &gt;&#160;</td>
+          <td class="paramname"><em>converter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Associate a converter for enumerated type to the given parameter name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td></td></tr>
+    <tr><td class="paramname">converter</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00029">29</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a5016e83a8e248b8c990f8ae90643f32b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5016e83a8e248b8c990f8ae90643f32b">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5016e83a8e248b8c990f8ae90643f32b">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -290,12 +356,52 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (con
 </div><div class="memdoc">
 <p>Overloaded operators to set shader parameters </p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00026">26</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00051">51</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a36b017c65c6ee8c11074b8b9726050c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36b017c65c6ee8c11074b8b9726050c7">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the value of the given parameter, according to a string representation of an enum. </p>
+<dl class="section note"><dt>Note</dt><dd>If there is no <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html" title="This class manage the bijective association between string and integral representation of an enumerat...">EnumConverter</a> associated with the parameter name, do nothing. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td></td></tr>
+    <tr><td class="paramname">value</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00115">115</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
 
 </div>
 </div>
 <a id="aad28126181232a358a18376aca393d37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad28126181232a358a18376aca393d37">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aad28126181232a358a18376aca393d37">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,7 +433,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (con
 </div><div class="memdoc">
 <p>Adding a texture parameter. The default (-1) for the texUnit parameter implies automatic uniform binding for the texture unit associated with the named sampler. If texUnit is given, then uniform binding will be made at this explicit location. </p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00086">86</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00111">111</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
 
 </div>
 </div>
@@ -354,7 +460,167 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (con
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00008">8</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00011">11</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c2517b1ca188ef73d6cd6ebfa5eeffa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c2517b1ca188ef73d6cd6ebfa5eeffa">&#9670;&nbsp;</a></span>containsParameter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Ra::Engine::Data::RenderParameters::containsParameter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Check if a typed parameter exists </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>the type of the parameter to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the parameter to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the parameter exists </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8inl_source.html#l00126">126</a> of file <a class="el" href="RenderParameters_8inl_source.html">RenderParameters.inl</a>.</p>
+
+</div>
+</div>
+<a id="abe08e05e074099402f163c31a1951e8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe08e05e074099402f163c31a1951e8d">&#9670;&nbsp;</a></span>getEnumConverter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Core::Utils::optional&lt; std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">RenderParameters::AbstractEnumConverter</a> &gt; &gt; Ra::Engine::Data::RenderParameters::getEnumConverter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Search for a converter associated with an enumeration parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the name of the parameter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an optional containing the converter or false if no converter is found. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00035">35</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c3b2b835cd2de955ec978e6cd3035e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c3b2b835cd2de955ec978e6cd3035e3">&#9670;&nbsp;</a></span>getEnumString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ra::Engine::Data::RenderParameters::getEnumString </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the string associated to the actual value of a parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td></td></tr>
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00043">43</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4925c5ad9c53cf21012146fc3fb41b17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4925c5ad9c53cf21012146fc3fb41b17">&#9670;&nbsp;</a></span>getParameter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; Ra::Engine::Data::RenderParameters::getParameter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get a typed parameter </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>the type of the parameter to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the parameter to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The corresponding parameter </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>if the container does not have an parameter with the specified name </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8inl_source.html#l00132">132</a> of file <a class="el" href="RenderParameters_8inl_source.html">RenderParameters.inl</a>.</p>
 
 </div>
 </div>
@@ -407,7 +673,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f">mergeReplaceParameters</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00114">114</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00153">153</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
 
 </div>
 </div>
@@ -434,7 +700,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae27dade3c2d0e82d306c45b2491f639a">mergeKeepParameters</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00125">125</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00164">164</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
 
 </div>
 </div>
@@ -449,7 +715,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a></li>
-    <li class="footer">Generated on Mon Aug 29 2022 07:47:41 for Radium Engine by
+    <li class="footer">Generated on Tue Sep 6 2022 14:17:26 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.60</span>
+   &#160;<span id="projectnumber">1.2.61</span>
    </div>
   </td>
  </tr>
@@ -145,25 +145,30 @@ $(document).ready(function(){initNavTree('BlinnPhongMaterial_8inl_source.html','
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> tex;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">   50</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">BlinnPhongMaterial::setColoredByVertexAttrib</a>( <span class="keywordtype">bool</span> state ) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">bool</span> oldState    = m_perVertexColor;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    m_perVertexColor = state;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> ( oldState != m_perVertexColor ) { <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5">needUpdate</a>(); }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a30540d1c981585466637a7ebdeadb72e">   56</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a30540d1c981585466637a7ebdeadb72e">BlinnPhongMaterial::isColoredByVertexAttrib</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> m_perVertexColor;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ad586184a60398c7b522f00e6905eba5d">   50</a></span>&#160;<span class="keyword">inline</span> nlohmann::json <a class="code" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ad586184a60398c7b522f00e6905eba5d">BlinnPhongMaterial::getParametersMetadata</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> s_parametersMetadata;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">   54</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">BlinnPhongMaterial::setColoredByVertexAttrib</a>( <span class="keywordtype">bool</span> state ) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">bool</span> oldState    = m_perVertexColor;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    m_perVertexColor = state;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> ( oldState != m_perVertexColor ) { <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5">needUpdate</a>(); }</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a30540d1c981585466637a7ebdeadb72e">   60</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a30540d1c981585466637a7ebdeadb72e">BlinnPhongMaterial::isColoredByVertexAttrib</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> m_perVertexColor;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_html_a30540d1c981585466637a7ebdeadb72e"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a30540d1c981585466637a7ebdeadb72e">Ra::Engine::Data::BlinnPhongMaterial::isColoredByVertexAttrib</a></div><div class="ttdeci">bool isColoredByVertexAttrib() const override</div><div class="ttdoc">Indicates if the material takes the VERTEX_COLOR attribute into account.</div><div class="ttdef"><b>Definition:</b> <a href="BlinnPhongMaterial_8inl_source.html#l00056">BlinnPhongMaterial.inl:56</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_html_a30540d1c981585466637a7ebdeadb72e"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a30540d1c981585466637a7ebdeadb72e">Ra::Engine::Data::BlinnPhongMaterial::isColoredByVertexAttrib</a></div><div class="ttdeci">bool isColoredByVertexAttrib() const override</div><div class="ttdoc">Indicates if the material takes the VERTEX_COLOR attribute into account.</div><div class="ttdef"><b>Definition:</b> <a href="BlinnPhongMaterial_8inl_source.html#l00060">BlinnPhongMaterial.inl:60</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1TextureParameters_html_a38384f3b654dcb60435f8d15e165f536"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a38384f3b654dcb60435f8d15e165f536">Ra::Engine::Data::TextureParameters::wrapS</a></div><div class="ttdeci">GLenum wrapS</div><div class="ttdoc">OpenGL wrap mode in the s direction.</div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00060">Texture.hpp:60</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_html_acfc60e7282b200f28fac471a024737ea"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">Ra::Engine::Data::BlinnPhongMaterial::setColoredByVertexAttrib</a></div><div class="ttdeci">void setColoredByVertexAttrib(bool state) override</div><div class="ttdoc">Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered geometry.</div><div class="ttdef"><b>Definition:</b> <a href="BlinnPhongMaterial_8inl_source.html#l00050">BlinnPhongMaterial.inl:50</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_html_acfc60e7282b200f28fac471a024737ea"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">Ra::Engine::Data::BlinnPhongMaterial::setColoredByVertexAttrib</a></div><div class="ttdeci">void setColoredByVertexAttrib(bool state) override</div><div class="ttdoc">Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered geometry.</div><div class="ttdef"><b>Definition:</b> <a href="BlinnPhongMaterial_8inl_source.html#l00054">BlinnPhongMaterial.inl:54</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_html_ad586184a60398c7b522f00e6905eba5d"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ad586184a60398c7b522f00e6905eba5d">Ra::Engine::Data::BlinnPhongMaterial::getParametersMetadata</a></div><div class="ttdeci">nlohmann::json getParametersMetadata() const override</div><div class="ttdef"><b>Definition:</b> <a href="BlinnPhongMaterial_8inl_source.html#l00050">BlinnPhongMaterial.inl:50</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1TextureParameters_html_a64588b76ed0db08b240c57bee0d7f9ef"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a64588b76ed0db08b240c57bee0d7f9ef">Ra::Engine::Data::TextureParameters::minFilter</a></div><div class="ttdeci">GLenum minFilter</div><div class="ttdoc">OpenGL minification filter ( GL_LINEAR or GL_NEAREST or GL_XXX_MIPMAP_YYY )</div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00066">Texture.hpp:66</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1TextureParameters_html_af2b44c812ac7ea2acce2ecdaa74c546f"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#af2b44c812ac7ea2acce2ecdaa74c546f">Ra::Engine::Data::TextureParameters::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Name of the texture.</div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00044">Texture.hpp:44</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html_ac6eabe9ce20163cab8bec7a51f6e75a5"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5">Ra::Engine::Data::Material::needUpdate</a></div><div class="ttdeci">void needUpdate()</div><div class="ttdef"><b>Definition:</b> <a href="Material_8inl_source.html#l00026">Material.inl:26</a></div></div>
@@ -178,7 +183,7 @@ $(document).ready(function(){initNavTree('BlinnPhongMaterial_8inl_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>BlinnPhongMaterial.inl</b></li>
-    <li class="footer">Generated on Mon Aug 29 2022 07:47:40 for Radium Engine by
+    <li class="footer">Generated on Tue Sep 6 2022 14:17:24 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -13,7 +13,9 @@ var engine =
       [ "Content of the Radium Material Library", "develmaterials.html#autotoc_md82", null ],
       [ "Simple usage of materials", "develmaterials.html#simple-mtl-usage", null ],
       [ "Extending the Radium Material Library", "develmaterials.html#extend-mtl-lib", [
-        [ "C++ interface", "develmaterials.html#cpp-mtl-lib", null ],
+        [ "C++ interface", "develmaterials.html#cpp-mtl-lib", [
+          [ "Making a material editable", "develmaterials.html#editable-interface", null ]
+        ] ],
         [ "GLSL interface", "develmaterials.html#glsl-mtl-lib", null ],
         [ "Appearance computation needs", "develmaterials.html#autotoc_md83", [
           [ "Vertex attrib interface", "develmaterials.html#vrtx-attr-interface", null ],

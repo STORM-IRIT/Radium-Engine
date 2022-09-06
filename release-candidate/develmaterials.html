@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.60</span>
+   &#160;<span id="projectnumber">1.2.61</span>
    </div>
   </td>
  </tr>
@@ -170,7 +170,75 @@ C++ interface</h2>
 <div class="line">    ...</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>See the <a href="./rendertechnique">Render technique management</a> for documentation on how to build such an helper function.</p>
-<h2><a class="anchor" id="glsl-mtl-lib"></a>
+<h3><a class="anchor" id="editable-interface"></a>
+Making a material editable</h3>
+<p>Material which implement the Ra::Engine::Data::ParameterSetEditionInterface might be modified at runtime.</p>
+<p>This interface exposes the method Ra::Engine::Data::ParameterSetEditionInterface::getParametersMetadata which return a json-formatted parameter set informations containing type, constraints and documentation on each editable parameter.</p>
+<p>When implementing this interface, you need to return a correctly specified JSON.</p>
+<h3>The Material metadata specification</h3>
+<h4>Booleans</h4>
+<div class="fragment"><div class="line">&quot;key&quot;: {</div>
+<div class="line">  &quot;description&quot;: &quot;an optional description of the parameter&quot;,</div>
+<div class="line">  &quot;editable&quot;: false,</div>
+<div class="line">  &quot;name&quot;: &quot;shortName&quot;,</div>
+<div class="line">  &quot;type&quot;: &quot;boolean&quot;</div>
+<div class="line">},</div>
+</div><!-- fragment --><p>The "editable" property specifies whether the boolean is editable, for instance it is not editable when it is linked with the presence of a texture.</p>
+<h4>Enums</h4>
+<p>When a parameter is referenced as an enum, the edition gui will present a combobox with the string representation of the enumaration values. Enumeration strings, could be defined in two ways. Either by associating a RenderParameter::EnumConverter with the material's parameter set or by defining the strings through the "values" field of the json object describing the enum. If the former is used, the "values" will not be used, even if present in the json description.</p>
+<div class="fragment"><div class="line">&quot;key&quot;: {</div>
+<div class="line">  &quot;name&quot;: &quot;shortName&quot;,</div>
+<div class="line">  &quot;description&quot;: &quot;an optional description of the parameter&quot;,</div>
+<div class="line">  &quot;type&quot;: &quot;enum&quot;,</div>
+<div class="line">  &quot;values&quot;: [</div>
+<div class="line">    &quot;NAME0&quot;,</div>
+<div class="line">    &quot;NAME1&quot;,</div>
+<div class="line">    &quot;NAME2&quot;</div>
+<div class="line">  ]</div>
+<div class="line">}</div>
+</div><!-- fragment --><h4>Numbers</h4>
+<p>This is an unbounded number :</p>
+<div class="fragment"><div class="line">&quot;key&quot;: {</div>
+<div class="line">  &quot;description&quot;: &quot;an optional description of the parameter&quot;</div>
+<div class="line">  &quot;name&quot;: &quot;shortName&quot;,</div>
+<div class="line">  &quot;type&quot;: &quot;number&quot;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>A number can have a minimum and/or a maximum :</p>
+<div class="fragment"><div class="line">&quot;key&quot;: {</div>
+<div class="line">  &quot;name&quot;: &quot;shortName&quot;,</div>
+<div class="line">  &quot;minimum&quot;: 0.0,</div>
+<div class="line">  &quot;maximum&quot;: 1.0,</div>
+<div class="line">  &quot;type&quot;: &quot;number&quot;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>A number can alternatively have an array of ranges where it is defined :</p>
+<div class="fragment"><div class="line">&quot;key&quot;: {</div>
+<div class="line">  &quot;name&quot;: &quot;shortName&quot;,</div>
+<div class="line">  &quot;oneOf&quot;: [</div>
+<div class="line">    {</div>
+<div class="line">      &quot;minimum&quot;: 0.0,</div>
+<div class="line">      &quot;maximum&quot;: 0.0</div>
+<div class="line">    },</div>
+<div class="line">    {</div>
+<div class="line">      &quot;minimum&quot;: 1.0</div>
+<div class="line">    }</div>
+<div class="line">  ],</div>
+<div class="line">  &quot;type&quot;: &quot;number&quot;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>In this instance the number is ether 0 or greater than or equal to 1.0.</p>
+<h4>Arrays</h4>
+<div class="fragment"><div class="line">&quot;shortName&quot;: {</div>
+<div class="line">  &quot;name&quot;: &quot;shortName&quot;,</div>
+<div class="line">  &quot;description&quot;: &quot;an optional description of the parameter&quot;,</div>
+<div class="line">  &quot;type&quot;: &quot;array&quot;,</div>
+<div class="line">  &quot;items&quot;: {</div>
+<div class="line">    &quot;type&quot;: &quot;number&quot;,</div>
+<div class="line">      &quot;minimum&quot;: 0.0,</div>
+<div class="line">      &quot;maximum&quot;: 1.0</div>
+<div class="line">    },</div>
+<div class="line">  &quot;minItems&quot;: 3,</div>
+<div class="line">  &quot;maxItems&quot;: 3</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2><a class="anchor" id="glsl-mtl-lib"></a>
 GLSL interface</h2>
 <p>Being able to compose shaders in a specific renderer while taking profit of Radium Material Library (either included in the base engine or defined in plugins) require a clean definition of appearance computation process and the definition of a glsl interface.</p>
 <h2><a class="anchor" id="autotoc_md83"></a>
@@ -517,7 +585,7 @@ Manipulating ShaderConfigurations</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
-    <li class="footer">Generated on Mon Aug 29 2022 07:47:41 for Radium Engine by
+    <li class="footer">Generated on Tue Sep 6 2022 14:17:25 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

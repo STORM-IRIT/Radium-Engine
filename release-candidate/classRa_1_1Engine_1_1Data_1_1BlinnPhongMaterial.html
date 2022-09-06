@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.60</span>
+   &#160;<span id="projectnumber">1.2.61</span>
    </div>
   </td>
  </tr>
@@ -148,14 +148,22 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2cceb6feb429256547ad9f41ff4faef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a186d3a44a8c2e68651167c8e25603e1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a186d3a44a8c2e68651167c8e25603e1f">~BlinnPhongMaterial</a> () override</td></tr>
 <tr class="separator:a186d3a44a8c2e68651167c8e25603e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af66d6609fafb6c0544e8470a680d833b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af66d6609fafb6c0544e8470a680d833b">updateGL</a> () override</td></tr>
+<tr class="memitem:af66d6609fafb6c0544e8470a680d833b"><td class="memItemLeft" align="right" valign="top"><a id="af66d6609fafb6c0544e8470a680d833b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af66d6609fafb6c0544e8470a680d833b">updateGL</a> () override</td></tr>
+<tr class="memdesc:af66d6609fafb6c0544e8470a680d833b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic. <br /></td></tr>
 <tr class="separator:af66d6609fafb6c0544e8470a680d833b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac270bc7fab86554604222c1eefc83bc1"><td class="memItemLeft" align="right" valign="top"><a id="ac270bc7fab86554604222c1eefc83bc1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac270bc7fab86554604222c1eefc83bc1">updateFromParameters</a> () override</td></tr>
+<tr class="memdesc:ac270bc7fab86554604222c1eefc83bc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters. <br /></td></tr>
+<tr class="separator:ac270bc7fab86554604222c1eefc83bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96117e0c746c30ea97cda45c0e82c3a2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a96117e0c746c30ea97cda45c0e82c3a2">isTransparent</a> () const override</td></tr>
 <tr class="separator:a96117e0c746c30ea97cda45c0e82c3a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5eec16e112028d0e921755dd77019e2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a5eec16e112028d0e921755dd77019e2e">addTexture</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;semantic, <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *texture)</td></tr>
 <tr class="separator:a5eec16e112028d0e921755dd77019e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8e89544b5da028dda7e38896dc27213"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#aa8e89544b5da028dda7e38896dc27213">getTexture</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;semantic) const</td></tr>
 <tr class="separator:aa8e89544b5da028dda7e38896dc27213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad586184a60398c7b522f00e6905eba5d"><td class="memItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ad586184a60398c7b522f00e6905eba5d">getParametersMetadata</a> () const override</td></tr>
+<tr class="separator:ad586184a60398c7b522f00e6905eba5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfc60e7282b200f28fac471a024737ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">setColoredByVertexAttrib</a> (bool state) override</td></tr>
 <tr class="memdesc:acfc60e7282b200f28fac471a024737ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry.  <a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">More...</a><br /></td></tr>
 <tr class="separator:acfc60e7282b200f28fac471a024737ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -192,6 +200,11 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a2a9a96bf13c331bc4b2addec509a0148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af10c9fac9f32f1966eb2331e2790a6d1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af10c9fac9f32f1966eb2331e2790a6d1">unregisterMaterial</a> ()</td></tr>
 <tr class="separator:af10c9fac9f32f1966eb2331e2790a6d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html">Ra::Engine::Data::ParameterSetEditingInterface</a></td></tr>
+<tr class="memitem:a9715515de6a9ca229a6c28981d8b6724 inherit pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td class="memItemLeft" align="right" valign="top"><a id="a9715515de6a9ca229a6c28981d8b6724"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a9715515de6a9ca229a6c28981d8b6724">loadMetaData</a> (const std::string &amp;basename, nlohmann::json &amp;destination)</td></tr>
+<tr class="memdesc:a9715515de6a9ca229a6c28981d8b6724 inherit pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the ParameterSet description. <br /></td></tr>
+<tr class="separator:a9715515de6a9ca229a6c28981d8b6724 inherit pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -279,7 +292,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00017">17</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00021">21</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
 
 </div>
 </div>
@@ -307,7 +320,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div><div class="memdoc">
 <p>Destructor. </p><dl class="section note"><dt>Note</dt><dd>The material does not have ownership on its texture. This destructor do not delete the associated textures. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00020">20</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00024">24</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
 
 </div>
 </div>
@@ -403,6 +416,36 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="ad586184a60398c7b522f00e6905eba5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad586184a60398c7b522f00e6905eba5d">&#9670;&nbsp;</a></span>getParametersMetadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">nlohmann::json Ra::Engine::Data::BlinnPhongMaterial::getParametersMetadata </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get a json containing metadata about the parameters of the material. </p><dl class="section return"><dt>Returns</dt><dd>the metadata in json format </dd></dl>
+
+<p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a29c608d6266fd4cdd061ee1b666d44a6">Ra::Engine::Data::ParameterSetEditingInterface</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8inl_source.html#l00050">50</a> of file <a class="el" href="BlinnPhongMaterial_8inl_source.html">BlinnPhongMaterial.inl</a>.</p>
+
+</div>
+</div>
 <a id="aa8e89544b5da028dda7e38896dc27213"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa8e89544b5da028dda7e38896dc27213">&#9670;&nbsp;</a></span>getTexture()</h2>
 
@@ -464,7 +507,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a99184fa8c3c787b18737bea7dd1e1a1f">Ra::Engine::Data::Material</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00095">95</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00092">92</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -500,13 +543,13 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div><div class="memdoc">
 <p>Register the material in the material library. After registration, the material could be instantiated by any Radium system, renderer, plugin, ... </p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00099">99</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00096">96</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_a2a9a96bf13c331bc4b2addec509a0148_cgraph.svg" width="100%" height="588"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_a2a9a96bf13c331bc4b2addec509a0148_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -547,7 +590,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a9fe87b88b7d2ce2020373aaf7d5cc85e">Ra::Engine::Data::Material</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8inl_source.html#l00050">50</a> of file <a class="el" href="BlinnPhongMaterial_8inl_source.html">BlinnPhongMaterial.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8inl_source.html#l00054">54</a> of file <a class="el" href="BlinnPhongMaterial_8inl_source.html">BlinnPhongMaterial.inl</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -595,36 +638,6 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
-<a id="af66d6609fafb6c0544e8470a680d833b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af66d6609fafb6c0544e8470a680d833b">&#9670;&nbsp;</a></span>updateGL()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::BlinnPhongMaterial::updateGL </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider sementic. </p>
-
-<p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00074">74</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Data/<a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Data/<a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a></li>
@@ -636,7 +649,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html">BlinnPhongMaterial</a></li>
-    <li class="footer">Generated on Mon Aug 29 2022 07:47:41 for Radium Engine by
+    <li class="footer">Generated on Tue Sep 6 2022 14:17:26 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

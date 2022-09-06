@@ -10,6 +10,7 @@ var classRa_1_1Engine_1_1Data_1_1SimpleMaterial =
     [ "addTexture", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a2400959096aa242594e5b46c6c05ce5b", null ],
     [ "getTexture", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#accda5c85bc9f61813b53acbae2ba70a1", null ],
     [ "isColoredByVertexAttrib", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a188bef043565e521f7ba56026cc4764d", null ],
+    [ "loadMetaData", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a57837ef8f83bc884ebab36823c73f1d8", null ],
     [ "setColoredByVertexAttrib", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c", null ],
     [ "updateGL", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a10d18365a6ea94692a1097a7a2f49b57", null ],
     [ "m_color", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a7952c720bee62a0035f814f56fac8717", null ],

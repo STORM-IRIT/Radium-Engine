@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.60</span>
+   &#160;<span id="projectnumber">1.2.61</span>
    </div>
   </td>
  </tr>
@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('SimpleMaterial_8hpp_source.html',''); 
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>Engine {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>Data {</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html">   19</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html">SimpleMaterial</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html">   19</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html">SimpleMaterial</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>, <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html">ParameterSetEditingInterface</a></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443">   23</a></span>&#160;    <span class="keyword">enum class</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443">TextureSemantic</a> { TEX_COLOR, TEX_MASK };</div>
@@ -143,18 +143,22 @@ $(document).ready(function(){initNavTree('SimpleMaterial_8hpp_source.html',''); 
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    std::map&lt;TextureSemantic, Texture*&gt; m_textures;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    std::map&lt;TextureSemantic, TextureParameters&gt; m_pendingTextures;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> loadMetaData( nlohmann::json&amp; destination );</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/SimpleMaterial.inl&gt;</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/SimpleMaterial.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html_a14b38bde09b76f0c5ed83161feb26443"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443">Ra::Engine::Data::SimpleMaterial::TextureSemantic</a></div><div class="ttdeci">TextureSemantic</div><div class="ttdoc">Semantic of the texture : define which BSDF parameter is controled by the texture.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8hpp_source.html#l00023">SimpleMaterial.hpp:23</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html">Ra::Engine::Data::SimpleMaterial</a></div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8hpp_source.html#l00019">SimpleMaterial.hpp:19</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html">Ra::Engine::Data::ParameterSetEditingInterface</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00372">RenderParameters.hpp:372</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1TextureParameters_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">Ra::Engine::Data::TextureParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00042">Texture.hpp:42</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; Scalar &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Texture_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Texture.html">Ra::Engine::Data::Texture</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00086">Texture.hpp:86</a></div></div>
@@ -163,7 +167,7 @@ $(document).ready(function(){initNavTree('SimpleMaterial_8hpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>SimpleMaterial.hpp</b></li>
-    <li class="footer">Generated on Mon Aug 29 2022 07:47:40 for Radium Engine by
+    <li class="footer">Generated on Tue Sep 6 2022 14:17:24 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

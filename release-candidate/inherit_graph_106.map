@@ -1,6 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Gui_1_1Gizmo.html" title=" " alt="" coords="5,56,124,83"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1RotateGizmo.html" title="A RotateGizmo manipulates the rotational part of a transformation." alt="" coords="180,5,343,32"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1ScaleGizmo.html" title=" " alt="" coords="184,56,339,83"/>
-<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1TranslateGizmo.html" title="A TranslateGizmo manipulates the translational part of a transformation." alt="" coords="172,107,351,133"/>
+<area shape="rect" id="node1" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,71,152,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="244,5,391,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html" title=" " alt="" coords="244,71,391,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html" title=" " alt="" coords="200,136,435,177"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager.html" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="483,5,661,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1DefaultLightManager.html" title="DefaultLightManager. A simple Light Manager with a list of lights." alt="" coords="493,71,651,112"/>
 </map>

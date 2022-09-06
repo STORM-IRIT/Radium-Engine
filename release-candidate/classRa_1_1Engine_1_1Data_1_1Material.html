@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.60</span>
+   &#160;<span id="projectnumber">1.2.61</span>
    </div>
   </td>
  </tr>
@@ -159,8 +159,14 @@ virtual <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">
 <tr class="memitem:ad7da3601a26ed84cc50fe7036f4c0dd9 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top"><a id="ad7da3601a26ed84cc50fe7036f4c0dd9"></a>
 virtual const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getParameters</b> () const</td></tr>
 <tr class="separator:ad7da3601a26ed84cc50fe7036f4c0dd9 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a845c8bdbf880511e008d940e260b0820 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">updateGL</a> ()=0</td></tr>
+<tr class="memitem:a845c8bdbf880511e008d940e260b0820 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top"><a id="a845c8bdbf880511e008d940e260b0820"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">updateGL</a> ()=0</td></tr>
+<tr class="memdesc:a845c8bdbf880511e008d940e260b0820 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic. <br /></td></tr>
 <tr class="separator:a845c8bdbf880511e008d940e260b0820 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43c416afc9bb641d677c5df3737e5029 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top"><a id="a43c416afc9bb641d677c5df3737e5029"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a43c416afc9bb641d677c5df3737e5029">updateFromParameters</a> ()</td></tr>
+<tr class="memdesc:a43c416afc9bb641d677c5df3737e5029 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters. <br /></td></tr>
+<tr class="separator:a43c416afc9bb641d677c5df3737e5029 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -387,7 +393,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </table>
 </div><div class="memdoc">
 <p>Get the list of properties the material migh use in a shader. each property will be added to the shader used for rendering this material under the form "#define theProperty". Shaders that support the given property could then fully render the material. Others migh render the meterial eroneously.</p>
-<p>The defaul implementation returns an empty list.</p>
+<p>The default implementation returns an empty list.</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000035">Todo:</a></b></dt><dd><p class="startdd">: Validate this proposal </p>
 <p class="enddd">: make the property list modifiable as well </p>
 </dd></dl>
@@ -603,7 +609,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a></li>
-    <li class="footer">Generated on Mon Aug 29 2022 07:47:41 for Radium Engine by
+    <li class="footer">Generated on Tue Sep 6 2022 14:17:26 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

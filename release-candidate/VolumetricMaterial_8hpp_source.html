@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.2.60</span>
+   &#160;<span id="projectnumber">1.2.61</span>
    </div>
   </td>
  </tr>
@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('VolumetricMaterial_8hpp_source.html','
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>ShaderProgram;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html">   24</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html">VolumetricMaterial</a> final : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html">   24</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html">VolumetricMaterial</a> final : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>, <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html">ParameterSetEditingInterface</a></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">public</span>:</div>
@@ -121,40 +121,46 @@ $(document).ready(function(){initNavTree('VolumetricMaterial_8hpp_source.html','
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html">VolumetricMaterial</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> updateGL() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> isTransparent() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setTexture( <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* texture );</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* getTexture() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> registerMaterial();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> unregisterMaterial();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#ab2929a1cbaebb0f114136cb022111796">   73</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_sigma_a { 0.0011_ra, 0.0024_ra, 0.014_ra };</div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a1d82765aa923bbd54b7c71e2f99ca484">   75</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_sigma_s { 2.55_ra, 3.21_ra, 3.77_ra };</div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#aaa45c6d745d5e5b3e0a29020bdd59c93">   77</a></span>&#160;    Scalar m_g { 0_ra };</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a5a62862ccef0fa7b1b55c6f019f14b24">   79</a></span>&#160;    Scalar m_scale { 1_ra };</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a4681b4a4bf93ca0f10a2accadca84124">   82</a></span>&#160;    Scalar m_stepsize { -1_ra };</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a7c2ed50ce5adffeddf704440ec936e8f">   85</a></span>&#160;    Core::Transform m_modelToMedium { Core::Transform::Identity() };</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="comment">// The density matrix</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* m_texture;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">void</span> updateRenderingParameters();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;};</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/VolumetricMaterial.inl&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> updateFromParameters() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> isTransparent() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setTexture( <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* texture );</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* getTexture() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> registerMaterial();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> unregisterMaterial();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">inline</span> nlohmann::json getParametersMetadata() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#ab2929a1cbaebb0f114136cb022111796">   81</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_sigma_a { 0.0011_ra, 0.0024_ra, 0.014_ra };</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a1d82765aa923bbd54b7c71e2f99ca484">   83</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_sigma_s { 2.55_ra, 3.21_ra, 3.77_ra };</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#aaa45c6d745d5e5b3e0a29020bdd59c93">   85</a></span>&#160;    Scalar m_g { 0_ra };</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a5a62862ccef0fa7b1b55c6f019f14b24">   87</a></span>&#160;    Scalar m_scale { 1_ra };</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a4681b4a4bf93ca0f10a2accadca84124">   90</a></span>&#160;    Scalar m_stepsize { -1_ra };</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a7c2ed50ce5adffeddf704440ec936e8f">   93</a></span>&#160;    Core::Transform m_modelToMedium { Core::Transform::Identity() };</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">// The density matrix</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>* m_texture;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">void</span> updateRenderingParameters();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">static</span> nlohmann::json s_parametersMetadata;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;};</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/VolumetricMaterial.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VolumetricMaterial_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html">Ra::Engine::Data::VolumetricMaterial</a></div><div class="ttdef"><b>Definition:</b> <a href="VolumetricMaterial_8hpp_source.html#l00024">VolumetricMaterial.hpp:24</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html">Ra::Engine::Data::ParameterSetEditingInterface</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00372">RenderParameters.hpp:372</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; Scalar &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Texture_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Texture.html">Ra::Engine::Data::Texture</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00086">Texture.hpp:86</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00023">Material.hpp:23</a></div></div>
@@ -162,7 +168,7 @@ $(document).ready(function(){initNavTree('VolumetricMaterial_8hpp_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>VolumetricMaterial.hpp</b></li>
-    <li class="footer">Generated on Mon Aug 29 2022 07:47:40 for Radium Engine by
+    <li class="footer">Generated on Tue Sep 6 2022 14:17:24 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

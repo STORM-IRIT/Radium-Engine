@@ -1,5 +1,8 @@
 var hierarchy =
 [
+    [ "Ra::Engine::Data::RenderParameters::AbstractEnumConverter", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html", [
+      [ "Ra::Engine::Data::RenderParameters::EnumConverter< Enum >", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html", null ]
+    ] ],
     [ "Ra::Core::Geometry::AbstractGeometry", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html", [
       [ "Ra::Core::Geometry::AbstractVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html", [
         [ "Ra::Core::Geometry::AbstractDiscreteVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html", [
@@ -46,6 +49,8 @@ var hierarchy =
     [ "Ra::Core::Utils::AttribHandle< Vector4 >", "classRa_1_1Core_1_1Utils_1_1AttribHandle.html", null ],
     [ "Ra::Gui::BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html", null ],
     [ "Ra::Engine::Scene::BaseCouplingSystem< _BaseAbstractSystem >", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html", null ],
+    [ "Ra::Core::Utils::BijectiveAssociation< T1, T2 >", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html", null ],
+    [ "Ra::Core::Utils::BijectiveAssociation< typename std::underlying_type_t< Enum >, std::string >", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html", null ],
     [ "Ra::Engine::Data::BlinnPhongMaterialConverter", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter.html", null ],
     [ "Ra::Core::Containers::BVH< T >", "classRa_1_1Core_1_1Containers_1_1BVH.html", null ],
     [ "Ra::Engine::Scene::ComponentMessenger::CallbackTypes< T >", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html", null ],
@@ -82,6 +87,7 @@ var hierarchy =
       [ "Ra::Engine::Scene::VolumeComponent", "classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html", null ]
     ] ],
     [ "Ra::Engine::Scene::ComponentMessenger", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html", null ],
+    [ "Ra::Gui::Widgets::ConstrainedNumericSpinBox< T >", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html", null ],
     [ "Ra::Core::Utils::ContainerIntrospectionInterface", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html", [
       [ "Ra::Core::Geometry::GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", [
         [ "Ra::Core::Geometry::GeometryIndexLayer< Vector1ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
@@ -104,6 +110,9 @@ var hierarchy =
       [ "Ra::Core::Utils::AttribBase", "classRa_1_1Core_1_1Utils_1_1AttribBase.html", null ]
     ] ],
     [ "Ra::Plugins::Context", "classRa_1_1Plugins_1_1Context.html", null ],
+    [ "Ra::Gui::Widgets::ControlPanel", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html", [
+      [ "Ra::Gui::ParameterSetEditor", "classRa_1_1Gui_1_1ParameterSetEditor.html", null ]
+    ] ],
     [ "Ra::Engine::Rendering::DebugRender", "classRa_1_1Engine_1_1Rendering_1_1DebugRender.html", null ],
     [ "Ra::Core::Geometry::deprecated::DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand.html", null ],
     [ "Ra::Engine::Data::Displayable", "classRa_1_1Engine_1_1Data_1_1Displayable.html", [
@@ -205,6 +214,8 @@ var hierarchy =
     ] ],
     [ "Ra::Core::Utils::map_keys< Mapclass >", "structRa_1_1Core_1_1Utils_1_1map__keys.html", null ],
     [ "Ra::Core::Utils::map_values< Mapclass >", "structRa_1_1Core_1_1Utils_1_1map__values.html", null ],
+    [ "Ra::Gui::MaterialParameterEditor", "classRa_1_1Gui_1_1MaterialParameterEditor.html", null ],
+    [ "Ra::Gui::Widgets::MatrixEditor", "classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html", null ],
     [ "Ra::Core::Geometry::Obb", "classRa_1_1Core_1_1Geometry_1_1Obb.html", null ],
     [ "Ra::Core::Utils::ObjectWithSemantic", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html", [
       [ "Ra::Core::Geometry::GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", null ]
@@ -224,6 +235,14 @@ var hierarchy =
     [ "Ra::Engine::Data::RenderParameters::Parameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html", [
       [ "Ra::Engine::Data::RenderParameters::TextureParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TextureParameter.html", null ],
       [ "Ra::Engine::Data::RenderParameters::TParameter< T >", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html", null ]
+    ] ],
+    [ "Ra::Engine::Data::ParameterSetEditingInterface", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html", [
+      [ "Ra::Engine::Data::BlinnPhongMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html", null ],
+      [ "Ra::Engine::Data::SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", [
+        [ "Ra::Engine::Data::LambertianMaterial", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html", null ],
+        [ "Ra::Engine::Data::PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", null ]
+      ] ],
+      [ "Ra::Engine::Data::VolumetricMaterial", "classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html", null ]
     ] ],
     [ "Ra::Engine::Rendering::Renderer::PickingQuery", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html", null ],
     [ "Ra::Engine::Rendering::Renderer::PickingResult", "classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html", null ],
@@ -246,10 +265,7 @@ var hierarchy =
       [ "Ra::Engine::Data::Material", "classRa_1_1Engine_1_1Data_1_1Material.html", [
         [ "Ra::Engine::Data::BlinnPhongMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html", null ],
         [ "Ra::Engine::Data::RawShaderMaterial", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html", null ],
-        [ "Ra::Engine::Data::SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", [
-          [ "Ra::Engine::Data::LambertianMaterial", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html", null ],
-          [ "Ra::Engine::Data::PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", null ]
-        ] ],
+        [ "Ra::Engine::Data::SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", null ],
         [ "Ra::Engine::Data::VolumetricMaterial", "classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html", null ]
       ] ],
       [ "Ra::Gui::Gizmo::UiSelectionControler", "classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html", null ]
@@ -282,12 +298,12 @@ var hierarchy =
     [ "Ra::Gui::TimelineScrollArea", "classRa_1_1Gui_1_1TimelineScrollArea.html", null ],
     [ "Ra::Gui::TimelineSlider", "classRa_1_1Gui_1_1TimelineSlider.html", null ],
     [ "Ra::Gui::TimelineTimeScale", "classRa_1_1Gui_1_1TimelineTimeScale.html", null ],
-    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
-    [ "Ra::Core::Geometry::deprecated::TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html", null ],
+    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Core::Geometry::TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html", null ],
-    [ "Ra::Core::Geometry::deprecated::TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html", null ],
+    [ "Ra::Core::Geometry::deprecated::TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html", null ],
     [ "Ra::Core::Geometry::TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html", null ],
+    [ "Ra::Core::Geometry::deprecated::TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html", null ],
     [ "Ra::Gui::TreeItem", "classRa_1_1Gui_1_1TreeItem.html", null ],
     [ "Ra::Gui::TreeModel", "classRa_1_1Gui_1_1TreeModel.html", [
       [ "Ra::Gui::ItemModel", "classRa_1_1Gui_1_1ItemModel.html", null ]
@@ -341,6 +357,7 @@ var hierarchy =
         [ "Ra::Core::VectorArray< T >", "classRa_1_1Core_1_1VectorArray.html", null ]
       ] ]
     ] ],
+    [ "Ra::Gui::Widgets::VectorEditor< T >", "classRa_1_1Gui_1_1Widgets_1_1VectorEditor.html", null ],
     [ "Ra::Engine::Data::ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", null ],
     [ "Ra::IO::VolumeLoader", "classRa_1_1IO_1_1VolumeLoader.html", null ],
     [ "Ra::Core::Geometry::TopologicalMesh::WedgeData", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html", null ],
