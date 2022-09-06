@@ -1,7 +1,7 @@
-#include <Engine/Data/BlinnPhongMaterial.hpp>
-
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
+#include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
+#include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/Texture.hpp>
@@ -9,10 +9,14 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
 
+#include <fstream>
+
 namespace Ra {
 namespace Engine {
 namespace Data {
 static const std::string materialName { "BlinnPhong" };
+
+nlohmann::json BlinnPhongMaterial::s_parametersMetadata = {};
 
 BlinnPhongMaterial::BlinnPhongMaterial( const std::string& instanceName ) :
     Material( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
@@ -30,45 +34,20 @@ void BlinnPhongMaterial::updateRenderingParameters() {
     m_renderParameters.addParameter( "material.ns", m_ns );
     m_renderParameters.addParameter( "material.alpha", std::min( m_alpha, m_kd[3] ) );
     Texture* tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.kd", tex );
-        m_renderParameters.addParameter( "material.tex.hasKd", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasKd", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.kd", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasKd", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.ks", tex );
-        m_renderParameters.addParameter( "material.tex.hasKs", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasKs", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.ks", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasKs", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_NORMAL );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.normal", tex );
-        m_renderParameters.addParameter( "material.tex.hasNormal", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasNormal", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.normal", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasNormal", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SHININESS );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.ns", tex );
-        m_renderParameters.addParameter( "material.tex.hasNs", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasNs", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.ns", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasNs", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_ALPHA );
-    if ( tex != nullptr ) {
-        m_renderParameters.addParameter( "material.tex.alpha", tex );
-        m_renderParameters.addParameter( "material.tex.hasAlpha", 1 );
-    }
-    else {
-        m_renderParameters.addParameter( "material.tex.hasAlpha", 0 );
-    }
+    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.alpha", tex ); }
+    m_renderParameters.addParameter( "material.tex.hasAlpha", tex != nullptr );
 }
 
 void BlinnPhongMaterial::updateGL() {
@@ -90,6 +69,24 @@ void BlinnPhongMaterial::updateGL() {
     m_isDirty = false;
 
     updateRenderingParameters();
+}
+
+void BlinnPhongMaterial::updateFromParameters() {
+    m_kd =
+        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.kd" ).m_value;
+    m_perVertexColor =
+        m_renderParameters
+            .getParameter<RenderParameters::BoolParameter>( "material.hasPerVertexKd" )
+            .m_value;
+    m_renderAsSplat =
+        m_renderParameters.getParameter<RenderParameters::BoolParameter>( "material.renderAsSplat" )
+            .m_value;
+    m_ks =
+        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.ks" ).m_value;
+    m_ns =
+        m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.ns" ).m_value;
+    m_alpha = m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" )
+                  .m_value;
 }
 
 bool BlinnPhongMaterial::isTransparent() const {
@@ -149,6 +146,9 @@ void BlinnPhongMaterial::registerMaterial() {
                                      Rendering::DefaultRenderingPasses::LIGHTING_TRANSPARENT );
             }
         } );
+
+    // Registering parameters metadata
+    ParameterSetEditingInterface::loadMetaData( materialName, s_parametersMetadata );
 }
 
 void BlinnPhongMaterial::unregisterMaterial() {

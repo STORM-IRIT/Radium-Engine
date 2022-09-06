@@ -18,6 +18,7 @@ bool Material::isTransparent() const {
 std::list<std::string> Material::getPropertyList() const {
     return ShaderParameterProvider::getPropertyList();
 }
+
 } // namespace Data
 } // namespace Engine
 } // namespace Ra

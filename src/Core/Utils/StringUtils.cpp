@@ -65,6 +65,19 @@ std::string getBaseName( const std::string& path, bool keepExtension ) {
     return res;
 }
 
+std::size_t replaceAllInString( std::string& inout, std::string_view what, std::string_view with ) {
+    std::size_t count {};
+    for ( std::string::size_type pos {};
+          inout.npos != ( pos = inout.find( what.data(), pos, what.length() ) );
+          pos += with.length(), ++count ) {
+        inout.replace( pos, what.length(), with.data(), with.length() );
+    }
+    return count;
+}
+
+std::size_t removeAllInString( std::string& inout, std::string_view what ) {
+    return replaceAllInString( inout, what, "" );
+}
 } // namespace Utils
 } // namespace Core
 } // namespace Ra

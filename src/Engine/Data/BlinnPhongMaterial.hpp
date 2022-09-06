@@ -26,7 +26,7 @@ class ShaderProgram;
  * @todo due to "Material.glsl" interface modification, must test this version with all plugins,
  * apps, ... that uses Radium Renderer
  */
-class RA_ENGINE_API BlinnPhongMaterial final : public Material
+class RA_ENGINE_API BlinnPhongMaterial final : public Material, public ParameterSetEditingInterface
 {
     friend class BlinnPhongMaterialConverter;
 
@@ -49,6 +49,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
     ~BlinnPhongMaterial() override;
 
     void updateGL() override;
+    void updateFromParameters() override;
     bool isTransparent() const override;
 
     /**
@@ -78,6 +79,12 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
      */
     static void unregisterMaterial();
 
+    /**
+     * Get a json containing metadata about the parameters of the material.
+     * @return the metadata in json format
+     */
+    inline nlohmann::json getParametersMetadata() const override;
+
     inline void setColoredByVertexAttrib( bool state ) override;
 
     inline bool isColoredByVertexAttrib() const override;
@@ -102,6 +109,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
   private:
     std::map<TextureSemantic, Texture*> m_textures;
     std::map<TextureSemantic, TextureParameters> m_pendingTextures;
+    static nlohmann::json s_parametersMetadata;
 
     /**
      * Add an new texture, from a given file, to control the specified BSDF parameter.

@@ -7,11 +7,15 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
 
+#include <fstream>
+
 namespace Ra {
 namespace Engine {
 namespace Data {
 
 static const std::string materialName { "Volumetric" };
+
+nlohmann::json VolumetricMaterial::s_parametersMetadata = {};
 
 VolumetricMaterial::VolumetricMaterial( const std::string& name ) :
     Material( name, materialName, Material::MaterialAspect::MAT_DENSITY ) {}
@@ -23,6 +27,22 @@ void VolumetricMaterial::updateGL() {
 
     m_isDirty = false;
     updateRenderingParameters();
+}
+
+void VolumetricMaterial::updateFromParameters() {
+    m_sigma_a =
+        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.sigma_a" )
+            .m_value;
+    m_sigma_s =
+        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.sigma_s" )
+            .m_value;
+    m_g =
+        m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.g" ).m_value;
+    m_scale = m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.scale" )
+                  .m_value;
+    m_stepsize =
+        m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.stepsize" )
+            .m_value;
 }
 
 void VolumetricMaterial::updateRenderingParameters() {
@@ -100,6 +120,9 @@ void VolumetricMaterial::registerMaterial() {
             rt.setConfiguration( *passconfig,
                                  Rendering::DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
         } );
+
+    // Registering parameters metadata
+    ParameterSetEditingInterface::loadMetaData( materialName, s_parametersMetadata );
 }
 
 void VolumetricMaterial::unregisterMaterial() {

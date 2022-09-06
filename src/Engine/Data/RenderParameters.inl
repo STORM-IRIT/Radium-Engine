@@ -122,6 +122,51 @@ RenderParameters::getParameterSet() const {
     return m_texParamsVector;
 }
 
+template <typename T>
+inline bool RenderParameters::containsParameter( const std::string& name ) const {
+    auto& params = getParameterSet<T>();
+    return params.find( name ) != params.end();
+}
+
+template <typename T>
+inline const T& RenderParameters::getParameter( const std::string& name ) const {
+    auto& params = getParameterSet<T>();
+    return params.at( name );
+}
+
+template <typename Enum>
+inline RenderParameters::EnumConverter<Enum>::EnumConverter(
+    std::initializer_list<std::pair<typename std::underlying_type_t<Enum>, std::string>> pairs ) :
+    AbstractEnumConverter(), m_valueToString { pairs } {}
+
+template <typename Enum>
+inline void
+RenderParameters::EnumConverter<Enum>::setEnumValue( RenderParameters& p,
+                                                     const std::string& name,
+                                                     const std::string& enumerator ) const {
+    p.addParameter( name, m_valueToString.key( enumerator ) );
+}
+
+template <typename Enum>
+inline std::string RenderParameters::EnumConverter<Enum>::getEnumerator( int v ) const {
+    return m_valueToString( std::underlying_type_t<Enum>( v ) );
+}
+
+template <typename Enum>
+inline int RenderParameters::EnumConverter<Enum>::getEnumerator( const std::string& v ) const {
+    return m_valueToString.key( v );
+}
+
+template <typename Enum>
+std::vector<std::string> RenderParameters::EnumConverter<Enum>::getEnumerators() const {
+    std::vector<std::string> keys;
+    keys.reserve( m_valueToString.size() );
+    for ( const auto& p : m_valueToString ) {
+        keys.push_back( p.second );
+    }
+    return keys;
+}
+
 } // namespace Data
 } // namespace Engine
 } // namespace Ra

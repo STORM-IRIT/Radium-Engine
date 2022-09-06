@@ -89,7 +89,7 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
      * "#define theProperty". Shaders that support the given property could then fully render the
      * material. Others migh render the meterial eroneously.
      *
-     * The defaul implementation returns an empty list.
+     * The default implementation returns an empty list.
      *
      * \todo : Validate this proposal
      * \todo : make the property list modifiable as well

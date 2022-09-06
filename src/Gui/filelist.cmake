@@ -7,6 +7,8 @@
 set(gui_sources
     AboutDialog/AboutDialog.cpp
     BaseApplication.cpp
+    ParameterSetEditor/MaterialParameterEditor.cpp
+    ParameterSetEditor/ParameterSetEditor.cpp
     RadiumWindow/SimpleWindow.cpp
     SelectionManager/SelectionManager.cpp
     SkeletonBasedAnimation/SkeletonBasedAnimationUI.cpp
@@ -34,12 +36,16 @@ set(gui_sources
     Viewer/TrackballCameraManipulator.cpp
     Viewer/Viewer.cpp
     Viewer/WindowQt.cpp
+    Widgets/ControlPanel.cpp
+    Widgets/MatrixEditor.cpp
 )
 
 set(gui_headers
     AboutDialog/AboutDialog.hpp
     BaseApplication.hpp
     MainWindowInterface.hpp
+    ParameterSetEditor/MaterialParameterEditor.hpp
+    ParameterSetEditor/ParameterSetEditor.hpp
     RaGui.hpp
     RadiumWindow/SimpleWindow.hpp
     RadiumWindow/SimpleWindowFactory.hpp
@@ -71,9 +77,16 @@ set(gui_headers
     Viewer/TrackballCameraManipulator.hpp
     Viewer/Viewer.hpp
     Viewer/WindowQt.hpp
+    Widgets/ConstrainedNumericSpinBox.hpp
+    Widgets/ControlPanel.hpp
+    Widgets/MatrixEditor.hpp
+    Widgets/QtTypeWrapper.hpp
+    Widgets/VectorEditor.hpp
 )
 
-set(gui_inlines Viewer/WindowQt.inl)
+set(gui_inlines Viewer/WindowQt.inl Widgets/ConstrainedNumericSpinBox.inl Widgets/ControlPanel.inl
+                Widgets/VectorEditor.inl
+)
 
 set(gui_uis AboutDialog/AboutDialog.ui SkeletonBasedAnimation/SkeletonBasedAnimationUI.ui
             Timeline/HelpDialog.ui Timeline/Timeline.ui

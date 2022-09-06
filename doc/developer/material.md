@@ -125,6 +125,113 @@ public:
 
 See the [Render technique management](./rendertechnique) for documentation on how to build such an helper function.
 
+### Making a material editable {#editable-interface}
+
+Material which implement the Ra::Engine::Data::ParameterSetEditionInterface might be modified at runtime.
+
+This interface exposes the method Ra::Engine::Data::ParameterSetEditionInterface::getParametersMetadata
+which return a json-formatted parameter set informations containing type, constraints and documentation on each
+editable parameter.
+
+When implementing this interface, you need to return a correctly specified JSON.
+
+### The Material metadata specification
+
+#### Booleans
+
+~~~{json}
+"key": {
+  "description": "an optional description of the parameter",
+  "editable": false,
+  "name": "shortName",
+  "type": "boolean"
+},
+~~~
+
+The "editable" property specifies whether the boolean is editable, for instance it is not editable when it is linked with the presence of a texture.
+
+#### Enums
+
+When a parameter is referenced as an enum, the edition gui will present a combobox with the string representation of
+the enumaration values.
+Enumeration strings, could be defined in two ways.
+Either by associating a RenderParameter::EnumConverter with the material's parameter set or by defining the strings
+through the "values" field of the json object describing the enum.
+If the former is used, the "values" will not be used, even if present in the json description.
+
+~~~{json}
+"key": {
+  "name": "shortName",
+  "description": "an optional description of the parameter",
+  "type": "enum",
+  "values": [
+    "NAME0",
+    "NAME1",
+    "NAME2"
+  ]
+}
+~~~
+
+#### Numbers
+
+This is an unbounded number :
+
+~~~{json}
+"key": {
+  "description": "an optional description of the parameter"
+  "name": "shortName",
+  "type": "number"
+}
+~~~
+
+A number can have a minimum and/or a maximum :
+
+~~~{json}
+"key": {
+  "name": "shortName",
+  "minimum": 0.0,
+  "maximum": 1.0,
+  "type": "number"
+}
+~~~
+
+A number can alternatively have an array of ranges where it is defined :
+
+~~~{json}
+"key": {
+  "name": "shortName",
+  "oneOf": [
+    {
+      "minimum": 0.0,
+      "maximum": 0.0
+    },
+    {
+      "minimum": 1.0
+    }
+  ],
+  "type": "number"
+}
+~~~
+
+In this instance the number is ether 0 or greater than or equal to 1.0.
+
+#### Arrays
+
+~~~{json}
+"shortName": {
+  "name": "shortName",
+  "description": "an optional description of the parameter",
+  "type": "array",
+  "items": {
+    "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+  "minItems": 3,
+  "maxItems": 3
+}
+~~~
+
 ## GLSL interface {#glsl-mtl-lib}
 
 Being able to compose shaders in a specific renderer while taking profit of Radium Material Library

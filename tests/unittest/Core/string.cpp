@@ -53,4 +53,17 @@ TEST_CASE( "Core/Utils/StringUtils", "[Core][Core/Utils][StringUtils]" ) {
         REQUIRE( getDirName( path ) + "/" + getBaseName( path, false ) + "." + getFileExt( path ) ==
                  path );
     }
+    SECTION( "Test replace/remove" ) {
+        using Ra::Core::Utils::removeAllInString;
+        using Ra::Core::Utils::replaceAllInString;
+
+        std::string initial { "abbbbcdcba" };
+        auto n = removeAllInString( initial, "b" );
+        REQUIRE( n == 5 );
+        REQUIRE( initial == "acdca" );
+
+        n = replaceAllInString( initial, "c", "x" );
+        REQUIRE( n == 2 );
+        REQUIRE( initial == "axdxa" );
+    }
 } // TEST_CASE

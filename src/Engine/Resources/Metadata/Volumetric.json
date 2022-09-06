@@ -1,0 +1,42 @@
+{
+  "material.sigma_a": {
+    "description": "Absorption coefficient",
+    "maxItems": 3,
+    "minItems": 3,
+    "name": "sigma_a",
+    "type": "array"
+  },
+  "material.sigma_s": {
+    "description": "Scattering coefficient",
+    "maxItems": 3,
+    "minItems": 3,
+    "name": "sigma_s",
+    "type": "array"
+  },
+  "material.g": {
+    "description": "phase function assymetry factor",
+    "name": "g",
+    "type": "number"
+  },
+  "material.scale": {
+    "description": "Scale factor applied to the absorption and scattering coefficients.",
+    "name": "scale",
+    "type": "number"
+  },
+  "material.stepsize": {
+    "description": "Step size for ray-marching rendering.",
+    "name": "stepsize",
+    "type": "number"
+  },
+  "material.density": {
+    "name": "density",
+    "type": "texture"
+  },
+  "material.modelToDensity": {
+    "description": "Transformation matrix to go from the associated geometry frame to the canonical [0, 1]^3 density domain",
+    "maxItems": 6,
+    "minItems": 6,
+    "name": "modelToDensity",
+    "type": "array"
+  }
+}
