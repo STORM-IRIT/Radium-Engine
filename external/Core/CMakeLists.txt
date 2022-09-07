@@ -22,7 +22,7 @@ if(NOT DEFINED Eigen3_DIR)
     ExternalProject_Add(
         Eigen3
         GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
-        GIT_TAG e80ec243
+        GIT_TAG tags/3.4.0
         GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
