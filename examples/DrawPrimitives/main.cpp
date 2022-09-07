@@ -19,8 +19,10 @@ int main( int argc, char* argv[] ) {
     QApplication::processEvents();
 
     // Create and initialize entity and component
-    Ra::Engine::Scene::Entity* e = app.m_engine->getEntityManager()->createEntity( "Cube" );
-    MinimalComponent* c          = new MinimalComponent( e );
+    /// \todo Create one entity per object, instead of using the big "all primitive component"
+    Ra::Engine::Scene::Entity* e =
+        app.m_engine->getEntityManager()->createEntity( "All Primitives" );
+    AllPrimitivesComponent* c = new AllPrimitivesComponent( e );
     c->initialize();
 
     // prepare the viewer to render the scene (i.e. build RenderTechniques for the active renderer)

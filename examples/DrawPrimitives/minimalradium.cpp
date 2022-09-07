@@ -9,7 +9,6 @@
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
-
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/Mesh.hpp>
@@ -19,6 +18,7 @@
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
 
 #ifdef IO_HAS_ASSIMP
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
@@ -54,12 +54,7 @@ using namespace Ra::Engine::Rendering;
 using namespace Ra::Engine::Data;
 using namespace Ra::Engine::Scene;
 
-/**
- * This file contains a minimal radium/qt application which shows the geometrical primitives
- * supported by Radium
- */
-
-MinimalComponent::MinimalComponent( Ra::Engine::Scene::Entity* entity ) :
+AllPrimitivesComponent::AllPrimitivesComponent( Ra::Engine::Scene::Entity* entity ) :
     Ra::Engine::Scene::Component( "Minimal Component", entity ) {}
 
 void updateCellCorner( Vector3& cellCorner, const Scalar cellSize, const int nCellX, const int ) {
@@ -71,9 +66,7 @@ void updateCellCorner( Vector3& cellCorner, const Scalar cellSize, const int nCe
     }
 }
 
-/// This function is called when the component is properly
-/// setup, i.e. it has an entity.
-void MinimalComponent::initialize() {
+void AllPrimitivesComponent::initialize() {
     auto rp = Resources::getResourcesPath();
 
     auto blinnPhongMaterial              = make_shared<BlinnPhongMaterial>( "Shaded Material" );
