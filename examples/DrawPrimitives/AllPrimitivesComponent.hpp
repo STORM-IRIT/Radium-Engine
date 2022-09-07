@@ -3,6 +3,7 @@
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/Entity.hpp>
 
+/// This component create several renderobject to show radium draw primitives.
 struct AllPrimitivesComponent : public Ra::Engine::Scene::Component {
 
     explicit AllPrimitivesComponent( Ra::Engine::Scene::Entity* entity );
