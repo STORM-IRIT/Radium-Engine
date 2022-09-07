@@ -22,6 +22,7 @@ set(test_src
     Core/obb.cpp
     Core/observer.cpp
     Core/polyline.cpp
+    Core/random.cpp
     Core/raycast.cpp
     Core/resources.cpp
     Core/string.cpp
