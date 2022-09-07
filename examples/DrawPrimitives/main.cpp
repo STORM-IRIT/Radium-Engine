@@ -9,11 +9,6 @@
 #include <minimalapp.hpp>
 #include <minimalradium.hpp>
 
-#include <Gui/BaseApplication.hpp>
-#include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
-
-using namespace Ra::Gui;
-
 int main( int argc, char* argv[] ) {
 
     // Create app and show viewer window

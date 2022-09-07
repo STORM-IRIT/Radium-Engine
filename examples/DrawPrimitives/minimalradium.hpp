@@ -5,7 +5,6 @@
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-/// This is a very basic component which holds a spinning cube.
 struct MinimalComponent : public Ra::Engine::Scene::Component {
 
     explicit MinimalComponent( Ra::Engine::Scene::Entity* entity );
