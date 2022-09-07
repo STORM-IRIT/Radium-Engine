@@ -32,8 +32,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # ------------------------------------------------------------------------------
 
-set(app_sources main.cpp minimalapp.cpp minimalradium.cpp)
-set(app_headers minimalapp.hpp minimalradium.hpp)
+set(app_sources main.cpp minimalapp.cpp AllPrimitivesComponent.cpp)
+set(app_headers minimalapp.hpp AllPrimitivesComponent.hpp)
 
 set(app_uis)
 qt_wrap_ui(app_uis_moc ${app_uis})
