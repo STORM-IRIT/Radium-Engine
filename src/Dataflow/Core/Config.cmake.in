@@ -1,0 +1,30 @@
+# -------------- Configuration of the Radium DataflowCore targets and definitions -----------------------
+# Setup Engine and check for dependencies
+
+if (DataflowCore_FOUND AND NOT TARGET DataflowCore)
+    set(Configure_DataflowCore ON)
+    # verify dependencies
+    if(NOT Core_FOUND)
+        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake")
+            set(Core_FOUND TRUE)
+            include(${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake)
+        else()
+            set(Radium_FOUND False)
+            set(Radium_NOT_FOUND_MESSAGE "Radium::Engine: dependency Core not found")
+            set(Configure_Engine OFF)
+        endif()
+    endif()
+endif()
+
+if(Configure_DataflowCore)
+    # Theses paths reflect the paths founds in RadiumEngine/external/Dataflow/package
+    set(_BaseExternalDir_ "${CMAKE_CURRENT_LIST_DIR}/../../../../")
+    if("@stduuid_DIR@" STREQUAL "")
+        set(stduuid_DIR "${_BaseExternalDir_}/@stduuid_sub_DIR@")
+    else()
+        set(stduuid_DIR "@stduuid_DIR@")
+    endif()
+
+    find_dependency(stduuid REQUIRED NO_DEFAULT_PATH)
+    include("${CMAKE_CURRENT_LIST_DIR}/../Dataflow/Core/DataflowCoreTargets.cmake")
+endif()
