@@ -6,8 +6,8 @@
 
 #include <Engine/Scene/EntityManager.hpp>
 
+#include <AllPrimitivesComponent.hpp>
 #include <minimalapp.hpp>
-#include <minimalradium.hpp>
 
 int main( int argc, char* argv[] ) {
 

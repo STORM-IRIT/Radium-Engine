@@ -1,5 +1,5 @@
 
-#include <minimalradium.hpp>
+#include <AllPrimitivesComponent.hpp>
 
 #include <Core/Asset/FileData.hpp>
 #include <Core/Containers/MakeShared.hpp>
