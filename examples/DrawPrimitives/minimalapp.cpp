@@ -25,7 +25,7 @@ MinimalApp::~MinimalApp() {
     m_taskQueue.reset( nullptr );
     m_viewer.reset( nullptr );
     m_engine->cleanup();
-    m_engine.reset( nullptr );
+    Ra::Engine::RadiumEngine::destroyInstance();
 }
 
 void MinimalApp::initialize() {
@@ -40,7 +40,7 @@ void MinimalApp::initialize() {
     QSurfaceFormat::setDefaultFormat( format );
 
     // Initialize Engine.
-    m_engine.reset( Engine::RadiumEngine::createInstance() );
+    m_engine = Engine::RadiumEngine::createInstance();
     m_engine->initialize();
 
     // Initialize taskqueue.
