@@ -31,8 +31,8 @@ class MinimalApp : public QApplication
     void onRequestEngineOpenGLInitialization();
 
   public:
-    // Our instance of the engine
-    std::unique_ptr<Ra::Engine::RadiumEngine> m_engine { nullptr };
+    // pointer to engine singleton
+    Ra::Engine::RadiumEngine* m_engine { nullptr };
 
     // Task queue
     std::unique_ptr<Ra::Core::TaskQueue> m_taskQueue { nullptr };
