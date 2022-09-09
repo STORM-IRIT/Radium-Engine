@@ -46,7 +46,9 @@ const CLIViewer::ViewerParameters& CLIViewer::getCommandLineParameters() const {
 int CLIViewer::init( int argc, const char* argv[] ) {
     int parseResult = CLIBaseApplication::init( argc, argv );
     if ( parseResult != 0 ) {
-        LOG( logERROR ) << "Invalid command line argument, the application can't run";
+        if ( parseResult != 1 ) {
+            LOG( logERROR ) << "Invalid command line argument, the application can't run";
+        }
         return 1;
     };
     // Do the Viewer init
