@@ -260,7 +260,7 @@ void BaseApplication::initialize( const WindowFactory& factory,
 
     // == Configure Engine and basic scene services //
     // Create engine
-    m_engine.reset( Engine::RadiumEngine::createInstance() );
+    m_engine = Engine::RadiumEngine::createInstance();
     m_engine->initialize();
 
     // Configure Engine basic scene services (non openGL dependant)
@@ -285,7 +285,7 @@ void BaseApplication::initialize( const WindowFactory& factory,
 
     // == Configure Application plugins == //
     // Initialize plugin context
-    m_pluginContext.m_engine           = m_engine.get();
+    m_pluginContext.m_engine           = m_engine;
     m_pluginContext.m_selectionManager = m_mainWindow->getSelectionManager();
     m_pluginContext.m_timeline         = m_mainWindow->getTimeline();
     m_pluginContext.m_pickingManager   = m_viewer->getPickingManager();
