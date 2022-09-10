@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Core/Utils/BijectiveAssociation.hpp>
 #include <Engine/RaEngine.hpp>
 
 #include <Engine/Data/DisplayableObject.hpp>
@@ -299,9 +300,8 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     void addToTranslationTable( const std::string& name );
 
     /// Core::Mesh attrib name to Render::Mesh attrib name
-    using TranslationTable = std::map<std::string, std::string>;
-    TranslationTable m_translationTableMeshToShader;
-    TranslationTable m_translationTableShaderToMesh;
+    /// key: core mesh name, value: shader name
+    BijectiveAssociation<std::string, std::string> m_translationTable {};
 
     CoreGeometry m_mesh;
 };
