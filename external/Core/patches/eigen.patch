@@ -1,0 +1,30 @@
+From c9800d36fa958d1983efc94d72a44cf433eee655 Mon Sep 17 00:00:00 2001
+From: dlyr <github@dlyr.fr>
+Date: Fri, 9 Sep 2022 18:39:37 +0200
+Subject: [PATCH] patch
+
+---
+ CMakeLists.txt | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f3e69b845..8a76a13ad 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -495,14 +495,6 @@ if(BUILD_TESTING)
+   add_subdirectory(failtest)
+ endif()
+
+-if(EIGEN_LEAVE_TEST_IN_ALL_TARGET)
+-  add_subdirectory(blas)
+-  add_subdirectory(lapack)
+-else()
+-  add_subdirectory(blas EXCLUDE_FROM_ALL)
+-  add_subdirectory(lapack EXCLUDE_FROM_ALL)
+-endif()
+-
+ # add SYCL
+ option(EIGEN_TEST_SYCL "Add Sycl support." OFF)
+ option(EIGEN_SYCL_TRISYCL "Use the triSYCL Sycl implementation (ComputeCPP by default)." OFF)
+--
+2.30.2

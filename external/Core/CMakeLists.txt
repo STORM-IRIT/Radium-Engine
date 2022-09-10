@@ -22,9 +22,11 @@ if(NOT DEFINED Eigen3_DIR)
     ExternalProject_Add(
         Eigen3
         GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
-        GIT_TAG e80ec243
+        GIT_TAG tags/3.4.0
         GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
+        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
+                      "${CMAKE_CURRENT_LIST_DIR}/patches/eigen.patch"
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF
                    -DEIGEN_BUILD_DOC=OFF "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
