@@ -8,6 +8,7 @@ on:
   pull_request:
     branches:
       - release-candidate
+      - master
 
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
