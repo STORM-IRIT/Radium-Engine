@@ -195,11 +195,7 @@ CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getCoreGeometry() {
 
 template <typename CoreGeometry>
 void CoreGeometryDisplayable<CoreGeometry>::addToTranslationTable( const std::string& name ) {
-    auto it = m_translationTableMeshToShader.find( name );
-    if ( it == m_translationTableMeshToShader.end() ) {
-        m_translationTableMeshToShader[name] = name;
-        m_translationTableShaderToMesh[name] = name;
-    }
+    m_translationTable.insert( name, name );
 }
 
 template <typename CoreGeometry>
@@ -241,24 +237,29 @@ void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const Shade
         glprog->getActiveAttrib( idx, bufSize, &length, &size, &type, name );
         auto loc = glprog->getAttributeLocation( name );
 
-        auto attribName = m_translationTableShaderToMesh[name];
-        auto attrib     = m_mesh.getAttribBase( attribName );
-
-        if ( attrib && attrib->getSize() > 0 ) {
-            m_vao->enable( loc );
-            auto binding = m_vao->binding( idx );
-            binding->setAttribute( loc );
-            CORE_ASSERT( m_vbos[m_handleToBuffer[attribName]].get(), "vbo is nullptr" );
+        auto attribNameOpt = m_translationTable.keyIfExists( name );
+        if ( attribNameOpt ) {
+            auto attribName = *attribNameOpt;
+            auto attrib     = m_mesh.getAttribBase( attribName );
+            if ( attrib && attrib->getSize() > 0 ) {
+                m_vao->enable( loc );
+                auto binding = m_vao->binding( idx );
+                binding->setAttribute( loc );
+                CORE_ASSERT( m_vbos[m_handleToBuffer[attribName]].get(), "vbo is nullptr" );
 #ifdef CORE_USE_DOUBLE
-            binding->setBuffer( m_vbos[m_handleToBuffer[attribName]].get(),
-                                0,
-                                attrib->getNumberOfComponents() * sizeof( float ) );
+                binding->setBuffer( m_vbos[m_handleToBuffer[attribName]].get(),
+                                    0,
+                                    attrib->getNumberOfComponents() * sizeof( float ) );
 #else
 
-            binding->setBuffer(
-                m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib->getStride() );
+                binding->setBuffer(
+                    m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib->getStride() );
 #endif
-            binding->setFormat( attrib->getNumberOfComponents(), GL_SCALAR );
+                binding->setFormat( attrib->getNumberOfComponents(), GL_SCALAR );
+            }
+            else {
+                m_vao->disable( loc );
+            }
         }
         else {
             m_vao->disable( loc );
@@ -388,26 +389,7 @@ void CoreGeometryDisplayable<CoreGeometry>::setAttribNameCorrespondance(
     const std::string& meshAttribName,
     const std::string& shaderAttribName ) {
 
-    // clean previously set translation
-
-    auto it1 = std::find_if( m_translationTableShaderToMesh.begin(),
-                             m_translationTableShaderToMesh.end(),
-                             [&meshAttribName]( const TranslationTable::value_type& p ) {
-                                 return p.second == meshAttribName;
-                             } );
-
-    if ( it1 != m_translationTableShaderToMesh.end() ) m_translationTableShaderToMesh.erase( it1 );
-
-    auto it2 = std::find_if( m_translationTableMeshToShader.begin(),
-                             m_translationTableMeshToShader.end(),
-                             [&shaderAttribName]( const TranslationTable::value_type& p ) {
-                                 return p.second == shaderAttribName;
-                             } );
-
-    if ( it2 != m_translationTableMeshToShader.end() ) m_translationTableMeshToShader.erase( it2 );
-
-    m_translationTableShaderToMesh[shaderAttribName] = meshAttribName;
-    m_translationTableMeshToShader[meshAttribName]   = shaderAttribName;
+    m_translationTable.replace( meshAttribName, shaderAttribName );
 }
 
 ////////////////  IndexedGeometry  ///////////////////////////////
