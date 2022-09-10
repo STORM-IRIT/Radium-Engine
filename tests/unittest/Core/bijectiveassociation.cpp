@@ -1,5 +1,6 @@
 #include <Core/Utils/BijectiveAssociation.hpp>
 
+#include <stdexcept>
 #include <string>
 
 #include <catch2/catch.hpp>
@@ -31,7 +32,7 @@ TEST_CASE( "Core/Utils/BijectiveAssociation", "[Core][Core/Utils][BijectiveAssoc
         myTranslator.insert( "Three", "Trois" );
         REQUIRE( myTranslator.insert( { "Four", "Quatre" } ) ); // first insert pass
         REQUIRE( !myTranslator.insert(
-            { "Four", "Quatre" } ) ); // seconid insert failed since already present
+            { "Four", "Quatre" } ) ); // second insert failed since already present
 
         REQUIRE( myTranslator( "Four" ) == "Quatre" );
         REQUIRE( myTranslator.value( "Three" ) == "Trois" );
@@ -45,5 +46,34 @@ TEST_CASE( "Core/Utils/BijectiveAssociation", "[Core][Core/Utils][BijectiveAssoc
             REQUIRE( myTranslator.value( e.first ) == e.second );
             REQUIRE( myTranslator.key( e.second ) == e.first );
         }
+    }
+
+    SECTION( "Erase, replace, get undef." ) {
+        BijectiveAssociation<std::string, int> myTranslator {
+            { "Foo", 1 }, { "Bar", 2 }, { "Baz", 3 } };
+
+        REQUIRE_THROWS_AS( myTranslator.value( "Faz" ), std::out_of_range );
+        REQUIRE_THROWS_AS( myTranslator.key( 4 ), std::out_of_range );
+
+        REQUIRE( !myTranslator.valueIfExists( "Faz" ) );
+        REQUIRE( !myTranslator.keyIfExists( 4 ) );
+
+        REQUIRE( myTranslator.value( "Foo" ) == 1 );
+        REQUIRE( myTranslator.key( 1 ) == "Foo" );
+        myTranslator.replace( "Foo", 4 );
+        REQUIRE( myTranslator.value( "Foo" ) == 4 );
+        REQUIRE( myTranslator.key( 4 ) == "Foo" );
+
+        myTranslator.remove( "Bar", 2 );
+        myTranslator.remove( "Unknown", 6 );
+        myTranslator.insert( "Bar", 6 );
+        REQUIRE( myTranslator.value( "Bar" ) == 6 );
+        REQUIRE( myTranslator.key( 6 ) == "Bar" );
+
+        REQUIRE( myTranslator.value( "Foo" ) == 4 );
+        REQUIRE( myTranslator.key( 4 ) == "Foo" );
+        myTranslator.replace( "Faz", 4 );
+        REQUIRE( myTranslator.value( "Faz" ) == 4 );
+        REQUIRE( myTranslator.key( 4 ) == "Faz" );
     }
 }
