@@ -61,7 +61,7 @@ bool BijectiveAssociation<T1, T2>::remove( key_type key, value_type value ) {
     // clean previously set association
     auto it1 = m_keyToValue.find( key );
     auto it2 = m_valueToKey.find( value );
-    if ( it1 == m_valueToKey.end() || it2 == m_keyToValue.end() ) return false;
+    if ( it1 == m_keyToValue.end() || it2 == m_valueToKey.end() ) return false;
 
     if ( it1->second != value || it2->second != key ) return false;
 
