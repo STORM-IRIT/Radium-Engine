@@ -64,9 +64,9 @@ TEST_CASE( "Core/Utils/BijectiveAssociation", "[Core][Core/Utils][BijectiveAssoc
         REQUIRE( myTranslator.value( "Foo" ) == 4 );
         REQUIRE( myTranslator.key( 4 ) == "Foo" );
 
-        myTranslator.remove( "Bar", 2 );
-        myTranslator.remove( "Unknown", 6 );
-        myTranslator.insert( "Bar", 6 );
+        REQUIRE( myTranslator.remove( "Bar", 2 ) );
+        REQUIRE( !myTranslator.remove( "Unknown", 6 ) );
+        REQUIRE( myTranslator.insert( "Bar", 6 ) );
         REQUIRE( myTranslator.value( "Bar" ) == 6 );
         REQUIRE( myTranslator.key( 6 ) == "Bar" );
 
