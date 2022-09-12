@@ -26,30 +26,30 @@ bool BijectiveAssociation<T1, T2>::insert( std::pair<key_type, value_type> p ) {
 }
 
 template <typename T1, typename T2>
-bool BijectiveAssociation<T1, T2>::insert( key_type v1, value_type v2 ) {
-    return insert( { v1, v2 } );
+bool BijectiveAssociation<T1, T2>::insert( key_type key, value_type value ) {
+    return insert( { key, value } );
 }
 
 template <typename T1, typename T2>
-void BijectiveAssociation<T1, T2>::replace( key_type v1, value_type v2 ) {
+void BijectiveAssociation<T1, T2>::replace( key_type key, value_type value ) {
     // clean previously set association
     auto it1 = std::find_if(
         m_keyToValue.begin(),
         m_keyToValue.end(),
-        [&v2]( const typename key_to_value_map::value_type& v ) { return v2 == v.second; } );
+        [&value]( const typename key_to_value_map::value_type& v ) { return value == v.second; } );
 
     if ( it1 != m_keyToValue.end() ) m_keyToValue.erase( it1 );
 
     auto it2 = std::find_if(
         m_valueToKey.begin(),
         m_valueToKey.end(),
-        [&v1]( const typename value_to_key_map::value_type& v ) { return v1 == v.second; } );
+        [&key]( const typename value_to_key_map::value_type& v ) { return key == v.second; } );
 
     if ( it2 != m_valueToKey.end() ) m_valueToKey.erase( it2 );
 
     // set new association
-    m_keyToValue[v1] = v2;
-    m_valueToKey[v2] = v1;
+    m_keyToValue[key]   = value;
+    m_valueToKey[value] = key;
 }
 template <typename T1, typename T2>
 void BijectiveAssociation<T1, T2>::replace( std::pair<key_type, value_type> p ) {
@@ -57,27 +57,22 @@ void BijectiveAssociation<T1, T2>::replace( std::pair<key_type, value_type> p ) 
 }
 
 template <typename T1, typename T2>
-void BijectiveAssociation<T1, T2>::remove( key_type v1, value_type v2 ) {
+bool BijectiveAssociation<T1, T2>::remove( key_type key, value_type value ) {
     // clean previously set association
-    auto it1 = std::find_if(
-        m_keyToValue.begin(),
-        m_keyToValue.end(),
-        [&v2]( const typename key_to_value_map::value_type& v ) { return v2 == v.second; } );
+    auto it1 = m_keyToValue.find( key );
+    auto it2 = m_valueToKey.find( value );
+    if ( it1 == m_valueToKey.end() || it2 == m_keyToValue.end() ) return false;
 
-    if ( it1 != m_keyToValue.end() ) m_keyToValue.erase( it1 );
-    m_keyToValue.erase( v1 );
+    if ( it1->second != value || it2->second != key ) return false;
 
-    auto it2 = std::find_if(
-        m_valueToKey.begin(),
-        m_valueToKey.end(),
-        [&v1]( const typename value_to_key_map::value_type& v ) { return v1 == v.second; } );
-
-    if ( it2 != m_valueToKey.end() ) m_valueToKey.erase( it2 );
-    m_valueToKey.erase( v2 );
+    m_keyToValue.erase( it1 );
+    m_valueToKey.erase( it2 );
+    return true;
 }
+
 template <typename T1, typename T2>
-void BijectiveAssociation<T1, T2>::remove( std::pair<key_type, value_type> p ) {
-    remove( p.frist, p.second );
+bool BijectiveAssociation<T1, T2>::remove( std::pair<key_type, value_type> p ) {
+    return remove( p.frist, p.second );
 }
 
 template <typename T1, typename T2>
