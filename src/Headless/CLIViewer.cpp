@@ -34,8 +34,6 @@ CLIViewer::~CLIViewer() {
         m_glContext.makeCurrent();
         m_renderer.reset();
         m_engine->cleanup();
-        Ra::Engine::RadiumEngine::destroyInstance();
-        m_engine.release();
         m_glContext.doneCurrent();
     }
 }
@@ -62,7 +60,7 @@ int CLIViewer::init( int argc, const char* argv[] ) {
     // Initialize the Radium engine environment
 
     // Create engine
-    m_engine.reset( Ra::Engine::RadiumEngine::createInstance() );
+    m_engine = Ra::Engine::RadiumEngine::createInstance();
     m_engine->initialize();
     m_engineInitialized = true;
 

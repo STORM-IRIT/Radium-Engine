@@ -47,10 +47,10 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
 
   public:
     /// Instance of the radium engine.
-    std::unique_ptr<Ra::Engine::RadiumEngine> m_engine;
+    Ra::Engine::RadiumEngine* m_engine;
 
     /// To have the same API to access Engine than in Qt based application.
-    const Engine::RadiumEngine* getEngine() const { return m_engine.get(); }
+    const Engine::RadiumEngine* getEngine() const { return m_engine; }
 
   private:
     /// Headless OpenGLContext
