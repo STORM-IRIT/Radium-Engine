@@ -573,6 +573,7 @@ BaseApplication::~BaseApplication() {
     emit stopping();
     m_mainWindow->cleanup();
     m_engine->cleanup();
+    Ra::Engine::RadiumEngine::destroyInstance();
 
     // This will remove the directory if empty.
     QDir().rmdir( m_exportFoldername.c_str() );
