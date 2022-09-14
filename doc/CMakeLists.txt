@@ -80,10 +80,6 @@ if(DOXYGEN_FOUND)
             else()
                 set(USE_AWESOME_CSS YES)
             endif()
-            set(RADIUM_DOXYGEN_AWESOME_CSS
-                "${RADIUM_DOXYGEN_AWESOME_CSS}"
-                "${RADIUM_DOXYGEN_AWESOME_CSS_ROOT}/doxygen-awesome-sidebar-only.css"
-            )
         else()
             set(RADIUM_DOXYGEN_AWESOME_CSS "")
         endif()
@@ -125,14 +121,25 @@ if(DOXYGEN_FOUND)
     set(DOXYGEN_SOURCE_BROWSER "YES")
     set(DOXYGEN_REFERENCES_LINK_SOURCE "NO")
     set(DOXYGEN_COLS_IN_ALPHA_INDEX "2")
+    set(DOXYGEN_HTML_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/header.html")
     set(DOXYGEN_HTML_COLORSTYLE_HUE "40")
     set(DOXYGEN_HTML_COLORSTYLE_SAT "50")
     set(DOXYGEN_HTML_COLORSTYLE_GAMMA "160")
     set(DOXYGEN_HTML_TIMESTAMP "YES")
     set(DOXYGEN_HTML_DYNAMIC_SECTIONS "YES")
-    set(DOXYGEN_HTML_EXTRA_STYLESHEET ${RADIUM_DOXYGEN_AWESOME_CSS}
-                                      ${CMAKE_CURRENT_SOURCE_DIR}/custom.css
-    )
+    if(USE_AWESOME_CSS)
+        set(DOXYGEN_HTML_EXTRA_STYLESHEET
+            "${RADIUM_DOXYGEN_AWESOME_CSS}"
+            "${RADIUM_DOXYGEN_AWESOME_CSS_ROOT}/doxygen-awesome-sidebar-only.css"
+            "${RADIUM_DOXYGEN_AWESOME_CSS_ROOT}/doxygen-awesome-sidebar-only-darkmode-toggle.css"
+            "${CMAKE_CURRENT_SOURCE_DIR}/custom.css"
+        )
+        set(DOXYGEN_HTML_EXTRA_FILES
+            "${RADIUM_DOXYGEN_AWESOME_CSS_ROOT}/doxygen-awesome-darkmode-toggle.js"
+            "${RADIUM_DOXYGEN_AWESOME_CSS_ROOT}/doxygen-awesome-fragment-copy-button.js"
+            "${RADIUM_DOXYGEN_AWESOME_CSS_ROOT}/doxygen-awesome-paragraph-link.js"
+        )
+    endif()
     set(DOXYGEN_HIDE_UNDOC_CLASSES "YES")
 
     set(DOXYGEN_DOCSET_BUNDLE_ID "com.storm-irit.RadiumEngine")
