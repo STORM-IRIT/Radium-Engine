@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -103,7 +104,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1KeyMappingManager.ht
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#ae940bc62f42ec8c7ded6e28f4ee34d4d">addListener</a>(Observable::Observer callback)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>(Observer observer)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">attachMember</a>(T *object, void(T::*observer)(Args...))</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> typedef</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>Context</b> typedef (defined in <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a>)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">copyObserversTo</a>(Observable &amp;other) const</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">detach</a>(int observerId)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">detachAll</a>()</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
@@ -115,24 +116,24 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1KeyMappingManager.ht
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a4fee0746b2d2ef301af275de29daeb85">getContext</a>(const std::string &amp;contextName)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#ac543b46b15697cdf1f4549e7ed56a4a1">getContextName</a>(const Context &amp;context)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a7b439681a70ebb44aa16e7964f715cee">getHelpText</a>()</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#aa3122cf424cc8ddcec4aa7c20be22a76">getLoadedFilename</a>()</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a> typedef</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getLoadedFilename</b>() (defined in <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a>)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>KeyMappingAction</b> typedef (defined in <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a>)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a13dcf060b7ef48066af54fd566750cb8">loadConfiguration</a>(const std::string &amp;filename={})</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">notify</a>(Args... p) const</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4b2542963e7be1fd2f306420cbe36b11">Observable</a>()=default</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4f61ff3877d75c3b82e134d1a532b417">Observable</a>(const Observable &amp;)=delete</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Observable</b>(const Observable &amp;)=delete (defined in <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a>)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observer</a> typedef</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#aa755a5614695dfcc4f656178567b9086">operator=</a>(const Observable &amp;)=delete</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>operator=</b>(const Observable &amp;)=delete (defined in <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a>)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a741cb53f7151701a53a67ea9d904e5d0">reloadConfiguration</a>()</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a8883b06bab09e89ee99714274b8ae315">removeListener</a>(int callbackId)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#aa920d2eb2a041c1ec4e9942fd5f8f7a6">saveConfiguration</a>(const std::string &amp;filename={})</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a817ec0cc8b11da60ced6fc2c5800ad3f">~Observable</a>()=default</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~Observable</b>()=default (defined in <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a>)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable&lt;&gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:52 for Radium Engine by
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

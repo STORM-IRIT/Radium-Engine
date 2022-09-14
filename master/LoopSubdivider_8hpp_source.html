@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,17 +96,17 @@ $(document).ready(function(){initNavTree('LoopSubdivider_8hpp_source.html',''); 
 <div class="title">LoopSubdivider.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="LoopSubdivider_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="deprecated_2TopologicalMesh_8hpp.html">Core/Geometry/deprecated/TopologicalMesh.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="LinearAlgebra_8hpp.html">Core/Math/LinearAlgebra.hpp</a>&gt;</span> <span class="comment">// Math::pi</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/deprecated/TopologicalMesh.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Math/LinearAlgebra.hpp&gt;</span> <span class="comment">// Math::pi</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;OpenMesh/Tools/Subdivider/Uniform/SubdividerT.hh&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Geometry</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Geometry {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html">LoopSubdivider</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html">   17</a></span>&#160;<span class="keyword">class </span>RA_CORE_API <a class="code" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html">LoopSubdivider</a></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    : <span class="keyword">public</span> OpenMesh::Subdivider::Uniform::SubdividerT&lt;deprecated::TopologicalMesh, Scalar&gt;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
@@ -120,14 +121,14 @@ $(document).ready(function(){initNavTree('LoopSubdivider_8hpp_source.html',''); 
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">using</span> SP_OPS  = std::vector&lt;P_OPS&gt;;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#a2f6320e15e77b1c72437d3c00207ad65">   32</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#a2f6320e15e77b1c72437d3c00207ad65">LoopSubdivider</a>() : base() {}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html">LoopSubdivider</a>() : base() {}</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#a7ef293b9ab778b15b92bbfa158913f12">   34</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#a7ef293b9ab778b15b92bbfa158913f12">LoopSubdivider</a>( <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">deprecated::TopologicalMesh</a>&amp; mesh ) : base() { attach( mesh ); }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html">LoopSubdivider</a>( <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">deprecated::TopologicalMesh</a>&amp; mesh ) : base() { attach( mesh ); }</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#ad650455ef805579f334047f5a4a985ec">   36</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#ad650455ef805579f334047f5a4a985ec">~LoopSubdivider</a>() { detach(); }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    ~<a class="code" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html">LoopSubdivider</a>() { detach(); }</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#afcc808c56ee62d778fe0c2729b31a85c">   39</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#afcc808c56ee62d778fe0c2729b31a85c">name</a>( <span class="keywordtype">void</span> )<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;LoopSubdivider&quot;</span>; }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* name( <span class="keywordtype">void</span> )<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;LoopSubdivider&quot;</span>; }</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// clang-format off</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment"></span>    <span class="comment">// clang-format on</span></div>
@@ -145,7 +146,7 @@ $(document).ready(function(){initNavTree('LoopSubdivider_8hpp_source.html',''); 
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">bool</span> prepare( <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">deprecated::TopologicalMesh</a>&amp; mesh ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa6ae112380ba99284cc2261740886c55">cleanup</a>( <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">deprecated::TopologicalMesh</a>&amp; mesh ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">bool</span> cleanup( <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">deprecated::TopologicalMesh</a>&amp; mesh ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">bool</span> subdivide( <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">deprecated::TopologicalMesh</a>&amp; mesh,</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    <span class="keywordtype">size_t</span> n,</div>
@@ -159,9 +160,9 @@ $(document).ready(function(){initNavTree('LoopSubdivider_8hpp_source.html',''); 
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="comment">// alpha(n) = ---- * (40 - ( 3 + 2 cos( 2 Pi / n ) )^2 )</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="comment">//             64</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="keywordflow">if</span> ( ++m_valence ) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keywordtype">double</span> inv_v = 1.0 / <a class="code" href="classdouble.html">double</a>( m_valence );</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordtype">double</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>     = ( 3.0 + 2.0 * <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8">std::cos</a>( 2.0 * <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ae85a94d4f706d35cfcd6864480aee5b3">Math::Pi</a> * inv_v ) );</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                <span class="keywordtype">double</span> alpha = ( 40.0 - <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> * <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ) / 64.0;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keywordtype">double</span> inv_v = 1.0 / double( m_valence );</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordtype">double</span> t     = ( 3.0 + 2.0 * std::cos( 2.0 * Math::Pi * inv_v ) );</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                <span class="keywordtype">double</span> alpha = ( 40.0 - t * t ) / 64.0;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="keywordflow">return</span> Weight( 1.0 - alpha, inv_v * alpha );</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            }</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keywordflow">return</span> Weight( 0, 0 );</div>
@@ -214,28 +215,15 @@ $(document).ready(function(){initNavTree('LoopSubdivider_8hpp_source.html',''); 
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aLinearAlgebra_8hpp_html"><div class="ttname"><a href="LinearAlgebra_8hpp.html">LinearAlgebra.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">Ra::Core::Geometry::deprecated::TopologicalMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8hpp_source.html#l00053">TopologicalMesh.hpp:53</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1LoopSubdivider_html_ad650455ef805579f334047f5a4a985ec"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#ad650455ef805579f334047f5a4a985ec">Ra::Core::Geometry::LoopSubdivider::~LoopSubdivider</a></div><div class="ttdeci">~LoopSubdivider()</div><div class="ttdef"><b>Definition:</b> <a href="LoopSubdivider_8hpp_source.html#l00036">LoopSubdivider.hpp:36</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1LoopSubdivider_html_afcc808c56ee62d778fe0c2729b31a85c"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#afcc808c56ee62d778fe0c2729b31a85c">Ra::Core::Geometry::LoopSubdivider::name</a></div><div class="ttdeci">const char * name(void) const override</div><div class="ttdef"><b>Definition:</b> <a href="LoopSubdivider_8hpp_source.html#l00039">LoopSubdivider.hpp:39</a></div></div>
-<div class="ttc" id="aclassdouble_html"><div class="ttname"><a href="classdouble.html">double</a></div></div>
-<div class="ttc" id="adeprecated_2TopologicalMesh_8hpp_html"><div class="ttname"><a href="deprecated_2TopologicalMesh_8hpp.html">TopologicalMesh.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a4f441ac6a56092d52849a4f48e274aa8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8">Ra::Core::Math::cos</a></div><div class="ttdeci">Scalar cos(const Vector_ &amp;v1, const Vector_ &amp;v2)</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8inl_source.html#l00066">LinearAlgebra.inl:66</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ae85a94d4f706d35cfcd6864480aee5b3"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ae85a94d4f706d35cfcd6864480aee5b3">Ra::Core::Math::Pi</a></div><div class="ttdeci">constexpr Scalar Pi</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00013">Math.hpp:13</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Ra::Engine::Rendering::RenderObjectType::Geometry</a></div><div class="ttdeci">@ Geometry</div><div class="ttdoc">&quot;Geometry&quot; render objects are those loaded using Radium::IO and generated by GeometrySystem</div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_aa6ae112380ba99284cc2261740886c55"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa6ae112380ba99284cc2261740886c55">Ra::Engine::Data::EngineMaterialConverters::cleanup</a></div><div class="ttdeci">bool cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00045">MaterialConverters.cpp:45</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1LoopSubdivider_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html">Ra::Core::Geometry::LoopSubdivider</a></div><div class="ttdef"><b>Definition:</b> <a href="LoopSubdivider_8hpp_source.html#l00017">LoopSubdivider.hpp:17</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1LoopSubdivider_html_a2f6320e15e77b1c72437d3c00207ad65"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#a2f6320e15e77b1c72437d3c00207ad65">Ra::Core::Geometry::LoopSubdivider::LoopSubdivider</a></div><div class="ttdeci">LoopSubdivider()</div><div class="ttdef"><b>Definition:</b> <a href="LoopSubdivider_8hpp_source.html#l00032">LoopSubdivider.hpp:32</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1LoopSubdivider_html_add8c5d70fca386c6ca8d57b6ba14c756"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#add8c5d70fca386c6ca8d57b6ba14c756">Ra::Core::Geometry::LoopSubdivider::init_weights</a></div><div class="ttdeci">void init_weights(size_t max_valence)</div><div class="ttdoc">Pre-compute weights.</div><div class="ttdef"><b>Definition:</b> <a href="LoopSubdivider_8hpp_source.html#l00069">LoopSubdivider.hpp:69</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1LoopSubdivider_html_a7ef293b9ab778b15b92bbfa158913f12"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#a7ef293b9ab778b15b92bbfa158913f12">Ra::Core::Geometry::LoopSubdivider::LoopSubdivider</a></div><div class="ttdeci">LoopSubdivider(deprecated::TopologicalMesh &amp;mesh)</div><div class="ttdef"><b>Definition:</b> <a href="LoopSubdivider_8hpp_source.html#l00034">LoopSubdivider.hpp:34</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="LoopSubdivider_8hpp.html">LoopSubdivider.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>LoopSubdivider.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -92,55 +93,14 @@ $(document).ready(function(){initNavTree('functions_rela.html',''); initResizabl
 
 <div class="contents">
 &#160;<ul>
-<li>::Ra::Core::Geometry::TopologicalMesh
-: <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a2539d55dfd09040e0602be7b324e8d26">Ra::Core::Utils::AttribManager</a>
-</li>
-<li>AttribManager
-: <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html#ac74b076a64cb92aacc4896cd3ad16992">Ra::Core::Utils::AttribHandle&lt; T &gt;</a>
-</li>
-<li>BlinnPhongMaterialConverter
-: <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac56b0d531d935508b1b5669010fe7ec1">Ra::Engine::Data::BlinnPhongMaterial</a>
-</li>
-<li>Component
-: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1System.html#a90717717700965c100968cff0188e244">Ra::Engine::Scene::System</a>
-</li>
 <li>KeyMappingManageable&lt; FlightCameraManipulator &gt;
 : <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ae8895dd77a0b4788b2afdbb614bec52e">Ra::Gui::FlightCameraManipulator</a>
 </li>
-<li>KeyMappingManageable&lt; GizmoManager &gt;
-: <a class="el" href="classRa_1_1Gui_1_1GizmoManager.html#a3dbe77dfc116c4f4954ae97e64832fde">Ra::Gui::GizmoManager</a>
-</li>
-<li>KeyMappingManageable&lt; TrackballCameraManipulator &gt;
-: <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a65bd68fb31f11b6808fb16a0602d6476">Ra::Gui::TrackballCameraManipulator</a>
-</li>
-<li>KeyMappingManageable&lt; Viewer &gt;
-: <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a81781dc8e55a693679a3022dc35dd953">Ra::Gui::Viewer</a>
-</li>
-<li>operator+
-: <a class="el" href="classRa_1_1Core_1_1Grid_1_1Iterator.html#ae913599bd0bd9acbc43511e1867fd851">Ra::Core::Grid&lt; T, D &gt;::Iterator</a>
-</li>
-<li>operator-
-: <a class="el" href="classRa_1_1Core_1_1Grid_1_1Iterator.html#a255efbd810c80ced652ef752ed027584">Ra::Core::Grid&lt; T, D &gt;::Iterator</a>
-</li>
 <li>operator&lt;&lt;
 : <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a9fbe6560c4241db53c66213584a56400">Ra::Core::Animation::Skeleton</a>
-, <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a3edf12827e83ece5e47fd89b65ac8562">Ra::Engine::Data::ShaderConfiguration</a>
 </li>
 <li>Ra::Engine::Data::RawShaderMaterialConverter
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html#aaff1d2edb3e5dd1b558777deb031faa5">Ra::Core::Asset::RawShaderMaterialData</a>
-</li>
-<li>Ra::Gui::KeyMappingManageable&lt; RotateAroundCameraManipulator &gt;
-: <a class="el" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a35d5d7473578d405d8d59570aab95e68">Ra::Gui::RotateAroundCameraManipulator</a>
-</li>
-<li>ShaderProgram
-: <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#aef20119bde6aff11ffd23f3ea2131b86">Ra::Engine::Data::ShaderConfiguration</a>
-</li>
-<li>SkeletonBasedAnimationSystem
-: <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#ab2566228983b2d40471d4b2c26250a9a">Ra::Engine::Scene::SkeletonComponent</a>
-</li>
-<li>TMOperations
-: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aa85c27894e28a3d875381c1bdec55c61">Ra::Core::Geometry::deprecated::TopologicalMesh</a>
-, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa85c27894e28a3d875381c1bdec55c61">Ra::Core::Geometry::TopologicalMesh</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -148,7 +108,7 @@ $(document).ready(function(){initNavTree('functions_rela.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:52 for Radium Engine by
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

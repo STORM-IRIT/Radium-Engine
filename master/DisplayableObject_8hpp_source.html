@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,16 +96,16 @@ $(document).ready(function(){initNavTree('DisplayableObject_8hpp_source.html',''
 <div class="title">DisplayableObject.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="DisplayableObject_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;Engine/RaEngine.hpp&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VectorArray_8hpp.html">Core/Containers/VectorArray.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TriangleMesh_8hpp.html">Core/Geometry/TriangleMesh.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Color_8hpp.html">Core/Utils/Color.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/VectorArray.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/TriangleMesh.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Color.hpp&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>Engine {</div>
@@ -112,24 +113,24 @@ $(document).ready(function(){initNavTree('DisplayableObject_8hpp_source.html',''
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>ShaderProgram;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Displayable</a></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">   21</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Displayable</a></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712">   24</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712">PickingRenderMode</a> {</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712ae81691e1296e8b7da8751f31114caa3a">   25</a></span>&#160;        PKM_POINTS   = 0,</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712a5bea33fa11280c64d4f0cbaf5e130a94">   26</a></span>&#160;        PKM_LINES    = 1,</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712a9d3704ebe4bd7aa7074f4496f0621100">   27</a></span>&#160;        PKM_LINE_ADJ = 2,</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712ac80e15c3d04adba034779406321d445c">   28</a></span>&#160;        PKM_TRI      = 3,</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712af02545e562230ef8e014d35f6972b3d8">   29</a></span>&#160;        NO_PICKING</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">enum</span> PickingRenderMode {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        PKM_POINTS   = 0,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        PKM_LINES    = 1,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        PKM_LINE_ADJ = 2,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        PKM_TRI      = 3,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        NO_PICKING</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    };</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a5b3144a2c631ca3cdb55dd58b1bb4bbd">   32</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a5b3144a2c631ca3cdb55dd58b1bb4bbd">Displayable</a>( <span class="keyword">const</span> std::string&amp; name ) : m_name( name ) {}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Displayable</a>( <span class="keyword">const</span> std::string&amp; name ) : m_name( name ) {}</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Displayable</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Displayable</a>&amp; rhs ) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Displayable</a>&amp; rhs ) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Displayable</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#ac1bbdc7ca59d5cd51de9bfa465df66e9">   39</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712">PickingRenderMode</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#ac1bbdc7ca59d5cd51de9bfa465df66e9">pickingRenderMode</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_pickingRenderMode; }</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#ac1bbdc7ca59d5cd51de9bfa465df66e9">   39</a></span>&#160;    <span class="keyword">inline</span> PickingRenderMode <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#ac1bbdc7ca59d5cd51de9bfa465df66e9">pickingRenderMode</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_pickingRenderMode; }</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a8cc588360ff97fc9d3d0b05d54f4671c">   42</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string&amp; <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a8cc588360ff97fc9d3d0b05d54f4671c">getName</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_name; }</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
@@ -140,11 +141,11 @@ $(document).ready(function(){initNavTree('DisplayableObject_8hpp_source.html',''
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> render( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* prog ) = 0;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#ace68045c380c1b8deaa942132dc171b9">   61</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#ace68045c380c1b8deaa942132dc171b9">getNumFaces</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> 0; }</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#afeff74bff58429fb220cb9419a0ca6c5">   62</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#afeff74bff58429fb220cb9419a0ca6c5">getNumVertices</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> 0; }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> getNumFaces()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> 0; }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> getNumVertices()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> 0; }</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a1733f08a6d0b511d1189e9713de9918b">   65</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712">PickingRenderMode</a> m_pickingRenderMode { NO_PICKING };</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    PickingRenderMode m_pickingRenderMode { NO_PICKING };</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::string m_name {}; </div>
@@ -155,26 +156,17 @@ $(document).ready(function(){initNavTree('DisplayableObject_8hpp_source.html',''
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html_afeff74bff58429fb220cb9419a0ca6c5"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html#afeff74bff58429fb220cb9419a0ca6c5">Ra::Engine::Data::Displayable::getNumVertices</a></div><div class="ttdeci">virtual size_t getNumVertices() const</div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00062">DisplayableObject.hpp:62</a></div></div>
-<div class="ttc" id="aTriangleMesh_8hpp_html"><div class="ttname"><a href="TriangleMesh_8hpp.html">TriangleMesh.hpp</a></div></div>
-<div class="ttc" id="aVectorArray_8hpp_html"><div class="ttname"><a href="VectorArray_8hpp.html">VectorArray.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Ra::Engine::Data::ShaderProgram</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8hpp_source.html#l00031">ShaderProgram.hpp:31</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html_ace68045c380c1b8deaa942132dc171b9"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html#ace68045c380c1b8deaa942132dc171b9">Ra::Engine::Data::Displayable::getNumFaces</a></div><div class="ttdeci">virtual size_t getNumFaces() const</div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00061">DisplayableObject.hpp:61</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html_a5b3144a2c631ca3cdb55dd58b1bb4bbd"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a5b3144a2c631ca3cdb55dd58b1bb4bbd">Ra::Engine::Data::Displayable::Displayable</a></div><div class="ttdeci">Displayable(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00032">DisplayableObject.hpp:32</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1AbstractGeometry_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="AbstractGeometry_8hpp_source.html#l00017">AbstractGeometry.hpp:17</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html_ac1bbdc7ca59d5cd51de9bfa465df66e9"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html#ac1bbdc7ca59d5cd51de9bfa465df66e9">Ra::Engine::Data::Displayable::pickingRenderMode</a></div><div class="ttdeci">PickingRenderMode pickingRenderMode() const</div><div class="ttdoc">Returns the picking rendermode advised by the object (default PickingRenderMode::NO_PICKING)</div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00039">DisplayableObject.hpp:39</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Ra::Engine::Data::Displayable</a></div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00021">DisplayableObject.hpp:21</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html_a8cc588360ff97fc9d3d0b05d54f4671c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a8cc588360ff97fc9d3d0b05d54f4671c">Ra::Engine::Data::Displayable::getName</a></div><div class="ttdeci">const std::string &amp; getName() const</div><div class="ttdoc">Returns the name of the mesh.</div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00042">DisplayableObject.hpp:42</a></div></div>
-<div class="ttc" id="aColor_8hpp_html"><div class="ttname"><a href="Color_8hpp.html">Color.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html_a9c108d53f50c5e729f500461d98f8712"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a9c108d53f50c5e729f500461d98f8712">Ra::Engine::Data::Displayable::PickingRenderMode</a></div><div class="ttdeci">PickingRenderMode</div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00024">DisplayableObject.hpp:24</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="DisplayableObject_8hpp.html">DisplayableObject.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>DisplayableObject.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['keyeventtypecount_6311',['KeyEventTypeCount',['../classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2aa52bf5f38283ff938eec66c9216ef5a4',1,'Ra::Gui::Viewer']]],
-  ['keypressed_6312',['KeyPressed',['../classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2a38d1d3c8b412529d1c8d145d49b5f4d7',1,'Ra::Gui::Viewer']]],
-  ['keyreleased_6313',['KeyReleased',['../classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2a8b2537370657210713d3a42e9176d420',1,'Ra::Gui::Viewer']]]
+  ['open_5funiform_3049',['OPEN_UNIFORM',['../classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596',1,'Ra::Core::Geometry::Spline']]]
 ];

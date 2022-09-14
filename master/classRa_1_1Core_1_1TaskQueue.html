@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -119,137 +120,67 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a95e06345125fdbfe4c0960fcff50246a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> = <a class="el" href="classRa_1_1Core_1_1Utils_1_1Index.html">Utils::Index</a></td></tr>
-<tr class="memdesc:a95e06345125fdbfe4c0960fcff50246a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier for a task in the task queue.  <a href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">More...</a><br /></td></tr>
+<tr class="memitem:a95e06345125fdbfe4c0960fcff50246a"><td class="memItemLeft" align="right" valign="top"><a id="a95e06345125fdbfe4c0960fcff50246a"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> = Utils::Index</td></tr>
+<tr class="memdesc:a95e06345125fdbfe4c0960fcff50246a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier for a task in the task queue. <br /></td></tr>
 <tr class="separator:a95e06345125fdbfe4c0960fcff50246a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1e9c7315ee7f8ba44990d2217b4b620b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">TaskQueue</a> (<a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> numThreads)</td></tr>
-<tr class="memdesc:a1e9c7315ee7f8ba44990d2217b4b620b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. Initializes the thread pools with numThreads threads.  <a href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">More...</a><br /></td></tr>
+<tr class="memitem:a1e9c7315ee7f8ba44990d2217b4b620b"><td class="memItemLeft" align="right" valign="top"><a id="a1e9c7315ee7f8ba44990d2217b4b620b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">TaskQueue</a> (uint numThreads)</td></tr>
+<tr class="memdesc:a1e9c7315ee7f8ba44990d2217b4b620b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. Initializes the thread pools with numThreads threads. <br /></td></tr>
 <tr class="separator:a1e9c7315ee7f8ba44990d2217b4b620b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7f1c6d7650e4b59ada2545f5829a353"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">~TaskQueue</a> ()</td></tr>
-<tr class="memdesc:af7f1c6d7650e4b59ada2545f5829a353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. Waits for all the threads and safely deletes them.  <a href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">More...</a><br /></td></tr>
+<tr class="memitem:af7f1c6d7650e4b59ada2545f5829a353"><td class="memItemLeft" align="right" valign="top"><a id="af7f1c6d7650e4b59ada2545f5829a353"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">~TaskQueue</a> ()</td></tr>
+<tr class="memdesc:af7f1c6d7650e4b59ada2545f5829a353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. Waits for all the threads and safely deletes them. <br /></td></tr>
 <tr class="separator:af7f1c6d7650e4b59ada2545f5829a353"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dfa226458ca9f60b19d54277583977a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a9dfa226458ca9f60b19d54277583977a">registerTask</a> (<a class="el" href="classRa_1_1Core_1_1Task.html">Task</a> *task)</td></tr>
 <tr class="separator:a9dfa226458ca9f60b19d54277583977a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab15b59009ff7bd766871ac66e01c3210"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">addDependency</a> (<a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> predecessor, <a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> successor)</td></tr>
 <tr class="separator:ab15b59009ff7bd766871ac66e01c3210"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ed0cac0fb0ee0e1adcc7ec048c8585a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a8ed0cac0fb0ee0e1adcc7ec048c8585a">addDependency</a> (const std::string &amp;predecessors, <a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> successor)</td></tr>
+<tr class="memitem:a8ed0cac0fb0ee0e1adcc7ec048c8585a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a8ed0cac0fb0ee0e1adcc7ec048c8585a">addDependency</a> (const std::string &amp;predecessors, <a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> successor)</td></tr>
 <tr class="separator:a8ed0cac0fb0ee0e1adcc7ec048c8585a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae23cbb54365ca64b5bacd81cb4e14bae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#ae23cbb54365ca64b5bacd81cb4e14bae">addDependency</a> (<a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> predecessor, const std::string &amp;successors)</td></tr>
+<tr class="memitem:ae23cbb54365ca64b5bacd81cb4e14bae"><td class="memItemLeft" align="right" valign="top"><a id="ae23cbb54365ca64b5bacd81cb4e14bae"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>addDependency</b> (<a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> predecessor, const std::string &amp;successors)</td></tr>
 <tr class="separator:ae23cbb54365ca64b5bacd81cb4e14bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4f17ab67ae942ab097ad47d6417e9be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#aa4f17ab67ae942ab097ad47d6417e9be">addPendingDependency</a> (const std::string &amp;predecessors, <a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> successor)</td></tr>
 <tr class="separator:aa4f17ab67ae942ab097ad47d6417e9be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae74b77cbece1d563917a8794bc1fcbb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#ae74b77cbece1d563917a8794bc1fcbb6">addPendingDependency</a> (<a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> predecessor, const std::string &amp;successors)</td></tr>
+<tr class="memitem:ae74b77cbece1d563917a8794bc1fcbb6"><td class="memItemLeft" align="right" valign="top"><a id="ae74b77cbece1d563917a8794bc1fcbb6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addPendingDependency</b> (<a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> predecessor, const std::string &amp;successors)</td></tr>
 <tr class="separator:ae74b77cbece1d563917a8794bc1fcbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a462ea1280f62fb46db3fa74b805857b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0">startTasks</a> ()</td></tr>
 <tr class="separator:a462ea1280f62fb46db3fa74b805857b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4263fcdad580ffb7b5f28d29d5b7805"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805">waitForTasks</a> ()</td></tr>
-<tr class="memdesc:ae4263fcdad580ffb7b5f28d29d5b7805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocks until all tasks and dependencies are finished.  <a href="classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805">More...</a><br /></td></tr>
+<tr class="memitem:ae4263fcdad580ffb7b5f28d29d5b7805"><td class="memItemLeft" align="right" valign="top"><a id="ae4263fcdad580ffb7b5f28d29d5b7805"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805">waitForTasks</a> ()</td></tr>
+<tr class="memdesc:ae4263fcdad580ffb7b5f28d29d5b7805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocks until all tasks and dependencies are finished. <br /></td></tr>
 <tr class="separator:ae4263fcdad580ffb7b5f28d29d5b7805"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a562a8b90730b7c62791e463568516a97"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">TimerData</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a562a8b90730b7c62791e463568516a97">getTimerData</a> ()</td></tr>
-<tr class="memdesc:a562a8b90730b7c62791e463568516a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the data from the last frame execution after processTaskQueue();.  <a href="classRa_1_1Core_1_1TaskQueue.html#a562a8b90730b7c62791e463568516a97">More...</a><br /></td></tr>
+<tr class="memitem:a562a8b90730b7c62791e463568516a97"><td class="memItemLeft" align="right" valign="top"><a id="a562a8b90730b7c62791e463568516a97"></a>
+const std::vector&lt; <a class="el" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">TimerData</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a562a8b90730b7c62791e463568516a97">getTimerData</a> ()</td></tr>
+<tr class="memdesc:a562a8b90730b7c62791e463568516a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the data from the last frame execution after processTaskQueue();. <br /></td></tr>
 <tr class="separator:a562a8b90730b7c62791e463568516a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a133a9b42dbb00afd3873b83a044c447f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">flushTaskQueue</a> ()</td></tr>
-<tr class="memdesc:a133a9b42dbb00afd3873b83a044c447f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases all tasks. Will assert if tasks are unprocessed.  <a href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">More...</a><br /></td></tr>
+<tr class="memitem:a133a9b42dbb00afd3873b83a044c447f"><td class="memItemLeft" align="right" valign="top"><a id="a133a9b42dbb00afd3873b83a044c447f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">flushTaskQueue</a> ()</td></tr>
+<tr class="memdesc:a133a9b42dbb00afd3873b83a044c447f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases all tasks. Will assert if tasks are unprocessed. <br /></td></tr>
 <tr class="separator:a133a9b42dbb00afd3873b83a044c447f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21add3ed1dbe9f3429508c721e0e8e5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a21add3ed1dbe9f3429508c721e0e8e5d">printTaskGraph</a> (std::ostream &amp;output) const</td></tr>
-<tr class="memdesc:a21add3ed1dbe9f3429508c721e0e8e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the current task graph in dot format.  <a href="classRa_1_1Core_1_1TaskQueue.html#a21add3ed1dbe9f3429508c721e0e8e5d">More...</a><br /></td></tr>
+<tr class="memitem:a21add3ed1dbe9f3429508c721e0e8e5d"><td class="memItemLeft" align="right" valign="top"><a id="a21add3ed1dbe9f3429508c721e0e8e5d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a21add3ed1dbe9f3429508c721e0e8e5d">printTaskGraph</a> (std::ostream &amp;output) const</td></tr>
+<tr class="memdesc:a21add3ed1dbe9f3429508c721e0e8e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the current task graph in dot format. <br /></td></tr>
 <tr class="separator:a21add3ed1dbe9f3429508c721e0e8e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class allows tasks to be registered and then executed in parallel on separate threads. it maintains an internal pool of threads. When instructed, it dispatches the tasks to the pooled threads. <a class="el" href="classRa_1_1Core_1_1Task.html">Task</a> are allowed to have dependencies. A task will be executed only when all its dependencies are satisfied, i.e. all dependant tasks are finished. Note that most functions are not thread safe and must not be called when the task queue is running. </p>
 
 <p class="definition">Definition at line <a class="el" href="TaskQueue_8hpp_source.html#l00031">31</a> of file <a class="el" href="TaskQueue_8hpp_source.html">TaskQueue.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a95e06345125fdbfe4c0960fcff50246a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95e06345125fdbfe4c0960fcff50246a">&#9670;&nbsp;</a></span>TaskId</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Ra::Core::TaskQueue::TaskId</a> =  <a class="el" href="classRa_1_1Core_1_1Utils_1_1Index.html">Utils::Index</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Identifier for a task in the task queue. </p>
-
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8hpp_source.html#l00035">35</a> of file <a class="el" href="TaskQueue_8hpp_source.html">TaskQueue.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1e9c7315ee7f8ba44990d2217b4b620b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e9c7315ee7f8ba44990d2217b4b620b">&#9670;&nbsp;</a></span>TaskQueue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ra::Core::TaskQueue::TaskQueue </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>&#160;</td>
-          <td class="paramname"><em>numThreads</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. Initializes the thread pools with numThreads threads. </p>
-
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00011">11</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af7f1c6d7650e4b59ada2545f5829a353"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7f1c6d7650e4b59ada2545f5829a353">&#9670;&nbsp;</a></span>~TaskQueue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ra::Core::TaskQueue::~TaskQueue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destructor. Waits for all the threads and safely deletes them. </p>
-
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00019">19</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_af7f1c6d7650e4b59ada2545f5829a353_cgraph.svg" width="378" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8ed0cac0fb0ee0e1adcc7ec048c8585a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ed0cac0fb0ee0e1adcc7ec048c8585a">&#9670;&nbsp;</a></span>addDependency() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ed0cac0fb0ee0e1adcc7ec048c8585a">&#9670;&nbsp;</a></span>addDependency() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Core::TaskQueue::addDependency </td>
+          <td class="memname">bool Ra::Core::TaskQueue::addDependency </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>predecessors</em>, </td>
@@ -270,57 +201,19 @@ Public Member Functions</h2></td></tr>
 <p>Add dependency between a task and all task with a given name. Will return false if no dependency has been added. </p>
 
 <p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00059">59</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_a8ed0cac0fb0ee0e1adcc7ec048c8585a_cgraph.svg" width="578" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="ae23cbb54365ca64b5bacd81cb4e14bae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae23cbb54365ca64b5bacd81cb4e14bae">&#9670;&nbsp;</a></span>addDependency() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Core::TaskQueue::addDependency </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a>&#160;</td>
-          <td class="paramname"><em>predecessor</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>successors</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00070">70</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_ae23cbb54365ca64b5bacd81cb4e14bae_cgraph.svg" width="578" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_a8ed0cac0fb0ee0e1adcc7ec048c8585a_cgraph.svg" width="371" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
 <a id="ab15b59009ff7bd766871ac66e01c3210"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab15b59009ff7bd766871ac66e01c3210">&#9670;&nbsp;</a></span>addDependency() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab15b59009ff7bd766871ac66e01c3210">&#9670;&nbsp;</a></span>addDependency() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,19 +240,11 @@ Public Member Functions</h2></td></tr>
 <p>Add dependency between two tasks. The successor task will be executed only when all its predecessor completed. </p>
 
 <p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00044">44</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_ab15b59009ff7bd766871ac66e01c3210_cgraph.svg" width="374" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
 
 </div>
 </div>
 <a id="aa4f17ab67ae942ab097ad47d6417e9be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4f17ab67ae942ab097ad47d6417e9be">&#9670;&nbsp;</a></span>addPendingDependency() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4f17ab67ae942ab097ad47d6417e9be">&#9670;&nbsp;</a></span>addPendingDependency()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -389,108 +274,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae74b77cbece1d563917a8794bc1fcbb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae74b77cbece1d563917a8794bc1fcbb6">&#9670;&nbsp;</a></span>addPendingDependency() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::TaskQueue::addPendingDependency </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a>&#160;</td>
-          <td class="paramname"><em>predecessor</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>successors</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00086">86</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a133a9b42dbb00afd3873b83a044c447f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a133a9b42dbb00afd3873b83a044c447f">&#9670;&nbsp;</a></span>flushTaskQueue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::TaskQueue::flushTaskQueue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Erases all tasks. Will assert if tasks are unprocessed. </p>
-
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00173">173</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a562a8b90730b7c62791e463568516a97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a562a8b90730b7c62791e463568516a97">&#9670;&nbsp;</a></span>getTimerData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt; <a class="el" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">TaskQueue::TimerData</a> &gt; &amp; Ra::Core::TaskQueue::getTimerData </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Access the data from the last frame execution after processTaskQueue();. </p>
-
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00169">169</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a21add3ed1dbe9f3429508c721e0e8e5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21add3ed1dbe9f3429508c721e0e8e5d">&#9670;&nbsp;</a></span>printTaskGraph()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::TaskQueue::printTaskGraph </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Prints the current task graph in dot format. </p>
-
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00234">234</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_a21add3ed1dbe9f3429508c721e0e8e5d_cgraph.svg" width="378" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
 <a id="a9dfa226458ca9f60b19d54277583977a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9dfa226458ca9f60b19d54277583977a">&#9670;&nbsp;</a></span>registerTask()</h2>
 
@@ -509,11 +292,11 @@ Public Member Functions</h2></td></tr>
 <p>Registers a task to be executed. <a class="el" href="classRa_1_1Core_1_1Task.html">Task</a> must have been created with new and be initialized with its parameter. The task queue assumes ownership of the task. </p>
 
 <p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00028">28</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_a9dfa226458ca9f60b19d54277583977a_cgraph.svg" width="398" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -537,35 +320,6 @@ Public Member Functions</h2></td></tr>
 <p>Launches the execution of all the threads in the task queue. No more tasks should be added at this point. </p>
 
 <p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00142">142</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_a462ea1280f62fb46db3fa74b805857b0_cgraph.svg" width="378" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="ae4263fcdad580ffb7b5f28d29d5b7805"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4263fcdad580ffb7b5f28d29d5b7805">&#9670;&nbsp;</a></span>waitForTasks()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::TaskQueue::waitForTasks </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Blocks until all tasks and dependencies are finished. </p>
-
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00158">158</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 
 </div>
 </div>
@@ -578,8 +332,8 @@ Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html">TaskQueue</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html">TaskQueue</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

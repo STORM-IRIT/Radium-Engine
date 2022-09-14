@@ -23,7 +23,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="RaCore_8hpp.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="RaCore_8hpp_source.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="115,-112.5 115,-131.5 213,-131.5 213,-112.5 115,-112.5"/>
 <text text-anchor="middle" x="164" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">Core/RaCore.hpp</text>
 </a>
@@ -83,7 +83,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="CoreMacros_8hpp.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="CoreMacros_8hpp_source.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="103.5,-56.5 103.5,-75.5 224.5,-75.5 224.5,-56.5 103.5,-56.5"/>
 <text text-anchor="middle" x="164" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">Core/CoreMacros.hpp</text>
 </a>

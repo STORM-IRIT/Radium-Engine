@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,7 +96,7 @@ $(document).ready(function(){initNavTree('SimpleMaterial_8inl_source.html',''); 
 <div class="title">SimpleMaterial.inl</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="SimpleMaterial_8inl.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>Engine {</div>
@@ -126,23 +127,37 @@ $(document).ready(function(){initNavTree('SimpleMaterial_8inl_source.html',''); 
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> tex;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c">   32</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c">SimpleMaterial::setColoredByVertexAttrib</a>( <span class="keywordtype">bool</span> state ) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> oldState    = <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#af42767eb5f9fb9e8b28eeeb86a11244b">m_perVertexColor</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#af42767eb5f9fb9e8b28eeeb86a11244b">m_perVertexColor</a> = state;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">if</span> ( oldState != <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#af42767eb5f9fb9e8b28eeeb86a11244b">m_perVertexColor</a> ) { <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5">needUpdate</a>(); }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a188bef043565e521f7ba56026cc4764d">   38</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a188bef043565e521f7ba56026cc4764d">SimpleMaterial::isColoredByVertexAttrib</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#af42767eb5f9fb9e8b28eeeb86a11244b">m_perVertexColor</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html_a188bef043565e521f7ba56026cc4764d"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a188bef043565e521f7ba56026cc4764d">Ra::Engine::Data::SimpleMaterial::isColoredByVertexAttrib</a></div><div class="ttdeci">bool isColoredByVertexAttrib() const override</div><div class="ttdoc">Indicates if the material takes the VERTEX_COLOR attribute into account.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8inl_source.html#l00038">SimpleMaterial.inl:38</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html_accda5c85bc9f61813b53acbae2ba70a1"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#accda5c85bc9f61813b53acbae2ba70a1">Ra::Engine::Data::SimpleMaterial::getTexture</a></div><div class="ttdeci">Texture * getTexture(const TextureSemantic &amp;semantic) const</div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8inl_source.html#l00023">SimpleMaterial.inl:23</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html_a14b38bde09b76f0c5ed83161feb26443"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a14b38bde09b76f0c5ed83161feb26443">Ra::Engine::Data::SimpleMaterial::TextureSemantic</a></div><div class="ttdeci">TextureSemantic</div><div class="ttdoc">Semantic of the texture : define which BSDF parameter is controled by the texture.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8hpp_source.html#l00023">SimpleMaterial.hpp:23</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html_af42767eb5f9fb9e8b28eeeb86a11244b"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#af42767eb5f9fb9e8b28eeeb86a11244b">Ra::Engine::Data::SimpleMaterial::m_perVertexColor</a></div><div class="ttdeci">bool m_perVertexColor</div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8hpp_source.html#l00080">SimpleMaterial.hpp:80</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html_ab741150e9342a509772fbd934d77c992"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#ab741150e9342a509772fbd934d77c992">Ra::Engine::Data::SimpleMaterial::addTexture</a></div><div class="ttdeci">TextureParameters &amp; addTexture(const TextureSemantic &amp;semantic, const TextureParameters &amp;texture)</div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8inl_source.html#l00015">SimpleMaterial.inl:15</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html_ac6eabe9ce20163cab8bec7a51f6e75a5"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5">Ra::Engine::Data::Material::needUpdate</a></div><div class="ttdeci">void needUpdate()</div><div class="ttdef"><b>Definition:</b> <a href="Material_8inl_source.html#l00026">Material.inl:26</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1TextureParameters_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">Ra::Engine::Data::TextureParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00042">Texture.hpp:42</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Texture_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Texture.html">Ra::Engine::Data::Texture</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00086">Texture.hpp:86</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html_ae2d00a304c8dfd9b2b10b809c5c27499"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">Ra::Engine::Data::Material::m_isDirty</a></div><div class="ttdeci">bool m_isDirty</div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00110">Material.hpp:110</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1SimpleMaterial_html_a77238ce2e04c31a52e68c64b64a6e11c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c">Ra::Engine::Data::SimpleMaterial::setColoredByVertexAttrib</a></div><div class="ttdeci">void setColoredByVertexAttrib(bool state) override</div><div class="ttdoc">Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered geometry.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleMaterial_8inl_source.html#l00032">SimpleMaterial.inl:32</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html_ae2d00a304c8dfd9b2b10b809c5c27499"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">Ra::Engine::Data::Material::m_isDirty</a></div><div class="ttdeci">bool m_isDirty</div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00125">Material.hpp:125</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="SimpleMaterial_8inl.html">SimpleMaterial.inl</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>SimpleMaterial.inl</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

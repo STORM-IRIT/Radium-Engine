@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,9 +96,9 @@ $(document).ready(function(){initNavTree('MainWindowInterface_8hpp_source.html',
 <div class="title">MainWindowInterface.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="MainWindowInterface_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGui_8hpp.html">Gui/RaGui.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Gui/RaGui.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QMainWindow&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QMessageBox&gt;</span></div>
@@ -110,26 +111,26 @@ $(document).ready(function(){initNavTree('MainWindowInterface_8hpp_source.html',
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace Engine</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Plugins.html">   16</a></span>&#160;<span class="keyword">namespace </span>Plugins {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">RadiumPluginInterface</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Plugins {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>RadiumPluginInterface;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1Viewer.html">Viewer</a>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1SelectionManager.html">SelectionManager</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1Timeline.html">Timeline</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span>Viewer;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>SelectionManager;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span>Timeline;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1MainWindowInterface.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1MainWindowInterface.html">MainWindowInterface</a> : <span class="keyword">public</span> <a class="code" href="classQMainWindow.html">QMainWindow</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1MainWindowInterface.html">   27</a></span>&#160;<span class="keyword">class </span>RA_GUI_API <a class="code" href="classRa_1_1Gui_1_1MainWindowInterface.html">MainWindowInterface</a> : <span class="keyword">public</span> QMainWindow</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    Q_OBJECT</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1MainWindowInterface.html#a6f32b64c083205c8b91d8b4ef036b499">   33</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1MainWindowInterface.html#a6f32b64c083205c8b91d8b4ef036b499">MainWindowInterface</a>( QWidget* parent = <span class="keyword">nullptr</span> ) : <a class="code" href="classQMainWindow.html">QMainWindow</a>( parent ) {};</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1MainWindowInterface.html#a0d18aba0359c1d466df8b806986b5869">   34</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Gui_1_1MainWindowInterface.html#a0d18aba0359c1d466df8b806986b5869">~MainWindowInterface</a>() {};</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1MainWindowInterface.html#a6f32b64c083205c8b91d8b4ef036b499">   33</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1MainWindowInterface.html#a6f32b64c083205c8b91d8b4ef036b499">MainWindowInterface</a>( QWidget* parent = <span class="keyword">nullptr</span> ) : QMainWindow( parent ) {};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Gui_1_1MainWindowInterface.html">MainWindowInterface</a>() {};</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a>* getViewer() = 0;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Gui_1_1SelectionManager.html">Gui::SelectionManager</a>* getSelectionManager() = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> Gui::SelectionManager* getSelectionManager() = 0;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Gui_1_1Timeline.html">Gui::Timeline</a>* getTimeline() = 0;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
@@ -138,15 +139,15 @@ $(document).ready(function(){initNavTree('MainWindowInterface_8hpp_source.html',
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onFrameComplete() = 0;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> addRenderer( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                              std::shared_ptr&lt;Engine::Rendering::Renderer&gt; <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a> ) = 0;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                              std::shared_ptr&lt;Engine::Rendering::Renderer&gt; e ) = 0;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1MainWindowInterface.html#ad6e127c8db07bb0d9aff61efbeaa619f">   57</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1MainWindowInterface.html#ad6e127c8db07bb0d9aff61efbeaa619f">configure</a>() {};</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keyword">public</span> slots:</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> prepareDisplay() = 0;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa6ae112380ba99284cc2261740886c55">cleanup</a>() = 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> cleanup() = 0;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1MainWindowInterface.html#a8d72976c2b50858ab1608c18001690ee">   68</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1MainWindowInterface.html#a8d72976c2b50858ab1608c18001690ee">displayHelpDialog</a>() {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> displayHelpDialog() {</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        QMessageBox helpMsg;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        helpMsg.setText( <span class="stringliteral">&quot;No help for this application yet !&quot;</span> );</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        helpMsg.exec();</div>
@@ -162,26 +163,18 @@ $(document).ready(function(){initNavTree('MainWindowInterface_8hpp_source.html',
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1MainWindowInterface_html_a6f32b64c083205c8b91d8b4ef036b499"><div class="ttname"><a href="classRa_1_1Gui_1_1MainWindowInterface.html#a6f32b64c083205c8b91d8b4ef036b499">Ra::Gui::MainWindowInterface::MainWindowInterface</a></div><div class="ttdeci">MainWindowInterface(QWidget *parent=nullptr)</div><div class="ttdoc">Constructor and destructor.</div><div class="ttdef"><b>Definition:</b> <a href="MainWindowInterface_8hpp_source.html#l00033">MainWindowInterface.hpp:33</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1MainWindowInterface_html_a8d72976c2b50858ab1608c18001690ee"><div class="ttname"><a href="classRa_1_1Gui_1_1MainWindowInterface.html#a8d72976c2b50858ab1608c18001690ee">Ra::Gui::MainWindowInterface::displayHelpDialog</a></div><div class="ttdeci">virtual void displayHelpDialog()</div><div class="ttdef"><b>Definition:</b> <a href="MainWindowInterface_8hpp_source.html#l00068">MainWindowInterface.hpp:68</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html"><div class="ttname"><a href="RaGui_8hpp.html">RaGui.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">Ra::Plugins::RadiumPluginInterface</a></div><div class="ttdoc">Interface class for Radiums plugins.</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00072">RadiumPluginInterface.hpp:72</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:53</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1MainWindowInterface_html_ad6e127c8db07bb0d9aff61efbeaa619f"><div class="ttname"><a href="classRa_1_1Gui_1_1MainWindowInterface.html#ad6e127c8db07bb0d9aff61efbeaa619f">Ra::Gui::MainWindowInterface::configure</a></div><div class="ttdeci">virtual void configure()</div><div class="ttdoc">finalize configuration once engine viewer and connection are set.</div><div class="ttdef"><b>Definition:</b> <a href="MainWindowInterface_8hpp_source.html#l00057">MainWindowInterface.hpp:57</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
-<div class="ttc" id="aclassQMainWindow_html"><div class="ttname"><a href="classQMainWindow.html">QMainWindow</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1SelectionManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1SelectionManager.html">Ra::Gui::SelectionManager</a></div><div class="ttdef"><b>Definition:</b> <a href="SelectionManager_8hpp_source.html#l00011">SelectionManager.hpp:11</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_aa6ae112380ba99284cc2261740886c55"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa6ae112380ba99284cc2261740886c55">Ra::Engine::Data::EngineMaterialConverters::cleanup</a></div><div class="ttdeci">bool cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00045">MaterialConverters.cpp:45</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1MainWindowInterface_html"><div class="ttname"><a href="classRa_1_1Gui_1_1MainWindowInterface.html">Ra::Gui::MainWindowInterface</a></div><div class="ttdef"><b>Definition:</b> <a href="MainWindowInterface_8hpp_source.html#l00027">MainWindowInterface.hpp:27</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ad6561217833b25364553930542830197"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">Ra::Core::Math::e</a></div><div class="ttdeci">constexpr Scalar e</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00012">Math.hpp:12</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1MainWindowInterface_html_a0d18aba0359c1d466df8b806986b5869"><div class="ttname"><a href="classRa_1_1Gui_1_1MainWindowInterface.html#a0d18aba0359c1d466df8b806986b5869">Ra::Gui::MainWindowInterface::~MainWindowInterface</a></div><div class="ttdeci">virtual ~MainWindowInterface()</div><div class="ttdef"><b>Definition:</b> <a href="MainWindowInterface_8hpp_source.html#l00034">MainWindowInterface.hpp:34</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Timeline_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Timeline.html">Ra::Gui::Timeline</a></div><div class="ttdoc">The Timeline class provides display and management of time, as well as keyframes.</div><div class="ttdef"><b>Definition:</b> <a href="Timeline_8hpp_source.html#l00042">Timeline.hpp:42</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Timeline_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Timeline.html">Ra::Gui::Timeline</a></div><div class="ttdoc">The Timeline class provides display and management of time, as well as keyframes.</div><div class="ttdef"><b>Definition:</b> <a href="Timeline_8hpp_source.html#l00037">Timeline.hpp:37</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="MainWindowInterface_8hpp.html">MainWindowInterface.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><b>MainWindowInterface.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

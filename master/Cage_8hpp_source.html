@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,21 +96,21 @@ $(document).ready(function(){initNavTree('Cage_8hpp_source.html',''); initResiza
 <div class="title">Cage.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Cage_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="HandleArray_8hpp.html">Core/Animation/HandleArray.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VectorArray_8hpp.html">Core/Containers/VectorArray.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Animation/HandleArray.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/VectorArray.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Animation {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1Cage.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Cage</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html">HandleArray</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1Cage.html">   19</a></span>&#160;<span class="keyword">class </span>RA_CORE_API <a class="code" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Cage</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html">HandleArray</a></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Cage</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Cage</a>( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> n );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Cage</a>( <span class="keyword">const</span> uint n );</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Cage</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Cage</a>&amp; cage );</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    ~<a class="code" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Cage</a>();</div>
@@ -124,21 +125,16 @@ $(document).ready(function(){initNavTree('Cage_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// Namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
-<div class="ttc" id="aVectorArray_8hpp_html"><div class="ttname"><a href="VectorArray_8hpp.html">VectorArray.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; Ra::Core::Vector3ui &gt;</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Cage_html_a7268c9c0a1f6c3b07157e1eba002d516"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Cage.html#a7268c9c0a1f6c3b07157e1eba002d516">Ra::Core::Animation::Cage::m_triangle</a></div><div class="ttdeci">VectorArray&lt; Ra::Core::Vector3ui &gt; m_triangle</div><div class="ttdef"><b>Definition:</b> <a href="Cage_8hpp_source.html#l00034">Cage.hpp:34</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Cage_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Cage.html">Ra::Core::Animation::Cage</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8hpp_source.html#l00019">Cage.hpp:19</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html">Ra::Core::Animation::HandleArray</a></div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00019">HandleArray.hpp:19</a></div></div>
-<div class="ttc" id="aHandleArray_8hpp_html"><div class="ttname"><a href="HandleArray_8hpp.html">HandleArray.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><a class="el" href="Cage_8hpp.html">Cage.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:48 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><b>Cage.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

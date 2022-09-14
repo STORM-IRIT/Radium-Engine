@@ -40,15 +40,14 @@ var NAVTREE =
     ] ],
     [ "Todo List", "todo.html", null ],
     [ "Deprecated List", "deprecated.html", null ],
+    [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
-        [ "Functions", "namespacemembers_func.html", "namespacemembers_func" ],
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ],
-        [ "Enumerator", "namespacemembers_eval.html", null ]
+        [ "Typedefs", "namespacemembers_type.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -58,7 +57,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", "functions_vars" ],
+        [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ],
@@ -66,43 +65,30 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Typedefs", "globals_type.html", null ],
-        [ "Macros", "globals_defs.html", null ]
-      ] ]
+      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"AboutDialog_8cpp.html",
-"CoreMacros_8hpp.html#aeaac91b4934c26470b88a6e57072dda3",
-"GlmAdapters_8hpp.html#a947fffea47e3e842b987392f52be488d",
-"LinearAlgebra_8inl.html#adb9d29778c9dd8f53089186aa8bcdfc2",
-"RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773",
-"StackTrace_8hpp.html#a9400558d80e2cc0d9c08c355b56521a6",
-"VertexDistance_8hpp.html",
-"classRa_1_1Core_1_1Animation_1_1Skeleton.html#a54bd8f8d55c878fa0e49c0f1c971f7aa",
-"classRa_1_1Core_1_1Asset_1_1GeometryData.html#adba1271b6ed2c102782533d2f575278f",
-"classRa_1_1Core_1_1Geometry_1_1Curve2D.html#a820d0d638a0bb8fd53082fb68bedaac8ae676bd455e0c75dd94906c5c64948d85",
-"classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html#a76aadbdd5e0ccc9b5574acff10e692dc",
-"classRa_1_1Core_1_1Utils_1_1Chrono.html#a4a5f0f26c0d613381fd95a8d187f0e09",
-"classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_1_1AttribObserver.html",
-"classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a55666ee1c7da7725426b5c42872e24f5",
-"classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ab451594c7fe7a31ec9fc3a71fce34440",
-"classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html#ac798e4f349738b813c2e76faf4924754",
-"classRa_1_1Engine_1_1Scene_1_1System.html#a3cc877d882b121438994019728892c9e",
-"classRa_1_1Gui_1_1KeyMappingManager.html#ab0cd628fd3008a5cbf9938d88b64418d",
-"classRa_1_1Gui_1_1TreeModel.html#a1eb09233eaa80360d944f5c1d73aa65b",
-"classRa_1_1Plugins_1_1RadiumPluginInterface.html#a6feecf052a9c12e6f85b07e3eaaf0a9a",
-"functions_vars_c.html",
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html#a2268e2356ebd9ef3350a34cac5ce7f0c",
-"structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0"
+".html",
+"MeshPrimitives_8cpp_source.html",
+"WindowQt_8inl_source.html",
+"classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7",
+"classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#af47a833432339c14be0c735b0e9b7d91",
+"classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html#a9d438df5511480f39bb6115af5078856",
+"classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5",
+"classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac56b0d531d935508b1b5669010fe7ec1",
+"classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a3cccfd1b866104438bd209a42f0e3f76",
+"classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#ad2e585567b4d82569c729b0c6ec184f2",
+"classRa_1_1Engine_1_1Scene_1_1DebugComponent.html#a754146b71e827d3cf7400258b315f2bb",
+"classRa_1_1Engine_1_1Scene_1_1System.html#a099c55f55d7e7f39b4b0a0bc687a278b",
+"classRa_1_1Gui_1_1MainWindowInterface.html#a0e1597c5b741d3244d9c40360ddad67f",
+"classRa_1_1Gui_1_1Viewer.html#a2a8ea2cb4e7c2a608dff2be695201c24",
+"classRa_1_1Plugins_1_1RadiumPluginInterface.html#a3fe610032c1dbb240e179b139d00624f",
+"group__context.html#ga4cd9ffa4fc7d7629b15e2e3cb97b715f",
+"structRa_1_1Engine_1_1Data_1_1ViewingParameters.html#abbed2f4ad52d66589781225ddefed085"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

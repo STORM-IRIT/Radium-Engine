@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -121,26 +122,29 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1KeyMappingManageable
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a22954323f435085f355701781f846cda"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">getContext</a> ()</td></tr>
+<tr class="memitem:a22954323f435085f355701781f846cda"><td class="memItemLeft" align="right" valign="top"><a id="a22954323f435085f355701781f846cda"></a>
+static KeyMappingManager::Context&#160;</td><td class="memItemRight" valign="bottom"><b>getContext</b> ()</td></tr>
 <tr class="separator:a22954323f435085f355701781f846cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32756ab3dce798b29ccad350f7c815ec"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec">configureKeyMapping</a> ()</td></tr>
 <tr class="separator:a32756ab3dce798b29ccad350f7c815ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:abae9357dd8963f4e8e844b58eb5ca5b9"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html#abae9357dd8963f4e8e844b58eb5ca5b9">self</a> ()</td></tr>
+<tr class="memitem:abae9357dd8963f4e8e844b58eb5ca5b9"><td class="memItemLeft" align="right" valign="top"><a id="abae9357dd8963f4e8e844b58eb5ca5b9"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>self</b> ()</td></tr>
 <tr class="separator:abae9357dd8963f4e8e844b58eb5ca5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a4f126885bbb69f67ea65a54a8923a686"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a4f126885bbb69f67ea65a54a8923a686">setContext</a> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a> &amp;c)</td></tr>
+<tr class="memitem:a4f126885bbb69f67ea65a54a8923a686"><td class="memItemLeft" align="right" valign="top"><a id="a4f126885bbb69f67ea65a54a8923a686"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b> (const KeyMappingManager::Context &amp;c)</td></tr>
 <tr class="separator:a4f126885bbb69f67ea65a54a8923a686"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class Ra::Gui::KeyMappingManageable&lt; T &gt;</h3>
 
-<p><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a> decorate, typical use as a CRTP : class MyClass : public KeyMappingManageable&lt;MyClass&gt; { [...] it defines a static class member m_keyMappingContext, readable with <a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">getContext()</a> This context index must be registered by the class to the <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">KeyMappingManager</a> with <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a4fee0746b2d2ef301af275de29daeb85">KeyMappingManager::getContext</a>("MyClassContextName"); after a configuration file is loaded. </p>
+<p><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a> decorate, typical use as a CRTP : class MyClass : public KeyMappingManageable&lt;MyClass&gt; { [...] it defines a static class member m_keyMappingContext, readable with getContext() This context index must be registered by the class to the <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">KeyMappingManager</a> with <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a4fee0746b2d2ef301af275de29daeb85">KeyMappingManager::getContext</a>("MyClassContextName"); after a configuration file is loaded. </p>
 
 <p class="definition">Definition at line <a class="el" href="KeyMappingManager_8hpp_source.html#l00208">208</a> of file <a class="el" href="KeyMappingManager_8hpp_source.html">KeyMappingManager.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -174,94 +178,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a22954323f435085f355701781f846cda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22954323f435085f355701781f846cda">&#9670;&nbsp;</a></span>getContext()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a> <a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a>&lt; T &gt;::getContext </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8hpp_source.html#l00211">211</a> of file <a class="el" href="KeyMappingManager_8hpp_source.html">KeyMappingManager.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abae9357dd8963f4e8e844b58eb5ca5b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abae9357dd8963f4e8e844b58eb5ca5b9">&#9670;&nbsp;</a></span>self()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T&amp; <a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a>&lt; T &gt;::self </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8hpp_source.html#l00218">218</a> of file <a class="el" href="KeyMappingManager_8hpp_source.html">KeyMappingManager.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4f126885bbb69f67ea65a54a8923a686"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f126885bbb69f67ea65a54a8923a686">&#9670;&nbsp;</a></span>setContext()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a>&lt; T &gt;::setContext </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a> &amp;&#160;</td>
-          <td class="paramname"><em>c</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8hpp_source.html#l00219">219</a> of file <a class="el" href="KeyMappingManager_8hpp_source.html">KeyMappingManager.hpp</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Gui/Utils/<a class="el" href="KeyMappingManager_8hpp_source.html">KeyMappingManager.hpp</a></li>
 </ul>
@@ -270,8 +186,8 @@ template&lt;typename T &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Gui.html">Gui</a></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:52 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

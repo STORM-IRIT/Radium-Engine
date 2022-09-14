@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -115,30 +116,35 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Geometry_1_1Spline.
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a164e49e88843cb33e6ba4f9e2918a9fb"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb">Type</a> { <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbaf21efa3e3073d7f9ad5f9d0b7afc28b5">UNIFORM</a>, 
+<tr class="memitem:a164e49e88843cb33e6ba4f9e2918a9fb"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb">Type</a> { <b>UNIFORM</b>, 
 <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596">OPEN_UNIFORM</a>
  }</td></tr>
 <tr class="separator:a164e49e88843cb33e6ba4f9e2918a9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a965db2c67b6e77a8777975df596d5084"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a> = typename Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, D, 1 &gt;</td></tr>
+<tr class="memitem:a965db2c67b6e77a8777975df596d5084"><td class="memItemLeft" align="right" valign="top"><a id="a965db2c67b6e77a8777975df596d5084"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Vector</b> = typename Eigen::Matrix&lt; Scalar, D, 1 &gt;</td></tr>
 <tr class="separator:a965db2c67b6e77a8777975df596d5084"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad1b5b900b78d5f66c3f40948e55b668a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#ad1b5b900b78d5f66c3f40948e55b668a">Spline</a> (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb">Type</a> type=<a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596">OPEN_UNIFORM</a>)</td></tr>
 <tr class="separator:ad1b5b900b78d5f66c3f40948e55b668a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9b2549bafa3c74c109c6e4dfc8b90b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa9b2549bafa3c74c109c6e4dfc8b90b2">setCtrlPoints</a> (const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt; <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a> &gt; &amp;points)</td></tr>
-<tr class="memdesc:aa9b2549bafa3c74c109c6e4dfc8b90b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the position of the spline control points.  <a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa9b2549bafa3c74c109c6e4dfc8b90b2">More...</a><br /></td></tr>
+<tr class="memitem:aa9b2549bafa3c74c109c6e4dfc8b90b2"><td class="memItemLeft" align="right" valign="top"><a id="aa9b2549bafa3c74c109c6e4dfc8b90b2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa9b2549bafa3c74c109c6e4dfc8b90b2">setCtrlPoints</a> (const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt; Vector &gt; &amp;points)</td></tr>
+<tr class="memdesc:aa9b2549bafa3c74c109c6e4dfc8b90b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the position of the spline control points. <br /></td></tr>
 <tr class="separator:aa9b2549bafa3c74c109c6e4dfc8b90b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42c38a23a2dfae2239f39eddd8feb81b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt; <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a42c38a23a2dfae2239f39eddd8feb81b">getCtrlPoints</a> () const</td></tr>
-<tr class="memdesc:a42c38a23a2dfae2239f39eddd8feb81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the control points of the spline.  <a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a42c38a23a2dfae2239f39eddd8feb81b">More...</a><br /></td></tr>
+<tr class="memitem:a42c38a23a2dfae2239f39eddd8feb81b"><td class="memItemLeft" align="right" valign="top"><a id="a42c38a23a2dfae2239f39eddd8feb81b"></a>
+const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt; Vector &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a42c38a23a2dfae2239f39eddd8feb81b">getCtrlPoints</a> () const</td></tr>
+<tr class="memdesc:a42c38a23a2dfae2239f39eddd8feb81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the control points of the spline. <br /></td></tr>
 <tr class="separator:a42c38a23a2dfae2239f39eddd8feb81b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9c32c7330985cf31ec5444fc8f16301"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#ab9c32c7330985cf31ec5444fc8f16301">setType</a> (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb">Type</a> type)</td></tr>
-<tr class="memdesc:ab9c32c7330985cf31ec5444fc8f16301"><td class="mdescLeft">&#160;</td><td class="mdescRight">The the nodal vector type.  <a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#ab9c32c7330985cf31ec5444fc8f16301">More...</a><br /></td></tr>
+<tr class="memitem:ab9c32c7330985cf31ec5444fc8f16301"><td class="memItemLeft" align="right" valign="top"><a id="ab9c32c7330985cf31ec5444fc8f16301"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#ab9c32c7330985cf31ec5444fc8f16301">setType</a> (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb">Type</a> type)</td></tr>
+<tr class="memdesc:ab9c32c7330985cf31ec5444fc8f16301"><td class="mdescLeft">&#160;</td><td class="mdescRight">The the nodal vector type. <br /></td></tr>
 <tr class="separator:ab9c32c7330985cf31ec5444fc8f16301"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5bd25d48429d2187c1c123b96c43983"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa5bd25d48429d2187c1c123b96c43983">f</a> (<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> u) const</td></tr>
+<tr class="memitem:aa5bd25d48429d2187c1c123b96c43983"><td class="memItemLeft" align="right" valign="top">Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa5bd25d48429d2187c1c123b96c43983">f</a> (Scalar u) const</td></tr>
 <tr class="separator:aa5bd25d48429d2187c1c123b96c43983"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac14f330817f2e52952c6369300192ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aac14f330817f2e52952c6369300192ec">df</a> (<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> u) const</td></tr>
-<tr class="memdesc:aac14f330817f2e52952c6369300192ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate speed of the spline.  <a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aac14f330817f2e52952c6369300192ec">More...</a><br /></td></tr>
+<tr class="memitem:aac14f330817f2e52952c6369300192ec"><td class="memItemLeft" align="right" valign="top"><a id="aac14f330817f2e52952c6369300192ec"></a>
+Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aac14f330817f2e52952c6369300192ec">df</a> (Scalar u) const</td></tr>
+<tr class="memdesc:aac14f330817f2e52952c6369300192ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate speed of the spline. <br /></td></tr>
 <tr class="separator:aac14f330817f2e52952c6369300192ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -156,26 +162,7 @@ class Ra::Core::Geometry::Spline&lt; D, K &gt;</h3>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="Spline_8hpp_source.html#l00020">20</a> of file <a class="el" href="Spline_8hpp_source.html">Spline.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a965db2c67b6e77a8777975df596d5084"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a965db2c67b6e77a8777975df596d5084">&#9670;&nbsp;</a></span>Vector</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint D, uint K = 2&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a>&lt; D, K &gt;::<a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a> =  typename Eigen::Matrix&lt;<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, D, 1&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Spline_8hpp_source.html#l00028">28</a> of file <a class="el" href="Spline_8hpp_source.html">Spline.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a164e49e88843cb33e6ba4f9e2918a9fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a164e49e88843cb33e6ba4f9e2918a9fb">&#9670;&nbsp;</a></span>Type</h2>
 
@@ -190,8 +177,7 @@ template&lt;uint D, uint K = 2&gt; </div>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a164e49e88843cb33e6ba4f9e2918a9fbaf21efa3e3073d7f9ad5f9d0b7afc28b5"></a>UNIFORM&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596"></a>OPEN_UNIFORM&#160;</td><td class="fielddoc"><p>Connected to the first and last control points. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596"></a>OPEN_UNIFORM&#160;</td><td class="fielddoc"><p>Connected to the first and last control points. </p>
 </td></tr>
 </table>
 
@@ -238,53 +224,13 @@ template&lt;uint D, uint K = 2&gt; </div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1Spline_ad1b5b900b78d5f66c3f40948e55b668a_cgraph.svg" width="575" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1Spline_ad1b5b900b78d5f66c3f40948e55b668a_cgraph.svg" width="360" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aac14f330817f2e52952c6369300192ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac14f330817f2e52952c6369300192ec">&#9670;&nbsp;</a></span>df()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint D, uint K&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Spline</a>&lt; D, K &gt;::<a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a> <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a>&lt; D, K &gt;::df </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
-          <td class="paramname"><em>u</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Evaluate speed of the spline. </p>
-
-<p class="definition">Definition at line <a class="el" href="Spline_8inl_source.html#l00066">66</a> of file <a class="el" href="Spline_8inl_source.html">Spline.inl</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1Spline_aac14f330817f2e52952c6369300192ec_cgraph.svg" width="376" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
 <a id="aa5bd25d48429d2187c1c123b96c43983"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa5bd25d48429d2187c1c123b96c43983">&#9670;&nbsp;</a></span>f()</h2>
 
@@ -297,9 +243,9 @@ template&lt;uint D, uint K&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Spline</a>&lt; D, K &gt;::<a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a> <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a>&lt; D, K &gt;::f </td>
+          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Spline</a>&lt; D, K &gt;::Vector <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a>&lt; D, K &gt;::f </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
+          <td class="paramtype">Scalar&#160;</td>
           <td class="paramname"><em>u</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -318,106 +264,6 @@ template&lt;uint D, uint K&gt; </div>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="Spline_8inl_source.html#l00058">58</a> of file <a class="el" href="Spline_8inl_source.html">Spline.inl</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1Spline_aa5bd25d48429d2187c1c123b96c43983_cgraph.svg" width="376" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a42c38a23a2dfae2239f39eddd8feb81b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42c38a23a2dfae2239f39eddd8feb81b">&#9670;&nbsp;</a></span>getCtrlPoints()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint D, uint K&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt; typename <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Spline</a>&lt; D, K &gt;::<a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a> &gt; &amp; <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a>&lt; D, K &gt;::getCtrlPoints</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the control points of the spline. </p>
-
-<p class="definition">Definition at line <a class="el" href="Spline_8inl_source.html#l00041">41</a> of file <a class="el" href="Spline_8inl_source.html">Spline.inl</a>.</p>
-
-</div>
-</div>
-<a id="aa9b2549bafa3c74c109c6e4dfc8b90b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9b2549bafa3c74c109c6e4dfc8b90b2">&#9670;&nbsp;</a></span>setCtrlPoints()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint D, uint K = 2&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a>&lt; D, K &gt;::setCtrlPoints </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt; <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084">Vector</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>points</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the position of the spline control points. </p>
-
-<p class="definition">Definition at line <a class="el" href="Spline_8inl_source.html#l00024">24</a> of file <a class="el" href="Spline_8inl_source.html">Spline.inl</a>.</p>
-
-</div>
-</div>
-<a id="ab9c32c7330985cf31ec5444fc8f16301"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9c32c7330985cf31ec5444fc8f16301">&#9670;&nbsp;</a></span>setType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint D, uint K&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a>&lt; D, K &gt;::setType </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb">Type</a>&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The the nodal vector type. </p>
-
-<p class="definition">Definition at line <a class="el" href="Spline_8inl_source.html#l00049">49</a> of file <a class="el" href="Spline_8inl_source.html">Spline.inl</a>.</p>
 
 </div>
 </div>
@@ -430,8 +276,8 @@ template&lt;uint D, uint K&gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Geometry</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Spline</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Geometry</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Spline</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

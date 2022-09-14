@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,32 +96,32 @@ $(document).ready(function(){initNavTree('KeyMappingManager_8hpp_source.html',''
 <div class="title">KeyMappingManager.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="KeyMappingManager_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;QXmlStreamWriter&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QtGui/QKeyEvent&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QtGui/QMouseEvent&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QtXml/QtXml&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGui_8hpp.html">Gui/RaGui.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Gui/RaGui.hpp&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Index_8hpp.html">Core/Utils/Index.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Observable_8hpp.html">Core/Utils/Observable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Singleton_8hpp.html">Core/Utils/Singleton.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Index.hpp&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Observable.hpp&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Singleton.hpp&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManager.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html">KeyMappingManager</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">Ra::Core::Utils::ObservableVoid</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManager.html">   20</a></span>&#160;<span class="keyword">class </span>RA_GUI_API <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html">KeyMappingManager</a> : <span class="keyword">public</span> Ra::Core::Utils::ObservableVoid</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="Singleton_8hpp.html#ab39cd756057298304463e7f82f0e8cad">RA_SINGLETON_INTERFACE</a>( <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html">KeyMappingManager</a> );</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    RA_SINGLETON_INTERFACE( <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html">KeyMappingManager</a> );</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// Needed by Q_ENUM</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    Q_GADGET</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">   28</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingAction</a> = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">   29</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Context</a>          = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">using</span> KeyMappingAction = Ra::Core::Utils::Index;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">using</span> Context          = Ra::Core::Utils::Index;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> loadConfiguration( <span class="keyword">const</span> std::string&amp; filename = {} );</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
@@ -128,15 +129,15 @@ $(document).ready(function(){initNavTree('KeyMappingManager_8hpp_source.html',''
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> reloadConfiguration();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManager.html#aa3122cf424cc8ddcec4aa7c20be22a76">   43</a></span>&#160;    std::string <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#aa3122cf424cc8ddcec4aa7c20be22a76">getLoadedFilename</a>() { <span class="keywordflow">return</span> m_file-&gt;fileName().toStdString(); }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::string getLoadedFilename() { <span class="keywordflow">return</span> m_file-&gt;fileName().toStdString(); }</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::KeyMappingAction</a> getAction( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::Context</a>&amp; context,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    KeyMappingManager::KeyMappingAction getAction( <span class="keyword">const</span> KeyMappingManager::Context&amp; context,</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                                   <span class="keyword">const</span> Qt::MouseButtons&amp; buttons,</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                                   <span class="keyword">const</span> Qt::KeyboardModifiers&amp; modifiers,</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                                   <span class="keywordtype">int</span> key,</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                   <span class="keywordtype">bool</span> wheel = <span class="keyword">false</span> );</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::KeyMappingAction</a> addAction( <span class="keyword">const</span> std::string&amp; context,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    KeyMappingManager::KeyMappingAction addAction( <span class="keyword">const</span> std::string&amp; context,</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                                   <span class="keyword">const</span> std::string&amp; keyString,</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                                   <span class="keyword">const</span> std::string&amp; modifiersString,</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                                   <span class="keyword">const</span> std::string&amp; buttonsString,</div>
@@ -198,9 +199,9 @@ $(document).ready(function(){initNavTree('KeyMappingManager_8hpp_source.html',''
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordtype">bool</span> m_wheel;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    };</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordtype">void</span> bindKeyToAction( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a> contextIndex,</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordtype">void</span> bindKeyToAction( Ra::Core::Utils::Index contextIndex,</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                          <span class="keyword">const</span> MouseBinding&amp; binding,</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                          <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a> actionIndex );</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                          Ra::Core::Utils::Index actionIndex );</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordtype">void</span> loadConfigurationInternal();</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordtype">void</span> loadConfigurationTagsInternal( QDomElement&amp; node );</div>
@@ -236,49 +237,37 @@ $(document).ready(function(){initNavTree('KeyMappingManager_8hpp_source.html',''
 <div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManageable.html">  208</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a></div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;{</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">  211</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::Context</a> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">getContext</a>() { <span class="keywordflow">return</span> m_keyMappingContext; }</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> KeyMappingManager::Context getContext() { <span class="keywordflow">return</span> m_keyMappingContext; }</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
 <div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec">  215</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec">configureKeyMapping</a>() { T::configureKeyMapping_impl(); }</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManageable.html#abae9357dd8963f4e8e844b58eb5ca5b9">  218</a></span>&#160;    T&amp; <span class="keyword">self</span>() { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T&amp;<span class="keyword">&gt;</span>( *this ); }</div>
-<div class="line"><a name="l00219"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a4f126885bbb69f67ea65a54a8923a686">  219</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a4f126885bbb69f67ea65a54a8923a686">setContext</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::Context</a>&amp; c ) {</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    T&amp; <span class="keyword">self</span>() { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T&amp;<span class="keyword">&gt;</span>( *this ); }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> setContext( <span class="keyword">const</span> KeyMappingManager::Context&amp; c ) {</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        m_keyMappingContext = c;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    }</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">static</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::Context</a> m_keyMappingContext;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">static</span> KeyMappingManager::Context m_keyMappingContext;</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;};</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::Context</a> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable&lt;T&gt;::m_keyMappingContext</a>;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;KeyMappingManager::Context KeyMappingManageable&lt;T&gt;::m_keyMappingContext;</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;} <span class="comment">// namespace Gui</span></div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00208">KeyMappingManager.hpp:208</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html"><div class="ttname"><a href="RaGui_8hpp.html">RaGui.hpp</a></div></div>
-<div class="ttc" id="aSingleton_8hpp_html_ab39cd756057298304463e7f82f0e8cad"><div class="ttname"><a href="Singleton_8hpp.html#ab39cd756057298304463e7f82f0e8cad">RA_SINGLETON_INTERFACE</a></div><div class="ttdeci">#define RA_SINGLETON_INTERFACE(TYPE)</div><div class="ttdef"><b>Definition:</b> <a href="Singleton_8hpp_source.html#l00020">Singleton.hpp:20</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a22954323f435085f355701781f846cda"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">Ra::Gui::KeyMappingManageable::getContext</a></div><div class="ttdeci">static KeyMappingManager::Context getContext()</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00211">KeyMappingManager.hpp:211</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a4f126885bbb69f67ea65a54a8923a686"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a4f126885bbb69f67ea65a54a8923a686">Ra::Gui::KeyMappingManageable::setContext</a></div><div class="ttdeci">static void setContext(const KeyMappingManager::Context &amp;c)</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00219">KeyMappingManager.hpp:219</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a32756ab3dce798b29ccad350f7c815ec"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec">Ra::Gui::KeyMappingManageable::configureKeyMapping</a></div><div class="ttdeci">static void configureKeyMapping()</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00215">KeyMappingManager.hpp:215</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a5b2d48be6db6b982ac70610c526d3870"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Ra::Core::Utils::Observable::Observer</a></div><div class="ttdeci">std::function&lt; void(Args...)&gt; Observer</div><div class="ttdoc">Observer functor type.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00037">Observable.hpp:37</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
-<div class="ttc" id="aIndex_8hpp_html"><div class="ttname"><a href="Index_8hpp.html">Index.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html">Ra::Gui::KeyMappingManager</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00020">KeyMappingManager.hpp:20</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="aSingleton_8hpp_html"><div class="ttname"><a href="Singleton_8hpp.html">Singleton.hpp</a></div></div>
-<div class="ttc" id="aObservable_8hpp_html"><div class="ttname"><a href="Observable_8hpp.html">Observable.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ObservableVoid_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ObservableVoid.html">Ra::Core::Utils::ObservableVoid</a></div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00090">Observable.hpp:90</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html_aa3122cf424cc8ddcec4aa7c20be22a76"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html#aa3122cf424cc8ddcec4aa7c20be22a76">Ra::Gui::KeyMappingManager::getLoadedFilename</a></div><div class="ttdeci">std::string getLoadedFilename()</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00043">KeyMappingManager.hpp:43</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_53dbd7b5b1f80ee648ea4591020754f4.html">Utils</a></li><li class="navelem"><a class="el" href="KeyMappingManager_8hpp.html">KeyMappingManager.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_53dbd7b5b1f80ee648ea4591020754f4.html">Utils</a></li><li class="navelem"><b>KeyMappingManager.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

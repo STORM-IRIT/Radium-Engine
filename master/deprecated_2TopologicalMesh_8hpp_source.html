@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,16 +96,16 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="title">TopologicalMesh.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="deprecated_2TopologicalMesh_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VectorArray_8hpp.html">Core/Containers/VectorArray.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="OpenMesh_8hpp.html">Core/Geometry/OpenMesh.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TriangleMesh_8hpp.html">Core/Geometry/TriangleMesh.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/VectorArray.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/OpenMesh.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/TriangleMesh.hpp&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Index_8hpp.html">Core/Utils/Index.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="StdOptional_8hpp.html">Core/Utils/StdOptional.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Index.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/StdOptional.hpp&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;OpenMesh/Core/Mesh/Traits.hh&gt;</span></div>
@@ -119,52 +120,52 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Geometry</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>Geometry {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span>deprecated {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">using namespace </span>Utils; <span class="comment">// log, AttribXXX</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html">   32</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html">TopologicalMeshTraits</a> : OpenMesh::DefaultTraits {</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html#ad3634a7c4069c16ab1333ff349cf5283">   33</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html#ad3634a7c4069c16ab1333ff349cf5283">Point</a>  = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html#aa21e5108a01cb1028239a6604081a89a">   34</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html#aa21e5108a01cb1028239a6604081a89a">Normal</a> = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">using</span> Point  = Ra::Core::Vector3;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">using</span> Normal = Ra::Core::Vector3;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    VertexAttributes( OpenMesh::Attributes::Status | <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">OpenMesh::Attributes::Normal</a> );</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    FaceAttributes( OpenMesh::Attributes::Status | <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">OpenMesh::Attributes::Normal</a> );</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    VertexAttributes( OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal );</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    FaceAttributes( OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal );</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    EdgeAttributes( OpenMesh::Attributes::Status );</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">// Add  OpenMesh::Attributes::PrevHalfedge for efficiency ?</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    HalfedgeAttributes( OpenMesh::Attributes::Status | <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">OpenMesh::Attributes::Normal</a> );</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    HalfedgeAttributes( OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal );</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">   53</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">TopologicalMesh</a> : <span class="keyword">public</span> OpenMesh::PolyMesh_ArrayKernelT&lt;TopologicalMeshTraits&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">   53</a></span>&#160;<span class="keyword">class </span>RA_CORE_API <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">TopologicalMesh</a> : <span class="keyword">public</span> OpenMesh::PolyMesh_ArrayKernelT&lt;TopologicalMeshTraits&gt;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">using</span> base = OpenMesh::PolyMesh_ArrayKernelT&lt;TopologicalMeshTraits&gt;;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">using</span> base::PolyMesh_ArrayKernelT;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>   = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">using</span> Vector3 = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">using</span> Index   = Ra::Core::Utils::Index;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">using</span> Vector3 = Ra::Core::Vector3;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> NonManifoldFaceCommand&gt;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">TopologicalMesh</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a>&amp; triMesh,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">TopologicalMesh</a>( <span class="keyword">const</span> Ra::Core::Geometry::TriangleMesh&amp; triMesh,</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                              NonManifoldFaceCommand command );</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">TopologicalMesh</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a>&amp; triMesh );</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">TopologicalMesh</a>( <span class="keyword">const</span> Ra::Core::Geometry::TriangleMesh&amp; triMesh );</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">TopologicalMesh</a>();</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> toTriangleMesh();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    TriangleMesh toTriangleMesh();</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">void</span> updateTriangleMesh( <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a>&amp; mesh );</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">void</span> updateTriangleMesh( Ra::Core::Geometry::TriangleMesh&amp; mesh );</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// import other version of halfedge_handle method</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">using</span> base::halfedge_handle;</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">inline</span> HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    [[deprecated]] <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Normal</a>&amp; normal( VertexHandle vh, FaceHandle fh ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    [[deprecated]] <span class="keyword">inline</span> <span class="keyword">const</span> Normal&amp; normal( VertexHandle vh, FaceHandle fh ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    [[deprecated]] <span class="keywordtype">void</span> set_normal( VertexHandle vh, FaceHandle fh, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Normal</a>&amp; n );</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    [[deprecated]] <span class="keywordtype">void</span> set_normal( VertexHandle vh, FaceHandle fh, <span class="keyword">const</span> Normal&amp; n );</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">using</span> base::normal;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">using</span> base::set_normal;</div>
@@ -195,7 +196,7 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    copyNormalFromFace( FaceHandle fh, HalfedgeHandle heh, OpenMesh::FPropHandleT&lt;Normal&gt; fProp );</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    interpolateNormal( HalfedgeHandle in_a, HalfedgeHandle in_b, HalfedgeHandle out, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> f );</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    interpolateNormal( HalfedgeHandle in_a, HalfedgeHandle in_b, HalfedgeHandle out, Scalar f );</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> interpolateNormalOnFaces( FaceHandle fh, OpenMesh::FPropHandleT&lt;Normal&gt; fProp );</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
@@ -222,7 +223,7 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordtype">void</span> interpolateProps( HalfedgeHandle in_a,</div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                           HalfedgeHandle in_b,</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                           HalfedgeHandle out,</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                           <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> f,</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                           Scalar f,</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                           <span class="keyword">const</span> std::vector&lt;OpenMesh::HPropHandleT&lt;T&gt;&gt;&amp; props );</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
@@ -254,7 +255,7 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                                      std::vector&lt;OpenMesh::FPropHandleT&lt;Vector4&gt;&gt;&amp; vec4Props );</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    interpolateAllProps( HalfedgeHandle in_a, HalfedgeHandle in_b, HalfedgeHandle out, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> f );</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    interpolateAllProps( HalfedgeHandle in_a, HalfedgeHandle in_b, HalfedgeHandle out, Scalar f );</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160; </div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span></div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    interpolateAllPropsOnFaces( FaceHandle fh,</div>
@@ -265,8 +266,8 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                                std::vector&lt;OpenMesh::FPropHandleT&lt;Vector4&gt;&gt;&amp; vec4Props );</div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
 <div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordtype">bool</span> splitEdge( TopologicalMesh::EdgeHandle eh, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> f );</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keywordtype">bool</span> splitEdgeWedge( TopologicalMesh::EdgeHandle eh, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> f );</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordtype">bool</span> splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keywordtype">bool</span> splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f );</div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;  <span class="keyword">private</span>:</div>
@@ -279,13 +280,13 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <span class="keyword">using</span> PropPair = std::pair&lt;AttribHandle&lt;T&gt;, OpenMesh::HPropHandleT&lt;T&gt;&gt;;</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> copyAttribToTopo( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a>&amp; triMesh,</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> copyAttribToTopo( <span class="keyword">const</span> TriangleMesh&amp; triMesh,</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                                  <span class="keyword">const</span> std::vector&lt;PropPair&lt;T&gt;&gt;&amp; vprop,</div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                                  TopologicalMesh::HalfedgeHandle heh,</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                                  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vindex );</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> addAttribPairToTopo( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a>&amp; triMesh,</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> addAttribPairToTopo( <span class="keyword">const</span> TriangleMesh&amp; triMesh,</div>
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                                     <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">AttribManager::pointer_type</a> attr,</div>
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                                     std::vector&lt;PropPair&lt;T&gt;&gt;&amp; vprop,</div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                                     std::vector&lt;OpenMesh::HPropHandleT&lt;T&gt;&gt;&amp; pph );</div>
@@ -300,42 +301,26 @@ $(document).ready(function(){initNavTree('deprecated_2TopologicalMesh_8hpp_sourc
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    [[deprecated]] std::vector&lt;OpenMesh::HPropHandleT&lt;Vector3&gt;&gt; m_vec3Pph;</div>
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    [[deprecated]] std::vector&lt;OpenMesh::HPropHandleT&lt;Vector4&gt;&gt; m_vec4Pph;</div>
 <div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
-<div class="line"><a name="l00389"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aa85c27894e28a3d875381c1bdec55c61">  389</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TMOperations;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TMOperations;</div>
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;};</div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;} <span class="comment">// namespace deprecated</span></div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;} <span class="comment">// namespace Geometry</span></div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;} <span class="comment">// namespace Core</span></div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="deprecated_2TopologicalMesh_8inl.html">Core/Geometry/deprecated/TopologicalMesh.inl</a>&gt;</span></div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/deprecated/TopologicalMesh.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aTriangleMesh_8hpp_html"><div class="ttname"><a href="TriangleMesh_8hpp.html">TriangleMesh.hpp</a></div></div>
-<div class="ttc" id="aVectorArray_8hpp_html"><div class="ttname"><a href="VectorArray_8hpp.html">VectorArray.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits_html_aa21e5108a01cb1028239a6604081a89a"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html#aa21e5108a01cb1028239a6604081a89a">Ra::Core::Geometry::deprecated::TopologicalMeshTraits::Normal</a></div><div class="ttdeci">Ra::Core::Vector3 Normal</div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8hpp_source.html#l00034">TopologicalMesh.hpp:34</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html">Ra::Core::Geometry::deprecated::TopologicalMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8hpp_source.html#l00053">TopologicalMesh.hpp:53</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Ra::Core::Utils::AttribBase</a></div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00026">Attribs.hpp:26</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits_html_ad3634a7c4069c16ab1333ff349cf5283"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html#ad3634a7c4069c16ab1333ff349cf5283">Ra::Core::Geometry::deprecated::TopologicalMeshTraits::Point</a></div><div class="ttdeci">Ra::Core::Vector3 Point</div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8hpp_source.html#l00033">TopologicalMesh.hpp:33</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TriangleMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00512">IndexedGeometry.hpp:512</a></div></div>
-<div class="ttc" id="aOpenMesh_8hpp_html"><div class="ttname"><a href="OpenMesh_8hpp.html">OpenMesh.hpp</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html">Ra::Core::Geometry::deprecated::TopologicalMeshTraits</a></div><div class="ttdef"><b>Definition:</b> <a href="deprecated_2TopologicalMesh_8hpp_source.html#l00032">TopologicalMesh.hpp:32</a></div></div>
-<div class="ttc" id="aStdOptional_8hpp_html"><div class="ttname"><a href="StdOptional_8hpp.html">StdOptional.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_aa9438814ccaa8de9aaed2dbf5e0bd6aa"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Ra::Engine::Data::DrawPrimitives::Normal</a></div><div class="ttdeci">LineMeshPtr Normal(const Core::Vector3 &amp;point, const Core::Vector3 &amp;normal, const Core::Utils::Color &amp;color, Scalar scale)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00329">DrawPrimitives.cpp:329</a></div></div>
-<div class="ttc" id="adeprecated_2TopologicalMesh_8inl_html"><div class="ttname"><a href="deprecated_2TopologicalMesh_8inl.html">TopologicalMesh.inl</a></div></div>
-<div class="ttc" id="aIndex_8hpp_html"><div class="ttname"><a href="Index_8hpp.html">Index.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Ra::Engine::Rendering::RenderObjectType::Geometry</a></div><div class="ttdeci">@ Geometry</div><div class="ttdoc">&quot;Geometry&quot; render objects are those loaded using Radium::IO and generated by GeometrySystem</div></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00257">CoreMacros.hpp:257</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="dir_e5ae3a9d3a26873eff00da258d44b53c.html">deprecated</a></li><li class="navelem"><a class="el" href="deprecated_2TopologicalMesh_8hpp.html">TopologicalMesh.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="dir_e5ae3a9d3a26873eff00da258d44b53c.html">deprecated</a></li><li class="navelem"><b>TopologicalMesh.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

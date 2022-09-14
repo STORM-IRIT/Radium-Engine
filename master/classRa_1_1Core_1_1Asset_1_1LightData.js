@@ -1,10 +1,6 @@
 var classRa_1_1Core_1_1Asset_1_1LightData =
 [
-    [ "AreaLight", "structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html", "structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight" ],
-    [ "DirLight", "structRa_1_1Core_1_1Asset_1_1LightData_1_1DirLight.html", "structRa_1_1Core_1_1Asset_1_1LightData_1_1DirLight" ],
     [ "LightAttenuation", "structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html", "structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation" ],
-    [ "PointLight", "structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html", "structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight" ],
-    [ "SpotLight", "structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html", "structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight" ],
     [ "LightType", "classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc", [
       [ "UNKNOWN", "classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca3a95b4075d369f7761604ea9f7359148", null ],
       [ "POINT_LIGHT", "classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca771a9111952db0d6d1adb4c7287b91f7", null ],

@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,7 +96,7 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 <div class="title">WindowQt.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="WindowQt_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="WindowQt_8hpp.html">WindowQt.hpp</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;WindowQt.hpp&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;QApplication&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QDebug&gt;</span></div>
@@ -104,16 +105,16 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QScreen&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QSurfaceFormat&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceRa_1_1Core_1_1Utils.html">Ra::Core::Utils</a>; <span class="comment">// log</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using namespace </span>Ra::Core::Utils; <span class="comment">// log</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>Gui {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;WindowQt* <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">WindowQt::s_getProcAddressHelper</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;WindowQt* WindowQt::s_getProcAddressHelper = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Gui.html#a60f600b001702a110cf0c76914aeef34">   19</a></span>&#160;QSurfaceFormat <a class="code" href="namespaceRa_1_1Gui.html#a60f600b001702a110cf0c76914aeef34">defaultFormat</a>() {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;QSurfaceFormat defaultFormat() {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    QSurfaceFormat format;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    format.setProfile( QSurfaceFormat::CoreProfile );</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#ifndef NDEBUG</span></div>
@@ -122,45 +123,45 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> format;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#aeaf44d6f885ecf78f4c44045ef69aeea">   28</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#aeaf44d6f885ecf78f4c44045ef69aeea">WindowQt::WindowQt</a>( QScreen* screen ) :</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="classQWindow.html">QWindow</a>( screen ), m_context( nullptr ), m_updatePending( false ), m_glInitialized( false ) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;WindowQt::WindowQt( QScreen* screen ) :</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    QWindow( screen ), m_context( nullptr ), m_updatePending( false ), m_glInitialized( false ) {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    setSurfaceType( QWindow::OpenGLSurface );</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> ( !<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">s_getProcAddressHelper</a> ) { <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">s_getProcAddressHelper</a> = <span class="keyword">this</span>; }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> ( !s_getProcAddressHelper ) { s_getProcAddressHelper = <span class="keyword">this</span>; }</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// No need to create as this window is used as widget (and actually segfault on Qt 5.12.3)</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// Surface format set in BaseApplication</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">m_context</a> = std::make_unique&lt;QOpenGLContext&gt;( <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">m_context</a>-&gt;setFormat( <a class="code" href="namespaceRa_1_1Gui.html#a60f600b001702a110cf0c76914aeef34">QSurfaceFormat::defaultFormat</a>() );</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    m_context = std::make_unique&lt;QOpenGLContext&gt;( <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    m_context-&gt;setFormat( QSurfaceFormat::defaultFormat() );</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> ( !<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">m_context</a>-&gt;create() ) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;Could not create OpenGL context.&quot;</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> ( !m_context-&gt;create() ) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;Could not create OpenGL context.&quot;</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        QApplication::quit();</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    connect( <span class="keyword">this</span>, &amp;QWindow::screenChanged, <span class="keyword">this</span>, &amp;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#aef47b3f06761a4c39b6c5a47a9747fe1">WindowQt::screenChanged</a> );</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    connect( <span class="keyword">this</span>, &amp;QWindow::screenChanged, <span class="keyword">this</span>, &amp;WindowQt::screenChanged );</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">// cleanup connection is set in BaseApplication</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#ab2b17163135b98c3eed80326f5d6e40c">   50</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#ab2b17163135b98c3eed80326f5d6e40c">WindowQt::~WindowQt</a>() {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;WindowQt::~WindowQt() {</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">// cannot deinitialize OpenGL here as it would require the call of a virtual member function</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#aef47b3f06761a4c39b6c5a47a9747fe1">   54</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#aef47b3f06761a4c39b6c5a47a9747fe1">WindowQt::screenChanged</a>() {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> WindowQt::screenChanged() {</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    QSize s { size().width(), size().height() };</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    QResizeEvent patchEvent { s, s };</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a2643ef1e4f027f6967dc0dd362cf21dc">resizeInternal</a>( &amp;patchEvent );</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    resizeInternal( &amp;patchEvent );</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de">   60</a></span>&#160;QOpenGLContext* <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de">WindowQt::context</a>() {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">m_context</a>.get();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> m_context.get();</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">   64</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">WindowQt::makeCurrent</a>() {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> ( QOpenGLContext::currentContext() != <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">m_context</a>.get() ) {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">m_context</a>-&gt;makeCurrent( <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> ( QOpenGLContext::currentContext() != m_context.get() ) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        m_context-&gt;makeCurrent( <span class="keyword">this</span> );</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="comment">// reset counter (in case another viewer has broken our context activation counter)</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        m_contextActivationCount = 0;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
@@ -170,33 +171,33 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">   75</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">WindowQt::doneCurrent</a>() {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> ( m_contextActivationCount == 0 ) { <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">m_context</a>-&gt;doneCurrent(); }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> ( m_contextActivationCount == 0 ) { m_context-&gt;doneCurrent(); }</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        --m_contextActivationCount;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a5e730ff2c5e6a199047ad3206500a4a1">   82</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a5e730ff2c5e6a199047ad3206500a4a1">WindowQt::resizeEvent</a>( QResizeEvent* event ) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a2643ef1e4f027f6967dc0dd362cf21dc">resizeInternal</a>( event );</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">void</span> WindowQt::resizeEvent( QResizeEvent* event ) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    resizeInternal( event );</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a42ef36929421a865ca2d0424e515292d">   86</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a42ef36929421a865ca2d0424e515292d">WindowQt::exposeEvent</a>( QExposeEvent* ) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a44dfd5a3bfdc9a9c285a6ccbd681999a">initialize</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keywordtype">void</span> WindowQt::exposeEvent( QExposeEvent* ) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    initialize();</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a44dfd5a3bfdc9a9c285a6ccbd681999a">   90</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a44dfd5a3bfdc9a9c285a6ccbd681999a">WindowQt::initialize</a>() {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">if</span> ( !<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">m_glInitialized</a>.load() ) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keywordtype">void</span> WindowQt::initialize() {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">if</span> ( !m_glInitialized.load() ) {</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">makeCurrent</a>();</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a44dcba0a79c9be83bb96b5bb0db1ab01">initializeGL</a>();</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">doneCurrent</a>();</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a9e218f1715f8207ad38140386120e8ae">   98</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a9e218f1715f8207ad38140386120e8ae">WindowQt::showEvent</a>( QShowEvent* <span class="comment">/*ev*/</span> ) {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a44dfd5a3bfdc9a9c285a6ccbd681999a">initialize</a>();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keywordtype">void</span> WindowQt::showEvent( QShowEvent* <span class="comment">/*ev*/</span> ) {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    initialize();</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a2643ef1e4f027f6967dc0dd362cf21dc">  102</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a2643ef1e4f027f6967dc0dd362cf21dc">WindowQt::resizeInternal</a>( QResizeEvent* event ) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keywordtype">void</span> WindowQt::resizeInternal( QResizeEvent* event ) {</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#ifdef OS_MACOS</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// Ugly patch since Qt seems buggy on this point on macos, raise two resize call the first time.</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">if</span> ( event-&gt;size().width() &lt; minimumSize().width() ||</div>
@@ -209,7 +210,7 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a44dfd5a3bfdc9a9c285a6ccbd681999a">initialize</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    initialize();</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">makeCurrent</a>();</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
@@ -241,12 +242,12 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
 <div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a44dcba0a79c9be83bb96b5bb0db1ab01">  146</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a44dcba0a79c9be83bb96b5bb0db1ab01">WindowQt::initializeGL</a>() {</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="comment">// this simple window do not init GL</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">m_glInitialized</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">m_glInitialized</a>;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    m_glInitialized = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">return</span> m_glInitialized;</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;}</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
 <div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d">  152</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d">WindowQt::cleanupGL</a>() {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">m_glInitialized</a>.load() ) {</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">if</span> ( m_glInitialized.load() ) {</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">makeCurrent</a>();</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c">deinitializeGL</a>();</div>
@@ -262,10 +263,10 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
 <div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#a877eea734becb3be6835688f9023b39c">  168</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a877eea734becb3be6835688f9023b39c">WindowQt::enterEvent</a>( QEvent* ) {}</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#ac6edbd05736a56854c8f9348d18ffc87">  170</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#ac6edbd05736a56854c8f9348d18ffc87">WindowQt::leaveEvent</a>( QEvent* ) {}</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="keywordtype">void</span> WindowQt::leaveEvent( QEvent* ) {}</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#aac16a1388a3a2f9d0ea1127ea700cafe">  172</a></span>&#160;glbinding::ProcAddress <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#aac16a1388a3a2f9d0ea1127ea700cafe">WindowQt::getProcAddress</a>( <span class="keyword">const</span> <span class="keywordtype">char</span>* name ) {</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">if</span> ( !<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">s_getProcAddressHelper</a> || name == <span class="keyword">nullptr</span> ) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;glbinding::ProcAddress WindowQt::getProcAddress( <span class="keyword">const</span> <span class="keywordtype">char</span>* name ) {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">if</span> ( !s_getProcAddressHelper || name == <span class="keyword">nullptr</span> ) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> symbol = std::string( name );</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
@@ -274,7 +275,7 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> qtSymbol = QByteArray::fromRawData( symbol.c_str(), symbol.size() );</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">s_getProcAddressHelper</a>-&gt;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">m_context</a>-&gt;getProcAddress( qtSymbol );</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">return</span> s_getProcAddressHelper-&gt;m_context-&gt;getProcAddress( qtSymbol );</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;}</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;} <span class="comment">// namespace Gui</span></div>
@@ -282,39 +283,19 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a38fb78373f325c1cca3b8fab9a44d30c"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c">Ra::Gui::WindowQt::deinitializeGL</a></div><div class="ttdeci">virtual void deinitializeGL()</div><div class="ttdoc">DeInitialize the OpenGL.</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00162">WindowQt.cpp:162</a></div></div>
-<div class="ttc" id="aclassQWindow_html"><div class="ttname"><a href="classQWindow.html">QWindow</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_ac6edbd05736a56854c8f9348d18ffc87"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#ac6edbd05736a56854c8f9348d18ffc87">Ra::Gui::WindowQt::leaveEvent</a></div><div class="ttdeci">virtual void leaveEvent(QEvent *event)</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00170">WindowQt.cpp:170</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">Ra::Core::Utils::logINFO</a></div><div class="ttdeci">@ logINFO</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00018">Log.hpp:18</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a9e218f1715f8207ad38140386120e8ae"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a9e218f1715f8207ad38140386120e8ae">Ra::Gui::WindowQt::showEvent</a></div><div class="ttdeci">void showEvent(QShowEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00098">WindowQt.cpp:98</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a44dcba0a79c9be83bb96b5bb0db1ab01"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a44dcba0a79c9be83bb96b5bb0db1ab01">Ra::Gui::WindowQt::initializeGL</a></div><div class="ttdeci">virtual bool initializeGL()</div><div class="ttdoc">Initialize the openGL related part of the Window.</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00146">WindowQt.cpp:146</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_aeaf44d6f885ecf78f4c44045ef69aeea"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#aeaf44d6f885ecf78f4c44045ef69aeea">Ra::Gui::WindowQt::WindowQt</a></div><div class="ttdeci">WindowQt(QScreen *screen)</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00028">WindowQt.cpp:28</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_af623672d7fdc3fd5d6a4c016ab98aac7"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">Ra::Gui::WindowQt::s_getProcAddressHelper</a></div><div class="ttdeci">static WindowQt * s_getProcAddressHelper</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00095">WindowQt.hpp:95</a></div></div>
-<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_aef47b3f06761a4c39b6c5a47a9747fe1"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#aef47b3f06761a4c39b6c5a47a9747fe1">Ra::Gui::WindowQt::screenChanged</a></div><div class="ttdeci">void screenChanged()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00054">WindowQt.cpp:54</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html">Ra::Core::Utils</a></div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00007">Attribs.cpp:7</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_acd31b9e580f049491d13c16ef954d964"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">Ra::Gui::WindowQt::doneCurrent</a></div><div class="ttdeci">void doneCurrent()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00075">WindowQt.cpp:75</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a877eea734becb3be6835688f9023b39c"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a877eea734becb3be6835688f9023b39c">Ra::Gui::WindowQt::enterEvent</a></div><div class="ttdeci">virtual void enterEvent(QEvent *event)</div><div class="ttdoc">paintgl is done by main rendering loop</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00168">WindowQt.cpp:168</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a2643ef1e4f027f6967dc0dd362cf21dc"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a2643ef1e4f027f6967dc0dd362cf21dc">Ra::Gui::WindowQt::resizeInternal</a></div><div class="ttdeci">void resizeInternal(QResizeEvent *event)</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00102">WindowQt.cpp:102</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a5e730ff2c5e6a199047ad3206500a4a1"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a5e730ff2c5e6a199047ad3206500a4a1">Ra::Gui::WindowQt::resizeEvent</a></div><div class="ttdeci">void resizeEvent(QResizeEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00082">WindowQt.cpp:82</a></div></div>
-<div class="ttc" id="aWindowQt_8hpp_html"><div class="ttname"><a href="WindowQt_8hpp.html">WindowQt.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a5829f24c3ea2936025df81c65d7e4854"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">Ra::Gui::WindowQt::m_glInitialized</a></div><div class="ttdeci">std::atomic_bool m_glInitialized</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00075">WindowQt.hpp:75</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_ad3274b69a7a5d5c36ce74f44a1a5d1de"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de">Ra::Gui::WindowQt::context</a></div><div class="ttdeci">QOpenGLContext * context()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00060">WindowQt.cpp:60</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a42ef36929421a865ca2d0424e515292d"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a42ef36929421a865ca2d0424e515292d">Ra::Gui::WindowQt::exposeEvent</a></div><div class="ttdeci">void exposeEvent(QExposeEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00086">WindowQt.cpp:86</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Gui_html_a60f600b001702a110cf0c76914aeef34"><div class="ttname"><a href="namespaceRa_1_1Gui.html#a60f600b001702a110cf0c76914aeef34">Ra::Gui::defaultFormat</a></div><div class="ttdeci">QSurfaceFormat defaultFormat()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00019">WindowQt.cpp:19</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a78476baacd2df24a260f604d02c8ddc4"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">Ra::Gui::WindowQt::makeCurrent</a></div><div class="ttdeci">void makeCurrent()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00064">WindowQt.cpp:64</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a190a81dd418c60026d3579333c2cc94d"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d">Ra::Gui::WindowQt::cleanupGL</a></div><div class="ttdeci">void cleanupGL()</div><div class="ttdoc">call deinitializeGL if needed, with context activated</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00152">WindowQt.cpp:152</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a8562ae7db9d5118c81cbbbaa063617c5"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a8562ae7db9d5118c81cbbbaa063617c5">Ra::Gui::WindowQt::resizeGL</a></div><div class="ttdeci">virtual void resizeGL(QResizeEvent *event)</div><div class="ttdoc">Resize the OpenGL related part of the Window.</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00164">WindowQt.cpp:164</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a491aec3ef3823063794a0412ff9673df"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df">Ra::Gui::WindowQt::m_context</a></div><div class="ttdeci">std::unique_ptr&lt; QOpenGLContext &gt; m_context</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00072">WindowQt.hpp:72</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_ab2b17163135b98c3eed80326f5d6e40c"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#ab2b17163135b98c3eed80326f5d6e40c">Ra::Gui::WindowQt::~WindowQt</a></div><div class="ttdeci">virtual ~WindowQt()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00050">WindowQt.cpp:50</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_aac16a1388a3a2f9d0ea1127ea700cafe"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#aac16a1388a3a2f9d0ea1127ea700cafe">Ra::Gui::WindowQt::getProcAddress</a></div><div class="ttdeci">static glbinding::ProcAddress getProcAddress(const char *name)</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00172">WindowQt.cpp:172</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a44dfd5a3bfdc9a9c285a6ccbd681999a"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a44dfd5a3bfdc9a9c285a6ccbd681999a">Ra::Gui::WindowQt::initialize</a></div><div class="ttdeci">void initialize()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00090">WindowQt.cpp:90</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="WindowQt_8cpp.html">WindowQt.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>WindowQt.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

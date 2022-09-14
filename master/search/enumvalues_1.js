@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['back_6277',['BACK',['../structRa_1_1Core_1_1Geometry_1_1Frustum.html#a5050dc3bf542051b8bb3a299d45bbff8a07289032dfe9a92237dbb19cf09127a3',1,'Ra::Core::Geometry::Frustum']]],
-  ['bottom_6278',['BOTTOM',['../structRa_1_1Core_1_1Geometry_1_1Frustum.html#a5050dc3bf542051b8bb3a299d45bbff8af8b38eecce8ca8af9abd76b94bfc0098',1,'Ra::Core::Geometry::Frustum']]]
+  ['c_5fedge_3035',['C_EDGE',['../classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6beaa4ef174985f28cd2f59d9a32e807b9b6',1,'Ra::Engine::Rendering::Renderer']]],
+  ['c_5ftriangle_3036',['C_TRIANGLE',['../classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6bea84c1aea043bbf0a7b05f254f823b7d1c',1,'Ra::Engine::Rendering::Renderer']]],
+  ['c_5fvertex_3037',['C_VERTEX',['../classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6bea2a83646808d70e1e37a2fc60228f95f8',1,'Ra::Engine::Rendering::Renderer']]],
+  ['cor_3038',['COR',['../classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca039792b8a8781b3c454afcfd4784bd1a',1,'Ra::Engine::Scene::SkinningComponent']]]
 ];

@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,119 +96,87 @@ $(document).ready(function(){initNavTree('GeometrySystem_8cpp_source.html',''); 
 <div class="title">GeometrySystem.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="GeometrySystem_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="GeometrySystem_8hpp.html">Engine/Scene/GeometrySystem.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/GeometrySystem.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="FileData_8hpp.html">Core/Asset/FileData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="GeometryData_8hpp.html">Core/Asset/GeometryData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Task_8hpp.html">Core/Tasks/Task.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TaskQueue_8hpp.html">Core/Tasks/TaskQueue.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/FileData.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/GeometryData.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Tasks/Task.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/Tasks/TaskQueue.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RadiumEngine_8hpp.html">Engine/RadiumEngine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ComponentMessenger_8hpp.html">Engine/Scene/ComponentMessenger.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Entity_8hpp.html">Engine/Scene/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="GeometryComponent_8hpp.html">Engine/Scene/GeometryComponent.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Engine/RadiumEngine.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/ComponentMessenger.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/Entity.hpp&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/GeometryComponent.hpp&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>Engine {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>Scene {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#a95479450f0064de270a5d622d5fa18c1">   17</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#a95479450f0064de270a5d622d5fa18c1">GeometrySystem::GeometrySystem</a>() : <a class="code" href="classRa_1_1Engine_1_1Scene_1_1System.html">System</a>() {}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;GeometrySystem::GeometrySystem() : System() {}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#a3d6055313c807c21dbedf510a5b6986f">   19</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#a3d6055313c807c21dbedf510a5b6986f">GeometrySystem::handleAssetLoading</a>( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* entity,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                         <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a>* fileData ) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> geomData = fileData-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#aa5d248078f13298a50e507ddedb8fa61">getGeometryData</a>();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">void</span> GeometrySystem::handleAssetLoading( Entity* entity,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                         <span class="keyword">const</span> Ra::Core::Asset::FileData* fileData ) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> geomData = fileData-&gt;getGeometryData();</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    uint <span class="keywordtype">id</span> = 0;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; data : geomData ) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a>* comp { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        std::string componentName = <span class="stringliteral">&quot;GEOM_&quot;</span> + entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd">getName</a>() + std::to_string( <span class="keywordtype">id</span>++ );</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        Component* comp { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        std::string componentName = <span class="stringliteral">&quot;GEOM_&quot;</span> + entity-&gt;getName() + std::to_string( <span class="keywordtype">id</span>++ );</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">switch</span> ( data-&gt;getType() ) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a70c20fd43bb71a0034f5da1aaff3b3d7">Ra::Core::Asset::GeometryData::POINT_CLOUD</a>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            comp = <span class="keyword">new</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html">PointCloudComponent</a>( componentName, entity, data );</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">case</span> Ra::Core::Asset::GeometryData::POINT_CLOUD:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            comp = <span class="keyword">new</span> PointCloudComponent( componentName, entity, data );</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05ae1bb87a4816190e90261e9451ec08e40">Ra::Core::Asset::GeometryData::LINE_MESH</a>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">case</span> Ra::Core::Asset::GeometryData::LINE_MESH:</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="comment">//            comp = new LineMeshComponent( componentName, entity, data );</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="comment">//            break;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a2cf0967daa553d39d8e9f58968e8ccbb">Ra::Core::Asset::GeometryData::TRI_MESH</a>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            comp = <span class="keyword">new</span> <a class="code" href="namespaceRa_1_1Engine_1_1Scene.html#a9624e226178bd3bd140293f4e2ce3a5b">TriangleMeshComponent</a>( componentName, entity, data );</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">case</span> Ra::Core::Asset::GeometryData::TRI_MESH:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            comp = <span class="keyword">new</span> TriangleMeshComponent( componentName, entity, data );</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a13e5f722c94fb5c6f563c7ba26d6d994">Ra::Core::Asset::GeometryData::QUAD_MESH</a>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05af07d6f60122fc51d93ef56460f9e6ebc">Ra::Core::Asset::GeometryData::POLY_MESH</a>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            comp = <span class="keyword">new</span> <a class="code" href="namespaceRa_1_1Engine_1_1Scene.html#a5b2448b254344dc0b6680bac7d7ed80d">PolyMeshComponent</a>( componentName, entity, data );</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a9d4e27e140431894028e1efba1a1156d">Ra::Core::Asset::GeometryData::TETRA_MESH</a>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05ae10118df9038bb2204318b8ea402459e">Ra::Core::Asset::GeometryData::HEX_MESH</a>:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a8e8ecf873b3b2975fa4a00aaeb924d93">Ra::Core::Asset::GeometryData::UNKNOWN</a>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( <span class="keyword">false</span>, <span class="stringliteral">&quot;unsupported geometry&quot;</span> );</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece">registerComponent</a>( entity, comp );</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">auto</span> volumeData = fileData-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html#a4d4e7132684de60aefc217146b124cb7">getVolumeData</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">case</span> Ra::Core::Asset::GeometryData::QUAD_MESH:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            comp = <span class="keyword">new</span> QuadMeshComponent( componentName, entity, data );</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">case</span> Ra::Core::Asset::GeometryData::POLY_MESH:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            comp = <span class="keyword">new</span> PolyMeshComponent( componentName, entity, data );</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">case</span> Ra::Core::Asset::GeometryData::TETRA_MESH:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">case</span> Ra::Core::Asset::GeometryData::HEX_MESH:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">case</span> Ra::Core::Asset::GeometryData::UNKNOWN:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            CORE_ASSERT( <span class="keyword">false</span>, <span class="stringliteral">&quot;unsupported geometry&quot;</span> );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        registerComponent( entity, comp );</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">auto</span> volumeData = fileData-&gt;getVolumeData();</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; data : volumeData ) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        std::string componentName = <span class="stringliteral">&quot;VOL_&quot;</span> + entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd">getName</a>() + std::to_string( <span class="keywordtype">id</span>++ );</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">auto</span> comp                 = <span class="keyword">new</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html">VolumeComponent</a>( componentName, entity, data );</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece">registerComponent</a>( entity, comp );</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#ac852132397878ca73af2a0d62c1a3f23">   62</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#ac852132397878ca73af2a0d62c1a3f23">GeometrySystem::generateTasks</a>( <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a>* <span class="comment">/*taskQueue*/</span>,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                    <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1FrameInfo.html">Ra::Engine::FrameInfo</a>&amp; <span class="comment">/*frameInfo*/</span> ) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">// Do nothing, as this system only displays meshes.</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; data : volumeData ) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        std::string componentName = <span class="stringliteral">&quot;VOL_&quot;</span> + entity-&gt;getName() + std::to_string( <span class="keywordtype">id</span>++ );</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keyword">auto</span> comp                 = <span class="keyword">new</span> VolumeComponent( componentName, entity, data );</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        registerComponent( entity, comp );</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">void</span> GeometrySystem::generateTasks( <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a>* <span class="comment">/*taskQueue*/</span>,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                    <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1FrameInfo.html">Ra::Engine::FrameInfo</a>&amp; <span class="comment">/*frameInfo*/</span> ) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// Do nothing, as this system only displays meshes.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05a9d4e27e140431894028e1efba1a1156d"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a9d4e27e140431894028e1efba1a1156d">Ra::Core::Asset::GeometryData::TETRA_MESH</a></div><div class="ttdeci">@ TETRA_MESH</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00044">GeometryData.hpp:44</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05ae1bb87a4816190e90261e9451ec08e40"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05ae1bb87a4816190e90261e9451ec08e40">Ra::Core::Asset::GeometryData::LINE_MESH</a></div><div class="ttdeci">@ LINE_MESH</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00040">GeometryData.hpp:40</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05a70c20fd43bb71a0034f5da1aaff3b3d7"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a70c20fd43bb71a0034f5da1aaff3b3d7">Ra::Core::Asset::GeometryData::POINT_CLOUD</a></div><div class="ttdeci">@ POINT_CLOUD</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00039">GeometryData.hpp:39</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1System_html_a8d1f1cfd2c615e58b4155154206afece"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece">Ra::Engine::Scene::System::registerComponent</a></div><div class="ttdeci">virtual void registerComponent(const Entity *entity, Component *component)</div><div class="ttdef"><b>Definition:</b> <a href="System_8cpp_source.html#l00010">System.cpp:10</a></div></div>
-<div class="ttc" id="aGeometrySystem_8hpp_html"><div class="ttname"><a href="GeometrySystem_8hpp.html">GeometrySystem.hpp</a></div></div>
-<div class="ttc" id="aGeometryComponent_8hpp_html"><div class="ttname"><a href="GeometryComponent_8hpp.html">GeometryComponent.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1GeometrySystem_html_a95479450f0064de270a5d622d5fa18c1"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#a95479450f0064de270a5d622d5fa18c1">Ra::Engine::Scene::GeometrySystem::GeometrySystem</a></div><div class="ttdeci">GeometrySystem()</div><div class="ttdef"><b>Definition:</b> <a href="GeometrySystem_8cpp_source.html#l00017">GeometrySystem.cpp:17</a></div></div>
-<div class="ttc" id="aEntity_8hpp_html"><div class="ttname"><a href="Entity_8hpp.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aRadiumEngine_8hpp_html"><div class="ttname"><a href="RadiumEngine_8hpp.html">RadiumEngine.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05ae10118df9038bb2204318b8ea402459e"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05ae10118df9038bb2204318b8ea402459e">Ra::Core::Asset::GeometryData::HEX_MESH</a></div><div class="ttdeci">@ HEX_MESH</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00045">GeometryData.hpp:45</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Scene_html_a5b2448b254344dc0b6680bac7d7ed80d"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Scene.html#a5b2448b254344dc0b6680bac7d7ed80d">Ra::Engine::Scene::PolyMeshComponent</a></div><div class="ttdeci">SurfaceMeshComponent&lt; Ra::Core::Geometry::PolyMesh &gt; PolyMeshComponent</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00102">GeometryComponent.hpp:102</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1GeometrySystem_html_a3d6055313c807c21dbedf510a5b6986f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#a3d6055313c807c21dbedf510a5b6986f">Ra::Engine::Scene::GeometrySystem::handleAssetLoading</a></div><div class="ttdeci">void handleAssetLoading(Entity *entity, const Ra::Core::Asset::FileData *fileData) override</div><div class="ttdef"><b>Definition:</b> <a href="GeometrySystem_8cpp_source.html#l00019">GeometrySystem.cpp:19</a></div></div>
-<div class="ttc" id="aFileData_8hpp_html"><div class="ttname"><a href="FileData_8hpp.html">FileData.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1PointCloudComponent_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html">Ra::Engine::Scene::PointCloudComponent</a></div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00106">GeometryComponent.hpp:106</a></div></div>
-<div class="ttc" id="aComponentMessenger_8hpp_html"><div class="ttname"><a href="ComponentMessenger_8hpp.html">ComponentMessenger.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05af07d6f60122fc51d93ef56460f9e6ebc"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05af07d6f60122fc51d93ef56460f9e6ebc">Ra::Core::Asset::GeometryData::POLY_MESH</a></div><div class="ttdeci">@ POLY_MESH</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00043">GeometryData.hpp:43</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00349">CoreMacros.hpp:349</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_a4d4e7132684de60aefc217146b124cb7"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#a4d4e7132684de60aefc217146b124cb7">Ra::Core::Asset::FileData::getVolumeData</a></div><div class="ttdeci">std::vector&lt; VolumeData * &gt; getVolumeData() const</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8inl_source.html#l00039">FileData.inl:39</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05a2cf0967daa553d39d8e9f58968e8ccbb"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a2cf0967daa553d39d8e9f58968e8ccbb">Ra::Core::Asset::GeometryData::TRI_MESH</a></div><div class="ttdeci">@ TRI_MESH</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00041">GeometryData.hpp:41</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_aca70e4d7a9078c377650ac4ea59748bd"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#aca70e4d7a9078c377650ac4ea59748bd">Ra::Engine::Scene::Entity::getName</a></div><div class="ttdeci">const std::string &amp; getName() const</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8inl_source.html#l00008">Entity.inl:8</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1FrameInfo_html"><div class="ttname"><a href="structRa_1_1Engine_1_1FrameInfo.html">Ra::Engine::FrameInfo</a></div><div class="ttdoc">Structure passed to each system before they fill the task queue.</div><div class="ttdef"><b>Definition:</b> <a href="FrameInfo_8hpp_source.html#l00008">FrameInfo.hpp:8</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05a13e5f722c94fb5c6f563c7ba26d6d994"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a13e5f722c94fb5c6f563c7ba26d6d994">Ra::Core::Asset::GeometryData::QUAD_MESH</a></div><div class="ttdeci">@ QUAD_MESH</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00042">GeometryData.hpp:42</a></div></div>
-<div class="ttc" id="aGeometryData_8hpp_html"><div class="ttname"><a href="GeometryData_8hpp.html">GeometryData.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a></div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00031">TaskQueue.hpp:31</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Scene_html_a9624e226178bd3bd140293f4e2ce3a5b"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Scene.html#a9624e226178bd3bd140293f4e2ce3a5b">Ra::Engine::Scene::TriangleMeshComponent</a></div><div class="ttdeci">SurfaceMeshComponent&lt; Ra::Core::Geometry::TriangleMesh &gt; TriangleMeshComponent</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00101">GeometryComponent.hpp:101</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00019">FileData.hpp:19</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1System_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1System.html">Ra::Engine::Scene::System</a></div><div class="ttdef"><b>Definition:</b> <a href="System_8hpp_source.html#l00030">System.hpp:30</a></div></div>
-<div class="ttc" id="aTask_8hpp_html"><div class="ttname"><a href="Task_8hpp.html">Task.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:22</a></div></div>
-<div class="ttc" id="aTaskQueue_8hpp_html"><div class="ttname"><a href="TaskQueue_8hpp.html">TaskQueue.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1GeometrySystem_html_ac852132397878ca73af2a0d62c1a3f23"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html#ac852132397878ca73af2a0d62c1a3f23">Ra::Engine::Scene::GeometrySystem::generateTasks</a></div><div class="ttdeci">void generateTasks(Ra::Core::TaskQueue *taskQueue, const FrameInfo &amp;frameInfo) override</div><div class="ttdoc">Pure virtual method to be overridden by any system. Must register in taskQueue the operations that mu...</div><div class="ttdef"><b>Definition:</b> <a href="GeometrySystem_8cpp_source.html#l00062">GeometrySystem.cpp:62</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html_aa5d248078f13298a50e507ddedb8fa61"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html#aa5d248078f13298a50e507ddedb8fa61">Ra::Core::Asset::FileData::getGeometryData</a></div><div class="ttdeci">std::vector&lt; GeometryData * &gt; getGeometryData() const</div><div class="ttdoc">DATA.</div><div class="ttdef"><b>Definition:</b> <a href="FileData_8inl_source.html#l00030">FileData.inl:30</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1VolumeComponent_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html">Ra::Engine::Scene::VolumeComponent</a></div><div class="ttdoc">Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00167">GeometryComponent.hpp:167</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_ab19ec3bb4698304d3d83487b125f9e05a8e8ecf873b3b2975fa4a00aaeb924d93"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a8e8ecf873b3b2975fa4a00aaeb924d93">Ra::Core::Asset::GeometryData::UNKNOWN</a></div><div class="ttdeci">@ UNKNOWN</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00038">GeometryData.hpp:38</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="GeometrySystem_8cpp.html">GeometrySystem.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>GeometrySystem.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

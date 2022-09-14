@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -124,105 +125,129 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1CameraManipulator.ht
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
-<tr class="memitem:a944499010e78ec6a7b442c31f969e01a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a944499010e78ec6a7b442c31f969e01a">mapCameraBehaviourToAabb</a> (const <a class="el" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> &amp;aabb)</td></tr>
-<tr class="memdesc:a944499010e78ec6a7b442c31f969e01a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the AABB to restrain the camera behavior against.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a944499010e78ec6a7b442c31f969e01a">More...</a><br /></td></tr>
+<tr class="memitem:a944499010e78ec6a7b442c31f969e01a"><td class="memItemLeft" align="right" valign="top"><a id="a944499010e78ec6a7b442c31f969e01a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a944499010e78ec6a7b442c31f969e01a">mapCameraBehaviourToAabb</a> (const Core::Aabb &amp;aabb)</td></tr>
+<tr class="memdesc:a944499010e78ec6a7b442c31f969e01a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the AABB to restrain the camera behavior against. <br /></td></tr>
 <tr class="separator:a944499010e78ec6a7b442c31f969e01a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae6f537da7fc9b979be8f8d0ace4ae6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aae6f537da7fc9b979be8f8d0ace4ae6b">unmapCameraBehaviourToAabb</a> ()</td></tr>
-<tr class="memdesc:aae6f537da7fc9b979be8f8d0ace4ae6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the camera from AABB restriction.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#aae6f537da7fc9b979be8f8d0ace4ae6b">More...</a><br /></td></tr>
+<tr class="memitem:aae6f537da7fc9b979be8f8d0ace4ae6b"><td class="memItemLeft" align="right" valign="top"><a id="aae6f537da7fc9b979be8f8d0ace4ae6b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aae6f537da7fc9b979be8f8d0ace4ae6b">unmapCameraBehaviourToAabb</a> ()</td></tr>
+<tr class="memdesc:aae6f537da7fc9b979be8f8d0ace4ae6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the camera from AABB restriction. <br /></td></tr>
 <tr class="separator:aae6f537da7fc9b979be8f8d0ace4ae6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8103ed8aec874dd2d6927e857fcd6d3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aa8103ed8aec874dd2d6927e857fcd6d3">fitScene</a> (const <a class="el" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> &amp;aabb)=0</td></tr>
-<tr class="memdesc:aa8103ed8aec874dd2d6927e857fcd6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the Camera according to the AABB of the scene to render.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#aa8103ed8aec874dd2d6927e857fcd6d3">More...</a><br /></td></tr>
+<tr class="memitem:aa8103ed8aec874dd2d6927e857fcd6d3"><td class="memItemLeft" align="right" valign="top"><a id="aa8103ed8aec874dd2d6927e857fcd6d3"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aa8103ed8aec874dd2d6927e857fcd6d3">fitScene</a> (const Core::Aabb &amp;aabb)=0</td></tr>
+<tr class="memdesc:aa8103ed8aec874dd2d6927e857fcd6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the Camera according to the AABB of the scene to render. <br /></td></tr>
 <tr class="separator:aa8103ed8aec874dd2d6927e857fcd6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9b666189d2610e3d07f0d0c27a09e05"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aa9b666189d2610e3d07f0d0c27a09e05">setCameraPosition</a> (const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;position)=0</td></tr>
-<tr class="memdesc:aa9b666189d2610e3d07f0d0c27a09e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Camera position to <code>position</code>.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#aa9b666189d2610e3d07f0d0c27a09e05">More...</a><br /></td></tr>
+<tr class="memitem:aa9b666189d2610e3d07f0d0c27a09e05"><td class="memItemLeft" align="right" valign="top"><a id="aa9b666189d2610e3d07f0d0c27a09e05"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aa9b666189d2610e3d07f0d0c27a09e05">setCameraPosition</a> (const Core::Vector3 &amp;position)=0</td></tr>
+<tr class="memdesc:aa9b666189d2610e3d07f0d0c27a09e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Camera position to <code>position</code>. <br /></td></tr>
 <tr class="separator:aa9b666189d2610e3d07f0d0c27a09e05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fb7d1d8d6e6ab03f43d995488aa0d8f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a3fb7d1d8d6e6ab03f43d995488aa0d8f">setCameraTarget</a> (const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;target)=0</td></tr>
-<tr class="memdesc:a3fb7d1d8d6e6ab03f43d995488aa0d8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Camera target to <code>target</code>.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a3fb7d1d8d6e6ab03f43d995488aa0d8f">More...</a><br /></td></tr>
+<tr class="memitem:a3fb7d1d8d6e6ab03f43d995488aa0d8f"><td class="memItemLeft" align="right" valign="top"><a id="a3fb7d1d8d6e6ab03f43d995488aa0d8f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a3fb7d1d8d6e6ab03f43d995488aa0d8f">setCameraTarget</a> (const Core::Vector3 &amp;target)=0</td></tr>
+<tr class="memdesc:a3fb7d1d8d6e6ab03f43d995488aa0d8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Camera target to <code>target</code>. <br /></td></tr>
 <tr class="separator:a3fb7d1d8d6e6ab03f43d995488aa0d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ad7036f72522d6222431df31e5ceeb5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5">resetCamera</a> ()=0</td></tr>
-<tr class="memdesc:a1ad7036f72522d6222431df31e5ceeb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the Camera settings to default values.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5">More...</a><br /></td></tr>
+<tr class="memitem:a1ad7036f72522d6222431df31e5ceeb5"><td class="memItemLeft" align="right" valign="top"><a id="a1ad7036f72522d6222431df31e5ceeb5"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5">resetCamera</a> ()=0</td></tr>
+<tr class="memdesc:a1ad7036f72522d6222431df31e5ceeb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the Camera settings to default values. <br /></td></tr>
 <tr class="separator:a1ad7036f72522d6222431df31e5ceeb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Camera properties setters</div></td></tr>
-<tr class="memitem:a36f2a3ac6608489e1e2de6715bdd147f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a36f2a3ac6608489e1e2de6715bdd147f">setCameraSensitivity</a> (<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> sensitivity)</td></tr>
+<tr class="memitem:a36f2a3ac6608489e1e2de6715bdd147f"><td class="memItemLeft" align="right" valign="top"><a id="a36f2a3ac6608489e1e2de6715bdd147f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCameraSensitivity</b> (Scalar sensitivity)</td></tr>
 <tr class="separator:a36f2a3ac6608489e1e2de6715bdd147f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e9ae9fcc237ee6c4219c15b349bb177"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a1e9ae9fcc237ee6c4219c15b349bb177">setCameraFov</a> (<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> fov)</td></tr>
+<tr class="memitem:a1e9ae9fcc237ee6c4219c15b349bb177"><td class="memItemLeft" align="right" valign="top"><a id="a1e9ae9fcc237ee6c4219c15b349bb177"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCameraFov</b> (Scalar fov)</td></tr>
 <tr class="separator:a1e9ae9fcc237ee6c4219c15b349bb177"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a628cdfc34f5c32874c59011795db317c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a628cdfc34f5c32874c59011795db317c">setCameraFovInDegrees</a> (<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> fov)</td></tr>
+<tr class="memitem:a628cdfc34f5c32874c59011795db317c"><td class="memItemLeft" align="right" valign="top"><a id="a628cdfc34f5c32874c59011795db317c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCameraFovInDegrees</b> (Scalar fov)</td></tr>
 <tr class="separator:a628cdfc34f5c32874c59011795db317c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a185e3ba5f2743f4b020afef74d7426ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a185e3ba5f2743f4b020afef74d7426ac">setCameraZNear</a> (<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> zNear)</td></tr>
+<tr class="memitem:a185e3ba5f2743f4b020afef74d7426ac"><td class="memItemLeft" align="right" valign="top"><a id="a185e3ba5f2743f4b020afef74d7426ac"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCameraZNear</b> (Scalar zNear)</td></tr>
 <tr class="separator:a185e3ba5f2743f4b020afef74d7426ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac77a7c75a992261fba709ff10a0835b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ac77a7c75a992261fba709ff10a0835b8">setCameraZFar</a> (<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> zFar)</td></tr>
+<tr class="memitem:ac77a7c75a992261fba709ff10a0835b8"><td class="memItemLeft" align="right" valign="top"><a id="ac77a7c75a992261fba709ff10a0835b8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCameraZFar</b> (Scalar zFar)</td></tr>
 <tr class="separator:ac77a7c75a992261fba709ff10a0835b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acd5d7bae6f5fbb5a6494010ebe4c9ac9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#acd5d7bae6f5fbb5a6494010ebe4c9ac9">CameraManipulator</a> ()</td></tr>
-<tr class="memdesc:acd5d7bae6f5fbb5a6494010ebe4c9ac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a manipulator for a given viewport size.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#acd5d7bae6f5fbb5a6494010ebe4c9ac9">More...</a><br /></td></tr>
+<tr class="memitem:acd5d7bae6f5fbb5a6494010ebe4c9ac9"><td class="memItemLeft" align="right" valign="top"><a id="acd5d7bae6f5fbb5a6494010ebe4c9ac9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#acd5d7bae6f5fbb5a6494010ebe4c9ac9">CameraManipulator</a> ()</td></tr>
+<tr class="memdesc:acd5d7bae6f5fbb5a6494010ebe4c9ac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a manipulator for a given viewport size. <br /></td></tr>
 <tr class="separator:acd5d7bae6f5fbb5a6494010ebe4c9ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaad6b4eec464455b947e2d184b59bae5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aaad6b4eec464455b947e2d184b59bae5">CameraManipulator</a> (const <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a> &amp;other)</td></tr>
 <tr class="separator:aaad6b4eec464455b947e2d184b59bae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f86e157d1d104b1d5dc76afded87d16"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a5f86e157d1d104b1d5dc76afded87d16">~CameraManipulator</a> ()</td></tr>
 <tr class="separator:a5f86e157d1d104b1d5dc76afded87d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d3a18503f7453642c9b13cb4c809075"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a7d3a18503f7453642c9b13cb4c809075">mappingContext</a> ()</td></tr>
+<tr class="memitem:a7d3a18503f7453642c9b13cb4c809075"><td class="memItemLeft" align="right" valign="top">virtual KeyMappingManager::Context&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a7d3a18503f7453642c9b13cb4c809075">mappingContext</a> ()</td></tr>
 <tr class="separator:a7d3a18503f7453642c9b13cb4c809075"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e4f76766f01b9d6702d9479bc969d61"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a1e4f76766f01b9d6702d9479bc969d61">handleMousePressEvent</a> (QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, <a class="el" href="classint.html">int</a> key)</td></tr>
+<tr class="memitem:a1e4f76766f01b9d6702d9479bc969d61"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a1e4f76766f01b9d6702d9479bc969d61">handleMousePressEvent</a> (QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key)</td></tr>
 <tr class="separator:a1e4f76766f01b9d6702d9479bc969d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85c06c88de00112c4e1096de98ceb1b5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a85c06c88de00112c4e1096de98ceb1b5">handleMouseReleaseEvent</a> (QMouseEvent *event)</td></tr>
+<tr class="memitem:a85c06c88de00112c4e1096de98ceb1b5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a85c06c88de00112c4e1096de98ceb1b5">handleMouseReleaseEvent</a> (QMouseEvent *event)</td></tr>
 <tr class="separator:a85c06c88de00112c4e1096de98ceb1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dd46028a5fba998a1d7101fa9029cc8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a9dd46028a5fba998a1d7101fa9029cc8">handleMouseMoveEvent</a> (QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, <a class="el" href="classint.html">int</a> key)</td></tr>
+<tr class="memitem:a9dd46028a5fba998a1d7101fa9029cc8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a9dd46028a5fba998a1d7101fa9029cc8">handleMouseMoveEvent</a> (QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key)</td></tr>
 <tr class="separator:a9dd46028a5fba998a1d7101fa9029cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8165d966a089220d266d49470d668ce5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a8165d966a089220d266d49470d668ce5">handleWheelEvent</a> (QWheelEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, <a class="el" href="classint.html">int</a> key)</td></tr>
+<tr class="memitem:a8165d966a089220d266d49470d668ce5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a8165d966a089220d266d49470d668ce5">handleWheelEvent</a> (QWheelEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key)</td></tr>
 <tr class="separator:a8165d966a089220d266d49470d668ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9539d63bb185b615ddc996c6cca5dfe"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aa9539d63bb185b615ddc996c6cca5dfe">handleKeyPressEvent</a> (QKeyEvent *event, const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> &amp;action)</td></tr>
+<tr class="memitem:aa9539d63bb185b615ddc996c6cca5dfe"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aa9539d63bb185b615ddc996c6cca5dfe">handleKeyPressEvent</a> (QKeyEvent *event, const KeyMappingManager::KeyMappingAction &amp;action)</td></tr>
 <tr class="separator:aa9539d63bb185b615ddc996c6cca5dfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a229063b8e35f4acec2f951db00d081ad"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a229063b8e35f4acec2f951db00d081ad">handleKeyReleaseEvent</a> (QKeyEvent *event, const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> &amp;action)</td></tr>
+<tr class="memitem:a229063b8e35f4acec2f951db00d081ad"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a229063b8e35f4acec2f951db00d081ad">handleKeyReleaseEvent</a> (QKeyEvent *event, const KeyMappingManager::KeyMappingAction &amp;action)</td></tr>
 <tr class="separator:a229063b8e35f4acec2f951db00d081ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f4e38a88d6dfef2aba8ca8f62d5b85b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a6f4e38a88d6dfef2aba8ca8f62d5b85b">getCamera</a> () const</td></tr>
-<tr class="memdesc:a6f4e38a88d6dfef2aba8ca8f62d5b85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer access to the camera.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a6f4e38a88d6dfef2aba8ca8f62d5b85b">More...</a><br /></td></tr>
+<tr class="memitem:a6f4e38a88d6dfef2aba8ca8f62d5b85b"><td class="memItemLeft" align="right" valign="top"><a id="a6f4e38a88d6dfef2aba8ca8f62d5b85b"></a>
+const <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a6f4e38a88d6dfef2aba8ca8f62d5b85b">getCamera</a> () const</td></tr>
+<tr class="memdesc:a6f4e38a88d6dfef2aba8ca8f62d5b85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer access to the camera. <br /></td></tr>
 <tr class="separator:a6f4e38a88d6dfef2aba8ca8f62d5b85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d1453e6fa86af9821a66f9c9f253ddd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a5d1453e6fa86af9821a66f9c9f253ddd">getCamera</a> ()</td></tr>
-<tr class="memdesc:a5d1453e6fa86af9821a66f9c9f253ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer access to the camera.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a5d1453e6fa86af9821a66f9c9f253ddd">More...</a><br /></td></tr>
+<tr class="memitem:a5d1453e6fa86af9821a66f9c9f253ddd"><td class="memItemLeft" align="right" valign="top"><a id="a5d1453e6fa86af9821a66f9c9f253ddd"></a>
+<a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a5d1453e6fa86af9821a66f9c9f253ddd">getCamera</a> ()</td></tr>
+<tr class="memdesc:a5d1453e6fa86af9821a66f9c9f253ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer access to the camera. <br /></td></tr>
 <tr class="separator:a5d1453e6fa86af9821a66f9c9f253ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cd20c02d6d0159246bb5e9c5e6f4c3e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a1cd20c02d6d0159246bb5e9c5e6f4c3e">updateCamera</a> ()</td></tr>
 <tr class="separator:a1cd20c02d6d0159246bb5e9c5e6f4c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae13a7d36e3bb3ff9f7e93b392cb2a4e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ae13a7d36e3bb3ff9f7e93b392cb2a4e1">attachLight</a> (<a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Engine::Scene::Light</a> *light)</td></tr>
 <tr class="separator:ae13a7d36e3bb3ff9f7e93b392cb2a4e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaca8dcd036f910bbd02d926ad94adf0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aaca8dcd036f910bbd02d926ad94adf0a">hasLightAttached</a> () const</td></tr>
+<tr class="memitem:aaca8dcd036f910bbd02d926ad94adf0a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aaca8dcd036f910bbd02d926ad94adf0a">hasLightAttached</a> () const</td></tr>
 <tr class="separator:aaca8dcd036f910bbd02d926ad94adf0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac868cb733644189efe4d20e026305f8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Engine::Scene::Light</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ac868cb733644189efe4d20e026305f8a">getLight</a> ()</td></tr>
-<tr class="memdesc:ac868cb733644189efe4d20e026305f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer acces to the attached light if it exists, returns nullptr otherwise.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#ac868cb733644189efe4d20e026305f8a">More...</a><br /></td></tr>
+<tr class="memitem:ac868cb733644189efe4d20e026305f8a"><td class="memItemLeft" align="right" valign="top"><a id="ac868cb733644189efe4d20e026305f8a"></a>
+<a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Engine::Scene::Light</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ac868cb733644189efe4d20e026305f8a">getLight</a> ()</td></tr>
+<tr class="memdesc:ac868cb733644189efe4d20e026305f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer acces to the attached light if it exists, returns nullptr otherwise. <br /></td></tr>
 <tr class="separator:ac868cb733644189efe4d20e026305f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:add774422ef4383531ab5f0f73551c981"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#add774422ef4383531ab5f0f73551c981">m_cameraSensitivity</a> { 1_ra }</td></tr>
-<tr class="memdesc:add774422ef4383531ab5f0f73551c981"><td class="mdescLeft">&#160;</td><td class="mdescRight">the Camera sensitivity to manipulation.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#add774422ef4383531ab5f0f73551c981">More...</a><br /></td></tr>
+<tr class="memitem:add774422ef4383531ab5f0f73551c981"><td class="memItemLeft" align="right" valign="top"><a id="add774422ef4383531ab5f0f73551c981"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#add774422ef4383531ab5f0f73551c981">m_cameraSensitivity</a> { 1_ra }</td></tr>
+<tr class="memdesc:add774422ef4383531ab5f0f73551c981"><td class="mdescLeft">&#160;</td><td class="mdescRight">the Camera sensitivity to manipulation. <br /></td></tr>
 <tr class="separator:add774422ef4383531ab5f0f73551c981"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17debfc054b4807a45925b9addda72db"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a17debfc054b4807a45925b9addda72db">m_quickCameraModifier</a> { 1_ra }</td></tr>
-<tr class="memdesc:a17debfc054b4807a45925b9addda72db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Additional factor for camera sensitivity.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a17debfc054b4807a45925b9addda72db">More...</a><br /></td></tr>
+<tr class="memitem:a17debfc054b4807a45925b9addda72db"><td class="memItemLeft" align="right" valign="top"><a id="a17debfc054b4807a45925b9addda72db"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a17debfc054b4807a45925b9addda72db">m_quickCameraModifier</a> { 1_ra }</td></tr>
+<tr class="memdesc:a17debfc054b4807a45925b9addda72db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Additional factor for camera sensitivity. <br /></td></tr>
 <tr class="separator:a17debfc054b4807a45925b9addda72db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8760bbc7145f2ebbc85a8e77a2da4033"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a8760bbc7145f2ebbc85a8e77a2da4033">m_wheelSpeedModifier</a> { 0.02_ra }</td></tr>
-<tr class="memdesc:a8760bbc7145f2ebbc85a8e77a2da4033"><td class="mdescLeft">&#160;</td><td class="mdescRight">Speed modifier on mouse wheel events.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a8760bbc7145f2ebbc85a8e77a2da4033">More...</a><br /></td></tr>
+<tr class="memitem:a8760bbc7145f2ebbc85a8e77a2da4033"><td class="memItemLeft" align="right" valign="top"><a id="a8760bbc7145f2ebbc85a8e77a2da4033"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a8760bbc7145f2ebbc85a8e77a2da4033">m_wheelSpeedModifier</a> { 0.02_ra }</td></tr>
+<tr class="memdesc:a8760bbc7145f2ebbc85a8e77a2da4033"><td class="mdescLeft">&#160;</td><td class="mdescRight">Speed modifier on mouse wheel events. <br /></td></tr>
 <tr class="separator:a8760bbc7145f2ebbc85a8e77a2da4033"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05ab4f61a46bf029a76b203ed3ea86e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a05ab4f61a46bf029a76b203ed3ea86e9">m_targetedAabb</a></td></tr>
-<tr class="memdesc:a05ab4f61a46bf029a76b203ed3ea86e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Camera behavior restriction AABB.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a05ab4f61a46bf029a76b203ed3ea86e9">More...</a><br /></td></tr>
+<tr class="memitem:a05ab4f61a46bf029a76b203ed3ea86e9"><td class="memItemLeft" align="right" valign="top"><a id="a05ab4f61a46bf029a76b203ed3ea86e9"></a>
+Core::Aabb&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a05ab4f61a46bf029a76b203ed3ea86e9">m_targetedAabb</a></td></tr>
+<tr class="memdesc:a05ab4f61a46bf029a76b203ed3ea86e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Camera behavior restriction AABB. <br /></td></tr>
 <tr class="separator:a05ab4f61a46bf029a76b203ed3ea86e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cfb74a2c1353205d2bc0008c4f8cdac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a6cfb74a2c1353205d2bc0008c4f8cdac">m_targetedAabbVolume</a> { 0_ra }</td></tr>
-<tr class="memdesc:a6cfb74a2c1353205d2bc0008c4f8cdac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Volume of the m_targetedAabb.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a6cfb74a2c1353205d2bc0008c4f8cdac">More...</a><br /></td></tr>
+<tr class="memitem:a6cfb74a2c1353205d2bc0008c4f8cdac"><td class="memItemLeft" align="right" valign="top"><a id="a6cfb74a2c1353205d2bc0008c4f8cdac"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a6cfb74a2c1353205d2bc0008c4f8cdac">m_targetedAabbVolume</a> { 0_ra }</td></tr>
+<tr class="memdesc:a6cfb74a2c1353205d2bc0008c4f8cdac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Volume of the m_targetedAabb. <br /></td></tr>
 <tr class="separator:a6cfb74a2c1353205d2bc0008c4f8cdac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31102b2e3d599001f824da47dfd10916"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a31102b2e3d599001f824da47dfd10916">m_mapCameraBahaviourToAabb</a> { false }</td></tr>
-<tr class="memdesc:a31102b2e3d599001f824da47dfd10916"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the camera is restrained or not  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a31102b2e3d599001f824da47dfd10916">More...</a><br /></td></tr>
+<tr class="memitem:a31102b2e3d599001f824da47dfd10916"><td class="memItemLeft" align="right" valign="top"><a id="a31102b2e3d599001f824da47dfd10916"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a31102b2e3d599001f824da47dfd10916">m_mapCameraBahaviourToAabb</a> { false }</td></tr>
+<tr class="memdesc:a31102b2e3d599001f824da47dfd10916"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the camera is restrained or not <br /></td></tr>
 <tr class="separator:a31102b2e3d599001f824da47dfd10916"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab26f9a3697f068a1ccaf1a1bb5ddc5a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ab26f9a3697f068a1ccaf1a1bb5ddc5a0">m_target</a> { 0_ra, 0_ra, 0_ra }</td></tr>
+<tr class="memitem:ab26f9a3697f068a1ccaf1a1bb5ddc5a0"><td class="memItemLeft" align="right" valign="top">Core::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ab26f9a3697f068a1ccaf1a1bb5ddc5a0">m_target</a> { 0_ra, 0_ra, 0_ra }</td></tr>
 <tr class="separator:ab26f9a3697f068a1ccaf1a1bb5ddc5a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affce981649adb59548c919e78b3d9206"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#affce981649adb59548c919e78b3d9206">m_currentAction</a> {}</td></tr>
-<tr class="memdesc:affce981649adb59548c919e78b3d9206"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the corresponding camera movement is active or not.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#affce981649adb59548c919e78b3d9206">More...</a><br /></td></tr>
+<tr class="memitem:affce981649adb59548c919e78b3d9206"><td class="memItemLeft" align="right" valign="top"><a id="affce981649adb59548c919e78b3d9206"></a>
+KeyMappingManager::KeyMappingAction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#affce981649adb59548c919e78b3d9206">m_currentAction</a> {}</td></tr>
+<tr class="memdesc:affce981649adb59548c919e78b3d9206"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the corresponding camera movement is active or not. <br /></td></tr>
 <tr class="separator:affce981649adb59548c919e78b3d9206"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52f8a96fcee5296152ce974d5dedceb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">m_camera</a> { nullptr }</td></tr>
-<tr class="memdesc:a52f8a96fcee5296152ce974d5dedceb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Camera.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">More...</a><br /></td></tr>
+<tr class="memitem:a52f8a96fcee5296152ce974d5dedceb3"><td class="memItemLeft" align="right" valign="top"><a id="a52f8a96fcee5296152ce974d5dedceb3"></a>
+<a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">m_camera</a> { nullptr }</td></tr>
+<tr class="memdesc:a52f8a96fcee5296152ce974d5dedceb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Camera. <br /></td></tr>
 <tr class="separator:a52f8a96fcee5296152ce974d5dedceb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac74d63a529a9dd1b6706ddefaa5070ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Engine::Scene::Light</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ac74d63a529a9dd1b6706ddefaa5070ea">m_light</a> { nullptr }</td></tr>
-<tr class="memdesc:ac74d63a529a9dd1b6706ddefaa5070ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">The light attached to the Camera.  <a href="classRa_1_1Gui_1_1CameraManipulator.html#ac74d63a529a9dd1b6706ddefaa5070ea">More...</a><br /></td></tr>
+<tr class="memitem:ac74d63a529a9dd1b6706ddefaa5070ea"><td class="memItemLeft" align="right" valign="top"><a id="ac74d63a529a9dd1b6706ddefaa5070ea"></a>
+<a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Engine::Scene::Light</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ac74d63a529a9dd1b6706ddefaa5070ea">m_light</a> { nullptr }</td></tr>
+<tr class="memdesc:ac74d63a529a9dd1b6706ddefaa5070ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">The light attached to the Camera. <br /></td></tr>
 <tr class="separator:ac74d63a529a9dd1b6706ddefaa5070ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -230,29 +255,8 @@ Protected Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00029">29</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="acd5d7bae6f5fbb5a6494010ebe4c9ac9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd5d7bae6f5fbb5a6494010ebe4c9ac9">&#9670;&nbsp;</a></span>CameraManipulator() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ra::Gui::CameraManipulator::CameraManipulator </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initializes a manipulator for a given viewport size. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00025">25</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
-
-</div>
-</div>
 <a id="aaad6b4eec464455b947e2d184b59bae5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaad6b4eec464455b947e2d184b59bae5">&#9670;&nbsp;</a></span>CameraManipulator() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaad6b4eec464455b947e2d184b59bae5">&#9670;&nbsp;</a></span>CameraManipulator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -338,121 +342,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa8103ed8aec874dd2d6927e857fcd6d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8103ed8aec874dd2d6927e857fcd6d3">&#9670;&nbsp;</a></span>fitScene</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void Ra::Gui::CameraManipulator::fitScene </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> &amp;&#160;</td>
-          <td class="paramname"><em>aabb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Setup the Camera according to the AABB of the scene to render. </p>
-
-</div>
-</div>
-<a id="a5d1453e6fa86af9821a66f9c9f253ddd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d1453e6fa86af9821a66f9c9f253ddd">&#9670;&nbsp;</a></span>getCamera() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a>* Ra::Gui::CameraManipulator::getCamera </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Pointer access to the camera. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00079">79</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6f4e38a88d6dfef2aba8ca8f62d5b85b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f4e38a88d6dfef2aba8ca8f62d5b85b">&#9670;&nbsp;</a></span>getCamera() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a>* Ra::Gui::CameraManipulator::getCamera </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Pointer access to the camera. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00076">76</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac868cb733644189efe4d20e026305f8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac868cb733644189efe4d20e026305f8a">&#9670;&nbsp;</a></span>getLight()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Engine::Scene::Light</a>* Ra::Gui::CameraManipulator::getLight </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>pointer acces to the attached light if it exists, returns nullptr otherwise. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00093">93</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
 <a id="aa9539d63bb185b615ddc996c6cca5dfe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9539d63bb185b615ddc996c6cca5dfe">&#9670;&nbsp;</a></span>handleKeyPressEvent()</h2>
 
@@ -463,7 +352,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Gui::CameraManipulator::handleKeyPressEvent </td>
+          <td class="memname">bool Ra::Gui::CameraManipulator::handleKeyPressEvent </td>
           <td>(</td>
           <td class="paramtype">QKeyEvent *&#160;</td>
           <td class="paramname"><em>event</em>, </td>
@@ -471,7 +360,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> &amp;&#160;</td>
+          <td class="paramtype">const KeyMappingManager::KeyMappingAction &amp;&#160;</td>
           <td class="paramname"><em>action</em>&#160;</td>
         </tr>
         <tr>
@@ -488,7 +377,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if the event has been taken into account, false otherwise </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a65c6aa11a9d6be67f7e03b976a7f1874">Ra::Gui::RotateAroundCameraManipulator</a>, <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a21bfdf8a04a9846e34ae3abdfb71a5ab">Ra::Gui::TrackballCameraManipulator</a>, and <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a1f649f61d539fa71619568384e593de6">Ra::Gui::FlightCameraManipulator</a>.</p>
+<p>Reimplemented in <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a21bfdf8a04a9846e34ae3abdfb71a5ab">Ra::Gui::TrackballCameraManipulator</a>, and <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a1f649f61d539fa71619568384e593de6">Ra::Gui::FlightCameraManipulator</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00100">100</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
 
@@ -504,7 +393,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Gui::CameraManipulator::handleKeyReleaseEvent </td>
+          <td class="memname">bool Ra::Gui::CameraManipulator::handleKeyReleaseEvent </td>
           <td>(</td>
           <td class="paramtype">QKeyEvent *&#160;</td>
           <td class="paramname"><em>event</em>, </td>
@@ -512,7 +401,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> &amp;&#160;</td>
+          <td class="paramtype">const KeyMappingManager::KeyMappingAction &amp;&#160;</td>
           <td class="paramname"><em>action</em>&#160;</td>
         </tr>
         <tr>
@@ -543,7 +432,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Gui::CameraManipulator::handleMouseMoveEvent </td>
+          <td class="memname">bool Ra::Gui::CameraManipulator::handleMouseMoveEvent </td>
           <td>(</td>
           <td class="paramtype">QMouseEvent *&#160;</td>
           <td class="paramname"><em>event</em>, </td>
@@ -563,7 +452,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classint.html">int</a>&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>key</em>&#160;</td>
         </tr>
         <tr>
@@ -580,7 +469,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if the event has been taken into account, false otherwise </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#ab0941443c6f16d74a9a47aea238c47be">Ra::Gui::TrackballCameraManipulator</a>, <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac64128737b53c1b4cb73d332e1ad400f">Ra::Gui::FlightCameraManipulator</a>, and <a class="el" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a0d0b485569c2a67e98df66e9b58c0464">Ra::Gui::RotateAroundCameraManipulator</a>.</p>
+<p>Reimplemented in <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#ab0941443c6f16d74a9a47aea238c47be">Ra::Gui::TrackballCameraManipulator</a>, and <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac64128737b53c1b4cb73d332e1ad400f">Ra::Gui::FlightCameraManipulator</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00086">86</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
 
@@ -596,7 +485,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Gui::CameraManipulator::handleMousePressEvent </td>
+          <td class="memname">bool Ra::Gui::CameraManipulator::handleMousePressEvent </td>
           <td>(</td>
           <td class="paramtype">QMouseEvent *&#160;</td>
           <td class="paramname"><em>event</em>, </td>
@@ -616,7 +505,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classint.html">int</a>&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>key</em>&#160;</td>
         </tr>
         <tr>
@@ -649,7 +538,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Gui::CameraManipulator::handleMouseReleaseEvent </td>
+          <td class="memname">bool Ra::Gui::CameraManipulator::handleMouseReleaseEvent </td>
           <td>(</td>
           <td class="paramtype">QMouseEvent *&#160;</td>
           <td class="paramname"><em>event</em></td><td>)</td>
@@ -680,7 +569,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Gui::CameraManipulator::handleWheelEvent </td>
+          <td class="memname">bool Ra::Gui::CameraManipulator::handleWheelEvent </td>
           <td>(</td>
           <td class="paramtype">QWheelEvent *&#160;</td>
           <td class="paramname"><em>event</em>, </td>
@@ -700,7 +589,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classint.html">int</a>&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>key</em>&#160;</td>
         </tr>
         <tr>
@@ -733,7 +622,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Gui::CameraManipulator::hasLightAttached </td>
+          <td class="memname">bool Ra::Gui::CameraManipulator::hasLightAttached </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -751,36 +640,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a944499010e78ec6a7b442c31f969e01a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a944499010e78ec6a7b442c31f969e01a">&#9670;&nbsp;</a></span>mapCameraBehaviourToAabb</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Gui::CameraManipulator::mapCameraBehaviourToAabb </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> &amp;&#160;</td>
-          <td class="paramname"><em>aabb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the AABB to restrain the camera behavior against. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00056">56</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
-
-</div>
-</div>
 <a id="a7d3a18503f7453642c9b13cb4c809075"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7d3a18503f7453642c9b13cb4c809075">&#9670;&nbsp;</a></span>mappingContext()</h2>
 
@@ -791,7 +650,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a> Ra::Gui::CameraManipulator::mappingContext </td>
+          <td class="memname">KeyMappingManager::Context Ra::Gui::CameraManipulator::mappingContext </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -805,293 +664,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the mapping context for keymapping, nullptr if no mapping is available </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0b0eaa22ace41441f143a871ef3b1148">Ra::Gui::TrackballCameraManipulator</a>, <a class="el" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a77086fb26318be33e9d0fb3dc80dc6ff">Ra::Gui::RotateAroundCameraManipulator</a>, and <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c">Ra::Gui::FlightCameraManipulator</a>.</p>
+<p>Reimplemented in <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0b0eaa22ace41441f143a871ef3b1148">Ra::Gui::TrackballCameraManipulator</a>, and <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c">Ra::Gui::FlightCameraManipulator</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00071">71</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1ad7036f72522d6222431df31e5ceeb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ad7036f72522d6222431df31e5ceeb5">&#9670;&nbsp;</a></span>resetCamera</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void Ra::Gui::CameraManipulator::resetCamera </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset the Camera settings to default values. </p>
-
-</div>
-</div>
-<a id="a1e9ae9fcc237ee6c4219c15b349bb177"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e9ae9fcc237ee6c4219c15b349bb177">&#9670;&nbsp;</a></span>setCameraFov</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Gui::CameraManipulator::setCameraFov </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
-          <td class="paramname"><em>fov</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00038">38</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1CameraManipulator_a1e9ae9fcc237ee6c4219c15b349bb177_cgraph.svg" width="100%" height="466"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a628cdfc34f5c32874c59011795db317c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a628cdfc34f5c32874c59011795db317c">&#9670;&nbsp;</a></span>setCameraFovInDegrees</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Gui::CameraManipulator::setCameraFovInDegrees </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
-          <td class="paramname"><em>fov</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00042">42</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1CameraManipulator_a628cdfc34f5c32874c59011795db317c_cgraph.svg" width="100%" height="466"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="aa9b666189d2610e3d07f0d0c27a09e05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9b666189d2610e3d07f0d0c27a09e05">&#9670;&nbsp;</a></span>setCameraPosition</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void Ra::Gui::CameraManipulator::setCameraPosition </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the Camera position to <code>position</code>. </p>
-
-</div>
-</div>
-<a id="a36f2a3ac6608489e1e2de6715bdd147f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36f2a3ac6608489e1e2de6715bdd147f">&#9670;&nbsp;</a></span>setCameraSensitivity</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Gui::CameraManipulator::setCameraSensitivity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
-          <td class="paramname"><em>sensitivity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00034">34</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3fb7d1d8d6e6ab03f43d995488aa0d8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fb7d1d8d6e6ab03f43d995488aa0d8f">&#9670;&nbsp;</a></span>setCameraTarget</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void Ra::Gui::CameraManipulator::setCameraTarget </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;&#160;</td>
-          <td class="paramname"><em>target</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the Camera target to <code>target</code>. </p>
-
-</div>
-</div>
-<a id="ac77a7c75a992261fba709ff10a0835b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac77a7c75a992261fba709ff10a0835b8">&#9670;&nbsp;</a></span>setCameraZFar</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Gui::CameraManipulator::setCameraZFar </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
-          <td class="paramname"><em>zFar</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00050">50</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1CameraManipulator_ac77a7c75a992261fba709ff10a0835b8_cgraph.svg" width="100%" height="466"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a185e3ba5f2743f4b020afef74d7426ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a185e3ba5f2743f4b020afef74d7426ac">&#9670;&nbsp;</a></span>setCameraZNear</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Gui::CameraManipulator::setCameraZNear </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
-          <td class="paramname"><em>zNear</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00046">46</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1CameraManipulator_a185e3ba5f2743f4b020afef74d7426ac_cgraph.svg" width="100%" height="466"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="aae6f537da7fc9b979be8f8d0ace4ae6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae6f537da7fc9b979be8f8d0ace4ae6b">&#9670;&nbsp;</a></span>unmapCameraBehaviourToAabb</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Gui::CameraManipulator::unmapCameraBehaviourToAabb </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Free the camera from AABB restriction. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00062">62</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
 
 </div>
 </div>
@@ -1126,162 +701,6 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a52f8a96fcee5296152ce974d5dedceb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52f8a96fcee5296152ce974d5dedceb3">&#9670;&nbsp;</a></span>m_camera</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a>* Ra::Gui::CameraManipulator::m_camera { nullptr }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The Camera. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00145">145</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="add774422ef4383531ab5f0f73551c981"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add774422ef4383531ab5f0f73551c981">&#9670;&nbsp;</a></span>m_cameraSensitivity</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> Ra::Gui::CameraManipulator::m_cameraSensitivity { 1_ra }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>the Camera sensitivity to manipulation. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00127">127</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="affce981649adb59548c919e78b3d9206"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affce981649adb59548c919e78b3d9206">&#9670;&nbsp;</a></span>m_currentAction</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> Ra::Gui::CameraManipulator::m_currentAction {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Whether the corresponding camera movement is active or not. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00143">143</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac74d63a529a9dd1b6706ddefaa5070ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac74d63a529a9dd1b6706ddefaa5070ea">&#9670;&nbsp;</a></span>m_light</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Engine::Scene::Light</a>* Ra::Gui::CameraManipulator::m_light { nullptr }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The light attached to the Camera. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00146">146</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a31102b2e3d599001f824da47dfd10916"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31102b2e3d599001f824da47dfd10916">&#9670;&nbsp;</a></span>m_mapCameraBahaviourToAabb</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Gui::CameraManipulator::m_mapCameraBahaviourToAabb { false }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>whether the camera is restrained or not </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00135">135</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a17debfc054b4807a45925b9addda72db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17debfc054b4807a45925b9addda72db">&#9670;&nbsp;</a></span>m_quickCameraModifier</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> Ra::Gui::CameraManipulator::m_quickCameraModifier { 1_ra }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Additional factor for camera sensitivity. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00129">129</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
 <a id="ab26f9a3697f068a1ccaf1a1bb5ddc5a0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab26f9a3697f068a1ccaf1a1bb5ddc5a0">&#9670;&nbsp;</a></span>m_target</h2>
 
@@ -1292,7 +711,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> Ra::Gui::CameraManipulator::m_target { 0_ra, 0_ra, 0_ra }</td>
+          <td class="memname">Core::Vector3 Ra::Gui::CameraManipulator::m_target { 0_ra, 0_ra, 0_ra }</td>
         </tr>
       </table>
   </td>
@@ -1307,84 +726,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a05ab4f61a46bf029a76b203ed3ea86e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05ab4f61a46bf029a76b203ed3ea86e9">&#9670;&nbsp;</a></span>m_targetedAabb</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a> Ra::Gui::CameraManipulator::m_targetedAabb</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Camera behavior restriction AABB. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00133">133</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6cfb74a2c1353205d2bc0008c4f8cdac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cfb74a2c1353205d2bc0008c4f8cdac">&#9670;&nbsp;</a></span>m_targetedAabbVolume</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> Ra::Gui::CameraManipulator::m_targetedAabbVolume { 0_ra }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Volume of the m_targetedAabb. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00134">134</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8760bbc7145f2ebbc85a8e77a2da4033"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8760bbc7145f2ebbc85a8e77a2da4033">&#9670;&nbsp;</a></span>m_wheelSpeedModifier</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> Ra::Gui::CameraManipulator::m_wheelSpeedModifier { 0.02_ra }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Speed modifier on mouse wheel events. </p>
-
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00131">131</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Gui/Viewer/<a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Gui/Viewer/<a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a></li>
@@ -1394,8 +735,8 @@ Protected Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Gui.html">Gui</a></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:52 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

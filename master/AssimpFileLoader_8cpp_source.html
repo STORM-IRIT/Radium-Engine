@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,19 +96,19 @@ $(document).ready(function(){initNavTree('AssimpFileLoader_8cpp_source.html','')
 <div class="title">AssimpFileLoader.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="AssimpFileLoader_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssimpFileLoader_8hpp.html">IO/AssimpLoader/AssimpFileLoader.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;IO/AssimpLoader/AssimpFileLoader.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="FileData_8hpp.html">Core/Asset/FileData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="StringUtils_8hpp.html">Core/Utils/StringUtils.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/FileData.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/StringUtils.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;assimp/postprocess.h&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;assimp/scene.h&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssimpAnimationDataLoader_8hpp.html">IO/AssimpLoader/AssimpAnimationDataLoader.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssimpCameraDataLoader_8hpp.html">IO/AssimpLoader/AssimpCameraDataLoader.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssimpGeometryDataLoader_8hpp.html">IO/AssimpLoader/AssimpGeometryDataLoader.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssimpHandleDataLoader_8hpp.html">IO/AssimpLoader/AssimpHandleDataLoader.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssimpLightDataLoader_8hpp.html">IO/AssimpLoader/AssimpLightDataLoader.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;IO/AssimpLoader/AssimpAnimationDataLoader.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;IO/AssimpLoader/AssimpCameraDataLoader.hpp&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;IO/AssimpLoader/AssimpGeometryDataLoader.hpp&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;IO/AssimpLoader/AssimpHandleDataLoader.hpp&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;IO/AssimpLoader/AssimpLightDataLoader.hpp&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
@@ -117,11 +118,11 @@ $(document).ready(function(){initNavTree('AssimpFileLoader_8cpp_source.html','')
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">using namespace </span>Core::Utils; <span class="comment">// log</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">using namespace </span>Core::Asset;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<a class="code" href="classRa_1_1IO_1_1AssimpFileLoader.html#a36d2bd451bde1bc1e5fecf6257b3fd30">AssimpFileLoader::AssimpFileLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;AssimpFileLoader::AssimpFileLoader() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<a class="code" href="classRa_1_1IO_1_1AssimpFileLoader.html#a05394ada6473c0a75d8b0e270f5457ff">AssimpFileLoader::~AssimpFileLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;AssimpFileLoader::~AssimpFileLoader() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1AssimpFileLoader.html#a2517c177bf9ecd685662cd7e9bdacc7c">   27</a></span>&#160;std::vector&lt;std::string&gt; <a class="code" href="classRa_1_1IO_1_1AssimpFileLoader.html#a2517c177bf9ecd685662cd7e9bdacc7c">AssimpFileLoader::getFileExtensions</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;std::vector&lt;std::string&gt; AssimpFileLoader::getFileExtensions()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    std::string extensionsList;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    m_importer.GetExtensionList( extensionsList );</div>
@@ -136,140 +137,112 @@ $(document).ready(function(){initNavTree('AssimpFileLoader_8cpp_source.html','')
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> extensions;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1AssimpFileLoader.html#a03d896047f4e9b6b0142727b92c44aef">   42</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1IO_1_1AssimpFileLoader.html#a03d896047f4e9b6b0142727b92c44aef">AssimpFileLoader::handleFileExtension</a>( <span class="keyword">const</span> std::string&amp; extension )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">bool</span> AssimpFileLoader::handleFileExtension( <span class="keyword">const</span> std::string&amp; extension )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> m_importer.IsExtensionSupported( extension );</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1AssimpFileLoader.html#ac3718514dde35b52080a679e6169c1bf">   46</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html">FileData</a>* <a class="code" href="classRa_1_1IO_1_1AssimpFileLoader.html#ac3718514dde35b52080a679e6169c1bf">AssimpFileLoader::loadFile</a>( <span class="keyword">const</span> std::string&amp; filename ) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">auto</span> fileData = <span class="keyword">new</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1FileData.html">FileData</a>( filename );</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> ( !fileData-&gt;isInitialized() ) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;FileData* AssimpFileLoader::loadFile( <span class="keyword">const</span> std::string&amp; filename ) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">auto</span> fileData = <span class="keyword">new</span> FileData( filename );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// fileData-&gt;setVerbose( true );</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">     * TODO : allow user to parameterize assimp process on loaded meshes</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> aiScene* scene =</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        m_importer.ReadFile( fileData-&gt;getFileName(),</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                             aiProcess_GenSmoothNormals | aiProcess_SortByPType |</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                 aiProcess_CalcTangentSpace | aiProcess_GenUVCoords );</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> ( scene == <span class="keyword">nullptr</span> ) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;File \&quot;&quot;</span> &lt;&lt; fileData-&gt;getFileName()</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                       &lt;&lt; <span class="stringliteral">&quot;\&quot; assimp error : &quot;</span> &lt;&lt; m_importer.GetErrorString() &lt;&lt; <span class="stringliteral">&quot;.&quot;</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> ( fileData-&gt;isVerbose() ) { <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;File Loading begin...&quot;</span>; }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> ( !fileData-&gt;isInitialized() ) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">     * TODO : allow user to parameterize assimp process on loaded meshes</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">const</span> aiScene* scene =</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        m_importer.ReadFile( fileData-&gt;getFileName(),</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                             aiProcess_GenSmoothNormals | aiProcess_SortByPType |</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                 aiProcess_CalcTangentSpace | aiProcess_GenUVCoords );</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> ( scene == <span class="keyword">nullptr</span> ) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;File \&quot;&quot;</span> &lt;&lt; fileData-&gt;getFileName()</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                       &lt;&lt; <span class="stringliteral">&quot;\&quot; assimp error : &quot;</span> &lt;&lt; m_importer.GetErrorString() &lt;&lt; <span class="stringliteral">&quot;.&quot;</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    std::clock_t startTime;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    startTime = std::clock();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// FIXME : this workaround is related to assimp issue</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">// #2260 Mesh created for a light only file (collada)</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// https://github.com/assimp/assimp/issues/2260</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> ( scene-&gt;mFlags &amp; AI_SCENE_FLAGS_INCOMPLETE ) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> )</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            &lt;&lt; <span class="stringliteral">&quot; ai scene is incomplete, just try to load lights or skeletons (but not both).&quot;</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="classRa_1_1IO_1_1AssimpLightDataLoader.html">AssimpLightDataLoader</a> lightLoader( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a3255c68f2926d6f7f133d6b3c0e996a5">Core::Utils::getDirName</a>( filename ),</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                           fileData-&gt;isVerbose() );</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        lightLoader.<a class="code" href="classRa_1_1IO_1_1AssimpLightDataLoader.html#a14954991f17ce6b8bdce75ac509ecb18">loadData</a>( scene, fileData-&gt;m_lightData );</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">if</span> ( !fileData-&gt;hasLight() ) {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <a class="code" href="classRa_1_1IO_1_1AssimpHandleDataLoader.html">AssimpHandleDataLoader</a> handleLoader( fileData-&gt;isVerbose() );</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            handleLoader.<a class="code" href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#ae4cda7d5e392e3f2e98a9efcb34c6996">loadData</a>( scene, fileData-&gt;m_handleData );</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <a class="code" href="classRa_1_1IO_1_1AssimpAnimationDataLoader.html">AssimpAnimationDataLoader</a> animationLoader( fileData-&gt;isVerbose() );</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            animationLoader.<a class="code" href="classRa_1_1IO_1_1AssimpAnimationDataLoader.html#ae70539c711179086512ee305e03fcb92">loadData</a>( scene, fileData-&gt;m_animationData );</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html">AssimpGeometryDataLoader</a> geometryLoader( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a3255c68f2926d6f7f133d6b3c0e996a5">Core::Utils::getDirName</a>( filename ),</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                                 fileData-&gt;isVerbose() );</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        geometryLoader.<a class="code" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa6c1ada49b7dbf1ef90fa318c39699f7">loadData</a>( scene, fileData-&gt;m_geometryData );</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="comment">// check if that the scene contains at least one mesh</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="comment">// Note that currently, Assimp is ALWAYS creating faces, even when</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">// loading point clouds</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="comment">// (see 3rdPartyLibraries/Assimp/code/PlyLoader.cpp:260)</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordtype">bool</span> ok = std::any_of( fileData-&gt;m_geometryData.begin(),</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                               fileData-&gt;m_geometryData.end(),</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                               []( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; geom ) -&gt; <span class="keywordtype">bool</span> { return geom-&gt;hasFaces(); } );</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">if</span> ( !ok ) {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordflow">if</span> ( fileData-&gt;isVerbose() ) { <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;Point-cloud found. Aborting&quot;</span>; }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keyword">delete</span> fileData;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <a class="code" href="classRa_1_1IO_1_1AssimpHandleDataLoader.html">AssimpHandleDataLoader</a> handleLoader( fileData-&gt;isVerbose() );</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        handleLoader.<a class="code" href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#ae4cda7d5e392e3f2e98a9efcb34c6996">loadData</a>( scene, fileData-&gt;m_handleData );</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="classRa_1_1IO_1_1AssimpAnimationDataLoader.html">AssimpAnimationDataLoader</a> animationLoader( fileData-&gt;isVerbose() );</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        animationLoader.<a class="code" href="classRa_1_1IO_1_1AssimpAnimationDataLoader.html#ae70539c711179086512ee305e03fcb92">loadData</a>( scene, fileData-&gt;m_animationData );</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <a class="code" href="classRa_1_1IO_1_1AssimpLightDataLoader.html">AssimpLightDataLoader</a> lightLoader( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a3255c68f2926d6f7f133d6b3c0e996a5">Core::Utils::getDirName</a>( filename ),</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                                           fileData-&gt;isVerbose() );</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        lightLoader.<a class="code" href="classRa_1_1IO_1_1AssimpLightDataLoader.html#a14954991f17ce6b8bdce75ac509ecb18">loadData</a>( scene, fileData-&gt;m_lightData );</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <a class="code" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html">AssimpCameraDataLoader</a> cameraLoader( fileData-&gt;isVerbose() );</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        cameraLoader.<a class="code" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#aab27026f441da977af1f268d367a158d">loadData</a>( scene, fileData-&gt;m_cameraData );</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    fileData-&gt;m_loadingTime = ( std::clock() - startTime ) / <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>( CLOCKS_PER_SEC );</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span> ( fileData-&gt;isVerbose() ) { LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;File Loading begin...&quot;</span>; }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::clock_t startTime;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    startTime = std::clock();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// FIXME : this workaround is related to assimp issue</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// #2260 Mesh created for a light only file (collada)</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// https://github.com/assimp/assimp/issues/2260</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> ( scene-&gt;mFlags &amp; AI_SCENE_FLAGS_INCOMPLETE ) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        LOG( logWARNING )</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            &lt;&lt; <span class="stringliteral">&quot; ai scene is incomplete, just try to load lights or skeletons (but not both).&quot;</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                           fileData-&gt;isVerbose() );</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        lightLoader.loadData( scene, fileData-&gt;m_lightData );</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">if</span> ( !fileData-&gt;hasLight() ) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            AssimpHandleDataLoader handleLoader( fileData-&gt;isVerbose() );</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            handleLoader.loadData( scene, fileData-&gt;m_handleData );</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            AssimpAnimationDataLoader animationLoader( fileData-&gt;isVerbose() );</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            animationLoader.loadData( scene, fileData-&gt;m_animationData );</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        AssimpGeometryDataLoader geometryLoader( Core::Utils::getDirName( filename ),</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                                 fileData-&gt;isVerbose() );</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        geometryLoader.loadData( scene, fileData-&gt;m_geometryData );</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">// check if that the scene contains at least one mesh</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="comment">// Note that currently, Assimp is ALWAYS creating faces, even when</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="comment">// loading point clouds</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="comment">// (see 3rdPartyLibraries/Assimp/code/PlyLoader.cpp:260)</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordtype">bool</span> ok = std::any_of( fileData-&gt;m_geometryData.begin(),</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                               fileData-&gt;m_geometryData.end(),</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                               []( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; geom ) -&gt; <span class="keywordtype">bool</span> { return geom-&gt;hasFaces(); } );</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">if</span> ( !ok ) {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">if</span> ( fileData-&gt;isVerbose() ) { LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;Point-cloud found. Aborting&quot;</span>; }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keyword">delete</span> fileData;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        AssimpHandleDataLoader handleLoader( fileData-&gt;isVerbose() );</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        handleLoader.loadData( scene, fileData-&gt;m_handleData );</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        AssimpAnimationDataLoader animationLoader( fileData-&gt;isVerbose() );</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        animationLoader.loadData( scene, fileData-&gt;m_animationData );</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                                           fileData-&gt;isVerbose() );</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        lightLoader.loadData( scene, fileData-&gt;m_lightData );</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        AssimpCameraDataLoader cameraLoader( fileData-&gt;isVerbose() );</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        cameraLoader.loadData( scene, fileData-&gt;m_cameraData );</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">if</span> ( fileData-&gt;isVerbose() ) {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;File Loading end.&quot;</span>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        fileData-&gt;displayInfo();</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    fileData-&gt;m_processed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    fileData-&gt;m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">if</span> ( fileData-&gt;isVerbose() ) {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;File Loading end.&quot;</span>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        fileData-&gt;displayInfo();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> fileData;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classRa_1_1IO_1_1AssimpFileLoader.html#a15232bde892dccec916492f6510ac536">  133</a></span>&#160;std::string <a class="code" href="classRa_1_1IO_1_1AssimpFileLoader.html#a15232bde892dccec916492f6510ac536">AssimpFileLoader::name</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Assimp&quot;</span>;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;} <span class="comment">// namespace IO</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    fileData-&gt;m_processed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">return</span> fileData;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;std::string AssimpFileLoader::name()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Assimp&quot;</span>;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">// namespace IO</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">Ra::Core::Utils::logINFO</a></div><div class="ttdeci">@ logINFO</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00018">Log.hpp:18</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpAnimationDataLoader_html_ae70539c711179086512ee305e03fcb92"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpAnimationDataLoader.html#ae70539c711179086512ee305e03fcb92">Ra::IO::AssimpAnimationDataLoader::loadData</a></div><div class="ttdeci">void loadData(const aiScene *scene, std::vector&lt; std::unique_ptr&lt; Core::Asset::AnimationData &gt;&gt; &amp;data) override</div><div class="ttdoc">LOADING.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpAnimationDataLoader_8cpp_source.html#l00029">AssimpAnimationDataLoader.cpp:29</a></div></div>
-<div class="ttc" id="aStringUtils_8hpp_html"><div class="ttname"><a href="StringUtils_8hpp.html">StringUtils.hpp</a></div></div>
-<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpCameraDataLoader_html_aab27026f441da977af1f268d367a158d"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#aab27026f441da977af1f268d367a158d">Ra::IO::AssimpCameraDataLoader::loadData</a></div><div class="ttdeci">void loadData(const aiScene *scene, std::vector&lt; std::unique_ptr&lt; Core::Asset::Camera &gt;&gt; &amp;data) override</div><div class="ttdoc">Convert all the camera data from scene into data.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpCameraDataLoader_8cpp_source.html#l00021">AssimpCameraDataLoader.cpp:21</a></div></div>
-<div class="ttc" id="aAssimpLightDataLoader_8hpp_html"><div class="ttname"><a href="AssimpLightDataLoader_8hpp.html">AssimpLightDataLoader.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpGeometryDataLoader_html_aa6c1ada49b7dbf1ef90fa318c39699f7"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa6c1ada49b7dbf1ef90fa318c39699f7">Ra::IO::AssimpGeometryDataLoader::loadData</a></div><div class="ttdeci">void loadData(const aiScene *scene, std::vector&lt; std::unique_ptr&lt; Core::Asset::GeometryData &gt;&gt; &amp;data) override</div><div class="ttdoc">Convert all the geometry data from scene into data.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpGeometryDataLoader_8cpp_source.html#l00025">AssimpGeometryDataLoader.cpp:25</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpLightDataLoader_html"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpLightDataLoader.html">Ra::IO::AssimpLightDataLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="AssimpLightDataLoader_8hpp_source.html#l00024">AssimpLightDataLoader.hpp:24</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpLightDataLoader_html_a14954991f17ce6b8bdce75ac509ecb18"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpLightDataLoader.html#a14954991f17ce6b8bdce75ac509ecb18">Ra::IO::AssimpLightDataLoader::loadData</a></div><div class="ttdeci">void loadData(const aiScene *scene, std::vector&lt; std::unique_ptr&lt; Core::Asset::LightData &gt;&gt; &amp;data) override</div><div class="ttdoc">LOADING.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpLightDataLoader_8cpp_source.html#l00022">AssimpLightDataLoader.cpp:22</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpGeometryDataLoader_html"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html">Ra::IO::AssimpGeometryDataLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="AssimpGeometryDataLoader_8hpp_source.html#l00026">AssimpGeometryDataLoader.hpp:26</a></div></div>
-<div class="ttc" id="aFileData_8hpp_html"><div class="ttname"><a href="FileData_8hpp.html">FileData.hpp</a></div></div>
-<div class="ttc" id="aAssimpCameraDataLoader_8hpp_html"><div class="ttname"><a href="AssimpCameraDataLoader_8hpp.html">AssimpCameraDataLoader.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpFileLoader_html_a15232bde892dccec916492f6510ac536"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpFileLoader.html#a15232bde892dccec916492f6510ac536">Ra::IO::AssimpFileLoader::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">Unique name of the loader.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpFileLoader_8cpp_source.html#l00133">AssimpFileLoader.cpp:133</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpFileLoader_html_a03d896047f4e9b6b0142727b92c44aef"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpFileLoader.html#a03d896047f4e9b6b0142727b92c44aef">Ra::IO::AssimpFileLoader::handleFileExtension</a></div><div class="ttdeci">bool handleFileExtension(const std::string &amp;extension) const override</div><div class="ttdef"><b>Definition:</b> <a href="AssimpFileLoader_8cpp_source.html#l00042">AssimpFileLoader.cpp:42</a></div></div>
-<div class="ttc" id="aAssimpHandleDataLoader_8hpp_html"><div class="ttname"><a href="AssimpHandleDataLoader_8hpp.html">AssimpHandleDataLoader.hpp</a></div></div>
-<div class="ttc" id="aAssimpFileLoader_8hpp_html"><div class="ttname"><a href="AssimpFileLoader_8hpp.html">AssimpFileLoader.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpHandleDataLoader_html_ae4cda7d5e392e3f2e98a9efcb34c6996"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpHandleDataLoader.html#ae4cda7d5e392e3f2e98a9efcb34c6996">Ra::IO::AssimpHandleDataLoader::loadData</a></div><div class="ttdeci">void loadData(const aiScene *scene, std::vector&lt; std::unique_ptr&lt; Core::Asset::HandleData &gt;&gt; &amp;data) override</div><div class="ttdoc">LOAD.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpHandleDataLoader_8cpp_source.html#l00028">AssimpHandleDataLoader.cpp:28</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpFileLoader_html_a05394ada6473c0a75d8b0e270f5457ff"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpFileLoader.html#a05394ada6473c0a75d8b0e270f5457ff">Ra::IO::AssimpFileLoader::~AssimpFileLoader</a></div><div class="ttdeci">~AssimpFileLoader() override</div></div>
-<div class="ttc" id="aAssimpAnimationDataLoader_8hpp_html"><div class="ttname"><a href="AssimpAnimationDataLoader_8hpp.html">AssimpAnimationDataLoader.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpAnimationDataLoader_html"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpAnimationDataLoader.html">Ra::IO::AssimpAnimationDataLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="AssimpAnimationDataLoader_8hpp_source.html#l00025">AssimpAnimationDataLoader.hpp:25</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpCameraDataLoader_html"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpCameraDataLoader.html">Ra::IO::AssimpCameraDataLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="AssimpCameraDataLoader_8hpp_source.html#l00028">AssimpCameraDataLoader.hpp:28</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1FileData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></div><div class="ttdef"><b>Definition:</b> <a href="FileData_8hpp_source.html#l00019">FileData.hpp:19</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00257">CoreMacros.hpp:257</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpFileLoader_html_a2517c177bf9ecd685662cd7e9bdacc7c"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpFileLoader.html#a2517c177bf9ecd685662cd7e9bdacc7c">Ra::IO::AssimpFileLoader::getFileExtensions</a></div><div class="ttdeci">std::vector&lt; std::string &gt; getFileExtensions() const override</div><div class="ttdef"><b>Definition:</b> <a href="AssimpFileLoader_8cpp_source.html#l00027">AssimpFileLoader.cpp:27</a></div></div>
-<div class="ttc" id="aAssimpGeometryDataLoader_8hpp_html"><div class="ttname"><a href="AssimpGeometryDataLoader_8hpp.html">AssimpGeometryDataLoader.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_a3255c68f2926d6f7f133d6b3c0e996a5"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#a3255c68f2926d6f7f133d6b3c0e996a5">Ra::Core::Utils::getDirName</a></div><div class="ttdeci">std::string getDirName(const std::string &amp;path)</div><div class="ttdef"><b>Definition:</b> <a href="StringUtils_8cpp_source.html#l00026">StringUtils.cpp:26</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpFileLoader_html_ac3718514dde35b52080a679e6169c1bf"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpFileLoader.html#ac3718514dde35b52080a679e6169c1bf">Ra::IO::AssimpFileLoader::loadFile</a></div><div class="ttdeci">Core::Asset::FileData * loadFile(const std::string &amp;filename) override</div><div class="ttdoc">Try to load file, returns nullptr in case of failure.</div><div class="ttdef"><b>Definition:</b> <a href="AssimpFileLoader_8cpp_source.html#l00046">AssimpFileLoader.cpp:46</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpFileLoader_html_a36d2bd451bde1bc1e5fecf6257b3fd30"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpFileLoader.html#a36d2bd451bde1bc1e5fecf6257b3fd30">Ra::IO::AssimpFileLoader::AssimpFileLoader</a></div><div class="ttdeci">AssimpFileLoader()</div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
-<div class="ttc" id="aclassRa_1_1IO_1_1AssimpHandleDataLoader_html"><div class="ttname"><a href="classRa_1_1IO_1_1AssimpHandleDataLoader.html">Ra::IO::AssimpHandleDataLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="AssimpHandleDataLoader_8hpp_source.html#l00026">AssimpHandleDataLoader.hpp:26</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_7788c5f37a81918c772c9185f759a19f.html">AssimpLoader</a></li><li class="navelem"><a class="el" href="AssimpFileLoader_8cpp.html">AssimpFileLoader.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_7788c5f37a81918c772c9185f759a19f.html">AssimpLoader</a></li><li class="navelem"><b>AssimpFileLoader.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,53 +96,53 @@ $(document).ready(function(){initNavTree('Keyboard_8cpp_source.html',''); initRe
 <div class="title">Keyboard.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Keyboard_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Keyboard_8hpp.html">Gui/Utils/Keyboard.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Gui/Utils/Keyboard.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Gui.html#aa33244211c5adb020945572645406a7b">    7</a></span>&#160;std::map&lt;int, bool&gt; <a class="code" href="namespaceRa_1_1Gui.html#aa33244211c5adb020945572645406a7b">g_keypresses</a>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;std::map&lt;int, bool&gt; g_keypresses;</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// store the last key pressed, still pressed.</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Gui.html#ac6dc52e25524b8c56cdfc177bfe52abe">   10</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="namespaceRa_1_1Gui.html#ac6dc52e25524b8c56cdfc177bfe52abe">g_activeKey</a> = -1;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">int</span> g_activeKey = -1;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Gui.html#ad78f1f51a1a408c30fdf27708a73fb71">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Gui.html#ad78f1f51a1a408c30fdf27708a73fb71">keyPressed</a>( <span class="keywordtype">int</span> code ) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="namespaceRa_1_1Gui.html#aa33244211c5adb020945572645406a7b">g_keypresses</a>[code] = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="namespaceRa_1_1Gui.html#ac6dc52e25524b8c56cdfc177bfe52abe">g_activeKey</a>        = code;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">void</span> keyPressed( <span class="keywordtype">int</span> code ) {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    g_keypresses[code] = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    g_activeKey        = code;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Gui.html#ae0c43d828f25e6242e118ada5e2d7896">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Gui.html#ae0c43d828f25e6242e118ada5e2d7896">keyReleased</a>( <span class="keywordtype">int</span> code ) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="namespaceRa_1_1Gui.html#aa33244211c5adb020945572645406a7b">g_keypresses</a>[code] = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">if</span> ( code == <a class="code" href="namespaceRa_1_1Gui.html#ac6dc52e25524b8c56cdfc177bfe52abe">g_activeKey</a> ) <a class="code" href="namespaceRa_1_1Gui.html#ac6dc52e25524b8c56cdfc177bfe52abe">g_activeKey</a> = -1;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">void</span> keyReleased( <span class="keywordtype">int</span> code ) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    g_keypresses[code] = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">if</span> ( code == g_activeKey ) g_activeKey = -1;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Gui.html#a16216a10542e2c52714e3487f4501e53">   22</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Gui.html#a16216a10542e2c52714e3487f4501e53">isKeyPressed</a>( <span class="keywordtype">int</span> code ) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">bool</span> isKeyPressed( <span class="keywordtype">int</span> code ) {</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">// Default constructed bool is false, so this should be enough</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceRa_1_1Gui.html#aa33244211c5adb020945572645406a7b">g_keypresses</a>[code];</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> g_keypresses[code];</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815">   27</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815">activeKey</a>() {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceRa_1_1Gui.html#ac6dc52e25524b8c56cdfc177bfe52abe">g_activeKey</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">int</span> activeKey() {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> g_activeKey;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> releaseAllKeys() {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; k : g_keypresses ) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        k.second = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    g_activeKey = -1;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_1_1Gui_html_ad78f1f51a1a408c30fdf27708a73fb71"><div class="ttname"><a href="namespaceRa_1_1Gui.html#ad78f1f51a1a408c30fdf27708a73fb71">Ra::Gui::keyPressed</a></div><div class="ttdeci">void keyPressed(int code)</div><div class="ttdoc">set the key corresponding to</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00012">Keyboard.cpp:12</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Gui_html_a284a7353da7c360f6ff24c07ebb3f815"><div class="ttname"><a href="namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815">Ra::Gui::activeKey</a></div><div class="ttdeci">int activeKey()</div><div class="ttdoc">return the last, still pressed, key code, -1 if no key currently pressed</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00027">Keyboard.cpp:27</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Gui_html_ae0c43d828f25e6242e118ada5e2d7896"><div class="ttname"><a href="namespaceRa_1_1Gui.html#ae0c43d828f25e6242e118ada5e2d7896">Ra::Gui::keyReleased</a></div><div class="ttdeci">void keyReleased(int code)</div><div class="ttdoc">set the key corresponding to</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00017">Keyboard.cpp:17</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Gui_html_ac6dc52e25524b8c56cdfc177bfe52abe"><div class="ttname"><a href="namespaceRa_1_1Gui.html#ac6dc52e25524b8c56cdfc177bfe52abe">Ra::Gui::g_activeKey</a></div><div class="ttdeci">int g_activeKey</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00010">Keyboard.cpp:10</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Gui_html_aa33244211c5adb020945572645406a7b"><div class="ttname"><a href="namespaceRa_1_1Gui.html#aa33244211c5adb020945572645406a7b">Ra::Gui::g_keypresses</a></div><div class="ttdeci">std::map&lt; int, bool &gt; g_keypresses</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00007">Keyboard.cpp:7</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Gui_html_a16216a10542e2c52714e3487f4501e53"><div class="ttname"><a href="namespaceRa_1_1Gui.html#a16216a10542e2c52714e3487f4501e53">Ra::Gui::isKeyPressed</a></div><div class="ttdeci">bool isKeyPressed(int code)</div><div class="ttdoc">is the key corresponding to</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00022">Keyboard.cpp:22</a></div></div>
-<div class="ttc" id="aKeyboard_8hpp_html"><div class="ttname"><a href="Keyboard_8hpp.html">Keyboard.hpp</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_53dbd7b5b1f80ee648ea4591020754f4.html">Utils</a></li><li class="navelem"><a class="el" href="Keyboard_8cpp.html">Keyboard.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_53dbd7b5b1f80ee648ea4591020754f4.html">Utils</a></li><li class="navelem"><b>Keyboard.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,0 +1,18 @@
+<map id="Ra::Gui::BaseApplication::initialize" name="Ra::Gui::BaseApplication::initialize">
+<area shape="rect" id="node1" title=" " alt="" coords="5,217,188,259"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1BaseApplication.html#a2af7ea85d1a58e2e3581a8a97f81e7b0" title=" " alt="" coords="242,5,433,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1BaseApplication.html#a7fe9e4ee3c0e41954143a2266c3549da" title="Create signal / slots connections." alt="" coords="246,123,429,164"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1BaseApplication.html#ace35b8a957082a5c72c54c5088a6f437" title=" " alt="" coords="244,188,431,229"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1Viewer.html#a12da0e6456afc0e7a13a85636ec852d8" title="Access to the OpenGL context of the Viewer." alt="" coords="236,254,439,281"/>
+<area shape="rect" id="node12" href="$classRa_1_1Gui_1_1Viewer.html#a6066c952ba53278ad3d4d35dac78d6ab" title="Access to the feature picking manager." alt="" coords="238,305,437,347"/>
+<area shape="rect" id="node13" href="$namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2" title="Get the path of Radium embedded plugins." alt="" coords="249,371,425,412"/>
+<area shape="rect" id="node14" href="$classRa_1_1Gui_1_1BaseApplication.html#ade2850bde46ffa889f9ca3a4c542d2e2" title=" " alt="" coords="514,25,697,67"/>
+<area shape="rect" id="node15" href="$classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d" title="add observers to keyMappingManager for gizmo, camera and viewer." alt="" coords="242,436,433,477"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d" title="call deinitializeGL if needed, with context activated" alt="" coords="529,221,681,263"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1BaseApplication.html#afb15f30d1be4f32933204782cc797d43" title="slot called when the OpenGL need to be initialized" alt="" coords="514,156,697,197"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1BaseApplication.html#a6c00e85efcad67823ec51dad9d3a0d98" title=" " alt="" coords="514,91,697,132"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c" title="DeInitialize the OpenGL." alt="" coords="772,221,924,263"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="772,124,924,165"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="772,43,924,84"/>
+<area shape="rect" id="node16" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec" title=" " alt="" coords="487,429,724,485"/>
+</map>

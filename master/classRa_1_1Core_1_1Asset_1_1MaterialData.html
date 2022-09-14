@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -99,7 +100,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Asset_1_1MaterialDa
 </div><!--header-->
 <div class="contents">
 
-<p>represent material data loaded by a file loader. Material data must be identified by a unique name. Radium <a class="el" href="namespaceRa_1_1Engine.html">Engine</a> reserves the following names "AbstractMaterial" --&gt; unknown material, might serve for error management "BlinnPhong" --&gt; standar Blinn-Phong Material  
+<p>represent material data loaded by a file loader. Material data must be identified by a unique name. Radium Engine reserves the following names "AbstractMaterial" --&gt; unknown material, might serve for error management "BlinnPhong" --&gt; standar Blinn-Phong Material  
  <a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="MaterialData_8hpp_source.html">Core/Asset/MaterialData.hpp</a>&gt;</code></p>
@@ -108,7 +109,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Asset_1_1MaterialDa
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Asset_1_1MaterialData__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Asset_1_1MaterialData__inherit__graph.svg" width="227" height="515"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -116,7 +117,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Asset_1_1MaterialDa
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Asset_1_1MaterialData__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Asset_1_1MaterialData__coll__graph.svg" width="226" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
@@ -125,44 +126,50 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a82ae1319e8f37ffbac735919accfc29e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a82ae1319e8f37ffbac735919accfc29e">MaterialData</a> (const std::string &amp;name=&quot;&quot;, const std::string &amp;type=&quot;AbstractMaterial&quot;)</td></tr>
 <tr class="memdesc:a82ae1319e8f37ffbac735919accfc29e"><td class="mdescLeft">&#160;</td><td class="mdescRight">MATERIAL DATA.  <a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a82ae1319e8f37ffbac735919accfc29e">More...</a><br /></td></tr>
 <tr class="separator:a82ae1319e8f37ffbac735919accfc29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87eb3a70c9b73af61b25d5eb85f41e16"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a87eb3a70c9b73af61b25d5eb85f41e16">~MaterialData</a> ()</td></tr>
-<tr class="separator:a87eb3a70c9b73af61b25d5eb85f41e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70908d17601610295bf4031bb75d43ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a70908d17601610295bf4031bb75d43ab">setName</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:a70908d17601610295bf4031bb75d43ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">NAME.  <a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a70908d17601610295bf4031bb75d43ab">More...</a><br /></td></tr>
 <tr class="separator:a70908d17601610295bf4031bb75d43ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca3bb0601cd8a60732bfa08205576c57"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#aca3bb0601cd8a60732bfa08205576c57">getType</a> () const</td></tr>
-<tr class="memdesc:aca3bb0601cd8a60732bfa08205576c57"><td class="mdescLeft">&#160;</td><td class="mdescRight">TYPE.  <a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#aca3bb0601cd8a60732bfa08205576c57">More...</a><br /></td></tr>
+<tr class="memitem:aca3bb0601cd8a60732bfa08205576c57"><td class="memItemLeft" align="right" valign="top"><a id="aca3bb0601cd8a60732bfa08205576c57"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#aca3bb0601cd8a60732bfa08205576c57">getType</a> () const</td></tr>
+<tr class="memdesc:aca3bb0601cd8a60732bfa08205576c57"><td class="mdescLeft">&#160;</td><td class="mdescRight">TYPE. <br /></td></tr>
 <tr class="separator:aca3bb0601cd8a60732bfa08205576c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d66832b16f52ad8e79a3b13c64c4729"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a4d66832b16f52ad8e79a3b13c64c4729">setType</a> (const std::string &amp;type)</td></tr>
+<tr class="memitem:a4d66832b16f52ad8e79a3b13c64c4729"><td class="memItemLeft" align="right" valign="top"><a id="a4d66832b16f52ad8e79a3b13c64c4729"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setType</b> (const std::string &amp;type)</td></tr>
 <tr class="separator:a4d66832b16f52ad8e79a3b13c64c4729"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00f4db6cc18273238ebbd9d05a4faf4d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a00f4db6cc18273238ebbd9d05a4faf4d">displayInfo</a> () const</td></tr>
-<tr class="memdesc:a00f4db6cc18273238ebbd9d05a4faf4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">DEBUG.  <a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a00f4db6cc18273238ebbd9d05a4faf4d">More...</a><br /></td></tr>
+<tr class="memitem:a00f4db6cc18273238ebbd9d05a4faf4d"><td class="memItemLeft" align="right" valign="top"><a id="a00f4db6cc18273238ebbd9d05a4faf4d"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a00f4db6cc18273238ebbd9d05a4faf4d">displayInfo</a> () const</td></tr>
+<tr class="memdesc:a00f4db6cc18273238ebbd9d05a4faf4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">DEBUG. <br /></td></tr>
 <tr class="separator:a00f4db6cc18273238ebbd9d05a4faf4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></td></tr>
-<tr class="memitem:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">AssetData</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an asset data given its name.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">More...</a><br /></td></tr>
+<tr class="memitem:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a67d9d20e8ef8b719a605d4f472ffb520"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">AssetData</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an asset data given its name. <br /></td></tr>
 <tr class="separator:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a5c240eb539057d0739d50a4fbc8b548f">AssetData</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a> &amp;other)=default</td></tr>
-<tr class="memdesc:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. Default here.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a5c240eb539057d0739d50a4fbc8b548f">More...</a><br /></td></tr>
+<tr class="memitem:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a5c240eb539057d0739d50a4fbc8b548f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a5c240eb539057d0739d50a4fbc8b548f">AssetData</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a> &amp;other)=default</td></tr>
+<tr class="memdesc:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. Default here. <br /></td></tr>
 <tr class="separator:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">~AssetData</a> ()</td></tr>
-<tr class="memdesc:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple delete operator.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">More...</a><br /></td></tr>
+<tr class="memitem:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a31c24d775ecf27925feea8acdc6cff67"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">~AssetData</a> ()</td></tr>
+<tr class="memdesc:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple delete operator. <br /></td></tr>
 <tr class="separator:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a> () const</td></tr>
-<tr class="memdesc:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acces to the name of the asset.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">More...</a><br /></td></tr>
+<tr class="memitem:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a45d10620e8b4afeadcbd70da2fa8b119"></a>
+virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a> () const</td></tr>
+<tr class="memdesc:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acces to the name of the asset. <br /></td></tr>
 <tr class="separator:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></td></tr>
-<tr class="memitem:a2d3a74f6a9bee357d8531a619d08de5f inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a2d3a74f6a9bee357d8531a619d08de5f">m_name</a></td></tr>
+<tr class="memitem:a2d3a74f6a9bee357d8531a619d08de5f inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a2d3a74f6a9bee357d8531a619d08de5f"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td></tr>
 <tr class="separator:a2d3a74f6a9bee357d8531a619d08de5f inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>represent material data loaded by a file loader. Material data must be identified by a unique name. Radium <a class="el" href="namespaceRa_1_1Engine.html">Engine</a> reserves the following names "AbstractMaterial" --&gt; unknown material, might serve for error management "BlinnPhong" --&gt; standar Blinn-Phong Material </p>
+<div class="textblock"><p>represent material data loaded by a file loader. Material data must be identified by a unique name. Radium Engine reserves the following names "AbstractMaterial" --&gt; unknown material, might serve for error management "BlinnPhong" --&gt; standar Blinn-Phong Material </p>
 <p>When extending the material system with a loader plugin (or something similar) : Define your own "Asset" class derived from <a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name....">Ra::Core::Asset::MaterialData</a> with the "type" that identifies it uniquely and corresponding to the external format of your material (in the file you load). Define your own "Engine" class, derived from Ra::Engine::Material. </p><pre class="fragment"> Make your plugin register the converter function from "Asset" to "Engine" for this material.
      This function may be everithing that is of the same type than
-</pre><p> std::function&lt;RadiumMaterialPtr(AssetMaterialPtr)&gt; Make your plugin register the default technique builder for this material. This will require to write some GLSL shaders and make them accessible from the application search directory. See example in <a class="el" href="RadiumEngine_8cpp.html">RadiumEngine.cpp</a> (<a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a8d2085dbc31206d0bbdfc6014d247471">RadiumEngine::initialize()</a>) that defins default BlinnPhong Material. </p><pre class="fragment"> Make your loader instantiate the right "Asset" MaterialData class while loading material
+</pre><p> std::function&lt;RadiumMaterialPtr(AssetMaterialPtr)&gt; Make your plugin register the default technique builder for this material. This will require to write some GLSL shaders and make them accessible from the application search directory. See example in <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a> (<a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a8d2085dbc31206d0bbdfc6014d247471">RadiumEngine::initialize()</a>) that defins default BlinnPhong Material. </p><pre class="fragment"> Make your loader instantiate the right "Asset" MaterialData class while loading material
 </pre><p> data from a file. </p><pre class="fragment"> The active system (GeometrySystem is the Radium Default), will then automatically use your
 </pre><p> new material and technique so that the rendering will be fine. When writing your own system, see GeometrySystem implementation as an example.</p>
 <p>That's all folks. </p>
@@ -202,94 +209,7 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a87eb3a70c9b73af61b25d5eb85f41e16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87eb3a70c9b73af61b25d5eb85f41e16">&#9670;&nbsp;</a></span>~MaterialData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ra::Core::Asset::MaterialData::~MaterialData </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MaterialData_8cpp_source.html#l00012">12</a> of file <a class="el" href="MaterialData_8cpp_source.html">MaterialData.cpp</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a00f4db6cc18273238ebbd9d05a4faf4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00f4db6cc18273238ebbd9d05a4faf4d">&#9670;&nbsp;</a></span>displayInfo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::Asset::MaterialData::displayInfo </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>DEBUG. </p>
-
-<p>Reimplemented in <a class="el" href="classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#af4ca6887804d2493458906866670142b">Ra::Core::Asset::BlinnPhongMaterialData</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="MaterialData_8cpp_source.html#l00015">15</a> of file <a class="el" href="MaterialData_8cpp_source.html">MaterialData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aca3bb0601cd8a60732bfa08205576c57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca3bb0601cd8a60732bfa08205576c57">&#9670;&nbsp;</a></span>getType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string Ra::Core::Asset::MaterialData::getType </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>TYPE. </p>
-
-<p class="definition">Definition at line <a class="el" href="MaterialData_8inl_source.html#l00018">18</a> of file <a class="el" href="MaterialData_8inl_source.html">MaterialData.inl</a>.</p>
-
-</div>
-</div>
 <a id="a70908d17601610295bf4031bb75d43ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a70908d17601610295bf4031bb75d43ab">&#9670;&nbsp;</a></span>setName()</h2>
 
@@ -322,34 +242,6 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a4d66832b16f52ad8e79a3b13c64c4729"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d66832b16f52ad8e79a3b13c64c4729">&#9670;&nbsp;</a></span>setType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::Asset::MaterialData::setType </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MaterialData_8inl_source.html#l00022">22</a> of file <a class="el" href="MaterialData_8inl_source.html">MaterialData.inl</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Asset/<a class="el" href="MaterialData_8hpp_source.html">MaterialData.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Asset/<a class="el" href="MaterialData_8cpp_source.html">MaterialData.cpp</a></li>
@@ -360,8 +252,8 @@ Additional Inherited Members</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Asset.html">Asset</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Asset</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

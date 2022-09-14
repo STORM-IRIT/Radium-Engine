@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,17 +96,17 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="title">FlightCameraManipulator.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="FlightCameraManipulator_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="FlightCameraManipulator_8hpp.html">Gui/Viewer/FlightCameraManipulator.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Gui/Viewer/FlightCameraManipulator.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Camera_8hpp.html">Core/Asset/Camera.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Math_8hpp.html">Core/Math/Math.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Light_8hpp.html">Engine/Scene/Light.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Keyboard_8hpp.html">Gui/Utils/Keyboard.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/Camera.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Math/Math.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/Light.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Gui/Utils/Keyboard.hpp&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="KeyMappingManager_8hpp.html">Gui/Utils/KeyMappingManager.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Gui/Utils/KeyMappingManager.hpp&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="CameraComponent_8hpp.html">Engine/Scene/CameraComponent.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/CameraComponent.hpp&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;QApplication&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;QMessageBox&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
@@ -113,20 +114,20 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ae85a94d4f706d35cfcd6864480aee5b3">Core::Math::Pi</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">using</span> Core::Math::Pi;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Gui.html#afa4c7a727b010be2aa0fe037e9faccf4">   22</a></span>&#160;<span class="keyword">using</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">FlightCameraKeyMapping</a> = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt;FlightCameraManipulator&gt;</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">using</span> FlightCameraKeyMapping = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt;FlightCameraManipulator&gt;</a>;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="FlightCameraManipulator_8cpp.html#ab1478fa43039cf1b62157b0375df9960">   24</a></span>&#160;<span class="preprocessor">#define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction Gui::FlightCameraManipulator::XX;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<a class="code" href="FlightCameraManipulator_8hpp.html#a548a2cdef611b0b5977e76ddc6f4cb3f">KeyMappingFlightManipulator</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction Gui::FlightCameraManipulator::XX;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;KeyMappingFlightManipulator</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::configureKeyMapping_impl() {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a4f126885bbb69f67ea65a54a8923a686">FlightCameraKeyMapping::setContext</a>(</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    FlightCameraKeyMapping::setContext(</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        Gui::KeyMappingManager::getInstance()-&gt;getContext( <span class="stringliteral">&quot;FlightManipulatorContext&quot;</span> ) );</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">FlightCameraKeyMapping::getContext</a>().isInvalid() ) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;FlightManipulatorContext not defined (maybe the &quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> ( FlightCameraKeyMapping::getContext().isInvalid() ) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        LOG( Ra::Core::Utils::logWARNING ) &lt;&lt; <span class="stringliteral">&quot;FlightManipulatorContext not defined (maybe the &quot;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                                              <span class="stringliteral">&quot;configuration file do not contains it). Adding &quot;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                              <span class="stringliteral">&quot;default configuration for FlightManipulatorContext.&quot;</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
@@ -146,31 +147,31 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                                          <span class="stringliteral">&quot;FLIGHTMODECAMERA_ZOOM&quot;</span> );</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        Gui::KeyMappingManager::getInstance()-&gt;addAction(</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="stringliteral">&quot;FlightManipulatorContext&quot;</span>, <span class="stringliteral">&quot;Key_A&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;FLIGHTMODECAMERA_ROTATE_AROUND&quot;</span> );</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a4f126885bbb69f67ea65a54a8923a686">FlightCameraKeyMapping::setContext</a>(</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        FlightCameraKeyMapping::setContext(</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            Gui::KeyMappingManager::getInstance()-&gt;getContext( <span class="stringliteral">&quot;FlightManipulatorContext&quot;</span> ) );</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define KMA_VALUE( XX )                                         \</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">    XX = Gui::KeyMappingManager::getInstance()-&gt;getActionIndex( \</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">        FlightCameraKeyMapping::getContext(), #XX );</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="FlightCameraManipulator_8hpp.html#a548a2cdef611b0b5977e76ddc6f4cb3f">KeyMappingFlightManipulator</a></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    KeyMappingFlightManipulator</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c">   65</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::Context</a> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c">Gui::FlightCameraManipulator::mappingContext</a>() {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">FlightCameraKeyMapping::getContext</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c">   65</a></span>&#160;KeyMappingManager::Context <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c">Gui::FlightCameraManipulator::mappingContext</a>() {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> FlightCameraKeyMapping::getContext();</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a44b4914494ca4a919599b93ff8838dea">   69</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a44b4914494ca4a919599b93ff8838dea">Gui::FlightCameraManipulator::FlightCameraManipulator</a>() :</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;Gui::FlightCameraManipulator::FlightCameraManipulator() :</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a>(),</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    m_rotateAround( true ),</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    m_cameraRotateMode( false ),</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    m_cameraPanMode( false ),</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    m_cameraZoomMode( false ) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a17ab04bf806ecdf489d9302074a9c3f4">resetCamera</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    resetCamera();</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a29a599b7fc225b0ed0b044f37e0fe73b">   78</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a44b4914494ca4a919599b93ff8838dea">Gui::FlightCameraManipulator::FlightCameraManipulator</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html">FlightCameraManipulator</a>&amp; other ) :</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;Gui::FlightCameraManipulator::FlightCameraManipulator( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html">FlightCameraManipulator</a>&amp; other ) :</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a>( other ),</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    m_rotateAround( other.m_rotateAround ),</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    m_cameraRotateMode( other.m_cameraRotateMode ),</div>
@@ -179,13 +180,13 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    m_fixUpVector( other.m_fixUpVector ),</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    m_flightSpeed( other.m_flightSpeed ) {}</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#af6ac9e05d08730caa271b8995a39d246">   88</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a44b4914494ca4a919599b93ff8838dea">Gui::FlightCameraManipulator::FlightCameraManipulator</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a>&amp; other ) :</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#af6ac9e05d08730caa271b8995a39d246">   88</a></span>&#160;Gui::FlightCameraManipulator::FlightCameraManipulator( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a>&amp; other ) :</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a>( other ),</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    m_rotateAround( true ),</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    m_cameraRotateMode( false ),</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    m_cameraPanMode( false ),</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    m_cameraZoomMode( false ) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    m_flightSpeed = ( <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#ab26f9a3697f068a1ccaf1a1bb5ddc5a0">m_target</a> - <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">m_camera</a>-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22">getPosition</a>() ).<a class="code" href="namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c">norm</a>() / 10_ra;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    m_flightSpeed = ( <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#ab26f9a3697f068a1ccaf1a1bb5ddc5a0">m_target</a> - <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">m_camera</a>-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22">getPosition</a>() ).norm() / 10_ra;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    initializeFixedUpVector();</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
@@ -204,9 +205,9 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a17ab04bf806ecdf489d9302074a9c3f4">  114</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a17ab04bf806ecdf489d9302074a9c3f4">Gui::FlightCameraManipulator::resetCamera</a>() {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::resetCamera() {</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    m_camera-&gt;setFrame( Core::Transform::Identity() );</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    m_camera-&gt;setPosition( <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>( 0, 0, 1 ) );</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    m_camera-&gt;setPosition( Core::Vector3( 0, 0, 1 ) );</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    initializeFixedUpVector();</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    m_target      = m_camera-&gt;getPosition() + 2_ra * m_camera-&gt;getDirection().normalized();</div>
@@ -226,7 +227,7 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    m_lastMouseY = <span class="keyword">event</span>-&gt;pos().y();</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    m_currentAction = KeyMappingManager::getInstance()-&gt;getAction(</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">FlightCameraKeyMapping::getContext</a>(), buttons, modifiers, key, <span class="keyword">false</span> );</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        FlightCameraKeyMapping::getContext(), buttons, modifiers, key, <span class="keyword">false</span> );</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span> m_currentAction.isValid();</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
@@ -239,8 +240,8 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="comment">// auto action = KeyMappingManager::getInstance()-&gt;getAction( context, buttons, modifiers, key</span></div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="comment">// );</span></div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx = ( <span class="keyword">event</span>-&gt;pos().x() - m_lastMouseX ) / m_camera-&gt;getWidth();</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy = ( <span class="keyword">event</span>-&gt;pos().y() - m_lastMouseY ) / m_camera-&gt;getHeight();</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    Scalar dx = ( <span class="keyword">event</span>-&gt;pos().x() - m_lastMouseX ) / m_camera-&gt;getWidth();</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    Scalar dy = ( <span class="keyword">event</span>-&gt;pos().y() - m_lastMouseY ) / m_camera-&gt;getHeight();</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">if</span> ( event-&gt;modifiers().testFlag( Qt::AltModifier ) ) { m_quickCameraModifier = 10.0_ra; }</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">else</span> {</div>
@@ -267,7 +268,7 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;}</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
 <div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a7a2af4c47adc7cb51abec2a397b010f8">  176</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a7a2af4c47adc7cb51abec2a397b010f8">Gui::FlightCameraManipulator::handleMouseReleaseEvent</a>( QMouseEvent* <span class="comment">/*event*/</span> ) {</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    m_currentAction       = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">KeyMappingManager::KeyMappingAction::Invalid</a>();</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    m_currentAction       = KeyMappingManager::KeyMappingAction::Invalid();</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    m_quickCameraModifier = 1.0_ra;</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
@@ -279,7 +280,7 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                                                     <span class="keywordtype">int</span> key ) {</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keyword">auto</span> action = KeyMappingManager::getInstance()-&gt;getAction(</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">FlightCameraKeyMapping::getContext</a>(), buttons, modifiers, key, <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        FlightCameraKeyMapping::getContext(), buttons, modifiers, key, <span class="keyword">true</span> );</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordflow">if</span> ( action == FLIGHTMODECAMERA_ZOOM ) {</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        handleCameraZoom(</div>
@@ -295,13 +296,13 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordflow">return</span> action.isValid();</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ad9edd4dab00711d46ba0402577a1dc28">  206</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ad9edd4dab00711d46ba0402577a1dc28">Gui::FlightCameraManipulator::toggleRotateAround</a>() {</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::toggleRotateAround() {</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    m_rotateAround = !m_rotateAround;</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;}</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
 <div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a1f649f61d539fa71619568384e593de6">  210</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a1f649f61d539fa71619568384e593de6">Gui::FlightCameraManipulator::handleKeyPressEvent</a>(</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    QKeyEvent* <span class="comment">/*event*/</span>,</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::KeyMappingAction</a>&amp; action ) {</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keyword">const</span> KeyMappingManager::KeyMappingAction&amp; action ) {</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordflow">if</span> ( action == FLIGHTMODECAMERA_ROTATE_AROUND ) {</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        m_rotateAround = !m_rotateAround;</div>
@@ -311,7 +312,7 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;}</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a64c25ec331d4b59d4846b574d3cd2da4">  222</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a64c25ec331d4b59d4846b574d3cd2da4">Gui::FlightCameraManipulator::setCameraPosition</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>&amp; position ) {</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::setCameraPosition( <span class="keyword">const</span> Core::Vector3&amp; position ) {</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordflow">if</span> ( position == m_target ) {</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        QMessageBox::warning( <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Position cannot be set to target point&quot;</span> );</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keywordflow">return</span>;</div>
@@ -325,7 +326,7 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    }</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;}</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a2a17637e6af05694ed723608edcd1d46">  236</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a2a17637e6af05694ed723608edcd1d46">Gui::FlightCameraManipulator::setCameraTarget</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>&amp; target ) {</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::setCameraTarget( <span class="keyword">const</span> Core::Vector3&amp; target ) {</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">if</span> ( m_camera-&gt;getPosition() == m_target ) {</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        QMessageBox::warning( <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Target cannot be set to current camera position&quot;</span> );</div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        <span class="keywordflow">return</span>;</div>
@@ -337,26 +338,26 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">if</span> ( m_light != <span class="keyword">nullptr</span> ) { m_light-&gt;setDirection( m_camera-&gt;getDirection() ); }</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#aaf091e9d39b2d8b550cb72fdbb4e3922">  248</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#aaf091e9d39b2d8b550cb72fdbb4e3922">Gui::FlightCameraManipulator::fitScene</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a>&amp; aabb ) {</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::fitScene( <span class="keyword">const</span> Core::Aabb&amp; aabb ) {</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    resetCamera();</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> f = m_camera-&gt;getFOV();</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> a = m_camera-&gt;getAspect();</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    Scalar f = m_camera-&gt;getFOV();</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    Scalar a = m_camera-&gt;getAspect();</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> r = ( aabb.max() - aabb.min() ).<a class="code" href="namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c">norm</a>() / 2_ra;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> x = r / std::sin( f / 2_ra );</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> y = r / std::sin( f * a / 2_ra );</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> d       = std::max( std::max( x, y ), 0.001_ra );</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keyword">const</span> Scalar r = ( aabb.max() - aabb.min() ).norm() / 2_ra;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keyword">const</span> Scalar x = r / std::sin( f / 2_ra );</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">const</span> Scalar y = r / std::sin( f * a / 2_ra );</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    Scalar d       = std::max( std::max( x, y ), 0.001_ra );</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    m_camera-&gt;setPosition(</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>( aabb.center().x(), aabb.center().y(), aabb.center().z() + d ) );</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    m_camera-&gt;setDirection( <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>( 0_ra, 0_ra, -1_ra ) );</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        Core::Vector3( aabb.center().x(), aabb.center().y(), aabb.center().z() + d ) );</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    m_camera-&gt;setDirection( Core::Vector3( 0_ra, 0_ra, -1_ra ) );</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    initializeFixedUpVector();</div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    m_target = aabb.center();</div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    m_flightSpeed = d / 10_ra;</div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> zfar = std::max( d + ( aabb.max().z() - aabb.min().z() ) * 2_ra, m_camera-&gt;getZFar() );</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    Scalar zfar = std::max( d + ( aabb.max().z() - aabb.min().z() ) * 2_ra, m_camera-&gt;getZFar() );</div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    m_camera-&gt;setZFar( zfar );</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordflow">if</span> ( m_light != <span class="keyword">nullptr</span> ) {</div>
@@ -365,50 +366,50 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    }</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;}</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
-<div class="line"><a name="l00276"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ace422826ba3eac87009690230dbc3b9f">  276</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ace422826ba3eac87009690230dbc3b9f">Gui::FlightCameraManipulator::handleCameraRotate</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy ) {</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dphi   = dx * m_cameraSensitivity * m_quickCameraModifier;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dtheta = -dy * m_cameraSensitivity * m_quickCameraModifier;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::handleCameraRotate( Scalar dx, Scalar dy ) {</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    Scalar dphi   = dx * m_cameraSensitivity * m_quickCameraModifier;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    Scalar dtheta = -dy * m_cameraSensitivity * m_quickCameraModifier;</div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> R( Core::Transform::Identity() );</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    Core::Transform R( Core::Transform::Identity() );</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordflow">if</span> ( std::abs( dphi ) &gt; std::abs( dtheta ) ) {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        R = <a class="code" href="namespaceRa_1_1Core.html#a074dc1e99d57862739cab73a09cc49c1">Core::AngleAxis</a>( -dphi, <span class="comment">/*m_camera-&gt;getUpVector().normalized()*/</span> m_fixUpVector );</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        R = Core::AngleAxis( -dphi, <span class="comment">/*m_camera-&gt;getUpVector().normalized()*/</span> m_fixUpVector );</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    }</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        R = <a class="code" href="namespaceRa_1_1Core.html#a074dc1e99d57862739cab73a09cc49c1">Core::AngleAxis</a>( -dtheta, -m_camera-&gt;getRightVector().normalized() );</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        R = Core::AngleAxis( -dtheta, -m_camera-&gt;getRightVector().normalized() );</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    }</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> d = ( m_target - m_camera-&gt;getPosition() ).<a class="code" href="namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c">norm</a>();</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    Scalar d = ( m_target - m_camera-&gt;getPosition() ).norm();</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    m_camera-&gt;applyTransform( R );</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    m_target = m_camera-&gt;getPosition() + d * m_camera-&gt;getDirection();</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;}</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
-<div class="line"><a name="l00294"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a78daa8f429f3e40281d565569734703d">  294</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a78daa8f429f3e40281d565569734703d">Gui::FlightCameraManipulator::handleCameraPan</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy ) {</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> x = dx * m_cameraSensitivity * m_quickCameraModifier;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> y = dy * m_cameraSensitivity * m_quickCameraModifier;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::handleCameraPan( Scalar dx, Scalar dy ) {</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier;</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier;</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="comment">// Move camera and trackball center, keep the distance to the center</span></div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> R = -m_camera-&gt;getRightVector();</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> U = m_fixUpVector; <span class="comment">// m_camera-&gt;getUpVector();</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    Core::Vector3 R = -m_camera-&gt;getRightVector();</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    Core::Vector3 U = m_fixUpVector; <span class="comment">// m_camera-&gt;getUpVector();</span></div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> T( Core::Transform::Identity() );</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> = x * R + y * U;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    T.translate( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> );</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    Core::Transform T( Core::Transform::Identity() );</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    Core::Vector3 t = x * R + y * U;</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    T.translate( t );</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    m_camera-&gt;applyTransform( T );</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    m_target += <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    m_target += t;</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;}</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
-<div class="line"><a name="l00309"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a78d619d0a43b8e48b11fbb3ddac4f4f0">  309</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a78d619d0a43b8e48b11fbb3ddac4f4f0">Gui::FlightCameraManipulator::handleCameraZoom</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy ) {</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    handleCameraZoom( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Ra::Core::Math::sign</a>( dx ) * ( std::abs( dx ) + std::abs( dy ) ) );</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::handleCameraZoom( Scalar dx, Scalar dy ) {</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    handleCameraZoom( Ra::Core::Math::sign( dx ) * ( std::abs( dx ) + std::abs( dy ) ) );</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;}</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160; </div>
-<div class="line"><a name="l00313"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a8374cb4ffbb7f36a5710b464338ba827">  313</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a78d619d0a43b8e48b11fbb3ddac4f4f0">Gui::FlightCameraManipulator::handleCameraZoom</a>( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> z ) {</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::handleCameraZoom( Scalar z ) {</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keyword">auto</span> y = m_flightSpeed * z * m_cameraSensitivity * m_quickCameraModifier;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> T( Core::Transform::Identity() );</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> = y * m_camera-&gt;getDirection();</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    T.translate( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> );</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    Core::Transform T( Core::Transform::Identity() );</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    Core::Vector3 t = y * m_camera-&gt;getDirection();</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    T.translate( t );</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    m_camera-&gt;applyTransform( T );</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    m_target += <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    m_target += t;</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;}</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="keywordtype">void</span> Gui::FlightCameraManipulator::initializeFixedUpVector() {</div>
@@ -417,75 +418,42 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8cpp_source.ht
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; upVector = m_camera-&gt;getUpVector();</div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keywordflow">if</span> ( std::abs(upVector[0]) &gt;  std::abs(upVector[1]) )</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    {</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keywordflow">if</span> (  std::abs(upVector[0]) &gt;  std::abs(upVector[2]) ) { m_fixUpVector = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>( 1, 0, 0 ); }</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keywordflow">if</span> (  std::abs(upVector[0]) &gt;  std::abs(upVector[2]) ) { m_fixUpVector = Ra::Core::Vector3( 1, 0, 0 ); }</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        { m_fixUpVector = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>( 0, 0, 1 ); }</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        { m_fixUpVector = Ra::Core::Vector3( 0, 0, 1 ); }</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    }</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (  std::abs(upVector[1]) &gt;  std::abs(upVector[2]) )</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    { m_fixUpVector = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>( 0, 1, 0 ); }</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    { m_fixUpVector = Ra::Core::Vector3( 0, 1, 0 ); }</div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    { m_fixUpVector = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>( 0, 0, 1 ); }</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    { m_fixUpVector = Ra::Core::Vector3( 0, 0, 1 ); }</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    m_fixUpVector = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>( 0_ra, 1_ra, 0_ra );</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    m_fixUpVector = Ra::Core::Vector3( 0_ra, 1_ra, 0_ra );</div>
 <div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;}</div>
 <div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
 <div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;} <span class="comment">// namespace Gui</span></div>
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a17ab04bf806ecdf489d9302074a9c3f4"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a17ab04bf806ecdf489d9302074a9c3f4">Ra::Gui::FlightCameraManipulator::resetCamera</a></div><div class="ttdeci">void resetCamera() override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00114">FlightCameraManipulator.cpp:114</a></div></div>
-<div class="ttc" id="aLight_8hpp_html"><div class="ttname"><a href="Light_8hpp.html">Light.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1CameraManipulator_html_a52f8a96fcee5296152ce974d5dedceb3"><div class="ttname"><a href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">Ra::Gui::CameraManipulator::m_camera</a></div><div class="ttdeci">Core::Asset::Camera * m_camera</div><div class="ttdoc">The Camera.</div><div class="ttdef"><b>Definition:</b> <a href="CameraManipulator_8hpp_source.html#l00145">CameraManipulator.hpp:145</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt; FlightCameraManipulator &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a214bf6bbfc4e9b4b05a5a6727cf9e671"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a214bf6bbfc4e9b4b05a5a6727cf9e671">Ra::Gui::FlightCameraManipulator::handleWheelEvent</a></div><div class="ttdeci">bool handleWheelEvent(QWheelEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00183">FlightCameraManipulator.cpp:183</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00082">Types.hpp:82</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_abc603108b0bfdb1ac6e7f284868c1acd"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#abc603108b0bfdb1ac6e7f284868c1acd">Ra::Gui::FlightCameraManipulator::updateCamera</a></div><div class="ttdeci">void updateCamera() override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00101">FlightCameraManipulator.cpp:101</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_ac37903d1f49046183be6f465c9ef5d3c"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c">Ra::Gui::FlightCameraManipulator::mappingContext</a></div><div class="ttdeci">KeyMappingManager::Context mappingContext() override</div><div class="ttdoc">[Implement KeyMappingManageable]</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00065">FlightCameraManipulator.cpp:65</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html_a773a6d2a393cf8ec195afffe2030ed22"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22">Ra::Core::Asset::Camera::getPosition</a></div><div class="ttdeci">Core::Vector3 getPosition() const</div><div class="ttdoc">Return the position.</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8inl_source.html#l00017">Camera.inl:17</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a44b4914494ca4a919599b93ff8838dea"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a44b4914494ca4a919599b93ff8838dea">Ra::Gui::FlightCameraManipulator::FlightCameraManipulator</a></div><div class="ttdeci">FlightCameraManipulator()</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00069">FlightCameraManipulator.cpp:69</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html_a771f93efd49538950e3cb9e57e46fbaf"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a></div><div class="ttdeci">static constexpr Index Invalid()</div><div class="ttdef"><b>Definition:</b> <a href="Index_8inl_source.html#l00029">Index.inl:29</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_ace422826ba3eac87009690230dbc3b9f"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ace422826ba3eac87009690230dbc3b9f">Ra::Gui::FlightCameraManipulator::handleCameraRotate</a></div><div class="ttdeci">virtual void handleCameraRotate(Scalar dx, Scalar dy)</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00276">FlightCameraManipulator.cpp:276</a></div></div>
-<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a72d41d98ffd65898a011f2622d122924"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a72d41d98ffd65898a011f2622d122924">Ra::Gui::FlightCameraManipulator::handleMousePressEvent</a></div><div class="ttdeci">bool handleMousePressEvent(QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00128">FlightCameraManipulator.cpp:128</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a22954323f435085f355701781f846cda"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">Ra::Gui::KeyMappingManageable&lt; FlightCameraManipulator &gt;::getContext</a></div><div class="ttdeci">static KeyMappingManager::Context getContext()</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00211">KeyMappingManager.hpp:211</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1CameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1CameraManipulator.html">Ra::Gui::CameraManipulator</a></div><div class="ttdoc">The CameraManipulator class is the generic class for camera manipulators.</div><div class="ttdef"><b>Definition:</b> <a href="CameraManipulator_8hpp_source.html#l00029">CameraManipulator.hpp:29</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a4f126885bbb69f67ea65a54a8923a686"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a4f126885bbb69f67ea65a54a8923a686">Ra::Gui::KeyMappingManageable&lt; FlightCameraManipulator &gt;::setContext</a></div><div class="ttdeci">static void setContext(const KeyMappingManager::Context &amp;c)</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00219">KeyMappingManager.hpp:219</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html">Ra::Gui::FlightCameraManipulator</a></div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8hpp_source.html#l00013">FlightCameraManipulator.hpp:13</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a78daa8f429f3e40281d565569734703d"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a78daa8f429f3e40281d565569734703d">Ra::Gui::FlightCameraManipulator::handleCameraPan</a></div><div class="ttdeci">virtual void handleCameraPan(Scalar dx, Scalar dy)</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00294">FlightCameraManipulator.cpp:294</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_aaf091e9d39b2d8b550cb72fdbb4e3922"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#aaf091e9d39b2d8b550cb72fdbb4e3922">Ra::Gui::FlightCameraManipulator::fitScene</a></div><div class="ttdeci">void fitScene(const Core::Aabb &amp;aabb) override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00248">FlightCameraManipulator.cpp:248</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a64c25ec331d4b59d4846b574d3cd2da4"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a64c25ec331d4b59d4846b574d3cd2da4">Ra::Gui::FlightCameraManipulator::setCameraPosition</a></div><div class="ttdeci">void setCameraPosition(const Core::Vector3 &amp;position) override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00222">FlightCameraManipulator.cpp:222</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a66854efd74c5507e9b15f998ccda8f96"><div class="ttname"><a href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Ra::Core::Aabb</a></div><div class="ttdeci">Eigen::AlignedBox&lt; Scalar, 3 &gt; Aabb</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00086">Types.hpp:86</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1CameraManipulator_html_ab26f9a3697f068a1ccaf1a1bb5ddc5a0"><div class="ttname"><a href="classRa_1_1Gui_1_1CameraManipulator.html#ab26f9a3697f068a1ccaf1a1bb5ddc5a0">Ra::Gui::CameraManipulator::m_target</a></div><div class="ttdeci">Core::Vector3 m_target</div><div class="ttdef"><b>Definition:</b> <a href="CameraManipulator_8hpp_source.html#l00140">CameraManipulator.hpp:140</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a2a17637e6af05694ed723608edcd1d46"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a2a17637e6af05694ed723608edcd1d46">Ra::Gui::FlightCameraManipulator::setCameraTarget</a></div><div class="ttdeci">void setCameraTarget(const Core::Vector3 &amp;target) override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00236">FlightCameraManipulator.cpp:236</a></div></div>
-<div class="ttc" id="aCameraComponent_8hpp_html"><div class="ttname"><a href="CameraComponent_8hpp.html">CameraComponent.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
-<div class="ttc" id="aFlightCameraManipulator_8hpp_html_a548a2cdef611b0b5977e76ddc6f4cb3f"><div class="ttname"><a href="FlightCameraManipulator_8hpp.html#a548a2cdef611b0b5977e76ddc6f4cb3f">KeyMappingFlightManipulator</a></div><div class="ttdeci">#define KeyMappingFlightManipulator</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8hpp_source.html#l00080">FlightCameraManipulator.hpp:80</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ae85a94d4f706d35cfcd6864480aee5b3"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ae85a94d4f706d35cfcd6864480aee5b3">Ra::Core::Math::Pi</a></div><div class="ttdeci">constexpr Scalar Pi</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00013">Math.hpp:13</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a1e2d30a65bf9290793ecfb82ffccfe37"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a1e2d30a65bf9290793ecfb82ffccfe37">Ra::Gui::FlightCameraManipulator::~FlightCameraManipulator</a></div><div class="ttdeci">virtual ~FlightCameraManipulator()</div><div class="ttdoc">[Constructor]</div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a074dc1e99d57862739cab73a09cc49c1"><div class="ttname"><a href="namespaceRa_1_1Core.html#a074dc1e99d57862739cab73a09cc49c1">Ra::Core::AngleAxis</a></div><div class="ttdeci">Eigen::AngleAxis&lt; Scalar &gt; AngleAxis</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00090">Types.hpp:90</a></div></div>
-<div class="ttc" id="aFlightCameraManipulator_8hpp_html"><div class="ttname"><a href="FlightCameraManipulator_8hpp.html">FlightCameraManipulator.hpp</a></div></div>
-<div class="ttc" id="aMath_8hpp_html"><div class="ttname"><a href="Math_8hpp.html">Math.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a1f649f61d539fa71619568384e593de6"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a1f649f61d539fa71619568384e593de6">Ra::Gui::FlightCameraManipulator::handleKeyPressEvent</a></div><div class="ttdeci">bool handleKeyPressEvent(QKeyEvent *event, const KeyMappingManager::KeyMappingAction &amp;action) override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00210">FlightCameraManipulator.cpp:210</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_ac64128737b53c1b4cb73d332e1ad400f"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac64128737b53c1b4cb73d332e1ad400f">Ra::Gui::FlightCameraManipulator::handleMouseMoveEvent</a></div><div class="ttdeci">bool handleMouseMoveEvent(QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00141">FlightCameraManipulator.cpp:141</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="aKeyMappingManager_8hpp_html"><div class="ttname"><a href="KeyMappingManager_8hpp.html">KeyMappingManager.hpp</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00257">CoreMacros.hpp:257</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a90f0fe9079f5bb86c721ea4b61738470"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Ra::Core::Math::sign</a></div><div class="ttdeci">constexpr int sign(const T &amp;val)</div><div class="ttdoc">Returns the sign of any numeric type as { -1, 0, 1}.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00074">Math.inl:74</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a78d619d0a43b8e48b11fbb3ddac4f4f0"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a78d619d0a43b8e48b11fbb3ddac4f4f0">Ra::Gui::FlightCameraManipulator::handleCameraZoom</a></div><div class="ttdeci">virtual void handleCameraZoom(Scalar dx, Scalar dy)</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00309">FlightCameraManipulator.cpp:309</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a7a2af4c47adc7cb51abec2a397b010f8"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a7a2af4c47adc7cb51abec2a397b010f8">Ra::Gui::FlightCameraManipulator::handleMouseReleaseEvent</a></div><div class="ttdeci">bool handleMouseReleaseEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00176">FlightCameraManipulator.cpp:176</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_ad9edd4dab00711d46ba0402577a1dc28"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ad9edd4dab00711d46ba0402577a1dc28">Ra::Gui::FlightCameraManipulator::toggleRotateAround</a></div><div class="ttdeci">void toggleRotateAround()</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8cpp_source.html#l00206">FlightCameraManipulator.cpp:206</a></div></div>
-<div class="ttc" id="aKeyboard_8hpp_html"><div class="ttname"><a href="Keyboard_8hpp.html">Keyboard.hpp</a></div></div>
-<div class="ttc" id="aCamera_8hpp_html"><div class="ttname"><a href="Camera_8hpp.html">Camera.hpp</a></div></div>
-<div class="ttc" id="anamespaceOpenMesh_html_a8205f789ce08919bc11c58383574596c"><div class="ttname"><a href="namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c">OpenMesh::norm</a></div><div class="ttdeci">Derived::Scalar norm(Eigen::MatrixBase&lt; Derived &gt; const &amp;v1)</div><div class="ttdef"><b>Definition:</b> <a href="OpenMesh_8hpp_source.html#l00022">OpenMesh.hpp:22</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="FlightCameraManipulator_8cpp.html">FlightCameraManipulator.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>FlightCameraManipulator.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

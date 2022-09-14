@@ -1,10 +1,10 @@
 var classRa_1_1Gui_1_1BaseApplication =
 [
-    [ "WindowFactory", "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html", "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory" ],
     [ "BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html#a206dc5c82ced974ba84956de4cb8cd26", null ],
     [ "~BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html#a297cbe045fd3dff905d91a45070a606d", null ],
     [ "addApplicationExtension", "classRa_1_1Gui_1_1BaseApplication.html#a2af7ea85d1a58e2e3581a8a97f81e7b0", null ],
     [ "addPluginDirectory", "classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc", null ],
+    [ "addRadiumMenu", "classRa_1_1Gui_1_1BaseApplication.html#a445d3ef9d6302fffc1dd1640bf97aa61", null ],
     [ "appNeedsToQuit", "classRa_1_1Gui_1_1BaseApplication.html#a9576c0542f29e5929e0efd229cf3f1d9", null ],
     [ "askForUpdate", "classRa_1_1Gui_1_1BaseApplication.html#a4f8e0209256e00daa18315b201bc3df1", null ],
     [ "clearPluginDirectories", "classRa_1_1Gui_1_1BaseApplication.html#a6e96a76acc7b48d015b8fc34b60311df", null ],
@@ -17,7 +17,7 @@ var classRa_1_1Gui_1_1BaseApplication =
     [ "getExportFolderName", "classRa_1_1Gui_1_1BaseApplication.html#afca678119eaec906225a89a57de7c6ea", null ],
     [ "getFrameCount", "classRa_1_1Gui_1_1BaseApplication.html#a0a809bf7d03d516047c365457f2ba043", null ],
     [ "getHelpText", "classRa_1_1Gui_1_1BaseApplication.html#a9a91a4de67b4a0886fa70ed0e53c3048", null ],
-    [ "initialize", "classRa_1_1Gui_1_1BaseApplication.html#a46ddcfcbd872c4e7e29aac63a3d521fb", null ],
+    [ "initialize", "classRa_1_1Gui_1_1BaseApplication.html#a8bcb4912dc4edb9e7c3a05f9697dfc5e", null ],
     [ "initializeGl", "classRa_1_1Gui_1_1BaseApplication.html#a6c00e85efcad67823ec51dad9d3a0d98", null ],
     [ "isRunning", "classRa_1_1Gui_1_1BaseApplication.html#acc56ded35e12ed379689322bdd157968", null ],
     [ "isUpdateNeeded", "classRa_1_1Gui_1_1BaseApplication.html#a2dfa7d8c7bb70a0ae4edab0979577167", null ],
@@ -49,6 +49,7 @@ var classRa_1_1Gui_1_1BaseApplication =
     [ "m_isAboutToQuit", "classRa_1_1Gui_1_1BaseApplication.html#aa7f501997064fb803d0a0b5759c087e0", null ],
     [ "m_isUpdateNeeded", "classRa_1_1Gui_1_1BaseApplication.html#a38c902dc0cceb147d8a007a8a9ae5011", null ],
     [ "m_lastFrameStart", "classRa_1_1Gui_1_1BaseApplication.html#a715e880b6bdfa8fb651826bbb05c6f7b", null ],
+    [ "m_loadedPlugins", "classRa_1_1Gui_1_1BaseApplication.html#a4342737fdebef90a7afdf1c2bef58430", null ],
     [ "m_mainWindow", "classRa_1_1Gui_1_1BaseApplication.html#a05e5c3fec95387d7c83671afa24acfa1", null ],
     [ "m_maxThreads", "classRa_1_1Gui_1_1BaseApplication.html#a79e1e07dacb7f339d75160d2a0e1fbd5", null ],
     [ "m_numFrames", "classRa_1_1Gui_1_1BaseApplication.html#a0e7528302c4373486f1e6c3b2f8cff0c", null ],

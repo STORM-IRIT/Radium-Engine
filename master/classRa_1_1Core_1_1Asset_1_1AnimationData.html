@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -120,10 +121,9 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Asset_1_1AnimationD
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a00a1c6f6d2215c0b1c0e1b18451b4d89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a00a1c6f6d2215c0b1c0e1b18451b4d89">AnimationData</a> (const std::string &amp;name=&quot;&quot;)</td></tr>
+<tr class="memitem:a00a1c6f6d2215c0b1c0e1b18451b4d89"><td class="memItemLeft" align="right" valign="top"><a id="a00a1c6f6d2215c0b1c0e1b18451b4d89"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AnimationData</b> (const std::string &amp;name=&quot;&quot;)</td></tr>
 <tr class="separator:a00a1c6f6d2215c0b1c0e1b18451b4d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4c8da9704e51c9011d32a7132c589a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae4c8da9704e51c9011d32a7132c589a8">~AnimationData</a> ()</td></tr>
-<tr class="separator:ae4c8da9704e51c9011d32a7132c589a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad73e13ac16296d39c830255b0a5888a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#ad73e13ac16296d39c830255b0a5888a3">setName</a> (const std::string &amp;name)</td></tr>
 <tr class="separator:ad73e13ac16296d39c830255b0a5888a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fd298ecce8aa6a3bc951b4ef2b14c36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a2fd298ecce8aa6a3bc951b4ef2b14c36">displayInfo</a> () const</td></tr>
@@ -138,94 +138,54 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae3b9cee02a035e89ce06f938e9f756d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae3b9cee02a035e89ce06f938e9f756d9">setTimeStep</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html#ae7a2e78d2ac4723a0a246a4f7a62c041">AnimationTime::Time</a> &amp;delta)</td></tr>
 <tr class="separator:ae3b9cee02a035e89ce06f938e9f756d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Keyframes</div></td></tr>
-<tr class="memitem:a8b1ca0fe08602add7f09bf2eb5c511d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a8b1ca0fe08602add7f09bf2eb5c511d2">getFramesSize</a> () const</td></tr>
+<tr class="memitem:a8b1ca0fe08602add7f09bf2eb5c511d2"><td class="memItemLeft" align="right" valign="top">uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a8b1ca0fe08602add7f09bf2eb5c511d2">getFramesSize</a> () const</td></tr>
 <tr class="separator:a8b1ca0fe08602add7f09bf2eb5c511d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfff01992de3cc946751bd8a717b85cb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html">HandleAnimation</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#acfff01992de3cc946751bd8a717b85cb">getHandleData</a> () const</td></tr>
 <tr class="separator:acfff01992de3cc946751bd8a717b85cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a135a614f6ec89a8bf63d6496d074833a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a135a614f6ec89a8bf63d6496d074833a">setHandleData</a> (const std::vector&lt; <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html">HandleAnimation</a> &gt; &amp;frameList)</td></tr>
 <tr class="separator:a135a614f6ec89a8bf63d6496d074833a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></td></tr>
-<tr class="memitem:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">AssetData</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an asset data given its name.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">More...</a><br /></td></tr>
+<tr class="memitem:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a67d9d20e8ef8b719a605d4f472ffb520"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">AssetData</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an asset data given its name. <br /></td></tr>
 <tr class="separator:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a5c240eb539057d0739d50a4fbc8b548f">AssetData</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a> &amp;other)=default</td></tr>
-<tr class="memdesc:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. Default here.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a5c240eb539057d0739d50a4fbc8b548f">More...</a><br /></td></tr>
+<tr class="memitem:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a5c240eb539057d0739d50a4fbc8b548f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a5c240eb539057d0739d50a4fbc8b548f">AssetData</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a> &amp;other)=default</td></tr>
+<tr class="memdesc:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. Default here. <br /></td></tr>
 <tr class="separator:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">~AssetData</a> ()</td></tr>
-<tr class="memdesc:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple delete operator.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">More...</a><br /></td></tr>
+<tr class="memitem:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a31c24d775ecf27925feea8acdc6cff67"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">~AssetData</a> ()</td></tr>
+<tr class="memdesc:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple delete operator. <br /></td></tr>
 <tr class="separator:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a> () const</td></tr>
-<tr class="memdesc:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acces to the name of the asset.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">More...</a><br /></td></tr>
+<tr class="memitem:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a45d10620e8b4afeadcbd70da2fa8b119"></a>
+virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a> () const</td></tr>
+<tr class="memdesc:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acces to the name of the asset. <br /></td></tr>
 <tr class="separator:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a471c16d1081aecaf39c534f961a698a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html">AnimationTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a471c16d1081aecaf39c534f961a698a0">m_time</a></td></tr>
-<tr class="memdesc:a471c16d1081aecaf39c534f961a698a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html">AnimationTime</a> for the object.  <a href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a471c16d1081aecaf39c534f961a698a0">More...</a><br /></td></tr>
+<tr class="memitem:a471c16d1081aecaf39c534f961a698a0"><td class="memItemLeft" align="right" valign="top"><a id="a471c16d1081aecaf39c534f961a698a0"></a>
+<a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html">AnimationTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a471c16d1081aecaf39c534f961a698a0">m_time</a></td></tr>
+<tr class="memdesc:a471c16d1081aecaf39c534f961a698a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html">AnimationTime</a> for the object. <br /></td></tr>
 <tr class="separator:a471c16d1081aecaf39c534f961a698a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd1521122371f3d0e6b455b66148370f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html#ae7a2e78d2ac4723a0a246a4f7a62c041">AnimationTime::Time</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#acd1521122371f3d0e6b455b66148370f">m_dt</a> { 0 }</td></tr>
-<tr class="memdesc:acd1521122371f3d0e6b455b66148370f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The animation timestep.  <a href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#acd1521122371f3d0e6b455b66148370f">More...</a><br /></td></tr>
+<tr class="memitem:acd1521122371f3d0e6b455b66148370f"><td class="memItemLeft" align="right" valign="top"><a id="acd1521122371f3d0e6b455b66148370f"></a>
+<a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html#ae7a2e78d2ac4723a0a246a4f7a62c041">AnimationTime::Time</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#acd1521122371f3d0e6b455b66148370f">m_dt</a> { 0 }</td></tr>
+<tr class="memdesc:acd1521122371f3d0e6b455b66148370f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The animation timestep. <br /></td></tr>
 <tr class="separator:acd1521122371f3d0e6b455b66148370f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a810087efcc746139a32e07b84f419710"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html">HandleAnimation</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a810087efcc746139a32e07b84f419710">m_keyFrame</a></td></tr>
-<tr class="memdesc:a810087efcc746139a32e07b84f419710"><td class="mdescLeft">&#160;</td><td class="mdescRight">The animation frames.  <a href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a810087efcc746139a32e07b84f419710">More...</a><br /></td></tr>
+<tr class="memitem:a810087efcc746139a32e07b84f419710"><td class="memItemLeft" align="right" valign="top"><a id="a810087efcc746139a32e07b84f419710"></a>
+std::vector&lt; <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html">HandleAnimation</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html#a810087efcc746139a32e07b84f419710">m_keyFrame</a></td></tr>
+<tr class="memdesc:a810087efcc746139a32e07b84f419710"><td class="mdescLeft">&#160;</td><td class="mdescRight">The animation frames. <br /></td></tr>
 <tr class="separator:a810087efcc746139a32e07b84f419710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></td></tr>
-<tr class="memitem:a2d3a74f6a9bee357d8531a619d08de5f inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a2d3a74f6a9bee357d8531a619d08de5f">m_name</a></td></tr>
+<tr class="memitem:a2d3a74f6a9bee357d8531a619d08de5f inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a2d3a74f6a9bee357d8531a619d08de5f"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td></tr>
 <tr class="separator:a2d3a74f6a9bee357d8531a619d08de5f inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html">AnimationData</a> class stores all the <a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html">HandleAnimation</a> related to an animation of an object, one per animation Handle. </p><dl class="section note"><dt>Note</dt><dd>Objects can have several <a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html">AnimationData</a>, one for each animation. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="AnimationData_8hpp_source.html#l00036">36</a> of file <a class="el" href="AnimationData_8hpp_source.html">AnimationData.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a00a1c6f6d2215c0b1c0e1b18451b4d89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00a1c6f6d2215c0b1c0e1b18451b4d89">&#9670;&nbsp;</a></span>AnimationData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ra::Core::Asset::AnimationData::AnimationData </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em> = <code>&quot;&quot;</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="AnimationData_8cpp_source.html#l00010">10</a> of file <a class="el" href="AnimationData_8cpp_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae4c8da9704e51c9011d32a7132c589a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4c8da9704e51c9011d32a7132c589a8">&#9670;&nbsp;</a></span>~AnimationData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ra::Core::Asset::AnimationData::~AnimationData </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="AnimationData_8cpp_source.html#l00013">13</a> of file <a class="el" href="AnimationData_8cpp_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a2fd298ecce8aa6a3bc951b4ef2b14c36"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2fd298ecce8aa6a3bc951b4ef2b14c36">&#9670;&nbsp;</a></span>displayInfo()</h2>
 
@@ -272,7 +232,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> Ra::Core::Asset::AnimationData::getFramesSize </td>
+          <td class="memname">uint Ra::Core::Asset::AnimationData::getFramesSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -490,85 +450,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="acd1521122371f3d0e6b455b66148370f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd1521122371f3d0e6b455b66148370f">&#9670;&nbsp;</a></span>m_dt</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html#ae7a2e78d2ac4723a0a246a4f7a62c041">AnimationTime::Time</a> Ra::Core::Asset::AnimationData::m_dt { 0 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The animation timestep. </p>
-
-<p class="definition">Definition at line <a class="el" href="AnimationData_8hpp_source.html#l00101">101</a> of file <a class="el" href="AnimationData_8hpp_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a810087efcc746139a32e07b84f419710"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a810087efcc746139a32e07b84f419710">&#9670;&nbsp;</a></span>m_keyFrame</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html">HandleAnimation</a>&gt; Ra::Core::Asset::AnimationData::m_keyFrame</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The animation frames. </p>
-
-<p class="definition">Definition at line <a class="el" href="AnimationData_8hpp_source.html#l00104">104</a> of file <a class="el" href="AnimationData_8hpp_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a471c16d1081aecaf39c534f961a698a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a471c16d1081aecaf39c534f961a698a0">&#9670;&nbsp;</a></span>m_time</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html">AnimationTime</a> Ra::Core::Asset::AnimationData::m_time</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The <a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationTime.html">AnimationTime</a> for the object. </p>
-
-<p class="definition">Definition at line <a class="el" href="AnimationData_8hpp_source.html#l00098">98</a> of file <a class="el" href="AnimationData_8hpp_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Asset/<a class="el" href="AnimationData_8hpp_source.html">AnimationData.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Asset/<a class="el" href="AnimationData_8cpp_source.html">AnimationData.cpp</a></li>
@@ -579,8 +460,8 @@ Protected Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Asset.html">Asset</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html">AnimationData</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Asset</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html">AnimationData</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

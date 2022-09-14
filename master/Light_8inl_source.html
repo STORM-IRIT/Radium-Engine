@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,9 +96,9 @@ $(document).ready(function(){initNavTree('Light_8inl_source.html',''); initResiz
 <div class="title">Light.inl</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Light_8inl.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Light_8hpp.html">Light.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Light.hpp&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Engine {</div>
@@ -120,8 +121,7 @@ $(document).ready(function(){initNavTree('Light_8inl_source.html',''); initResiz
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aLight_8hpp_html"><div class="ttname"><a href="Light_8hpp.html">Light.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Light_html_a9d6c719a66e6746d26cf2eb946e68e40"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Light.html#a9d6c719a66e6746d26cf2eb946e68e40">Ra::Engine::Scene::Light::setColor</a></div><div class="ttdeci">void setColor(const Core::Utils::Color &amp;color)</div><div class="ttdef"><b>Definition:</b> <a href="Light_8inl_source.html#l00013">Light.inl:13</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; Scalar &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Light_html_ab9d04699744c724107dd017d73b862af"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Light.html#ab9d04699744c724107dd017d73b862af">Ra::Engine::Scene::Light::getType</a></div><div class="ttdeci">const LightType &amp; getType() const</div><div class="ttdef"><b>Definition:</b> <a href="Light_8inl_source.html#l00017">Light.inl:17</a></div></div>
@@ -130,8 +130,8 @@ $(document).ready(function(){initNavTree('Light_8inl_source.html',''); initResiz
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="Light_8inl.html">Light.inl</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>Light.inl</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

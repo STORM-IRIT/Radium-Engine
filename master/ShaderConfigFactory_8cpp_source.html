@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,11 +96,11 @@ $(document).ready(function(){initNavTree('ShaderConfigFactory_8cpp_source.html',
 <div class="title">ShaderConfigFactory.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="ShaderConfigFactory_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ShaderConfigFactory_8hpp.html">Engine/Data/ShaderConfigFactory.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/ShaderConfigFactory.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Engine {</div>
@@ -108,18 +109,18 @@ $(document).ready(function(){initNavTree('ShaderConfigFactory_8cpp_source.html',
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using namespace </span>Core::Utils; <span class="comment">// log</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a6004cb8892f9c5adae04369cf9bb3e13">   14</a></span>&#160;<span class="keyword">static</span> std::map&lt;std::string, ShaderConfiguration&gt; <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a6004cb8892f9c5adae04369cf9bb3e13">configs</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">static</span> std::map&lt;std::string, ShaderConfiguration&gt; configs;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">addConfiguration</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">ShaderConfiguration</a>&amp; config ) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> ( config.<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ada1d8dcd8956d77a89ad351ae305de92">getName</a>().empty() ) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Empty name in ShaderConfigurationFactory::addConfiguration call. &quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> ( config.getName().empty() ) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        LOG( logWARNING ) &lt;&lt; <span class="stringliteral">&quot;Empty name in ShaderConfigurationFactory::addConfiguration call. &quot;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                             <span class="stringliteral">&quot;Configuration not added&quot;</span>;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">auto</span> found = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a6004cb8892f9c5adae04369cf9bb3e13">configs</a>.insert( { config.<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ada1d8dcd8956d77a89ad351ae305de92">getName</a>(), config } );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">auto</span> found = configs.insert( { config.getName(), config } );</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> ( !found.second ) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">logDEBUG</a> ) &lt;&lt; <span class="stringliteral">&quot;Configuration &quot;</span> &lt;&lt; config.<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ada1d8dcd8956d77a89ad351ae305de92">getName</a>()</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Configuration &quot;</span> &lt;&lt; config.getName()</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                        &lt;&lt; <span class="stringliteral">&quot; already in ShaderConfigurationFactory. &quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                           <span class="stringliteral">&quot;Configuration not added&quot;</span>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">return</span>;</div>
@@ -127,9 +128,9 @@ $(document).ready(function(){initNavTree('ShaderConfigFactory_8cpp_source.html',
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a4131d754283ed259edf3def7a8891064">   32</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a4131d754283ed259edf3def7a8891064">removeConfiguration</a>( <span class="keyword">const</span> std::string&amp; configName ) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">auto</span> found = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a6004cb8892f9c5adae04369cf9bb3e13">configs</a>.find( configName );</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> ( found != <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a6004cb8892f9c5adae04369cf9bb3e13">configs</a>.end() ) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a6004cb8892f9c5adae04369cf9bb3e13">configs</a>.erase( found );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">auto</span> found = configs.find( configName );</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> ( found != configs.end() ) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        configs.erase( found );</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -137,12 +138,12 @@ $(document).ready(function(){initNavTree('ShaderConfigFactory_8cpp_source.html',
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">   41</a></span>&#160;Core::Utils::optional&lt;ShaderConfiguration&gt; <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">getConfiguration</a>( <span class="keyword">const</span> std::string&amp; name ) {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> ( name.empty() ) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">logWARNING</a> ) &lt;&lt; <span class="stringliteral">&quot;Empty name in ShaderConfigurationFactory::getConfiguration call.&quot;</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        LOG( logWARNING ) &lt;&lt; <span class="stringliteral">&quot;Empty name in ShaderConfigurationFactory::getConfiguration call.&quot;</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">return</span> {};</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">auto</span> found = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a6004cb8892f9c5adae04369cf9bb3e13">configs</a>.find( name );</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> ( found != <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a6004cb8892f9c5adae04369cf9bb3e13">configs</a>.end() ) { <span class="keywordflow">return</span> found-&gt;second; }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">auto</span> found = configs.find( name );</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> ( found != configs.end() ) { <span class="keywordflow">return</span> found-&gt;second; }</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> {};</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
@@ -154,23 +155,16 @@ $(document).ready(function(){initNavTree('ShaderConfigFactory_8cpp_source.html',
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a6004cb8892f9c5adae04369cf9bb3e13"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a6004cb8892f9c5adae04369cf9bb3e13">Ra::Engine::Data::ShaderConfigurationFactory::configs</a></div><div class="ttdeci">static std::map&lt; std::string, ShaderConfiguration &gt; configs</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00014">ShaderConfigFactory.cpp:14</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderConfiguration_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8hpp_source.html#l00061">ShaderConfiguration.hpp:61</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderConfiguration_html_ada1d8dcd8956d77a89ad351ae305de92"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#ada1d8dcd8956d77a89ad351ae305de92">Ra::Engine::Data::ShaderConfiguration::getName</a></div><div class="ttdeci">const std::string &amp; getName() const</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8hpp_source.html#l00134">ShaderConfiguration.hpp:134</a></div></div>
-<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a0ecc004c00bff945aae8b673a738909f"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration</a></div><div class="ttdeci">Core::Utils::optional&lt; ShaderConfiguration &gt; getConfiguration(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00041">ShaderConfigFactory.cpp:41</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a00918835250fbd8bbe4deae59ecd6dde"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration</a></div><div class="ttdeci">void addConfiguration(const ShaderConfiguration &amp;config)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00016">ShaderConfigFactory.cpp:16</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a4131d754283ed259edf3def7a8891064"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a4131d754283ed259edf3def7a8891064">Ra::Engine::Data::ShaderConfigurationFactory::removeConfiguration</a></div><div class="ttdeci">bool removeConfiguration(const std::string &amp;configName)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00032">ShaderConfigFactory.cpp:32</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="aShaderConfigFactory_8hpp_html"><div class="ttname"><a href="ShaderConfigFactory_8hpp.html">ShaderConfigFactory.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa475d285eca0f3666bad28a394bc7af9b">Ra::Core::Utils::logDEBUG</a></div><div class="ttdeci">@ logDEBUG</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00019">Log.hpp:19</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="ShaderConfigFactory_8cpp.html">ShaderConfigFactory.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>ShaderConfigFactory.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

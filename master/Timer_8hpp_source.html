@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,9 +96,9 @@ $(document).ready(function(){initNavTree('Timer_8hpp_source.html',''); initResiz
 <div class="title">Timer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Timer_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
@@ -105,14 +106,14 @@ $(document).ready(function(){initNavTree('Timer_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// Convenience functions for timing.</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// Wrapping the highest resolution time measuring.</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Utils {</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html#a5c39c00589ae42a44a66b3abe5375779">   11</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#a5c39c00589ae42a44a66b3abe5375779">Clock</a>     = std::chrono::high_resolution_clock;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">   12</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">TimePoint</a> = std::chrono::time_point&lt;Clock&gt;;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using</span> Clock     = std::chrono::high_resolution_clock;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using</span> TimePoint = std::chrono::time_point&lt;Clock&gt;;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html#ad4680945a5efebfe2b7b320e9e2a9a61">   14</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">long</span> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#ad4680945a5efebfe2b7b320e9e2a9a61">getIntervalMicro</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">TimePoint</a>&amp; start, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">TimePoint</a>&amp; end ) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">long</span> RA_CORE_API getIntervalMicro( <span class="keyword">const</span> TimePoint&amp; start, <span class="keyword">const</span> TimePoint&amp; end ) {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> ( std::chrono::duration_cast&lt;std::chrono::microseconds&gt;( end - start ) ).count();</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Utils.html#aa49c969fc840be78b425b79b6c611c56">   18</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classfloat.html">Scalar</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#aa49c969fc840be78b425b79b6c611c56">getIntervalSeconds</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">TimePoint</a>&amp; start, <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">TimePoint</a>&amp; end ) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">inline</span> Scalar RA_CORE_API getIntervalSeconds( <span class="keyword">const</span> TimePoint&amp; start, <span class="keyword">const</span> TimePoint&amp; end ) {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> ( std::chrono::duration_cast&lt;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                 std::chrono::duration&lt;Scalar, std::chrono::seconds::period&gt;&gt;( end - start ) )</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        .count();</div>
@@ -123,19 +124,12 @@ $(document).ready(function(){initNavTree('Timer_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_acb8047597f13436538ee03f0a4f31211"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#acb8047597f13436538ee03f0a4f31211">Ra::Core::Utils::TimePoint</a></div><div class="ttdeci">std::chrono::time_point&lt; Clock &gt; TimePoint</div><div class="ttdef"><b>Definition:</b> <a href="Timer_8hpp_source.html#l00012">Timer.hpp:12</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_a5c39c00589ae42a44a66b3abe5375779"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#a5c39c00589ae42a44a66b3abe5375779">Ra::Core::Utils::Clock</a></div><div class="ttdeci">std::chrono::high_resolution_clock Clock</div><div class="ttdef"><b>Definition:</b> <a href="Timer_8hpp_source.html#l00011">Timer.hpp:11</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_ad4680945a5efebfe2b7b320e9e2a9a61"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#ad4680945a5efebfe2b7b320e9e2a9a61">Ra::Core::Utils::getIntervalMicro</a></div><div class="ttdeci">long RA_CORE_API getIntervalMicro(const TimePoint &amp;start, const TimePoint &amp;end)</div><div class="ttdef"><b>Definition:</b> <a href="Timer_8hpp_source.html#l00014">Timer.hpp:14</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_aa49c969fc840be78b425b79b6c611c56"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#aa49c969fc840be78b425b79b6c611c56">Ra::Core::Utils::getIntervalSeconds</a></div><div class="ttdeci">Scalar RA_CORE_API getIntervalSeconds(const TimePoint &amp;start, const TimePoint &amp;end)</div><div class="ttdef"><b>Definition:</b> <a href="Timer_8hpp_source.html#l00018">Timer.hpp:18</a></div></div>
-<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="Timer_8hpp.html">Timer.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><b>Timer.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

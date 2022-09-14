@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -96,21 +97,22 @@ $(document).ready(function(){initNavTree('develanimation.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md44">Animation in Radium</a><ul><li class="level2"><a href="#autotoc_md45">Using KeyFramedValue to animate data</a></li>
-<li class="level2"><a href="#autotoc_md46">Character Animation</a></li>
+<ul><li class="level1"><a href="#autotoc_md42">Animation in Radium</a><ul><li class="level2"><a href="#autotoc_md43">Using KeyFramedValue to animate data</a></li>
+<li class="level2"><a href="#autotoc_md44">Character Animation</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md44"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md42"></a>
 Animation in Radium</h1>
 <p>The Radium Engine provides a set of classes dedicated to animation, which can be found in <code>Core/Animation</code>.</p>
 <p>In Radium, the animation of any data can be done through the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code> template. It stores the data keyframes, i.e. time-value couples, which are interpolated when the value for a given time is requested.</p>
-<h2><a class="anchor" id="autotoc_md45"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Using KeyFramedValue to animate data</h2>
-<p>There are two ways data can be animated using <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>:</p><ul>
-<li>When the data is directly specified as a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>. In this case, particular values at specific times can be specified to create the animation keyframes, and then used when requested: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValue_8hpp.html">Core/Animation/KeyFramedValue.hpp</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValueInterpolators_8hpp.html">Core/Animation/KeyFramedValueInterpolators.hpp</a>&gt;</span></div>
+<p>There are two ways data can be animated using <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>:</p>
+<ul>
+<li>When the data is directly specified as a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>. In this case, particular values at specific times can be specified to create the animation keyframes, and then used when requested: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Animation/KeyFramedValue.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/Animation/KeyFramedValueInterpolators.hpp&gt;</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keyword">struct </span>MyStruct {</div>
 <div class="line">        MyStruct() :</div>
 <div class="line">            m_nonAnimatedData { 2_ra },   <span class="comment">// initialize the non animated data as 2</span></div>
@@ -119,14 +121,14 @@ Using KeyFramedValue to animate data</h2>
 <div class="line">            m_animatedData.insertKeyFrame( 3_ra, 2_ra ); <span class="comment">// adding a keyframe with value 2 at time 3</span></div>
 <div class="line">        }</div>
 <div class="line"> </div>
-<div class="line">        <a class="code" href="classfloat.html">Scalar</a> fetch( <a class="code" href="classfloat.html">Scalar</a> time ) {</div>
+<div class="line">        Scalar fetch( Scalar time ) {</div>
 <div class="line">            <span class="comment">// fetch the interpolated value for the given time</span></div>
-<div class="line">            <a class="code" href="classfloat.html">Scalar</a> v_t = m_animatedData.at( time, Ra::Core::Animation::linearInterpolate&lt;Scalar&gt; );</div>
+<div class="line">            Scalar v_t = m_animatedData.at( time, Ra::Core::Animation::linearInterpolate&lt;Scalar&gt; );</div>
 <div class="line">            <span class="comment">// use it</span></div>
 <div class="line">            <span class="keywordflow">return</span> m_nonAnimatedData * v_t;</div>
 <div class="line">        }</div>
 <div class="line"> </div>
-<div class="line">        <a class="code" href="classfloat.html">Scalar</a> m_nonAnimatedData;</div>
+<div class="line">        Scalar m_nonAnimatedData;</div>
 <div class="line">        <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue&lt;Scalar&gt;</a> m_animatedData;</div>
 <div class="line">    };</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">        MyStruct a;</div>
@@ -134,7 +136,7 @@ Using KeyFramedValue to animate data</h2>
 <div class="line">        std::cout &lt;&lt; a.fetch( 2_ra ) &lt;&lt; std::endl; <span class="comment">// prints: 2</span></div>
 <div class="line">        std::cout &lt;&lt; a.fetch( 4_ra ) &lt;&lt; std::endl; <span class="comment">// prints: 4</span></div>
 </div><!-- fragment --></li>
-<li>When the data is not specified as a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code> but one wants to animate it. In this case, one must use the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code> to animate the data: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValueController_8hpp.html">Core/Animation/KeyFramedValueController.hpp</a>&gt;</span></div>
+<li>When the data is not specified as a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code> but one wants to animate it. In this case, one must use the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code> to animate the data: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Animation/KeyFramedValueController.hpp&gt;</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line"> </div>
 <div class="line">    <span class="keyword">struct </span>MyStructAnimator {</div>
 <div class="line">        MyStructAnimator( MyStruct&amp; s ) {</div>
@@ -143,15 +145,15 @@ Using KeyFramedValue to animate data</h2>
 <div class="line">            frames-&gt;<a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236">insertKeyFrame</a>( 4_ra, 4_ra );</div>
 <div class="line">            <span class="comment">// create the controller</span></div>
 <div class="line">            m_controller.m_value   = frames;</div>
-<div class="line">            m_controller.m_updater = [frames, &amp;s]( <span class="keyword">const</span> <a class="code" href="classfloat.html">Scalar</a>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ) {</div>
+<div class="line">            m_controller.m_updater = [frames, &amp;s]( <span class="keyword">const</span> Scalar&amp; t ) {</div>
 <div class="line">                <span class="comment">// fetch the interpolated value for the given time</span></div>
-<div class="line">                <span class="keyword">auto</span> v_t = frames-&gt;at( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>, Ra::Core::Animation::linearInterpolate&lt;Scalar&gt; );</div>
+<div class="line">                <span class="keyword">auto</span> v_t = frames-&gt;at( t, Ra::Core::Animation::linearInterpolate&lt;Scalar&gt; );</div>
 <div class="line">                <span class="comment">// update the data</span></div>
 <div class="line">                s.m_nonAnimatedData = v_t;</div>
 <div class="line">            };</div>
 <div class="line">        }</div>
 <div class="line"> </div>
-<div class="line">        <span class="keywordtype">void</span> update( <a class="code" href="classfloat.html">Scalar</a> time ) {</div>
+<div class="line">        <span class="keywordtype">void</span> update( Scalar time ) {</div>
 <div class="line">            m_controller.updateKeyFrame( time ); <span class="comment">// uses the keyframes to update the data.</span></div>
 <div class="line">        }</div>
 <div class="line"> </div>
@@ -177,18 +179,20 @@ Using KeyFramedValue to animate data</h2>
 <div class="line"> </div>
 </div><!-- fragment --> </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md46"></a>
+<h2><a class="anchor" id="autotoc_md44"></a>
 Character Animation</h2>
 <h3>Character Animation Basics</h3>
-<p>In order to animate a digital character, one may choose from two main animation techniques:</p><ul>
+<p>In order to animate a digital character, one may choose from two main animation techniques:</p>
+<ul>
 <li>skeleton-based animation, in which the character's mesh is bound to an animation skeleton composed of joints, sometimes called bones.</li>
 <li>cage-based animation, in which the character's mesh is bound to a set of points defining an englobing deformation cage.</li>
 </ul>
 <p>In both cases, the character's mesh is bound to the handles (skeleton joints or cage points) through a set of skinning weights. During the animation, the handles transformations are first updated with respect to the animation pose, then the mesh is deformed by combining the handles transformations through the skinnning weights.</p>
 <h3>Character Animation in Radium</h3>
 <p>The Radium Engine provides the basic classes for character animation.</p>
-<p>Starting from a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html">Ra::Core::Animation::HandleArray</a></code>, which represents a deformation metaphor, such as <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Ra::Core::Animation::Cage</a></code> or <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Ra::Core::Animation::Skeleton</a></code>, one must associate influence weights to each vertex of a mesh within a <code><a class="el" href="namespaceRa_1_1Core_1_1Animation.html#a431d1716fa300515105fdeec7574f95c">Ra::Core::Animation::WeightMatrix</a></code> (rows representing vertices, columns handles). These influence weights, or skinning weights, are then used by a skinning algorithm to deform the associated mesh vertices w.r.t. the handles deformation defined by the animation pose. The mesh is also linked to each handle through a <code>bindMatrix</code> that expresses the transformation from the mesh's local frame to the handle's local frame.</p>
-<p>In the case of character animation, an animation is a set of <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a>&lt;<a class="el" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a>&gt;</code>, one for each joint, which are interpolated by default as follows:</p><ul>
+<p>Starting from a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html">Ra::Core::Animation::HandleArray</a></code>, which represents a deformation metaphor, such as <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1Cage.html">Ra::Core::Animation::Cage</a></code> or <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Ra::Core::Animation::Skeleton</a></code>, one must associate influence weights to each vertex of a mesh within a <code>Ra::Core::Animation::WeightMatrix</code> (rows representing vertices, columns handles). These influence weights, or skinning weights, are then used by a skinning algorithm to deform the associated mesh vertices w.r.t. the handles deformation defined by the animation pose. The mesh is also linked to each handle through a <code>bindMatrix</code> that expresses the transformation from the mesh's local frame to the handle's local frame.</p>
+<p>In the case of character animation, an animation is a set of <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a>&lt;Ra::Core::Transform&gt;</code>, one for each joint, which are interpolated by default as follows:</p>
+<ul>
 <li>the translation and scale channels are linearly interpolated;</li>
 <li>the rotation channel is linearly interpolated in quaternion space.</li>
 </ul>
@@ -196,35 +200,32 @@ Character Animation</h2>
 <p>Hence, in order to deform the character's mesh, one must first use the handle's <code>bindMatrix</code> to express the mesh vertices position into the handles' local space before combining the handles local transformations to deform the mesh vertices.</p>
 <p><em>Note</em>: As of now, cage-based character animation is not implemented in the Radium Engine.</p>
 <h4>Skeleton-Based Character Animation in Radium</h4>
-<p>The Radium Engine provides a system specific to the skeleton-based animation of a character, the `Ra::Engine::Scene::SkeletonBasedAnimationSystem. This system is responsible for transmitting calls to/from animation-related processes to 2 specific <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Scene::Component</a></code>:</p><ul>
+<p>The Radium Engine provides a system specific to the skeleton-based animation of a character, the `Ra::Engine::Scene::SkeletonBasedAnimationSystem. This system is responsible for transmitting calls to/from animation-related processes to 2 specific<code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Scene::Component</a></code>:</p>
+<ul>
 <li>the <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">Ra::Engine::Scene::SkeletonComponent</a></code>, which manages user interactions with the animation skeleton, enabling posing the character and playing the animations;</li>
 <li>the <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html" title="The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj...">Ra::Engine::Scene::SkinningComponent</a></code>, which is responsible for deforming the object's mesh vertices according to the desired skinning method.</li>
 </ul>
 <p>The Radium Engine provides 4 skinning methods: Linear-Blend Skinning, Dual-Quaternion Skinning, Center-Of-Rotation Skinning and Stretchable-Twistable-Bone-Skinning (available in both the LBS or DQS forms).</p>
-<p>The Radium Engine also provides a user interface for Skeleton-based character animation parameters: the <code><a class="el" href="classRa_1_1Gui_1_1SkeletonBasedAnimationUI.html">Ra::Gui::SkeletonBasedAnimationUI</a></code>, which allows the user to edit animations, running parameters, skeleton display, skinning parameters and skinning weights display.</p>
+<p>The Radium Engine also provides a user interface for Skeleton-based character animation parameters: the <code>Ra::Gui::SkeletonBasedAnimationUI</code>, which allows the user to edit animations, running parameters, skeleton display, skinning parameters and skinning weights display.</p>
 <h4>Importing skeleton-based character animation data into Radium</h4>
-<p>In order to import animation related data into Radium, the default loader would be the <code>Ra::IO::AssimpLoader</code>, which deals with several standard animation formats (fbx, collada, ...). In case one need to develop his own loader because using a file format not managed by the Assimp library, the Radium Engine provides a set of classes in <code>Core/Asset</code> defining data wrappers filled by loaders (see the specific documentation &ndash; which does not exist for now). For now, <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html">Ra::Core::Asset::FileLoaderInterface</a></code>s in the Radium Engine produce only one <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></code> per loaded file.</p>
-<p>Regarding character animation data, there are a few things to do in order to ensure correct import by the animation and skinning plugins:</p><ul>
-<li>The generated <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1FileData.html">Ra::Core::Asset::FileData</a></code> must contain exactly one <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></code> per animated object, as much <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html">Ra::Core::Asset::AnimationData</a></code> as needed per animated object and may contain several or no <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a></code>. Note: for objects composed of several mesh parts, these must be referred by their name when filling the <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></code>.</li>
+<p>In order to import animation related data into Radium, the default loader would be the <code>Ra::IO::AssimpLoader</code>, which deals with several standard animation formats (fbx, collada, ...). In case one need to develop his own loader because using a file format not managed by the Assimp library, the Radium Engine provides a set of classes in <code>Core/Asset</code> defining data wrappers filled by loaders (see the specific documentation &ndash; which does not exist for now). For now, <code>Ra::Core::Asset::FileLoaderInterface</code>s in the Radium Engine produce only one <code>Ra::Core::Asset::FileData</code> per loaded file.</p>
+<p>Regarding character animation data, there are a few things to do in order to ensure correct import by the animation and skinning plugins:</p>
+<ul>
+<li>The generated <code>Ra::Core::Asset::FileData</code> must contain exactly one <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></code> per animated object, as much <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html">Ra::Core::Asset::AnimationData</a></code> as needed per animated object and may contain several or no <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a></code>. Note: for objects composed of several mesh parts, these must be referred by their name when filling the <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></code>.</li>
 <li>The animation skeleton, i.e. the bones and hierarchy, must be loaded into the <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></code>, as well as the skinning weights. The bone hierarchy will be defined by the <code>Ra::Core::Asset::EdgeData</code>. Each bone will be represented by a <code><a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleComponentData.html">Ra::Core::Asset::HandleComponentData</a></code>, storing the bone's name, transform in model space and its per-skinned mesh offset matrix and vertex skinning weights. The offset matrix stores the transformation from mesh space to the node's local space.</li>
 <li>Animation keyframes, i.e. couples of time and pose (in local space), if any, must be loaded into an <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1AnimationData.html">Ra::Core::Asset::AnimationData</a></code>. The whole animation must be stored bone-wise in <code><a class="el" href="structRa_1_1Core_1_1Asset_1_1HandleAnimation.html">Ra::Core::Asset::HandleAnimation</a></code>s, whose name must match the bone's. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
-<div class="ttc" id="aKeyFramedValue_8hpp_html"><div class="ttname"><a href="KeyFramedValue_8hpp.html">KeyFramedValue.hpp</a></div></div>
-<div class="ttc" id="aKeyFramedValueInterpolators_8hpp_html"><div class="ttname"><a href="KeyFramedValueInterpolators_8hpp.html">KeyFramedValueInterpolators.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValueController_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValueController_8hpp_source.html#l00016">KeyFramedValueController.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00062">KeyFramedValue.hpp:62</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html_a7607a8855a37987dc11a5aa826c8a236"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236">Ra::Core::Animation::KeyFramedValue::insertKeyFrame</a></div><div class="ttdeci">void insertKeyFrame(const Scalar &amp;t, const VALUE_TYPE &amp;frame)</div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00116">KeyFramedValue.hpp:116</a></div></div>
-<div class="ttc" id="aKeyFramedValueController_8hpp_html"><div class="ttname"><a href="KeyFramedValueController_8hpp.html">KeyFramedValueController.hpp</a></div></div>
-<div class="ttc" id="aclassfloat_html"><div class="ttname"><a href="classfloat.html">float</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

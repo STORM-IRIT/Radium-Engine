@@ -12,10 +12,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html" target="_top" xlink:title="Structure holding the result of a segment&#45;to&#45;triangle distance query.">
+<g id="a_node1"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 148,-30.5 148,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="74" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::SegmentToTriangleOutput</text>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
+<text text-anchor="middle" x="74" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; int, int, int, int &gt;</text>
 </a>
 </g>
 </g>

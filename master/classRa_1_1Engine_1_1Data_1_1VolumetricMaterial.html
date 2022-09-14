@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -125,17 +126,23 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8ab7c6c40287009dd41cdaa3c6573493"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f6ffc62a037db3dcb63c52a1baf508f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a1f6ffc62a037db3dcb63c52a1baf508f">~VolumetricMaterial</a> () override</td></tr>
 <tr class="separator:a1f6ffc62a037db3dcb63c52a1baf508f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92159439586f9783d1334576b1aa1b88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a92159439586f9783d1334576b1aa1b88">updateGL</a> () override</td></tr>
+<tr class="memitem:a92159439586f9783d1334576b1aa1b88"><td class="memItemLeft" align="right" valign="top"><a id="a92159439586f9783d1334576b1aa1b88"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a92159439586f9783d1334576b1aa1b88">updateGL</a> () override</td></tr>
+<tr class="memdesc:a92159439586f9783d1334576b1aa1b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic. <br /></td></tr>
 <tr class="separator:a92159439586f9783d1334576b1aa1b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00fd3ec81be3fb81d97d7b17eaa9be42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a00fd3ec81be3fb81d97d7b17eaa9be42">isTransparent</a> () const override</td></tr>
+<tr class="memitem:af25aa6548fe325c7c19b1344f40e3a59"><td class="memItemLeft" align="right" valign="top"><a id="af25aa6548fe325c7c19b1344f40e3a59"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#af25aa6548fe325c7c19b1344f40e3a59">updateFromParameters</a> () override</td></tr>
+<tr class="memdesc:af25aa6548fe325c7c19b1344f40e3a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters. <br /></td></tr>
+<tr class="separator:af25aa6548fe325c7c19b1344f40e3a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00fd3ec81be3fb81d97d7b17eaa9be42"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a00fd3ec81be3fb81d97d7b17eaa9be42">isTransparent</a> () const override</td></tr>
 <tr class="separator:a00fd3ec81be3fb81d97d7b17eaa9be42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a825f412547a9129b892b8cb9c912501f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a825f412547a9129b892b8cb9c912501f">setTexture</a> (<a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *texture)</td></tr>
 <tr class="separator:a825f412547a9129b892b8cb9c912501f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fe3be0c677d260f6e49defe55751cd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a8fe3be0c677d260f6e49defe55751cd2">getTexture</a> () const</td></tr>
 <tr class="separator:a8fe3be0c677d260f6e49defe55751cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65e364b0a9e817ad90a14e6b0726ac13"><td class="memItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a65e364b0a9e817ad90a14e6b0726ac13">getParametersMetadata</a> () const override</td></tr>
+<tr class="separator:a65e364b0a9e817ad90a14e6b0726ac13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
-<tr class="memitem:a3e23b2b016a99ce802a438d6381fffa2 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a3e23b2b016a99ce802a438d6381fffa2">~Material</a> ()=default</td></tr>
-<tr class="separator:a3e23b2b016a99ce802a438d6381fffa2 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04361b455663fd68ec7235f4219262f0 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a04361b455663fd68ec7235f4219262f0">getInstanceName</a> () const</td></tr>
 <tr class="separator:a04361b455663fd68ec7235f4219262f0 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12b6f71b149e59868927a7a5f76d9f08 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a12b6f71b149e59868927a7a5f76d9f08">getMaterialName</a> () const</td></tr>
@@ -146,14 +153,21 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acb1dcdfe5a92bfa3b9a834a4dadc9a3b inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fab8c75a56db577b77d8168bf600420 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">std::list&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a7fab8c75a56db577b77d8168bf600420">getPropertyList</a> () const override</td></tr>
 <tr class="separator:a7fab8c75a56db577b77d8168bf600420 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fe87b88b7d2ce2020373aaf7d5cc85e inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a9fe87b88b7d2ce2020373aaf7d5cc85e">setColoredByVertexAttrib</a> (bool)</td></tr>
+<tr class="memdesc:a9fe87b88b7d2ce2020373aaf7d5cc85e inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry.  <a href="classRa_1_1Engine_1_1Data_1_1Material.html#a9fe87b88b7d2ce2020373aaf7d5cc85e">More...</a><br /></td></tr>
+<tr class="separator:a9fe87b88b7d2ce2020373aaf7d5cc85e inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2c70fc1f57836e1e34dc55ccd814550 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top"><a id="ac2c70fc1f57836e1e34dc55ccd814550"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ac2c70fc1f57836e1e34dc55ccd814550">isColoredByVertexAttrib</a> () const</td></tr>
+<tr class="memdesc:ac2c70fc1f57836e1e34dc55ccd814550 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if the material takes the VERTEX_COLOR attribute into account. <br /></td></tr>
+<tr class="separator:ac2c70fc1f57836e1e34dc55ccd814550 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6eabe9ce20163cab8bec7a51f6e75a5 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5">needUpdate</a> ()</td></tr>
 <tr class="separator:ac6eabe9ce20163cab8bec7a51f6e75a5 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a></td></tr>
-<tr class="memitem:a297bbb78c79d4f9ef3ce44a782928e9c inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a297bbb78c79d4f9ef3ce44a782928e9c">~ShaderParameterProvider</a> ()=default</td></tr>
-<tr class="separator:a297bbb78c79d4f9ef3ce44a782928e9c inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab18a41ad288a780a3ab302203aa6e731 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ab18a41ad288a780a3ab302203aa6e731">getParameters</a> ()</td></tr>
+<tr class="memitem:ab18a41ad288a780a3ab302203aa6e731 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top"><a id="ab18a41ad288a780a3ab302203aa6e731"></a>
+virtual <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getParameters</b> ()</td></tr>
 <tr class="separator:ab18a41ad288a780a3ab302203aa6e731 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7da3601a26ed84cc50fe7036f4c0dd9 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ad7da3601a26ed84cc50fe7036f4c0dd9">getParameters</a> () const</td></tr>
+<tr class="memitem:ad7da3601a26ed84cc50fe7036f4c0dd9 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top"><a id="ad7da3601a26ed84cc50fe7036f4c0dd9"></a>
+virtual const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getParameters</b> () const</td></tr>
 <tr class="separator:ad7da3601a26ed84cc50fe7036f4c0dd9 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -162,55 +176,67 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a8c37d61458c8a5ef2813943add46b2ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23f911ca6e81eadd78e4c67cad032efb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a23f911ca6e81eadd78e4c67cad032efb">unregisterMaterial</a> ()</td></tr>
 <tr class="separator:a23f911ca6e81eadd78e4c67cad032efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html">Ra::Engine::Data::ParameterSetEditingInterface</a></td></tr>
+<tr class="memitem:a9715515de6a9ca229a6c28981d8b6724 inherit pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td class="memItemLeft" align="right" valign="top"><a id="a9715515de6a9ca229a6c28981d8b6724"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a9715515de6a9ca229a6c28981d8b6724">loadMetaData</a> (const std::string &amp;basename, nlohmann::json &amp;destination)</td></tr>
+<tr class="memdesc:a9715515de6a9ca229a6c28981d8b6724 inherit pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the ParameterSet description. <br /></td></tr>
+<tr class="separator:a9715515de6a9ca229a6c28981d8b6724 inherit pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab2929a1cbaebb0f114136cb022111796"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#ab2929a1cbaebb0f114136cb022111796">m_sigma_a</a> { 0.0011_ra, 0.0024_ra, 0.014_ra }</td></tr>
-<tr class="memdesc:ab2929a1cbaebb0f114136cb022111796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absorption coefficient, default to Air (0.0011, 0.0024, 0.014)  <a href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#ab2929a1cbaebb0f114136cb022111796">More...</a><br /></td></tr>
+<tr class="memitem:ab2929a1cbaebb0f114136cb022111796"><td class="memItemLeft" align="right" valign="top"><a id="ab2929a1cbaebb0f114136cb022111796"></a>
+<a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#ab2929a1cbaebb0f114136cb022111796">m_sigma_a</a> { 0.0011_ra, 0.0024_ra, 0.014_ra }</td></tr>
+<tr class="memdesc:ab2929a1cbaebb0f114136cb022111796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absorption coefficient, default to Air (0.0011, 0.0024, 0.014) <br /></td></tr>
 <tr class="separator:ab2929a1cbaebb0f114136cb022111796"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d82765aa923bbd54b7c71e2f99ca484"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a1d82765aa923bbd54b7c71e2f99ca484">m_sigma_s</a> { 2.55_ra, 3.21_ra, 3.77_ra }</td></tr>
-<tr class="memdesc:a1d82765aa923bbd54b7c71e2f99ca484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scattering coefficient, default to Air (2.55, 3.21, 3.77)  <a href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a1d82765aa923bbd54b7c71e2f99ca484">More...</a><br /></td></tr>
+<tr class="memitem:a1d82765aa923bbd54b7c71e2f99ca484"><td class="memItemLeft" align="right" valign="top"><a id="a1d82765aa923bbd54b7c71e2f99ca484"></a>
+<a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a1d82765aa923bbd54b7c71e2f99ca484">m_sigma_s</a> { 2.55_ra, 3.21_ra, 3.77_ra }</td></tr>
+<tr class="memdesc:a1d82765aa923bbd54b7c71e2f99ca484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scattering coefficient, default to Air (2.55, 3.21, 3.77) <br /></td></tr>
 <tr class="separator:a1d82765aa923bbd54b7c71e2f99ca484"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa45c6d745d5e5b3e0a29020bdd59c93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#aaa45c6d745d5e5b3e0a29020bdd59c93">m_g</a> { 0_ra }</td></tr>
-<tr class="memdesc:aaa45c6d745d5e5b3e0a29020bdd59c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">phase function assymetry factor, default to 0  <a href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#aaa45c6d745d5e5b3e0a29020bdd59c93">More...</a><br /></td></tr>
+<tr class="memitem:aaa45c6d745d5e5b3e0a29020bdd59c93"><td class="memItemLeft" align="right" valign="top"><a id="aaa45c6d745d5e5b3e0a29020bdd59c93"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#aaa45c6d745d5e5b3e0a29020bdd59c93">m_g</a> { 0_ra }</td></tr>
+<tr class="memdesc:aaa45c6d745d5e5b3e0a29020bdd59c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">phase function assymetry factor, default to 0 <br /></td></tr>
 <tr class="separator:aaa45c6d745d5e5b3e0a29020bdd59c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a62862ccef0fa7b1b55c6f019f14b24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a5a62862ccef0fa7b1b55c6f019f14b24">m_scale</a> { 1_ra }</td></tr>
-<tr class="memdesc:a5a62862ccef0fa7b1b55c6f019f14b24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale factor applied to the absorption and scattering coefficients.  <a href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a5a62862ccef0fa7b1b55c6f019f14b24">More...</a><br /></td></tr>
+<tr class="memitem:a5a62862ccef0fa7b1b55c6f019f14b24"><td class="memItemLeft" align="right" valign="top"><a id="a5a62862ccef0fa7b1b55c6f019f14b24"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a5a62862ccef0fa7b1b55c6f019f14b24">m_scale</a> { 1_ra }</td></tr>
+<tr class="memdesc:a5a62862ccef0fa7b1b55c6f019f14b24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale factor applied to the absorption and scattering coefficients. <br /></td></tr>
 <tr class="separator:a5a62862ccef0fa7b1b55c6f019f14b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4681b4a4bf93ca0f10a2accadca84124"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a4681b4a4bf93ca0f10a2accadca84124">m_stepsize</a> { -1_ra }</td></tr>
+<tr class="memitem:a4681b4a4bf93ca0f10a2accadca84124"><td class="memItemLeft" align="right" valign="top">Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a4681b4a4bf93ca0f10a2accadca84124">m_stepsize</a> { -1_ra }</td></tr>
 <tr class="separator:a4681b4a4bf93ca0f10a2accadca84124"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c2ed50ce5adffeddf704440ec936e8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a7c2ed50ce5adffeddf704440ec936e8f">m_modelToMedium</a> { Core::Transform::Identity() }</td></tr>
+<tr class="memitem:a7c2ed50ce5adffeddf704440ec936e8f"><td class="memItemLeft" align="right" valign="top">Core::Transform&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a7c2ed50ce5adffeddf704440ec936e8f">m_modelToMedium</a> { Core::Transform::Identity() }</td></tr>
 <tr class="separator:a7c2ed50ce5adffeddf704440ec936e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
-<tr class="memitem:accea1b072e372d94e28bc461e63daab2 inherit pub_types_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> { <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2aa63f71b635b3d7d29a4f659ef9edc283">MaterialAspect::MAT_OPAQUE</a>, 
+<tr class="memitem:accea1b072e372d94e28bc461e63daab2 inherit pub_types_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> { <b>MAT_OPAQUE</b>, 
 <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2a7a01315517b6ee273b20ee8127bfc093">MaterialAspect::MAT_TRANSPARENT</a>, 
 <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2a6f1de8b47e04941d10e4d333ad70af41">MaterialAspect::MAT_DENSITY</a>
  }</td></tr>
 <tr class="separator:accea1b072e372d94e28bc461e63daab2 inherit pub_types_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
-<tr class="memitem:a2f31d488e39cc4841fe89cfda20a24fc inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a2f31d488e39cc4841fe89cfda20a24fc">Material</a> (const std::string &amp;instanceName, const std::string &amp;<a class="el" href="namespaceRa_1_1Engine_1_1Data.html#ab14deb10a6a9567429937cd824f5be57">materialName</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> aspect=<a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2aa63f71b635b3d7d29a4f659ef9edc283">MaterialAspect::MAT_OPAQUE</a>)</td></tr>
+<tr class="memitem:a2f31d488e39cc4841fe89cfda20a24fc inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a2f31d488e39cc4841fe89cfda20a24fc">Material</a> (const std::string &amp;instanceName, const std::string &amp;materialName, <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> aspect=MaterialAspect::MAT_OPAQUE)</td></tr>
 <tr class="separator:a2f31d488e39cc4841fe89cfda20a24fc inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fb4a3a438c6d84285770ab97ac2eb68 inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a8fb4a3a438c6d84285770ab97ac2eb68">setMaterialName</a> (std::string newName)</td></tr>
 <tr class="separator:a8fb4a3a438c6d84285770ab97ac2eb68 inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
-<tr class="memitem:aef637b1f55bcdc5bfcf70b60a8c3a411 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#aef637b1f55bcdc5bfcf70b60a8c3a411">m_instanceName</a> {}</td></tr>
-<tr class="memdesc:aef637b1f55bcdc5bfcf70b60a8c3a411 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> instance name.  <a href="classRa_1_1Engine_1_1Data_1_1Material.html#aef637b1f55bcdc5bfcf70b60a8c3a411">More...</a><br /></td></tr>
+<tr class="memitem:aef637b1f55bcdc5bfcf70b60a8c3a411 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top"><a id="aef637b1f55bcdc5bfcf70b60a8c3a411"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#aef637b1f55bcdc5bfcf70b60a8c3a411">m_instanceName</a> {}</td></tr>
+<tr class="memdesc:aef637b1f55bcdc5bfcf70b60a8c3a411 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> instance name. <br /></td></tr>
 <tr class="separator:aef637b1f55bcdc5bfcf70b60a8c3a411 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a313a653c8bfa24cf996aff1fb5dbdb13 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a313a653c8bfa24cf996aff1fb5dbdb13">m_aspect</a> { <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2aa63f71b635b3d7d29a4f659ef9edc283">MaterialAspect::MAT_OPAQUE</a> }</td></tr>
-<tr class="memdesc:a313a653c8bfa24cf996aff1fb5dbdb13 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> aspect.  <a href="classRa_1_1Engine_1_1Data_1_1Material.html#a313a653c8bfa24cf996aff1fb5dbdb13">More...</a><br /></td></tr>
+<tr class="memitem:a313a653c8bfa24cf996aff1fb5dbdb13 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top"><a id="a313a653c8bfa24cf996aff1fb5dbdb13"></a>
+<a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a313a653c8bfa24cf996aff1fb5dbdb13">m_aspect</a> { MaterialAspect::MAT_OPAQUE }</td></tr>
+<tr class="memdesc:a313a653c8bfa24cf996aff1fb5dbdb13 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> aspect. <br /></td></tr>
 <tr class="separator:a313a653c8bfa24cf996aff1fb5dbdb13 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2d00a304c8dfd9b2b10b809c5c27499 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">m_isDirty</a> { true }</td></tr>
+<tr class="memitem:ae2d00a304c8dfd9b2b10b809c5c27499 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">m_isDirty</a> { true }</td></tr>
 <tr class="separator:ae2d00a304c8dfd9b2b10b809c5c27499 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a></td></tr>
-<tr class="memitem:afe197479fc8dc4697a71543e803776da inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a></td></tr>
-<tr class="memdesc:afe197479fc8dc4697a71543e803776da inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parameters to set for a shader.  <a href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">More...</a><br /></td></tr>
+<tr class="memitem:afe197479fc8dc4697a71543e803776da inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memItemLeft" align="right" valign="top"><a id="afe197479fc8dc4697a71543e803776da"></a>
+<a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a></td></tr>
+<tr class="memdesc:afe197479fc8dc4697a71543e803776da inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parameters to set for a shader. <br /></td></tr>
 <tr class="separator:afe197479fc8dc4697a71543e803776da inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of a simple Volumetric <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>. Based on a 3D texture defining the density distribution in the volume, perform ray-marching and absorption based rendering of the volume.. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000054">Todo:</a></b></dt><dd>This material does not implement the MaterialGLSL interface. Shader compositing is not allowed. </dd></dl>
+<div class="textblock"><p>Implementation of a simple Volumetric <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>. Based on a 3D texture defining the density distribution in the volume, perform ray-marching and absorption based rendering of the volume.. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000060">Todo:</a></b></dt><dd>This material does not implement the MaterialGLSL interface. Shader compositing is not allowed. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00024">24</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -244,7 +270,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00016">16</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00020">20</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
 
 </div>
 </div>
@@ -272,11 +298,42 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Destructor. </p><dl class="section note"><dt>Note</dt><dd>The material does not have ownership on its texture. This destructor do not delete the associated textures. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00019">19</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00023">23</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a65e364b0a9e817ad90a14e6b0726ac13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65e364b0a9e817ad90a14e6b0726ac13">&#9670;&nbsp;</a></span>getParametersMetadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">nlohmann::json Ra::Engine::Data::VolumetricMaterial::getParametersMetadata </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get a json containing metadata about the parameters of the material.</p>
+<dl class="section return"><dt>Returns</dt><dd>the metadata in json format </dd></dl>
+
+<p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a29c608d6266fd4cdd061ee1b666d44a6">Ra::Engine::Data::ParameterSetEditingInterface</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8inl_source.html#l00016">16</a> of file <a class="el" href="VolumetricMaterial_8inl_source.html">VolumetricMaterial.inl</a>.</p>
+
+</div>
+</div>
 <a id="a8fe3be0c677d260f6e49defe55751cd2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8fe3be0c677d260f6e49defe55751cd2">&#9670;&nbsp;</a></span>getTexture()</h2>
 
@@ -321,7 +378,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Engine::Data::VolumetricMaterial::isTransparent </td>
+          <td class="memname">bool Ra::Engine::Data::VolumetricMaterial::isTransparent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -337,7 +394,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a99184fa8c3c787b18737bea7dd1e1a1f">Ra::Engine::Data::Material</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00046">46</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00066">66</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
 
 </div>
 </div>
@@ -365,13 +422,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Register the material in the material library. After registration, the material could be instantiated by any Radium system, renderer, plugin, ... </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00050">50</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00070">70</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial_a8c37d61458c8a5ef2813943add46b2ed_cgraph.svg" width="100%" height="520"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial_a8c37d61458c8a5ef2813943add46b2ed_cgraph.svg" width="100%" height="509"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -436,67 +493,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Remove the material from the material library. After removal, the material is no more available, ... </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00105">105</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial_a23f911ca6e81eadd78e4c67cad032efb_cgraph.svg" width="460" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a92159439586f9783d1334576b1aa1b88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92159439586f9783d1334576b1aa1b88">&#9670;&nbsp;</a></span>updateGL()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::VolumetricMaterial::updateGL </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider sementic. </p>
-
-<p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00021">21</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8cpp_source.html#l00128">128</a> of file <a class="el" href="VolumetricMaterial_8cpp_source.html">VolumetricMaterial.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aaa45c6d745d5e5b3e0a29020bdd59c93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa45c6d745d5e5b3e0a29020bdd59c93">&#9670;&nbsp;</a></span>m_g</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> Ra::Engine::Data::VolumetricMaterial::m_g { 0_ra }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>phase function assymetry factor, default to 0 </p>
-
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00077">77</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
-
-</div>
-</div>
 <a id="a7c2ed50ce5adffeddf704440ec936e8f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7c2ed50ce5adffeddf704440ec936e8f">&#9670;&nbsp;</a></span>m_modelToMedium</h2>
 
@@ -504,67 +505,13 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> Ra::Engine::Data::VolumetricMaterial::m_modelToMedium { Core::Transform::Identity() }</td>
+          <td class="memname">Core::Transform Ra::Engine::Data::VolumetricMaterial::m_modelToMedium { Core::Transform::Identity() }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Transformation matrix to go from the associated geometry frame to the canonical [0, 1]^3 density domain </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00085">85</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5a62862ccef0fa7b1b55c6f019f14b24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a62862ccef0fa7b1b55c6f019f14b24">&#9670;&nbsp;</a></span>m_scale</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> Ra::Engine::Data::VolumetricMaterial::m_scale { 1_ra }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Scale factor applied to the absorption and scattering coefficients. </p>
-
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00079">79</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab2929a1cbaebb0f114136cb022111796"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2929a1cbaebb0f114136cb022111796">&#9670;&nbsp;</a></span>m_sigma_a</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> Ra::Engine::Data::VolumetricMaterial::m_sigma_a { 0.0011_ra, 0.0024_ra, 0.014_ra }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Absorption coefficient, default to Air (0.0011, 0.0024, 0.014) </p>
-
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00073">73</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1d82765aa923bbd54b7c71e2f99ca484"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d82765aa923bbd54b7c71e2f99ca484">&#9670;&nbsp;</a></span>m_sigma_s</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> Ra::Engine::Data::VolumetricMaterial::m_sigma_s { 2.55_ra, 3.21_ra, 3.77_ra }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Scattering coefficient, default to Air (2.55, 3.21, 3.77) </p>
-
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00075">75</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00093">93</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
 
 </div>
 </div>
@@ -575,13 +522,13 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> Ra::Engine::Data::VolumetricMaterial::m_stepsize { -1_ra }</td>
+          <td class="memname">Scalar Ra::Engine::Data::VolumetricMaterial::m_stepsize { -1_ra }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Step size for ray-marching rendering. If negative whane rendering, interpreted as 1/textureDim. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00082">82</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00090">90</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
 
 </div>
 </div>
@@ -595,8 +542,8 @@ Additional Inherited Members</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Data</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html">VolumetricMaterial</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html">VolumetricMaterial</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

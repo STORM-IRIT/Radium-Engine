@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -96,33 +97,36 @@ $(document).ready(function(){initNavTree('pluginSystem.html',''); initResizable(
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md39">Basic</a></li>
-<li class="level1"><a href="#autotoc_md40">Plugin</a></li>
-<li class="level1"><a href="#autotoc_md41">System</a></li>
-<li class="level1"><a href="#autotoc_md42">Component</a></li>
-<li class="level1"><a href="#autotoc_md43">Task</a></li>
+<ul><li class="level1"><a href="#autotoc_md37">Basic</a></li>
+<li class="level1"><a href="#autotoc_md38">Plugin</a></li>
+<li class="level1"><a href="#autotoc_md39">System</a></li>
+<li class="level1"><a href="#autotoc_md40">Component</a></li>
+<li class="level1"><a href="#autotoc_md41">Task</a></li>
 </ul>
 </div>
 <div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>check and update </dd></dl>
 <p>The radium engine basically accept plugins to add functionnalities. An example could be a plug-in to support animation. ImGui, for instance, is implemented as a plugin.</p>
-<p>Current possibilities include:</p><ul>
+<p>Current possibilities include:</p>
+<ul>
 <li>Export QWidgets to the main interface. Will appear in the <b>toolbox</b>.</li>
 <li>Export RenderObjects to be rendered by the application renderer.</li>
 <li>Communicate with other plugins via the <code>ComponentMessenger</code> class.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md39"></a>
+<h1><a class="anchor" id="autotoc_md37"></a>
 Basic</h1>
 <p>A plugin is integrated by placing the corresponding <code>.so</code> into <code>./Plugins/bin</code>.</p>
-<p>A plugin generally contains the following classes:</p><ul>
+<p>A plugin generally contains the following classes:</p>
+<ul>
 <li><code>FooPlugin</code>: defines the interface functions needed to be accepted by radium, and exports the widgets.</li>
 <li><code>FooSystem</code>: the system will manage and update every component.</li>
 <li><code>FooComponent</code>: object that has the ability to communicate with other components.</li>
 </ul>
-<p>One could also add:</p><ul>
+<p>One could also add:</p>
+<ul>
 <li><code>FooTask</code>: add some tasks (threads) to the <code>TaskManager</code>.</li>
 <li><code>FooRenderObject</code>: define a new render object that will be rendered just like any others thanks to <code>RenderObjectManager</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md40"></a>
+<h1><a class="anchor" id="autotoc_md38"></a>
 Plugin</h1>
 <pre class="fragment">// register the plugin to the application
 virtual void registerPlugin( Ra::Engine::RadiumEngine* engine ) override;
@@ -134,14 +138,14 @@ virtual QWidget* getWidget() override;
 // notify the need for a new menu entry
 virtual bool doAddMenu() override;
 virtual QMenu* getMenu() override;
-</pre><h1><a class="anchor" id="autotoc_md41"></a>
+</pre><h1><a class="anchor" id="autotoc_md39"></a>
 System</h1>
 <p>...</p>
-<h1><a class="anchor" id="autotoc_md42"></a>
+<h1><a class="anchor" id="autotoc_md40"></a>
 Component</h1>
 <p>Will communicate with others components through Entities.</p>
 <p>Please see <code>Entity</code>, <code>EntityManager</code>, <code>Component</code>, <code>ComponentMessenger</code>.</p>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md41"></a>
 Task</h1>
 <p>... </p>
 </div></div><!-- contents -->
@@ -151,7 +155,7 @@ Task</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

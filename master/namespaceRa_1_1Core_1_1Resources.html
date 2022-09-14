@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -114,7 +115,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> optional&lt; std::string &gt; Ra::Core::Resources::getBasePath </td>
+          <td class="memname">RA_CORE_API optional&lt; std::string &gt; Ra::Core::Resources::getBasePath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -126,7 +127,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <p>Get the path of the current executable.</p>
 <dl class="section return"><dt>Returns</dt><dd>the path prefix to access the current executable (always found) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00054">54</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00053">53</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -137,7 +138,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::string Ra::Core::Resources::getDataPath </td>
+          <td class="memname">RA_CORE_API std::string Ra::Core::Resources::getDataPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -148,7 +149,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <p>Get the current data path. </p>
 <p>If an application's data path was not pushed before the call of this function, the default value, corresponding to the current working directory is returned. Otherwise, the last path pushed using a call to <a class="el" href="namespaceRa_1_1Core_1_1Resources.html#ad6fb8d46cb6a7f05ceae06d2498fca31" title="Push a new data path.">pushDataPath()</a> is returned. </p>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00071">71</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00070">70</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -159,7 +160,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> optional&lt; std::string &gt; Ra::Core::Resources::getRadiumPluginsPath </td>
+          <td class="memname">RA_CORE_API optional&lt; std::string &gt; Ra::Core::Resources::getRadiumPluginsPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -168,10 +169,10 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 </div><div class="memdoc">
 
 <p>Get the path of Radium embedded plugins. </p>
-<p>Radium embedded plugins are located in the <a class="el" href="namespaceRa_1_1Plugins.html">Plugins</a> directory, searched from Radium lib location. </p><dl class="section return"><dt>Returns</dt><dd>the path to access Radium <a class="el" href="namespaceRa_1_1Plugins.html">Plugins</a>. empty string if not found </dd></dl>
+<p>Radium embedded plugins are located in the Plugins directory, searched from Radium lib location. </p><dl class="section return"><dt>Returns</dt><dd>the path to access Radium Plugins. empty string if not found </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>the pattern searched is "Plugins/lib" since it's the basic resources dir. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00045">45</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00044">44</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -182,7 +183,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> optional&lt; std::string &gt; Ra::Core::Resources::getRadiumResourcesPath </td>
+          <td class="memname">RA_CORE_API optional&lt; std::string &gt; Ra::Core::Resources::getRadiumResourcesPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -192,9 +193,9 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 
 <p>Get the path of Radium internal resources. </p>
 <p>Radium resources are located in the <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> directory, searched from Radium lib location. </p><dl class="section return"><dt>Returns</dt><dd>the path to access Radium <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> if found, otherwise !has_value </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>the pattern searched is "Resources/Shaders" since it's the basic resources dir. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>the pattern searched is "Resources/Radium" since it's the basic resources dir. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00036">36</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00035">35</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -205,7 +206,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> optional&lt; std::string &gt; Ra::Core::Resources::getResourcesPath </td>
+          <td class="memname">RA_CORE_API optional&lt; std::string &gt; Ra::Core::Resources::getResourcesPath </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>symbol</em> = <code>nullptr</code>, </td>
@@ -227,7 +228,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <p>Search for general resource path. </p>
 <p>Search for an accessible <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> (or pattern if given) directory in the current executable (or symbol if != nullptr) path or its parents. </p><dl class="section return"><dt>Returns</dt><dd>the pattern path of the dynamic library or exec that contains the given symbol if found, otherwise !has_value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00058">58</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00057">57</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -238,7 +239,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::string Ra::Core::Resources::popDataPath </td>
+          <td class="memname">RA_CORE_API std::string Ra::Core::Resources::popDataPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -249,7 +250,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <p>Pop the current data path. </p>
 <p>The returned data path is removed from the data path stack and will not be available anymore for <a class="el" href="namespaceRa_1_1Core_1_1Resources.html#a291182009b81d19abfa8b7fff7cbbfb7" title="Get the current data path.">getDataPath()</a>. </p><dl class="section return"><dt>Returns</dt><dd>the popped data path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00076">76</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00075">75</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -260,7 +261,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> void Ra::Core::Resources::pushDataPath </td>
+          <td class="memname">RA_CORE_API void Ra::Core::Resources::pushDataPath </td>
           <td>(</td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>datapath</em></td><td>)</td>
@@ -277,7 +278,7 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00083">83</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00082">82</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -286,8 +287,8 @@ $(document).ready(function(){initNavTree('namespaceRa_1_1Core_1_1Resources.html'
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html">Resources</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html">Resources</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

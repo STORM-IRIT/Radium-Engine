@@ -1,7 +1,6 @@
 var classRa_1_1Engine_1_1Scene_1_1ComponentMessenger =
 [
     [ "CallbackTypes", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes" ],
-    [ "CallbackTypes< std::shared_ptr< T > >", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4" ],
     [ "ComponentMessenger", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a4609a14647a34c0a88e20ed5c22238f8", null ],
     [ "canGet", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a2df47f7e8d255e1150c30d99991fc9e1", null ],
     [ "canRw", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a94c22ee7d0265a3bb5b6fca114e762bb", null ],
@@ -12,5 +11,6 @@ var classRa_1_1Engine_1_1Scene_1_1ComponentMessenger =
     [ "registerOutput", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a8e5df894f64c1df1dbc26745ae4009a7", null ],
     [ "registerReadWrite", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#adbd58bbce05f8723fd623502b3050f77", null ],
     [ "rwCallback", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#abec69dd761a403fcd9ba351d92e0f7a3", null ],
-    [ "setterCallback", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a27ab969fa6bcac29008a1fee7c07aadb", null ]
+    [ "setterCallback", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a27ab969fa6bcac29008a1fee7c07aadb", null ],
+    [ "unregisterAll", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#abaebd35c0c84995568869d8fe07f915c", null ]
 ];

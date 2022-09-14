@@ -19,6 +19,7 @@ var classRa_1_1Gui_1_1Viewer =
     [ "enablePostProcess", "classRa_1_1Gui_1_1Viewer.html#a3b9354fafa6bf871aaf3d2840c4b4b93", null ],
     [ "fitCamera", "classRa_1_1Gui_1_1Viewer.html#afd8a96b35fbe97e88218e99d02bddee7", null ],
     [ "fitCameraToScene", "classRa_1_1Gui_1_1Viewer.html#abe554bf67788b02cc920d395f1329212", null ],
+    [ "focusOutEvent", "classRa_1_1Gui_1_1Viewer.html#ae47faabf11e9ece9e74b00365c524436", null ],
     [ "getBackgroundColor", "classRa_1_1Gui_1_1Viewer.html#a22ff1a85dd722cacf8607970ab7e8054", null ],
     [ "getCameraManipulator", "classRa_1_1Gui_1_1Viewer.html#ac8bfa139c95713d812dd52f7e509fa66", null ],
     [ "getContext", "classRa_1_1Gui_1_1Viewer.html#a12da0e6456afc0e7a13a85636ec852d8", null ],

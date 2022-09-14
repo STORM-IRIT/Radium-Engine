@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,86 +96,78 @@ $(document).ready(function(){initNavTree('RotateAroundCameraManipulator_8hpp_sou
 <div class="title">RotateAroundCameraManipulator.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="RotateAroundCameraManipulator_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TrackballCameraManipulator_8hpp.html">Gui/Viewer/TrackballCameraManipulator.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">class </span>Viewer;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html">RotateAroundCameraManipulator</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    : <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">Ra::Gui::TrackballCameraManipulator</a>,</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;      <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a>&lt;RotateAroundCameraManipulator&gt;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a35d5d7473578d405d8d59570aab95e68">   11</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a>&lt;<a class="code" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html">RotateAroundCameraManipulator</a>&gt;;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a0f05a76863bc55afdd5753c37c8da39e">   14</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMapping</a> = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable&lt;RotateAroundCameraManipulator&gt;</a>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html">RotateAroundCameraManipulator</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a>&amp; cm, <a class="code" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a>* viewer );</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">bool</span> handleMouseMoveEvent( QMouseEvent* event,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                               <span class="keyword">const</span> Qt::MouseButtons&amp; buttons,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                               <span class="keyword">const</span> Qt::KeyboardModifiers&amp; modifiers,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                               <span class="keywordtype">int</span> key ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">bool</span> handleKeyPressEvent( QKeyEvent* event,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                              <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Gui::KeyMappingManager::KeyMappingAction</a>&amp; action ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> setPivot( <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a> pivot );</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> setPivotFromPixel( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> x, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> y );</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> alignOnClosestAxis();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">KeyMappingManager::Context</a> mappingContext() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Gui/Viewer/TrackballCameraManipulator.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Gui {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">class </span>Viewer;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span>RA_GUI_API RotateAroundCameraManipulator</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    : <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">Ra::Gui::TrackballCameraManipulator</a>,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;      <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a>&lt;RotateAroundCameraManipulator&gt;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a>&lt;RotateAroundCameraManipulator&gt;;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">using</span> KeyMapping = KeyMappingManageable&lt;RotateAroundCameraManipulator&gt;;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    RotateAroundCameraManipulator( <span class="keyword">const</span> CameraManipulator&amp; cm, <a class="code" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a>* viewer );</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">bool</span> handleMouseMoveEvent( QMouseEvent* event,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                               <span class="keyword">const</span> Qt::MouseButtons&amp; buttons,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                               <span class="keyword">const</span> Qt::KeyboardModifiers&amp; modifiers,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                               <span class="keywordtype">int</span> key ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">bool</span> handleKeyPressEvent( QKeyEvent* event,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                              <span class="keyword">const</span> Ra::Gui::KeyMappingManager::KeyMappingAction&amp; action ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> setPivot( Ra::Core::Vector3 pivot );</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> setPivotFromPixel( Scalar x, Scalar y );</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> alignOnClosestAxis();</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> fitScene( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Core::Aabb</a>&amp; aabb ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraRotate( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraForward( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> z );</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraPan( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dy ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a9432b21630bd343df3fe4f7effdd654f">Ra::Core::Quaternion</a> deformedBallQuaternion( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> x, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> y, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> cx, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> cy );</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> projectOnBall( <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> x, <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> y );</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a> m_pivot { 0.0_ra, 0.0_ra, 0.0_ra };</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a>* m_viewer;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    KeyMappingManager::Context mappingContext() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> fitScene( <span class="keyword">const</span> Core::Aabb&amp; aabb ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraRotate( Scalar dx, Scalar dy ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraForward( Scalar z );</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleCameraPan( Scalar dx, Scalar dy ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    Ra::Core::Quaternion deformedBallQuaternion( Scalar x, Scalar y, Scalar cx, Scalar cy );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    Scalar projectOnBall( Scalar x, Scalar y );</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    Ra::Core::Vector3 m_pivot { 0.0_ra, 0.0_ra, 0.0_ra };</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> configureKeyMapping_impl();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a>* m_viewer;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="RotateAroundCameraManipulator_8hpp.html#a4dac89656a7e020af2fc2011c777f082">   56</a></span>&#160;<span class="preprocessor">#define KeyMappingRotateAroundCamera                  \</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">    KMA_VALUE( ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS ) \</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">    KMA_VALUE( ROTATEAROUND_SET_PIVOT )</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="RotateAroundCameraManipulator_8hpp.html#ab1478fa43039cf1b62157b0375df9960">   60</a></span>&#160;<span class="preprocessor">#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="RotateAroundCameraManipulator_8hpp.html#a4dac89656a7e020af2fc2011c777f082">KeyMappingRotateAroundCamera</a></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> configureKeyMapping_impl();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#define KeyMappingRotateAroundCamera                  \</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">    KMA_VALUE( ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS ) \</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">    KMA_VALUE( ROTATEAROUND_SET_PIVOT )</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    KeyMappingRotateAroundCamera</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aTrackballCameraManipulator_8hpp_html"><div class="ttname"><a href="TrackballCameraManipulator_8hpp.html">TrackballCameraManipulator.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00208">KeyMappingManager.hpp:208</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:53</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a9432b21630bd343df3fe4f7effdd654f"><div class="ttname"><a href="namespaceRa_1_1Core.html#a9432b21630bd343df3fe4f7effdd654f">Ra::Core::Quaternion</a></div><div class="ttdeci">Eigen::Quaternion&lt; Scalar &gt; Quaternion</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00078">Types.hpp:78</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1CameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1CameraManipulator.html">Ra::Gui::CameraManipulator</a></div><div class="ttdoc">The CameraManipulator class is the generic class for camera manipulators.</div><div class="ttdef"><b>Definition:</b> <a href="CameraManipulator_8hpp_source.html#l00029">CameraManipulator.hpp:29</a></div></div>
-<div class="ttc" id="aRotateAroundCameraManipulator_8hpp_html_a4dac89656a7e020af2fc2011c777f082"><div class="ttname"><a href="RotateAroundCameraManipulator_8hpp.html#a4dac89656a7e020af2fc2011c777f082">KeyMappingRotateAroundCamera</a></div><div class="ttdeci">#define KeyMappingRotateAroundCamera</div><div class="ttdef"><b>Definition:</b> <a href="RotateAroundCameraManipulator_8hpp_source.html#l00056">RotateAroundCameraManipulator.hpp:56</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1RotateAroundCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html">Ra::Gui::RotateAroundCameraManipulator</a></div><div class="ttdef"><b>Definition:</b> <a href="RotateAroundCameraManipulator_8hpp_source.html#l00007">RotateAroundCameraManipulator.hpp:7</a></div></div>
-<div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a66854efd74c5507e9b15f998ccda8f96"><div class="ttname"><a href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Ra::Core::Aabb</a></div><div class="ttdeci">Eigen::AlignedBox&lt; Scalar, 3 &gt; Aabb</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00086">Types.hpp:86</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">Ra::Gui::TrackballCameraManipulator</a></div><div class="ttdoc">A Trackball manipulator for Cameras.</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00012">TrackballCameraManipulator.hpp:12</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00257">CoreMacros.hpp:257</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="RotateAroundCameraManipulator_8hpp.html">RotateAroundCameraManipulator.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>RotateAroundCameraManipulator.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

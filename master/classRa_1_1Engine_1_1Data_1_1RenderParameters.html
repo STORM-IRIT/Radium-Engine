@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -113,6 +114,12 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1RenderPar
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">AbstractEnumConverter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Management of parameter of enum type. This allow to set the parameter using a string representation of their value. Setting the parameter directly from the value is supported as for any other parameter but user should take care to call the right overloaded function given the underlying enumeration type. This is due to unscoped enum being implicitly convertible to any integral type. (<a href="https://en.cppreference.com/w/cpp/language/enum">https://en.cppreference.com/w/cpp/language/enum</a>)  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html">EnumConverter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class manage the bijective association between string and integral representation of an enumeration.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TextureParameter.html">TextureParameter</a></td></tr>
@@ -124,128 +131,147 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a39e3dcd23c719f64e23af39ce94cc481"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a39e3dcd23c719f64e23af39ce94cc481">IntParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="classint.html">int</a> &gt;</td></tr>
+<tr class="memitem:a39e3dcd23c719f64e23af39ce94cc481"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a39e3dcd23c719f64e23af39ce94cc481">IntParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; int &gt;</td></tr>
 <tr class="separator:a39e3dcd23c719f64e23af39ce94cc481"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a390d30f028057f05002fd40a180de669"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a390d30f028057f05002fd40a180de669">BoolParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="classbool.html">bool</a> &gt;</td></tr>
+<tr class="memitem:a390d30f028057f05002fd40a180de669"><td class="memItemLeft" align="right" valign="top"><a id="a390d30f028057f05002fd40a180de669"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>BoolParameter</b> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; bool &gt;</td></tr>
 <tr class="separator:a390d30f028057f05002fd40a180de669"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fe4e31fcbb14e1dd66f680a4fb0b5c1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a2fe4e31fcbb14e1dd66f680a4fb0b5c1">UIntParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> &gt;</td></tr>
-<tr class="memdesc:a2fe4e31fcbb14e1dd66f680a4fb0b5c1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type unsigned int.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a2fe4e31fcbb14e1dd66f680a4fb0b5c1">More...</a><br /></td></tr>
+<tr class="memitem:a2fe4e31fcbb14e1dd66f680a4fb0b5c1"><td class="memItemLeft" align="right" valign="top"><a id="a2fe4e31fcbb14e1dd66f680a4fb0b5c1"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a2fe4e31fcbb14e1dd66f680a4fb0b5c1">UIntParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; uint &gt;</td></tr>
+<tr class="memdesc:a2fe4e31fcbb14e1dd66f680a4fb0b5c1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type unsigned int. <br /></td></tr>
 <tr class="separator:a2fe4e31fcbb14e1dd66f680a4fb0b5c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af14f5dc8ff60c2bcbfd3bbacfdd37ec7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af14f5dc8ff60c2bcbfd3bbacfdd37ec7">ScalarParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> &gt;</td></tr>
-<tr class="memdesc:af14f5dc8ff60c2bcbfd3bbacfdd37ec7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Scalar.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af14f5dc8ff60c2bcbfd3bbacfdd37ec7">More...</a><br /></td></tr>
+<tr class="memitem:af14f5dc8ff60c2bcbfd3bbacfdd37ec7"><td class="memItemLeft" align="right" valign="top"><a id="af14f5dc8ff60c2bcbfd3bbacfdd37ec7"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af14f5dc8ff60c2bcbfd3bbacfdd37ec7">ScalarParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; Scalar &gt;</td></tr>
+<tr class="memdesc:af14f5dc8ff60c2bcbfd3bbacfdd37ec7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Scalar. <br /></td></tr>
 <tr class="separator:af14f5dc8ff60c2bcbfd3bbacfdd37ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3bd8e0ae479fdc123f12ad23c877ee4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ad3bd8e0ae479fdc123f12ad23c877ee4">IntsParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; std::vector&lt; <a class="el" href="classint.html">int</a> &gt; &gt;</td></tr>
-<tr class="memdesc:ad3bd8e0ae479fdc123f12ad23c877ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type vector of int.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ad3bd8e0ae479fdc123f12ad23c877ee4">More...</a><br /></td></tr>
+<tr class="memitem:ad3bd8e0ae479fdc123f12ad23c877ee4"><td class="memItemLeft" align="right" valign="top"><a id="ad3bd8e0ae479fdc123f12ad23c877ee4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ad3bd8e0ae479fdc123f12ad23c877ee4">IntsParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; std::vector&lt; int &gt; &gt;</td></tr>
+<tr class="memdesc:ad3bd8e0ae479fdc123f12ad23c877ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type vector of int. <br /></td></tr>
 <tr class="separator:ad3bd8e0ae479fdc123f12ad23c877ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb40c2e671f4d65c30fedc9df2719109"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aeb40c2e671f4d65c30fedc9df2719109">UIntsParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; std::vector&lt; <a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> &gt; &gt;</td></tr>
-<tr class="memdesc:aeb40c2e671f4d65c30fedc9df2719109"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type vector of unsigned int.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aeb40c2e671f4d65c30fedc9df2719109">More...</a><br /></td></tr>
+<tr class="memitem:aeb40c2e671f4d65c30fedc9df2719109"><td class="memItemLeft" align="right" valign="top"><a id="aeb40c2e671f4d65c30fedc9df2719109"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aeb40c2e671f4d65c30fedc9df2719109">UIntsParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; std::vector&lt; uint &gt; &gt;</td></tr>
+<tr class="memdesc:aeb40c2e671f4d65c30fedc9df2719109"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type vector of unsigned int. <br /></td></tr>
 <tr class="separator:aeb40c2e671f4d65c30fedc9df2719109"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadb2637a0746fb94361a31fa450747bd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aadb2637a0746fb94361a31fa450747bd">ScalarsParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; std::vector&lt; <a class="el" href="classfloat.html">float</a> &gt; &gt;</td></tr>
-<tr class="separator:aadb2637a0746fb94361a31fa450747bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3dcb36d06159e7710386190f36166f09"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a3dcb36d06159e7710386190f36166f09">Vec2Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a84720deb241ea9ebbf1160b46a42beb9">Core::Vector2</a> &gt;</td></tr>
-<tr class="memdesc:a3dcb36d06159e7710386190f36166f09"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Vector2.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a3dcb36d06159e7710386190f36166f09">More...</a><br /></td></tr>
+<tr class="memitem:a01689579df2c5299a760c3b018438f29"><td class="memItemLeft" align="right" valign="top"><a id="a01689579df2c5299a760c3b018438f29"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a01689579df2c5299a760c3b018438f29">ScalarsParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; std::vector&lt; Scalar &gt; &gt;</td></tr>
+<tr class="memdesc:a01689579df2c5299a760c3b018438f29"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type vector of Scalar;. <br /></td></tr>
+<tr class="separator:a01689579df2c5299a760c3b018438f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dcb36d06159e7710386190f36166f09"><td class="memItemLeft" align="right" valign="top"><a id="a3dcb36d06159e7710386190f36166f09"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a3dcb36d06159e7710386190f36166f09">Vec2Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; Core::Vector2 &gt;</td></tr>
+<tr class="memdesc:a3dcb36d06159e7710386190f36166f09"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Vector2. <br /></td></tr>
 <tr class="separator:a3dcb36d06159e7710386190f36166f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59c12223e798d4a459f108f1f75d0e91"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a59c12223e798d4a459f108f1f75d0e91">Vec3Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &gt;</td></tr>
-<tr class="memdesc:a59c12223e798d4a459f108f1f75d0e91"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Vector3.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a59c12223e798d4a459f108f1f75d0e91">More...</a><br /></td></tr>
+<tr class="memitem:a59c12223e798d4a459f108f1f75d0e91"><td class="memItemLeft" align="right" valign="top"><a id="a59c12223e798d4a459f108f1f75d0e91"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a59c12223e798d4a459f108f1f75d0e91">Vec3Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; Core::Vector3 &gt;</td></tr>
+<tr class="memdesc:a59c12223e798d4a459f108f1f75d0e91"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Vector3. <br /></td></tr>
 <tr class="separator:a59c12223e798d4a459f108f1f75d0e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65aac46922ca63c45027bde657cb3e5b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a65aac46922ca63c45027bde657cb3e5b">Vec4Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a637da7f2442a99a8074fca3e4d11df0a">Core::Vector4</a> &gt;</td></tr>
-<tr class="memdesc:a65aac46922ca63c45027bde657cb3e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Vector4.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a65aac46922ca63c45027bde657cb3e5b">More...</a><br /></td></tr>
+<tr class="memitem:a65aac46922ca63c45027bde657cb3e5b"><td class="memItemLeft" align="right" valign="top"><a id="a65aac46922ca63c45027bde657cb3e5b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a65aac46922ca63c45027bde657cb3e5b">Vec4Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; Core::Vector4 &gt;</td></tr>
+<tr class="memdesc:a65aac46922ca63c45027bde657cb3e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Vector4. <br /></td></tr>
 <tr class="separator:a65aac46922ca63c45027bde657cb3e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae93dc6ab7bbdd90eea0c56d289ef9d5b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae93dc6ab7bbdd90eea0c56d289ef9d5b">ColorParameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &gt;</td></tr>
+<tr class="memitem:ae93dc6ab7bbdd90eea0c56d289ef9d5b"><td class="memItemLeft" align="right" valign="top"><a id="ae93dc6ab7bbdd90eea0c56d289ef9d5b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ColorParameter</b> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &gt;</td></tr>
 <tr class="separator:ae93dc6ab7bbdd90eea0c56d289ef9d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f05659a2031b93027452c244f76041a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a7f05659a2031b93027452c244f76041a">Mat2Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#af14013e42b40808b67026db27db0103f">Core::Matrix2</a> &gt;</td></tr>
-<tr class="memdesc:a7f05659a2031b93027452c244f76041a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Matrix2.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a7f05659a2031b93027452c244f76041a">More...</a><br /></td></tr>
+<tr class="memitem:a7f05659a2031b93027452c244f76041a"><td class="memItemLeft" align="right" valign="top"><a id="a7f05659a2031b93027452c244f76041a"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a7f05659a2031b93027452c244f76041a">Mat2Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; Core::Matrix2 &gt;</td></tr>
+<tr class="memdesc:a7f05659a2031b93027452c244f76041a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Matrix2. <br /></td></tr>
 <tr class="separator:a7f05659a2031b93027452c244f76041a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa677fffbeca3abae09a6234110a1f6f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#afa677fffbeca3abae09a6234110a1f6f">Mat3Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a387ff66833fc26ee4710aa2a90f39af1">Core::Matrix3</a> &gt;</td></tr>
-<tr class="memdesc:afa677fffbeca3abae09a6234110a1f6f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Matrix3.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#afa677fffbeca3abae09a6234110a1f6f">More...</a><br /></td></tr>
+<tr class="memitem:afa677fffbeca3abae09a6234110a1f6f"><td class="memItemLeft" align="right" valign="top"><a id="afa677fffbeca3abae09a6234110a1f6f"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#afa677fffbeca3abae09a6234110a1f6f">Mat3Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; Core::Matrix3 &gt;</td></tr>
+<tr class="memdesc:afa677fffbeca3abae09a6234110a1f6f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Matrix3. <br /></td></tr>
 <tr class="separator:afa677fffbeca3abae09a6234110a1f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d00cf2d0f568ccb3d22a8545232f2fa"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6d00cf2d0f568ccb3d22a8545232f2fa">Mat4Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> &gt;</td></tr>
-<tr class="memdesc:a6d00cf2d0f568ccb3d22a8545232f2fa"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Matrix3.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6d00cf2d0f568ccb3d22a8545232f2fa">More...</a><br /></td></tr>
+<tr class="memitem:a6d00cf2d0f568ccb3d22a8545232f2fa"><td class="memItemLeft" align="right" valign="top"><a id="a6d00cf2d0f568ccb3d22a8545232f2fa"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6d00cf2d0f568ccb3d22a8545232f2fa">Mat4Parameter</a> = <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt; Core::Matrix4 &gt;</td></tr>
+<tr class="memdesc:a6d00cf2d0f568ccb3d22a8545232f2fa"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Matrix3. <br /></td></tr>
 <tr class="separator:a6d00cf2d0f568ccb3d22a8545232f2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a492a4b7bdafa3af3a23d24a16d4c89df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a492a4b7bdafa3af3a23d24a16d4c89df">concatParameters</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;params)</td></tr>
-<tr class="separator:a492a4b7bdafa3af3a23d24a16d4c89df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae27dade3c2d0e82d306c45b2491f639a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae27dade3c2d0e82d306c45b2491f639a">mergeKeepParameters</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;params)</td></tr>
+<tr class="separator:ae27dade3c2d0e82d306c45b2491f639a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d929872799f18541433ade3f118099f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f">mergeReplaceParameters</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;params)</td></tr>
+<tr class="separator:a9d929872799f18541433ade3f118099f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a3e5cfdb4ee0618fcdfd72eaac72c98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6a3e5cfdb4ee0618fcdfd72eaac72c98">bind</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Data::ShaderProgram</a> *shader) const</td></tr>
 <tr class="separator:a6a3e5cfdb4ee0618fcdfd72eaac72c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc35dc41b69e69225565f202d441468e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:adc35dc41b69e69225565f202d441468e"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1UniformBindableSet.html">UniformBindableSet</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e">getParameterSet</a> () const</td></tr>
 <tr class="separator:adc35dc41b69e69225565f202d441468e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae005d82f1311363657a20405db1ce8bf"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:ae005d82f1311363657a20405db1ce8bf"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1UniformBindableSet.html">RenderParameters::UniformBindableSet</a>&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a390d30f028057f05002fd40a180de669">RenderParameters::BoolParameter</a> &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae005d82f1311363657a20405db1ce8bf">getParameterSet</a> () const</td></tr>
+<tr class="memitem:a9c2517b1ca188ef73d6cd6ebfa5eeffa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9c2517b1ca188ef73d6cd6ebfa5eeffa"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9c2517b1ca188ef73d6cd6ebfa5eeffa">containsParameter</a> (const std::string &amp;name) const</td></tr>
+<tr class="separator:a9c2517b1ca188ef73d6cd6ebfa5eeffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4925c5ad9c53cf21012146fc3fb41b17"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4925c5ad9c53cf21012146fc3fb41b17"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a4925c5ad9c53cf21012146fc3fb41b17">getParameter</a> (const std::string &amp;name) const</td></tr>
+<tr class="separator:a4925c5ad9c53cf21012146fc3fb41b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae005d82f1311363657a20405db1ce8bf"><td class="memItemLeft" align="right" valign="top"><a id="ae005d82f1311363657a20405db1ce8bf"></a>
+template&lt;&gt; </td></tr>
+<tr class="memitem:ae005d82f1311363657a20405db1ce8bf"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1UniformBindableSet.html">RenderParameters::UniformBindableSet</a>&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">RenderParameters::BoolParameter</a> &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getParameterSet</b> () const</td></tr>
 <tr class="separator:ae005d82f1311363657a20405db1ce8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a5016e83a8e248b8c990f8ae90643f32b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a> (const std::string &amp;name, <a class="el" href="classbool.html">bool</a> value)</td></tr>
+<tr class="memitem:a5016e83a8e248b8c990f8ae90643f32b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a> (const std::string &amp;name, bool value)</td></tr>
 <tr class="separator:a5016e83a8e248b8c990f8ae90643f32b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89c9ba42edaa219d0a038278c937ae42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a89c9ba42edaa219d0a038278c937ae42">addParameter</a> (const std::string &amp;name, <a class="el" href="classint.html">int</a> value)</td></tr>
+<tr class="memitem:a89c9ba42edaa219d0a038278c937ae42"><td class="memItemLeft" align="right" valign="top"><a id="a89c9ba42edaa219d0a038278c937ae42"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, int value)</td></tr>
 <tr class="separator:a89c9ba42edaa219d0a038278c937ae42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaff274f370a930d08f58dd8022fef925"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aaff274f370a930d08f58dd8022fef925">addParameter</a> (const std::string &amp;name, <a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> value)</td></tr>
+<tr class="memitem:aaff274f370a930d08f58dd8022fef925"><td class="memItemLeft" align="right" valign="top"><a id="aaff274f370a930d08f58dd8022fef925"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, uint value)</td></tr>
 <tr class="separator:aaff274f370a930d08f58dd8022fef925"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a900ffd31c397cba0bb86dad3120c3c03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a900ffd31c397cba0bb86dad3120c3c03">addParameter</a> (const std::string &amp;name, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> value)</td></tr>
+<tr class="memitem:a900ffd31c397cba0bb86dad3120c3c03"><td class="memItemLeft" align="right" valign="top"><a id="a900ffd31c397cba0bb86dad3120c3c03"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, Scalar value)</td></tr>
 <tr class="separator:a900ffd31c397cba0bb86dad3120c3c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a040d03b0c67f4a7b07df8eab7980f2e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a040d03b0c67f4a7b07df8eab7980f2e4">addParameter</a> (const std::string &amp;name, std::vector&lt; <a class="el" href="classint.html">int</a> &gt; values)</td></tr>
-<tr class="memdesc:a040d03b0c67f4a7b07df8eab7980f2e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">!! array version  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a040d03b0c67f4a7b07df8eab7980f2e4">More...</a><br /></td></tr>
-<tr class="separator:a040d03b0c67f4a7b07df8eab7980f2e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17307687cd41a31fb2c0c231eceeed9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a17307687cd41a31fb2c0c231eceeed9d">addParameter</a> (const std::string &amp;name, std::vector&lt; <a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> &gt; values)</td></tr>
-<tr class="separator:a17307687cd41a31fb2c0c231eceeed9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eb932f0ba49976b694b035e60bdaa83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9eb932f0ba49976b694b035e60bdaa83">addParameter</a> (const std::string &amp;name, std::vector&lt; <a class="el" href="classfloat.html">float</a> &gt; values)</td></tr>
-<tr class="separator:a9eb932f0ba49976b694b035e60bdaa83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae90b0205a462b349514065a9c1759149"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae90b0205a462b349514065a9c1759149">addParameter</a> (const std::string &amp;name, const <a class="el" href="namespaceRa_1_1Core.html#a84720deb241ea9ebbf1160b46a42beb9">Core::Vector2</a> &amp;value)</td></tr>
-<tr class="memdesc:ae90b0205a462b349514065a9c1759149"><td class="mdescLeft">&#160;</td><td class="mdescRight">!!  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae90b0205a462b349514065a9c1759149">More...</a><br /></td></tr>
+<tr class="memitem:a7e1399d33382a2f0f883301c89005236"><td class="memItemLeft" align="right" valign="top"><a id="a7e1399d33382a2f0f883301c89005236"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a7e1399d33382a2f0f883301c89005236">addParameter</a> (const std::string &amp;name, const std::vector&lt; int &gt; &amp;values)</td></tr>
+<tr class="memdesc:a7e1399d33382a2f0f883301c89005236"><td class="mdescLeft">&#160;</td><td class="mdescRight">!! array version <br /></td></tr>
+<tr class="separator:a7e1399d33382a2f0f883301c89005236"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf3e56b44cdce72dd53ecd886a9b0f9d"><td class="memItemLeft" align="right" valign="top"><a id="abf3e56b44cdce72dd53ecd886a9b0f9d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const std::vector&lt; uint &gt; &amp;values)</td></tr>
+<tr class="separator:abf3e56b44cdce72dd53ecd886a9b0f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a713f649a95b946a7078604ad64484ba0"><td class="memItemLeft" align="right" valign="top"><a id="a713f649a95b946a7078604ad64484ba0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const std::vector&lt; Scalar &gt; &amp;values)</td></tr>
+<tr class="separator:a713f649a95b946a7078604ad64484ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae90b0205a462b349514065a9c1759149"><td class="memItemLeft" align="right" valign="top"><a id="ae90b0205a462b349514065a9c1759149"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae90b0205a462b349514065a9c1759149">addParameter</a> (const std::string &amp;name, const Core::Vector2 &amp;value)</td></tr>
+<tr class="memdesc:ae90b0205a462b349514065a9c1759149"><td class="mdescLeft">&#160;</td><td class="mdescRight">!! <br /></td></tr>
 <tr class="separator:ae90b0205a462b349514065a9c1759149"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc4fa3270c85553423d315740e238e2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#abc4fa3270c85553423d315740e238e2c">addParameter</a> (const std::string &amp;name, const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;value)</td></tr>
+<tr class="memitem:abc4fa3270c85553423d315740e238e2c"><td class="memItemLeft" align="right" valign="top"><a id="abc4fa3270c85553423d315740e238e2c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const Core::Vector3 &amp;value)</td></tr>
 <tr class="separator:abc4fa3270c85553423d315740e238e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a148bb084fabe4f66dbc05f34ec72be9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a148bb084fabe4f66dbc05f34ec72be9f">addParameter</a> (const std::string &amp;name, const <a class="el" href="namespaceRa_1_1Core.html#a637da7f2442a99a8074fca3e4d11df0a">Core::Vector4</a> &amp;value)</td></tr>
+<tr class="memitem:a148bb084fabe4f66dbc05f34ec72be9f"><td class="memItemLeft" align="right" valign="top"><a id="a148bb084fabe4f66dbc05f34ec72be9f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const Core::Vector4 &amp;value)</td></tr>
 <tr class="separator:a148bb084fabe4f66dbc05f34ec72be9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af06a3026b80c62d136ac7a09063c1c84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af06a3026b80c62d136ac7a09063c1c84">addParameter</a> (const std::string &amp;name, const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;value)</td></tr>
+<tr class="memitem:af06a3026b80c62d136ac7a09063c1c84"><td class="memItemLeft" align="right" valign="top"><a id="af06a3026b80c62d136ac7a09063c1c84"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;value)</td></tr>
 <tr class="separator:af06a3026b80c62d136ac7a09063c1c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e3124867e5f45fee5ffed48983bc282"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a3e3124867e5f45fee5ffed48983bc282">addParameter</a> (const std::string &amp;name, const <a class="el" href="namespaceRa_1_1Core.html#af14013e42b40808b67026db27db0103f">Core::Matrix2</a> &amp;value)</td></tr>
+<tr class="memitem:a3e3124867e5f45fee5ffed48983bc282"><td class="memItemLeft" align="right" valign="top"><a id="a3e3124867e5f45fee5ffed48983bc282"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const Core::Matrix2 &amp;value)</td></tr>
 <tr class="separator:a3e3124867e5f45fee5ffed48983bc282"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3bad4662445f7b81b674bae646e2e1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae3bad4662445f7b81b674bae646e2e1d">addParameter</a> (const std::string &amp;name, const <a class="el" href="namespaceRa_1_1Core.html#a387ff66833fc26ee4710aa2a90f39af1">Core::Matrix3</a> &amp;value)</td></tr>
+<tr class="memitem:ae3bad4662445f7b81b674bae646e2e1d"><td class="memItemLeft" align="right" valign="top"><a id="ae3bad4662445f7b81b674bae646e2e1d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const Core::Matrix3 &amp;value)</td></tr>
 <tr class="separator:ae3bad4662445f7b81b674bae646e2e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27b64df6befbbd26a2d64d28046ee7af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a27b64df6befbbd26a2d64d28046ee7af">addParameter</a> (const std::string &amp;name, const <a class="el" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> &amp;value)</td></tr>
+<tr class="memitem:a27b64df6befbbd26a2d64d28046ee7af"><td class="memItemLeft" align="right" valign="top"><a id="a27b64df6befbbd26a2d64d28046ee7af"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const Core::Matrix4 &amp;value)</td></tr>
 <tr class="separator:a27b64df6befbbd26a2d64d28046ee7af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad28126181232a358a18376aca393d37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aad28126181232a358a18376aca393d37">addParameter</a> (const std::string &amp;name, <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Data::Texture</a> *tex, <a class="el" href="classint.html">int</a> texUnit=-1)</td></tr>
+<tr class="memitem:aad28126181232a358a18376aca393d37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aad28126181232a358a18376aca393d37">addParameter</a> (const std::string &amp;name, <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Data::Texture</a> *tex, int texUnit=-1)</td></tr>
 <tr class="separator:aad28126181232a358a18376aca393d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36b017c65c6ee8c11074b8b9726050c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a36b017c65c6ee8c11074b8b9726050c7">addParameter</a> (const std::string &amp;name, const std::string &amp;value)</td></tr>
+<tr class="memdesc:a36b017c65c6ee8c11074b8b9726050c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the value of the given parameter, according to a string representation of an enum.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a36b017c65c6ee8c11074b8b9726050c7">More...</a><br /></td></tr>
+<tr class="separator:a36b017c65c6ee8c11074b8b9726050c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9a080088cebc24deee74083e94bd7a"><td class="memItemLeft" align="right" valign="top"><a id="a9e9a080088cebc24deee74083e94bd7a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addParameter</b> (const std::string &amp;name, const char *value)</td></tr>
+<tr class="separator:a9e9a080088cebc24deee74083e94bd7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70d94cb9fabd271b896f6b1c12ea9039"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a70d94cb9fabd271b896f6b1c12ea9039">addEnumConverter</a> (const std::string &amp;name, std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">AbstractEnumConverter</a> &gt; converter)</td></tr>
+<tr class="memdesc:a70d94cb9fabd271b896f6b1c12ea9039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate a converter for enumerated type to the given parameter name.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a70d94cb9fabd271b896f6b1c12ea9039">More...</a><br /></td></tr>
+<tr class="separator:a70d94cb9fabd271b896f6b1c12ea9039"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe08e05e074099402f163c31a1951e8d"><td class="memItemLeft" align="right" valign="top">Core::Utils::optional&lt; std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">AbstractEnumConverter</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#abe08e05e074099402f163c31a1951e8d">getEnumConverter</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:abe08e05e074099402f163c31a1951e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a converter associated with an enumeration parameter.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#abe08e05e074099402f163c31a1951e8d">More...</a><br /></td></tr>
+<tr class="separator:abe08e05e074099402f163c31a1951e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c3b2b835cd2de955ec978e6cd3035e3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9c3b2b835cd2de955ec978e6cd3035e3">getEnumString</a> (const std::string &amp;name, int value)</td></tr>
+<tr class="memdesc:a9c3b2b835cd2de955ec978e6cd3035e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the string associated to the actual value of a parameter.  <a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9c3b2b835cd2de955ec978e6cd3035e3">More...</a><br /></td></tr>
+<tr class="separator:a9c3b2b835cd2de955ec978e6cd3035e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Management of shader parameters with automatic binding of a named parameter to the corresponding glsl uniform. </p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00024">24</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00028">28</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a390d30f028057f05002fd40a180de669"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a390d30f028057f05002fd40a180de669">&#9670;&nbsp;</a></span>BoolParameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a390d30f028057f05002fd40a180de669">Ra::Engine::Data::RenderParameters::BoolParameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="classbool.html">bool</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00106">106</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae93dc6ab7bbdd90eea0c56d289ef9d5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae93dc6ab7bbdd90eea0c56d289ef9d5b">&#9670;&nbsp;</a></span>ColorParameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae93dc6ab7bbdd90eea0c56d289ef9d5b">Ra::Engine::Data::RenderParameters::ColorParameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00127">127</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
 <a id="a39e3dcd23c719f64e23af39ce94cc481"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a39e3dcd23c719f64e23af39ce94cc481">&#9670;&nbsp;</a></span>IntParameter</h2>
 
@@ -253,216 +279,58 @@ Public Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a39e3dcd23c719f64e23af39ce94cc481">Ra::Engine::Data::RenderParameters::IntParameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="classint.html">int</a>&gt;</td>
+          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a39e3dcd23c719f64e23af39ce94cc481">Ra::Engine::Data::RenderParameters::IntParameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;int&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000044">Todo:</a></b></dt><dd>use array of parameter to templated uniform, as in globjects ? <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type int </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000049">Todo:</a></b></dt><dd>use array of parameter to templated uniform, as in globjects ? <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type int </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00105">105</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad3bd8e0ae479fdc123f12ad23c877ee4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3bd8e0ae479fdc123f12ad23c877ee4">&#9670;&nbsp;</a></span>IntsParameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ad3bd8e0ae479fdc123f12ad23c877ee4">Ra::Engine::Data::RenderParameters::IntsParameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;std::vector&lt;<a class="el" href="classint.html">int</a>&gt; &gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type vector of int. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00112">112</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7f05659a2031b93027452c244f76041a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f05659a2031b93027452c244f76041a">&#9670;&nbsp;</a></span>Mat2Parameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a7f05659a2031b93027452c244f76041a">Ra::Engine::Data::RenderParameters::Mat2Parameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="namespaceRa_1_1Core.html#af14013e42b40808b67026db27db0103f">Core::Matrix2</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Matrix2. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00130">130</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afa677fffbeca3abae09a6234110a1f6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa677fffbeca3abae09a6234110a1f6f">&#9670;&nbsp;</a></span>Mat3Parameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#afa677fffbeca3abae09a6234110a1f6f">Ra::Engine::Data::RenderParameters::Mat3Parameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="namespaceRa_1_1Core.html#a387ff66833fc26ee4710aa2a90f39af1">Core::Matrix3</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Matrix3. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00132">132</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6d00cf2d0f568ccb3d22a8545232f2fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d00cf2d0f568ccb3d22a8545232f2fa">&#9670;&nbsp;</a></span>Mat4Parameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6d00cf2d0f568ccb3d22a8545232f2fa">Ra::Engine::Data::RenderParameters::Mat4Parameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Matrix3. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00134">134</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af14f5dc8ff60c2bcbfd3bbacfdd37ec7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af14f5dc8ff60c2bcbfd3bbacfdd37ec7">&#9670;&nbsp;</a></span>ScalarParameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af14f5dc8ff60c2bcbfd3bbacfdd37ec7">Ra::Engine::Data::RenderParameters::ScalarParameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Scalar. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00110">110</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aadb2637a0746fb94361a31fa450747bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadb2637a0746fb94361a31fa450747bd">&#9670;&nbsp;</a></span>ScalarsParameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aadb2637a0746fb94361a31fa450747bd">Ra::Engine::Data::RenderParameters::ScalarsParameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;std::vector&lt;<a class="el" href="classfloat.html">float</a>&gt; &gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type vector of unsigned float </p><dl class="section warning"><dt>Warning</dt><dd>: no double parameter as globjects seems to not handle vector of double </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00119">119</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2fe4e31fcbb14e1dd66f680a4fb0b5c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fe4e31fcbb14e1dd66f680a4fb0b5c1">&#9670;&nbsp;</a></span>UIntParameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a2fe4e31fcbb14e1dd66f680a4fb0b5c1">Ra::Engine::Data::RenderParameters::UIntParameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type unsigned int. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00108">108</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aeb40c2e671f4d65c30fedc9df2719109"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb40c2e671f4d65c30fedc9df2719109">&#9670;&nbsp;</a></span>UIntsParameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#aeb40c2e671f4d65c30fedc9df2719109">Ra::Engine::Data::RenderParameters::UIntsParameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;std::vector&lt;<a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>&gt; &gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type vector of unsigned int. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00114">114</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3dcb36d06159e7710386190f36166f09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3dcb36d06159e7710386190f36166f09">&#9670;&nbsp;</a></span>Vec2Parameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a3dcb36d06159e7710386190f36166f09">Ra::Engine::Data::RenderParameters::Vec2Parameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="namespaceRa_1_1Core.html#a84720deb241ea9ebbf1160b46a42beb9">Core::Vector2</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Vector2. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00122">122</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a59c12223e798d4a459f108f1f75d0e91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59c12223e798d4a459f108f1f75d0e91">&#9670;&nbsp;</a></span>Vec3Parameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a59c12223e798d4a459f108f1f75d0e91">Ra::Engine::Data::RenderParameters::Vec3Parameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Vector3. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00124">124</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a65aac46922ca63c45027bde657cb3e5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65aac46922ca63c45027bde657cb3e5b">&#9670;&nbsp;</a></span>Vec4Parameter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a65aac46922ca63c45027bde657cb3e5b">Ra::Engine::Data::RenderParameters::Vec4Parameter</a> =  <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html">TParameter</a>&lt;<a class="el" href="namespaceRa_1_1Core.html#a637da7f2442a99a8074fca3e4d11df0a">Core::Vector4</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type Vector4. </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00126">126</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00111">111</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a70d94cb9fabd271b896f6b1c12ea9039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70d94cb9fabd271b896f6b1c12ea9039">&#9670;&nbsp;</a></span>addEnumConverter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::RenderParameters::addEnumConverter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">AbstractEnumConverter</a> &gt;&#160;</td>
+          <td class="paramname"><em>converter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Associate a converter for enumerated type to the given parameter name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td></td></tr>
+    <tr><td class="paramname">converter</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00029">29</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a5016e83a8e248b8c990f8ae90643f32b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5016e83a8e248b8c990f8ae90643f32b">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[1/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5016e83a8e248b8c990f8ae90643f32b">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -476,7 +344,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classbool.html">bool</a>&#160;</td>
+          <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -488,12 +356,12 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Overloaded operators to set shader parameters </p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00026">26</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00051">51</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3e3124867e5f45fee5ffed48983bc282"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e3124867e5f45fee5ffed48983bc282">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[2/15]</span></h2>
+<a id="a36b017c65c6ee8c11074b8b9726050c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36b017c65c6ee8c11074b8b9726050c7">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -507,37 +375,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#af14013e42b40808b67026db27db0103f">Core::Matrix2</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00074">74</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae3bad4662445f7b81b674bae646e2e1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3bad4662445f7b81b674bae646e2e1d">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[3/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a387ff66833fc26ee4710aa2a90f39af1">Core::Matrix3</a> &amp;&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -548,164 +386,22 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00078">78</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p>set the value of the given parameter, according to a string representation of an enum. </p>
+<dl class="section note"><dt>Note</dt><dd>If there is no <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html" title="This class manage the bijective association between string and integral representation of an enumerat...">EnumConverter</a> associated with the parameter name, do nothing. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td></td></tr>
+    <tr><td class="paramname">value</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
-</div>
-</div>
-<a id="a27b64df6befbbd26a2d64d28046ee7af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27b64df6befbbd26a2d64d28046ee7af">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[4/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00082">82</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af06a3026b80c62d136ac7a09063c1c84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af06a3026b80c62d136ac7a09063c1c84">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[5/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00070">70</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae90b0205a462b349514065a9c1759149"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae90b0205a462b349514065a9c1759149">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[6/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a84720deb241ea9ebbf1160b46a42beb9">Core::Vector2</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>!! </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00058">58</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abc4fa3270c85553423d315740e238e2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc4fa3270c85553423d315740e238e2c">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[7/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00062">62</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a148bb084fabe4f66dbc05f34ec72be9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a148bb084fabe4f66dbc05f34ec72be9f">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[8/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core.html#a637da7f2442a99a8074fca3e4d11df0a">Core::Vector4</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00066">66</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00115">115</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
 
 </div>
 </div>
 <a id="aad28126181232a358a18376aca393d37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad28126181232a358a18376aca393d37">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[9/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aad28126181232a358a18376aca393d37">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -725,7 +421,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classint.html">int</a>&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>texUnit</em> = <code>-1</code>&#160;</td>
         </tr>
         <tr>
@@ -737,189 +433,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Adding a texture parameter. The default (-1) for the texUnit parameter implies automatic uniform binding for the texture unit associated with the named sampler. If texUnit is given, then uniform binding will be made at this explicit location. </p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00086">86</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a89c9ba42edaa219d0a038278c937ae42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89c9ba42edaa219d0a038278c937ae42">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[10/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classint.html">int</a>&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00030">30</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a900ffd31c397cba0bb86dad3120c3c03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a900ffd31c397cba0bb86dad3120c3c03">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[11/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00038">38</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9eb932f0ba49976b694b035e60bdaa83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9eb932f0ba49976b694b035e60bdaa83">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[12/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="classfloat.html">float</a> &gt;&#160;</td>
-          <td class="paramname"><em>values</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00052">52</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a040d03b0c67f4a7b07df8eab7980f2e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a040d03b0c67f4a7b07df8eab7980f2e4">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[13/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="classint.html">int</a> &gt;&#160;</td>
-          <td class="paramname"><em>values</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>!! array version </p>
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00044">44</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a17307687cd41a31fb2c0c231eceeed9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17307687cd41a31fb2c0c231eceeed9d">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[14/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> &gt;&#160;</td>
-          <td class="paramname"><em>values</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00048">48</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aaff274f370a930d08f58dd8022fef925"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaff274f370a930d08f58dd8022fef925">&#9670;&nbsp;</a></span>addParameter() <span class="overload">[15/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::addParameter </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00034">34</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00111">111</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
 
 </div>
 </div>
@@ -946,45 +460,26 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00008">8</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00011">11</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a492a4b7bdafa3af3a23d24a16d4c89df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a492a4b7bdafa3af3a23d24a16d4c89df">&#9670;&nbsp;</a></span>concatParameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Engine::Data::RenderParameters::concatParameters </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>params</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00090">90</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae005d82f1311363657a20405db1ce8bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae005d82f1311363657a20405db1ce8bf">&#9670;&nbsp;</a></span>getParameterSet() <span class="overload">[1/2]</span></h2>
+<a id="a9c2517b1ca188ef73d6cd6ebfa5eeffa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c2517b1ca188ef73d6cd6ebfa5eeffa">&#9670;&nbsp;</a></span>containsParameter()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1UniformBindableSet.html">RenderParameters::UniformBindableSet</a>&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TextureParameter.html">RenderParameters::TextureParameter</a> &gt; &amp; Ra::Engine::Data::RenderParameters::getParameterSet </td>
+          <td class="memname">bool Ra::Engine::Data::RenderParameters::containsParameter </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -994,13 +489,143 @@ template&lt;&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Check if a typed parameter exists </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>the type of the parameter to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the parameter to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the parameter exists </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8inl_source.html#l00037">37</a> of file <a class="el" href="RenderParameters_8inl_source.html">RenderParameters.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8inl_source.html#l00126">126</a> of file <a class="el" href="RenderParameters_8inl_source.html">RenderParameters.inl</a>.</p>
+
+</div>
+</div>
+<a id="abe08e05e074099402f163c31a1951e8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe08e05e074099402f163c31a1951e8d">&#9670;&nbsp;</a></span>getEnumConverter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Core::Utils::optional&lt; std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html">RenderParameters::AbstractEnumConverter</a> &gt; &gt; Ra::Engine::Data::RenderParameters::getEnumConverter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Search for a converter associated with an enumeration parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the name of the parameter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an optional containing the converter or false if no converter is found. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00035">35</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c3b2b835cd2de955ec978e6cd3035e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c3b2b835cd2de955ec978e6cd3035e3">&#9670;&nbsp;</a></span>getEnumString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ra::Engine::Data::RenderParameters::getEnumString </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the string associated to the actual value of a parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td></td></tr>
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00043">43</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4925c5ad9c53cf21012146fc3fb41b17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4925c5ad9c53cf21012146fc3fb41b17">&#9670;&nbsp;</a></span>getParameter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; Ra::Engine::Data::RenderParameters::getParameter </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get a typed parameter </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>the type of the parameter to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the parameter to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The corresponding parameter </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>if the container does not have an parameter with the specified name </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8inl_source.html#l00132">132</a> of file <a class="el" href="RenderParameters_8inl_source.html">RenderParameters.inl</a>.</p>
 
 </div>
 </div>
 <a id="adc35dc41b69e69225565f202d441468e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc35dc41b69e69225565f202d441468e">&#9670;&nbsp;</a></span>getParameterSet() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adc35dc41b69e69225565f202d441468e">&#9670;&nbsp;</a></span>getParameterSet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1025,6 +650,60 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ae27dade3c2d0e82d306c45b2491f639a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae27dade3c2d0e82d306c45b2491f639a">&#9670;&nbsp;</a></span>mergeKeepParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::RenderParameters::mergeKeepParameters </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Merges a <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> <em>params</em> with this </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>the render parameter to merge with the current. Existing parameter value are kept from this </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f">mergeReplaceParameters</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00153">153</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9d929872799f18541433ade3f118099f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d929872799f18541433ade3f118099f">&#9670;&nbsp;</a></span>mergeReplaceParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Data::RenderParameters::mergeReplaceParameters </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Merges a <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> <em>params</em> with this </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>the render parameter to merge with the current. Existing parameter values are replaced by params's one. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae27dade3c2d0e82d306c45b2491f639a">mergeKeepParameters</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8cpp_source.html#l00164">164</a> of file <a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Data/<a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Data/<a class="el" href="RenderParameters_8cpp_source.html">RenderParameters.cpp</a></li>
@@ -1035,8 +714,8 @@ template&lt;typename T &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Data</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

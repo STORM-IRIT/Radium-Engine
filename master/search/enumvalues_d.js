@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['open_5funiform_6342',['OPEN_UNIFORM',['../classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596',1,'Ra::Core::Geometry::Spline']]],
-  ['orthographic_6343',['ORTHOGRAPHIC',['../classRa_1_1Core_1_1Asset_1_1Camera.html#a278be518e4c143387522c43e2c58f652a197833f339c57af4c0aaba39540e64cc',1,'Ra::Core::Asset::Camera']]]
+  ['triangle_3056',['TRIANGLE',['../classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6bead0b64ccb1957895223db324bd89438c8',1,'Ra::Engine::Rendering::Renderer']]]
 ];

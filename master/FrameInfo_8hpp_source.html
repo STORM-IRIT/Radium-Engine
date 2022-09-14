@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,19 +96,19 @@ $(document).ready(function(){initNavTree('FrameInfo_8hpp_source.html',''); initR
 <div class="title">FrameInfo.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="FrameInfo_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Engine/RaEngine.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1FrameInfo.html">    8</a></span>&#160;<span class="keyword">struct </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="structRa_1_1Engine_1_1FrameInfo.html">FrameInfo</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1FrameInfo.html#a09910b87c87eb70b18d9ea1e74274b9f">   10</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_animationTime { 0 };</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1FrameInfo.html">    8</a></span>&#160;<span class="keyword">struct </span>RA_ENGINE_API <a class="code" href="structRa_1_1Engine_1_1FrameInfo.html">FrameInfo</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1FrameInfo.html#a09910b87c87eb70b18d9ea1e74274b9f">   10</a></span>&#160;    Scalar m_animationTime { 0 };</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1FrameInfo.html#a78a1aa4a1a238ebacbaa6668a800af48">   13</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> m_dt { 0 };</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1FrameInfo.html#a78a1aa4a1a238ebacbaa6668a800af48">   13</a></span>&#160;    Scalar m_dt { 0 };</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">// (NB : at 60 FPS on a 32 bits machine this will cycle every two years... ;) )</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1FrameInfo.html#ac62c41e7232b4c4d940b08a4c596ecbc">   17</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> m_numFrame { 0 };</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1FrameInfo.html#ac62c41e7232b4c4d940b08a4c596ecbc">   17</a></span>&#160;    uint m_numFrame { 0 };</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// Other stuff (e.g. which systems are present, etc).</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
@@ -115,17 +116,13 @@ $(document).ready(function(){initNavTree('FrameInfo_8hpp_source.html',''); initR
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1FrameInfo_html"><div class="ttname"><a href="structRa_1_1Engine_1_1FrameInfo.html">Ra::Engine::FrameInfo</a></div><div class="ttdoc">Structure passed to each system before they fill the task queue.</div><div class="ttdef"><b>Definition:</b> <a href="FrameInfo_8hpp_source.html#l00008">FrameInfo.hpp:8</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00257">CoreMacros.hpp:257</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="FrameInfo_8hpp.html">FrameInfo.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><b>FrameInfo.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -123,33 +124,25 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Asset_1_1LightData.
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html">AreaLight</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1DirLight.html">DirLight</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html">LightAttenuation</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html">PointLight</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html">SpotLight</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a737f1c5691156e76c4aaad52b80abecc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc">LightType</a> { <br />
-&#160;&#160;<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca3a95b4075d369f7761604ea9f7359148">UNKNOWN</a> = 1 &lt;&lt; 0, 
-<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca771a9111952db0d6d1adb4c7287b91f7">POINT_LIGHT</a> = 1 &lt;&lt; 1, 
-<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca33dbd75f340ef4de8cdd4f99568b50b5">SPOT_LIGHT</a> = 1 &lt;&lt; 2, 
-<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca2d6039505b0c2d44c26550d6af61b553">DIRECTIONAL_LIGHT</a> = 1 &lt;&lt; 3, 
+&#160;&#160;<b>UNKNOWN</b> = 1 &lt;&lt; 0, 
+<b>POINT_LIGHT</b> = 1 &lt;&lt; 1, 
+<b>SPOT_LIGHT</b> = 1 &lt;&lt; 2, 
+<b>DIRECTIONAL_LIGHT</b> = 1 &lt;&lt; 3, 
 <br />
-&#160;&#160;<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca52acbab6fda5d256344a77ea30355ee8">AREA_LIGHT</a> = 1 &lt;&lt; 4
+&#160;&#160;<b>AREA_LIGHT</b> = 1 &lt;&lt; 4
 <br />
  }</td></tr>
 <tr class="separator:a737f1c5691156e76c4aaad52b80abecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae7194939e14882a4cacfbd8bab57d073"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#ae7194939e14882a4cacfbd8bab57d073">LightData</a> (const std::string &amp;name=&quot;&quot;, const <a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc">LightType</a> &amp;type=<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca3a95b4075d369f7761604ea9f7359148">UNKNOWN</a>)</td></tr>
+<tr class="memitem:ae7194939e14882a4cacfbd8bab57d073"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#ae7194939e14882a4cacfbd8bab57d073">LightData</a> (const std::string &amp;name=&quot;&quot;, const <a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc">LightType</a> &amp;type=UNKNOWN)</td></tr>
 <tr class="memdesc:ae7194939e14882a4cacfbd8bab57d073"><td class="mdescLeft">&#160;</td><td class="mdescRight">CONSTRUCTOR.  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#ae7194939e14882a4cacfbd8bab57d073">More...</a><br /></td></tr>
 <tr class="separator:ae7194939e14882a4cacfbd8bab57d073"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80cfdb1a0683f857f3b03eb0bfd7005c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a80cfdb1a0683f857f3b03eb0bfd7005c">LightData</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html">LightData</a> &amp;data)</td></tr>
@@ -160,81 +153,94 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6174b9a46bb6f2f34c928c7dee903b32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a6174b9a46bb6f2f34c928c7dee903b32">setName</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:a6174b9a46bb6f2f34c928c7dee903b32"><td class="mdescLeft">&#160;</td><td class="mdescRight">LIGHT DATA ///.  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#a6174b9a46bb6f2f34c928c7dee903b32">More...</a><br /></td></tr>
 <tr class="separator:a6174b9a46bb6f2f34c928c7dee903b32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac5dd6874dc3157aacefa3e5f61c61df"><td class="memItemLeft" align="right" valign="top">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 4, 4 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#aac5dd6874dc3157aacefa3e5f61c61df">getFrame</a> () const</td></tr>
+<tr class="memitem:aac5dd6874dc3157aacefa3e5f61c61df"><td class="memItemLeft" align="right" valign="top">const Eigen::Matrix&lt; Scalar, 4, 4 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#aac5dd6874dc3157aacefa3e5f61c61df">getFrame</a> () const</td></tr>
 <tr class="memdesc:aac5dd6874dc3157aacefa3e5f61c61df"><td class="mdescLeft">&#160;</td><td class="mdescRight">FRAME.  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#aac5dd6874dc3157aacefa3e5f61c61df">More...</a><br /></td></tr>
 <tr class="separator:aac5dd6874dc3157aacefa3e5f61c61df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1573fed0fa153561021e69943b72267"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#ad1573fed0fa153561021e69943b72267">setFrame</a> (const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 4, 4 &gt; &amp;frame)</td></tr>
+<tr class="memitem:ad1573fed0fa153561021e69943b72267"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#ad1573fed0fa153561021e69943b72267">setFrame</a> (const Eigen::Matrix&lt; Scalar, 4, 4 &gt; &amp;frame)</td></tr>
 <tr class="separator:ad1573fed0fa153561021e69943b72267"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a252a94b2d62eb16127b495883b31790d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a252a94b2d62eb16127b495883b31790d">setLight</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;color, const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;direction)</td></tr>
+<tr class="memitem:a252a94b2d62eb16127b495883b31790d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a252a94b2d62eb16127b495883b31790d">setLight</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;color, const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;direction)</td></tr>
 <tr class="memdesc:a252a94b2d62eb16127b495883b31790d"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a directional light  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#a252a94b2d62eb16127b495883b31790d">More...</a><br /></td></tr>
 <tr class="separator:a252a94b2d62eb16127b495883b31790d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0081043c289ceee597884e585262050"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#ac0081043c289ceee597884e585262050">setLight</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;color, const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;position, <a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html">LightAttenuation</a> attenuation)</td></tr>
+<tr class="memitem:ac0081043c289ceee597884e585262050"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#ac0081043c289ceee597884e585262050">setLight</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;color, const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;position, <a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html">LightAttenuation</a> attenuation)</td></tr>
 <tr class="memdesc:ac0081043c289ceee597884e585262050"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a point light  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#ac0081043c289ceee597884e585262050">More...</a><br /></td></tr>
 <tr class="separator:ac0081043c289ceee597884e585262050"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a465c45192f3c007c8e83d86f4ba257c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a465c45192f3c007c8e83d86f4ba257c3">setLight</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;color, const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;position, const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;direction, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> inAngle, <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> outAngle, <a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html">LightAttenuation</a> attenuation)</td></tr>
+<tr class="memitem:a465c45192f3c007c8e83d86f4ba257c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a465c45192f3c007c8e83d86f4ba257c3">setLight</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;color, const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;position, const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;direction, Scalar inAngle, Scalar outAngle, <a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html">LightAttenuation</a> attenuation)</td></tr>
 <tr class="memdesc:a465c45192f3c007c8e83d86f4ba257c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a spot light  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#a465c45192f3c007c8e83d86f4ba257c3">More...</a><br /></td></tr>
 <tr class="separator:a465c45192f3c007c8e83d86f4ba257c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4d33642ba53fbcf7524b4ed78d81734"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#ad4d33642ba53fbcf7524b4ed78d81734">setLight</a> (const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;color, const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;cog, const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 3 &gt; &amp;spatialCov, const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 3 &gt; &amp;normalCov, <a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html">LightAttenuation</a> attenuation)</td></tr>
+<tr class="memitem:ad4d33642ba53fbcf7524b4ed78d81734"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#ad4d33642ba53fbcf7524b4ed78d81734">setLight</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;color, const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;cog, const Eigen::Matrix&lt; Scalar, 3, 3 &gt; &amp;spatialCov, const Eigen::Matrix&lt; Scalar, 3, 3 &gt; &amp;normalCov, <a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html">LightAttenuation</a> attenuation)</td></tr>
 <tr class="memdesc:ad4d33642ba53fbcf7524b4ed78d81734"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct an area light  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#ad4d33642ba53fbcf7524b4ed78d81734">More...</a><br /></td></tr>
 <tr class="separator:ad4d33642ba53fbcf7524b4ed78d81734"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc3bcacb407281a332524f357427f246"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc">LightType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#acc3bcacb407281a332524f357427f246">getType</a> () const</td></tr>
 <tr class="memdesc:acc3bcacb407281a332524f357427f246"><td class="mdescLeft">&#160;</td><td class="mdescRight">TYPE.  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#acc3bcacb407281a332524f357427f246">More...</a><br /></td></tr>
 <tr class="separator:acc3bcacb407281a332524f357427f246"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33fd71123b658782aa7f657310cca54d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a33fd71123b658782aa7f657310cca54d">isPointLight</a> () const</td></tr>
+<tr class="memitem:a33fd71123b658782aa7f657310cca54d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a33fd71123b658782aa7f657310cca54d">isPointLight</a> () const</td></tr>
 <tr class="memdesc:a33fd71123b658782aa7f657310cca54d"><td class="mdescLeft">&#160;</td><td class="mdescRight">QUERY.  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#a33fd71123b658782aa7f657310cca54d">More...</a><br /></td></tr>
 <tr class="separator:a33fd71123b658782aa7f657310cca54d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a857205a36333e045338291395636bb7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a857205a36333e045338291395636bb7a">isSpotLight</a> () const</td></tr>
+<tr class="memitem:a857205a36333e045338291395636bb7a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a857205a36333e045338291395636bb7a">isSpotLight</a> () const</td></tr>
 <tr class="separator:a857205a36333e045338291395636bb7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe5db4fe88896557f4c9e9eb85b40a5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#abe5db4fe88896557f4c9e9eb85b40a5b">isDirectionalLight</a> () const</td></tr>
+<tr class="memitem:abe5db4fe88896557f4c9e9eb85b40a5b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#abe5db4fe88896557f4c9e9eb85b40a5b">isDirectionalLight</a> () const</td></tr>
 <tr class="separator:abe5db4fe88896557f4c9e9eb85b40a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a556ce4b12317c1b79b21f0e4361ad8e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a556ce4b12317c1b79b21f0e4361ad8e2">isAreaLight</a> () const</td></tr>
+<tr class="memitem:a556ce4b12317c1b79b21f0e4361ad8e2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a556ce4b12317c1b79b21f0e4361ad8e2">isAreaLight</a> () const</td></tr>
 <tr class="separator:a556ce4b12317c1b79b21f0e4361ad8e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2aaf5551ed9cd46fcb73f40048c7bee2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a2aaf5551ed9cd46fcb73f40048c7bee2">displayInfo</a> () const</td></tr>
 <tr class="memdesc:a2aaf5551ed9cd46fcb73f40048c7bee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">DEBUG.  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#a2aaf5551ed9cd46fcb73f40048c7bee2">More...</a><br /></td></tr>
 <tr class="separator:a2aaf5551ed9cd46fcb73f40048c7bee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></td></tr>
-<tr class="memitem:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">AssetData</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an asset data given its name.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">More...</a><br /></td></tr>
+<tr class="memitem:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a67d9d20e8ef8b719a605d4f472ffb520"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">AssetData</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an asset data given its name. <br /></td></tr>
 <tr class="separator:a67d9d20e8ef8b719a605d4f472ffb520 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a5c240eb539057d0739d50a4fbc8b548f">AssetData</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a> &amp;other)=default</td></tr>
-<tr class="memdesc:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. Default here.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a5c240eb539057d0739d50a4fbc8b548f">More...</a><br /></td></tr>
+<tr class="memitem:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a5c240eb539057d0739d50a4fbc8b548f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a5c240eb539057d0739d50a4fbc8b548f">AssetData</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a> &amp;other)=default</td></tr>
+<tr class="memdesc:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. Default here. <br /></td></tr>
 <tr class="separator:a5c240eb539057d0739d50a4fbc8b548f inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">~AssetData</a> ()</td></tr>
-<tr class="memdesc:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple delete operator.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">More...</a><br /></td></tr>
+<tr class="memitem:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a31c24d775ecf27925feea8acdc6cff67"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">~AssetData</a> ()</td></tr>
+<tr class="memdesc:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple delete operator. <br /></td></tr>
 <tr class="separator:a31c24d775ecf27925feea8acdc6cff67 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a> () const</td></tr>
-<tr class="memdesc:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acces to the name of the asset.  <a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">More...</a><br /></td></tr>
+<tr class="memitem:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a45d10620e8b4afeadcbd70da2fa8b119"></a>
+virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a> () const</td></tr>
+<tr class="memdesc:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acces to the name of the asset. <br /></td></tr>
 <tr class="separator:a45d10620e8b4afeadcbd70da2fa8b119 inherit pub_methods_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a455b8d6d7581f95e1c8014dad159f3fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a455b8d6d7581f95e1c8014dad159f3fd">m_color</a></td></tr>
+<tr class="memitem:a455b8d6d7581f95e1c8014dad159f3fd"><td class="memItemLeft" align="right" valign="top"><a id="a455b8d6d7581f95e1c8014dad159f3fd"></a>
+<a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_color</b></td></tr>
 <tr class="separator:a455b8d6d7581f95e1c8014dad159f3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbc974b45fb5f6b249f1ed98ad139324"><td class="memItemLeft" >union {</td></tr>
-<tr class="memitem:a902882465d444029bbb211df453e030b"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1DirLight.html">DirLight</a>&#160;&#160;&#160;<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a9cdd2535a1fdb46426c7de0b74ee2d2a">m_dirlight</a></td></tr>
+<tr class="memitem:abbc974b45fb5f6b249f1ed98ad139324"><td class="memItemLeft" ><a id="abbc974b45fb5f6b249f1ed98ad139324"></a>
+union {</td></tr>
+<tr class="memitem:a902882465d444029bbb211df453e030b"><td class="memItemLeft" >
+&#160;&#160;&#160;DirLight&#160;&#160;&#160;<b>m_dirlight</b></td></tr>
 <tr class="separator:a902882465d444029bbb211df453e030b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa583ced831573435ff7f2a2a3351ea06"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html">PointLight</a>&#160;&#160;&#160;<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#af579f37fbc47af3fad64a54f04de344c">m_pointlight</a></td></tr>
+<tr class="memitem:aa583ced831573435ff7f2a2a3351ea06"><td class="memItemLeft" >
+&#160;&#160;&#160;PointLight&#160;&#160;&#160;<b>m_pointlight</b></td></tr>
 <tr class="separator:aa583ced831573435ff7f2a2a3351ea06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab26078939fe71dd3a8510fc522b043b5"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html">SpotLight</a>&#160;&#160;&#160;<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#ab8f070b14d0c528c9f33327af63a4fce">m_spotlight</a></td></tr>
+<tr class="memitem:ab26078939fe71dd3a8510fc522b043b5"><td class="memItemLeft" >
+&#160;&#160;&#160;SpotLight&#160;&#160;&#160;<b>m_spotlight</b></td></tr>
 <tr class="separator:ab26078939fe71dd3a8510fc522b043b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa122f0daf3021d2ba4e5e6030ab5d44d"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html">AreaLight</a>&#160;&#160;&#160;<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a52ae51183289bbbc8cf1574b1365cd4c">m_arealight</a></td></tr>
+<tr class="memitem:aa122f0daf3021d2ba4e5e6030ab5d44d"><td class="memItemLeft" >
+&#160;&#160;&#160;AreaLight&#160;&#160;&#160;<b>m_arealight</b></td></tr>
 <tr class="separator:aa122f0daf3021d2ba4e5e6030ab5d44d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbc974b45fb5f6b249f1ed98ad139324"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:abbc974b45fb5f6b249f1ed98ad139324"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:aabdcec9680d408926fd3d0aa01ec6ef9"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 4, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#aabdcec9680d408926fd3d0aa01ec6ef9">m_frame</a></td></tr>
-<tr class="memdesc:aabdcec9680d408926fd3d0aa01ec6ef9"><td class="mdescLeft">&#160;</td><td class="mdescRight">VARIABLE.  <a href="classRa_1_1Core_1_1Asset_1_1LightData.html#aabdcec9680d408926fd3d0aa01ec6ef9">More...</a><br /></td></tr>
+<tr class="memitem:aabdcec9680d408926fd3d0aa01ec6ef9"><td class="memItemLeft" align="right" valign="top"><a id="aabdcec9680d408926fd3d0aa01ec6ef9"></a>
+Eigen::Matrix&lt; Scalar, 4, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#aabdcec9680d408926fd3d0aa01ec6ef9">m_frame</a></td></tr>
+<tr class="memdesc:aabdcec9680d408926fd3d0aa01ec6ef9"><td class="mdescLeft">&#160;</td><td class="mdescRight">VARIABLE. <br /></td></tr>
 <tr class="separator:aabdcec9680d408926fd3d0aa01ec6ef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41eddc46bac0a6613cb82c0771c70d5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc">LightType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a41eddc46bac0a6613cb82c0771c70d5b">m_type</a></td></tr>
+<tr class="memitem:a41eddc46bac0a6613cb82c0771c70d5b"><td class="memItemLeft" align="right" valign="top"><a id="a41eddc46bac0a6613cb82c0771c70d5b"></a>
+<a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc">LightType</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td></tr>
 <tr class="separator:a41eddc46bac0a6613cb82c0771c70d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></td></tr>
-<tr class="memitem:a2d3a74f6a9bee357d8531a619d08de5f inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a2d3a74f6a9bee357d8531a619d08de5f">m_name</a></td></tr>
+<tr class="memitem:a2d3a74f6a9bee357d8531a619d08de5f inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memItemLeft" align="right" valign="top"><a id="a2d3a74f6a9bee357d8531a619d08de5f"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td></tr>
 <tr class="separator:a2d3a74f6a9bee357d8531a619d08de5f inherit pro_attribs_classRa_1_1Core_1_1Asset_1_1AssetData"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="namespaceRa_1_1Core_1_1Asset.html">Asset</a> defining how lights must be passed to the Radium systems from a loader.</p>
+<div class="textblock"><p>Asset defining how lights must be passed to the Radium systems from a loader.</p>
 <p>Supported light type are : Point light : a local, punctual, isotropic spherical light. Spot light : a local, punctual, isotropic conical light. Directional light : an infinite, isotropic light. Area light : a local isotropic area light. </p>
 
 <p class="definition">Definition at line <a class="el" href="LightData_8hpp_source.html#l00024">24</a> of file <a class="el" href="LightData_8hpp_source.html">LightData.hpp</a>.</p>
@@ -251,13 +257,6 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Supported light type </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a737f1c5691156e76c4aaad52b80abecca3a95b4075d369f7761604ea9f7359148"></a>UNKNOWN&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a737f1c5691156e76c4aaad52b80abecca771a9111952db0d6d1adb4c7287b91f7"></a>POINT_LIGHT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a737f1c5691156e76c4aaad52b80abecca33dbd75f340ef4de8cdd4f99568b50b5"></a>SPOT_LIGHT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a737f1c5691156e76c4aaad52b80abecca2d6039505b0c2d44c26550d6af61b553"></a>DIRECTIONAL_LIGHT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a737f1c5691156e76c4aaad52b80abecca52acbab6fda5d256344a77ea30355ee8"></a>AREA_LIGHT&#160;</td><td class="fielddoc"></td></tr>
-</table>
 
 <p class="definition">Definition at line <a class="el" href="LightData_8hpp_source.html#l00033">33</a> of file <a class="el" href="LightData_8hpp_source.html">LightData.hpp</a>.</p>
 
@@ -283,7 +282,7 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc">LightType</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em> = <code><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca3a95b4075d369f7761604ea9f7359148">UNKNOWN</a></code>&#160;</td>
+          <td class="paramname"><em>type</em> = <code>UNKNOWN</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -394,7 +393,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 4, 4 &gt; &amp; Ra::Core::Asset::LightData::getFrame </td>
+          <td class="memname">const Eigen::Matrix&lt; Scalar, 4, 4 &gt; &amp; Ra::Core::Asset::LightData::getFrame </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -454,7 +453,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Core::Asset::LightData::isAreaLight </td>
+          <td class="memname">bool Ra::Core::Asset::LightData::isAreaLight </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -466,7 +465,7 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns true if the light is an <a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html">AreaLight</a> </p>
+<p>Returns true if the light is an AreaLight </p>
 
 <p class="definition">Definition at line <a class="el" href="LightData_8inl_source.html#l00093">93</a> of file <a class="el" href="LightData_8inl_source.html">LightData.inl</a>.</p>
 
@@ -482,7 +481,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Core::Asset::LightData::isDirectionalLight </td>
+          <td class="memname">bool Ra::Core::Asset::LightData::isDirectionalLight </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -510,7 +509,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Core::Asset::LightData::isPointLight </td>
+          <td class="memname">bool Ra::Core::Asset::LightData::isPointLight </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -524,7 +523,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>QUERY. </p>
-<p>Returns true if the light is a <a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html">PointLight</a> </p>
+<p>Returns true if the light is a PointLight </p>
 
 <p class="definition">Definition at line <a class="el" href="LightData_8inl_source.html#l00081">81</a> of file <a class="el" href="LightData_8inl_source.html">LightData.inl</a>.</p>
 
@@ -540,7 +539,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbool.html">bool</a> Ra::Core::Asset::LightData::isSpotLight </td>
+          <td class="memname">bool Ra::Core::Asset::LightData::isSpotLight </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -552,7 +551,7 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns true if the light is a <a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html">SpotLight</a> </p>
+<p>Returns true if the light is a SpotLight </p>
 
 <p class="definition">Definition at line <a class="el" href="LightData_8inl_source.html#l00085">85</a> of file <a class="el" href="LightData_8inl_source.html">LightData.inl</a>.</p>
 
@@ -570,7 +569,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Ra::Core::Asset::LightData::setFrame </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 4, 4 &gt; &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Matrix&lt; Scalar, 4, 4 &gt; &amp;&#160;</td>
           <td class="paramname"><em>frame</em></td><td>)</td>
           <td></td>
         </tr>
@@ -604,25 +603,25 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Ra::Core::Asset::LightData::setLight </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;&#160;</td>
           <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;&#160;</td>
           <td class="paramname"><em>cog</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 3 &gt; &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Matrix&lt; Scalar, 3, 3 &gt; &amp;&#160;</td>
           <td class="paramname"><em>spatialCov</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 3 &gt; &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Matrix&lt; Scalar, 3, 3 &gt; &amp;&#160;</td>
           <td class="paramname"><em>normalCov</em>, </td>
         </tr>
         <tr>
@@ -663,13 +662,13 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Ra::Core::Asset::LightData::setLight </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;&#160;</td>
           <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;&#160;</td>
           <td class="paramname"><em>direction</em>&#160;</td>
         </tr>
         <tr>
@@ -704,31 +703,31 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Ra::Core::Asset::LightData::setLight </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;&#160;</td>
           <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;&#160;</td>
           <td class="paramname"><em>position</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;&#160;</td>
           <td class="paramname"><em>direction</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
+          <td class="paramtype">Scalar&#160;</td>
           <td class="paramname"><em>inAngle</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>&#160;</td>
+          <td class="paramtype">Scalar&#160;</td>
           <td class="paramname"><em>outAngle</em>, </td>
         </tr>
         <tr>
@@ -769,13 +768,13 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Ra::Core::Asset::LightData::setLight </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;&#160;</td>
           <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Matrix&lt; <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 3, 1 &gt; &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;&#160;</td>
           <td class="paramname"><em>position</em>, </td>
         </tr>
         <tr>
@@ -836,151 +835,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="abbc974b45fb5f6b249f1ed98ad139324"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbc974b45fb5f6b249f1ed98ad139324">&#9670;&nbsp;</a></span>@1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">union { ... } </td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a52ae51183289bbbc8cf1574b1365cd4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52ae51183289bbbc8cf1574b1365cd4c">&#9670;&nbsp;</a></span>m_arealight</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1AreaLight.html">AreaLight</a> Ra::Core::Asset::LightData::m_arealight</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LightData_8hpp_source.html#l00209">209</a> of file <a class="el" href="LightData_8hpp_source.html">LightData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a455b8d6d7581f95e1c8014dad159f3fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a455b8d6d7581f95e1c8014dad159f3fd">&#9670;&nbsp;</a></span>m_color</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> Ra::Core::Asset::LightData::m_color</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LightData_8hpp_source.html#l00181">181</a> of file <a class="el" href="LightData_8hpp_source.html">LightData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9cdd2535a1fdb46426c7de0b74ee2d2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cdd2535a1fdb46426c7de0b74ee2d2a">&#9670;&nbsp;</a></span>m_dirlight</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1DirLight.html">DirLight</a> Ra::Core::Asset::LightData::m_dirlight</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LightData_8hpp_source.html#l00206">206</a> of file <a class="el" href="LightData_8hpp_source.html">LightData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aabdcec9680d408926fd3d0aa01ec6ef9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabdcec9680d408926fd3d0aa01ec6ef9">&#9670;&nbsp;</a></span>m_frame</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Matrix&lt;<a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a>, 4, 4&gt; Ra::Core::Asset::LightData::m_frame</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>VARIABLE. </p>
-
-<p class="definition">Definition at line <a class="el" href="LightData_8hpp_source.html#l00175">175</a> of file <a class="el" href="LightData_8hpp_source.html">LightData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af579f37fbc47af3fad64a54f04de344c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af579f37fbc47af3fad64a54f04de344c">&#9670;&nbsp;</a></span>m_pointlight</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1PointLight.html">PointLight</a> Ra::Core::Asset::LightData::m_pointlight</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LightData_8hpp_source.html#l00207">207</a> of file <a class="el" href="LightData_8hpp_source.html">LightData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab8f070b14d0c528c9f33327af63a4fce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8f070b14d0c528c9f33327af63a4fce">&#9670;&nbsp;</a></span>m_spotlight</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html">SpotLight</a> Ra::Core::Asset::LightData::m_spotlight</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LightData_8hpp_source.html#l00208">208</a> of file <a class="el" href="LightData_8hpp_source.html">LightData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a41eddc46bac0a6613cb82c0771c70d5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41eddc46bac0a6613cb82c0771c70d5b">&#9670;&nbsp;</a></span>m_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc">LightType</a> Ra::Core::Asset::LightData::m_type</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LightData_8hpp_source.html#l00176">176</a> of file <a class="el" href="LightData_8hpp_source.html">LightData.hpp</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Asset/<a class="el" href="LightData_8hpp_source.html">LightData.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Asset/<a class="el" href="LightData_8cpp_source.html">LightData.cpp</a></li>
@@ -991,8 +845,8 @@ Protected Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Asset.html">Asset</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html">LightData</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Asset</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Asset_1_1LightData.html">LightData</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

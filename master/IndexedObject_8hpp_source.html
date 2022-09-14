@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,10 +96,10 @@ $(document).ready(function(){initNavTree('IndexedObject_8hpp_source.html',''); i
 <div class="title">IndexedObject.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="IndexedObject_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Index_8hpp.html">Core/Utils/Index.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Index.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Core {</div>
@@ -107,15 +108,15 @@ $(document).ready(function(){initNavTree('IndexedObject_8hpp_source.html',''); i
 <div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html">IndexedObject</a></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a93081c24a1826f1861182294173fa7e3">   17</a></span>&#160;    <span class="keyword">explicit</span> <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a93081c24a1826f1861182294173fa7e3">IndexedObject</a>( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a> idx = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Index::Invalid</a>() ) : <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">m_idx</a> { idx } {}</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a93081c24a1826f1861182294173fa7e3">   17</a></span>&#160;    <span class="keyword">explicit</span> <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a93081c24a1826f1861182294173fa7e3">IndexedObject</a>( Index idx = Index::Invalid() ) : <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">m_idx</a> { idx } {}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a93081c24a1826f1861182294173fa7e3">IndexedObject</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html">IndexedObject</a>&amp; id_obj ) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a2cb7c193947979ccf9a0c2509f03ecab">~IndexedObject</a>()                     = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">inline</span> ~<a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html">IndexedObject</a>()                     = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#ae049f9a31cf501d8f426121493c9bf54">   21</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#ae049f9a31cf501d8f426121493c9bf54">setIndex</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; idx ) { <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">m_idx</a> = idx; }</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a4c1e2cbb7ba93d4ef2edf23b693cc643">   22</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a>&amp; <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a4c1e2cbb7ba93d4ef2edf23b693cc643">getIndex</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">m_idx</a>; }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setIndex( <span class="keyword">const</span> Index&amp; idx ) { <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">m_idx</a> = idx; }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Index&amp; getIndex()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">m_idx</a>; }</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">   26</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Index</a> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">m_idx</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">   26</a></span>&#160;    Index <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">m_idx</a>;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;};</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace Utils</span></div>
@@ -123,22 +124,15 @@ $(document).ready(function(){initNavTree('IndexedObject_8hpp_source.html',''); i
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html_a771f93efd49538950e3cb9e57e46fbaf"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a></div><div class="ttdeci">static constexpr Index Invalid()</div><div class="ttdef"><b>Definition:</b> <a href="Index_8inl_source.html#l00029">Index.inl:29</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html_a24263285593d30f98e4c131b77a42d3c"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">Ra::Core::Utils::IndexedObject::m_idx</a></div><div class="ttdeci">Index m_idx</div><div class="ttdoc">VARIABLE.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00026">IndexedObject.hpp:26</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html_ae049f9a31cf501d8f426121493c9bf54"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#ae049f9a31cf501d8f426121493c9bf54">Ra::Core::Utils::IndexedObject::setIndex</a></div><div class="ttdeci">void setIndex(const Index &amp;idx)</div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00021">IndexedObject.hpp:21</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html_a2cb7c193947979ccf9a0c2509f03ecab"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a2cb7c193947979ccf9a0c2509f03ecab">Ra::Core::Utils::IndexedObject::~IndexedObject</a></div><div class="ttdeci">virtual ~IndexedObject()=default</div></div>
-<div class="ttc" id="aIndex_8hpp_html"><div class="ttname"><a href="Index_8hpp.html">Index.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html_a93081c24a1826f1861182294173fa7e3"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a93081c24a1826f1861182294173fa7e3">Ra::Core::Utils::IndexedObject::IndexedObject</a></div><div class="ttdeci">IndexedObject(Index idx=Index::Invalid())</div><div class="ttdoc">CONSTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00017">IndexedObject.hpp:17</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html">Ra::Core::Utils::IndexedObject</a></div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00013">IndexedObject.hpp:13</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html_a4c1e2cbb7ba93d4ef2edf23b693cc643"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a4c1e2cbb7ba93d4ef2edf23b693cc643">Ra::Core::Utils::IndexedObject::getIndex</a></div><div class="ttdeci">const Index &amp; getIndex() const</div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00022">IndexedObject.hpp:22</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="IndexedObject_8hpp.html">IndexedObject.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><b>IndexedObject.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

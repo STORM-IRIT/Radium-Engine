@@ -1,6 +1,5 @@
 var classRa_1_1Core_1_1Geometry_1_1VolumeSparse =
 [
-    [ "SampleType", "structRa_1_1Core_1_1Geometry_1_1VolumeSparse_1_1SampleType.html", "structRa_1_1Core_1_1Geometry_1_1VolumeSparse_1_1SampleType" ],
     [ "Container", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html#ab6e2cc52ece691f3497d9736cae7cef2", null ],
     [ "IndexType", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html#a76aadbdd5e0ccc9b5574acff10e692dc", null ],
     [ "ValueType", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html#a7091001745c46e8299dd8b59702892ad", null ],

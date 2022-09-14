@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -94,23 +95,15 @@ $(document).ready(function(){initNavTree('functions_func_m.html',''); initResiza
 &#160;
 
 <h3><a id="index_m"></a>- m -</h3><ul>
-<li>Magenta()
-: <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html#a6872e17d23889b8ca4058efbe3f1d939">Ra::Core::Utils::ColorBase&lt; _Scalar &gt;</a>
-</li>
 <li>MainWindowInterface()
 : <a class="el" href="classRa_1_1Gui_1_1MainWindowInterface.html#a6f32b64c083205c8b91d8b4ef036b499">Ra::Gui::MainWindowInterface</a>
 </li>
 <li>makeCurrent()
 : <a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">Ra::Gui::WindowQt</a>
+, <a class="el" href="group__context.html#ga74f9c0ec7ac494ff57d23d2cec737840">Ra::Headless::OpenGLContext</a>
 </li>
 <li>makeRenderTechnique()
 : <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#a66277d3ca6c92b29f0335e490b334cc4">Ra::Gui::Gizmo</a>
-</li>
-<li>map_keys()
-: <a class="el" href="structRa_1_1Core_1_1Utils_1_1map__keys.html#a8f9dbcd56287f1efcb1569fc2b4d600b">Ra::Core::Utils::map_keys&lt; Mapclass &gt;</a>
-</li>
-<li>map_values()
-: <a class="el" href="structRa_1_1Core_1_1Utils_1_1map__values.html#a0d3b1e223ad78245621badd6afc75556">Ra::Core::Utils::map_values&lt; Mapclass &gt;</a>
 </li>
 <li>mapCameraBehaviourToAabb()
 : <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a944499010e78ec6a7b442c31f969e01a">Ra::Gui::CameraManipulator</a>
@@ -118,7 +111,6 @@ $(document).ready(function(){initNavTree('functions_func_m.html',''); initResiza
 <li>mappingContext()
 : <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a7d3a18503f7453642c9b13cb4c809075">Ra::Gui::CameraManipulator</a>
 , <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c">Ra::Gui::FlightCameraManipulator</a>
-, <a class="el" href="classRa_1_1Gui_1_1RotateAroundCameraManipulator.html#a77086fb26318be33e9d0fb3dc80dc6ff">Ra::Gui::RotateAroundCameraManipulator</a>
 , <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0b0eaa22ace41441f143a871ef3b1148">Ra::Gui::TrackballCameraManipulator</a>
 </li>
 <li>Material()
@@ -127,23 +119,32 @@ $(document).ready(function(){initNavTree('functions_func_m.html',''); initResiza
 <li>MaterialData()
 : <a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html#a82ae1319e8f37ffbac735919accfc29e">Ra::Core::Asset::MaterialData</a>
 </li>
-<li>Max()
-: <a class="el" href="classRa_1_1Core_1_1Utils_1_1Index.html#a75eea88b85f9d938e96019af96bab793">Ra::Core::Utils::Index</a>
+<li>MaterialParameterEditor()
+: <a class="el" href="classRa_1_1Gui_1_1MaterialParameterEditor.html#ada0a7712a737e90d3124e14364e8b9b9">Ra::Gui::MaterialParameterEditor</a>
 </li>
-<li>max_size()
-: <a class="el" href="classRa_1_1Core_1_1AlignedAllocator.html#aa9fc2938efd67e60c9ab551bf507e9a9">Ra::Core::AlignedAllocator&lt; T, Alignment &gt;</a>
+<li>materialParametersModified()
+: <a class="el" href="classRa_1_1Gui_1_1MaterialParameterEditor.html#a63c5ac4568362b783de3ce9d522344cd">Ra::Gui::MaterialParameterEditor</a>
 </li>
-<li>memory_buffer()
-: <a class="el" href="structRa_1_1IO_1_1memory__buffer.html#a3f88a81ec996839408e2a5068d35a718">Ra::IO::memory_buffer</a>
+<li>matrix()
+: <a class="el" href="classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a1cb216c3af5c8ead6cd1f27af517e543">Ra::Gui::Widgets::MatrixEditor</a>
 </li>
-<li>memory_stream()
-: <a class="el" href="structRa_1_1IO_1_1memory__stream.html#a5a3090a4ec67befa31bd25b69c342dad">Ra::IO::memory_stream</a>
+<li>MatrixEditor()
+: <a class="el" href="classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#ab1b928e37610f4cedaf5491a217dc0a6">Ra::Gui::Widgets::MatrixEditor</a>
 </li>
 <li>mergeEqualWedges()
-: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">Ra::Core::Geometry::TopologicalMesh</a>
+: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa459f5689069654aabe66cd8d72d2ea6">Ra::Core::Geometry::TopologicalMesh</a>
+</li>
+<li>mergeKeepParameters()
+: <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae27dade3c2d0e82d306c45b2491f639a">Ra::Engine::Data::RenderParameters</a>
+</li>
+<li>mergeReplaceParameters()
+: <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f">Ra::Engine::Data::RenderParameters</a>
 </li>
 <li>modelRebuilt()
 : <a class="el" href="classRa_1_1Gui_1_1TreeModel.html#a1eb09233eaa80360d944f5c1d73aa65b">Ra::Gui::TreeModel</a>
+</li>
+<li>mouseListener()
+: <a class="el" href="group__window.html#ga726085415abf83f37a8ae47de59b9118">Ra::Headless::OpenGLContext</a>
 </li>
 <li>mouseMove()
 : <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#ae5548219f2292a8da641c857ae698d8f">Ra::Gui::Gizmo</a>
@@ -152,45 +153,23 @@ $(document).ready(function(){initNavTree('functions_func_m.html',''); initResiza
 , <a class="el" href="classRa_1_1Gui_1_1TranslateGizmo.html#ae73f0113f37395763fb0369bc407f355">Ra::Gui::TranslateGizmo</a>
 </li>
 <li>mouseMoveEvent()
-: <a class="el" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#acc54cc6d0924434a4af0dd6900d2f69c">Ra::Gui::TimelineFrameSelector</a>
-, <a class="el" href="classRa_1_1Gui_1_1TimelineScrollArea.html#a878c6f73f830b0ff054bc0ddf1ef9232">Ra::Gui::TimelineScrollArea</a>
-, <a class="el" href="classRa_1_1Gui_1_1TimelineSlider.html#ad6ba72411623a838c69463e8c7943823">Ra::Gui::TimelineSlider</a>
-, <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a78e290eb25f91ffbc7dbd0c58d8b9ca6">Ra::Gui::Viewer</a>
+: <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a78e290eb25f91ffbc7dbd0c58d8b9ca6">Ra::Gui::Viewer</a>
+</li>
+<li>mouseMoveListener()
+: <a class="el" href="group__window.html#gacbf8ee748042bf5f42680fb348fbb6d4">Ra::Headless::OpenGLContext</a>
 </li>
 <li>mousePressEvent()
-: <a class="el" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a48bf895092cd12113dfc239cd07c0e48">Ra::Gui::TimelineFrameSelector</a>
-, <a class="el" href="classRa_1_1Gui_1_1TimelineScrollArea.html#af1495298a9ee98175c7a721ae818c36c">Ra::Gui::TimelineScrollArea</a>
-, <a class="el" href="classRa_1_1Gui_1_1TimelineSlider.html#a76cee7e6d997d8f479e1654e4c3173c7">Ra::Gui::TimelineSlider</a>
-, <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a85bb9605cc40e330561ec2a070451768">Ra::Gui::Viewer</a>
+: <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a85bb9605cc40e330561ec2a070451768">Ra::Gui::Viewer</a>
 </li>
 <li>mouseReleaseEvent()
-: <a class="el" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a6e3b02871cd9b865b7964841c9dfc747">Ra::Gui::TimelineFrameSelector</a>
-, <a class="el" href="classRa_1_1Gui_1_1TimelineScrollArea.html#a5ef278fea12b02e0a3ad742fc03674bf">Ra::Gui::TimelineScrollArea</a>
-, <a class="el" href="classRa_1_1Gui_1_1TimelineSlider.html#a33e68c6a27a35e749eca0b859a52ec49">Ra::Gui::TimelineSlider</a>
-, <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a3f65773027030ac179e755dfc3454121">Ra::Gui::Viewer</a>
+: <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a3f65773027030ac179e755dfc3454121">Ra::Gui::Viewer</a>
 </li>
 <li>moveKeyFrame()
 : <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a83bcb95b86ea3b8e4b2690bf7ace7b83">Ra::Core::Animation::KeyFramedValue&lt; VALUE_TYPE &gt;</a>
 , <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a670898a9faa41d69a540efbb1db240ee">Ra::Core::Animation::KeyFramedValueBase</a>
 </li>
-<li>moveToFirstFrame()
-: <a class="el" href="classRa_1_1Core_1_1Animation_1_1Sequence.html#a2e728587b8c00622a30d79a131d20094">Ra::Core::Animation::Sequence</a>
-</li>
 <li>moveToFrame()
 : <a class="el" href="classRa_1_1Core_1_1Animation_1_1Sequence.html#ae22d2bdfecfebb31c5a93510976749b1">Ra::Core::Animation::Sequence</a>
-</li>
-<li>moveToLastFrame()
-: <a class="el" href="classRa_1_1Core_1_1Animation_1_1Sequence.html#a24e615291b9f268a0b73385983bf0f27">Ra::Core::Animation::Sequence</a>
-</li>
-<li>moveToNextFrame()
-: <a class="el" href="classRa_1_1Core_1_1Animation_1_1Sequence.html#a9da3691a480321257043ccf843a4e3ac">Ra::Core::Animation::Sequence</a>
-</li>
-<li>moveToPrevFrame()
-: <a class="el" href="classRa_1_1Core_1_1Animation_1_1Sequence.html#af2bd5a14f64ea4fadab62cdbb8ddd209">Ra::Core::Animation::Sequence</a>
-</li>
-<li>MultiIndexedGeometry()
-: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#aadac892dd204533789c77cc64ea7c672">Ra::Core::Geometry::MultiIndexedGeometry</a>
-, <a class="el" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a192f50c7d8a988c085aea821f07a65ec">Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -198,7 +177,7 @@ $(document).ready(function(){initNavTree('functions_func_m.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:52 for Radium Engine by
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['handleandvaluevector_6084',['HandleAndValueVector',['../namespaceRa_1_1Core_1_1Geometry_1_1deprecated.html#a6e8f731da351f3dcc569ba57a1ce0e31',1,'Ra::Core::Geometry::deprecated']]],
-  ['heat_6085',['Heat',['../namespaceRa_1_1Core_1_1Geometry.html#a3000748ad3b01fd44fefc011efd12df0',1,'Ra::Core::Geometry']]],
-  ['heatsource_6086',['HeatSource',['../namespaceRa_1_1Core_1_1Geometry.html#a118611aa730f6f9281e64a59518ba9d1',1,'Ra::Core::Geometry']]]
+  ['observer_2995',['Observer',['../classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870',1,'Ra::Core::Utils::Observable']]],
+  ['offsetvector_2996',['OffsetVector',['../classRa_1_1Core_1_1Grid.html#a8e692ae5c663d4ac79ad652b0c79caa2',1,'Ra::Core::Grid']]]
 ];

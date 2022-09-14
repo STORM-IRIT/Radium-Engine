@@ -4,7 +4,7 @@ var structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer =
     [ "IndexType", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#a273100785908d340e0604e7a1dd1b17e", null ],
     [ "GeometryIndexLayer", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#a0fe4c9d80799a18fa59f523db4598c3c", null ],
     [ "append", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#a01ce7f7a58ae0381c1d9d70d336173d1", null ],
-    [ "clone", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#a20daceeec24b250fd55efacdab63ba0f", null ],
+    [ "clone", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#ae76e322bc89e70fa1ab35a7a8ac04a49", null ],
     [ "collection", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#a5451e4049487bad0c894a728330980ce", null ],
     [ "collection", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#a316f272fb4df6a30ff06a22a7153efe1", null ],
     [ "dataPtr", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#a4c3027e62d71c6c6bfa75d128305c24c", null ],

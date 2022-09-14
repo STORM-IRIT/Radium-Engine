@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,17 +96,17 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="title">RenderObjectManager.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="RenderObjectManager_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RenderObjectManager_8hpp.html">Engine/Rendering/RenderObjectManager.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Engine/Rendering/RenderObjectManager.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RadiumEngine_8hpp.html">Engine/RadiumEngine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Engine/RadiumEngine.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Component_8hpp.html">Engine/Scene/Component.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Entity_8hpp.html">Engine/Scene/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/Component.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/Entity.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Mesh_8hpp.html">Engine/Data/Mesh.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RenderObject_8hpp.html">Engine/Rendering/RenderObject.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/Mesh.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Engine/Rendering/RenderObject.hpp&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="SignalManager_8hpp.html">Engine/Scene/SignalManager.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/SignalManager.hpp&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;numeric&gt;</span> <span class="comment">// for reduce</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
@@ -113,41 +114,41 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Engine {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>Rendering {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ab1e13128e72e864ede84809d59266e26">RenderObjectManager::RenderObjectManager</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;RenderObjectManager::RenderObjectManager() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a14d5b9aa35657e2e0d30ee18cc31bd8e">RenderObjectManager::~RenderObjectManager</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;RenderObjectManager::~RenderObjectManager() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ae3edd3941dd9eee4cb1988318e47a4ca">   23</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ae3edd3941dd9eee4cb1988318e47a4ca">RenderObjectManager::exists</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>&amp; index )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> ( index.<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1">isValid</a>() &amp;&amp; m_renderObjects.contains( index ) );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">bool</span> RenderObjectManager::exists( <span class="keyword">const</span> Core::Utils::Index&amp; index )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> ( index.isValid() &amp;&amp; m_renderObjects.contains( index ) );</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a297d731a09c779cfb3037d6c2299a6a4">   27</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a297d731a09c779cfb3037d6c2299a6a4">RenderObjectManager::addRenderObject</a>( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Rendering::RenderObject</a>* renderObject ) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;Core::Utils::Index RenderObjectManager::addRenderObject( Rendering::RenderObject* renderObject ) {</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">// Avoid data race in the std::maps</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::lock_guard&lt;std::mutex&gt; lock( m_doubleBufferMutex );</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    std::shared_ptr&lt;Rendering::RenderObject&gt; newRenderObject( renderObject );</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> index = m_renderObjects.insert( newRenderObject );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    Core::Utils::Index index = m_renderObjects.insert( newRenderObject );</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    newRenderObject-&gt;setIndex( index );</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">auto</span> type = renderObject-&gt;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a8aba5cb11ce2693de3c89dd0c80ed9c9">getType</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">auto</span> type = renderObject-&gt;getType();</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    m_renderObjectByType[(<a class="code" href="classint.html">int</a>)type].insert( index );</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    m_renderObjectByType[(int)type].insert( index );</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    Engine::RadiumEngine::getInstance()-&gt;getSignalManager()-&gt;fireRenderObjectAdded(</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Scene::ItemEntry</a>(</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            renderObject-&gt;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ae91b08d3e3bca047eed7300f07947ad6">getComponent</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#aaaac457b6b1c62d618f626c9c6771ad2">getEntity</a>(), renderObject-&gt;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ae91b08d3e3bca047eed7300f07947ad6">getComponent</a>(), index ) );</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        Scene::ItemEntry(</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            renderObject-&gt;getComponent()-&gt;getEntity(), renderObject-&gt;getComponent(), index ) );</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> index;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a596adc9933b3c9089e61ddde477aa7c6">   46</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a596adc9933b3c9089e61ddde477aa7c6">RenderObjectManager::removeRenderObject</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>&amp; index ) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ae3edd3941dd9eee4cb1988318e47a4ca">exists</a>( index ), <span class="stringliteral">&quot;Trying to access a render object which doesn&#39;t exist&quot;</span> );</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> RenderObjectManager::removeRenderObject( <span class="keyword">const</span> Core::Utils::Index&amp; index ) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    CORE_ASSERT( exists( index ), <span class="stringliteral">&quot;Trying to access a render object which doesn&#39;t exist&quot;</span> );</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// FIXME : Should we check if the render object is in the double buffer map ?</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::shared_ptr&lt;Rendering::RenderObject&gt; renderObject = m_renderObjects.at( index );</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    Engine::RadiumEngine::getInstance()-&gt;getSignalManager()-&gt;fireRenderObjectRemoved(</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Scene::ItemEntry</a>(</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        Scene::ItemEntry(</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            renderObject-&gt;getComponent()-&gt;getEntity(), renderObject-&gt;getComponent(), index ) );</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// Lock after signal has been fired (as this signal can cause another RO to be deleted)</span></div>
@@ -155,28 +156,28 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    m_renderObjects.remove( index );</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">auto</span> type = renderObject-&gt;getType();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    m_renderObjectByType[(<a class="code" href="classint.html">int</a>)type].erase( index );</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    m_renderObjectByType[(int)type].erase( index );</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    renderObject.reset();</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a804ecf9cbcb42c743c03ecab4c617e42">   65</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a804ecf9cbcb42c743c03ecab4c617e42">RenderObjectManager::getRenderObjectsCount</a>() {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">size_t</span> RenderObjectManager::getRenderObjectsCount() {</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> m_renderObjects.size();</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;std::shared_ptr&lt;Rendering::RenderObject&gt;</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#abe7be820a363366c0a5f2f5f45212f59">   70</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#abe7be820a363366c0a5f2f5f45212f59">RenderObjectManager::getRenderObject</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>&amp; index ) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ae3edd3941dd9eee4cb1988318e47a4ca">exists</a>( index ), <span class="stringliteral">&quot;Trying to access a render object which doesn&#39;t exist&quot;</span> );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;RenderObjectManager::getRenderObject( <span class="keyword">const</span> Core::Utils::Index&amp; index ) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    CORE_ASSERT( exists( index ), <span class="stringliteral">&quot;Trying to access a render object which doesn&#39;t exist&quot;</span> );</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> m_renderObjects.at( index );</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">Core::Utils::IndexMap&lt;std::shared_ptr&lt;Rendering::RenderObject&gt;</a>&gt;&amp;</div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a7b23c76921ea4bdd0f3ffb2220ac25c9">   76</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a7b23c76921ea4bdd0f3ffb2220ac25c9">RenderObjectManager::getRenderObjects</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">const</span> Core::Utils::IndexMap&lt;std::shared_ptr&lt;Rendering::RenderObject&gt;&gt;&amp;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;RenderObjectManager::getRenderObjects()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">return</span> m_renderObjects;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a9280b3e44e311a6c3724e02f5d02a944">   80</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a9280b3e44e311a6c3724e02f5d02a944">RenderObjectManager::getRenderObjectsByType</a>(</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">void</span> RenderObjectManager::getRenderObjectsByType(</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::vector&lt;std::shared_ptr&lt;Rendering::RenderObject&gt;&gt;&amp; objectsOut,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">Rendering::RenderObjectType</a>&amp; type )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">const</span> Rendering::RenderObjectType&amp; type )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="comment">// Take the mutex</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    std::lock_guard&lt;std::mutex&gt; lock( m_doubleBufferMutex );</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
@@ -184,10 +185,10 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        m_renderObjectByType[(<span class="keywordtype">int</span>)type].begin(),</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        m_renderObjectByType[(<span class="keywordtype">int</span>)type].end(),</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        std::back_inserter( objectsOut ),</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        [<span class="keyword">this</span>]( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>&amp; i ) { <span class="keywordflow">return</span> this-&gt;m_renderObjects.at( i ); } );</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        [<span class="keyword">this</span>]( <span class="keyword">const</span> Core::Utils::Index&amp; i ) { <span class="keywordflow">return</span> this-&gt;m_renderObjects.at( i ); } );</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a603905685ac81eb06d2e02758cc79275">   94</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a603905685ac81eb06d2e02758cc79275">RenderObjectManager::renderObjectExpired</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a>&amp; idx ) {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keywordtype">void</span> RenderObjectManager::renderObjectExpired( <span class="keyword">const</span> Core::Utils::Index&amp; idx ) {</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    std::lock_guard&lt;std::mutex&gt; lock( m_doubleBufferMutex );</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">auto</span> ro = m_renderObjects.at( idx );</div>
@@ -202,7 +203,7 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    ro.reset();</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a0be9005bf804abf128169bb07bb32860">  109</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a0be9005bf804abf128169bb07bb32860">RenderObjectManager::getNumFaces</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keywordtype">size_t</span> RenderObjectManager::getNumFaces()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// todo : use reduce instead of accumulate to improve performances (since C++17)</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">size_t</span> result = std::accumulate(</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        m_renderObjects.begin(),</div>
@@ -219,7 +220,7 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> result;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a40a368e04ff077edd7f56fb90a095a5f">  126</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a40a368e04ff077edd7f56fb90a095a5f">RenderObjectManager::getNumVertices</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keywordtype">size_t</span> RenderObjectManager::getNumVertices()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="comment">// todo : use reduce instead of accumulate to improve performances (since C++17)</span></div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">size_t</span> result = std::accumulate(</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        m_renderObjects.begin(),</div>
@@ -241,42 +242,12 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_ae3edd3941dd9eee4cb1988318e47a4ca"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ae3edd3941dd9eee4cb1988318e47a4ca">Ra::Engine::Rendering::RenderObjectManager::exists</a></div><div class="ttdeci">bool exists(const Core::Utils::Index &amp;index) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00023">RenderObjectManager.cpp:23</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_a9280b3e44e311a6c3724e02f5d02a944"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a9280b3e44e311a6c3724e02f5d02a944">Ra::Engine::Rendering::RenderObjectManager::getRenderObjectsByType</a></div><div class="ttdeci">void getRenderObjectsByType(std::vector&lt; std::shared_ptr&lt; Rendering::RenderObject &gt;&gt; &amp;objectsOut, const Rendering::RenderObjectType &amp;type) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00080">RenderObjectManager.cpp:80</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_abe7be820a363366c0a5f2f5f45212f59"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#abe7be820a363366c0a5f2f5f45212f59">Ra::Engine::Rendering::RenderObjectManager::getRenderObject</a></div><div class="ttdeci">std::shared_ptr&lt; Rendering::RenderObject &gt; getRenderObject(const Core::Utils::Index &amp;index)</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00070">RenderObjectManager.cpp:70</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html_ac1a3e02d77abd15c2a307673f5b67fa1"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1">Ra::Core::Utils::Index::isValid</a></div><div class="ttdeci">constexpr bool isValid() const</div><div class="ttdoc">VALID.</div><div class="ttdef"><b>Definition:</b> <a href="Index_8inl_source.html#l00018">Index.inl:18</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_a40a368e04ff077edd7f56fb90a095a5f"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a40a368e04ff077edd7f56fb90a095a5f">Ra::Engine::Rendering::RenderObjectManager::getNumVertices</a></div><div class="ttdeci">size_t getNumVertices() const</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00126">RenderObjectManager.cpp:126</a></div></div>
-<div class="ttc" id="aSignalManager_8hpp_html"><div class="ttname"><a href="SignalManager_8hpp.html">SignalManager.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObject_html_a8aba5cb11ce2693de3c89dd0c80ed9c9"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a8aba5cb11ce2693de3c89dd0c80ed9c9">Ra::Engine::Rendering::RenderObject::getType</a></div><div class="ttdeci">const RenderObjectType &amp; getType() const</div><div class="ttdef"><b>Definition:</b> <a href="RenderObject_8cpp_source.html#l00066">RenderObject.cpp:66</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_a297d731a09c779cfb3037d6c2299a6a4"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a297d731a09c779cfb3037d6c2299a6a4">Ra::Engine::Rendering::RenderObjectManager::addRenderObject</a></div><div class="ttdeci">Core::Utils::Index addRenderObject(Rendering::RenderObject *renderObject)</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00027">RenderObjectManager.cpp:27</a></div></div>
-<div class="ttc" id="aEntity_8hpp_html"><div class="ttname"><a href="Entity_8hpp.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObject_html_ae91b08d3e3bca047eed7300f07947ad6"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ae91b08d3e3bca047eed7300f07947ad6">Ra::Engine::Rendering::RenderObject::getComponent</a></div><div class="ttdeci">const Scene::Component * getComponent() const</div><div class="ttdef"><b>Definition:</b> <a href="RenderObject_8cpp_source.html#l00130">RenderObject.cpp:130</a></div></div>
-<div class="ttc" id="aRadiumEngine_8hpp_html"><div class="ttname"><a href="RadiumEngine_8hpp.html">RadiumEngine.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_a596adc9933b3c9089e61ddde477aa7c6"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a596adc9933b3c9089e61ddde477aa7c6">Ra::Engine::Rendering::RenderObjectManager::removeRenderObject</a></div><div class="ttdeci">void removeRenderObject(const Core::Utils::Index &amp;index)</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00046">RenderObjectManager.cpp:46</a></div></div>
-<div class="ttc" id="aComponent_8hpp_html"><div class="ttname"><a href="Component_8hpp.html">Component.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_a0be9005bf804abf128169bb07bb32860"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a0be9005bf804abf128169bb07bb32860">Ra::Engine::Rendering::RenderObjectManager::getNumFaces</a></div><div class="ttdeci">size_t getNumFaces() const</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00109">RenderObjectManager.cpp:109</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_aaaac457b6b1c62d618f626c9c6771ad2"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#aaaac457b6b1c62d618f626c9c6771ad2">Ra::Engine::Scene::Component::getEntity</a></div><div class="ttdeci">virtual Entity * getEntity() const</div><div class="ttdoc">Return the entity the component belongs to.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8inl_source.html#l00012">Component.inl:12</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00349">CoreMacros.hpp:349</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_a7b23c76921ea4bdd0f3ffb2220ac25c9"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a7b23c76921ea4bdd0f3ffb2220ac25c9">Ra::Engine::Rendering::RenderObjectManager::getRenderObjects</a></div><div class="ttdeci">const Core::Utils::IndexMap&lt; std::shared_ptr&lt; Rendering::RenderObject &gt; &gt; &amp; getRenderObjects() const</div><div class="ttdoc">Get all render objects.</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00076">RenderObjectManager.cpp:76</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">Ra::Engine::Rendering::RenderObjectType</a></div><div class="ttdeci">RenderObjectType</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectTypes_8hpp_source.html#l00009">RenderObjectTypes.hpp:9</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
-<div class="ttc" id="aRenderObject_8hpp_html"><div class="ttname"><a href="RenderObject_8hpp.html">RenderObject.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_ab1e13128e72e864ede84809d59266e26"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#ab1e13128e72e864ede84809d59266e26">Ra::Engine::Rendering::RenderObjectManager::RenderObjectManager</a></div><div class="ttdeci">RenderObjectManager()</div></div>
-<div class="ttc" id="aRenderObjectManager_8hpp_html"><div class="ttname"><a href="RenderObjectManager_8hpp.html">RenderObjectManager.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_a603905685ac81eb06d2e02758cc79275"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a603905685ac81eb06d2e02758cc79275">Ra::Engine::Rendering::RenderObjectManager::renderObjectExpired</a></div><div class="ttdeci">void renderObjectExpired(const Ra::Core::Utils::Index &amp;idx)</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00094">RenderObjectManager.cpp:94</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_a804ecf9cbcb42c743c03ecab4c617e42"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a804ecf9cbcb42c743c03ecab4c617e42">Ra::Engine::Rendering::RenderObjectManager::getRenderObjectsCount</a></div><div class="ttdeci">size_t getRenderObjectsCount()</div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8cpp_source.html#l00065">RenderObjectManager.cpp:65</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexMap_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexMap.html">Ra::Core::Utils::IndexMap</a></div><div class="ttdef"><b>Definition:</b> <a href="IndexMap_8hpp_source.html#l00023">IndexMap.hpp:23</a></div></div>
-<div class="ttc" id="aMesh_8hpp_html"><div class="ttname"><a href="Mesh_8hpp.html">Mesh.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html_a14d5b9aa35657e2e0d30ee18cc31bd8e"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html#a14d5b9aa35657e2e0d30ee18cc31bd8e">Ra::Engine::Rendering::RenderObjectManager::~RenderObjectManager</a></div><div class="ttdeci">~RenderObjectManager()</div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObject_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderObject_8hpp_source.html#l00036">RenderObject.hpp:36</a></div></div>
-<div class="ttc" id="aclassint_html"><div class="ttname"><a href="classint.html">int</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00025">ItemEntry.hpp:25</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="RenderObjectManager_8cpp.html">RenderObjectManager.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><b>RenderObjectManager.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

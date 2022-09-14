@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -96,34 +97,39 @@ $(document).ready(function(){initNavTree('basicsRadiumSubmodule.html',''); initR
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><li class="level2"><a href="#autotoc_md21">Quick instructions</a></li>
-<li class="level2"><a href="#autotoc_md22">Detailed instructions</a></li>
+<ul><ul><li class="level2"><a href="#autotoc_md19">Quick instructions</a></li>
+<li class="level2"><a href="#autotoc_md20">Detailed instructions</a></li>
 </ul>
 </ul>
 </div>
-<div class="textblock"><h2><a class="anchor" id="autotoc_md21"></a>
+<div class="textblock"><h2><a class="anchor" id="autotoc_md19"></a>
 Quick instructions</h2>
-<p>Radium is now shiped with a cmake package. To get it:</p><ul>
+<p>Radium is now shiped with a cmake package. To get it:</p>
+<ul>
 <li>Get latest release,</li>
 <li>Build from source, and install to the directory of your choice.</li>
 </ul>
 <p>Then, to use Radium in your own project, you need to set, at configure time <code>CMAKE_PREFIX_PATH=/path/to/install/or/release/dir/lib/cmake/Radium</code> or to define <code>Radium_DIR=/path/to/install/or/release/dir/lib/cmake/Radium</code>.</p>
-<p>Your <code>CMakeLists.txt</code> might then do the following: </p><div class="fragment"><div class="line">find_package(Radium REQUIRED)</div>
+<p>Your <code>CMakeLists.txt</code> might then do the following:</p>
+<div class="fragment"><div class="line">find_package(Radium REQUIRED)</div>
 <div class="line">target_link_libraries(${target} Radium::Core Radium::Engine Radium::IO Radium::Gui)</div>
 </div><!-- fragment --><p>Include directories and link instructions are populated automatically by cmake.</p>
-<p>In your source code: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="DualQuaternion_8hpp.html">Core/Math/DualQuaternion.hpp</a>&gt;</span></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
+<p>To configure your target install using Radium facilities:</p>
+<div class="fragment"><div class="line">configure_radium_app(NAME ${target})</div>
+</div><!-- fragment --><p>See <a class="el" href="cmakeutilities.html#configure_radium_app">configure_radium_app</a> for more details</p>
+<p>In your source code:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Math/DualQuaternion.hpp&gt;</span></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
 Detailed instructions</h2>
-<p>See <a class="el" href="cmakeutilities.html">CMake setup</a>. </p>
+<p>See <a class="el" href="cmakeutilities.html">CMake setup</a> for detailed doc and Radium's cmake utilies function insights. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
-<div class="ttc" id="aDualQuaternion_8hpp_html"><div class="ttname"><a href="DualQuaternion_8hpp.html">DualQuaternion.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,23 +96,23 @@ $(document).ready(function(){initNavTree('ShaderConfigFactory_8hpp_source.html',
 <div class="title">ShaderConfigFactory.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="ShaderConfigFactory_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="StdOptional_8hpp.html">Core/Utils/StdOptional.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/StdOptional.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ShaderConfiguration_8hpp.html">Engine/Data/ShaderConfiguration.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/ShaderConfiguration.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Engine {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Data {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>ShaderConfigurationFactory {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">addConfiguration</a>( <span class="keyword">const</span> Data::ShaderConfiguration&amp; config );</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;RA_ENGINE_API <span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">addConfiguration</a>( <span class="keyword">const</span> Data::ShaderConfiguration&amp; config );</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a4131d754283ed259edf3def7a8891064">removeConfiguration</a>( <span class="keyword">const</span> std::string&amp; configName );</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;RA_ENGINE_API <span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a4131d754283ed259edf3def7a8891064">removeConfiguration</a>( <span class="keyword">const</span> std::string&amp; configName );</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> Core::Utils::optional&lt;Data::ShaderConfiguration&gt;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;RA_ENGINE_API Core::Utils::optional&lt;Data::ShaderConfiguration&gt;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">getConfiguration</a>( <span class="keyword">const</span> std::string&amp; name );</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace ShaderConfigurationFactory</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
@@ -120,18 +121,15 @@ $(document).ready(function(){initNavTree('ShaderConfigFactory_8hpp_source.html',
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aShaderConfiguration_8hpp_html"><div class="ttname"><a href="ShaderConfiguration_8hpp.html">ShaderConfiguration.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a0ecc004c00bff945aae8b673a738909f"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration</a></div><div class="ttdeci">Core::Utils::optional&lt; ShaderConfiguration &gt; getConfiguration(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00041">ShaderConfigFactory.cpp:41</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a00918835250fbd8bbe4deae59ecd6dde"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration</a></div><div class="ttdeci">void addConfiguration(const ShaderConfiguration &amp;config)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00016">ShaderConfigFactory.cpp:16</a></div></div>
-<div class="ttc" id="aStdOptional_8hpp_html"><div class="ttname"><a href="StdOptional_8hpp.html">StdOptional.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a4131d754283ed259edf3def7a8891064"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a4131d754283ed259edf3def7a8891064">Ra::Engine::Data::ShaderConfigurationFactory::removeConfiguration</a></div><div class="ttdeci">bool removeConfiguration(const std::string &amp;configName)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00032">ShaderConfigFactory.cpp:32</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="ShaderConfigFactory_8hpp.html">ShaderConfigFactory.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>ShaderConfigFactory.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

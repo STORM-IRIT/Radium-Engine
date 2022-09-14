@@ -15,7 +15,7 @@ var classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry =
     [ "MultiIndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a046e9980c561843108a86476091e1441", null ],
     [ "MultiIndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#aadac892dd204533789c77cc64ea7c672", null ],
     [ "~MultiIndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a169f0b85fc70bf00b83c1106c5a0b2b4", null ],
-    [ "addLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a6627f8a46eb47b396d44832cf7de6a5f", null ],
+    [ "addLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a67ce021397ce1345d046c57789cdba7a", null ],
     [ "append", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a930f12cebed2bac350ffa192b98a8ca5", null ],
     [ "checkConsistency", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a252d9466c6cb8dba0c76f322cbe99f8b", null ],
     [ "clear", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a7d3a56c1b5ba3a13fc074beeb8a3734f", null ],
@@ -33,7 +33,7 @@ var classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry =
     [ "getFirstLayerOccurrenceWithLock", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#ad4c3b698750e62d2a6fc6d458bc9ce6a", null ],
     [ "getFirstLayerOccurrenceWithLock", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#af33d4c9d04ff2ba51a4ff9f7e01c04e5", null ],
     [ "getLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a09ce4cede90c87b596f0a942d175697e", null ],
-    [ "getLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a0b69fefc487f1ac97dda17886a5ac41f", null ],
+    [ "getLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#afcf3b3357c163db0d5d55c08d9c73309", null ],
     [ "getLayerWithLock", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a659ac8bc63a750800f0f2ca7f4532b58", null ],
     [ "getLayerWithLock", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a40713a027fd9c7ea94842602000e7b2d", null ],
     [ "layerKeys", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a0bb17aa1b83f2789a35d5d38e53eb170", null ],
@@ -42,5 +42,6 @@ var classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry =
     [ "unlockFirstLayerOccurrence", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#ab6a532926b5c184e823d32e26b278499", null ],
     [ "unlockFirstLayerOccurrence", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a301d981b1fe7bf3a79b4e1c7ed292918", null ],
     [ "unlockLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#ad280c9b4813f04f92ff99c868b096f19", null ],
-    [ "unlockLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a83a22702a2700a786edecf026cca741a", null ]
+    [ "unlockLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a83a22702a2700a786edecf026cca741a", null ],
+    [ "unlockLayer2", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a919ff1666c3d1cda717dee1af77ba86a", null ]
 ];

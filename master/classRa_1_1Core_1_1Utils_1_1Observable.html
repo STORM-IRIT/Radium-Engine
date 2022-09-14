@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -120,36 +121,41 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1Utils_1_1Observable
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a5b2d48be6db6b982ac70610c526d3870"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observer</a> = std::function&lt; void(Args...)&gt;</td></tr>
-<tr class="memdesc:a5b2d48be6db6b982ac70610c526d3870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observer functor type.  <a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">More...</a><br /></td></tr>
+<tr class="memitem:a5b2d48be6db6b982ac70610c526d3870"><td class="memItemLeft" align="right" valign="top"><a id="a5b2d48be6db6b982ac70610c526d3870"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observer</a> = std::function&lt; void(Args...)&gt;</td></tr>
+<tr class="memdesc:a5b2d48be6db6b982ac70610c526d3870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observer functor type. <br /></td></tr>
 <tr class="separator:a5b2d48be6db6b982ac70610c526d3870"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4b2542963e7be1fd2f306420cbe36b11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4b2542963e7be1fd2f306420cbe36b11">Observable</a> ()=default</td></tr>
-<tr class="memdesc:a4b2542963e7be1fd2f306420cbe36b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor ... do nothing ;)  <a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4b2542963e7be1fd2f306420cbe36b11">More...</a><br /></td></tr>
+<tr class="memitem:a4b2542963e7be1fd2f306420cbe36b11"><td class="memItemLeft" align="right" valign="top"><a id="a4b2542963e7be1fd2f306420cbe36b11"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4b2542963e7be1fd2f306420cbe36b11">Observable</a> ()=default</td></tr>
+<tr class="memdesc:a4b2542963e7be1fd2f306420cbe36b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor ... do nothing ;) <br /></td></tr>
 <tr class="separator:a4b2542963e7be1fd2f306420cbe36b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f61ff3877d75c3b82e134d1a532b417"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4f61ff3877d75c3b82e134d1a532b417">Observable</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> &amp;)=delete</td></tr>
+<tr class="memitem:a4f61ff3877d75c3b82e134d1a532b417"><td class="memItemLeft" align="right" valign="top"><a id="a4f61ff3877d75c3b82e134d1a532b417"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Observable</b> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> &amp;)=delete</td></tr>
 <tr class="separator:a4f61ff3877d75c3b82e134d1a532b417"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa755a5614695dfcc4f656178567b9086"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#aa755a5614695dfcc4f656178567b9086">operator=</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> &amp;)=delete</td></tr>
+<tr class="memitem:aa755a5614695dfcc4f656178567b9086"><td class="memItemLeft" align="right" valign="top"><a id="aa755a5614695dfcc4f656178567b9086"></a>
+<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> &amp;)=delete</td></tr>
 <tr class="separator:aa755a5614695dfcc4f656178567b9086"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a817ec0cc8b11da60ced6fc2c5800ad3f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a817ec0cc8b11da60ced6fc2c5800ad3f">~Observable</a> ()=default</td></tr>
-<tr class="separator:a817ec0cc8b11da60ced6fc2c5800ad3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad350a9161840df5089517360cc3a3b17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">copyObserversTo</a> (<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> &amp;other) const</td></tr>
-<tr class="memdesc:ad350a9161840df5089517360cc3a3b17"><td class="mdescLeft">&#160;</td><td class="mdescRight">explicit copy of all attached observers the <code>other</code> <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>  <a href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">More...</a><br /></td></tr>
+<tr class="memitem:ad350a9161840df5089517360cc3a3b17"><td class="memItemLeft" align="right" valign="top"><a id="ad350a9161840df5089517360cc3a3b17"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#ad350a9161840df5089517360cc3a3b17">copyObserversTo</a> (<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> &amp;other) const</td></tr>
+<tr class="memdesc:ad350a9161840df5089517360cc3a3b17"><td class="mdescLeft">&#160;</td><td class="mdescRight">explicit copy of all attached observers the <code>other</code> <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> <br /></td></tr>
 <tr class="separator:ad350a9161840df5089517360cc3a3b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4851931d5bedb5e17121a0ff806a9f6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classint.html">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a> (<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observer</a> observer)</td></tr>
+<tr class="memitem:a4851931d5bedb5e17121a0ff806a9f6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a> (<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observer</a> observer)</td></tr>
 <tr class="separator:a4851931d5bedb5e17121a0ff806a9f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93c242f277f524f8f60d2a0e910efc2b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a93c242f277f524f8f60d2a0e910efc2b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classint.html">int</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">attachMember</a> (T *object, void(T::*observer)(Args...))</td></tr>
+<tr class="memitem:a93c242f277f524f8f60d2a0e910efc2b"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a93c242f277f524f8f60d2a0e910efc2b">attachMember</a> (T *object, void(T::*observer)(Args...))</td></tr>
 <tr class="separator:a93c242f277f524f8f60d2a0e910efc2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e5fe761726d56a51f95192eb6555f8f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">notify</a> (Args... p) const</td></tr>
-<tr class="memdesc:a7e5fe761726d56a51f95192eb6555f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify (i.e. call) each attached observer with argument <code>p</code>.  <a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">More...</a><br /></td></tr>
+<tr class="memitem:a7e5fe761726d56a51f95192eb6555f8f"><td class="memItemLeft" align="right" valign="top"><a id="a7e5fe761726d56a51f95192eb6555f8f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f">notify</a> (Args... p) const</td></tr>
+<tr class="memdesc:a7e5fe761726d56a51f95192eb6555f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify (i.e. call) each attached observer with argument <code>p</code>. <br /></td></tr>
 <tr class="separator:a7e5fe761726d56a51f95192eb6555f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e8b57fbe22d3aaafb71938a3db2a207"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">detachAll</a> ()</td></tr>
-<tr class="memdesc:a4e8b57fbe22d3aaafb71938a3db2a207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach all observers.  <a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">More...</a><br /></td></tr>
+<tr class="memitem:a4e8b57fbe22d3aaafb71938a3db2a207"><td class="memItemLeft" align="right" valign="top"><a id="a4e8b57fbe22d3aaafb71938a3db2a207"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4e8b57fbe22d3aaafb71938a3db2a207">detachAll</a> ()</td></tr>
+<tr class="memdesc:a4e8b57fbe22d3aaafb71938a3db2a207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach all observers. <br /></td></tr>
 <tr class="separator:a4e8b57fbe22d3aaafb71938a3db2a207"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88d70b5bc3b4a783bbcc02eddcc56507"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">detach</a> (<a class="el" href="classint.html">int</a> observerId)</td></tr>
+<tr class="memitem:a88d70b5bc3b4a783bbcc02eddcc56507"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a88d70b5bc3b4a783bbcc02eddcc56507">detach</a> (int observerId)</td></tr>
 <tr class="separator:a88d70b5bc3b4a783bbcc02eddcc56507"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -170,113 +176,7 @@ class Ra::Core::Utils::Observable&lt; Args &gt;</h3>
 <div class="line">c.slot1.attach(functor)</div>
 </div><!-- fragment --> 
 <p class="definition">Definition at line <a class="el" href="Observable_8hpp_source.html#l00033">33</a> of file <a class="el" href="Observable_8hpp_source.html">Observable.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a5b2d48be6db6b982ac70610c526d3870"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b2d48be6db6b982ac70610c526d3870">&#9670;&nbsp;</a></span>Observer</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observer</a> =  std::function&lt;void( Args... )&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Observer functor type. </p>
-
-<p class="definition">Definition at line <a class="el" href="Observable_8hpp_source.html#l00037">37</a> of file <a class="el" href="Observable_8hpp_source.html">Observable.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4b2542963e7be1fd2f306420cbe36b11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b2542963e7be1fd2f306420cbe36b11">&#9670;&nbsp;</a></span>Observable() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Default constructor ... do nothing ;) </p>
-
-</div>
-</div>
-<a id="a4f61ff3877d75c3b82e134d1a532b417"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f61ff3877d75c3b82e134d1a532b417">&#9670;&nbsp;</a></span>Observable() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&lt; Args &gt; &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a817ec0cc8b11da60ced6fc2c5800ad3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a817ec0cc8b11da60ced6fc2c5800ad3f">&#9670;&nbsp;</a></span>~Observable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::~<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4851931d5bedb5e17121a0ff806a9f6d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4851931d5bedb5e17121a0ff806a9f6d">&#9670;&nbsp;</a></span>attach()</h2>
 
@@ -289,7 +189,7 @@ template&lt;typename... Args&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classint.html">int</a> <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::attach </td>
+          <td class="memname">int <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::attach </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observer</a>&#160;</td>
           <td class="paramname"><em>observer</em></td><td>)</td>
@@ -322,7 +222,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classint.html">int</a> <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::attachMember </td>
+          <td class="memname">int <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::attachMember </td>
           <td>(</td>
           <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>object</em>, </td>
@@ -351,38 +251,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ad350a9161840df5089517360cc3a3b17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad350a9161840df5089517360cc3a3b17">&#9670;&nbsp;</a></span>copyObserversTo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::copyObserversTo </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&lt; Args &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>explicit copy of all attached observers the <code>other</code> <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a> </p>
-
-<p class="definition">Definition at line <a class="el" href="Observable_8hpp_source.html#l00046">46</a> of file <a class="el" href="Observable_8hpp_source.html">Observable.hpp</a>.</p>
-
-</div>
-</div>
 <a id="a88d70b5bc3b4a783bbcc02eddcc56507"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a88d70b5bc3b4a783bbcc02eddcc56507">&#9670;&nbsp;</a></span>detach()</h2>
 
@@ -397,7 +265,7 @@ template&lt;typename... Args&gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::detach </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classint.html">int</a>&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>observerId</em></td><td>)</td>
           <td></td>
         </tr>
@@ -414,97 +282,6 @@ template&lt;typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="a4e8b57fbe22d3aaafb71938a3db2a207"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e8b57fbe22d3aaafb71938a3db2a207">&#9670;&nbsp;</a></span>detachAll()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::detachAll </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Detach all observers. </p>
-
-<p class="definition">Definition at line <a class="el" href="Observable_8hpp_source.html#l00073">73</a> of file <a class="el" href="Observable_8hpp_source.html">Observable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7e5fe761726d56a51f95192eb6555f8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e5fe761726d56a51f95192eb6555f8f">&#9670;&nbsp;</a></span>notify()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::notify </td>
-          <td>(</td>
-          <td class="paramtype">Args...&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Notify (i.e. call) each attached observer with argument <code>p</code>. </p>
-
-<p class="definition">Definition at line <a class="el" href="Observable_8hpp_source.html#l00067">67</a> of file <a class="el" href="Observable_8hpp_source.html">Observable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa755a5614695dfcc4f656178567b9086"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa755a5614695dfcc4f656178567b9086">&#9670;&nbsp;</a></span>operator=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&amp; <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a>&lt; Args &gt;::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a>&lt; Args &gt; &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Utils/<a class="el" href="Observable_8hpp_source.html">Observable.hpp</a></li>
 </ul>
@@ -514,8 +291,8 @@ template&lt;typename... Args&gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Utils.html">Utils</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:51 for Radium Engine by
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Utils</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Observable</a></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

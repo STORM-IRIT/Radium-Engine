@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae73e4271a8d07ae0eab25782831814ee" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae73e4271a8d07ae0eab25782831814ee" target="_top" xlink:title="Get the list of properties the provider might use in a shader. Each property will be added to the sha...">
 <polygon fill="white" stroke="black" points="180,-0.5 180,-30.5 368,-30.5 368,-0.5 180,-0.5"/>
 <text text-anchor="start" x="188" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
 <text text-anchor="middle" x="274" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterProvider::getPropertyList</text>

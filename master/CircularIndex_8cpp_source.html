@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,35 +96,30 @@ $(document).ready(function(){initNavTree('CircularIndex_8cpp_source.html',''); i
 <div class="title">CircularIndex.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="CircularIndex_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="CircularIndex_8hpp.html">Core/Utils/CircularIndex.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/CircularIndex.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Utils {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#af7c98b36fb691c2c6f1c9dc6efb2efeb">    8</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#af7c98b36fb691c2c6f1c9dc6efb2efeb">CircularIndex::CircularIndex</a>( <span class="keyword">const</span> <span class="keywordtype">size_t</span> size, <span class="keyword">const</span> <span class="keywordtype">size_t</span> i ) : N( size ) {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a2499a4fd3344499031a9830f9baeec21">setValue</a>( i );</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;CircularIndex::CircularIndex( <span class="keyword">const</span> <span class="keywordtype">size_t</span> size, <span class="keyword">const</span> <span class="keywordtype">size_t</span> i ) : N( size ) {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    setValue( i );</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#ab768f6aab24dbcda7530a9ce84a58bd5">   11</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#af7c98b36fb691c2c6f1c9dc6efb2efeb">CircularIndex::CircularIndex</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html">CircularIndex</a>&amp; index ) : idx( index.idx ), N( index.N ) {}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;CircularIndex::CircularIndex( <span class="keyword">const</span> CircularIndex&amp; index ) : idx( index.idx ), N( index.N ) {}</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a2e7b509fe45a697764644b052445f9a6">   14</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a2e7b509fe45a697764644b052445f9a6">CircularIndex::~CircularIndex</a>() {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;CircularIndex::~CircularIndex() {}</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace Utils</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace Core</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aCircularIndex_8hpp_html"><div class="ttname"><a href="CircularIndex_8hpp.html">CircularIndex.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1CircularIndex_html_a2499a4fd3344499031a9830f9baeec21"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a2499a4fd3344499031a9830f9baeec21">Ra::Core::Utils::CircularIndex::setValue</a></div><div class="ttdeci">void setValue(const size_t i)</div><div class="ttdef"><b>Definition:</b> <a href="CircularIndex_8inl_source.html#l00022">CircularIndex.inl:22</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1CircularIndex_html_a2e7b509fe45a697764644b052445f9a6"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a2e7b509fe45a697764644b052445f9a6">Ra::Core::Utils::CircularIndex::~CircularIndex</a></div><div class="ttdeci">~CircularIndex()</div><div class="ttdoc">DESTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="CircularIndex_8cpp_source.html#l00014">CircularIndex.cpp:14</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1CircularIndex_html_af7c98b36fb691c2c6f1c9dc6efb2efeb"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#af7c98b36fb691c2c6f1c9dc6efb2efeb">Ra::Core::Utils::CircularIndex::CircularIndex</a></div><div class="ttdeci">CircularIndex(const size_t size=1, const size_t i=0)</div><div class="ttdoc">CONSTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="CircularIndex_8cpp_source.html#l00008">CircularIndex.cpp:8</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1CircularIndex_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html">Ra::Core::Utils::CircularIndex</a></div><div class="ttdef"><b>Definition:</b> <a href="CircularIndex_8hpp_source.html#l00009">CircularIndex.hpp:9</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><a class="el" href="CircularIndex_8cpp.html">CircularIndex.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_ff87cf903db18af0fdb6c342683ece25.html">Utils</a></li><li class="navelem"><b>CircularIndex.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

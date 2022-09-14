@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,12 +96,12 @@ $(document).ready(function(){initNavTree('RawShaderMaterial_8hpp_source.html',''
 <div class="title">RawShaderMaterial.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="RawShaderMaterial_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Engine/RaEngine.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="MaterialData_8hpp.html">Core/Asset/MaterialData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Material_8hpp.html">Engine/Data/Material.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/MaterialData.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/Material.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Engine {</div>
@@ -113,7 +114,7 @@ $(document).ready(function(){initNavTree('RawShaderMaterial_8hpp_source.html',''
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>Asset {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html">RawShaderMaterialData</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html">   22</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html">RawShaderMaterialData</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html#aaff1d2edb3e5dd1b558777deb031faa5">   25</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html">Ra::Engine::Data::RawShaderMaterialConverter</a>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
@@ -139,7 +140,7 @@ $(document).ready(function(){initNavTree('RawShaderMaterial_8hpp_source.html',''
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">namespace </span>Engine {</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">namespace </span>Data {</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html">   61</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html">RawShaderMaterialConverter</a> final</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html">   61</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html">RawShaderMaterialConverter</a> final</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;{</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html">RawShaderMaterialConverter</a>()  = <span class="keywordflow">default</span>;</div>
@@ -147,7 +148,7 @@ $(document).ready(function(){initNavTree('RawShaderMaterial_8hpp_source.html',''
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>* operator()( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">Ra::Core::Asset::MaterialData</a>* toconvert );</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html">   73</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html">RawShaderMaterial</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html">   73</a></span>&#160;<span class="keyword">class </span>RA_ENGINE_API <a class="code" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html">RawShaderMaterial</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html">RawShaderMaterial</a>(</div>
@@ -163,7 +164,7 @@ $(document).ready(function(){initNavTree('RawShaderMaterial_8hpp_source.html',''
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a>&amp; getParameters() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#a67b629b682664ad298fb629180d6a359">registerDefaultTechnique</a>();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> registerDefaultTechnique();</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">void</span> updateShaders( <span class="keyword">const</span> std::vector&lt;std::pair&lt;Data::ShaderType, std::string&gt;&gt;&amp; shaders,</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                        std::shared_ptr&lt;Data::ShaderParameterProvider&gt; paramProvider = <span class="keyword">nullptr</span> );</div>
@@ -185,28 +186,22 @@ $(document).ready(function(){initNavTree('RawShaderMaterial_8hpp_source.html',''
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;} <span class="comment">// namespace Data</span></div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;} <span class="comment">// namespace Engine</span></div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RawShaderMaterial_8inl.html">Engine/Data/RawShaderMaterial.inl</a>&gt;</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/RawShaderMaterial.inl&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques_html_a67b629b682664ad298fb629180d6a359"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#a67b629b682664ad298fb629180d6a359">Ra::Engine::Rendering::EngineRenderTechniques::registerDefaultTechnique</a></div><div class="ttdeci">bool registerDefaultTechnique(const std::string &amp;name, DefaultTechniqueBuilder builder)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00144">RenderTechnique.cpp:144</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1RawShaderMaterialData_html_a8ea1624af8210e3ab4b330959c45b763"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html#a8ea1624af8210e3ab4b330959c45b763">Ra::Core::Asset::RawShaderMaterialData::RawShaderMaterialData</a></div><div class="ttdeci">RawShaderMaterialData(const std::string &amp;instanceName, const std::vector&lt; std::pair&lt; Ra::Engine::Data::ShaderType, std::string &gt;&gt; &amp;shaders, std::shared_ptr&lt; Ra::Engine::Data::ShaderParameterProvider &gt; paramProvider)</div><div class="ttdef"><b>Definition:</b> <a href="RawShaderMaterial_8hpp_source.html#l00035">RawShaderMaterial.hpp:35</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1RawShaderMaterialData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html">Ra::Core::Asset::RawShaderMaterialData</a></div><div class="ttdef"><b>Definition:</b> <a href="RawShaderMaterial_8hpp_source.html#l00022">RawShaderMaterial.hpp:22</a></div></div>
-<div class="ttc" id="aRawShaderMaterial_8inl_html"><div class="ttname"><a href="RawShaderMaterial_8inl.html">RawShaderMaterial.inl</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1MaterialData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">Ra::Core::Asset::MaterialData</a></div><div class="ttdoc">represent material data loaded by a file loader. Material data must be identified by a unique name....</div><div class="ttdef"><b>Definition:</b> <a href="MaterialData_8hpp_source.html#l00039">MaterialData.hpp:39</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html">Ra::Engine::Data::RawShaderMaterialConverter</a></div><div class="ttdef"><b>Definition:</b> <a href="RawShaderMaterial_8hpp_source.html#l00061">RawShaderMaterial.hpp:61</a></div></div>
-<div class="ttc" id="aMaterial_8hpp_html"><div class="ttname"><a href="Material_8hpp.html">Material.hpp</a></div></div>
-<div class="ttc" id="aMaterialData_8hpp_html"><div class="ttname"><a href="MaterialData_8hpp.html">MaterialData.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1RawShaderMaterial_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html">Ra::Engine::Data::RawShaderMaterial</a></div><div class="ttdef"><b>Definition:</b> <a href="RawShaderMaterial_8hpp_source.html#l00073">RawShaderMaterial.hpp:73</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00023">Material.hpp:23</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1RenderParameters_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00024">RenderParameters.hpp:24</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1RenderParameters_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00028">RenderParameters.hpp:28</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="RawShaderMaterial_8hpp.html">RawShaderMaterial.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>RawShaderMaterial.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

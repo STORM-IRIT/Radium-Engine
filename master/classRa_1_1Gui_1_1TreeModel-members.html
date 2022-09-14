@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -103,7 +104,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1TreeModel.html','');
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#ab4441ee2b17c3eb597fdd56708a0a128">data</a>(const QModelIndex &amp;index, int role) const override</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#afac34989a7cc5c7107c2642629559ab8">findInTree</a>(const TreeItem *item) const</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#a8e17eaf563589528e26c9e383c858190">flags</a>(const QModelIndex &amp;index) const override</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#ab4757d6aa2bd7170733b949fdc89936f">getHeaderString</a>() const =0</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getHeaderString</b>() const =0 (defined in <a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a>)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#a40eebac048f0264815de6a0b5f3b6f53">getItem</a>(const QModelIndex &amp;index) const</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#adff728fe1918e7ddcf433e4ad4483dbb">headerData</a>(int section, Qt::Orientation orientation, int role=Qt::DisplayRole) const override</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#ae833e6cbc0023636e3cf93e828c4bdf7">index</a>(int row, int column, const QModelIndex &amp;parent=QModelIndex()) const override</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"></td></tr>
@@ -114,15 +115,15 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1TreeModel.html','');
   <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#abf4475fa48a1bfc17682cf91d5354c5e">rebuildModel</a>()</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#a99f086fd963e26ee8732ef0da29e52e6">rowCount</a>(const QModelIndex &amp;parent=QModelIndex()) const override</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#a5219b6c7fe3bb01a42c86578087d106f">setAllItemsChecked</a>(bool checked=true)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#a63a359aeb177fdbfdefcfa1aa5edfb1c">setData</a>(const QModelIndex &amp;index, const QVariant &amp;value, int role) override</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>setData</b>(const QModelIndex &amp;index, const QVariant &amp;value, int role) override (defined in <a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a>)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#a59633f441e1092ec6fd709d60e6ba4d3">setItemChecked</a>(const QModelIndex &amp;index, bool checked=true)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html#a3d5ee0d1658837c54a1ec9379edce84f">TreeModel</a>(QObject *parent=nullptr)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>TreeModel</b>(QObject *parent=nullptr) (defined in <a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a>)</td><td class="entry"><a class="el" href="classRa_1_1Gui_1_1TreeModel.html">Ra::Gui::TreeModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:52 for Radium Engine by
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:54 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

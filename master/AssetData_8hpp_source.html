@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,16 +96,16 @@ $(document).ready(function(){initNavTree('AssetData_8hpp_source.html',''); initR
 <div class="title">AssetData.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="AssetData_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Core {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Asset {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">   16</a></span>&#160;<span class="keyword">class </span>RA_CORE_API <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">   20</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">AssetData</a>( <span class="keyword">const</span> std::string&amp; name ) : m_name( name ) {}</div>
@@ -116,7 +117,7 @@ $(document).ready(function(){initNavTree('AssetData_8hpp_source.html',''); initR
 <div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">   29</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">virtual</span> <span class="keyword">const</span> std::string&amp; <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_name; }</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a2d3a74f6a9bee357d8531a619d08de5f">   32</a></span>&#160;    std::string <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a2d3a74f6a9bee357d8531a619d08de5f">m_name</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    std::string m_name;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace Asset</span></div>
@@ -124,19 +125,16 @@ $(document).ready(function(){initNavTree('AssetData_8hpp_source.html',''); initR
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html_a2d3a74f6a9bee357d8531a619d08de5f"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a2d3a74f6a9bee357d8531a619d08de5f">Ra::Core::Asset::AssetData::m_name</a></div><div class="ttdeci">std::string m_name</div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00032">AssetData.hpp:32</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html_a67d9d20e8ef8b719a605d4f472ffb520"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a67d9d20e8ef8b719a605d4f472ffb520">Ra::Core::Asset::AssetData::AssetData</a></div><div class="ttdeci">AssetData(const std::string &amp;name)</div><div class="ttdoc">Construct an asset data given its name.</div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00020">AssetData.hpp:20</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html_a31c24d775ecf27925feea8acdc6cff67"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a31c24d775ecf27925feea8acdc6cff67">Ra::Core::Asset::AssetData::~AssetData</a></div><div class="ttdeci">virtual ~AssetData()</div><div class="ttdoc">Simple delete operator.</div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00026">AssetData.hpp:26</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html_a45d10620e8b4afeadcbd70da2fa8b119"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">Ra::Core::Asset::AssetData::getName</a></div><div class="ttdeci">virtual const std::string &amp; getName() const</div><div class="ttdoc">Acces to the name of the asset.</div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00029">AssetData.hpp:29</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00016">AssetData.hpp:16</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="AssetData_8hpp.html">AssetData.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:48 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><b>AssetData.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

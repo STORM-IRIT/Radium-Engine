@@ -1,40 +1,13 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core">
-<area shape="rect" id="node2" href="dir_721a74ea40d2768c46a3c9514389a16b.html" title="Animation" alt="" coords="371,159,461,207"/>
-<area shape="rect" id="node4" href="dir_1456dd235032e023892318efbecb420b.html" title="Containers" alt="" coords="342,255,434,303"/>
-<area shape="rect" id="edge22-headlabel" href="dir_000005_000007.html" title="13" alt="" coords="399,232,417,247"/>
-<area shape="rect" id="node5" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html" title="Geometry" alt="" coords="374,351,461,399"/>
-<area shape="rect" id="edge24-headlabel" href="dir_000005_000008.html" title="5" alt="" coords="440,330,449,345"/>
-<area shape="rect" id="node6" href="dir_a1f42069ba95676f6b9abbd5065ccf6d.html" title="Math" alt="" coords="453,543,525,591"/>
-<area shape="rect" id="edge23-headlabel" href="dir_000005_000010.html" title="7" alt="" coords="503,519,512,534"/>
-<area shape="rect" id="node9" href="dir_ff87cf903db18af0fdb6c342683ece25.html" title="Utils" alt="" coords="312,447,384,495"/>
-<area shape="rect" id="edge25-headlabel" href="dir_000005_000013.html" title="3" alt="" coords="336,419,346,434"/>
-<area shape="rect" id="node3" href="dir_486288e78e9dc8c89d3d526bcb77146e.html" title="Asset" alt="" coords="380,63,452,111"/>
-<area shape="rect" id="edge8-headlabel" href="dir_000006_000005.html" title="2" alt="" coords="420,133,429,148"/>
-<area shape="rect" id="edge5-headlabel" href="dir_000006_000007.html" title="3" alt="" coords="371,227,380,242"/>
-<area shape="rect" id="edge6-headlabel" href="dir_000006_000010.html" title="2" alt="" coords="518,525,527,539"/>
-<area shape="rect" id="edge9-headlabel" href="dir_000006_000013.html" title="14" alt="" coords="396,454,413,469"/>
-<area shape="rect" id="node10" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html" title="Engine" alt="" coords="5,63,77,111"/>
-<area shape="rect" id="edge7-headlabel" href="dir_000006_000014.html" title="1" alt="" coords="91,88,100,102"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000007_000008.html" title="1" alt="" coords="399,323,408,338"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000007_000010.html" title="1" alt="" coords="499,518,509,533"/>
-<area shape="rect" id="edge4-headlabel" href="dir_000007_000013.html" title="1" alt="" coords="344,421,353,435"/>
-<area shape="rect" id="edge10-headlabel" href="dir_000008_000007.html" title="15" alt="" coords="393,316,410,330"/>
-<area shape="rect" id="edge11-headlabel" href="dir_000008_000010.html" title="11" alt="" coords="473,515,491,530"/>
-<area shape="rect" id="edge12-headlabel" href="dir_000008_000013.html" title="21" alt="" coords="374,430,391,444"/>
-<area shape="rect" id="node7" href="dir_05ad645af30ba5694f9d87fa8078b2c2.html" title="Resources" alt="" coords="110,351,199,399"/>
-<area shape="rect" id="edge13-headlabel" href="dir_000011_000013.html" title="3" alt="" coords="294,429,304,444"/>
-<area shape="rect" id="node8" href="dir_6e64eaae7c83dd6a6b1a1e366964c0d6.html" title="Tasks" alt="" coords="224,351,296,399"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000012_000013.html" title="2" alt="" coords="316,420,325,435"/>
-<area shape="rect" id="edge26-headlabel" href="dir_000013_000007.html" title="1" alt="" coords="371,311,380,325"/>
-<area shape="rect" id="edge27-headlabel" href="dir_000013_000010.html" title="1" alt="" coords="439,518,449,533"/>
-<area shape="rect" id="edge20-headlabel" href="dir_000014_000005.html" title="14" alt="" coords="347,151,364,165"/>
-<area shape="rect" id="edge16-headlabel" href="dir_000014_000006.html" title="22" alt="" coords="353,71,370,86"/>
-<area shape="rect" id="edge15-headlabel" href="dir_000014_000007.html" title="14" alt="" coords="356,228,373,242"/>
-<area shape="rect" id="edge18-headlabel" href="dir_000014_000008.html" title="19" alt="" coords="372,325,389,340"/>
-<area shape="rect" id="edge17-headlabel" href="dir_000014_000010.html" title="8" alt="" coords="432,540,441,554"/>
-<area shape="rect" id="edge19-headlabel" href="dir_000014_000011.html" title="3" alt="" coords="150,324,160,338"/>
-<area shape="rect" id="edge14-headlabel" href="dir_000014_000012.html" title="8" alt="" coords="241,323,250,337"/>
-<area shape="rect" id="edge21-headlabel" href="dir_000014_000013.html" title="60" alt="" coords="285,454,303,469"/>
-<area shape="rect" id="clust2" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" alt="" coords="99,52,579,601"/>
-<area shape="rect" id="clust1" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" title="src" alt="" coords="88,16,589,612"/>
+<area shape="rect" id="node2" href="dir_721a74ea40d2768c46a3c9514389a16b.html" title="Animation" alt="" coords="669,63,758,111"/>
+<area shape="rect" id="node3" href="dir_486288e78e9dc8c89d3d526bcb77146e.html" title="Asset" alt="" coords="572,63,644,111"/>
+<area shape="rect" id="node4" href="dir_1456dd235032e023892318efbecb420b.html" title="Containers" alt="" coords="455,63,547,111"/>
+<area shape="rect" id="node5" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html" title="Geometry" alt="" coords="345,63,431,111"/>
+<area shape="rect" id="node9" href="dir_ff87cf903db18af0fdb6c342683ece25.html" title="Utils" alt="" coords="352,159,424,207"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000008_000017.html" title="1" alt="" coords="392,133,401,148"/>
+<area shape="rect" id="node6" href="dir_a1f42069ba95676f6b9abbd5065ccf6d.html" title="Math" alt="" coords="248,63,320,111"/>
+<area shape="rect" id="node7" href="dir_05ad645af30ba5694f9d87fa8078b2c2.html" title="Resources" alt="" coords="134,63,223,111"/>
+<area shape="rect" id="node8" href="dir_6e64eaae7c83dd6a6b1a1e366964c0d6.html" title="Tasks" alt="" coords="37,63,109,111"/>
+<area shape="rect" id="clust2" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" alt="" coords="27,52,865,217"/>
+<area shape="rect" id="clust1" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" title="src" alt="" coords="16,16,876,228"/>
 </map>

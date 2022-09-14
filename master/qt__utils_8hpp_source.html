@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,35 +96,33 @@ $(document).ready(function(){initNavTree('qt__utils_8hpp_source.html',''); initR
 <div class="title">qt_utils.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="qt__utils_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;QKeyEvent&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QLayout&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QWidget&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// ============================================================================</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespaceQt__utils.html">    8</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceQt__utils.html">Qt_utils</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Qt_utils {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// ============================================================================</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespaceQt__utils.html#a65fbfc2c434ebd9f8c61f5c26cf67d6e">   12</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespaceQt__utils.html#a65fbfc2c434ebd9f8c61f5c26cf67d6e">rec_set_visible</a>( <span class="keyword">const</span> QLayout&amp; layout, <span class="keywordtype">bool</span> visible ) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> rec_set_visible( <span class="keyword">const</span> QLayout&amp; layout, <span class="keywordtype">bool</span> visible ) {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; layout.count(); ++i ) {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">if</span> ( QWidget* w = layout.itemAt( i )-&gt;widget() )</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            w-&gt;setVisible( visible );</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( QLayout* l = layout.itemAt( i )-&gt;layout() )</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            <a class="code" href="namespaceQt__utils.html#a65fbfc2c434ebd9f8c61f5c26cf67d6e">rec_set_visible</a>( *l, visible );</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            rec_set_visible( *l, visible );</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace Qt_utils</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceQt__utils_html_a65fbfc2c434ebd9f8c61f5c26cf67d6e"><div class="ttname"><a href="namespaceQt__utils.html#a65fbfc2c434ebd9f8c61f5c26cf67d6e">Qt_utils::rec_set_visible</a></div><div class="ttdeci">static void rec_set_visible(const QLayout &amp;layout, bool visible)</div><div class="ttdoc">Recursively hide/show every widget of a QLayout.</div><div class="ttdef"><b>Definition:</b> <a href="qt__utils_8hpp_source.html#l00012">qt_utils.hpp:12</a></div></div>
-<div class="ttc" id="anamespaceQt__utils_html"><div class="ttname"><a href="namespaceQt__utils.html">Qt_utils</a></div><div class="ttdef"><b>Definition:</b> <a href="qt__utils_8hpp_source.html#l00008">qt_utils.hpp:8</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_53dbd7b5b1f80ee648ea4591020754f4.html">Utils</a></li><li class="navelem"><a class="el" href="qt__utils_8hpp.html">qt_utils.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:50 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_53dbd7b5b1f80ee648ea4591020754f4.html">Utils</a></li><li class="navelem"><b>qt_utils.hpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

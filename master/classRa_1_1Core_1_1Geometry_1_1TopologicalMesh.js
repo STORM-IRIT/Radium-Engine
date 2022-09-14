@@ -1,6 +1,7 @@
 var classRa_1_1Core_1_1Geometry_1_1TopologicalMesh =
 [
     [ "WedgeData", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData" ],
+    [ "WedgeAttribIndex", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afc7c1dfd6f4df4622d5ef59008ba2cec", null ],
     [ "WedgeIndex", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a904a07c44d020f2f0a2ac6b854532aa7", null ],
     [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6", null ],
     [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aeab1e7c2acc366d853d40b121e27b72a", null ],
@@ -8,7 +9,7 @@ var classRa_1_1Core_1_1Geometry_1_1TopologicalMesh =
     [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a230a66be9ab206e7af343302646f6d89", null ],
     [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8bea9416aacbef66d2a42a83a81f5857", null ],
     [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a04ddcacc6638274b5a0fc77e05c45553", null ],
-    [ "addWedgeAttrib", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aef59fb099c9c4caf84e1f92e0f430a66", null ],
+    [ "addWedgeAttrib", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a937613180986bd2561465cafc79aeb73", null ],
     [ "checkIntegrity", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f74f47243bb49bcc0ceafe0c43b00fa", null ],
     [ "clean", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d352c65cd2c75259cbb92689517ca18", null ],
     [ "collapse", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a46eee3e8fe80ff3a80f935964b5feaa2", null ],
@@ -40,7 +41,7 @@ var classRa_1_1Core_1_1Geometry_1_1TopologicalMesh =
     [ "newWedgeData", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa274a29cbe633b101abb2cdf2618f629", null ],
     [ "newWedgeData", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af5df40b6a44c071e39aa9367455128ab", null ],
     [ "propagate_normal_to_wedges", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5a78942bcac6ce938207057dcab51f72", null ],
-    [ "replaceWedge", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ac557f5f97d22704bfc3dfedec806e109", null ],
+    [ "replaceWedge", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9", null ],
     [ "replaceWedgeIndex", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a20d3efd4604adfb62144d193d61a7c56", null ],
     [ "setWedgeAttrib", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2229973c6f610c23566ac26c67a82622", null ],
     [ "setWedgeData", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a07b9f45a2a4f79f8ea92b6617f1681fb", null ],

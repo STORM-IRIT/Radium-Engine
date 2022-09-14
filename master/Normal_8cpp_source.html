@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,30 +96,30 @@ $(document).ready(function(){initNavTree('Normal_8cpp_source.html',''); initResi
 <div class="title">Normal.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Normal_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Normal_8hpp.html">Core/Geometry/Normal.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/Normal.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TriangleOperation_8hpp.html">Core/Geometry/TriangleOperation.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="LinearAlgebra_8hpp.html">Core/Math/LinearAlgebra.hpp</a>&gt;</span> <span class="comment">// Math::angle</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="CircularIndex_8hpp.html">Core/Utils/CircularIndex.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Timer_8hpp.html">Core/Utils/Timer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/TriangleOperation.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Math/LinearAlgebra.hpp&gt;</span> <span class="comment">// Math::angle</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/CircularIndex.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Timer.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Geometry</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Geometry {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a301a86628653badd5aac13c106126c92">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a301a86628653badd5aac13c106126c92">uniformNormal</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                    <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                    <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; normal ) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> uniformNormal( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                    <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                    VectorArray&lt;Vector3&gt;&amp; normal ) {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> N = p.size();</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    normal.clear();</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    normal.resize( N, Vector3::Zero() );</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> : T ) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i       = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 0 );</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j       = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 1 );</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k       = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 2 );</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> triN = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2ce97206423345716bf1b55f60c1c227">triangleNormal</a>( p[i], p[j], p[k] );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : T ) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">const</span> uint i       = t( 0 );</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">const</span> uint j       = t( 1 );</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">const</span> uint k       = t( 2 );</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> Vector3 triN = triangleNormal( p[i], p[j], p[k] );</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">if</span> ( !triN.allFinite() ) { <span class="keywordflow">continue</span>; }</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        normal[i] += triN;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        normal[j] += triN;</div>
@@ -126,7 +127,7 @@ $(document).ready(function(){initNavTree('Normal_8cpp_source.html',''); initResi
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classint.html">int</a>( N ); ++i ) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; int( N ); ++i ) {</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> ( !normal[i].isApprox( Vector3::Zero() ) ) { normal[i].normalize(); }</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
@@ -134,35 +135,35 @@ $(document).ready(function(){initNavTree('Normal_8cpp_source.html',''); initResi
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// normal.getMap().colwise().normalize();</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a6fbcc87652425f0a855e544474ce5226">   43</a></span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a6fbcc87652425f0a855e544474ce5226">localUniformNormal</a>( <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> ii,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                            <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                            <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                            <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Sparse</a>&amp; adj ) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> normal = Vector3::Zero();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;Vector3 localUniformNormal( <span class="keyword">const</span> uint ii,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                            <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                            <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                            <span class="keyword">const</span> Sparse&amp; adj ) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    Vector3 normal = Vector3::Zero();</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> ( Sparse::InnerIterator it( adj, ii ); it; ++it ) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> = it.row();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i   = T[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>]( 0 );</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j   = T[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>]( 1 );</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k   = T[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>]( 2 );</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        normal += <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2ce97206423345716bf1b55f60c1c227">triangleNormal</a>( p[i], p[j], p[k] );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> t = it.row();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">const</span> uint i   = T[t]( 0 );</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">const</span> uint j   = T[t]( 1 );</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">const</span> uint k   = T[t]( 2 );</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        normal += triangleNormal( p[i], p[j], p[k] );</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> normal; <span class="comment">//.normalized();</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#ad765969ba7ad7702de21ec8d8a7139a0">   58</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#ad765969ba7ad7702de21ec8d8a7139a0">angleWeightedNormal</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                          <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                          <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; normal ) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keywordtype">void</span> angleWeightedNormal( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                          <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                          VectorArray&lt;Vector3&gt;&amp; normal ) {</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> N = p.size();</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    normal.clear();</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    normal.resize( N, Vector3::Zero() );</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> : T ) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i               = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 0 );</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j               = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 1 );</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k               = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 2 );</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> triN   = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2ce97206423345716bf1b55f60c1c227">triangleNormal</a>( p[i], p[j], p[k] );</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> theta_i = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4">Math::angle</a>( ( p[j] - p[i] ), ( p[k] - p[i] ) );</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> theta_j = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4">Math::angle</a>( ( p[i] - p[j] ), ( p[k] - p[j] ) );</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> theta_k = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4">Math::angle</a>( ( p[i] - p[k] ), ( p[j] - p[k] ) );</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : T ) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        uint i               = t( 0 );</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        uint j               = t( 1 );</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        uint k               = t( 2 );</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">const</span> Vector3 triN   = triangleNormal( p[i], p[j], p[k] );</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">const</span> Scalar theta_i = Math::angle( ( p[j] - p[i] ), ( p[k] - p[i] ) );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">const</span> Scalar theta_j = Math::angle( ( p[i] - p[j] ), ( p[k] - p[j] ) );</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">const</span> Scalar theta_k = Math::angle( ( p[i] - p[k] ), ( p[j] - p[k] ) );</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        normal[i] += theta_i * triN;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        normal[j] += theta_j * triN;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        normal[k] += theta_k * triN;</div>
@@ -172,18 +173,18 @@ $(document).ready(function(){initNavTree('Normal_8cpp_source.html',''); initResi
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a41872c45125d4d3de0c3f081667b80ed">   81</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a41872c45125d4d3de0c3f081667b80ed">areaWeightedNormal</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                         <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T,</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                         <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; normal ) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">void</span> areaWeightedNormal( <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; p,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                         <span class="keyword">const</span> AlignedStdVector&lt;Vector3ui&gt;&amp; T,</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                         VectorArray&lt;Vector3&gt;&amp; normal ) {</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> N = p.size();</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    normal.clear();</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    normal.resize( N, Vector3::Zero() );</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> : T ) {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> i             = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 0 );</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j             = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 1 );</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k             = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>( 2 );</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> area  = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a178f2b7309fe2ea5bc31a3abcb25368e">triangleArea</a>( p[i], p[j], p[k] );</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> triN = area * <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2ce97206423345716bf1b55f60c1c227">triangleNormal</a>( p[i], p[j], p[k] );</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : T ) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        uint i             = t( 0 );</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        uint j             = t( 1 );</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        uint k             = t( 2 );</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">const</span> Scalar area  = triangleArea( p[i], p[j], p[k] );</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">const</span> Vector3 triN = area * triangleNormal( p[i], p[j], p[k] );</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        normal[i] += triN;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        normal[j] += triN;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        normal[k] += triN;</div>
@@ -194,45 +195,45 @@ $(document).ready(function(){initNavTree('Normal_8cpp_source.html',''); initResi
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a3ec7321d52cb6f195ad1207a970eaa35">  106</a></span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a301a86628653badd5aac13c106126c92">uniformNormal</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; v, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; one_ring ) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> normal;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;Vector3 uniformNormal( <span class="keyword">const</span> Vector3&amp; v, <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; one_ring ) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    Vector3 normal;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    normal.setZero();</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">size_t</span> N = one_ring.size();</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html">Utils::CircularIndex</a> i;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    i.<a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a9d8cf684f128b57aa26197f31afb23c0">setSize</a>( N );</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j = 0; j &lt; N; ++j ) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        i.<a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a2499a4fd3344499031a9830f9baeec21">setValue</a>( j );</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        normal += <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2ce97206423345716bf1b55f60c1c227">triangleNormal</a>( v, one_ring[i], one_ring[i - 1] );</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    Utils::CircularIndex i;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    i.setSize( N );</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span> ( uint j = 0; j &lt; N; ++j ) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        i.setValue( j );</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        normal += triangleNormal( v, one_ring[i], one_ring[i - 1] );</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">if</span> ( !normal.isApprox( Vector3::Zero() ) ) { <span class="keywordflow">return</span> normal.normalized(); }</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> Vector3::Zero();</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#aac282fcc97c6b84203b6f16578f157ae">  120</a></span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#ad765969ba7ad7702de21ec8d8a7139a0">angleWeightedNormal</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; v, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; one_ring ) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> normal;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;Vector3 angleWeightedNormal( <span class="keyword">const</span> Vector3&amp; v, <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; one_ring ) {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    Vector3 normal;</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    normal.setZero();</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">size_t</span> N = one_ring.size();</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html">Utils::CircularIndex</a> i;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    i.<a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a9d8cf684f128b57aa26197f31afb23c0">setSize</a>( N );</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j = 0; j &lt; N; ++j ) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        i.<a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a2499a4fd3344499031a9830f9baeec21">setValue</a>( j );</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> theta = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4">Math::angle</a>( ( one_ring[i] - v ), ( one_ring[i - 1] - v ) );</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        normal += theta * <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2ce97206423345716bf1b55f60c1c227">triangleNormal</a>( v, one_ring[i], one_ring[i - 1] );</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    Utils::CircularIndex i;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    i.setSize( N );</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">for</span> ( uint j = 0; j &lt; N; ++j ) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        i.setValue( j );</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        Scalar theta = Math::angle( ( one_ring[i] - v ), ( one_ring[i - 1] - v ) );</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        normal += theta * triangleNormal( v, one_ring[i], one_ring[i - 1] );</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">if</span> ( !normal.isApprox( Vector3::Zero() ) ) { <span class="keywordflow">return</span> normal.normalized(); }</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">return</span> Vector3::Zero();</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a0cd86167d9f7756ebfdeeaba68d64069">  135</a></span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a41872c45125d4d3de0c3f081667b80ed">areaWeightedNormal</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; v, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; one_ring ) {</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> normal;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;Vector3 areaWeightedNormal( <span class="keyword">const</span> Vector3&amp; v, <span class="keyword">const</span> VectorArray&lt;Vector3&gt;&amp; one_ring ) {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    Vector3 normal;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    normal.setZero();</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">size_t</span> N = one_ring.size();</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html">Utils::CircularIndex</a> i;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    i.<a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a9d8cf684f128b57aa26197f31afb23c0">setSize</a>( N );</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> j = 0; j &lt; N; ++j ) {</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        i.<a class="code" href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a2499a4fd3344499031a9830f9baeec21">setValue</a>( j );</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> area = <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a178f2b7309fe2ea5bc31a3abcb25368e">triangleArea</a>( v, one_ring[i], one_ring[i - 1] );</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        normal += area * <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2ce97206423345716bf1b55f60c1c227">triangleNormal</a>( v, one_ring[i], one_ring[i - 1] );</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    Utils::CircularIndex i;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    i.setSize( N );</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">for</span> ( uint j = 0; j &lt; N; ++j ) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        i.setValue( j );</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        Scalar area = triangleArea( v, one_ring[i], one_ring[i - 1] );</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        normal += area * triangleNormal( v, one_ring[i], one_ring[i - 1] );</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">if</span> ( !normal.isApprox( Vector3::Zero() ) ) { <span class="keywordflow">return</span> normal.normalized(); }</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">return</span> Vector3::Zero();</div>
@@ -243,36 +244,12 @@ $(document).ready(function(){initNavTree('Normal_8cpp_source.html',''); initResi
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00251">CoreMacros.hpp:251</a></div></div>
-<div class="ttc" id="aLinearAlgebra_8hpp_html"><div class="ttname"><a href="LinearAlgebra_8hpp.html">LinearAlgebra.hpp</a></div></div>
-<div class="ttc" id="aCircularIndex_8hpp_html"><div class="ttname"><a href="CircularIndex_8hpp.html">CircularIndex.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1CircularIndex_html_a2499a4fd3344499031a9830f9baeec21"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a2499a4fd3344499031a9830f9baeec21">Ra::Core::Utils::CircularIndex::setValue</a></div><div class="ttdeci">void setValue(const size_t i)</div><div class="ttdef"><b>Definition:</b> <a href="CircularIndex_8inl_source.html#l00022">CircularIndex.inl:22</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a6fbcc87652425f0a855e544474ce5226"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a6fbcc87652425f0a855e544474ce5226">Ra::Core::Geometry::localUniformNormal</a></div><div class="ttdeci">Vector3 localUniformNormal(const uint ii, const VectorArray&lt; Vector3 &gt; &amp;p, const AlignedStdVector&lt; Vector3ui &gt; &amp;T, const Sparse &amp;adj)</div><div class="ttdef"><b>Definition:</b> <a href="Normal_8cpp_source.html#l00043">Normal.cpp:43</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; Vector3 &gt;</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1CircularIndex_html_a9d8cf684f128b57aa26197f31afb23c0"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html#a9d8cf684f128b57aa26197f31afb23c0">Ra::Core::Utils::CircularIndex::setSize</a></div><div class="ttdeci">void setSize(const size_t size)</div><div class="ttdef"><b>Definition:</b> <a href="CircularIndex_8inl_source.html#l00013">CircularIndex.inl:13</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5306cf8ea65c31d4bbe0560ec7bb6bb4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4">Ra::Core::Math::angle</a></div><div class="ttdeci">Scalar angle(const Vector_ &amp;v1, const Vector_ &amp;v2)</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8inl_source.html#l00056">LinearAlgebra.inl:56</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a2ce97206423345716bf1b55f60c1c227"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a2ce97206423345716bf1b55f60c1c227">Ra::Core::Geometry::triangleNormal</a></div><div class="ttdeci">Vector3 triangleNormal(const Vector3 &amp;p, const Vector3 &amp;q, const Vector3 &amp;r)</div><div class="ttdef"><b>Definition:</b> <a href="TriangleOperation_8cpp_source.html#l00023">TriangleOperation.cpp:23</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a41872c45125d4d3de0c3f081667b80ed"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a41872c45125d4d3de0c3f081667b80ed">Ra::Core::Geometry::areaWeightedNormal</a></div><div class="ttdeci">void areaWeightedNormal(const VectorArray&lt; Vector3 &gt; &amp;p, const AlignedStdVector&lt; Vector3ui &gt; &amp;T, VectorArray&lt; Vector3 &gt; &amp;normal)</div><div class="ttdef"><b>Definition:</b> <a href="Normal_8cpp_source.html#l00081">Normal.cpp:81</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a178f2b7309fe2ea5bc31a3abcb25368e"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a178f2b7309fe2ea5bc31a3abcb25368e">Ra::Core::Geometry::triangleArea</a></div><div class="ttdeci">Scalar triangleArea(const Vector3 &amp;p, const Vector3 &amp;q, const Vector3 &amp;r)</div><div class="ttdef"><b>Definition:</b> <a href="TriangleOperation_8cpp_source.html#l00019">TriangleOperation.cpp:19</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Ra::Engine::Rendering::RenderObjectType::Geometry</a></div><div class="ttdeci">@ Geometry</div><div class="ttdoc">&quot;Geometry&quot; render objects are those loaded using Radium::IO and generated by GeometrySystem</div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
-<div class="ttc" id="aTriangleOperation_8hpp_html"><div class="ttname"><a href="TriangleOperation_8hpp.html">TriangleOperation.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1CircularIndex_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1CircularIndex.html">Ra::Core::Utils::CircularIndex</a></div><div class="ttdef"><b>Definition:</b> <a href="CircularIndex_8hpp_source.html#l00009">CircularIndex.hpp:9</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a301a86628653badd5aac13c106126c92"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a301a86628653badd5aac13c106126c92">Ra::Core::Geometry::uniformNormal</a></div><div class="ttdeci">void uniformNormal(const VectorArray&lt; Vector3 &gt; &amp;p, const AlignedStdVector&lt; Vector3ui &gt; &amp;T, VectorArray&lt; Vector3 &gt; &amp;normal)</div><div class="ttdoc">GLOBAL ///.</div><div class="ttdef"><b>Definition:</b> <a href="Normal_8cpp_source.html#l00016">Normal.cpp:16</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00257">CoreMacros.hpp:257</a></div></div>
-<div class="ttc" id="aTimer_8hpp_html"><div class="ttname"><a href="Timer_8hpp.html">Timer.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_ad765969ba7ad7702de21ec8d8a7139a0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#ad765969ba7ad7702de21ec8d8a7139a0">Ra::Core::Geometry::angleWeightedNormal</a></div><div class="ttdeci">void angleWeightedNormal(const VectorArray&lt; Vector3 &gt; &amp;p, const AlignedStdVector&lt; Vector3ui &gt; &amp;T, VectorArray&lt; Vector3 &gt; &amp;normal)</div><div class="ttdef"><b>Definition:</b> <a href="Normal_8cpp_source.html#l00058">Normal.cpp:58</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a2d49896125fe4ece22bcf8449f9c1423"><div class="ttname"><a href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Ra::Core::Sparse</a></div><div class="ttdeci">Eigen::SparseMatrix&lt; Scalar &gt; Sparse</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00072">Types.hpp:72</a></div></div>
-<div class="ttc" id="aNormal_8hpp_html"><div class="ttname"><a href="Normal_8hpp.html">Normal.hpp</a></div></div>
-<div class="ttc" id="aclassint_html"><div class="ttname"><a href="classint.html">int</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="Normal_8cpp.html">Normal.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>Normal.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

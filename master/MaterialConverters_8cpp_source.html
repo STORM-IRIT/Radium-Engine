@@ -25,6 +25,7 @@
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -95,9 +96,9 @@ $(document).ready(function(){initNavTree('MaterialConverters_8cpp_source.html','
 <div class="title">MaterialConverters.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="MaterialConverters_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="MaterialConverters_8hpp.html">Engine/Data/MaterialConverters.hpp</a>&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/MaterialConverters.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
@@ -109,7 +110,7 @@ $(document).ready(function(){initNavTree('MaterialConverters_8cpp_source.html','
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html">   20</a></span>&#160;<span class="keyword">namespace </span>EngineMaterialConverters {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">static</span> std::map&lt;std::string, std::function&lt;<a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a006896056d0249dcd2aabd1ca6203ecf">RadiumMaterialPtr</a>( <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">AssetMaterialPtr</a> )&gt;&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">static</span> std::map&lt;std::string, std::function&lt;<a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">RadiumMaterialPtr</a>( <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">AssetMaterialPtr</a> )&gt;&gt;</div>
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">   23</a></span>&#160;    <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5a45ee7e1366b9abd85ae8701e9239b7">   25</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5a45ee7e1366b9abd85ae8701e9239b7">registerMaterialConverter</a>( <span class="keyword">const</span> std::string&amp; name, <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa4e33bcdb11c18d70375f4e7dcd4c487">ConverterFunction</a> converter ) {</div>
@@ -126,14 +127,14 @@ $(document).ready(function(){initNavTree('MaterialConverters_8cpp_source.html','
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">auto</span> search = <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>.find( name );</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( search != <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>.end() ) { <span class="keywordflow">return</span> { <span class="keyword">true</span>, search-&gt;second }; }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">auto</span> result = std::make_pair( <span class="keyword">false</span>, [name]( <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">AssetMaterialPtr</a> ) -&gt; <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">RadiumMaterialPtr</a> {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">logERROR</a> ) &lt;&lt; <span class="stringliteral">&quot;Required material converter &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; not found!&quot;</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Required material converter &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; not found!&quot;</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    } );</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">return</span> result;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa6ae112380ba99284cc2261740886c55">   45</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa6ae112380ba99284cc2261740886c55">cleanup</a>() {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">MaterialConverterRegistry</a>.clear();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">bool</span> cleanup() {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    MaterialConverterRegistry.clear();</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
@@ -143,25 +144,19 @@ $(document).ready(function(){initNavTree('MaterialConverters_8cpp_source.html','
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_a006896056d0249dcd2aabd1ca6203ecf"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a006896056d0249dcd2aabd1ca6203ecf">Ra::Engine::Data::EngineMaterialConverters::RadiumMaterialPtr</a></div><div class="ttdeci">Ra::Engine::Data::Material * RadiumMaterialPtr</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8hpp_source.html#l00049">MaterialConverters.hpp:49</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_a5da8719516e84ff6d9976207a8940021"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5da8719516e84ff6d9976207a8940021">Ra::Engine::Data::EngineMaterialConverters::getMaterialConverter</a></div><div class="ttdeci">std::pair&lt; bool, ConverterFunction &gt; getMaterialConverter(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00035">MaterialConverters.cpp:35</a></div></div>
-<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_a5a45ee7e1366b9abd85ae8701e9239b7"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5a45ee7e1366b9abd85ae8701e9239b7">Ra::Engine::Data::EngineMaterialConverters::registerMaterialConverter</a></div><div class="ttdeci">bool registerMaterialConverter(const std::string &amp;name, ConverterFunction converter)</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00025">MaterialConverters.cpp:25</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_a07edf6afa24bd87c14434820c6ac9037"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a07edf6afa24bd87c14434820c6ac9037">Ra::Engine::Data::EngineMaterialConverters::removeMaterialConverter</a></div><div class="ttdeci">bool removeMaterialConverter(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00030">MaterialConverters.cpp:30</a></div></div>
-<div class="ttc" id="aMaterialConverters_8hpp_html"><div class="ttname"><a href="MaterialConverters_8hpp.html">MaterialConverters.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_aa6ae112380ba99284cc2261740886c55"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa6ae112380ba99284cc2261740886c55">Ra::Engine::Data::EngineMaterialConverters::cleanup</a></div><div class="ttdeci">bool cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00045">MaterialConverters.cpp:45</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1MaterialData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">Ra::Core::Asset::MaterialData</a></div><div class="ttdoc">represent material data loaded by a file loader. Material data must be identified by a unique name....</div><div class="ttdef"><b>Definition:</b> <a href="MaterialData_8hpp_source.html#l00039">MaterialData.hpp:39</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_adc434306908bbccf3e4124d5f5f11f27"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27">Ra::Engine::Data::EngineMaterialConverters::MaterialConverterRegistry</a></div><div class="ttdeci">static std::map&lt; std::string, std::function&lt; RadiumMaterialPtr(AssetMaterialPtr)&gt; &gt; MaterialConverterRegistry</div><div class="ttdoc">Map that stores each conversion function.</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8cpp_source.html#l00023">MaterialConverters.cpp:23</a></div></div>
-<div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">Ra::Core::Utils::logERROR</a></div><div class="ttdeci">@ logERROR</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00016">Log.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Material_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00023">Material.hpp:23</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters_html_aa4e33bcdb11c18d70375f4e7dcd4c487"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa4e33bcdb11c18d70375f4e7dcd4c487">Ra::Engine::Data::EngineMaterialConverters::ConverterFunction</a></div><div class="ttdeci">std::function&lt; RadiumMaterialPtr(AssetMaterialPtr)&gt; ConverterFunction</div><div class="ttdef"><b>Definition:</b> <a href="MaterialConverters_8hpp_source.html#l00054">MaterialConverters.hpp:54</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="MaterialConverters_8cpp.html">MaterialConverters.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 9 2022 16:08:49 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>MaterialConverters.cpp</b></li>
+    <li class="footer">Generated on Wed Sep 14 2022 12:27:52 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
