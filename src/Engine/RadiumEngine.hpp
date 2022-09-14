@@ -50,9 +50,6 @@ class RA_ENGINE_API RadiumEngine
     RA_SINGLETON_INTERFACE( RadiumEngine );
 
   public:
-    RadiumEngine();
-    ~RadiumEngine();
-
     /**
      * Instantiate all object managers that make Radium Object Model functionnal.
      * Initialize internal resources and default states.
@@ -328,6 +325,9 @@ class RA_ENGINE_API RadiumEngine
     std::string getResourcesDir() { return m_resourcesRootDir; }
 
   private:
+    RadiumEngine();
+    ~RadiumEngine();
+
     /// The OpenGL version used by the engine, can be read without Context active.
     glbinding::Version m_glVersion {};
     /**
