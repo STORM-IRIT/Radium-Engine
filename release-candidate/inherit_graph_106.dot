@@ -1,0 +1,17 @@
+digraph "Graphical Class Hierarchy"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="Ra::Gui::CameraManipulator",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1CameraManipulator.html",tooltip="The CameraManipulator class is the generic class for camera manipulators."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="Ra::Gui::FlightCameraManipulator",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1FlightCameraManipulator.html",tooltip=" "];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Gui::TrackballCamera\lManipulator",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1TrackballCameraManipulator.html",tooltip="A Trackball manipulator for Cameras."];
+  Node2 [label="Ra::Gui::KeyMappingManageable\l\< FlightCameraManipulator \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1KeyMappingManageable.html",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Ra::Gui::KeyMappingManageable\l\< TrackballCameraManipulator \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1KeyMappingManageable.html",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

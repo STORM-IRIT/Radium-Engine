@@ -1,7 +1,7 @@
 var api =
 [
-    [ "Core", "core.html", "core" ],
-    [ "Engine", "engine.html", "engine" ],
-    [ "Gui", "gui.html", "gui" ],
+    [ "Core", "core.html", null ],
+    [ "Engine", "engine.html", null ],
+    [ "Gui", "gui.html", null ],
     [ "[TODO] IO", "io.html", null ]
 ];

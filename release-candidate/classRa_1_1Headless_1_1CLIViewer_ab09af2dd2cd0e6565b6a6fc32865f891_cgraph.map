@@ -1,4 +1,0 @@
-<map id="Ra::Headless::CLIViewer::renderLoop" name="Ra::Headless::CLIViewer::renderLoop">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,185,47"/>
-<area shape="rect" id="node2" href="$group__window.html#gacb2445308d3450dc5242ee11274f9b92" title="loop on events and execute the functor render after each event" alt="" coords="233,5,451,47"/>
-</map>

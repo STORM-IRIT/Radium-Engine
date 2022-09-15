@@ -1,8 +1,0 @@
-<map id="Ra::Core::Geometry::MultiIndexedGeometry::copy" name="Ra::Core::Geometry::MultiIndexedGeometry::copy">
-<area shape="rect" id="node1" title="Copy geometry and indices from others." alt="" coords="5,86,223,127"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a1828a9428b47dc4a3f5cebec0681fc83" title=" " alt="" coords="286,41,453,97"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="271,122,468,163"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a75f68d38992c5b5554ce6ebd852fac5f" title="Erases all data, making the AttribArrayGeometry empty." alt="" coords="541,5,707,61"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac6bb36601ef78ccc0997134b5a2df7f0" title="Base copy, does nothing." alt="" coords="516,86,732,127"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda" title="clear all attribs, invalidate handles." alt="" coords="780,13,996,54"/>
-</map>

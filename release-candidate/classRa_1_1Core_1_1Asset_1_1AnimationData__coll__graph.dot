@@ -1,0 +1,12 @@
+digraph "Ra::Core::Asset::AnimationData"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Core::Asset::AnimationData\n|# m_dt\l# m_keyFrame\l|+ AnimationData()\l+ ~AnimationData()\l+ setName()\l+ displayInfo()\l+ getTime()\l+ setTime()\l+ getTimeStep()\l+ setTimeStep()\l+ getFramesSize()\l+ getHandleData()\l+ setHandleData()\l* getTime()\l* setTime()\l* getTimeStep()\l* setTimeStep()\l* getFramesSize()\l* getHandleData()\l* setHandleData()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{Ra::Core::Asset::AssetData\n|# m_name\l|+ AssetData()\l+ AssetData()\l+ ~AssetData()\l+ getName()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1AssetData.html",tooltip=" "];
+  Node3 -> Node1 [color="grey25",fontsize="10",style="solid",label=" #m_time" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node3 [label="{Ra::Core::Asset::AnimationTime\n||+ AnimationTime()\l+ AnimationTime()\l+ ~AnimationTime()\l+ getStart()\l+ setStart()\l+ getEnd()\l+ setEnd()\l+ extends()\l+ extends()\l+ isValid()\l+ duration()\l+ contains()\l+ intersect()\l* m_start\l* m_end\l* operator==()\l* operator!=()\l* operator==()\l* operator\<()\l* operator\>()\l* getStart()\l* setStart()\l* getEnd()\l* setEnd()\l* extends()\l* extends()\l* isValid()\l* duration()\l* contains()\l* intersect()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html",tooltip=" "];
+}

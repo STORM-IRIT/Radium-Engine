@@ -1,0 +1,11 @@
+digraph "Ra::Engine::Data::BlinnPhongMaterial::setColoredByVertexAttrib"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Engine::Data::BlinnPhong\lMaterial::setColoredByVertexAttrib",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered geometry."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Engine::Data::Material\l::needUpdate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5",tooltip=" "];
+}

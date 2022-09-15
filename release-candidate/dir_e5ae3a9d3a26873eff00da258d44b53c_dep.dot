@@ -1,0 +1,12 @@
+digraph "/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Geometry/deprecated"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_cb2b5dfd43482fb277f6333d539f1f06 {
+    graph [ bgcolor="#eae7e0", pencolor="grey50", style="filled,dashed,", label="Geometry", fontname="Helvetica", fontsize="10", URL="dir_cb2b5dfd43482fb277f6333d539f1f06.html"]
+  dir_e5ae3a9d3a26873eff00da258d44b53c [shape=box, label="deprecated", style="filled,bold,", fillcolor="#eae7e0", color="grey25", URL="dir_e5ae3a9d3a26873eff00da258d44b53c.html"];
+  }
+}

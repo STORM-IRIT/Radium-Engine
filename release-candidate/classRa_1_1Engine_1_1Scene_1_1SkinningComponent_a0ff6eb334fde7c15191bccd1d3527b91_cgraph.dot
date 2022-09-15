@@ -1,0 +1,36 @@
+digraph "Ra::Engine::Scene::SkinningComponent::setWeightBone"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Engine::Scene::\lSkinningComponent::setWeightBone",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Set the bone to show the weights of."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Engine::Scene::\lSkinningComponent::showWeights",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#acb0c9f8ee61577b0f8ff4266a2d0033a",tooltip="Toggles display of skinning weights."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Core::Geometry\l::AttribArrayGeometry\l::addAttrib",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671",tooltip=" "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Ra::Core::Utils::AttribManager\l::addAttrib",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac2d3cdc360ffe1904a15ff8504de95b8",tooltip=" "];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Ra::Core::Utils::AttribManager\l::isValid",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f",tooltip="Return true if h correspond to an existing attribute in *this."];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Ra::Core::Utils::AttribHandle\l::attribName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9",tooltip=" "];
+  Node4 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Ra::Core::Utils::Observable\l\< const std::string & \>\l::notify",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f",tooltip="Notify (i.e. call) each attached observer with argument p."];
+  Node2 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Ra::Core::Geometry\l::AttribArrayGeometry\l::getAttrib",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59",tooltip=" "];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="Ra::Core::Utils::AttribManager\l::getAttrib",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c",tooltip=" "];
+  Node2 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="Ra::Core::Geometry\l::AttribArrayGeometry\l::getAttribHandle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a25adccb0a28277580c023e2cd4adb0b0",tooltip=" "];
+  Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="Ra::Core::Utils::AttribManager\l::findAttrib",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#af89047a2747bc4e08144bbb3477e1d8e",tooltip="findAttrib Grab an attribute handler by name."];
+  Node2 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="Ra::Engine::Scene::\lComponent::getRoMgr",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1Component.html#a32a4bfb4e9b24644d680db3852099ff3",tooltip="Shortcut to access the render object manager."];
+  Node2 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="Ra::Core::Geometry\l::AttribArrayGeometry\l::removeAttrib",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ac46efab2f82a6946ea1d11d440fb10b5",tooltip=" "];
+  Node13 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="Ra::Core::Utils::AttribManager\l::removeAttrib",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#aeb28dcc5c1980e1fc7da191eb69bcbcb",tooltip=" "];
+  Node14 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

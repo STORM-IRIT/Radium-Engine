@@ -1,0 +1,8 @@
+digraph "Ra::Gui::Widgets::ControlPanel"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Gui::Widgets::Control\lPanel\n||+ ControlPanel()\l+ ControlPanel()\l+ operator=()\l+ ControlPanel()\l+ operator=()\l+ ~ControlPanel()\l+ beginLayout()\l+ endLayout()\l+ addSeparator()\l+ addStretch()\l+ addOption()\l+ addLabel()\l+ addButton()\l+ addColorInput()\l+ addNumberInput()\l+ addConstrainedNumberInput()\l+ addSliderInput()\l+ addPowerSliderInput()\l+ addVectorInput()\l+ addMatrixInput()\l+ addFileInput()\l+ addFileOutput()\l+ addComboBox()\l+ addComboBox()\l+ addWidget()\l* ControlPanel()\l* ControlPanel()\l* operator=()\l* ControlPanel()\l* operator=()\l* ~ControlPanel()\l* beginLayout()\l* endLayout()\l* addSeparator()\l* addStretch()\l* addOption()\l* addLabel()\l* addButton()\l* addColorInput()\l* addNumberInput()\l* addConstrainedNumberInput()\l* addSliderInput()\l* addPowerSliderInput()\l* addVectorInput()\l* addMatrixInput()\l* addFileInput()\l* addFileOutput()\l* addComboBox()\l* addComboBox()\l* addWidget()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+}

@@ -1,0 +1,14 @@
+digraph "Ra::Engine::Data::VolumetricMaterial"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Engine::Data::Volumetric\lMaterial\n|+ m_sigma_a\l+ m_sigma_s\l+ m_g\l+ m_scale\l+ m_stepsize\l+ m_modelToMedium\l|+ VolumetricMaterial()\l+ ~VolumetricMaterial()\l+ updateGL()\l+ updateFromParameters()\l+ isTransparent()\l+ setTexture()\l+ getTexture()\l+ getParametersMetadata()\l+ registerMaterial()\l+ unregisterMaterial()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{Ra::Engine::Data::Material\n|# m_instanceName\l# m_aspect\l# m_isDirty\l|+ ~Material()\l+ getInstanceName()\l+ getMaterialName()\l+ setMaterialAspect()\l+ getMaterialAspect()\l+ isTransparent()\l+ getPropertyList()\l+ setColoredByVertexAttrib()\l+ isColoredByVertexAttrib()\l+ needUpdate()\l# Material()\l# setMaterialName()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Data_1_1Material.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node3 [label="{Ra::Engine::Data::Shader\lParameterProvider\n|# m_renderParameters\l|+ ~ShaderParameterProvider()\l+ getParameters()\l+ getParameters()\l+ updateGL()\l+ updateFromParameters()\l+ getPropertyList()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html",tooltip=" "];
+  Node4 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node4 [label="{Ra::Engine::Data::Parameter\lSetEditingInterface\n||+ ~ParameterSetEditingInterface()\l+ getParametersMetadata()\l+ loadMetaData()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html",tooltip=" "];
+}

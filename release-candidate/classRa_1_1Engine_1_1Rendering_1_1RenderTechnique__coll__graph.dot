@@ -1,0 +1,8 @@
+digraph "Ra::Engine::Rendering::RenderTechnique"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Engine::Rendering\l::RenderTechnique\n||+ RenderTechnique()\l+ RenderTechnique()\l+ ~RenderTechnique()\l+ setConfiguration()\l+ hasConfiguration()\l+ setConfiguration()\l+ clearConfiguration()\l+ getConfiguration()\l+ getShader()\l+ setParametersProvider()\l+ getParametersProvider()\l+ updateGL()\l+ isDirty()\l+ setDirty()\l+ clearDirty()\l+ addPassProperties()\l+ createDefaultRenderTechnique()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+}

@@ -1,0 +1,8 @@
+digraph "Ra::Engine::Data::ShaderProgram"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Engine::Data::Shader\lProgram\n||+ ShaderProgram()\l+ ShaderProgram()\l+ ~ShaderProgram()\l+ load()\l+ reload()\l+ getBasicConfiguration()\l+ bind()\l+ validate()\l+ unbind()\l+ setUniform()\l+ setUniform()\l+ setUniformTexture()\l+ getProgramObject()\l+ addShaderFromSource()\l+ link()\l+ setUniform()\l+ setUniform()\l+ setUniform()\l+ setUniform()\l+ setUniform()\l+ setUniform()\l+ setUniform()\l+ setUniform()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+}

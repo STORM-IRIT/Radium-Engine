@@ -1,7 +1,0 @@
-<map id="Ra::Core::Asset::HandleAnimation" name="Ra::Core::Asset::HandleAnimation">
-<area shape="rect" id="node1" title=" " alt="" coords="81,1321,324,1399"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html" title=" " alt="" coords="5,756,235,1259"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="259,778,493,1237"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html" title=" " alt="" coords="243,5,442,171"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="365,220,593,693"/>
-</map>

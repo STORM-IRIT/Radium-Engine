@@ -1,0 +1,29 @@
+digraph "Ra::Engine::Scene::CameraManager::activate"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Engine::Scene::\lCameraManager::activate",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Engine::Scene::\lCameraManager::count",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a95204c94b8c1ba855539384a20b61344",tooltip="Number of managed Cameras."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Engine::Scene::\lCameraManager::updateActive\lCameraData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ad4516473cebc8b540d2da18319985125",tooltip="update the active camera data"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Ra::Engine::Scene::\lCameraManager::getCamera",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a785ff375d82f19cd4b48e6486f77cbf0",tooltip="Get a pointer to the i-th Camera."];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Ra::Core::Asset::Camera\l::getFrame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7",tooltip=" "];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Ra::Core::Asset::Camera\l::getHeight",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1Camera.html#a627f8c3e741a1d0f305886f1d8375de3",tooltip="Return the height of the viewport."];
+  Node3 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Ra::Core::Asset::Camera\l::getWidth",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2b2f8b09a65409166a96b9bb30e3ee20",tooltip="Return the width of the viewport."];
+  Node3 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Ra::Core::Utils::Observable\l::notify",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f",tooltip="Notify (i.e. call) each attached observer with argument p."];
+  Node3 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="Ra::Core::Asset::Camera\l::setFrame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3",tooltip="Set the frame of the camera to frame."];
+  Node3 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="Ra::Core::Asset::Camera\l::setViewport",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6",tooltip="Change the viewport size. Also compute aspectRatio."];
+  Node3 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="Ra::Core::Asset::Camera\l::updateProjMatrix",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7",tooltip="Update the projection matrix according to the current parameters."];
+}

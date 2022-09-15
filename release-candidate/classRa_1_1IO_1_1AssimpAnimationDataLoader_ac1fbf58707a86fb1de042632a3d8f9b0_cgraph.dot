@@ -1,0 +1,29 @@
+digraph "Ra::IO::AssimpAnimationDataLoader::fetchAnimation"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::IO::AssimpAnimationData\lLoader::fetchAnimation",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Core::Asset::Animation\lTime::extends",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a415893c202f05c72db0ca782b0da7b9d",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::IO::AssimpAnimationData\lLoader::fetchHandleAnimation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a652fe809115e90cbf6c254454f14ce49",tooltip=" "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Ra::Core::Animation\l::KeyFramedValue::at",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a9f68af7750684a100f2fd3ca9d6bd131",tooltip=" "];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Ra::Core::Animation\l::KeyFramedValue::insertKey\lFrame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236",tooltip=" "];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Ra::Core::Animation\l::KeyFramedValue::removeKey\lFrame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#aa70c88426aca120abdb7fd61ee95688e",tooltip=" "];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Ra::Core::Animation\l::KeyFramedValue::size",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a6798916c08b04274db027330815c9aa2",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Ra::Core::Asset::Animation\lData::getTime",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#ad5e1d378aa4ff5039b8e738651e7b79a",tooltip=" "];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="Ra::Core::Asset::Animation\lData::getTimeStep",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#a858346531804acd4cd5e88cc15f8b63c",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="Ra::Core::Asset::Animation\lData::setHandleData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#a135a614f6ec89a8bf63d6496d074833a",tooltip=" "];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="Ra::Core::Asset::Animation\lData::setTime",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#af71f668049bf4cdd1d54d8a496f931f8",tooltip=" "];
+}

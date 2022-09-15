@@ -1,0 +1,8 @@
+digraph "Ra::Engine::Data::EnvironmentTexture"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Engine::Data::Environment\lTexture\n||+ getImageName()\l+ getImageType()\l+ saveShProjection()\l+ getShMatrix()\l+ render()\l+ setSkybox()\l+ setStrength()\l+ getStrength()\l+ isSkybox()\l+ getEnvironmentTexture()\l+ updateGL()\l+ EnvironmentTexture()\l+ EnvironmentTexture()\l+ operator=()\l+ EnvironmentTexture()\l+ operator=()\l+ ~EnvironmentTexture()\l* EnvironmentTexture()\l* EnvironmentTexture()\l* operator=()\l* EnvironmentTexture()\l* operator=()\l* ~EnvironmentTexture()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Defines a spherical, infinite light sources and, optionally, sky boxes. An operator to convert an Env..."];
+}

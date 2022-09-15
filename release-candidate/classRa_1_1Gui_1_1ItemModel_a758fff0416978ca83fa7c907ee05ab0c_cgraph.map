@@ -1,8 +1,0 @@
-<map id="Ra::Gui::ItemModel::findEntryIndex" name="Ra::Gui::ItemModel::findEntryIndex">
-<area shape="rect" id="node1" title=" " alt="" coords="5,67,152,108"/>
-<area shape="rect" id="node2" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a4f2df708e8ee83f1bad37287d0a81916" title="Returns true if the item represents any valid object." alt="" coords="200,67,347,108"/>
-<area shape="rect" id="node3" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="639,69,849,111"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee" title=" " alt="" coords="396,33,589,75"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6" title="Manager getters." alt="" coords="395,99,591,140"/>
-<area shape="rect" id="node6" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4" title="Returns true if the item represents a render object." alt="" coords="415,164,570,205"/>
-</map>

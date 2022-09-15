@@ -1,0 +1,13 @@
+digraph "Ra::Gui::Widgets::ControlPanel::addColorInput"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Gui::Widgets::Control\lPanel::addColorInput",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Core::Utils::ColorBase\l\< Scalar \>::linearRGBTosRGB",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a2a69bad748649d27a7b04eaed0d358e7",tooltip="convert the color expressed in linear RGB color space to sRGB"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Core::Utils::ColorBase\l\< Scalar \>::sRGBToLinearRGB",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1a40d28bf57c428ea99ed917894f836f",tooltip="convert the color expressed in sRGB color space to linear RGB"];
+}

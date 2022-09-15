@@ -1,0 +1,17 @@
+digraph "Ra::Core::Animation::SkinningFrameData"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Core::Animation\l::SkinningFrameData\n|+ m_currentPosition\l+ m_currentNormal\l+ m_currentTangent\l+ m_currentBitangent\l+ m_frameCounter\l+ m_doSkinning\l+ m_doReset\l|}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Pose data for one frame."];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +m_skeleton" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node2 [label="{Ra::Core::Animation\l::Skeleton\n|+ m_manipulation\l|+ Skeleton()\l+ Skeleton()\l+ Skeleton()\l+ ~Skeleton()\l+ size()\l+ clear()\l+ getPose()\l+ setPose()\l+ getTransform()\l+ setTransform()\l+ addRoot()\l+ addBone()\l+ getBonePoints()\l+ projectOnBone()\l# setLocalTransform()\l# setModelTransform()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Animation_1_1Skeleton.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node3 [label="{Ra::Core::Animation\l::HandleArray\n|# m_name\l# m_label\l|+ HandleArray()\l+ HandleArray()\l+ HandleArray()\l+ operator=()\l+ ~HandleArray()\l+ size()\l+ clear()\l+ getPose()\l+ setPose()\l+ getTransform()\l+ setTransform()\l+ getName()\l+ setName()\l+ getLabel()\l+ setLabel()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Animation_1_1HandleArray.html",tooltip=" "];
+  Node4 -> Node3 [color="grey25",fontsize="10",style="solid",label=" +m_pose" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node4 [label="{Ra::Core::AlignedStdVector\< T \>\n||}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structRa_1_1Core_1_1AlignedStdVector.html",tooltip=" "];
+  Node5 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +m_graph" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node5 [label="{Ra::Core::AdjacencyList\n||+ AdjacencyList()\l+ AdjacencyList()\l+ AdjacencyList()\l+ operator=()\l+ ~AdjacencyList()\l+ addRoot()\l+ addNode()\l+ pruneLeaves()\l+ pruneLeaves()\l+ extractEdgeList()\l+ size()\l+ clear()\l+ computeConsistencyStatus()\l+ isEmpty()\l+ isRoot()\l+ isLeaf()\l+ isBranch()\l+ isJoint()\l+ isEdge()\l+ children()\l+ parents()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1AdjacencyList.html",tooltip=" "];
+  Node4 -> Node2 [color="grey25",fontsize="10",style="solid",label=" #m_modelSpace" ,arrowhead="odiamond",fontname="Helvetica"];
+}

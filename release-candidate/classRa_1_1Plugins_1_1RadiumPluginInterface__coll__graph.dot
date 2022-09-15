@@ -1,0 +1,8 @@
+digraph "Ra::Plugins::RadiumPluginInterface"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Plugins::RadiumPlugin\lInterface\n||+ ~RadiumPluginInterface()\l+ registerPlugin()\l+ doAddWidget()\l+ getWidget()\l+ doAddMenu()\l+ getMenu()\l+ doAddAction()\l+ getAction()\l+ doAddRenderer()\l+ addRenderers()\l+ doAddFileLoader()\l+ addFileLoaders()\l+ openGlInitialize()\l+ doAddROpenGLInitializer()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Interface class for Radiums plugins."];
+}

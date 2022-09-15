@@ -1,0 +1,12 @@
+digraph "/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/IO/TinyPlyLoader"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_fae119eb913a40fe8ed97cde8b98911e {
+    graph [ bgcolor="#eae7e0", pencolor="grey50", style="filled,dashed,", label="IO", fontname="Helvetica", fontsize="10", URL="dir_fae119eb913a40fe8ed97cde8b98911e.html"]
+  dir_21c87f206f6872de3cc60b97917f3fdd [shape=box, label="TinyPlyLoader", style="filled,bold,", fillcolor="#eae7e0", color="grey25", URL="dir_21c87f206f6872de3cc60b97917f3fdd.html"];
+  }
+}

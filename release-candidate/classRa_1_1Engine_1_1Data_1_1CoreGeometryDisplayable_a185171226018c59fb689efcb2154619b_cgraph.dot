@@ -1,0 +1,19 @@
+digraph "Ra::Engine::Data::CoreGeometryDisplayable::updateGL"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Engine::Data::CoreGeometry\lDisplayable::updateGL",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Update (i.e. send to GPU) the buffers marked as dirty."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Core::Utils::Container\lIntrospectionInterface\l::dataPtr",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a3b7b90613b57a821078ac3e26dc17caa",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Core::Utils::AttribBase\l::getName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca",tooltip="Return the attribute's name."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Ra::Core::Utils::Container\lIntrospectionInterface\l::getNumberOfComponents",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#aaa913325b3c078ea95ddce44ba6cc6eb",tooltip=" "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Ra::Core::Utils::Container\lIntrospectionInterface\l::getSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a709e66ce8c7c2f28a6330df869fc57ce",tooltip=" "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Ra::Core::Utils::Container\lIntrospectionInterface\l::getStride",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a61a035c5d5357d01e2df74bc441b770e",tooltip=" "];
+}

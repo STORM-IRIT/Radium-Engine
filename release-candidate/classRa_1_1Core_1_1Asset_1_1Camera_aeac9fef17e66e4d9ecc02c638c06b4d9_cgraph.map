@@ -1,8 +1,0 @@
-<map id="Ra::Core::Asset::Camera::unProjectFromScreen" name="Ra::Core::Asset::Camera::unProjectFromScreen">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,185,112"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a627f8c3e741a1d0f305886f1d8375de3" title="Return the height of the viewport." alt="" coords="233,5,413,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2b2f8b09a65409166a96b9bb30e3ee20" title="Return the width of the viewport." alt="" coords="233,71,413,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a65d905f243266d94686d652bc5f37906" title="Return the 3D point in world space corresponding to NDC cube &#160;point pix." alt="" coords="233,136,413,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="461,103,641,144"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aa461c56f0e95754cfb18d0616247d848" title="Return the projection matrix." alt="" coords="461,168,641,209"/>
-</map>

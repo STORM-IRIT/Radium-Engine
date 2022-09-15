@@ -1,7 +1,5 @@
 var classRa_1_1Gui_1_1Timeline =
 [
-    [ "Timeline", "classRa_1_1Gui_1_1Timeline.html#a2ac1a39fe02e2b52292b883062914408", null ],
-    [ "~Timeline", "classRa_1_1Gui_1_1Timeline.html#ad32d7c8dfececea68fff0e84324d6bbd", null ],
     [ "cursorChanged", "classRa_1_1Gui_1_1Timeline.html#ae4d172ef056ede716bfd19694494df89", null ],
     [ "detachFromEngine", "classRa_1_1Gui_1_1Timeline.html#ae9cd5fd2a0866efda0fe878486917f17", null ],
     [ "durationChanged", "classRa_1_1Gui_1_1Timeline.html#a7d73c865ed91c9d703d5dff852051a28", null ],
@@ -21,7 +19,6 @@ var classRa_1_1Gui_1_1Timeline =
     [ "registerKeyFramedValue", "classRa_1_1Gui_1_1Timeline.html#a94e30dea5271091e5e09da83caef6e99", null ],
     [ "registerKeyFramedValue", "classRa_1_1Gui_1_1Timeline.html#a764c7dbb66c0f27ab06a7e9fdc66726c", null ],
     [ "registerKeyFramedValue", "classRa_1_1Gui_1_1Timeline.html#ac6ec7a3145e199e3de1de67ea7bd15a0", null ],
-    [ "resizeEvent", "classRa_1_1Gui_1_1Timeline.html#ae9ff6daccd6224af687ffccd2bcb0f00", null ],
     [ "selectionChanged", "classRa_1_1Gui_1_1Timeline.html#a4f36c4d5bbf6005a10f4b19f2879ee60", null ],
     [ "setPingPong", "classRa_1_1Gui_1_1Timeline.html#a5fe532262dad333da56e333502717790", null ],
     [ "startChanged", "classRa_1_1Gui_1_1Timeline.html#a792ef7bae4fbfa177055173dfe05c1b4", null ],

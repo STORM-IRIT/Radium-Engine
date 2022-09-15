@@ -27,14 +27,15 @@ var namespaceRa =
         [ "VolumeData", "structRa_1_1Core_1_1Asset_1_1VolumeData.html", "structRa_1_1Core_1_1Asset_1_1VolumeData" ]
       ] ],
       [ "Containers", null, [
-        [ "BVH", "classRa_1_1Core_1_1Containers_1_1BVH.html", "classRa_1_1Core_1_1Containers_1_1BVH" ]
+        [ "BVH", "classRa_1_1Core_1_1Containers_1_1BVH.html", null ]
       ] ],
       [ "Geometry", null, [
         [ "deprecated", null, [
           [ "DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand.html", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand" ],
           [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html", "classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh" ],
-          [ "TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits" ]
+          [ "TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html", null ]
         ] ],
+        [ "IndexLayerType", "namespaceRa_1_1Core_1_1Geometry_1_1IndexLayerType.html", null ],
         [ "AbstractDiscreteVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume" ],
         [ "AbstractGeometry", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry" ],
         [ "AbstractVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume" ],
@@ -43,25 +44,34 @@ var namespaceRa =
         [ "GeometryIndexLayer", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer" ],
         [ "GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase" ],
         [ "IndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry" ],
-        [ "LineIndexLayer", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer" ],
-        [ "LineToSegmentOutput", "structRa_1_1Core_1_1Geometry_1_1LineToSegmentOutput.html", "structRa_1_1Core_1_1Geometry_1_1LineToSegmentOutput" ],
-        [ "LineToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1LineToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1LineToTriangleOutput" ],
+        [ "LineIndexLayer", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html", null ],
+        [ "LineToSegmentOutput", "structRa_1_1Core_1_1Geometry_1_1LineToSegmentOutput.html", null ],
+        [ "LineToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1LineToTriangleOutput.html", null ],
         [ "LoopSubdivider", "classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html", "classRa_1_1Core_1_1Geometry_1_1LoopSubdivider" ],
         [ "MultiIndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry" ],
         [ "Obb", "classRa_1_1Core_1_1Geometry_1_1Obb.html", "classRa_1_1Core_1_1Geometry_1_1Obb" ],
         [ "PointCloudIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer" ],
         [ "PointToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput" ],
-        [ "PolyIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer" ],
+        [ "PolyIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html", null ],
         [ "PolyLine", "classRa_1_1Core_1_1Geometry_1_1PolyLine.html", "classRa_1_1Core_1_1Geometry_1_1PolyLine" ],
-        [ "QuadIndexLayer", "structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer" ],
-        [ "SegmentToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput" ],
+        [ "QuadIndexLayer", "structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html", null ],
+        [ "SegmentToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html", null ],
         [ "Spline", "classRa_1_1Core_1_1Geometry_1_1Spline.html", "classRa_1_1Core_1_1Geometry_1_1Spline" ],
         [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh" ],
-        [ "TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits" ],
-        [ "TriangleIndexLayer", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer" ],
-        [ "TriangleToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1TriangleToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1TriangleToTriangleOutput" ],
+        [ "TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html", null ],
+        [ "TriangleIndexLayer", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html", null ],
+        [ "TriangleToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1TriangleToTriangleOutput.html", null ],
         [ "VolumeGrid", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid" ],
         [ "VolumeSparse", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse" ]
+      ] ],
+      [ "Resources", "namespaceRa_1_1Core_1_1Resources.html", [
+        [ "getBasePath", "namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032", null ],
+        [ "getDataPath", "namespaceRa_1_1Core_1_1Resources.html#a291182009b81d19abfa8b7fff7cbbfb7", null ],
+        [ "getRadiumPluginsPath", "namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2", null ],
+        [ "getRadiumResourcesPath", "namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c", null ],
+        [ "getResourcesPath", "namespaceRa_1_1Core_1_1Resources.html#ae666024acf0e64bda7b94f972af68aef", null ],
+        [ "popDataPath", "namespaceRa_1_1Core_1_1Resources.html#a3456875ec7483fef97c3d5a8444fed6a", null ],
+        [ "pushDataPath", "namespaceRa_1_1Core_1_1Resources.html#ad6fb8d46cb6a7f05ceae06d2498fca31", null ]
       ] ],
       [ "Utils", null, [
         [ "Attrib", "classRa_1_1Core_1_1Utils_1_1Attrib.html", "classRa_1_1Core_1_1Utils_1_1Attrib" ],
@@ -74,13 +84,13 @@ var namespaceRa =
         [ "ContainerIntrospectionInterface", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface" ],
         [ "IndexedObject", "classRa_1_1Core_1_1Utils_1_1IndexedObject.html", "classRa_1_1Core_1_1Utils_1_1IndexedObject" ],
         [ "IndexMap", "classRa_1_1Core_1_1Utils_1_1IndexMap.html", "classRa_1_1Core_1_1Utils_1_1IndexMap" ],
-        [ "map_keys", "structRa_1_1Core_1_1Utils_1_1map__keys.html", "structRa_1_1Core_1_1Utils_1_1map__keys" ],
-        [ "map_values", "structRa_1_1Core_1_1Utils_1_1map__values.html", "structRa_1_1Core_1_1Utils_1_1map__values" ],
+        [ "map_keys", "structRa_1_1Core_1_1Utils_1_1map__keys.html", null ],
+        [ "map_values", "structRa_1_1Core_1_1Utils_1_1map__values.html", null ],
         [ "ObjectWithSemantic", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic" ],
         [ "Observable", "classRa_1_1Core_1_1Utils_1_1Observable.html", "classRa_1_1Core_1_1Utils_1_1Observable" ]
       ] ],
       [ "AdjacencyList", "classRa_1_1Core_1_1AdjacencyList.html", "classRa_1_1Core_1_1AdjacencyList" ],
-      [ "AlignedAllocator", "classRa_1_1Core_1_1AlignedAllocator.html", "classRa_1_1Core_1_1AlignedAllocator" ],
+      [ "AlignedAllocator", "classRa_1_1Core_1_1AlignedAllocator.html", null ],
       [ "AlignedStdVector", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html", "classRa_1_1Core_1_1DualQuaternion" ],
       [ "FunctionTask", "classRa_1_1Core_1_1FunctionTask.html", "classRa_1_1Core_1_1FunctionTask" ],
@@ -94,9 +104,45 @@ var namespaceRa =
     ] ],
     [ "Engine", null, [
       [ "Data", null, [
+        [ "DrawPrimitives", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html", [
+          [ "AABB", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a6e1258c6c5fc039cd512a9f7f653d7fc", null ],
+          [ "Capsule", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a0a59d32879ec0d4d6692fbd463d802b1", null ],
+          [ "Circle", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab40bb69cc65f3770694a317f95b66606", null ],
+          [ "CircleArc", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a185400772c9aa5ffd41b559acc966968", null ],
+          [ "Disk", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a51326886cdea5cd9b9dc693657f046ae", null ],
+          [ "Frame", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a787adc450fb23508e84afb0aff0f0371", null ],
+          [ "Grid", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a97676e22e9412b6bbbae221d135875d9", null ],
+          [ "Line", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a15a05dc926fa59f1a44419a0b994aa9a", null ],
+          [ "LineStrip", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa8a3aa92c1fac4d113d7c10b87684e0c", null ],
+          [ "Normal", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa", null ],
+          [ "OBB", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb8bac927cad32e53b6ccaa05800a1d7", null ],
+          [ "ParametricSphere", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a4b63bdba5d53344f27d6147f6c516cd1", null ],
+          [ "Point", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ad10130fea53a693f02d20eb4c1c6a155", null ],
+          [ "Primitive", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf", null ],
+          [ "QuadStrip", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#af81e60e77d19429515e20639f43c2432", null ],
+          [ "Ray", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a20d1935c893100152ed28493bb5689d9", null ],
+          [ "Sphere", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab0d998fb49864a940afd6009f12a484c", null ],
+          [ "Triangle", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a5ff500d17cce57978b811c14a5757111", null ],
+          [ "Vector", "namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a7a457fa10ba75ab68446d8392f81ba48", null ]
+        ] ],
+        [ "EngineMaterialConverters", "namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html", [
+          [ "AssetMaterialPtr", "namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a28f261ef402c6c27975bf321877d47bc", null ],
+          [ "ConverterFunction", "namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#aa4e33bcdb11c18d70375f4e7dcd4c487", null ],
+          [ "RadiumMaterialPtr", "namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a006896056d0249dcd2aabd1ca6203ecf", null ],
+          [ "getMaterialConverter", "namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5da8719516e84ff6d9976207a8940021", null ],
+          [ "registerMaterialConverter", "namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a5a45ee7e1366b9abd85ae8701e9239b7", null ],
+          [ "removeMaterialConverter", "namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a07edf6afa24bd87c14434820c6ac9037", null ],
+          [ "MaterialConverterRegistry", "namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#adc434306908bbccf3e4124d5f5f11f27", null ]
+        ] ],
+        [ "RenderMeshType", "namespaceRa_1_1Engine_1_1Data_1_1RenderMeshType.html", null ],
+        [ "ShaderConfigurationFactory", "namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html", [
+          [ "addConfiguration", "namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde", null ],
+          [ "getConfiguration", "namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f", null ],
+          [ "removeConfiguration", "namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a4131d754283ed259edf3def7a8891064", null ]
+        ] ],
         [ "AttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable" ],
         [ "BlinnPhongMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial" ],
-        [ "BlinnPhongMaterialConverter", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter.html", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter" ],
+        [ "BlinnPhongMaterialConverter", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter.html", null ],
         [ "CoreGeometryDisplayable", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable" ],
         [ "Displayable", "classRa_1_1Engine_1_1Data_1_1Displayable.html", "classRa_1_1Engine_1_1Data_1_1Displayable" ],
         [ "EnvironmentTexture", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture" ],
@@ -104,7 +150,7 @@ var namespaceRa =
         [ "IndexedAttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable" ],
         [ "IndexedGeometry", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry" ],
         [ "LambertianMaterial", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial" ],
-        [ "LineMesh", "classRa_1_1Engine_1_1Data_1_1LineMesh.html", "classRa_1_1Engine_1_1Data_1_1LineMesh" ],
+        [ "LineMesh", "classRa_1_1Engine_1_1Data_1_1LineMesh.html", null ],
         [ "Material", "classRa_1_1Engine_1_1Data_1_1Material.html", "classRa_1_1Engine_1_1Data_1_1Material" ],
         [ "Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", "classRa_1_1Engine_1_1Data_1_1Mesh" ],
         [ "MultiIndexedGeometry", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry" ],
@@ -112,7 +158,7 @@ var namespaceRa =
         [ "PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", "classRa_1_1Engine_1_1Data_1_1PlainMaterial" ],
         [ "PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", "classRa_1_1Engine_1_1Data_1_1PointCloud" ],
         [ "RawShaderMaterial", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial" ],
-        [ "RawShaderMaterialConverter", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter" ],
+        [ "RawShaderMaterialConverter", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html", null ],
         [ "RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", "classRa_1_1Engine_1_1Data_1_1RenderParameters" ],
         [ "ShaderConfiguration", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration" ],
         [ "ShaderParameterProvider", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" ],
@@ -124,7 +170,7 @@ var namespaceRa =
         [ "TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", "structRa_1_1Engine_1_1Data_1_1TextureParameters" ],
         [ "Vao", "classRa_1_1Engine_1_1Data_1_1Vao.html", null ],
         [ "VaoIndices", "classRa_1_1Engine_1_1Data_1_1VaoIndices.html", "classRa_1_1Engine_1_1Data_1_1VaoIndices" ],
-        [ "ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", "structRa_1_1Engine_1_1Data_1_1ViewingParameters" ],
+        [ "ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", null ],
         [ "VolumeObject", "classRa_1_1Engine_1_1Data_1_1VolumeObject.html", "classRa_1_1Engine_1_1Data_1_1VolumeObject" ],
         [ "VolumetricMaterial", "classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html", "classRa_1_1Engine_1_1Data_1_1VolumetricMaterial" ]
       ] ],
@@ -172,6 +218,7 @@ var namespaceRa =
     ] ],
     [ "Gui", null, [
       [ "Widgets", null, [
+        [ "QtSpinBox", "namespaceRa_1_1Gui_1_1Widgets_1_1QtSpinBox.html", null ],
         [ "ConstrainedNumericSpinBox", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox" ],
         [ "ControlPanel", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel" ],
         [ "MatrixEditor", "classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html", "classRa_1_1Gui_1_1Widgets_1_1MatrixEditor" ],
@@ -182,7 +229,7 @@ var namespaceRa =
       [ "FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html", "classRa_1_1Gui_1_1FlightCameraManipulator" ],
       [ "Gizmo", "classRa_1_1Gui_1_1Gizmo.html", "classRa_1_1Gui_1_1Gizmo" ],
       [ "GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", "classRa_1_1Gui_1_1GizmoManager" ],
-      [ "HelpDialog", "classRa_1_1Gui_1_1HelpDialog.html", "classRa_1_1Gui_1_1HelpDialog" ],
+      [ "HelpDialog", "classRa_1_1Gui_1_1HelpDialog.html", null ],
       [ "ItemModel", "classRa_1_1Gui_1_1ItemModel.html", "classRa_1_1Gui_1_1ItemModel" ],
       [ "KeyMappingManageable", "classRa_1_1Gui_1_1KeyMappingManageable.html", "classRa_1_1Gui_1_1KeyMappingManageable" ],
       [ "KeyMappingManager", "classRa_1_1Gui_1_1KeyMappingManager.html", "classRa_1_1Gui_1_1KeyMappingManager" ],
@@ -192,7 +239,7 @@ var namespaceRa =
       [ "RotateGizmo", "classRa_1_1Gui_1_1RotateGizmo.html", "classRa_1_1Gui_1_1RotateGizmo" ],
       [ "ScaleGizmo", "classRa_1_1Gui_1_1ScaleGizmo.html", "classRa_1_1Gui_1_1ScaleGizmo" ],
       [ "SimpleWindow", "classRa_1_1Gui_1_1SimpleWindow.html", "classRa_1_1Gui_1_1SimpleWindow" ],
-      [ "SimpleWindowFactory", "classRa_1_1Gui_1_1SimpleWindowFactory.html", "classRa_1_1Gui_1_1SimpleWindowFactory" ],
+      [ "SimpleWindowFactory", "classRa_1_1Gui_1_1SimpleWindowFactory.html", null ],
       [ "Timeline", "classRa_1_1Gui_1_1Timeline.html", "classRa_1_1Gui_1_1Timeline" ],
       [ "TimelineFrameSelector", "classRa_1_1Gui_1_1TimelineFrameSelector.html", "classRa_1_1Gui_1_1TimelineFrameSelector" ],
       [ "TimelineScrollArea", "classRa_1_1Gui_1_1TimelineScrollArea.html", "classRa_1_1Gui_1_1TimelineScrollArea" ],
@@ -213,16 +260,16 @@ var namespaceRa =
     [ "IO", null, [
       [ "AssimpAnimationDataLoader", "classRa_1_1IO_1_1AssimpAnimationDataLoader.html", "classRa_1_1IO_1_1AssimpAnimationDataLoader" ],
       [ "AssimpCameraDataLoader", "classRa_1_1IO_1_1AssimpCameraDataLoader.html", "classRa_1_1IO_1_1AssimpCameraDataLoader" ],
-      [ "AssimpFileLoader", "classRa_1_1IO_1_1AssimpFileLoader.html", "classRa_1_1IO_1_1AssimpFileLoader" ],
+      [ "AssimpFileLoader", "classRa_1_1IO_1_1AssimpFileLoader.html", null ],
       [ "AssimpGeometryDataLoader", "classRa_1_1IO_1_1AssimpGeometryDataLoader.html", "classRa_1_1IO_1_1AssimpGeometryDataLoader" ],
       [ "FileManager", "classRa_1_1IO_1_1FileManager.html", "classRa_1_1IO_1_1FileManager" ],
       [ "OBJFileManager", "classRa_1_1IO_1_1OBJFileManager.html", "classRa_1_1IO_1_1OBJFileManager" ],
       [ "OFFFileManager", "classRa_1_1IO_1_1OFFFileManager.html", "classRa_1_1IO_1_1OFFFileManager" ],
-      [ "VolumeLoader", "classRa_1_1IO_1_1VolumeLoader.html", "classRa_1_1IO_1_1VolumeLoader" ]
+      [ "VolumeLoader", "classRa_1_1IO_1_1VolumeLoader.html", null ]
     ] ],
     [ "Plugins", null, [
       [ "Context", "classRa_1_1Plugins_1_1Context.html", "classRa_1_1Plugins_1_1Context" ],
       [ "RadiumPluginInterface", "classRa_1_1Plugins_1_1RadiumPluginInterface.html", "classRa_1_1Plugins_1_1RadiumPluginInterface" ]
     ] ],
-    [ "FrameTimerData", "structRa_1_1FrameTimerData.html", "structRa_1_1FrameTimerData" ]
+    [ "FrameTimerData", "structRa_1_1FrameTimerData.html", null ]
 ];

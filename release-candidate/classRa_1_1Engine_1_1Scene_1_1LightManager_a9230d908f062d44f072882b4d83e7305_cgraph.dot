@@ -1,0 +1,21 @@
+digraph "Ra::Engine::Scene::LightManager::handleAssetLoading"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Engine::Scene::\lLightManager::handleAssetLoading",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Transform loaded file data to usable entities and component in the engine."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Engine::Scene::\lLightManager::count",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1LightManager.html#a1e088de2f8e0d9c8dbaea6d75709710d",tooltip="Number of lights. This is still a work in progress. The idea is to make it possible for a LightManage..."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Engine::Scene::\lLightManager::registerComponent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1LightManager.html#abf0ae2599e38b84125031b5074bac25f",tooltip=" "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Ra::Engine::Scene::\lSystem::registerComponent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece",tooltip=" "];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Ra::Engine::Scene::\lComponent::getEntity",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1Component.html#aaaac457b6b1c62d618f626c9c6771ad2",tooltip="Return the entity the component belongs to."];
+  Node4 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Ra::Engine::Scene::\lComponent::getName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e",tooltip="Return the component's name."];
+  Node4 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Ra::Engine::Scene::\lComponent::setSystem",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1Component.html#ad938ddceb5b48fc2c0ba6ef699ac3cfa",tooltip="Set the system to which the component belongs."];
+}

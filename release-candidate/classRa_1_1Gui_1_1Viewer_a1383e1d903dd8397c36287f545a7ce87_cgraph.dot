@@ -1,0 +1,56 @@
+digraph "Ra::Gui::Viewer::initializeGL"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Gui::Viewer::initializeGL",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Engine::Scene::\lCameraManager::activeCamera\lObservers",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#aff6e3ecc1399d2146ac5d0faf6e71a47",tooltip="get a ref to active camera observers to add/remove an observer"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Gui::Viewer::addRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1Viewer.html#a5a23e360fb4500aeea04e83e2a5c8f36",tooltip=" "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Ra::Gui::WindowQt::\ldoneCurrent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964",tooltip=" "];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Ra::Gui::Viewer::initialize\lRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1Viewer.html#a14a1ad5406cca6655fd9ed6e296bf8e3",tooltip="Initialize renderer internal state + configure lights."];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Ra::Engine::Rendering\l::Renderer::initialize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1937407357a05fef64bd1f0bafa50492",tooltip="Initialize renderer."];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Ra::Engine::Data::Shader\lConfigurationFactory::\laddConfiguration",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde",tooltip=" "];
+  Node6 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Ra::Engine::Data::Shader\lConfiguration::addShader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a42ec93f4772c0455149a81e9d8502d43",tooltip=" "];
+  Node6 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="Ra::Engine::Data::Shader\lProgramManager::addShaderProgram",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a4b346bfdb26bd4c0dcb3372f6e6b1dad",tooltip=" "];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="Ra::Engine::Data::Shader\lProgramManager::addNamedString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#ae775537f28c1b2f538babc04d315d494",tooltip=" "];
+  Node6 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="Ra::Engine::Rendering\l::Renderer::initializeInternal",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab14ff49e794cd718b77db013c9fae556",tooltip="initializeInternal Initialize the renderer dependant resources."];
+  Node6 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="Ra::Engine::Rendering\l::Renderer::resize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a314e31247fa616d1cbb02143cd42019f",tooltip="Resize the viewport and all the screen textures, fbos. This function must be overrided as soon as som..."];
+  Node12 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="Ra::Engine::Rendering\l::Renderer::resizeInternal",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac804ffc9a0b4f71c02610ce930fd5c65",tooltip=" "];
+  Node5 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="Ra::Engine::Rendering\l::Renderer::lockRendering",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abbb35a6ba5e765ce56848af6d235cf8f",tooltip=" "];
+  Node5 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="Ra::Engine::Rendering\l::Renderer::setBackgroundColor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a80b7cdbb5e045a77c90a27bd20db3b77",tooltip="Update the background color (does not trigger a redraw)"];
+  Node3 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="Ra::Gui::WindowQt::\lmakeCurrent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4",tooltip=" "];
+  Node1 -> Node17 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="Ra::Core::Utils::Observable\l::attach",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d",tooltip=" "];
+  Node1 -> Node18 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="Ra::Gui::Viewer::changeRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1Viewer.html#a94ca6b2d9205f3affdc98703e5d22a13",tooltip="Set the renderer."];
+  Node18 -> Node19 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="Ra::Engine::Rendering\l::Renderer::buildAllRenderTechniques",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a7042ea2839f794059ca7a97f75118afe",tooltip=" "];
+  Node18 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 -> Node20 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node20 [label="Ra::Engine::Rendering\l::Renderer::getRendererName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a305a4ebf52a2d2642245155eab3099dc",tooltip="Get the name of the renderer, e.g to be displayed in the UI."];
+  Node18 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 -> Node21 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 [label="Ra::Engine::Rendering\l::Renderer::unlockRendering",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a176af03a142928fb672ec7063efab174",tooltip=" "];
+  Node1 -> Node22 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node22 [label="Ra::Gui::Viewer::createGizmo\lManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1Viewer.html#abcb7e8020ac7d36903b98cf4cbcaa350",tooltip="create gizmos"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

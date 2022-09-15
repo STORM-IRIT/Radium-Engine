@@ -1,0 +1,8 @@
+digraph "Ra::Engine::Data::ShaderConfiguration"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Engine::Data::Shader\lConfiguration\n||+ ShaderConfiguration()\l+ ShaderConfiguration()\l+ ShaderConfiguration()\l+ addShader()\l+ addShaderSource()\l+ addProperty()\l+ addProperties()\l+ removeProperty()\l+ addInclude()\l+ addIncludes()\l+ removeInclude()\l+ addNamedString()\l+ isComplete()\l+ operator\<()\l+ getProperties()\l+ getIncludes()\l+ getNamedStrings()\l+ setVersion()\l+ setName()\l+ getName()\l+ getVersion()\l+ getDefaultShaderConfig()\l+ setOpenGLVersion()\l+ getGLSLVersion()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+}

@@ -6,7 +6,6 @@ var classRa_1_1Engine_1_1Data_1_1Material =
       [ "MAT_DENSITY", "classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2a6f1de8b47e04941d10e4d333ad70af41", null ]
     ] ],
     [ "Material", "classRa_1_1Engine_1_1Data_1_1Material.html#a2f31d488e39cc4841fe89cfda20a24fc", null ],
-    [ "~Material", "classRa_1_1Engine_1_1Data_1_1Material.html#a3e23b2b016a99ce802a438d6381fffa2", null ],
     [ "getInstanceName", "classRa_1_1Engine_1_1Data_1_1Material.html#a04361b455663fd68ec7235f4219262f0", null ],
     [ "getMaterialAspect", "classRa_1_1Engine_1_1Data_1_1Material.html#acb1dcdfe5a92bfa3b9a834a4dadc9a3b", null ],
     [ "getMaterialName", "classRa_1_1Engine_1_1Data_1_1Material.html#a12b6f71b149e59868927a7a5f76d9f08", null ],

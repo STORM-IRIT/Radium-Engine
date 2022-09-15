@@ -1,0 +1,14 @@
+digraph "/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/IO/AssimpLoader"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_fae119eb913a40fe8ed97cde8b98911e {
+    graph [ bgcolor="#eae7e0", pencolor="grey50", style="filled,dashed,", label="IO", fontname="Helvetica", fontsize="10", URL="dir_fae119eb913a40fe8ed97cde8b98911e.html"]
+  dir_7788c5f37a81918c772c9185f759a19f [shape=box, label="AssimpLoader", style="filled,bold,", fillcolor="#eae7e0", color="grey25", URL="dir_7788c5f37a81918c772c9185f759a19f.html"];
+  }
+  dir_a2f0e5642e47e7ed59fe0f0829eafb5f [shape=box, label="Core", style="dashed,", fillcolor="#eae7e0", color="red", URL="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html"];
+  dir_7788c5f37a81918c772c9185f759a19f->dir_a2f0e5642e47e7ed59fe0f0829eafb5f [headlabel="5", labeldistance=1.5 headhref="dir_000003_000008.html"];
+}

@@ -1,6 +1,5 @@
 var classRa_1_1Gui_1_1TimelineScrollArea =
 [
-    [ "TimelineScrollArea", "classRa_1_1Gui_1_1TimelineScrollArea.html#aff721d96144d68abf4e640cef560a375", null ],
     [ "addKeyFrame", "classRa_1_1Gui_1_1TimelineScrollArea.html#a95360b01baac173e240e9fcb4eaf42db", null ],
     [ "durationDecrement", "classRa_1_1Gui_1_1TimelineScrollArea.html#aff44f6ab44ec746ea6e106725df080fe", null ],
     [ "durationIncrement", "classRa_1_1Gui_1_1TimelineScrollArea.html#abb6b07bfbaf0c12f9403e40a85568ad1", null ],
@@ -9,10 +8,6 @@ var classRa_1_1Gui_1_1TimelineScrollArea =
     [ "getPixPerSec", "classRa_1_1Gui_1_1TimelineScrollArea.html#af53301af105f5723ae4e189843f62810", null ],
     [ "getStep", "classRa_1_1Gui_1_1TimelineScrollArea.html#ae6010b1c3d99325e5d882b62019ab431", null ],
     [ "getZero", "classRa_1_1Gui_1_1TimelineScrollArea.html#a3ae4fab1eb0ea8fed75de7774336936a", null ],
-    [ "keyPressEvent", "classRa_1_1Gui_1_1TimelineScrollArea.html#a8905963fd9b3566ce49223ba3c917ec8", null ],
-    [ "mouseMoveEvent", "classRa_1_1Gui_1_1TimelineScrollArea.html#a878c6f73f830b0ff054bc0ddf1ef9232", null ],
-    [ "mousePressEvent", "classRa_1_1Gui_1_1TimelineScrollArea.html#af1495298a9ee98175c7a721ae818c36c", null ],
-    [ "mouseReleaseEvent", "classRa_1_1Gui_1_1TimelineScrollArea.html#a5ef278fea12b02e0a3ad742fc03674bf", null ],
     [ "nextKeyFrame", "classRa_1_1Gui_1_1TimelineScrollArea.html#af9d3580015e2efb17754058a32ef2945", null ],
     [ "onDrawRuler", "classRa_1_1Gui_1_1TimelineScrollArea.html#ab5de24629ff8ac5f142313bc977b372d", null ],
     [ "previousKeyFrame", "classRa_1_1Gui_1_1TimelineScrollArea.html#a466d6b550f8298d4bd7d7a7b3798d969", null ],
@@ -21,6 +16,5 @@ var classRa_1_1Gui_1_1TimelineScrollArea =
     [ "setMaxDuration", "classRa_1_1Gui_1_1TimelineScrollArea.html#a0d9a8b0ec45e130ef777963274d06192", null ],
     [ "stepChanged", "classRa_1_1Gui_1_1TimelineScrollArea.html#a95371ce8b334da3e792663d9f7f48e84", null ],
     [ "togglePlayPause", "classRa_1_1Gui_1_1TimelineScrollArea.html#a065d3c3702d57ebf3ba438640a9081a3", null ],
-    [ "undo", "classRa_1_1Gui_1_1TimelineScrollArea.html#ad4116ecdbcb2a9290397a092ef37fa45", null ],
-    [ "wheelEvent", "classRa_1_1Gui_1_1TimelineScrollArea.html#a2f1861b40ad218b677664b41fbc79a1f", null ]
+    [ "undo", "classRa_1_1Gui_1_1TimelineScrollArea.html#ad4116ecdbcb2a9290397a092ef37fa45", null ]
 ];

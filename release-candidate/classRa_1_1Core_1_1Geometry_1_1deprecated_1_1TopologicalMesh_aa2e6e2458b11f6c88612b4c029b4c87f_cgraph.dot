@@ -1,0 +1,15 @@
+digraph "Ra::Core::Geometry::deprecated::TopologicalMesh::splitEdge"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Core::Geometry\l::deprecated::TopologicalMesh\l::splitEdge",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Core::Geometry\l::deprecated::TopologicalMesh\l::copyAllProps",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a524d9da4cceb093d6743edeb4fab9297",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Core::Geometry\l::deprecated::TopologicalMesh\l::halfedge_handle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Ra::Core::Geometry\l::deprecated::TopologicalMesh\l::interpolateAllProps",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a720ac0a99914c6467ce104d3432d32f9",tooltip=" "];
+}

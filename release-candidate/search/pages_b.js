@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['plugin_20system_3083',['Plugin System',['../pluginSystem.html',1,'conceptsmanual']]]
+  ['material_20management_0',['Material management',['../md_developer_material.html',1,'']]]
 ];

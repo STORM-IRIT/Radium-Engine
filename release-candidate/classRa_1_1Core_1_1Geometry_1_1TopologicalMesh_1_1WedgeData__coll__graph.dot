@@ -1,0 +1,37 @@
+digraph "Ra::Core::Geometry::TopologicalMesh::WedgeData"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Core::Geometry\l::TopologicalMesh::WedgeData\n|+ Wedge\l+ m_vertexHandle\l+ m_position\l|+ WedgeData()\l+ operator==()\l+ operator!=()\l+ operator\<()\l+ getAttribArray()\l+ getAttribArray()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +m_floatAttrib" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node2 [label="{Ra::Core::VectorArray\l\< Scalar \>\n||+ getMap()\l+ getMap()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1VectorArray.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node3 [label="{Ra::Core::AlignedStdVector\l\< Scalar \>\n||}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structRa_1_1Core_1_1AlignedStdVector.html",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Scalar \>" ,fontname="Helvetica"];
+  Node4 [label="{Ra::Core::AlignedStdVector\< T \>\n||}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structRa_1_1Core_1_1AlignedStdVector.html",tooltip=" "];
+  Node5 -> Node2 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Scalar \>" ,fontname="Helvetica"];
+  Node5 [label="{Ra::Core::VectorArray\< V \>\n||+ getMap()\l+ getMap()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1VectorArray.html",tooltip=" "];
+  Node6 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node6 [label="{Ra::Core::AlignedStdVector\< V \>\n||}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structRa_1_1Core_1_1AlignedStdVector.html",tooltip=" "];
+  Node4 -> Node6 [dir="back",color="orange",fontsize="10",style="solid",label=" \< V \>" ,fontname="Helvetica"];
+  Node7 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +m_vector2Attrib" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node7 [label="{Ra::Core::VectorArray\l\< Vector2 \>\n||+ getMap()\l+ getMap()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1VectorArray.html",tooltip=" "];
+  Node8 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node8 [label="{Ra::Core::AlignedStdVector\l\< Vector2 \>\n||}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structRa_1_1Core_1_1AlignedStdVector.html",tooltip=" "];
+  Node4 -> Node8 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Vector2 \>" ,fontname="Helvetica"];
+  Node5 -> Node7 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Vector2 \>" ,fontname="Helvetica"];
+  Node9 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +m_vector3Attrib" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node9 [label="{Ra::Core::VectorArray\l\< Vector3 \>\n||+ getMap()\l+ getMap()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1VectorArray.html",tooltip=" "];
+  Node10 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node10 [label="{Ra::Core::AlignedStdVector\l\< Vector3 \>\n||}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structRa_1_1Core_1_1AlignedStdVector.html",tooltip=" "];
+  Node4 -> Node10 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Vector3 \>" ,fontname="Helvetica"];
+  Node5 -> Node9 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Vector3 \>" ,fontname="Helvetica"];
+  Node11 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +m_vector4Attrib" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node11 [label="{Ra::Core::VectorArray\l\< Vector4 \>\n||+ getMap()\l+ getMap()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1VectorArray.html",tooltip=" "];
+  Node12 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node12 [label="{Ra::Core::AlignedStdVector\l\< Vector4 \>\n||}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structRa_1_1Core_1_1AlignedStdVector.html",tooltip=" "];
+  Node4 -> Node12 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Vector4 \>" ,fontname="Helvetica"];
+  Node5 -> Node11 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Vector4 \>" ,fontname="Helvetica"];
+}

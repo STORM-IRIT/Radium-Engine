@@ -1,0 +1,8 @@
+digraph "Ra::Core::Asset::AnimationTime"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Core::Asset::AnimationTime\n||+ AnimationTime()\l+ AnimationTime()\l+ ~AnimationTime()\l+ getStart()\l+ setStart()\l+ getEnd()\l+ setEnd()\l+ extends()\l+ extends()\l+ isValid()\l+ duration()\l+ contains()\l+ intersect()\l* m_start\l* m_end\l* operator==()\l* operator!=()\l* operator==()\l* operator\<()\l* operator\>()\l* getStart()\l* setStart()\l* getEnd()\l* setEnd()\l* extends()\l* extends()\l* isValid()\l* duration()\l* contains()\l* intersect()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+}

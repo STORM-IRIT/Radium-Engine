@@ -1,0 +1,16 @@
+digraph "/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Headless"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_68267d1309a1af8e8297ef4c3efbcdba {
+    graph [ bgcolor="#eae7e0", pencolor="grey25", style="filled,dashed,", label="src", fontname="Helvetica", fontsize="10", URL="dir_68267d1309a1af8e8297ef4c3efbcdba.html"]
+  subgraph clusterdir_1577ba8040ea4e3d21120572b53f4a28 {
+    graph [ bgcolor="#eae7e0", pencolor="grey25", style="filled,bold,", label="", fontname="Helvetica", fontsize="10", URL="dir_1577ba8040ea4e3d21120572b53f4a28.html"]
+    dir_1577ba8040ea4e3d21120572b53f4a28 [shape=plaintext, label="Headless"];
+  dir_8dc3d61c4bbcef1d8a23d6a496c6b21e [shape=box, label="OpenGLContext", style="filled,", fillcolor="#a29374", color="grey25", URL="dir_8dc3d61c4bbcef1d8a23d6a496c6b21e.html"];
+  }
+  }
+}

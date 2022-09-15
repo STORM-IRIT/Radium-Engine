@@ -1,0 +1,8 @@
+digraph "Ra::Core::Geometry::TopologicalMesh"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Core::Geometry\l::TopologicalMesh\n||+ TopologicalMesh()\l+ TopologicalMesh()\l+ TopologicalMesh()\l+ TopologicalMesh()\l+ TopologicalMesh()\l+ initWithWedge()\l+ initWithWedge()\l+ toTriangleMesh()\l+ toPolyMesh()\l+ toLineMesh()\l+ updateTriangleMesh()\l+ updateTriangleMeshNormals()\l+ updateTriangleMeshNormals()\l+ update()\l+ updateNormals()\l+ updatePositions()\l+ updatePositions()\l+ halfedge_handle()\l+ propagate_normal_to\l_wedges()\l+ getInputTriangleMeshIndex\lPropHandle()\l+ getOutputTriangleMeshIndex\lPropHandle()\l+ copyPointsPositionToWedges()\l+ getVertexWedges()\l+ getWedgeIndex()\l+ getWedgeData()\l+ getWedgeData()\l+ getWedgeAttrib()\l+ getWedgeRefCount()\l+ setWedgeData()\l+ setWedgeData()\l+ setWedgeAttrib()\l+ newWedgeData()\l+ newWedgeData()\l+ replaceWedge()\l+ addWedgeAttrib()\l+ replaceWedgeIndex()\l+ mergeEqualWedges()\l+ mergeEqualWedges()\l+ garbage_collection()\l+ clean()\l+ getVec4AttribNames()\l+ getVec3AttribNames()\l+ getVec2AttribNames()\l+ getFloatAttribNames()\l+ isFeatureVertex()\l+ isFeatureEdge()\l+ getWedgeIndexPph()\l+ delete_face()\l+ isManifold()\l+ checkIntegrity()\l+ triangulate()\l+ updateWedgeNormals()\l+ splitEdge()\l+ collapse()\l+ collapseWedge()\l* updateWedgeNormals()\l* splitEdge()\l* collapse()\l* collapseWedge()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+}

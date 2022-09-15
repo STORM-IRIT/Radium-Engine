@@ -1,7 +1,0 @@
-<map id="Ra::Engine::Data::RawShaderMaterial::registerDefaultTechnique" name="Ra::Engine::Data::RawShaderMaterial::registerDefaultTechnique">
-<area shape="rect" id="node1" title=" " alt="" coords="5,93,252,134"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="337,5,519,61"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" title=" " alt="" coords="337,85,519,141"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452" title=" " alt="" coords="300,166,556,207"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="604,166,805,207"/>
-</map>

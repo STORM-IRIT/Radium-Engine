@@ -1,0 +1,13 @@
+digraph "Ra::Engine::Scene::SignalManager::fireComponentAdded"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Engine::Scene::\lSignalManager::fireComponent\lAdded",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Notifies all observers of a component creation."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Engine::Scene::\lItemEntry::isComponentNode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a85e1716f224d07767e16ebfbd38c0d00",tooltip="Returns true if the item represents a component."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Engine::Scene::\lItemEntry::checkConsistency",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b",tooltip="Debug checks."];
+}

@@ -1,0 +1,8 @@
+digraph "Ra::Gui::Timeline"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Gui::Timeline\n||+ Timeline()\l+ ~Timeline()\l+ selectionChanged()\l+ registerKeyFramedValue()\l+ unregisterKeyFramedValue()\l+ registerKeyFramedValue()\l+ unregisterKeyFramedValue()\l+ registerKeyFramedValue()\l+ unregisterKeyFramedValue()\l+ getTime()\l+ detachFromEngine()\l+ onChangeStart()\l+ onChangeEnd()\l+ onChangeDuration()\l+ onChangeCursor()\l+ onSetPlay()\l# resizeEvent()\l* m_entityAddObserverId\l* m_entityRemoveObserverId\l* m_roAddObserverId\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="The Timeline class provides display and management of time, as well as keyframes."];
+}

@@ -1,0 +1,23 @@
+digraph "Ra::Gui::ParameterSetEditor::setupFromParameters"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Gui::ParameterSetEditor\l::setupFromParameters",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Update the different UI element with the given renderParameter, using the given constraints."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Gui::Widgets::Control\lPanel::addColorInput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a069d97f67440a9a48918bd2fcfeb7580",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Core::Utils::ColorBase\l\< Scalar \>::linearRGBTosRGB",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a2a69bad748649d27a7b04eaed0d358e7",tooltip="convert the color expressed in linear RGB color space to sRGB"];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Ra::Core::Utils::ColorBase\l\< Scalar \>::sRGBToLinearRGB",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1a40d28bf57c428ea99ed917894f836f",tooltip="convert the color expressed in sRGB color space to linear RGB"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Ra::Gui::Widgets::Control\lPanel::addOption",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#aa9ae434e3034a51a2d7fd196551a5edb",tooltip=" "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="Ra::Engine::Data::Render\lParameters::addParameter",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="Ra::Gui::Widgets::Control\lPanel::addStretch",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#ac0b05ce960061203216eb79d7f79d14d",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Ra::Engine::Data::Render\lParameters::getParameterSet",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ad2431f0c9840840f19ad95ec68d900e8",tooltip=" "];
+}

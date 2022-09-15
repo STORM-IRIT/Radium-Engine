@@ -1,0 +1,13 @@
+digraph "Ra::Headless::CLIViewer::openGlAddOns"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Headless::CLIViewer\l::openGlAddOns",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Headless::OpenGLContext\l::doneCurrent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__context.html#ga294af2892fbb87ec8bd168ce5ca79353",tooltip="make the context inactive"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ra::Headless::OpenGLContext\l::makeCurrent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__context.html#ga74f9c0ec7ac494ff57d23d2cec737840",tooltip="make the context active"];
+}

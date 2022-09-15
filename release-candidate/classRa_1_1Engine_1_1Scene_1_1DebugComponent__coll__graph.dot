@@ -1,0 +1,16 @@
+digraph "Ra::Engine::Scene::DebugComponent"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Engine::Scene::\lDebugComponent\n||+ DebugComponent()\l+ initialize()\l+ getRenderObject()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Component for debug drawing."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{Ra::Engine::Scene::\lComponent\n|+ m_renderObjects\l# m_name\l|+ Component()\l+ ~Component()\l+ initialize()\l+ setEntity()\l+ getEntity()\l+ getName()\l+ setSystem()\l+ getSystem()\l+ addRenderObject()\l+ removeRenderObject()\l+ canEdit()\l+ getTransform()\l+ setTransform()\l+ notifyRenderObjectExpired()\l+ computeAabb()\l+ invalidateAabb()\l+ getRenderObjects()\l# getRoMgr()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1Component.html",tooltip="A component is an element that can be updated by a system. It is also linked to some other components..."];
+  Node3 -> Node2 [color="grey25",fontsize="10",style="solid",label=" #m_entity" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node3 [label="{Ra::Engine::Scene::\lEntity\n||+ Entity()\l+ Entity()\l+ operator=()\l+ ~Entity()\l+ getName()\l+ rename()\l+ setTransform()\l+ setTransform()\l+ getTransform()\l+ getTransformAsMatrix()\l+ swapTransformBuffers()\l+ transformationObservers()\l+ addComponent()\l+ removeComponent()\l+ getComponent()\l+ getComponent()\l+ getComponents()\l+ getNumComponents()\l+ computeAabb()\l+ invalidateAabb()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1Entity.html",tooltip="An entity is an scene element. It ties together components with a transform."];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node4 [label="{Ra::Core::Utils::Indexed\lObject\n|# m_idx\l|+ IndexedObject()\l+ IndexedObject()\l+ ~IndexedObject()\l+ setIndex()\l+ getIndex()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html",tooltip=" "];
+  Node5 -> Node2 [color="grey25",fontsize="10",style="solid",label=" #m_system" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node5 [label="{Ra::Engine::Scene::\lSystem\n|# m_components\l|+ System()\l+ ~System()\l+ handleAssetLoading()\l+ generateTasks()\l+ getEntityComponents()\l+ addComponent()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Engine_1_1Scene_1_1System.html",tooltip=" "];
+}

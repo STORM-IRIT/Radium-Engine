@@ -1,0 +1,10 @@
+digraph "Ra::Gui::RotateGizmo"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Gui::RotateGizmo\n||+ RotateGizmo()\l+ updateTransform()\l+ selectConstraint()\l+ isSelected()\l+ setInitialState()\l+ mouseMove()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="A RotateGizmo manipulates the rotational part of a transformation."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{Ra::Gui::Gizmo\n|# m_worldTo\l# m_transform\l# m_comp\l# m_mode\l# s_material\l|+ Gizmo()\l+ ~Gizmo()\l+ show()\l+ updateTransform()\l+ selectConstraint()\l+ isSelected()\l+ setInitialState()\l+ mouseMove()\l# ros()\l# addRenderObject()\l# getControler()\l# findPointOnAxis()\l# findPointOnPlane()\l# makeRenderTechnique()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1Gizmo.html",tooltip=" "];
+}

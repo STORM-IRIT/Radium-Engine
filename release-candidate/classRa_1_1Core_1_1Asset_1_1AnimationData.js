@@ -1,7 +1,5 @@
 var classRa_1_1Core_1_1Asset_1_1AnimationData =
 [
-    [ "AnimationData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#a00a1c6f6d2215c0b1c0e1b18451b4d89", null ],
-    [ "~AnimationData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae4c8da9704e51c9011d32a7132c589a8", null ],
     [ "displayInfo", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#a2fd298ecce8aa6a3bc951b4ef2b14c36", null ],
     [ "getFramesSize", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#a8b1ca0fe08602add7f09bf2eb5c511d2", null ],
     [ "getHandleData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#acfff01992de3cc946751bd8a717b85cb", null ],

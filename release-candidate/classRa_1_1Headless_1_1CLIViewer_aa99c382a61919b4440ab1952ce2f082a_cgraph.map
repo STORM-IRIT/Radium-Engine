@@ -1,8 +1,0 @@
-<map id="Ra::Headless::CLIViewer::oneFrame" name="Ra::Headless::CLIViewer::oneFrame">
-<area shape="rect" id="node1" title=" " alt="" coords="5,136,185,177"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f" title="Erases all tasks. Will assert if tasks are unprocessed." alt="" coords="273,5,429,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aa461c56f0e95754cfb18d0616247d848" title="Return the projection matrix." alt="" coords="261,71,441,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0" title=" " alt="" coords="273,136,429,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#afbc168860dd06437a423bb160a6038c1" title="Toggles skeleton display for all AnimationComponents." alt="" coords="233,202,468,258"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805" title="Blocks until all tasks and dependencies are finished." alt="" coords="273,283,429,324"/>
-</map>

@@ -1,0 +1,11 @@
+digraph "Ra::Core::Geometry::PolyLine::setPoints"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Ra::Core::Geometry\l::PolyLine::setPoints",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Update the points of the polyline."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Ra::Core::Geometry\l::PolyLine::update",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a947ec2636d3ec6f98828787645f05f05",tooltip="Update the precomputed values after new points have been set."];
+}

@@ -1,0 +1,8 @@
+digraph "Ra::Engine::Rendering::DebugRender"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Engine::Rendering\l::DebugRender\n||+ DebugRender()\l+ ~DebugRender()\l+ initialize()\l+ render()\l+ addLine()\l+ addPoint()\l+ addPoints()\l+ addPoints()\l+ addMesh()\l+ addCross()\l+ addSphere()\l+ addCircle()\l+ addFrame()\l+ addTriangle()\l+ addAABB()\l+ addOBB()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+}

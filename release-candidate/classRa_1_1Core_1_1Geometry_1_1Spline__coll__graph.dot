@@ -1,0 +1,8 @@
+digraph "Ra::Core::Geometry::Spline&lt; D, K &gt;"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Core::Geometry\l::Spline\< D, K \>\n||+ Spline()\l+ setCtrlPoints()\l+ getCtrlPoints()\l+ setType()\l+ f()\l+ df()\l* m_points\l* m_vecs\l* m_node\l* m_type\l* assertSplines()\l* setNodalVector()\l* setNodeToUniform()\l* setNodeToOpenUniform()\l* eval()\l* evalRec()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handling spline curves of arbitrary dimensions."];
+}

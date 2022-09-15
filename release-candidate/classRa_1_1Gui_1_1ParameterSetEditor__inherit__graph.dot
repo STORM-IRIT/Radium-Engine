@@ -1,0 +1,10 @@
+digraph "Ra::Gui::ParameterSetEditor"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Gui::ParameterSetEditor\n||+ setupFromParameters()\l+ showUnspecified()\l+ ParameterSetEditor()\l+ ParameterSetEditor()\l+ operator=()\l+ ParameterSetEditor()\l+ operator=()\l+ ~ParameterSetEditor()\l* ParameterSetEditor()\l* ParameterSetEditor()\l* operator=()\l* ParameterSetEditor()\l* operator=()\l* ~ParameterSetEditor()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Simple Widget for RenderParameter edition The editor will expose a control panel containing all of th..."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{Ra::Gui::Widgets::Control\lPanel\n||+ ControlPanel()\l+ ControlPanel()\l+ operator=()\l+ ControlPanel()\l+ operator=()\l+ ~ControlPanel()\l+ beginLayout()\l+ endLayout()\l+ addSeparator()\l+ addStretch()\l+ addOption()\l+ addLabel()\l+ addButton()\l+ addColorInput()\l+ addNumberInput()\l+ addConstrainedNumberInput()\l+ addSliderInput()\l+ addPowerSliderInput()\l+ addVectorInput()\l+ addMatrixInput()\l+ addFileInput()\l+ addFileOutput()\l+ addComboBox()\l+ addComboBox()\l+ addWidget()\l* ControlPanel()\l* ControlPanel()\l* operator=()\l* ControlPanel()\l* operator=()\l* ~ControlPanel()\l* beginLayout()\l* endLayout()\l* addSeparator()\l* addStretch()\l* addOption()\l* addLabel()\l* addButton()\l* addColorInput()\l* addNumberInput()\l* addConstrainedNumberInput()\l* addSliderInput()\l* addPowerSliderInput()\l* addVectorInput()\l* addMatrixInput()\l* addFileInput()\l* addFileOutput()\l* addComboBox()\l* addComboBox()\l* addWidget()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html",tooltip=" "];
+}

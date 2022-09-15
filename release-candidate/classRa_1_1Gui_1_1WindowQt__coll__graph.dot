@@ -1,0 +1,8 @@
+digraph "Ra::Gui::WindowQt"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Gui::WindowQt\n|# m_context\l# m_updatePending\l# m_glInitialized\l|+ WindowQt()\l+ ~WindowQt()\l+ resizeEvent()\l+ showEvent()\l+ exposeEvent()\l+ enterEvent()\l+ leaveEvent()\l+ makeCurrent()\l+ doneCurrent()\l+ activateScopedContext()\l+ context()\l+ isOpenGlInitialized()\l+ cleanupGL()\l+ screenChanged()\l# initialize()\l# resizeInternal()\l# initializeGL()\l# deinitializeGL()\l# resizeGL()\l# getProcAddress()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings."];
+}

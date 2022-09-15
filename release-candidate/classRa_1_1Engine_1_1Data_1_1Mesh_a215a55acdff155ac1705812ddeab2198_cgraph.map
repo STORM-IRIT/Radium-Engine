@@ -1,6 +1,0 @@
-<map id="Ra::Engine::Data::Mesh::loadGeometry" name="Ra::Engine::Data::Mesh::loadGeometry">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,179,54"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a9fce3bf8c466aea7e724f3a6d73e3169" title="Set the render mode." alt="" coords="227,13,471,54"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a4ba75a89f6c80c147b1bca040928ef6a" title="Update the picking render mode according to the object render mode." alt="" coords="519,5,753,61"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f" title="Get the render mode." alt="" coords="801,13,1047,54"/>
-</map>

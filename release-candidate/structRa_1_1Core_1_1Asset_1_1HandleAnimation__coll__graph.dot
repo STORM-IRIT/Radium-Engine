@@ -1,0 +1,17 @@
+digraph "Ra::Core::Asset::HandleAnimation"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Core::Asset::HandleAnimation\n|+ m_name\l|+ HandleAnimation()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +m_anim" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node2 [label="{Ra::Core::Animation\l::KeyFramedValue\< Transform \>\n|# m_keyframes\l|+ KeyFramedValue()\l+ KeyFramedValue()\l+ operator=()\l+ getTimes()\l+ size()\l+ getKeyFrames()\l+ operator[]()\l+ insertKeyFrame()\l+ insertInterpolatedKeyFrame()\l+ removeKeyFrame()\l+ moveKeyFrame()\l+ at()\l+ findRange()\l+ operator==()\l+ operator!=()\l* size()\l* getKeyFrames()\l* operator[]()\l* insertKeyFrame()\l* insertInterpolatedKeyFrame()\l* removeKeyFrame()\l* moveKeyFrame()\l* at()\l* findRange()\l* operator==()\l* operator!=()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node3 [label="{Ra::Core::Animation\l::KeyFramedValueBase\n||+ KeyFramedValueBase()\l+ ~KeyFramedValueBase()\l+ size()\l+ removeKeyFrame()\l+ moveKeyFrame()\l+ getTimes()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html",tooltip=" "];
+  Node4 -> Node2 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Transform \>" ,fontname="Helvetica"];
+  Node4 [label="{Ra::Core::Animation\l::KeyFramedValue\< VALUE\l_TYPE \>\n|# m_keyframes\l|+ KeyFramedValue()\l+ KeyFramedValue()\l+ operator=()\l+ getTimes()\l+ size()\l+ getKeyFrames()\l+ operator[]()\l+ insertKeyFrame()\l+ insertInterpolatedKeyFrame()\l+ removeKeyFrame()\l+ moveKeyFrame()\l+ at()\l+ findRange()\l+ operator==()\l+ operator!=()\l* size()\l* getKeyFrames()\l* operator[]()\l* insertKeyFrame()\l* insertInterpolatedKeyFrame()\l* removeKeyFrame()\l* moveKeyFrame()\l* at()\l* findRange()\l* operator==()\l* operator!=()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html",tooltip=" "];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node5 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +m_animationTime" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node5 [label="{Ra::Core::Asset::AnimationTime\n||+ AnimationTime()\l+ AnimationTime()\l+ ~AnimationTime()\l+ getStart()\l+ setStart()\l+ getEnd()\l+ setEnd()\l+ extends()\l+ extends()\l+ isValid()\l+ duration()\l+ contains()\l+ intersect()\l* m_start\l* m_end\l* operator==()\l* operator!=()\l* operator==()\l* operator\<()\l* operator\>()\l* getStart()\l* setStart()\l* getEnd()\l* setEnd()\l* extends()\l* extends()\l* isValid()\l* duration()\l* contains()\l* intersect()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html",tooltip=" "];
+}

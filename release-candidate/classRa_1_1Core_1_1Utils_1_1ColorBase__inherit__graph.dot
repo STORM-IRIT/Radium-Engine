@@ -1,0 +1,10 @@
+digraph "Ra::Core::Utils::ColorBase&lt; _Scalar &gt;"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ra::Core::Utils::ColorBase\l\< _Scalar \>\n||+ ColorBase()\l+ ColorBase()\l+ ColorBase()\l+ ColorBase()\l+ operator VectorType()\l+ rgb()\l+ rgb()\l+ alpha()\l+ alpha()\l+ hasValidAlpha()\l+ toRGBA32()\l+ toARGB32()\l+ sRGBToLinearRGB()\l+ linearRGBTosRGB()\l+ fromRGB()\l+ Alpha()\l+ Black()\l+ Red()\l+ Green()\l+ Blue()\l+ Yellow()\l+ Magenta()\l+ Cyan()\l+ White()\l+ Grey()\l+ Skin()\l+ getNamedColor()\l+ fromChars()\l+ fromRGB24()\l+ fromRGBA32()\l+ fromARGB32()\l+ fromHSV()\l+ scatter()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Scalar \>" ,fontname="Helvetica"];
+  Node2 [label="{Ra::Core::Utils::ColorBase\l\< Scalar \>\n||+ ColorBase()\l+ ColorBase()\l+ ColorBase()\l+ ColorBase()\l+ operator VectorType()\l+ rgb()\l+ rgb()\l+ alpha()\l+ alpha()\l+ hasValidAlpha()\l+ toRGBA32()\l+ toARGB32()\l+ sRGBToLinearRGB()\l+ linearRGBTosRGB()\l+ fromRGB()\l+ Alpha()\l+ Black()\l+ Red()\l+ Green()\l+ Blue()\l+ Yellow()\l+ Magenta()\l+ Cyan()\l+ White()\l+ Grey()\l+ Skin()\l+ getNamedColor()\l+ fromChars()\l+ fromRGB24()\l+ fromRGBA32()\l+ fromARGB32()\l+ fromHSV()\l+ scatter()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRa_1_1Core_1_1Utils_1_1ColorBase.html",tooltip=" "];
+}
