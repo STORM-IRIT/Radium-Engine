@@ -67,6 +67,20 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         REQUIRE( d[0] == save );
     }
 
+    SECTION( "Custom Attrib" ) {
+        auto geom        = new GeometryData();
+        auto& coreGeom   = geom->getGeometry();
+        auto& vertAttrib = coreGeom.vertexAttribs();
+
+        auto intHandle      = vertAttrib.addAttrib<int>( "testInt" );
+        auto longHandle     = vertAttrib.addAttrib<long>( "testLong" );
+        auto longlongHandle = vertAttrib.addAttrib<long long>( "testLong" );
+
+        auto& intData      = vertAttrib.getDataWithLock( intHandle );
+        auto& longData     = vertAttrib.getDataWithLock( longHandle );
+        auto& longlongData = vertAttrib.getDataWithLock( longlongHandle );
+    }
+
     SECTION( "Tangent, BiTangent, TexCoord tests" ) {
         auto geom         = new GeometryData();
         auto& coreGeom    = geom->getGeometry();
