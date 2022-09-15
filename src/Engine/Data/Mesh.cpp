@@ -1,17 +1,16 @@
-#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Engine/Data/Mesh.hpp>
 
-#include <numeric>
-
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Utils/Attribs.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Core/Utils/TypesUtils.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/OpenGL.hpp>
 
 #include <globjects/Buffer.h>
 #include <globjects/VertexArray.h>
 
-#include <typeinfo>
+#include <numeric>
 
 namespace Ra {
 namespace Engine {
@@ -222,8 +221,8 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
         std::cerr << layer.getSize() << " " << layer.getNumberOfComponents() << " "
                   << layer.getBufferSize() << "\n";
 
-        std::cerr << "type info " << typeid( layer ).name() << "\n";
-        std::cerr << "type info " << typeid( const Core::Geometry::QuadIndexLayer& ).name() << "\n";
+        std::cerr << "type info " << demangleType( layer ) << "\n";
+        std::cerr << "type info " << demangleType<const Core::Geometry::QuadIndexLayer&>() << "\n";
 
         const auto& quadLayer = dynamic_cast<const Core::Geometry::QuadIndexLayer&>( layer );
         std::cerr << "cast done\n";

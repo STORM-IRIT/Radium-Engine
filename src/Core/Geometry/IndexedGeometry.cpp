@@ -1,7 +1,8 @@
 #include <Core/Geometry/IndexedGeometry.hpp>
-#include <iterator>
 
-#include <typeinfo>
+#include <Core/Utils/TypesUtils.hpp>
+
+#include <iterator>
 
 namespace Ra {
 namespace Core {
@@ -142,7 +143,7 @@ MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemantic& semanticName
         if ( key.first.find( semanticName ) != key.first.end() ) {
 
             auto& tmp = *( value.second.get() );
-            std::cerr << "get typeinfo " << typeid( tmp ).name() << "\n";
+            std::cerr << "get typeinfo " << Utils::demangleType( tmp ) << "\n";
             return { key, *( value.second.get() ) };
         }
     }
@@ -234,7 +235,7 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
                                 const std::string& layerName ) {
 
     auto& tmp1 = *( layer.get() );
-    std::cerr << "add layer typeinfo " << typeid( tmp1 ).name() << "\n";
+    std::cerr << "add layer typeinfo " << Utils::demangleType( tmp1 ) << "\n";
     LayerKeyType key { layer->semantics(), layerName };
     auto elt             = std::make_pair( key, std::make_pair( false, std::move( layer ) ) );
     auto [pos, inserted] = m_indices.insert( std::move( elt ) );
@@ -247,7 +248,7 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
     /// If not inserted, the pointer is deleted. So the caller must ensure this possible
     /// deletion is safe before calling this method.
     auto& tmp = *( pos->second.second.get() );
-    std::cerr << "add layer inserted typeinfo " << typeid( tmp ).name() << "\n";
+    std::cerr << "add layer inserted typeinfo " << Utils::demangleType( tmp ) << "\n";
 
     return { inserted, *( pos->second.second ) };
 }
