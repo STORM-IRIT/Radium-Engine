@@ -38,7 +38,11 @@ jobs:
         run: git -C src/Radium-Engine pull origin ${{ github.event.ref }}
       - name: Install packages
         run : |
-          sudo apt-get install doxygen graphviz
+          sudo apt-get install graphviz
+      - name: Fetch recent doxygen (1.9.3)
+        run: |
+          curl https://www.doxygen.nl/files/doxygen-1.9.3.linux.bin.tar.gz -o  doxygen-1.9.3.linux.bin.tar.gz
+          tar -xvzf doxygen-1.9.3.linux.bin.tar.gz
       - name: Extract ref for badges prefix
         if: always()
         shell: bash
@@ -49,7 +53,7 @@ jobs:
       - name: Configure Doc
         run: |
           cd build/Radium-Engine
-          cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT
+          cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT  -DDOXYGEN_EXECUTABLE=../../doxygen-1.9.3/bin/doxygen
       - name: Build Doc
         run: |
           export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
