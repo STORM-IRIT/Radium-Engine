@@ -39,10 +39,11 @@ jobs:
       - name: Install packages
         run : |
           sudo apt-get install graphviz
-      - name: Fetch recent doxygen (1.9.3)
+      - name: Fetch recent doxygen (1.9.1)
         run: |
-          curl https://www.doxygen.nl/files/doxygen-1.9.3.linux.bin.tar.gz -o  doxygen-1.9.3.linux.bin.tar.gz
-          tar -xvzf doxygen-1.9.3.linux.bin.tar.gz
+          sudo apt-get install clang-9 libclang-9-dev
+          curl https://www.doxygen.nl/files/doxygen-1.9.1.linux.bin.tar.gz -o  doxygen-1.9.1.linux.bin.tar.gz
+          tar -xvzf doxygen-1.9.1.linux.bin.tar.gz
       - name: Extract ref for badges prefix
         if: always()
         shell: bash
@@ -53,12 +54,17 @@ jobs:
       - name: Configure Doc
         run: |
           cd build/Radium-Engine
-          cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT  -DDOXYGEN_EXECUTABLE=../../doxygen-1.9.3/bin/doxygen
+          cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DDOXYGEN_EXECUTABLE=../../doxygen-1.9.1/bin/doxygen
       - name: Build Doc
         run: |
           export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
           cd build/Radium-Engine
           cmake --build . --target RadiumDoc
+      - name: Fix badges github ref
+        run: |
+          export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
+          cd build/Radium-Engine
+          sed -i "s/\$(GITHUB_REF)/${GITHUB_REF}/g" html/index.html
       - name: Git branch name
         id: git-branch-name
         uses: EthanSK/git-branch-name-action@v1
