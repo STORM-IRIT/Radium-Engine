@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.3</span>
+   &#160;<span id="projectnumber">1.3.4</span>
    </div>
   </td>
  </tr>
@@ -255,10 +255,10 @@ Public Attributes</h2></td></tr>
 std::unique_ptr&lt; <a class="el" href="classRa_1_1Gui_1_1MainWindowInterface.html">Gui::MainWindowInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a05e5c3fec95387d7c83671afa24acfa1">m_mainWindow</a></td></tr>
 <tr class="memdesc:a05e5c3fec95387d7c83671afa24acfa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application main window and GUI root class. <br /></td></tr>
 <tr class="separator:a05e5c3fec95387d7c83671afa24acfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31d6887781c5240c4ace2333c3a16dec"><td class="memItemLeft" align="right" valign="top"><a id="a31d6887781c5240c4ace2333c3a16dec"></a>
-std::unique_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a31d6887781c5240c4ace2333c3a16dec">m_engine</a></td></tr>
-<tr class="memdesc:a31d6887781c5240c4ace2333c3a16dec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the radium engine. <br /></td></tr>
-<tr class="separator:a31d6887781c5240c4ace2333c3a16dec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a098ff405a2d50686339bc3a619edd7ba"><td class="memItemLeft" align="right" valign="top"><a id="a098ff405a2d50686339bc3a619edd7ba"></a>
+<a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a098ff405a2d50686339bc3a619edd7ba">m_engine</a></td></tr>
+<tr class="memdesc:a098ff405a2d50686339bc3a619edd7ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the radium engine. <br /></td></tr>
+<tr class="separator:a098ff405a2d50686339bc3a619edd7ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b3a85a12610972ab308e55541d7a4b3"><td class="memItemLeft" align="right" valign="top"><a id="a3b3a85a12610972ab308e55541d7a4b3"></a>
 std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1TaskQueue.html">Core::TaskQueue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a3b3a85a12610972ab308e55541d7a4b3">m_taskQueue</a></td></tr>
 <tr class="memdesc:a3b3a85a12610972ab308e55541d7a4b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task queue for processing tasks. <br /></td></tr>
@@ -526,7 +526,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 </div><div class="memdoc">
 <p>Open the QSetting editor for the current application </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000081">Todo:</a></b></dt><dd>implement the editor </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00767">767</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00768">768</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -559,6 +559,14 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <p>The default implementation also configure the time system according to the user requested frame rate (app command line argument -framerate) or to the default 60fps. </p>
 
 <p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00374">374</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1BaseApplication_ace35b8a957082a5c72c54c5088a6f437_cgraph.svg" width="439" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
@@ -620,11 +628,11 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000079">Todo:</a></b></dt><dd>Code updated wrt camera manager, TEST IT ! </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00248">248</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1BaseApplication_a8bcb4912dc4edb9e7c3a05f9697dfc5e_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -700,13 +708,13 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 </div><div class="memdoc">
 <p>Load plugins from the specified folder. If loadList is empty, attempts to load all DLLs in the folder (except those on the ignore list) If loadList contains names it will only look for DLLs in that folder with the given name. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00581">581</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00582">582</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1BaseApplication_ade2850bde46ffa889f9ca3a4c542d2e2_cgraph.svg" width="394" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1BaseApplication_ade2850bde46ffa889f9ca3a4c542d2e2_cgraph.svg" width="435" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -722,7 +730,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html">BaseApplication</a></li>
-    <li class="footer">Generated on Fri Sep 16 2022 07:55:02 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 16 2022 09:13:04 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -1,5 +1,6 @@
 <map id="Ra::Gui::BaseApplication::loadPlugins" name="Ra::Gui::BaseApplication::loadPlugins">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,188,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="236,5,388,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="236,71,388,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,188,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="257,5,409,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="257,71,409,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1RadiumEngine.html#a90204861f4fe8ed044208eb05695afe0" title=" " alt="" coords="236,136,429,177"/>
 </map>
