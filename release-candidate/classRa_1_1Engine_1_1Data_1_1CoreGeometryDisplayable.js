@@ -2,7 +2,6 @@ var classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable =
 [
     [ "base", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a25f5393349b49ab8d858ba3e5546da5f", null ],
     [ "CoreGeometry", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#af250e28ca82814f924c7e23c27645807", null ],
-    [ "TranslationTable", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#abe5708d0ea108dc37eba0088ab7cf35c", null ],
     [ "CoreGeometryDisplayable", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae23e50adb499d7247a686c8c51711b0c", null ],
     [ "addAttrib", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae933f13adcd54a11de0ed7e0663aea5c", null ],
     [ "addAttribObserver", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a4fe995da981ed6990d0869990d788a2c", null ],
@@ -22,6 +21,5 @@ var classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable =
     [ "updateGL", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b", null ],
     [ "updateGL_specific_impl", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae40da451734b5cd8eb28965a7051817a", null ],
     [ "m_mesh", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a82d54406f4a5911c28b0ab004697786d", null ],
-    [ "m_translationTableMeshToShader", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a5f6a5d7959e25d02dd1e665eb1b2cead", null ],
-    [ "m_translationTableShaderToMesh", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#aedf30f5fd04fcabae83375aca0e4d10e", null ]
+    [ "m_translationTable", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a42a8e116e35db6626a4e95b5865b4732", null ]
 ];

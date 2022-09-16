@@ -1,6 +1,6 @@
 <map id="Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;" name="Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="17,1335,240,1471"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="5,799,252,1287"/>
+<area shape="rect" id="node1" title=" " alt="" coords="17,1291,240,1427"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="5,799,252,1243"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="18,292,239,751"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="21,5,236,244"/>
 </map>
