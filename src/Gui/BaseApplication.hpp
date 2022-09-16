@@ -127,7 +127,7 @@ class RA_GUI_API BaseApplication : public QApplication
 
     bool isRunning() const { return !m_isAboutToQuit; }
 
-    const Engine::RadiumEngine* getEngine() const { return m_engine.get(); }
+    const Engine::RadiumEngine* getEngine() const { return m_engine; }
 
     uint getFrameCount() const { return m_frameCounter; }
 
@@ -229,7 +229,7 @@ class RA_GUI_API BaseApplication : public QApplication
     std::unique_ptr<Gui::MainWindowInterface> m_mainWindow;
 
     /// Instance of the radium engine.
-    std::unique_ptr<Engine::RadiumEngine> m_engine;
+    Engine::RadiumEngine* m_engine;
 
     /// Task queue for processing tasks.
     std::unique_ptr<Core::TaskQueue> m_taskQueue;
