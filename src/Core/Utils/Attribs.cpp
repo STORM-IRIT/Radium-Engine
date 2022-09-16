@@ -10,16 +10,6 @@ AttribBase::~AttribBase() {
     detachAll();
 }
 
-template <>
-size_t Attrib<float>::getNumberOfComponents() const {
-    return 1;
-}
-
-template <>
-size_t Attrib<double>::getNumberOfComponents() const {
-    return 1;
-}
-
 AttribManager::~AttribManager() {
     clear();
 }
