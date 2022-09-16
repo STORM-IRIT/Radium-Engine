@@ -129,7 +129,7 @@ bool Attrib<T>::isType() {
 // Defer computation to VectorArrayTypeHelper
 template <typename T>
 size_t Attrib<T>::getNumberOfComponents() const {
-    return Attrib<T>::Container::ElementSize;
+    return Attrib<T>::Container::NumberOfComponents;
 }
 
 /////////////////// AttribManager ///////////////////

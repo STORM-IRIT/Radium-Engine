@@ -25,12 +25,12 @@ class VectorArray : public AlignedStdVector<V>
 
   public:
     // Type shortcuts
-    static constexpr int ElementSize = TypeHelper::Size;
-    using Scalar                     = typename TypeHelper::Scalar;
-    using Vector                     = V;
-    using Matrix                     = Eigen::Matrix<Scalar, TypeHelper::Size, Eigen::Dynamic>;
-    using MatrixMap                  = Eigen::Map<Matrix>;
-    using ConstMatrixMap             = Eigen::Map<const Matrix>;
+    static constexpr int NumberOfComponents = TypeHelper::NumberOfComponents;
+    // scalar_type is different from value_type defined in Base class
+    using scalar_type = typename TypeHelper::scalar_type;
+    using Matrix      = Eigen::Matrix<scalar_type, TypeHelper::NumberOfComponents, Eigen::Dynamic>;
+    using MatrixMap   = Eigen::Map<Matrix>;
+    using ConstMatrixMap = Eigen::Map<const Matrix>;
 
   public:
     /// Inheriting constructors from std::vector
@@ -39,30 +39,40 @@ class VectorArray : public AlignedStdVector<V>
     /// Returns the array as an Eigen Matrix Map
     MatrixMap getMap() {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return MatrixMap(
-            TypeHelper::getData( this ), TypeHelper::Size, Eigen::Index( this->size() ) );
+        return MatrixMap( TypeHelper::getData( this ),
+                          TypeHelper::NumberOfComponents,
+                          Eigen::Index( this->size() ) );
     }
 
     /// Returns the array as an Eigen Matrix Map (const version)
     ConstMatrixMap getMap() const {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return MatrixMap(
-            TypeHelper::getConstData( this ), TypeHelper::Size, Eigen::Index( this->size() ) );
+        return MatrixMap( TypeHelper::getConstData( this ),
+                          TypeHelper::NumberOfComponents,
+                          Eigen::Index( this->size() ) );
     }
 };
 template <typename V>
 struct VectorArrayTypeHelper<V, true> {
-    using Scalar              = V;
-    static constexpr int Size = 1;
-    static inline Scalar* getData( VectorArray<V>* v ) { return v->data(); }
-    static inline Scalar* getConstData( const VectorArray<V>* v ) { return v->data(); }
+  private:
+    static constexpr bool HasComponents = std::is_arithmetic_v<V>;
+
+  public:
+    using scalar_type                       = typename std::enable_if<HasComponents, V>::type;
+    static constexpr int NumberOfComponents = HasComponents ? 1 : 0;
+    static inline scalar_type* getData( VectorArray<V>* v ) {
+        return HasComponents ? v->data() : nullptr;
+    }
+    static inline scalar_type* getConstData( const VectorArray<V>* v ) {
+        return HasComponents ? v->data() : nullptr;
+    }
 };
 template <typename V>
 struct VectorArrayTypeHelper<V, false> {
-    using Scalar              = typename V::Scalar;
-    static constexpr int Size = V::RowsAtCompileTime;
-    static inline Scalar* getData( VectorArray<V>* v ) { return v->data()->data(); }
-    static inline Scalar* getConstData( const VectorArray<V>* v ) { return v->data()->data(); }
+    using scalar_type                       = typename V::Scalar;
+    static constexpr int NumberOfComponents = V::RowsAtCompileTime;
+    static inline scalar_type* getData( VectorArray<V>* v ) { return v->data()->data(); }
+    static inline scalar_type* getConstData( const VectorArray<V>* v ) { return v->data()->data(); }
 };
 
 // Convenience aliases
