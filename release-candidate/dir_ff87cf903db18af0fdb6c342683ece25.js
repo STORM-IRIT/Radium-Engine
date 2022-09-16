@@ -25,8 +25,8 @@ var dir_ff87cf903db18af0fdb6c342683ece25 =
     [ "StackTrace.hpp", "StackTrace_8hpp_source.html", null ],
     [ "StdFilesystem.hpp", "StdFilesystem_8hpp_source.html", null ],
     [ "StdMapIterators.hpp", "StdMapIterators_8hpp.html", [
-      [ "Ra::Core::Utils::map_keys< Mapclass >", "structRa_1_1Core_1_1Utils_1_1map__keys.html", null ],
-      [ "Ra::Core::Utils::map_values< Mapclass >", "structRa_1_1Core_1_1Utils_1_1map__values.html", null ]
+      [ "map_keys", "structRa_1_1Core_1_1Utils_1_1map__keys.html", "structRa_1_1Core_1_1Utils_1_1map__keys" ],
+      [ "map_values", "structRa_1_1Core_1_1Utils_1_1map__values.html", "structRa_1_1Core_1_1Utils_1_1map__values" ]
     ] ],
     [ "StdOptional.hpp", "StdOptional_8hpp_source.html", null ],
     [ "StdUtils.hpp", "StdUtils_8hpp_source.html", null ],

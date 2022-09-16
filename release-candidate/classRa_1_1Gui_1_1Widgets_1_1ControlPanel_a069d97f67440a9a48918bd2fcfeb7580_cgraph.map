@@ -1,0 +1,5 @@
+<map id="Ra::Gui::Widgets::ControlPanel::addColorInput" name="Ra::Gui::Widgets::ControlPanel::addColorInput">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,191,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a2a69bad748649d27a7b04eaed0d358e7" title="convert the color expressed in linear RGB color space to sRGB" alt="" coords="240,5,455,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1a40d28bf57c428ea99ed917894f836f" title="convert the color expressed in sRGB color space to linear RGB" alt="" coords="239,71,456,112"/>
+</map>

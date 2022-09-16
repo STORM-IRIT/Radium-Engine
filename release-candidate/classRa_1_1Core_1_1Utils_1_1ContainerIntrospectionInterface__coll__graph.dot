@@ -1,8 +1,0 @@
-digraph "Ra::Core::Utils::ContainerIntrospectionInterface"
-{
- // INTERACTIVE_SVG=YES
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Ra::Core::Utils::Container\lIntrospectionInterface\n||+ ~ContainerIntrospectionInterface()\l+ getSize()\l+ getNumberOfComponents()\l+ getBufferSize()\l+ getStride()\l+ dataPtr()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This class defines the introspection interface a container need to implement."];
-}

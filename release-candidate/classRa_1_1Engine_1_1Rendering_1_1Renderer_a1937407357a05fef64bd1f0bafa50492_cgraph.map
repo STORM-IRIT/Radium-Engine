@@ -1,0 +1,9 @@
+<map id="Ra::Engine::Rendering::Renderer::initialize" name="Ra::Engine::Rendering::Renderer::initialize">
+<area shape="rect" id="node1" title="Initialize renderer." alt="" coords="5,151,171,193"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="261,5,443,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a42ec93f4772c0455149a81e9d8502d43" title=" " alt="" coords="259,86,445,127"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a4b346bfdb26bd4c0dcb3372f6e6b1dad" title=" " alt="" coords="219,151,485,193"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab14ff49e794cd718b77db013c9fae556" title="initializeInternal Initialize the renderer dependant resources." alt="" coords="251,217,453,258"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a314e31247fa616d1cbb02143cd42019f" title="Resize the viewport and all the screen textures, fbos. This function must be overrided as soon as som..." alt="" coords="269,282,435,323"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac804ffc9a0b4f71c02610ce930fd5c65" title=" " alt="" coords="533,282,720,323"/>
+</map>

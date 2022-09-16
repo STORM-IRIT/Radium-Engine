@@ -1,8 +1,0 @@
-digraph "Ra::Gui::Widgets::ConstrainedNumericSpinBox&lt; T &gt;"
-{
- // INTERACTIVE_SVG=YES
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Ra::Gui::Widgets::Constrained\lNumericSpinBox\< T \>\n||+ validate()\l+ setPredicate()\l+ isValid()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Constrained input spin box. The constraint to apply to any input value is verified using the user-def..."];
-}

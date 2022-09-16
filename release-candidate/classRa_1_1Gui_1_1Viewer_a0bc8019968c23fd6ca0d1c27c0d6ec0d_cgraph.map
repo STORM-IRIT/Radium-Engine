@@ -1,0 +1,12 @@
+<map id="Ra::Gui::Viewer::startRendering" name="Ra::Gui::Viewer::startRendering">
+<area shape="rect" id="node1" title="Start rendering (potentially asynchronously in a separate thread)" alt="" coords="5,111,232,138"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5c448956bee4797f190a4a4b9da4f05c" title=" " alt="" coords="280,5,445,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a4bce4a0e7b0c92d787bfbc4f3589c973" title="Tell if the renderer has an usable light." alt="" coords="280,71,445,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="287,136,439,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a027cf22a1f9f48ea9f7dd7fae7108856" title="Tell the renderer it needs to render. This method does the following steps :" alt="" coords="280,201,445,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a30c9f288f2ac8406c804c55b2623e348" title="Add the debug layer with useful informations." alt="" coords="513,71,699,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5fc9b2cb6c8fb0a7d1a7640a2ddc31b6" title="Do all post processing stuff. If you override this method, be careful to fill." alt="" coords="493,136,719,177"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afe2f99ba86df2575f32a79d3d01d8d2f" title="All the scene rendering magics basically happens here." alt="" coords="511,201,701,243"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abad46a9149c0d4578327325450b2472e" title="Draw the UI data." alt="" coords="523,267,689,308"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac3f6b287470f899b6aa9306b82249765" title=" " alt="" coords="495,332,717,373"/>
+</map>

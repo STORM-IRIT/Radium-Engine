@@ -1,8 +1,0 @@
-digraph "Ra::Engine::Scene::BaseCouplingSystem&lt; _BaseAbstractSystem &gt;"
-{
- // INTERACTIVE_SVG=YES
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Ra::Engine::Scene::\lBaseCouplingSystem\<\l _BaseAbstractSystem \>\n||+ BaseCouplingSystem()\l+ ~BaseCouplingSystem()\l+ BaseCouplingSystem()\l+ operator=()\l+ addSystem()\l+ generateTasks()\l+ handleAssetLoading()\l# dispatch()\l# dispatch()\l# conditionnaldispatch()\l# conditionnaldispatch()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
-}

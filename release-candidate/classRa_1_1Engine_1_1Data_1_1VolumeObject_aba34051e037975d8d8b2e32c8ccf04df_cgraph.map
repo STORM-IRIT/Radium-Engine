@@ -1,0 +1,6 @@
+<map id="Ra::Engine::Data::VolumeObject::loadGeometry" name="Ra::Engine::Data::VolumeObject::loadGeometry">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,192,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html#a2a314c7ff2ae4693dd06a85dec99b64c" title="Direct access to the managed data." alt="" coords="275,5,426,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a3896192c57de6b205245e97f15be2736" title="Return true if the volume is dense (implies isDiscrete to be true)" alt="" coords="254,71,447,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html#acc43fd53785386c5eaf99372033083cd" title="return the size (number of bins ni each dimension) of the volume" alt="" coords="240,136,461,177"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Ra::Core::Utils::AttribManager::addAttrib" name="Ra::Core::Utils::AttribManager::addAttrib">
+<area shape="rect" id="node1" title=" " alt="" coords="5,43,221,84"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f" title="Return true if h correspond to an existing attribute in *this." alt="" coords="269,5,485,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="279,71,476,127"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" title=" " alt="" coords="533,5,739,47"/>
+</map>

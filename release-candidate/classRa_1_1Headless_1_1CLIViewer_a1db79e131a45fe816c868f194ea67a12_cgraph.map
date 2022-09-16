@@ -1,0 +1,6 @@
+<map id="Ra::Headless::CLIViewer::showWindow" name="Ra::Headless::CLIViewer::showWindow">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,185,112"/>
+<area shape="rect" id="node2" href="$group__window.html#ga1511b1989007638ad2abac7279852002" title="Hide the window." alt="" coords="233,5,451,47"/>
+<area shape="rect" id="node3" href="$group__window.html#gaf9f083ad16a28f01dc9c35df9eb0dd0f" title="Resize the window." alt="" coords="233,71,451,112"/>
+<area shape="rect" id="node4" href="$group__window.html#ga8e1f66f8ddc749185328fc41994787b0" title="Show the window." alt="" coords="233,136,451,177"/>
+</map>

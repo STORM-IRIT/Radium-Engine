@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Scene::PointCloudComponent" name="Ra::Engine::Scene::PointCloudComponent">
+<area shape="rect" id="node1" title=" " alt="" coords="15,652,217,876"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html" title="Abstract interface of a geometric compoennet in the Engine." alt="" coords="17,439,215,604"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="5,5,227,391"/>
+</map>

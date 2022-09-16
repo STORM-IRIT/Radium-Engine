@@ -1,9 +1,0 @@
-digraph "Ra::Gui::TreeItem"
-{
- // INTERACTIVE_SVG=YES
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Ra::Gui::TreeItem\n|+ m_children\l|+ TreeItem()\l+ ~TreeItem()\l+ TreeItem()\l+ operator=()\l+ getName()\l+ isValid()\l+ isSelectable()\l+ getIndexInParent()\l+ isChecked()\l+ setChecked()\l* m_children\l* getName()\l* isValid()\l* isSelectable()\l* getIndexInParent()\l* isChecked()\l* setChecked()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
-  Node1 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +m_parent" ,arrowhead="odiamond",fontname="Helvetica"];
-}

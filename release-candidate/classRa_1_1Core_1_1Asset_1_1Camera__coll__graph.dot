@@ -1,8 +1,0 @@
-digraph "Ra::Core::Asset::Camera"
-{
- // INTERACTIVE_SVG=YES
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Ra::Core::Asset::Camera\n|+ m_minZNear\l+ m_minZRange\l|+ Camera()\l+ ~Camera()\l+ operator=()\l+ getFrame()\l+ setFrame()\l+ getPosition()\l+ setPosition()\l+ getDirection()\l+ setDirection()\l+ getUpVector()\l+ setUpVector()\l+ getRightVector()\l+ getRayFromScreen()\l+ projectToScreen()\l+ projectToNDC()\l+ unProjectFromScreen()\l+ unProjectFromScreen()\l+ unProjectFromNDC()\l+ getType()\l+ setType()\l+ getZoomFactor()\l+ setZoomFactor()\l+ getFOV()\l+ setFOV()\l+ getMinZNear()\l+ getMinZRange()\l+ getProjMatrix()\l+ getViewMatrix()\l+ updateProjMatrix()\l+ setProjMatrix()\l+ getZNear()\l+ setZNear()\l+ getZFar()\l+ setZFar()\l+ getWidth()\l+ getHeight()\l+ getAspect()\l+ setXYmag()\l+ getXYmag()\l+ setViewport()\l+ applyTransform()\l+ fitZRange()\l+ perspective()\l+ frustum()\l+ ortho()\l* m_fov\l* m_xmag\l* m_ymag\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Camera class storing the Camera frame and the projection properties The view direction is -z in camer..."];
-}

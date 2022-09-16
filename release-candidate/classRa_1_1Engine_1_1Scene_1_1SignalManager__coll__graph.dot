@@ -1,8 +1,0 @@
-digraph "Ra::Engine::Scene::SignalManager"
-{
- // INTERACTIVE_SVG=YES
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Ra::Engine::Scene::\lSignalManager\n||+ fireEntityCreated()\l+ fireEntityDestroyed()\l+ fireComponentAdded()\l+ fireComponentRemoved()\l+ fireRenderObjectAdded()\l+ fireRenderObjectRemoved()\l+ fireFrameEnded()\l+ setOn()\l+ getEntityCreatedNotifier()\l+ getEntityDestroyedNotifier()\l+ getComponentCreatedNotifier()\l+ getComponentDestroyedNotifier()\l+ getRenderObjectCreatedNotifier()\l+ getRenderObjectDestroyed\lNotifier()\l+ getEndFrameNotifier()\l* m_entityCreatedCallbacks\l* m_entityDestroyedCallbacks\l* m_componentAddedCallbacks\l* m_componentRemovedCallbacks\l* m_roAddedCallbacks\l* m_roRemovedCallbacks\l* m_frameEndCallbacks\l* getEntityCreatedNotifier()\l* getEntityDestroyedNotifier()\l* getComponentCreatedNotifier()\l* getComponentDestroyedNotifier()\l* getRenderObjectCreatedNotifier()\l* getRenderObjectDestroyed\lNotifier()\l* getEndFrameNotifier()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
-}

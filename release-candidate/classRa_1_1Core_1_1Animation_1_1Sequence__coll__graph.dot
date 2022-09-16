@@ -1,8 +1,0 @@
-digraph "Ra::Core::Animation::Sequence"
-{
- // INTERACTIVE_SVG=YES
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Ra::Core::Animation\l::Sequence\n||+ Sequence()\l+ Sequence()\l+ ~Sequence()\l+ size()\l+ clear()\l+ isEmpty()\l+ getPoseType()\l+ setPoseType()\l+ getSequence()\l+ setSequence()\l+ frame()\l+ setFrame()\l+ nextFrame()\l+ prevFrame()\l+ currentFrame()\l+ firstFrame()\l+ lastFrame()\l+ nextFrameIndex()\l+ prevFrameIndex()\l+ currentFrameIndex()\l+ firstFrameIndex()\l+ lastFrameIndex()\l+ insertFrame()\l+ insertNext()\l+ insertPrev()\l+ insertCurrent()\l+ insertFirst()\l+ insertLast()\l+ removeFrame()\l+ removeNext()\l+ removePrev()\l+ removeCurrent()\l+ removeFirst()\l+ removeLast()\l+ moveToFrame()\l+ moveToNextFrame()\l+ moveToPrevFrame()\l+ moveToFirstFrame()\l+ moveToLastFrame()\l+ reset()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
-}

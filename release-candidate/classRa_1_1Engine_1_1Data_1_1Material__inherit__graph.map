@@ -1,0 +1,10 @@
+<map id="Ra::Engine::Data::Material" name="Ra::Engine::Data::Material">
+<area shape="rect" id="node1" title=" " alt="" coords="357,219,569,487"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title=" " alt="" coords="5,535,217,876"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html" title=" " alt="" coords="241,593,451,817"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title=" " alt="" coords="475,593,687,817"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" title=" " alt="" coords="711,557,919,854"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="351,5,575,171"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title=" " alt="" coords="355,924,567,1089"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="590,931,814,1082"/>
+</map>

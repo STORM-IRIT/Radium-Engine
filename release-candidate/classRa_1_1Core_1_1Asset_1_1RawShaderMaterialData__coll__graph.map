@@ -1,0 +1,5 @@
+<map id="Ra::Core::Asset::RawShaderMaterialData" name="Ra::Core::Asset::RawShaderMaterialData">
+<area shape="rect" id="node1" title=" " alt="" coords="5,373,221,509"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name...." alt="" coords="6,175,221,325"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="15,5,211,127"/>
+</map>

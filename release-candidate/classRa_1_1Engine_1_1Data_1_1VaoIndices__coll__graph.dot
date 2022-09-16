@@ -1,8 +1,0 @@
-digraph "Ra::Engine::Data::VaoIndices"
-{
- // INTERACTIVE_SVG=YES
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Ra::Engine::Data::VaoIndices\n|# m_indices\l# m_indicesDirty\l# m_numElements\l|+ setIndicesDirty()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Concept class to ensure consistent naming of VaoIndices accross derived classes."];
-}
