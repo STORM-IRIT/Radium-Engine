@@ -74,11 +74,29 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
 
         auto intHandle      = vertAttrib.addAttrib<int>( "testInt" );
         auto longHandle     = vertAttrib.addAttrib<long>( "testLong" );
-        auto longlongHandle = vertAttrib.addAttrib<long long>( "testLong" );
+        auto longlongHandle = vertAttrib.addAttrib<long long>( "testLongLong" );
+        auto charHandle     = vertAttrib.addAttrib<char>( "testChar" );
 
-        auto& intData      = vertAttrib.getDataWithLock( intHandle );
-        auto& longData     = vertAttrib.getDataWithLock( longHandle );
-        auto& longlongData = vertAttrib.getDataWithLock( longlongHandle );
+        {
+            size_t ssize = 20;
+
+            auto& intData      = vertAttrib.getDataWithLock( intHandle );
+            auto& longData     = vertAttrib.getDataWithLock( longHandle );
+            auto& longlongData = vertAttrib.getDataWithLock( longlongHandle );
+            auto& charData     = vertAttrib.getDataWithLock( charHandle );
+            intData.resize( ssize );
+            longData.resize( ssize );
+            longlongData.resize( ssize );
+            charData.resize( ssize );
+            vertAttrib.unlock( intHandle );
+            vertAttrib.unlock( longHandle );
+            vertAttrib.unlock( longlongHandle );
+            vertAttrib.unlock( charHandle );
+            REQUIRE( vertAttrib.getAttrib<int>( "testInt" ).getSize() == ssize );
+            REQUIRE( vertAttrib.getAttrib<long>( "testLong" ).getSize() == ssize );
+            REQUIRE( vertAttrib.getAttrib<long long>( "testLongLong" ).getSize() == ssize );
+            REQUIRE( vertAttrib.getAttrib<char>( "testChar" ).getSize() == ssize );
+        }
     }
 
     SECTION( "Tangent, BiTangent, TexCoord tests" ) {
