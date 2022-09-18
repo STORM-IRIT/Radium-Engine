@@ -449,9 +449,9 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     /// Collection of VBOs for per-vertex attributes
     //    VBOCollection m_attribVBOs;
 
-    using TranslationTable = std::map<std::string, std::string>;
-    TranslationTable m_translationTableMeshToShader;
-    TranslationTable m_translationTableShaderToMesh;
+    /// Core::Mesh attrib name to Render::Mesh attrib name
+    /// key: core mesh name, value: shader name
+    BijectiveAssociation<std::string, std::string> m_translationTable {};
 };
 
 /// LineMesh, own a Core::Geometry::LineMesh
