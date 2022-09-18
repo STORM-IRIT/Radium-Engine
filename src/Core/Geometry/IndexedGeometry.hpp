@@ -13,6 +13,44 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
+template <typename T>
+VectorArray<Vector3ui> triangulate( const VectorArray<T>& in ) {
+    VectorArray<Vector3ui> out;
+
+    out.reserve( in.size() );
+    for ( const auto& face : in ) {
+        if ( face.size() == 3 ) { out.push_back( face ); }
+        else {
+            /// simple sew triangulation
+            int minus { int( face.size() ) - 1 };
+            int plus { 0 };
+            while ( plus + 1 < minus ) {
+                if ( ( plus - minus ) % 2 ) {
+                    out.emplace_back( face[plus], face[plus + 1], face[minus] );
+                    ++plus;
+                }
+                else {
+                    out.emplace_back( face[minus], face[plus], face[minus - 1] );
+                    --minus;
+                }
+            }
+        }
+    }
+    return out;
+}
+
+template <>
+inline VectorArray<Vector3ui> triangulate( const VectorArray<Vector4ui>& in ) {
+    VectorArray<Vector3ui> out;
+    out.reserve( 2 * in.size() );
+    // assume quads are convex
+    for ( const auto& face : in ) {
+        out.emplace_back( face[0], face[1], face[2] );
+        out.emplace_back( face[0], face[2], face[3] );
+    }
+    return out;
+}
+
 /// \brief Base class for index collections stored in MultiIndexedGeometry
 class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
                                            public Utils::ObjectWithSemantic,

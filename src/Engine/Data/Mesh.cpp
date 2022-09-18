@@ -161,41 +161,6 @@ GeometryDisplayable::GeometryDisplayable( const std::string& name,
 
 GeometryDisplayable::~GeometryDisplayable() {}
 
-void triangulate( Core::Geometry::TriangleIndexLayer& out,
-                  const Core::Geometry::PolyIndexLayer& in ) {
-    out.collection().clear();
-    out.collection().reserve( in.collection().size() );
-    for ( const auto& face : in.collection() ) {
-        if ( face.size() == 3 ) { out.collection().push_back( face ); }
-        else {
-            /// simple sew triangulation
-            int minus { int( face.size() ) - 1 };
-            int plus { 0 };
-            while ( plus + 1 < minus ) {
-                if ( ( plus - minus ) % 2 ) {
-                    out.collection().emplace_back( face[plus], face[plus + 1], face[minus] );
-                    ++plus;
-                }
-                else {
-                    out.collection().emplace_back( face[minus], face[plus], face[minus - 1] );
-                    --minus;
-                }
-            }
-        }
-    }
-}
-
-void triangulate( Core::Geometry::TriangleIndexLayer& out,
-                  const Core::Geometry::QuadIndexLayer& in ) {
-    out.collection().clear();
-    out.collection().reserve( 2 * in.getSize() );
-    // assume quads are convex
-    for ( const auto& face : in.collection() ) {
-        out.collection().emplace_back( face[0], face[1], face[2] );
-        out.collection().emplace_back( face[0], face[2], face[3] );
-    }
-}
-
 void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh ) {
     m_geomLayers.clear();
     m_geom = std::move( mesh );
@@ -229,7 +194,7 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
 
         auto triangleLayer = std::make_unique<Core::Geometry::TriangleIndexLayer>();
         std::cerr << "triangulate layer\n";
-        triangulate( *triangleLayer, quadLayer );
+        triangleLayer->collection() = Core::Geometry::triangulate( quadLayer.collection() );
         std::cerr << "add triangle layer\n";
 
         LayerKeyType triangleKey = { triangleLayer->semantics(), "triangulation" };
@@ -251,9 +216,9 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
         const auto& polyLayer =
             dynamic_cast<const Core::Geometry::PolyIndexLayer&>( m_geom.getLayer( key ) );
 
-        auto triangleLayer = std::make_unique<Core::Geometry::TriangleIndexLayer>();
-        triangulate( *triangleLayer, polyLayer );
-        LayerKeyType triangleKey = { triangleLayer->semantics(), "triangulation" };
+        auto triangleLayer          = std::make_unique<Core::Geometry::TriangleIndexLayer>();
+        triangleLayer->collection() = Core::Geometry::triangulate( polyLayer.collection() );
+        LayerKeyType triangleKey    = { triangleLayer->semantics(), "triangulation" };
         auto layerAdded = m_geom.addLayer( std::move( triangleLayer ), false, "triangulation" );
         if ( !layerAdded.first ) { LOG( logERROR ) << "failed to add triangleLayer"; }
         else {

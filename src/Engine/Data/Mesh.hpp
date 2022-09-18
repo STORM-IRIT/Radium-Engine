@@ -515,8 +515,7 @@ class RA_ENGINE_API GeneralMesh : public IndexedGeometry<T>
     inline void updateGL_specific_impl() override;
 
   private:
-    inline void triangulate();
-    Core::AlignedStdVector<IndexType> m_triangleIndices;
+    Core::VectorArray<IndexType> m_triangleIndices;
 };
 
 using PolyMesh = GeneralMesh<Core::Geometry::PolyMesh>;
@@ -958,7 +957,8 @@ void GeneralMesh<T>::updateGL_specific_impl() {
         this->m_indicesDirty = true;
     }
     if ( this->m_indicesDirty ) {
-        triangulate();
+        m_triangleIndices = Core::Geometry::triangulate( this->m_mesh.getIndices() );
+
         /// this one do not work since m_indices is not a std::vector
         // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
         this->m_numElements = m_triangleIndices.size() * GeneralMesh::IndexType::RowsAtCompileTime;
