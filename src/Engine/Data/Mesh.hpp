@@ -95,7 +95,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     /// Mark attrib data as dirty, forcing an update of the OpenGL buffer.
     ///@{
 
-    /// Use g_attribName to find the corresponding name and call setDirty(const std::string& name).
+    /// Use g_attribName to find the matching name and call setDirty(const std::string& name).
     /// \param type: the data to set to MeshAttrib
     void setDirty( const Core::Geometry::MeshAttrib& type );
 
@@ -118,7 +118,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     virtual Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry()             = 0;
     ///@}
 
-    /// \brief Get opengl's vbo handle (uint) corresponding to attrib \b name.
+    /// \brief Get opengl's vbo handle (uint) matching to attrib \b name.
     ///
     /// If vbo is not initialized or name do not correponds to an actual attrib name, the returned
     /// optional is empty
@@ -259,8 +259,8 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     /// \param meshAttribName: name of the attribute on the CoreGeomtry side
     /// \param shaderAttribName: name of the input vertex attribute on the
     /// shader side.
-    void setAttribNameCorrespondance( const std::string& meshAttribName,
-                                      const std::string& shaderAttribName );
+    void setAttribNameMatching( const std::string& meshAttribName,
+                                const std::string& shaderAttribName );
 
   protected:
     virtual void updateGL_specific_impl() {}
@@ -372,8 +372,8 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     /// \param meshAttribName: name of the attribute on the CoreGeometry side
     /// \param shaderAttribName: name of the input vertex attribute on the
     /// shader side.
-    void setAttribNameCorrespondence( const std::string& meshAttribName,
-                                      const std::string& shaderAttribName );
+    void setAttribNameMatching( const std::string& meshAttribName,
+                                const std::string& shaderAttribName );
 
     void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh );
     inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
@@ -399,6 +399,8 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
 
     /// Update (i.e. send to GPU) the buffers marked as dirty
     void updateGL() override;
+
+    inline size_t getNumVertices() const override { return m_geom.vertices().size(); }
 
   protected:
     void setupCoreMeshObservers();
@@ -429,7 +431,7 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
         size_t numElements { 0 };
     };
 
-    /// LayerKey with it's corresponding indices.
+    /// LayerKey with its corresponding indices.
     struct LayerEntryType {
         int observerId { -1 };
         std::unique_ptr<globjects::VertexArray> vao { nullptr };
@@ -503,7 +505,7 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
 /// Each face of the polyhedron (typically quads) are assume to be planar and convex.
 /// Simple triangulation is performed on the fly before sending data to the GPU.
 template <typename T>
-class RA_ENGINE_API GeneralMesh : public IndexedGeometry<T>
+class GeneralMesh : public IndexedGeometry<T>
 {
     using base      = IndexedGeometry<T>;
     using IndexType = Core::Vector3ui;
@@ -854,7 +856,7 @@ void CoreGeometryDisplayable<CoreGeometry>::updateGL() {
 }
 
 template <typename CoreGeometry>
-void CoreGeometryDisplayable<CoreGeometry>::setAttribNameCorrespondance(
+void CoreGeometryDisplayable<CoreGeometry>::setAttribNameMatching(
     const std::string& meshAttribName,
     const std::string& shaderAttribName ) {
 
@@ -974,41 +976,6 @@ void GeneralMesh<T>::updateGL_specific_impl() {
     base::m_vao->bind();
     base::m_vao->bindElementBuffer( this->m_indices.get() );
     base::m_vao->unbind();
-}
-
-template <typename T>
-void GeneralMesh<T>::triangulate() {
-    m_triangleIndices.clear();
-    m_triangleIndices.reserve( this->m_mesh.getIndices().size() );
-    for ( const auto& face : this->m_mesh.getIndices() ) {
-        if ( face.size() == 3 ) { m_triangleIndices.push_back( face ); }
-        else {
-            /// simple sew triangulation
-            int minus { int( face.size() ) - 1 };
-            int plus { 0 };
-            while ( plus + 1 < minus ) {
-                if ( ( plus - minus ) % 2 ) {
-                    m_triangleIndices.emplace_back( face[plus], face[plus + 1], face[minus] );
-                    ++plus;
-                }
-                else {
-                    m_triangleIndices.emplace_back( face[minus], face[plus], face[minus - 1] );
-                    --minus;
-                }
-            }
-        }
-    }
-}
-
-template <>
-inline void GeneralMesh<Core::Geometry::QuadMesh>::triangulate() {
-    m_triangleIndices.clear();
-    m_triangleIndices.reserve( 2 * this->m_mesh.getIndices().size() );
-    // assume quads are convex
-    for ( const auto& face : this->m_mesh.getIndices() ) {
-        m_triangleIndices.emplace_back( face[0], face[1], face[2] );
-        m_triangleIndices.emplace_back( face[0], face[2], face[3] );
-    }
 }
 
 } // namespace Data

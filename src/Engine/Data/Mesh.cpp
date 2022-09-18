@@ -266,7 +266,8 @@ void GeometryDisplayable::addAttribObserver( const std::string& name ) {
         if ( itr == m_handleToBuffer.end() ) {
             m_handleToBuffer[name] = m_dataDirty.size();
 
-            addToTranslationTable( name );
+            // if there isn't a matching yet, add identity
+            if ( !m_translationTable.valueIfExists( name ) ) addToTranslationTable( name );
 
             m_dataDirty.push_back( true );
             m_vbos.emplace_back( nullptr );
@@ -279,8 +280,8 @@ void GeometryDisplayable::addAttribObserver( const std::string& name ) {
     }
 }
 
-void GeometryDisplayable::setAttribNameCorrespondence( const std::string& meshAttribName,
-                                                       const std::string& shaderAttribName ) {
+void GeometryDisplayable::setAttribNameMatching( const std::string& meshAttribName,
+                                                 const std::string& shaderAttribName ) {
 
     m_translationTable.replace( meshAttribName, shaderAttribName );
 }
