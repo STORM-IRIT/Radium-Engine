@@ -51,6 +51,20 @@ const Index* GeometryComponent::roIndexRead() const {
     return &m_roIndex;
 }
 
+template <>
+void SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::generateMesh(
+    const Ra::Core::Asset::GeometryData* data ) {
+    m_contentName      = data->getName();
+    m_displayMesh      = Ra::Core::make_shared<RenderMeshType>( m_contentName );
+    using CoreMeshType = Ra::Core::Geometry::MultiIndexedGeometry;
+    CoreMeshType mesh { data->getGeometry() };
+
+    m_displayMesh->loadGeometry( std::move( mesh ) );
+
+    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr,
+                            data->getFrame() );
+}
+
 /*-----------------------------------------------------------------------------------------------*/
 /*---------------------------------  PointCloud Component----------------------------------------*/
 /*-----------------------------------------------------------------------------------------------*/

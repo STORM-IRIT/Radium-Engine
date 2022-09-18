@@ -33,7 +33,7 @@ void GeometrySystem::handleAssetLoading( Entity* entity,
             //            comp = new LineMeshComponent( componentName, entity, data );
             //            break;
         case Ra::Core::Asset::GeometryData::TRI_MESH:
-            comp = new TriangleMeshComponent( componentName, entity, data );
+            comp = new GeometryDisplayableComponent( componentName, entity, data );
             break;
         case Ra::Core::Asset::GeometryData::QUAD_MESH:
             comp = new QuadMeshComponent( componentName, entity, data );

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Asset/VolumeData.hpp>
 #include <Core/Containers/MakeShared.hpp>
@@ -114,11 +115,11 @@ class SurfaceMeshComponent : public GeometryComponent
     std::shared_ptr<RenderMeshType> m_displayMesh { nullptr };
 };
 
-using TriangleMeshComponent        = SurfaceMeshComponent<Ra::Core::Geometry::TriangleMesh>;
+using TriangleMeshComponent        = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
 using GeometryDisplayableComponent = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
 using LineMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::LineMesh>;
-using QuadMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::QuadMesh>;
-using PolyMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::PolyMesh>;
+using QuadMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
+using PolyMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
 
 /// \warning, WIP
 /// \todo doc.
@@ -226,7 +227,7 @@ SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent(
 }
 
 template <>
-SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::SurfaceMeshComponent(
+RA_ENGINE_API SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::SurfaceMeshComponent(
     const std::string& name,
     Entity* entity,
     Ra::Core::Geometry::MultiIndexedGeometry&& mesh,
@@ -274,6 +275,10 @@ void SurfaceMeshComponent<CoreMeshType>::generateMesh( const Ra::Core::Asset::Ge
         convertMatdataToMaterial( data->hasMaterial() ? &( data->getMaterial() ) : nullptr ),
         data->getFrame() );
 }
+
+template <>
+void SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::generateMesh(
+    const Ra::Core::Asset::GeometryData* data );
 
 template <typename CoreMeshType>
 std::shared_ptr<Data::Material> SurfaceMeshComponent<CoreMeshType>::convertMatdataToMaterial(
