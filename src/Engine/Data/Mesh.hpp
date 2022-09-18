@@ -340,6 +340,7 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     using LayerKeyType  = typename Core::Geometry::MultiIndexedGeometry::LayerKeyType;
     using LayerKeyHash  = Core::Geometry::MultiIndexedGeometry::LayerKeyHash;
 
+    explicit GeometryDisplayable( const std::string& name );
     explicit GeometryDisplayable( const std::string& name,
                                   typename Core::Geometry::MultiIndexedGeometry&& geom );
     virtual ~GeometryDisplayable();

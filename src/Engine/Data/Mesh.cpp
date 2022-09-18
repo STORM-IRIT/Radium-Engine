@@ -153,6 +153,8 @@ void AttribArrayDisplayable::setDirty( const Ra::Core::Geometry::MeshAttrib& typ
 }
 ////////////////  MultiIndexedGeometry  ///////////////////////////////
 
+GeometryDisplayable::GeometryDisplayable( const std::string& name ) : base( name ) {}
+
 GeometryDisplayable::GeometryDisplayable( const std::string& name,
                                           typename Core::Geometry::MultiIndexedGeometry&& geom ) :
     base( name ) {
@@ -207,7 +209,6 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
             addRenderLayer( triangleKey, AttribArrayDisplayable::RM_TRIANGLES );
             std::cerr << "triangulate done\n";
         }
-        std::cerr << "yo\n";
     }
     else if ( m_geom.containsLayer( Core::Geometry::PolyIndexLayer::staticSemanticName ) ) {
         auto [key, layer] =
@@ -392,7 +393,10 @@ void GeometryDisplayable::render( const ShaderProgram* prog, const LayerKeyType&
         m_geomLayers[key].vao->unbind();
         GL_CHECK_ERROR;
     }
-    else { LOG( logERROR ) << "try to draw an invalid layer\n"; }
+    else {
+        LOG( logERROR ) << "try to draw an invalid layer " << *key.first.begin() << " ["
+                        << key.second << "]\n";
+    }
 }
 
 void GeometryDisplayable::autoVertexAttribPointer( const ShaderProgram* prog,
