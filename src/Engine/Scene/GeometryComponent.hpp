@@ -1,14 +1,15 @@
 #pragma once
 
-#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Asset/VolumeData.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Geometry/Volume.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/Mesh.hpp>
+#include <Engine/RaEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
@@ -260,7 +261,7 @@ void SurfaceMeshComponent<CoreMeshType>::generateMesh( const Ra::Core::Asset::Ge
 }
 
 template <>
-void SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::generateMesh(
+RA_ENGINE_API void SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::generateMesh(
     const Ra::Core::Asset::GeometryData* data );
 
 template <typename CoreMeshType>
