@@ -10,7 +10,7 @@ namespace Core {
 
 /// Internal class used to compute types and values used by VectorArray, to handle both
 /// eigen matrices and integral types
-template <typename V, bool isIntegral>
+template <typename V, bool isArithmetic, bool isEigen>
 struct VectorArrayTypeHelper {};
 
 /// This class is a wrapper around a std::vector of Core::Vectors.
@@ -21,7 +21,9 @@ class VectorArray : public AlignedStdVector<V>
 {
   private:
     using TypeHelper =
-        VectorArrayTypeHelper<V, std::is_integral<V>::value || std::is_floating_point<V>::value>;
+        VectorArrayTypeHelper<V,
+                              std::is_arithmetic<V>::value,
+                              std::is_base_of<typename Eigen::MatrixBase<V>, V>::value>;
 
   public:
     // Type shortcuts
@@ -52,27 +54,29 @@ class VectorArray : public AlignedStdVector<V>
                           Eigen::Index( this->size() ) );
     }
 };
-template <typename V>
-struct VectorArrayTypeHelper<V, true> {
-  private:
-    static constexpr bool HasComponents = std::is_arithmetic_v<V>;
 
-  public:
-    using scalar_type                       = typename std::enable_if<HasComponents, V>::type;
-    static constexpr int NumberOfComponents = HasComponents ? 1 : 0;
-    static inline scalar_type* getData( VectorArray<V>* v ) {
-        return HasComponents ? v->data() : nullptr;
-    }
-    static inline scalar_type* getConstData( const VectorArray<V>* v ) {
-        return HasComponents ? v->data() : nullptr;
-    }
-};
 template <typename V>
-struct VectorArrayTypeHelper<V, false> {
+struct VectorArrayTypeHelper<V, true, false> {
+    using scalar_type                       = V;
+    static constexpr int NumberOfComponents = 1;
+    static inline scalar_type* getData( VectorArray<V>* v ) { return v->data(); }
+    static inline scalar_type* getConstData( const VectorArray<V>* v ) { return v->data(); }
+};
+
+template <typename V>
+struct VectorArrayTypeHelper<V, false, true> {
     using scalar_type                       = typename V::Scalar;
     static constexpr int NumberOfComponents = V::RowsAtCompileTime;
     static inline scalar_type* getData( VectorArray<V>* v ) { return v->data()->data(); }
     static inline scalar_type* getConstData( const VectorArray<V>* v ) { return v->data()->data(); }
+};
+
+template <typename V>
+struct VectorArrayTypeHelper<V, false, false> {
+    using scalar_type                       = V;
+    static constexpr int NumberOfComponents = 0;
+    static inline scalar_type* getData( VectorArray<V>* v ) { return v->data(); }
+    static inline scalar_type* getConstData( const VectorArray<V>* v ) { return v->data(); }
 };
 
 // Convenience aliases
