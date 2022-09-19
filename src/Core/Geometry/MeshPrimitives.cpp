@@ -1,5 +1,5 @@
-#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Core/Containers/Grid.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Math/Math.hpp> // areApproxEqual
@@ -7,8 +7,6 @@
 
 #include <array>
 #include <string>
-
-#include <typeinfo>
 
 namespace Ra {
 namespace Core {
@@ -213,17 +211,9 @@ MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
     };
     auto semantic = layer->semantics();
 
-    std::for_each( layer->semantics().cbegin(),
-                   layer->semantics().cend(),
-                   []( const std::string& x ) { std::cerr << x << '\n'; } );
-
     result.addLayer( std::move( layer ) );
-    auto test = result.getFirstLayerOccurrence( semantic );
-    auto& tmp = test.second;
-    std::cerr << "make typeinfo " << typeid( tmp ).name() << "\n";
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
-    std::cerr << "return make sharp box aabb \n";
     return MultiIndexedGeometry { std::move( result ) };
 }
 
@@ -231,7 +221,6 @@ MultiIndexedGeometry makeSharpBox2( const Vector3& halfExts,
                                     const Utils::optional<Utils::Color>& color,
                                     bool generateTexCoord ) {
     Aabb aabb( -halfExts, halfExts );
-    std::cerr << "return make sharp box half \n";
     return makeSharpBox2( aabb, color, generateTexCoord );
 }
 
