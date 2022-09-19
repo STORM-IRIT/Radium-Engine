@@ -452,12 +452,8 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
 
 /// \brief Index layer for a point cloud
 struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
-    using base = GeometryIndexLayer<Vector1ui>;
     /// \brief Constructor of an empty layer
     inline PointCloudIndexLayer();
-    inline PointCloudIndexLayer( const PointCloudIndexLayer& other ) = default;
-    inline PointCloudIndexLayer& operator=( const PointCloudIndexLayer& other ) = default;
-    inline PointCloudIndexLayer& operator=( PointCloudIndexLayer&& other ) = default;
 
     /// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
     /// \f$n-1\f$
@@ -562,6 +558,7 @@ struct getType<Vector1ui> {
 
 /**
  * \brief A single layer MultiIndexedGeometry.
+ *
  * This class actually provide compatibility with old geometry with a main layer.
  * Main layer contains indices of a specific type (point, line, triangle, poly).
  * Derived classes explicit the kind of indices of the main layer.
