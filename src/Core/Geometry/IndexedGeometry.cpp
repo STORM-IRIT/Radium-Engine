@@ -1,7 +1,5 @@
 #include <Core/Geometry/IndexedGeometry.hpp>
 
-#include <Core/Utils/TypesUtils.hpp>
-
 #include <iterator>
 
 namespace Ra {
@@ -10,29 +8,19 @@ namespace Geometry {
 
 MultiIndexedGeometry::MultiIndexedGeometry( const MultiIndexedGeometry& other ) :
     AttribArrayGeometry( other ) {
-    std::cerr << "MultiIndexedGeometry & other\n";
     deepCopy( other );
 }
 
 MultiIndexedGeometry::MultiIndexedGeometry( MultiIndexedGeometry&& other ) :
-    AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {
-
-    std::cerr << "MultiIndexedGeometry && other\n";
-}
+    AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {}
 
 MultiIndexedGeometry::MultiIndexedGeometry( const AttribArrayGeometry& other ) :
-    AttribArrayGeometry( other ) {
-    std::cerr << "MultiIndexedGeometry & other\n";
-}
+    AttribArrayGeometry( other ) {}
 
 MultiIndexedGeometry::MultiIndexedGeometry( AttribArrayGeometry&& other ) :
-    AttribArrayGeometry( std::move( other ) ) {
-    std::cerr << "MultiIndexedGeometry Atrib && other\n";
-}
+    AttribArrayGeometry( std::move( other ) ) {}
 
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometry& other ) {
-    std::cerr << "MultiIndexedGeometry = & other\n";
-
     invalidateAabb();
     AttribArrayGeometry::operator=( other );
     deepCopy( other );
@@ -41,8 +29,6 @@ MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometr
 }
 
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( MultiIndexedGeometry&& other ) {
-    std::cerr << "MultiIndexedGeometry = && other\n";
-
     invalidateAabb();
     AttribArrayGeometry::operator=( std::move( other ) );
     m_indices = std::move( other.m_indices );
@@ -140,12 +126,8 @@ size_t MultiIndexedGeometry::countLayers( const LayerSemanticCollection& semanti
 std::pair<MultiIndexedGeometry::LayerKeyType, const GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemantic& semanticName ) const {
     for ( const auto& [key, value] : m_indices ) {
-        if ( key.first.find( semanticName ) != key.first.end() ) {
-
-            auto& tmp = *( value.second.get() );
-            std::cerr << "get typeinfo " << Utils::demangleType( tmp ) << "\n";
+        if ( key.first.find( semanticName ) != key.first.end() )
             return { key, *( value.second.get() ) };
-        }
     }
     throw std::out_of_range( "Layer entry not found" );
 }
@@ -233,9 +215,6 @@ std::pair<bool, GeometryIndexLayerBase&>
 MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
                                 const bool withLock,
                                 const std::string& layerName ) {
-
-    auto& tmp1 = *( layer.get() );
-    std::cerr << "add layer typeinfo " << Utils::demangleType( tmp1 ) << "\n";
     LayerKeyType key { layer->semantics(), layerName };
     auto elt             = std::make_pair( key, std::make_pair( false, std::move( layer ) ) );
     auto [pos, inserted] = m_indices.insert( std::move( elt ) );
@@ -247,8 +226,6 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
     }
     /// If not inserted, the pointer is deleted. So the caller must ensure this possible
     /// deletion is safe before calling this method.
-    auto& tmp = *( pos->second.second.get() );
-    std::cerr << "add layer inserted typeinfo " << Utils::demangleType( tmp ) << "\n";
 
     return { inserted, *( pos->second.second ) };
 }
