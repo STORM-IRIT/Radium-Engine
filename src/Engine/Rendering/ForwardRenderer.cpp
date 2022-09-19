@@ -7,13 +7,17 @@
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VariableSetEnumManagement.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
-
+#include <Core/Utils/TypesUtils.hpp>
 #include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/Material.hpp>
+#include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/RenderParameters.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/Data/ViewingParameters.hpp>
@@ -21,6 +25,7 @@
 #include <Engine/Rendering/DebugRender.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/DefaultLightManager.hpp>
+#include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <globjects/Framebuffer.h>
 
@@ -31,6 +36,8 @@
 
 #include <Engine/Scene/SystemDisplay.hpp>
 
+#include <globjects/Framebuffer.h>
+#include <globjects/Texture.h>
 #include <map>
 
 #include <globjects/Texture.h>
@@ -264,8 +271,6 @@ void setupLineMesh( std::shared_ptr<Data::LineMesh>& disp, CoreGeometry& core ) 
 // create a linemesh to draw wireframe given a core mesh
 template <typename IndexLayer>
 void setupLineMesh( Data::GeometryDisplayable& displayable, const std::string& name ) {
-
-    std::cerr << "setup line mesh\n";
     auto lineLayer     = std::make_unique<Core::Geometry::LineIndexLayer>();
     auto& indices      = lineLayer->collection();
     auto& coreGeometry = displayable.getCoreGeometry();
@@ -472,61 +477,6 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         glBlendFuncSeparate( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO );
         GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
 
-        auto drawWireframe = [this, &renderData]( const auto& ro ) {
-            std::shared_ptr<Data::Displayable> wro;
-
-            WireMap::iterator it = m_wireframes.find( ro.get() );
-            if ( it == m_wireframes.end() ) {
-                std::shared_ptr<Data::LineMesh> disp;
-
-                using dispmesh = Ra::Engine::Data::GeometryDisplayable;
-                using trimesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::TriangleMesh>;
-                using polymesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh>;
-                using quadmesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::QuadMesh>;
-
-                auto displayable = ro->getMesh();
-                auto tm          = std::dynamic_pointer_cast<trimesh>( displayable );
-                auto tp          = std::dynamic_pointer_cast<polymesh>( displayable );
-                auto tq          = std::dynamic_pointer_cast<quadmesh>( displayable );
-                auto td          = std::dynamic_pointer_cast<dispmesh>( displayable );
-
-                auto processLineMesh = []( auto cm, std::shared_ptr<Data::LineMesh>& lm ) {
-                    if ( cm->getRenderMode() ==
-                         Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES ) {
-                        setupLineMesh( lm, cm->getCoreGeometry() );
-                    }
-                };
-                if ( tm ) { processLineMesh( tm, disp ); }
-                if ( tp ) { processLineMesh( tp, disp ); }
-                if ( tq ) { processLineMesh( tq, disp ); }
-                //    if ( td ) { setupLineMesh() }
-
-                m_wireframes[ro.get()] = disp;
-                wro                    = disp;
-            }
-            else { wro = it->second; }
-
-            const Data::ShaderProgram* shader =
-                m_shaderProgramManager->getShaderProgram( "Wireframe" );
-
-            if ( shader && wro ) {
-                shader->bind();
-                if ( ro->isVisible() ) {
-                    wro->updateGL();
-
-                    Core::Matrix4 modelMatrix = ro->getTransformAsMatrix();
-                    shader->setUniform( "transform.proj", renderData.projMatrix );
-                    shader->setUniform( "transform.view", renderData.viewMatrix );
-                    shader->setUniform( "transform.model", modelMatrix );
-                    shader->setUniform( "viewport", Core::Vector2 { m_width, m_height } );
-                    shader->setUniform( "pixelWidth", 1.8f );
-                    wro->render( shader );
-
-                    GL_CHECK_ERROR;
-                }
-            }
-        };
-
         auto drawWireframeNew = [this, &renderData]( const auto& ro ) {
             auto displayable = ro->getMesh();
             using dispmesh   = Ra::Engine::Data::GeometryDisplayable;
@@ -550,16 +500,13 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 bool hasPolyLayer = coreGeom.containsLayer( PolyIndexLayer::staticSemanticName );
 
                 if ( hasTriangleLayer && !coreGeom.containsLayer( lineKey ) ) {
-                    std::cerr << "setup line\n";
                     setupLineMesh<TriangleIndexLayer>( *td, "wireframe triangles" );
                 }
 
                 if ( hasPolyLayer && !coreGeom.containsLayer( lineKey2 ) ) {
-                    std::cerr << "setup main line from poly\n";
                     setupLineMesh<PolyIndexLayer>( *td, "wireframe main" );
                 }
                 else if ( hasQuadLayer && !coreGeom.containsLayer( lineKey2 ) ) {
-                    std::cerr << "setup main line from quad\n";
                     setupLineMesh<QuadIndexLayer>( *td, "wireframe main" );
                 }
 
@@ -596,17 +543,15 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 }
             }
             else {
-                std::cerr << "could not convert to geom disp "
-                          << Ra::Core::Utils::demangleType( displayable ) << "\n";
+                // skip
             }
         };
 
         for ( const auto& ro : m_fancyRenderObjects ) {
-            //            drawWireframe( ro );
             drawWireframeNew( ro );
         }
         for ( const auto& ro : m_transparentRenderObjects ) {
-            drawWireframe( ro );
+            drawWireframeNew( ro );
         }
     }
 
