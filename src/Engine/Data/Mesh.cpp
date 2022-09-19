@@ -168,46 +168,37 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
     m_geom = std::move( mesh );
     setupCoreMeshObservers();
 
-    /// \todo check if other layer ? at least triangulate
-    if ( m_geom.containsLayer( Core::Geometry::TriangleIndexLayer::staticSemanticName ) ) {
+    if ( m_geom.containsLayer( Core::Geometry::LineIndexLayer::staticSemanticName ) ) {
+        auto [key, layer] =
+            m_geom.getFirstLayerOccurrence( Core::Geometry::LineIndexLayer::staticSemanticName );
+        m_activeLayerKey = key;
+        setRenderMode( AttribArrayDisplayable::RM_LINES );
+
+        auto ok = addRenderLayer( key, AttribArrayDisplayable::RM_LINES );
+        if ( !ok ) { LOG( logERROR ) << "loadGeometry could not add layer"; }
+    }
+    else if ( m_geom.containsLayer( Core::Geometry::TriangleIndexLayer::staticSemanticName ) ) {
         auto [key, layer] = m_geom.getFirstLayerOccurrence(
             Core::Geometry::TriangleIndexLayer::staticSemanticName );
         m_activeLayerKey = key;
         addRenderLayer( key, AttribArrayDisplayable::RM_TRIANGLES );
     }
     else if ( m_geom.containsLayer( Core::Geometry::QuadIndexLayer::staticSemanticName ) ) {
-        std::cerr << "get quad layer\n";
         auto [key, layer] =
             m_geom.getFirstLayerOccurrence( Core::Geometry::QuadIndexLayer::staticSemanticName );
 
-        std::cerr << "cast quad layer\n";
-        std::for_each( layer.semantics().cbegin(),
-                       layer.semantics().cend(),
-                       []( const std::string& x ) { std::cerr << x << '\n'; } );
-
-        std::cerr << layer.getSize() << " " << layer.getNumberOfComponents() << " "
-                  << layer.getBufferSize() << "\n";
-
-        std::cerr << "type info " << demangleType( layer ) << "\n";
-        std::cerr << "type info " << demangleType<const Core::Geometry::QuadIndexLayer&>() << "\n";
-
         const auto& quadLayer = dynamic_cast<const Core::Geometry::QuadIndexLayer&>( layer );
-        std::cerr << "cast done\n";
 
-        auto triangleLayer = std::make_unique<Core::Geometry::TriangleIndexLayer>();
-        std::cerr << "triangulate layer\n";
+        auto triangleLayer          = std::make_unique<Core::Geometry::TriangleIndexLayer>();
         triangleLayer->collection() = Core::Geometry::triangulate( quadLayer.collection() );
-        std::cerr << "add triangle layer\n";
 
         LayerKeyType triangleKey = { triangleLayer->semantics(), "triangulation" };
         auto layerAdded = m_geom.addLayer( std::move( triangleLayer ), false, "triangulation" );
-        std::cerr << "add triangle layer done\n";
 
         if ( !layerAdded.first ) { LOG( logERROR ) << "failed to add triangleLayer"; }
         else {
             m_activeLayerKey = triangleKey;
             addRenderLayer( triangleKey, AttribArrayDisplayable::RM_TRIANGLES );
-            std::cerr << "triangulate done\n";
         }
     }
     else if ( m_geom.containsLayer( Core::Geometry::PolyIndexLayer::staticSemanticName ) ) {
@@ -227,6 +218,7 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
             addRenderLayer( triangleKey, AttribArrayDisplayable::RM_TRIANGLES );
         }
     }
+    else { LOG( logERROR ) << "no valid layer found"; }
     m_isDirty = true;
 }
 
@@ -380,24 +372,27 @@ void GeometryDisplayable::render( const ShaderProgram* prog ) {
 
 void GeometryDisplayable::render( const ShaderProgram* prog, const LayerKeyType& key ) {
     GL_CHECK_ERROR;
-    if ( m_geomLayers[key].vao ) {
-        m_geomLayers[key].vao->bind();
-        GL_CHECK_ERROR;
-        autoVertexAttribPointer( prog, key );
-        GL_CHECK_ERROR;
-
-        m_geomLayers[key].vao->drawElements( static_cast<GLenum>( m_geomLayers[key].renderMode ),
-                                             GLsizei( m_geomLayers[key].indices.numElements ),
-                                             GL_UNSIGNED_INT,
-                                             nullptr );
-        GL_CHECK_ERROR;
-        m_geomLayers[key].vao->unbind();
-        GL_CHECK_ERROR;
+    if ( m_geomLayers.find( key ) != m_geomLayers.end() ) {
+        if ( m_geomLayers[key].vao ) {
+            m_geomLayers[key].vao->bind();
+            GL_CHECK_ERROR;
+            autoVertexAttribPointer( prog, key );
+            GL_CHECK_ERROR;
+            m_geomLayers[key].vao->drawElements(
+                static_cast<GLenum>( m_geomLayers[key].renderMode ),
+                GLsizei( m_geomLayers[key].indices.numElements ),
+                GL_UNSIGNED_INT,
+                nullptr );
+            GL_CHECK_ERROR;
+            m_geomLayers[key].vao->unbind();
+            GL_CHECK_ERROR;
+        }
+        else {
+            LOG( logERROR ) << getName() << "try to draw an invalid layer " << *key.first.begin()
+                            << " [" << key.second << "]\n";
+        }
     }
-    else {
-        LOG( logERROR ) << "try to draw an invalid layer " << *key.first.begin() << " ["
-                        << key.second << "]\n";
-    }
+    else { LOG( logERROR ) << "layer was not added as a render layer"; }
 }
 
 void GeometryDisplayable::autoVertexAttribPointer( const ShaderProgram* prog,
