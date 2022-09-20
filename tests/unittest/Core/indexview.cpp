@@ -299,14 +299,13 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/CopyAllAttributes",
 
     m3.copyBaseGeometry( m );
 
-    // this one do not copy Vector5 attrib
     m3.copyAllAttributes( m );
 
     REQUIRE( m3.getAttribHandle<Vector3>( attrib1.getName() ).idx().isValid() );
     REQUIRE( m3.getAttribHandle<Scalar>( attrib2.getName() ).idx().isValid() );
-    REQUIRE( m3.getAttribHandle<Vector5>( attrib3.getName() ).idx().isInvalid() );
-    REQUIRE( !m3.vertexAttribs().hasSameAttribs( m.vertexAttribs() ) );
-    REQUIRE( !m.vertexAttribs().hasSameAttribs( m3.vertexAttribs() ) );
+    REQUIRE( m3.getAttribHandle<Vector5>( attrib3.getName() ).idx().isValid() );
+    REQUIRE( m3.vertexAttribs().hasSameAttribs( m.vertexAttribs() ) );
+    REQUIRE( m.vertexAttribs().hasSameAttribs( m3.vertexAttribs() ) );
 
     // but we can copy it explicitly
     auto handleM3 = m3.addAttrib( "vector5_attrib", m.getAttrib( handle3 ).data() );
