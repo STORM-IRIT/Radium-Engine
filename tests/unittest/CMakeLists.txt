@@ -7,6 +7,7 @@
 set(test_src
     Core/algebra.cpp
     Core/animation.cpp
+    Core/attribmanager.cpp
     Core/bijectiveassociation.cpp
     Core/camera.cpp
     Core/color.cpp
