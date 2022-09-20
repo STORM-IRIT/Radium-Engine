@@ -104,7 +104,14 @@ class Attrib : public AttribBase
     /// lock the content, when done call unlock()
     inline Container& getDataWithLock();
 
+    /// @{
+    /// ContainerIntrosectionInterface implementation
+    size_t getSize() const override;
+    size_t getNumberOfComponents() const override;
+    int getStride() const override;
+    size_t getBufferSize() const override;
     const void* dataPtr() const override;
+    /// @}
 
     ///@{
     /// setAttribData, attrib mustn't be locked (it's asserted).
@@ -114,12 +121,6 @@ class Attrib : public AttribBase
 
     /// Read-only acccess to the attribute content.
     inline const Container& data() const;
-
-    size_t getSize() const override;
-
-    size_t getNumberOfComponents() const override;
-    int getStride() const override;
-    size_t getBufferSize() const override;
     bool isFloat() const override;
     bool isVector2() const override;
     bool isVector3() const override;
