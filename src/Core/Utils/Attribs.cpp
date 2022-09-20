@@ -21,28 +21,12 @@ void AttribManager::clear() {
 }
 
 void AttribManager::copyAllAttributes( const AttribManager& m ) {
+    m_attribs.clear();
+    m_numAttribs = 0;
     for ( const auto& attr : m.m_attribs ) {
-        if ( attr == nullptr ) continue;
-        if ( attr->isFloat() ) {
-            auto h = addAttrib<Scalar>( attr->getName() );
-            getAttrib( h ).setData( static_cast<Attrib<Scalar>*>( attr.get() )->data() );
-        }
-        else if ( attr->isVector2() ) {
-            auto h = addAttrib<Vector2>( attr->getName() );
-            getAttrib( h ).setData( static_cast<Attrib<Vector2>*>( attr.get() )->data() );
-        }
-        else if ( attr->isVector3() ) {
-            auto h = addAttrib<Vector3>( attr->getName() );
-            getAttrib( h ).setData( static_cast<Attrib<Vector3>*>( attr.get() )->data() );
-        }
-        else if ( attr->isVector4() ) {
-            auto h = addAttrib<Vector4>( attr->getName() );
-            getAttrib( h ).setData( static_cast<Attrib<Vector4>*>( attr.get() )->data() );
-        }
-        else
-            LOG( logWARNING ) << "Warning, copy of mesh attribute " << attr->getName()
-                              << " type is not supported (only float, vec2, vec3 nor vec4 are "
-                                 "supported) [from AttribManager::copyAllAttribute()]";
+        m_attribsIndex[attr->getName()] = m_attribs.size();
+        m_attribs.push_back( attr->clone() );
+        ++m_numAttribs;
     }
 }
 
