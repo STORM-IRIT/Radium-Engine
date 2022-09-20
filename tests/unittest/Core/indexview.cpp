@@ -128,8 +128,8 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes", "[Core][Core/Geometry][In
         containerFilled.push_back( Vec3AttribHandle::value_type::Random() );
     attribFilled.unlock();
 
-    auto handleFilled2     = mesh.getAttribHandle<Vec3AttribHandle::value_type>( "filled" );
-    auto& containerFilled2 = mesh.getAttrib( handleFilled2 ).data();
+    auto handleFilled2           = mesh.getAttribHandle<Vec3AttribHandle::value_type>( "filled" );
+    const auto& containerFilled2 = mesh.getAttrib( handleFilled2 ).data();
     REQUIRE( containerFilled == containerFilled2 );
 
     mesh.removeAttrib( handleFilled );
@@ -220,23 +220,22 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes", "[Core][Core/Geometry][In
     REQUIRE( nullptr == attrMgr.getAttribBase( "unkown" ) );
 
     int cpt = 0;
-    attrMgr.for_each_attrib(
-        [&cpt, &attribM2_1, &attribM2_2, &attrMgr]( Ra::Core::Utils::AttribBase* b ) {
-            cpt++;
-            // 3 since we want to skip position and normals
-            if ( cpt == 3 ) {
-                auto& t        = b->cast<Vector3>();
-                const void* p1 = t.dataPtr();
-                const void* p2 = attribM2_1.dataPtr();
-                REQUIRE( p1 == p2 );
-            }
-            if ( cpt == 4 ) {
-                // const to check const cast;
-                const Ra::Core::Utils::AttribBase* cb   = b;
-                const Ra::Core::Utils::Attrib<float>& t = cb->cast<float>();
-                REQUIRE( t.dataPtr() == attribM2_2.dataPtr() );
-            }
-        } );
+    attrMgr.for_each_attrib( [&cpt, &attribM2_1, &attribM2_2]( Ra::Core::Utils::AttribBase* b ) {
+        cpt++;
+        // 3 since we want to skip position and normals
+        if ( cpt == 3 ) {
+            auto& t        = b->cast<Vector3>();
+            const void* p1 = t.dataPtr();
+            const void* p2 = attribM2_1.dataPtr();
+            REQUIRE( p1 == p2 );
+        }
+        if ( cpt == 4 ) {
+            // const to check const cast;
+            const Ra::Core::Utils::AttribBase* cb   = b;
+            const Ra::Core::Utils::Attrib<float>& t = cb->cast<float>();
+            REQUIRE( t.dataPtr() == attribM2_2.dataPtr() );
+        }
+    } );
     REQUIRE( cpt == attrMgr.getNumAttribs() );
     const Ra::Core::Utils::AttribHandle<float>::Container newData { 0.f, 1.f, 2.f };
     attrMgr.setAttrib( handle2, newData );
@@ -248,7 +247,6 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/CopyAllAttributes",
     using Ra::Core::Vector2;
     using Ra::Core::Vector3;
     using namespace Ra::Core::Geometry;
-    using Vec3AttribHandle = Ra::Core::Utils::AttribHandle<Vector3>;
     using Ra::Core::Geometry::TriangleMesh;
 
     TriangleMesh m;
