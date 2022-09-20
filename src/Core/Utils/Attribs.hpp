@@ -71,6 +71,8 @@ class RA_CORE_API AttribBase : public ObservableVoid, public ContainerIntrospect
     /// Unlock data so another one can gain write access.
     void inline unlock();
 
+    virtual std::unique_ptr<AttribBase> clone() = 0;
+
   protected:
     void inline lock( bool isLocked = true );
 
@@ -126,6 +128,12 @@ class Attrib : public AttribBase
     /// check if attrib is a given type, as in attr.isType<MyMatrix>()
     template <typename U>
     bool isType();
+
+    std::unique_ptr<AttribBase> clone() override {
+        auto ptr    = std::make_unique<Attrib<T>>( getName() );
+        ptr->m_data = m_data;
+        return ptr;
+    }
 
   private:
     Container m_data;
