@@ -22,7 +22,7 @@ class VectorArray : public AlignedStdVector<V>
   private:
     using TypeHelper =
         VectorArrayTypeHelper<V,
-                              std::is_arithmetic<V>::value,
+                              std::is_arithmetic<V>::value || std::is_enum<V>::value,
                               std::is_base_of<typename Eigen::MatrixBase<V>, V>::value>;
 
   public:
