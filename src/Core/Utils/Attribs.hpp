@@ -143,7 +143,7 @@ class AttribHandle
     /// attrib (type and value).
     template <typename U>
     bool operator==( const AttribHandle<U>& lhs ) const {
-        return std::is_same<T, U>::value && m_idx == lhs.m_idx;
+        return std::is_same<T, U>::value && m_idx == lhs.idx();
     }
 
     /// return the index of the attrib.
