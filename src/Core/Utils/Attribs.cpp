@@ -17,6 +17,7 @@ AttribManager::~AttribManager() {
 void AttribManager::clear() {
     m_attribs.clear();
     m_attribsIndex.clear();
+    m_numAttribs = 0;
 }
 
 void AttribManager::copyAllAttributes( const AttribManager& m ) {
