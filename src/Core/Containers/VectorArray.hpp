@@ -2,6 +2,7 @@
 
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/ContainerIntrospectionInterface.hpp>
 
 #include <type_traits> // std::is_integral
 
@@ -13,11 +14,10 @@ namespace Core {
 template <typename V, bool isArithmetic, bool isEigen>
 struct VectorArrayTypeHelper {};
 
-/// This class is a wrapper around a std::vector of Core::Vectors.
-/// which allow to use the stdlib's dynamic array implementation, yet pass it as
-/// a matrix when Eigen needs it with the getMap() method.
+/// This class is implements ContainerIntrospectionInterface for AlignedStdVector.
+/// It provides Eigen::Map functionality if the underlying component allows it (i.e. fixed size)
 template <typename V>
-class VectorArray : public AlignedStdVector<V>
+class VectorArray : public AlignedStdVector<V>, public Utils::ContainerIntrospectionInterface
 {
   private:
     using TypeHelper =
@@ -34,9 +34,17 @@ class VectorArray : public AlignedStdVector<V>
     using MatrixMap   = Eigen::Map<Matrix>;
     using ConstMatrixMap = Eigen::Map<const Matrix>;
 
-  public:
     /// Inheriting constructors from std::vector
     using AlignedStdVector<V>::AlignedStdVector;
+
+    /// @{
+    /// ContainerIntrosectionInterface implementation
+    size_t getSize() const override { return this->size(); }
+    size_t getNumberOfComponents() const override { return std::max( 0, NumberOfComponents ); }
+    size_t getBufferSize() const override { return getSize() * sizeof( V ); }
+    int getStride() const override { return sizeof( V ); }
+    const void* dataPtr() const override { return this->data(); }
+    /// @}
 
     /// Returns the array as an Eigen Matrix Map
     MatrixMap getMap() {
