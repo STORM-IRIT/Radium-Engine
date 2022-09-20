@@ -28,10 +28,12 @@ class VectorArray : public AlignedStdVector<V>, public Utils::ContainerIntrospec
   public:
     // Type shortcuts
     static constexpr int NumberOfComponents = TypeHelper::NumberOfComponents;
-    // scalar_type is different from value_type defined in Base class
-    using scalar_type = typename TypeHelper::scalar_type;
-    using Matrix      = Eigen::Matrix<scalar_type, TypeHelper::NumberOfComponents, Eigen::Dynamic>;
-    using MatrixMap   = Eigen::Map<Matrix>;
+    // compoenent_type is different from value_type defined in Base class, e.g. for
+    // VectorArray<Vector3> value_type is Vector3 while component_type is Scalar.
+    // but for VectorArray<Scalar> value_type = component_type = Scalar.
+    using component_type = typename TypeHelper::component_type;
+    using Matrix    = Eigen::Matrix<component_type, TypeHelper::NumberOfComponents, Eigen::Dynamic>;
+    using MatrixMap = Eigen::Map<Matrix>;
     using ConstMatrixMap = Eigen::Map<const Matrix>;
 
     /// Inheriting constructors from std::vector
@@ -65,26 +67,28 @@ class VectorArray : public AlignedStdVector<V>, public Utils::ContainerIntrospec
 
 template <typename V>
 struct VectorArrayTypeHelper<V, true, false> {
-    using scalar_type                       = V;
+    using component_type                    = V;
     static constexpr int NumberOfComponents = 1;
-    static inline scalar_type* getData( VectorArray<V>* v ) { return v->data(); }
-    static inline scalar_type* getConstData( const VectorArray<V>* v ) { return v->data(); }
+    static inline component_type* getData( VectorArray<V>* v ) { return v->data(); }
+    static inline component_type* getConstData( const VectorArray<V>* v ) { return v->data(); }
 };
 
 template <typename V>
 struct VectorArrayTypeHelper<V, false, true> {
-    using scalar_type                       = typename V::Scalar;
+    using component_type                    = typename V::Scalar;
     static constexpr int NumberOfComponents = V::RowsAtCompileTime;
-    static inline scalar_type* getData( VectorArray<V>* v ) { return v->data()->data(); }
-    static inline scalar_type* getConstData( const VectorArray<V>* v ) { return v->data()->data(); }
+    static inline component_type* getData( VectorArray<V>* v ) { return v->data()->data(); }
+    static inline component_type* getConstData( const VectorArray<V>* v ) {
+        return v->data()->data();
+    }
 };
 
 template <typename V>
 struct VectorArrayTypeHelper<V, false, false> {
-    using scalar_type                       = V;
+    using component_type                    = V;
     static constexpr int NumberOfComponents = 0;
-    static inline scalar_type* getData( VectorArray<V>* v ) { return v->data(); }
-    static inline scalar_type* getConstData( const VectorArray<V>* v ) { return v->data(); }
+    static inline component_type* getData( VectorArray<V>* v ) { return v->data(); }
+    static inline component_type* getConstData( const VectorArray<V>* v ) { return v->data(); }
 };
 
 // Convenience aliases
