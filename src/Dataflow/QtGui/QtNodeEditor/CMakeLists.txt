@@ -35,7 +35,6 @@ if(BUILD_DEBUG_POSTFIX_D)
     set(CMAKE_DEBUG_POSTFIX d)
 endif()
 
-# include(${CMAKE_CURRENT_LIST_DIR}/../../../../cmake/QtFunctions.cmake) Qt utility functions
 include(QtFunctions)
 
 # Find the QtWidgets library
@@ -127,7 +126,7 @@ target_sources(NodeEditor PRIVATE ${nodes_moc})
 
 include(GNUInstallDirs)
 
-set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/NodeEditor)
+set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/Radium/DataflowQtGui/NodeEditor)
 
 install(TARGETS NodeEditor EXPORT NodeEditorTargets LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -147,7 +146,5 @@ configure_package_config_file(
     ${CMAKE_CURRENT_LIST_DIR}/cmake/NodeEditorConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/NodeEditorConfig.cmake INSTALL_DESTINATION ${INSTALL_CONFIGDIR}
 )
-
-install(FILES ${CMAKE_CURRENT_LIST_DIR}/cmake/QtFunctions.cmake DESTINATION ${INSTALL_CONFIGDIR})
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/NodeEditorConfig.cmake DESTINATION ${INSTALL_CONFIGDIR})
