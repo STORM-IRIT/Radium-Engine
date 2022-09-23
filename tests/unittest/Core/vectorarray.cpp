@@ -81,16 +81,22 @@ TEST_CASE( "Core/Container/VectorArray", "[Core][Container][VectorArray]" ) {
     REQUIRE( scalarMap( 0 ) == 1_ra );
     REQUIRE( vec3Map.col( 0 ) == Vector3 { 1_ra, 2_ra, 3_ra } );
     REQUIRE( enumMap( 0 ) == MyEnum::B );
-    const auto floatConstMap  = floatArray.getMap();
-    const auto scalarConstMap = scalarArray.getMap();
-    const auto vec3ConstMap   = vec3Array.getMap();
-    const auto enumConstMap   = enumArray.getMap();
+
+    const auto& floatConstArray  = floatArray;
+    const auto& scalarConstArray = scalarArray;
+    const auto& vec3ConstArray   = vec3Array;
+    const auto& enumConstArray   = enumArray;
+
+    const auto floatConstMap  = floatConstArray.getMap();
+    const auto scalarConstMap = scalarConstArray.getMap();
+    const auto vec3ConstMap   = vec3ConstArray.getMap();
+    const auto enumConstMap   = enumConstArray.getMap();
     REQUIRE( floatConstMap( 0 ) == 1.f );
     REQUIRE( scalarConstMap( 0 ) == 1_ra );
     REQUIRE( vec3ConstMap.col( 0 ) == Vector3 { 1_ra, 2_ra, 3_ra } );
     REQUIRE( enumConstMap( 0 ) == MyEnum::B );
 
-    // these do not compiles
+    // the following lines are not allowed (std::enable_if fails at compile time)
     // auto vecDynMap = vecDynArray.getMap();
     // auto intPtrMap = intPtrArray.getMap();
     // auto funMap    = funArray.getMap();

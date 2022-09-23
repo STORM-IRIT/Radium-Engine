@@ -78,9 +78,9 @@ class VectorArray : public AlignedStdVector<V>, public Utils::ContainerIntrospec
     template <int N = NumberOfComponents>
     std::enable_if_t<( N > 0 ), ConstMatrixMap> getMap() const {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return MatrixMap( TypeHelper::getConstData( this ),
-                          TypeHelper::NumberOfComponents,
-                          Eigen::Index( this->size() ) );
+        return ConstMatrixMap( TypeHelper::getConstData( this ),
+                               TypeHelper::NumberOfComponents,
+                               Eigen::Index( this->size() ) );
     }
     /// @}
 };
@@ -90,7 +90,9 @@ struct VectorArrayTypeHelperInternal<V, true, false> {
     using component_type                    = V; // arithmetic types are component types
     static constexpr int NumberOfComponents = 1;
     static inline component_type* getData( VectorArray<V>* v ) { return v->data(); }
-    static inline component_type* getConstData( const VectorArray<V>* v ) { return v->data(); }
+    static inline const component_type* getConstData( const VectorArray<V>* v ) {
+        return v->data();
+    }
 };
 
 template <typename V>
@@ -98,7 +100,7 @@ struct VectorArrayTypeHelperInternal<V, false, true> {
     using component_type                    = typename V::Scalar;   // use eigen scalar as component
     static constexpr int NumberOfComponents = V::RowsAtCompileTime; // i.e. -1 for dynamic size
     static inline component_type* getData( VectorArray<V>* v ) { return v->data()->data(); }
-    static inline component_type* getConstData( const VectorArray<V>* v ) {
+    static inline const component_type* getConstData( const VectorArray<V>* v ) {
         return v->data()->data();
     }
 };
@@ -108,7 +110,9 @@ struct VectorArrayTypeHelperInternal<V, false, false> {
     using component_type                    = V;
     static constexpr int NumberOfComponents = 0; // no component for other types, i.e. not mappable
     static inline component_type* getData( VectorArray<V>* v ) { return v->data(); }
-    static inline component_type* getConstData( const VectorArray<V>* v ) { return v->data(); }
+    static inline const component_type* getConstData( const VectorArray<V>* v ) {
+        return v->data();
+    }
 };
 
 // Convenience aliases
