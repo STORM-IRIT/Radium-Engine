@@ -25,6 +25,7 @@ set(test_src
     Core/resources.cpp
     Core/string.cpp
     Core/topomesh.cpp
+    Core/vectorarray.cpp
     Engine/environmentmap.cpp
     Engine/renderparameters.cpp
     Engine/signalmanager.cpp
