@@ -67,7 +67,7 @@ TEST_CASE( "Engine/Data/SynchronizableObject", "[Engine][Engine/Data][Synchroniz
             // using concurrent threads
             std::mutex mtx;
 
-            auto thread = std::thread( [&syncObj2, &mtx]() {
+            auto thread = std::thread( [=, &syncObj2, &mtx]() {
                 for ( int i = 0; i < N; ++i ) {
                     mtx.lock();
                     syncObj2.updateData( i );
