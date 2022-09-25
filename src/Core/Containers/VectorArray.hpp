@@ -16,7 +16,7 @@ template <typename V, bool isArithmetic, bool isEigen>
 struct VectorArrayTypeHelperInternal {};
 
 /**
- * arithmetic and fixed sized eigen types are mappable to Eigen matrices.
+ * Arithmetic and fixed sized eigen types are mappable to Eigen matrices.
  * other types are storable in a VectorArray, but could not get map (e.g. NumberOfComponents <= 0).
  */
 template <typename V>
@@ -26,7 +26,7 @@ struct VectorArrayTypeHelper : public VectorArrayTypeHelperInternal<
                                    std::is_base_of<typename Eigen::MatrixBase<V>, V>::value> {};
 
 /**
- * @brief This class is implements ContainerIntrospectionInterface for AlignedStdVector.
+ * @brief This class implements ContainerIntrospectionInterface for AlignedStdVector.
  *
  * It provides Eigen::Map functionality if the underlying component allows it (i.e. fixed size).
  */
