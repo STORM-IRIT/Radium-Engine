@@ -77,6 +77,34 @@ void Viewer::setupKeyMappingCallbacks() {
     // add viewer related listener
     keyMappingManager->addListener( GizmoManager::configureKeyMapping );
     keyMappingManager->addListener( configureKeyMapping );
+
+    m_keyMappingCallbackManager = KeyMappingCallbackManager { ViewerMapping::getContext() };
+    m_keyMappingCallbackManager.addEventCallback(
+        VIEWER_TOGGLE_WIREFRAME, [this]( QEvent* ) { m_currentRenderer->toggleWireframe(); } );
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_RELOAD_SHADERS,
+                                                  [this]( QEvent* ) { reloadShaders(); } );
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_PICKING_MULTI_CIRCLE, [this]( QEvent* ) {
+        m_isBrushPickingEnabled = !m_isBrushPickingEnabled;
+        m_currentRenderer->setBrushRadius( m_isBrushPickingEnabled ? m_brushRadius : 0 );
+        emit toggleBrushPicking( m_isBrushPickingEnabled );
+    } );
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_SWITCH_CAMERA, []( QEvent* ) {
+        auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+            Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+        static int idx = 0;
+        if ( cameraManager->count() > 0 ) {
+            idx %= cameraManager->count();
+            cameraManager->activate( idx );
+        }
+        idx++;
+    } );
+
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_CAMERA_FIT_SCENE,
+                                                  [this]( QEvent* ) { fitCamera(); } );
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_HELP, [this]( QEvent* ) {
+        displayHelpDialog();
+        requestActivate();
+    } );
 }
 
 void Viewer::configureKeyMapping_impl() {
@@ -101,7 +129,8 @@ Viewer::Viewer( QScreen* screen ) :
     m_isBrushPickingEnabled( false ),
     m_brushRadius( 10 ),
     m_camera( nullptr ),
-    m_gizmoManager( nullptr ) {}
+    m_gizmoManager( nullptr ),
+    m_keyMappingCallbackManager { ViewerMapping::getContext() } {}
 
 Viewer::~Viewer() {
     if ( m_glInitialized.load() ) {
@@ -626,50 +655,8 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
         // eventCatched = true;
     }
     else if ( actionViewer.isValid() ) {
-
-        if ( actionViewer == VIEWER_TOGGLE_WIREFRAME ) {
-            m_currentRenderer->toggleWireframe();
-            eventCatched = true;
-        }
-        else if ( actionViewer == VIEWER_RELOAD_SHADERS ) {
-            reloadShaders();
-            eventCatched = true;
-        }
-        else if ( actionViewer == VIEWER_PICKING_MULTI_CIRCLE ) {
-            m_isBrushPickingEnabled = !m_isBrushPickingEnabled;
-            m_currentRenderer->setBrushRadius( m_isBrushPickingEnabled ? m_brushRadius : 0 );
-            emit toggleBrushPicking( m_isBrushPickingEnabled );
-            eventCatched = true;
-        }
-        else if ( actionViewer == VIEWER_SWITCH_CAMERA ) {
-            auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
-                Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-            static int idx = 0;
-            if ( cameraManager->count() > 0 ) {
-                idx %= cameraManager->count();
-                cameraManager->activate( idx );
-                eventCatched = true;
-            }
-            idx++;
-        }
-        else if ( actionViewer == VIEWER_CAMERA_FIT_SCENE ) {
-            fitCamera();
-            eventCatched = true;
-        }
-        else if ( actionViewer == VIEWER_HELP ) {
-            displayHelpDialog();
-            eventCatched = true;
-            requestActivate();
-        }
-        else {
-            auto itr = m_customKeyActions[KeyEventType::KeyPressed].find( actionViewer );
-            if ( itr != m_customKeyActions[KeyEventType::KeyPressed].end() ) {
-                itr->second( event );
-                eventCatched = true;
-            }
-        }
+        eventCatched = m_keyMappingCallbackManager.triggerEventCallback( actionViewer, event );
     }
-
     return eventCatched;
 }
 
@@ -685,11 +672,7 @@ bool Viewer::handleKeyReleaseEvent( QKeyEvent* event ) {
         eventCatched = m_camera->handleKeyReleaseEvent( event, actionCamera );
     }
     else if ( actionViewer.isValid() ) {
-        auto itr = m_customKeyActions[KeyEventType::KeyReleased].find( actionViewer );
-        if ( itr != m_customKeyActions[KeyEventType::KeyReleased].end() ) {
-            itr->second( event );
-            eventCatched = true;
-        }
+        eventCatched = m_keyMappingCallbackManager.triggerEventCallback( actionViewer, event );
     }
     return eventCatched;
 }
@@ -753,8 +736,9 @@ void Viewer::handleMousePressEvent( QMouseEvent* event,
     /*
      * // action == KeyMappingManager::VIEWER_RAYCAST
     LOG( logINFO ) << "Raycast query are disabled";
-    auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ));
-    RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f ); RA_DISPLAY_RAY( r, Color::Yellow() );
+    auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y()
+    )); RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f ); RA_DISPLAY_RAY( r,
+    Color::Yellow() );
     }*/
 }
 
@@ -863,55 +847,15 @@ void Viewer::displayHelpDialog() {
 }
 
 KeyMappingManager::KeyMappingAction
-Viewer::addKeyPressEventAction( const std::string& actionName,
-                                const std::string& keyString,
-                                const std::string& modifiersString,
-                                const std::string& buttonsString,
-                                const std::string& wheelString,
-                                std::function<void( QKeyEvent* )> callback ) {
-    return addCustomAction( KeyEventType::KeyPressed,
-                            actionName,
-                            keyString,
-                            modifiersString,
-                            buttonsString,
-                            wheelString,
-                            callback );
-}
-
-KeyMappingManager::KeyMappingAction
-Viewer::addKeyReleaseEventAction( const std::string& actionName,
-                                  const std::string& keyString,
-                                  const std::string& modifiersString,
-                                  const std::string& buttonsString,
-                                  const std::string& wheelString,
-                                  std::function<void( QKeyEvent* )> callback ) {
-    return addCustomAction( KeyEventType::KeyReleased,
-                            actionName,
-                            keyString,
-                            modifiersString,
-                            buttonsString,
-                            wheelString,
-                            callback );
-}
-
-KeyMappingManager::KeyMappingAction
-Viewer::addCustomAction( int index,
-                         const std::string& actionName,
+Viewer::addCustomAction( const std::string& actionName,
                          const std::string& keyString,
                          const std::string& modifiersString,
                          const std::string& buttonsString,
                          const std::string& wheelString,
-                         std::function<void( QKeyEvent* )> callback ) {
-    auto keyMappingManager = KeyMappingManager::getInstance();
-    auto actionIndex       = keyMappingManager->addAction( "ViewerContext",
-                                                     keyString,
-                                                     modifiersString,
-                                                     buttonsString,
-                                                     wheelString,
-                                                     actionName,
-                                                     false );
-    m_customKeyActions[index].insert( { actionIndex, callback } );
-    return actionIndex;
+                         std::function<void( QEvent* )> callback ) {
+
+    return m_keyMappingCallbackManager.addEventCallback(
+        actionName, buttonsString, modifiersString, keyString, wheelString, callback );
 }
 
 } // namespace Gui
