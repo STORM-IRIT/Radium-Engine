@@ -37,6 +37,22 @@ KeyMappingManager::KeyMappingManager() :
 
 KeyMappingManager::KeyMappingAction
 KeyMappingManager::getAction( const KeyMappingManager::Context& context,
+                              const QEvent* event,
+                              int key,
+                              bool wheel ) {
+
+    Qt::MouseButtons buttons;
+    Qt::KeyboardModifiers modifiers;
+    const QMouseEvent* mouseEvent = dynamic_cast<const QMouseEvent*>( event );
+    if ( mouseEvent ) {
+        buttons   = mouseEvent->buttons();
+        modifiers = mouseEvent->modifiers();
+    }
+    return getAction( context, buttons, modifiers, key, wheel );
+}
+
+KeyMappingManager::KeyMappingAction
+KeyMappingManager::getAction( const KeyMappingManager::Context& context,
                               const Qt::MouseButtons& buttons,
                               const Qt::KeyboardModifiers& modifiers,
                               int key,
