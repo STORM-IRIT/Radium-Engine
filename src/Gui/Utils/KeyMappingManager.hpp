@@ -91,7 +91,8 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
                                 const Qt::KeyboardModifiers& modifiers,
                                 int key,
                                 bool wheel = false );
-
+    KeyMappingAction
+    getAction( const Context& context, const QEvent* event, int key, bool wheel = false );
     /// Return, if exists, the event binding associated with a context/action.
     /// if such binding doesn't exists, the optional does not contain a value.
     std::optional<EventBinding> getBinding( const Context& context, KeyMappingAction action );
