@@ -1,10 +1,9 @@
 <map id="Ra::Core::Geometry::TopologicalMesh::WedgeData" name="Ra::Core::Geometry::TopologicalMesh::WedgeData">
-<area shape="rect" id="node1" title=" " alt="" coords="253,596,474,791"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="5,427,167,533"/>
-<area shape="rect" id="node3" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="221,5,455,83"/>
-<area shape="rect" id="node5" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="221,145,455,223"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="191,427,352,533"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="376,427,537,533"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="561,427,723,533"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="238,272,438,364"/>
+<area shape="rect" id="node1" title=" " alt="" coords="337,896,558,1091"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="247,551,464,833"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="302,5,566,171"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1VectorArray.html" title="This class implements ContainerIntrospectionInterface for AlignedStdVector." alt="" coords="325,220,543,488"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="5,551,223,833"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="729,551,947,833"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="488,551,705,833"/>
 </map>

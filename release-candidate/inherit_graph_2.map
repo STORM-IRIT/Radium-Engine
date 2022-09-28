@@ -1,26 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,421,135,447"/>
-<area shape="rect" id="node2" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,5,413,47"/>
-<area shape="rect" id="node4" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,71,413,112"/>
-<area shape="rect" id="node5" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,136,413,177"/>
-<area shape="rect" id="node6" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,201,413,243"/>
-<area shape="rect" id="node8" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,267,413,308"/>
-<area shape="rect" id="node9" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="183,333,448,389"/>
-<area shape="rect" id="node10" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,413,413,455"/>
-<area shape="rect" id="node11" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,479,413,520"/>
-<area shape="rect" id="node12" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="198,545,433,571"/>
-<area shape="rect" id="node14" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,596,413,637"/>
-<area shape="rect" id="node15" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,661,413,703"/>
-<area shape="rect" id="node16" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="217,727,413,768"/>
-<area shape="rect" id="node17" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="198,794,433,821"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="515,5,677,47"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1VectorArray_3_01float_01_4.html" title=" " alt="" coords="515,201,677,243"/>
-<area shape="rect" id="node13" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="496,542,696,569"/>
-<area shape="rect" id="node18" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="515,593,677,635"/>
-<area shape="rect" id="node19" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="515,659,677,700"/>
-<area shape="rect" id="node20" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="508,724,684,765"/>
-<area shape="rect" id="node21" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="515,789,677,831"/>
-<area shape="rect" id="node22" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="497,855,695,882"/>
-<area shape="rect" id="node23" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="515,907,677,948"/>
-<area shape="rect" id="node24" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="515,972,677,1013"/>
+<area shape="rect" id="node1" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html" title=" " alt="" coords="5,39,157,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1Cage.html" title=" " alt="" coords="205,5,357,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html" title=" " alt="" coords="205,71,357,112"/>
 </map>

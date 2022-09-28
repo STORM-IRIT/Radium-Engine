@@ -89,6 +89,14 @@ var hierarchy =
     [ "Ra::Engine::Scene::ComponentMessenger", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html", null ],
     [ "Ra::Gui::Widgets::ConstrainedNumericSpinBox< T >", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html", null ],
     [ "Ra::Core::Utils::ContainerIntrospectionInterface", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html", [
+      [ "Ra::Core::VectorArray< Scalar >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< IndexType >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Vector >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Ra::Core::Vector3ui >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Vector2 >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< T >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Vector3 >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Vector4 >", "classRa_1_1Core_1_1VectorArray.html", null ],
       [ "Ra::Core::Geometry::GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", [
         [ "Ra::Core::Geometry::GeometryIndexLayer< Vector1ui >", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", [
           [ "Ra::Core::Geometry::PointCloudIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html", null ]
@@ -109,7 +117,8 @@ var hierarchy =
       ] ],
       [ "Ra::Core::Utils::AttribBase", "classRa_1_1Core_1_1Utils_1_1AttribBase.html", [
         [ "Ra::Core::Utils::Attrib< T >", "classRa_1_1Core_1_1Utils_1_1Attrib.html", null ]
-      ] ]
+      ] ],
+      [ "Ra::Core::VectorArray< V >", "classRa_1_1Core_1_1VectorArray.html", null ]
     ] ],
     [ "Ra::Plugins::Context", "classRa_1_1Plugins_1_1Context.html", null ],
     [ "Ra::Gui::Widgets::ControlPanel", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html", [
@@ -314,33 +323,19 @@ var hierarchy =
       [ "Ra::Engine::Data::IndexedGeometry< T >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ]
     ] ],
     [ "std::vector< T >", null, [
-      [ "Ra::Core::AlignedStdVector< IndexType >", "structRa_1_1Core_1_1AlignedStdVector.html", [
-        [ "Ra::Core::VectorArray< IndexType >", "classRa_1_1Core_1_1VectorArray.html", null ]
-      ] ],
-      [ "Ra::Core::AlignedStdVector< double >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< ChildrenList >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< float >", "structRa_1_1Core_1_1AlignedStdVector.html", [
-        [ "Ra::Core::VectorArray< float >", "classRa_1_1Core_1_1VectorArray_3_01float_01_4.html", null ]
-      ] ],
-      [ "Ra::Core::AlignedStdVector< Core::Vector2ui >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< Ra::Core::Asset::HandleComponentData >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< int >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< uint8_t >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< V >", "structRa_1_1Core_1_1AlignedStdVector.html", [
-        [ "Ra::Core::VectorArray< V >", "classRa_1_1Core_1_1VectorArray.html", null ]
-      ] ],
-      [ "Ra::Core::AlignedStdVector< Transform >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< Core::VectorNui >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< Wedge >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< T >", "structRa_1_1Core_1_1AlignedStdVector.html", [
-        [ "Ra::Core::VectorArray< Scalar >", "classRa_1_1Core_1_1VectorArray.html", null ],
-        [ "Ra::Core::VectorArray< Vector >", "classRa_1_1Core_1_1VectorArray.html", null ],
-        [ "Ra::Core::VectorArray< Ra::Core::Vector3ui >", "classRa_1_1Core_1_1VectorArray.html", null ],
-        [ "Ra::Core::VectorArray< Vector2 >", "classRa_1_1Core_1_1VectorArray.html", null ],
-        [ "Ra::Core::VectorArray< T >", "classRa_1_1Core_1_1VectorArray.html", null ],
-        [ "Ra::Core::VectorArray< Vector3 >", "classRa_1_1Core_1_1VectorArray.html", null ],
-        [ "Ra::Core::VectorArray< Vector4 >", "classRa_1_1Core_1_1VectorArray.html", null ]
-      ] ]
+      [ "Ra::Core::VectorArray< Scalar >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< IndexType >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Vector >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Ra::Core::Vector3ui >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Vector2 >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< T >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Vector3 >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< Vector4 >", "classRa_1_1Core_1_1VectorArray.html", null ],
+      [ "Ra::Core::VectorArray< V >", "classRa_1_1Core_1_1VectorArray.html", null ]
+    ] ],
+    [ "Ra::Core::VectorArrayTypeHelperInternal< V, isArithmetic, isEigen >", "structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html", null ],
+    [ "Ra::Core::VectorArrayTypeHelperInternal< V, std::is_arithmetic< V >::value||std::is_enum< V >::value, std::is_base_of< Eigen::MatrixBase< V >, V >::value >", "structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html", [
+      [ "Ra::Core::VectorArrayTypeHelper< V >", "structRa_1_1Core_1_1VectorArrayTypeHelper.html", null ]
     ] ],
     [ "Ra::Gui::Widgets::VectorEditor< T >", "classRa_1_1Gui_1_1Widgets_1_1VectorEditor.html", null ],
     [ "Ra::Engine::Data::ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", null ],

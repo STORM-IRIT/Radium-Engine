@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.5</span>
+   &#160;<span id="projectnumber">1.3.6</span>
    </div>
   </td>
  </tr>
@@ -290,7 +290,7 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    }</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="comment">// get the current pose from the animation</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Core::Animation::Pose</a> pose = m_skel.getPose( SpaceType::LOCAL );</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    Core::Animation::Pose pose = m_skel.getPose( SpaceType::LOCAL );</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">if</span> ( !m_animations.empty() ) {</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; int( m_animations[m_animationID].size() ); ++i ) {</div>
@@ -504,7 +504,7 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Core::Animation::RefPose&gt;::Getter</a> refpOut =</div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        std::bind( &amp;SkeletonComponent::getRefPoseOutput, <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;<a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Core::Animation::Pose</a>&gt;(</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;Core::Animation::Pose&gt;(</div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, refpOut );</div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Animation&gt;::Getter</a> animOut =</div>
@@ -527,7 +527,7 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    <span class="keywordflow">return</span> &amp;m_boneMap;</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;}</div>
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Core::Animation::RefPose</a>* SkeletonComponent::getRefPoseOutput()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="keyword">const</span> Core::Animation::RefPose* SkeletonComponent::getRefPoseOutput()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="keywordflow">return</span> &amp;m_refPose;</div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;}</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160; </div>
@@ -560,7 +560,6 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1ComponentMessenger_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html">Ra::Engine::Scene::ComponentMessenger</a></div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00039">ComponentMessenger.hpp:40</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkeletonComponent_html_a66500edcc07c1b347066bb9ba090e13b"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a66500edcc07c1b347066bb9ba090e13b">Ra::Engine::Scene::SkeletonComponent::Animation</a></div><div class="ttdeci">std::vector&lt; Core::Animation::KeyFramedValue&lt; Core::Transform &gt; &gt; Animation</div><div class="ttdoc">Animations are lists of keyframed transforms (one per bone).</div><div class="ttdef"><b>Definition:</b> <a href="SkeletonComponent_8hpp_source.html#l00048">SkeletonComponent.hpp:48</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html_ad3b421fdb7fe4703e3773b622076b373"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::Getter</a></div><div class="ttdeci">std::function&lt; const T *(void)&gt; Getter</div><div class="ttdoc">Function pointer for a getter function.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00048">ComponentMessenger.hpp:48</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -568,7 +567,7 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>SkeletonComponent.cpp</b></li>
-    <li class="footer">Generated on Fri Sep 16 2022 15:18:12 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Sep 28 2022 12:07:10 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

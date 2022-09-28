@@ -1,6 +1,4 @@
 <map id="Ra::Core::Geometry::AttribArrayGeometry::AttribArrayGeometry" name="Ra::Core::Geometry::AttribArrayGeometry::AttribArrayGeometry">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,172,87"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f" title=" " alt="" coords="220,39,436,80"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51" title="Read&#45;only acccess to the attribute content." alt="" coords="513,5,671,47"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="484,71,700,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,172,61"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f" title=" " alt="" coords="220,13,436,54"/>
 </map>

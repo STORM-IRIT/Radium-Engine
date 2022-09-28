@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.5</span>
+   &#160;<span id="projectnumber">1.3.6</span>
    </div>
   </td>
  </tr>
@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('AdjacencyList_8cpp_source.html',''); i
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1AdjacencyList.html#a59e6ff768f98ea42216765051f5d833e">   18</a></span>&#160;uint <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html#a59e6ff768f98ea42216765051f5d833e">AdjacencyList::addRoot</a>() {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    uint idx = <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855">size</a>();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    m_child.push_back( <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">ChildrenList</a>() );</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    m_child.push_back( ChildrenList() );</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    m_parent.push_back( -1 );</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    m_level.push_back( 0 );</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> idx;</div>
@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('AdjacencyList_8cpp_source.html',''); i
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1AdjacencyList.html#ae842bd4174073b36bbe9b63b5a86b4b3">   26</a></span>&#160;uint <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html#ae842bd4174073b36bbe9b63b5a86b4b3">AdjacencyList::addNode</a>( <span class="keyword">const</span> uint parent ) {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    CORE_ASSERT( ( parent &lt; <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855">size</a>() ), <span class="stringliteral">&quot;Index parent out of bounds&quot;</span> );</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    uint idx = <a class="code" href="classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855">size</a>();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    m_child.push_back( <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">ChildrenList</a>() );</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    m_child.push_back( ChildrenList() );</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    m_parent.push_back( parent );</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    m_level.push_back( m_level[parent] + 1 );</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    m_child[parent].push_back( idx );</div>
@@ -267,16 +267,15 @@ $(document).ready(function(){initNavTree('AdjacencyList_8cpp_source.html',''); i
 <div class="ttc" id="aclassRa_1_1Core_1_1AdjacencyList_html_ac9dc1d5c1007d44bace7d96c5a875fdd"><div class="ttname"><a href="classRa_1_1Core_1_1AdjacencyList.html#ac9dc1d5c1007d44bace7d96c5a875fdd">Ra::Core::AdjacencyList::extractEdgeList</a></div><div class="ttdeci">VectorArray&lt; Eigen::Matrix&lt; uint, 2, 1 &gt; &gt; extractEdgeList(bool include_leaf=false) const</div><div class="ttdef"><b>Definition:</b> <a href="AdjacencyList_8cpp_source.html#l00082">AdjacencyList.cpp:82</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1AdjacencyList_html_acf4bc92b9f8609f88091a91c20d30d69"><div class="ttname"><a href="classRa_1_1Core_1_1AdjacencyList.html#acf4bc92b9f8609f88091a91c20d30d69">Ra::Core::AdjacencyList::~AdjacencyList</a></div><div class="ttdeci">~AdjacencyList()</div><div class="ttdoc">DESTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="AdjacencyList_8cpp_source.html#l00015">AdjacencyList.cpp:15</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1AdjacencyList_html_ae842bd4174073b36bbe9b63b5a86b4b3"><div class="ttname"><a href="classRa_1_1Core_1_1AdjacencyList.html#ae842bd4174073b36bbe9b63b5a86b4b3">Ra::Core::AdjacencyList::addNode</a></div><div class="ttdeci">uint addNode(const uint parent)</div><div class="ttdoc">Return the index of the added leaf.</div><div class="ttdef"><b>Definition:</b> <a href="AdjacencyList_8cpp_source.html#l00026">AdjacencyList.cpp:26</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray</a></div><div class="ttdef"><b>Definition:</b> <a href="VectorArray_8hpp_source.html#l00013">VectorArray.hpp:14</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray</a></div><div class="ttdoc">This class implements ContainerIntrospectionInterface for AlignedStdVector.</div><div class="ttdef"><b>Definition:</b> <a href="VectorArray_8hpp_source.html#l00034">VectorArray.hpp:35</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector&lt; uint8_t &gt;</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_1456dd235032e023892318efbecb420b.html">Containers</a></li><li class="navelem"><b>AdjacencyList.cpp</b></li>
-    <li class="footer">Generated on Fri Sep 16 2022 15:18:11 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Sep 28 2022 12:07:10 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

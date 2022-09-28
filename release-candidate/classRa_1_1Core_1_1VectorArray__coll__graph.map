@@ -1,5 +1,4 @@
 <map id="Ra::Core::VectorArray&lt; V &gt;" name="Ra::Core::VectorArray&lt; V &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="23,272,223,364"/>
-<area shape="rect" id="node2" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="5,145,240,223"/>
-<area shape="rect" id="node3" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="5,5,240,83"/>
+<area shape="rect" id="node1" title="This class implements ContainerIntrospectionInterface for AlignedStdVector." alt="" coords="29,219,246,487"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="5,5,269,171"/>
 </map>

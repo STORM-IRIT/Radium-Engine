@@ -36,10 +36,10 @@
 <path fill="none" stroke="midnightblue" d="M125.08,-57.71C133.36,-59.02 141.98,-60.38 150.63,-61.74"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="150.35,-65.24 160.77,-63.34 151.44,-58.33 150.35,-65.24"/>
 </g>
-<!-- Node5 -->
-<g id="node5" class="node">
-<title>Node5</title>
-<g id="a_node5"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" target="_top" xlink:title="Access the vertices positions.">
+<!-- Node3 -->
+<g id="node3" class="node">
+<title>Node3</title>
+<g id="a_node3"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" target="_top" xlink:title="Access the vertices positions.">
 <polygon fill="white" stroke="black" points="179.5,-0.5 179.5,-41.5 304.5,-41.5 304.5,-0.5 179.5,-0.5"/>
 <text text-anchor="start" x="187.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="start" x="187.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
@@ -47,49 +47,27 @@
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node5 -->
-<g id="edge4" class="edge">
-<title>Node1&#45;&gt;Node5</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge">
+<title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M125.08,-38.63C139.32,-36.47 154.59,-34.14 169.22,-31.92"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="169.87,-35.36 179.23,-30.4 168.81,-28.44 169.87,-35.36"/>
-</g>
-<!-- Node3 -->
-<g id="node3" class="node">
-<title>Node3</title>
-<g id="a_node3"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51" target="_top" xlink:title="Read&#45;only acccess to the attribute content.">
-<polygon fill="white" stroke="black" points="380.5,-61 380.5,-91 499.5,-91 499.5,-61 380.5,-61"/>
-<text text-anchor="start" x="388.5" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Attrib</text>
-<text text-anchor="middle" x="440" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00">::data</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node3 -->
-<g id="edge2" class="edge">
-<title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M323,-76C338.57,-76 354.76,-76 369.94,-76"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="370.27,-79.5 380.27,-76 370.27,-72.5 370.27,-79.5"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="359,-9 359,-39 521,-39 521,-9 359,-9"/>
-<text text-anchor="start" x="367" y="-27" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
-<text text-anchor="middle" x="440" y="-16" font-family="Helvetica,sans-Serif" font-size="10.00">::getAttrib</text>
+<polygon fill="white" stroke="black" points="359,-6 359,-36 521,-36 521,-6 359,-6"/>
+<text text-anchor="start" x="367" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
+<text text-anchor="middle" x="440" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">::getAttrib</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node4 -->
+<!-- Node3&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
-<title>Node2&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M299.69,-60.96C322.44,-54.92 348.83,-47.92 372.49,-41.65"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="373.67,-44.95 382.44,-39.01 371.87,-38.19 373.67,-44.95"/>
-</g>
-<!-- Node5&#45;&gt;Node4 -->
-<g id="edge5" class="edge">
-<title>Node5&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M304.75,-21.95C318.7,-22.16 333.79,-22.39 348.64,-22.62"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="348.82,-26.12 358.87,-22.77 348.92,-19.12 348.82,-26.12"/>
+<title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M304.75,-21C318.7,-21 333.79,-21 348.64,-21"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="348.87,-24.5 358.87,-21 348.87,-17.5 348.87,-24.5"/>
 </g>
 </g>
 </svg>

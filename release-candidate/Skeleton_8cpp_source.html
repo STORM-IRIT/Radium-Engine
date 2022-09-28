@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.5</span>
+   &#160;<span id="projectnumber">1.3.6</span>
    </div>
   </td>
  </tr>
@@ -132,14 +132,14 @@ $(document).ready(function(){initNavTree('Skeleton_8cpp_source.html',''); initRe
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a13d96e828f9379f0d4662fdd1ce74eb6">m_modelSpace</a>.clear();</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759">   22</a></span>&#160;<span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Pose</a>&amp; <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759">Skeleton::getPose</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">SpaceType</a> MODE )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759">   22</a></span>&#160;<span class="keyword">const</span> Pose&amp; <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759">Skeleton::getPose</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">SpaceType</a> MODE )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    static_assert( std::is_same&lt;<span class="keywordtype">bool</span>, <span class="keyword">typename</span> std::underlying_type&lt;SpaceType&gt;::type&gt;::value,</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                   <span class="stringliteral">&quot;SpaceType is not a boolean&quot;</span> );</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> ( MODE == SpaceType::LOCAL ) <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a189a9b7eb1ab76fb6a98cc692da8f5af">m_pose</a>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a13d96e828f9379f0d4662fdd1ce74eb6">m_modelSpace</a>;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a7aec08b57bfa9dbce1c5b47e96de81d9">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a7aec08b57bfa9dbce1c5b47e96de81d9">Skeleton::setPose</a>( <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Pose</a>&amp; pose, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">SpaceType</a> MODE ) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a7aec08b57bfa9dbce1c5b47e96de81d9">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a7aec08b57bfa9dbce1c5b47e96de81d9">Skeleton::setPose</a>( <span class="keyword">const</span> Pose&amp; pose, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">SpaceType</a> MODE ) {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    CORE_ASSERT( ( <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3">size</a>() == pose.size() ), <span class="stringliteral">&quot;Size mismatching&quot;</span> );</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    static_assert( std::is_same&lt;<span class="keywordtype">bool</span>, <span class="keyword">typename</span> std::underlying_type&lt;SpaceType&gt;::type&gt;::value,</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                   <span class="stringliteral">&quot;SpaceType is not a boolean&quot;</span> );</div>
@@ -379,14 +379,13 @@ $(document).ready(function(){initNavTree('Skeleton_8cpp_source.html',''); initRe
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Skeleton_html_acb6381c3f288f580800589eb718c1759"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759">Ra::Core::Animation::Skeleton::getPose</a></div><div class="ttdeci">const Pose &amp; getPose(const SpaceType MODE) const override</div><div class="ttdef"><b>Definition:</b> <a href="Skeleton_8cpp_source.html#l00022">Skeleton.cpp:22</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Skeleton_html_aecd2137452897bd64ba998e255dd3751"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#aecd2137452897bd64ba998e255dd3751">Ra::Core::Animation::Skeleton::getTransform</a></div><div class="ttdeci">const Transform &amp; getTransform(const uint i, const SpaceType MODE) const override</div><div class="ttdef"><b>Definition:</b> <a href="Skeleton_8cpp_source.html#l00055">Skeleton.cpp:55</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><b>Skeleton.cpp</b></li>
-    <li class="footer">Generated on Fri Sep 16 2022 15:18:11 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Sep 28 2022 12:07:10 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

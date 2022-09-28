@@ -5,6 +5,7 @@ var classRa_1_1Core_1_1Utils_1_1AttribBase =
     [ "AttribBase", "classRa_1_1Core_1_1Utils_1_1AttribBase.html#a1af5105c03e12a3cdeea09f2d614c75b", null ],
     [ "cast", "classRa_1_1Core_1_1Utils_1_1AttribBase.html#abda7afaabfc16d1b5f9ea51ce0f391fd", null ],
     [ "cast", "classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae3f0c8cc4b3ac759ae25e07bed7950b7", null ],
+    [ "clone", "classRa_1_1Core_1_1Utils_1_1AttribBase.html#ac70be3f02cf230652507710e46edb7d9", null ],
     [ "getName", "classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca", null ],
     [ "isFloat", "classRa_1_1Core_1_1Utils_1_1AttribBase.html#a158d2fb8cbbfaaad8b8668c0072da204", null ],
     [ "isLocked", "classRa_1_1Core_1_1Utils_1_1AttribBase.html#a030ebd538261b64958f73b9fb949c17c", null ],
