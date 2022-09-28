@@ -63,7 +63,7 @@ typename Attrib<T>::Container& Attrib<T>::getDataWithLock() {
 
 template <typename T>
 const void* Attrib<T>::dataPtr() const {
-    return m_data.data();
+    return m_data.dataPtr();
 }
 
 template <typename T>
@@ -87,17 +87,17 @@ const typename Attrib<T>::Container& Attrib<T>::data() const {
 
 template <typename T>
 size_t Attrib<T>::getSize() const {
-    return m_data.size();
+    return m_data.getSize();
 }
 
 template <typename T>
 int Attrib<T>::getStride() const {
-    return sizeof( value_type );
+    return m_data.getStride();
 }
 
 template <typename T>
 size_t Attrib<T>::getBufferSize() const {
-    return m_data.size() * sizeof( value_type );
+    return m_data.getBufferSize();
 }
 
 template <typename T>
@@ -126,18 +126,10 @@ bool Attrib<T>::isType() {
     return std::is_same<U, T>::value;
 }
 
-// fully specialization defined in .cpp def for both float and double.
-// Specialize for scalar only might raise error if
-// user wants to have a specific attrib precision, while Radium Scalar is the other precision.
-// Do we need to specialize for all floating point types ?
-template <>
-RA_CORE_API size_t Attrib<float>::getNumberOfComponents() const;
-template <>
-RA_CORE_API size_t Attrib<double>::getNumberOfComponents() const;
-// template specialization defined in header.
+// Defer computation to VectorArrayTypeHelper
 template <typename T>
 size_t Attrib<T>::getNumberOfComponents() const {
-    return Attrib<T>::Container::Vector::RowsAtCompileTime;
+    return m_data.getNumberOfComponents();
 }
 
 /////////////////// AttribManager ///////////////////

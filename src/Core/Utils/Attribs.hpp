@@ -71,6 +71,8 @@ class RA_CORE_API AttribBase : public ObservableVoid, public ContainerIntrospect
     /// Unlock data so another one can gain write access.
     void inline unlock();
 
+    virtual std::unique_ptr<AttribBase> clone() = 0;
+
   protected:
     void inline lock( bool isLocked = true );
 
@@ -102,7 +104,14 @@ class Attrib : public AttribBase
     /// lock the content, when done call unlock()
     inline Container& getDataWithLock();
 
+    /// @{
+    /// ContainerIntrosectionInterface implementation
+    size_t getSize() const override;
+    size_t getNumberOfComponents() const override;
+    int getStride() const override;
+    size_t getBufferSize() const override;
     const void* dataPtr() const override;
+    /// @}
 
     ///@{
     /// setAttribData, attrib mustn't be locked (it's asserted).
@@ -112,12 +121,6 @@ class Attrib : public AttribBase
 
     /// Read-only acccess to the attribute content.
     inline const Container& data() const;
-
-    size_t getSize() const override;
-
-    size_t getNumberOfComponents() const override;
-    int getStride() const override;
-    size_t getBufferSize() const override;
     bool isFloat() const override;
     bool isVector2() const override;
     bool isVector3() const override;
@@ -126,6 +129,12 @@ class Attrib : public AttribBase
     /// check if attrib is a given type, as in attr.isType<MyMatrix>()
     template <typename U>
     bool isType();
+
+    std::unique_ptr<AttribBase> clone() override {
+        auto ptr    = std::make_unique<Attrib<T>>( getName() );
+        ptr->m_data = m_data;
+        return ptr;
+    }
 
   private:
     Container m_data;
@@ -143,7 +152,7 @@ class AttribHandle
     /// attrib (type and value).
     template <typename U>
     bool operator==( const AttribHandle<U>& lhs ) const {
-        return std::is_same<T, U>::value && m_idx == lhs.m_idx;
+        return std::is_same<T, U>::value && m_idx == lhs.idx();
     }
 
     /// return the index of the attrib.
