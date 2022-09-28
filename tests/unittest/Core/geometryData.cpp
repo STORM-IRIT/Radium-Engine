@@ -1,4 +1,5 @@
 #include "Core/Geometry/StandardAttribNames.hpp"
+#include "Core/Utils/TypesUtils.hpp"
 #include <Core/Asset/GeometryData.hpp>
 #include <catch2/catch.hpp>
 
@@ -65,6 +66,54 @@ TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
         const auto& d     = coreGeom2.vertexAttribs().getData( attriHandle2 );
         REQUIRE( d.size() == 1 );
         REQUIRE( d[0] == save );
+    }
+
+    SECTION( "Custom Attrib" ) {
+        auto geom        = new GeometryData();
+        auto& coreGeom   = geom->getGeometry();
+        auto& vertAttrib = coreGeom.vertexAttribs();
+
+        auto intHandle      = vertAttrib.addAttrib<int>( "testInt" );
+        auto longHandle     = vertAttrib.addAttrib<long>( "testLong" );
+        auto longlongHandle = vertAttrib.addAttrib<long long>( "testLongLong" );
+        auto charHandle     = vertAttrib.addAttrib<char>( "testChar" );
+        auto stringHandle   = vertAttrib.addAttrib<std::string>( "testString" );
+
+        {
+            size_t ssize = 20;
+
+            auto& intData      = vertAttrib.getDataWithLock( intHandle );
+            auto& longData     = vertAttrib.getDataWithLock( longHandle );
+            auto& longlongData = vertAttrib.getDataWithLock( longlongHandle );
+            auto& charData     = vertAttrib.getDataWithLock( charHandle );
+            auto& stringData   = vertAttrib.getDataWithLock( stringHandle );
+            intData.resize( ssize );
+            longData.resize( ssize );
+            longlongData.resize( ssize );
+            charData.resize( ssize );
+            stringData.resize( ssize );
+            intData[0]      = 0;
+            longData[1]     = 1l;
+            longlongData[2] = 2ll;
+            charData[3]     = 'f';
+            stringData[4]   = "foo";
+            vertAttrib.unlock( intHandle );
+            vertAttrib.unlock( longHandle );
+            vertAttrib.unlock( longlongHandle );
+            vertAttrib.unlock( charHandle );
+            vertAttrib.unlock( stringHandle );
+            REQUIRE( vertAttrib.getAttrib<int>( "testInt" ).getSize() == ssize );
+            REQUIRE( vertAttrib.getAttrib<long>( "testLong" ).getSize() == ssize );
+            REQUIRE( vertAttrib.getAttrib<long long>( "testLongLong" ).getSize() == ssize );
+            REQUIRE( vertAttrib.getAttrib<char>( "testChar" ).getSize() == ssize );
+            REQUIRE( vertAttrib.getAttrib<std::string>( "testString" ).getSize() == ssize );
+
+            REQUIRE( vertAttrib.getAttrib<int>( "testInt" ).data()[0] == 0 );
+            REQUIRE( vertAttrib.getAttrib<long>( "testLong" ).data()[1] == 1l );
+            REQUIRE( vertAttrib.getAttrib<long long>( "testLongLong" ).data()[2] == 2ll );
+            REQUIRE( vertAttrib.getAttrib<char>( "testChar" ).data()[3] == 'f' );
+            REQUIRE( vertAttrib.getAttrib<std::string>( "testString" ).data()[4] == "foo" );
+        }
     }
 
     SECTION( "Tangent, BiTangent, TexCoord tests" ) {

@@ -7,6 +7,7 @@
 set(test_src
     Core/algebra.cpp
     Core/animation.cpp
+    Core/attribmanager.cpp
     Core/bijectiveassociation.cpp
     Core/camera.cpp
     Core/color.cpp
@@ -24,6 +25,7 @@ set(test_src
     Core/resources.cpp
     Core/string.cpp
     Core/topomesh.cpp
+    Core/vectorarray.cpp
     Engine/environmentmap.cpp
     Engine/renderparameters.cpp
     Engine/signalmanager.cpp

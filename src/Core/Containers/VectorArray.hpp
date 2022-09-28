@@ -2,91 +2,116 @@
 
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/ContainerIntrospectionInterface.hpp>
+
+#include <type_traits> // std::is_integral
 
 namespace Ra {
 namespace Core {
 
-/// This class is a wrapper around a std::vector of Core::Vectors.
-/// which allow to use the stdlib's dynamic array implementation, yet pass it as
-/// a matrix when Eigen needs it with the getMap() method.
+/** Internal class used to compute types and values used by VectorArray, to handle both
+ * eigen fixed sized matrix and scalar type as mappable to eigen matrices.
+ */
+template <typename V, bool isArithmetic, bool isEigen>
+struct VectorArrayTypeHelperInternal {};
+
+/**
+ * Arithmetic and fixed sized eigen types are mappable to Eigen matrices.
+ * other types are storable in a VectorArray, but could not get map (e.g. NumberOfComponents <= 0).
+ */
 template <typename V>
-class VectorArray : public AlignedStdVector<V>
+struct VectorArrayTypeHelper : public VectorArrayTypeHelperInternal<
+                                   V,
+                                   std::is_arithmetic<V>::value || std::is_enum<V>::value,
+                                   std::is_base_of<typename Eigen::MatrixBase<V>, V>::value> {};
+
+/**
+ * @brief This class implements ContainerIntrospectionInterface for AlignedStdVector.
+ *
+ * It provides Eigen::Map functionality if the underlying component allows it (i.e. fixed size).
+ */
+template <typename V>
+class VectorArray : public AlignedStdVector<V>, public Utils::ContainerIntrospectionInterface
 {
-  public:
-    // Type shortcuts
-    using Vector         = V;
-    using Matrix         = Eigen::Matrix<typename V::Scalar, V::RowsAtCompileTime, Eigen::Dynamic>;
-    using MatrixMap      = Eigen::Map<Matrix>;
-    using ConstMatrixMap = Eigen::Map<const Matrix>;
+  private:
+    using TypeHelper = VectorArrayTypeHelper<V>;
 
   public:
-    /// Inheriting constructors from std::vector
+    static constexpr int NumberOfComponents = TypeHelper::NumberOfComponents;
+    /**
+     * component_type is different from value_type defined in Base class, e.g. for
+     * VectorArray<Vector3> value_type is Vector3 while component_type is Scalar.
+     * but for VectorArray<Scalar> value_type = component_type = Scalar.
+     */
+    using component_type = typename TypeHelper::component_type;
+    using Matrix    = Eigen::Matrix<component_type, TypeHelper::NumberOfComponents, Eigen::Dynamic>;
+    using MatrixMap = Eigen::Map<Matrix>;
+    using ConstMatrixMap = Eigen::Map<const Matrix>;
+
+    /** Inheriting constructors from std::vector */
     using AlignedStdVector<V>::AlignedStdVector;
 
-    /// Returns the array as an Eigen Matrix Map
-    MatrixMap getMap() {
+    /** @name Container Introsection implementation */
+    /// @{
+    size_t getSize() const override { return this->size(); }
+    size_t getNumberOfComponents() const override { return std::max( 0, NumberOfComponents ); }
+    size_t getBufferSize() const override { return getSize() * sizeof( V ); }
+    int getStride() const override { return sizeof( V ); }
+    const void* dataPtr() const override { return this->data(); }
+    /// @}
+
+    /** @name Eigen::Map getter
+     * Map data to an Eigen::Matrix, only defined when NumberOfComponents > 0 (e.g. for arithmetic
+     * types and fixed size eigen vectors).
+     */
+    /// @{
+    /** Returns the array as an Eigen Matrix Map. */
+    template <int N = NumberOfComponents>
+    std::enable_if_t<( N > 0 ), MatrixMap> getMap() {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return MatrixMap( this->data()->data(), V::RowsAtCompileTime, this->size() );
+        return MatrixMap( TypeHelper::getData( this ),
+                          TypeHelper::NumberOfComponents,
+                          Eigen::Index( this->size() ) );
     }
 
-    /// Returns the array as an Eigen Matrix Map (const version)
-    ConstMatrixMap getMap() const {
+    /** Returns the array as an Eigen Matrix Map (const version). */
+    template <int N = NumberOfComponents>
+    std::enable_if_t<( N > 0 ), ConstMatrixMap> getMap() const {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return ConstMatrixMap( this->data()->data(), V::RowsAtCompileTime, this->size() );
+        return ConstMatrixMap( TypeHelper::getConstData( this ),
+                               TypeHelper::NumberOfComponents,
+                               Eigen::Index( this->size() ) );
+    }
+    /// @}
+};
+
+template <typename V>
+struct VectorArrayTypeHelperInternal<V, true, false> {
+    using component_type                    = V; // arithmetic types are component types
+    static constexpr int NumberOfComponents = 1;
+    static inline component_type* getData( VectorArray<V>* v ) { return v->data(); }
+    static inline const component_type* getConstData( const VectorArray<V>* v ) {
+        return v->data();
     }
 };
 
-/// This specialization stores an array of scalars which can be used as a dynamic
-/// Eigen column vector.
-template <>
-class VectorArray<float> : public AlignedStdVector<float>
-{
-  public:
-    // Type shortcuts
-    using Matrix         = Eigen::Matrix<float, 1, Eigen::Dynamic>;
-    using MatrixMap      = Eigen::Map<Matrix>;
-    using ConstMatrixMap = Eigen::Map<const Matrix>;
-
-  public:
-    /// Inheriting constructors from std::vector
-    using AlignedStdVector<float>::AlignedStdVector;
-
-    /// Returns the array as an Eigen Matrix Map
-    MatrixMap getMap() {
-        CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return MatrixMap( this->data(), 1, Eigen::Index( this->size() ) );
-    }
-
-    /// Returns the array as an Eigen Matrix Map (const version)
-    ConstMatrixMap getMap() const {
-        CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return ConstMatrixMap( this->data(), 1, Eigen::Index( this->size() ) );
+template <typename V>
+struct VectorArrayTypeHelperInternal<V, false, true> {
+    using component_type                    = typename V::Scalar;   // use eigen scalar as component
+    static constexpr int NumberOfComponents = V::RowsAtCompileTime; // i.e. -1 for dynamic size
+    static inline component_type* getData( VectorArray<V>* v ) { return v->data()->data(); }
+    static inline const component_type* getConstData( const VectorArray<V>* v ) {
+        return v->data()->data();
     }
 };
 
-template <>
-class VectorArray<double> : public AlignedStdVector<double>
-{
-  public:
-    // Type shortcuts
-    using Matrix         = Eigen::Matrix<double, 1, Eigen::Dynamic>;
-    using MatrixMap      = Eigen::Map<Matrix>;
-    using ConstMatrixMap = Eigen::Map<const Matrix>;
-
-  public:
-    /// Inheriting constructors from std::vector
-    using AlignedStdVector<double>::AlignedStdVector;
-
-    /// Returns the array as an Eigen Matrix Map
-    MatrixMap getMap() {
-        CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return MatrixMap( this->data(), 1, Eigen::Index( this->size() ) );
-    }
-
-    /// Returns the array as an Eigen Matrix Map (const version)
-    ConstMatrixMap getMap() const {
-        CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return ConstMatrixMap( this->data(), 1, Eigen::Index( this->size() ) );
+template <typename V>
+struct VectorArrayTypeHelperInternal<V, false, false> {
+    using component_type                    = V;
+    static constexpr int NumberOfComponents = 0; // no component for other types, i.e. not mappable
+    static inline component_type* getData( VectorArray<V>* v ) { return v->data(); }
+    static inline const component_type* getConstData( const VectorArray<V>* v ) {
+        return v->data();
     }
 };
 
