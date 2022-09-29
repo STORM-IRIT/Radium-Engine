@@ -28,8 +28,8 @@ add_library(
                                       ${dataflow_qtgui_inlines}
 )
 
-# This one should be extracted directly from external project properties.
-target_compile_definitions(${ra_dataflowqtgui_target} PUBLIC THIS_A_REMINDER)
+# This one should be extracted directly from parent project properties.
+target_compile_definitions(${ra_dataflowqtgui_target} PRIVATE RA_DATAFLOW_EXPORTS)
 
 target_compile_options(${ra_dataflowqtgui_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
