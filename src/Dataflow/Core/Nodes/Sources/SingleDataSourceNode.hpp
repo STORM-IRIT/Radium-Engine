@@ -54,7 +54,7 @@ class SingleDataSourceNode : public Node
      * \brief Remove the delivered data from being editable
      * @param name Name of the data given when calling setEditable
      */
-    void removeEditable( const std::string name = "Data" );
+    void removeEditable( const std::string& name = "Data" );
 
   protected:
     void fromJsonInternal( const nlohmann::json& ) override;

@@ -62,7 +62,7 @@ inline ColorSourceNode::ColorSourceNode( const std::string& name ) :
 
 inline void ColorSourceNode::toJsonInternal( nlohmann::json& data ) const {
     auto c = Ra::Core::Utils::Color::linearRGBTosRGB( *getData() );
-    std::array<Scalar, 3> color { c.x(), c.y(), c.z() };
+    std::array<Scalar, 3> color { { c.x(), c.y(), c.z() } };
     data["color"] = color;
 }
 
