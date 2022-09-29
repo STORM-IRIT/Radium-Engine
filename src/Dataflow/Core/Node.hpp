@@ -165,7 +165,7 @@ class RA_DATAFLOW_API Node
     /// \param name The name of the editable parameter to remove.
     /// \return true if the editable parameter is found and removed.
     template <typename T>
-    bool removeEditableParameter( const std::string name );
+    bool removeEditableParameter( const std::string& name );
 
     /// The uuid of the node (TODO, use https://github.com/mariusbancila/stduuid instead of a
     /// string)

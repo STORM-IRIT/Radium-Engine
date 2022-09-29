@@ -156,7 +156,7 @@ bool Node::addEditableParameter( EditableParameter<T>* editableParameter ) {
 }
 
 template <typename T>
-bool Node::removeEditableParameter( const std::string name ) {
+bool Node::removeEditableParameter( const std::string& name ) {
     bool found = false;
     auto it    = m_editableParameters.begin();
     while ( it != m_editableParameters.end() ) {
