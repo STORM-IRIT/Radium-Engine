@@ -14,8 +14,8 @@ add_library(
 populate_local_dependencies(NAME "stduuid_DIR")
 find_package(stduuid REQUIRED NO_DEFAULT_PATH)
 
-# This one should be extracted directly from external project properties.
-target_compile_definitions(${ra_dataflowcore_target} PUBLIC THIS_A_REMINDER)
+# This one should be extracted directly from parent project properties.
+target_compile_definitions(${ra_dataflowcore_target} PRIVATE RA_DATAFLOW_EXPORTS)
 
 target_compile_options(${ra_dataflowcore_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
