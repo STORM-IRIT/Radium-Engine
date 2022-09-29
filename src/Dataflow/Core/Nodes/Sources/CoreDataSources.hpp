@@ -14,7 +14,7 @@ namespace Sources {
 /**
  * Specialization of SingleDataSourceNode for boolean value
  */
-class BooleanValueSource : public SingleDataSourceNode<bool>
+class RA_DATAFLOW_API BooleanValueSource : public SingleDataSourceNode<bool>
 {
   public:
     explicit BooleanValueSource( const std::string& name );
@@ -30,7 +30,7 @@ class BooleanValueSource : public SingleDataSourceNode<bool>
 /**
  * Specialization of SingleDataSourceNode for scalar value
  */
-class ScalarValueSource : public SingleDataSourceNode<Scalar>
+class RA_DATAFLOW_API ScalarValueSource : public SingleDataSourceNode<Scalar>
 {
   public:
     explicit ScalarValueSource( const std::string& name );
@@ -46,7 +46,7 @@ class ScalarValueSource : public SingleDataSourceNode<Scalar>
 /**
  * Specialization of SingleDataSourceNode for Core::Utils::Color value
  */
-class ColorSourceNode : public SingleDataSourceNode<Ra::Core::Utils::Color>
+class RA_DATAFLOW_API ColorSourceNode : public SingleDataSourceNode<Ra::Core::Utils::Color>
 {
   public:
     explicit ColorSourceNode( const std::string& name );

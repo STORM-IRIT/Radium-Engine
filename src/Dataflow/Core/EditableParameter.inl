@@ -10,7 +10,7 @@ inline EditableParameterBase::EditableParameterBase( std::string& name, size_t h
 
 template <typename T>
 EditableParameter<T>::EditableParameter( std::string name, T& data ) :
-    EditableParameterBase( name, typeid( T ).hash_code() ), m_data( data ) {};
+    EditableParameterBase( name, typeid( T ).hash_code() ), m_data( data ) {}
 
 template <typename T>
 void EditableParameter<T>::addAdditionalData( T newData ) {
