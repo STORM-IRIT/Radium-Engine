@@ -36,9 +36,9 @@ class RA_ENGINE_API SkinningComponent : public Component
   public:
     /// The Geometric Skinning Method.
     enum SkinningType {
-        LBS = 0,  ///< Linear Blend Skinning
-        DQS,      ///< Dual Quaternion Skinning
-        COR,      ///< Center of Rotation skinning
+        LBS = 0, ///< Linear Blend Skinning
+        DQS,     ///< Dual Quaternion Skinning
+        COR,     ///< Center of Rotation skinning
     };
 
     /// How to skin the normal, tangent and binormal vectors.
