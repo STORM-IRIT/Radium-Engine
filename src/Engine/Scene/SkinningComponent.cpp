@@ -1,13 +1,11 @@
 ﻿#include <Engine/Scene/SkinningComponent.hpp>
 
 #include <Core/Animation/PoseOperation.hpp>
-#include <Core/Geometry/Normal.hpp>
 
 #include <Core/Animation/DualQuaternionSkinning.hpp>
 #include <Core/Animation/HandleWeightOperation.hpp>
 #include <Core/Animation/LinearBlendSkinning.hpp>
 #include <Core/Animation/RotationCenterSkinning.hpp>
-#include <Core/Animation/StretchableTwistableBoneSkinning.hpp>
 #include <Core/Geometry/DistanceQueries.hpp>
 #include <Core/Geometry/TriangleOperation.hpp>
 #include <Core/Utils/Color.hpp>
@@ -160,7 +158,6 @@ void SkinningComponent::initialize() {
         m_refData.m_meshTransformInverse = ro->getLocalTransform().inverse();
         m_refData.m_skeleton             = *m_skeletonGetter();
         createWeightMatrix();
-        computeSTBSWeights();
 
         // initialize frame data
         m_frameData.m_skeleton        = m_refData.m_skeleton;
@@ -245,14 +242,6 @@ void SkinningComponent::skin() {
         }
         case COR: {
             centerOfRotationSkinning( m_refData, tangents, bitangents, m_frameData );
-            break;
-        }
-        case STBS_LBS: {
-            linearBlendSkinningSTBS( m_refData, tangents, bitangents, m_frameData );
-            break;
-        }
-        case STBS_DQS: {
-            dualQuaternionSkinningSTBS( m_refData, tangents, bitangents, m_frameData );
             break;
         }
         case LBS:
@@ -356,30 +345,6 @@ void SkinningComponent::createWeightMatrix() {
     }
 }
 
-void SkinningComponent::computeSTBSWeights() {
-    // first skin the mesh using LBS to ensure there is no pose issue
-    // (e.g. when the mesh is in T pose but the skeleton isn't)
-    // but skip the inversion of the global mesh transform since we need the
-    // skinned vertices in model space.
-    const auto& V    = m_refData.m_referenceMesh.vertices();
-    const auto& pose = m_refData.m_skeleton.getPose( SpaceType::MODEL );
-    auto vertices    = Vector3Array( V.size(), Vector3::Zero() );
-    for ( int k = 0; k < m_refData.m_weights.outerSize(); ++k ) {
-        const int nonZero = m_refData.m_weights.col( k ).nonZeros();
-        WeightMatrix::InnerIterator it0( m_refData.m_weights, k );
-#pragma omp parallel for
-        for ( int nz = 0; nz < nonZero; ++nz ) {
-            WeightMatrix::InnerIterator it = it0 + Eigen::Index( nz );
-            const uint i                   = it.row();
-            const uint j                   = it.col();
-            const Scalar w                 = it.value();
-            vertices[i] += w * ( pose[j] * m_refData.m_bindMatrices[j] * V[i] );
-        }
-    }
-    // compute the STBS weights
-    m_refData.m_weightSTBS = computeSTBS_weights( vertices, m_refData.m_skeleton );
-}
-
 void SkinningComponent::setupIO( const std::string& id ) {
     auto compMsg = ComponentMessenger::getInstance();
 
@@ -435,12 +400,6 @@ void SkinningComponent::showWeights( bool on ) {
         const auto size = m_frameData.m_currentPosition.size();
         m_weightsUV.resize( size, Vector3::Zero() );
         switch ( m_weightType ) {
-        case STBS: {
-#pragma omp parallel for
-            for ( int i = 0; i < int( size ); ++i ) {
-                m_weightsUV[i][0] = m_refData.m_weightSTBS.coeff( i, m_weightBone );
-            }
-        } break;
         case STANDARD:
         default: {
 #pragma omp parallel for

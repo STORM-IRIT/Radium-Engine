@@ -85,8 +85,7 @@ to 2 specific`Ra::Engine::Scene::Component`:
    the object's mesh vertices according to the desired skinning method.
 
 The Radium Engine provides 4 skinning methods: Linear-Blend Skinning,
-Dual-Quaternion Skinning, Center-Of-Rotation Skinning and Stretchable-Twistable-Bone-Skinning
-(available in both the LBS or DQS forms).
+Dual-Quaternion Skinning and Center-Of-Rotation Skinning.
 
 The Radium Engine also provides a user interface for Skeleton-based character
 animation parameters: the `Ra::Gui::SkeletonBasedAnimationUI`, which allows the
