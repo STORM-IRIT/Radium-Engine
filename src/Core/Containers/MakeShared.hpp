@@ -12,6 +12,7 @@ namespace Core {
 /// within the same memory chunk. This is usually desirable, but means that
 /// your new object may not be properly aligned despite your declarations
 /// in our case we ditch std::make_shared and use a replacement.
+/// \todo Check if we still need that thing...
 template <typename T, class... Args>
 inline std::shared_ptr<T> make_shared( Args&&... args ) {
 #if 0 // use std::make_shared
