@@ -1,7 +1,6 @@
 #pragma once
 #include "TriangleMesh.hpp"
 #include <Core/Geometry/StandardAttribNames.hpp>
-#include <Core/Geometry/TriangleOperation.hpp> // triangleArea
 
 namespace Ra {
 namespace Core {
