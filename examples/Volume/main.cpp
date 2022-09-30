@@ -17,7 +17,9 @@
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
     Ra::Gui::BaseApplication app( argc, argv );
-    app.initialize( Ra::Gui::SimpleWindowFactory {} );
+    auto factory = Ra::Gui::SimpleWindowFactory {};
+    factory.optionNeedGizmo = false;
+    app.initialize( factory );
     //! [Creating the application]
 
 // HAS_ASSETS is set during configure time by cmake and defines that the asset file is available
