@@ -5,7 +5,6 @@
 
 #include <Core/Animation/DualQuaternionSkinning.hpp>
 #include <Core/Animation/HandleWeight.hpp>
-#include <Core/Animation/LinearBlendSkinning.hpp>
 #include <Core/Animation/Pose.hpp>
 #include <Core/Animation/SkinningData.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
