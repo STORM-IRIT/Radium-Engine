@@ -400,7 +400,12 @@ void Viewer::onFrameSwapped() {
 }
 
 void Viewer::createGizmoManager() {
-    if ( m_gizmoManager == nullptr ) { m_gizmoManager = new GizmoManager( this ); }
+    if ( m_gizmoManager == nullptr ) {
+        if ( m_glInitialized )
+            m_gizmoManager = new GizmoManager( this );
+        else
+            m_gizmoManagerRequested = true;
+    }
 }
 
 void Viewer::initializeRenderer( Engine::Rendering::Renderer* renderer ) {
@@ -457,8 +462,8 @@ bool Viewer::initializeGL() {
     }
     m_pendingRenderers.clear();
 
-    // create the gizmo manager (Ui)
-    createGizmoManager();
+    // create the gizmo manager (Ui), if requested by user
+    if ( m_gizmoManagerRequested ) createGizmoManager();
 
     // Signal that OpenGL is initialized
     emit glInitialized();
@@ -621,7 +626,7 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
     if ( actionCamera.isValid() ) {
         eventCatched = m_camera->handleKeyPressEvent( event, actionCamera );
     }
-    else if ( actionGizmo.isValid() ) {
+    else if ( m_gizmoManager != nullptr &&actionGizmo.isValid() ) {
         // m_gizmoManager->handleKeyPressEvent( event, action );
         // eventCatched = true;
     }
@@ -727,26 +732,34 @@ void Viewer::handleMousePressEvent( QMouseEvent* event,
     //! [event dispatch]
     else {
         // something under the mouse, let's check if it's a gizmo ro
-        getGizmoManager()->handlePickingResult( result.getRoIdx() );
-        if ( getGizmoManager()->handleMousePressEvent(
-                 event, buttons, modifiers, key, *m_camera->getCamera() ) ) {
-            m_activeContext = GizmoManager::getContext();
-        } // if not, try to do camera stuff
-        else if ( m_camera->handleMousePressEvent( event, buttons, modifiers, key ) ) {
-            m_activeContext = m_camera->mappingContext();
+        bool handledByGizmo = false;
+        if( m_gizmoManager != nullptr)
+        {
+            m_gizmoManager->handlePickingResult( result.getRoIdx() );
+            if ( m_gizmoManager->handleMousePressEvent(
+                     event, buttons, modifiers, key, *m_camera->getCamera() ) ) {
+                m_activeContext = GizmoManager::getContext();
+                handledByGizmo = true;
+            }
         }
-        else {
-            m_activeContext  = KeyMappingManageable::getContext();
-            auto action      = keyMap->getAction( m_activeContext, buttons, modifiers, key );
-            auto pickingMode = getPickingMode( action );
+        // if not, try to do camera stuff
+        if ( ! handledByGizmo ) {
+            if ( m_camera->handleMousePressEvent( event, buttons, modifiers, key ) ) {
+                m_activeContext = m_camera->mappingContext();
+            }
+            else {
+                m_activeContext  = KeyMappingManageable::getContext();
+                auto action      = keyMap->getAction( m_activeContext, buttons, modifiers, key );
+                auto pickingMode = getPickingMode( action );
 
-            if ( pickingMode != Ra::Engine::Rendering::Renderer::NONE ) {
-                // Push query, we may also do it here ...
-                Engine::Rendering::Renderer::PickingQuery query = {
-                    Core::Vector2( event->x(), ( height() - event->y() ) ),
-                    Engine::Rendering::Renderer::PickingPurpose::MANIPULATION,
-                    pickingMode };
-                m_currentRenderer->addPickingRequest( query );
+                if ( pickingMode != Ra::Engine::Rendering::Renderer::NONE ) {
+                    // Push query, we may also do it here ...
+                    Engine::Rendering::Renderer::PickingQuery query = {
+                        Core::Vector2( event->x(), ( height() - event->y() ) ),
+                        Engine::Rendering::Renderer::PickingPurpose::MANIPULATION,
+                        pickingMode };
+                    m_currentRenderer->addPickingRequest( query );
+                }
             }
         }
     }
@@ -762,7 +775,7 @@ void Viewer::handleMouseReleaseEvent( QMouseEvent* event ) {
     if ( m_activeContext == m_camera->mappingContext() ) {
         m_camera->handleMouseReleaseEvent( event );
     }
-    if ( m_activeContext == GizmoManager::getContext() ) {
+    if ( m_gizmoManager != nullptr && m_activeContext == GizmoManager::getContext() ) {
         m_gizmoManager->handleMouseReleaseEvent( event );
     }
     m_activeContext.setInvalid();
@@ -781,7 +794,7 @@ void Viewer::handleMouseMoveEvent( QMouseEvent* event,
     if ( m_activeContext == m_camera->mappingContext() ) {
         m_camera->handleMouseMoveEvent( event, buttons, modifiers, key );
     }
-    else if ( m_activeContext == GizmoManager::getContext() ) {
+    else if ( m_gizmoManager != nullptr && m_activeContext == GizmoManager::getContext() ) {
         m_gizmoManager->handleMouseMoveEvent(
             event, buttons, modifiers, key, *m_camera->getCamera() );
     }
@@ -797,7 +810,7 @@ void Viewer::handleMouseMoveEvent( QMouseEvent* event,
         }
     }
     else {
-        getGizmoManager()->handlePickingResult( result.getRoIdx() );
+        if (m_gizmoManager != nullptr) m_gizmoManager->handlePickingResult( result.getRoIdx() );
     }
 }
 
