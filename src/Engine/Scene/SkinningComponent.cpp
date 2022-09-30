@@ -7,7 +7,6 @@
 #include <Core/Animation/LinearBlendSkinning.hpp>
 #include <Core/Animation/RotationCenterSkinning.hpp>
 #include <Core/Geometry/DistanceQueries.hpp>
-#include <Core/Geometry/TriangleOperation.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 

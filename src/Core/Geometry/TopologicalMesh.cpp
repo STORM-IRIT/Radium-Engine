@@ -474,8 +474,7 @@ void TopologicalMesh::updateWedgeNormals() {
         ++fv_it;
         const auto& p2 = point( *fv_it );
         ++fv_it;
-        const Normal n = Ra::Core::Geometry::triangleNormal( p0, p1, p2 );
-        set_normal( *f_it, n );
+        set_normal( *f_it, ( p1 - p0 ).cross( p2 - p0 ).normalized() );
     }
 
     for ( auto& w : m_wedges.m_data ) {
