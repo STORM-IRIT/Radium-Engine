@@ -32,7 +32,6 @@ set(core_sources
     Geometry/RayCast.cpp
     Geometry/TopologicalMesh.cpp
     Geometry/TriangleMesh.cpp
-    Geometry/VertexDistance.cpp
     Geometry/Volume.cpp
     Geometry/deprecated/TopologicalMesh.cpp
     Resources/Resources.cpp
@@ -98,7 +97,6 @@ set(core_headers
     Geometry/StandardAttribNames.hpp
     Geometry/TopologicalMesh.hpp
     Geometry/TriangleMesh.hpp
-    Geometry/VertexDistance.hpp
     Geometry/Volume.hpp
     Geometry/deprecated/TopologicalMesh.hpp
     Math/DualQuaternion.hpp
