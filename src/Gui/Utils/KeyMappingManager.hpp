@@ -268,7 +268,8 @@ class KeyMappingCallbackManager
                                      modifiersString,
                                      buttonsString,
                                      wheelString,
-                                     actionName );
+                                     actionName,
+                                     false );
 
         addEventCallback( index, callback );
         return index;
