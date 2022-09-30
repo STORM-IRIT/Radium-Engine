@@ -222,7 +222,6 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     void onFrameSwapped();
 
   protected:
-
     /// Initialize renderer internal state + configure lights.
     void initializeRenderer( Engine::Rendering::Renderer* renderer );
 
@@ -323,7 +322,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     std::unique_ptr<CameraManipulator> m_camera;
 
     /// Owning (QObject child) pointer to gizmo manager.
-    bool m_gizmoManagerRequested{false};
+    bool m_gizmoManagerRequested { false };
     GizmoManager* m_gizmoManager;
 
     Core::Utils::Color m_backgroundColor { Core::Utils::Color::Grey( 0.0392_ra, 0_ra ) };

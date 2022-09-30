@@ -626,7 +626,7 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
     if ( actionCamera.isValid() ) {
         eventCatched = m_camera->handleKeyPressEvent( event, actionCamera );
     }
-    else if ( m_gizmoManager != nullptr &&actionGizmo.isValid() ) {
+    else if ( m_gizmoManager != nullptr && actionGizmo.isValid() ) {
         // m_gizmoManager->handleKeyPressEvent( event, action );
         // eventCatched = true;
     }
@@ -733,17 +733,16 @@ void Viewer::handleMousePressEvent( QMouseEvent* event,
     else {
         // something under the mouse, let's check if it's a gizmo ro
         bool handledByGizmo = false;
-        if( m_gizmoManager != nullptr)
-        {
+        if ( m_gizmoManager != nullptr ) {
             m_gizmoManager->handlePickingResult( result.getRoIdx() );
             if ( m_gizmoManager->handleMousePressEvent(
                      event, buttons, modifiers, key, *m_camera->getCamera() ) ) {
                 m_activeContext = GizmoManager::getContext();
-                handledByGizmo = true;
+                handledByGizmo  = true;
             }
         }
         // if not, try to do camera stuff
-        if ( ! handledByGizmo ) {
+        if ( !handledByGizmo ) {
             if ( m_camera->handleMousePressEvent( event, buttons, modifiers, key ) ) {
                 m_activeContext = m_camera->mappingContext();
             }
@@ -810,7 +809,7 @@ void Viewer::handleMouseMoveEvent( QMouseEvent* event,
         }
     }
     else {
-        if (m_gizmoManager != nullptr) m_gizmoManager->handlePickingResult( result.getRoIdx() );
+        if ( m_gizmoManager != nullptr ) m_gizmoManager->handlePickingResult( result.getRoIdx() );
     }
 }
 

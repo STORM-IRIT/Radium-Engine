@@ -17,7 +17,7 @@
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
     Ra::Gui::BaseApplication app( argc, argv );
-    auto factory = Ra::Gui::SimpleWindowFactory {};
+    auto factory            = Ra::Gui::SimpleWindowFactory {};
     factory.optionNeedGizmo = false;
     app.initialize( factory );
     //! [Creating the application]

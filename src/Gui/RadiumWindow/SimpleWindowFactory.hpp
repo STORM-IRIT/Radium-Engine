@@ -1,8 +1,8 @@
 #pragma once
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RaGui.hpp>
-#include <Gui/Viewer/Viewer.hpp>
 #include <Gui/RadiumWindow/SimpleWindow.hpp>
+#include <Gui/Viewer/Viewer.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -16,7 +16,7 @@ class SimpleWindowFactory : public Ra::Gui::BaseApplication::WindowFactory
 {
   public:
     using Ra::Gui::BaseApplication::WindowFactory::WindowFactory;
-    bool optionNeedGizmo {true};
+    bool optionNeedGizmo { true };
     inline Ra::Gui::MainWindowInterface* createMainWindow() const override {
         auto w = new SimpleWindow();
         if ( optionNeedGizmo ) w->getViewer()->createGizmoManager();
