@@ -20,6 +20,7 @@ set(dataflow_core_headers
     Nodes/Sources/CoreDataSources.hpp
     Nodes/Sources/SingleDataSourceNode.hpp
     Port.hpp
+    TypeDemangler.hpp
 )
 
 set(dataflow_core_inlines
@@ -34,4 +35,5 @@ set(dataflow_core_inlines
     Nodes/Sources/CoreDataSources.inl
     Nodes/Sources/SingleDataSourceNode.inl
     Port.inl
+    TypeDemangler.inl
 )

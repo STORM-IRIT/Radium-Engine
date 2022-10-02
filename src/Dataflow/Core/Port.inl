@@ -2,6 +2,8 @@
 #include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/Port.hpp>
 
+#include <Dataflow/Core/TypeDemangler.hpp>
+
 namespace Ra {
 namespace Dataflow {
 namespace Core {
@@ -78,12 +80,14 @@ bool PortOut<T>::connect( PortBase* o ) {
 
 template <typename T>
 std::string PortOut<T>::getTypeName() {
-    return Ra::Core::Utils::demangleType<T>();
+    // return Ra::Core::Utils::demangleType<T>();
+    return simplifiedDemangledType<T>();
 }
 
 template <typename T>
 std::string PortIn<T>::getTypeName() {
-    return Ra::Core::Utils::demangleType<T>();
+    // return Ra::Core::Utils::demangleType<T>();
+    return simplifiedDemangledType<T>();
 }
 
 template <typename T>
