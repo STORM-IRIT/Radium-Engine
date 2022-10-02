@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <unittestUtils.hpp>
 
 #include <iomanip>
@@ -7,7 +7,7 @@
 #include <Core/Random/RandomPointSet.hpp>
 using namespace Ra::Core::Random;
 
-TEST_CASE( "Core/Random/RandomPointSet", "[Core][Core/Random][PointSet]" ) {
+TEST_CASE( "Core/Random/RandomPointSet", "[unittests][Core][Core/Random][PointSet]" ) {
     SECTION( "Fibonacci sequence" ) {
         std::array<Scalar, 5> fib_verif { 0_ra,
                                           0.61803400516510009765625_ra,
