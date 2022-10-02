@@ -43,6 +43,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Creates the factoryset if it does not exists
     void addFactory( const std::string& name, std::shared_ptr<NodeFactory> f );
 
+    /// Add a factory to the factoryset of the graph.
+    /// Creates the factoryset if it does not exists
+    void addFactory( std::shared_ptr<NodeFactory> f );
+
     /// Loads nodes and links from a JSON file.
     /// @param jsonFilePath The path to the JSON file.
     bool loadFromJson( const std::string& jsonFilePath );
@@ -173,7 +177,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     int findNode( const std::string& name );
 
   public:
-    static const std::string getTypename();
+    static const std::string& getTypename();
 };
 
 } // namespace Core

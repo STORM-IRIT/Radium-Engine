@@ -1,46 +1,22 @@
 #pragma once
 #include <Dataflow/Core/Node.hpp>
 
+#include <Core/Utils/TypesUtils.hpp>
+
 namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-#if 0
-template <class T>
-constexpr std::string_view type_name() {
-#    ifdef __clang__
-    std::string_view p = __PRETTY_FUNCTION__;
-    return std::string_view( p.data() + 34, p.size() - 34 - 1 );
-#    elif defined( __GNUC__ )
-    std::string_view p = __PRETTY_FUNCTION__;
-#        if __cplusplus < 201402
-    return std::string_view( p.data() + 36, p.size() - 36 - 1 );
-#        else
-    return std::string_view( p.data() + 49, p.find( ';', 49 ) - 49 );
-#        endif
-#    elif defined( _MSC_VER )
-    std::string_view p = __FUNCSIG__;
-    return std::string_view( p.data() + 84, p.size() - 84 - 7 );
-#    else
-    return type_id( T ).type_name();
-#    endif
+template <typename T>
+const char* simplifiedDemangledType() noexcept {
+    static std::string demangledType = Ra::Core::Utils::demangleType<T>();
+    Ra::Core::Utils::replaceAllInString( demangledType, "Ra::Core::VectorArray", "RaVector" );
+    Ra::Core::Utils::replaceAllInString(
+        demangledType, "Ra::Core::Utils::ColorBase<float>", "RaColor" );
+    Ra::Core::Utils::replaceAllInString(
+        demangledType, "Ra::Core::Utils::ColorBase<double>", "RaColor" );
+    return demangledType.c_str();
 }
-
-inline std::size_t
-replace_all_in_string( std::string& inout, std::string_view what, std::string_view with ) {
-    std::size_t count {};
-    for ( std::string::size_type pos {};
-          inout.npos != ( pos = inout.find( what.data(), pos, what.length() ) );
-          pos += with.length(), ++count ) {
-        inout.replace( pos, what.length(), with.data(), with.length() );
-    }
-    return count;
-}
-
-inline std::size_t remove_all_in_string( std::string& inout, std::string_view what ) {
-    return replace_all_in_string( inout, what, "" );
-}
-#endif
 
 inline void Node::init() {
 #ifdef GRAPH_CALL_TRACE
@@ -170,8 +146,9 @@ bool Node::removeEditableParameter( const std::string& name ) {
     return found;
 }
 
-inline const std::string Node::getTypename() {
-    return "Node";
+inline const std::string& Node::getTypename() {
+    static std::string demangledTypeName { "Abstract Node" };
+    return demangledTypeName;
 }
 
 inline bool Node::compile() {
