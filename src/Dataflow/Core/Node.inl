@@ -1,22 +1,11 @@
 #pragma once
 #include <Dataflow/Core/Node.hpp>
 
-#include <Core/Utils/TypesUtils.hpp>
+#include <Dataflow/Core/TypeDemangler.hpp>
 
 namespace Ra {
 namespace Dataflow {
 namespace Core {
-
-template <typename T>
-const char* simplifiedDemangledType() noexcept {
-    static std::string demangledType = Ra::Core::Utils::demangleType<T>();
-    Ra::Core::Utils::replaceAllInString( demangledType, "Ra::Core::VectorArray", "RaVector" );
-    Ra::Core::Utils::replaceAllInString(
-        demangledType, "Ra::Core::Utils::ColorBase<float>", "RaColor" );
-    Ra::Core::Utils::replaceAllInString(
-        demangledType, "Ra::Core::Utils::ColorBase<double>", "RaColor" );
-    return demangledType.c_str();
-}
 
 inline void Node::init() {
 #ifdef GRAPH_CALL_TRACE
