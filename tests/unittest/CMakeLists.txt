@@ -12,7 +12,7 @@ set(test_src
     Core/camera.cpp
     Core/color.cpp
     Core/containers.cpp
-    Core/demangle.cpp
+    Core/typeutils.cpp
     Core/distance.cpp
     Core/enumconverter.cpp
     Core/geometryData.cpp
