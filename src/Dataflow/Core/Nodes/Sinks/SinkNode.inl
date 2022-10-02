@@ -9,7 +9,8 @@ namespace Core {
 namespace Sinks {
 
 template <typename T>
-SinkNode<T>::SinkNode( const std::string& name ) : Node( name, getTypename() ) {
+SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeName ) :
+    Node( instanceName, typeName ) {
     auto portIn = new PortIn<T>( "from", this );
     portIn->mustBeLinked();
     addInput( portIn );
@@ -43,15 +44,17 @@ const T& SinkNode<T>::getDataByRef() const {
 }
 
 template <typename T>
-const std::string SinkNode<T>::getTypename() {
-    return std::string { "Sink::" } + Ra::Core::Utils::demangleType<T>();
+const std::string& SinkNode<T>::getTypename() {
+    static std::string demangledName =
+        std::string { "Sink<" } + Ra::Dataflow::Core::simplifiedDemangledType<T>() + ">";
+    return demangledName;
 }
 
 template <typename T>
-void SinkNode<T>::toJsonInternal( nlohmann::json& data ) const {}
+void SinkNode<T>::toJsonInternal( nlohmann::json& /*data*/ ) const {}
 
 template <typename T>
-void SinkNode<T>::fromJsonInternal( const nlohmann::json& data ) {}
+void SinkNode<T>::fromJsonInternal( const nlohmann::json& /*data*/ ) {}
 
 } // namespace Sinks
 } // namespace Core

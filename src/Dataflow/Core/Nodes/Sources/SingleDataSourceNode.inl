@@ -69,16 +69,17 @@ void SingleDataSourceNode<T>::removeEditable( const std::string& name ) {
 }
 
 template <typename T>
-const std::string SingleDataSourceNode<T>::getTypename() {
-    std::string templatedTypeName = Ra::Core::Utils::demangleType<T>();
-    return "Source::" + templatedTypeName;
+const std::string& SingleDataSourceNode<T>::getTypename() {
+    static std::string demangledTypeName =
+        std::string { "Source<" } + Ra::Dataflow::Core::simplifiedDemangledType<T>() + ">";
+    return demangledTypeName;
 }
 
 template <typename T>
 void SingleDataSourceNode<T>::toJsonInternal( nlohmann::json& data ) const {
     data["comment"] =
         std::string( "Unable to save data when serializing a SingleDataSourceNode<" ) +
-        Ra::Core::Utils::demangleType<T>() + ">.";
+        Ra::Dataflow::Core::simplifiedDemangledType<T>() + ">.";
     LOG( Ra::Core::Utils::logDEBUG )
         << "Unable to save data when serializing a " << getTypeName() << ".";
 }

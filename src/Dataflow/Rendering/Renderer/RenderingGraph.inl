@@ -10,8 +10,9 @@ namespace Renderer {
 inline RenderingGraph::RenderingGraph( const std::string& name ) :
     DataflowGraph( name, getTypename() ) {}
 
-inline const std::string RenderingGraph::getTypename() {
-    return "RenderingGraph";
+inline const std::string& RenderingGraph::getTypename() {
+    static std::string demangledTypeName { "Rendering Graph" };
+    return demangledTypeName;
 }
 
 inline void RenderingGraph::resize( uint32_t width, uint32_t height ) {

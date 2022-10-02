@@ -78,6 +78,14 @@ Node* NodeFactorySet::createNode( std::string& nodeType,
 
 namespace NodeFactoriesManager {
 
+/*
+ * TODO, replace static data by this when implementing an autoregistration mecanism
+// to prevent static intialization order
+static NodeFactorySet& s_factoryManager() {
+    static NodeFactorySet real_manager {};
+    return real_manager;
+};
+*/
 static NodeFactorySet s_factoryManager {};
 
 NodeFactorySet getFactoryManager() {
@@ -107,21 +115,11 @@ NodeFactorySet::mapped_type getDataFlowBuiltInsFactory() {
 
     auto i = s_factoryManager.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
     if ( i != s_factoryManager.end() ) { return i->second; }
-    // Create the DataFlowBuiltIns and add it to the manager
 
-    NodeFactorySet::mapped_type coreFactory { new NodeFactorySet::mapped_type::element_type(
-        NodeFactoriesManager::dataFlowBuiltInsFactoryName ) };
-
-    // TODO Call an external function to populate the default factory
-    coreFactory->registerNodeCreator<Sources::BooleanValueSource>(
-        Sources::BooleanValueSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::ScalarValueSource>(
-        Sources::ScalarValueSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::ColorSourceNode>(
-        Sources::ColorSourceNode::getTypename() + "_", "Source" );
-
-    s_factoryManager.addFactory( NodeFactoriesManager::dataFlowBuiltInsFactoryName, coreFactory );
-    return coreFactory;
+    // TODO, replace this by an autoregistration mecanism
+    registerStandardFactories();
+    i = s_factoryManager.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
+    return i->second;
 }
 
 } // namespace NodeFactoriesManager

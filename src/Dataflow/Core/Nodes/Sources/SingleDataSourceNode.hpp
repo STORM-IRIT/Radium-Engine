@@ -74,7 +74,7 @@ class SingleDataSourceNode : public Node
     void setData( T& data );
 
   public:
-    static const std::string getTypename();
+    static const std::string& getTypename();
 };
 
 } // namespace Sources

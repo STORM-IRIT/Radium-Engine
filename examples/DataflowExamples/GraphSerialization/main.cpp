@@ -3,6 +3,8 @@
 #include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 
+#include <Core/Containers/VectorArray.hpp>
+
 using namespace Ra::Dataflow::Core;
 
 /* ----------------------------------------------------------------------------------- */
@@ -12,6 +14,8 @@ using namespace Ra::Dataflow::Core;
 int main( int argc, char* argv[] ) {
 
     //! [Creating the factory for the custom nodes and add it to the nodes system]
+    using VectorType = std::vector<Scalar>;
+    // using VectorType = Ra::Core::VectorArray<Scalar>;
     // custom node type are either specialization of templated nodes or user-define nodes class
 
     // create the custom node factory
@@ -19,12 +23,12 @@ int main( int argc, char* argv[] ) {
         new NodeFactorySet::mapped_type::element_type( "ExampleCustomFactory" ) };
 
     // add node creators to the factory
-    customFactory->registerNodeCreator<Sources::SingleDataSourceNode<std::vector<Scalar>>>(
-        Sources::SingleDataSourceNode<std::vector<Scalar>>::getTypename() + "_", "Source" );
-    customFactory->registerNodeCreator<Filters::FilterNode<Scalar>>(
-        Filters::FilterNode<Scalar>::getTypename() + "_", "Filters" );
-    customFactory->registerNodeCreator<Sinks::SinkNode<std::vector<Scalar>>>(
-        Sinks::SinkNode<std::vector<Scalar>>::getTypename() + "_", "Sink" );
+    customFactory->registerNodeCreator<Sources::SingleDataSourceNode<VectorType>>(
+        Sources::SingleDataSourceNode<VectorType>::getTypename() + "_", "Custom" );
+    customFactory->registerNodeCreator<Filters::FilterNode<VectorType>>(
+        Filters::FilterNode<VectorType>::getTypename() + "_", "Custom" );
+    customFactory->registerNodeCreator<Sinks::SinkNode<VectorType>>(
+        Sinks::SinkNode<VectorType>::getTypename() + "_", "Custom" );
 
     // register the factory into the system to enable loading any graph that use these nodes
     NodeFactoriesManager::registerFactory( customFactory );
@@ -39,11 +43,11 @@ int main( int argc, char* argv[] ) {
         //! [Creating an empty graph using the custom nodes factory]
 
         //! [Creating Nodes]
-        auto sourceNode = new Sources::SingleDataSourceNode<std::vector<Scalar>>( "Source" );
+        auto sourceNode = new Sources::SingleDataSourceNode<VectorType>( "Source" );
         // non serializable node using a custom filter
-        auto filterNode =
-            new Filters::FilterNode<Scalar>( "Filter", []( Scalar x ) { return x > 0.5_ra; } );
-        auto sinkNode = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
+        auto filterNode = new Filters::FilterNode<VectorType>(
+            "Filter", []( const Scalar& x ) { return x > 0.5_ra; } );
+        auto sinkNode = new Sinks::SinkNode<VectorType>( "Sink" );
         //! [Creating Nodes]
 
         //! [Adding Nodes to the graph]
@@ -112,7 +116,7 @@ int main( int argc, char* argv[] ) {
     //! [Verifing the graph can be compiled]
 
     //! [Creating input variable to test the graph]
-    std::vector<Scalar> test;
+    VectorType test;
     test.reserve( 10 );
     std::mt19937 gen( 0 );
     std::uniform_real_distribution<> dis( 0.0, 1.0 );
@@ -140,7 +144,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Print the output result]
     auto output = g1.getDataGetter( "Sink_from" );
-    std::vector<Scalar> result;
+    VectorType result;
     output->getData( result );
     std::cout << "Output values : \n\t";
     for ( auto ord : result ) {
@@ -150,12 +154,12 @@ int main( int argc, char* argv[] ) {
     //! [Print the output result]
 
     //! [Set the correct filter on the filter node]
-    auto filter = dynamic_cast<Filters::FilterNode<Scalar>*>( g1.getNode( "Filter" ) );
+    auto filter = dynamic_cast<Filters::FilterNode<VectorType>*>( g1.getNode( "Filter" ) );
     if ( !filter ) {
         std::cerr << "Unable to cast the filter to the right type\n";
         return 3;
     }
-    filter->setFilterFunction( []( Scalar f ) { return f > 0.5_ra; } );
+    filter->setFilterFunction( []( const Scalar& f ) { return f > 0.5_ra; } );
     //! [Set the correct filter on the filter node]
 
     //! [Execute the graph]
