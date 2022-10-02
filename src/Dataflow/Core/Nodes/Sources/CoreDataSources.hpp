@@ -24,7 +24,39 @@ class RA_DATAFLOW_API BooleanValueSource : public SingleDataSourceNode<bool>
     void fromJsonInternal( const nlohmann::json& data ) override;
 
   public:
-    static const std::string getTypename();
+    static const std::string& getTypename();
+};
+
+/**
+ * Specialization of SingleDataSourceNode for int value
+ */
+class RA_DATAFLOW_API IntValueSource : public SingleDataSourceNode<int>
+{
+  public:
+    explicit IntValueSource( const std::string& name );
+
+  protected:
+    void toJsonInternal( nlohmann::json& data ) const override;
+    void fromJsonInternal( const nlohmann::json& data ) override;
+
+  public:
+    static const std::string& getTypename();
+};
+
+/**
+ * Specialization of SingleDataSourceNode for unsigned int value
+ */
+class RA_DATAFLOW_API UIntValueSource : public SingleDataSourceNode<unsigned int>
+{
+  public:
+    explicit UIntValueSource( const std::string& name );
+
+  protected:
+    void toJsonInternal( nlohmann::json& data ) const override;
+    void fromJsonInternal( const nlohmann::json& data ) override;
+
+  public:
+    static const std::string& getTypename();
 };
 
 /**
@@ -40,7 +72,7 @@ class RA_DATAFLOW_API ScalarValueSource : public SingleDataSourceNode<Scalar>
     void fromJsonInternal( const nlohmann::json& data ) override;
 
   public:
-    static const std::string getTypename();
+    static const std::string& getTypename();
 };
 
 /**
@@ -56,28 +88,14 @@ class RA_DATAFLOW_API ColorSourceNode : public SingleDataSourceNode<Ra::Core::Ut
     void fromJsonInternal( const nlohmann::json& data ) override;
 
   public:
-    static const std::string getTypename();
+    static const std::string& getTypename();
 };
 
-/** \brief Partial specialization of SingleDataSourceNode for  for Core::Containers::VectorArray.
- */
-template <typename T>
-class VectorArrayDataSource : public SingleDataSourceNode<Ra::Core::VectorArray<T>>
-{
-  protected:
-    VectorArrayDataSource( const std::string& instanceName, const std::string& typeName );
-
-  public:
-    explicit VectorArrayDataSource( const std::string& name ) :
-        VectorArrayDataSource( name, VectorArrayDataSource<T>::getTypename() ) {}
-
-  protected:
-    void toJsonInternal( nlohmann::json& data ) const override;
-    void fromJsonInternal( const nlohmann::json& data ) override;
-
-  private:
-    static const std::string getTypename();
-};
+using FloatArrayDataSource  = SingleDataSourceNode<Ra::Core::VectorArray<float>>;
+using DoubleArrayDataSource = SingleDataSourceNode<Ra::Core::VectorArray<double>>;
+using IntArrayDataSource    = SingleDataSourceNode<Ra::Core::VectorArray<int>>;
+using UIntArrayDataSource   = SingleDataSourceNode<Ra::Core::VectorArray<unsigned int>>;
+using ColorArrayDataSource  = SingleDataSourceNode<Ra::Core::VectorArray<Ra::Core::Utils::Color>>;
 
 } // namespace Sources
 } // namespace Core

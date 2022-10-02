@@ -25,14 +25,59 @@ inline void BooleanValueSource::fromJsonInternal( const nlohmann::json& data ) {
     }
 }
 
-inline const std::string BooleanValueSource::getTypename() {
-    return "Source::bool";
+inline const std::string& BooleanValueSource::getTypename() {
+    static std::string demangledTypeName { "Source<bool>" };
+    return demangledTypeName;
+}
+
+/* Source int */
+inline IntValueSource::IntValueSource( const std::string& name ) :
+    SingleDataSourceNode( name, IntValueSource::getTypename() ) {
+    setEditable( "value" );
+}
+
+inline void IntValueSource::toJsonInternal( nlohmann::json& data ) const {
+    data["value"] = *getData();
+}
+
+inline void IntValueSource::fromJsonInternal( const nlohmann::json& data ) {
+    if ( data.contains( "value" ) ) {
+        int v = data["value"];
+        setData( v );
+    }
+}
+
+inline const std::string& IntValueSource::getTypename() {
+    static std::string demangledTypeName { "Source<int>" };
+    return demangledTypeName;
+}
+
+/* Source uint */
+inline UIntValueSource::UIntValueSource( const std::string& name ) :
+    SingleDataSourceNode( name, UIntValueSource::getTypename() ) {
+    setEditable( "value" );
+}
+
+inline void UIntValueSource::toJsonInternal( nlohmann::json& data ) const {
+    data["value"] = *getData();
+}
+
+inline void UIntValueSource::fromJsonInternal( const nlohmann::json& data ) {
+    if ( data.contains( "value" ) ) {
+        unsigned int v = data["value"];
+        setData( v );
+    }
+}
+
+inline const std::string& UIntValueSource::getTypename() {
+    static std::string demangledTypeName { "Source<uint>" };
+    return demangledTypeName;
 }
 
 /* Source Scalar */
-
-inline const std::string ScalarValueSource::getTypename() {
-    return "Source::Scalar";
+inline const std::string& ScalarValueSource::getTypename() {
+    static std::string demangledTypeName { "Source<Scalar>" };
+    return demangledTypeName;
 }
 
 inline ScalarValueSource::ScalarValueSource( const std::string& name ) :
@@ -52,9 +97,11 @@ inline void ScalarValueSource::fromJsonInternal( const nlohmann::json& data ) {
 }
 
 /* Source Color */
-inline const std::string ColorSourceNode::getTypename() {
-    return "Source::Color";
+inline const std::string& ColorSourceNode::getTypename() {
+    static std::string demangledTypeName { "Source<RaColor>" };
+    return demangledTypeName;
 }
+
 inline ColorSourceNode::ColorSourceNode( const std::string& name ) :
     SingleDataSourceNode( name, ColorSourceNode::getTypename() ) {
     setEditable( "color" );
@@ -72,24 +119,6 @@ inline void ColorSourceNode::fromJsonInternal( const nlohmann::json& data ) {
         auto v =
             Ra::Core::Utils::Color::sRGBToLinearRGB( Ra::Core::Utils::Color( c[0], c[1], c[2] ) );
         setData( v );
-    }
-}
-
-template <typename T>
-const std::string VectorArrayDataSource<T>::getTypename() {
-    return std::string { "Source:VectorArray<" } + Ra::Core::Utils::demangleType<T>() + ">";
-}
-
-template <typename T>
-void VectorArrayDataSource<T>::toJsonInternal( nlohmann::json& data ) const {
-    data["comment"] = std::string { "Serialization of data from a " } +
-                      VectorArrayDataSource<T>::getTypename() + " is not supported.";
-}
-
-template <typename T>
-void VectorArrayDataSource<T>::fromJsonInternal( const nlohmann::json& data ) {
-    if ( data.contains( "data" ) ) {
-        std::cerr << "Warning : deserialization of Ra::Core::VectorArray<T> not yet implemented\n";
     }
 }
 

@@ -9,8 +9,11 @@ namespace Sinks {
 template <typename T>
 class SinkNode : public Node
 {
+  protected:
+    SinkNode( const std::string& instanceName, const std::string& typeName );
+
   public:
-    explicit SinkNode( const std::string& name );
+    explicit SinkNode( const std::string& name ) : SinkNode( name, SinkNode<T>::getTypename() ) {}
 
     void execute() override;
     /**
@@ -32,7 +35,7 @@ class SinkNode : public Node
     T m_data;
 
   public:
-    static const std::string getTypename();
+    static const std::string& getTypename();
 };
 
 } // namespace Sinks

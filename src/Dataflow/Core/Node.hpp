@@ -201,8 +201,12 @@ class RA_DATAFLOW_API Node
     /// \brief Returns the demangled type name of the node or any human readable representation of
     /// the type name.
     /// This is a public static member each node must define to be serializable
-    static const std::string getTypename();
+    static const std::string& getTypename();
 };
+
+/// Return the human readable version of the type name T with simplified radium types
+template <typename T>
+const char* simplifiedDemangledType() noexcept;
 
 } // namespace Core
 } // namespace Dataflow

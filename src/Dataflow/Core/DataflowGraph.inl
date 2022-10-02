@@ -17,6 +17,11 @@ inline void DataflowGraph::addFactory( const std::string& name, std::shared_ptr<
     m_factories->addFactory( name, f );
 }
 
+inline void DataflowGraph::addFactory( std::shared_ptr<NodeFactory> f ) {
+    if ( !m_factories ) { m_factories.reset( new NodeFactorySet ); }
+    m_factories->addFactory( f->getName(), f );
+}
+
 inline const std::vector<std::shared_ptr<Node>>* DataflowGraph::getNodes() const {
     return &m_nodes;
 }
@@ -26,8 +31,9 @@ inline const std::vector<std::vector<Node*>>* DataflowGraph::getNodesByLevel() c
 inline size_t DataflowGraph::getNodesCount() {
     return m_nodes.size();
 }
-inline const std::string DataflowGraph::getTypename() {
-    return "DataFlow Graph";
+inline const std::string& DataflowGraph::getTypename() {
+    static std::string demangledTypeName { "Core DataflowGraph" };
+    return demangledTypeName;
 }
 
 } // namespace Core

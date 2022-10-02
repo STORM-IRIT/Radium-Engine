@@ -34,9 +34,9 @@ void MainWindow::newFile() {
         delete graph;
 
         setCurrentFile( "" );
-        graph               = new DataflowGraph( "untitled.flow" );
-        auto defaultFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
-        graph->addFactory( defaultFactory->getName(), defaultFactory );
+        graph = new DataflowGraph( "untitled.flow" );
+        // auto defaultFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
+        // graph->addFactory( defaultFactory->getName(), defaultFactory );
         graphEdit->editGraph( graph );
     }
 }
@@ -193,8 +193,8 @@ void MainWindow::loadFile( const QString& fileName )
     graph->loadFromJson( fileName.toStdString() );
 
     // Todo, always embed default factory in the graph
-    auto defaultFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
-    graph->addFactory( defaultFactory->getName(), defaultFactory );
+    // auto defaultFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
+    // graph->addFactory( defaultFactory->getName(), defaultFactory );
 
     graphEdit->editGraph( graph );
 

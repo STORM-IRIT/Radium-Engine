@@ -47,7 +47,7 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     /// Set render techniques needed by the rendering nodes
     void buildRenderTechnique( Ra::Engine::Rendering::RenderObject* ro ) const;
     /// Return the typename of the Graph
-    static const std::string getTypename();
+    static const std::string& getTypename();
 
   protected:
     bool postCompilationOperation() override;

@@ -108,8 +108,7 @@ void GraphEditorView::editGraph( DataflowGraph* g ) {
     // Setup the graph to edit
     m_dataflowGraph = g;
     if ( m_dataflowGraph ) {
-        buildAdapterRegistry( *( m_dataflowGraph->getNodeFactories() ) );
-
+        buildAdapterRegistry( NodeFactoriesManager::getFactoryManager() );
         const auto& nodes = *( m_dataflowGraph->getNodes() );
         // inserting nodes
         for ( const auto& n : nodes ) {

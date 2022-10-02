@@ -14,10 +14,8 @@ DataflowGraph::DataflowGraph( const std::string& instanceName, const std::string
     Node( instanceName, typeName ) {
     // This will alllow to edit subgraph in an independant editor
     addEditableParameter( new EditableParameter( instanceName, *this ) );
-
     // A graph always use the builtin nodes factory
-    auto defaultFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
-    addFactory( defaultFactory->getName(), defaultFactory );
+    addFactory( NodeFactoriesManager::getDataFlowBuiltInsFactory() );
 }
 
 void DataflowGraph::init() {
@@ -149,6 +147,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
         m_recompile = true;
         // load the graph
         m_factories.reset( new NodeFactorySet );
+        addFactory( NodeFactoriesManager::getDataFlowBuiltInsFactory() );
         if ( data["graph"].contains( "factories" ) ) {
             auto factories = data["graph"]["factories"];
             for ( const auto& factoryName : factories ) {
@@ -158,7 +157,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                     continue;
                 }
                 auto factory = NodeFactoriesManager::getFactory( factoryName );
-                if ( factory ) { m_factories->addFactory( factoryName, factory ); }
+                if ( factory ) { addFactory( factory ); }
                 else {
                     std::cerr << "DataflowGraph::loadFromJson : Unable to find a factory with name "
                               << factoryName << std::endl;
