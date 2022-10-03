@@ -30,14 +30,16 @@ void FilterNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 void FilterNode<coll_t, v_t>::execute() {
+    auto predPort = dynamic_cast<PortIn<std::function<bool( v_t )>>*>( m_inputs[1].get() );
+    auto f        = m_filterFunction;
+    if ( predPort->isLinked() ) { f = predPort->getData(); }
     auto input = dynamic_cast<PortIn<coll_t>*>( m_inputs[0].get() );
     if ( input->isLinked() ) {
         const auto& inData = input->getData();
         m_elements.clear();
         // m_elements.reserve( inData.size() ); // --> this is not a requirement of
         // SequenceContainer
-        std::copy_if(
-            inData.begin(), inData.end(), std::back_inserter( m_elements ), m_filterFunction );
+        std::copy_if( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
 #ifdef GRAPH_CALL_TRACE
         std::cout << "\e[36m\e[1mFilterNode \e[0m \"" << m_instanceName << "\": execute, from "
                   << input->getData().size() << " to " << m_elements.size() << " "
@@ -61,6 +63,10 @@ FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
     auto portIn = new PortIn<coll_t>( "in", this );
     addInput( portIn );
     portIn->mustBeLinked();
+
+    auto predicate = new PortIn<std::function<bool( v_t )>>( "f", this );
+    addInput( predicate );
+
     auto portOut = new PortOut<coll_t>( "out", this );
     addOutput( portOut, &m_elements );
 }

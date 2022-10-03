@@ -1,6 +1,7 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Nodes/Filters/FilterNode.hpp>
 #include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
+#include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 
 using namespace Ra::Dataflow::Core;
@@ -15,21 +16,22 @@ int main( int argc, char* argv[] ) {
     //! [Creating an empty graph]
 
     //! [Creating Nodes]
-    auto sourceNode = new Sources::SingleDataSourceNode<std::vector<Scalar>>( "Source" );
-    // non serializable node using a custom filter
-    auto filterNode = new Filters::FilterNode<std::vector<Scalar>>(
-        "Filter", []( Scalar x ) { return x > 0.5_ra; } );
-    auto sinkNode = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
+    auto sourceNode    = new Sources::SingleDataSourceNode<std::vector<Scalar>>( "Source" );
+    auto predicateNode = new Sources::ScalarUnaryPredicate( "Selector" );
+    auto filterNode    = new Filters::FilterNode<std::vector<Scalar>>( "Filter" );
+    auto sinkNode      = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
     //! [Creating Nodes]
 
     //! [Adding Nodes to the graph]
     g.addNode( sourceNode );
+    g.addNode( predicateNode );
     g.addNode( filterNode );
     g.addNode( sinkNode );
     //! [Adding Nodes to the graph]
 
     //! [Creating links between Nodes]
     g.addLink( sourceNode, "to", filterNode, "in" );
+    g.addLink( predicateNode, "f", filterNode, "f" );
     g.addLink( filterNode, "out", sinkNode, "from" );
     //! [Creating links between Nodes]
 
@@ -57,6 +59,11 @@ int main( int argc, char* argv[] ) {
     auto input = g.getDataSetter( "Source_to" );
     std::vector<Scalar> test;
     input->setData( &test );
+
+    auto selector                                     = g.getDataSetter( "Selector_f" );
+    Sources::ScalarUnaryPredicate::function_type pred = []( Scalar x ) { return x < 0.5; };
+    selector->setData( &pred );
+
     auto output = g.getDataGetter( "Sink_from" );
     // The reference to the result will not be available before the first run
     // auto& result = output->getData<std::vector<Scalar>>();
@@ -93,10 +100,8 @@ int main( int argc, char* argv[] ) {
     //! [Print the output result]
 
     //! [Modify input and rerun the graph]
-    // here, we of re-use the same interface objects (pointer for input, reference for output)
-    for ( int n = 0; n < 10; ++n ) {
-        test.push_back( dis( gen ) );
-    }
+    Sources::ScalarUnaryPredicate::function_type predbig = []( Scalar x ) { return x > 0.5; };
+    selector->setData( &predbig );
     g.execute();
     std::cout << "Output values after second execution: \n\t";
     for ( auto ord : result ) {

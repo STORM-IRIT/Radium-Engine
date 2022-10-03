@@ -18,6 +18,7 @@ set(dataflow_core_headers
     Nodes/Sinks/CoreDataSinks.hpp
     Nodes/Sinks/SinkNode.hpp
     Nodes/Sources/CoreDataSources.hpp
+    Nodes/Sources/FunctionSource.hpp
     Nodes/Sources/SingleDataSourceNode.hpp
     Port.hpp
     TypeDemangler.hpp
@@ -33,6 +34,7 @@ set(dataflow_core_inlines
     Nodes/Sinks/CoreDataSinks.inl
     Nodes/Sinks/SinkNode.inl
     Nodes/Sources/CoreDataSources.inl
+    Nodes/Sources/FunctionSource.inl
     Nodes/Sources/SingleDataSourceNode.inl
     Port.inl
     TypeDemangler.inl
