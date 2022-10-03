@@ -67,8 +67,13 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
          ( key == Qt::Key_Meta ) ) {
         key = -1;
     }
-    KeyMappingManager::EventBinding binding { buttons, modifiers, key, wheel };
 
+    return getAction( context, { buttons, modifiers, key, wheel } );
+}
+
+KeyMappingManager::KeyMappingAction
+KeyMappingManager::getAction( const KeyMappingManager::Context& context,
+                              const KeyMappingManager::EventBinding& binding ) {
     auto action = m_mappingAction[context].find( binding );
     if ( action != m_mappingAction[context].end() ) { return action->second; }
 
@@ -89,37 +94,34 @@ KeyMappingManager::addAction( const std::string& context,
                               const std::string& modifiersString,
                               const std::string& buttonsString,
                               const std::string& wheelString,
-                              const std::string& actionString,
-                              bool saveToConfigFile ) {
+                              const std::string& actionString ) {
     auto actionIndex = loadConfigurationMappingInternal(
         context, keyString, modifiersString, buttonsString, wheelString, actionString );
-    if ( saveToConfigFile ) {
-        QDomElement domElement   = m_domDocument.documentElement();
-        QDomElement elementToAdd = m_domDocument.createElement( "keymap" );
-        elementToAdd.setAttribute( "context", context.c_str() );
-        elementToAdd.setAttribute( "key", keyString.c_str() );
-        elementToAdd.setAttribute( "modifiers", modifiersString.c_str() );
-        elementToAdd.setAttribute( "buttons", buttonsString.c_str() );
-        if ( !wheelString.empty() ) { elementToAdd.setAttribute( "wheel", wheelString.c_str() ); }
-        elementToAdd.setAttribute( "action", actionString.c_str() );
 
-        QString xmlAction;
-        QTextStream s( &xmlAction );
-        s << elementToAdd;
+    QDomElement domElement   = m_domDocument.documentElement();
+    QDomElement elementToAdd = m_domDocument.createElement( "keymap" );
+    elementToAdd.setAttribute( "context", context.c_str() );
+    elementToAdd.setAttribute( "key", keyString.c_str() );
+    elementToAdd.setAttribute( "modifiers", modifiersString.c_str() );
+    elementToAdd.setAttribute( "buttons", buttonsString.c_str() );
+    if ( !wheelString.empty() ) { elementToAdd.setAttribute( "wheel", wheelString.c_str() ); }
+    elementToAdd.setAttribute( "action", actionString.c_str() );
+
+    QString xmlAction;
+    QTextStream s( &xmlAction );
+    s << elementToAdd;
 #if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
-        QString xmlActionChopped = xmlAction;
-        xmlActionChopped.chop( 1 );
-        LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
-                        << xmlActionChopped.toStdString();
+    QString xmlActionChopped = xmlAction;
+    xmlActionChopped.chop( 1 );
+    LOG( logDEBUG ) << "KeyMappingManager : adding The action  " << xmlActionChopped.toStdString();
 
 #else
-        LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
-                        << xmlAction.chopped( 1 ).toStdString();
+    LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
+                    << xmlAction.chopped( 1 ).toStdString();
 #endif
 
-        domElement.appendChild( elementToAdd );
-        saveConfiguration();
-    }
+    domElement.appendChild( elementToAdd );
+
     return actionIndex;
 }
 
@@ -483,8 +485,9 @@ KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
     auto wheel                           = wheelString.compare( "true" ) == 0;
 
     if ( keyValue == -1 && buttonsValue == Qt::NoButton && !wheel ) {
-        LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionString
-                        << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
+        LOG( logERROR ) << "Invalid binding for action [" << actionString << "] with key ["
+                        << keyString << "], buttons [" << buttonsString << "], wheel ["
+                        << wheelString << "]";
     }
     else {
         bindKeyToAction( contextIndex,
@@ -560,7 +563,6 @@ std::string KeyMappingManager::getHelpText() {
         contextString = contextString.substr( 0, end );
         text << "<h2>" << contextString << "</h2>\n";
 
-        text << "<table>\n";
         for ( const auto& action : m_mappingAction[context.second] ) {
             const auto& binding     = action.first;
             const auto& actionIndex = action.second;
