@@ -10,6 +10,11 @@ namespace Dataflow {
 namespace Core {
 
 /**
+ *  \todo : clarify what is a source and how to use it
+ *      if sources must be used through interface port only, delete the set_data on all sources
+ *  \todo Are node aliases a should-have (to make editing more user friendly)???
+ */
+/**
  * \brief Represent a set of connected nodes that definea computational graph
  * \todo make a "graph embedding node" that allow to seemlesly integrate a graph as a node in
  * another graph
@@ -114,6 +119,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// pointer. \note If called multiple times for the same port, only the last returned result is
     /// usable.
     /// @params portName The name of the input port of the graph
+    /// TODO : Thereis a bug ???? When listing the data setters, they are connected ...
+    /// TODO : setters (and getters) Should be created once and activated/deactivated ???
     std::shared_ptr<PortBase> getDataSetter( std::string portName );
 
     /// Returns an alias to the named output port of the graph.
@@ -129,6 +136,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// A tuple is composed of an output port connected to an input port of the graph, its name its
     /// type. \note If called multiple times for the same port, only the last returned result is
     /// usable.
+    /// TODO : Thereis a bug ???? When listing the data setters, they are connected ...
     std::vector<DataSetterDesc> getAllDataSetters();
 
     /// Creates a vector that stores all the DataGetters (\see getDataGetter) of the graph.
