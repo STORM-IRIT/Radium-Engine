@@ -30,32 +30,46 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     class EventBinding
     {
       public:
-        /// Default constructor : empty event
+        /**
+         * Empty event ctor
+         */
         EventBinding() = default;
-        /// Construct a mouse event : explicitely construct an event from all properties
-        /// @note When constructing a mouse event, buttons must be explicitely typed to prevent
-        /// constructor ambiguity
-        explicit EventBinding( Qt::MouseButtons buttons,
-                               Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
-            m_buttons { buttons }, m_modifiers { modifiers } {}
-        /// Construct a key event : explicitely construct an event from all properties
-        explicit EventBinding( int key, Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
-            m_modifiers { modifiers }, m_key { key } {}
-        /// Construct a key event : explicitely construct an event from all properties
-        explicit EventBinding( bool wheel, Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
-            m_modifiers { modifiers }, m_wheel { wheel } {}
-        /// Construct a combined event : explicitely construct combined event event from all
-        /// properties
+
+        /**
+         * Specifies all data members.
+         * \note key should not contains modifier, use \b modifiers instead. This is not checked.
+         */
         EventBinding( Qt::MouseButtons buttons,
                       Qt::KeyboardModifiers modifiers,
                       int key,
                       bool wheel = false ) :
             m_buttons { buttons }, m_modifiers { modifiers }, m_key { key }, m_wheel { wheel } {}
+
+        /**
+         *  Mouse event ctor.
+         */
+        explicit EventBinding( Qt::MouseButtons buttons,
+                               Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
+            m_buttons { buttons }, m_modifiers { modifiers } {}
+
+        /**
+         * Key event ctor.
+         */
+        explicit EventBinding( int key, Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
+            m_modifiers { modifiers }, m_key { key } {}
+
+        /**
+         * Wheel event ctor.
+         */
+        explicit EventBinding( bool wheel, Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
+            m_modifiers { modifiers }, m_wheel { wheel } {}
+
         bool operator<( const EventBinding& b ) const;
         bool isMouseEvent() { return m_buttons != Qt::NoButton; }
         bool isWheelEvent() { return m_wheel; }
         bool isKeyEvent() { return !isMouseEvent() && !isWheelEvent(); }
 
+        // public data member, since there isn't any write access getter from KeyMappingManager
         Qt::MouseButtons m_buttons { Qt::NoButton };
         Qt::KeyboardModifiers m_modifiers { Qt::NoModifier };
         // only one key
@@ -93,15 +107,21 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
                                 bool wheel = false );
     KeyMappingAction
     getAction( const Context& context, const QEvent* event, int key, bool wheel = false );
+    KeyMappingAction getAction( const Context& context, const EventBinding& binding );
     /// Return, if exists, the event binding associated with a context/action.
     /// if such binding doesn't exists, the optional does not contain a value.
     std::optional<EventBinding> getBinding( const Context& context, KeyMappingAction action );
 
     /// \brief Add a given action within a possibly non existing context (also created in this case)
     /// to the mapping system.
+    ///
     /// This allow to define default behavior when some KeyMappingManageable object is not
-    /// parameterized in the application config file. The action can be added to the current config
-    /// file so that it will remain for subsequent usage. \param context the context of the action
+    /// parameterized in the application config file.
+    /// The action is added to the current config
+    /// file (i.e. m_domDocument) so that it will be saved if saveConfiguration is called for
+    /// subsequent usage.
+    ///
+    /// \param context the context of the action
     /// \param keyString represents the key that needs to be pressed to trigger the event
     /// (ie Key_Z, for example), "" or "-1" corresponds to no key needed.
     /// \param modifiersString represents the modifier used along with key or mouse button `
@@ -111,16 +131,15 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// \param wheelString if true, it's a wheel event !
     /// \param actionString represents the KeyMappingAction enum's value you want to
     /// trigger.
-    /// \param saveToConfigFile request to save the action on the config file (true by default).
     KeyMappingAction addAction( const std::string& context,
                                 const std::string& keyString,
                                 const std::string& modifiersString,
                                 const std::string& buttonsString,
                                 const std::string& wheelString,
-                                const std::string& actionString,
-                                bool saveToConfigFile = true );
+                                const std::string& actionString );
 
     /// \brief Creates the context index for the given context name.
+    ///
     /// If the context already exist, return the existing index. If not, the context is created
     /// and its index is returned.
     /// \param contextName the name of the context
@@ -171,7 +190,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     void saveNode( QXmlStreamWriter& stream, const QDomNode& domNode );
 
     /// bind binding to actionIndex, in contextIndex. If replace previously
-    /// binded action, with a warning if binding was alreasly present.,
+    /// binded action, with a warning if binding was alreasly present.
     void bindKeyToAction( Ra::Core::Utils::Index contextIndex,
                           const EventBinding& binding,
                           Ra::Core::Utils::Index actionIndex );
@@ -268,8 +287,7 @@ class KeyMappingCallbackManager
                                      modifiersString,
                                      buttonsString,
                                      wheelString,
-                                     actionName,
-                                     false );
+                                     actionName );
 
         addEventCallback( index, callback );
         return index;
