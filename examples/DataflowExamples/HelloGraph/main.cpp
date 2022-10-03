@@ -17,8 +17,8 @@ int main( int argc, char* argv[] ) {
     //! [Creating Nodes]
     auto sourceNode = new Sources::SingleDataSourceNode<std::vector<Scalar>>( "Source" );
     // non serializable node using a custom filter
-    auto filterNode =
-        new Filters::FilterNode<Scalar>( "Filter", []( Scalar x ) { return x > 0.5_ra; } );
+    auto filterNode = new Filters::FilterNode<std::vector<Scalar>>(
+        "Filter", []( Scalar x ) { return x > 0.5_ra; } );
     auto sinkNode = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
     //! [Creating Nodes]
 
