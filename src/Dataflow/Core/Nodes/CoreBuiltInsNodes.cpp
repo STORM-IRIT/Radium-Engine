@@ -14,6 +14,7 @@ void registerStandardFactories() {
     NodeFactorySet::mapped_type coreFactory { new NodeFactorySet::mapped_type::element_type(
         NodeFactoriesManager::dataFlowBuiltInsFactoryName ) };
 
+    /** TODO : replace this by factory autoregistration at compile time */
     /* --- Sources --- */
     coreFactory->registerNodeCreator<Sources::BooleanValueSource>(
         Sources::BooleanValueSource::getTypename() + "_", "Source" );
@@ -68,6 +69,12 @@ void registerStandardFactories() {
         Filters::UIntArrayFilter::getTypename() + "_", "Filter" );
     coreFactory->registerNodeCreator<Filters::ColorArrayFilter>(
         Filters::ColorArrayFilter::getTypename() + "_", "Filter" );
+
+    /* --- Functions --- */
+    coreFactory->registerNodeCreator<Sources::ScalarBinaryPredicate>(
+        Sources::ScalarBinaryPredicate::getTypename() + "_", "Functions" );
+    coreFactory->registerNodeCreator<Sources::ScalarUnaryPredicate>(
+        Sources::ScalarUnaryPredicate::getTypename() + "_", "Functions" );
 
     /* --- Graphs --- */
     coreFactory->registerNodeCreator<DataflowGraph>( DataflowGraph::getTypename() + "_", "Graph" );

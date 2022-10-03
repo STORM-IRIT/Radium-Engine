@@ -19,10 +19,7 @@ SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
 template <typename T>
 void SingleDataSourceNode<T>::execute() {
     auto interface = static_cast<PortIn<T>*>( m_interface[0] );
-    if ( interface->isLinked() ) {
-        // copy the data to be delivered into the node (COPY_DATA)
-        m_data = &( interface->getData() );
-    }
+    if ( interface->isLinked() ) { m_data = &( interface->getData() ); }
     else {
         m_data = &m_localData;
     }
