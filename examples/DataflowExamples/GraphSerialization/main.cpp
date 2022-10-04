@@ -1,5 +1,5 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/Filters/FilterNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
 #include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 
@@ -25,8 +25,8 @@ int main( int argc, char* argv[] ) {
     // add node creators to the factory
     customFactory->registerNodeCreator<Sources::SingleDataSourceNode<VectorType>>(
         Sources::SingleDataSourceNode<VectorType>::getTypename() + "_", "Custom" );
-    customFactory->registerNodeCreator<Filters::FilterNode<VectorType>>(
-        Filters::FilterNode<VectorType>::getTypename() + "_", "Custom" );
+    customFactory->registerNodeCreator<Functionals::FilterNode<VectorType>>(
+        Functionals::FilterNode<VectorType>::getTypename() + "_", "Custom" );
     customFactory->registerNodeCreator<Sinks::SinkNode<VectorType>>(
         Sinks::SinkNode<VectorType>::getTypename() + "_", "Custom" );
 
@@ -45,7 +45,7 @@ int main( int argc, char* argv[] ) {
         //! [Creating Nodes]
         auto sourceNode = new Sources::SingleDataSourceNode<VectorType>( "Source" );
         // non serializable node using a custom filter
-        auto filterNode = new Filters::FilterNode<VectorType>(
+        auto filterNode = new Functionals::FilterNode<VectorType>(
             "Filter", []( const Scalar& x ) { return x > 0.5_ra; } );
         auto sinkNode = new Sinks::SinkNode<VectorType>( "Sink" );
         //! [Creating Nodes]
@@ -154,7 +154,7 @@ int main( int argc, char* argv[] ) {
     //! [Print the output result]
 
     //! [Set the correct filter on the filter node]
-    auto filter = dynamic_cast<Filters::FilterNode<VectorType>*>( g1.getNode( "Filter" ) );
+    auto filter = dynamic_cast<Functionals::FilterNode<VectorType>*>( g1.getNode( "Filter" ) );
     if ( !filter ) {
         std::cerr << "Unable to cast the filter to the right type\n";
         return 3;

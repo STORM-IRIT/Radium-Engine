@@ -1,5 +1,5 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/Filters/FilterNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
 #include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
 #include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
@@ -18,7 +18,7 @@ int main( int argc, char* argv[] ) {
     //! [Creating Nodes]
     auto sourceNode    = new Sources::SingleDataSourceNode<std::vector<Scalar>>( "Source" );
     auto predicateNode = new Sources::ScalarUnaryPredicate( "Selector" );
-    auto filterNode    = new Filters::FilterNode<std::vector<Scalar>>( "Filter" );
+    auto filterNode    = new Functionals::FilterNode<std::vector<Scalar>>( "Filter" );
     auto sinkNode      = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
     //! [Creating Nodes]
 
@@ -31,7 +31,10 @@ int main( int argc, char* argv[] ) {
 
     //! [Creating links between Nodes]
     g.addLink( sourceNode, "to", filterNode, "in" );
-    g.addLink( predicateNode, "f", filterNode, "f" );
+    if ( !g.addLink( predicateNode, "f", filterNode, "f" ) ) {
+        std::cerr << "Error, can't link functional ports !\n";
+        std::abort();
+    }
     g.addLink( filterNode, "out", sinkNode, "from" );
     //! [Creating links between Nodes]
 
