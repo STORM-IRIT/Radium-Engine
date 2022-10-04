@@ -40,15 +40,21 @@ class DemoWindow : public Ra::Gui::SimpleWindow
     void configure() override {
 
         DEMO_COLORUP = getViewer()->addCustomAction(
-            "DEMO_COLORUP", "Key_U", "", "", "false", [this]( QEvent* event ) {
+            "DEMO_COLORUP",
+            Ra::Gui::KeyMappingManager::createEventBindingFromStrings( "", "", "Key_U" ),
+            [this]( QEvent* event ) {
                 if ( event->type() == QEvent::KeyPress ) this->colorup();
             } );
         DEMO_COLORDOWN = getViewer()->addCustomAction(
-            "DEMO_COLORDOWN", "Key_D", "", "", "false", [this]( QEvent* event ) {
+            "DEMO_COLORDOWN",
+            Ra::Gui::KeyMappingManager::createEventBindingFromStrings( "", "", "Key_D" ),
+            [this]( QEvent* event ) {
                 if ( event->type() == QEvent::KeyPress ) this->colordown();
             } );
         DEMO_COLORRESET = getViewer()->addCustomAction(
-            "DEMO_COLORRESET", "Key_O", "", "", "false", [this]( QEvent* event ) {
+            "DEMO_COLORRESET",
+            Ra::Gui::KeyMappingManager::createEventBindingFromStrings( "", "", "Key_O" ),
+            [this]( QEvent* event ) {
                 if ( event->type() == QEvent::KeyRelease ) this->colorreset();
             } );
         if ( DEMO_COLORUP.isInvalid() || DEMO_COLORDOWN.isInvalid() ) {

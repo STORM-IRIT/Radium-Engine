@@ -1,4 +1,6 @@
 // Include Radium base application and its simple Gui
+#include "Gui/Utils/KeyMappingManager.hpp"
+#include "Gui/Viewer/RotateAroundCameraManipulator.hpp"
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
@@ -91,9 +93,13 @@ int main( int argc, char* argv[] ) {
         }
     };
     app.m_mainWindow->getViewer()->addCustomAction(
-        "switchCam0", "Key_0", "ShiftModifier", "", "false", callback );
+        "switchCam0",
+        Gui::KeyMappingManager::createEventBindingFromStrings( "", "ControlModifier", "Key_0" ),
+        callback );
     app.m_mainWindow->getViewer()->addCustomAction(
-        "switchCam1", "Key_1", "ShiftModifier", "", "false", callback );
+        "switchCam1",
+        Gui::KeyMappingManager::createEventBindingFromStrings( "", "ControlModifier", "Key_1" ),
+        callback );
     //! [Add usefull custom key events]
 
     //! [Create the camera animation system demonstrator]
