@@ -171,9 +171,9 @@ void KeyMappingManager::removeListener( int callbackId ) {
     detach( callbackId );
 }
 
-void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
+void KeyMappingManager::bindKeyToAction( const Context& contextIndex,
                                          const EventBinding& binding,
-                                         Ra::Core::Utils::Index actionIndex ) {
+                                         const KeyMappingAction& actionIndex ) {
 
     CORE_ASSERT( contextIndex < m_contextNameToIndex.size(), "contextIndex is out of range" );
 

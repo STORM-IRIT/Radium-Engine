@@ -78,7 +78,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     using Context          = Ra::Core::Utils::Index;
 
     /// load configuration from filename, or default configration filename. It
-    /// calls the listener callback then.
+    /// calls listeners callbacks then.
     void loadConfiguration( const std::string& filename = {} );
 
     /// Save the configuration
@@ -105,13 +105,26 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     KeyMappingAction
     getAction( const Context& context, const QEvent* event, int key, bool wheel = false );
     KeyMappingAction getAction( const Context& context, const EventBinding& binding );
+
+    /// Bind binding to action, in context. It replace previously
+    /// binded action, with a warning if binding was alreasly present.
+    void bindKeyToAction( const Context& context,
+                          const EventBinding& binding,
+                          const KeyMappingAction& action );
+
     /// Return, if exists, the event binding associated with a context/action.
     /// if such binding doesn't exists, the optional does not contain a value.
     std::optional<EventBinding> getBinding( const Context& context, KeyMappingAction action );
 
+    /// Add an action from its name. If the actionName was already present, the privously added
+    /// action is returned.
     KeyMappingAction addAction( const Context& context, const std::string& actionName );
+
+    /// Add an action from its name, with the given binding.  If the actionName was already present,
+    /// the privously added action is returned.
     KeyMappingAction
     addAction( const Context& context, const EventBinding& binding, const std::string& actionName );
+
     /// \brief Creates the context index for the given context name.
     ///
     /// If the context already exist, return the existing index. If not, the context is created
@@ -173,12 +186,6 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// Save an XML node that describes an event/action.
     void saveNode( QXmlStreamWriter& stream, const QDomNode& domNode );
     void saveKeymap( QXmlStreamWriter& stream );
-
-    /// bind binding to actionIndex, in contextIndex. If replace previously
-    /// binded action, with a warning if binding was alreasly present.
-    void bindKeyToAction( Ra::Core::Utils::Index contextIndex,
-                          const EventBinding& binding,
-                          Ra::Core::Utils::Index actionIndex );
 
     void loadConfigurationInternal( const QDomDocument& domDocument );
     void loadConfigurationTagsInternal( QDomElement& node );
