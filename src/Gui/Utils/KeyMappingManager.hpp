@@ -255,17 +255,34 @@ class RA_GUI_API KeyMappingCallbackManager
     using KeyMappingAction = KeyMappingManager::KeyMappingAction;
     using Callback         = std::function<void( QEvent* )>;
 
+    /**
+     * Create a callback manager for a given context.
+     */
     inline explicit KeyMappingCallbackManager( Context context );
 
+    /**
+     * Set the callback for a given action. Previously set callback, if any, is removed.
+     */
     inline void addEventCallback( KeyMappingAction action, Callback callback );
 
+    /**
+     * First add the action from its name to the KeyMappingManager, the set the callback for this
+     * new action.
+     */
     inline KeyMappingManager::KeyMappingAction
     addActionAndCallback( const std::string& actionName,
                           const KeyMappingManager::EventBinding& binding,
                           Callback callback );
 
-    inline bool triggerEventCallback( KeyMappingAction actionIndex, QEvent* event );
+    /**
+     * Triggers the callback, if any, corresponding to the binding.
+     */
     inline bool triggerEventCallback( QEvent* event, int key, bool wheel = false );
+
+    /**
+     * Triggers the callback, if any, corresponding to the action.
+     */
+    inline bool triggerEventCallback( KeyMappingAction action, QEvent* event );
 
   private:
     std::map<KeyMappingAction, Callback> m_keymappingCallbacks;
