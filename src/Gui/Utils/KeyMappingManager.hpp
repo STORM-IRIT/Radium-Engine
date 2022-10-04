@@ -94,7 +94,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// Return the action associated to the binding buttons + modifiers + key
     /// \param context is the context to get action from (e.g. camera or gizmo)
     /// \param buttons are the mouse buttons pressed, could be NoButton
-    /// \param modifiers are the keyboard modifiers, could be NoModifiers
+    /// \param modifiers are the keyboard modifiers, could be NoModifier
     /// \param key is the key pressed, could be -1
     /// \param wheel specifies if we consider a wheel event
     KeyMappingAction getAction( const Context& context,
@@ -105,12 +105,6 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     KeyMappingAction
     getAction( const Context& context, const QEvent* event, int key, bool wheel = false );
     KeyMappingAction getAction( const Context& context, const EventBinding& binding );
-
-    /// Bind binding to action, in context. It replace previously
-    /// binded action, with a warning if binding was alreasly present.
-    void bindKeyToAction( const Context& context,
-                          const EventBinding& binding,
-                          const KeyMappingAction& action );
 
     /// Return, if exists, the event binding associated with a context/action.
     /// if such binding doesn't exists, the optional does not contain a value.
@@ -124,6 +118,12 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// the privously added action is returned.
     KeyMappingAction
     addAction( const Context& context, const EventBinding& binding, const std::string& actionName );
+
+    /// Bind binding to action, in context. It replace previously
+    /// binded action, with a warning if binding was alreasly present.
+    void setActionBinding( const Context& context,
+                           const EventBinding& binding,
+                           const KeyMappingAction& action );
 
     /// \brief Creates the context index for the given context name.
     ///
@@ -162,13 +162,16 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     std::string getHelpText();
 
     /// return a string of enum names from mouse buttons, comma separated,
-    /// without space
+    /// without space.
     static std::string enumNamesFromMouseButtons( const Qt::MouseButtons& buttons );
 
     /// return a string of enum names from keyboard modifiers, comma separated,
-    /// without space
+    /// without space.
     static std::string enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& modifiers );
 
+    /**
+     * EventBinding factory from string description of buttons, modifiers, key and wheel.
+     */
     static EventBinding createEventBindingFromStrings( const std::string& buttonsString   = "",
                                                        const std::string& modifiersString = "",
                                                        const std::string& keyString       = "",
@@ -207,17 +210,16 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     static Qt::MouseButtons getQtMouseButtonsValue( const std::string& buttonsString );
     static int getKeyCode( const std::string& keyString );
 
-  private:
     std::string m_defaultConfigFile;
     QFile* m_file;
 
-    using MouseBindingMapping = std::map<EventBinding, KeyMappingAction>;
-    using ContextNameMap      = std::map<std::string, Context>;
-    using ActionNameMap       = std::map<std::string, Ra::Core::Utils::Index>;
+    using EventBindingMap = std::map<EventBinding, KeyMappingAction>;
+    using ContextNameMap  = std::map<std::string, Context>;
+    using ActionNameMap   = std::map<std::string, Ra::Core::Utils::Index>;
 
-    ContextNameMap m_contextNameToIndex;              ///< context string give index
-    std::vector<ActionNameMap> m_actionNameToIndex;   ///< one element per context
-    std::vector<MouseBindingMapping> m_mappingAction; ///< one element per context
+    ContextNameMap m_contextNameToIndex;            ///< context string give index
+    std::vector<ActionNameMap> m_actionNameToIndex; ///< one element per context
+    std::vector<EventBindingMap> m_bindingToAction; ///< one element per context
 };
 
 /// KeyMappingManageable decorate, typical use as a CRTP :

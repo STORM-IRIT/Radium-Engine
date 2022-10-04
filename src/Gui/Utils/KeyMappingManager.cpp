@@ -71,8 +71,8 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
 KeyMappingManager::KeyMappingAction
 KeyMappingManager::getAction( const KeyMappingManager::Context& context,
                               const KeyMappingManager::EventBinding& binding ) {
-    auto action = m_mappingAction[context].find( binding );
-    if ( action != m_mappingAction[context].end() ) { return action->second; }
+    auto action = m_bindingToAction[context].find( binding );
+    if ( action != m_bindingToAction[context].end() ) { return action->second; }
 
     return KeyMappingManager::KeyMappingAction();
 }
@@ -80,7 +80,7 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
 std::optional<KeyMappingManager::EventBinding>
 KeyMappingManager::getBinding( const KeyMappingManager::Context& context,
                                KeyMappingAction action ) {
-    for ( const auto& [key, value] : m_mappingAction[context] )
+    for ( const auto& [key, value] : m_bindingToAction[context] )
         if ( value == action ) return key;
     return {};
 }
@@ -93,10 +93,10 @@ KeyMappingManager::Context KeyMappingManager::addContext( const std::string& con
         contextIndex                      = m_contextNameToIndex.size();
         m_contextNameToIndex[contextName] = contextIndex;
         m_actionNameToIndex.emplace_back();
-        m_mappingAction.emplace_back();
+        m_bindingToAction.emplace_back();
         CORE_ASSERT( m_actionNameToIndex.size() == size_t( contextIndex + 1 ),
                      "Corrupted actionName DB" );
-        CORE_ASSERT( m_mappingAction.size() == size_t( contextIndex + 1 ),
+        CORE_ASSERT( m_bindingToAction.size() == size_t( contextIndex + 1 ),
                      "Corrupted mappingAction DB" );
     }
     else
@@ -171,15 +171,16 @@ void KeyMappingManager::removeListener( int callbackId ) {
     detach( callbackId );
 }
 
-void KeyMappingManager::bindKeyToAction( const Context& contextIndex,
-                                         const EventBinding& binding,
-                                         const KeyMappingAction& actionIndex ) {
+void KeyMappingManager::setActionBinding( const Context& contextIndex,
+                                          const EventBinding& binding,
+                                          const KeyMappingAction& actionIndex ) {
 
-    CORE_ASSERT( contextIndex < m_contextNameToIndex.size(), "contextIndex is out of range" );
+    CORE_ASSERT( size_t( contextIndex ) < m_contextNameToIndex.size(),
+                 "contextIndex is out of range" );
 
     // search if an action already correspond to this binding.
-    auto f = m_mappingAction[contextIndex].find( binding );
-    if ( f != m_mappingAction[contextIndex].end() ) {
+    auto f = m_bindingToAction[contextIndex].find( binding );
+    if ( f != m_bindingToAction[contextIndex].end() ) {
 
         // if yes, search for its name
         auto findResult = std::find_if(
@@ -226,7 +227,7 @@ void KeyMappingManager::bindKeyToAction( const Context& contextIndex,
                      << " keycode [" << binding.m_key << "]"
                      << " wheel [" << binding.m_wheel << "]";
 
-    m_mappingAction[contextIndex][binding] = actionIndex;
+    m_bindingToAction[contextIndex][binding] = actionIndex;
 }
 
 void KeyMappingManager::loadConfiguration( const std::string& inFilename ) {
@@ -314,7 +315,7 @@ void KeyMappingManager::saveKeymap( QXmlStreamWriter& stream ) {
     for ( const auto& contextPair : m_contextNameToIndex ) {
         const auto& contextName = contextPair.first;
         const auto& context     = contextPair.second;
-        for ( const auto& actionPair : m_mappingAction[context] ) {
+        for ( const auto& actionPair : m_bindingToAction[context] ) {
             const auto& binding     = actionPair.first;
             const auto& action      = actionPair.second;
             const auto& actionNames = m_actionNameToIndex[context];
@@ -352,7 +353,7 @@ void KeyMappingManager::loadConfigurationInternal( const QDomDocument& domDocume
     /// -> do not clear m_contextNameToIndex m_actionNameToIndex so the keep their index values ...
     m_contextNameToIndex.clear();
     m_actionNameToIndex.clear();
-    m_mappingAction.clear();
+    m_bindingToAction.clear();
 
     QDomElement domElement = domDocument.documentElement();
 
@@ -414,7 +415,7 @@ KeyMappingManager::KeyMappingAction KeyMappingManager::addAction( const Context&
                                                                   const EventBinding& binding,
                                                                   const std::string& actionName ) {
     auto actionIndex = addAction( context, actionName );
-    bindKeyToAction( context, binding, actionIndex );
+    setActionBinding( context, binding, actionIndex );
     return actionIndex;
 }
 
@@ -442,7 +443,7 @@ KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
                         << wheelString << "]";
     }
     else {
-        bindKeyToAction( contextIndex, binding, actionIndex );
+        setActionBinding( contextIndex, binding, actionIndex );
     }
     return actionIndex;
 }
@@ -512,7 +513,7 @@ std::string KeyMappingManager::getHelpText() {
         contextName = contextName.substr( 0, end );
         text << "<h2>" << contextName << "</h2>\n";
 
-        for ( const auto& action : m_mappingAction[context.second] ) {
+        for ( const auto& action : m_bindingToAction[context.second] ) {
             const auto& binding     = action.first;
             const auto& actionIndex = action.second;
             const auto& actionNames = m_actionNameToIndex[context.second];
