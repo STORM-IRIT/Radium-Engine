@@ -190,6 +190,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 
     /// Save an XML node that describes an event/action.
     void saveNode( QXmlStreamWriter& stream, const QDomNode& domNode );
+    void saveKeymap( QXmlStreamWriter& stream );
 
     /// bind binding to actionIndex, in contextIndex. If replace previously
     /// binded action, with a warning if binding was alreasly present.
