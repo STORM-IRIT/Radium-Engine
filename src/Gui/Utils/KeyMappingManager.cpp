@@ -11,9 +11,7 @@ namespace Ra::Gui {
 using namespace Core::Utils; // log
 
 KeyMappingManager::KeyMappingManager() :
-    m_domDocument( "Key Mapping QDomDocument" ),
-    m_metaEnumKey( QMetaEnum::fromType<Qt::Key>() ),
-    m_file( nullptr ) {
+    m_metaEnumKey( QMetaEnum::fromType<Qt::Key>() ), m_file( nullptr ) {
 
     auto optionalPath { Core::Resources::getRadiumResourcesPath() };
     auto resourcesRootDir { optionalPath.value_or( "[[Default resrouces path not found]]" ) };
@@ -97,30 +95,6 @@ KeyMappingManager::addAction( const std::string& context,
                               const std::string& actionName ) {
     auto actionIndex = loadConfigurationMappingInternal(
         context, keyString, modifiersString, buttonsString, wheelString, actionName );
-
-    QDomElement domElement   = m_domDocument.documentElement();
-    QDomElement elementToAdd = m_domDocument.createElement( "keymap" );
-    elementToAdd.setAttribute( "context", context.c_str() );
-    elementToAdd.setAttribute( "key", keyString.c_str() );
-    elementToAdd.setAttribute( "modifiers", modifiersString.c_str() );
-    elementToAdd.setAttribute( "buttons", buttonsString.c_str() );
-    if ( !wheelString.empty() ) { elementToAdd.setAttribute( "wheel", wheelString.c_str() ); }
-    elementToAdd.setAttribute( "action", actionName.c_str() );
-
-    QString xmlAction;
-    QTextStream s( &xmlAction );
-    s << elementToAdd;
-#if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
-    QString xmlActionChopped = xmlAction;
-    xmlActionChopped.chop( 1 );
-    LOG( logDEBUG ) << "KeyMappingManager : adding The action  " << xmlActionChopped.toStdString();
-
-#else
-    LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
-                    << xmlAction.chopped( 1 ).toStdString();
-#endif
-
-    domElement.appendChild( elementToAdd );
 
     return actionIndex;
 }
@@ -290,8 +264,8 @@ void KeyMappingManager::loadConfiguration( const std::string& inFilename ) {
             return;
         }
     }
-
-    if ( !m_domDocument.setContent( m_file ) ) {
+    QDomDocument domDocument;
+    if ( !domDocument.setContent( m_file ) ) {
         LOG( logERROR ) << "Can't associate XML file to QDomDocument !";
         LOG( logERROR ) << "Trying to load default configuration...";
         m_file->close();
@@ -306,7 +280,7 @@ void KeyMappingManager::loadConfiguration( const std::string& inFilename ) {
     }
     m_file->close();
 
-    loadConfigurationInternal();
+    loadConfigurationInternal( domDocument );
 
     // notify observer that keymapping has changed.
     notify();
@@ -326,14 +300,7 @@ bool KeyMappingManager::saveConfiguration( const std::string& inFilename ) {
     stream.writeComment(
         "\n<keymap context=\"theContext\" action=\"theAction\" buttons=\"QButton\" "
         "modifier=\"QModifier\" key=\"QKey\" wheel=\"boolean\"/>\n" );
-    //   QDomNode root = m_domDocument.documentElement();
-    //
-    //   while ( !root.isNull() ) {
-    //       saveNode( stream, root );
-    //       if ( stream.hasError() ) { break; }
-    //       root = root.nextSibling();
-    //   }
-    //
+
     saveKeymap( stream );
 
     stream.writeEndDocument();
@@ -394,83 +361,14 @@ void KeyMappingManager::saveKeymap( QXmlStreamWriter& stream ) {
     stream.writeEndElement();
 }
 
-void KeyMappingManager::saveNode( QXmlStreamWriter& stream, const QDomNode& domNode ) {
-    if ( stream.hasError() ) { return; }
-
-    if ( domNode.isElement() ) {
-        const QDomElement domElement = domNode.toElement();
-        if ( !domElement.isNull() ) {
-            auto tagName = domElement.tagName().toStdString();
-            stream.writeStartElement( domElement.tagName() );
-
-            if ( tagName == "keymap" ) {
-
-                auto saveAttrib = [&domElement, &stream]( const QString& attribName,
-                                                          const QString& attribDefault,
-                                                          bool optional = false ) {
-                    QString attribValue = domElement.attribute( attribName, attribDefault );
-                    if ( optional && attribValue == attribDefault ) { return false; }
-                    stream.writeAttribute( attribName, attribValue );
-                    return true;
-                };
-
-                if ( !saveAttrib( "context", "" ) ) {
-                    LOG( logERROR ) << "Error, missing context when saving keymap element";
-                    return;
-                }
-                if ( !saveAttrib( "action", "" ) ) {
-                    LOG( logERROR ) << "Error, missing action when saving keymap element";
-                    return;
-                }
-                saveAttrib( "buttons", "" );
-                saveAttrib( "modifiers", "" );
-                saveAttrib( "key", "" );
-                saveAttrib( "wheel", "false", true );
-            }
-            else {
-                if ( domElement.hasAttributes() ) {
-                    QMap<QString, QString> attributes;
-                    const QDomNamedNodeMap attributeMap = domElement.attributes();
-                    for ( int i = 0; i < attributeMap.count(); ++i ) {
-                        const QDomNode attribute = attributeMap.item( i );
-                        attributes.insert( attribute.nodeName(), attribute.nodeValue() );
-                    }
-
-                    QMap<QString, QString>::const_iterator i = attributes.constBegin();
-                    while ( i != attributes.constEnd() ) {
-                        stream.writeAttribute( i.key(), i.value() );
-                        ++i;
-                    }
-                }
-            }
-
-            if ( domElement.hasChildNodes() ) {
-                QDomNode elementChild = domElement.firstChild();
-                while ( !elementChild.isNull() ) {
-                    saveNode( stream, elementChild );
-                    elementChild = elementChild.nextSibling();
-                }
-            }
-
-            stream.writeEndElement();
-        }
-    }
-    else if ( domNode.isComment() ) {
-        stream.writeComment( domNode.nodeValue() );
-    }
-    else if ( domNode.isText() ) {
-        stream.writeCharacters( domNode.nodeValue() );
-    }
-}
-
-void KeyMappingManager::loadConfigurationInternal() {
+void KeyMappingManager::loadConfigurationInternal( const QDomDocument& domDocument ) {
     ///\todo maybe find a better way to handle load and reload.
     /// -> do not clear m_contextNameToIndex m_actionNameToIndex so the keep their index values ...
     m_contextNameToIndex.clear();
     m_actionNameToIndex.clear();
     m_mappingAction.clear();
 
-    QDomElement domElement = m_domDocument.documentElement();
+    QDomElement domElement = domDocument.documentElement();
 
     if ( domElement.tagName() != "keymaps" ) {
         LOG( logWARNING ) << "No <keymaps> global bounding tag ! Maybe you set a different global "
@@ -620,7 +518,6 @@ KeyMappingManager::~KeyMappingManager() {
 }
 
 std::string KeyMappingManager::getHelpText() {
-    //    return m_domDocument.toString().toStdString();
     std::ostringstream text;
     for ( const auto& context : m_contextNameToIndex ) {
         std::string contextName { context.first };

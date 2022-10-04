@@ -198,7 +198,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
                           const EventBinding& binding,
                           Ra::Core::Utils::Index actionIndex );
 
-    void loadConfigurationInternal();
+    void loadConfigurationInternal( const QDomDocument& domDocument );
     void loadConfigurationTagsInternal( QDomElement& node );
     KeyMappingAction loadConfigurationMappingInternal( const std::string& context,
                                                        const std::string& keyString,
@@ -219,8 +219,6 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 
   private:
     std::string m_defaultConfigFile;
-    // For XML parsing using Qt
-    QDomDocument m_domDocument;
     QMetaEnum m_metaEnumAction;
     QMetaEnum m_metaEnumKey;
     QFile* m_file;
