@@ -92,7 +92,7 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
 
     //! [Print the output result]
-    std::cout << "Output values (reference): \n\t";
+    std::cout << "Output values (reference): " << result.size() << "\n\t";
     for ( auto ord : result ) {
         std::cout << ord << ' ';
     }
@@ -103,12 +103,37 @@ int main( int argc, char* argv[] ) {
     Sources::ScalarUnaryPredicate::function_type predbig = []( Scalar x ) { return x > 0.5; };
     selector->setData( &predbig );
     g.execute();
-    std::cout << "Output values after second execution: \n\t";
+    std::cout << "Output values after second execution: " << result.size() << "\n\t";
     for ( auto ord : result ) {
         std::cout << ord << ' ';
     }
     std::cout << '\n';
     //! [Modify input and rerun the graph]
 
+    //! [Disconnect data setter and rerun the graph - result is now empty]
+    g.releaseDataSetter( "Source_to" );
+    g.execute();
+    std::cout << "Output values after third execution: " << result.size() << "\n";
+    //! [Disconnect data setter and rerun the graph]
+
+    //! [As interface is disconnected, we can set data direclty on the source node]
+    sourceNode->setData( &test );
+    g.execute();
+    std::cout << "Output values after fourth execution: " << result.size() << "\n\t";
+    for ( auto ord : result ) {
+        std::cout << ord << ' ';
+    }
+    std::cout << '\n';
+    //! [Disconnect data setter and rerun the graph]
+
+    //! [Reconnect data setter and rerun the graph - result is the same than second execution]
+    g.activateDataSetter( "Source_to" );
+    g.execute();
+    std::cout << "Output values after last execution: " << result.size() << "\n\t";
+    for ( auto ord : result ) {
+        std::cout << ord << ' ';
+    }
+    std::cout << '\n';
+    //! [Disconnect data setter and rerun the graph]
     return 0;
 }
