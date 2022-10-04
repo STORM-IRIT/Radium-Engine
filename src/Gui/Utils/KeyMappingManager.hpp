@@ -129,18 +129,17 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// specified, separated by commas as in "ControlModifier,ShiftModifier".
     /// \param buttonsString represents the button to trigger the event (e.g. LeftButton).
     /// \param wheelString if true, it's a wheel event !
-    /// \param actionString represents the KeyMappingAction enum's value you want to
+    /// \param actionName represents the KeyMappingAction enum's value you want to
     /// trigger.
-    KeyMappingAction addAction( const std::string& context,
+    KeyMappingAction addAction( const std::string& contextName,
                                 const std::string& keyString,
                                 const std::string& modifiersString,
                                 const std::string& buttonsString,
                                 const std::string& wheelString,
-                                const std::string& actionString );
-    KeyMappingAction addAction( const Context& context, const std::string& actionString );
-    KeyMappingAction addAction( const Context& context,
-                                const EventBinding& binding,
-                                const std::string& actionString );
+                                const std::string& actionName );
+    KeyMappingAction addAction( const Context& context, const std::string& actionName );
+    KeyMappingAction
+    addAction( const Context& context, const EventBinding& binding, const std::string& actionName );
     /// \brief Creates the context index for the given context name.
     ///
     /// If the context already exist, return the existing index. If not, the context is created
@@ -205,7 +204,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
                                                        const std::string& modifiersString,
                                                        const std::string& buttonsString,
                                                        const std::string& wheelString,
-                                                       const std::string& actionString );
+                                                       const std::string& actionName );
 
     /// Return KeyboardModifiers described in modifierString, multiple modifiers
     /// are comma separated in the modifiers string, as in

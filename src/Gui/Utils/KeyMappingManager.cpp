@@ -94,9 +94,9 @@ KeyMappingManager::addAction( const std::string& context,
                               const std::string& modifiersString,
                               const std::string& buttonsString,
                               const std::string& wheelString,
-                              const std::string& actionString ) {
+                              const std::string& actionName ) {
     auto actionIndex = loadConfigurationMappingInternal(
-        context, keyString, modifiersString, buttonsString, wheelString, actionString );
+        context, keyString, modifiersString, buttonsString, wheelString, actionName );
 
     QDomElement domElement   = m_domDocument.documentElement();
     QDomElement elementToAdd = m_domDocument.createElement( "keymap" );
@@ -105,7 +105,7 @@ KeyMappingManager::addAction( const std::string& context,
     elementToAdd.setAttribute( "modifiers", modifiersString.c_str() );
     elementToAdd.setAttribute( "buttons", buttonsString.c_str() );
     if ( !wheelString.empty() ) { elementToAdd.setAttribute( "wheel", wheelString.c_str() ); }
-    elementToAdd.setAttribute( "action", actionString.c_str() );
+    elementToAdd.setAttribute( "action", actionName.c_str() );
 
     QString xmlAction;
     QTextStream s( &xmlAction );
@@ -442,12 +442,12 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
         std::string keyString       = e.attribute( "key", "-1" ).toStdString();
         std::string modifiersString = e.attribute( "modifiers", "NoModifier" ).toStdString();
         std::string buttonsString   = e.attribute( "buttons", "NoButton" ).toStdString();
-        std::string contextString   = e.attribute( "context", "AppContext" ).toStdString();
+        std::string contextName     = e.attribute( "context", "AppContext" ).toStdString();
         std::string wheelString     = e.attribute( "wheel", "false" ).toStdString();
-        std::string actionString    = e.attribute( "action" ).toStdString();
+        std::string actionName      = e.attribute( "action" ).toStdString();
 
         loadConfigurationMappingInternal(
-            contextString, keyString, modifiersString, buttonsString, wheelString, actionString );
+            contextName, keyString, modifiersString, buttonsString, wheelString, actionName );
     }
     else {
         LOG( logERROR ) << "Unrecognized XML key mapping configuration file tag \""
@@ -459,13 +459,13 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
     }
 }
 
-KeyMappingManager::KeyMappingAction
-KeyMappingManager::addAction( const Context& context, const std::string& actionString ) {
+KeyMappingManager::KeyMappingAction KeyMappingManager::addAction( const Context& context,
+                                                                  const std::string& actionName ) {
     Ra::Core::Utils::Index actionIndex;
-    auto actionItr = m_actionNameToIndex[context].find( actionString );
+    auto actionItr = m_actionNameToIndex[context].find( actionName );
     if ( actionItr == m_actionNameToIndex[context].end() ) {
-        actionIndex                                = m_actionNameToIndex[context].size();
-        m_actionNameToIndex[context][actionString] = actionIndex;
+        actionIndex                              = m_actionNameToIndex[context].size();
+        m_actionNameToIndex[context][actionName] = actionIndex;
     }
     else {
         actionIndex = actionItr->second;
@@ -474,11 +474,10 @@ KeyMappingManager::addAction( const Context& context, const std::string& actionS
     return actionIndex;
 }
 
-KeyMappingManager::KeyMappingAction
-KeyMappingManager::addAction( const Context& context,
-                              const EventBinding& binding,
-                              const std::string& actionString ) {
-    auto actionIndex = addAction( context, actionString );
+KeyMappingManager::KeyMappingAction KeyMappingManager::addAction( const Context& context,
+                                                                  const EventBinding& binding,
+                                                                  const std::string& actionName ) {
+    auto actionIndex = addAction( context, actionName );
     bindKeyToAction( context, binding, actionIndex );
     return actionIndex;
 }
@@ -489,9 +488,9 @@ KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
                                                      const std::string& modifiersString,
                                                      const std::string& buttonsString,
                                                      const std::string& wheelString,
-                                                     const std::string& actionString ) {
+                                                     const std::string& actionName ) {
     auto contextIndex = addContext( context );
-    auto actionIndex  = addAction( contextIndex, actionString );
+    auto actionIndex  = addAction( contextIndex, actionName );
 
     auto modifiersValue = getQtModifiersValue( modifiersString );
     auto keyValue       = m_metaEnumKey.keyToValue( keyString.c_str() );
@@ -499,7 +498,7 @@ KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
     auto wheel          = wheelString.compare( "true" ) == 0;
 
     if ( keyValue == -1 && buttonsValue == Qt::NoButton && !wheel ) {
-        LOG( logERROR ) << "Invalid binding for action [" << actionString << "] with key ["
+        LOG( logERROR ) << "Invalid binding for action [" << actionName << "] with key ["
                         << keyString << "], buttons [" << buttonsString << "], wheel ["
                         << wheelString << "]";
     }
@@ -572,10 +571,10 @@ std::string KeyMappingManager::getHelpText() {
     //    return m_domDocument.toString().toStdString();
     std::ostringstream text;
     for ( const auto& context : m_contextNameToIndex ) {
-        std::string contextString { context.first };
-        auto end      = contextString.find( "Context" );
-        contextString = contextString.substr( 0, end );
-        text << "<h2>" << contextString << "</h2>\n";
+        std::string contextName { context.first };
+        auto end    = contextName.find( "Context" );
+        contextName = contextName.substr( 0, end );
+        text << "<h2>" << contextName << "</h2>\n";
 
         for ( const auto& action : m_mappingAction[context.second] ) {
             const auto& binding     = action.first;
