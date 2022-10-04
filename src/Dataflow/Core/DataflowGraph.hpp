@@ -123,6 +123,9 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// TODO : setters (and getters) Should be created once and activated/deactivated ???
     std::shared_ptr<PortBase> getDataSetter( std::string portName );
 
+    bool releaseDataSetter( std::string portName );
+    bool activateDataSetter( std::string portName );
+
     /// Returns an alias to the named output port of the graph.
     /// Allows to get the data stored at this port after the execution of the graph.
     /// \note ownership is left to the graph.
@@ -186,6 +189,17 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
   public:
     static const std::string& getTypename();
+
+  private:
+    /// Data setters management : used to pass parameter to the graph when the graph is not embeded
+    /// into another graph (inputs are here for this case).
+
+    using DataSetter = std::pair<DataSetterDesc, PortBase*>;
+
+    std::map<std::string, DataSetter> m_dataSetters;
+    std::map<std::string, DataGetterDesc> m_dataGetters;
+
+    bool addSetter( PortBase* in );
 };
 
 } // namespace Core

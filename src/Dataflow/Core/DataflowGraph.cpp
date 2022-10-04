@@ -270,7 +270,7 @@ bool DataflowGraph::addNode( Node* newNode ) {
                     p->reflect( this, newNode->getInstanceName() + '_' + p->getName() );
                 portInterface->mustBeLinked();
                 newNode->addInterface( portInterface );
-                addInput( portInterface );
+                addSetter( portInterface );
             }
         }
         if ( newNode->getOutputs().size() == 0 ) { // Check if it is a sink node
@@ -656,14 +656,49 @@ int DataflowGraph::goThroughGraph(
     return maxLevel;
 }
 
+bool DataflowGraph::addSetter( PortBase* in ) {
+    addInput( in );
+    if ( m_dataSetters.find( in->getName() ) == m_dataSetters.end() ) {
+        auto portOut = std::shared_ptr<PortBase>( in->reflect( this, in->getName() ) );
+        m_dataSetters.emplace( std::make_pair(
+            in->getName(),
+            DataSetter { DataSetterDesc { portOut, portOut->getName(), portOut->getTypeName() },
+                         in } ) );
+        return true;
+    }
+    return false;
+}
+
+bool DataflowGraph::releaseDataSetter( std::string portName ) {
+    auto setter = m_dataSetters.find( portName );
+    if ( setter != m_dataSetters.end() ) {
+        auto [desc, in] = setter->second;
+        in->disconnect();
+        return true;
+    }
+    return false;
+}
+
+bool DataflowGraph::activateDataSetter( std::string portName ) {
+    auto setter = m_dataSetters.find( portName );
+    if ( setter != m_dataSetters.end() ) {
+        auto [desc, in] = setter->second;
+        auto p          = std::get<0>( desc );
+        in->disconnect();
+        p->connect( in );
+        return true;
+    }
+    return false;
+}
+
 std::shared_ptr<PortBase> DataflowGraph::getDataSetter( std::string portName ) {
-    for ( auto& portIn : m_inputs ) {
-        if ( portIn->getName() == portName ) {
-            portIn->disconnect();
-            auto portOut = portIn->reflect( this, portName );
-            portOut->connect( portIn.get() );
-            return std::shared_ptr<PortBase>( portOut );
-        }
+    auto setter = m_dataSetters.find( portName );
+    if ( setter != m_dataSetters.end() ) {
+        auto [desc, in] = setter->second;
+        auto p          = std::get<0>( desc );
+        in->disconnect();
+        p->connect( in );
+        return p;
     }
 #ifdef GRAPH_CALL_TRACE
     std::cout << "\e[36m\e[1mDataflowGraph::graphGetInput \e[0m \""
@@ -675,13 +710,9 @@ std::shared_ptr<PortBase> DataflowGraph::getDataSetter( std::string portName ) {
 
 std::vector<DataflowGraph::DataSetterDesc> DataflowGraph::getAllDataSetters() {
     std::vector<DataflowGraph::DataSetterDesc> r;
-    r.reserve( m_inputs.size() );
-    for ( auto& portIn : m_inputs ) {
-        portIn->disconnect();
-        auto portOut = portIn->reflect( this, portIn->getName() );
-        portOut->connect( portIn.get() );
-        r.emplace_back(
-            std::shared_ptr<PortBase>( portOut ), portOut->getName(), portOut->getTypeName() );
+    r.reserve( m_dataSetters.size() );
+    for ( auto& s : m_dataSetters ) {
+        r.push_back( s.second.first );
     }
     return r;
 }
