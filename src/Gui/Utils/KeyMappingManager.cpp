@@ -85,19 +85,6 @@ KeyMappingManager::getBinding( const KeyMappingManager::Context& context,
     return {};
 }
 
-KeyMappingManager::KeyMappingAction
-KeyMappingManager::addAction( const std::string& context,
-                              const std::string& keyString,
-                              const std::string& modifiersString,
-                              const std::string& buttonsString,
-                              const std::string& wheelString,
-                              const std::string& actionName ) {
-    auto actionIndex = loadConfigurationMappingInternal(
-        context, keyString, modifiersString, buttonsString, wheelString, actionName );
-
-    return actionIndex;
-}
-
 KeyMappingManager::Context KeyMappingManager::addContext( const std::string& contextName ) {
     Ra::Core::Utils::Index contextIndex;
 
@@ -447,7 +434,7 @@ KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
     auto actionIndex  = addAction( contextIndex, actionName );
 
     auto binding =
-        createEventBindingFromStrings( keyString, modifiersString, buttonsString, wheelString );
+        createEventBindingFromStrings( buttonsString, modifiersString, keyString, wheelString );
 
     if ( binding.m_key == -1 && binding.m_buttons == Qt::NoButton && !binding.m_wheel ) {
         LOG( logERROR ) << "Invalid binding for action [" << actionName << "] with key ["

@@ -848,17 +848,10 @@ void Viewer::displayHelpDialog() {
 
 KeyMappingManager::KeyMappingAction
 Viewer::addCustomAction( const std::string& actionName,
-                         const std::string& keyString,
-                         const std::string& modifiersString,
-                         const std::string& buttonsString,
-                         const std::string& wheelString,
+                         const KeyMappingManager::EventBinding& binding,
                          std::function<void( QEvent* )> callback ) {
 
-    return m_keyMappingCallbackManager.addActionAndCallback(
-        actionName,
-        KeyMappingManager::createEventBindingFromStrings(
-            keyString, modifiersString, buttonsString, wheelString ),
-        callback );
+    return m_keyMappingCallbackManager.addActionAndCallback( actionName, binding, callback );
 }
 
 } // namespace Gui
