@@ -612,5 +612,16 @@ KeyMappingManager::enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& 
 
 #undef TEST_BUTTON_STRING
 
+KeyMappingManager::EventBinding
+KeyMappingManager::createEventBindingFromStrings( const std::string& buttonsString,
+                                                  const std::string& modifiersString,
+                                                  const std::string& keyString,
+                                                  const std::string& wheelString ) {
+    return { getQtMouseButtonsValue( buttonsString ),
+             getQtModifiersValue( modifiersString ),
+             getKeyCode( keyString ),
+             wheelString.compare( "true" ) == 0 };
+}
+
 RA_SINGLETON_IMPLEMENTATION( KeyMappingManager );
 } // namespace Ra::Gui
