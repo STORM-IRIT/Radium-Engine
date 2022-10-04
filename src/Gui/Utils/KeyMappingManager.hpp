@@ -243,6 +243,54 @@ class KeyMappingManageable
 template <typename T>
 KeyMappingManager::Context KeyMappingManageable<T>::m_keyMappingContext;
 
+class KeyMappingCallbackManager
+{
+  public:
+    using Context          = KeyMappingManager::Context;
+    using KeyMappingAction = KeyMappingManager::KeyMappingAction;
+    using Callback         = std::function<void( QEvent* )>;
+
+    KeyMappingCallbackManager( Context context ) : m_context { context } {}
+
+    void addEventCallback( KeyMappingAction index, Callback callback ) {
+        m_keymappingCallbacks[index] = callback;
+    }
+
+    KeyMappingAction addEventCallback( const std::string& actionName,
+                                       const std::string& buttonsString,
+                                       const std::string& modifiersString,
+                                       const std::string& keyString,
+                                       const std::string& wheelString,
+                                       Callback callback ) {
+        auto mgr   = KeyMappingManager::getInstance();
+        auto index = mgr->addAction( mgr->getContextName( m_context ),
+                                     keyString,
+                                     modifiersString,
+                                     buttonsString,
+                                     wheelString,
+                                     actionName );
+
+        addEventCallback( index, callback );
+        return index;
+    }
+
+    bool triggerEventCallback( KeyMappingAction actionIndex, QEvent* event ) {
+        auto itr = m_keymappingCallbacks.find( actionIndex );
+        if ( itr == m_keymappingCallbacks.end() ) return false;
+        itr->second( event );
+        return true;
+    }
+
+    bool triggerEventCallback( QEvent* event, int key, bool wheel = false ) {
+        auto mgr         = KeyMappingManager::getInstance();
+        auto actionIndex = mgr->getAction( m_context, event, key, wheel );
+        return triggerEventCallback( actionIndex, event );
+    }
+
+    std::map<KeyMappingAction, Callback> m_keymappingCallbacks;
+    Context m_context;
+};
+
 } // namespace Gui
 } // namespace Ra
 
