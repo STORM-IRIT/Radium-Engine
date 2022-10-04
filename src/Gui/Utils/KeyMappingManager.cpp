@@ -326,12 +326,15 @@ bool KeyMappingManager::saveConfiguration( const std::string& inFilename ) {
     stream.writeComment(
         "\n<keymap context=\"theContext\" action=\"theAction\" buttons=\"QButton\" "
         "modifier=\"QModifier\" key=\"QKey\" wheel=\"boolean\"/>\n" );
-    QDomNode root = m_domDocument.documentElement();
-    while ( !root.isNull() ) {
-        saveNode( stream, root );
-        if ( stream.hasError() ) { break; }
-        root = root.nextSibling();
-    }
+    //   QDomNode root = m_domDocument.documentElement();
+    //
+    //   while ( !root.isNull() ) {
+    //       saveNode( stream, root );
+    //       if ( stream.hasError() ) { break; }
+    //       root = root.nextSibling();
+    //   }
+    //
+    saveKeymap( stream );
 
     stream.writeEndDocument();
 
@@ -340,6 +343,55 @@ bool KeyMappingManager::saveConfiguration( const std::string& inFilename ) {
         return false;
     }
     return true;
+}
+
+void KeyMappingManager::saveKeymap( QXmlStreamWriter& stream ) {
+
+    // helper functor to write attrib
+    auto saveAttrib = [&stream]( const QString& attribName,
+                                 const QString& attribValue,
+                                 const QString& attribDefault ) {
+        if ( attribValue != attribDefault ) stream.writeAttribute( attribName, attribValue );
+    };
+
+    if ( stream.hasError() ) { return; }
+
+    stream.writeStartElement( "keymaps" );
+
+    for ( const auto& contextPair : m_contextNameToIndex ) {
+        const auto& contextName = contextPair.first;
+        const auto& context     = contextPair.second;
+        for ( const auto& actionPair : m_mappingAction[context] ) {
+            const auto& binding     = actionPair.first;
+            const auto& action      = actionPair.second;
+            const auto& actionNames = m_actionNameToIndex[context];
+            auto actionItr =
+                std::find_if( actionNames.begin(), actionNames.end(), [&action]( const auto& a ) {
+                    return a.second == action;
+                } );
+            if ( actionItr != actionNames.end() ) {
+                const auto& actionName = actionItr->first;
+                stream.writeStartElement( "keymap" );
+                stream.writeAttribute( "context", QString::fromStdString( contextName ) );
+                stream.writeAttribute( "action", QString::fromStdString( actionName ) );
+
+                saveAttrib(
+                    "buttons",
+                    QString::fromStdString( enumNamesFromMouseButtons( binding.m_buttons ) ),
+                    QString::fromStdString( enumNamesFromMouseButtons( Qt::NoButton ) ) );
+                saveAttrib(
+                    "modifiers",
+                    QString::fromStdString( enumNamesFromKeyboardModifiers( binding.m_modifiers ) ),
+                    QString::fromStdString( enumNamesFromKeyboardModifiers( Qt::NoModifier ) ) );
+                saveAttrib( "key", "Key_" + QKeySequence( binding.m_key ).toString(), "Key_" );
+                saveAttrib( "wheel", binding.m_wheel ? "true" : "false", "false" );
+
+                stream.writeEndElement();
+            }
+        }
+    }
+
+    stream.writeEndElement();
 }
 
 void KeyMappingManager::saveNode( QXmlStreamWriter& stream, const QDomNode& domNode ) {
