@@ -137,7 +137,10 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
                                 const std::string& buttonsString,
                                 const std::string& wheelString,
                                 const std::string& actionString );
-
+    KeyMappingAction addAction( const Context& context, const std::string& actionString );
+    KeyMappingAction addAction( const Context& context,
+                                const EventBinding& binding,
+                                const std::string& actionString );
     /// \brief Creates the context index for the given context name.
     ///
     /// If the context already exist, return the existing index. If not, the context is created
