@@ -183,6 +183,7 @@ void TrackballCameraManipulator::zoomCallback( QEvent* event ) {
             m_wheelSpeedModifier );
     }
 }
+
 void TrackballCameraManipulator::moveForwardCallback( QEvent* event ) {
 
     if ( event->type() == QEvent::MouseMove ) {
