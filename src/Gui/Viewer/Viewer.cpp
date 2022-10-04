@@ -79,31 +79,41 @@ void Viewer::setupKeyMappingCallbacks() {
     keyMappingManager->addListener( configureKeyMapping );
 
     m_keyMappingCallbackManager = KeyMappingCallbackManager { ViewerMapping::getContext() };
-    m_keyMappingCallbackManager.addEventCallback(
-        VIEWER_TOGGLE_WIREFRAME, [this]( QEvent* ) { m_currentRenderer->toggleWireframe(); } );
-    m_keyMappingCallbackManager.addEventCallback( VIEWER_RELOAD_SHADERS,
-                                                  [this]( QEvent* ) { reloadShaders(); } );
-    m_keyMappingCallbackManager.addEventCallback( VIEWER_PICKING_MULTI_CIRCLE, [this]( QEvent* ) {
-        m_isBrushPickingEnabled = !m_isBrushPickingEnabled;
-        m_currentRenderer->setBrushRadius( m_isBrushPickingEnabled ? m_brushRadius : 0 );
-        emit toggleBrushPicking( m_isBrushPickingEnabled );
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_TOGGLE_WIREFRAME, [this]( QEvent* event ) {
+        if ( event->type() == QEvent::KeyPress ) m_currentRenderer->toggleWireframe();
     } );
-    m_keyMappingCallbackManager.addEventCallback( VIEWER_SWITCH_CAMERA, []( QEvent* ) {
-        auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
-            Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-        static int idx = 0;
-        if ( cameraManager->count() > 0 ) {
-            idx %= cameraManager->count();
-            cameraManager->activate( idx );
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_RELOAD_SHADERS, [this]( QEvent* event ) {
+        if ( event->type() == QEvent::KeyPress ) reloadShaders();
+    } );
+    m_keyMappingCallbackManager.addEventCallback(
+        VIEWER_PICKING_MULTI_CIRCLE, [this]( QEvent* event ) {
+            if ( event->type() == QEvent::KeyPress ) {
+                m_isBrushPickingEnabled = !m_isBrushPickingEnabled;
+                m_currentRenderer->setBrushRadius( m_isBrushPickingEnabled ? m_brushRadius : 0 );
+                emit toggleBrushPicking( m_isBrushPickingEnabled );
+            }
+        } );
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_SWITCH_CAMERA, []( QEvent* event ) {
+        if ( event->type() == QEvent::KeyPress ) {
+            auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+                Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+            static int idx = 0;
+            if ( cameraManager->count() > 0 ) {
+                idx %= cameraManager->count();
+                cameraManager->activate( idx );
+            }
+            idx++;
         }
-        idx++;
     } );
 
-    m_keyMappingCallbackManager.addEventCallback( VIEWER_CAMERA_FIT_SCENE,
-                                                  [this]( QEvent* ) { fitCamera(); } );
-    m_keyMappingCallbackManager.addEventCallback( VIEWER_HELP, [this]( QEvent* ) {
-        displayHelpDialog();
-        requestActivate();
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_CAMERA_FIT_SCENE, [this]( QEvent* event ) {
+        if ( event->type() == QEvent::KeyPress ) fitCamera();
+    } );
+    m_keyMappingCallbackManager.addEventCallback( VIEWER_HELP, [this]( QEvent* event ) {
+        if ( event->type() == QEvent::KeyPress ) {
+            displayHelpDialog();
+            requestActivate();
+        }
     } );
 }
 
