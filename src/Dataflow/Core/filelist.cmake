@@ -13,8 +13,9 @@ set(dataflow_core_headers
     Node.hpp
     NodeFactory.hpp
     Nodes/CoreBuiltInsNodes.hpp
-    Nodes/Filters/CoreDataFilters.hpp
-    Nodes/Filters/FilterNode.hpp
+    Nodes/Functionals/CoreDataFunctionals.hpp
+    Nodes/Functionals/FilterNode.hpp
+    Nodes/Functionals/MapNode.hpp
     Nodes/Sinks/CoreDataSinks.hpp
     Nodes/Sinks/SinkNode.hpp
     Nodes/Sources/CoreDataSources.hpp
@@ -30,7 +31,8 @@ set(dataflow_core_inlines
     Enumerator.inl
     Node.inl
     NodeFactory.inl
-    Nodes/Filters/FilterNode.inl
+    Nodes/Functionals/FilterNode.inl
+    Nodes/Functionals/MapNode.inl
     Nodes/Sinks/CoreDataSinks.inl
     Nodes/Sinks/SinkNode.inl
     Nodes/Sources/CoreDataSources.inl

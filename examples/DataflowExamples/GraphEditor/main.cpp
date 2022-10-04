@@ -4,7 +4,7 @@
 
 #include "MainWindow.hpp"
 
-#include <Dataflow/Core/Nodes/Filters/FilterNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
 #include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 
@@ -36,8 +36,8 @@ int main( int argc, char* argv[] ) {
     // add node creators to the factory
     customFactory->registerNodeCreator<Sources::SingleDataSourceNode<VectorType>>(
         Sources::SingleDataSourceNode<VectorType>::getTypename() + "_", "Custom" );
-    customFactory->registerNodeCreator<Filters::FilterNode<VectorType>>(
-        Filters::FilterNode<VectorType>::getTypename() + "_", "Custom" );
+    customFactory->registerNodeCreator<Functionals::FilterNode<VectorType>>(
+        Functionals::FilterNode<VectorType>::getTypename() + "_", "Custom" );
     customFactory->registerNodeCreator<Sinks::SinkNode<VectorType>>(
         Sinks::SinkNode<VectorType>::getTypename() + "_", "Custom" );
 

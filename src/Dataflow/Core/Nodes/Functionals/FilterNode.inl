@@ -1,25 +1,24 @@
 #pragma once
-#include <Dataflow/Core/Nodes/Filters/FilterNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
 
 #include <Core/Utils/Color.hpp>
 
 namespace Ra {
 namespace Dataflow {
 namespace Core {
-namespace Filters {
+namespace Functionals {
 
 template <typename coll_t, typename v_t>
 FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName ) :
     FilterNode( instanceName, getTypename(), []( v_t ) { return true; } ) {}
 
 template <typename coll_t, typename v_t>
-FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
-                                     UnaryPredicate filterFunction ) :
-    FilterNode( instanceName, getTypename(), filterFunction ) {}
+FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName, UnaryPredicate predicate ) :
+    FilterNode( instanceName, getTypename(), predicate ) {}
 
 template <typename coll_t, typename v_t>
-void FilterNode<coll_t, v_t>::setFilterFunction( UnaryPredicate filterFunction ) {
-    m_filterFunction = filterFunction;
+void FilterNode<coll_t, v_t>::setFilterFunction( UnaryPredicate predicate ) {
+    m_predicate = predicate;
 }
 
 template <typename coll_t, typename v_t>
@@ -30,8 +29,8 @@ void FilterNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 void FilterNode<coll_t, v_t>::execute() {
-    auto predPort = dynamic_cast<PortIn<std::function<bool( v_t )>>*>( m_inputs[1].get() );
-    auto f        = m_filterFunction;
+    auto predPort = dynamic_cast<PortIn<UnaryPredicate>*>( m_inputs[1].get() );
+    auto f        = m_predicate;
     if ( predPort->isLinked() ) { f = predPort->getData(); }
     auto input = dynamic_cast<PortIn<coll_t>*>( m_inputs[0].get() );
     if ( input->isLinked() ) {
@@ -58,13 +57,13 @@ const std::string& FilterNode<coll_t, v_t>::getTypename() {
 template <typename coll_t, typename v_t>
 FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
                                      const std::string& typeName,
-                                     std::function<bool( v_t )> filterFunction ) :
-    Node( instanceName, typeName ), m_filterFunction( filterFunction ) {
+                                     UnaryPredicate filterFunction ) :
+    Node( instanceName, typeName ), m_predicate( filterFunction ) {
     auto portIn = new PortIn<coll_t>( "in", this );
     addInput( portIn );
     portIn->mustBeLinked();
 
-    auto predicate = new PortIn<std::function<bool( v_t )>>( "f", this );
+    auto predicate = new PortIn<UnaryPredicate>( "f", this );
     addInput( predicate );
 
     auto portOut = new PortOut<coll_t>( "out", this );
@@ -85,7 +84,7 @@ void FilterNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
         << "Unable to read data when un-serializing a " << getTypeName() << ".";
 }
 
-} // namespace Filters
+} // namespace Functionals
 } // namespace Core
 } // namespace Dataflow
 } // namespace Ra

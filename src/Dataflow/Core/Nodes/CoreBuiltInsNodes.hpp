@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Dataflow/Core/Nodes/Filters/CoreDataFilters.hpp>
+#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
 #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 #include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>

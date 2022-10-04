@@ -9,6 +9,11 @@ namespace Dataflow {
 namespace Core {
 
 namespace NodeFactoriesManager {
+#define ADD_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )                       \
+    FACTORY->registerNodeCreator<NAMESPACE::ArrayFilter##SUFFIX>(          \
+        NAMESPACE::ArrayFilter##SUFFIX::getTypename() + "_", #NAMESPACE ); \
+    FACTORY->registerNodeCreator<NAMESPACE::ArrayMapper##SUFFIX>(          \
+        NAMESPACE::ArrayMapper##SUFFIX::getTypename() + "_", #NAMESPACE )
 
 void registerStandardFactories() {
     NodeFactorySet::mapped_type coreFactory { new NodeFactorySet::mapped_type::element_type(
@@ -58,17 +63,23 @@ void registerStandardFactories() {
     coreFactory->registerNodeCreator<Sinks::ColorArraySink>(
         Sinks::ColorArraySink::getTypename() + "_", "Sink" );
 
-    /* --- Filters --- */
-    coreFactory->registerNodeCreator<Filters::FloatArrayFilter>(
-        Filters::FloatArrayFilter::getTypename() + "_", "Filter" );
-    coreFactory->registerNodeCreator<Filters::DoubleArrayFilter>(
-        Filters::DoubleArrayFilter::getTypename() + "_", "Filter" );
-    coreFactory->registerNodeCreator<Filters::IntArrayFilter>(
-        Filters::IntArrayFilter::getTypename() + "_", "Filter" );
-    coreFactory->registerNodeCreator<Filters::UIntArrayFilter>(
-        Filters::UIntArrayFilter::getTypename() + "_", "Filter" );
-    coreFactory->registerNodeCreator<Filters::ColorArrayFilter>(
-        Filters::ColorArrayFilter::getTypename() + "_", "Filter" );
+    /* --- Functionals */
+    ADD_TO_FACTORY( coreFactory, Functionals, Float );
+    ADD_TO_FACTORY( coreFactory, Functionals, Int );
+    ADD_TO_FACTORY( coreFactory, Functionals, UInt );
+    ADD_TO_FACTORY( coreFactory, Functionals, Color );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector2f );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector2d );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector3f );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector3d );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector4f );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector4d );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector2i );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector2ui );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector3i );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector3ui );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector4i );
+    ADD_TO_FACTORY( coreFactory, Functionals, Vector4ui );
 
     /* --- Functions --- */
     coreFactory->registerNodeCreator<Sources::ScalarBinaryPredicate>(
