@@ -260,7 +260,7 @@ class KeyMappingCallbackManager
     using KeyMappingAction = KeyMappingManager::KeyMappingAction;
     using Callback         = std::function<void( QEvent* )>;
 
-    KeyMappingCallbackManager( Context context ) : m_context { context } {}
+    explicit KeyMappingCallbackManager( Context context ) : m_context { context } {}
 
     void addEventCallback( KeyMappingAction action, Callback callback ) {
         m_keymappingCallbacks[action] = callback;
