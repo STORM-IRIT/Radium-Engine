@@ -68,7 +68,7 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
         key = -1;
     }
 
-    return getAction( context, { buttons, modifiers, key, wheel } );
+    return getAction( context, EventBinding { buttons, modifiers, key, wheel } );
 }
 
 KeyMappingManager::KeyMappingAction
@@ -152,8 +152,8 @@ KeyMappingManager::Context KeyMappingManager::getContext( const std::string& con
     return Context {};
 }
 
-KeyMappingManager::KeyMappingAction
-KeyMappingManager::getActionIndex( const Context& context, const std::string& actionName ) {
+KeyMappingManager::KeyMappingAction KeyMappingManager::getAction( const Context& context,
+                                                                  const std::string& actionName ) {
     if ( size_t( context ) >= m_actionNameToIndex.size() || context.isInvalid() ) {
         LOG( logWARNING ) << "try to get action index ( " << actionName
                           << " ) from an invalid context ( " << context << " )";

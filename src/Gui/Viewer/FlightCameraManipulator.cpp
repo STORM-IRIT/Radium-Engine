@@ -54,9 +54,9 @@ void Gui::FlightCameraManipulator::configureKeyMapping_impl() {
             Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" ) );
     }
 
-#define KMA_VALUE( XX )                                         \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( \
-        FlightCameraKeyMapping::getContext(), #XX );
+#define KMA_VALUE( XX )                                                                          \
+    XX = Gui::KeyMappingManager::getInstance()->getAction( FlightCameraKeyMapping::getContext(), \
+                                                           #XX );
     KeyMappingFlightManipulator
 #undef KMA_VALUE
 }
