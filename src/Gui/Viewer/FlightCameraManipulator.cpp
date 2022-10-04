@@ -34,24 +34,21 @@ void Gui::FlightCameraManipulator::configureKeyMapping_impl() {
                                               "configuration file do not contains it). Adding "
                                               "default configuration for FlightManipulatorContext.";
 
-        Gui::KeyMappingManager::getInstance()->addAction(
-            "FlightManipulatorContext", "", "", "LeftButton", "", "FLIGHTMODECAMERA_ROTATE" );
-        Gui::KeyMappingManager::getInstance()->addAction( "FlightManipulatorContext",
-                                                          "",
-                                                          "ShiftModifier",
-                                                          "LeftButton",
-                                                          "",
-                                                          "FLIGHTMODECAMERA_PAN" );
-        Gui::KeyMappingManager::getInstance()->addAction( "FlightManipulatorContext",
-                                                          "",
-                                                          "ControlModifier",
-                                                          "LeftButton",
-                                                          "",
-                                                          "FLIGHTMODECAMERA_ZOOM" );
-        Gui::KeyMappingManager::getInstance()->addAction(
-            "FlightManipulatorContext", "Key_A", "", "", "", "FLIGHTMODECAMERA_ROTATE_AROUND" );
-        FlightCameraKeyMapping::setContext(
-            Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" ) );
+        auto mgr     = Gui::KeyMappingManager::getInstance();
+        auto context = mgr->addContext( "FlightManipulatorContext" );
+        FlightCameraKeyMapping::setContext( context );
+        mgr->addAction( context,
+                        mgr->createEventBindingFromStrings( "LeftButton" ),
+                        "FLIGHTMODECAMERA_ROTATE" );
+        mgr->addAction( context,
+                        mgr->createEventBindingFromStrings( "LeftButton", "ShiftModifier" ),
+                        "FLIGHTMODECAMERA_PAN" );
+        mgr->addAction( context,
+                        mgr->createEventBindingFromStrings( "LeftButton", "ControlModifier" ),
+                        "FLIGHTMODECAMERA_ZOOM" );
+        mgr->addAction( context,
+                        mgr->createEventBindingFromStrings( "", "", "Key_A" ),
+                        "FLIGHTMODECAMERA_ROTATE_AROUND" );
     }
 
 #define KMA_VALUE( XX )                                                                          \

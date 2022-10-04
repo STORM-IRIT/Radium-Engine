@@ -109,31 +109,6 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// if such binding doesn't exists, the optional does not contain a value.
     std::optional<EventBinding> getBinding( const Context& context, KeyMappingAction action );
 
-    /// \brief Add a given action within a possibly non existing context (also created in this case)
-    /// to the mapping system.
-    ///
-    /// This allow to define default behavior when some KeyMappingManageable object is not
-    /// parameterized in the application config file.
-    /// The action is added to the current config
-    /// file (i.e. m_domDocument) so that it will be saved if saveConfiguration is called for
-    /// subsequent usage.
-    ///
-    /// \param context the context of the action
-    /// \param keyString represents the key that needs to be pressed to trigger the event
-    /// (ie Key_Z, for example), "" or "-1" corresponds to no key needed.
-    /// \param modifiersString represents the modifier used along with key or mouse button `
-    /// (needs to be a Qt::Modifier enum value) to trigger the action. Multiples modifiers can be
-    /// specified, separated by commas as in "ControlModifier,ShiftModifier".
-    /// \param buttonsString represents the button to trigger the event (e.g. LeftButton).
-    /// \param wheelString if true, it's a wheel event !
-    /// \param actionName represents the KeyMappingAction enum's value you want to
-    /// trigger.
-    KeyMappingAction addAction( const std::string& contextName,
-                                const std::string& keyString,
-                                const std::string& modifiersString,
-                                const std::string& buttonsString,
-                                const std::string& wheelString,
-                                const std::string& actionName );
     KeyMappingAction addAction( const Context& context, const std::string& actionName );
     KeyMappingAction
     addAction( const Context& context, const EventBinding& binding, const std::string& actionName );
@@ -181,13 +156,13 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// without space
     static std::string enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& modifiers );
 
-    static EventBinding createEventBindingFromStrings( const std::string& keyString,
-                                                       const std::string& modifiersString,
-                                                       const std::string& buttonsString,
-                                                       const std::string& wheelString ) {
-        return { KeyMappingManager::getQtMouseButtonsValue( buttonsString ),
-                 KeyMappingManager::getQtModifiersValue( modifiersString ),
-                 KeyMappingManager::getKeyCode( keyString ),
+    static EventBinding createEventBindingFromStrings( const std::string& buttonsString   = "",
+                                                       const std::string& modifiersString = "",
+                                                       const std::string& keyString       = "",
+                                                       const std::string& wheelString     = "" ) {
+        return { getQtMouseButtonsValue( buttonsString ),
+                 getQtModifiersValue( modifiersString ),
+                 getKeyCode( keyString ),
                  wheelString.compare( "true" ) == 0 };
     }
 

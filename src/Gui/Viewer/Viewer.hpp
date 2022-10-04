@@ -147,13 +147,11 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// get the currently used background color
     const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
-    /// Add a custom event handler on keyPressed event
-    KeyMappingManager::KeyMappingAction addCustomAction( const std::string& actionName,
-                                                         const std::string& keyString,
-                                                         const std::string& modifiersString,
-                                                         const std::string& buttonsString,
-                                                         const std::string& wheelString,
-                                                         std::function<void( QEvent* )> callback );
+    /// Add a custom event callback
+    KeyMappingManager::KeyMappingAction
+    addCustomAction( const std::string& actionName,
+                     const KeyMappingManager::EventBinding& binding,
+                     std::function<void( QEvent* )> callback );
     ///@}
 
     Scalar getDepthUnderMouse() const { return m_depthUnderMouse; }
