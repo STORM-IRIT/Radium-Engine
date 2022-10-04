@@ -33,8 +33,7 @@ void SingleDataSourceNode<T>::execute() {
 template <typename T>
 void SingleDataSourceNode<T>::setData( T* data ) {
     if ( m_data == &m_localData ) {
-        // TODO : do we need to copy the data ?
-        std::cerr << "SingleDataSourceNode<T>::setData : overriding the local data !!!\n";
+        // copy data into local storage
         m_localData = *data;
     }
     else {
