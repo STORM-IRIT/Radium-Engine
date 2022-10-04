@@ -158,7 +158,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// \param actionName the name of the action
     /// \return an invalid action if context is not valid, or if actionName has  not been created.
     /// (i,e action.isInvalid())
-    KeyMappingAction getActionIndex( const Context& context, const std::string& actionName );
+    KeyMappingAction getAction( const Context& context, const std::string& actionName );
 
     /// \return Action name if context index and action index are valid, "Invalid" otherwise
     std::string getActionName( const Context& context, const KeyMappingAction& action );

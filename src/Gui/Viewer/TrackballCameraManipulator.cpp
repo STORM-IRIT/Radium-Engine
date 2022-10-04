@@ -39,7 +39,7 @@ void TrackballCameraManipulator::configureKeyMapping_impl() {
     }
 
 #define KMA_VALUE( XX ) \
-    XX = KeyMappingManager::getInstance()->getActionIndex( KeyMapping::getContext(), #XX );
+    XX = KeyMappingManager::getInstance()->getAction( KeyMapping::getContext(), #XX );
     KeyMappingCamera
 #undef KMA_VALUE
 }

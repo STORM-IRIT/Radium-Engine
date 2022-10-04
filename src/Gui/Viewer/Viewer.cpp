@@ -117,7 +117,7 @@ void Viewer::configureKeyMapping_impl() {
         return;
     }
 
-#define KMA_VALUE( XX ) XX = keyMappingManager->getActionIndex( ViewerMapping::getContext(), #XX );
+#define KMA_VALUE( XX ) XX = keyMappingManager->getAction( ViewerMapping::getContext(), #XX );
     KeyMappingViewer
 #undef KMA_VALUE
 }

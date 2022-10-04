@@ -29,7 +29,7 @@ void GizmoManager::configureKeyMapping_impl() {
         return;
     }
 #define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( GizmoMapping::getContext(), #XX );
+    XX = Gui::KeyMappingManager::getInstance()->getAction( GizmoMapping::getContext(), #XX );
     KeyMappingGizmo
 #undef KMA_VALUE
 }
