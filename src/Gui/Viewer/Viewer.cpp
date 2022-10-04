@@ -854,8 +854,11 @@ Viewer::addCustomAction( const std::string& actionName,
                          const std::string& wheelString,
                          std::function<void( QEvent* )> callback ) {
 
-    return m_keyMappingCallbackManager.addEventCallback(
-        actionName, buttonsString, modifiersString, keyString, wheelString, callback );
+    return m_keyMappingCallbackManager.addActionAndCallback(
+        actionName,
+        KeyMappingManager::createEventBindingFromStrings(
+            keyString, modifiersString, buttonsString, wheelString ),
+        callback );
 }
 
 } // namespace Gui

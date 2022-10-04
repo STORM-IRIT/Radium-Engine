@@ -10,8 +10,7 @@ namespace Ra::Gui {
 
 using namespace Core::Utils; // log
 
-KeyMappingManager::KeyMappingManager() :
-    m_metaEnumKey( QMetaEnum::fromType<Qt::Key>() ), m_file( nullptr ) {
+KeyMappingManager::KeyMappingManager() : m_file( nullptr ) {
 
     auto optionalPath { Core::Resources::getRadiumResourcesPath() };
     auto resourcesRootDir { optionalPath.value_or( "[[Default resrouces path not found]]" ) };
@@ -432,6 +431,11 @@ KeyMappingManager::KeyMappingAction KeyMappingManager::addAction( const Context&
     return actionIndex;
 }
 
+int KeyMappingManager::getKeyCode( const std::string& keyString ) {
+    auto metaEnumKey = QMetaEnum::fromType<Qt::Key>();
+    return metaEnumKey.keyToValue( keyString.c_str() );
+}
+
 KeyMappingManager::KeyMappingAction
 KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
                                                      const std::string& keyString,
@@ -442,20 +446,16 @@ KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
     auto contextIndex = addContext( context );
     auto actionIndex  = addAction( contextIndex, actionName );
 
-    auto modifiersValue = getQtModifiersValue( modifiersString );
-    auto keyValue       = m_metaEnumKey.keyToValue( keyString.c_str() );
-    auto buttonsValue   = getQtMouseButtonsValue( buttonsString );
-    auto wheel          = wheelString.compare( "true" ) == 0;
+    auto binding =
+        createEventBindingFromStrings( keyString, modifiersString, buttonsString, wheelString );
 
-    if ( keyValue == -1 && buttonsValue == Qt::NoButton && !wheel ) {
+    if ( binding.m_key == -1 && binding.m_buttons == Qt::NoButton && !binding.m_wheel ) {
         LOG( logERROR ) << "Invalid binding for action [" << actionName << "] with key ["
                         << keyString << "], buttons [" << buttonsString << "], wheel ["
                         << wheelString << "]";
     }
     else {
-        bindKeyToAction( contextIndex,
-                         EventBinding { buttonsValue, modifiersValue, keyValue, wheel },
-                         actionIndex );
+        bindKeyToAction( contextIndex, binding, actionIndex );
     }
     return actionIndex;
 }

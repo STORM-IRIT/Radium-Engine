@@ -22,9 +22,6 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 {
     RA_SINGLETON_INTERFACE( KeyMappingManager );
 
-    // Needed by Q_ENUM
-    Q_GADGET
-
   public:
     /// Inner class to store event binding.
     class EventBinding
@@ -184,6 +181,16 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// without space
     static std::string enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& modifiers );
 
+    static EventBinding createEventBindingFromStrings( const std::string& keyString,
+                                                       const std::string& modifiersString,
+                                                       const std::string& buttonsString,
+                                                       const std::string& wheelString ) {
+        return { KeyMappingManager::getQtMouseButtonsValue( buttonsString ),
+                 KeyMappingManager::getQtModifiersValue( modifiersString ),
+                 KeyMappingManager::getKeyCode( keyString ),
+                 wheelString.compare( "true" ) == 0 };
+    }
+
   private:
     KeyMappingManager();
     ~KeyMappingManager();
@@ -216,11 +223,10 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// are comma separated in the modifiers string, \note only one button is
     /// supported for the moment.
     static Qt::MouseButtons getQtMouseButtonsValue( const std::string& buttonsString );
+    static int getKeyCode( const std::string& keyString );
 
   private:
     std::string m_defaultConfigFile;
-    QMetaEnum m_metaEnumAction;
-    QMetaEnum m_metaEnumKey;
     QFile* m_file;
 
     using MouseBindingMapping = std::map<EventBinding, KeyMappingAction>;
@@ -272,26 +278,19 @@ class KeyMappingCallbackManager
 
     KeyMappingCallbackManager( Context context ) : m_context { context } {}
 
-    void addEventCallback( KeyMappingAction index, Callback callback ) {
-        m_keymappingCallbacks[index] = callback;
+    void addEventCallback( KeyMappingAction action, Callback callback ) {
+        m_keymappingCallbacks[action] = callback;
     }
 
-    KeyMappingAction addEventCallback( const std::string& actionName,
-                                       const std::string& buttonsString,
-                                       const std::string& modifiersString,
-                                       const std::string& keyString,
-                                       const std::string& wheelString,
-                                       Callback callback ) {
-        auto mgr   = KeyMappingManager::getInstance();
-        auto index = mgr->addAction( mgr->getContextName( m_context ),
-                                     keyString,
-                                     modifiersString,
-                                     buttonsString,
-                                     wheelString,
-                                     actionName );
+    KeyMappingManager::KeyMappingAction
+    addActionAndCallback( const std::string& actionName,
+                          const KeyMappingManager::EventBinding& binding,
+                          Callback callback ) {
 
-        addEventCallback( index, callback );
-        return index;
+        auto mgr    = KeyMappingManager::getInstance();
+        auto action = mgr->addAction( m_context, binding, actionName );
+        addEventCallback( action, callback );
+        return action;
     }
 
     bool triggerEventCallback( KeyMappingAction actionIndex, QEvent* event ) {
