@@ -268,7 +268,9 @@ bool DataflowGraph::addNode( Node* newNode ) {
 #endif
                 auto portInterface =
                     p->reflect( this, newNode->getInstanceName() + '_' + p->getName() );
-                portInterface->mustBeLinked();
+                // an interface port may not be linked.
+                // TODO allow nodes to override addInterface so that they can add this requirements
+                // portInterface->mustBeLinked();
                 newNode->addInterface( portInterface );
                 addSetter( portInterface );
             }
@@ -418,12 +420,18 @@ bool DataflowGraph::addLink( Node* nodeFrom,
     }
 
     // Compare types
+    // TODO fix the variable naming ...
     if ( nodeTo->getInputs()[foundTo]->getType() != nodeFrom->getOutputs()[foundFrom]->getType() ) {
 #ifdef GRAPH_CALL_TRACE
         std::cerr << "ADD LINK : cannot connect output \"" + nodeFromOutputName + "\" for node \"" +
                          nodeTo->getInstanceName() + "\" and input \"" + nodeToInputName +
-                         "\" for node \"" + nodeFrom->getInstanceName() + "\" : type mismatch."
-                  << std::endl;
+                         "\" for node \"" + nodeFrom->getInstanceName() +
+                         "\" : type mismatch : \n\t"
+                         "Type to : "
+                  << nodeTo->getInputs()[foundTo]->getTypeName()
+                  << "\n\t"
+                     "Type from : "
+                  << nodeFrom->getOutputs()[foundFrom]->getTypeName() << "\n\t" << std::endl;
 #endif
         return false;
     }
