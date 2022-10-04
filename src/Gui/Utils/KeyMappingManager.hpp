@@ -267,6 +267,7 @@ class RA_GUI_API KeyMappingCallbackManager
     inline bool triggerEventCallback( KeyMappingAction actionIndex, QEvent* event );
     inline bool triggerEventCallback( QEvent* event, int key, bool wheel = false );
 
+  private:
     std::map<KeyMappingAction, Callback> m_keymappingCallbacks;
     Context m_context;
 };
