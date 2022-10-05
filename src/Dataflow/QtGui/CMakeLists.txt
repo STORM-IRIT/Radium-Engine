@@ -3,7 +3,7 @@ list(APPEND CMAKE_MESSAGE_INDENT "[${ra_dataflowqtgui_target}] ")
 
 project(${ra_dataflowqtgui_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
-add_subdirectory(QtNodeEditor)
+find_package(RadiumNodeEditor REQUIRED)
 
 include(filelist.cmake)
 
@@ -33,20 +33,13 @@ target_compile_definitions(${ra_dataflowqtgui_target} PRIVATE RA_DATAFLOW_EXPORT
 
 target_compile_options(${ra_dataflowqtgui_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
-target_include_directories(
-    ${ra_dataflowqtgui_target}
-    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/QtNodeEditor/include>
-           $<INSTALL_INTERFACE:include/>
-)
-target_include_directories(
-    ${ra_dataflowqtgui_target} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
-                                      $<INSTALL_INTERFACE:include/>
-    PRIVATE ${CMAKE_CURRENT_BINARY_DIR}
-)
+target_include_directories(${ra_dataflowqtgui_target} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
 add_dependencies(${ra_dataflowqtgui_target} DataflowCore Gui)
+
 target_link_libraries(
-    ${ra_dataflowqtgui_target} PUBLIC ${Qt_LIBRARIES} DataflowCore Gui PUBLIC NodeEditor::NodeEditor
-    PRIVATE PowerSlider::PowerSlider
+    ${ra_dataflowqtgui_target} PUBLIC ${Qt_LIBRARIES} DataflowCore Gui
+    PUBLIC RadiumNodeEditor::RadiumNodeEditor PRIVATE PowerSlider::PowerSlider
 )
 
 message(STATUS "Configuring library ${ra_dataflowqtgui_target} with standard settings")

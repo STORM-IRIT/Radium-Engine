@@ -101,7 +101,7 @@ set(tinyEXR_DIR "/path/to/external/install/share/tinyEXR/cmake/" CACHE PATH "My 
 set(assimp_DIR "/path/to/external/install/lib/cmake/assimp-5.0/" CACHE PATH "My assimp location")
 set(tinyply_DIR "/path/to/external/install/lib/cmake/tinyply/" CACHE PATH "My tinyply location")
 set(PowerSlider_DIR "/path/to/external/install/lib/cmake/PowerSlider/" CACHE PATH "My PowerSlider location")
-set(stduuid_DIR       "${RADIUM_DEP_PREFIX}/lib/cmake/stduuid/" CACHE PATH "My stduuid")
+set(stduuid_DIR "/path/to/external/install/lib/cmake/stduuid/" CACHE PATH "My stduuid")
 set(RADIUM_IO_ASSIMP ON CACHE BOOL "Radium uses assimp io")
 set(RADIUM_IO_TINYPLY ON CACHE BOOL "Radium uses tinyply io")
 ~~~
@@ -125,6 +125,7 @@ Currently supported (note that these paths must refer to the installation direct
 <!--  (generated running ../script/list_dep.py from Radium-Engine/external directory) -->
 
 * `stduuid_DIR`
+* `RadiumNodeEditor_DIR`
 * `assimp_DIR`
 * `tinyply_DIR`
 * `PowerSlider_DIR`
@@ -142,6 +143,8 @@ Radium is compiled and tested with specific version of dependencies, as given in
 
 * stduuid: https://github.com/mariusbancila/stduuid, [3afe7193facd5d674de709fccc44d5055e144d7a],
     * with options `-DUUID_BUILD_TESTS=OFF -DUUID_ENABLE_INSTALL=ON`
+* RadiumNodeEditor: https://github.com/MathiasPaulin/RadiumQtNodeEditor.git, [main],
+    * with options `None`
 * assimp: https://github.com/assimp/assimp.git, [tags/v5.0.1],
   * with options `-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True`
 * tinyply: https://github.com/ddiakopoulos/tinyply.git, [tags/2.3.2],
