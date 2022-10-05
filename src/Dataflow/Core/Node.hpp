@@ -19,51 +19,81 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
+/** \brief Base abstract class for all the nodes added and used by the node system.
+ * A node represent a function acting on some input data and generating some outputs.
+ * To build a computation graph, nodes should be added to the graph, which is itself a node
+ * (\see Ra::Dataflow::Core::DataflowGraph) and linked together through their input/output port.
+ *
+ * Nodes computes their function using the input data collecting from the input ports,
+ * in an evaluation context (possibly empty) defined byt their internal data to generate results
+ * sent to their output ports.
+ *
+ */
 class RA_DATAFLOW_API Node
 {
   public:
-    /// Constructor.
+    /// \name Constructors
+    /// @{
+    /// \brief delete default constructors.
+    /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-copy-virtual
     Node()              = delete;
     Node( const Node& ) = delete;
     Node& operator=( const Node& ) = delete;
-    virtual ~Node()                = default;
+    /// @}
 
+    /// \brief make Node a base abstract class
+    virtual ~Node() = default;
+
+    /// \brief Two nodes are considered equal if there type and instance names are the same.
+    bool operator==( const Node& o_node );
+
+    /// \name Function execution control
+    /// @{
     /// \brief Initializes the node content
-    /// The init() function is called once at the start of the application.
+    /// The init() function should be called once at the beginning of the lifetime of the node by
+    /// the owner of the node (the graph which contains the node).
     /// Its goal is to initialize the node's internal data if any.
-    /// The base version do nothing
+    /// The base version do nothing.
     virtual void init();
 
-    /// \brief Executes the node
-    /// The execute() function on an active node is called each time the graph is executed.
-    /// Execute the node processing on the input ports and write the results to the output ports.
+    /// \brief Compile the node to check its validity
+    /// Only nodes defining a full computation graph will need to override this method.
+    /// The base version do nothing.
+    /// \return the compilation status
+    virtual bool compile();
+
+    /// \brief Executes the node.
+    /// Execute the node function on the input ports (to be fetched) and write the results to the
+    /// output ports.
     virtual void execute() = 0;
 
     /// \brief delete the node content
-    /// The destroy() function is called once at the end of the application.
+    /// The destroy() function is called once at the end of the lifetime of the node.
     /// Its goal is to free the internal data that have been allocated.
     virtual void destroy();
+    /// @}
 
-    /// TODO : specify the json format for nodes and what is expected from the following ethods
+    /// \name Control the interfaces of the nodes (inputs, outputs, internal data, ...)
+    /// @{
+    /// \brief Gets the in ports of the node.
+    const std::vector<std::unique_ptr<PortBase>>& getInputs();
 
-    /// \brief serialize the content of the node.
-    /// Fill the given json object with the json representation of the concrete node.
-    virtual void toJson( nlohmann::json& data ) const;
+    /// \brief Gets the out ports of the node.
+    const std::vector<std::unique_ptr<PortBase>>& getOutputs();
 
-    /// \brief unserialized the content of the node.
-    /// Fill the node from its json representation
-    virtual void fromJson( const nlohmann::json& data );
+    /// \brief Build the interface ports of the node
+    const std::vector<PortBase*>& buildInterfaces( Node* parent );
 
-    /// \brief Compile the node to check its validity
-    virtual bool compile();
+    /// \brief Get the interface ports of the node
+    const std::vector<PortBase*>& getInterfaces();
 
-    /// \bried Add a metadata to the node to store application specific informations.
-    /// used, e.g. by the node editor gui to save node position in the graphical canvas.
-    void addJsonMetaData( const nlohmann::json& data );
+    /// \brief Gets the editable parameters of the node.
+    /// used only by the node editor gui to build the editon widget
+    const std::vector<std::unique_ptr<EditableParameterBase>>& getEditableParameters();
+    /// @}
 
-    /// \bried Give access to extra json data stored on the node.
-    nlohmann::json& getJsonMetaData();
-
+    /// \name Identification methods
+    /// @{
     /// \brief Gets the type name of the node.
     const std::string& getTypeName() const;
 
@@ -73,54 +103,54 @@ class RA_DATAFLOW_API Node
     /// \brief Sets the instance name (rename) the node
     void setInstanceName( const std::string& newName );
 
-    /// \brief Generates the uuid of the node
-    void generateUuid();
-
     /// \brief Gets the UUID of the node as a string
     std::string getUuid() const;
 
-    /// \brief Sets the UUID of the node from a valid string string
-    /// \return true if the uuid is set, false if the node already have a valid uid
+    /// \brief Sets the UUID of the node from a valid uuid string
+    /// \return true if the uuid is set, false if the node already have a valid uid or the string is
+    /// invalid
     bool setUuid( const std::string& uid );
+    /// @}
+
+    /// \name Serialization of a node
+    /// @{
+    /// TODO : specify the json format for nodes and what is expected from the following ethods
+
+    /// \brief serialize the content of the node.
+    /// Fill the given json object with the json representation of the concrete node.
+    void toJson( nlohmann::json& data ) const;
+
+    /// \brief unserialized the content of the node.
+    /// Fill the node from its json representation
+    void fromJson( const nlohmann::json& data );
+
+    /// \brief Add a metadata to the node to store application specific information.
+    /// used, e.g. by the node editor gui to save node position in the graphical canvas.
+    void addJsonMetaData( const nlohmann::json& data );
+
+    /// \brief Give access to extra json data stored on the node.
+    const nlohmann::json& getJsonMetaData();
+    /// @}
 
     /// \brief Tests if the node is deletable (deprecated)
+    /// \todo remove the deletable status management of the node through the use of proper
+    /// ownership. This will require modifying RadiumNodeEditor external
     /// \return the deletable status of the node
     [[deprecated]] bool isDeletable();
 
     /// \brief Set the deletable status of the node
     [[deprecated]] void setDeletableStatus( bool deletable = true );
 
-    /// \brief Gets the in ports of the node.
-    const std::vector<std::unique_ptr<PortBase>>& getInputs();
-
-    /// \brief Gets the out ports of the node.
-    const std::vector<std::unique_ptr<PortBase>>& getOutputs();
-
-    /// \brief Get the interface ports of the node
-    const std::vector<PortBase*>& getInterface();
-
-    /// Gets the editable parameters of the node.
-    const std::vector<std::unique_ptr<EditableParameterBase>>& getEditableParameters();
+    /// \brief Flag that checks if the node is already initialized
+    bool m_initialized { false };
 
     /// \brief Sets the filesystem (real or virtual) location for the pass resources
     inline void setResourcesDir( std::string resourcesRootDir );
 
-    /// \brief Flag that checks if the node is already initialized
-    bool m_initialized { false };
-
-    /// \brief Two nodes are considered equal if there names are the same.
-    bool operator==( const Node& o_node );
-
-    /// Adds an interface port to the node.
-    /// This function checks if there is no interface port with the same name already associated
-    /// with this node.
-    /// \param port The interface port to add.
-    bool addInterface( PortBase* port );
-
   protected:
+    /// Construct the base node given its name and type
     /// \param instanceName The name of the node
     /// \param typeName The type name of the node
-
     Node( const std::string& instanceName, const std::string& typeName );
 
     /// internal json representation of the Node.
@@ -149,30 +179,27 @@ class RA_DATAFLOW_API Node
     template <typename T>
     void addOutput( PortOut<T>* out, T* data );
 
-    /// Adds an out port for a GRAPH. This port is also an interface port whose reference is stored
-    /// in the source and sink nodes of the graph. This function checks if there is no out port with
-    /// the same name already associated with the graph.
-    /// \param out The port to add.
-    bool addOutput( PortBase* out );
+    /// Adds an interface port to the node.
+    /// This function checks if there is no interface port with the same name already associated
+    /// with this node.
+    /// \param port The interface port to add.
+    /// \deprecated, use buildInterfaces instead
+
+    [[deprecated]] bool addInterface( PortBase* port );
 
     /// \brief Adds an editable parameter to the node if it does not already exist.
     /// \note the node will take ownership of the editable object.
     /// \param editableParameter The editable parameter to add.
-    template <typename T>
-    bool addEditableParameter( EditableParameter<T>* editableParameter );
+    bool addEditableParameter( EditableParameterBase* editableParameter );
 
     /// Remove an editable parameter to the node if it does exist.
     /// \param name The name of the editable parameter to remove.
     /// \return true if the editable parameter is found and removed.
-    template <typename T>
     bool removeEditableParameter( const std::string& name );
 
-    /// The uuid of the node (TODO, use https://github.com/mariusbancila/stduuid instead of a
-    /// string)
-    // std::string m_uuid;
-    uuids::uuid m_uuid;
     /// The deletable status of the node
     bool m_isDeletable { true };
+
     /// The type name of the node. Initialized once at construction
     std::string m_typeName;
     /// The instance name of the node
@@ -186,11 +213,13 @@ class RA_DATAFLOW_API Node
     /// The editable parameters of the node
     std::vector<std::unique_ptr<EditableParameterBase>> m_editableParameters;
 
-    /// The base resources directory
-    std::string m_resourceDir { "./" };
-
     /// Additional data on the node, added by application or gui or ...
     nlohmann::json m_extraJsonData;
+
+    /// \brief Generates the uuid of the node
+    void generateUuid();
+    /// The uuid of the node
+    uuids::uuid m_uuid;
 
     /// generator for uuid
     static bool s_uuidGeneratorInitialized;

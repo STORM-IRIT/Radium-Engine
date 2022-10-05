@@ -21,7 +21,7 @@ inline void Node::destroy() {
 #endif
 }
 
-inline nlohmann::json& Node::getJsonMetaData() {
+inline const nlohmann::json& Node::getJsonMetaData() {
     return m_extraJsonData;
 }
 
@@ -53,7 +53,22 @@ inline const std::vector<std::unique_ptr<PortBase>>& Node::getOutputs() {
     return m_outputs;
 }
 
-inline const std::vector<PortBase*>& Node::getInterface() {
+inline const std::vector<PortBase*>& Node::buildInterfaces( Node* parent ) {
+    m_interface.clear();
+    m_interface.shrink_to_fit();
+    std::vector<std::unique_ptr<PortBase>>* readFrom;
+    if ( m_inputs.empty() ) { readFrom = &m_outputs; }
+    else {
+        readFrom = &m_inputs;
+    }
+    m_interface.reserve( readFrom->size() );
+    for ( const auto& p : *readFrom ) {
+        // Todo, ensure thereis no twice the same port ....
+        m_interface.emplace_back( p->reflect( parent, getInstanceName() + '_' + p->getName() ) );
+    }
+    return m_interface;
+}
+inline const std::vector<PortBase*>& Node::getInterfaces() {
     return m_interface;
 }
 
@@ -61,12 +76,8 @@ inline const std::vector<std::unique_ptr<EditableParameterBase>>& Node::getEdita
     return m_editableParameters;
 }
 
-inline void Node::setResourcesDir( std::string resourcesRootDir ) {
-    m_resourceDir = std::move( resourcesRootDir );
-}
-
 inline bool Node::operator==( const Node& o_node ) {
-    return m_typeName == o_node.getTypeName();
+    return ( m_typeName == o_node.getTypeName() ) && ( m_instanceName == o_node.getInstanceName() );
 }
 
 inline bool Node::addInput( PortBase* in ) {
@@ -76,16 +87,6 @@ inline bool Node::addInput( PortBase* in ) {
         if ( input->getName() == in->getName() ) { found = true; }
     }
     if ( !found ) { m_inputs.emplace_back( in ); }
-    return !found;
-}
-
-inline bool Node::addOutput( PortBase* out ) {
-    if ( out->is_input() ) { return false; }
-    bool found = false;
-    for ( auto& output : m_outputs ) {
-        if ( output->getName() == out->getName() ) { found = true; }
-    }
-    if ( !found ) { m_outputs.emplace_back( out ); }
     return !found;
 }
 
@@ -110,8 +111,7 @@ inline bool Node::addInterface( PortBase* ports ) {
     return !found;
 }
 
-template <typename T>
-bool Node::addEditableParameter( EditableParameter<T>* editableParameter ) {
+inline bool Node::addEditableParameter( EditableParameterBase* editableParameter ) {
     bool found = false;
     for ( auto& edit : m_editableParameters ) {
         if ( edit.get()->getName() == editableParameter->getName() ) { found = true; }
@@ -120,8 +120,7 @@ bool Node::addEditableParameter( EditableParameter<T>* editableParameter ) {
     return !found;
 }
 
-template <typename T>
-bool Node::removeEditableParameter( const std::string& name ) {
+inline bool Node::removeEditableParameter( const std::string& name ) {
     bool found = false;
     auto it    = m_editableParameters.begin();
     while ( it != m_editableParameters.end() ) {

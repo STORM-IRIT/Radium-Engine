@@ -182,10 +182,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// @param infoNodes The map that contains information about nodes.
     int goThroughGraph( Node* current,
                         std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
-    /// Returns the index of the node with the same name as the argument, if there is none, returns
-    /// -1.
+    /// Returns the index of the given node in the graph.
+    /// if there is none, returns -1.
     /// @param name The name of the node to find.
-    int findNode( const std::string& name );
+    int findNode( const Node* node );
 
   public:
     static const std::string& getTypename();
@@ -200,6 +200,12 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     std::map<std::string, DataGetterDesc> m_dataGetters;
 
     bool addSetter( PortBase* in );
+
+    /// Adds an out port for a GRAPH. This port is also an interface port whose reference is stored
+    /// in the source and sink nodes of the graph. This function checks if there is no out port with
+    /// the same name already associated with the graph.
+    /// \param out The port to add.
+    bool addGetter( PortBase* out );
 };
 
 } // namespace Core

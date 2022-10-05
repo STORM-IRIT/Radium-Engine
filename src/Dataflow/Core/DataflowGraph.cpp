@@ -252,43 +252,28 @@ bool DataflowGraph::addNode( Node* newNode ) {
     std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName << "\": trying to add node \""
               << newNode->getInstanceName() << "\"..." << std::endl;
 #endif
-    // Check if the new node already exists (= same name)
-    if ( findNode( newNode->getInstanceName() ) == -1 ) {
+    // Check if the new node already exists (= same name and type)
+    if ( findNode( newNode ) == -1 ) {
+        if ( newNode->getInputs().empty() ) {
+            // it is a source node, add its interface port as input and data setter to the graph
+            auto& interfaces = newNode->buildInterfaces( this );
+            for ( auto p : interfaces ) {
+                addSetter( p );
+            }
+        }
+        if ( newNode->getOutputs().empty() ) {
+            // it is a sink node, add its interface port as output to the graph
+            auto& interfaces = newNode->buildInterfaces( this );
+            for ( auto p : interfaces ) {
+                addGetter( p );
+            }
+        }
+        m_nodes.emplace_back( newNode );
 #ifdef GRAPH_CALL_TRACE
         std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
                   << "\": success adding node \"" << newNode->getInstanceName() << "\"!"
                   << std::endl;
 #endif
-        if ( newNode->getInputs().size() == 0 ) { // Check if it is a source node
-            for ( auto& p : newNode->getOutputs() ) {
-#ifdef GRAPH_CALL_TRACE
-                std::cout << "\e[33m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                          << "\": reflecting OUTPUT port \"" << p->getName() << "\" from \""
-                          << newNode->getInstanceName() << "\"!" << std::endl;
-#endif
-                auto portInterface =
-                    p->reflect( this, newNode->getInstanceName() + '_' + p->getName() );
-                // an interface port may not be linked.
-                // TODO allow nodes to override addInterface so that they can add this requirements
-                // portInterface->mustBeLinked();
-                newNode->addInterface( portInterface );
-                addSetter( portInterface );
-            }
-        }
-        if ( newNode->getOutputs().size() == 0 ) { // Check if it is a sink node
-            for ( auto& p : newNode->getInputs() ) {
-#ifdef GRAPH_CALL_TRACE
-                std::cout << "\e[34m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                          << "\": reflecting INPUT port \"" << p->getName() << "\" from \""
-                          << newNode->getInstanceName() << "\"!" << std::endl;
-#endif
-                auto portInterface =
-                    p->reflect( this, newNode->getInstanceName() + '_' + p->getName() );
-                newNode->addInterface( portInterface );
-                addOutput( portInterface );
-            }
-        }
-        m_nodes.emplace_back( newNode );
         return true;
     }
     else {
@@ -308,7 +293,7 @@ bool DataflowGraph::removeNode( Node* node ) {
 #endif
     // Check if the new node already exists (= same name)
     int index = -1;
-    if ( ( index = findNode( node->getInstanceName() ) ) == -1 ) {
+    if ( ( index = findNode( node ) ) == -1 ) {
 #ifdef GRAPH_CALL_TRACE
         std::cerr << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
                   << "\": could not remove node \"" << node->getInstanceName()
@@ -322,9 +307,10 @@ bool DataflowGraph::removeNode( Node* node ) {
                   << "\": success removing node \"" << node->getInstanceName() << "\"!"
                   << std::endl;
 #endif
-        if ( node->getInputs().size() == 0 ) {          // Check if it is a source node
-            for ( auto& port : node->getInterface() ) { // Erase input ports of the graph associated
-                                                        // to the interface ports of the node
+        if ( node->getInputs().empty() ) { // Check if it is a source node
+            for ( auto& port :
+                  node->getInterfaces() ) { // Erase input ports of the graph associated
+                                            // to the interface ports of the node
                 for ( auto itG = m_inputs.begin(); itG != m_inputs.end(); ++itG ) {
                     if ( port->getName() ==
                          ( *itG )->getName() ) { // Check if these ports are the same
@@ -334,9 +320,10 @@ bool DataflowGraph::removeNode( Node* node ) {
                 }
             }
         }
-        if ( node->getOutputs().size() == 0 ) {         // Check if it is a sink node
-            for ( auto& port : node->getInterface() ) { // Erase input ports of the graph associated
-                                                        // to the interface ports of the node
+        if ( node->getOutputs().empty() ) { // Check if it is a sink node
+            for ( auto& port :
+                  node->getInterfaces() ) { // Erase input ports of the graph associated
+                                            // to the interface ports of the node
                 for ( auto itG = m_outputs.begin(); itG != m_outputs.end(); ++itG ) {
                     if ( port->getName() ==
                          ( *itG )->getName() ) { // Check if these ports are the same
@@ -363,7 +350,7 @@ bool DataflowGraph::addLink( Node* nodeFrom,
               << std::endl;
 #endif
     // Check node "from" existence in the graph
-    if ( findNode( nodeFrom->getInstanceName() ) == -1 ) {
+    if ( findNode( nodeFrom ) == -1 ) {
 #ifdef GRAPH_CALL_TRACE
         std::cerr << "ADD LINK : node \"from\" \"" + nodeFrom->getInstanceName() +
                          "\" does not exist."
@@ -373,7 +360,7 @@ bool DataflowGraph::addLink( Node* nodeFrom,
     }
 
     // Check node "to" existence in the graph
-    if ( findNode( nodeTo->getInstanceName() ) == -1 ) {
+    if ( findNode( nodeTo ) == -1 ) {
 #ifdef GRAPH_CALL_TRACE
         std::cerr << "ADD LINK : node \"to\" \"" + nodeTo->getInstanceName() + "\" does not exist."
                   << std::endl;
@@ -470,7 +457,7 @@ bool DataflowGraph::addLink( Node* nodeFrom,
 
 bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
     // Check node's existence in the graph
-    if ( findNode( node->getInstanceName() ) == -1 ) {
+    if ( findNode( node ) == -1 ) {
 #ifdef GRAPH_CALL_TRACE
         std::cerr << "REMOVE LINK : node \"" + node->getInstanceName() + "\" does not exist."
                   << std::endl;
@@ -507,11 +494,11 @@ bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
     return true;
 }
 
-int DataflowGraph::findNode( const std::string& name ) {
+// Todo, rewrite this method using std::find_if ?
+int DataflowGraph::findNode( const Node* node ) {
     for ( size_t i = 0; i < m_nodes.size(); i++ ) {
-        if ( m_nodes[i]->getInstanceName() == name ) { return i; }
+        if ( *m_nodes[i] == *node ) { return i; }
     }
-
     return -1;
 }
 
@@ -666,6 +653,10 @@ int DataflowGraph::goThroughGraph(
 
 bool DataflowGraph::addSetter( PortBase* in ) {
     addInput( in );
+    // TODO check if this verification is needed
+    // Danger : Doing this, two different nodes (not the same type) but with the same name and port
+    // name could not be added to the graph Danger : If not doing this,there will be some collisions
+    // on the data structure
     if ( m_dataSetters.find( in->getName() ) == m_dataSetters.end() ) {
         auto portOut = std::shared_ptr<PortBase>( in->reflect( this, in->getName() ) );
         m_dataSetters.emplace( std::make_pair(
@@ -675,6 +666,17 @@ bool DataflowGraph::addSetter( PortBase* in ) {
         return true;
     }
     return false;
+}
+
+inline bool DataflowGraph::addGetter( PortBase* out ) {
+    if ( out->is_input() ) { return false; }
+    bool found = false;
+    // TODO check if this verification is needed ?
+    for ( auto& output : m_outputs ) {
+        if ( output->getName() == out->getName() ) { found = true; }
+    }
+    if ( !found ) { m_outputs.emplace_back( out ); }
+    return !found;
 }
 
 bool DataflowGraph::releaseDataSetter( std::string portName ) {

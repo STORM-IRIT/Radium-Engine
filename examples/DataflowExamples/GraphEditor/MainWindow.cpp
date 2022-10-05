@@ -37,8 +37,6 @@ void MainWindow::newFile() {
 
         setCurrentFile( "" );
         graph = new DataflowGraph( "untitled.flow" );
-        // auto defaultFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
-        // graph->addFactory( defaultFactory->getName(), defaultFactory );
         graphEdit->editGraph( graph );
     }
 }
@@ -196,14 +194,10 @@ void MainWindow::loadFile( const QString& fileName )
     }
 
     graphEdit->editGraph( nullptr );
+    delete graph;
 
     graph = new DataflowGraph( fileName.toStdString() );
     graph->loadFromJson( fileName.toStdString() );
-
-    // Todo, always embed default factory in the graph
-    // auto defaultFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
-    // graph->addFactory( defaultFactory->getName(), defaultFactory );
-
     graphEdit->editGraph( graph );
 
     QGuiApplication::restoreOverrideCursor();

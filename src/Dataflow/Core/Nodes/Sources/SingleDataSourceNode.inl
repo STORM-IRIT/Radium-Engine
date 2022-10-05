@@ -56,12 +56,12 @@ T* SingleDataSourceNode<T>::getData() const {
 
 template <typename T>
 void SingleDataSourceNode<T>::setEditable( const std::string name ) {
-    Node::addEditableParameter<T>( new EditableParameter( name, m_localData ) );
+    Node::addEditableParameter( new EditableParameter( name, m_localData ) );
 }
 
 template <typename T>
 void SingleDataSourceNode<T>::removeEditable( const std::string& name ) {
-    Node::removeEditableParameter<T>( name );
+    Node::removeEditableParameter( name );
 }
 
 template <typename T>
