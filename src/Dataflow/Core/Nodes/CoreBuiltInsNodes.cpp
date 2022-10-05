@@ -16,6 +16,10 @@ namespace NodeFactoriesManager {
     FACTORY->registerNodeCreator<NAMESPACE::ArrayMapper##SUFFIX>(          \
         NAMESPACE::ArrayMapper##SUFFIX::getTypename() + "_", #NAMESPACE )
 
+#define ADD_SOURCES_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )          \
+    FACTORY->registerNodeCreator<NAMESPACE::ArrayDataSource##SUFFIX>( \
+        NAMESPACE::ArrayDataSource##SUFFIX::getTypename() + "_", #NAMESPACE )
+
 void registerStandardFactories() {
     NodeFactorySet::mapped_type coreFactory { new NodeFactorySet::mapped_type::element_type(
         NodeFactoriesManager::dataFlowBuiltInsFactoryName ) };
@@ -31,16 +35,23 @@ void registerStandardFactories() {
         Sources::ScalarValueSource::getTypename() + "_", "Source" );
     coreFactory->registerNodeCreator<Sources::ColorSourceNode>(
         Sources::ColorSourceNode::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::FloatArrayDataSource>(
-        Sources::FloatArrayDataSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::DoubleArrayDataSource>(
-        Sources::DoubleArrayDataSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::IntArrayDataSource>(
-        Sources::IntArrayDataSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::UIntArrayDataSource>(
-        Sources::UIntArrayDataSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::ColorArrayDataSource>(
-        Sources::ColorArrayDataSource::getTypename() + "_", "Source" );
+
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Float );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Int );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, UInt );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Color );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector2f );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector2d );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector3f );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector3d );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector4f );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector4d );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector2i );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector2ui );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector3i );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector3ui );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector4i );
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector4ui );
 
     /* --- Sinks --- */
     coreFactory->registerNodeCreator<Sinks::BooleanSink>( Sinks::BooleanSink::getTypename() + "_",

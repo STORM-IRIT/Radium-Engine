@@ -9,6 +9,10 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
+/**
+ * \brief Allow to manage
+ * \tparam T
+ */
 template <typename T>
 class Enumerator : public Ra::Core::Utils::Observable<const Enumerator<T>&>
 {
