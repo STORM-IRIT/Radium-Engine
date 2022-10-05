@@ -34,3 +34,20 @@ if(NOT DEFINED stduuid_DIR)
 else()
     status_message("" "stduuid" ${stduuid_DIR})
 endif()
+
+if(NOT DEFINED RadiumNodeEditor_DIR)
+    check_externals_prerequisite()
+    status_message("[DataflowExternal]" "RadiumNodeEditor" "remote git")
+    ExternalProject_Add(
+        RadiumNodeEditor
+        GIT_REPOSITORY https://github.com/MathiasPaulin/RadiumQtNodeEditor.git
+        GIT_TAG main
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
+    )
+    add_dependencies(DataflowExternals RadiumNodeEditor)
+else()
+    status_message("" "RadiumNodeEditor" ${RadiumNodeEditor_DIR})
+endif()
