@@ -9,6 +9,7 @@ namespace Dataflow {
 namespace Core {
 
 namespace NodeFactoriesManager {
+/** TODO : replace this by factory autoregistration at compile time */
 #define ADD_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )                       \
     FACTORY->registerNodeCreator<NAMESPACE::ArrayFilter##SUFFIX>(          \
         NAMESPACE::ArrayFilter##SUFFIX::getTypename() + "_", #NAMESPACE ); \
@@ -19,7 +20,6 @@ void registerStandardFactories() {
     NodeFactorySet::mapped_type coreFactory { new NodeFactorySet::mapped_type::element_type(
         NodeFactoriesManager::dataFlowBuiltInsFactoryName ) };
 
-    /** TODO : replace this by factory autoregistration at compile time */
     /* --- Sources --- */
     coreFactory->registerNodeCreator<Sources::BooleanValueSource>(
         Sources::BooleanValueSource::getTypename() + "_", "Source" );
