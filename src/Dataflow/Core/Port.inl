@@ -147,8 +147,7 @@ bool PortOut<T>::disconnect() {
 
 template <typename T>
 PortBase* PortOut<T>::reflect( Node* node, std::string name ) {
-    auto port = new PortIn<DataType>( name, node );
-    return port;
+    return new PortIn<DataType>( name, node );
 }
 
 /**
