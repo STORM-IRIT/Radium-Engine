@@ -35,12 +35,24 @@ class RA_DATAFLOW_API PortBase
     bool m_isLinkMandatory { false };
 
   public:
-    /// Constructor.
+    /// \name Constructors
+    /// @{
+    /// \brief delete default constructors.
+    /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-copy-virtual
+    /// Constructors.
+    PortBase()                  = delete;
+    PortBase( const PortBase& ) = delete;
+    PortBase& operator=( const PortBase& ) = delete;
+
     /// @param name The name of the port.
     /// @param type The data's type's hash.
     /// @param node The pointer to the node associated with the port.
     PortBase( const std::string& name, size_t type, Node* node );
+    /// @}
+
+    /// \brief make PortBase a base abstract class
     virtual ~PortBase() = default;
+
     /// Gets the port's name.
     const std::string& getName();
     /// Gets the hash of the type of the data.
@@ -95,10 +107,18 @@ class PortOut : public PortBase
 
   public:
     using DataType = T;
+    /// \name Constructors
+    /// @{
+    /// \brief delete default constructors.
+    PortOut()                 = delete;
+    PortOut( const PortOut& ) = delete;
+    PortOut& operator=( const PortOut& ) = delete;
     /// Constructor.
     /// @param name The name of the port.
     /// @param node The pointer to the node associated with the port.
     PortOut( const std::string& name, Node* node );
+    /// @}
+
     /// Gets a reference to the data this ports points to.
     T& getData();
     /// Takes a pointer to the data this port will point to.
@@ -137,10 +157,18 @@ class PortIn : public PortBase,
 
   public:
     using DataType = T;
+    /// \name Constructors
+    /// @{
+    /// \brief delete default constructors.
+    PortIn()                = delete;
+    PortIn( const PortIn& ) = delete;
+    PortIn& operator=( const PortIn& ) = delete;
     /// Constructor.
     /// @param name The name of the port.
     /// @param node The pointer to the node associated with the port.
     PortIn( const std::string& name, Node* node );
+    /// @}
+
     /// Gets the out port this port is connected to.
     PortBase* getLink() override;
     /// Gets a reference to the data pointed by the connected out port.
