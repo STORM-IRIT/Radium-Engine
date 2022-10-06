@@ -19,17 +19,9 @@ DataflowGraph::DataflowGraph( const std::string& instanceName, const std::string
 }
 
 void DataflowGraph::init() {
-    Node::init();
-    auto compileOK = compile();
-    if ( compileOK ) {
-#ifdef GRAPH_CALL_TRACE
-        int i = 0;
-        std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), [&i]( const auto& level ) {
-            std::cout << "- \e[1mLevel " << i++ << "\e[0m" << std::endl;
-#else
-
+    if ( m_ready ) {
+        Node::init();
         std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( const auto& level ) {
-#endif
             std::for_each( level.begin(), level.end(), []( auto node ) {
                 if ( !node->m_initialized ) {
                     node->init();
@@ -38,26 +30,27 @@ void DataflowGraph::init() {
             } );
         } );
     }
-    m_recompile = !compileOK;
 }
 
 void DataflowGraph::execute() {
-    if ( m_ready ) {
+    if ( !m_ready ) {
 #ifdef GRAPH_CALL_TRACE
         std::cout << std::endl
-                  << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName << "\": execute."
-                  << std::endl;
-
-        int i = 0;
-        std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), [&i]( const auto& level ) {
-            std::cout << "- \e[1mLevel " << i++ << "\e[0m" << std::endl;
-#else
-
-        std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( const auto& level ) {
+                  << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
+                  << "\": not ready to execute, recompile the graph." << std::endl;
 #endif
-            std::for_each( level.begin(), level.end(), []( auto node ) { node->execute(); } );
-        } );
+        if ( !compile() ) {
+#ifdef GRAPH_CALL_TRACE
+            std::cout << std::endl
+                      << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
+                      << "\": unable tocompile the graph." << std::endl;
+#endif
+            return;
+        }
     }
+    std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( const auto& level ) {
+        std::for_each( level.begin(), level.end(), []( auto node ) { node->execute(); } );
+    } );
 }
 
 void DataflowGraph::destroy() {
@@ -274,6 +267,7 @@ bool DataflowGraph::addNode( Node* newNode ) {
                   << "\": success adding node \"" << newNode->getInstanceName() << "\"!"
                   << std::endl;
 #endif
+        m_ready = false;
         return true;
     }
     else {
@@ -452,6 +446,8 @@ bool DataflowGraph::addLink( Node* nodeFrom,
                      nodeToInputName + "\" of node \"" + nodeTo->getInstanceName() + "\"."
               << std::endl;
 #endif
+    // The state of the graph changes, set it to not ready
+    m_ready = false;
     return true;
 }
 
@@ -575,7 +571,10 @@ bool DataflowGraph::compile() {
               << std::endl
               << std::endl;
 #endif
-    return m_ready = postCompilationOperation();
+    m_recompile = false;
+    m_ready     = true;
+    this->init();
+    return m_ready;
 }
 
 void DataflowGraph::clearNodes() {

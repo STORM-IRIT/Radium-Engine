@@ -150,11 +150,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /** Allow derived class to construct the graph with their own static type
      */
     DataflowGraph( const std::string& instanceName, const std::string& typeName );
-    /**
-     * Allow derived class to add operations on a compiled graph
-     * @return
-     */
-    virtual bool postCompilationOperation() { return true; }
 
     void fromJsonInternal( const nlohmann::json& ) override;
     void toJsonInternal( nlohmann::json& ) const override;
