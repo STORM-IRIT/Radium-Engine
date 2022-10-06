@@ -509,10 +509,16 @@ bool DataflowGraph::compile() {
     for ( auto const& n : m_nodes ) {
         // Find all sinks
         if ( n->getOutputs().size() == 0 ) {
-            // Add the sink in the useful nodes set
-            infoNodes.emplace( n.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
-            // recursively add the predecessors of the sink
-            backtrackGraph( n.get(), infoNodes );
+            // Add the sink in the useful nodes set if any of his port is linked
+            bool activeSink { false };
+            for ( const auto& p : n->getInputs() ) {
+                activeSink |= p->isLinked();
+            }
+            if ( activeSink ) {
+                infoNodes.emplace( n.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
+                // recursively add the predecessors of the sink
+                backtrackGraph( n.get(), infoNodes );
+            }
         }
     }
 #ifdef GRAPH_CALL_TRACE
@@ -559,7 +565,9 @@ bool DataflowGraph::compile() {
                      !lvl[j]->getInputs()[k]->isLinked() ) {
 #ifdef GRAPH_CALL_TRACE
                     std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                              << "\": compilation failed." << std::endl;
+                              << "\": compilation failed, node " << lvl[j]->getInstanceName()
+                              << " has mandatory port " << lvl[j]->getInputs()[k]->getName()
+                              << " not linked." << std::endl;
 #endif
                     return m_ready = false;
                 }
