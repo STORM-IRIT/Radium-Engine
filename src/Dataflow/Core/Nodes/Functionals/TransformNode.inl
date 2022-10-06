@@ -1,5 +1,5 @@
 #pragma once
-#include <Dataflow/Core/Nodes/Functionals/MapNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
 
 #include <Core/Utils/Color.hpp>
 
@@ -9,28 +9,28 @@ namespace Core {
 namespace Functionals {
 
 template <typename coll_t, typename v_t>
-MapNode<coll_t, v_t>::MapNode( const std::string& instanceName ) :
-    MapNode( instanceName, getTypename(), []( v_t ) { return v_t {}; } ) {}
+TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName ) :
+    TransformNode( instanceName, getTypename(), []( v_t ) { return v_t {}; } ) {}
 
 template <typename coll_t, typename v_t>
-MapNode<coll_t, v_t>::MapNode( const std::string& instanceName, MapOperator mapOperator ) :
-    MapNode( instanceName, getTypename(), mapOperator ) {}
+TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName, TransformOperator op ) :
+    TransformNode( instanceName, getTypename(), op ) {}
 
 template <typename coll_t, typename v_t>
-void MapNode<coll_t, v_t>::setFilterFunction( MapOperator mapOperator ) {
-    m_mapOperator = mapOperator;
+void TransformNode<coll_t, v_t>::setOperator( TransformOperator op ) {
+    m_operator = op;
 }
 
 template <typename coll_t, typename v_t>
-void MapNode<coll_t, v_t>::init() {
+void TransformNode<coll_t, v_t>::init() {
     Node::init();
     m_elements.clear();
 }
 
 template <typename coll_t, typename v_t>
-void MapNode<coll_t, v_t>::execute() {
-    auto predPort = dynamic_cast<PortIn<MapOperator>*>( m_inputs[1].get() );
-    auto f        = m_mapOperator;
+void TransformNode<coll_t, v_t>::execute() {
+    auto predPort = dynamic_cast<PortIn<TransformOperator>*>( m_inputs[1].get() );
+    auto f        = m_operator;
     if ( predPort->isLinked() ) { f = predPort->getData(); }
     auto input = dynamic_cast<PortIn<coll_t>*>( m_inputs[0].get() );
     if ( input->isLinked() ) {
@@ -48,37 +48,38 @@ void MapNode<coll_t, v_t>::execute() {
 }
 
 template <typename coll_t, typename v_t>
-const std::string& MapNode<coll_t, v_t>::getTypename() {
+const std::string& TransformNode<coll_t, v_t>::getTypename() {
     static std::string demangledName =
-        std::string { "Map<" } + Ra::Dataflow::Core::simplifiedDemangledType<coll_t>() + ">";
+        std::string { "Transform<" } + Ra::Dataflow::Core::simplifiedDemangledType<coll_t>() + ">";
     return demangledName;
 }
 
 template <typename coll_t, typename v_t>
-MapNode<coll_t, v_t>::MapNode( const std::string& instanceName,
-                               const std::string& typeName,
-                               MapOperator mapOperator ) :
-    Node( instanceName, typeName ), m_mapOperator( mapOperator ) {
-    auto portIn = new PortIn<coll_t>( "in", this );
-    addInput( portIn );
-    portIn->mustBeLinked();
+TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName,
+                                           const std::string& typeName,
+                                           TransformOperator op ) :
+    Node( instanceName, typeName ), m_operator( op ) {
+    auto in = new PortIn<coll_t>( "in", this );
+    addInput( in );
+    in->mustBeLinked();
 
-    auto op = new PortIn<MapOperator>( "f", this );
-    addInput( op );
+    auto f = new PortIn<TransformOperator>( "f", this );
+    addInput( f );
 
-    auto portOut = new PortOut<coll_t>( "out", this );
-    addOutput( portOut, &m_elements );
+    auto out = new PortOut<coll_t>( "out", this );
+    addOutput( out, &m_elements );
 }
 
 template <typename coll_t, typename v_t>
-void MapNode<coll_t, v_t>::toJsonInternal( nlohmann::json& data ) const {
-    data["comment"] = std::string { "Map operator could not be serialized for " } + getTypeName();
+void TransformNode<coll_t, v_t>::toJsonInternal( nlohmann::json& data ) const {
+    data["comment"] =
+        std::string { "Transform operator could not be serialized for " } + getTypeName();
     LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
         << "Unable to save data when serializing a " << getTypeName() << ".";
 }
 
 template <typename coll_t, typename v_t>
-void MapNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
+void TransformNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
     LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
         << "Unable to read data when un-serializing a " << getTypeName() << ".";
 }
