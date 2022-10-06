@@ -1,5 +1,6 @@
 #pragma once
 #include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
 #include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
@@ -14,9 +15,10 @@ namespace Functionals {
 using namespace Ra::Core;
 
 // This macro does not end with semicolon. To be added when callin it
-#define DECLARE_FUNCTIONALS( SUFFIX, TYPE )                              \
-    using ArrayFilter##SUFFIX = FilterNode<Ra::Core::VectorArray<TYPE>>; \
-    using ArrayMapper##SUFFIX = TransformNode<Ra::Core::VectorArray<TYPE>>
+#define DECLARE_FUNCTIONALS( SUFFIX, TYPE )                                      \
+    using ArrayFilter##SUFFIX      = FilterNode<Ra::Core::VectorArray<TYPE>>;    \
+    using ArrayTransformer##SUFFIX = TransformNode<Ra::Core::VectorArray<TYPE>>; \
+    using ArrayReducer##SUFFIX     = ReduceNode<Ra::Core::VectorArray<TYPE>>
 
 DECLARE_FUNCTIONALS( Float, float );
 DECLARE_FUNCTIONALS( Double, double );
