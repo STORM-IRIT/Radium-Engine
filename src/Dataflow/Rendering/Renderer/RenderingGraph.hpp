@@ -50,7 +50,6 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     static const std::string& getTypename();
 
   protected:
-    bool postCompilationOperation() override;
     void fromJsonInternal( const nlohmann::json& ) override;
     void toJsonInternal( nlohmann::json& ) const override;
 
