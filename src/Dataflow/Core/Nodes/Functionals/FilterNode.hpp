@@ -1,8 +1,6 @@
 #pragma once
 #include <Dataflow/Core/Node.hpp>
 
-#include <Core/Containers/VectorArray.hpp>
-
 #include <functional>
 
 namespace Ra {
