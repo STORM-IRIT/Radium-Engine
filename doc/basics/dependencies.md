@@ -7,7 +7,7 @@ Radium relies on several external libraries to load files or to represent some d
 * [Engine] glm, globjects, glbindings, tinyEXR
 * [IO] Assimp
 * [Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 at least, Qt6 support is experimental), PowerSlider
-* [Dataflow] stduuid
+* [Dataflow] stduuid, RadiumNodeEditor
 * [doc] Doxygen-awesome-css
 * stb_image
 
@@ -102,6 +102,7 @@ set(assimp_DIR "/path/to/external/install/lib/cmake/assimp-5.0/" CACHE PATH "My 
 set(tinyply_DIR "/path/to/external/install/lib/cmake/tinyply/" CACHE PATH "My tinyply location")
 set(PowerSlider_DIR "/path/to/external/install/lib/cmake/PowerSlider/" CACHE PATH "My PowerSlider location")
 set(stduuid_DIR "/path/to/external/install/lib/cmake/stduuid/" CACHE PATH "My stduuid")
+set(RadiumNodeEditor_DIR "/path/to/external/install/lib/cmake/RadiumNodeEditor/" CACHE PATH "My NodeEditor")
 set(RADIUM_IO_ASSIMP ON CACHE BOOL "Radium uses assimp io")
 set(RADIUM_IO_TINYPLY ON CACHE BOOL "Radium uses tinyply io")
 ~~~
