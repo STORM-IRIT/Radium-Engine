@@ -32,6 +32,7 @@ bool RenderingGraph::removeNode( Node* node ) {
     return removed;
 }
 
+/*
 bool RenderingGraph::postCompilationOperation() {
 #if 0
     m_renderingNodes.clear();
@@ -78,9 +79,9 @@ bool RenderingGraph::postCompilationOperation() {
                  m_dataProviders.size() << " scene nodes. \n";
     */
 #endif
-    return true;
+return true;
 }
-
+* /
 #if 0
 void RenderingGraph::observeSinks( const std::vector<TextureType*>& graphOutput ) {
     m_outputTextures = graphOutput;
@@ -98,7 +99,7 @@ void RenderingGraph::observeSinks( const std::vector<TextureType*>& graphOutput 
     */
 }
 #endif
-const std::vector<TextureType*>& RenderingGraph::getImagesOutput() const {
+    const std::vector<TextureType*>& RenderingGraph::getImagesOutput() const {
     return m_outputTextures;
 }
 

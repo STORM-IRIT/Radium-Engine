@@ -12,11 +12,9 @@ if(RADIUM_GENERATE_LIB_CORE)
     target_link_libraries(${ra_dataflow_target} INTERFACE DataflowCore)
 endif()
 
-if(RADIUM_GENERATE_LIB_ENGINE)
-    add_subdirectory(Rendering)
-    add_dependencies(${ra_dataflow_target} DataflowRendering)
-    target_link_libraries(${ra_dataflow_target} INTERFACE DataflowRendering)
-endif()
+# if(RADIUM_GENERATE_LIB_ENGINE) add_subdirectory(Rendering) add_dependencies(${ra_dataflow_target}
+# DataflowRendering) target_link_libraries(${ra_dataflow_target} INTERFACE DataflowRendering)
+# endif()
 
 if(RADIUM_GENERATE_LIB_GUI)
     add_subdirectory(QtGui)
