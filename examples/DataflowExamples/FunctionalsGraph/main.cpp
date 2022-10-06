@@ -1,5 +1,6 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
 #include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
 #include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
 #include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
@@ -25,6 +26,14 @@ int main( int argc, char* argv[] ) {
     Functionals::TransformNode<std::vector<Scalar>>::TransformOperator oneMinusMe =
         []( const Scalar& i ) -> Scalar { return 1_ra - i; };
     transformNode->setOperator( oneMinusMe );
+
+    auto reduceNode = new Functionals::ReduceNode<std::vector<Scalar>>( "Minimum" );
+    Functionals::ReduceNode<std::vector<Scalar>>::ReduceOperator getMin =
+        []( const Scalar& a, const Scalar& b ) -> Scalar { return std::min( a, b ); };
+    reduceNode->setOperator( getMin, std::numeric_limits<Scalar>::max() );
+
+    auto scalarSinkNode = new Sinks::SinkNode<Scalar>( "ScalarSink" );
+
     auto sinkNode = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
     //! [Creating Nodes]
 
@@ -32,12 +41,16 @@ int main( int argc, char* argv[] ) {
     g.addNode( sourceNode );
     g.addNode( mapSource );
     g.addNode( transformNode );
+    g.addNode( reduceNode );
     g.addNode( sinkNode );
+    g.addNode( scalarSinkNode );
     //! [Adding Nodes to the graph]
 
     //! [Creating links between Nodes]
     g.addLink( sourceNode, "to", transformNode, "in" );
     g.addLink( transformNode, "out", sinkNode, "from" );
+    g.addLink( transformNode, "out", reduceNode, "in" );
+    g.addLink( reduceNode, "out", scalarSinkNode, "from" );
     //! [Creating links between Nodes]
 
     //! [Verifing the graph can be compiled]
@@ -59,7 +72,8 @@ int main( int argc, char* argv[] ) {
     };
     opSetter->setData( &doubleMe );
 
-    auto output = g.getDataGetter( "Sink_from" );
+    auto output  = g.getDataGetter( "Sink_from" );
+    auto minimum = g.getDataGetter( "ScalarSink_from" );
     // The reference to the result will not be available before the first run
     // auto& result = output->getData<std::vector<Scalar>>();
     ///! [Configure the interface ports (input and output of the graph)
@@ -83,7 +97,8 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
     g.execute();
     // The reference to the result is now available
-    auto& result = output->getData<std::vector<Scalar>>();
+    auto& result   = output->getData<std::vector<Scalar>>();
+    auto& minValue = minimum->getData<Scalar>();
     //! [Execute the graph]
 
     //! [Print the output result]
@@ -92,6 +107,7 @@ int main( int argc, char* argv[] ) {
         std::cout << ord << ' ';
     }
     std::cout << '\n';
+    std::cout << "Min value is : " << minValue << "\n";
     //! [Print the output result]
 
     //! [Verify the result]
@@ -128,6 +144,7 @@ int main( int argc, char* argv[] ) {
         std::cout << ord << ' ';
     }
     std::cout << '\n';
+    std::cout << "Min value is : " << minValue << "\n";
     execOK = true;
     for ( int i = 0; i < 10; ++i ) {
         if ( result[i] != doubleMe( test[i] ) ) {
@@ -142,5 +159,7 @@ int main( int argc, char* argv[] ) {
     }
     //! [Execute and test the result]
 
+    //! [ModifyGraph to get the min value]
+    //! [ModifyGraph to get the min value]
     return 0;
 }
