@@ -12,7 +12,7 @@ namespace Functionals {
 
 /** \brief Filter on iterable collection
  * \tparam coll_t the collection to filter. Must respect the SequenceContainer requirements
- * \tparam v_t (optional, type of the element in the collection)
+ * \tparam v_t (optional), type of the element in the collection. Default to coll_t::value_type
  * \see https://en.cppreference.com/w/cpp/named_req/SequenceContainer
  */
 template <typename coll_t, typename v_t = typename coll_t::value_type>
