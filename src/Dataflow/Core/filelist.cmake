@@ -17,6 +17,7 @@ set(dataflow_core_headers
     Nodes/CoreBuiltInsNodes.hpp
     Nodes/Functionals/CoreDataFunctionals.hpp
     Nodes/Functionals/FilterNode.hpp
+    Nodes/Functionals/ReduceNode.hpp
     Nodes/Functionals/TransformNode.hpp
     Nodes/Sinks/CoreDataSinks.hpp
     Nodes/Sinks/SinkNode.hpp
@@ -34,6 +35,7 @@ set(dataflow_core_inlines
     Node.inl
     NodeFactory.inl
     Nodes/Functionals/FilterNode.inl
+    Nodes/Functionals/ReduceNode.inl
     Nodes/Functionals/TransformNode.inl
     Nodes/Sinks/CoreDataSinks.inl
     Nodes/Sinks/SinkNode.inl

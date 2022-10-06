@@ -10,11 +10,13 @@ namespace Core {
 
 namespace NodeFactoriesManager {
 /** TODO : replace this by factory autoregistration at compile time */
-#define ADD_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )                       \
-    FACTORY->registerNodeCreator<NAMESPACE::ArrayFilter##SUFFIX>(          \
-        NAMESPACE::ArrayFilter##SUFFIX::getTypename() + "_", #NAMESPACE ); \
-    FACTORY->registerNodeCreator<NAMESPACE::ArrayMapper##SUFFIX>(          \
-        NAMESPACE::ArrayMapper##SUFFIX::getTypename() + "_", #NAMESPACE )
+#define ADD_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )                            \
+    FACTORY->registerNodeCreator<NAMESPACE::ArrayFilter##SUFFIX>(               \
+        NAMESPACE::ArrayFilter##SUFFIX::getTypename() + "_", #NAMESPACE );      \
+    FACTORY->registerNodeCreator<NAMESPACE::ArrayTransformer##SUFFIX>(          \
+        NAMESPACE::ArrayTransformer##SUFFIX::getTypename() + "_", #NAMESPACE ); \
+    FACTORY->registerNodeCreator<NAMESPACE::ArrayReducer##SUFFIX>(              \
+        NAMESPACE::ArrayReducer##SUFFIX::getTypename() + "_", #NAMESPACE )
 
 #define ADD_SOURCES_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )          \
     FACTORY->registerNodeCreator<NAMESPACE::ArrayDataSource##SUFFIX>( \
