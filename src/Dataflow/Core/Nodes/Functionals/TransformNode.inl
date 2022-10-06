@@ -1,8 +1,6 @@
 #pragma once
 #include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
 
-#include <Core/Utils/Color.hpp>
-
 namespace Ra {
 namespace Dataflow {
 namespace Core {
