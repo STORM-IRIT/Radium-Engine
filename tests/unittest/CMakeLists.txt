@@ -31,6 +31,7 @@ set(test_src
     Core/topomesh.cpp
     Core/variableset.cpp
     Core/vectorarray.cpp
+    Dataflow/nodes.cpp
     Engine/environmentmap.cpp
     Engine/renderparameters.cpp
     Engine/signalmanager.cpp
@@ -55,7 +56,7 @@ target_include_directories(unittests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_compile_options(unittests PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
 
-target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Engine Gui)
+target_link_libraries(unittests PRIVATE Catch2::Catch2 Core Engine Gui Dataflow)
 add_dependencies(unittests Catch2 Core Engine Gui)
 
 find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
