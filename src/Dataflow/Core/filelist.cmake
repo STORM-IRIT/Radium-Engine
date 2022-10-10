@@ -15,6 +15,7 @@ set(dataflow_core_headers
     Node.hpp
     NodeFactory.hpp
     Nodes/CoreBuiltInsNodes.hpp
+    Nodes/Functionals/BinaryOpNode.hpp
     Nodes/Functionals/CoreDataFunctionals.hpp
     Nodes/Functionals/FilterNode.hpp
     Nodes/Functionals/ReduceNode.hpp
