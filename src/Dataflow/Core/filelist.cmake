@@ -5,7 +5,7 @@
 # ----------------------------------------------------
 
 set(dataflow_core_sources DataflowGraph.cpp Node.cpp NodeFactory.cpp Nodes/CoreBuiltInsNodes.cpp
-                          Nodes/Sources/CoreDataSources.cpp TypeDemangler.cpp
+                          TypeDemangler.cpp
 )
 
 set(dataflow_core_headers
@@ -37,7 +37,6 @@ set(dataflow_core_inlines
     Nodes/Functionals/FilterNode.inl
     Nodes/Functionals/ReduceNode.inl
     Nodes/Functionals/TransformNode.inl
-    Nodes/Sinks/CoreDataSinks.inl
     Nodes/Sinks/SinkNode.inl
     Nodes/Sources/FunctionSource.inl
     Nodes/Sources/SingleDataSourceNode.inl

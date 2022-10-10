@@ -114,10 +114,9 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
     /// Creates an output port connected to the named input port of the graph.
     /// Return the connected output port if success, transferring the ownership to the caller.
-    /// Allows to set data to the graph from the caller.
+    /// Allows to set data to the graph from the caller .
     /// \note As ownership is transferred to the caller, the graph must survive the returned
-    /// pointer. \note If called multiple times for the same port, only the last returned result is
-    /// usable.
+    /// pointer (but tested more robust than that).
     /// @params portName The name of the input port of the graph
     /// TODO : Thereis a bug ???? When listing the data setters, they are connected ...
     /// TODO : setters (and getters) Should be created once and activated/deactivated ???

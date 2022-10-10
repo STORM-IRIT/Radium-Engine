@@ -17,7 +17,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Creating Nodes]
     auto sourceNode    = new Sources::SingleDataSourceNode<std::vector<Scalar>>( "Source" );
-    auto predicateNode = new Sources::ScalarUnaryPredicate( "Selector" );
+    auto predicateNode = new Sources::ScalarUnaryPredicateSource( "Selector" );
     auto filterNode    = new Functionals::FilterNode<std::vector<Scalar>>( "Filter" );
     auto sinkNode      = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
     //! [Creating Nodes]
@@ -63,8 +63,8 @@ int main( int argc, char* argv[] ) {
     std::vector<Scalar> test;
     input->setData( &test );
 
-    auto selector                                     = g.getDataSetter( "Selector_f" );
-    Sources::ScalarUnaryPredicate::function_type pred = []( Scalar x ) { return x < 0.5; };
+    auto selector                                           = g.getDataSetter( "Selector_f" );
+    Sources::ScalarUnaryPredicateSource::function_type pred = []( Scalar x ) { return x < 0.5; };
     selector->setData( &pred );
 
     auto output = g.getDataGetter( "Sink_from" );
@@ -103,7 +103,7 @@ int main( int argc, char* argv[] ) {
     //! [Print the output result]
 
     //! [Modify input and rerun the graph]
-    Sources::ScalarUnaryPredicate::function_type predbig = []( Scalar x ) { return x > 0.5; };
+    Sources::ScalarUnaryPredicateSource::function_type predbig = []( Scalar x ) { return x > 0.5; };
     selector->setData( &predbig );
     g.execute();
     std::cout << "Output values after second execution: " << result.size() << "\n\t";

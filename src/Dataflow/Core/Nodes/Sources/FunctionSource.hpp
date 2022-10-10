@@ -51,8 +51,8 @@ class FunctionSourceNode : public Node
     static const std::string& getTypename();
 };
 
-using ScalarBinaryPredicate = FunctionSourceNode<bool, const Scalar&, const Scalar&>;
-using ScalarUnaryPredicate  = FunctionSourceNode<bool, const Scalar&>;
+using ScalarBinaryPredicateSource = FunctionSourceNode<bool, const Scalar&, const Scalar&>;
+using ScalarUnaryPredicateSource  = FunctionSourceNode<bool, const Scalar&>;
 } // namespace Sources
 } // namespace Core
 } // namespace Dataflow

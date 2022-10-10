@@ -10,7 +10,7 @@ namespace Core {
 
 namespace NodeFactoriesManager {
 /** TODO : replace this by factory autoregistration at compile time */
-#define ADD_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )                            \
+#define ADD_FUNCTIONALS_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )                \
     FACTORY->registerNodeCreator<NAMESPACE::ArrayFilter##SUFFIX>(               \
         NAMESPACE::ArrayFilter##SUFFIX::getTypename() + "_", #NAMESPACE );      \
     FACTORY->registerNodeCreator<NAMESPACE::ArrayTransformer##SUFFIX>(          \
@@ -18,27 +18,36 @@ namespace NodeFactoriesManager {
     FACTORY->registerNodeCreator<NAMESPACE::ArrayReducer##SUFFIX>(              \
         NAMESPACE::ArrayReducer##SUFFIX::getTypename() + "_", #NAMESPACE )
 
-#define ADD_SOURCES_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )          \
-    FACTORY->registerNodeCreator<NAMESPACE::ArrayDataSource##SUFFIX>( \
-        NAMESPACE::ArrayDataSource##SUFFIX::getTypename() + "_", #NAMESPACE )
+#define ADD_SOURCES_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )          \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##Source>(          \
+        NAMESPACE::PREFIX##Source::getTypename() + "_", #NAMESPACE ); \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##ArraySource>(     \
+        NAMESPACE::PREFIX##ArraySource::getTypename() + "_", #NAMESPACE )
+
+#define ADD_SINKS_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )          \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##Sink>(          \
+        NAMESPACE::PREFIX##Sink::getTypename() + "_", #NAMESPACE ); \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##ArraySink>(     \
+        NAMESPACE::PREFIX##ArraySink::getTypename() + "_", #NAMESPACE )
 
 void registerStandardFactories() {
     NodeFactorySet::mapped_type coreFactory { new NodeFactorySet::mapped_type::element_type(
         NodeFactoriesManager::dataFlowBuiltInsFactoryName ) };
 
     /* --- Sources --- */
-    coreFactory->registerNodeCreator<Sources::BooleanValueSource>(
-        Sources::BooleanValueSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::IntValueSource>(
-        Sources::IntValueSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::UIntValueSource>(
-        Sources::UIntValueSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::ScalarValueSource>(
-        Sources::ScalarValueSource::getTypename() + "_", "Source" );
-    coreFactory->registerNodeCreator<Sources::ColorSourceNode>(
-        Sources::ColorSourceNode::getTypename() + "_", "Source" );
-
+    // bool could not be declared as others, because of the specificity of std::vector<bool> that is
+    // not compatible with Ra::Core::VectorArray implementation see
+    // https://en.cppreference.com/w/cpp/container/vector_bool Right now, there is no
+    // Ra::Core::VectorArray of bool
+    coreFactory->registerNodeCreator<Sources::BooleanSource>(
+        Sources::BooleanSource::getTypename() + "_", "Sources" );
+    // prevent Scalar type collision with float or double in factory
+#ifdef CORE_USE_DOUBLE
     ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Float );
+#else
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Double );
+#endif
+    ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Scalar );
     ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Int );
     ADD_SOURCES_TO_FACTORY( coreFactory, Sources, UInt );
     ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Color );
@@ -56,49 +65,62 @@ void registerStandardFactories() {
     ADD_SOURCES_TO_FACTORY( coreFactory, Sources, Vector4ui );
 
     /* --- Sinks --- */
+    // bool could not be declared as others, because of the specificity of std::vector<bool> that is
+    // not compatible with Ra::Core::VectorArray implementation see
+    // https://en.cppreference.com/w/cpp/container/vector_bool Right now, there is no
+    // Ra::Core::VectorArray of bool
     coreFactory->registerNodeCreator<Sinks::BooleanSink>( Sinks::BooleanSink::getTypename() + "_",
-                                                          "Sink" );
-    coreFactory->registerNodeCreator<Sinks::IntSink>( Sinks::IntSink::getTypename() + "_", "Sink" );
-    coreFactory->registerNodeCreator<Sinks::UIntSink>( Sinks::UIntSink::getTypename() + "_",
-                                                       "Sink" );
-    coreFactory->registerNodeCreator<Sinks::ScalarSink>( Sinks::ScalarSink::getTypename() + "_",
-                                                         "Sink" );
-    coreFactory->registerNodeCreator<Sinks::ColorSink>( Sinks::ColorSink::getTypename() + "_",
-                                                        "Sink" );
-    coreFactory->registerNodeCreator<Sinks::FloatArraySink>(
-        Sinks::FloatArraySink::getTypename() + "_", "Sink" );
-    coreFactory->registerNodeCreator<Sinks::DoubleArraySink>(
-        Sinks::DoubleArraySink::getTypename() + "_", "Sink" );
-    coreFactory->registerNodeCreator<Sinks::IntArraySink>( Sinks::IntArraySink::getTypename() + "_",
-                                                           "Sink" );
-    coreFactory->registerNodeCreator<Sinks::UIntArraySink>(
-        Sinks::UIntArraySink::getTypename() + "_", "Sink" );
-    coreFactory->registerNodeCreator<Sinks::ColorArraySink>(
-        Sinks::ColorArraySink::getTypename() + "_", "Sink" );
+                                                          "Sinks" );
+#ifdef CORE_USE_DOUBLE
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Float );
+#else
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Double );
+#endif
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Scalar );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Int );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, UInt );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Color );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector2f );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector2d );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector3f );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector3d );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector4f );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector4d );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector2i );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector2ui );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector3i );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector3ui );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector4i );
+    ADD_SINKS_TO_FACTORY( coreFactory, Sinks, Vector4ui );
 
     /* --- Functionals */
-    ADD_TO_FACTORY( coreFactory, Functionals, Float );
-    ADD_TO_FACTORY( coreFactory, Functionals, Int );
-    ADD_TO_FACTORY( coreFactory, Functionals, UInt );
-    ADD_TO_FACTORY( coreFactory, Functionals, Color );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector2f );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector2d );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector3f );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector3d );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector4f );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector4d );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector2i );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector2ui );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector3i );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector3ui );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector4i );
-    ADD_TO_FACTORY( coreFactory, Functionals, Vector4ui );
+#ifdef CORE_USE_DOUBLE
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Float );
+#else
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Double );
+#endif
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Scalar );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Int );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, UInt );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Color );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector2f );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector2d );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector3f );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector3d );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector4f );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector4d );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector2i );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector2ui );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector3i );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector3ui );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector4i );
+    ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector4ui );
 
     /* --- Functions --- */
-    coreFactory->registerNodeCreator<Sources::ScalarBinaryPredicate>(
-        Sources::ScalarBinaryPredicate::getTypename() + "_", "Functions" );
-    coreFactory->registerNodeCreator<Sources::ScalarUnaryPredicate>(
-        Sources::ScalarUnaryPredicate::getTypename() + "_", "Functions" );
+    coreFactory->registerNodeCreator<Sources::ScalarBinaryPredicateSource>(
+        Sources::ScalarBinaryPredicateSource::getTypename() + "_", "Functions" );
+    coreFactory->registerNodeCreator<Sources::ScalarUnaryPredicateSource>(
+        Sources::ScalarUnaryPredicateSource::getTypename() + "_", "Functions" );
 
     /* --- Graphs --- */
     coreFactory->registerNodeCreator<DataflowGraph>( DataflowGraph::getTypename() + "_", "Graph" );

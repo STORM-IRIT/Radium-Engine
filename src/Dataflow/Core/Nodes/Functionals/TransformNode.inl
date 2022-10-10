@@ -27,10 +27,10 @@ void TransformNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 void TransformNode<coll_t, v_t>::execute() {
-    auto predPort = dynamic_cast<PortIn<TransformOperator>*>( m_inputs[1].get() );
+    auto predPort = static_cast<PortIn<TransformOperator>*>( m_inputs[1].get() );
     auto f        = m_operator;
     if ( predPort->isLinked() ) { f = predPort->getData(); }
-    auto input = dynamic_cast<PortIn<coll_t>*>( m_inputs[0].get() );
+    auto input = static_cast<PortIn<coll_t>*>( m_inputs[0].get() );
     if ( input->isLinked() ) {
         const auto& inData = input->getData();
         m_elements.clear();
