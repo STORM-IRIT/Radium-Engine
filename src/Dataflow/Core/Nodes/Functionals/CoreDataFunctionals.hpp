@@ -3,6 +3,8 @@
 #include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
 #include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
 
+#include <Dataflow/Core/Nodes/Functionals/BinaryOpNode.hpp>
+
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
@@ -22,6 +24,7 @@ using namespace Ra::Core;
 
 DECLARE_FUNCTIONALS( Float, float );
 DECLARE_FUNCTIONALS( Double, double );
+DECLARE_FUNCTIONALS( Scalar, Scalar );
 DECLARE_FUNCTIONALS( Int, int );
 DECLARE_FUNCTIONALS( UInt, unsigned int );
 DECLARE_FUNCTIONALS( Color, Utils::Color );

@@ -12,6 +12,7 @@ inline void Node::init() {
     std::cout << "\e[34m\e[1m" << getTypeName() << "\e[0m \"" << m_instanceName
               << "\": initialization." << std::endl;
 #endif
+    m_initialized = true;
 }
 
 inline void Node::destroy() {
@@ -19,6 +20,10 @@ inline void Node::destroy() {
     std::cout << "\e[34m\e[1m" << getTypeName() << "\e[0m \"" << m_instanceName << "\": destroy."
               << std::endl;
 #endif
+    m_interface.clear();
+    m_inputs.clear();
+    m_outputs.clear();
+    m_editableParameters.clear();
 }
 
 inline const nlohmann::json& Node::getJsonMetaData() {
@@ -132,6 +137,19 @@ inline bool Node::removeEditableParameter( const std::string& name ) {
         ++it;
     }
     return found;
+}
+
+template <typename E>
+inline EditableParameter<E>* Node::getEditableParameter( const std::string& name ) {
+    auto it = m_editableParameters.begin();
+    while ( it != m_editableParameters.end() ) {
+        if ( ( *it ).get()->getName() == name ) {
+            auto p = dynamic_cast<EditableParameter<E>*>( ( *it ).get() );
+            if ( p != nullptr ) { return *p; }
+        }
+        ++it;
+    }
+    return nullptr;
 }
 
 inline const std::string& Node::getTypename() {

@@ -23,10 +23,7 @@ void DataflowGraph::init() {
         Node::init();
         std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( const auto& level ) {
             std::for_each( level.begin(), level.end(), []( auto node ) {
-                if ( !node->m_initialized ) {
-                    node->init();
-                    node->m_initialized = true;
-                }
+                if ( !node->m_initialized ) { node->init(); }
             } );
         } );
     }
@@ -54,15 +51,16 @@ void DataflowGraph::execute() {
 }
 
 void DataflowGraph::destroy() {
-    Node::destroy();
-    int i = 0;
-    std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), [&i]( const auto& level ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cout << "- \e[1mLevel " << i << "\e[0m" << std::endl;
-#endif
-        i++;
+    std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( auto& level ) {
         std::for_each( level.begin(), level.end(), []( auto node ) { node->destroy(); } );
+        level.clear();
     } );
+    m_nodesByLevel.clear();
+    m_nodes.clear();
+    m_factories.reset();
+    m_dataSetters.clear();
+    m_dataGetters.clear();
+    Node::destroy();
 }
 
 void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
