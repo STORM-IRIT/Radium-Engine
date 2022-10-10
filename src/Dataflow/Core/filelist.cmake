@@ -5,7 +5,7 @@
 # ----------------------------------------------------
 
 set(dataflow_core_sources DataflowGraph.cpp Node.cpp NodeFactory.cpp Nodes/CoreBuiltInsNodes.cpp
-                          Nodes/Sources/CoreDataSources.cpp
+                          Nodes/Sources/CoreDataSources.cpp TypeDemangler.cpp
 )
 
 set(dataflow_core_headers
