@@ -1,5 +1,4 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
 #include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
 #include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
 #include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
@@ -159,7 +158,5 @@ int main( int argc, char* argv[] ) {
     }
     //! [Execute and test the result]
 
-    //! [ModifyGraph to get the min value]
-    //! [ModifyGraph to get the min value]
     return 0;
 }
