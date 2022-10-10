@@ -36,12 +36,12 @@ template <typename coll_t, typename v_t>
 void ReduceNode<coll_t, v_t>::execute() {
     auto f   = m_operator;
     auto iv  = m_init;
-    auto ivp = dynamic_cast<PortIn<v_t>*>( m_inputs[2].get() );
+    auto ivp = static_cast<PortIn<v_t>*>( m_inputs[2].get() );
     if ( ivp->isLinked() ) { iv = ivp->getData(); }
     m_result      = iv;
-    auto predPort = dynamic_cast<PortIn<ReduceOperator>*>( m_inputs[1].get() );
+    auto predPort = static_cast<PortIn<ReduceOperator>*>( m_inputs[1].get() );
     if ( predPort->isLinked() ) { f = predPort->getData(); }
-    auto input = dynamic_cast<PortIn<coll_t>*>( m_inputs[0].get() );
+    auto input = static_cast<PortIn<coll_t>*>( m_inputs[0].get() );
     if ( input->isLinked() ) {
         const auto& inData = input->getData();
         m_result           = std::accumulate( inData.begin(), inData.end(), iv, f );

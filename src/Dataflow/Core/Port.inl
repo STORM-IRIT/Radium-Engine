@@ -175,7 +175,7 @@ bool PortIn<T>::accept( PortBase* other ) {
 template <typename T>
 bool PortIn<T>::connect( PortBase* other ) {
     if ( accept( other ) ) {
-        m_from     = dynamic_cast<PortOut<T>*>( other );
+        m_from     = static_cast<PortOut<T>*>( other );
         m_isLinked = true;
         // notify after connect
         this->notify( getName(), *this, true );

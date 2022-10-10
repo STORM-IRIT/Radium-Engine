@@ -197,6 +197,13 @@ class RA_DATAFLOW_API Node
     /// \return true if the editable parameter is found and removed.
     bool removeEditableParameter( const std::string& name );
 
+    /// \brief get a typed reference to the editable parameter.
+    /// \tparam E The type of the expected editable parameter.
+    /// \param name The name of the editable parameter to get.
+    /// \return the pointer to the editable parameter if any, nullptr if not.
+    template <typename E>
+    EditableParameter<E>* getEditableParameter( const std::string& name );
+
     /// The deletable status of the node
     bool m_isDeletable { true };
 

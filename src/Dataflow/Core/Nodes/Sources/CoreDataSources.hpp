@@ -92,31 +92,94 @@ class RA_DATAFLOW_API ColorSourceNode : public SingleDataSourceNode<Ra::Core::Ut
     static const std::string& getTypename();
 };
 
+// TODO unify editable and non editable data sources
+
 // This macro does not end with semicolon. To be added when callin it
-#define DECLARE_ARRAYSOURCES( SUFFIX, TYPE ) \
-    using ArrayDataSource##SUFFIX = SingleDataSourceNode<Ra::Core::VectorArray<TYPE>>
+#define DECLARE_COREDATA_SOURCES( PREFIX, TYPE )            \
+    using PREFIX##Source      = SingleDataSourceNode<TYPE>; \
+    using PREFIX##ArraySource = SingleDataSourceNode<Ra::Core::VectorArray<TYPE>>
 
 using namespace Ra::Core;
 
-DECLARE_ARRAYSOURCES( Float, float );
-DECLARE_ARRAYSOURCES( Double, double );
-DECLARE_ARRAYSOURCES( Int, int );
-DECLARE_ARRAYSOURCES( UInt, unsigned int );
-DECLARE_ARRAYSOURCES( Color, Utils::Color );
-DECLARE_ARRAYSOURCES( Vector2f, Vector2f );
-DECLARE_ARRAYSOURCES( Vector2d, Vector2d );
-DECLARE_ARRAYSOURCES( Vector3f, Vector3f );
-DECLARE_ARRAYSOURCES( Vector3d, Vector3d );
-DECLARE_ARRAYSOURCES( Vector4f, Vector4f );
-DECLARE_ARRAYSOURCES( Vector4d, Vector4d );
-DECLARE_ARRAYSOURCES( Vector2i, Vector2i );
-DECLARE_ARRAYSOURCES( Vector3i, Vector3i );
-DECLARE_ARRAYSOURCES( Vector4i, Vector4i );
-DECLARE_ARRAYSOURCES( Vector2ui, Vector2ui );
-DECLARE_ARRAYSOURCES( Vector3ui, Vector3ui );
-DECLARE_ARRAYSOURCES( Vector4ui, Vector4ui );
+// bool could not be declared as others, because of the specificity of std::vector<bool> that is not
+// compatible with Ra::Core::VectorArray implementation see
+// https://en.cppreference.com/w/cpp/container/vector_bool Right now, there is no
+// Ra::Core::VectorArray of bool
+using BooleanSource = SingleDataSourceNode<bool>;
+DECLARE_COREDATA_SOURCES( Float, float );
+DECLARE_COREDATA_SOURCES( Double, double );
+DECLARE_COREDATA_SOURCES( Scalar, Scalar );
+DECLARE_COREDATA_SOURCES( Int, int );
+DECLARE_COREDATA_SOURCES( UInt, unsigned int );
+DECLARE_COREDATA_SOURCES( Color, Utils::Color );
+DECLARE_COREDATA_SOURCES( Vector2f, Vector2f );
+DECLARE_COREDATA_SOURCES( Vector2d, Vector2d );
+DECLARE_COREDATA_SOURCES( Vector3f, Vector3f );
+DECLARE_COREDATA_SOURCES( Vector3d, Vector3d );
+DECLARE_COREDATA_SOURCES( Vector4f, Vector4f );
+DECLARE_COREDATA_SOURCES( Vector4d, Vector4d );
+DECLARE_COREDATA_SOURCES( Vector2i, Vector2i );
+DECLARE_COREDATA_SOURCES( Vector3i, Vector3i );
+DECLARE_COREDATA_SOURCES( Vector4i, Vector4i );
+DECLARE_COREDATA_SOURCES( Vector2ui, Vector2ui );
+DECLARE_COREDATA_SOURCES( Vector3ui, Vector3ui );
+DECLARE_COREDATA_SOURCES( Vector4ui, Vector4ui );
 
-#undef DECLARE_ARRAYSOURCES
+#undef DECLARE_COREDATA_SOURCES
+
+// Partial specialisation for editable data sources
+#define SPECIALIZE_EDITABLE_SOURCE( TYPE, NAME )                                             \
+    template <>                                                                              \
+    inline SingleDataSourceNode<TYPE>::SingleDataSourceNode( const std::string& name ) :     \
+        SingleDataSourceNode( name, SingleDataSourceNode<Scalar>::getTypename() ) {          \
+        setEditable( #NAME );                                                                \
+    }                                                                                        \
+                                                                                             \
+    template <>                                                                              \
+    inline void SingleDataSourceNode<TYPE>::toJsonInternal( nlohmann::json& data ) const {   \
+        data[#NAME] = *getData();                                                            \
+    }                                                                                        \
+                                                                                             \
+    template <>                                                                              \
+    inline void SingleDataSourceNode<TYPE>::fromJsonInternal( const nlohmann::json& data ) { \
+        if ( data.contains( #NAME ) ) {                                                      \
+            TYPE v = data[#NAME];                                                            \
+            setData( v );                                                                    \
+        }                                                                                    \
+    }
+
+SPECIALIZE_EDITABLE_SOURCE( bool, boolean );
+SPECIALIZE_EDITABLE_SOURCE( float, number );
+SPECIALIZE_EDITABLE_SOURCE( double, number );
+SPECIALIZE_EDITABLE_SOURCE( int, value );
+SPECIALIZE_EDITABLE_SOURCE( unsigned int, value );
+
+// Color specialization need different implementation (as well as any Ra::Vectorxx)
+template <>
+inline SingleDataSourceNode<Ra::Core::Utils::Color>::SingleDataSourceNode(
+    const std::string& name ) :
+    SingleDataSourceNode( name, SingleDataSourceNode<Scalar>::getTypename() ) {
+    setEditable( "color" );
+}
+
+template <>
+inline void
+SingleDataSourceNode<Ra::Core::Utils::Color>::toJsonInternal( nlohmann::json& data ) const {
+    data["color"] = *getData();
+}
+
+template <>
+inline void
+SingleDataSourceNode<Ra::Core::Utils::Color>::fromJsonInternal( const nlohmann::json& data ) {
+    if ( data.contains( "color" ) ) {
+        std::array<Scalar, 3> c = data["color"];
+        auto v =
+            Ra::Core::Utils::Color::sRGBToLinearRGB( Ra::Core::Utils::Color( c[0], c[1], c[2] ) );
+        setData( v );
+    }
+}
+
+#undef SPECIALIZE_EDITABLE_SOURCE
 
 } // namespace Sources
 } // namespace Core
