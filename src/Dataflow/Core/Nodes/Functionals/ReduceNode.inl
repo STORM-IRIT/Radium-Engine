@@ -47,7 +47,7 @@ void ReduceNode<coll_t, v_t>::execute() {
         m_result           = std::accumulate( inData.begin(), inData.end(), iv, f );
 #ifdef GRAPH_CALL_TRACE
         std::cout << "\e[36m\e[1mMReduceNode \e[0m \"" << m_instanceName << "\": execute, from "
-                  << input->getData().size() << " " << typeid( T ).name() << "." << std::endl;
+                  << input->getData().size() << " " << getTypename() << "." << std::endl;
 #endif
     }
 }
