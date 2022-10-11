@@ -83,11 +83,11 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
 
         [[nodiscard]] virtual std::string getRendererName() const { return "Dataflow Renderer"; }
 
-        void loadGraph( const std::string filename );
-        void saveGraph( const std::string filename );
+        void loadGraph( const std::string& filename );
+        void saveGraph( const std::string& filename );
         void resetGraph();
         /// Call this to set a graph to load before OpenGL is OK
-        void defferedLoadGraph( const std::string filename );
+        void defferedLoadGraph( const std::string& filename );
 
         /// The controlled graph.
         /// The controller own the graph and manage loading/saving of the renderer
