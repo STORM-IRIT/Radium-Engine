@@ -32,6 +32,7 @@ set(test_src
     Core/variableset.cpp
     Core/vectorarray.cpp
     Dataflow/nodes.cpp
+    Dataflow/serialization.cpp
     Engine/environmentmap.cpp
     Engine/renderparameters.cpp
     Engine/signalmanager.cpp
