@@ -19,8 +19,12 @@ SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
 template <typename T>
 void SingleDataSourceNode<T>::execute() {
     auto interface = static_cast<PortIn<T>*>( m_interface[0] );
-    if ( interface->isLinked() ) { m_data = &( interface->getData() ); }
+    if ( interface->isLinked() ) {
+        // use exernal storage to deliver data
+        m_data = &( interface->getData() );
+    }
     else {
+        // use local storage to deliver data
         m_data = &m_localData;
     }
     m_portOut->setData( m_data );
@@ -32,21 +36,21 @@ void SingleDataSourceNode<T>::execute() {
 
 template <typename T>
 void SingleDataSourceNode<T>::setData( T* data ) {
-    if ( m_data == &m_localData ) {
-        // copy data into local storage
-        m_localData = *data;
-    }
-    else {
-        m_data = data;
-    }
+    /// \warning this will copy data into local storage
+    m_localData = *data;
+#if 0
+    m_data = &m_localData;
     m_portOut->setData( m_data );
+#endif
 }
 
 template <typename T>
 void SingleDataSourceNode<T>::setData( T& data ) {
-    // TODO : assert m_data == &m_localData ???
     m_localData = data;
+#if 0
+    m_data = &m_localData;
     m_portOut->setData( m_data );
+#endif
 }
 
 template <typename T>

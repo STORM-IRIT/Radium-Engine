@@ -22,7 +22,13 @@ using namespace Ra::Core;
     using ArrayTransformer##SUFFIX = TransformNode<Ra::Core::VectorArray<TYPE>>; \
     using ArrayReducer##SUFFIX     = ReduceNode<Ra::Core::VectorArray<TYPE>>;    \
     using BinaryOp##SUFFIX         = BinaryOpNode<TYPE>;                         \
-    using BinaryOp##SUFFIX##Array  = BinaryOpNode<Ra::Core::VectorArray<TYPE>>
+    using BinaryOp##SUFFIX##Array  = BinaryOpNode<Ra::Core::VectorArray<TYPE>>;  \
+    using BinaryPredicate##SUFFIX  = BinaryOpNode<TYPE, TYPE, bool>
+
+/* Not yet supported
+    using BinaryPredicate##SUFFIX##Array =  BinaryOpNode<Ra::Core::VectorArray<TYPE>,
+   Ra::Core::VectorArray<TYPE>, bool>
+*/
 
 DECLARE_FUNCTIONALS( Float, float );
 DECLARE_FUNCTIONALS( Double, double );
