@@ -65,7 +65,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         REQUIRE( addition->getTypeName() == Functionals::BinaryOpScalar::getTypename() );
         auto typedAddition = dynamic_cast<Functionals::BinaryOpScalar*>( addition );
         REQUIRE( typedAddition != nullptr );
-        typedAddition->setOperator( add );
+        if ( typedAddition != nullptr ) { typedAddition->setOperator( add ); }
         // execute loaded graph
         g1.execute();
         auto r_loaded  = g1.getDataGetter( "r_from" );
