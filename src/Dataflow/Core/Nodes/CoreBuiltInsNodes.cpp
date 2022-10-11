@@ -1,5 +1,9 @@
 #include <Dataflow/Core/Nodes/CoreBuiltInsNodes.hpp>
 
+#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
+#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
+#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
+
 #include <Dataflow/Core/DataflowGraph.hpp>
 
 #include <Dataflow/Core/NodeFactory.hpp>
@@ -9,6 +13,7 @@ namespace Dataflow {
 namespace Core {
 
 namespace NodeFactoriesManager {
+
 /** TODO : replace this by factory autoregistration at compile time */
 #define ADD_FUNCTIONALS_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )                \
     FACTORY->registerNodeCreator<NAMESPACE::ArrayFilter##SUFFIX>(               \
@@ -20,13 +25,29 @@ namespace NodeFactoriesManager {
     FACTORY->registerNodeCreator<NAMESPACE::BinaryOp##SUFFIX>(                  \
         NAMESPACE::BinaryOp##SUFFIX::getTypename() + "_", #NAMESPACE );         \
     FACTORY->registerNodeCreator<NAMESPACE::BinaryOp##SUFFIX##Array>(           \
-        NAMESPACE::BinaryOp##SUFFIX##Array::getTypename() + "_", #NAMESPACE )
+        NAMESPACE::BinaryOp##SUFFIX##Array::getTypename() + "_", #NAMESPACE );  \
+    FACTORY->registerNodeCreator<NAMESPACE::BinaryPredicate##SUFFIX>(           \
+        NAMESPACE::BinaryPredicate##SUFFIX::getTypename() + "_", #NAMESPACE )
 
-#define ADD_SOURCES_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )          \
-    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##Source>(          \
-        NAMESPACE::PREFIX##Source::getTypename() + "_", #NAMESPACE ); \
-    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##ArraySource>(     \
-        NAMESPACE::PREFIX##ArraySource::getTypename() + "_", #NAMESPACE )
+/*
+ * not yet supported
+    FACTORY->registerNodeCreator<NAMESPACE::BinaryPredicate##SUFFIX##Array>(    \
+        NAMESPACE::BinaryPredicate##SUFFIX##Array::getTypename() + "_", #NAMESPACE )
+*/
+
+#define ADD_SOURCES_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )                        \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##Source>(                        \
+        NAMESPACE::PREFIX##Source::getTypename() + "_", #NAMESPACE );               \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##ArraySource>(                   \
+        NAMESPACE::PREFIX##ArraySource::getTypename() + "_", #NAMESPACE );          \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##UnaryFunctionSource>(           \
+        NAMESPACE::PREFIX##UnaryFunctionSource::getTypename() + "_", #NAMESPACE );  \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##BinaryFunctionSource>(          \
+        NAMESPACE::PREFIX##BinaryFunctionSource::getTypename() + "_", #NAMESPACE ); \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##UnaryPredicateSource>(          \
+        NAMESPACE::PREFIX##UnaryPredicateSource::getTypename() + "_", #NAMESPACE ); \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##BinaryPredicateSource>(         \
+        NAMESPACE::PREFIX##BinaryPredicateSource::getTypename() + "_", #NAMESPACE )
 
 #define ADD_SINKS_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )          \
     FACTORY->registerNodeCreator<NAMESPACE::PREFIX##Sink>(          \
@@ -119,12 +140,6 @@ void registerStandardFactories() {
     ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector3ui );
     ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector4i );
     ADD_FUNCTIONALS_TO_FACTORY( coreFactory, Functionals, Vector4ui );
-
-    /* --- Functions --- */
-    coreFactory->registerNodeCreator<Sources::ScalarBinaryPredicateSource>(
-        Sources::ScalarBinaryPredicateSource::getTypename() + "_", "Functions" );
-    coreFactory->registerNodeCreator<Sources::ScalarUnaryPredicateSource>(
-        Sources::ScalarUnaryPredicateSource::getTypename() + "_", "Functions" );
 
     /* --- Graphs --- */
     coreFactory->registerNodeCreator<DataflowGraph>( DataflowGraph::getTypename() + "_", "Graph" );

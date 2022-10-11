@@ -658,8 +658,8 @@ bool DataflowGraph::addSetter( PortBase* in ) {
     addInput( in );
     // TODO check if this verification is needed
     // Danger : Doing this, two different nodes (not the same type) but with the same name and port
-    // name could not be added to the graph Danger : If not doing this,there will be some collisions
-    // on the data structure
+    // name could not be added to the graph.
+    // Danger : If not doing this,there will be some collisions on the data structure
     if ( m_dataSetters.find( in->getName() ) == m_dataSetters.end() ) {
         auto portOut = std::shared_ptr<PortBase>( in->reflect( this, in->getName() ) );
         m_dataSetters.emplace( std::make_pair(

@@ -26,6 +26,9 @@ namespace Functionals {
  *   - out : port giving a v_t such that out = std::reduce(in, f, init) (std::accumulate if less
  * than C++17)
  */
+// TODO, allow to specify the type of the reduced information. This will allow, e.g, given a
+//  collection of X, to compute a tuple containing mean and standard deviation of the collection
+//  as reduction (using online Welford algo).
 template <typename coll_t, typename v_t = typename coll_t::value_type>
 class ReduceNode : public Node
 {

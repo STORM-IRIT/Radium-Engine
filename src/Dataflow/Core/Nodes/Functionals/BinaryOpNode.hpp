@@ -8,23 +8,50 @@ namespace Dataflow {
 namespace Core {
 namespace Functionals {
 
+/**
+ * \brief namespace containing template utilities for management of BinaryOpNode content
+ */
 namespace internal {
+
+/**
+ * \brief Type traits giving access to value_type and const ref type
+ * \tparam A
+ * \tparam is_container
+ */
 template <typename A, bool is_container = false>
 struct ArgTypeHelperInternal {
     using value_type      = A;
     using const_value_ref = const A&;
 };
 
+/**
+ * \brief Partial specialization for container type
+ * \tparam A
+ */
 template <typename A>
 struct ArgTypeHelperInternal<A, true> {
     using value_type      = typename A::value_type;
     using const_value_ref = const typename A::value_type&;
 };
 
+/**
+ * \brief CRTP
+ * \tparam A
+ */
 template <typename A>
 struct ArgTypeHelper : public ArgTypeHelperInternal<A, Ra::Core::Utils::is_container<A>::value> {};
 
 // Find a way to evaluate the copy/move semantic of t_out
+/**
+ * \brief Manage the call to y = f(a, b) according to inputs aand ouput types of the node
+ * \tparam t_a Type of the source data for argument a of the function
+ * \tparam t_b Type of the source data for argument b of the function
+ * \tparam t_out Type of the ouput data sent by the node
+ * \tparam funcType Profile of the operator f
+ * \tparam it_a true if t_a is a container
+ * \tparam it_b true if t_b is a container
+ * \tparam it_out true if t_out is a container
+ */
 template <typename t_a,
           typename t_b,
           typename t_out,
@@ -38,6 +65,9 @@ struct ExecutorHelper {
     }
 };
 
+/**
+ * \brief Call of an operator to transform two container into another container.
+ */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, true, true, true> {
     static t_out executeInternal( t_a& a, t_b& b, funcType f ) {
@@ -53,6 +83,9 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, true, true, true> {
     }
 };
 
+/**
+ * \brief Call of an operator to transform a container and a scalar into a container.
+ */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, true, false, true> {
     static t_out executeInternal( t_a& a, t_b& b, funcType f ) {
@@ -66,6 +99,9 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, true, false, true> {
     }
 };
 
+/**
+ * \brief Call of an operator to transform a scalar and a container  into a container.
+ */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, false, true, true> {
     static t_out executeInternal( t_a& a, t_b& b, funcType f ) {
@@ -79,13 +115,39 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, false, true, true> {
     }
 };
 
+/**
+ * \brief Call of an operator to transform two scalars into a scalar.
+ */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, false, false, false> {
     static t_out executeInternal( t_a& a, t_b& b, funcType f ) { return f( a, b ); }
 };
 } // namespace internal
-/** \brief Apply a binary operation on its input
- * \tparam v_t type of the element to apply the operator on
+
+/** \brief Apply a binary operation on its input.
+ * \tparam t_a type of the first argument
+ * \tparam t_b type of the second argument
+ * \tparam t_out type of the result
+ *
+ * This node apply an operator f on its input such that :
+ *   - if t_a, t_b and t_out are collections, r[i] = f(a[i], b[i]) for all elements i in the
+ * collections.
+ *   - if t_a and t_out are collections, t_b an object, r[i] = f(a[i], b) for all elements i in the
+ * collections.
+ *   - if t_b and t_out are collections, t_a an object, r[i] = f(a, b[i]) for all elements i in the
+ * collections.
+ *   - if t_a, t_b and t_out are objects, r = f(a, b).
+ *   All other configurations of t_a, t_b and t_out are illegal.
+ *
+ * This node has three inputs :
+ *   - a : port accepting the input data of type t_a. Must be linked.
+ *   - b : port accepting the input data of type t_b. Must be linked.
+ *   - f : port accepting an operator with profile std::function<Res_type( Arg1_type, Arg2_type )>.
+ *   Link to this port is not mandatory, the operator might be set once for the node.
+ *   If this port is linked, the operator will be taken from the port.
+ *
+ * This node has one output :
+ *   - out : port giving a t_out such that out = std::transform(a, b, f)
  */
 template <typename t_a, typename t_b = t_a, typename t_out = t_a>
 class BinaryOpNode : public Node
@@ -100,7 +162,7 @@ class BinaryOpNode : public Node
     using BinaryOperator = std::function<Res_type( Arg1_type, Arg2_type )>;
 
     /**
-     * \brief Construct an additioner
+     * \brief Construct an null operator
      * \param instanceName
      */
     explicit BinaryOpNode( const std::string& instanceName ) :
@@ -111,7 +173,7 @@ class BinaryOpNode : public Node
     /**
      * \brief Construct a BinaryOpNode with the given operator
      * \param instanceName
-     * \param filterFunction
+     * \param op
      */
     BinaryOpNode( const std::string& instanceName, BinaryOperator op ) :
         BinaryOpNode( instanceName, getTypename(), op ) {}
@@ -120,6 +182,7 @@ class BinaryOpNode : public Node
         Node::init();
         m_result = t_out {};
     }
+
     void execute() override {
         auto f   = m_operator;
         auto p_f = static_cast<PortIn<BinaryOperator>*>( m_inputs[2].get() );
@@ -155,12 +218,12 @@ class BinaryOpNode : public Node
     void toJsonInternal( nlohmann::json& data ) const override {
         data["comment"] =
             std::string { "Binary operator could not be serialized for " } + getTypeName();
-        LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
+        LOG( Ra::Core::Utils::logDEBUG )
             << "Unable to save data when serializing a " << getTypeName() << ".";
     }
 
     void fromJsonInternal( const nlohmann::json& ) override {
-        LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
+        LOG( Ra::Core::Utils::logDEBUG )
             << "Unable to read data when un-serializing a " << getTypeName() << ".";
     }
 
@@ -178,7 +241,7 @@ class BinaryOpNode : public Node
     }
 };
 
-// implementation of the methods
+// implementation of the methods are inlined
 // see issue .inl coding style #1011
 
 } // namespace Functionals
