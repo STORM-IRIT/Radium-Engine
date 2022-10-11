@@ -72,12 +72,12 @@ bool RenderingGraph::postCompilationOperation() {
             }
         }
     }
-    /*
+#if 0
     std::cout << "RenderingGraph::postCompilationOperation : got " <<
                  m_renderingNodes.size() << " compiled rendering nodes with " <<
                  m_rtIndexedNodes.size() << " render-passes, "  <<
                  m_dataProviders.size() << " scene nodes. \n";
-    */
+#endif
 #endif
 return true;
 }
@@ -99,7 +99,8 @@ void RenderingGraph::observeSinks( const std::vector<TextureType*>& graphOutput 
     */
 }
 #endif
-    const std::vector<TextureType*>& RenderingGraph::getImagesOutput() const {
+
+const std::vector<TextureType*>& RenderingGraph::getImagesOutput() const {
     return m_outputTextures;
 }
 
