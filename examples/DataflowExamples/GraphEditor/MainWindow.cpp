@@ -67,8 +67,7 @@ void MainWindow::about() {
     QMessageBox::about( this,
                         tr( "About Application" ),
                         tr( "The <b>Application</b> example demonstrates how to "
-                            "write modern GUI applications using Qt, with a menu bar, "
-                            "toolbars, and a status bar." ) );
+                            "edit a Radium dataflow graph." ) );
 }
 
 void MainWindow::documentWasModified() {
@@ -77,10 +76,10 @@ void MainWindow::documentWasModified() {
 
 void MainWindow::createActions() {
 
-    QMenu* fileMenu       = menuBar()->addMenu( tr( "&File" ) );
-    QToolBar* fileToolBar = addToolBar( tr( "File" ) );
-    const QIcon newIcon   = QIcon::fromTheme( "document-new", QIcon( ":/images/new.png" ) );
-    QAction* newAct       = new QAction( newIcon, tr( "&New" ), this );
+    auto fileMenu       = menuBar()->addMenu( tr( "&File" ) );
+    auto fileToolBar    = addToolBar( tr( "File" ) );
+    const QIcon newIcon = QIcon::fromTheme( "document-new", QIcon( ":/images/new.png" ) );
+    auto newAct         = new QAction( newIcon, tr( "&New" ), this );
     newAct->setShortcuts( QKeySequence::New );
     newAct->setStatusTip( tr( "Create a new file" ) );
     connect( newAct, &QAction::triggered, this, &MainWindow::newFile );
@@ -88,7 +87,7 @@ void MainWindow::createActions() {
     fileToolBar->addAction( newAct );
 
     const QIcon openIcon = QIcon::fromTheme( "document-open", QIcon( ":/images/open.png" ) );
-    QAction* openAct     = new QAction( openIcon, tr( "&Open..." ), this );
+    auto openAct         = new QAction( openIcon, tr( "&Open..." ), this );
     openAct->setShortcuts( QKeySequence::Open );
     openAct->setStatusTip( tr( "Open an existing file" ) );
     connect( openAct, &QAction::triggered, this, &MainWindow::open );
@@ -96,15 +95,15 @@ void MainWindow::createActions() {
     fileToolBar->addAction( openAct );
 
     const QIcon saveIcon = QIcon::fromTheme( "document-save", QIcon( ":/images/save.png" ) );
-    QAction* saveAct     = new QAction( saveIcon, tr( "&Save" ), this );
+    auto saveAct         = new QAction( saveIcon, tr( "&Save" ), this );
     saveAct->setShortcuts( QKeySequence::Save );
     saveAct->setStatusTip( tr( "Save the document to disk" ) );
     connect( saveAct, &QAction::triggered, this, &MainWindow::save );
     fileMenu->addAction( saveAct );
     fileToolBar->addAction( saveAct );
 
-    const QIcon saveAsIcon = QIcon::fromTheme( "document-save-as" );
-    QAction* saveAsAct =
+    const auto saveAsIcon = QIcon::fromTheme( "document-save-as" );
+    auto saveAsAct =
         fileMenu->addAction( saveAsIcon, tr( "Save &As..." ), this, &MainWindow::saveAs );
     saveAsAct->setShortcuts( QKeySequence::SaveAs );
     saveAsAct->setStatusTip( tr( "Save the document under a new name" ) );
@@ -112,18 +111,21 @@ void MainWindow::createActions() {
     fileMenu->addSeparator();
 
     const QIcon exitIcon = QIcon::fromTheme( "application-exit" );
-    QAction* exitAct     = fileMenu->addAction( exitIcon, tr( "E&xit" ), this, &QWidget::close );
+    auto exitAct         = fileMenu->addAction( exitIcon, tr( "E&xit" ), this, &QWidget::close );
     exitAct->setShortcuts( QKeySequence::Quit );
     exitAct->setStatusTip( tr( "Exit the application" ) );
 
-    QMenu* editMenu       = menuBar()->addMenu( tr( "&Edit" ) );
-    QToolBar* editToolBar = addToolBar( tr( "Edit" ) );
+#if 0
+    // Activite this section when editMenu might be filled
+    auto editMenu       = menuBar()->addMenu( tr( "&Edit" ) );
+    auto editToolBar = addToolBar( tr( "Edit" ) );
+#endif
 
-    QMenu* helpMenu   = menuBar()->addMenu( tr( "&Help" ) );
-    QAction* aboutAct = helpMenu->addAction( tr( "&About" ), this, &MainWindow::about );
+    auto helpMenu = menuBar()->addMenu( tr( "&Help" ) );
+    auto aboutAct = helpMenu->addAction( tr( "&About" ), this, &MainWindow::about );
     aboutAct->setStatusTip( tr( "Show the application's About box" ) );
 
-    QAction* aboutQtAct = helpMenu->addAction( tr( "About &Qt" ), qApp, &QApplication::aboutQt );
+    auto aboutQtAct = helpMenu->addAction( tr( "About &Qt" ), qApp, &QApplication::aboutQt );
     aboutQtAct->setStatusTip( tr( "Show the Qt library's About box" ) );
 }
 
