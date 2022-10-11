@@ -39,9 +39,14 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         g.addNode( op );
 
         REQUIRE( g.addLink( source_a, "to", op, "a" ) );
-        REQUIRE( g.addLink( source_b, "to", op, "b" ) );
         REQUIRE( g.addLink( op, "r", sink, "from" ) );
-        REQUIRE( g.compile() );
+        REQUIRE( !g.compile() );
+        // this will not execute the graph as it do not compiles
+        g.execute();
+        REQUIRE( !g.m_ready );
+
+        // add missing link
+        REQUIRE( g.addLink( source_b, "to", op, "b" ) );
 
         DataType x { 1_ra };
         a->setData( &x );
@@ -51,6 +56,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         b->setData( &y );
         REQUIRE( b->getData<DataType>() == y );
 
+        // As graph was modified since last compilation, this will recompile the graph
         g.execute();
 
         auto& z = r->getData<DataType>();
