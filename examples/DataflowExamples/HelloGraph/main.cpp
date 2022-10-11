@@ -1,8 +1,6 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/Nodes/CoreBuiltInsNodes.hpp>
 #include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
-#include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
-#include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
-#include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 
 using namespace Ra::Dataflow::Core;
 
