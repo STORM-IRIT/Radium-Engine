@@ -7,7 +7,6 @@
 
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Nodes/CoreBuiltInsNodes.hpp>
-#include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
 
 using namespace Ra::Dataflow::Core;
 template <typename DataType_a, typename DataType_b = DataType_a, typename DataType_r = DataType_a>
