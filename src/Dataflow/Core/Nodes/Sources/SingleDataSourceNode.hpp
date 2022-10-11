@@ -48,7 +48,7 @@ class SingleDataSourceNode : public Node
      * @param name Name of the data as it will appear on edition gui. If not given, the default
      * name "Data" will be used.
      */
-    void setEditable( const std::string name = "Data" );
+    void setEditable( const std::string& name = "Data" );
 
     /**
      * \brief Remove the delivered data from being editable

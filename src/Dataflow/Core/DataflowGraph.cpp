@@ -61,6 +61,7 @@ void DataflowGraph::destroy() {
     m_dataSetters.clear();
     m_dataGetters.clear();
     Node::destroy();
+    m_ready = false;
 }
 
 void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
@@ -143,10 +144,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
             auto factories = data["graph"]["factories"];
             for ( const auto& factoryName : factories ) {
                 // Do not add factories already registered for the graph.
-                if ( m_factories->hasFactory( factoryName ) ) {
-                    std::cerr << "PLOPOPOPOO !!!!\n";
-                    continue;
-                }
+                if ( m_factories->hasFactory( factoryName ) ) { continue; }
                 auto factory = NodeFactoriesManager::getFactory( factoryName );
                 if ( factory ) { addFactory( factory ); }
                 else {
@@ -694,16 +692,9 @@ bool DataflowGraph::releaseDataSetter( std::string portName ) {
     return false;
 }
 
+// Why is this method useful if it is the same than getDataSetter ?
 bool DataflowGraph::activateDataSetter( std::string portName ) {
-    auto setter = m_dataSetters.find( portName );
-    if ( setter != m_dataSetters.end() ) {
-        auto [desc, in] = setter->second;
-        auto p          = std::get<0>( desc );
-        in->disconnect();
-        p->connect( in );
-        return true;
-    }
-    return false;
+    return getDataSetter( portName ) != nullptr;
 }
 
 std::shared_ptr<PortBase> DataflowGraph::getDataSetter( std::string portName ) {
