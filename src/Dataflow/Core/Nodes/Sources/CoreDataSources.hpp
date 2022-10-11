@@ -1,4 +1,5 @@
 #pragma once
+#include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
@@ -14,10 +15,15 @@ namespace Core {
 namespace Sources {
 // TODO unify editable and non editable data sources
 
-// This macro does not end with semicolon. To be added when callin it
-#define DECLARE_COREDATA_SOURCES( PREFIX, TYPE )            \
-    using PREFIX##Source      = SingleDataSourceNode<TYPE>; \
-    using PREFIX##ArraySource = SingleDataSourceNode<Ra::Core::VectorArray<TYPE>>
+// declare synonyms for convenient sources
+// This macro does not end with semicolon. To be added when calling it
+#define DECLARE_COREDATA_SOURCES( PREFIX, TYPE )                                              \
+    using PREFIX##Source                = SingleDataSourceNode<TYPE>;                         \
+    using PREFIX##ArraySource           = SingleDataSourceNode<Ra::Core::VectorArray<TYPE>>;  \
+    using PREFIX##UnaryFunctionSource   = FunctionSourceNode<TYPE, const TYPE&>;              \
+    using PREFIX##BinaryFunctionSource  = FunctionSourceNode<TYPE, const TYPE&, const TYPE&>; \
+    using PREFIX##UnaryPredicateSource  = FunctionSourceNode<bool, const TYPE&>;              \
+    using PREFIX##BinaryPredicateSource = FunctionSourceNode<bool, const TYPE&, const TYPE&>
 
 using namespace Ra::Core;
 

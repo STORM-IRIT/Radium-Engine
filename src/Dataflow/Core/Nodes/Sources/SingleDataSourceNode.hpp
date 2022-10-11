@@ -31,6 +31,8 @@ class SingleDataSourceNode : public Node
 
     /** \brief Set the data to be delivered by the node.
      * @param data
+     * \warning This will copy the given data into the node.
+     * To prevent copy prefer using the corresponding dataSetter on the owning graph.
      */
     void setData( T* data );
 
