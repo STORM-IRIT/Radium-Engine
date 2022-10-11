@@ -7,6 +7,7 @@
 
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Nodes/CoreBuiltInsNodes.hpp>
+#include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
 
 using namespace Ra::Dataflow::Core;
 template <typename DataType_a, typename DataType_b = DataType_a, typename DataType_r = DataType_a>
@@ -252,6 +253,198 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
             std::cout << "[" << t.transpose() << "] ";
         }
         std::cout << "}\n";
+        g->destroy();
+        delete g;
+    }
+
+    SECTION( "Transform/reduce/filter/test" ) {
+        auto g           = new DataflowGraph( "Complex graph" );
+        using VectorType = Ra::Core::VectorArray<Scalar>;
+
+        // Source of a vector of Scalar : random vector
+        auto nodeS = new Sources::ScalarArraySource( "s" );
+
+        // Source of an operator on scalars : f(x) = 2*x
+        using DoubleFunction    = Sources::FunctionSourceNode<Scalar, const Scalar&>::function_type;
+        DoubleFunction doubleMe = []( const Scalar& x ) -> Scalar { return 2_ra * x; };
+        auto nodeD              = new Sources::FunctionSourceNode<Scalar, const Scalar&>( "d" );
+        nodeD->setData( &doubleMe );
+
+        // Source of a Scalar : mean neutral element 0_ra
+        auto nodeN = new Sources::ScalarSource( "n" );
+        Scalar zero { 0_ra };
+        nodeN->setData( &zero );
+
+        // Source of a reduction operator : compute the mean using Welford online algo
+        using ReduceOperator = Sources::FunctionSourceNode<Scalar, const Scalar&, const Scalar&>;
+        struct MeanOperator {
+            size_t n { 0 };
+            Scalar operator()( const Scalar& m, const Scalar& x ) {
+                return m + ( ( x - m ) / ( ++n ) );
+            }
+        };
+        auto nodeM                      = new ReduceOperator( "m" );
+        ReduceOperator::function_type m = MeanOperator();
+
+        // Reduce node : will compute the mean
+        using MeanCalculator = Functionals::ReduceNode<VectorType>;
+        auto meanCalculator  = new MeanCalculator( "mean" );
+
+        // Sink for the mean
+        auto nodeR = new Sinks::ScalarSink( "r" );
+
+        // Transform operator, will double the vectors' values
+        auto nodeT = new Functionals::ArrayTransformerScalar( "twice" );
+
+        // Will compute the mean on the doubled vector
+        auto doubleMeanCalculator = new MeanCalculator( "double mean" );
+
+        // Sink for the double mean
+        auto nodeRD = new Sinks::ScalarSink( "rd" );
+
+        // Source for a comparison functor , eg f(x, y) -> 2*x == y
+        auto nodePred = new Sources::ScalarBinaryPredicateSource( "predicate" );
+        Sources::ScalarBinaryPredicateSource::function_type predicate =
+            []( const Scalar& a, const Scalar& b ) -> bool { return 2_ra * a == b; };
+        nodePred->setData( &predicate );
+
+        // Boolean sink for the validation result
+        auto sinkB = new Sinks::BooleanSink( "test" );
+
+        // Node for coparing the results of the computation graph
+        auto validator = new Functionals::BinaryOpNode<Scalar, Scalar, bool>( "validator" );
+
+        g->addNode( nodeS );
+        g->addNode( nodeD );
+        g->addNode( nodeN );
+        g->addNode( nodeM );
+        g->addNode( nodeR );
+        g->addNode( meanCalculator );
+        g->addNode( doubleMeanCalculator );
+        g->addNode( nodeT );
+        g->addNode( nodeRD );
+
+        if ( !g->addLink( nodeS, "to", meanCalculator, "in" ) ) {
+            std::cout << "Unable to link " << nodeS->getInstanceName() << ":to and "
+                      << meanCalculator->getInstanceName() << ":in !!!\n";
+        }
+        if ( !g->addLink( nodeM, "f", meanCalculator, "f" ) ) {
+            std::cout << "Unable to link " << nodeM->getInstanceName() << ":f and "
+                      << meanCalculator->getInstanceName() << ":f !!!\n";
+        }
+        if ( !g->addLink( nodeN, "to", meanCalculator, "init" ) ) {
+            std::cout << "Unable to link " << nodeN->getInstanceName() << ":to and "
+                      << meanCalculator->getInstanceName() << ":init !!!\n";
+        }
+        if ( !g->addLink( meanCalculator, "out", nodeR, "from" ) ) {
+            std::cout << "Unable to link " << meanCalculator->getInstanceName() << ":out and "
+                      << nodeR->getInstanceName() << ":from !!!\n";
+        }
+
+        if ( !g->addLink( nodeS, "to", nodeT, "in" ) ) {
+            std::cout << "Unable to link " << nodeS->getInstanceName() << ":to and "
+                      << nodeT->getInstanceName() << ":in !!!\n";
+        }
+        if ( !g->addLink( nodeD, "f", nodeT, "f" ) ) {
+            std::cout << "Unable to link " << nodeD->getInstanceName() << ":f and "
+                      << nodeT->getInstanceName() << ":f !!!\n";
+        }
+        if ( !g->addLink( nodeT, "out", doubleMeanCalculator, "in" ) ) {
+            std::cout << "Unable to link " << nodeT->getInstanceName() << ":out and "
+                      << doubleMeanCalculator->getInstanceName() << ":in !!!\n";
+        }
+        if ( !g->addLink( doubleMeanCalculator, "out", nodeRD, "from" ) ) {
+            std::cout << "Unable to link " << doubleMeanCalculator->getInstanceName() << ":out and "
+                      << nodeRD->getInstanceName() << ":from !!!\n";
+        }
+        if ( !g->addLink( nodeM, "f", doubleMeanCalculator, "f" ) ) {
+            std::cout << "Unable to link " << nodeM->getInstanceName() << ":f and "
+                      << doubleMeanCalculator->getInstanceName() << ":f !!!\n";
+        }
+
+        g->addNode( nodePred );
+        g->addNode( sinkB );
+        g->addNode( validator );
+        if ( !g->addLink( meanCalculator, "out", validator, "a" ) ) {
+            std::cout << "Unable to link " << meanCalculator->getInstanceName() << ":out and "
+                      << validator->getInstanceName() << ":a !!!\n";
+        }
+        if ( !g->addLink( doubleMeanCalculator, "out", validator, "b" ) ) {
+            std::cout << "Unable to link " << doubleMeanCalculator->getInstanceName() << ":out and "
+                      << validator->getInstanceName() << ":b !!!\n";
+        }
+        if ( !g->addLink( nodePred, "f", validator, "f" ) ) {
+            std::cout << "Unable to link " << nodePred->getInstanceName() << ":f and "
+                      << validator->getInstanceName() << ":b !!!\n";
+        }
+        if ( !g->addLink( validator, "r", sinkB, "from" ) ) {
+            std::cout << "Unable to link " << validator->getInstanceName() << ":r and "
+                      << sinkB->getInstanceName() << ":from !!!\n";
+        }
+
+        auto input   = g->getDataSetter( "s_to" );
+        auto output  = g->getDataGetter( "r_from" );
+        auto outputD = g->getDataGetter( "rd_from" );
+        auto outputB = g->getDataGetter( "test_from" );
+        auto inputR  = g->getDataSetter( "m_f" );
+        if ( inputR == nullptr ) { std::cout << "Failed to get the graph function input !!\n"; }
+
+        //! [Inspect the graph interface : inputs and outputs port]
+        auto inputs = g->getAllDataSetters();
+        std::cout << "Input ports (" << inputs.size() << ") are :\n";
+        for ( auto& [ptrPort, portName, portType] : inputs ) {
+            std::cout << "\t\"" << portName << "\" accepting type " << portType << "\n";
+        }
+        auto outputs = g->getAllDataGetters();
+        std::cout << "Output ports (" << outputs.size() << ") are :\n";
+        for ( auto& [ptrPort, portName, portType] : outputs ) {
+            std::cout << "\t\"" << portName << "\" generating type " << portType << "\n";
+        }
+        //! [Inspect the graph interface : inputs and outputs port]
+
+        if ( !g->compile() ) { std::cout << "Compilation error !!"; }
+
+        // Set input/ouput data
+        VectorType test;
+        input->setData( &test );
+
+        test.reserve( 10 );
+        std::mt19937 gen( 0 );
+        std::uniform_real_distribution<> dis( 0.0, 1.0 );
+        // Fill the vector with random numbers between 0 and 1
+        for ( size_t n = 0; n < test.capacity(); ++n ) {
+            test.push_back( dis( gen ) );
+        }
+
+#if 0
+        std::cout << "Input values : \n\t";
+        for ( auto ord : test ) {
+            std::cout << ord << ' ';
+        }
+        std::cout << '\n';
+#endif
+        // No need to do this as mean operator source has a copy of a functor
+        ReduceOperator::function_type m1 = MeanOperator();
+        inputR->setData( &m1 );
+
+        g->execute();
+
+        auto& result  = output->getData<Scalar>();
+        auto& resultD = outputD->getData<Scalar>();
+        auto& resultB = outputB->getData<bool>();
+
+        std::cout << "Computed mean ( ref ): " << result << "\n";
+        std::cout << "Computed mean ( tra ): " << resultD << "\n";
+        std::cout << std::boolalpha;
+        std::cout << "Ratio  ( expected 2 ): " << resultD / result << " -- validator --> "
+                  << resultB << "\n";
+
+        std::cout << '\n';
+
+        REQUIRE( resultD / result == 2_ra );
+        REQUIRE( resultB );
+
+        g->saveToJson( "Transform-reduce.json" );
         g->destroy();
         delete g;
     }

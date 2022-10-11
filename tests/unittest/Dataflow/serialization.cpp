@@ -41,6 +41,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         a->setData( &x );
         DataType y { 2_ra };
         b->setData( &y );
+        // Execute initial graph";
         g.execute();
         auto z = r->getData<DataType>();
         REQUIRE( z == x + y );
@@ -66,12 +67,14 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         auto typedAddition = dynamic_cast<Functionals::BinaryOpScalar*>( addition );
         REQUIRE( typedAddition != nullptr );
         if ( typedAddition != nullptr ) { typedAddition->setOperator( add ); }
-        // execute loaded graph
+
+        // Execute loaded graph
+        // Data delivered by the source nodes are the one saved by the original graph
         g1.execute();
         auto r_loaded  = g1.getDataGetter( "r_from" );
         auto& z_loaded = r_loaded->getData<DataType>();
-        // Data loaded for source nodes are the one saved by the original graph
         REQUIRE( z_loaded == z );
+
         auto a_loaded = g1.getDataSetter( "a_to" );
         auto b_loaded = g1.getDataSetter( "b_to" );
         DataType xp { 2_ra };
@@ -80,6 +83,21 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         b_loaded->setData( &yp );
         g1.execute();
         REQUIRE( z_loaded == 5 );
+
+        // Reset sources to use the loaded data loaded
+        g1.releaseDataSetter( "a_to" );
+        g1.releaseDataSetter( "b_to" );
+        g1.execute();
+        REQUIRE( z_loaded == z );
+
+        // reactivate the dataSetter and change the data delivered by a (copy data into a)
+        g1.activateDataSetter( "b_to" );
+        auto loadedSource_a =
+            dynamic_cast<Sources::SingleDataSourceNode<DataType>*>( g1.getNode( "a" ) );
+        Scalar newX = 3_ra;
+        loadedSource_a->setData( &newX );
+        g1.execute();
+        REQUIRE( z_loaded == 6 );
         std::filesystem::remove_all( tmpdir );
     }
 }
