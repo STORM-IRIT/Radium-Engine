@@ -1,0 +1,129 @@
+#include <catch2/catch.hpp>
+
+#include <string>
+#include <vector>
+
+#include <iostream>
+
+#include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/Nodes/CoreBuiltInsNodes.hpp>
+
+using namespace Ra::Dataflow::Core;
+
+//#define USE_SOURCE_DATA
+
+template <typename T>
+void testGraph( const std::string& name, T in, T& out ) {
+    auto g      = new DataflowGraph { name };
+    auto source = new Sources::SingleDataSourceNode<T>( "in" );
+
+#ifdef USE_SOURCE_DATA
+    std::cout << "Setting " << simplifiedDemangledType<T>() << " data on source node ... ";
+    source->setData( &in );
+#endif
+
+    auto sink = new Sinks::SinkNode<T>( "out" );
+    g->addNode( source );
+    g->addNode( sink );
+    auto linked = g->addLink( source, "to", sink, "from" );
+    if ( !linked ) { std::cerr << "Error linking soure and sink nodes.\n"; }
+    REQUIRE( linked );
+
+    auto compiled = g->compile();
+    if ( !compiled ) { std::cerr << "Error compiledcompiled graph.\n"; }
+    REQUIRE( compiled );
+
+#ifndef USE_SOURCE_DATA
+    std::cout << "Setting " << simplifiedDemangledType<T>() << " data on interface port ... ";
+    auto input = g->getDataSetter( "in_to" );
+    REQUIRE( input != nullptr );
+    input->setData( &in );
+#endif
+
+    g->execute();
+
+    auto output = g->getDataGetter( "out_from" );
+    REQUIRE( output != nullptr );
+
+    T r = output->getData<T>();
+    out = r;
+
+    nlohmann::json graphData;
+    g->toJson( graphData );
+    g->destroy();
+    delete g;
+}
+
+TEST_CASE( "Dataflow/Core/Sources and Sinks", "[Dataflow][Core][Sources and Sinks]" ) {
+    SECTION( "Operations on base type : Scalar" ) {
+        using DataType = Scalar;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+
+        DataType x { 3.141592_ra };
+        DataType y { 0_ra };
+        testGraph<DataType>( "Test on Scalar", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
+    SECTION( "Operations on base type : float" ) {
+        using DataType = float;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+        DataType x { 3.141592 };
+        DataType y { 0 };
+        testGraph<DataType>( "Test on float", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
+    SECTION( "Operations on base type : double" ) {
+        using DataType = double;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+        DataType x { 3.141592 };
+        DataType y { 0 };
+        testGraph<DataType>( "Test on float", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
+    SECTION( "Operations on base type : int" ) {
+        using DataType = int;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+        DataType x { -3 };
+        DataType y { 0 };
+        testGraph<DataType>( "Test on int", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
+    SECTION( "Operations on base type : unsigned int" ) {
+        using DataType = unsigned int;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+        DataType x { 3 };
+        DataType y { 0 };
+        testGraph<DataType>( "Test on unsigned int", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
+    SECTION( "Operations on base type : bool" ) {
+        using DataType = bool;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+        DataType x { true };
+        DataType y { false };
+        testGraph<DataType>( "Test on bool", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
+    SECTION( "Operations on base type : Vector3" ) {
+        using DataType = Ra::Core::Vector3;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+        DataType x { 1_ra, 2_ra, 3_ra };
+        DataType y;
+        testGraph<DataType>( "Test on bool", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
+}
