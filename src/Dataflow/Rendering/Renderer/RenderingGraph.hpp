@@ -20,7 +20,7 @@ using namespace Ra::Dataflow::Core;
 class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
 {
   public:
-    RenderingGraph( const std::string& name );
+    explicit RenderingGraph( const std::string& name );
     ~RenderingGraph() override = default;
 
     void init() override;
