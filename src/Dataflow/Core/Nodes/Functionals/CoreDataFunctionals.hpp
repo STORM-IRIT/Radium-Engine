@@ -20,7 +20,9 @@ using namespace Ra::Core;
 #define DECLARE_FUNCTIONALS( SUFFIX, TYPE )                                      \
     using ArrayFilter##SUFFIX      = FilterNode<Ra::Core::VectorArray<TYPE>>;    \
     using ArrayTransformer##SUFFIX = TransformNode<Ra::Core::VectorArray<TYPE>>; \
-    using ArrayReducer##SUFFIX     = ReduceNode<Ra::Core::VectorArray<TYPE>>
+    using ArrayReducer##SUFFIX     = ReduceNode<Ra::Core::VectorArray<TYPE>>;    \
+    using BinaryOp##SUFFIX         = BinaryOpNode<TYPE>;                         \
+    using BinaryOp##SUFFIX##Array  = BinaryOpNode<Ra::Core::VectorArray<TYPE>>
 
 DECLARE_FUNCTIONALS( Float, float );
 DECLARE_FUNCTIONALS( Double, double );
