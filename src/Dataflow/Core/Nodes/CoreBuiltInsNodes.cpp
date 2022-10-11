@@ -16,7 +16,11 @@ namespace NodeFactoriesManager {
     FACTORY->registerNodeCreator<NAMESPACE::ArrayTransformer##SUFFIX>(          \
         NAMESPACE::ArrayTransformer##SUFFIX::getTypename() + "_", #NAMESPACE ); \
     FACTORY->registerNodeCreator<NAMESPACE::ArrayReducer##SUFFIX>(              \
-        NAMESPACE::ArrayReducer##SUFFIX::getTypename() + "_", #NAMESPACE )
+        NAMESPACE::ArrayReducer##SUFFIX::getTypename() + "_", #NAMESPACE );     \
+    FACTORY->registerNodeCreator<NAMESPACE::BinaryOp##SUFFIX>(                  \
+        NAMESPACE::BinaryOp##SUFFIX::getTypename() + "_", #NAMESPACE );         \
+    FACTORY->registerNodeCreator<NAMESPACE::BinaryOp##SUFFIX##Array>(           \
+        NAMESPACE::BinaryOp##SUFFIX##Array::getTypename() + "_", #NAMESPACE )
 
 #define ADD_SOURCES_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )          \
     FACTORY->registerNodeCreator<NAMESPACE::PREFIX##Source>(          \
