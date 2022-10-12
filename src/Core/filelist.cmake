@@ -5,7 +5,6 @@
 # ----------------------------------------------------
 
 set(core_sources
-    Animation/BulgeCorrection.cpp
     Animation/Cage.cpp
     Animation/DualQuaternionSkinning.cpp
     Animation/HandleArray.cpp
@@ -15,7 +14,6 @@ set(core_sources
     Animation/RotationCenterSkinning.cpp
     Animation/Sequence.cpp
     Animation/Skeleton.cpp
-    Animation/StretchableTwistableBoneSkinning.cpp
     Asset/AnimationData.cpp
     Asset/BlinnPhongMaterialData.cpp
     Asset/Camera.cpp
@@ -26,21 +24,14 @@ set(core_sources
     Asset/LightData.cpp
     Asset/MaterialData.cpp
     Containers/AdjacencyList.cpp
-    Geometry/Adjacency.cpp
-    Geometry/Area.cpp
     Geometry/CatmullClarkSubdivider.cpp
-    Geometry/HeatDiffusion.cpp
     Geometry/IndexedGeometry.cpp
-    Geometry/Laplacian.cpp
     Geometry/LoopSubdivider.cpp
     Geometry/MeshPrimitives.cpp
-    Geometry/Normal.cpp
     Geometry/PolyLine.cpp
     Geometry/RayCast.cpp
     Geometry/TopologicalMesh.cpp
     Geometry/TriangleMesh.cpp
-    Geometry/TriangleOperation.cpp
-    Geometry/VertexDistance.cpp
     Geometry/Volume.cpp
     Geometry/deprecated/TopologicalMesh.cpp
     Resources/Resources.cpp
@@ -53,7 +44,6 @@ set(core_sources
 )
 
 set(core_headers
-    Animation/BulgeCorrection.hpp
     Animation/Cage.hpp
     Animation/DualQuaternionSkinning.hpp
     Animation/HandleArray.hpp
@@ -69,7 +59,6 @@ set(core_headers
     Animation/Sequence.hpp
     Animation/Skeleton.hpp
     Animation/SkinningData.hpp
-    Animation/StretchableTwistableBoneSkinning.hpp
     Asset/AnimationData.hpp
     Asset/AnimationTime.hpp
     Asset/AssetData.hpp
@@ -85,10 +74,8 @@ set(core_headers
     Asset/MaterialData.hpp
     Asset/VolumeData.hpp
     Containers/AdjacencyList.hpp
-    Containers/Algorithm.hpp
     Containers/AlignedAllocator.hpp
     Containers/AlignedStdVector.hpp
-    Containers/BVH.hpp
     Containers/Grid.hpp
     Containers/Iterators.hpp
     Containers/MakeShared.hpp
@@ -96,18 +83,12 @@ set(core_headers
     Containers/VectorArray.hpp
     CoreMacros.hpp
     Geometry/AbstractGeometry.hpp
-    Geometry/Adjacency.hpp
-    Geometry/Area.hpp
     Geometry/CatmullClarkSubdivider.hpp
     Geometry/Curve2D.hpp
     Geometry/DistanceQueries.hpp
-    Geometry/Frustum.hpp
-    Geometry/HeatDiffusion.hpp
     Geometry/IndexedGeometry.hpp
-    Geometry/Laplacian.hpp
     Geometry/LoopSubdivider.hpp
     Geometry/MeshPrimitives.hpp
-    Geometry/Normal.hpp
     Geometry/Obb.hpp
     Geometry/OpenMesh.hpp
     Geometry/PolyLine.hpp
@@ -116,8 +97,6 @@ set(core_headers
     Geometry/StandardAttribNames.hpp
     Geometry/TopologicalMesh.hpp
     Geometry/TriangleMesh.hpp
-    Geometry/TriangleOperation.hpp
-    Geometry/VertexDistance.hpp
     Geometry/Volume.hpp
     Geometry/deprecated/TopologicalMesh.hpp
     Math/DualQuaternion.hpp
@@ -167,7 +146,6 @@ set(core_inlines
     Asset/LightData.inl
     Asset/MaterialData.inl
     Containers/AdjacencyList.inl
-    Containers/BVH.inl
     Containers/Grid.inl
     Containers/Tex.inl
     Geometry/Curve2D.inl

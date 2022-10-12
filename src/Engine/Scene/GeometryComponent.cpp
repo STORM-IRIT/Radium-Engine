@@ -4,7 +4,6 @@
 
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Geometry/Normal.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 

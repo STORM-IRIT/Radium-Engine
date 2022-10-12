@@ -36,11 +36,9 @@ class RA_ENGINE_API SkinningComponent : public Component
   public:
     /// The Geometric Skinning Method.
     enum SkinningType {
-        LBS = 0,  ///< Linear Blend Skinning
-        DQS,      ///< Dual Quaternion Skinning
-        COR,      ///< Center of Rotation skinning
-        STBS_LBS, ///< Stretchable Twistable Bone Skinning with LBS
-        STBS_DQS  ///< Stretchable Twistable Bone Skinning with DQS
+        LBS = 0, ///< Linear Blend Skinning
+        DQS,     ///< Dual Quaternion Skinning
+        COR,     ///< Center of Rotation skinning
     };
 
     /// How to skin the normal, tangent and binormal vectors.
@@ -51,8 +49,7 @@ class RA_ENGINE_API SkinningComponent : public Component
 
     /// The skinning weight type.
     enum WeightType {
-        STANDARD = 0, ///< Standard geometric skinning weights
-        STBS          ///< Stretchable Twistable Bone Skinning weights
+        STANDARD = 0 ///< Standard geometric skinning weights
     };
 
     SkinningComponent( const std::string& name, SkinningType type, Entity* entity ) :
@@ -144,9 +141,6 @@ class RA_ENGINE_API SkinningComponent : public Component
 
     /// Internal function to create the skinning weights.
     void createWeightMatrix();
-
-    /// Internal function to compute the STBS weights.
-    void computeSTBSWeights();
 
   private:
     template <typename T>

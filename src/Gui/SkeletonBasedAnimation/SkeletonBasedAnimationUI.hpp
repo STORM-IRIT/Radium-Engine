@@ -129,13 +129,6 @@ class RA_GUI_API SkeletonBasedAnimationUI : public QFrame
     /// Slot for the user requesting to use CoR skinning.
     void on_actionCoR_triggered();
 
-    /// Slot for the user requesting to use STBS-LBS skinning.
-    void on_actionSTBSLBS_triggered();
-
-    /// Slot for the user requesting to use STBS-DQS skinning.
-    void on_actionSTBSDQS_triggered();
-    /// \}
-
   private:
     /// The actual ui.
     Ui::SkeletonBasedAnimationUI* ui;

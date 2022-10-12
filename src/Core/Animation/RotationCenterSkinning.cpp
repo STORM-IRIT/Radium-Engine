@@ -5,11 +5,9 @@
 
 #include <Core/Animation/DualQuaternionSkinning.hpp>
 #include <Core/Animation/HandleWeight.hpp>
-#include <Core/Animation/LinearBlendSkinning.hpp>
 #include <Core/Animation/Pose.hpp>
 #include <Core/Animation/SkinningData.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
-#include <Core/Geometry/TriangleOperation.hpp> // triangleArea
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
@@ -180,7 +178,7 @@ void computeCoR( SkinningRefData& dataInOut, Scalar sigma, Scalar weightEpsilon 
         const auto& p1         = topoMesh.point( v1 );
         const auto& p2         = topoMesh.point( v2 );
         const Vector3 centroid = ( p0 + p1 + p2 ) / 3.f;
-        const Scalar area      = Geometry::triangleArea( p0, p1, p2 );
+        const Scalar area      = ( ( ( p1 - p0 ).cross( p2 - p0 ) ).norm() * 0.5 );
         const Eigen::SparseVector<Scalar> triWeight =
             ( 1 / 3.f ) *
             ( subdivW.row( v0.idx() ) + subdivW.row( v1.idx() ) + subdivW.row( v2.idx() ) );

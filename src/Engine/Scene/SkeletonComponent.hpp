@@ -21,7 +21,6 @@ class RenderTechnique;
 
 namespace Scene {
 
-class SkeletonBoneRenderObject;
 class SkeletonBasedAnimationSystem;
 
 /**
