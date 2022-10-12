@@ -1,18 +1,19 @@
 \page develkeymapping  KeyMapping
 [TOC]
 
-## Intoduction
+## Introduction
 
-KeyMapping is defined around two concepts, context (KeyMappingManager::Context) and action (KeyMappingManager::KeyMappingAction).
-An action is associated to an event binding (KeyMappingManager::EventBinding), this binding represents the input (mouse, keys, modifiers) that are associated with the action.
+KeyMapping is defined around two concepts, context (Ra::Gui::KeyMappingManager::Context) and action (Ra::Gui::KeyMappingManager::KeyMappingAction).
+An action is associated to an event binding (Ra::Gui::KeyMappingManager::EventBinding), this binding represents the input (mouse, keys, modifiers) that are associated with the action.
 The context allows to use same binding for different actions depending of the considered context.
 The first widget that receive input event needs to manage context and determine which context to use to request corresponding action.
 Typically the viewer is this first widget, and can decide which context to use depending on what is under mouse, if gizmo edit is enable, or if an active camera manipulator is active.
+Action, context and binding are managed with Ra::Gui::KeyMappingManager singleton.
 
-Context and action are simply indices stored in the key mapping manager, they are associated with std::string name, to ease key mapping management.
-Typical usage is to have one context per class that may have its specifiv key mapping actions.
+Context and action are simply indices (handle) stored in the key mapping manager, they are associated with std::string name, to ease user key mapping management.
+Typical usage is to have one context per class that may have its specific key mapping actions.
 
-On the user side, one can test which action corresponds to a given binding (the one that triggers the event for instance), or use KeyMappingCallback manager to trigger registered callback.
+On the user side, one can test which action corresponds to a given binding (the one that triggers the event for instance), or use Ra::Gui::KeyMappingCallbackManager to trigger registered callback.
 
 ## Usage
 
@@ -158,8 +159,8 @@ void MyViewer::configureKeyMapping_impl() {
 
 ## Callback manager
 
-An easy way to manage action callback is to use KeyMappingCallbackManager. This manager is a class member, initialize with Context.
-One can register callback (std::function<void(QEvent*)>) that are triggered if the input event corresponds to the event binding.
+An easy way to manage action callback is to use KeyMappingCallbackManager. This manager is a class member, initialized with Context.
+One can register callback (std::function<void(QEvent*)>) that is triggered if the input event corresponds to the event binding.
 
 The callback is responsible to test if the event corresponds to an event it can handle.
 
