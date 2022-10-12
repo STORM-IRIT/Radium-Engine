@@ -45,10 +45,12 @@ class RA_DATAFLOW_API NodeFactory
      * Associate, for a given concrete node type, a custom NodeCreatorFunctor
      * @tparam T Concrete node type identifier
      * \param nodeCreator Functor to create an node of the corresponding concrete node type.
-     * \param nodeCategory Category of the node
+     * \param nodeCategory Category of the node.
+     * \return true if the node creator is successfully added, false if not (e.g. due to a name
+     * collision).
      */
     template <typename T>
-    void registerNodeCreator( NodeCreatorFunctor nodeCreator,
+    bool registerNodeCreator( NodeCreatorFunctor nodeCreator,
                               const std::string& nodeCategory = "RadiumNodes" );
 
     /**
@@ -56,18 +58,22 @@ class RA_DATAFLOW_API NodeFactory
      * @tparam T Concrete node type identifier
      * \param instanceNamePrefix prefix of the node instance name (will be called "prefix_i" with i
      * a unique number.
-     * \param nodeCategory Category of the node
+     * \param nodeCategory Category of the node.
+     * \return true if the node creator is successfully added, false if not (e.g. due to a name
+     * collision).
      */
     template <typename T>
-    void registerNodeCreator( const std::string& instanceNamePrefix,
+    bool registerNodeCreator( const std::string& instanceNamePrefix,
                               const std::string& nodeCategory = "RadiumNodes" );
     /**
      * Associate, for a given concrete node type name, a NodeCreatorFunctor
      * \param nodeType the name of the concrete type
      * (the same as what is obtained by T::getTypename() on a node of type T)
      * \param nodeCreator Functor to create an node of the corresponding concrete node type.
+     * \return true if the node creator is successfully added, false if not (e.g. due to a name
+     * collision).
      */
-    void registerNodeCreator( std::string nodeType,
+    bool registerNodeCreator( std::string nodeType,
                               NodeCreatorFunctor nodeCreator,
                               const std::string& nodeCategory = "RadiumNodes" );
 
@@ -206,16 +212,33 @@ RA_DATAFLOW_API NodeFactorySet getFactoryManager();
 /** Register a factory into the manager.
  * The key will be fetched from the factory (its name)
  */
+/**
+ * \brief Register a factory into the manager.
+ * The key will be fetched from the factory (its name)
+ * \param factory
+ * \return true if the factory was registered, false if not (e.g. due to name collision).
+ */
 RA_DATAFLOW_API bool registerFactory( NodeFactorySet::mapped_type factory );
 
-/** Remove a factory from the manager*/
-RA_DATAFLOW_API bool removeFactory( const NodeFactorySet::key_type& factoryName );
-
+/**
+ * \brief Gets the given factory from the manager
+ * \param factoryName
+ * \return  a shared_ptr to the requested factory, nullptr if the factory does not exist.
+ */
 RA_DATAFLOW_API NodeFactorySet::mapped_type getFactory( NodeFactorySet::key_type factoryName );
 
-RA_DATAFLOW_API NodeFactorySet::mapped_type getDataFlowBuiltInsFactory();
-
+/**
+ * \brief Unregister the factory from the manager
+ * \param factoryName
+ * \return true if the factory was unregistered, false if not (e.g. for names not being managed).
+ */
 RA_DATAFLOW_API bool unregisterFactory( NodeFactorySet::key_type factoryName );
+
+/**
+ * \brief Gets the factory for nodes exported by the Core dataflow library.
+ * \return
+ */
+RA_DATAFLOW_API NodeFactorySet::mapped_type getDataFlowBuiltInsFactory();
 } // namespace NodeFactoriesManager
 
 } // namespace Core

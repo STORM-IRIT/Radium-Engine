@@ -15,7 +15,12 @@ class SinkNode : public Node
   public:
     explicit SinkNode( const std::string& name ) : SinkNode( name, SinkNode<T>::getTypename() ) {}
 
+    /**
+     * \brief initialize the interface port data pointer
+     */
+    void init() override;
     void execute() override;
+
     /**
      * Get the delivered data
      * @return a copy of the delivered data.

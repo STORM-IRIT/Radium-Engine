@@ -60,13 +60,7 @@ void Node::fromJson( const nlohmann::json& data ) {
     }
     else { generateUuid(); }
     if ( data.contains( "model" ) ) {
-        std::string readTypeName = data["model"]["name"];
-        if ( readTypeName != m_typeName ) {
-            LOG( logERROR ) << "Node::fromJson : incoherent type names : json data : "
-                            << readTypeName << " -- expected : " << m_typeName;
-        }
         if ( data["model"].contains( "instance" ) ) { m_instanceName = data["model"]["instance"]; }
-
         // get the specific concrete node informations
         const auto& datamodel = data["model"];
         fromJsonInternal( datamodel );

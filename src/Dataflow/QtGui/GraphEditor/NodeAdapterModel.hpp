@@ -36,7 +36,7 @@ class RA_DATAFLOW_API NodeAdapterModel : public QtNodes::NodeDataModel
 
     QString uuid() const override { return m_node->getUuid().c_str(); }
 
-    bool isDeletable() override { return m_node->isDeletable(); }
+    bool isDeletable() override { return true; } // Assume all nodes belong to the graph
 
     void updateState() override;
 

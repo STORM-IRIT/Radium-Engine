@@ -84,7 +84,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     bool removeLink( Node* node, const std::string& nodeInputName );
 
     /// Gets the nodes
-    const std::vector<std::shared_ptr<Node>>* getNodes() const;
+    const std::vector<std::unique_ptr<Node>>* getNodes() const;
 
     /// Gets a specific node according to its instance name as a parameter.
     /// @param instanceNameNode The instance name of the node.
@@ -157,7 +157,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// The node factory to use for loading
     std::shared_ptr<NodeFactorySet> m_factories;
     /// The unordered list of nodes.
-    std::vector<std::shared_ptr<Node>> m_nodes;
+    std::vector<std::unique_ptr<Node>> m_nodes;
     // Internal node levels representation
     /// The list of nodes ordered by levels.
     /// Two nodes at the same level have no dependency between them.
@@ -181,18 +181,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// @param name The name of the node to find.
     int findNode( const Node* node );
 
-  public:
-    static const std::string& getTypename();
-
-  private:
     /// Data setters management : used to pass parameter to the graph when the graph is not embeded
     /// into another graph (inputs are here for this case).
-
     using DataSetter = std::pair<DataSetterDesc, PortBase*>;
-
     std::map<std::string, DataSetter> m_dataSetters;
-    std::map<std::string, DataGetterDesc> m_dataGetters;
-
     bool addSetter( PortBase* in );
 
     /// Adds an out port for a GRAPH. This port is also an interface port whose reference is stored
@@ -200,6 +192,12 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// the same name already associated with the graph.
     /// \param out The port to add.
     bool addGetter( PortBase* out );
+
+    /// Loding status. Set tu true when starting loading, set to false if some nodes can't be laoded
+    bool m_loadStatus { true };
+
+  public:
+    static const std::string& getTypename();
 };
 
 } // namespace Core
