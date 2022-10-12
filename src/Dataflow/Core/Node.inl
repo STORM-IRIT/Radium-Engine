@@ -42,14 +42,6 @@ inline void Node::setInstanceName( const std::string& newName ) {
     m_instanceName = newName;
 }
 
-inline bool Node::isDeletable() {
-    return m_isDeletable;
-}
-
-inline void Node::setDeletableStatus( bool deletable ) {
-    m_isDeletable = deletable;
-}
-
 inline const std::vector<std::unique_ptr<PortBase>>& Node::getInputs() {
     return m_inputs;
 }
@@ -105,15 +97,6 @@ void Node::addOutput( PortOut<T>* out, T* data ) {
         m_outputs.emplace_back( out );
         out->setData( data );
     }
-}
-
-inline bool Node::addInterface( PortBase* ports ) {
-    bool found = false;
-    for ( auto& port : m_interface ) {
-        if ( port->getName() == ports->getName() ) { found = true; }
-    }
-    if ( !found ) { m_interface.emplace_back( ports ); }
-    return !found;
 }
 
 inline bool Node::addEditableParameter( EditableParameterBase* editableParameter ) {

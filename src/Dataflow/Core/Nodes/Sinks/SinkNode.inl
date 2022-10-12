@@ -17,16 +17,18 @@ SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeN
 }
 
 template <typename T>
-void SinkNode<T>::execute() {
-    auto input     = static_cast<PortIn<T>*>( m_inputs[0].get() );
+void SinkNode<T>::init() {
+    std::cout << "Init sink node\n";
+    // this should be done only once (or when the address of local data changes)
     auto interface = static_cast<PortOut<T>*>( m_interface[0] );
-    if ( input->isLinked() ) {
-        // If interface is linked, do not copy the data, just transmit the pointer
-        interface->setData( &( input->getData() ) );
-    }
-    else {
-        m_data = input->getData();
-    }
+    interface->setData( &m_data );
+    Node::init();
+}
+
+template <typename T>
+void SinkNode<T>::execute() {
+    auto input = static_cast<PortIn<T>*>( m_inputs[0].get() );
+    m_data     = input->getData();
 #ifdef GRAPH_CALL_TRACE
     std::cout << "\e[33m\e[1m" << getTypename() << "\e[0m \"" << getInstanceName() << "\": execute."
               << std::endl;

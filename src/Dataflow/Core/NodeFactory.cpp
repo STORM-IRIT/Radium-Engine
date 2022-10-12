@@ -39,16 +39,18 @@ Node* NodeFactory::createNode( std::string& nodeType,
     return nullptr;
 }
 
-void NodeFactory::registerNodeCreator( std::string nodeType,
+bool NodeFactory::registerNodeCreator( std::string nodeType,
                                        NodeCreatorFunctor nodeCreator,
                                        const std::string& nodeCategory ) {
     auto it = m_nodesCreators.find( nodeType );
     if ( it == m_nodesCreators.end() ) {
         m_nodesCreators[nodeType] = { std::move( nodeCreator ), nodeCategory };
+        return true;
     }
     else {
         std::cerr << "NodeFactory: trying to add an already existing node creator for type "
                   << nodeType << "." << std::endl;
+        return false;
     }
 }
 
@@ -95,10 +97,6 @@ NodeFactorySet getFactoryManager() {
 bool registerFactory( NodeFactorySet::mapped_type factory ) {
     auto factoryName = factory->getName();
     return s_factoryManager.addFactory( std::move( factoryName ), std::move( factory ) );
-}
-
-bool removeFactory( const NodeFactorySet::key_type& factoryName ) {
-    return s_factoryManager.removeFactory( factoryName );
 }
 
 NodeFactorySet::mapped_type getFactory( NodeFactorySet::key_type factoryName ) {

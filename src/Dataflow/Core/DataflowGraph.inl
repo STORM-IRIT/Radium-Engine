@@ -22,7 +22,7 @@ inline void DataflowGraph::addFactory( std::shared_ptr<NodeFactory> f ) {
     m_factories->addFactory( f->getName(), f );
 }
 
-inline const std::vector<std::shared_ptr<Node>>* DataflowGraph::getNodes() const {
+inline const std::vector<std::unique_ptr<Node>>* DataflowGraph::getNodes() const {
     return &m_nodes;
 }
 inline const std::vector<std::vector<Node*>>* DataflowGraph::getNodesByLevel() const {

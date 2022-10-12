@@ -132,15 +132,6 @@ class RA_DATAFLOW_API Node
     const nlohmann::json& getJsonMetaData();
     /// @}
 
-    /// \brief Tests if the node is deletable (deprecated)
-    /// \todo remove the deletable status management of the node through the use of proper
-    /// ownership. This will require modifying RadiumNodeEditor external
-    /// \return the deletable status of the node
-    [[deprecated]] bool isDeletable();
-
-    /// \brief Set the deletable status of the node
-    [[deprecated]] void setDeletableStatus( bool deletable = true );
-
     /// \brief Flag that checks if the node is already initialized
     bool m_initialized { false };
 
@@ -178,14 +169,6 @@ class RA_DATAFLOW_API Node
     /// \param data The data associated with the port.
     template <typename T>
     void addOutput( PortOut<T>* out, T* data );
-
-    /// Adds an interface port to the node.
-    /// This function checks if there is no interface port with the same name already associated
-    /// with this node.
-    /// \param port The interface port to add.
-    /// \deprecated, use buildInterfaces instead
-
-    [[deprecated]] bool addInterface( PortBase* port );
 
     /// \brief Adds an editable parameter to the node if it does not already exist.
     /// \note the node will take ownership of the editable object.
