@@ -52,7 +52,6 @@ var hierarchy =
     [ "Ra::Core::Utils::BijectiveAssociation< std::string, std::string >", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html", null ],
     [ "Ra::Core::Utils::BijectiveAssociation< typename std::underlying_type_t< Enum >, std::string >", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html", null ],
     [ "Ra::Engine::Data::BlinnPhongMaterialConverter", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter.html", null ],
-    [ "Ra::Core::Containers::BVH< T >", "classRa_1_1Core_1_1Containers_1_1BVH.html", null ],
     [ "Ra::Engine::Scene::ComponentMessenger::CallbackTypes< T >", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html", null ],
     [ "Ra::Core::Asset::Camera", "classRa_1_1Core_1_1Asset_1_1Camera.html", null ],
     [ "Ra::Gui::CameraManipulator", "classRa_1_1Gui_1_1CameraManipulator.html", [

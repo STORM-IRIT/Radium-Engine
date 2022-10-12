@@ -7,13 +7,10 @@ var classRa_1_1Engine_1_1Scene_1_1SkinningComponent =
     [ "SkinningType", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7c", [
       [ "LBS", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7cab1d855716c50427a2ac05be1e8dd60c0", null ],
       [ "DQS", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca5bea3f5314ab53fab7d0b4621c605b16", null ],
-      [ "COR", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca039792b8a8781b3c454afcfd4784bd1a", null ],
-      [ "STBS_LBS", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7cae13e313d416d532439b17c6bb25d2a51", null ],
-      [ "STBS_DQS", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca087d81c6a76432530677554855627fa6", null ]
+      [ "COR", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca039792b8a8781b3c454afcfd4784bd1a", null ]
     ] ],
     [ "WeightType", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a781b95ed9ba0c8fc4357b53e263c7427", [
-      [ "STANDARD", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a781b95ed9ba0c8fc4357b53e263c7427a74af5ffdb7a2c754cbfd526ee64d3011", null ],
-      [ "STBS", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a781b95ed9ba0c8fc4357b53e263c7427aa69402594446eac74d84416b275b59e0", null ]
+      [ "STANDARD", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a781b95ed9ba0c8fc4357b53e263c7427a74af5ffdb7a2c754cbfd526ee64d3011", null ]
     ] ],
     [ "SkinningComponent", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#abca9a3ebe8935278645755c13d6a57ed", null ],
     [ "~SkinningComponent", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a38458cfdabfa83f6e484e4556707f091", null ],

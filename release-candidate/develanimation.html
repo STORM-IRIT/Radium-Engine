@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.6</span>
+   &#160;<span id="projectnumber">1.3.7</span>
    </div>
   </td>
  </tr>
@@ -224,7 +224,7 @@ Character Animation</h2>
 <li>the <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">Ra::Engine::Scene::SkeletonComponent</a></code>, which manages user interactions with the animation skeleton, enabling posing the character and playing the animations;</li>
 <li>the <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html" title="The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj...">Ra::Engine::Scene::SkinningComponent</a></code>, which is responsible for deforming the object's mesh vertices according to the desired skinning method.</li>
 </ul>
-<p>The Radium Engine provides 4 skinning methods: Linear-Blend Skinning, Dual-Quaternion Skinning, Center-Of-Rotation Skinning and Stretchable-Twistable-Bone-Skinning (available in both the LBS or DQS forms).</p>
+<p>The Radium Engine provides 4 skinning methods: Linear-Blend Skinning, Dual-Quaternion Skinning and Center-Of-Rotation Skinning.</p>
 <p>The Radium Engine also provides a user interface for Skeleton-based character animation parameters: the <code>Ra::Gui::SkeletonBasedAnimationUI</code>, which allows the user to edit animations, running parameters, skeleton display, skinning parameters and skinning weights display.</p>
 <h4>Importing skeleton-based character animation data into Radium</h4>
 <p>In order to import animation related data into Radium, the default loader would be the <code>Ra::IO::AssimpLoader</code>, which deals with several standard animation formats (fbx, collada, ...). In case one need to develop his own loader because using a file format not managed by the Assimp library, the Radium Engine provides a set of classes in <code>Core/Asset</code> defining data wrappers filled by loaders (see the specific documentation &ndash; which does not exist for now). For now, <code>Ra::Core::Asset::FileLoaderInterface</code>s in the Radium Engine produce only one <code>Ra::Core::Asset::FileData</code> per loaded file.</p>
@@ -241,7 +241,7 @@ Character Animation</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Wed Sep 28 2022 12:07:11 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Oct 12 2022 11:01:39 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

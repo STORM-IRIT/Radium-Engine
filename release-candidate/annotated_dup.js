@@ -27,9 +27,6 @@ var annotated_dup =
           [ "VolumeData", "structRa_1_1Core_1_1Asset_1_1VolumeData.html", "structRa_1_1Core_1_1Asset_1_1VolumeData" ],
           [ "RawShaderMaterialData", "classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html", "classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData" ]
         ] ],
-        [ "Containers", null, [
-          [ "BVH", "classRa_1_1Core_1_1Containers_1_1BVH.html", "classRa_1_1Core_1_1Containers_1_1BVH" ]
-        ] ],
         [ "Geometry", null, [
           [ "deprecated", null, [
             [ "DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand.html", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand" ],
