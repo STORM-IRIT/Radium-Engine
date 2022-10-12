@@ -6,15 +6,15 @@ namespace Dataflow {
 namespace Core {
 
 template <typename T>
-void NodeFactory::registerNodeCreator( NodeCreatorFunctor nodeCreator,
+bool NodeFactory::registerNodeCreator( NodeCreatorFunctor nodeCreator,
                                        const std::string& nodeCategory ) {
-    registerNodeCreator( T::getTypename(), std::move( nodeCreator ), nodeCategory );
+    return registerNodeCreator( T::getTypename(), std::move( nodeCreator ), nodeCategory );
 }
 
 template <typename T>
-void NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
+bool NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
                                        const std::string& nodeCategory ) {
-    registerNodeCreator(
+    return registerNodeCreator(
         T::getTypename(),
         [this, instanceNamePrefix]( const nlohmann::json& data ) {
             auto node = new T( instanceNamePrefix + std::to_string( this->nextNodeId() ) );
@@ -31,12 +31,6 @@ inline const NodeFactory::ContainerType& NodeFactory::getFactoryMap() const {
 inline bool NodeFactorySet::addFactory( NodeFactorySet::key_type factoryname,
                                         NodeFactorySet::mapped_type factory ) {
     const auto [loc, inserted] = insert( { std::move( factoryname ), std::move( factory ) } );
-#ifdef DEBUG
-    if ( !inserted ) {
-        std::cerr << "NodeFactorySet: Factory " << loc->first
-                  << " already in the set. Not inserted again." << std::endl;
-    }
-#endif
     return inserted;
 }
 

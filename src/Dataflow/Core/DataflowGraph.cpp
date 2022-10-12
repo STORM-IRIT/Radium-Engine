@@ -59,7 +59,6 @@ void DataflowGraph::destroy() {
     m_nodes.clear();
     m_factories.reset();
     m_dataSetters.clear();
-    m_dataGetters.clear();
     Node::destroy();
     m_ready = false;
 }
@@ -123,13 +122,12 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
 }
 
 bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
-    std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-              << "\": loadFromJson: " << jsonFilePath << std::endl;
+    m_loadStatus = true;
     std::ifstream file( jsonFilePath );
     nlohmann::json j;
     file >> j;
     fromJson( j );
-    return true;
+    return m_loadStatus;
 }
 
 void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
@@ -150,6 +148,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 else {
                     std::cerr << "DataflowGraph::loadFromJson : Unable to find a factory with name "
                               << factoryName << std::endl;
+                    m_loadStatus = false;
                     return;
                 }
             }
@@ -169,6 +168,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
             if ( newNode ) { nodeById.emplace( id, newNode ); }
             else {
                 std::cerr << "Unable to create the node " << name << std::endl;
+                m_loadStatus = false;
             }
         }
 
@@ -187,6 +187,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                     fromOutput = nodeFrom->getOutputs()[fromIndex]->getName();
                 }
                 else {
+                    m_loadStatus = false;
                     std::cerr << "Error when reading JSON file \""
                               << "\": Output index " << fromIndex << " for node \""
                               << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName()
@@ -195,6 +196,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 }
             }
             else {
+                m_loadStatus = false;
                 std::cerr << "Error when reading JSON file \""
                           << "\": Could not find a node associated with id " << l["out_id"]
                           << ". Link not added." << std::endl;
@@ -208,6 +210,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                     toInput = nodeTo->getInputs()[toIndex]->getName();
                 }
                 else {
+                    m_loadStatus = false;
                     std::cerr << "Error when reading JSON file \""
                               << "\": Input index " << toIndex << " for node \""
                               << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName()
@@ -216,6 +219,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 }
             }
             else {
+                m_loadStatus = false;
                 std::cerr << "Error when reading JSON file \""
                           << "\": Could not find a node associated with id " << l["in_id"]
                           << ". Link not added." << std::endl;
@@ -225,6 +229,7 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 addLink( nodeFrom, fromOutput, nodeTo, toInput );
             }
             else {
+                m_loadStatus = false;
                 std::cerr
                     << "Error when reading JSON file \""
                     << "\": Could not add a link (missing or wrong information, please refer to "
@@ -577,7 +582,7 @@ bool DataflowGraph::compile() {
 #endif
     m_recompile = false;
     m_ready     = true;
-    this->init();
+    init();
     return m_ready;
 }
 
@@ -589,19 +594,7 @@ void DataflowGraph::clearNodes() {
     }
     m_nodesByLevel.clear();
     m_nodesByLevel.shrink_to_fit();
-
-#if 0
-    --> specific to rendergraph ???
-    // Remove only non permanent nodes
-    // disconnect sink
-    getDisplayNode()->disconnectInputs();
-    // remove node
-    m_nodes.erase( m_nodes.begin() + 4, m_nodes.end() );
-#endif
-    m_nodes.erase( std::remove_if( m_nodes.begin(),
-                                   m_nodes.end(),
-                                   []( const auto& n ) { return n->isDeletable(); } ),
-                   m_nodes.end() );
+    m_nodes.erase( m_nodes.begin(), m_nodes.end() );
     m_nodes.shrink_to_fit();
 }
 
@@ -656,10 +649,6 @@ int DataflowGraph::goThroughGraph(
 
 bool DataflowGraph::addSetter( PortBase* in ) {
     addInput( in );
-    // TODO check if this verification is needed
-    // Danger : Doing this, two different nodes (not the same type) but with the same name and port
-    // name could not be added to the graph.
-    // Danger : If not doing this,there will be some collisions on the data structure
     if ( m_dataSetters.find( in->getName() ) == m_dataSetters.end() ) {
         auto portOut = std::shared_ptr<PortBase>( in->reflect( this, in->getName() ) );
         m_dataSetters.emplace( std::make_pair(
@@ -673,6 +662,8 @@ bool DataflowGraph::addSetter( PortBase* in ) {
 
 inline bool DataflowGraph::addGetter( PortBase* out ) {
     if ( out->is_input() ) { return false; }
+    // This is very similar than addOutput, except the data can't be set, they will be in the init
+    // of any Sink
     bool found = false;
     // TODO check if this verification is needed ?
     for ( auto& output : m_outputs ) {

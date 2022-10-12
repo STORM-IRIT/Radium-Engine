@@ -256,12 +256,20 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
             new NodeFactorySet::mapped_type::element_type( "CustomNodesUnitTests" ) };
 
         // add node creators to the factory
-        customFactory->registerNodeCreator<Customs::CustomStringSource>(
+        bool registered;
+        registered = customFactory->registerNodeCreator<Customs::CustomStringSource>(
             Customs::CustomStringSource::getTypename() + "_", "Custom" );
-        customFactory->registerNodeCreator<Customs::CustomStringSink>(
+        REQUIRE( registered == true );
+        registered = customFactory->registerNodeCreator<Customs::CustomStringSink>(
             Customs::CustomStringSink::getTypename() + "_", "Custom" );
-        customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
+        REQUIRE( registered == true );
+        registered = customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
             Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" );
+        REQUIRE( registered == true );
+        // The same node can't be register twice in the same factory
+        registered = customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
+            Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" );
+        REQUIRE( registered == false );
         // register the factory into the system to enable loading any graph that use these nodes
         NodeFactoriesManager::registerFactory( customFactory );
 
@@ -280,12 +288,20 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         delete g;
         g = new DataflowGraph( "" );
 
-        g->loadFromJson( tmpdir + "customGraph.json" );
+        bool loaded = g->loadFromJson( tmpdir + "customGraph.json" );
 
-        // The graph can't be loaded correctly if there is no factory for the custom nodes
-        // todo, modify loadFromJson to detect loading error and test below
-        // REQUIRE( !g->compile() );
+        REQUIRE( loaded == true );
+        g->destroy();
+        delete g;
 
+        /// try to load the graph without custom factory
+        NodeFactoriesManager::unregisterFactory( customFactory->getName() );
+
+        g      = new DataflowGraph( "" );
+        loaded = g->loadFromJson( tmpdir + "customGraph.json" );
+        REQUIRE( loaded == false );
+
+        delete g;
         std::filesystem::remove_all( tmpdir );
     }
 }
