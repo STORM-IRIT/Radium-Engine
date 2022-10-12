@@ -31,8 +31,10 @@ set(test_src
     Core/topomesh.cpp
     Core/variableset.cpp
     Core/vectorarray.cpp
+    Dataflow/customnodes.cpp
     Dataflow/nodes.cpp
     Dataflow/serialization.cpp
+    Dataflow/sourcesandsinks.cpp
     Engine/environmentmap.cpp
     Engine/renderparameters.cpp
     Engine/signalmanager.cpp
