@@ -15,9 +15,10 @@
 
 namespace Ra {
 namespace Gui {
-/// An utility class used to map a (combination) of key / modifier to a specific action.
-/// It can load configuration from a file or if no config is found it will load an
-/// internal version of the default configuration.
+/** \brief An utility class used to map a (combination of) key / modifiers / mouse buttons to a
+ * specific action. Configuration can be loaded/saved to files, or use dynamic binding management.
+ * See \ref develkeymapping API documentation for detailed concept and usage description
+ */
 class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 {
     RA_SINGLETON_INTERFACE( KeyMappingManager );
@@ -61,10 +62,10 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
         explicit EventBinding( bool wheel, Qt::KeyboardModifiers modifiers = Qt::NoModifier ) :
             m_modifiers { modifiers }, m_wheel { wheel } {}
 
-        bool operator<( const EventBinding& b ) const;
         bool isMouseEvent() { return m_buttons != Qt::NoButton; }
         bool isWheelEvent() { return m_wheel; }
         bool isKeyEvent() { return !isMouseEvent() && !isWheelEvent(); }
+        bool operator<( const EventBinding& b ) const;
 
         // public data member, since there isn't any write access getter from KeyMappingManager
         Qt::MouseButtons m_buttons { Qt::NoButton };
@@ -74,8 +75,8 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
         bool m_wheel { false };
     };
 
-    using KeyMappingAction = Ra::Core::Utils::Index;
-    using Context          = Ra::Core::Utils::Index;
+    using KeyMappingAction = Ra::Core::Utils::Index; //!< handle to an action
+    using Context          = Ra::Core::Utils::Index; //!< handle to a Context
 
     /// load configuration from filename, or default configration filename. It
     /// calls listeners callbacks then.
@@ -119,8 +120,9 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     KeyMappingAction
     addAction( const Context& context, const EventBinding& binding, const std::string& actionName );
 
-    /// Bind binding to action, in context. It replace previously
-    /// binded action, with a warning if binding was alreasly present.
+    /// \brief Bind binding to action, in context.
+    ///
+    /// It replaces previously binded action, with a warning if binding was already present.
     void setActionBinding( const Context& context,
                            const EventBinding& binding,
                            const KeyMappingAction& action );
@@ -217,21 +219,31 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     std::vector<EventBindingMap> m_bindingToAction; ///< one element per context
 };
 
-/// KeyMappingManageable decorate, typical use as a CRTP :
-/// class MyClass : public KeyMappingManageable<MyClass> { [...]
-/// it defines a static class member m_keyMappingContext, readable with
-/// getContext()
-/// This context index must be registered by the class to the KeyMappingManager
-/// with KeyMappingManager::getContext("MyClassContextName"); after a
-/// configuration file is loaded.
+/** \brief KeyMappingManageable decorator to use as CRTP.
+ *
+ * typical use as a CRTP :
+ * ```{.cpp}
+ * class MyClass : public KeyMappingManageable<MyClass> {
+ * ```
+ * It defines a static class member m_keyMappingContext, readable with
+ * getContext()
+ * This context index must be registered by the class to the KeyMappingManager
+ * with
+ * ```{.cpp}
+ * KeyMappingManager::addContext("MyClassContextName")
+ * ```
+ * after configuration file is loaded.
+ * Decoreated class must implement configureKeyMapping_impl().
+ */
 template <typename T>
 class KeyMappingManageable
 {
   public:
     static inline KeyMappingManager::Context getContext() { return m_keyMappingContext; }
 
-    /// KeyManageable class should implement static configureKeyMapping_impl to get their
-    /// keyMappingAction constants.
+    /** KeyManageable class must implement static configureKeyMapping_impl to get their
+     * keyMappingAction values from KeyMappingManager.
+     */
     static inline void configureKeyMapping() { T::configureKeyMapping_impl(); }
 
   protected:
@@ -248,6 +260,12 @@ class KeyMappingManageable
 template <typename T>
 KeyMappingManager::Context KeyMappingManageable<T>::m_keyMappingContext;
 
+/**
+ * \brief This class manage a collection of binding/callback associated with a context.
+ *
+ * Typical usage is to have one instance of this class is a KeyMappingManageable class to ease
+ * callback triggering.
+ */
 class RA_GUI_API KeyMappingCallbackManager
 {
   public:
