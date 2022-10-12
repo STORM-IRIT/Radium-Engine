@@ -29,21 +29,21 @@ void testGraph( const std::string& name, T in, T& out ) {
     if ( !linked ) { std::cerr << "Error linking soure and sink nodes.\n"; }
     REQUIRE( linked );
 
+    auto input = g->getDataSetter( "in_to" );
+    REQUIRE( input != nullptr );
+    auto output = g->getDataGetter( "out_from" );
+    REQUIRE( output != nullptr );
+
     auto compiled = g->compile();
     if ( !compiled ) { std::cerr << "Error compiledcompiled graph.\n"; }
     REQUIRE( compiled );
 
 #ifndef USE_SOURCE_DATA
     std::cout << "Setting " << simplifiedDemangledType<T>() << " data on interface port ... ";
-    auto input = g->getDataSetter( "in_to" );
-    REQUIRE( input != nullptr );
     input->setData( &in );
 #endif
 
     g->execute();
-
-    auto output = g->getDataGetter( "out_from" );
-    REQUIRE( output != nullptr );
 
     T r = output->getData<T>();
     out = r;
@@ -121,7 +121,17 @@ TEST_CASE( "Dataflow/Core/Sources and Sinks", "[Dataflow][Core][Sources and Sink
         std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
         DataType x { 1_ra, 2_ra, 3_ra };
         DataType y;
-        testGraph<DataType>( "Test on bool", x, y );
+        testGraph<DataType>( "Test on Vector3", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
+    SECTION( "Operations on base type : Color" ) {
+        using DataType = Ra::Core::Utils::Color;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+        DataType x = Ra::Core::Utils::Color::Skin();
+        DataType y;
+        testGraph<DataType>( "Test on Color", x, y );
 
         REQUIRE( x == y );
         std::cout << " ... DONE!\n";
