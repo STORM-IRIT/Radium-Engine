@@ -52,8 +52,6 @@ void SkeletonBasedAnimationUI::selectionChanged( const Engine::Scene::ItemEntry&
     ui->actionLBS->setEnabled( false );
     ui->actionDQS->setEnabled( false );
     ui->actionCoR->setEnabled( false );
-    ui->actionSTBSLBS->setEnabled( false );
-    ui->actionSTBSDQS->setEnabled( false );
     ui->tabWidget->setEnabled( false );
     ui->m_skinning->setEnabled( false );
     if ( m_selection.m_entity == nullptr ) { return; }
@@ -87,8 +85,6 @@ void SkeletonBasedAnimationUI::selectionChanged( const Engine::Scene::ItemEntry&
             ui->actionLBS->setEnabled( true );
             ui->actionDQS->setEnabled( true );
             ui->actionCoR->setEnabled( true );
-            ui->actionSTBSLBS->setEnabled( true );
-            ui->actionSTBSDQS->setEnabled( true );
             ui->m_skinningMethod->setEnabled( true );
             ui->m_skinningMethod->setCurrentIndex( int( skinComp->getSkinningType() ) );
             on_m_skinningMethod_currentIndexChanged( int( skinComp->getSkinningType() ) );
@@ -129,10 +125,6 @@ QAction* SkeletonBasedAnimationUI::getAction( int i ) {
         return ui->actionDQS;
     case 3:
         return ui->actionCoR;
-    case 4:
-        return ui->actionSTBSLBS;
-    case 5:
-        return ui->actionSTBSDQS;
     default:
         return nullptr;
     }
@@ -348,14 +340,6 @@ void SkeletonBasedAnimationUI::on_m_skinningMethod_currentIndexChanged( int newT
         on_actionCoR_triggered();
         break;
     }
-    case SkinningType::STBS_LBS: {
-        on_actionSTBSLBS_triggered();
-        break;
-    }
-    case SkinningType::STBS_DQS: {
-        on_actionSTBSDQS_triggered();
-        break;
-    }
     default: {
         break;
     }
@@ -389,8 +373,6 @@ void SkeletonBasedAnimationUI::on_actionLBS_triggered() {
     ui->actionLBS->setChecked( true );
     ui->actionDQS->setChecked( false );
     ui->actionCoR->setChecked( false );
-    ui->actionSTBSLBS->setChecked( false );
-    ui->actionSTBSDQS->setChecked( false );
     askForUpdate();
 }
 
@@ -400,8 +382,6 @@ void SkeletonBasedAnimationUI::on_actionDQS_triggered() {
     ui->actionLBS->setChecked( false );
     ui->actionDQS->setChecked( true );
     ui->actionCoR->setChecked( false );
-    ui->actionSTBSLBS->setChecked( false );
-    ui->actionSTBSDQS->setChecked( false );
     askForUpdate();
 }
 
@@ -411,30 +391,6 @@ void SkeletonBasedAnimationUI::on_actionCoR_triggered() {
     ui->actionLBS->setChecked( false );
     ui->actionDQS->setChecked( false );
     ui->actionCoR->setChecked( true );
-    ui->actionSTBSLBS->setChecked( false );
-    ui->actionSTBSDQS->setChecked( false );
-    askForUpdate();
-}
-
-void SkeletonBasedAnimationUI::on_actionSTBSLBS_triggered() {
-    using SkinningType = Ra::Engine::Scene::SkinningComponent::SkinningType;
-    ui->m_skinningMethod->setCurrentIndex( int( SkinningType::STBS_LBS ) );
-    ui->actionLBS->setChecked( false );
-    ui->actionDQS->setChecked( false );
-    ui->actionCoR->setChecked( false );
-    ui->actionSTBSLBS->setChecked( true );
-    ui->actionSTBSDQS->setChecked( false );
-    askForUpdate();
-}
-
-void SkeletonBasedAnimationUI::on_actionSTBSDQS_triggered() {
-    using SkinningType = Ra::Engine::Scene::SkinningComponent::SkinningType;
-    ui->m_skinningMethod->setCurrentIndex( int( SkinningType::STBS_DQS ) );
-    ui->actionLBS->setChecked( false );
-    ui->actionDQS->setChecked( false );
-    ui->actionCoR->setChecked( false );
-    ui->actionSTBSLBS->setChecked( false );
-    ui->actionSTBSDQS->setChecked( true );
     askForUpdate();
 }
 

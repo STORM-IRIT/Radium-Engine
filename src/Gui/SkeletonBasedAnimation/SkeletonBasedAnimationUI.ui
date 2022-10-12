@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>385</width>
+    <width>398</width>
     <height>342</height>
    </rect>
   </property>
@@ -29,7 +29,7 @@
       <bool>false</bool>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <property name="tabsClosable">
       <bool>false</bool>
@@ -303,11 +303,6 @@
            <string>Standard Weights</string>
           </property>
          </item>
-         <item>
-          <property name="text">
-           <string>STBS Weights</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item row="3" column="0">
@@ -335,16 +330,6 @@
          <item>
           <property name="text">
            <string>Center of Rotation Skinning</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>STBS with LBS</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>STBS with DQS</string>
           </property>
          </item>
         </widget>
