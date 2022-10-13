@@ -44,3 +44,9 @@ set(dataflow_core_inlines
     Port.inl
     TypeDemangler.inl
 )
+
+set(dataflow_core_private
+    Nodes/Private/FunctionalsNodeFactory.hpp Nodes/Private/FunctionalsNodeFactory.cpp
+    Nodes/Private/SinksNodeFactory.hpp Nodes/Private/SinksNodeFactory.cpp
+    Nodes/Private/SourcesNodeFactory.hpp Nodes/Private/SourcesNodeFactory.cpp
+)

@@ -2,6 +2,7 @@
 #include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 
 namespace Ra {

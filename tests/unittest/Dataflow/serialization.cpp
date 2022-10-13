@@ -5,8 +5,12 @@
 
 #include <iostream>
 
+#include <Core/Utils/StdFilesystem.hpp>
+
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/CoreBuiltInsNodes.hpp>
+#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
+#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
+#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
 TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
     SECTION( "Serialization of a graph" ) {

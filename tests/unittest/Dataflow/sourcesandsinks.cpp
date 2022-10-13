@@ -6,11 +6,13 @@
 #include <iostream>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/CoreBuiltInsNodes.hpp>
+#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
+#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
+#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
 using namespace Ra::Dataflow::Core;
 
-//#define USE_SOURCE_DATA
+// #define USE_SOURCE_DATA
 
 template <typename T>
 void testGraph( const std::string& name, T in, T& out ) {

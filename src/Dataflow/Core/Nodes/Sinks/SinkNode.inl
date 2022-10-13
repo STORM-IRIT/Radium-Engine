@@ -19,8 +19,8 @@ SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeN
 template <typename T>
 void SinkNode<T>::init() {
     // this should be done only once (or when the address of local data changes)
-    auto interface = static_cast<PortOut<T>*>( m_interface[0] );
-    interface->setData( &m_data );
+    auto interfacePort = static_cast<PortOut<T>*>( m_interface[0] );
+    interfacePort->setData( &m_data );
     Node::init();
 }
 

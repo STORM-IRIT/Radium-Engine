@@ -16,8 +16,8 @@ FunctionSourceNode<R, Args...>::FunctionSourceNode( const std::string& instanceN
 
 template <class R, class... Args>
 void FunctionSourceNode<R, Args...>::execute() {
-    auto interface = static_cast<PortIn<function_type>*>( m_interface[0] );
-    if ( interface->isLinked() ) { m_data = &( interface->getData() ); }
+    auto interfacePort = static_cast<PortIn<function_type>*>( m_interface[0] );
+    if ( interfacePort->isLinked() ) { m_data = &( interfacePort->getData() ); }
     else {
         m_data = &m_localData;
     }
