@@ -34,16 +34,12 @@ void ReduceNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 void ReduceNode<coll_t, v_t>::execute() {
-    auto f   = m_operator;
-    auto iv  = m_init;
-    auto ivp = static_cast<PortIn<v_t>*>( m_inputs[2].get() );
-    if ( ivp->isLinked() ) { iv = ivp->getData(); }
-    m_result      = iv;
-    auto predPort = static_cast<PortIn<ReduceOperator>*>( m_inputs[1].get() );
-    if ( predPort->isLinked() ) { f = predPort->getData(); }
-    auto input = static_cast<PortIn<coll_t>*>( m_inputs[0].get() );
-    if ( input->isLinked() ) {
-        const auto& inData = input->getData();
+    auto f   = m_portF->isLinked() ? m_portF->getData() : m_operator;
+    auto iv  = m_portInit->isLinked() ? m_portInit->getData() : m_init;
+    m_result = iv;
+    // The following test will always be true if the node was integrated in a compiled graph
+    if ( m_portIn->isLinked() ) {
+        const auto& inData = m_portIn->getData();
         m_result           = std::accumulate( inData.begin(), inData.end(), iv, f );
 #ifdef GRAPH_CALL_TRACE
         std::cout << "\e[36m\e[1mMReduceNode \e[0m \"" << m_instanceName << "\": execute, from "
@@ -65,18 +61,12 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
                                      ReduceOperator op,
                                      v_t initialValue ) :
     Node( instanceName, typeName ), m_operator( op ), m_init( initialValue ) {
-    auto in = new PortIn<coll_t>( "in", this );
-    addInput( in );
-    in->mustBeLinked();
 
-    auto f = new PortIn<ReduceOperator>( "f", this );
-    addInput( f );
-
-    auto iv = new PortIn<v_t>( "init", this );
-    addInput( iv );
-
-    auto out = new PortOut<v_t>( "out", this );
-    addOutput( out, &m_result );
+    addInput( m_portIn );
+    m_portIn->mustBeLinked();
+    addInput( m_portF );
+    addInput( m_portInit );
+    addOutput( m_portOut, &m_result );
 }
 
 template <typename coll_t, typename v_t>

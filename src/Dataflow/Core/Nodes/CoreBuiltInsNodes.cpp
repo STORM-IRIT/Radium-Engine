@@ -1,9 +1,5 @@
 #include <Dataflow/Core/Nodes/CoreBuiltInsNodes.hpp>
 
-#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
-#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
-#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
-
 #include <Dataflow/Core/DataflowGraph.hpp>
 
 #include <Dataflow/Core/NodeFactory.hpp>

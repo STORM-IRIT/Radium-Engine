@@ -11,8 +11,6 @@ template <typename T>
 SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
                                                const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    m_data    = &m_localData;
-    m_portOut = new PortOut<T>( "to", this );
     addOutput( m_portOut, m_data );
 }
 

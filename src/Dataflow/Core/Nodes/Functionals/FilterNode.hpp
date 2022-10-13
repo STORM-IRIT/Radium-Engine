@@ -8,10 +8,22 @@ namespace Dataflow {
 namespace Core {
 namespace Functionals {
 
-/** \brief Filter on iterable collection
+/** \brief Filter on iterable collection.
  * \tparam coll_t the collection to filter. Must respect the SequenceContainer requirements
  * \tparam v_t (optional), type of the element in the collection. Default to coll_t::value_type
  * \see https://en.cppreference.com/w/cpp/named_req/SequenceContainer
+ *
+ * This node apply an operator f on its input such that to keep only elements validated by a
+ * predicate :
+ *
+ * This node has two inputs :
+ *   - in : port accepting the input data of type coll_t. Must be linked.
+ *   - f : port accepting an operator with profile std::function<bool( const v_t& )>.
+ *   Link to this port is not mandatory, the operator might be set once for the node.
+ *   If this port is linked, the operator will be taken from the port.
+ *
+ * This node has one output :
+ *   - out : port giving a coll_t such that out = std::copy_if(a, f)
  */
 template <typename coll_t, typename v_t = typename coll_t::value_type>
 class FilterNode : public Node
@@ -53,6 +65,12 @@ class FilterNode : public Node
     UnaryPredicate m_predicate;
     coll_t m_elements;
 
+    /// @{
+    /// \brief Alias for the ports (allow simpler access)
+    PortIn<coll_t>* m_portIn { new PortIn<coll_t>( "in", this ) };
+    PortIn<UnaryPredicate>* m_portPredicate { new PortIn<UnaryPredicate>( "f", this ) };
+    PortOut<coll_t>* m_portOut { new PortOut<coll_t>( "out", this ) };
+    /// @}
   public:
     static const std::string& getTypename();
 };

@@ -62,15 +62,16 @@ class SingleDataSourceNode : public Node
     void fromJsonInternal( const nlohmann::json& ) override;
     void toJsonInternal( nlohmann::json& ) const override;
 
+    /// @{
     /// The data provided by the node
-    /// Ownership of this pointer is left to the caller
-    T* m_data { nullptr };
-
     /// Used to deliver (and edit) data when the interface is not connected.
     T m_localData;
+    /// Ownership of this pointer is left to the caller
+    T* m_data { &m_localData };
+    /// @}
 
     /// Alias to the output port
-    PortOut<T>* m_portOut { nullptr };
+    PortOut<T>* m_portOut { new PortOut<T>( "to", this ) };
 
     /// used only at deserialization
     void setData( T& data );

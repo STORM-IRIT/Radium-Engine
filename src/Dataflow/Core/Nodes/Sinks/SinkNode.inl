@@ -11,14 +11,13 @@ namespace Sinks {
 template <typename T>
 SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    auto portIn = new PortIn<T>( "from", this );
-    portIn->mustBeLinked();
-    addInput( portIn );
+
+    m_portIn->mustBeLinked();
+    addInput( m_portIn );
 }
 
 template <typename T>
 void SinkNode<T>::init() {
-    std::cout << "Init sink node\n";
     // this should be done only once (or when the address of local data changes)
     auto interface = static_cast<PortOut<T>*>( m_interface[0] );
     interface->setData( &m_data );
@@ -27,8 +26,7 @@ void SinkNode<T>::init() {
 
 template <typename T>
 void SinkNode<T>::execute() {
-    auto input = static_cast<PortIn<T>*>( m_inputs[0].get() );
-    m_data     = input->getData();
+    m_data = m_portIn->getData();
 #ifdef GRAPH_CALL_TRACE
     std::cout << "\e[33m\e[1m" << getTypename() << "\e[0m \"" << getInstanceName() << "\": execute."
               << std::endl;

@@ -11,9 +11,6 @@ template <class R, class... Args>
 FunctionSourceNode<R, Args...>::FunctionSourceNode( const std::string& instanceName,
                                                     const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    m_localData = []( Args... ) { return R {}; };
-    m_data      = &m_localData;
-    m_portOut   = new PortOut<function_type>( "f", this );
     addOutput( m_portOut, m_data );
 }
 
@@ -35,7 +32,6 @@ template <class R, class... Args>
 void FunctionSourceNode<R, Args...>::setData( function_type* data ) {
     m_localData = *data;
     m_data      = &m_localData;
-
     m_portOut->setData( m_data );
 }
 

@@ -27,12 +27,10 @@ void TransformNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 void TransformNode<coll_t, v_t>::execute() {
-    auto predPort = static_cast<PortIn<TransformOperator>*>( m_inputs[1].get() );
-    auto f        = m_operator;
-    if ( predPort->isLinked() ) { f = predPort->getData(); }
-    auto input = static_cast<PortIn<coll_t>*>( m_inputs[0].get() );
-    if ( input->isLinked() ) {
-        const auto& inData = input->getData();
+    auto f = m_portOperator->isLinked() ? m_portOperator->getData() : m_operator;
+    // The following test will always be true if the node was integrated in a compiled graph
+    if ( m_portIn->isLinked() ) {
+        const auto& inData = m_portIn->getData();
         m_elements.clear();
         // m_elements.reserve( inData.size() ); // --> this is not a requirement of
         // SequenceContainer
@@ -57,15 +55,10 @@ TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName,
                                            const std::string& typeName,
                                            TransformOperator op ) :
     Node( instanceName, typeName ), m_operator( op ) {
-    auto in = new PortIn<coll_t>( "in", this );
-    addInput( in );
-    in->mustBeLinked();
-
-    auto f = new PortIn<TransformOperator>( "f", this );
-    addInput( f );
-
-    auto out = new PortOut<coll_t>( "out", this );
-    addOutput( out, &m_elements );
+    addInput( m_portIn );
+    m_portIn->mustBeLinked();
+    addInput( m_portOperator );
+    addOutput( m_portOut, &m_elements );
 }
 
 template <typename coll_t, typename v_t>

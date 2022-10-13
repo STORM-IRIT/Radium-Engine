@@ -161,19 +161,6 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         // build a graph
         auto g = buildgraph<Scalar>( "testCustomNodes" );
 
-        //! [Inspect the graph interface : inputs and outputs port]
-        auto inputs = g->getAllDataSetters();
-        std::cout << "Input ports (" << inputs.size() << ") are :\n";
-        for ( auto& [ptrPort, portName, portType] : inputs ) {
-            std::cout << "\t\"" << portName << "\" accepting type " << portType << "\n";
-        }
-        auto outputs = g->getAllDataGetters();
-        std::cout << "Output ports (" << outputs.size() << ") are :\n";
-        for ( auto& [ptrPort, portName, portType] : outputs ) {
-            std::cout << "\t\"" << portName << "\" generating type " << portType << "\n";
-        }
-        //! [Inspect the graph interface : inputs and outputs port]
-
         // get input and ouput of the graph
         auto inputCollection = g->getDataSetter( "ds_to" );
         REQUIRE( inputCollection != nullptr );
@@ -219,8 +206,8 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         auto& vop  = generatedOperator->getData<std::string>();
 
         REQUIRE( vres.size() == testVector.size() );
-        std::cout << "Result after applying operator " << vop << " and threshold " << threshold
-                  << ": \n\t";
+        std::cout << "Result after applying operator " << vop << " (from " << op
+                  << " ) and threshold " << threshold << ": \n\t";
         for ( auto ord : vres ) {
             std::cout << ord << ' ';
         }
@@ -231,8 +218,8 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         g->execute();
         REQUIRE( vres.size() == 0 );
 
-        std::cout << "Result after applying operator " << vop << " and threshold " << threshold
-                  << ": \n\t";
+        std::cout << "Result after applying operator " << vop << " (from " << op
+                  << " ) and threshold " << threshold << ": \n\t";
         for ( auto ord : vres ) {
             std::cout << ord << ' ';
         }
@@ -242,8 +229,8 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         op = "<";
         g->execute();
 
-        std::cout << "Result after applying operator " << vop << " and threshold " << threshold
-                  << ": \n\t";
+        std::cout << "Result after applying operator " << vop << " (from " << op
+                  << " ) and threshold " << threshold << ": \n\t";
         for ( auto ord : vres ) {
             std::cout << ord << ' ';
         }
