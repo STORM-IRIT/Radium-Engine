@@ -62,6 +62,12 @@ class TransformNode : public Node
     TransformOperator m_operator;
     coll_t m_elements;
 
+    /// @{
+    /// \brief Alias for the ports (allow simpler access)
+    PortIn<coll_t>* m_portIn { new PortIn<coll_t>( "in", this ) };
+    PortIn<TransformOperator>* m_portOperator { new PortIn<TransformOperator>( "f", this ) };
+    PortOut<coll_t>* m_portOut { new PortOut<coll_t>( "out", this ) };
+    /// @}
   public:
     static const std::string& getTypename();
 };

@@ -17,7 +17,11 @@ class PortOut;
 template <typename T>
 class PortIn;
 
-/// Base class for nodes' ports
+/**
+ * \brief Base class for nodes' ports
+ * A port is a strongly typed extremity of connections between nodes.
+ *
+ */
 class RA_DATAFLOW_API PortBase
 {
   private:
@@ -98,6 +102,11 @@ class RA_DATAFLOW_API PortBase
     virtual std::string getTypeName() = 0;
 };
 
+/**
+ * \brief Output port delivering data of Type T.
+ * Output port stores a non-owning pointer to the data that will be made available on a connection.
+ * \tparam T The type of the delivered data.
+ */
 template <typename T>
 class PortOut : public PortBase
 {
@@ -144,8 +153,10 @@ class PortOut : public PortBase
 };
 
 /**
- * PortIn is an Observable<PortIn<T>&> that notifies its observers at connect/disconnect event
- * @tparam T
+ * \brief Input port accepting data of type T.
+ * An input port does not staore the data but is an accessor to the data stored on the connected
+ * output port. An Input port is observable and notify its observers at each  connect/disconnect
+ * event. \tparam T The accepted data type
  */
 template <typename T>
 class PortIn : public PortBase,

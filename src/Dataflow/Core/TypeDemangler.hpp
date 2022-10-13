@@ -4,7 +4,7 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-/// Return the human readable version of the type name T with simplified radium types
+/// \brief Return the human readable version of the type name T with simplified radium types
 template <typename T>
 const char* simplifiedDemangledType() noexcept;
 

@@ -179,23 +179,21 @@ class BinaryOpNode : public Node
         BinaryOpNode( instanceName, getTypename(), op ) {}
 
     void init() override {
-        Node::init();
         m_result = t_out {};
+        Node::init();
     }
 
     void execute() override {
-        auto f   = m_operator;
-        auto p_f = static_cast<PortIn<BinaryOperator>*>( m_inputs[2].get() );
-        if ( p_f->isLinked() ) { f = p_f->getData(); }
-        auto p_a = static_cast<PortIn<t_a>*>( m_inputs[0].get() );
-        auto p_b = static_cast<PortIn<t_b>*>( m_inputs[1].get() );
-        if ( p_a->isLinked() && p_b->isLinked() ) {
+        auto f = m_operator;
+        if ( m_portF->isLinked() ) { f = m_portF->getData(); }
+        // The following test will always be true if the node was integrated in a compiled graph
+        if ( m_portA->isLinked() && m_portB->isLinked() ) {
             m_result = internal::ExecutorHelper<t_a, t_b, t_out, BinaryOperator>::executeInternal(
-                p_a->getData(), p_b->getData(), f );
+                m_portA->getData(), m_portB->getData(), f );
         }
     }
 
-    /// Sets the operator on the node
+    /// \brief Sets the operator to be evaluated by the node.
     void setOperator( BinaryOperator op ) { m_operator = op; }
 
   protected:
@@ -203,16 +201,12 @@ class BinaryOpNode : public Node
                   const std::string& typeName,
                   BinaryOperator op ) :
         Node( instanceName, typeName ), m_operator( op ) {
-        auto in_a = new PortIn<t_a>( "a", this );
-        addInput( in_a );
-        in_a->mustBeLinked();
-        auto in_b = new PortIn<t_b>( "b", this );
-        addInput( in_b );
-        in_b->mustBeLinked();
-        auto f = new PortIn<BinaryOperator>( "f", this );
-        addInput( f );
-        auto out = new PortOut<t_out>( "r", this );
-        addOutput( out, &m_result );
+        addInput( m_portA );
+        m_portA->mustBeLinked();
+        addInput( m_portB );
+        m_portB->mustBeLinked();
+        addInput( m_portF );
+        addOutput( m_portR, &m_result );
     }
 
     void toJsonInternal( nlohmann::json& data ) const override {
@@ -228,8 +222,17 @@ class BinaryOpNode : public Node
     }
 
   private:
+    /// \brief the used operator
     BinaryOperator m_operator = []( Arg1_type, Arg2_type ) -> Res_type { return Res_type {}; };
     t_out m_result;
+
+    /// @{
+    /// \brief Alias for the ports (allow simpler access)
+    PortIn<t_a>* m_portA { new PortIn<t_a>( "a", this ) };
+    PortIn<t_b>* m_portB { new PortIn<t_b>( "b", this ) };
+    PortIn<BinaryOperator>* m_portF { new PortIn<BinaryOperator>( "f", this ) };
+    PortOut<t_out>* m_portR { new PortOut<t_out>( "r", this ) };
+    /// @}
 
   public:
     static const std::string& getTypename() {
