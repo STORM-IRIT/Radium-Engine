@@ -7,9 +7,9 @@ namespace Dataflow {
 namespace Core {
 
 namespace TypeInternal {
-std::string makeTypeReadable( std::string );
-
+RA_DATAFLOW_API std::string makeTypeReadable( std::string );
 }
+
 /// Return the human readable version of the type name T with simplified radium types
 template <typename T>
 const char* simplifiedDemangledType() noexcept {

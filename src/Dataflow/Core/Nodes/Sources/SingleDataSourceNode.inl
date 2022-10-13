@@ -17,10 +17,10 @@ SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
 template <typename T>
 void SingleDataSourceNode<T>::execute() {
     // interfaces ports are at the same index as output ports
-    auto interface = static_cast<PortIn<T>*>( m_interface[0] );
-    if ( interface->isLinked() ) {
+    auto interfacePort = static_cast<PortIn<T>*>( m_interface[0] );
+    if ( interfacePort->isLinked() ) {
         // use external storage to deliver data
-        m_data = &( interface->getData() );
+        m_data = &( interfacePort->getData() );
     }
     else {
         // use local storage to deliver data

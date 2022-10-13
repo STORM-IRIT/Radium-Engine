@@ -1,4 +1,5 @@
 #pragma once
+#include <Dataflow/RaDataflow.hpp>
 
 namespace Ra {
 namespace Dataflow {
