@@ -1,13 +1,20 @@
-#include <Core/Utils/BijectiveAssociation.hpp>
+#include <Dataflow/Core/TypeDemangler.hpp>
+
 #include <Core/Utils/StringUtils.hpp>
+
+#include <map>
 
 namespace Ra {
 namespace Dataflow {
 namespace Core {
 
 namespace TypeInternal {
-std::string makeTypeReadable( std::string fullType ) {
-    static Ra::Core::Utils::BijectiveAssociation<std::string, std::string> knownTypes {
+
+/** \todo verify windows specific type demangling needs.
+ *
+ */
+RA_DATAFLOW_API std::string makeTypeReadable( std::string fullType ) {
+    static std::map<std::string, std::string> knownTypes {
         { "std::", "" },
         { ", std::allocator<float>", "" },
         { ", std::allocator<double>", "" },
@@ -27,7 +34,9 @@ std::string makeTypeReadable( std::string fullType ) {
         { "Eigen::Matrix<float, 4, 1, 0, 4, 1>", "Vector4" },
         { "Eigen::Matrix<double, 4, 1, 0, 4, 1>", "Vector4d" },
         { "Eigen::Matrix<int, 4, 1, 0, 4, 1>", "Vector4i" },
-        { "Eigen::Matrix<unsigned int, 4, 1, 0, 4, 1>", "Vector4ui" } };
+        { "Eigen::Matrix<unsigned int, 4, 1, 0, 4, 1>", "Vector4ui" },
+        // Windows (visual studio 2022) specific name fix
+        { " __ptr64", "" } };
 
     for ( const auto& [key, value] : knownTypes ) {
         Ra::Core::Utils::replaceAllInString( fullType, key, value );

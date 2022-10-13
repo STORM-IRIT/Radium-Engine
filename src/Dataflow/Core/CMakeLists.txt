@@ -7,7 +7,7 @@ include(filelist.cmake)
 
 add_library(
     ${ra_dataflowcore_target} SHARED ${dataflow_core_sources} ${dataflow_core_headers}
-                                     ${dataflow_core_inlines}
+                                     ${dataflow_core_inlines} ${dataflow_core_private}
 )
 
 # LocalDependencies from parent scope
@@ -18,6 +18,9 @@ find_package(stduuid REQUIRED NO_DEFAULT_PATH)
 target_compile_definitions(${ra_dataflowcore_target} PRIVATE RA_DATAFLOW_EXPORTS)
 
 target_compile_options(${ra_dataflowcore_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+    target_compile_options(${ra_dataflowcore_target} PRIVATE /bigobj)
+endif()
 
 add_dependencies(${ra_dataflowcore_target} Core)
 target_link_libraries(${ra_dataflowcore_target} PUBLIC Core stduuid)

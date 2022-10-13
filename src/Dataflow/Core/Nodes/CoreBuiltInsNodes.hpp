@@ -1,8 +1,7 @@
 #pragma once
-#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
-#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
-#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
+#include <Dataflow/RaDataflow.hpp>
 
+#include <Dataflow/Core/NodeFactory.hpp>
 namespace Ra {
 namespace Dataflow {
 namespace Core {
@@ -26,8 +25,13 @@ namespace NodeFactoriesManager {
  *   - BinaryOpNode<TYPE>, BinaryOpNode<Ra::Core::VectorArray<TYPE>>, BinaryOpNode<TYPE, TYPE, bool>
  *
  * All these node might be serialized/unserialized without any additional nor custom factory.
+ *
+ * If needed, the definition of all these type aliases can be included using one of the headers
+ *  - #include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
+ *  - #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
+ *  - #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
  */
-void registerStandardFactories();
+RA_DATAFLOW_API void registerStandardFactories();
 } // namespace NodeFactoriesManager
 } // namespace Core
 } // namespace Dataflow
