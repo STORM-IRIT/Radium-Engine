@@ -10,6 +10,11 @@ namespace Dataflow {
 namespace Core {
 namespace Sources {
 
+/**
+ * \brief Node that deliver a std::function<R( Args... )>
+ * \tparam R return type of the function
+ * \tparam Type of the function arguments
+ */
 template <class R, class... Args>
 class FunctionSourceNode : public Node
 {
@@ -39,13 +44,14 @@ class FunctionSourceNode : public Node
     void fromJsonInternal( const nlohmann::json& ) override;
     void toJsonInternal( nlohmann::json& ) const override;
 
+    /// @{
     /// The data provided by the node
-    function_type* m_data { nullptr };
-
-    function_type m_localData;
+    function_type m_localData { []( Args... ) { return R {}; } };
+    function_type* m_data { &m_localData };
+    /// @}
 
     /// Alias to the output port
-    PortOut<function_type>* m_portOut { nullptr };
+    PortOut<function_type>* m_portOut { new PortOut<function_type>( "f", this ) };
 
   public:
     static const std::string& getTypename();

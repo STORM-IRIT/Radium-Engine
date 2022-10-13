@@ -29,12 +29,10 @@ void FilterNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 void FilterNode<coll_t, v_t>::execute() {
-    auto predPort = static_cast<PortIn<UnaryPredicate>*>( m_inputs[1].get() );
-    auto f        = m_predicate;
-    if ( predPort->isLinked() ) { f = predPort->getData(); }
-    auto input = static_cast<PortIn<coll_t>*>( m_inputs[0].get() );
-    if ( input->isLinked() ) {
-        const auto& inData = input->getData();
+    auto f = m_portPredicate->isLinked() ? m_portPredicate->getData() : m_predicate;
+    // The following test will always be true if the node was integrated in a compiled graph
+    if ( m_portIn->isLinked() ) {
+        const auto& inData = m_portIn->getData();
         m_elements.clear();
         // m_elements.reserve( inData.size() ); // --> this is not a requirement of
         // SequenceContainer
@@ -59,15 +57,11 @@ FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
                                      const std::string& typeName,
                                      UnaryPredicate filterFunction ) :
     Node( instanceName, typeName ), m_predicate( filterFunction ) {
-    auto portIn = new PortIn<coll_t>( "in", this );
-    addInput( portIn );
-    portIn->mustBeLinked();
 
-    auto predicate = new PortIn<UnaryPredicate>( "f", this );
-    addInput( predicate );
-
-    auto portOut = new PortOut<coll_t>( "out", this );
-    addOutput( portOut, &m_elements );
+    addInput( m_portIn );
+    m_portIn->mustBeLinked();
+    addInput( m_portPredicate );
+    addOutput( m_portOut, &m_elements );
 }
 
 template <typename coll_t, typename v_t>

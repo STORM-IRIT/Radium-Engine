@@ -39,6 +39,10 @@ class SinkNode : public Node
   private:
     T m_data;
 
+    /// @{
+    /// \brief Alias for the ports (allow simpler access)
+    PortIn<T>* m_portIn { new PortIn<T>( "from", this ) };
+    /// @}
   public:
     static const std::string& getTypename();
 };

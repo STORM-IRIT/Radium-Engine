@@ -72,6 +72,14 @@ class ReduceNode : public Node
     v_t m_result;
     v_t m_init;
 
+    /// @{
+    /// \brief Alias for the ports (allow simpler access)
+    PortIn<coll_t>* m_portIn { new PortIn<coll_t>( "in", this ) };
+    PortIn<ReduceOperator>* m_portF { new PortIn<ReduceOperator>( "f", this ) };
+    PortIn<v_t>* m_portInit { new PortIn<v_t>( "init", this ) };
+    PortOut<v_t>* m_portOut { new PortOut<v_t>( "out", this ) };
+    /// @}
+
   public:
     static const std::string& getTypename();
 };

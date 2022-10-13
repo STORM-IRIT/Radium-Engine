@@ -16,7 +16,7 @@ namespace Functionals {
 
 using namespace Ra::Core;
 
-// This macro does not end with semicolon. To be added when callin it
+// This macro does not end with semicolon. To be added when calling it
 #define DECLARE_FUNCTIONALS( SUFFIX, TYPE )                                      \
     using ArrayFilter##SUFFIX      = FilterNode<Ra::Core::VectorArray<TYPE>>;    \
     using ArrayTransformer##SUFFIX = TransformNode<Ra::Core::VectorArray<TYPE>>; \

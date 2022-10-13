@@ -10,7 +10,11 @@ namespace Dataflow {
 namespace Core {
 
 /**
- * \brief Allow to manage
+ * \brief This class might be removed in a future and replaced by an instantiation of
+ * Ra::Core::Utils::BijectiveAssociation.
+ *
+ * This class allows to associate Values of type T to an int.
+ * Used right now to build the Node edition UI.
  * \tparam T
  */
 template <typename T>
