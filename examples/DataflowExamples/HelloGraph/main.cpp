@@ -89,7 +89,9 @@ int main( int argc, char* argv[] ) {
 
     //! [Execute the graph]
     g.execute();
-    // The reference to the result is now available
+    // The reference to the result is now available. Results can be accessed through a reference
+    // (sort of RVO from the graph https://en.cppreference.com/w/cpp/language/copy_elision)
+    // or copied in an application variable.
     auto& result = output->getData<std::vector<Scalar>>();
     //! [Execute the graph]
 
@@ -116,7 +118,7 @@ int main( int argc, char* argv[] ) {
     g.releaseDataSetter( "Source_to" );
     g.execute();
     std::cout << "Output values after third execution: " << result.size() << "\n";
-    //! [Disconnect data setter and rerun the graph]
+    //! [Disconnect data setter and rerun the graph - result is now empty]
 
     //! [As interface is disconnected, we can set data direclty on the source node]
     sourceNode->setData( &test );
@@ -126,7 +128,7 @@ int main( int argc, char* argv[] ) {
         std::cout << ord << ' ';
     }
     std::cout << '\n';
-    //! [Disconnect data setter and rerun the graph]
+    //! [As interface is disconnected, we can set data direclty on the source node]
 
     //! [Reconnect data setter and rerun the graph - result is the same than second execution]
     g.activateDataSetter( "Source_to" );
@@ -136,6 +138,6 @@ int main( int argc, char* argv[] ) {
         std::cout << ord << ' ';
     }
     std::cout << '\n';
-    //! [Disconnect data setter and rerun the graph]
+    //! [Reconnect data setter and rerun the graph - result is the same than second execution]
     return 0;
 }
