@@ -324,6 +324,8 @@ class RA_ENGINE_API RadiumEngine
 
     std::string getResourcesDir() { return m_resourcesRootDir; }
 
+    void runGpuTasks();
+
   private:
     RadiumEngine();
     ~RadiumEngine();

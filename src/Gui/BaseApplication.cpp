@@ -498,6 +498,12 @@ void BaseApplication::radiumFrame() {
 
     timerData.tasksEnd = Core::Utils::Clock::now();
 
+    // run engine gpu tasks (need active context)
+    ///\todo make rendering one gpu task.
+    m_viewer->makeCurrent();
+    m_engine->runGpuTasks();
+    m_viewer->doneCurrent();
+
     // also update gizmo manager to deal with annimation playing / reset
     // m_viewer->getGizmoManager()->updateValues();
 
