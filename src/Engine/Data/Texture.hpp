@@ -85,7 +85,7 @@ struct TextureParameters {
 /** Represent a Texture of the engine
  * See TextureManager for information about how unique texture are defined.
  */
-class RA_ENGINE_API Texture final : public Synchronizable
+class RA_ENGINE_API Texture final
 {
   public:
     /** Textures are not copyable, delete copy constructor.
@@ -222,7 +222,7 @@ class RA_ENGINE_API Texture final : public Synchronizable
     }
 
   protected:
-    void updateGL() override;
+    void updateGL();
 
   private:
     /**
