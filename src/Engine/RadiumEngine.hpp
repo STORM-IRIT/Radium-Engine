@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/Tasks/TaskQueue.hpp"
 #include <Engine/RaEngine.hpp>
 
 #include <Core/Types.hpp>
@@ -325,6 +326,7 @@ class RA_ENGINE_API RadiumEngine
     std::string getResourcesDir() { return m_resourcesRootDir; }
 
     void runGpuTasks();
+    Core::TaskQueue::TaskId addGpuTask( std::unique_ptr<Core::Task> );
 
   private:
     RadiumEngine();
@@ -404,6 +406,7 @@ class RA_ENGINE_API RadiumEngine
     /// OpenGL State, usefull to set state of the rendering pipeline. Initialized during
     /// initializedGL()
     std::unique_ptr<globjects::State> m_openglState { nullptr };
+    std::unique_ptr<Core::TaskQueue> m_gpuTaskQueue;
 };
 } // namespace Engine
 } // namespace Ra

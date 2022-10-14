@@ -3,8 +3,9 @@
 #include <Core/Asset/FileData.hpp>
 #include <Core/Asset/FileLoaderInterface.hpp>
 #include <Core/Resources/Resources.hpp>
+#include <Core/Tasks/Task.hpp>
+#include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/StringUtils.hpp>
-
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
@@ -65,6 +66,8 @@ void RadiumEngine::initialize() {
         "DefaultCameraManager", cameraManager, std::numeric_limits<int>::min() );
 
     m_loadingState = false;
+
+    m_gpuTaskQueue = std::make_unique<Core::TaskQueue>( 1 );
 }
 
 void RadiumEngine::initializeGL() {
@@ -474,7 +477,12 @@ void RadiumEngine::TimeData::updateTime( Scalar dt ) {
 }
 
 void RadiumEngine::runGpuTasks() {
-    Engine::Data::Synchronizer::start();
+    m_gpuTaskQueue->runTasksInMainThread();
+    m_gpuTaskQueue->flushTaskQueue();
+}
+
+Core::TaskQueue::TaskId RadiumEngine::addGpuTask( std::unique_ptr<Core::Task> task ) {
+    return m_gpuTaskQueue->registerTask( std::move( task ) );
 }
 
 } // namespace Engine
