@@ -473,5 +473,9 @@ void RadiumEngine::TimeData::updateTime( Scalar dt ) {
     }
 }
 
+void RadiumEngine::runGpuTasks() {
+    Engine::Data::Synchronizer::start();
+}
+
 } // namespace Engine
 } // namespace Ra

@@ -381,6 +381,7 @@ void Renderer::saveExternalFBOInternal() {
 }
 
 void Renderer::updateRenderObjectsInternal( const Data::ViewingParameters& /*renderData*/ ) {
+    /// \todo move the update to engine runGpuTasks
     for ( auto& ro : m_fancyRenderObjects ) {
         ro->updateGL();
     }
@@ -393,7 +394,6 @@ void Renderer::updateRenderObjectsInternal( const Data::ViewingParameters& /*ren
     for ( auto& ro : m_uiRenderObjects ) {
         ro->updateGL();
     }
-    Engine::Data::Synchronizer::start();
 }
 
 void Renderer::feedRenderQueuesInternal( const Data::ViewingParameters& /*renderData*/ ) {
