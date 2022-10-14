@@ -57,6 +57,7 @@ class RA_CORE_API TaskQueue
     /// Task must have been created with new and be initialized with its parameter.
     /// The task queue assumes ownership of the task.
     TaskId registerTask( Task* task );
+    TaskId registerTask( std::unique_ptr<Task> task );
 
     /// Add dependency between two tasks. The successor task will be executed only when all
     /// its predecessor completed.
@@ -79,6 +80,7 @@ class RA_CORE_API TaskQueue
     /// Launches the execution of all the threads in the task queue.
     /// No more tasks should be added at this point.
     void startTasks();
+    void runTasksInMainThread();
 
     /// Blocks until all tasks and dependencies are finished.
     void waitForTasks();
