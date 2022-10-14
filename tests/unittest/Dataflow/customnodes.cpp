@@ -69,20 +69,21 @@ class FilterSelector final : public Node
     T getThreshold() const { return m_threshold; }
 
   protected:
-    void fromJsonInternal( const nlohmann::json& jsonData ) override {
-        if ( jsonData.contains( "operator" ) ) { m_operatorName = jsonData["operator"]; }
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        if ( data.contains( "operator" ) ) { m_operatorName = data["operator"]; }
         else {
             m_operatorName = "true";
         }
-        if ( jsonData.contains( "threshold" ) ) { m_threshold = jsonData["threshold"]; }
+        if ( data.contains( "threshold" ) ) { m_threshold = data["threshold"]; }
         else {
             m_threshold = T {};
         }
+        return true;
     }
 
-    void toJsonInternal( nlohmann::json& jsonData ) const override {
-        jsonData["operator"]  = m_operatorName;
-        jsonData["threshold"] = m_threshold;
+    void toJsonInternal( nlohmann::json& data ) const override {
+        data["operator"]  = m_operatorName;
+        data["threshold"] = m_threshold;
     }
 
   public:
