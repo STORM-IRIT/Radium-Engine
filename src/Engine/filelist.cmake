@@ -20,7 +20,6 @@ set(engine_sources
     Data/ShaderProgram.cpp
     Data/ShaderProgramManager.cpp
     Data/SimpleMaterial.cpp
-    Data/SynchronizableObject.cpp
     Data/Texture.cpp
     Data/TextureManager.cpp
     Data/VolumeObject.cpp
@@ -74,7 +73,6 @@ set(engine_headers
     Data/ShaderProgram.hpp
     Data/ShaderProgramManager.hpp
     Data/SimpleMaterial.hpp
-    Data/SynchronizableObject.hpp
     Data/Texture.hpp
     Data/TextureManager.hpp
     Data/ViewingParameters.hpp

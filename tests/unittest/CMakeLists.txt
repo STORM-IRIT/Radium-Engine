@@ -29,7 +29,6 @@ set(test_src
     Engine/environmentmap.cpp
     Engine/renderparameters.cpp
     Engine/signalmanager.cpp
-    Engine/synchronizableObject.cpp
     Gui/keymapping.cpp
     unittest.cpp
     unittestUtils.hpp

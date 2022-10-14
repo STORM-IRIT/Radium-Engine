@@ -1,15 +1,12 @@
 #pragma once
 
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Engine/OpenGL.hpp>
 #include <Engine/RaEngine.hpp>
 
 #include <memory>
 #include <string>
-
-#include <Engine/Data/SynchronizableObject.hpp>
-#include <Engine/OpenGL.hpp>
-
-#include <Core/Utils/Color.hpp>
 
 namespace globjects {
 class Texture;
