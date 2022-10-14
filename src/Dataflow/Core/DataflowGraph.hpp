@@ -150,7 +150,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
      */
     DataflowGraph( const std::string& instanceName, const std::string& typeName );
 
-    void fromJsonInternal( const nlohmann::json& ) override;
+    bool fromJsonInternal( const nlohmann::json& data ) override;
     void toJsonInternal( nlohmann::json& ) const override;
 
   private:
@@ -192,9 +192,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// the same name already associated with the graph.
     /// \param out The port to add.
     bool addGetter( PortBase* out );
-
-    /// Loding status. Set tu true when starting loading, set to false if some nodes can't be laoded
-    bool m_loadStatus { true };
 
   public:
     static const std::string& getTypename();

@@ -35,11 +35,6 @@ void TransformNode<coll_t, v_t>::execute() {
         // m_elements.reserve( inData.size() ); // --> this is not a requirement of
         // SequenceContainer
         std::transform( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
-#ifdef GRAPH_CALL_TRACE
-        std::cout << "\e[36m\e[1mMapNode \e[0m \"" << m_instanceName << "\": execute, from "
-                  << input->getData().size() << " to " << m_elements.size() << " "
-                  << typeid( T ).name() << "." << std::endl;
-#endif
     }
 }
 
@@ -70,9 +65,10 @@ void TransformNode<coll_t, v_t>::toJsonInternal( nlohmann::json& data ) const {
 }
 
 template <typename coll_t, typename v_t>
-void TransformNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
+bool TransformNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
     LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
         << "Unable to read data when un-serializing a " << getTypeName() << ".";
+    return true;
 }
 
 } // namespace Functionals

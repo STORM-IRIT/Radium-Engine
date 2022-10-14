@@ -27,15 +27,6 @@ Node* NodeFactory::createNode( std::string& nodeType,
         if ( owningGraph != nullptr ) { owningGraph->addNode( node ); }
         return node;
     }
-#if 0
-    else {
-        std::cerr << "NodeFactory: no defined node for type " << nodeType << "." << std::endl;
-        std::cerr << "Available nodes are : " << std::endl;
-        for ( const auto& e : m_nodesCreators ) {
-            std::cerr << "\t" << e.first << std::endl;
-        }
-    }
-#endif
     return nullptr;
 }
 
@@ -47,11 +38,10 @@ bool NodeFactory::registerNodeCreator( std::string nodeType,
         m_nodesCreators[nodeType] = { std::move( nodeCreator ), nodeCategory };
         return true;
     }
-    else {
-        std::cerr << "NodeFactory: trying to add an already existing node creator for type "
-                  << nodeType << "." << std::endl;
-        return false;
-    }
+    LOG( Ra::Core::Utils::logWARNING )
+        << "NodeFactory: trying to add an already existing node creator for type " << nodeType
+        << ".";
+    return false;
 }
 
 size_t NodeFactory::nextNodeId() {
@@ -70,11 +60,8 @@ Node* NodeFactorySet::createNode( std::string& nodeType,
         auto node = it.second->createNode( nodeType, data, owningGraph );
         if ( node ) { return node; }
     }
-    std::cerr << "NodeFactorySet: unable to find constructor for " << nodeType
-              << " in any of the following factories :" << std::endl;
-    for ( const auto& it : m_factories ) {
-        std::cerr << "\t" << it.first << std::endl;
-    }
+    LOG( Ra::Core::Utils::logERROR ) << "NodeFactorySet: unable to find constructor for "
+                                     << nodeType << " in any managed factory.";
     return nullptr;
 }
 

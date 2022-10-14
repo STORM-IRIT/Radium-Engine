@@ -216,9 +216,10 @@ class BinaryOpNode : public Node
             << "Unable to save data when serializing a " << getTypeName() << ".";
     }
 
-    void fromJsonInternal( const nlohmann::json& ) override {
+    bool fromJsonInternal( const nlohmann::json& ) override {
         LOG( Ra::Core::Utils::logDEBUG )
             << "Unable to read data when un-serializing a " << getTypeName() << ".";
+        return true;
     }
 
   private:

@@ -41,8 +41,8 @@ class FunctionSourceNode : public Node
   protected:
     FunctionSourceNode( const std::string& instanceName, const std::string& typeName );
 
-    void fromJsonInternal( const nlohmann::json& ) override;
-    void toJsonInternal( nlohmann::json& ) const override;
+    bool fromJsonInternal( const nlohmann::json& ) override;
+    void toJsonInternal( nlohmann::json& data ) const override;
 
     /// @{
     /// The data provided by the node

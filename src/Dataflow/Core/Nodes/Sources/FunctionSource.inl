@@ -22,10 +22,6 @@ void FunctionSourceNode<R, Args...>::execute() {
         m_data = &m_localData;
     }
     m_portOut->setData( m_data );
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[34m\e[1mFunctionSourceNode\e[0m \"" << m_instanceName << "\": execute."
-              << std::endl;
-#endif
 }
 
 template <class R, class... Args>
@@ -58,9 +54,10 @@ void FunctionSourceNode<R, Args...>::toJsonInternal( nlohmann::json& data ) cons
 }
 
 template <class R, class... Args>
-void FunctionSourceNode<R, Args...>::fromJsonInternal( const nlohmann::json& ) {
+bool FunctionSourceNode<R, Args...>::fromJsonInternal( const nlohmann::json& ) {
     LOG( Ra::Core::Utils::logDEBUG )
         << "Unable to read data when un-serializing a " << getTypeName() << ".";
+    return true;
 }
 
 } // namespace Sources

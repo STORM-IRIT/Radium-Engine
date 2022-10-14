@@ -28,23 +28,7 @@ void Node::generateUuid() {
 }
 /// Gets the UUID of the node as a string
 std::string Node::getUuid() const {
-    if ( m_uuid.is_nil() ) {
-        // generates the uuid (need to remove const attribute) ...
-        const_cast<Node*>( this )->generateUuid();
-    }
-    std::string struuid = "{" + uuids::to_string( m_uuid ) + "}";
-    return struuid;
-}
-
-bool Node::setUuid( const std::string& uid ) {
-    if ( m_uuid.is_nil() ) {
-        auto id = uuids::uuid::from_string( uid );
-        if ( id ) {
-            m_uuid = id.value();
-            return true;
-        }
-    }
-    return false;
+    return std::string { "{" } + uuids::to_string( m_uuid ) + "}";
 }
 
 Node::Node( const std::string& instanceName, const std::string& typeName ) :
@@ -52,25 +36,33 @@ Node::Node( const std::string& instanceName, const std::string& typeName ) :
     generateUuid();
 }
 
-void Node::fromJson( const nlohmann::json& data ) {
+bool Node::fromJson( const nlohmann::json& data ) {
+    if ( data.contains( "model" ) ) {
+        if ( data["model"].contains( "instance" ) ) { m_instanceName = data["model"]["instance"]; }
+    }
+    else {
+        LOG( logERROR ) << "Missing required model when loading a Dataflow::Node";
+        return false;
+    }
     // get the common content of the Node from the json data
     if ( data.contains( "id" ) ) {
         std::string struuid = data["id"];
         m_uuid              = uuids::uuid::from_string( struuid ).value();
     }
     else {
-        generateUuid();
+        LOG( logERROR ) << "Missing required uuid when loading node " << m_instanceName;
+        return false;
     }
-    if ( data.contains( "model" ) ) {
-        if ( data["model"].contains( "instance" ) ) { m_instanceName = data["model"]["instance"]; }
-        // get the specific concrete node informations
-        const auto& datamodel = data["model"];
-        fromJsonInternal( datamodel );
-    }
+
+    // get the specific concrete node information
+    const auto& datamodel = data["model"];
+    auto loaded           = fromJsonInternal( datamodel );
+
     // get the supplemental informations related to application/gui/...
     for ( auto& [key, value] : data.items() ) {
         if ( key != "id" && key != "model" ) { m_extraJsonData.emplace( key, value ); }
     }
+    return loaded;
 }
 
 void Node::toJson( nlohmann::json& data ) const {

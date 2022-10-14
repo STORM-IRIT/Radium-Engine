@@ -4,9 +4,13 @@
 #include <fstream>
 #include <map>
 
+#include <Core/Utils/Log.hpp>
+
 namespace Ra {
 namespace Dataflow {
 namespace Core {
+
+using namespace Ra::Core::Utils;
 
 DataflowGraph::DataflowGraph( const std::string& name ) : DataflowGraph( name, getTypename() ) {}
 
@@ -31,19 +35,7 @@ void DataflowGraph::init() {
 
 void DataflowGraph::execute() {
     if ( !m_ready ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cout << std::endl
-                  << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                  << "\": not ready to execute, recompile the graph." << std::endl;
-#endif
-        if ( !compile() ) {
-#ifdef GRAPH_CALL_TRACE
-            std::cout << std::endl
-                      << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                      << "\": unable tocompile the graph." << std::endl;
-#endif
-            return;
-        }
+        if ( !compile() ) { return; }
     }
     std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( const auto& level ) {
         std::for_each( level.begin(), level.end(), []( auto node ) { node->execute(); } );
@@ -122,16 +114,13 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
 }
 
 bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
-    m_loadStatus = true;
     std::ifstream file( jsonFilePath );
     nlohmann::json j;
     file >> j;
-    fromJson( j );
-    return m_loadStatus;
+    return fromJson( j );
 }
 
-void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
-
+bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
     if ( data.contains( "graph" ) ) {
         // indicate that the graph must be recompiled after loading
         m_recompile = true;
@@ -146,16 +135,12 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 auto factory = NodeFactoriesManager::getFactory( factoryName );
                 if ( factory ) { addFactory( factory ); }
                 else {
-                    std::cerr << "DataflowGraph::loadFromJson : Unable to find a factory with name "
-                              << factoryName << std::endl;
-                    m_loadStatus = false;
-                    return;
+                    LOG( logERROR )
+                        << "DataflowGraph::loadFromJson : Unable to find a factory with name "
+                        << factoryName;
+                    return false;
                 }
             }
-        }
-        if ( !m_factories ) {
-            std::cerr << "DataflowGraph::loadFromJson : no node factories available !";
-            return;
         }
         std::unordered_map<std::string, Node*> nodeById;
 
@@ -167,8 +152,8 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
             auto newNode = m_factories->createNode( name, n, this );
             if ( newNode ) { nodeById.emplace( id, newNode ); }
             else {
-                std::cerr << "Unable to create the node " << name << std::endl;
-                m_loadStatus = false;
+                LOG( logERROR ) << "Unable to create the node " << name;
+                return false;
             }
         }
 
@@ -187,19 +172,19 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                     fromOutput = nodeFrom->getOutputs()[fromIndex]->getName();
                 }
                 else {
-                    m_loadStatus = false;
-                    std::cerr << "Error when reading JSON file \""
-                              << "\": Output index " << fromIndex << " for node \""
-                              << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName()
-                              << ")\" must be between 0 and " << nodeFrom->getOutputs().size() - 1
-                              << ". Link not added." << std::endl;
+                    LOG( logERROR ) << "Error when reading JSON file \""
+                                    << "\": Output index " << fromIndex << " for node \""
+                                    << nodeFrom->getInstanceName() << " ("
+                                    << nodeFrom->getTypeName() << ")\" must be between 0 and "
+                                    << nodeFrom->getOutputs().size() - 1 << ". Link not added.";
+                    return false;
                 }
             }
             else {
-                m_loadStatus = false;
-                std::cerr << "Error when reading JSON file \""
-                          << "\": Could not find a node associated with id " << l["out_id"]
-                          << ". Link not added." << std::endl;
+                LOG( logERROR ) << "Error when reading JSON file \""
+                                << "\": Could not find a node associated with id " << l["out_id"]
+                                << ". Link not added.";
+                return false;
             }
 
             if ( nodeById.find( l["in_id"] ) != nodeById.end() ) {
@@ -210,42 +195,38 @@ void DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                     toInput = nodeTo->getInputs()[toIndex]->getName();
                 }
                 else {
-                    m_loadStatus = false;
-                    std::cerr << "Error when reading JSON file \""
-                              << "\": Input index " << toIndex << " for node \""
-                              << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName()
-                              << ")\" must be between 0 and " << nodeTo->getInputs().size() - 1
-                              << ". Link not added." << std::endl;
+                    LOG( logERROR ) << "Error when reading JSON file \""
+                                    << "\": Input index " << toIndex << " for node \""
+                                    << nodeFrom->getInstanceName() << " ("
+                                    << nodeFrom->getTypeName() << ")\" must be between 0 and "
+                                    << nodeTo->getInputs().size() - 1 << ". Link not added.";
+                    return false;
                 }
             }
             else {
-                m_loadStatus = false;
-                std::cerr << "Error when reading JSON file \""
-                          << "\": Could not find a node associated with id " << l["in_id"]
-                          << ". Link not added." << std::endl;
+                LOG( logERROR ) << "Error when reading JSON file \""
+                                << "\": Could not find a node associated with id " << l["in_id"]
+                                << ". Link not added.";
+                return false;
             }
 
             if ( nodeFrom && ( fromOutput != "" ) && nodeTo && ( toInput != "" ) ) {
                 addLink( nodeFrom, fromOutput, nodeTo, toInput );
             }
             else {
-                m_loadStatus = false;
-                std::cerr
+                LOG( logERROR )
                     << "Error when reading JSON file \""
                     << "\": Could not add a link (missing or wrong information, please refer to "
-                       "the previous error messages). Link not added."
-                    << std::endl;
+                       "the previous error messages). Link not added.";
+                return false;
             }
         }
     }
+    return true;
 }
 
 bool DataflowGraph::addNode( Node* newNode ) {
     std::map<std::string, std::string> m_mapInputs;
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName << "\": trying to add node \""
-              << newNode->getInstanceName() << "\"..." << std::endl;
-#endif
     // Check if the new node already exists (= same name and type)
     if ( findNode( newNode ) == -1 ) {
         if ( newNode->getInputs().empty() ) {
@@ -263,45 +244,19 @@ bool DataflowGraph::addNode( Node* newNode ) {
             }
         }
         m_nodes.emplace_back( newNode );
-#ifdef GRAPH_CALL_TRACE
-        std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                  << "\": success adding node \"" << newNode->getInstanceName() << "\"!"
-                  << std::endl;
-#endif
         m_ready = false;
         return true;
     }
     else {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                  << "\": could not add node \"" << newNode->getInstanceName()
-                  << "\" (node already exists)." << std::endl;
-#endif
         return false;
     }
 }
 
 bool DataflowGraph::removeNode( Node* node ) {
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-              << "\": trying to remove node \"" << node->getInstanceName() << "\"..." << std::endl;
-#endif
     // Check if the new node already exists (= same name)
     int index = -1;
-    if ( ( index = findNode( node ) ) == -1 ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                  << "\": could not remove node \"" << node->getInstanceName()
-                  << "\" (node does not exist)." << std::endl;
-#endif
-        return false;
-    }
+    if ( ( index = findNode( node ) ) == -1 ) { return false; }
     else {
-#ifdef GRAPH_CALL_TRACE
-        std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                  << "\": success removing node \"" << node->getInstanceName() << "\"!"
-                  << std::endl;
-#endif
         if ( node->getInputs().empty() ) { // Check if it is a source node
             for ( auto& port :
                   node->getInterfaces() ) { // Erase input ports of the graph associated
@@ -337,29 +292,15 @@ bool DataflowGraph::addLink( Node* nodeFrom,
                              const std::string& nodeFromOutputName,
                              Node* nodeTo,
                              const std::string& nodeToInputName ) {
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-              << "\": ADD LINK : try to connect output \"" + nodeFromOutputName + "\" of node \"" +
-                     nodeFrom->getInstanceName() + "\" to input \"" + nodeToInputName +
-                     "\" of node \"" + nodeTo->getInstanceName() + "\"."
-              << std::endl;
-#endif
     // Check node "from" existence in the graph
     if ( findNode( nodeFrom ) == -1 ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "ADD LINK : node \"from\" \"" + nodeFrom->getInstanceName() +
-                         "\" does not exist."
-                  << std::endl;
-#endif
+        LOG( logERROR ) << "DataflowGraph::addLink Unable to find initial node.";
         return false;
     }
 
     // Check node "to" existence in the graph
     if ( findNode( nodeTo ) == -1 ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "ADD LINK : node \"to\" \"" + nodeTo->getInstanceName() + "\" does not exist."
-                  << std::endl;
-#endif
+        LOG( logERROR ) << "DataflowGraph::addLink Unable to find destination node.";
         return false;
     }
 
@@ -374,11 +315,9 @@ bool DataflowGraph::addLink( Node* nodeFrom,
         index++;
     }
     if ( foundFrom == -1 ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "ADD LINK : output \"" + nodeFromOutputName + "\" for node \"from\" \"" +
-                         nodeFrom->getInstanceName() + "\" does not exist."
-                  << std::endl;
-#endif
+        LOG( logERROR ) << "DataflowGraph::addLink Unable to find output port "
+                        << nodeFromOutputName << " from initial node "
+                        << nodeFrom->getInstanceName();
         return false;
     }
 
@@ -393,60 +332,24 @@ bool DataflowGraph::addLink( Node* nodeFrom,
         index++;
     }
     if ( foundTo == -1 ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "ADD LINK : input \"" + nodeToInputName + "\" for target node \"" +
-                         nodeTo->getInstanceName() + "\" does not exist."
-                  << std::endl;
-#endif
+        LOG( logERROR ) << "DataflowGraph::addLink Unable to find input port " << nodeFromOutputName
+                        << " from destination node " << nodeTo->getInstanceName();
         return false;
     }
 
     // Compare types
     // TODO fix the variable naming ...
     if ( nodeTo->getInputs()[foundTo]->getType() != nodeFrom->getOutputs()[foundFrom]->getType() ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "ADD LINK : cannot connect output \"" + nodeFromOutputName + "\" for node \"" +
-                         nodeTo->getInstanceName() + "\" and input \"" + nodeToInputName +
-                         "\" for node \"" + nodeFrom->getInstanceName() +
-                         "\" : type mismatch : \n\t"
-                         "Type to : "
-                  << nodeTo->getInputs()[foundTo]->getTypeName()
-                  << "\n\t"
-                     "Type from : "
-                  << nodeFrom->getOutputs()[foundFrom]->getTypeName() << "\n\t" << std::endl;
-#endif
         return false;
     }
 
     // Check if input is connected
-    if ( nodeTo->getInputs()[foundTo]->isLinked() ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "ADD LINK : cannot connect output \"" + nodeFromOutputName + "\" for node \"" +
-                         nodeTo->getInstanceName() + "\" and input \"" + nodeToInputName +
-                         "\" for node \"" + nodeFrom->getInstanceName() +
-                         "\" : input already connected."
-                  << std::endl;
-#endif
-        return false;
-    }
+    if ( nodeTo->getInputs()[foundTo]->isLinked() ) { return false; }
 
     // Try to connect ports
     if ( !nodeTo->getInputs()[foundTo]->connect( nodeFrom->getOutputs()[foundFrom].get() ) ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "ADD LINK : cannot connect output \"" + nodeFromOutputName + "\" for node \"" +
-                         nodeTo->getInstanceName() + "\" and input \"" + nodeToInputName +
-                         "\" for node \"" + nodeFrom->getInstanceName() + "\"."
-                  << std::endl;
-#endif
         return false;
     }
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-              << "\": ADD LINK : success connecting output \"" + nodeFromOutputName +
-                     "\" of node \"" + nodeFrom->getInstanceName() + "\" to input \"" +
-                     nodeToInputName + "\" of node \"" + nodeTo->getInstanceName() + "\"."
-              << std::endl;
-#endif
     // The state of the graph changes, set it to not ready
     m_ready = false;
     return true;
@@ -454,13 +357,7 @@ bool DataflowGraph::addLink( Node* nodeFrom,
 
 bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
     // Check node's existence in the graph
-    if ( findNode( node ) == -1 ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "REMOVE LINK : node \"" + node->getInstanceName() + "\" does not exist."
-                  << std::endl;
-#endif
-        return false;
-    }
+    if ( findNode( node ) == -1 ) { return false; }
 
     // Check if node's input exists
     int found = -1;
@@ -472,22 +369,9 @@ bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
         }
         index++;
     }
-    if ( found == -1 ) {
-#ifdef GRAPH_CALL_TRACE
-        std::cerr << "REMOVE LINK : input \"" + nodeInputName + "\" for target node \"" +
-                         node->getInstanceName() + "\" does not exist."
-                  << std::endl;
-#endif
-        return false;
-    }
+    if ( found == -1 ) { return false; }
 
     node->getInputs()[found]->disconnect();
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-              << "\": REMOVE LINK : success disconnecting input \"" + nodeInputName +
-                     "\" of node \"" + node->getInstanceName() + "\"."
-              << std::endl;
-#endif
     return true;
 }
 
@@ -500,11 +384,6 @@ int DataflowGraph::findNode( const Node* node ) {
 }
 
 bool DataflowGraph::compile() {
-#ifdef GRAPH_CALL_TRACE
-    std::cout << std::endl
-              << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName << "\": begin compilation."
-              << std::endl;
-#endif
     // Find useful nodes (directly or indirectly connected to a Sink)
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>> infoNodes;
     for ( auto const& n : m_nodes ) {
@@ -522,11 +401,6 @@ bool DataflowGraph::compile() {
             }
         }
     }
-#ifdef GRAPH_CALL_TRACE
-    std::cout << std::endl
-              << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName << "\": useful nodes found."
-              << std::endl;
-#endif
     // Compute the level (rank of execution) of useful nodes
     int maxLevel = 0;
     for ( auto& infNode : infoNodes ) {
@@ -544,11 +418,6 @@ bool DataflowGraph::compile() {
             }
         }
     }
-#ifdef GRAPH_CALL_TRACE
-    std::cout << std::endl
-              << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName << "\": nodes level computed."
-              << std::endl;
-#endif
     m_nodesByLevel.clear();
     m_nodesByLevel.resize( infoNodes.size() != 0 ? maxLevel + 1 : 0 );
     for ( auto& infNode : infoNodes ) {
@@ -564,22 +433,11 @@ bool DataflowGraph::compile() {
             for ( size_t k = 0; k < lvl[j]->getInputs().size(); k++ ) {
                 if ( lvl[j]->getInputs()[k]->isLinkMandatory() &&
                      !lvl[j]->getInputs()[k]->isLinked() ) {
-#ifdef GRAPH_CALL_TRACE
-                    std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName
-                              << "\": compilation failed, node " << lvl[j]->getInstanceName()
-                              << " has mandatory port " << lvl[j]->getInputs()[k]->getName()
-                              << " not linked." << std::endl;
-#endif
                     return m_ready = false;
                 }
             }
         }
     }
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[32m\e[1mDataflowGraph\e[0m \"" << m_instanceName << "\": end compilation."
-              << std::endl
-              << std::endl;
-#endif
     m_recompile = false;
     m_ready     = true;
     init();
@@ -697,11 +555,6 @@ std::shared_ptr<PortBase> DataflowGraph::getDataSetter( std::string portName ) {
         p->connect( in );
         return p;
     }
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[36m\e[1mDataflowGraph::graphGetInput \e[0m \""
-              << "Error, can't generate the interface node for graph input " << portName
-              << std::endl;
-#endif
     return nullptr;
 }
 
@@ -721,11 +574,6 @@ PortBase* DataflowGraph::getDataGetter( std::string portName ) {
     for ( auto& portOut : m_outputs ) {
         if ( portOut->getName() == portName ) { return portOut.get(); }
     }
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[36m\e[1mDataflowGraph::graphGetOutput \e[0m \""
-              << "Error, can't generate the interface node for graph output " << portName
-              << std::endl;
-#endif
     return nullptr;
 }
 
@@ -742,8 +590,8 @@ Node* DataflowGraph::getNode( const std::string& instanceNameNode ) {
     for ( const auto& node : m_nodes ) {
         if ( node->getInstanceName() == instanceNameNode ) { return node.get(); }
     }
-    std::cerr << getTypename() + ": The node with the instance name " + instanceNameNode +
-                     " has not been found";
+    LOG( logERROR ) << "DataflowGraph::getNode : The node with the instance name "
+                    << instanceNameNode << " has not been found";
     return nullptr;
 }
 

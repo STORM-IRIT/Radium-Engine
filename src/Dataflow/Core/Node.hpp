@@ -106,10 +106,6 @@ class RA_DATAFLOW_API Node
     /// \brief Gets the UUID of the node as a string
     std::string getUuid() const;
 
-    /// \brief Sets the UUID of the node from a valid uuid string
-    /// \return true if the uuid is set, false if the node already have a valid uid or the string is
-    /// invalid
-    bool setUuid( const std::string& uid );
     /// @}
 
     /// \name Serialization of a node
@@ -122,7 +118,7 @@ class RA_DATAFLOW_API Node
 
     /// \brief unserialized the content of the node.
     /// Fill the node from its json representation
-    void fromJson( const nlohmann::json& data );
+    bool fromJson( const nlohmann::json& data );
 
     /// \brief Add a metadata to the node to store application specific information.
     /// used, e.g. by the node editor gui to save node position in the graphical canvas.
@@ -148,7 +144,7 @@ class RA_DATAFLOW_API Node
     /// Must be implemented by inheriting classes.
     /// Be careful with template specialization and function member overriding when implementing
     /// this method.
-    virtual void fromJsonInternal( const nlohmann::json& ) = 0;
+    virtual bool fromJsonInternal( const nlohmann::json& ) = 0;
 
     /// internal json representation of the Node.
     /// Must be implemented by inheriting classes.
