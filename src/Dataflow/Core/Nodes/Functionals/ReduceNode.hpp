@@ -65,7 +65,7 @@ class ReduceNode : public Node
                 v_t initialValue );
 
     void toJsonInternal( nlohmann::json& data ) const override;
-    void fromJsonInternal( const nlohmann::json& data ) override;
+    bool fromJsonInternal( const nlohmann::json& ) override;
 
   private:
     ReduceOperator m_operator;

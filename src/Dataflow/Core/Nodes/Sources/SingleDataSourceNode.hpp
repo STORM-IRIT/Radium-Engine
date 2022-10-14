@@ -59,8 +59,8 @@ class SingleDataSourceNode : public Node
     void removeEditable( const std::string& name = "Data" );
 
   protected:
-    void fromJsonInternal( const nlohmann::json& ) override;
-    void toJsonInternal( nlohmann::json& ) const override;
+    bool fromJsonInternal( const nlohmann::json& ) override;
+    void toJsonInternal( nlohmann::json& data ) const override;
 
     /// @{
     /// The data provided by the node

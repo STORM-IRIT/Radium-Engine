@@ -56,7 +56,7 @@ class TransformNode : public Node
                    TransformOperator op );
 
     void toJsonInternal( nlohmann::json& data ) const override;
-    void fromJsonInternal( const nlohmann::json& data ) override;
+    bool fromJsonInternal( const nlohmann::json& ) override;
 
   private:
     TransformOperator m_operator;

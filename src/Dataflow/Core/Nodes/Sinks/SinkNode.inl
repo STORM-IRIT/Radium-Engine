@@ -27,10 +27,6 @@ void SinkNode<T>::init() {
 template <typename T>
 void SinkNode<T>::execute() {
     m_data = m_portIn->getData();
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[33m\e[1m" << getTypename() << "\e[0m \"" << getInstanceName() << "\": execute."
-              << std::endl;
-#endif
 }
 
 template <typename T>
@@ -51,10 +47,12 @@ const std::string& SinkNode<T>::getTypename() {
 }
 
 template <typename T>
-void SinkNode<T>::toJsonInternal( nlohmann::json& /*data*/ ) const {}
+void SinkNode<T>::toJsonInternal( nlohmann::json& ) const {}
 
 template <typename T>
-void SinkNode<T>::fromJsonInternal( const nlohmann::json& /*data*/ ) {}
+bool SinkNode<T>::fromJsonInternal( const nlohmann::json& ) {
+    return true;
+}
 
 } // namespace Sinks
 } // namespace Core

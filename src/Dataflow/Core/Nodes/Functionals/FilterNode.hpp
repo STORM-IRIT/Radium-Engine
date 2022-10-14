@@ -59,7 +59,7 @@ class FilterNode : public Node
                 UnaryPredicate predicate );
 
     void toJsonInternal( nlohmann::json& data ) const override;
-    void fromJsonInternal( const nlohmann::json& data ) override;
+    bool fromJsonInternal( const nlohmann::json& ) override;
 
   private:
     UnaryPredicate m_predicate;

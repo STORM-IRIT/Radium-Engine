@@ -97,16 +97,6 @@ void PortBase::setData( T* data ) {
             return;
         }
     }
-#ifdef GRAPH_CALL_TRACE
-    if ( is_input() ) {
-        std::cout << "\e[41m\e[1mError, can't set data on the input port " << this->getName()
-                  << "\e[0m" << std::endl;
-    }
-    else {
-        std::cout << "\e[41m\e[1mError, can't set data on the port of incompatible data type."
-                  << this->getName() << "\e[0m" << std::endl;
-    }
-#endif
 }
 
 template <typename T>
@@ -115,17 +105,6 @@ void PortBase::getData( T& t ) {
         auto thisOut = dynamic_cast<PortOut<T>*>( this );
         if ( thisOut ) { t = thisOut->getData(); }
     }
-#ifdef GRAPH_CALL_TRACE
-    if ( is_input() ) {
-        std::cout << "\e[41m\e[1mError, can't get data on the input port " << this->getName()
-                  << "\e[0m" << std::endl;
-    }
-    else {
-        std::cout << "\e[41m\e[1mError, can't get data on the port of incompatible data type "
-                  << this->getName() << " (" << this->getTypeName() << " vs "
-                  << RadiumAddons::Core::Utils::demang<T>() << ")\e[0m" << std::endl;
-    }
-#endif
 }
 
 template <typename T>
@@ -134,7 +113,8 @@ T& PortBase::getData() {
         auto thisOut = dynamic_cast<PortOut<T>*>( this );
         if ( thisOut ) { return thisOut->getData(); }
     }
-    std::cerr << "Could not call T& PortBase::getData() on an input port !!!\n";
+    LOG( Ra::Core::Utils::logERROR )
+        << "Could not call T& PortBase::getData() on an input port !!!\n";
     std::abort();
 }
 
