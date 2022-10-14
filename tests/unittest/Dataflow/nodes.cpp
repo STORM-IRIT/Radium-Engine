@@ -326,63 +326,37 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         g->addNode( nodeT );
         g->addNode( nodeRD );
 
-        if ( !g->addLink( nodeS, "to", meanCalculator, "in" ) ) {
-            std::cout << "Unable to link " << nodeS->getInstanceName() << ":to and "
-                      << meanCalculator->getInstanceName() << ":in !!!\n";
-        }
-        if ( !g->addLink( nodeM, "f", meanCalculator, "f" ) ) {
-            std::cout << "Unable to link " << nodeM->getInstanceName() << ":f and "
-                      << meanCalculator->getInstanceName() << ":f !!!\n";
-        }
-        if ( !g->addLink( nodeN, "to", meanCalculator, "init" ) ) {
-            std::cout << "Unable to link " << nodeN->getInstanceName() << ":to and "
-                      << meanCalculator->getInstanceName() << ":init !!!\n";
-        }
-        if ( !g->addLink( meanCalculator, "out", nodeR, "from" ) ) {
-            std::cout << "Unable to link " << meanCalculator->getInstanceName() << ":out and "
-                      << nodeR->getInstanceName() << ":from !!!\n";
-        }
-
-        if ( !g->addLink( nodeS, "to", nodeT, "in" ) ) {
-            std::cout << "Unable to link " << nodeS->getInstanceName() << ":to and "
-                      << nodeT->getInstanceName() << ":in !!!\n";
-        }
-        if ( !g->addLink( nodeD, "f", nodeT, "f" ) ) {
-            std::cout << "Unable to link " << nodeD->getInstanceName() << ":f and "
-                      << nodeT->getInstanceName() << ":f !!!\n";
-        }
-        if ( !g->addLink( nodeT, "out", doubleMeanCalculator, "in" ) ) {
-            std::cout << "Unable to link " << nodeT->getInstanceName() << ":out and "
-                      << doubleMeanCalculator->getInstanceName() << ":in !!!\n";
-        }
-        if ( !g->addLink( doubleMeanCalculator, "out", nodeRD, "from" ) ) {
-            std::cout << "Unable to link " << doubleMeanCalculator->getInstanceName() << ":out and "
-                      << nodeRD->getInstanceName() << ":from !!!\n";
-        }
-        if ( !g->addLink( nodeM, "f", doubleMeanCalculator, "f" ) ) {
-            std::cout << "Unable to link " << nodeM->getInstanceName() << ":f and "
-                      << doubleMeanCalculator->getInstanceName() << ":f !!!\n";
-        }
+        bool linkAdded;
+        linkAdded = g->addLink( nodeS, "to", meanCalculator, "in" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( nodeM, "f", meanCalculator, "f" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( nodeN, "to", meanCalculator, "init" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( meanCalculator, "out", nodeR, "from" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( nodeS, "to", nodeT, "in" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( nodeD, "f", nodeT, "f" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( nodeT, "out", doubleMeanCalculator, "in" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( doubleMeanCalculator, "out", nodeRD, "from" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( nodeM, "f", doubleMeanCalculator, "f" );
+        REQUIRE( linkAdded == true );
 
         g->addNode( nodePred );
         g->addNode( sinkB );
         g->addNode( validator );
-        if ( !g->addLink( meanCalculator, "out", validator, "a" ) ) {
-            std::cout << "Unable to link " << meanCalculator->getInstanceName() << ":out and "
-                      << validator->getInstanceName() << ":a !!!\n";
-        }
-        if ( !g->addLink( doubleMeanCalculator, "out", validator, "b" ) ) {
-            std::cout << "Unable to link " << doubleMeanCalculator->getInstanceName() << ":out and "
-                      << validator->getInstanceName() << ":b !!!\n";
-        }
-        if ( !g->addLink( nodePred, "f", validator, "f" ) ) {
-            std::cout << "Unable to link " << nodePred->getInstanceName() << ":f and "
-                      << validator->getInstanceName() << ":b !!!\n";
-        }
-        if ( !g->addLink( validator, "r", sinkB, "from" ) ) {
-            std::cout << "Unable to link " << validator->getInstanceName() << ":r and "
-                      << sinkB->getInstanceName() << ":from !!!\n";
-        }
+        linkAdded = g->addLink( meanCalculator, "out", validator, "a" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( doubleMeanCalculator, "out", validator, "b" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( nodePred, "f", validator, "f" );
+        REQUIRE( linkAdded == true );
+        linkAdded = g->addLink( validator, "r", sinkB, "from" );
+        REQUIRE( linkAdded == true );
 
         auto input   = g->getDataSetter( "s_to" );
         auto output  = g->getDataGetter( "r_from" );
@@ -418,13 +392,6 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
             test.push_back( dis( gen ) );
         }
 
-#if 0
-        std::cout << "Input values : \n\t";
-        for ( auto ord : test ) {
-            std::cout << ord << ' ';
-        }
-        std::cout << '\n';
-#endif
         // No need to do this as mean operator source has a copy of a functor
         ReduceOperator::function_type m1 = MeanOperator();
         inputR->setData( &m1 );
