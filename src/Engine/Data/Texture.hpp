@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/RaEngine.hpp>
 
 #include <memory>

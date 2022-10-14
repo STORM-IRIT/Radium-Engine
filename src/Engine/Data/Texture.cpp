@@ -1,5 +1,8 @@
+#include <Core/Tasks/Task.hpp>
+#include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/Texture.hpp>
+#include <Engine/RadiumEngine.hpp>
 
 #include <globjects/Texture.h>
 
@@ -97,7 +100,17 @@ void Texture::bindImageTexture( int unit,
 
 void Texture::updateData( void* newData ) {
     m_textureParameters.texels = newData;
-    needSync();
+
+    // register gpu task to update opengl representation before next rendering
+    static Core::TaskQueue::TaskId updateDataTaskId;
+    if ( updateDataTaskId.isInvalid() ) {
+        auto taskFunc = [this]() {
+            this->updateGL();
+            updateDataTaskId = Core::TaskQueue::TaskId::Invalid();
+        };
+        auto task        = std::make_unique<Core::FunctionTask>( taskFunc, getName() );
+        updateDataTaskId = RadiumEngine::getInstance()->addGpuTask( std::move( task ) );
+    }
 }
 
 // let the compiler warn about case fallthrough
