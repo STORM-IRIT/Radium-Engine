@@ -34,9 +34,11 @@ class SinkNode : public Node
 
   protected:
     void toJsonInternal( nlohmann::json& data ) const override;
-    void fromJsonInternal( const nlohmann::json& data ) override;
+    bool fromJsonInternal( const nlohmann::json& data ) override;
 
   private:
+    /// \todo : allow user to specify where to store the data ? (i.e. make this a shared_ptr ?).
+    // If yes, add a method setDataStorage(std::shared_ptr<T> v)
     T m_data;
 
     /// @{

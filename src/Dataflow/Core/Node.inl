@@ -8,18 +8,10 @@ namespace Dataflow {
 namespace Core {
 
 inline void Node::init() {
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[34m\e[1m" << getTypeName() << "\e[0m \"" << m_instanceName
-              << "\": initialization." << std::endl;
-#endif
     m_initialized = true;
 }
 
 inline void Node::destroy() {
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[34m\e[1m" << getTypeName() << "\e[0m \"" << m_instanceName << "\": destroy."
-              << std::endl;
-#endif
     m_interface.clear();
     m_inputs.clear();
     m_outputs.clear();

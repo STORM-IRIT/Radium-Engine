@@ -67,11 +67,12 @@ DECLARE_COREDATA_SOURCES( Vector4ui, Vector4ui );
     }                                                                                        \
                                                                                              \
     template <>                                                                              \
-    inline void SingleDataSourceNode<TYPE>::fromJsonInternal( const nlohmann::json& data ) { \
+    inline bool SingleDataSourceNode<TYPE>::fromJsonInternal( const nlohmann::json& data ) { \
         if ( data.contains( #NAME ) ) {                                                      \
             TYPE v = data[#NAME];                                                            \
             setData( v );                                                                    \
         }                                                                                    \
+        return true;                                                                         \
     }
 
 SPECIALIZE_EDITABLE_SOURCE( bool, boolean );
@@ -95,7 +96,7 @@ SingleDataSourceNode<Ra::Core::Utils::Color>::toJsonInternal( nlohmann::json& da
 }
 
 template <>
-inline void
+inline bool
 SingleDataSourceNode<Ra::Core::Utils::Color>::fromJsonInternal( const nlohmann::json& data ) {
     if ( data.contains( "color" ) ) {
         std::array<Scalar, 3> c = data["color"];
@@ -103,6 +104,7 @@ SingleDataSourceNode<Ra::Core::Utils::Color>::fromJsonInternal( const nlohmann::
             Ra::Core::Utils::Color::sRGBToLinearRGB( Ra::Core::Utils::Color( c[0], c[1], c[2] ) );
         setData( v );
     }
+    return true;
 }
 
 #undef SPECIALIZE_EDITABLE_SOURCE

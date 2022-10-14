@@ -41,10 +41,6 @@ void ReduceNode<coll_t, v_t>::execute() {
     if ( m_portIn->isLinked() ) {
         const auto& inData = m_portIn->getData();
         m_result           = std::accumulate( inData.begin(), inData.end(), iv, f );
-#ifdef GRAPH_CALL_TRACE
-        std::cout << "\e[36m\e[1mMReduceNode \e[0m \"" << m_instanceName << "\": execute, from "
-                  << input->getData().size() << " " << getTypename() << "." << std::endl;
-#endif
     }
 }
 
@@ -78,9 +74,10 @@ void ReduceNode<coll_t, v_t>::toJsonInternal( nlohmann::json& data ) const {
 }
 
 template <typename coll_t, typename v_t>
-void ReduceNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
+bool ReduceNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
     LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
         << "Unable to read data when un-serializing a " << getTypeName() << ".";
+    return true;
 }
 
 } // namespace Functionals

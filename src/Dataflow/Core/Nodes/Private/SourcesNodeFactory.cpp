@@ -1,4 +1,4 @@
-#include <Dataflow/Core/Nodes/Private/FunctionalsNodeFactory.hpp>
+#include <Dataflow/Core/Nodes/Private/SourcesNodeFactory.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
 namespace Ra {

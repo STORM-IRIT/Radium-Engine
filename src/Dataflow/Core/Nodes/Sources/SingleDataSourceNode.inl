@@ -27,29 +27,17 @@ void SingleDataSourceNode<T>::execute() {
         m_data = &m_localData;
     }
     m_portOut->setData( m_data );
-#ifdef GRAPH_CALL_TRACE
-    std::cout << "\e[34m\e[1mSingleDataSourceNode\e[0m \"" << m_instanceName << "\": execute."
-              << std::endl;
-#endif
 }
 
 template <typename T>
 void SingleDataSourceNode<T>::setData( T* data ) {
     /// \warning this will copy data into local storage
     m_localData = *data;
-#if 0
-    m_data = &m_localData;
-    m_portOut->setData( m_data );
-#endif
 }
 
 template <typename T>
 void SingleDataSourceNode<T>::setData( T& data ) {
     m_localData = data;
-#if 0
-    m_data = &m_localData;
-    m_portOut->setData( m_data );
-#endif
 }
 
 template <typename T>
@@ -84,9 +72,10 @@ void SingleDataSourceNode<T>::toJsonInternal( nlohmann::json& data ) const {
 }
 
 template <typename T>
-void SingleDataSourceNode<T>::fromJsonInternal( const nlohmann::json& ) {
+bool SingleDataSourceNode<T>::fromJsonInternal( const nlohmann::json& ) {
     LOG( Ra::Core::Utils::logDEBUG )
         << "Unable to read data when un-serializing a " << getTypeName() << ".";
+    return true;
 }
 
 } // namespace Sources
