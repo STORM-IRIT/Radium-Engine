@@ -64,10 +64,6 @@ void RadiumEngine::initialize() {
     // register the CameraManager so that it is always activated after all other systems
     Ra::Engine::RadiumEngine::getInstance()->registerSystem(
         "DefaultCameraManager", cameraManager, std::numeric_limits<int>::min() );
-
-    m_loadingState = false;
-
-    m_gpuTaskQueue = std::make_unique<Core::TaskQueue>( 1 );
 }
 
 void RadiumEngine::initializeGL() {
@@ -477,7 +473,7 @@ void RadiumEngine::TimeData::updateTime( Scalar dt ) {
 }
 
 void RadiumEngine::runGpuTasks() {
-    m_gpuTaskQueue->runTasksInMainThread();
+    m_gpuTaskQueue->runTasksInThisThread();
     m_gpuTaskQueue->flushTaskQueue();
 }
 
