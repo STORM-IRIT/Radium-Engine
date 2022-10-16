@@ -80,7 +80,7 @@ class RA_CORE_API TaskQueue
     /// Launches the execution of all the threads in the task queue.
     /// No more tasks should be added at this point.
     void startTasks();
-    void runTasksInMainThread();
+    void runTasksInThisThread();
 
     /// Blocks until all tasks and dependencies are finished.
     void waitForTasks();
