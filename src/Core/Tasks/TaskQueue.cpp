@@ -159,7 +159,7 @@ void TaskQueue::startTasks() {
     m_threadNotifier.notify_all();
 }
 
-void TaskQueue::runTasksInMainThread() {
+void TaskQueue::runTasksInThisThread() {
     // Add pending dependencies.
     resolveDependencies();
 
@@ -173,25 +173,18 @@ void TaskQueue::runTasksInMainThread() {
     while ( !m_taskQueue.empty() ) {
         TaskId task;
         task = m_taskQueue.back();
-        m_taskQueue.pop_back(); // Run task
+        m_taskQueue.pop_back();
+        // Run task
         m_timerData[task].start    = Utils::Clock::now();
         m_timerData[task].threadId = 0;
         m_tasks[task]->process();
         m_timerData[task].end = Utils::Clock::now();
 
-        // Critical section : mark task as finished and en-queue dependencies.
-        uint newTasks = 0;
-        {
-            std::unique_lock<std::mutex> lock( m_taskQueueMutex );
-            for ( auto t : m_dependencies[task] ) {
-                uint& nDepends = m_remainingDependencies[t];
-                CORE_ASSERT( nDepends > 0, "Inconsistency in dependencies" );
-                --nDepends;
-                if ( nDepends == 0 ) {
-                    queueTask( t );
-                    ++newTasks;
-                }
-            }
+        for ( auto t : m_dependencies[task] ) {
+            uint& nDepends = m_remainingDependencies[t];
+            CORE_ASSERT( nDepends > 0, "Inconsistency in dependencies" );
+            --nDepends;
+            if ( nDepends == 0 ) { queueTask( t ); }
         }
     }
 }

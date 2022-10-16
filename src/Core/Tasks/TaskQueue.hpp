@@ -80,7 +80,11 @@ class RA_CORE_API TaskQueue
     /// Launches the execution of all the threads in the task queue.
     /// No more tasks should be added at this point.
     void startTasks();
-    void runTasksInMainThread();
+
+    /// Launches the execution of all task in the thread of the caller.
+    /// Return when all tasks are done. Usefull for instance for opengl related tasks that must run
+    /// in the context thread.
+    void runTasksInThisThread();
 
     /// Blocks until all tasks and dependencies are finished.
     void waitForTasks();
