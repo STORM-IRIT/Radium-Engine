@@ -35,7 +35,7 @@ TaskQueue::TaskId TaskQueue::registerTask( std::unique_ptr<Task> task ) {
     tdata.taskName = task->getName();
     m_timerData.push_back( tdata );
 
-    m_tasks.emplace_back( std::move( task ) );
+    m_tasks.push_back( std::move( task ) );
     m_dependencies.push_back( std::vector<TaskId>() );
     m_remainingDependencies.push_back( 0 );
 
@@ -187,6 +187,7 @@ void TaskQueue::runTasksInThisThread() {
             if ( nDepends == 0 ) { queueTask( t ); }
         }
     }
+    flushTaskQueue();
 }
 
 void TaskQueue::waitForTasks() {
