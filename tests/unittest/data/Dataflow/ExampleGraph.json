@@ -1,0 +1,233 @@
+{
+    "id": "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}",
+    "model": {
+        "graph": {
+            "connections": [
+                {
+                    "in_id": "{016829fe-65fc-4b09-aaaf-04b76813e9bd}",
+                    "in_index": 0,
+                    "out_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
+                    "in_index": 0,
+                    "out_id": "{564cd37a-5d99-45cd-a642-8743a7b10adc}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
+                    "in_index": 1,
+                    "out_id": "{5bd5b929-acf2-461b-a7da-73e662d61962}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
+                    "in_index": 2,
+                    "out_id": "{7a0c688e-c785-4849-ad34-89abd1473f4c}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
+                    "in_index": 0,
+                    "out_id": "{b9a33fe7-4ada-4a8e-a104-81341912f6ef}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
+                    "in_index": 1,
+                    "out_id": "{5bd5b929-acf2-461b-a7da-73e662d61962}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{b9a33fe7-4ada-4a8e-a104-81341912f6ef}",
+                    "in_index": 0,
+                    "out_id": "{564cd37a-5d99-45cd-a642-8743a7b10adc}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{b9a33fe7-4ada-4a8e-a104-81341912f6ef}",
+                    "in_index": 1,
+                    "out_id": "{6d442201-7e25-44f4-81cc-4dcea78780b2}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{465d2861-dcbe-4717-a70d-c75e1042a730}",
+                    "in_index": 0,
+                    "out_id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{0b74b010-2bc6-4b56-914d-ddbf30701946}",
+                    "in_index": 0,
+                    "out_id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
+                    "in_index": 0,
+                    "out_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
+                    "in_index": 1,
+                    "out_id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
+                    "out_index": 0
+                },
+                {
+                    "in_id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
+                    "in_index": 2,
+                    "out_id": "{f920fe05-221d-4549-819a-f24dce92d9db}",
+                    "out_index": 0
+                }
+            ],
+            "factories": [],
+            "nodes": [
+                {
+                    "id": "{564cd37a-5d99-45cd-a642-8743a7b10adc}",
+                    "model": {
+                        "comment": "Unable to save data when serializing a SingleDataSourceNode<RaVector<float>>.",
+                        "instance": "Vector",
+                        "name": "Source<RaVector<float>>"
+                    },
+                    "position": {
+                        "x": -288.0,
+                        "y": 58.0
+                    }
+                },
+                {
+                    "id": "{6d442201-7e25-44f4-81cc-4dcea78780b2}",
+                    "model": {
+                        "comment": "Unable to save data when serializing a FunctionSourceNode<function<float (float const&)>>.",
+                        "instance": "Doubler",
+                        "name": "Source<function<float (float const&)>>"
+                    },
+                    "position": {
+                        "x": -290.0,
+                        "y": 139.0
+                    }
+                },
+                {
+                    "id": "{7a0c688e-c785-4849-ad34-89abd1473f4c}",
+                    "model": {
+                        "instance": "Neutral",
+                        "name": "Source<float>",
+                        "number": 0.0
+                    },
+                    "position": {
+                        "x": -289.0,
+                        "y": -83.0
+                    }
+                },
+                {
+                    "id": "{5bd5b929-acf2-461b-a7da-73e662d61962}",
+                    "model": {
+                        "comment": "Unable to save data when serializing a FunctionSourceNode<function<float (float const&, float const&)>>.",
+                        "instance": "Reducer",
+                        "name": "Source<function<float (float const&, float const&)>>"
+                    },
+                    "position": {
+                        "x": -292.0,
+                        "y": 224.0
+                    }
+                },
+                {
+                    "id": "{016829fe-65fc-4b09-aaaf-04b76813e9bd}",
+                    "model": {
+                        "instance": "reduced vector",
+                        "name": "Sink<float>"
+                    },
+                    "position": {
+                        "x": 459.0,
+                        "y": -140.0
+                    }
+                },
+                {
+                    "id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
+                    "model": {
+                        "comment": "Reduce operator could not be serialized for Reduce<RaVector<float>>",
+                        "instance": "Collection reducer - original collection",
+                        "name": "Reduce<RaVector<float>>"
+                    },
+                    "position": {
+                        "x": 159.0,
+                        "y": -133.0
+                    }
+                },
+                {
+                    "id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
+                    "model": {
+                        "comment": "Reduce operator could not be serialized for Reduce<RaVector<float>>",
+                        "instance": "Collection reducer - transformed collection",
+                        "name": "Reduce<RaVector<float>>"
+                    },
+                    "position": {
+                        "x": 461.0,
+                        "y": 79.0
+                    }
+                },
+                {
+                    "id": "{b9a33fe7-4ada-4a8e-a104-81341912f6ef}",
+                    "model": {
+                        "comment": "Transform operator could not be serialized for Transform<RaVector<float>>",
+                        "instance": "Collection transformer",
+                        "name": "Transform<RaVector<float>>"
+                    },
+                    "position": {
+                        "x": 159.0,
+                        "y": 53.0
+                    }
+                },
+                {
+                    "id": "{465d2861-dcbe-4717-a70d-c75e1042a730}",
+                    "model": {
+                        "instance": "transformed/reduced vector",
+                        "name": "Sink<float>"
+                    },
+                    "position": {
+                        "x": 720.0,
+                        "y": -62.0
+                    }
+                },
+                {
+                    "id": "{f920fe05-221d-4549-819a-f24dce92d9db}",
+                    "model": {
+                        "comment": "Unable to save data when serializing a FunctionSourceNode<function<bool (float const&, float const&)>>.",
+                        "instance": "Validator",
+                        "name": "Source<function<bool (float const&, float const&)>>"
+                    },
+                    "position": {
+                        "x": -291.0,
+                        "y": 309.0
+                    }
+                },
+                {
+                    "id": "{0b74b010-2bc6-4b56-914d-ddbf30701946}",
+                    "model": {
+                        "instance": "validation value",
+                        "name": "Sink<bool>"
+                    },
+                    "position": {
+                        "x": 969.0,
+                        "y": 197.0
+                    }
+                },
+                {
+                    "id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
+                    "model": {
+                        "comment": "Binary operator could not be serialized for BinaryOp<float x float -> bool>",
+                        "instance": "Validator : evaluate the validation predicate",
+                        "name": "BinaryOp<float x float -> bool>"
+                    },
+                    "position": {
+                        "x": 705.0,
+                        "y": 158.0
+                    }
+                }
+            ]
+        },
+        "instance": "Example graph",
+        "name": "Core DataflowGraph"
+    }
+}
