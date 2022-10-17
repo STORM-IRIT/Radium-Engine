@@ -1,0 +1,173 @@
+#include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/Nodes/Filters/FilterNode.hpp>
+#include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
+#include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
+
+using namespace Ra::Dataflow::Core;
+
+/* ----------------------------------------------------------------------------------- */
+/**
+ * \brief Demonstrate how serialize a graph with custom nodes.
+ */
+int main( int argc, char* argv[] ) {
+
+    //! [Creating the factory for the custom nodes and add it to the nodes system]
+    // custom node type are either specialization of templated nodes or user-define nodes class
+
+    // create the custom node factory
+    NodeFactorySet::mapped_type customFactory {
+        new NodeFactorySet::mapped_type::element_type( "ExampleCustomFactory" ) };
+
+    // add node creators to the factory
+    customFactory->registerNodeCreator<Sources::SingleDataSourceNode<std::vector<Scalar>>>(
+        Sources::SingleDataSourceNode<std::vector<Scalar>>::getTypename() + "_", "Source" );
+    customFactory->registerNodeCreator<Filters::FilterNode<Scalar>>(
+        Filters::FilterNode<Scalar>::getTypename() + "_", "Filters" );
+    customFactory->registerNodeCreator<Sinks::SinkNode<std::vector<Scalar>>>(
+        Sinks::SinkNode<std::vector<Scalar>>::getTypename() + "_", "Sink" );
+
+    // register the factory into the system to enable loading any graph that use these nodes
+    NodeFactoriesManager::registerFactory( customFactory );
+    //! [Creating the factory for the custom node types and add it to the node system]
+
+    {
+        //! [Creating an empty graph using the custom nodes factory]
+        DataflowGraph g { "Serialization example" };
+        // Add to the graph the custom factory (built-in nodes are automatically managed)
+        g.addFactory( "ExampleCustomFactory",
+                      NodeFactoriesManager::getFactory( "ExampleCustomFactory" ) );
+        //! [Creating an empty graph using the custom nodes factory]
+
+        //! [Creating Nodes]
+        auto sourceNode = new Sources::SingleDataSourceNode<std::vector<Scalar>>( "Source" );
+        // non serializable node using a custom filter
+        auto filterNode =
+            new Filters::FilterNode<Scalar>( "Filter", []( Scalar x ) { return x > 0.5_ra; } );
+        auto sinkNode = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
+        //! [Creating Nodes]
+
+        //! [Adding Nodes to the graph]
+        g.addNode( sourceNode );
+        g.addNode( filterNode );
+        g.addNode( sinkNode );
+        //! [Adding Nodes to the graph]
+
+        //! [Creating links between Nodes]
+        g.addLink( sourceNode, "to", filterNode, "in" );
+        g.addLink( filterNode, "out", sinkNode, "from" );
+        //! [Creating links between Nodes]
+
+        //! [Inspect the graph interface : inputs and outputs port]
+        auto inputs = g.getAllDataSetters();
+        std::cout << "Input ports (" << inputs.size() << ") are :\n";
+        for ( auto& [ptrPort, portName, portType] : inputs ) {
+            std::cout << "\t\"" << portName << "\" accepting type " << portType << "\n";
+        }
+        auto outputs = g.getAllDataGetters();
+        std::cout << "Output ports (" << outputs.size() << ") are :\n";
+        for ( auto& [ptrPort, portName, portType] : outputs ) {
+            std::cout << "\t\"" << portName << "\" generating type " << portType << "\n";
+        }
+        //! [Inspect the graph interface : inputs and outputs port]
+
+        //! [Verifing the graph can be compiled]
+        if ( !g.compile() ) {
+            std::cout << " compilation failed";
+            return 1;
+        }
+        //! [Verifing the graph can be compiled]
+
+        //! [Serializing the graph]
+        g.saveToJson( "GraphSerializeExample.json" );
+        //! [Serializing the graph]
+    }
+
+    std::cout << "\t==**==**==*==**==*==**==*==**==*==**==*==**==*==**==\n";
+    std::cout << "\t\tLoading and using the graph ...\n";
+    std::cout << "\t==**==**==*==**==*==**==*==**==*==**==*==**==*==**==\n";
+
+    //! [Creating an empty graph and load it from a file]
+    DataflowGraph g1 { "" };
+    g1.loadFromJson( "GraphSerializeExample.json" );
+    //! [Creating an empty graph and load it from a file]
+
+    //! [Inspect the graph interface : inputs and outputs port]
+    auto inputs_g1 = g1.getAllDataSetters();
+    std::cout << "Input ports (" << inputs_g1.size() << ") are :\n";
+    for ( auto& [ptrPort, portName, portType] : inputs_g1 ) {
+        std::cout << "\t\"" << portName << "\" accepting type " << portType << "\n";
+    }
+    auto outputs_g1 = g1.getAllDataGetters();
+    std::cout << "Output ports (" << outputs_g1.size() << ") are :\n";
+    for ( auto& [ptrPort, portName, portType] : outputs_g1 ) {
+        std::cout << "\t\"" << portName << "\" generating type " << portType << "\n";
+    }
+    //! [Inspect the graph interface : inputs and outputs port]
+
+    //! [Verifing the graph can be compiled]
+    if ( !g1.compile() ) {
+        std::cout << "Compilation failed for the loaded graph";
+        return 2;
+    }
+    //! [Verifing the graph can be compiled]
+
+    //! [Creating input variable to test the graph]
+    std::vector<Scalar> test;
+    test.reserve( 10 );
+    std::mt19937 gen( 0 );
+    std::uniform_real_distribution<> dis( 0.0, 1.0 );
+    // Fill the vector with random numbers between 0 and 1
+    for ( int n = 0; n < test.capacity(); ++n ) {
+        test.push_back( dis( gen ) );
+    }
+
+    std::cout << "Input values : \n\t";
+    for ( auto ord : test ) {
+        std::cout << ord << ' ';
+    }
+    std::cout << '\n';
+    //! [Creating input variable to test the graph]
+
+    //! [setting the values processed by the graph]
+    auto input = g1.getDataSetter( "Source_to" );
+    input->setData( &test );
+    //! [setting the values processed by the graph]
+
+    //! [Execute the graph]
+    std::cout << "Executing the loaded graph ...\n";
+    g1.execute();
+    //! [Execute the graph]
+
+    //! [Print the output result]
+    auto output = g1.getDataGetter( "Sink_from" );
+    std::vector<Scalar> result;
+    output->getData( result );
+    std::cout << "Output values : \n\t";
+    for ( auto ord : result ) {
+        std::cout << ord << ' ';
+    }
+    std::cout << '\n';
+    //! [Print the output result]
+
+    //! [Set the correct filter on the filter node]
+    auto filter = dynamic_cast<Filters::FilterNode<Scalar>*>( g1.getNode( "Filter" ) );
+    if ( !filter ) {
+        std::cerr << "Unable to cast the filter to the right type\n";
+        return 3;
+    }
+    filter->setFilterFunction( []( Scalar f ) { return f > 0.5_ra; } );
+    //! [Set the correct filter on the filter node]
+
+    //! [Execute the graph]
+    std::cout << "Executing the re-parameterized graph ...\n";
+    g1.execute();
+    output->getData( result );
+    std::cout << "Output values : \n\t";
+    for ( auto ord : result ) {
+        std::cout << ord << ' ';
+    }
+    std::cout << '\n';
+    //! [Execute the graph]
+
+    return 0;
+}
