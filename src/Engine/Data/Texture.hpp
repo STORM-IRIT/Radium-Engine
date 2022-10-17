@@ -106,7 +106,10 @@ class RA_ENGINE_API Texture final
      */
     ~Texture();
 
-    /** @brief Generate the OpenGL representation of the texture according to the stored TextureData
+    /** @brief Generate the OpenGL representation of the texture according to the stored
+     * TextureData.
+     *
+     * Need active OpenGL context.
      *
      * This method use the available m_textureParameters to generate and configure OpenGL
      * texture.
@@ -120,13 +123,20 @@ class RA_ENGINE_API Texture final
     void initializeGL( bool linearize = false );
 
     /**
-     * @brief Bind the texture to enable its use in a shader
+     *
+     * Need active OpenGL context.
+     *
+     * @brief Bind the texture to enable its use in a shader.
      * @param unit Index of the texture to be bound. If -1 only calls glBindTexture.
      */
     void bind( int unit = -1 );
 
     /**
-     * Bind the texture to an image unit for the purpose of reading and writing it from shaders.
+     * \brief Bind the texture to an image unit for the purpose of reading and writing it from
+     * shaders.
+     *
+     * Need active OpenGL context.
+     *
      * @note, only available since openGL 4.2, not available on MacOs
      * uses m_parameters.internalFormat as format.
      * see
@@ -152,10 +162,12 @@ class RA_ENGINE_API Texture final
 
     /**
      * Update the parameters contained by the texture.
+     *
+     * Need active OpenGL context.
+     *
      * User first modify the public attributes corresponding to the parameter he wants to change
      * the value (e.g wrap* or *Filter) and call this function to update the OpenGL texture
      * state ...
-     * @return
      */
     void updateParameters();
 
@@ -191,6 +203,9 @@ class RA_ENGINE_API Texture final
     globjects::Texture* texture() const { return m_texture.get(); }
 
     /** Resize the texture.
+     *
+     * Need active OpenGL context.
+     *
      * This allocate GPU memory to store the new resized texture and, if texels are not nullptr,
      * upload the new content.
      * @note : If texels are not nullptr, user must ensure the texels array is correctly
