@@ -474,7 +474,6 @@ void RadiumEngine::TimeData::updateTime( Scalar dt ) {
 
 void RadiumEngine::runGpuTasks() {
     m_gpuTaskQueue->runTasksInThisThread();
-    m_gpuTaskQueue->flushTaskQueue();
 }
 
 Core::TaskQueue::TaskId RadiumEngine::addGpuTask( std::unique_ptr<Core::Task> task ) {
