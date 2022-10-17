@@ -102,14 +102,13 @@ void Texture::updateData( void* newData ) {
     m_textureParameters.texels = newData;
 
     // register gpu task to update opengl representation before next rendering
-    static Core::TaskQueue::TaskId updateDataTaskId;
-    if ( updateDataTaskId.isInvalid() ) {
+    if ( m_updateDataTaskId.isInvalid() ) {
         auto taskFunc = [this]() {
             this->updateGL();
-            updateDataTaskId = Core::TaskQueue::TaskId::Invalid();
+            m_updateDataTaskId = Core::TaskQueue::TaskId::Invalid();
         };
-        auto task        = std::make_unique<Core::FunctionTask>( taskFunc, getName() );
-        updateDataTaskId = RadiumEngine::getInstance()->addGpuTask( std::move( task ) );
+        auto task          = std::make_unique<Core::FunctionTask>( taskFunc, getName() );
+        m_updateDataTaskId = RadiumEngine::getInstance()->addGpuTask( std::move( task ) );
     }
 }
 
