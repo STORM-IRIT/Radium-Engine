@@ -235,10 +235,9 @@ class RA_ENGINE_API Texture final
         m_textureParameters = textureParameters;
     }
 
-  protected:
+  private:
     void updateGL();
 
-  private:
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
      * The content of the array of texels.
