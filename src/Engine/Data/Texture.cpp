@@ -213,18 +213,22 @@ void Texture::updateGL() {
 }
 
 void Texture::updateData( void* newData ) {
+    // register gpu task to update opengl representation before next rendering
+    std::lock_guard<std::mutex> lock( m_updateMutex );
+
     m_textureParameters.texels = newData;
 
-    // register gpu task to update opengl representation before next rendering
     if ( m_updateDataTaskId.isInvalid() ) {
         auto taskFunc = [this]() {
             this->updateGL();
+            std::lock_guard<std::mutex> lock( m_updateMutex );
             m_updateDataTaskId = Core::TaskQueue::TaskId::Invalid();
         };
         auto task          = std::make_unique<Core::FunctionTask>( taskFunc, getName() );
         m_updateDataTaskId = RadiumEngine::getInstance()->addGpuTask( std::move( task ) );
     }
 }
+
 
 // let the compiler warn about case fallthrough
 void Texture::updateParameters() {
@@ -282,6 +286,7 @@ void Texture::linearize() {
 }
 
 void Texture::sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel ) {
+    std::lock_guard<std::mutex> lock( m_updateMutex );
     if ( !m_isLinear ) {
         m_isLinear = true;
         // auto linearize = [gamma](float in)-> float {

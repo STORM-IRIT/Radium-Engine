@@ -6,6 +6,7 @@
 #include <Engine/RaEngine.hpp>
 
 #include <memory>
+#include <mutex>
 #include <string>
 
 namespace globjects {
@@ -215,6 +216,7 @@ class RA_ENGINE_API Texture final
      * sufficient to update the GPU representation.
      */
     void setParameters( const TextureParameters& textureParameters ) {
+        std::lock_guard<std::mutex> lock( m_updateMutex );
         m_textureParameters = textureParameters;
     }
 
@@ -250,6 +252,8 @@ class RA_ENGINE_API Texture final
     bool m_isLinear { false };
     /// is valid when a gpu update task is registered (e.g. after a call to setData)
     Core::TaskQueue::TaskId m_updateDataTaskId;
+    /// mutex to protect non gpu setters, in a thread safe way.
+    std::mutex m_updateMutex;
 };
 } // namespace Data
 } // namespace Engine
