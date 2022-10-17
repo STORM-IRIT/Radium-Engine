@@ -84,6 +84,7 @@ class RA_CORE_API TaskQueue
     /// Launches the execution of all task in the thread of the caller.
     /// Return when all tasks are done. Usefull for instance for opengl related tasks that must run
     /// in the context thread.
+    /// Once tasks are all processed, this method call flushTasksQueue.
     void runTasksInThisThread();
 
     /// Blocks until all tasks and dependencies are finished.
