@@ -248,6 +248,8 @@ class RA_ENGINE_API Texture final
     bool m_isMipMapped { false };
     /// Is the texture in LinearRGB ?
     bool m_isLinear { false };
+    /// is valid when a gpu update task is registered (e.g. after a call to setData)
+    Core::TaskQueue::TaskId m_updateDataTaskId;
 };
 } // namespace Data
 } // namespace Engine
