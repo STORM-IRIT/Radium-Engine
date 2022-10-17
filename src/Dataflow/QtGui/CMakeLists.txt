@@ -1,0 +1,71 @@
+set(ra_dataflowqtgui_target DataflowQtGui)
+list(APPEND CMAKE_MESSAGE_INDENT "[${ra_dataflowqtgui_target}] ")
+
+project(${ra_dataflowqtgui_target} LANGUAGES CXX VERSION ${Radium_VERSION})
+
+add_subdirectory(QtNodeEditor)
+
+include(filelist.cmake)
+
+# Qt utility functions
+include(QtFunctions)
+
+# Find Qt packages
+find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+set(QT_DEFAULT_MAJOR_VERSION ${QT_DEFAULT_MAJOR_VERSION} PARENT_SCOPE)
+set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+qt_wrap_ui(gui_uis ${gui_uis})
+
+# configure library
+find_package(PowerSlider REQUIRED)
+
+add_library(
+    ${ra_dataflowqtgui_target} SHARED ${dataflow_qtgui_sources} ${dataflow_qtgui_headers}
+                                      ${dataflow_qtgui_inlines}
+)
+
+# This one should be extracted directly from external project properties.
+target_compile_definitions(${ra_dataflowqtgui_target} PUBLIC THIS_A_REMINDER)
+
+target_compile_options(${ra_dataflowqtgui_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+
+target_include_directories(
+    ${ra_dataflowqtgui_target}
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/QtNodeEditor/include>
+           $<INSTALL_INTERFACE:include/>
+)
+target_include_directories(
+    ${ra_dataflowqtgui_target} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
+                                      $<INSTALL_INTERFACE:include/>
+    PRIVATE ${CMAKE_CURRENT_BINARY_DIR}
+)
+add_dependencies(${ra_dataflowqtgui_target} DataflowCore Gui)
+target_link_libraries(
+    ${ra_dataflowqtgui_target} PUBLIC ${Qt_LIBRARIES} DataflowCore Gui PUBLIC NodeEditor::NodeEditor
+    PRIVATE PowerSlider::PowerSlider
+)
+
+message(STATUS "Configuring library ${ra_dataflowqtgui_target} with standard settings")
+configure_radium_target(${ra_dataflowqtgui_target})
+# configure the library only. The package is a sub-package and should be configured independently
+configure_radium_library(
+    TARGET ${ra_dataflowqtgui_target} COMPONENT TARGET_DIR "Dataflow/QtGui"
+    FILES "${dataflow_qtgui_headers};${dataflow_qtgui_inlines}"
+)
+# Generate cmake package
+configure_radium_package(
+    NAME ${ra_dataflowqtgui_target} PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    PACKAGE_DIR "lib/cmake/Radium/${ra_dataflowqtgui_target}" NAME_PREFIX "Radium"
+)
+
+set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_dataflowqtgui_target} PARENT_SCOPE)
+
+if(RADIUM_ENABLE_PCH)
+    target_precompile_headers(${ra_dataflowqtgui_target} PRIVATE pch.hpp)
+endif()
+
+list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
