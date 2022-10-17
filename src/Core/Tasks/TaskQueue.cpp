@@ -194,9 +194,10 @@ void TaskQueue::waitForTasks() {
     bool isFinished = false;
     while ( !isFinished ) {
         // TODO : use a notifier for task queue empty.
-        m_taskQueueMutex.lock();
-        isFinished = ( m_taskQueue.empty() && m_processingTasks == 0 );
-        m_taskQueueMutex.unlock();
+        {
+            std::lock_guard<std::mutex> lock( m_taskQueueMutex );
+            isFinished = ( m_taskQueue.empty() && m_processingTasks == 0 );
+        }
         if ( !isFinished ) { std::this_thread::yield(); }
     }
 }
