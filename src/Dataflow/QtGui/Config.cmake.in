@@ -1,0 +1,41 @@
+# -------------- Configuration of the Radium DataflowCore targets and definitions -----------------------
+# Setup Engine and check for dependencies
+
+if (DataflowQtGui_FOUND AND NOT TARGET DataflowQtGui)
+    set(Configure_DataflowQtGui ON)
+    # verify dependencies
+    if(NOT DataflowCore_FOUND)
+        # if in source dir
+        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Dataflow/Core/RadiumDataflowCoreConfig.cmake")
+            set(Core_FOUND TRUE)
+            include(${CMAKE_CURRENT_LIST_DIR}/../Dataflow/Core/RadiumDataflowCoreConfig.cmake)
+        else()
+            # if in install dir
+            if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../DataflowCore/RadiumDataflowCoreConfig.cmake")
+                set(Core_FOUND TRUE)
+                include(${CMAKE_CURRENT_LIST_DIR}/../DataflowCore/RadiumDataflowCoreConfig.cmake)
+            else()
+                set(Radium_FOUND False)
+                set(Radium_NOT_FOUND_MESSAGE "Radium::Engine: dependency DataflowCore not found")
+                set(Configure_Engine OFF)
+            endif()
+        endif()
+    endif()
+    if(NOT Gui_FOUND)
+        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Gui/RadiumGuiConfig.cmake")
+            set(Gui_FOUND TRUE)
+            include(${CMAKE_CURRENT_LIST_DIR}/../Gui/RadiumGuiConfig.cmake)
+        else()
+            set(Radium_FOUND False)
+            set(Radium_NOT_FOUND_MESSAGE "Radium::PluginBase: dependency Gui not found")
+            set(Configure_PluginBase OFF)
+        endif()
+    endif()
+endif()
+
+if(Configure_DataflowQtGui)
+    if(NOT TARGET NodeEditor)
+        find_dependency(NodeEditor REQUIRED)
+    endif()
+    include("${CMAKE_CURRENT_LIST_DIR}/../Dataflow/QtGui/DataflowQtGuiTargets.cmake")
+endif()
