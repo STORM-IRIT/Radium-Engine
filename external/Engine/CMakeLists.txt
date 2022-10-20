@@ -31,15 +31,14 @@ if(NOT DEFINED glm_DIR)
     ExternalProject_Add(
         glm
         GIT_REPOSITORY https://github.com/g-truc/glm.git
-        GIT_TAG 0.9.9.5
+        GIT_TAG cc98465e3508535ba8c7f6208df934c156a018dc
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
-        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/glm"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF
-                   -DCMAKE_INSTALL_LIBDIR=lib "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
+                   -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
-
-    set(glm_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/glm)
+    set(glm_DIR ${CMAKE_INSTALL_PREFIX}/glm/lib/cmake/glm)
     add_dependencies(EngineExternals glm)
 else()
     # because other might depends on it, but it's already done, define a dummy target
@@ -53,18 +52,23 @@ if(NOT DEFINED glbinding_DIR)
     ExternalProject_Add(
         glbinding
         GIT_REPOSITORY https://github.com/cginternals/glbinding.git
-        GIT_TAG 663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c
+        GIT_TAG 758d33b4d4f1815d46d91fcf4ca4914d837267fa
         GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
-        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
-                      "${CMAKE_CURRENT_LIST_DIR}/patches/glbinding.patch"
-        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DOPTION_BUILD_TESTS=OFF
-                   -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF
+        # PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
+        # "${CMAKE_CURRENT_LIST_DIR}/patches/glbinding.patch"
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/glbinding"
+        CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
+                   -DOPTION_BUILD_TESTS=OFF
+                   -DOPTION_BUILD_DOCS=OFF
+                   -DOPTION_BUILD_TOOLS=OFF
+                   -DOPTION_BUILD_EXAMPLES=OFF
+                   -DOPTION_BUILD_OWN_KHR_HEADERS=ON
+                   -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
 
-    set(glbinding_DIR ${CMAKE_INSTALL_PREFIX}/share/glbinding)
+    set(glbinding_DIR ${CMAKE_INSTALL_PREFIX}/glbinding/)
     add_dependencies(EngineExternals glbinding)
 else()
     add_custom_target(glbinding)
@@ -88,13 +92,13 @@ if(NOT DEFINED globjects_DIR)
     status_message("" "globjects" "remote git")
     ExternalProject_Add(
         globjects
-        GIT_REPOSITORY https://github.com/dlyr/globjects.git
-        GIT_TAG 11c559a07d9e310abb2f53725fd47cfaf538f8b1
+        GIT_REPOSITORY https://github.com/cginternals/globjects.git
+        GIT_TAG 4363356ae2ef5c936ab078fba48d1ea507c295c4
         GIT_PROGRESS TRUE
-        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
-                      "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
-        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        DEPENDS glbinding glm globjects-dep
+        # PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
+        # "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/globjects"
+        DEPENDS globjects-dep
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
                    -DOPTION_BUILD_DOCS=OFF
                    -DOPTION_BUILD_EXAMPLES=OFF
@@ -102,10 +106,10 @@ if(NOT DEFINED globjects_DIR)
                    -Dglbinding_DIR=${glbinding_DIR}
                    -Dglm_DIR=${glm_DIR}
                    -DEigen3_DIR=${Eigen3_DIR}
+                   -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
-
-    set(globjects_DIR ${CMAKE_INSTALL_PREFIX}/share/globjects)
+    set(globjects_DIR ${CMAKE_INSTALL_PREFIX}/globjects)
     add_dependencies(EngineExternals globjects)
 else()
     status_message("" "globjects" "${globjects_DIR}")
