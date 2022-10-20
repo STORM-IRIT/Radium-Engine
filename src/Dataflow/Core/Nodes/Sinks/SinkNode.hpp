@@ -6,6 +6,10 @@ namespace Dataflow {
 namespace Core {
 namespace Sinks {
 
+/**
+ * \brief Base class for nodes that will store the result of a computation graph.
+ * @tparam T The type of the data to serve.
+ */
 template <typename T>
 class SinkNode : public Node
 {

@@ -112,22 +112,23 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Flag set after rendergraph compilation checking if its state is right
     bool m_ready { false };
 
-    /// Creates an output port connected to the named input port of the graph.
-    /// Return the connected output port if success, transferring the ownership to the caller.
+    /// \brief Creates an output port connected to the named input port of the graph.
+    /// Return the connected output port if success, sharing the ownership with the caller.
     /// Allows to set data to the graph from the caller .
-    /// \note As ownership is transferred to the caller, the graph must survive the returned
-    /// pointer (but tested more robust than that).
+    /// \note As ownership is shared with the caller, the graph must survive the returned
+    /// pointer to be able to use the dataSetter..
     /// @params portName The name of the input port of the graph
-    /// TODO : Thereis a bug ???? When listing the data setters, they are connected ...
-    /// TODO : setters (and getters) Should be created once and activated/deactivated ???
     std::shared_ptr<PortBase> getDataSetter( std::string portName );
 
+    /// \brief disconnect the data setting port from its inputs.
     bool releaseDataSetter( std::string portName );
+    /// \brief connect the data setting port from its inputs.
     bool activateDataSetter( std::string portName );
 
     /// Returns an alias to the named output port of the graph.
     /// Allows to get the data stored at this port after the execution of the graph.
-    /// \note ownership is left to the graph.
+    /// \note ownership is left to the graph. The graph must survive the returned
+    /// pointer to be able to use the dataGetter..
     /// @params portName the name of the output port
     PortBase* getDataGetter( std::string portName );
 
@@ -138,7 +139,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// A tuple is composed of an output port connected to an input port of the graph, its name its
     /// type. \note If called multiple times for the same port, only the last returned result is
     /// usable.
-    /// TODO : Thereis a bug ???? When listing the data setters, they are connected ...
+    /// TODO : Verify why, when listing the data setters, they are connected ...
     std::vector<DataSetterDesc> getAllDataSetters();
 
     /// Creates a vector that stores all the DataGetters (\see getDataGetter) of the graph.
@@ -181,15 +182,23 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// @param name The name of the node to find.
     int findNode( const Node* node );
 
-    /// Data setters management : used to pass parameter to the graph when the graph is not embeded
+    /// Data setters management : used to pass parameter to the graph when the graph is not embedded
     /// into another graph (inputs are here for this case).
+    /// A dataSetter is an outputPort, associated to an input port of the graph.
+    /// The connection between these ports can be activated/deactivated using
+    /// activateDataSetter/releaseDataSetter
     using DataSetter = std::pair<DataSetterDesc, PortBase*>;
     std::map<std::string, DataSetter> m_dataSetters;
+    /// \brief Adds an input port to the graph and associate it with a dataSetter.
+    /// This port is aliased as an interface port in a source node of the graph.
+    /// This function checks if there is no input port with the same name already
+    /// associated with the graph.
     bool addSetter( PortBase* in );
 
-    /// Adds an out port for a GRAPH. This port is also an interface port whose reference is stored
-    /// in the source and sink nodes of the graph. This function checks if there is no out port with
-    /// the same name already associated with the graph.
+    /// \brief Adds an out port for a Graph and register it as a dataGetter.
+    /// This port is aliased as an interface port in a sink node of the graph.
+    /// This function checks if there is no out port with the same name already
+    /// associated with the graph.
     /// \param out The port to add.
     bool addGetter( PortBase* out );
 

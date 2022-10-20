@@ -57,7 +57,8 @@ inline const std::vector<PortBase*>& Node::buildInterfaces( Node* parent ) {
     }
     return m_interface;
 }
-inline const std::vector<PortBase*>& Node::getInterfaces() {
+
+inline const std::vector<PortBase*>& Node::getInterfaces() const {
     return m_interface;
 }
 
