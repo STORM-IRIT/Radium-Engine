@@ -76,16 +76,18 @@ class RA_DATAFLOW_API Node
     /// \name Control the interfaces of the nodes (inputs, outputs, internal data, ...)
     /// @{
     /// \brief Gets the in ports of the node.
+    /// Input ports are own to the node.
     const std::vector<std::unique_ptr<PortBase>>& getInputs();
 
     /// \brief Gets the out ports of the node.
+    /// Output ports are own to the node.
     const std::vector<std::unique_ptr<PortBase>>& getOutputs();
 
     /// \brief Build the interface ports of the node
     const std::vector<PortBase*>& buildInterfaces( Node* parent );
 
     /// \brief Get the interface ports of the node
-    const std::vector<PortBase*>& getInterfaces();
+    const std::vector<PortBase*>& getInterfaces() const;
 
     /// \brief Gets the editable parameters of the node.
     /// used only by the node editor gui to build the editon widget
@@ -183,19 +185,19 @@ class RA_DATAFLOW_API Node
     template <typename E>
     EditableParameter<E>* getEditableParameter( const std::string& name );
 
-    /// The deletable status of the node
-    bool m_isDeletable { true };
-
     /// The type name of the node. Initialized once at construction
     std::string m_typeName;
     /// The instance name of the node
     std::string m_instanceName;
-    /// The in ports of the node
+    /// The in ports of the node (own by the node)
     std::vector<std::unique_ptr<PortBase>> m_inputs;
-    /// The out ports of the node
+    /// The out ports of the node  (own by the node)
     std::vector<std::unique_ptr<PortBase>> m_outputs;
-    /// The reflected ports of the node if it is only a source or sink node
+    /// The reflected ports of the node if it is only a source or sink node.
+    /// This stores only aliases as interface ports will belong to the parent
+    /// node (i.e. the graph this node belongs to)
     std::vector<PortBase*> m_interface;
+
     /// The editable parameters of the node
     std::vector<std::unique_ptr<EditableParameterBase>> m_editableParameters;
 
