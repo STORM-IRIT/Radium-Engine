@@ -11,7 +11,7 @@ Radium relies on several external libraries to load files or to represent some d
 * stb_image
 
 We developed a series of tools to fetch and compile these dependencies easily, except for
-Qt, which needs to be installed and passed to cmake through the variables `CMAKE_PREFIX_PATH` or `Qt5_DIR` OR `Qt6_DIR`
+Qt, which needs to be installed and passed to cmake through the variables `CMAKE_PREFIX_PATH` or `Qt5_DIR` `Qt6_DIR`
 (see documentation at <https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started>).
 
 # Dependencies management systems
@@ -26,7 +26,7 @@ We offer two different systems to handle external dependencies (see details and 
 
 # Building and installing Radium dependencies once for all {#builddep}
 
-We provide a standalone cmake project (`external/CMakeLists.txt`) to compile and install the Radium dependencies at any location.
+We provide a standalone cmake project (`Radium-Engine/external/CMakeLists.txt`) to compile and install the Radium dependencies at any location.
 
 ## Configuration and compilation of the dependencies
 
@@ -34,14 +34,16 @@ External dependencies have to be installed outside Radium-Engine source tree.
 
 ~~~{.bash}
 # from wherever you want outside radium source tree
-cmake Radium-Source-Tree/external -DCMAKE_BUILD_TYPE=Release -B build-r/ -DCMAKE_INSTALL_PREFIX=`pwd`/install-r
-cmake --build build-r --parallel
+# in release
+cmake -S Radium-Engine/external -B builds/radium-external-build-r -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=installs/radium-external-r
+cmake --build builds/radium-external-build-r --config Release --parallel
 
-cmake cmake Radium-Source-Tree/external -DCMAKE_BUILD_TYPE=Debug -B build-d/ -DCMAKE_INSTALL_PREFIX=`pwd`/install-d
-cmake --build build-d --parallel
+# in debug
+cmake -S Radium-Engine/external -B builds/radium-external-build-d -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=installs/radium-external-d
+cmake --build builds/radium-external-build-d --config Debug --parallel
 ~~~
 
-If not given on the command line, the installation directory is set by default to `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}` for `CMAKE_BUILD_TYPE=Release`, and  `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}` for any other `CMAKE_BUILD_TYPE`.
+If not given on the command line, the installation directory is set by default to `Radium-Engine/{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}` for `CMAKE_BUILD_TYPE=Release`, and  `Radium-Engine/{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}` for any other `CMAKE_BUILD_TYPE`.
 
 ### Getting started with Visual Studio
 
@@ -64,7 +66,7 @@ Open `external/CMakeLists.txt` and edit cmake settings or `CMakeSettings.json`. 
     {
       "name": "x64-Release",
       "generator": "Ninja",
-      "configurationType": "RelWithDebInfo",
+      "configurationType": "Release",
       "buildRoot": "${projectDir}/../../radium-externals/build/${name}",
       "installRoot": "${projectDir}/../../radium-externals/install/${name}",
       "cmakeCommandArgs": "",
@@ -82,7 +84,7 @@ Open `external/CMakeLists.txt` and edit cmake settings or `CMakeSettings.json`. 
 To compile Radium-Engine, you have to indicate where cmake can find each dependency.
 
 For convenience, dependencies install procedure create a configuration file, you can use this configuration with the `-C` option of cmake.
-The cmake config file `/path/to/external/install/radium-options.cmake` contains, depending on your dependency configuration:
+The cmake config file `/path/to/installs/radium-external-r/radium-options.cmake` contains, depending on your dependency configuration:
 
 ~~~{.cmake}
 set(Eigen3_DIR "/path/to/external/install/share/eigen3/cmake/" CACHE PATH "My Eigen3 location")
@@ -102,7 +104,7 @@ set(RADIUM_IO_ASSIMP ON CACHE BOOL "Radium uses assimp io")
 set(RADIUM_IO_TINYPLY ON CACHE BOOL "Radium uses tinyply io")
 ~~~
 
-When configuring Radium cmake project, don't forget to add this file by calling `cmake -C /path/to/external/install/radium-options.cmake  ......`
+When configuring Radium cmake project, don't forget to add this file by calling `cmake -C /path/to/installs/radium-external-r/radium-options.cmake  ...`
 
 You can also provide these variables as cmake command line argument:
 
