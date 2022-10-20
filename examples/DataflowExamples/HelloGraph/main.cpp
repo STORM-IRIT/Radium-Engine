@@ -10,15 +10,16 @@ using namespace Ra::Dataflow::Core;
  * \brief Demonstrate how to use a graph to filter a collection
  */
 int main( int argc, char* argv[] ) {
+    using RaVector = Ra::Core::VectorArray<Scalar>;
     //! [Creating an empty graph]
     DataflowGraph g { "helloGraph" };
     //! [Creating an empty graph]
 
     //! [Creating Nodes]
-    auto sourceNode    = new Sources::SingleDataSourceNode<std::vector<Scalar>>( "Source" );
+    auto sourceNode    = new Sources::SingleDataSourceNode<RaVector>( "Source" );
     auto predicateNode = new Sources::ScalarUnaryPredicateSource( "Selector" );
-    auto filterNode    = new Functionals::FilterNode<std::vector<Scalar>>( "Filter" );
-    auto sinkNode      = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
+    auto filterNode    = new Functionals::FilterNode<RaVector>( "Filter" );
+    auto sinkNode      = new Sinks::SinkNode<RaVector>( "Sink" );
     //! [Creating Nodes]
 
     //! [Adding Nodes to the graph]
@@ -50,16 +51,18 @@ int main( int argc, char* argv[] ) {
     }
     //! [Inspect the graph interface : inputs and outputs port]
 
-    //! [Verifing the graph can be compiled]
+    //! [Verifying the graph can be compiled]
     if ( !g.compile() ) {
         std::cout << " compilation failed";
         return 1;
     }
-    //! [Verifing the graph can be compiled]
+    //! [Verifying the graph can be compiled]
 
-    ///! [Configure the interface ports (input and output of the graph)
+    g.saveToJson( "illustrateDoc.json" );
+
+    ///! [Configure the interface ports (input and output of the graph)]
     auto input = g.getDataSetter( "Source_to" );
-    std::vector<Scalar> test;
+    RaVector test;
     input->setData( &test );
 
     auto selector                                           = g.getDataSetter( "Selector_f" );
@@ -69,7 +72,7 @@ int main( int argc, char* argv[] ) {
     auto output = g.getDataGetter( "Sink_from" );
     // The reference to the result will not be available before the first run
     // auto& result = output->getData<std::vector<Scalar>>();
-    ///! [Configure the interface ports (input and output of the graph)
+    ///! [Configure the interface ports (input and output of the graph)]
 
     //! [Initializing input variable to test the graph]
     test.reserve( 10 );
@@ -92,7 +95,7 @@ int main( int argc, char* argv[] ) {
     // The reference to the result is now available. Results can be accessed through a reference
     // (sort of RVO from the graph https://en.cppreference.com/w/cpp/language/copy_elision)
     // or copied in an application variable.
-    auto& result = output->getData<std::vector<Scalar>>();
+    auto& result = output->getData<RaVector>();
     //! [Execute the graph]
 
     //! [Print the output result]
