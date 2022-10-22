@@ -34,10 +34,6 @@ target_compile_definitions(${ra_engine_target} PUBLIC GLOBJECTS_USE_EIGEN)
 
 target_compile_options(${ra_engine_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
-target_include_directories(
-    ${ra_engine_target} PUBLIC $<BUILD_INTERFACE:${GLBINDING_INCLUDE_DIR}>
-                               $<BUILD_INTERFACE:${GLM_INCLUDE_DIR}>
-)
 add_dependencies(${ra_engine_target} Core RadiumEngineShaders)
 target_link_libraries(
     ${ra_engine_target} PUBLIC Core glbinding::glbinding glbinding::glbinding-aux
