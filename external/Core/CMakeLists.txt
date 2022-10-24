@@ -32,6 +32,7 @@ if(NOT DEFINED Eigen3_DIR)
                    -DEIGEN_BUILD_DOC=OFF "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals Eigen3)
+    set_external_dir(Eigen3 "share/eigen3/cmake/")
 else()
     status_message("" "eigen3" ${Eigen3_DIR})
 endif()
@@ -53,6 +54,8 @@ if(NOT DEFINED OpenMesh_DIR)
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals OpenMesh)
+    set_external_dir(OpenMesh "share/OpenMesh/cmake/")
+
 else()
     status_message("" "OpenMesh" ${OpenMesh_DIR})
 endif()
@@ -73,6 +76,7 @@ if(NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
                    -DOPTION_BUILD_DOCS=OFF -DCMAKE_MESSAGE_INDENT=${indent_string}\;
     )
     add_dependencies(CoreExternals cpplocate)
+    set_external_dir(cpplocate "share/cpplocate/")
 else()
     status_message("" "cpplocate" ${cpplocate_DIR})
 endif()
@@ -91,6 +95,8 @@ if(NOT DEFINED nlohmann_json_DIR)
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals nlohmann_json)
+    set_external_dir(nlohmann_json "lib/cmake/nlohmann_json/")
+
 else()
     status_message("" "nlohmann_json" ${nlohmann_json_DIR})
 endif()
