@@ -18,12 +18,6 @@ add_library(${ra_engine_target} SHARED ${engine_sources} ${engine_headers} ${eng
 
 add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
 
-# LocalDependencies form parent scope
-populate_local_dependencies(NAME "glm_DIR")
-populate_local_dependencies(NAME "glbinding_DIR")
-populate_local_dependencies(NAME "globjects_DIR")
-populate_local_dependencies(NAME "stb_DIR")
-populate_local_dependencies(NAME "tinyEXR_DIR")
 find_package(glbinding REQUIRED NO_DEFAULT_PATH)
 find_package(globjects REQUIRED NO_DEFAULT_PATH)
 find_package(Eigen3 REQUIRED NO_DEFAULT_PATH)
