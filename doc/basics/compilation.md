@@ -204,7 +204,8 @@ For instance, with directory structure for externals as defined in \ref dependen
     "environments": [
     {
         "QtDir": "C:/Qt/5.15.2/msvc2019_64/"
-        "glfwDir" : "C:/path/to/glfwInstallation"
+        "glfwDir" : "C:/path/to/glfwInstallation",
+        "ExternalInstallDir": "${projectDir}/../radium-externals/install"
     }
     ],
     "configurations": [
@@ -221,7 +222,7 @@ For instance, with directory structure for externals as defined in \ref dependen
         "environments": [
         {
             "environment": "RadiumDllsLocations",
-            "ExternalDllsDIR": "${projectDir}/../radium-externals/install/${name}/bin",
+            "ExternalDllsDIR": "${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects",
             "QtDllsDIR": "${env.QtDir}/bin",
             "RadiumDlls": "${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase"
         }
@@ -240,7 +241,7 @@ For instance, with directory structure for externals as defined in \ref dependen
         "environments": [
         {
             "environment": "RadiumDllsLocations",
-            "ExternalDllsDIR": "${projectDir}/../radium-externals/install/${name}/bin",
+            "ExternalDllsDIR": "${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects",
             "QtDllsDIR": "${env.QtDir}/bin",
             "RadiumDlls": "${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase"
         }
