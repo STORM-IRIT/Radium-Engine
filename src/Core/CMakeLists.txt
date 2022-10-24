@@ -27,11 +27,6 @@ add_library(
     ${ra_core_target} SHARED ${core_sources} ${core_headers} ${core_inlines} ${RA_VERSION_CPP}
 )
 
-populate_local_dependencies(NAME "Eigen3_DIR")
-populate_local_dependencies(NAME "OpenMesh_DIR")
-populate_local_dependencies(NAME "cpplocate_DIR")
-populate_local_dependencies(NAME "nlohmann_json_DIR")
-
 find_package(Eigen3 3.3 REQUIRED NO_DEFAULT_PATH)
 find_package(OpenMesh REQUIRED COMPONENTS Core Tools NO_DEFAULT_PATH)
 find_package(cpplocate REQUIRED NO_DEFAULT_PATH)

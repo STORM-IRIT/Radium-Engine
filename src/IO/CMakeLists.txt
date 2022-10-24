@@ -12,10 +12,6 @@ include(filelist.cmake)
 
 add_library(${ra_io_target} SHARED ${io_sources} ${io_headers} ${io_inlines})
 
-# LocalDependencies form parent scope
-populate_local_dependencies(NAME "assimp_DIR")
-populate_local_dependencies(NAME "tinyply_DIR")
-
 if(RADIUM_IO_ASSIMP)
     find_package(assimp 5.0 REQUIRED NO_DEFAULT_PATH)
     set_target_properties(${ra_io_target} PROPERTIES IO_HAS_ASSIMP ${RADIUM_IO_ASSIMP})
