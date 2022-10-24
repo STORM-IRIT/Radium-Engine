@@ -44,6 +44,9 @@ if(RADIUM_IO_ASSIMP)
                        -DASSIMP_NO_EXPORT=True
                        "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
         )
+
+        set_external_dir(assimp "lib/cmake/assimp-5.0/")
+
         add_dependencies(IOExternals assimp)
     else()
         status_message("" "assimp" "${assimp_DIR}")
@@ -64,6 +67,8 @@ if(RADIUM_IO_TINYPLY)
             CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DSHARED_LIB=TRUE
                        "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
         )
+        set_external_dir(tinyply "lib/cmake/tinyply/")
+
         add_dependencies(IOExternals tinyply)
     else()
         status_message("[IOExternal]" "tinyply" "${tinyply_DIR}")

@@ -12,6 +12,7 @@ if(NOT CMAKE_PROJECT_NAME STREQUAL ${RADIUM_DEPENDENCIES_PROJECT_NAME})
   ${CMAKE_PROJECT_NAME} !)"
     )
 else()
+    set(RADIUM_EXTERNALS "")
     set(CMAKE_DISABLE_SOURCE_CHANGES ON)
     set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
@@ -99,10 +100,22 @@ else()
     # add Gui dependencies
     add_subdirectory(Gui)
 
-    message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")
+    # generate radium-option.cmake configuration file
+    file(REMOVE "${CMAKE_INSTALL_PREFIX}/radium-options.cmake")
+    foreach(external IN_LIST ${RADIUM_EXTERNALS})
+        if(${external}_DIR)
+            file(
+                APPEND "${CMAKE_INSTALL_PREFIX}/radium-options.cmake"
+                "set(${external}_DIR \"${${external}_DIR}\" CACHE PATH \"My ${external} location\")\n"
+            )
+        endif()
+    endforeach()
 
-    configure_file(
-        "${CMAKE_CURRENT_LIST_DIR}/radium-options.cmake.in"
-        "${CMAKE_INSTALL_PREFIX}/radium-options.cmake" @ONLY
+    file(APPEND "${CMAKE_INSTALL_PREFIX}/radium-options.cmake"
+         "set(RADIUM_IO_ASSIMP ${RADIUM_IO_ASSIMP} CACHE BOOL \"Radium uses assimp io\")\n"
     )
+    file(APPEND "${CMAKE_INSTALL_PREFIX}/radium-options.cmake"
+         "set(RADIUM_IO_TINYPLY ${RADIUM_IO_TINYPLY} CACHE BOOL \"Radium uses tinyply io\")\n"
+    )
+
 endif()

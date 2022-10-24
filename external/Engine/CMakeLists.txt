@@ -38,7 +38,7 @@ if(NOT DEFINED glm_DIR)
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF
                    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
-    set(glm_DIR ${CMAKE_INSTALL_PREFIX}/glm/lib/cmake/glm)
+    set_external_dir(glm "glm/lib/cmake/glm/")
     add_dependencies(EngineExternals glm)
 else()
     # because other might depends on it, but it's already done, define a dummy target
@@ -68,7 +68,7 @@ if(NOT DEFINED glbinding_DIR)
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
 
-    set(glbinding_DIR ${CMAKE_INSTALL_PREFIX}/glbinding/)
+    set_external_dir(glbinding "glbinding/")
     add_dependencies(EngineExternals glbinding)
 else()
     add_custom_target(glbinding)
@@ -109,7 +109,7 @@ if(NOT DEFINED globjects_DIR)
                    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
-    set(globjects_DIR ${CMAKE_INSTALL_PREFIX}/globjects)
+    set_external_dir(globjects "globjects/")
     add_dependencies(EngineExternals globjects)
 else()
     status_message("" "globjects" "${globjects_DIR}")
@@ -133,6 +133,7 @@ if(NOT DEFINED stb_DIR)
                 ${CMAKE_INSTALL_PREFIX}/include/stb/
         INSTALL_COMMAND ""
     )
+    set_external_dir(stb "include/stb/")
     add_dependencies(EngineExternals stb)
 else()
     status_message("" "stb" "${stb_DIR}")
@@ -154,6 +155,7 @@ if(NOT DEFINED tinyEXR_DIR)
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DBUILD_INSTALLABLE_LIB=ON
                    -DCMAKE_MESSAGE_INDENT=${indent_string}\;
     )
+    set_external_dir(tinyEXR "share/tinyEXR/cmake/")
     add_dependencies(EngineExternals tinyEXR)
 else()
     status_message("" "tinyEXR" "${tinyEXR_DIR}")

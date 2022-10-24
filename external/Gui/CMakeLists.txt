@@ -69,6 +69,9 @@ if(NOT DEFINED PowerSlider_DIR)
                    ${RPATH_CONFIG} -DBUILD_EXAMPLE_APP=OFF
                    -DCMAKE_MESSAGE_INDENT=${indent_string}\;
     )
+
+    set_external_dir(PowerSlider "lib/cmake/PowerSlider/")
+
     add_dependencies(GuiExternals PowerSlider)
 else()
     status_message("" "PowerSlider" "${PowerSlider_DIR}")
