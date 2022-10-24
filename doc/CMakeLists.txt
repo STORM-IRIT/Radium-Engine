@@ -173,10 +173,9 @@ if(DOXYGEN_FOUND)
         COMMENT "Generating API documentation with Doxygen"
     )
 
-    # Where docs will be installed. Note: if docs shall be not a part of final release, leave this
-    # commented out docs will be only available in [build_dir]/doc/doc/index.html
+    # Where docs will be installed.
     if(RADIUM_INSTALL_DOC)
-        install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html DESTINATION share/doc/ OPTIONAL)
+        install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html TYPE DOC OPTIONAL)
     endif()
 endif()
 
