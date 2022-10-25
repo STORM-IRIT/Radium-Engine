@@ -186,7 +186,7 @@ See the file examples/DataflowExamples/HelloGraph/main.cpp for all the details.
 ## Examples of graphs and of programming custom nodes
 
 The unittests developed alongside the Radium::Dataflow component, and located in the directory
-`tests/unitttest/Dataflow/` of the Radium-Engine source tree, can be used to learn the following :
+`tests/unittest/Dataflow/` of the Radium-Engine source tree, can be used to learn the following :
 
 - sourcesandsinks.cpp : demonstrate the default supported types for sources and sinks node.
 - nodes.cpp : demonstrate the development of a more complex graph implementing transform/reduce
@@ -196,3 +196,4 @@ on several collections using different reduction operators.
 application.
 - customnodes.cpp : demonstrate how it is simple to develop your own node type (in C++) and
 use your nodes alongside standard nodes.
+  \snippet unittest/Dataflow/customnodes.cpp Develop a custom node
