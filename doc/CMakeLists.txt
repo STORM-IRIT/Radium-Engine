@@ -169,8 +169,8 @@ if(DOXYGEN_FOUND)
 
     doxygen_add_docs(
         RadiumDoc ${md_pages_order} ${md_files} ${CMAKE_CURRENT_SOURCE_DIR}/../src/
-        ${CMAKE_CURRENT_SOURCE_DIR}/../tests/unittest/Dataflow ${CURRENT_SRC_DIR}
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} COMMENT "Generating API documentation with Doxygen"
+        ${CURRENT_SRC_DIR} WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+        COMMENT "Generating API documentation with Doxygen"
     )
 
     # Where docs will be installed.
