@@ -16,12 +16,17 @@ namespace Core {
  */
 namespace Random {
 
-Scalar constexpr sqrtNewtonRaphsonhelper( Scalar x, Scalar curr, Scalar prev ) {
-    return curr == prev ? curr : sqrtNewtonRaphsonhelper( x, 0.5_ra * ( curr + x / curr ), curr );
+/**
+ * \brief Defines some helper constexpr functions
+ */
+namespace internal {
+Scalar constexpr sqrtNewtonRaphsonHelper( Scalar x, Scalar curr, Scalar prev ) {
+    return curr == prev ? curr : sqrtNewtonRaphsonHelper( x, 0.5_ra * ( curr + x / curr ), curr );
 }
-Scalar constexpr ct_sqrt( Scalar x ) {
-    return sqrtNewtonRaphsonhelper( x, x, 0_ra );
+Scalar constexpr sqrtConstExpr( Scalar x ) {
+    return sqrtNewtonRaphsonHelper( x, x, 0_ra );
 }
+} // namespace internal
 
 /** \brief Implements the fibonacci sequence
  * i --> i/phi
@@ -30,7 +35,7 @@ Scalar constexpr ct_sqrt( Scalar x ) {
 class RA_CORE_API FibonacciSequence
 {
 
-    static constexpr Scalar phi = ( 1_ra + ct_sqrt( 5_ra ) ) / 2_ra;
+    static constexpr Scalar phi = ( 1_ra + internal::sqrtConstExpr( 5_ra ) ) / 2_ra;
     size_t n;
 
   public:
