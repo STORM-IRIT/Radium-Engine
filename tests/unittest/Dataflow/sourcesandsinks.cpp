@@ -6,29 +6,22 @@
 #include <iostream>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
 #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
 using namespace Ra::Dataflow::Core;
 
-// #define USE_SOURCE_DATA
-
+//! [Create a source to sink graph for type T]
 template <typename T>
 void testGraph( const std::string& name, T in, T& out ) {
     auto g      = new DataflowGraph { name };
     auto source = new Sources::SingleDataSourceNode<T>( "in" );
 
-#ifdef USE_SOURCE_DATA
-    std::cout << "Setting " << simplifiedDemangledType<T>() << " data on source node ... ";
-    source->setData( &in );
-#endif
-
     auto sink = new Sinks::SinkNode<T>( "out" );
     g->addNode( source );
     g->addNode( sink );
     auto linked = g->addLink( source, "to", sink, "from" );
-    if ( !linked ) { std::cerr << "Error linking soure and sink nodes.\n"; }
+    if ( !linked ) { std::cerr << "Error linking source and sink nodes.\n"; }
     REQUIRE( linked );
 
     auto input = g->getDataSetter( "in_to" );
@@ -37,13 +30,11 @@ void testGraph( const std::string& name, T in, T& out ) {
     REQUIRE( output != nullptr );
 
     auto compiled = g->compile();
-    if ( !compiled ) { std::cerr << "Error compiledcompiled graph.\n"; }
+    if ( !compiled ) { std::cerr << "Error compiling graph.\n"; }
     REQUIRE( compiled );
 
-#ifndef USE_SOURCE_DATA
     std::cout << "Setting " << simplifiedDemangledType<T>() << " data on interface port ... ";
     input->setData( &in );
-#endif
 
     g->execute();
 
@@ -55,7 +46,7 @@ void testGraph( const std::string& name, T in, T& out ) {
     g->destroy();
     delete g;
 }
-
+//! [Create a source to sink graph for type T]
 TEST_CASE( "Dataflow/Core/Sources and Sinks", "[Dataflow][Core][Sources and Sinks]" ) {
     SECTION( "Operations on base type : Scalar" ) {
         using DataType = Scalar;
