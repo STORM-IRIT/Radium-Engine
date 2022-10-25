@@ -75,5 +75,3 @@ if(RADIUM_IO_TINYPLY)
         status_message("" "tinyply" "${tinyply_DIR}")
     endif()
 endif()
-
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

@@ -100,5 +100,3 @@ if(NOT DEFINED nlohmann_json_DIR)
 else()
     status_message("" "nlohmann_json" ${nlohmann_json_DIR})
 endif()
-
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

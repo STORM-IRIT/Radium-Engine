@@ -163,5 +163,3 @@ if(NOT DEFINED tinyEXR_DIR)
 else()
     status_message("" "tinyEXR" "${tinyEXR_DIR}")
 endif()
-
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
