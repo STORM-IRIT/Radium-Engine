@@ -94,6 +94,7 @@ if(NOT DEFINED globjects_DIR)
         globjects
         GIT_REPOSITORY https://github.com/cginternals/globjects.git
         GIT_TAG 4363356ae2ef5c936ab078fba48d1ea507c295c4
+        GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
         # PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
         # "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
@@ -122,6 +123,7 @@ if(NOT DEFINED stb_DIR)
         stb
         GIT_REPOSITORY https://github.com/nothings/stb.git
         GIT_TAG 1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd
+        GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ${CMAKE_COMMAND} -E echo
@@ -149,6 +151,8 @@ if(NOT DEFINED tinyEXR_DIR)
         tinyEXR
         GIT_REPOSITORY https://github.com/MathiasPaulin/tinyexr.git
         GIT_TAG origin/radium
+        # since tag is a branch name, force checkout in case of force push on this branch
+        GIT_REMOTE_UPDATE_STRATEGY CHECKOUT
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
