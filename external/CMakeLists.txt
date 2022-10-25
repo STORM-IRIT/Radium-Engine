@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.13)
 set(RADIUM_DEPENDENCIES_PROJECT_NAME radium_externals)
 project(${RADIUM_DEPENDENCIES_PROJECT_NAME})
 
+list(APPEND CMAKE_MESSAGE_INDENT "[Externals] ")
+
 # prevent this cmake script to be used through a add_subdirectory of another project than
 # ${RADIUM_DEPENDENCIES_PROJECT_NAME} ...
 if(NOT CMAKE_PROJECT_NAME STREQUAL ${RADIUM_DEPENDENCIES_PROJECT_NAME})
