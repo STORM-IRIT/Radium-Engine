@@ -77,5 +77,3 @@ install_target_resources(
 if(RADIUM_ENABLE_PCH)
     target_precompile_headers(${ra_gui_target} PRIVATE pch.hpp)
 endif()
-
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

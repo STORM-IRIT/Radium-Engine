@@ -80,5 +80,3 @@ if(NOT DEFINED PowerSlider_DIR)
 else()
     status_message("" "PowerSlider" "${PowerSlider_DIR}")
 endif()
-
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

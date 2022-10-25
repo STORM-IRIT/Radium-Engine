@@ -67,5 +67,3 @@ target_compile_options(${ra_engine_target} PRIVATE PUBLIC ${DEFAULT_COMPILE_OPTI
 if(RADIUM_ENABLE_PCH)
     target_precompile_headers(${ra_engine_target} PRIVATE pch.hpp)
 endif()
-
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
