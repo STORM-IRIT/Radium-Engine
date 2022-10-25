@@ -7,12 +7,8 @@
 
 #include <Engine/Data/EnvironmentTexture.hpp>
 
-//#define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
-//#undef STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb/stb_image_write.h>
-#undef STB_IMAGE_WRITE_IMPLEMENTATION
 
 #include <Core/Asset/Camera.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
