@@ -5,13 +5,15 @@ project(radiumcore-external VERSION 1.0.0)
 include(ExternalProject)
 include(ExternalInclude)
 
+list(APPEND CMAKE_MESSAGE_INDENT "[Core] ")
+string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
+set(indent_string "${indent_string}--")
+
 # force installing by default all the external projects
 set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
-set(indent_string "${indent_string}--")
 
 add_custom_target(CoreExternals ALL)
 
@@ -55,7 +57,6 @@ if(NOT DEFINED OpenMesh_DIR)
     )
     add_dependencies(CoreExternals OpenMesh)
     set_external_dir(OpenMesh "share/OpenMesh/cmake/")
-
 else()
     status_message("" "OpenMesh" ${OpenMesh_DIR})
 endif()
@@ -83,7 +84,7 @@ endif()
 
 if(NOT DEFINED nlohmann_json_DIR)
     check_externals_prerequisite()
-    status_message("[CoreExternal]" "nlohmann_json" "remote git")
+    status_message("" "nlohmann_json" "remote git")
     ExternalProject_Add(
         nlohmann_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
@@ -96,7 +97,8 @@ if(NOT DEFINED nlohmann_json_DIR)
     )
     add_dependencies(CoreExternals nlohmann_json)
     set_external_dir(nlohmann_json "lib/cmake/nlohmann_json/")
-
 else()
     status_message("" "nlohmann_json" ${nlohmann_json_DIR})
 endif()
+
+list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

@@ -5,14 +5,15 @@ project(radiumengine-external VERSION 1.0.0)
 include(ExternalProject)
 include(ExternalInclude)
 
+list(APPEND CMAKE_MESSAGE_INDENT "[Engine] ")
+string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
+set(indent_string "${indent_string}--")
+
 macro(add_dependency_if_compiled target dep)
     if(TARGET ${dep})
         add_dependencies(${target} ${dep})
     endif()
 endmacro()
-
-# ------------------------------------------------------------------------------
-# Eigen - Linear Algebra library
 
 # force installing by default all the external projects
 set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
@@ -20,14 +21,11 @@ set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
-set(indent_string "${indent_string}--")
-
 add_custom_target(EngineExternals ALL)
 
 if(NOT DEFINED glm_DIR)
     check_externals_prerequisite()
-    status_message("[EngineExternal]" "glm" "remote git")
+    status_message("" "glm" "remote git")
     ExternalProject_Add(
         glm
         GIT_REPOSITORY https://github.com/g-truc/glm.git
@@ -48,7 +46,7 @@ endif()
 
 if(NOT DEFINED glbinding_DIR)
     check_externals_prerequisite()
-    status_message("[EngineExternal]" "glbinding" "remote git")
+    status_message("" "glbinding" "remote git")
     ExternalProject_Add(
         glbinding
         GIT_REPOSITORY https://github.com/cginternals/glbinding.git
@@ -76,8 +74,10 @@ else()
 endif()
 
 if(NOT DEFINED Eigen3_DIR)
-    message(STATUS "globjects use bundled eigen3")
-    set(Eigen3_DIR ${CMAKE_INSTALL_PREFIX}/share/eigen3/cmake/)
+    message(
+        FATAL_ERROR
+            "globjects need Eigen3_DIR to be defined, something went wrong with External Core"
+    )
 else()
     message(STATUS "globjects use eigen3 from ${Eigen3_DIR}")
 endif()
@@ -96,8 +96,6 @@ if(NOT DEFINED globjects_DIR)
         GIT_TAG 4363356ae2ef5c936ab078fba48d1ea507c295c4
         GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
-        # PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
-        # "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/globjects"
         DEPENDS globjects-dep
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
@@ -146,7 +144,7 @@ endif()
 
 if(NOT DEFINED tinyEXR_DIR)
     check_externals_prerequisite()
-    status_message("[EngineExternal]" "tinyEXR" "remote git")
+    status_message("" "tinyEXR" "remote git")
     ExternalProject_Add(
         tinyEXR
         GIT_REPOSITORY https://github.com/MathiasPaulin/tinyexr.git
@@ -164,3 +162,5 @@ if(NOT DEFINED tinyEXR_DIR)
 else()
     status_message("" "tinyEXR" "${tinyEXR_DIR}")
 endif()
+
+list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
