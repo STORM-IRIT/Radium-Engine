@@ -21,6 +21,7 @@ namespace Customs {
 using CustomStringSource = Sources::SingleDataSourceNode<std::string>;
 using CustomStringSink   = Sinks::SinkNode<std::string>;
 
+//! [Develop a custom node]
 /**
  * \brief generate a predicate that compare a value wrt a threshold.
  * The name of the operator is fetched from input port "name" or the internal data set using
@@ -63,7 +64,6 @@ class FilterSelector final : public Node
      * @param name
      */
     void setThreshold( const T& t ) { m_threshold = t; }
-
     /** \brief Get the threshold
      */
     T getThreshold() const { return m_threshold; }
@@ -121,7 +121,7 @@ class FilterSelector final : public Node
     function_type m_currentFunction = m_functions[m_operatorName];
     T m_threshold {};
 };
-
+//! [Develop a custom node]
 } // namespace Customs
 
 // Reusable function to create a graph

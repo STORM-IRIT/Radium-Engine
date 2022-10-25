@@ -11,6 +11,7 @@
 #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
+//! [Create a source to sink graph for type T]
 using namespace Ra::Dataflow::Core;
 template <typename DataType_a, typename DataType_b = DataType_a, typename DataType_r = DataType_a>
 std::tuple<DataflowGraph*, std::shared_ptr<PortBase>, std::shared_ptr<PortBase>, PortBase*>
@@ -260,6 +261,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
     }
 
     SECTION( "Transform/reduce/filter/test" ) {
+        //! [Create a complex transform/reduce graph]
         auto g           = new DataflowGraph( "Complex graph" );
         using VectorType = Ra::Core::VectorArray<Scalar>;
 
@@ -365,7 +367,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         auto inputR  = g->getDataSetter( "m_f" );
         if ( inputR == nullptr ) { std::cout << "Failed to get the graph function input !!\n"; }
 
-        //! [Inspect the graph interface : inputs and outputs port]
+        // Inspect the graph interface : inputs and outputs port
         auto inputs = g->getAllDataSetters();
         std::cout << "Input ports (" << inputs.size() << ") are :\n";
         for ( auto& [ptrPort, portName, portType] : inputs ) {
@@ -376,7 +378,6 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         for ( auto& [ptrPort, portName, portType] : outputs ) {
             std::cout << "\t\"" << portName << "\" generating type " << portType << "\n";
         }
-        //! [Inspect the graph interface : inputs and outputs port]
 
         if ( !g->compile() ) { std::cout << "Compilation error !!"; }
 
@@ -412,9 +413,10 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
 
         REQUIRE( resultD / result == 2_ra );
         REQUIRE( resultB );
-
-        g->saveToJson( "Transform-reduce.json" );
+        // uncomment this if you want to edit the generated graph with GraphEditor
+        //        g->saveToJson( "Transform-reduce.json" );
         g->destroy();
         delete g;
+        //! [Create a complex transform/reduce graph]
     }
 }
