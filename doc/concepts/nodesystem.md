@@ -1,4 +1,4 @@
-\page nodesystem Radium node system
+\page nodeSystem Radium node system
 [TOC]
 
 # Radium node system
@@ -44,7 +44,7 @@ The node system allow to build computation graph that takes its input from some 
 in some _data sink_ after applying several _functions_ on the data.
 
 Computation graphs can be serialized and un-serialized in json format. The serialization process is nevertheless limited
-to serializable data stored on the node and it is of the responsability of the application to manage non serializable
+to serializable data stored on the node and it is of the responsibility of the application to manage non serializable
 data such as, e.g. anonymous functions (lambdas, functors, ...) dynamically defined by the application.
 
 The Radium node system relies on the following concepts
@@ -65,8 +65,8 @@ profile and allow to build the computation graph by linking ports together, impl
 
   A port gives access to a strongly typed data and, while implementing the general Ra::Dataflow::Core::PortBase
 interface should be specialized to be either an input port (element of the definition domain of a node) through the
-instantiation of the template Ra::Dataflow::Core::PortIn or to an output port (element of the definition
-co-domain of a node) through the instantiation of the template Ra::Dataflow::Core::PortOut.
+instancing of the template Ra::Dataflow::Core::PortIn or to an output port (element of the definition
+co-domain of a node) through the instancing of the template Ra::Dataflow::Core::PortOut.
 
   When a node executes its function, it takes its parameter from its input ports and set the result on the output port.
 
