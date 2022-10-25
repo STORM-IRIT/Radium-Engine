@@ -134,6 +134,7 @@ if(NOT DEFINED stb_DIR)
         INSTALL_COMMAND ""
     )
     set_external_dir(stb "include/stb/")
+    set_external_dir(stb_INCLUDE "include/")
     add_dependencies(EngineExternals stb)
 else()
     status_message("" "stb" "${stb_DIR}")
