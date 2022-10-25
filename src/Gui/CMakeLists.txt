@@ -31,10 +31,13 @@ add_library(
                             ${gui_resources}
 )
 
+# Dependencies
 add_dependencies(${ra_gui_target} Core Engine PluginBase IO)
 target_link_libraries(${ra_gui_target} PUBLIC Core Engine PluginBase IO)
 target_link_libraries(${ra_gui_target} PRIVATE ${Qt_LIBRARIES} OpenGL::GL PowerSlider::PowerSlider)
+target_include_directories(${ra_gui_target} PRIVATE ${stb_INCLUDE_DIR})
 
+# Compile options
 target_compile_options(${ra_gui_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)

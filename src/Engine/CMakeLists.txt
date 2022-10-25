@@ -35,6 +35,8 @@ target_link_libraries(
 )
 
 target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
+# stb is header only, no stb target, add its directory to include search path
+target_include_directories(${ra_engine_target} PRIVATE ${stb_INCLUDE_DIR})
 
 message(STATUS "Configuring library ${ra_engine_target} with standard settings")
 configure_radium_target(${ra_engine_target})
