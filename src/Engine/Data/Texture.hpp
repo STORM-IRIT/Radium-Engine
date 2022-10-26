@@ -16,8 +16,58 @@ class Texture;
 namespace Ra {
 namespace Engine {
 namespace Data {
-/**
- * Describes the content and parameters of a texture.
+
+struct SamplerParameters {
+    /// OpenGL wrap mode in the s direction
+    GLenum wrapS { GL_CLAMP_TO_EDGE };
+    /// OpenGL wrap mode in the t direction
+    GLenum wrapT { GL_CLAMP_TO_EDGE };
+    /// OpenGL wrap mode in the p direction
+    GLenum wrapP { GL_CLAMP_TO_EDGE };
+    /// OpenGL minification filter ( GL_LINEAR or GL_NEAREST or GL_XXX_MIPMAP_YYY )
+    GLenum minFilter { GL_LINEAR };
+    /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
+    GLenum magFilter { GL_LINEAR };
+};
+inline bool operator==( const SamplerParameters& lhs, const SamplerParameters& rhs ) {
+    return lhs.wrapS == rhs.wrapS && lhs.wrapT == rhs.wrapT && lhs.wrapP == rhs.wrapP &&
+           lhs.minFilter == rhs.minFilter && lhs.magFilter == rhs.magFilter;
+}
+inline bool operator!=( const SamplerParameters& lhs, const SamplerParameters& rhs ) {
+    return !( lhs == rhs );
+}
+
+struct ImageParameters {
+    /// OpenGL target
+    GLenum target { GL_TEXTURE_2D };
+    /// width of the texture (s dimension)
+    size_t width { 1 };
+    /// height of the texture (t dimension)
+    size_t height { 1 };
+    /// width of the texture (p dimension)
+    size_t depth { 1 };
+    /// Format of the external data
+    GLenum format { GL_RGB };
+    /// OpenGL internal format (WARNING, for Integer textures, must be GL_XXX_INTEGER)
+    GLenum internalFormat { GL_RGB };
+    /// Type of the components in external data
+    GLenum type { GL_UNSIGNED_BYTE };
+
+    /// texels OR cubeMap, shared ownership
+    std::shared_ptr<void> texels { nullptr };
+    std::array<std::shared_ptr<void>, 6> cubeMap {};
+};
+
+inline bool operator==( const ImageParameters& lhs, const ImageParameters rhs ) {
+    return lhs.target == rhs.target && lhs.width == rhs.width && lhs.height == rhs.height &&
+           lhs.format == rhs.format && lhs.internalFormat == rhs.internalFormat &&
+           lhs.type == rhs.type && lhs.texels == rhs.texels && lhs.cubeMap == rhs.cubeMap;
+}
+inline bool operator!=( const ImageParameters& lhs, const ImageParameters& rhs ) {
+    return !( lhs == rhs );
+}
+
+/** \brief Describes the content and parameters of a texture.
  * This structures encapsulates all the states used for creating an OpenGL texture.
  *  These parameters describe the image data of the texture :
  *    - target, width, height, depth, format, internalFormat, type and texels for describing image
@@ -40,171 +90,104 @@ namespace Data {
  * coherent data and parameters before creating the OpenGL texture with Texture::initializeGL
  */
 struct TextureParameters {
-    /// Name of the texture
     std::string name {};
-    /// OpenGL target
-    GLenum target { GL_TEXTURE_2D };
-    /// width of the texture (s dimension)
-    size_t width { 1 };
-    /// height of the texture (t dimension)
-    size_t height { 1 };
-    /// width of the texture (p dimension)
-    size_t depth { 1 };
-    /// Format of the external data
-    GLenum format { GL_RGB };
-    /// OpenGL internal format (WARNING, for Integer textures, must be GL_XXX_INTEGER)
-    GLenum internalFormat { GL_RGB };
-    /// Type of the components in external data
-    GLenum type { GL_UNSIGNED_BYTE };
-    /// OpenGL wrap mode in the s direction
-    GLenum wrapS { GL_CLAMP_TO_EDGE };
-    /// OpenGL wrap mode in the t direction
-    GLenum wrapT { GL_CLAMP_TO_EDGE };
-    /// OpenGL wrap mode in the p direction
-    GLenum wrapP { GL_CLAMP_TO_EDGE };
-    /// OpenGL minification filter ( GL_LINEAR or GL_NEAREST or GL_XXX_MIPMAP_YYY )
-    GLenum minFilter { GL_LINEAR };
-    /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
-    GLenum magFilter { GL_LINEAR };
-    /// External data (ownership is left to caller, not stored after OpenGL texture creation).
-    /// Note that, for cube-map texture, this is considered as a "void*[6]" array containing the 6
-    /// faces of the cube corresponding to the targets. <br/>
-    /// texels[0] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_X <br/>
-    /// texels[1] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_X <br/>
-    /// texels[2] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Y <br/>
-    /// texels[3] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Y <br/>
-    /// texels[4] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Z <br/>
-    /// texels[5] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Z <br/>
-    /// \todo memory allocated for this pointer might be lost at texture deletion as ownership is
-    /// unclear.
-    void* texels { nullptr };
+    SamplerParameters sampler {};
+    ImageParameters image {};
 };
 
-/** Represent a Texture of the engine
+/** \brief Represent a Texture of the engine.
+ *
  * See TextureManager for information about how unique texture are defined.
  */
 class RA_ENGINE_API Texture final
 {
   public:
-    /** Textures are not copyable, delete copy constructor.
+    /** \brief Textures are not copyable, delete copy constructor.
      */
     Texture( const Texture& ) = delete;
 
-    /** Textures are not copyable, delete operator =.
+    /** \brief Textures are not copyable, delete operator =.
      */
     void operator=( const Texture& ) = delete;
 
-    /**
-     * Texture constructor. No OpenGL initialization is done there.
+    /** \brief Texture constructor. No OpenGL initialization is done there.
      *
      * \param texParameters Name of the texture
      */
     explicit Texture( const TextureParameters& texParameters );
 
-    /**
-     * Texture destructor. Both internal data and OpenGL stuff are deleted.
+    /** \brief Texture destructor. Both internal data and OpenGL stuff are deleted.
      */
     ~Texture();
 
     /** \brief Generate the OpenGL representation of the texture according to the stored
-     * TextureData.
+     * TextureData (delayed).
      *
-     * Need active OpenGL context.
+     * This method use the stored TextureParameters to generate and configure OpenGL
+     * texture. It creates gpu tasks the engine will run during next draw call, so it can be called
+     * without active opengl context.
      *
-     * This method use the available m_textureParameters to generate and configure OpenGL
-     * texture.
-     *
-     * Before uploading texels to the GPU, this method will apply RGB space conversion if needed.
+     * This method will apply RGB space conversion if \a linearize is true.
      *
      * \param linearize (default false) : convert the texture from sRGB to Linear RGB color space
      * before OpenGL initialisation
-     * \note This will become soon the only way to generate an Radium Engine OpenGL texture.
      */
-    void initializeGL( bool linearize = false );
+    void initialize( bool linearize = false );
 
-    /**
+    /** \brief Generate the GPU representation of the texture <b>right now</b>. Need an active
+     * OpenGL context.
      *
-     * Need active OpenGL context.
-     *
-     * \brief Bind the texture to enable its use in a shader.
-     * \param unit Index of the texture to be bound. If -1 only calls glBindTexture.
+     * see initialze() which is the same method, but delay gpu stuff to engine gpu tasks.
      */
-    void bind( int unit = -1 );
+    void initializeNow( bool linearize = false ) {
+        if ( !isSupportedTarget() ) return;
+        if ( linearize ) { this->linearize(); }
+        createTexture();
+        computeIsMipMappedFlag();
+        sendSamplerParametersToGPU();
+        sendImageDataToGPU();
+    }
 
-    /**
-     * \brief Bind the texture to an image unit for the purpose of reading and writing it from
-     * shaders.
-     *
-     * Need active OpenGL context.
-     *
-     * \note, only available since openGL 4.2, not available on MacOs
-     * uses m_parameters.internalFormat as format.
-     * see
-     * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml
-     * for documentation
-     */
-    void bindImageTexture( int unit, GLint level, GLboolean layered, GLint layer, GLenum access );
-
-    /**
-     * \return Name of the texture.
-     */
+    /// \return Name of the texture.
     inline std::string getName() const { return m_textureParameters.name; }
 
-    /**
-     * Update the cpu representation of data contained by the texture
-     * \param newData user image pointer to wrap,
-     * must contain the same number of elements than old data (no test perform).
-     * Texture use here existing pixel memory owned by the calling application.
-     * The texture does not own the pixel storage and will not free/delete that memory,
-     * even when the texture is destroyed.
-     */
-    void updateData( void* newData );
+    /// \return the pixel format of the texture
+    GLenum getFormat() const { return m_textureParameters.image.format; }
 
-    /**
-     * Update the parameters contained by the texture.
+    /// \return the width of the texture
+    size_t getWidth() const { return m_textureParameters.image.width; }
+
+    /// \return the height of the texture
+    size_t getHeight() const { return m_textureParameters.image.height; }
+
+    /// \return the depth of the texture
+    size_t getDepth() const { return m_textureParameters.image.depth; }
+
+    /// \return raw pointer to texels (or nullptr if no cpu side representation).
+    void* getTexels() { return m_textureParameters.image.texels.get(); }
+
+    /** \brief Get the underlying globjects::Texture.
      *
-     * Need active OpenGL context.
+     * Use with care since you can brake the equivalence
+     * of image and sampler parameters between cpu Data::Texture and gpu side globlects::Texture.
+     * \return the globjects::Texture associated with the texture.
+     */
+    globjects::Texture* getGPUTexture() const { return m_texture.get(); }
+
+    /// get read access to texture parameters
+    const TextureParameters& getParameters() const { return m_textureParameters; }
+
+    /** \brief Update the cpu representation of data contained by the texture.
      *
-     * User first modify the public attributes corresponding to the parameter he wants to change
-     * the value (e.g wrap* or *Filter) and call this function to update the OpenGL texture
-     * state ...
+     * \a newData must contain the same number (of the same type) of elements than old data (not
+  checked).
+     * Element count can be obtained with getWidth() * getHeight()
+     * Element type can be obtained with getFormat()
+     * \param newData user image pointer to wrap
      */
-    void updateParameters();
+    void updateData( std::shared_ptr<void> newData );
 
-    /**
-     * Convert a color texture from sRGB to Linear RGB spaces.
-     * This will transform the internal representation of the texture to GL_SCALAR (GL_FLOAT).
-     * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
-     * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
-     */
-    void linearize();
-
-    /**
-     * \return the pixel format of the texture
-     */
-    GLenum format() const { return m_textureParameters.format; }
-    /**
-     * \return the width of the texture
-     */
-    size_t width() const { return m_textureParameters.width; }
-    /**
-     * \return the height of the texture
-     */
-    size_t height() const { return m_textureParameters.height; }
-    /**
-     * \return the depth of the texture
-     */
-    size_t depth() const { return m_textureParameters.depth; }
-
-    void* texels() { return m_textureParameters.texels; }
-    /**
-     * \return the globjects::Texture associated with the texture
-     */
-    globjects::Texture* texture() const { return m_texture.get(); }
-
-    /** Resize the texture.
-     *
-     * Need active OpenGL context.
+    /** \brief Resize the texture. Need active OpenGL context.
      *
      * This allocate GPU memory to store the new resized texture and, if texels are not nullptr,
      * upload the new content.
@@ -215,31 +198,77 @@ class RA_ENGINE_API Texture final
      * \param d depth of the texture
      * \param pix the new texels array corresponding the the new texture dimension
      */
-    void resize( size_t w = 1, size_t h = 1, size_t d = 1, void* pix = nullptr );
+    void resize( size_t w = 1, size_t h = 1, size_t d = 1, std::shared_ptr<void> pix = nullptr );
 
-    /// get read access to texture parameters
-    const TextureParameters& getParameters() const { return m_textureParameters; }
-
-    /** get read/write access to texture parameters, need to update
-     * representation afterward, \see setParameters()
+    /** \brief set TextureParameters.
+     *
+     * If imageParameters is changed, the method call setImageParameters() to register update GPU
+     * representation task. If samplerParameter is change, the method call setSamplerParameters() to
+     * register update GPU sample task.
      */
-    TextureParameters& getParameters() { return m_textureParameters; }
+    void setParameters( const TextureParameters& textureParameters );
+    /// \brief set TextureParameters.image
+    void setImageParameters( const ImageParameters& imageParameters );
+    /// \brief set TerctureParameters.samples
+    void setSamplerParameters( const SamplerParameters& samplerParameters );
 
-    /** set TextureParameters.
-     * If texels is changed, need to call initializeGL() to update GPU representation
-     * if only wrap or filter parameters are change, updateParameters() is
-     * sufficient to update the GPU representation.
+    /** \brief Bind the texture to GPU texture \a unit to enable its use in a shader. Need active
+     * OpenGL context.
+     *
+     * \param unit Index of the texture to be bound. If -1 (default) only calls glBindTexture.
      */
-    void setParameters( const TextureParameters& textureParameters ) {
-        std::lock_guard<std::mutex> lock( m_updateMutex );
-        m_textureParameters = textureParameters;
-    }
+    void bind( int unit = -1 );
+
+    /** \brief Bind the texture to an image unit for the purpose of reading and writing it from
+     * shaders. Need active OpenGL context.
+     *
+     * \note, only available since openGL 4.2, not available on MacOs
+     * uses m_parameters.internalFormat as format.
+     * see
+     * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml
+     * for documentation
+     */
+    void bindImageTexture( int unit, GLint level, GLboolean layered, GLint layer, GLenum access );
+
+    /** \brief Convert a color texture from sRGB to Linear RGB spaces.
+     *
+     * This will transform the internal representation of the texture to GL_SCALAR (GL_FLOAT).
+     * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
+     * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
+     */
+    void linearize();
 
   private:
-    void updateGL();
-
     /**
-     * Convert a color texture from sRGB to Linear RGB spaces.
+     * Current implementation supports GL_TEXTURE_1D, GL_TEXTURE_2D, GL_TEXTURE_RECTANGLE,
+     * GL_TEXTURE_3D and GL_TEXTURE_CUBE_MAP.
+     * \return true if the target is supported by Texture implementation.
+     */
+    bool isSupportedTarget();
+
+    /// \brief set m_isMipMapped according to sampler.minFilter
+    void computeIsMipMappedFlag();
+
+    /** \brief Allocate m_texture if nullptr.
+     *
+     * \return true if allocation is actually performed
+     */
+    bool createTexture();
+
+    /// \brief Regiter gpu task to RadiumEngine
+    void registerUpdateImageDataTask();
+
+    /// \brief Regiter gpu task to RadiumEngine
+    void registerUpdateSamplerParametersTask();
+
+    /// \brief Send image data to the GPU and generate mipmap if needed
+    void sendImageDataToGPU();
+
+    /// \brief Send sampler parameters to the GPU
+    void sendSamplerParametersToGPU();
+
+    /** \brief Convert a color texture from sRGB to Linear RGB spaces.
+     *
      * The content of the array of texels.
      * designated by the texel pointer is modified by side effect.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
@@ -251,11 +280,10 @@ class RA_ENGINE_API Texture final
      */
     void sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel );
 
-    /// linearize a cube map by calling sRGBToLinearRGB fore each face
+    /// \brief linearize a cube map by calling sRGBToLinearRGB fore each face
     void linearizeCubeMap( uint numComponent, bool hasAlphaChannel );
 
-    /** Texture parameters
-     */
+    /// Texture parameters
     TextureParameters m_textureParameters;
 
     /// Link to glObject texture
@@ -264,8 +292,12 @@ class RA_ENGINE_API Texture final
     bool m_isMipMapped { false };
     /// Is the texture in LinearRGB ?
     bool m_isLinear { false };
-    /// is valid when a gpu update task is registered (e.g. after a call to setData)
-    Core::TaskQueue::TaskId m_updateDataTaskId;
+    /// \brief This task is valid when a gpu image update task is registered (e.g. after a call to
+    /// initialize, setParameters, setImageParameters or setData).
+    Core::TaskQueue::TaskId m_updateImageTaskId;
+    /// \brief This task is valid when a gpu sampler task is registered.
+    /// e.g. after a call to initialize, setParamaters or setSamplerParamters).
+    Core::TaskQueue::TaskId m_updateSamplerTaskId;
     /// mutex to protect non gpu setters, in a thread safe way.
     std::mutex m_updateMutex;
 };

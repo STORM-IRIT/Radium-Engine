@@ -33,7 +33,8 @@ class RA_ENGINE_API TextureManager final
      * \return a texture descriptor that could be further specialized (filtering parameters ..)
      * before the texture is inserted into Radium OpenGL system by getOrLoadTexture
      */
-    TextureParameters& addTexture( const std::string& name, uint width, uint height, void* data );
+    TextureParameters&
+    addTexture( const std::string& name, uint width, uint height, std::shared_ptr<void> data );
 
     /**
      * Get or load a named texture.
@@ -80,7 +81,7 @@ class RA_ENGINE_API TextureManager final
      * \param texture
      * \param content
      */
-    void updateTextureContent( const std::string& texture, void* content );
+    void updateTextureContent( const std::string& texture, std::shared_ptr<void> content );
 
     /**
      * Update all textures that are pending after a call to updateTextureContent.
@@ -111,7 +112,7 @@ class RA_ENGINE_API TextureManager final
     /// Textures that do not have a usable OpenGL state
     std::map<std::string, TextureParameters> m_pendingTextures;
     /// Textures whose OpenGl stat is not up to date
-    std::map<std::string, void*> m_pendingData;
+    std::map<std::string, std::shared_ptr<void>> m_pendingData;
 };
 
 } // namespace Data

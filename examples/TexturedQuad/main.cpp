@@ -24,7 +24,8 @@ int main( int argc, char* argv[] ) {
     constexpr int width  = 192;
     constexpr int height = 512;
     constexpr int size   = width * height;
-    unsigned char data[size];
+    std::shared_ptr<unsigned char[]> data( new unsigned char[size] );
+
     // fill with some function
     for ( int i = 0; i < width; ++i ) {
         for ( int j = 0; j < height; j++ ) {
