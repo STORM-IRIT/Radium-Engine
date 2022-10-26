@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.7</span>
+   &#160;<span id="projectnumber">1.3.8</span>
    </div>
   </td>
  </tr>
@@ -260,7 +260,8 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div class="line">    &quot;environments&quot;: [</div>
 <div class="line">    {</div>
 <div class="line">        &quot;QtDir&quot;: &quot;C:/Qt/5.15.2/msvc2019_64/&quot;</div>
-<div class="line">        &quot;glfwDir&quot; : &quot;C:/path/to/glfwInstallation&quot;</div>
+<div class="line">        &quot;glfwDir&quot; : &quot;C:/path/to/glfwInstallation&quot;,</div>
+<div class="line">        &quot;ExternalInstallDir&quot;: &quot;${projectDir}/../radium-externals/install&quot;</div>
 <div class="line">    }</div>
 <div class="line">    ],</div>
 <div class="line">    &quot;configurations&quot;: [</div>
@@ -277,7 +278,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div class="line">        &quot;environments&quot;: [</div>
 <div class="line">        {</div>
 <div class="line">            &quot;environment&quot;: &quot;RadiumDllsLocations&quot;,</div>
-<div class="line">            &quot;ExternalDllsDIR&quot;: &quot;${projectDir}/../radium-externals/install/${name}/bin&quot;,</div>
+<div class="line">            &quot;ExternalDllsDIR&quot;: &quot;${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects&quot;,</div>
 <div class="line">            &quot;QtDllsDIR&quot;: &quot;${env.QtDir}/bin&quot;,</div>
 <div class="line">            &quot;RadiumDlls&quot;: &quot;${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase&quot;</div>
 <div class="line">        }</div>
@@ -296,7 +297,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div class="line">        &quot;environments&quot;: [</div>
 <div class="line">        {</div>
 <div class="line">            &quot;environment&quot;: &quot;RadiumDllsLocations&quot;,</div>
-<div class="line">            &quot;ExternalDllsDIR&quot;: &quot;${projectDir}/../radium-externals/install/${name}/bin&quot;,</div>
+<div class="line">            &quot;ExternalDllsDIR&quot;: &quot;${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects&quot;,</div>
 <div class="line">            &quot;QtDllsDIR&quot;: &quot;${env.QtDir}/bin&quot;,</div>
 <div class="line">            &quot;RadiumDlls&quot;: &quot;${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase&quot;</div>
 <div class="line">        }</div>
@@ -343,7 +344,7 @@ When compiling the dependencies you may hit the max path length fixed by Microso
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Wed Oct 12 2022 11:01:39 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Oct 26 2022 12:54:48 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

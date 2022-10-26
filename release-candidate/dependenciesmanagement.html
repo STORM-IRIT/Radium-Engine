@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.7</span>
+   &#160;<span id="projectnumber">1.3.8</span>
    </div>
   </td>
  </tr>
@@ -185,46 +185,31 @@ Configuration and compilation of the dependencies</h2>
 Configuration of Radium</h2>
 <p>To compile Radium-Engine, you have to indicate where cmake can find each dependency.</p>
 <p>For convenience, dependencies install procedure create a configuration file, you can use this configuration with the <code>-C</code> option of cmake. The cmake config file <code>/path/to/external/install/radium-options.cmake</code> contains, depending on your dependency configuration:</p>
-<div class="fragment"><div class="line">set(RADIUM_DEP_PREFIX &quot;/path/to/external/install/&quot;)</div>
-<div class="line">set(Eigen3_DIR        &quot;${RADIUM_DEP_PREFIX}/share/eigen3/cmake/&quot; CACHE PATH &quot;My Eigen&quot;)</div>
-<div class="line">set(OpenMesh_DIR      &quot;${RADIUM_DEP_PREFIX}/share/OpenMesh/cmake/&quot; CACHE PATH &quot;My OpenMesh&quot;)</div>
-<div class="line">set(cpplocate_DIR     &quot;${RADIUM_DEP_PREFIX}/share/cpplocate/&quot; CACHE PATH &quot;My cpplocate&quot;)</div>
-<div class="line">set(glm_DIR           &quot;${RADIUM_DEP_PREFIX}/lib/cmake/glm/&quot; CACHE PATH &quot;My glm&quot;)</div>
-<div class="line">set(glbinding_DIR     &quot;${RADIUM_DEP_PREFIX}/share/glbinding/&quot; CACHE PATH &quot;My glbinding&quot;)</div>
-<div class="line">set(globjects_DIR     &quot;${RADIUM_DEP_PREFIX}/share/globjects/&quot; CACHE PATH &quot;My globjects&quot;)</div>
-<div class="line">set(stb_DIR           &quot;${RADIUM_DEP_PREFIX}/include/stb/&quot; CACHE PATH &quot;My stb&quot;)</div>
-<div class="line">set(assimp_DIR        &quot;${RADIUM_DEP_PREFIX}/lib/cmake/assimp-5.0/&quot; CACHE PATH &quot;My assimp&quot;)</div>
-<div class="line">set(tinyply_DIR       &quot;${RADIUM_DEP_PREFIX}/lib/cmake/tinyply/&quot; CACHE PATH &quot;My tinyply&quot;)</div>
-<div class="line">set(tinyEXR_DIR       &quot;${RADIUM_DEP_PREFIX}/share/tinyEXR/cmake/&quot;  CACHE PATH &quot;My tinyEXR&quot;)</div>
-<div class="line">set(nlohmann_json_DIR &quot;${RADIUM_DEP_PREFIX}/lib/cmake/nlohmann_json/&quot; CACHE PATH &quot;My json&quot;)</div>
-<div class="line">set(PowerSlider_DIR   &quot;${RADIUM_DEP_PREFIX}/lib/cmake/PowerSlider/&quot; CACHE PATH &quot;My PowerSlider&quot;)</div>
-<div class="line">set(RADIUM_IO_ASSIMP   ON CACHE BOOL &quot;Radium uses assimp io&quot;)</div>
-<div class="line">set(RADIUM_IO_TINYPLY  ON CACHE BOOL &quot;Radium uses tinyply io&quot;)</div>
+<div class="fragment"><div class="line">set(Eigen3_DIR &quot;/path/to/external/install/share/eigen3/cmake/&quot; CACHE PATH &quot;My Eigen3 location&quot;)</div>
+<div class="line">set(OpenMesh_DIR &quot;/path/to/external/install/share/OpenMesh/cmake/&quot; CACHE PATH &quot;My OpenMesh location&quot;)</div>
+<div class="line">set(cpplocate_DIR &quot;/path/to/external/install/share/cpplocate/&quot; CACHE PATH &quot;My cpplocate location&quot;)</div>
+<div class="line">set(nlohmann_json_DIR &quot;/path/to/external/install/lib/cmake/nlohmann_json/&quot; CACHE PATH &quot;My nlohmann_json location&quot;)</div>
+<div class="line">set(glm_DIR &quot;/path/to/external/install/glm/lib/cmake/glm/&quot; CACHE PATH &quot;My glm location&quot;)</div>
+<div class="line">set(glbinding_DIR &quot;/path/to/external/install/glbinding/&quot; CACHE PATH &quot;My glbinding location&quot;)</div>
+<div class="line">set(globjects_DIR &quot;/path/to/external/install/globjects/&quot; CACHE PATH &quot;My globjects location&quot;)</div>
+<div class="line">set(stb_DIR &quot;/path/to/external/install/include/stb/&quot; CACHE PATH &quot;My stb location&quot;)</div>
+<div class="line">set(stb_INCLUDE_DIR &quot;/path/to/external/install/include/&quot; CACHE PATH &quot;My stb_INCLUDE location&quot;)</div>
+<div class="line">set(tinyEXR_DIR &quot;/path/to/external/install/share/tinyEXR/cmake/&quot; CACHE PATH &quot;My tinyEXR location&quot;)</div>
+<div class="line">set(assimp_DIR &quot;/path/to/external/install/lib/cmake/assimp-5.0/&quot; CACHE PATH &quot;My assimp location&quot;)</div>
+<div class="line">set(tinyply_DIR &quot;/path/to/external/install/lib/cmake/tinyply/&quot; CACHE PATH &quot;My tinyply location&quot;)</div>
+<div class="line">set(PowerSlider_DIR &quot;/path/to/external/install/lib/cmake/PowerSlider/&quot; CACHE PATH &quot;My PowerSlider location&quot;)</div>
+<div class="line">set(RADIUM_IO_ASSIMP ON CACHE BOOL &quot;Radium uses assimp io&quot;)</div>
+<div class="line">set(RADIUM_IO_TINYPLY ON CACHE BOOL &quot;Radium uses tinyply io&quot;)</div>
 </div><!-- fragment --><p>When configuring Radium cmake project, don't forget to add this file by calling <code>cmake -C /path/to/external/install/radium-options.cmake ......</code></p>
 <p>You can also provide these variables as cmake command line argument:</p>
 <div class="fragment"><div class="line">cmake \</div>
-<div class="line">-DEigen3_DIR        /path/to/external/install/share/eigen3/cmake/ \</div>
-<div class="line">-DOpenMesh_DIR      /path/to/external/install/share/OpenMesh/cmake/ \</div>
-<div class="line">-Dcpplocate_DIR     /path/to/external/install/share/cpplocate/ \</div>
-<div class="line">-Dnlohmann_json_DIR /path/to/external/install/lib/cmake/nlohmann_json/ \</div>
-<div class="line">-Dglm_DIR           /path/to/external/install/lib/cmake/glm/ \</div>
-<div class="line">-Dglbinding_DIR     /path/to/external/install/share/glbinding/ \</div>
-<div class="line">-Dglobjects_DIR     /path/to/external/install/share/globjects/ \</div>
-<div class="line">-DPowerSlider_DIR   /path/to/external/install/lib/cmake/PowerSlider \</div>
-<div class="line">-Dstb_DIR           /path/to/external/install/include/stb/ \</div>
-<div class="line">-Dassimp_DIR        /path/to/external/install/lib/cmake/assimp-5.0/ \</div>
-<div class="line">-Dtinyply_DIR       /path/to/external/install/lib/cmake/tinyply/ \</div>
-<div class="line">-DtinyEXR_DIR       /path/to/external/install/share/tinyEXR/cmake/ \</div>
-<div class="line">.......</div>
+<div class="line">-DEigen3_DIR        /path/to/external/install/share/eigen3/cmake/</div>
+<div class="line">... and so on ...</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md18"></a>
 User provided external dependencies</h1>
 <p>You can use your own installation of a local dependency instead of letting cmake fetch and compile it. To this end, just provide the corresponding '*_DIR' to cmake at configuration time as show before (with '-D' option, configuration file or toolchain file, please refer to cmake documentation).</p>
 <p>Currently supported (note that these paths must refer to the installation directory of the corresponding library):</p>
 <ul>
-<li><code>Eigen3_DIR</code></li>
-<li><code>OpenMesh_DIR</code></li>
-<li><code>cpplocate_DIR</code></li>
-<li><code>nlohmann_json_DIR</code></li>
 <li><code>assimp_DIR</code></li>
 <li><code>tinyply_DIR</code></li>
 <li><code>PowerSlider_DIR</code></li>
@@ -233,25 +218,13 @@ User provided external dependencies</h1>
 <li><code>globjects_DIR</code></li>
 <li><code>stb_DIR</code></li>
 <li><code>tinyEXR_DIR</code></li>
+<li><code>Eigen3_DIR</code></li>
+<li><code>OpenMesh_DIR</code></li>
+<li><code>cpplocate_DIR</code></li>
+<li><code>nlohmann_json_DIR</code></li>
 </ul>
 <p>Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record</p>
 <ul>
-<li>Eigen3: <a href="https://gitlab.com/libeigen/eigen.git">https://gitlab.com/libeigen/eigen.git</a>, [e80ec243],<ul>
-<li>with options <code>-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF</code></li>
-</ul>
-</li>
-<li>OpenMesh: <a href="https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git">https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git</a>, [tags/OpenMesh-8.1],<ul>
-<li>with options <code>-DBUILD_APPS=OFF</code></li>
-</ul>
-</li>
-<li>cpplocate: <a href="https://github.com/cginternals/cpplocate.git">https://github.com/cginternals/cpplocate.git</a>, [tags/v2.2.0],<ul>
-<li>with options <code>-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF</code></li>
-</ul>
-</li>
-<li>nlohmann_json: <a href="https://github.com/nlohmann/json.git">https://github.com/nlohmann/json.git</a>, [release/3.10.5],<ul>
-<li>with options <code>-DJSON_Install=ON -DJSON_BuildTests=OFF</code></li>
-</ul>
-</li>
 <li>assimp: <a href="https://github.com/assimp/assimp.git">https://github.com/assimp/assimp.git</a>, [tags/v5.0.1],<ul>
 <li>with options <code>-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True</code></li>
 </ul>
@@ -264,16 +237,16 @@ User provided external dependencies</h1>
 <li>with options <code>-DBUILD_DESIGNER_PLUGIN=OFF -DBUILD_EXAMPLE_APP=OFF</code></li>
 </ul>
 </li>
-<li>glm: <a href="https://github.com/g-truc/glm.git">https://github.com/g-truc/glm.git</a>, [0.9.9.5],<ul>
-<li>with options <code>-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib</code></li>
+<li>glm: <a href="https://github.com/g-truc/glm.git">https://github.com/g-truc/glm.git</a>, [cc98465e3508535ba8c7f6208df934c156a018dc],<ul>
+<li>with options <code>-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_PREFIX=&lt;INSTALL_DIR&gt;</code></li>
 </ul>
 </li>
-<li>glbinding: <a href="https://github.com/cginternals/glbinding.git">https://github.com/cginternals/glbinding.git</a>, [663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c],<ul>
-<li>with options <code>-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF</code></li>
+<li>glbinding: <a href="https://github.com/cginternals/glbinding.git">https://github.com/cginternals/glbinding.git</a>, [758d33b4d4f1815d46d91fcf4ca4914d837267fa],<ul>
+<li>with options <code>-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_BUILD_OWN_KHR_HEADERS=ON -DCMAKE_INSTALL_PREFIX=&lt;INSTALL_DIR&gt;</code></li>
 </ul>
 </li>
-<li>globjects: <a href="https://github.com/dlyr/globjects.git">https://github.com/dlyr/globjects.git</a>, [11c559a07d9e310abb2f53725fd47cfaf538f8b1],<ul>
-<li>with options <code>-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR}</code></li>
+<li>globjects: <a href="https://github.com/cginternals/globjects.git">https://github.com/cginternals/globjects.git</a>, [4363356ae2ef5c936ab078fba48d1ea507c295c4],<ul>
+<li>with options <code>-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR} -DCMAKE_INSTALL_PREFIX=&lt;INSTALL_DIR&gt;</code></li>
 </ul>
 </li>
 <li>stb: <a href="https://github.com/nothings/stb.git">https://github.com/nothings/stb.git</a>, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],<ul>
@@ -282,6 +255,22 @@ User provided external dependencies</h1>
 </li>
 <li>tinyEXR: <a href="https://github.com/MathiasPaulin/tinyexr.git">https://github.com/MathiasPaulin/tinyexr.git</a>, [origin/radium],<ul>
 <li>with options <code>-DBUILD_INSTALLABLE_LIB=ON</code></li>
+</ul>
+</li>
+<li>Eigen3: <a href="https://gitlab.com/libeigen/eigen.git">https://gitlab.com/libeigen/eigen.git</a>, [tags/3.4.0],<ul>
+<li>with options <code>-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF</code></li>
+</ul>
+</li>
+<li>OpenMesh: <a href="https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git">https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git</a>, [tags/OpenMesh-8.1],<ul>
+<li>with options <code>-DBUILD_APPS=OFF</code></li>
+</ul>
+</li>
+<li>cpplocate: <a href="https://github.com/cginternals/cpplocate.git">https://github.com/cginternals/cpplocate.git</a>, [tags/v2.2.0],<ul>
+<li>with options <code>-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF</code></li>
+</ul>
+</li>
+<li>nlohmann_json: <a href="https://github.com/nlohmann/json.git">https://github.com/nlohmann/json.git</a>, [tags/v3.10.5],<ul>
+<li>with options <code>-DJSON_Install=ON -DJSON_BuildTests=OFF</code></li>
 </ul>
 </li>
 </ul>
@@ -293,7 +282,7 @@ User provided external dependencies</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Wed Oct 12 2022 11:01:39 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Oct 26 2022 12:54:48 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -39,6 +39,7 @@ var dir_a46b089ae2655285b8dddf2703c36868 =
     [ "SimpleMaterial.cpp", "SimpleMaterial_8cpp_source.html", null ],
     [ "SimpleMaterial.hpp", "SimpleMaterial_8hpp_source.html", null ],
     [ "SimpleMaterial.inl", "SimpleMaterial_8inl_source.html", null ],
+    [ "stb.cpp", "stb_8cpp_source.html", null ],
     [ "Texture.cpp", "Texture_8cpp_source.html", null ],
     [ "Texture.hpp", "Texture_8hpp_source.html", null ],
     [ "TextureManager.cpp", "TextureManager_8cpp_source.html", null ],
