@@ -100,7 +100,6 @@ set(core_headers
     Geometry/Volume.hpp
     Geometry/deprecated/TopologicalMesh.hpp
     Math/DualQuaternion.hpp
-    Math/GlmAdapters.hpp
     Math/Interpolation.hpp
     Math/LinearAlgebra.hpp
     Math/Math.hpp

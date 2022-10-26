@@ -5,8 +5,9 @@ project(radiumio-external VERSION 1.0.0)
 include(ExternalProject)
 include(ExternalInclude)
 
-# ------------------------------------------------------------------------------
-# Eigen - Linear Algebra library
+list(APPEND CMAKE_MESSAGE_INDENT "[IO] ")
+string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
+set(indent_string "${indent_string}--")
 
 # force installing by default all the external projects
 set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
@@ -22,7 +23,7 @@ add_custom_target(IOExternals ALL)
 if(RADIUM_IO_ASSIMP)
     if(NOT DEFINED assimp_DIR)
         check_externals_prerequisite()
-        status_message("[IOExternal]" "assimp" "remote git")
+        status_message("" "assimp" "remote git")
 
         # I found some problems when generating xcode project for Assimp. The debug version is
         # expected even in Release mode. As Release build does not generate the debug version, the
@@ -44,6 +45,9 @@ if(RADIUM_IO_ASSIMP)
                        -DASSIMP_NO_EXPORT=True
                        "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
         )
+
+        set_external_dir(assimp "lib/cmake/assimp-5.0/")
+
         add_dependencies(IOExternals assimp)
     else()
         status_message("" "assimp" "${assimp_DIR}")
@@ -64,8 +68,10 @@ if(RADIUM_IO_TINYPLY)
             CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DSHARED_LIB=TRUE
                        "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
         )
+        set_external_dir(tinyply "lib/cmake/tinyply/")
+
         add_dependencies(IOExternals tinyply)
     else()
-        status_message("[IOExternal]" "tinyply" "${tinyply_DIR}")
+        status_message("" "tinyply" "${tinyply_DIR}")
     endif()
 endif()

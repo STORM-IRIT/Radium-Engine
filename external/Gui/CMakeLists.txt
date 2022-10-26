@@ -5,6 +5,10 @@ project(radiumgui-external VERSION 1.0.0)
 include(ExternalProject)
 include(ExternalInclude)
 
+list(APPEND CMAKE_MESSAGE_INDENT "[Gui] ")
+string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
+set(indent_string "${indent_string}--")
+
 macro(add_dependency_if_compiled target dep)
     if(TARGET ${dep})
         add_dependencies(${target} ${dep})
@@ -57,7 +61,7 @@ set(RPATH_CONFIG
 
 if(NOT DEFINED PowerSlider_DIR)
     check_externals_prerequisite()
-    status_message("[GuiExternal]" "PowerSlider" "remote git")
+    status_message("" "PowerSlider" "remote git")
     ExternalProject_Add(
         PowerSlider
         GIT_REPOSITORY https://github.com/dlyr/PowerSlider.git
@@ -69,6 +73,9 @@ if(NOT DEFINED PowerSlider_DIR)
                    ${RPATH_CONFIG} -DBUILD_EXAMPLE_APP=OFF
                    -DCMAKE_MESSAGE_INDENT=${indent_string}\;
     )
+
+    set_external_dir(PowerSlider "lib/cmake/PowerSlider/")
+
     add_dependencies(GuiExternals PowerSlider)
 else()
     status_message("" "PowerSlider" "${PowerSlider_DIR}")

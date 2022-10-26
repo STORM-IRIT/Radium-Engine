@@ -5,13 +5,15 @@ project(radiumcore-external VERSION 1.0.0)
 include(ExternalProject)
 include(ExternalInclude)
 
+list(APPEND CMAKE_MESSAGE_INDENT "[Core] ")
+string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
+set(indent_string "${indent_string}--")
+
 # force installing by default all the external projects
 set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
-set(indent_string "${indent_string}--")
 
 add_custom_target(CoreExternals ALL)
 
@@ -23,7 +25,7 @@ if(NOT DEFINED Eigen3_DIR)
         Eigen3
         GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
         GIT_TAG tags/3.4.0
-        GIT_SHALLOW FALSE
+        GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
                       "${CMAKE_CURRENT_LIST_DIR}/patches/eigen.patch"
@@ -32,6 +34,7 @@ if(NOT DEFINED Eigen3_DIR)
                    -DEIGEN_BUILD_DOC=OFF "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals Eigen3)
+    set_external_dir(Eigen3 "share/eigen3/cmake/")
 else()
     status_message("" "eigen3" ${Eigen3_DIR})
 endif()
@@ -53,6 +56,7 @@ if(NOT DEFINED OpenMesh_DIR)
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals OpenMesh)
+    set_external_dir(OpenMesh "share/OpenMesh/cmake/")
 else()
     status_message("" "OpenMesh" ${OpenMesh_DIR})
 endif()
@@ -73,13 +77,14 @@ if(NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
                    -DOPTION_BUILD_DOCS=OFF -DCMAKE_MESSAGE_INDENT=${indent_string}\;
     )
     add_dependencies(CoreExternals cpplocate)
+    set_external_dir(cpplocate "share/cpplocate/")
 else()
     status_message("" "cpplocate" ${cpplocate_DIR})
 endif()
 
 if(NOT DEFINED nlohmann_json_DIR)
     check_externals_prerequisite()
-    status_message("[CoreExternal]" "nlohmann_json" "remote git")
+    status_message("" "nlohmann_json" "remote git")
     ExternalProject_Add(
         nlohmann_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
@@ -91,6 +96,7 @@ if(NOT DEFINED nlohmann_json_DIR)
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals nlohmann_json)
+    set_external_dir(nlohmann_json "lib/cmake/nlohmann_json/")
 else()
     status_message("" "nlohmann_json" ${nlohmann_json_DIR})
 endif()

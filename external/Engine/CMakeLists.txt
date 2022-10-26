@@ -5,14 +5,15 @@ project(radiumengine-external VERSION 1.0.0)
 include(ExternalProject)
 include(ExternalInclude)
 
+list(APPEND CMAKE_MESSAGE_INDENT "[Engine] ")
+string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
+set(indent_string "${indent_string}--")
+
 macro(add_dependency_if_compiled target dep)
     if(TARGET ${dep})
         add_dependencies(${target} ${dep})
     endif()
 endmacro()
-
-# ------------------------------------------------------------------------------
-# Eigen - Linear Algebra library
 
 # force installing by default all the external projects
 set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
@@ -20,26 +21,22 @@ set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
-set(indent_string "${indent_string}--")
-
 add_custom_target(EngineExternals ALL)
 
 if(NOT DEFINED glm_DIR)
     check_externals_prerequisite()
-    status_message("[EngineExternal]" "glm" "remote git")
+    status_message("" "glm" "remote git")
     ExternalProject_Add(
         glm
         GIT_REPOSITORY https://github.com/g-truc/glm.git
-        GIT_TAG 0.9.9.5
-        GIT_SHALLOW TRUE
+        GIT_TAG cc98465e3508535ba8c7f6208df934c156a018dc
+        GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
-        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/glm"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF
-                   -DCMAKE_INSTALL_LIBDIR=lib "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
+                   -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
-
-    set(glm_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/glm)
+    set_external_dir(glm "glm/lib/cmake/glm/")
     add_dependencies(EngineExternals glm)
 else()
     # because other might depends on it, but it's already done, define a dummy target
@@ -49,22 +46,27 @@ endif()
 
 if(NOT DEFINED glbinding_DIR)
     check_externals_prerequisite()
-    status_message("[EngineExternal]" "glbinding" "remote git")
+    status_message("" "glbinding" "remote git")
     ExternalProject_Add(
         glbinding
         GIT_REPOSITORY https://github.com/cginternals/glbinding.git
-        GIT_TAG 663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c
+        GIT_TAG 758d33b4d4f1815d46d91fcf4ca4914d837267fa
         GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
-        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
-                      "${CMAKE_CURRENT_LIST_DIR}/patches/glbinding.patch"
-        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DOPTION_BUILD_TESTS=OFF
-                   -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF
+        # PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
+        # "${CMAKE_CURRENT_LIST_DIR}/patches/glbinding.patch"
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/glbinding"
+        CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
+                   -DOPTION_BUILD_TESTS=OFF
+                   -DOPTION_BUILD_DOCS=OFF
+                   -DOPTION_BUILD_TOOLS=OFF
+                   -DOPTION_BUILD_EXAMPLES=OFF
+                   -DOPTION_BUILD_OWN_KHR_HEADERS=ON
+                   -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
 
-    set(glbinding_DIR ${CMAKE_INSTALL_PREFIX}/share/glbinding)
+    set_external_dir(glbinding "glbinding/")
     add_dependencies(EngineExternals glbinding)
 else()
     add_custom_target(glbinding)
@@ -72,8 +74,10 @@ else()
 endif()
 
 if(NOT DEFINED Eigen3_DIR)
-    message(STATUS "globjects use bundled eigen3")
-    set(Eigen3_DIR ${CMAKE_INSTALL_PREFIX}/share/eigen3/cmake/)
+    message(
+        FATAL_ERROR
+            "globjects need Eigen3_DIR to be defined, something went wrong with External Core"
+    )
 else()
     message(STATUS "globjects use eigen3 from ${Eigen3_DIR}")
 endif()
@@ -88,13 +92,12 @@ if(NOT DEFINED globjects_DIR)
     status_message("" "globjects" "remote git")
     ExternalProject_Add(
         globjects
-        GIT_REPOSITORY https://github.com/dlyr/globjects.git
-        GIT_TAG 11c559a07d9e310abb2f53725fd47cfaf538f8b1
+        GIT_REPOSITORY https://github.com/cginternals/globjects.git
+        GIT_TAG 4363356ae2ef5c936ab078fba48d1ea507c295c4
+        GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
-        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
-                      "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
-        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        DEPENDS glbinding glm globjects-dep
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/globjects"
+        DEPENDS globjects-dep
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
                    -DOPTION_BUILD_DOCS=OFF
                    -DOPTION_BUILD_EXAMPLES=OFF
@@ -102,10 +105,10 @@ if(NOT DEFINED globjects_DIR)
                    -Dglbinding_DIR=${glbinding_DIR}
                    -Dglm_DIR=${glm_DIR}
                    -DEigen3_DIR=${Eigen3_DIR}
+                   -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
-
-    set(globjects_DIR ${CMAKE_INSTALL_PREFIX}/share/globjects)
+    set_external_dir(globjects "globjects/")
     add_dependencies(EngineExternals globjects)
 else()
     status_message("" "globjects" "${globjects_DIR}")
@@ -118,6 +121,7 @@ if(NOT DEFINED stb_DIR)
         stb
         GIT_REPOSITORY https://github.com/nothings/stb.git
         GIT_TAG 1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd
+        GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ${CMAKE_COMMAND} -E echo
@@ -129,6 +133,8 @@ if(NOT DEFINED stb_DIR)
                 ${CMAKE_INSTALL_PREFIX}/include/stb/
         INSTALL_COMMAND ""
     )
+    set_external_dir(stb "include/stb/")
+    set_external_dir(stb_INCLUDE "include/")
     add_dependencies(EngineExternals stb)
 else()
     status_message("" "stb" "${stb_DIR}")
@@ -139,17 +145,20 @@ endif()
 
 if(NOT DEFINED tinyEXR_DIR)
     check_externals_prerequisite()
-    status_message("[EngineExternal]" "tinyEXR" "remote git")
+    status_message("" "tinyEXR" "remote git")
     ExternalProject_Add(
         tinyEXR
         GIT_REPOSITORY https://github.com/MathiasPaulin/tinyexr.git
         GIT_TAG origin/radium
+        # since tag is a branch name, force checkout in case of force push on this branch
+        GIT_REMOTE_UPDATE_STRATEGY CHECKOUT
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DBUILD_INSTALLABLE_LIB=ON
                    -DCMAKE_MESSAGE_INDENT=${indent_string}\;
     )
+    set_external_dir(tinyEXR "share/tinyEXR/cmake/")
     add_dependencies(EngineExternals tinyEXR)
 else()
     status_message("" "tinyEXR" "${tinyEXR_DIR}")

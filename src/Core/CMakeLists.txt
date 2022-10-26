@@ -27,17 +27,9 @@ add_library(
     ${ra_core_target} SHARED ${core_sources} ${core_headers} ${core_inlines} ${RA_VERSION_CPP}
 )
 
-populate_local_dependencies(NAME "Eigen3_DIR")
-populate_local_dependencies(NAME "OpenMesh_DIR")
-populate_local_dependencies(NAME "cpplocate_DIR")
-populate_local_dependencies(NAME "nlohmann_json_DIR")
-
 find_package(Eigen3 3.3 REQUIRED NO_DEFAULT_PATH)
-
 find_package(OpenMesh REQUIRED COMPONENTS Core Tools NO_DEFAULT_PATH)
-
 find_package(cpplocate REQUIRED NO_DEFAULT_PATH)
-
 find_package(nlohmann_json REQUIRED NO_DEFAULT_PATH)
 
 add_dependencies(${ra_core_target} versionFileTouchForRebuild) # We want precise time of build in
@@ -45,10 +37,6 @@ add_dependencies(${ra_core_target} versionFileTouchForRebuild) # We want precise
 
 target_compile_options(${ra_core_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
-target_include_directories(
-    ${ra_core_target} PUBLIC $<BUILD_INTERFACE:${OPENMESH_INCLUDE_DIR}>
-                             $<BUILD_INTERFACE:${EIGEN_INCLUDE_DIR}>
-)
 target_link_libraries(
     ${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen
                              cpplocate::cpplocate nlohmann_json::nlohmann_json std::filesystem
@@ -90,5 +78,3 @@ set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_core_target} PARENT_SCOPE)
 if(RADIUM_ENABLE_PCH)
     target_precompile_headers(${ra_core_target} PRIVATE pch.hpp)
 endif()
-
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
