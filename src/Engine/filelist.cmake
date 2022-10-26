@@ -24,6 +24,7 @@ set(engine_sources
     Data/TextureManager.cpp
     Data/VolumeObject.cpp
     Data/VolumetricMaterial.cpp
+    Data/stb.cpp
     RadiumEngine.cpp
     Rendering/DebugRender.cpp
     Rendering/ForwardRenderer.cpp

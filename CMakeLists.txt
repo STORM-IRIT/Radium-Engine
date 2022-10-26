@@ -257,8 +257,7 @@ endif()
 
 # Packaging stuff (deb, rpm, windows installer) add_subdirectory(packaging)
 
-install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
-install(FILES README.md DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
+install(FILES LICENSE README.md TYPE DATA)
 
 # -------------------------------------------------------------------------------
 # Wrap up of settings printed on build

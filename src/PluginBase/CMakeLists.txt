@@ -40,5 +40,3 @@ set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_pluginbase_target} PARENT_SCOPE)
 # install json configuration files
 install(FILES ${pluginbase_json} DESTINATION ${CONFIG_PACKAGE_LOCATION}/${ra_pluginbase_target})
 file(COPY ${pluginbase_json} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
