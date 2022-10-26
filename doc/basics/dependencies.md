@@ -59,7 +59,7 @@ Open `external/CMakeLists.txt` and edit cmake settings or `CMakeSettings.json`. 
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "${projectDir}/../../radium-externals/build/${name}",
       "installRoot": "${projectDir}/../../radium-externals/install/${name}",
-      "cmakeCommandArgs": "",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt/6.3.0/msvc2019_64",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     },
@@ -69,7 +69,7 @@ Open `external/CMakeLists.txt` and edit cmake settings or `CMakeSettings.json`. 
       "configurationType": "Release",
       "buildRoot": "${projectDir}/../../radium-externals/build/${name}",
       "installRoot": "${projectDir}/../../radium-externals/install/${name}",
-      "cmakeCommandArgs": "",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt/6.3.0/msvc2019_64",
       "buildCommandArgs": "",
       "ctestCommandArgs": "",
       "inheritEnvironments": [ "msvc_x64_x64" ],
