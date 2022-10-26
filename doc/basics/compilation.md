@@ -159,11 +159,11 @@ cmake --install builds/radium-build-r
 
 If qt is installed system wide (likely on linux), `-DQt5_DIR` is not needed.
 
-\note Qt6 support is experimental. To enable it, replace `-DQt5_DIR=path/to/qt5` by `-DQt6_DIR=path/to/qt6`.
+\note Qt6 is also supported. To enable it, replace `-DQt5_DIR=path/to/qt5` by `-DQt6_DIR=path/to/qt6`. To ease maintenance accross Qt versions, you should also configure the path to Qt cmake package using `-DCMAKE_PREFIX_PATH=path/to/qtX` where `X` is the Qt version you want to use.
 
 If both Qt5 and Qt6 are installed system wide, Qt6 is the default, `-DQT_DEFAULT_MAJOR_VERSION=5` allow select Qt5. During client application cmake setup `find_package(Radium COMPONENTS ... Gui ...)` will check Qt version consistency.
 
-\note Running the `cmake --install` is recommended as it will copy all the radium related library in the same place,
+\note Running `cmake --install` is recommended as it will copy all the radium related library in the same place,
 generate the cmake packages and bundle applications with their dependencies (on macos and windows).
 
 ## Integration with Visual Studio (Microsoft Windows)
@@ -203,7 +203,7 @@ For instance, with directory structure for externals as defined in \ref dependen
 {
     "environments": [
     {
-        "QtDir": "C:/Qt/5.15.2/msvc2019_64/"
+        "QtDir": "C:/Qt/6.3.0/msvc2019_64/"
         "glfwDir" : "C:/path/to/glfwInstallation",
         "ExternalInstallDir": "${projectDir}/../radium-externals/install"
     }
