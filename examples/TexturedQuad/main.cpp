@@ -37,8 +37,8 @@ int main( int argc, char* argv[] ) {
     auto& textureParameters =
         app.m_engine->getTextureManager()->addTexture( "myTexture", width, height, data );
     // these values will be used when engine initialize texture GL representation.
-    textureParameters.format         = gl::GLenum::GL_RED;
-    textureParameters.internalFormat = gl::GLenum::GL_R8;
+    textureParameters.image.format         = gl::GLenum::GL_RED;
+    textureParameters.image.internalFormat = gl::GLenum::GL_R8;
     //! [Creating a texture]
 
     //! [Create an entity and component to draw or data]
