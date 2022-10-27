@@ -118,7 +118,6 @@ class SurfaceMeshComponent : public GeometryComponent
 
 using TriangleMeshComponent        = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
 using GeometryDisplayableComponent = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
-using LineMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::LineMesh>;
 using QuadMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
 using PolyMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
 
