@@ -11,16 +11,20 @@ using namespace Ra::Gui;
 using Idx = KeyMappingManager::KeyMappingAction;
 using Ctx = KeyMappingManager::Context;
 
+//! [Declare KeyMappingManageable]
 class Dummy : public KeyMappingManageable<Dummy>
 {
+    friend class KeyMappingManageable<Dummy>;
+    static void configureKeyMapping_impl();
+    static KeyMappingManager::KeyMappingAction m_myAction;
+
+    //! [Declare KeyMappingManageable]
+
   public:
     Dummy();
-    friend class KeyMappingManageable<Dummy>;
 
   private:
     bool checkIntegrity( const std::string& mess ) const;
-    static void configureKeyMapping_impl();
-
     // here in public for testing purpose
   public:
 #define KeyMappingDummy \
@@ -32,24 +36,31 @@ class Dummy : public KeyMappingManageable<Dummy>
 #undef KMA_VALUE
 };
 
-using KeyMapping = KeyMappingManageable<Dummy>;
-
 #define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction Dummy::XX;
 KeyMappingDummy
 #undef KMA_VALUE
 
-    void
-    Dummy::configureKeyMapping_impl() {
+//! [Define Action]
+KeyMappingManager::KeyMappingAction Dummy::m_myAction;
+//! [Define Action]
 
-    KeyMapping::setContext( Gui::KeyMappingManager::getInstance()->getContext( "DummyContext" ) );
-    if ( Dummy::getContext().isInvalid() ) {
+//! [configureKeyMapping_impl]
+void Dummy::configureKeyMapping_impl() {
+    KeyMappingManageable<Dummy>::setContext(
+        Gui::KeyMappingManager::getInstance()->getContext( "DummyContext" ) );
+    if ( getContext().isInvalid() ) {
         LOG( Ra::Core::Utils::logINFO )
             << "DummyContext not defined (maybe the configuration file do not contains it)";
         return;
     }
 
-#define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getAction( KeyMapping::getContext(), #XX );
+    m_myAction =
+        Ra::Gui::KeyMappingManager::getInstance()->getAction( getContext(), "MyActionName" );
+    //! [configureKeyMapping_impl]
+
+#define KMA_VALUE( XX )                                    \
+    XX = Gui::KeyMappingManager::getInstance()->getAction( \
+        KeyMappingManageable<Dummy>::getContext(), #XX );
     KeyMappingDummy
 #undef KMA_VALUE
 }
@@ -159,7 +170,11 @@ TEST_CASE( "Gui/Utils/KeyMappingManager", "[Gui][Gui/Utils][KeyMappingManager]" 
         // LeftButton triggers TEST2, RightButton triggers TEST1
         // (with index TEST2: 0, TEST1: 1)
 
-        auto didx = mgr->addListener( Dummy::configureKeyMapping );
+        auto didx =
+            //! [addListener]
+            Gui::KeyMappingManager::getInstance()->addListener( Dummy::configureKeyMapping );
+        //! [addListener]
+
         mgr->loadConfiguration( "data/dummy1.xml" );
 
         // action index correspond to configuration

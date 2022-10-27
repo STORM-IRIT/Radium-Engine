@@ -51,6 +51,7 @@ StatementMacros: [
 'KeyMappingCamera',
 'KeyMappingFlightManipulator',
 'KeyMappingRotateAroundCamera',
+'KeyMappingDummy',
 'GL_ASSERT',
 'GL_CHECK_ERROR',
 'CORE_UNUSED',

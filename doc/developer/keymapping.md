@@ -6,7 +6,7 @@
 KeyMapping is defined around two concepts, context (Ra::Gui::KeyMappingManager::Context) and action (Ra::Gui::KeyMappingManager::KeyMappingAction).
 An action is associated to an event binding (Ra::Gui::KeyMappingManager::EventBinding), this binding represents the input (mouse, keys, modifiers) that are associated with the action.
 The context allows to use same binding for different actions depending of the considered context.
-The first widget that receive input event needs to manage context and determine which context to use to request corresponding action.
+The first widget that receive input event needs to manage contexts and determine which context to use to request corresponding action.
 Typically the viewer is this first widget, and can decide which context to use depending on what is under mouse, if gizmo edit is enable, or if an active camera manipulator is active.
 Action, context and binding are managed with Ra::Gui::KeyMappingManager singleton.
 
@@ -17,8 +17,14 @@ On the user side, one can test which action corresponds to a given binding (the 
 
 ## Usage
 
-You first need to add into every configuration file (located in the `install_dir/Configs/` folder) an entry which will bind your action to a key.
-This file as an only `keymaps` node, with `keymap` per binding.
+First step is to add the context, the actions and associated bindings to the manager. To this end you can either use configuration file or call Ra::Gui::KeyMappingManager::addContext and Ra::Gui::KeyMappingManager::addAction.
+
+### Configuration file
+
+This can be done with a xml configuration file. Viewer and camera manipulator basic configuration file is bundled with radium install (located in the `install_dir/Configs/` folder).
+You can extends edit this file or copy it somewhere else, and load it with Ra::Gui::KeyMappingManager::loadConfiguration.
+
+This file as an only `keymaps` node, with one `keymap` node per binding.
 
 ~~~{.xml}
 <keymaps>
@@ -41,64 +47,26 @@ If only a key is defined then it's a `keyPressedEvent`.
 If buttons is defined, then it's a `mouse[move/press/release]Event`, that optionally take modifiers and key into account.
 If wheel is true, then it's a wheel event, that optionally take modifiers, buttons and key into account.
 
+### Implementation
+
 On the implementation side, your class `C` need (could) derive from `KeyMappingManageable<C>`, it defines the static member variable
 `m_keyMappingContext`, and the static function `configureKeyMapping()`, that calls `configureKeyMapping_impl()`, which have to be implemented in your class `C`.
 
-Then you need to define your specific actions as static member of your class
+Then you can store your specific actions as static member of your class, to ease checking which action is triggered.
 
-~~~{.cpp}
-class MyClass :public KeyManageable<MyClass> {
-    friend class Ra::Gui::KeyMappingManageable<MyClass>;
+\snippet unittest/Gui/keymapping.cpp Declare KeyMappingManageable
 
-// callback when a configuration file is loaded, could check if the context and action are present.
-static void configureKeyMapping(){
-    Ra::Gui::KeyMappingManageable<MyClass>::setContext( Ra::Gui::KeyMappingManager::getInstance()->getContext( "MyClassContext" ) );
-    m_myAction =  Ra::Gui::KeyMappingManager::getInstance()->getActionIndex( "MyActionName" );
-}
+Define the static action variable in .cpp
+\snippet unittest/Gui/keymapping.cpp Define Action
 
-//[...]
-static Ra::Gui::KeyMappingManager::KeyMappingAction m_myAction;
-// [...]
-};
+And `configureKeyMapping_impl` which will be called by KeyMappingManager on configuration changes.
+\snippet unittest/Gui/keymapping.cpp configureKeyMapping_impl
 
+And also add a listener so key mapping context and action handles are updated in case of new configuration load.
+This can be done typically in application or viewer constructor, but after KeyMappingManager instance is created.
+\snippet unittest/Gui/keymapping.cpp addListener
 
-// typically in .ccp  file
-Ra::Gui::KeyMappingManager::KeyMappingAction m_myAction;
-
-// then typically in main baseApplication ctor or Viewer ctor, but after KeyMappingManager instance is created :
-Ra::Gui::KeyMappingManager::getInstance()->addListener(MyClass:configureKeyMapping);
-
-~~~
-
-It can be done with a specific macro :
-
-~~~{.cpp}
-// in header
-#define KeyMappingMyClass \
-    KMA_VALUE( MY_ACTION )
-
-#define KMA_VALUE( XX ) static Ra::Gui::KeyMappingManager::KeyMappingAction XX;
-    KeyMappingMyClass
-#undef KMA_VALUE
-
-// in source
-using MyKeyMapping = Ra::Gui::KeyMappingManageable<MyClass>;
-
-#define KMA_VALUE( XX ) Ra::Gui::KeyMappingManager::KeyMappingAction MyClass::XX;
-KeyMappingMyClass
-#undef KMA_VALUE
-
-void MyClass::configureKeyMapping() {
-    MyKeyMapping::setContext( Ra::Gui::KeyMappingManager::getInstance()->getContext( "MyClassContext" ) );
-    if ( MyKeyMapping::getContext().isInvalid() )
-        LOG( logINFO ) << "MyClassContext not defined (maybe the configuration file does not contain it";
-#define KMA_VALUE( XX ) \
-    XX = Ra::Gui::KeyMappingManager::getInstance()->getActionIndex( MyKeyMapping::getContext(), #XX );
-    KeyMappingMyClass
-#undef KMA_VALUE
-}
-
-~~~
+To ease the initialization of Action handles, you can use macro as shown in Viewer.hpp and Viewer.cpp (KeyMappingViewer and KMA_VALUE).
 
 ## Implementation note
 
