@@ -94,11 +94,11 @@ int main( int argc, char* argv[] ) {
     };
     app.m_mainWindow->getViewer()->addCustomAction(
         "switchCam0",
-        Gui::KeyMappingManager::createEventBindingFromStrings( "", "ControlModifier", "Key_0" ),
+        Gui::KeyMappingManager::createEventBindingFromStrings( "", "ControlModifier", "Key_L" ),
         callback );
     app.m_mainWindow->getViewer()->addCustomAction(
         "switchCam1",
-        Gui::KeyMappingManager::createEventBindingFromStrings( "", "ControlModifier", "Key_1" ),
+        Gui::KeyMappingManager::createEventBindingFromStrings( "", "ControlModifier", "Key_K" ),
         callback );
     //! [Add usefull custom key events]
 
