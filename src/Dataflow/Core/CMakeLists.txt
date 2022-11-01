@@ -10,8 +10,6 @@ add_library(
                                      ${dataflow_core_inlines} ${dataflow_core_private}
 )
 
-# LocalDependencies from parent scope
-populate_local_dependencies(NAME "stduuid_DIR")
 find_package(stduuid REQUIRED NO_DEFAULT_PATH)
 
 # This one should be extracted directly from parent project properties.

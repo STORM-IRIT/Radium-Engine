@@ -3,7 +3,7 @@ list(APPEND CMAKE_MESSAGE_INDENT "[${ra_dataflowqtgui_target}] ")
 
 project(${ra_dataflowqtgui_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
-find_package(RadiumNodeEditor REQUIRED)
+find_package(RadiumNodeEditor REQUIRED NO_DEFAULT_PATH)
 
 include(filelist.cmake)
 
