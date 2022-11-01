@@ -143,9 +143,9 @@ Currently supported (note that these paths must refer to the installation direct
 Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record
 
 * stduuid: https://github.com/mariusbancila/stduuid, [3afe7193facd5d674de709fccc44d5055e144d7a],
-    * with options `-DUUID_BUILD_TESTS=OFF -DUUID_ENABLE_INSTALL=ON`
+  * with options `-DUUID_BUILD_TESTS=OFF -DUUID_ENABLE_INSTALL=ON`
 * RadiumNodeEditor: https://github.com/MathiasPaulin/RadiumQtNodeEditor.git, [main],
-    * with options `None`
+  * with options `None`
 * assimp: https://github.com/assimp/assimp.git, [tags/v5.0.1],
   * with options `-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True`
 * tinyply: https://github.com/ddiakopoulos/tinyply.git, [tags/2.3.2],
