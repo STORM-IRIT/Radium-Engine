@@ -37,6 +37,10 @@ Node::Node( const std::string& instanceName, const std::string& typeName ) :
 }
 
 bool Node::fromJson( const nlohmann::json& data ) {
+    if ( data.empty() ) {
+        // This is to avoid wrong error message when creating node from the editor
+        return true;
+    }
     if ( data.contains( "model" ) ) {
         if ( data["model"].contains( "instance" ) ) { m_instanceName = data["model"]["instance"]; }
     }
