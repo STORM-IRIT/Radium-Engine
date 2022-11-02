@@ -19,6 +19,7 @@ using namespace Ra::Dataflow::Core;
 /**
  * Set of functions to manage automatic widget creation and update for editable parameters in the Qt
  * Node Editor.
+ * \todo use Ra::Gui::ParameterSetEditor ?
  */
 namespace WidgetFactory {
 /** Type of the function that creates a widget.
@@ -74,7 +75,6 @@ RA_DATAFLOW_API bool updateWidget( QWidget* widget, EditableParameterBase* edita
  */
 RA_DATAFLOW_API void initializeWidgetFactory();
 
-inline QColorDialog* m_colorDialog;
 }; // namespace WidgetFactory
 
 } // namespace GraphEditor
