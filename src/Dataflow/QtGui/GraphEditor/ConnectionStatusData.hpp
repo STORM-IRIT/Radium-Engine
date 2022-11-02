@@ -13,6 +13,9 @@ namespace QtGui {
 namespace GraphEditor {
 using namespace Ra::Dataflow::Core;
 
+/**
+ * \brief Allow to manage connections in the RadiumNodeEditor external
+ */
 class RA_DATAFLOW_API ConnectionStatusData : public QtNodes::NodeData
 {
   public:

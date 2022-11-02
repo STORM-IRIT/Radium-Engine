@@ -189,43 +189,24 @@ void initializeWidgetFactory() {
         []( EditableParameterBase* editableParameter ) {
             auto editable =
                 dynamic_cast<EditableParameter<Ra::Core::Utils::Color>*>( editableParameter );
-            auto c        = 255_ra * Ra::Core::Utils::Color::linearRGBTosRGB( editable->m_data );
-            auto button   = new QPushButton( "Choose color" );
-            m_colorDialog = new QColorDialog( QColor( c.x(), c.y(), c.z() ) );
-            m_colorDialog->setModal( true );
-            m_colorDialog->setObjectName( editable->m_name.c_str() );
-#if !defined( __APPLE__ )
-            m_colorDialog->setOption( QColorDialog::DontUseNativeDialog );
-#endif
-            QColorDialog::connect(
-                m_colorDialog, &QColorDialog::currentColorChanged, [editable]( QColor value ) {
-                    int newR, newG, newB;
-                    value.getRgb( &newR, &newG, &newB );
-                    editable->m_data = ( Ra::Core::Utils::Color::sRGBToLinearRGB(
-                        Ra::Core::Utils::Color( float( newR ), float( newG ), float( newB ) ) *
-                        ( 1_ra / 255_ra ) ) );
-                } );
-            QPushButton::connect( button, &QPushButton::clicked, [editable]() {
-                Ra::Core::Utils::Color c =
-                    255_ra * Ra::Core::Utils::Color::linearRGBTosRGB( editable->m_data );
-                m_colorDialog->setCurrentColor( QColor( c.x(), c.y(), c.z() ) );
-                m_colorDialog->show();
-            } );
-            return button;
+            auto controlPanel = new ControlPanel( editable->m_name, false );
+            auto clrCbk       = [editable]( const Ra::Core::Utils::Color& clr ) {
+                editable->m_data = clr;
+            };
+            controlPanel->addColorInput( "Choose color", clrCbk, editable->m_data, true );
+            controlPanel->setVisible( true );
+            return controlPanel;
         },
-        []( QWidget*, EditableParameterBase* editableParameter ) -> bool {
+        []( QWidget* widget, EditableParameterBase* editableParameter ) -> bool {
             auto editable =
                 dynamic_cast<EditableParameter<Ra::Core::Utils::Color>*>( editableParameter );
-            // auto colorDialog = widget->findChild<QColorDialog*>( editable->m_name.c_str() );
-            auto c = 255_ra * Ra::Core::Utils::Color::linearRGBTosRGB( editable->m_data );
-            if ( m_colorDialog ) {
-                m_colorDialog->setCurrentColor(
-                    QColor( int( c.x() ), int( c.y() ), int( c.z() ) ) );
-                return true;
-            }
-            else {
+            auto button = widget->findChild<QPushButton*>( "Choose color" );
+            if ( button ) {
+                // todo, update the color on the button and make the dialog to take its
+                //  initial color from the button. Once dont, return true ...
                 return false;
             }
+            return false;
         } );
 
     /*
