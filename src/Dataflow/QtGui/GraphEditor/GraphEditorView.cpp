@@ -92,6 +92,7 @@ void GraphEditorView::buildAdapterRegistry( const NodeFactorySet& factories ) {
                     this->m_dataflowGraph->addFactory( creatorFactory );
                     return std::make_unique<NodeAdapterModel>( this->m_dataflowGraph, node );
                 },
+                factoryName.c_str(),
                 creator.second.c_str() );
         }
     }
