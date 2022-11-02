@@ -12,6 +12,10 @@ namespace Core {
 /// \brief Basic introspection for Node internal data edition
 /// This base class gives key information to associate editing capabilities (and gui) to
 /// an node internal data.
+/// \note This class seems to be very similar in its aim than the Ra::Engine::RenderParameter and
+/// their editing capabilities through Ra::Gui::ParameterSetEditor. But, in order to be more
+/// general, this class does not depend on Engine.
+/// \todo Unify with Ra::Engine::RenderParameter (using Core only parameters set)
 ///
 struct RA_DATAFLOW_API EditableParameterBase {
     /// \name Constructors
@@ -54,6 +58,7 @@ struct EditableParameter : public EditableParameterBase {
     T& m_data;
 
     /// Constraints on the edited data
+    /// \todo, replace by a json desc of the constraints.
     std::vector<T> additionalData;
 };
 
