@@ -44,7 +44,6 @@ class RA_DATAFLOW_API GraphEditorView : public QWidget
   private:
     std::vector<QMetaObject::Connection> connections;
 
-    // TODO, put all these as private data
     QtNodes::FlowScene* scene { nullptr };
     QtNodes::FlowView* view { nullptr };
 
