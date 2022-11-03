@@ -16,7 +16,7 @@ DataflowGraph::DataflowGraph( const std::string& name ) : DataflowGraph( name, g
 
 DataflowGraph::DataflowGraph( const std::string& instanceName, const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    // This will alllow to edit subgraph in an independant editor
+    // This will allow to edit subgraph in an independent editor
     addEditableParameter( new EditableParameter( instanceName, *this ) );
     // A graph always use the builtin nodes factory
     addFactory( NodeFactoriesManager::getDataFlowBuiltInsFactory() );
