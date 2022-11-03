@@ -48,11 +48,6 @@ size_t NodeFactory::nextNodeId() {
     return ++m_nodesCreated;
 }
 
-NodeFactorySet::NodeFactorySet() {
-    // Add the "DataFlowBuiltIns" factory
-    NodeFactoriesManager::getDataFlowBuiltInsFactory();
-}
-
 Node* NodeFactorySet::createNode( std::string& nodeType,
                                   const nlohmann::json& data,
                                   DataflowGraph* owningGraph ) {
@@ -67,44 +62,41 @@ Node* NodeFactorySet::createNode( std::string& nodeType,
 
 namespace NodeFactoriesManager {
 
-/*
- * TODO, replace static data by this when implementing an autoregistration mecanism
-// to prevent static intialization order
-static NodeFactorySet& s_factoryManager() {
-    static NodeFactorySet real_manager {};
-    return real_manager;
-};
-*/
-static NodeFactorySet s_factoryManager {};
-
-NodeFactorySet getFactoryManager() {
+/**
+ * \brief Allow static intialization without init order problems
+ * \return The manager singleton
+ */
+NodeFactorySet& getFactoryManager() {
+    static NodeFactorySet s_factoryManager {};
     return s_factoryManager;
 }
 
 bool registerFactory( NodeFactorySet::mapped_type factory ) {
+    auto& fctMngr    = getFactoryManager();
     auto factoryName = factory->getName();
-    return s_factoryManager.addFactory( std::move( factoryName ), std::move( factory ) );
+    return fctMngr.addFactory( std::move( factoryName ), std::move( factory ) );
 }
 
 NodeFactorySet::mapped_type getFactory( NodeFactorySet::key_type factoryName ) {
-    auto factory = s_factoryManager.find( factoryName );
-    if ( factory == s_factoryManager.end() ) { return nullptr; }
+    auto& fctMngr = getFactoryManager();
+    auto factory  = fctMngr.find( factoryName );
+    if ( factory == fctMngr.end() ) { return nullptr; }
     return factory->second;
 }
 
 bool unregisterFactory( NodeFactorySet::key_type factoryName ) {
-    return s_factoryManager.removeFactory( factoryName );
+    auto& fctMngr = getFactoryManager();
+    return fctMngr.removeFactory( factoryName );
 }
 
 NodeFactorySet::mapped_type getDataFlowBuiltInsFactory() {
+    auto& fctMngr = getFactoryManager();
+    auto i        = fctMngr.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
+    if ( i != fctMngr.end() ) { return i->second; }
 
-    auto i = s_factoryManager.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
-    if ( i != s_factoryManager.end() ) { return i->second; }
-
-    // TODO, replace this by an autoregistration mecanism
-    registerStandardFactories();
-    i = s_factoryManager.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
-    return i->second;
+    // Should never be there
+    std::cerr << "@&$&$@&$@&$ ERROR !!!!!! Core factory not registered\n";
+    std::abort();
 }
 
 } // namespace NodeFactoriesManager

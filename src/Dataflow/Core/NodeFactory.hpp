@@ -132,11 +132,6 @@ class RA_DATAFLOW_API NodeFactorySet
     using iterator       = container_type::iterator;
 
     /**
-     * Default constructor : Will initialize the FactorySet with the Dataflow::Core "default"
-     * factory
-     */
-    NodeFactorySet();
-    /**
      * Add a factory to the set of factories available
      * \param factoryname the name of the factory
      * \param factory the factory
@@ -207,7 +202,7 @@ namespace NodeFactoriesManager {
 /** Names of the system Builtins factories (automatically added to each graph) */
 extern const std::string dataFlowBuiltInsFactoryName;
 
-RA_DATAFLOW_API NodeFactorySet getFactoryManager();
+RA_DATAFLOW_API NodeFactorySet& getFactoryManager();
 
 /** Register a factory into the manager.
  * The key will be fetched from the factory (its name)
