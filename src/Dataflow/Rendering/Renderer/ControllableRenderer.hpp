@@ -12,7 +12,7 @@
 #include <Core/Resources/Resources.hpp>
 #include <Engine/Rendering/Renderer.hpp>
 
-#include <Dataflow/Rendering/Renderer/RenderingGraph.hpp>
+#include <Dataflow/Rendering/RenderingGraph.hpp>
 
 namespace globjects {
 class Framebuffer;

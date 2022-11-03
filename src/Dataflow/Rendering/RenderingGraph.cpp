@@ -1,4 +1,4 @@
-#include <Dataflow/Rendering/Renderer/RenderingGraph.hpp>
+#include <Dataflow/Rendering/RenderingGraph.hpp>
 
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
@@ -8,7 +8,6 @@ using namespace Ra::Engine::Rendering;
 namespace Ra {
 namespace Dataflow {
 namespace Rendering {
-namespace Renderer {
 using namespace Ra::Dataflow::Rendering::Nodes;
 using namespace Ra::Dataflow::Core;
 
@@ -70,7 +69,7 @@ void RenderingGraph::buildRenderTechnique( Ra::Engine::Rendering::RenderObject* 
     rt->updateGL();
     ro->setRenderTechnique( rt );
 }
-} // namespace Renderer
+
 } // namespace Rendering
 } // namespace Dataflow
 } // namespace Ra

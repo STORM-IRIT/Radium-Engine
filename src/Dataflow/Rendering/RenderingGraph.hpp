@@ -8,7 +8,7 @@
 namespace Ra {
 namespace Dataflow {
 namespace Rendering {
-namespace Renderer {
+
 using namespace Ra::Dataflow::Rendering::Nodes;
 using namespace Ra::Dataflow::Core;
 
