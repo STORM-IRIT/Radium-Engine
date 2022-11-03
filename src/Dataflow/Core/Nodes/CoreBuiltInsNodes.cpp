@@ -15,7 +15,6 @@ namespace NodeFactoriesManager {
 void registerStandardFactories() {
     NodeFactorySet::mapped_type coreFactory { new NodeFactorySet::mapped_type::element_type(
         NodeFactoriesManager::dataFlowBuiltInsFactoryName ) };
-
     /* --- Sources --- */
     Private::registerSourcesFactories( coreFactory );
 
@@ -34,3 +33,7 @@ void registerStandardFactories() {
 } // namespace Core
 } // namespace Dataflow
 } // namespace Ra
+
+DATAFLOW_LIBRARY_INITIALIZER( CoreNodes ) {
+    Ra::Dataflow::Core::NodeFactoriesManager::registerStandardFactories();
+}
