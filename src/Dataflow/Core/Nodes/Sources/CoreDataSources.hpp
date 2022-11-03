@@ -57,7 +57,7 @@ DECLARE_COREDATA_SOURCES( Vector4ui, Vector4ui );
 #define SPECIALIZE_EDITABLE_SOURCE( TYPE, NAME )                                             \
     template <>                                                                              \
     inline SingleDataSourceNode<TYPE>::SingleDataSourceNode( const std::string& name ) :     \
-        SingleDataSourceNode( name, SingleDataSourceNode<Scalar>::getTypename() ) {          \
+        SingleDataSourceNode( name, SingleDataSourceNode<TYPE>::getTypename() ) {            \
         setEditable( #NAME );                                                                \
     }                                                                                        \
                                                                                              \
@@ -85,7 +85,7 @@ SPECIALIZE_EDITABLE_SOURCE( unsigned int, value );
 template <>
 inline SingleDataSourceNode<Ra::Core::Utils::Color>::SingleDataSourceNode(
     const std::string& name ) :
-    SingleDataSourceNode( name, SingleDataSourceNode<Scalar>::getTypename() ) {
+    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Utils::Color>::getTypename() ) {
     setEditable( "color" );
 }
 
