@@ -10,7 +10,6 @@ namespace TypeInternal {
 RA_DATAFLOW_API std::string makeTypeReadable( std::string );
 }
 
-/// Return the human readable version of the type name T with simplified radium types
 template <typename T>
 const char* simplifiedDemangledType() noexcept {
     static auto demangled_name = []() {
@@ -19,6 +18,11 @@ const char* simplifiedDemangledType() noexcept {
         return demangledType;
     }();
     return demangled_name.data();
+}
+
+template <typename T>
+const char* simplifiedDemangledType( const T& ) noexcept {
+    return simplifiedDemangledType<T>();
 }
 
 } // namespace Core

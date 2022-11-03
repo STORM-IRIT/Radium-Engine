@@ -9,6 +9,10 @@ namespace Core {
 template <typename T>
 const char* simplifiedDemangledType() noexcept;
 
+/// \brief Return the human readable version of the type name T with simplified radium types
+template <typename T>
+const char* simplifiedDemangledType( const T& ) noexcept;
+
 } // namespace Core
 } // namespace Dataflow
 } // namespace Ra
