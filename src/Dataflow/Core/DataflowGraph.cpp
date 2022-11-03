@@ -123,7 +123,7 @@ bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
 bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
     if ( data.contains( "graph" ) ) {
         // indicate that the graph must be recompiled after loading
-        m_recompile = true;
+        m_ready = false;
         // load the graph
         m_factories.reset( new NodeFactorySet );
         addFactory( NodeFactoriesManager::getDataFlowBuiltInsFactory() );
@@ -282,6 +282,7 @@ bool DataflowGraph::removeNode( Node* node ) {
             }
         }
         m_nodes.erase( m_nodes.begin() + index );
+        m_ready = false;
         return true;
     }
 }
@@ -370,6 +371,7 @@ bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
     if ( found == -1 ) { return false; }
 
     node->getInputs()[found]->disconnect();
+    m_ready = false;
     return true;
 }
 
@@ -436,8 +438,7 @@ bool DataflowGraph::compile() {
             }
         }
     }
-    m_recompile = false;
-    m_ready     = true;
+    m_ready = true;
     init();
     return m_ready;
 }
