@@ -106,10 +106,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Deletes all nodes from the render graph.
     virtual void clearNodes();
 
-    /// Flag used to tell the renderer to recompile the rendergraph
-    bool m_recompile { false };
-
-    /// Flag set after rendergraph compilation checking if its state is right
+    /// Flag set after successful compilation indicating graph is ready to be executed
+    /// This flag is reset as soon as the graph is modified.
     bool m_ready { false };
 
     /// \brief Creates an output port connected to the named input port of the graph.

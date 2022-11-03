@@ -71,7 +71,7 @@ void MainWindow::about() {
 }
 
 void MainWindow::documentWasModified() {
-    setWindowModified( graph->m_recompile );
+    setWindowModified( !graph->m_ready );
 }
 
 void MainWindow::createActions() {

@@ -143,7 +143,6 @@ void NodeAdapterModel::setInData( std::shared_ptr<QtNodes::NodeData> data, int p
         m_inputsConnected[port] = false;
     }
     checkConnections();
-    m_dataflowGraph->m_recompile = true;
 }
 
 QtNodes::NodeDataType NodeAdapterModel::IOToDataType( size_t hashType,
@@ -167,7 +166,7 @@ void NodeAdapterModel::addMetaData( QJsonObject& json ) {
 }
 
 NodeAdapterModel::~NodeAdapterModel() {
-    if ( m_dataflowGraph->removeNode( m_node ) ) { m_dataflowGraph->m_recompile = true; }
+    m_dataflowGraph->removeNode( m_node );
 }
 
 QJsonObject NodeAdapterModel::save() const {
