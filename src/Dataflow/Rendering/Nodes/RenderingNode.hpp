@@ -62,8 +62,13 @@ class RA_DATAFLOW_API RenderingNode : public Dataflow::Core::Node,
     static const std::string getTypename() { return "RenderingNode"; }
 
   protected:
-    void toJsonInternal( nlohmann::json& ) const override {}
-    void fromJsonInternal( const nlohmann::json& ) override {}
+    void toJsonInternal( nlohmann::json& data ) const override {
+        Dataflow::Core::Node::toJsonInternal( data );
+    }
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        auto r = Dataflow::Core::Node::fromJsonInternal( data );
+        return r;
+    }
 
     /// The renderer's shader program manager
     Ra::Engine::Data::ShaderProgramManager* m_shaderMngr;

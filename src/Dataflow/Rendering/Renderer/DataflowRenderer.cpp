@@ -48,7 +48,7 @@ void DataflowRenderer::RenderGraphController::update( const Ra::Engine::Data::Vi
 
     if ( m_renderGraph && m_renderGraph->m_recompile ) {
         // compile the model
-        m_renderGraph->init();
+        m_renderGraph->compile();
         // notify the view the model changes
         notify();
         // notify the model the view may have changed
@@ -56,7 +56,7 @@ void DataflowRenderer::RenderGraphController::update( const Ra::Engine::Data::Vi
     }
 }
 
-void DataflowRenderer::RenderGraphController::loadGraph( const std::string filename ) {
+void DataflowRenderer::RenderGraphController::loadGraph( const std::string& filename ) {
     m_renderGraph.release();
     auto graphName = filename.substr( filename.find_last_of( '/' ) + 1 );
     m_renderGraph  = std::make_unique<RenderingGraph>( graphName );
@@ -65,11 +65,11 @@ void DataflowRenderer::RenderGraphController::loadGraph( const std::string filen
     notify();
 }
 
-void DataflowRenderer::RenderGraphController::defferedLoadGraph( const std::string filename ) {
+void DataflowRenderer::RenderGraphController::deferredLoadGraph( const std::string& filename ) {
     m_graphToLoad = filename;
 }
 
-void DataflowRenderer::RenderGraphController::saveGraph( const std::string filename ) {
+void DataflowRenderer::RenderGraphController::saveGraph( const std::string& filename ) {
     if ( m_renderGraph ) {
         auto graphName = filename.substr( filename.find_last_of( '/' ) + 1 );
         m_renderGraph->saveToJson( filename );
@@ -156,7 +156,7 @@ void DataflowRenderer::resizeInternal() {
     m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
 #ifdef PASSES_LOG
     if ( m_postprocessFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
-        LOG( Ra::Core::Utils::logERROR ) << "FBO Error (NodeBasedRenderer::m_postprocessFbo) : "
+        LOG( Ra::Core::Utils::logERROR ) << "FBO Error (DataflowRenderer::m_postprocessFbo) : "
                                          << m_postprocessFbo->statusString();
     }
 #endif
