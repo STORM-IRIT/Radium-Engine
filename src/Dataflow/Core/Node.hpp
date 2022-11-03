@@ -84,7 +84,10 @@ class RA_DATAFLOW_API Node
     const std::vector<std::unique_ptr<PortBase>>& getOutputs();
 
     /// \brief Build the interface ports of the node
-    const std::vector<PortBase*>& buildInterfaces( Node* parent );
+    /// Derived node can override the default implementation that build an interface port for each
+    /// input or output port (e.g. if several inputs have the same type T, make an interface that is
+    /// a vector of T*)
+    virtual const std::vector<PortBase*>& buildInterfaces( Node* parent );
 
     /// \brief Get the interface ports of the node
     const std::vector<PortBase*>& getInterfaces() const;
