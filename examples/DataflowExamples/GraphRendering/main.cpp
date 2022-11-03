@@ -6,7 +6,7 @@
 #include <Engine/Rendering/ForwardRenderer.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 
-#include <Dataflow/Rendering/Renderer/DataflowRenderer.hpp>
+#include <Dataflow/Rendering/Renderer/ControllableRenderer.hpp>
 
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindow.hpp>
@@ -23,7 +23,7 @@ using namespace Ra::Dataflow::Rendering::Renderer;
 using namespace Ra::Dataflow::Rendering;
 
 /**
- * SimpleWindow for demonstration
+ * Extending Ra::SimpleWindow with some menus for demonstration purpose
  */
 class DemoWindowFactory : public BaseApplication::WindowFactory
 {
@@ -110,33 +110,39 @@ class DemoWindowFactory : public BaseApplication::WindowFactory
 // Renderer controller
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
 
-class MyRendererController : public DataflowRenderer::RenderGraphController
+class MyRendererController : public RenderGraphController
 {
   public:
-    using DataflowRenderer::RenderGraphController::RenderGraphController;
+    using RenderGraphController::RenderGraphController;
+
     /// Configuration function.
     /// Called once at the configuration of the renderer
-    void configure( DataflowRenderer* renderer, int w, int h ) override {
+    /// If a graph should be loaded at configure time, it was set on the controller using
+    /// deferredLoadGraph(...) before configuring the renderer.
+    void configure( ControllableRenderer* renderer, int w, int h ) override {
         LOG( logINFO ) << "MyRendererController::configure";
-        DataflowRenderer::RenderGraphController::configure( renderer, w, h );
-        m_renderGraph = std::make_unique<RenderingGraph>( "Demonstration graph" );
-        m_renderGraph->setShaderProgramManager( m_shaderMngr );
-        auto sceneNode = new SceneNode( "Scene" );
-        m_renderGraph->addNode( sceneNode );
+        RenderGraphController::configure( renderer, w, h );
+        if ( m_renderGraph == nullptr ) {
+            // a graph was not given on the command line, build a simple one
+            m_renderGraph = std::make_unique<RenderingGraph>( "Demonstration graph" );
+            m_renderGraph->setShaderProgramManager( m_shaderMngr );
+            auto sceneNode = new SceneNode( "Scene" );
+            m_renderGraph->addNode( sceneNode );
+        }
     };
 
     /// Resize function
     /// Called each time the renderer is resized
     void resize( int w, int h ) override {
         LOG( logINFO ) << "MyRendererController::resize";
-        DataflowRenderer::RenderGraphController::resize( w, h );
+        RenderGraphController::resize( w, h );
     };
 
     /// Update function
     /// Called once before each frame to update the internal state of the renderer
     void update( const Ra::Engine::Data::ViewingParameters& renderData ) override {
         LOG( logINFO ) << "MyRendererController::update";
-        DataflowRenderer::RenderGraphController::update( renderData );
+        RenderGraphController::update( renderData );
     };
 
     [[nodiscard]] std::string getRendererName() const override { return "Custom Node Renderer"; }
@@ -180,7 +186,7 @@ int main( int argc, char* argv[] ) {
 
     MyRendererController graphController;
     if ( graphOption ) { graphController.deferredLoadGraph( *graphOption ); }
-    renderers.emplace_back( new DataflowRenderer( graphController ) );
+    renderers.emplace_back( new ControllableRenderer( graphController ) );
 
     app.initialize( DemoWindowFactory( renderers ) );
     app.setContinuousUpdate( false );
