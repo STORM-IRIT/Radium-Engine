@@ -28,7 +28,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ///////////////////////////////
-find_package(Radium REQUIRED COMPONENTS DataflowQtGui)
+find_package(Radium REQUIRED COMPONENTS Dataflow)
 
 # Qt utility functions
 include(QtFunctions)
@@ -52,6 +52,6 @@ add_executable(${PROJECT_NAME} ${app_sources})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC ${Qt_LIBRARIES} Radium::DataflowQtGui)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${Qt_LIBRARIES} Radium::Dataflow)
 
 configure_radium_app(NAME ${PROJECT_NAME})
