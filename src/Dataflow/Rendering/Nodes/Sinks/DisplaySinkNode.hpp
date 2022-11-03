@@ -22,7 +22,8 @@ class RA_DATAFLOW_API DisplaySinkNode
     explicit DisplaySinkNode( const std::string& name );
     ~DisplaySinkNode() override;
 
-    void execute() override;
+    bool execute() override;
+    void init() override;
 
     const std::vector<PortBase*>& buildInterfaces( Node* parent ) override;
 
@@ -36,6 +37,8 @@ class RA_DATAFLOW_API DisplaySinkNode
 
   private:
     std::vector<TextureType*> m_textures;
+
+    PortIn<TextureType>* m_beautyTex { new PortIn<TextureType>( "Beauty", this ) };
 
     // the observer method
     void

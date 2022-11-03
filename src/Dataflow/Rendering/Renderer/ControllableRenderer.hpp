@@ -224,6 +224,8 @@ class RA_DATAFLOW_API RenderGraphController : public ControllableRenderer::Rende
     mutable std::vector<TextureType*> m_images;
 
     std::string m_graphToLoad;
+
+    void compile( bool notifyObservers = false ) const;
 };
 
 } // namespace Renderer

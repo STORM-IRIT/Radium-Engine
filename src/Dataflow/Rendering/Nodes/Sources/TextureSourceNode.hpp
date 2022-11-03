@@ -18,7 +18,7 @@ class RA_DATAFLOW_API TextureSourceNode : public RenderingNode
     TextureSourceNode( const std::string& instanceName,
                        const Ra::Engine::Data::TextureParameters& texParams );
 
-    void execute() override;
+    bool execute() override;
     void destroy() override;
 
     void resize( uint32_t width, uint32_t height ) override;
@@ -32,6 +32,8 @@ class RA_DATAFLOW_API TextureSourceNode : public RenderingNode
   private:
     // TODO : editable parameter for TextureParameters ?
     Ra::Engine::Data::Texture* m_texture { nullptr };
+
+    PortOut<TextureType>* m_portOut { new PortOut<TextureType>( "texture", this ) };
 };
 
 class RA_DATAFLOW_API ColorTextureNode : public TextureSourceNode

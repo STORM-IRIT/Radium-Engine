@@ -175,34 +175,33 @@ void RenderGraphController::resize( int w, int h ) {
     if ( m_renderGraph ) { m_renderGraph->resize( m_width, m_height ); }
 }
 
-void RenderGraphController::update( const Ra::Engine::Data::ViewingParameters& ) {
-    if ( m_renderGraph && !m_renderGraph->m_ready ) {
+void RenderGraphController::compile( bool notifyObservers ) const {
+    if ( !m_renderGraph->m_ready ) {
         // compile the model
         m_renderGraph->compile();
         // notify the view the model changes
-        notify();
+        if ( notifyObservers ) { notify(); }
         // notify the model the view may have changed
         m_renderGraph->resize( m_width, m_height );
-
         // fetch the data setters and getters from the graph
         m_renderGraphInputs  = m_renderGraph->getAllDataSetters();
         m_renderGraphOutputs = m_renderGraph->getAllDataGetters();
     }
 }
+void RenderGraphController::update( const Ra::Engine::Data::ViewingParameters& ) {
+    if ( m_renderGraph ) {
+        // Compile and notify the observers in case of state change.
+        compile( true );
+    }
+}
 
 bool RenderGraphController::buildRenderTechnique( Ra::Engine::Rendering::RenderObject* ro ) const {
     if ( m_renderGraph ) {
-        if ( !m_renderGraph->m_ready ) {
-            m_renderGraph->compile();
-            m_renderGraph->resize( m_width, m_height );
-            // fetch the data setters and getters from the graph
-            m_renderGraphInputs  = m_renderGraph->getAllDataSetters();
-            m_renderGraphOutputs = m_renderGraph->getAllDataGetters();
-        }
-        if ( m_renderGraph->m_ready ) {
-            m_renderGraph->buildRenderTechnique( ro );
-            return true;
-        }
+        // Only the first call of compile will effectively compile the graph
+        // do not notify observers here
+        compile();
+        m_renderGraph->buildRenderTechnique( ro );
+        return true;
     }
     return false;
 }
@@ -226,12 +225,25 @@ RenderGraphController::render( std::vector<RenderObjectPtrType>* ros,
 
         // get output
         // expect it is sufficient
-        m_images.reserve( m_renderGraphOutputs.size() * 4 );
+        m_images.reserve( m_renderGraphOutputs.size() * 9 );
         for ( const auto& [ptr, name, type] : m_renderGraphOutputs ) {
-            auto tex = ptr->getData<TextureType*>();
-            if ( tex != nullptr ) { m_images.push_back( tex ); }
+            if ( ptr->getTypeName() == simplifiedDemangledType<TextureType*>() ) {
+                // Try a simple texture
+                auto tex = ptr->getData<TextureType*>();
+                if ( tex != nullptr ) { m_images.push_back( tex ); }
+                continue;
+            }
+            if ( ptr->getTypeName() == simplifiedDemangledType<std::vector<TextureType*>>() ) {
+                // Try a texture vector
+                const auto& texv = ptr->getData<std::vector<TextureType*>>();
+                for ( auto t : texv ) {
+                    if ( t != nullptr ) { m_images.push_back( t ); }
+                }
+                continue;
+            }
+            LOG( Ra::Core::Utils::logWARNING ) << "Fetching from " << ptr->getName() << " ("
+                                               << ptr->getTypeName() << ") : type not supported !";
         }
-        LOG( Ra::Core::Utils::logINFO ) << " Graph executed. Got " << m_images.size() << " images!";
     }
     else {
         LOG( Ra::Core::Utils::logWARNING ) << " Graph not compiled : no images generated!";

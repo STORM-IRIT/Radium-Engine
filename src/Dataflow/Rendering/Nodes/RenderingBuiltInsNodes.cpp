@@ -3,6 +3,9 @@
 #include <Dataflow/Rendering/Nodes/Sinks/DisplaySinkNode.hpp>
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
 #include <Dataflow/Rendering/Nodes/Sources/TextureSourceNode.hpp>
+
+#include <Dataflow/Rendering/Nodes/RenderNodes/ClearColorNode.hpp>
+
 #include <Dataflow/Rendering/RenderingGraph.hpp>
 
 namespace Ra {
@@ -25,6 +28,8 @@ void registerRenderingNodesFactories() {
         Nodes::DisplaySinkNode::getTypename() + "_", "Sinks" );
 
     /* --- operators --- */
+    renderingFactory->registerNodeCreator<Nodes::ClearColorNode>(
+        Nodes::ClearColorNode::getTypename() + "_", "Render" );
 
     /* --- Graphs --- */
     renderingFactory->registerNodeCreator<RenderingGraph>( RenderingGraph::getTypename() + "_",

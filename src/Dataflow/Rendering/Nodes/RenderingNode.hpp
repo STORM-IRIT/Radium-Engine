@@ -62,10 +62,10 @@ class RA_DATAFLOW_API RenderingNode : public Dataflow::Core::Node,
     static const std::string getTypename() { return "RenderingNode"; }
 
   protected:
-    void toJsonInternal( nlohmann::json& data ) const override {
+    void toJsonInternal( nlohmann::json& ) const override {
         //       Dataflow::Core::Node::toJsonInternal( data );
     }
-    bool fromJsonInternal( const nlohmann::json& data ) override {
+    bool fromJsonInternal( const nlohmann::json& ) override {
         /*
         auto r = Dataflow::Core::Node::fromJsonInternal( data );
         return r;

@@ -14,16 +14,14 @@ TextureSourceNode::TextureSourceNode( const std::string& instanceName,
                                       const Ra::Engine::Data::TextureParameters& texParams ) :
     RenderingNode( instanceName, typeName ) {
     if ( !m_texture ) { m_texture = new Ra::Engine::Data::Texture( texParams ); }
-
-    auto portOut = new PortOut<TextureType>( "texture", this );
-    addOutput( portOut, m_texture );
+    addOutput( m_portOut, m_texture );
 }
 
-void TextureSourceNode::execute() {
+bool TextureSourceNode::execute() {
     auto interface = static_cast<PortIn<TextureType>*>( m_interface[0] );
-    auto output    = static_cast<PortOut<TextureType>*>( m_outputs[0].get() );
     if ( interface->isLinked() ) { m_texture = &interface->getData(); }
-    output->setData( m_texture );
+    m_portOut->setData( m_texture );
+    return true;
 }
 
 void TextureSourceNode::destroy() {
