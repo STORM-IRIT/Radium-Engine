@@ -108,8 +108,10 @@ class DemoWindowFactory : public BaseApplication::WindowFactory
 };
 /* ----------------------------------------------------------------------------------- */
 // Renderer controller
+#include <Dataflow/Rendering/Nodes/RenderNodes/ClearColorNode.hpp>
 #include <Dataflow/Rendering/Nodes/Sinks/DisplaySinkNode.hpp>
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
+#include <Dataflow/Rendering/Nodes/Sources/TextureSourceNode.hpp>
 
 class MyRendererController : public RenderGraphController
 {
@@ -192,8 +194,21 @@ class MyRendererController : public RenderGraphController
             m_renderGraph->addNode( sceneNode );
             auto resultNode = new DisplaySinkNode( "Images" );
             m_renderGraph->addNode( resultNode );
+            auto textureSource = new ColorTextureNode( "Beauty" );
+            m_renderGraph->addNode( textureSource );
+            auto clearNode = new ClearColorNode( " Clear" );
+            m_renderGraph->addNode( clearNode );
+
+            bool linksOK = true;
+            linksOK      = m_renderGraph->addLink(
+                textureSource, "texture", clearNode, "colorTextureToClear" );
+            linksOK = linksOK && m_renderGraph->addLink( clearNode, "image", resultNode, "Beauty" );
 
             inspectGraph( *m_renderGraph );
+
+            // force recompilation and introspection of the graph by the renderer
+            m_renderGraph->m_ready = false;
+            notify();
         }
     };
 
