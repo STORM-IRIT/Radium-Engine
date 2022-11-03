@@ -23,11 +23,11 @@ namespace Nodes {
  *
  */
 
-using RenderObjectType = std::shared_ptr<Ra::Engine::Rendering::RenderObject>;
-using LightType        = const Ra::Engine::Scene::Light*;
-using CameraType       = Ra::Engine::Data::ViewingParameters;
-using ColorType        = Ra::Core::Utils::Color;
-using TextureType      = Ra::Engine::Data::Texture;
+using RenderObjectPtrType = std::shared_ptr<Ra::Engine::Rendering::RenderObject>;
+using LightPtrType        = const Ra::Engine::Scene::Light*;
+using CameraType          = Ra::Engine::Data::ViewingParameters;
+using ColorType           = Ra::Core::Utils::Color;
+using TextureType         = Ra::Engine::Data::Texture;
 
 /**
  * Base class for Rendering nodes.
@@ -51,7 +51,7 @@ class RA_DATAFLOW_API RenderingNode : public Dataflow::Core::Node,
     virtual void buildRenderTechnique( const Ra::Engine::Rendering::RenderObject*,
                                        Ra::Engine::Rendering::RenderTechnique& ) const {};
 
-    /// Indicate if the nod needs to setup a rendertechnique on RenderObjects
+    /// Indicate if the node needs to setup a rendertechnique on RenderObjects
     virtual bool hasRenderTechnique() { return false; }
 
     /// Sets the shader program manager

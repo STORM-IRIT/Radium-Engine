@@ -46,7 +46,7 @@ void DataflowRenderer::RenderGraphController::resize( int w, int h ) {
 
 void DataflowRenderer::RenderGraphController::update( const Ra::Engine::Data::ViewingParameters& ) {
 
-    if ( m_renderGraph && m_renderGraph->m_recompile ) {
+    if ( m_renderGraph && !m_renderGraph->m_ready ) {
         // compile the model
         m_renderGraph->compile();
         // notify the view the model changes
@@ -100,14 +100,14 @@ void DataflowRenderer::graphChanged() {
 
 bool DataflowRenderer::buildRenderTechnique( Ra::Engine::Rendering::RenderObject* ro ) const {
     if ( m_controller.m_renderGraph ) {
-        if ( m_controller.m_renderGraph->m_recompile ) {
-            m_controller.m_renderGraph->init();
+        if ( !m_controller.m_renderGraph->m_ready ) { m_controller.m_renderGraph->compile(); }
+        if ( m_controller.m_renderGraph->m_ready ) {
             m_controller.resize( m_width, m_height );
+            m_controller.m_renderGraph->buildRenderTechnique( ro );
+            return true;
         }
-        m_controller.m_renderGraph->buildRenderTechnique( ro );
-        return true;
     }
-    else { return false; }
+    return false;
 }
 
 void DataflowRenderer::initResources() {
@@ -192,15 +192,13 @@ void DataflowRenderer::renderInternal( const Ra::Engine::Data::ViewingParameters
     if ( m_controller.m_renderGraph && m_controller.m_renderGraph->m_ready ) {
         // Cameras
         // set input data
-        m_cameras.clear();
-        m_cameras.push_back( renderData );
-        m_controller.m_renderGraph->setCameras( &m_cameras );
+        m_controller.m_renderGraph->setCameras( &renderData );
         // execute the graph
         m_controller.m_renderGraph->execute();
         // TODO : get all the resulting images (not only the "Beauty" channel
         const auto& images = m_controller.m_renderGraph->getImagesOutput();
         // The first image is the "beauty" channel, set the color texture to this
-        m_colorTexture = images[0];
+        m_colorTexture = nullptr; // images[0];
     }
     else { m_colorTexture = nullptr; }
 }

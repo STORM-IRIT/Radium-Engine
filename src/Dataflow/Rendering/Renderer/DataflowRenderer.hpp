@@ -93,10 +93,12 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
         /// The controller own the graph and manage loading/saving of the renderer
         std::unique_ptr<RenderingGraph> m_renderGraph { nullptr };
 
+      protected:
+        Ra::Engine::Data::ShaderProgramManager* m_shaderMngr;
+
       private:
         int m_width { -1 };
         int m_height { -1 };
-        Ra::Engine::Data::ShaderProgramManager* m_shaderMngr;
         std::string m_graphToLoad;
     };
 
@@ -191,9 +193,6 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
 
     /// Vector of lights ...
     std::vector<const Ra::Engine::Scene::Light*> m_lights;
-
-    /// Vector of camera
-    std::vector<Ra::Engine::Data::ViewingParameters> m_cameras;
 };
 
 } // namespace Renderer

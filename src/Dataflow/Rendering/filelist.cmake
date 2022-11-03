@@ -5,5 +5,5 @@
 set(dataflow_rendering_sources Renderer/DataflowRenderer.cpp Renderer/RenderingGraph.cpp)
 
 set(dataflow_rendering_headers Nodes/RenderingNode.hpp Renderer/DataflowRenderer.hpp
-                               Renderer/RenderingGraph.hpp
+                               Renderer/RenderingGraph.hpp Nodes/Sources/Scene.hpp
 )

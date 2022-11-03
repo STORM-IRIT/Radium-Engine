@@ -32,76 +32,28 @@ bool RenderingGraph::removeNode( Node* node ) {
     return removed;
 }
 
-/*
-bool RenderingGraph::postCompilationOperation() {
-#if 0
+bool RenderingGraph::compile() {
     m_renderingNodes.clear();
     m_rtIndexedNodes.clear();
-    m_dataProviders.clear();
-    if ( m_displaySinkNode && m_displayObserverId != -1 ) {
-        m_displaySinkNode->detach( m_displayObserverId );
-        m_displayObserverId = -1;
-        m_displaySinkNode   = nullptr;
-    }
-    const auto& compiledNodes = getNodesByLevel();
-    int idx                   = 1; // The renderTechnique id = 0 is reserved for ui/debug objects
-    for ( const auto& lvl : *compiledNodes ) {
-        for ( auto n : lvl ) {
-            auto renderNode = dynamic_cast<RenderingNode*>( n );
-            if ( renderNode != nullptr ) {
-                m_renderingNodes.push_back( renderNode );
-                if ( renderNode->hasRenderTechnique() ) {
-                    renderNode->setIndex( idx++ );
-                    m_rtIndexedNodes.push_back( renderNode );
-                }
-                renderNode->setShaderProgramManager( m_shaderMngr );
-            }
-            else {
-                auto sceneNode = dynamic_cast<SceneNode*>( n );
-                if ( sceneNode ) { m_dataProviders.push_back( sceneNode ); }
-                else {
-                    // Manage all sinks ...
-                    auto displaySink = dynamic_cast<DisplaySinkNode*>( n );
-                    if ( displaySink ) {
-                        m_displaySinkNode = displaySink;
-                        // observe the displaySink
-                        m_displayObserverId =
-                            displaySink->attachMember( this, &RenderingGraph::observeSinks );
+    auto compiled = DataflowGraph::compile();
+    if ( compiled ) {
+        const auto& compiledNodes = getNodesByLevel();
+        int idx = 1; // The renderTechnique id = 0 is reserved for ui/debug objects
+        for ( const auto& lvl : *compiledNodes ) {
+            for ( auto n : lvl ) {
+                auto renderNode = dynamic_cast<RenderingNode*>( n );
+                if ( renderNode != nullptr ) {
+                    m_renderingNodes.push_back( renderNode );
+                    if ( renderNode->hasRenderTechnique() ) {
+                        renderNode->setIndex( idx++ );
+                        m_rtIndexedNodes.push_back( renderNode );
                     }
+                    renderNode->setShaderProgramManager( m_shaderMngr );
                 }
             }
         }
     }
-#if 0
-    std::cout << "RenderingGraph::postCompilationOperation : got " <<
-                 m_renderingNodes.size() << " compiled rendering nodes with " <<
-                 m_rtIndexedNodes.size() << " render-passes, "  <<
-                 m_dataProviders.size() << " scene nodes. \n";
-#endif
-#endif
-return true;
-}
-*/
-#if 0
-void RenderingGraph::observeSinks( const std::vector<TextureType*>& graphOutput ) {
-    m_outputTextures = graphOutput;
-    /*
-    std::cout << "Available output textures are :" << std::endl;
-    int i = 0;
-    for (auto t : m_outputTextures ) {
-        std::cout << "\t tex " << i++ << " : ";
-        if (t) {
-            std::cout << t->getName() << std::endl;
-        } else {
-            std::cout << "nullptr" << std::endl;
-        }
-    }
-    */
-}
-#endif
-
-const std::vector<TextureType*>& RenderingGraph::getImagesOutput() const {
-    return m_outputTextures;
+    return compiled;
 }
 
 void RenderingGraph::clearNodes() {

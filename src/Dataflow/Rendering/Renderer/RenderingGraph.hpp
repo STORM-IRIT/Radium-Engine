@@ -28,6 +28,8 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     bool removeNode( Node* node ) override;
     void clearNodes() override;
 
+    bool compile() override;
+
     /// Sets the shader program manager
     void setShaderProgramManager( Ra::Engine::Data::ShaderProgramManager* shaderMngr ) {
         m_shaderMngr = shaderMngr;
@@ -37,9 +39,9 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     void resize( uint32_t width, uint32_t height );
 
     /// Set the scene accessors on the graph
-    void setDataSources( std::vector<RenderObjectType>* ros, std::vector<LightType>* lights );
+    void setDataSources( std::vector<RenderObjectPtrType>* ros, std::vector<LightPtrType>* lights );
     /// Set the viewpoint on the graph
-    void setCameras( std::vector<CameraType>* cameras );
+    void setCameras( const CameraType* cameras );
 
     /// get the computed texture vector
     const std::vector<TextureType*>& getImagesOutput() const;
@@ -59,17 +61,7 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     /// List of nodes that requires some particular processing
     std::vector<RenderingNode*> m_renderingNodes; // to resize
     std::vector<RenderingNode*> m_rtIndexedNodes; // associate an index and buildRenderTechnique
-#if 0
-    /// List of nodes that serve as data provider
-    std::vector<SceneNode*> m_dataProviders;
 
-    // DisplaySink observerMethod : right now, observe only displaySink node
-    void observeSinks( const std::vector<TextureType*>& graphOutput );
-    /// The display sink node used to get rendered images
-    DisplaySinkNode* m_displaySinkNode { nullptr };
-#endif
-    /// ObserverId for displaySink;
-    int m_displayObserverId { -1 };
     std::vector<TextureType*> m_outputTextures;
 };
 
