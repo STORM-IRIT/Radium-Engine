@@ -20,6 +20,7 @@ using namespace Ra::Core::Utils;
 using namespace Ra::Engine;
 using namespace Ra::Gui;
 using namespace Ra::Dataflow::Rendering::Renderer;
+using namespace Ra::Dataflow::Rendering;
 
 /**
  * SimpleWindow for demonstration
@@ -107,6 +108,8 @@ class DemoWindowFactory : public BaseApplication::WindowFactory
 };
 /* ----------------------------------------------------------------------------------- */
 // Renderer controller
+#include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
+
 class MyRendererController : public DataflowRenderer::RenderGraphController
 {
   public:
@@ -116,6 +119,10 @@ class MyRendererController : public DataflowRenderer::RenderGraphController
     void configure( DataflowRenderer* renderer, int w, int h ) override {
         LOG( logINFO ) << "MyRendererController::configure";
         DataflowRenderer::RenderGraphController::configure( renderer, w, h );
+        m_renderGraph = std::make_unique<RenderingGraph>( "Demonstration graph" );
+        m_renderGraph->setShaderProgramManager( m_shaderMngr );
+        auto sceneNode = new SceneNode( "Scene" );
+        m_renderGraph->addNode( sceneNode );
     };
 
     /// Resize function
