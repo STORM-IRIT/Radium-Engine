@@ -58,20 +58,22 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
 
   public:
     /**
-     * RenderGraph controller
+     * Renderer controller
      */
-    struct RA_DATAFLOW_API RenderGraphController : Ra::Core::Resources::ObservableVoid {
+    class RA_DATAFLOW_API RendererController : public Ra::Core::Resources::ObservableVoid
+    {
 
-        RenderGraphController();
-        virtual ~RenderGraphController()                                 = default;
-        RenderGraphController( const RenderGraphController& )            = delete;
-        RenderGraphController( const RenderGraphController&& )           = delete;
-        RenderGraphController& operator=( RenderGraphController&& )      = delete;
-        RenderGraphController& operator=( const RenderGraphController& ) = delete;
+      public:
+        RendererController();
+        virtual ~RendererController()                    = default;
+        RendererController( const RendererController& )  = delete;
+        RendererController( const RendererController&& ) = delete;
+        RendererController& operator=( RendererController&& ) = delete;
+        RendererController& operator=( const RendererController& ) = delete;
 
         /// Configuration function.
         /// Called once at the configuration of the renderer
-        virtual void configure( DataflowRenderer* renderer, int w, int h );
+        virtual void configure( ControllableRenderer* renderer, int w, int h );
 
         /// Resize function
         /// Called each time the renderer is resized
@@ -79,34 +81,35 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
 
         /// Update function
         /// Called once before each frame to update the internal state of the renderer
-        virtual void update( const Ra::Engine::Data::ViewingParameters& renderData );
+        virtual void update( const Ra::Engine::Data::ViewingParameters& renderData ) = 0;
 
-        [[nodiscard]] virtual std::string getRendererName() const { return "Node Renderer"; }
+        /// RenderTechnique builder
+        /// Called each time the render techniques should be built (aftre switching from renderer,
+        /// loading a scene, ...).
+        virtual bool buildRenderTechnique( Ra::Engine::Rendering::RenderObject* ro ) const = 0;
 
-        void loadGraph( const std::string& filename );
-        void saveGraph( const std::string& filename );
-        void resetGraph();
-        /// Call this to set a graph to load before OpenGL is OK
-        void deferredLoadGraph( const std::string& filename );
+        /// Render the given scene
+        /// \return true if rendering output is available
+        virtual bool render( std::vector<RenderObjectPtrType>* ros,
+                             std::vector<LightPtrType>* lights,
+                             const CameraType* cameras ) const = 0;
 
-        /// The controlled graph.
-        /// The controller own the graph and manage loading/saving of the renderer
-        std::unique_ptr<RenderingGraph> m_renderGraph { nullptr };
+        [[nodiscard]] virtual std::string getRendererName() const {
+            return "Base RendererController";
+        }
 
       protected:
+        ControllableRenderer* m_attachedRenderer;
         Ra::Engine::Data::ShaderProgramManager* m_shaderMngr;
-
-      private:
         int m_width { -1 };
         int m_height { -1 };
-        std::string m_graphToLoad;
     };
 
     /// Construct a renderer configured and managed through the controller
-    explicit DataflowRenderer( RenderGraphController& controller );
+    explicit ControllableRenderer( RendererController& controller );
 
     /// The destructor is used to destroy the render graph
-    ~DataflowRenderer() override;
+    ~ControllableRenderer() override;
 
     [[nodiscard]] std::string getRendererName() const override { return m_name; }
 
@@ -116,33 +119,7 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
     Ra::Engine::Scene::LightManager* getLightManager() { return m_lightmanagers[0]; }
 
     /// Access the controller
-    RenderGraphController& getController() { return m_controller; }
-
-    /// Sets the display sink node
-    // void setDisplayNode( DisplaySinkNode* displayNode );
-
-    /// Loads the render graph from a Json file.
-    // void loadFromJson( const std::string& jsonFilePath );
-
-    /// Gets the Json file path
-    // const std::string& getJsonFilePath() { return m_jsonFilePath; }
-
-    /// Sets the Json file path
-    // void setJsonFilePath( const std::string& jsonFilePath ) { m_jsonFilePath = jsonFilePath; }
-
-    /// Reloads the render graph
-    // void compileRenderGraph();
-
-    /// Reloads the render graph according to the current Json file
-    // void reloadRenderGraphFromJson();
-
-    /// Raises the flag to reload the Json
-    /*
-    void signalReloadJson( bool resetPath = false ) {
-        m_reloadJson = true;
-        m_resetPath  = resetPath;
-    }
-    */
+    RendererController& getController() { return m_controller; }
 
   protected:
     void initializeInternal() override;
@@ -171,10 +148,10 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
     inline std::vector<const Ra::Engine::Scene::Light*>* getLights() { return &m_lights; }
 
   private:
-    /// Controler observer method
-    void graphChanged();
+    /// Controller observer method
+    void controllerStateChanged();
 
-    bool m_graphChanged { false };
+    bool m_controllerStateChanged { false };
 
     /// textures own by the Renderer but shared across passes
     std::map<std::string, std::shared_ptr<Ra::Engine::Data::Texture>> m_sharedTextures;
@@ -183,7 +160,7 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
     std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
 
     /// The configurator functor to use
-    RenderGraphController& m_controller;
+    RendererController& m_controller;
 
     /// The name of the renderer
     std::string m_name { "RenderGraph renderer" };
@@ -193,6 +170,58 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
 
     /// Vector of lights ...
     std::vector<const Ra::Engine::Scene::Light*> m_lights;
+};
+
+/**
+ * RenderGraph controller
+ */
+class RA_DATAFLOW_API RenderGraphController : public ControllableRenderer::RendererController
+{
+
+  public:
+    RenderGraphController();
+    virtual ~RenderGraphController()                       = default;
+    RenderGraphController( const RenderGraphController& )  = delete;
+    RenderGraphController( const RenderGraphController&& ) = delete;
+    RenderGraphController& operator=( RenderGraphController&& ) = delete;
+    RenderGraphController& operator=( const RenderGraphController& ) = delete;
+
+    /// Configuration function.
+    /// Called once at the configuration of the renderer
+    void configure( ControllableRenderer* renderer, int w, int h ) override;
+
+    /// Resize function
+    /// Called each time the renderer is resized
+    void resize( int w, int h ) override;
+
+    /// Update function
+    /// Called once before each frame to update the internal state of the renderer
+    void update( const Ra::Engine::Data::ViewingParameters& renderData ) override;
+
+    /// RenderTechnique builder
+    /// Called each time the render techniques should be built.
+    bool buildRenderTechnique( Ra::Engine::Rendering::RenderObject* ro ) const override;
+
+    bool render( std::vector<RenderObjectPtrType>* ros,
+                 std::vector<LightPtrType>* lights,
+                 const CameraType* cameras ) const override;
+
+    [[nodiscard]] std::string getRendererName() const override { return "Node Renderer"; }
+
+    void loadGraph( const std::string& filename );
+    void saveGraph( const std::string& filename );
+    void resetGraph();
+    /// Call this to set a graph to load before OpenGL is OK
+    void deferredLoadGraph( const std::string& filename );
+
+  protected:
+    /// The controlled graph.
+    /// The controller own the graph and manage loading/saving of the renderer
+    std::unique_ptr<RenderingGraph> m_renderGraph { nullptr };
+    mutable std::vector<RenderingGraph::DataSetterDesc> m_renderGraphInputs;
+    mutable std::vector<RenderingGraph::DataGetterDesc> m_renderGraphOutputs;
+
+    std::string m_graphToLoad;
 };
 
 } // namespace Renderer

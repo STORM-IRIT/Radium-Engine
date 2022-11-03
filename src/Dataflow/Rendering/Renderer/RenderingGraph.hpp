@@ -5,11 +5,6 @@
 
 #include <Dataflow/Rendering/Nodes/RenderingNode.hpp>
 
-#if 0
-#    include <RadiumRenderNodes/Nodes/Scene/SceneNode.hpp>
-#    include <RadiumRenderNodes/Nodes/Sinks/DisplaySinkNode.hpp>
-#endif
-
 namespace Ra {
 namespace Dataflow {
 namespace Rendering {
@@ -23,11 +18,14 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     explicit RenderingGraph( const std::string& name );
     ~RenderingGraph() override = default;
 
+    // Remove the 3 following methods if there is no need to specialize
     void init() override;
     bool addNode( Node* newNode ) override;
     bool removeNode( Node* node ) override;
-    void clearNodes() override;
 
+    // These methods are specialized to identify rendering nodes (and those who needs
+    // rendertechnique)
+    void clearNodes() override;
     bool compile() override;
 
     /// Sets the shader program manager
@@ -37,14 +35,6 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
 
     /// Resize all the rendering output
     void resize( uint32_t width, uint32_t height );
-
-    /// Set the scene accessors on the graph
-    void setDataSources( std::vector<RenderObjectPtrType>* ros, std::vector<LightPtrType>* lights );
-    /// Set the viewpoint on the graph
-    void setCameras( const CameraType* cameras );
-
-    /// get the computed texture vector
-    const std::vector<TextureType*>& getImagesOutput() const;
 
     /// Set render techniques needed by the rendering nodes
     void buildRenderTechnique( Ra::Engine::Rendering::RenderObject* ro ) const;
@@ -61,8 +51,6 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     /// List of nodes that requires some particular processing
     std::vector<RenderingNode*> m_renderingNodes; // to resize
     std::vector<RenderingNode*> m_rtIndexedNodes; // associate an index and buildRenderTechnique
-
-    std::vector<TextureType*> m_outputTextures;
 };
 
 inline RenderingGraph::RenderingGraph( const std::string& name ) :
