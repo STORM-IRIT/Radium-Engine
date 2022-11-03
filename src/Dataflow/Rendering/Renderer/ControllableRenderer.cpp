@@ -120,8 +120,9 @@ void ControllableRenderer::updateStepInternal(
 
 void ControllableRenderer::renderInternal( const Ra::Engine::Data::ViewingParameters& renderData ) {
 
-    if ( m_controller.render( allRenderObjects(), getLights(), &renderData ) ) {
-        m_colorTexture = nullptr; // TODO fetch the images from the controler
+    const auto& renderings = m_controller.render( allRenderObjects(), getLights(), &renderData );
+    if ( renderings.size() > 0 ) {
+        m_colorTexture = renderings[0]; // allow to select which image to fetch
     }
     else {
         m_colorTexture = nullptr;
@@ -206,10 +207,12 @@ bool RenderGraphController::buildRenderTechnique( Ra::Engine::Rendering::RenderO
     return false;
 }
 
-bool RenderGraphController::render( std::vector<RenderObjectPtrType>* ros,
-                                    std::vector<LightPtrType>* lights,
-                                    const CameraType* cameras ) const {
-    // TODO, replace this kind of test by a call to a controller method
+const std::vector<TextureType*>&
+RenderGraphController::render( std::vector<RenderObjectPtrType>* ros,
+                               std::vector<LightPtrType>* lights,
+                               const CameraType* cameras ) const {
+    m_images.clear();
+    m_images.shrink_to_fit();
     if ( m_renderGraph && m_renderGraph->m_ready ) {
         // set input data
         for ( const auto& [ptr, name, type] : m_renderGraphInputs ) {
@@ -222,12 +225,18 @@ bool RenderGraphController::render( std::vector<RenderObjectPtrType>* ros,
         m_renderGraph->execute();
 
         // get output
-        // TODO : get all the resulting images (not only the "Beauty" channel
-        return true;
+        // expect it is sufficient
+        m_images.reserve( m_renderGraphOutputs.size() * 4 );
+        for ( const auto& [ptr, name, type] : m_renderGraphOutputs ) {
+            auto tex = ptr->getData<TextureType*>();
+            if ( tex != nullptr ) { m_images.push_back( tex ); }
+        }
+        LOG( Ra::Core::Utils::logINFO ) << " Graph executed. Got " << m_images.size() << " images!";
     }
     else {
-        return false;
+        LOG( Ra::Core::Utils::logWARNING ) << " Graph not compiled : no images generated!";
     }
+    return m_images;
 }
 
 void RenderGraphController::loadGraph( const std::string& filename ) {

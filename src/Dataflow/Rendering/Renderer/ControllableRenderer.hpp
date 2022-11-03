@@ -90,9 +90,9 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
 
         /// Render the given scene
         /// \return true if rendering output is available
-        virtual bool render( std::vector<RenderObjectPtrType>* ros,
-                             std::vector<LightPtrType>* lights,
-                             const CameraType* cameras ) const = 0;
+        virtual const std::vector<TextureType*>& render( std::vector<RenderObjectPtrType>* ros,
+                                                         std::vector<LightPtrType>* lights,
+                                                         const CameraType* cameras ) const = 0;
 
         [[nodiscard]] virtual std::string getRendererName() const {
             return "Base RendererController";
@@ -202,9 +202,9 @@ class RA_DATAFLOW_API RenderGraphController : public ControllableRenderer::Rende
     /// Called each time the render techniques should be built.
     bool buildRenderTechnique( Ra::Engine::Rendering::RenderObject* ro ) const override;
 
-    bool render( std::vector<RenderObjectPtrType>* ros,
-                 std::vector<LightPtrType>* lights,
-                 const CameraType* cameras ) const override;
+    const std::vector<TextureType*>& render( std::vector<RenderObjectPtrType>* ros,
+                                             std::vector<LightPtrType>* lights,
+                                             const CameraType* cameras ) const override;
 
     [[nodiscard]] std::string getRendererName() const override { return "Node Renderer"; }
 
@@ -218,8 +218,10 @@ class RA_DATAFLOW_API RenderGraphController : public ControllableRenderer::Rende
     /// The controlled graph.
     /// The controller own the graph and manage loading/saving of the renderer
     std::unique_ptr<RenderingGraph> m_renderGraph { nullptr };
+
     mutable std::vector<RenderingGraph::DataSetterDesc> m_renderGraphInputs;
     mutable std::vector<RenderingGraph::DataGetterDesc> m_renderGraphOutputs;
+    mutable std::vector<TextureType*> m_images;
 
     std::string m_graphToLoad;
 };

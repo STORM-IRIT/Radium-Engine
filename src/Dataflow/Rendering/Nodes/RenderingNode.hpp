@@ -63,11 +63,14 @@ class RA_DATAFLOW_API RenderingNode : public Dataflow::Core::Node,
 
   protected:
     void toJsonInternal( nlohmann::json& data ) const override {
-        Dataflow::Core::Node::toJsonInternal( data );
+        //       Dataflow::Core::Node::toJsonInternal( data );
     }
     bool fromJsonInternal( const nlohmann::json& data ) override {
+        /*
         auto r = Dataflow::Core::Node::fromJsonInternal( data );
         return r;
+         */
+        return true;
     }
 
     /// The renderer's shader program manager

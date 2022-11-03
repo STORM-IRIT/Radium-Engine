@@ -1,6 +1,8 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
 
+#include <Dataflow/Rendering/Nodes/Sinks/DisplaySinkNode.hpp>
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
+#include <Dataflow/Rendering/Nodes/Sources/TextureSourceNode.hpp>
 #include <Dataflow/Rendering/RenderingGraph.hpp>
 
 namespace Ra {
@@ -14,8 +16,13 @@ void registerRenderingNodesFactories() {
     /* --- Sources --- */
     renderingFactory->registerNodeCreator<Nodes::SceneNode>( Nodes::SceneNode::getTypename() + "_",
                                                              "Source" );
-
+    renderingFactory->registerNodeCreator<Nodes::ColorTextureNode>(
+        Nodes::ColorTextureNode::getTypename() + "_", "Source" );
+    renderingFactory->registerNodeCreator<Nodes::DepthTextureNode>(
+        Nodes::DepthTextureNode::getTypename() + "_", "Source" );
     /* --- Sinks --- */
+    renderingFactory->registerNodeCreator<Nodes::DisplaySinkNode>(
+        Nodes::DisplaySinkNode::getTypename() + "_", "Sinks" );
 
     /* --- operators --- */
 
