@@ -1,6 +1,7 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
 
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
+#include <Dataflow/Rendering/Renderer/RenderingGraph.hpp>
 
 namespace Ra {
 namespace Dataflow {
@@ -18,6 +19,10 @@ void registerRenderingNodesFactories() {
 
     /* --- operators --- */
 
+    /* --- Graphs --- */
+    renderingFactory->registerNodeCreator<Renderer::RenderingGraph>(
+        Renderer::RenderingGraph::getTypename() + "_", "Graph" );
+
     /* -- end --*/
     Core::NodeFactoriesManager::registerFactory( renderingFactory );
 }
@@ -25,3 +30,7 @@ void registerRenderingNodesFactories() {
 } // namespace Rendering
 } // namespace Dataflow
 } // namespace Ra
+
+DATAFLOW_LIBRARY_INITIALIZER( RenderingNodes ) {
+    Ra::Dataflow::Rendering::registerRenderingNodesFactories();
+}
