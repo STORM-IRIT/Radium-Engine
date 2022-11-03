@@ -198,13 +198,20 @@ void MainWindow::loadFile( const QString& fileName )
     graphEdit->editGraph( nullptr );
     delete graph;
 
-    graph = new DataflowGraph( fileName.toStdString() );
-    graph->loadFromJson( fileName.toStdString() );
-    graphEdit->editGraph( graph );
+    graph = DataflowGraph::loadGraphFromJsonFile( fileName.toStdString() );
+    if ( graph == nullptr ) {
+        QMessageBox::warning(
+            this,
+            tr( "Application" ),
+            tr( "Can't load graph from file %1.\n" ).arg( QDir::toNativeSeparators( fileName ) ) );
+    }
 
+    graphEdit->editGraph( graph );
     QGuiApplication::restoreOverrideCursor();
-    setCurrentFile( fileName );
-    statusBar()->showMessage( tr( "File loaded" ), 2000 );
+    if ( graph != nullptr ) {
+        setCurrentFile( fileName );
+        statusBar()->showMessage( tr( "File loaded" ), 2000 );
+    }
 }
 
 bool MainWindow::saveFile( const QString& fileName ) {
