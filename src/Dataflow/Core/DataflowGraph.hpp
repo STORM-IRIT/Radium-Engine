@@ -202,6 +202,15 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
   public:
     static const std::string& getTypename();
+
+    /**
+     * \brief Load a graph from the given file.
+     * \param filename
+     * Any type of graph that inherits from DataflowGraph can be loaded by this function as soon as
+     * the appropriate constructor is registered in the node factory.
+     * \return The loaded graph, as a DataFlowGraph pointer to be downcast to the correct type
+     */
+    static DataflowGraph* loadGraphFromJsonFile( const std::string& filename );
 };
 
 } // namespace Core

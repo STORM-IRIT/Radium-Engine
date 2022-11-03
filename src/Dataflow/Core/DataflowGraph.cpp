@@ -596,6 +596,38 @@ Node* DataflowGraph::getNode( const std::string& instanceNameNode ) {
     return nullptr;
 }
 
+DataflowGraph* DataflowGraph::loadGraphFromJsonFile( const std::string& filename ) {
+    std::ifstream jsonFile( filename );
+    nlohmann::json j;
+    jsonFile >> j;
+    bool valid = false;
+    if ( j.contains( "model" ) ) {
+        if ( j["model"].contains( "name" ) && j["model"].contains( "instance" ) ) { valid = true; }
+    }
+    if ( !valid ) {
+        LOG( logERROR ) << "loadGraphFromJsonFile :" << filename
+                        << " does not contain a valid json NodeGraph\n";
+        return nullptr;
+    }
+    std::string instanceName = j["model"]["instance"];
+    std::string graphType    = j["model"]["name"];
+    LOG( logINFO ) << "Loading the graph " << instanceName << ", with type " << graphType << "\n";
+
+    auto& fctMngr = Ra::Dataflow::Core::NodeFactoriesManager::getFactoryManager();
+    auto ndldd    = fctMngr.createNode( graphType, j );
+    if ( ndldd == nullptr ) {
+        LOG( logERROR ) << "Unable to load a graph with type " << graphType << "\n";
+        return nullptr;
+    }
+
+    auto graph = dynamic_cast<DataflowGraph*>( ndldd );
+    if ( graph != nullptr ) { return graph; }
+
+    LOG( logERROR ) << "Loaded graph not inheriting from DataflowGraph " << graphType << "\n";
+    delete ndldd;
+    return nullptr;
+}
+
 } // namespace Core
 } // namespace Dataflow
 } // namespace Ra
