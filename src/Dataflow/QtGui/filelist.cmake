@@ -3,11 +3,13 @@
 # ----------------------------------------------------
 
 set(dataflow_qtgui_sources GraphEditor/GraphEditorView.cpp GraphEditor/NodeAdapterModel.cpp
-                           GraphEditor/WidgetFactory.cpp
+        GraphEditor/GraphEditorWindow.cpp GraphEditor/WidgetFactory.cpp
 )
 
 set(dataflow_qtgui_headers GraphEditor/ConnectionStatusData.hpp GraphEditor/GraphEditorView.hpp
-                           GraphEditor/NodeAdapterModel.hpp GraphEditor/WidgetFactory.hpp
+        GraphEditor/GraphEditorWindow.hpp GraphEditor/NodeAdapterModel.hpp GraphEditor/WidgetFactory.hpp
 )
 
 set(dataflow_qtgui_inlines)
+
+set(dataflow_qtgui_resources GraphEditor/GraphEditor.qrc)

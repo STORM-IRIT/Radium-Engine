@@ -1,61 +1,83 @@
-#include "MainWindow.hpp"
+#include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
+
+namespace Ra {
+namespace Dataflow {
+namespace QtGui {
+namespace GraphEditor {
 
 using namespace Ra::Dataflow::Core;
-MainWindow::MainWindow() {
-    graphEdit = new GraphEditorView( nullptr );
-    setCentralWidget( graphEdit );
-    graphEdit->setFocusPolicy( Qt::StrongFocus );
+
+GraphEditorWindow::GraphEditorWindow( DataflowGraph* graph ) :
+    m_graphEdit { new GraphEditorView( nullptr ) },
+    m_graph { graph },
+    m_ownGraph { graph==nullptr } {
+
+
+    setCentralWidget( m_graphEdit );
+    m_graphEdit->setFocusPolicy( Qt::StrongFocus );
 
     createActions();
     createStatusBar();
 
     readSettings();
 
-    connect( graphEdit, &GraphEditorView::needUpdate, this, &MainWindow::documentWasModified );
+    connect(
+        m_graphEdit, &GraphEditorView::needUpdate, this, &GraphEditorWindow::documentWasModified );
 
     setCurrentFile( QString() );
     setUnifiedTitleAndToolBarOnMac( true );
-    newFile();
-    graphEdit->show();
+    if (m_ownGraph) { newFile(); }
+    else {  m_graphEdit->editGraph( m_graph ); }
+
+    m_graphEdit->show();
 }
 
-void MainWindow::closeEvent( QCloseEvent* event ) {
+#if 0
+void GraphEditorWindow::resetGraph( DataflowGraph* graph ) {
+    m_graphEdit->editGraph( nullptr );
+    if ( m_ownGraph ) { delete m_graph; }
+    m_graph = graph;
+    m_ownGraph = false;
+    m_graphEdit->editGraph( m_graph );
+    setCurrentFile( "" );
+}
+#endif
+
+void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
     if ( maybeSave() ) {
         writeSettings();
         event->accept();
     }
-    else {
-        event->ignore();
-    }
+    else { event->ignore(); }
 }
 
-void MainWindow::newFile() {
+void GraphEditorWindow::newFile() {
     if ( maybeSave() ) {
         // Currently edited graph must be deleted only after it is no more used by the editor
-        graphEdit->editGraph( nullptr );
-        delete graph;
+        m_graphEdit->editGraph( nullptr );
+        if ( m_ownGraph ) {
+            delete m_graph;
+            m_graph = new DataflowGraph( "untitled.flow" );
+        } else { m_graph->destroy(); }
 
         setCurrentFile( "" );
-        graph = new DataflowGraph( "untitled.flow" );
-        graphEdit->editGraph( graph );
+        m_graphEdit->editGraph( m_graph );
     }
 }
 
-void MainWindow::open() {
+void GraphEditorWindow::open() {
     if ( maybeSave() ) {
         QString fileName = QFileDialog::getOpenFileName( this );
         if ( !fileName.isEmpty() ) loadFile( fileName );
     }
 }
 
-bool MainWindow::save() {
-    if ( curFile.isEmpty() ) { return saveAs(); }
-    else {
-        return saveFile( curFile );
-    }
+bool GraphEditorWindow::save() {
+    if ( m_curFile.isEmpty() ) { return saveAs(); }
+    else { return saveFile( m_curFile ); }
 }
 
-bool MainWindow::saveAs() {
+bool GraphEditorWindow::saveAs() {
     QFileDialog dialog( this );
     dialog.setWindowModality( Qt::WindowModal );
     dialog.setAcceptMode( QFileDialog::AcceptSave );
@@ -63,18 +85,18 @@ bool MainWindow::saveAs() {
     return saveFile( dialog.selectedFiles().first() );
 }
 
-void MainWindow::about() {
+void GraphEditorWindow::about() {
     QMessageBox::about( this,
-                        tr( "About Application" ),
-                        tr( "The <b>Application</b> example demonstrates how to "
-                            "edit a Radium dataflow graph." ) );
+                        tr( "About Node Editor" ),
+                        tr( "This is NodeGraph Editor widget from Radium::Dataflow::QtGui." ) );
 }
 
-void MainWindow::documentWasModified() {
-    setWindowModified( !graph->m_ready );
+void GraphEditorWindow::documentWasModified() {
+    setWindowModified( m_graph->m_shouldBeSaved );
+    emit needUpdate();
 }
 
-void MainWindow::createActions() {
+void GraphEditorWindow::createActions() {
 
     auto fileMenu       = menuBar()->addMenu( tr( "&File" ) );
     auto fileToolBar    = addToolBar( tr( "File" ) );
@@ -82,7 +104,7 @@ void MainWindow::createActions() {
     auto newAct         = new QAction( newIcon, tr( "&New" ), this );
     newAct->setShortcuts( QKeySequence::New );
     newAct->setStatusTip( tr( "Create a new file" ) );
-    connect( newAct, &QAction::triggered, this, &MainWindow::newFile );
+    connect( newAct, &QAction::triggered, this, &GraphEditorWindow::newFile );
     fileMenu->addAction( newAct );
     fileToolBar->addAction( newAct );
 
@@ -90,7 +112,7 @@ void MainWindow::createActions() {
     auto openAct         = new QAction( openIcon, tr( "&Open..." ), this );
     openAct->setShortcuts( QKeySequence::Open );
     openAct->setStatusTip( tr( "Open an existing file" ) );
-    connect( openAct, &QAction::triggered, this, &MainWindow::open );
+    connect( openAct, &QAction::triggered, this, &GraphEditorWindow::open );
     fileMenu->addAction( openAct );
     fileToolBar->addAction( openAct );
 
@@ -98,13 +120,13 @@ void MainWindow::createActions() {
     auto saveAct         = new QAction( saveIcon, tr( "&Save" ), this );
     saveAct->setShortcuts( QKeySequence::Save );
     saveAct->setStatusTip( tr( "Save the document to disk" ) );
-    connect( saveAct, &QAction::triggered, this, &MainWindow::save );
+    connect( saveAct, &QAction::triggered, this, &GraphEditorWindow::save );
     fileMenu->addAction( saveAct );
     fileToolBar->addAction( saveAct );
 
     const auto saveAsIcon = QIcon::fromTheme( "document-save-as" );
     auto saveAsAct =
-        fileMenu->addAction( saveAsIcon, tr( "Save &As..." ), this, &MainWindow::saveAs );
+        fileMenu->addAction( saveAsIcon, tr( "Save &As..." ), this, &GraphEditorWindow::saveAs );
     saveAsAct->setShortcuts( QKeySequence::SaveAs );
     saveAsAct->setStatusTip( tr( "Save the document under a new name" ) );
 
@@ -122,19 +144,21 @@ void MainWindow::createActions() {
 #endif
 
     auto helpMenu = menuBar()->addMenu( tr( "&Help" ) );
-    auto aboutAct = helpMenu->addAction( tr( "&About" ), this, &MainWindow::about );
+    auto aboutAct = helpMenu->addAction( tr( "&About" ), this, &GraphEditorWindow::about );
     aboutAct->setStatusTip( tr( "Show the application's About box" ) );
 
     auto aboutQtAct = helpMenu->addAction( tr( "About &Qt" ), qApp, &QApplication::aboutQt );
     aboutQtAct->setStatusTip( tr( "Show the Qt library's About box" ) );
+    if ( !m_ownGraph ) { menuBar()->hide(); }
 }
 
-void MainWindow::createStatusBar() {
+void GraphEditorWindow::createStatusBar() {
     statusBar()->showMessage( tr( "Ready" ) );
 }
 
-void MainWindow::readSettings() {
+void GraphEditorWindow::readSettings() {
     QSettings settings( QCoreApplication::organizationName(), QCoreApplication::applicationName() );
+    settings.beginGroup( "nodegraph editor" );
     const QByteArray geometry = settings.value( "geometry", QByteArray() ).toByteArray();
     if ( geometry.isEmpty() ) {
         const QRect availableGeometry = screen()->availableGeometry();
@@ -142,26 +166,24 @@ void MainWindow::readSettings() {
         move( ( availableGeometry.width() - width() ) / 2,
               ( availableGeometry.height() - height() ) / 2 );
     }
-    else {
-        restoreGeometry( geometry );
-    }
+    else { restoreGeometry( geometry ); }
     const QByteArray graphGeometry = settings.value( "graph", QByteArray() ).toByteArray();
-    if ( graphGeometry.isEmpty() ) { graphEdit->resize( 800, 600 ); }
-    else {
-        graphEdit->restoreGeometry( graphGeometry );
-    }
+    if ( graphGeometry.isEmpty() ) { m_graphEdit->resize( 800, 600 ); }
+    else { m_graphEdit->restoreGeometry( graphGeometry ); }
+    settings.endGroup();
 }
 
-void MainWindow::writeSettings() {
+void GraphEditorWindow::writeSettings() {
     QSettings settings( QCoreApplication::organizationName(), QCoreApplication::applicationName() );
+    settings.beginGroup( "nodegraph editor" );
     settings.setValue( "geometry", saveGeometry() );
-    settings.setValue( "graph", graphEdit->saveGeometry() );
+    settings.setValue( "graph", m_graphEdit->saveGeometry() );
+    settings.endGroup();
 }
 
-bool MainWindow::maybeSave() {
-#if 0
-    if (!textEdit->document()->isModified())
-        return true;
+bool GraphEditorWindow::maybeSave() {
+    if ( m_graph == nullptr ) { return true; }
+    if (! ( m_ownGraph && m_graph->m_shouldBeSaved ) ) { return true; }
     const QMessageBox::StandardButton ret
         = QMessageBox::warning(this, tr("Application"),
                                 tr("The document has been modified.\n"
@@ -175,12 +197,11 @@ bool MainWindow::maybeSave() {
     default:
         break;
     }
-#endif
+
     return true;
 }
 
-void MainWindow::loadFile( const QString& fileName )
-
+void GraphEditorWindow::loadFile( const QString& fileName )
 {
     QGuiApplication::setOverrideCursor( Qt::WaitCursor );
     {
@@ -195,32 +216,40 @@ void MainWindow::loadFile( const QString& fileName )
         }
     }
 
-    graphEdit->editGraph( nullptr );
-    delete graph;
-
-    graph = DataflowGraph::loadGraphFromJsonFile( fileName.toStdString() );
-    if ( graph == nullptr ) {
+    bool loaded (true);
+    if ( m_ownGraph ) {
+        m_graphEdit->editGraph( nullptr );
+        delete m_graph;
+        m_graph = DataflowGraph::loadGraphFromJsonFile( fileName.toStdString() );
+        loaded = ( m_graph != nullptr );
+    } else {
+        m_graph->destroy();
+        loaded = m_graph->loadFromJson( fileName.toStdString() );
+    }
+    if ( ! loaded ) {
         QMessageBox::warning(
             this,
             tr( "Application" ),
             tr( "Can't load graph from file %1.\n" ).arg( QDir::toNativeSeparators( fileName ) ) );
     }
 
-    graphEdit->editGraph( graph );
     QGuiApplication::restoreOverrideCursor();
-    if ( graph != nullptr ) {
+    if ( loaded ) {
+        m_graphEdit->editGraph( m_graph );
         setCurrentFile( fileName );
         statusBar()->showMessage( tr( "File loaded" ), 2000 );
+        emit needUpdate();
     }
 }
 
-bool MainWindow::saveFile( const QString& fileName ) {
+bool GraphEditorWindow::saveFile( const QString& fileName ) {
     QString errorMessage;
 
     QGuiApplication::setOverrideCursor( Qt::WaitCursor );
     // TODO, if graph do not compile, tell it to the user ?
-    graph->compile();
-    graph->saveToJson( fileName.toStdString() );
+    // m_graph->compile();
+
+    m_graph->saveToJson( fileName.toStdString() );
 #if 0
     QSaveFile file(fileName);
 
@@ -248,16 +277,21 @@ bool MainWindow::saveFile( const QString& fileName ) {
     return true;
 }
 
-void MainWindow::setCurrentFile( const QString& fileName ) {
-    curFile = fileName;
+void GraphEditorWindow::setCurrentFile( const QString& fileName ) {
+    m_curFile = fileName;
     // textEdit->document()->setModified(false);
     setWindowModified( false );
 
-    QString shownName = curFile;
-    if ( curFile.isEmpty() ) shownName = "untitled.flow";
+    QString shownName = m_curFile;
+    if ( m_curFile.isEmpty() ) shownName = "untitled.flow";
     setWindowFilePath( shownName );
 }
 
-QString MainWindow::strippedName( const QString& fullFileName ) {
+QString GraphEditorWindow::strippedName( const QString& fullFileName ) {
     return QFileInfo( fullFileName ).fileName();
 }
+
+} // namespace GraphEditor
+} // namespace QtGui
+} // namespace Dataflow
+} // namespace Ra
