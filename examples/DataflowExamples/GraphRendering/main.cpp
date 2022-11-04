@@ -12,6 +12,8 @@
 #include <Gui/RadiumWindow/SimpleWindow.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
+#include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
+
 // Qt Widgets
 #include <QtWidgets>
 
@@ -83,13 +85,52 @@ class DemoWindowFactory : public BaseApplication::WindowFactory
         int renderNum   = 0;
 
         for ( const auto& rndr : renderers ) {
+            std::cout << "adding renderer : " << rndr->getRendererName() << "\n";
+
             window->addRenderer( rndr->getRendererName(), rndr );
             auto rndAct = new QAction( rndr->getRendererName().c_str(), window );
             renderMenu->addAction( rndAct );
             QAction::connect( rndAct, &QAction::triggered, [renderNum, window]() {
                 window->getViewer()->changeRenderer( renderNum );
-                window->getViewer()->needUpdate();
+                // window->getViewer()->needUpdate();
             } );
+
+            // nodeToolBar* ff;
+            // build a toolbar for the renderers
+            if ( rndr->getRendererName() == "Custom Node Renderer" ) {
+                auto nodeToolBar = window->addToolBar( "NodeGraph control" );
+                nodeToolBar->setObjectName( "Edit Graph" );
+                auto grphAction = new QAction( "Edit Graph", window );
+                nodeToolBar->addAction( grphAction );
+                nodeToolBar->hide();
+                auto* cnfgRndr =
+                    dynamic_cast<Ra::Dataflow::Rendering::Renderer::ControllableRenderer*>(
+                        rndr.get() );
+
+                QAction::connect( grphAction, &QAction::triggered, [cnfgRndr, window]() {
+                    auto& nbrCtrl =
+                        dynamic_cast<Ra::Dataflow::Rendering::Renderer::RenderGraphController&>(
+                            cnfgRndr->getController() );
+                    auto editor = new Ra::Dataflow::QtGui::GraphEditor::GraphEditorWindow(
+                        nbrCtrl.getGraph() );
+                    Ra::Dataflow::QtGui::GraphEditor::GraphEditorWindow::connect(
+                        editor,
+                        &Ra::Dataflow::QtGui::GraphEditor::GraphEditorWindow::needUpdate,
+                        [window]() { window->getViewer()->needUpdate(); } );
+                    editor->show();
+                } );
+                QAction::connect(
+                    rndAct, &QAction::triggered, [nodeToolBar]() { nodeToolBar->show(); } );
+            }
+            else {
+                QAction::connect( rndAct, &QAction::triggered, [window]() {
+                    auto toolbars = window->findChildren<QToolBar*>();
+                    for ( auto tb : toolbars ) {
+                        if ( tb->objectName() == "Edit Graph" ) { tb->hide(); }
+                    }
+                } );
+            }
+
             ++renderNum;
         }
     }
@@ -109,7 +150,10 @@ class DemoWindowFactory : public BaseApplication::WindowFactory
 /* ----------------------------------------------------------------------------------- */
 // Renderer controller
 #include <Dataflow/Rendering/Nodes/RenderNodes/ClearColorNode.hpp>
+#include <Dataflow/Rendering/Nodes/RenderNodes/SimpleRenderNode.hpp>
+
 #include <Dataflow/Rendering/Nodes/Sinks/DisplaySinkNode.hpp>
+
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
 #include <Dataflow/Rendering/Nodes/Sources/TextureSourceNode.hpp>
 
@@ -194,6 +238,7 @@ class MyRendererController : public RenderGraphController
             m_renderGraph->addNode( sceneNode );
             auto resultNode = new DisplaySinkNode( "Images" );
             m_renderGraph->addNode( resultNode );
+#if 0
             auto textureSource = new ColorTextureNode( "Beauty" );
             m_renderGraph->addNode( textureSource );
             auto clearNode = new ClearColorNode( " Clear" );
@@ -203,6 +248,25 @@ class MyRendererController : public RenderGraphController
             linksOK      = m_renderGraph->addLink(
                 textureSource, "texture", clearNode, "colorTextureToClear" );
             linksOK = linksOK && m_renderGraph->addLink( clearNode, "image", resultNode, "Beauty" );
+#endif
+            auto simpleRenderNode = new SimpleRenderNode( "renderOperator" );
+            m_renderGraph->addNode( simpleRenderNode );
+            bool linksOK = true;
+            linksOK      = linksOK &&
+                      m_renderGraph->addLink( sceneNode, "objects", simpleRenderNode, "objects" );
+            linksOK = linksOK &&
+                      m_renderGraph->addLink( sceneNode, "camera", simpleRenderNode, "camera" );
+            linksOK = linksOK &&
+                      m_renderGraph->addLink( sceneNode, "lights", simpleRenderNode, "lights" );
+            linksOK = linksOK &&
+                      m_renderGraph->addLink( simpleRenderNode, "Beauty", resultNode, "Beauty" );
+            linksOK = linksOK &&
+                      m_renderGraph->addLink( simpleRenderNode, "Depth AOV", resultNode, "AOV_0" );
+
+            if ( !linksOK ) { LOG( logERROR ) << "Something went wrong when linking nodes !!! "; }
+            else {
+                LOG( logINFO ) << "Graph linked successfully!!! ";
+            }
 
             inspectGraph( *m_renderGraph );
 
