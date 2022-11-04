@@ -6,7 +6,7 @@
 #include <Engine/Rendering/ForwardRenderer.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 
-#include <Dataflow/Rendering/Renderer/ControllableRenderer.hpp>
+#include <Dataflow/Rendering/Renderer/RenderGraphController.hpp>
 
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindow.hpp>
