@@ -215,6 +215,21 @@ class RA_DATAFLOW_API DataflowGraph : public Node
      * \return The loaded graph, as a DataFlowGraph pointer to be downcast to the correct type
      */
     static DataflowGraph* loadGraphFromJsonFile( const std::string& filename );
+
+    /**
+     * \brief protect nodes and links from deletion.
+     * \param on true to protect, false to unprotect.
+     */
+    void setNodesAndLinksProtection( bool on ) { m_nodesAndLinksProtected = on; }
+
+    /**
+     * \brief get the protection status protect nodes and links from deletion
+     * \return the protection status
+     */
+    bool getNodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
+
+  private:
+    bool m_nodesAndLinksProtected { false };
 };
 
 } // namespace Core
