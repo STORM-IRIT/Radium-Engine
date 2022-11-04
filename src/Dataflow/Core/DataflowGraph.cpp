@@ -52,7 +52,8 @@ void DataflowGraph::destroy() {
     m_factories.reset();
     m_dataSetters.clear();
     Node::destroy();
-    m_ready = false;
+    m_ready         = false;
+    m_shouldBeSaved = true;
 }
 
 void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
@@ -61,6 +62,7 @@ void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
         toJson( data );
         std::ofstream file( jsonFilePath );
         file << std::setw( 4 ) << data << std::endl;
+        m_shouldBeSaved = false;
     }
 }
 
@@ -117,6 +119,7 @@ bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
     std::ifstream file( jsonFilePath );
     nlohmann::json j;
     file >> j;
+    m_shouldBeSaved = false;
     return fromJson( j );
 }
 
@@ -244,7 +247,8 @@ bool DataflowGraph::addNode( Node* newNode ) {
             }
         }
         m_nodes.emplace_back( newNode );
-        m_ready = false;
+        m_ready         = false;
+        m_shouldBeSaved = true;
         return true;
     }
     else { return false; }
@@ -282,7 +286,8 @@ bool DataflowGraph::removeNode( Node* node ) {
             }
         }
         m_nodes.erase( m_nodes.begin() + index );
-        m_ready = false;
+        m_ready         = false;
+        m_shouldBeSaved = true;
         return true;
     }
 }
@@ -350,7 +355,8 @@ bool DataflowGraph::addLink( Node* nodeFrom,
         return false;
     }
     // The state of the graph changes, set it to not ready
-    m_ready = false;
+    m_ready         = false;
+    m_shouldBeSaved = true;
     return true;
 }
 
@@ -371,7 +377,8 @@ bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
     if ( found == -1 ) { return false; }
 
     node->getInputs()[found]->disconnect();
-    m_ready = false;
+    m_ready         = false;
+    m_shouldBeSaved = true;
     return true;
 }
 
@@ -444,7 +451,6 @@ bool DataflowGraph::compile() {
 }
 
 void DataflowGraph::clearNodes() {
-
     for ( size_t i = 0; i < m_nodesByLevel.size(); i++ ) {
         m_nodesByLevel[i].clear();
         m_nodesByLevel[i].shrink_to_fit();
@@ -453,6 +459,7 @@ void DataflowGraph::clearNodes() {
     m_nodesByLevel.shrink_to_fit();
     m_nodes.erase( m_nodes.begin(), m_nodes.end() );
     m_nodes.shrink_to_fit();
+    m_shouldBeSaved = true;
 }
 
 void DataflowGraph::backtrackGraph(
@@ -619,7 +626,10 @@ DataflowGraph* DataflowGraph::loadGraphFromJsonFile( const std::string& filename
     }
 
     auto graph = dynamic_cast<DataflowGraph*>( ndldd );
-    if ( graph != nullptr ) { return graph; }
+    if ( graph != nullptr ) {
+        graph->m_shouldBeSaved = false;
+        return graph;
+    }
 
     LOG( logERROR ) << "Loaded graph not inheriting from DataflowGraph " << graphType << "\n";
     delete ndldd;
