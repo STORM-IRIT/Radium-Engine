@@ -24,7 +24,7 @@ using namespace Ra::Dataflow::Core;
  *
  *   connect the client to the needUpdate() signal to be notified of a change in the edited graph.
  */
-class GraphEditorWindow : public QMainWindow
+class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
 {
     Q_OBJECT
   public:
