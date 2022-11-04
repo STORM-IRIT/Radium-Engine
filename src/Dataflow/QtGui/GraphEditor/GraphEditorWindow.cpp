@@ -10,8 +10,7 @@ using namespace Ra::Dataflow::Core;
 GraphEditorWindow::GraphEditorWindow( DataflowGraph* graph ) :
     m_graphEdit { new GraphEditorView( nullptr ) },
     m_graph { graph },
-    m_ownGraph { graph==nullptr } {
-
+    m_ownGraph { graph == nullptr } {
 
     setCentralWidget( m_graphEdit );
     m_graphEdit->setFocusPolicy( Qt::StrongFocus );
@@ -26,8 +25,10 @@ GraphEditorWindow::GraphEditorWindow( DataflowGraph* graph ) :
 
     setCurrentFile( QString() );
     setUnifiedTitleAndToolBarOnMac( true );
-    if (m_ownGraph) { newFile(); }
-    else {  m_graphEdit->editGraph( m_graph ); }
+    if ( m_ownGraph ) { newFile(); }
+    else {
+        m_graphEdit->editGraph( m_graph );
+    }
 
     m_graphEdit->show();
 }
@@ -48,7 +49,9 @@ void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
         writeSettings();
         event->accept();
     }
-    else { event->ignore(); }
+    else {
+        event->ignore();
+    }
 }
 
 void GraphEditorWindow::newFile() {
@@ -58,7 +61,10 @@ void GraphEditorWindow::newFile() {
         if ( m_ownGraph ) {
             delete m_graph;
             m_graph = new DataflowGraph( "untitled.flow" );
-        } else { m_graph->destroy(); }
+        }
+        else {
+            m_graph->destroy();
+        }
 
         setCurrentFile( "" );
         m_graphEdit->editGraph( m_graph );
@@ -74,7 +80,9 @@ void GraphEditorWindow::open() {
 
 bool GraphEditorWindow::save() {
     if ( m_curFile.isEmpty() ) { return saveAs(); }
-    else { return saveFile( m_curFile ); }
+    else {
+        return saveFile( m_curFile );
+    }
 }
 
 bool GraphEditorWindow::saveAs() {
@@ -166,10 +174,14 @@ void GraphEditorWindow::readSettings() {
         move( ( availableGeometry.width() - width() ) / 2,
               ( availableGeometry.height() - height() ) / 2 );
     }
-    else { restoreGeometry( geometry ); }
+    else {
+        restoreGeometry( geometry );
+    }
     const QByteArray graphGeometry = settings.value( "graph", QByteArray() ).toByteArray();
     if ( graphGeometry.isEmpty() ) { m_graphEdit->resize( 800, 600 ); }
-    else { m_graphEdit->restoreGeometry( graphGeometry ); }
+    else {
+        m_graphEdit->restoreGeometry( graphGeometry );
+    }
     settings.endGroup();
 }
 
@@ -183,13 +195,14 @@ void GraphEditorWindow::writeSettings() {
 
 bool GraphEditorWindow::maybeSave() {
     if ( m_graph == nullptr ) { return true; }
-    if (! ( m_ownGraph && m_graph->m_shouldBeSaved ) ) { return true; }
-    const QMessageBox::StandardButton ret
-        = QMessageBox::warning(this, tr("Application"),
-                                tr("The document has been modified.\n"
-                                    "Do you want to save your changes?"),
-                                QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-    switch (ret) {
+    if ( !( m_ownGraph && m_graph->m_shouldBeSaved ) ) { return true; }
+    const QMessageBox::StandardButton ret =
+        QMessageBox::warning( this,
+                              tr( "Application" ),
+                              tr( "The document has been modified.\n"
+                                  "Do you want to save your changes?" ),
+                              QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel );
+    switch ( ret ) {
     case QMessageBox::Save:
         return save();
     case QMessageBox::Cancel:
@@ -201,8 +214,7 @@ bool GraphEditorWindow::maybeSave() {
     return true;
 }
 
-void GraphEditorWindow::loadFile( const QString& fileName )
-{
+void GraphEditorWindow::loadFile( const QString& fileName ) {
     QGuiApplication::setOverrideCursor( Qt::WaitCursor );
     {
         QFile file( fileName );
@@ -216,17 +228,18 @@ void GraphEditorWindow::loadFile( const QString& fileName )
         }
     }
 
-    bool loaded (true);
+    bool loaded( true );
     if ( m_ownGraph ) {
         m_graphEdit->editGraph( nullptr );
         delete m_graph;
         m_graph = DataflowGraph::loadGraphFromJsonFile( fileName.toStdString() );
-        loaded = ( m_graph != nullptr );
-    } else {
+        loaded  = ( m_graph != nullptr );
+    }
+    else {
         m_graph->destroy();
         loaded = m_graph->loadFromJson( fileName.toStdString() );
     }
-    if ( ! loaded ) {
+    if ( !loaded ) {
         QMessageBox::warning(
             this,
             tr( "Application" ),

@@ -52,7 +52,7 @@ void DataflowGraph::destroy() {
     m_factories.reset();
     m_dataSetters.clear();
     Node::destroy();
-    m_ready = false;
+    m_ready         = false;
     m_shouldBeSaved = true;
 }
 
@@ -247,7 +247,7 @@ bool DataflowGraph::addNode( Node* newNode ) {
             }
         }
         m_nodes.emplace_back( newNode );
-        m_ready = false;
+        m_ready         = false;
         m_shouldBeSaved = true;
         return true;
     }
@@ -288,7 +288,7 @@ bool DataflowGraph::removeNode( Node* node ) {
             }
         }
         m_nodes.erase( m_nodes.begin() + index );
-        m_ready = false;
+        m_ready         = false;
         m_shouldBeSaved = true;
         return true;
     }
@@ -357,7 +357,7 @@ bool DataflowGraph::addLink( Node* nodeFrom,
         return false;
     }
     // The state of the graph changes, set it to not ready
-    m_ready = false;
+    m_ready         = false;
     m_shouldBeSaved = true;
     return true;
 }
@@ -379,7 +379,7 @@ bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
     if ( found == -1 ) { return false; }
 
     node->getInputs()[found]->disconnect();
-    m_ready = false;
+    m_ready         = false;
     m_shouldBeSaved = true;
     return true;
 }

@@ -60,7 +60,7 @@ class GraphEditorWindow : public QMainWindow
     void setCurrentFile( const QString& fileName );
     QString strippedName( const QString& fullFileName );
 
-    GraphEditorView* m_graphEdit{ nullptr };
+    GraphEditorView* m_graphEdit { nullptr };
     QString m_curFile;
 
     DataflowGraph* m_graph { nullptr };
