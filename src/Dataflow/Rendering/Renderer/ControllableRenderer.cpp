@@ -120,7 +120,7 @@ void ControllableRenderer::updateStepInternal(
 
 void ControllableRenderer::renderInternal( const Ra::Engine::Data::ViewingParameters& renderData ) {
 
-    const auto& renderings = m_controller.render( allRenderObjects(), getLights(), &renderData );
+    const auto& renderings = m_controller.render( allRenderObjects(), getLights(), renderData );
     if ( renderings.size() > 0 ) {
         m_colorTexture = renderings[0]; // allow to select which image to fetch
     }
@@ -155,128 +155,6 @@ void ControllableRenderer::postProcessInternal( const Ra::Engine::Data::ViewingP
 void ControllableRenderer::debugInternal( const Ra::Engine::Data::ViewingParameters& ) {}
 
 void ControllableRenderer::uiInternal( const Ra::Engine::Data::ViewingParameters& ) {}
-
-/*
- *                   *************
- */
-
-RenderGraphController::RenderGraphController() : ControllableRenderer::RendererController() {}
-
-void RenderGraphController::configure( ControllableRenderer* renderer, int w, int h ) {
-    ControllableRenderer::RendererController::configure( renderer, w, h );
-    if ( !m_graphToLoad.empty() ) {
-        loadGraph( m_graphToLoad );
-        m_graphToLoad = "";
-    }
-}
-
-void RenderGraphController::resize( int w, int h ) {
-    ControllableRenderer::RendererController::resize( w, h );
-    if ( m_renderGraph ) { m_renderGraph->resize( m_width, m_height ); }
-}
-
-void RenderGraphController::compile( bool notifyObservers ) const {
-    if ( !m_renderGraph->m_ready ) {
-        // compile the model
-        m_renderGraph->compile();
-        // notify the view the model changes
-        if ( notifyObservers ) { notify(); }
-        // notify the model the view may have changed
-        m_renderGraph->resize( m_width, m_height );
-        // fetch the data setters and getters from the graph
-        m_renderGraphInputs  = m_renderGraph->getAllDataSetters();
-        m_renderGraphOutputs = m_renderGraph->getAllDataGetters();
-    }
-}
-void RenderGraphController::update( const Ra::Engine::Data::ViewingParameters& ) {
-    if ( m_renderGraph ) {
-        // Compile and notify the observers in case of state change.
-        compile( true );
-    }
-}
-
-bool RenderGraphController::buildRenderTechnique( Ra::Engine::Rendering::RenderObject* ro ) const {
-    if ( m_renderGraph ) {
-        // Only the first call of compile will effectively compile the graph
-        // do not notify observers here
-        compile();
-        m_renderGraph->buildRenderTechnique( ro );
-        return true;
-    }
-    return false;
-}
-
-const std::vector<TextureType*>&
-RenderGraphController::render( std::vector<RenderObjectPtrType>* ros,
-                               std::vector<LightPtrType>* lights,
-                               const CameraType* cameras ) const {
-    m_images.clear();
-    m_images.shrink_to_fit();
-    if ( m_renderGraph && m_renderGraph->m_ready ) {
-        // set input data
-        for ( const auto& [ptr, name, type] : m_renderGraphInputs ) {
-            if ( type == simplifiedDemangledType( *ros ) ) { ptr->setData( ros ); }
-            if ( type == simplifiedDemangledType( *lights ) ) { ptr->setData( lights ); }
-            if ( type == simplifiedDemangledType( *cameras ) ) { ptr->setData( cameras ); }
-        }
-
-        // execute the graph
-        m_renderGraph->execute();
-
-        // get output
-        // expect it is sufficient
-        m_images.reserve( m_renderGraphOutputs.size() * 9 );
-        for ( const auto& [ptr, name, type] : m_renderGraphOutputs ) {
-            if ( ptr->getTypeName() == simplifiedDemangledType<TextureType*>() ) {
-                // Try a simple texture
-                auto tex = ptr->getData<TextureType*>();
-                if ( tex != nullptr ) { m_images.push_back( tex ); }
-                continue;
-            }
-            if ( ptr->getTypeName() == simplifiedDemangledType<std::vector<TextureType*>>() ) {
-                // Try a texture vector
-                const auto& texv = ptr->getData<std::vector<TextureType*>>();
-                for ( auto t : texv ) {
-                    if ( t != nullptr ) { m_images.push_back( t ); }
-                }
-                continue;
-            }
-            LOG( Ra::Core::Utils::logWARNING ) << "Fetching from " << ptr->getName() << " ("
-                                               << ptr->getTypeName() << ") : type not supported !";
-        }
-    }
-    else {
-        LOG( Ra::Core::Utils::logWARNING ) << " Graph not compiled : no images generated!";
-    }
-    return m_images;
-}
-
-void RenderGraphController::loadGraph( const std::string& filename ) {
-    m_renderGraph.release();
-    auto graphName = filename.substr( filename.find_last_of( '/' ) + 1 );
-    m_renderGraph  = std::make_unique<RenderingGraph>( graphName );
-    m_renderGraph->setShaderProgramManager( m_shaderMngr );
-    m_renderGraph->loadFromJson( filename );
-    notify();
-}
-
-void RenderGraphController::deferredLoadGraph( const std::string& filename ) {
-    m_graphToLoad = filename;
-}
-
-void RenderGraphController::saveGraph( const std::string& filename ) {
-    if ( m_renderGraph ) {
-        auto graphName = filename.substr( filename.find_last_of( '/' ) + 1 );
-        m_renderGraph->saveToJson( filename );
-        m_renderGraph->setInstanceName( graphName );
-    }
-}
-
-void RenderGraphController::resetGraph() {
-    m_renderGraph.release();
-    m_renderGraph = std::make_unique<RenderingGraph>( "untitled" );
-    m_renderGraph->setShaderProgramManager( m_shaderMngr );
-}
 
 } // namespace Renderer
 } // namespace Rendering

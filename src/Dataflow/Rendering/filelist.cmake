@@ -3,13 +3,19 @@
 # ----------------------------------------------------
 
 set(dataflow_rendering_sources
-    Renderer/ControllableRenderer.cpp RenderingGraph.cpp Nodes/RenderingBuiltInsNodes.cpp
-    Nodes/Sinks/DisplaySinkNode.cpp Nodes/Sources/TextureSourceNode.cpp
-    Nodes/RenderNodes/ClearColorNode.cpp
+    Renderer/ControllableRenderer.cpp Renderer/RenderGraphController.cpp RenderingGraph.cpp
+    Nodes/RenderingBuiltInsNodes.cpp Nodes/Sinks/DisplaySinkNode.cpp
+    Nodes/Sources/TextureSourceNode.cpp Nodes/RenderNodes/ClearColorNode.cpp
 )
 
 set(dataflow_rendering_headers
-    Nodes/RenderingNode.hpp Renderer/ControllableRenderer.hpp Nodes/RenderingBuiltInsNodes.hpp
-    RenderingGraph.hpp Nodes/Sources/Scene.hpp Nodes/Sinks/DisplaySinkNode.hpp
-    Nodes/Sources/TextureSourceNode.hpp Nodes/RenderNodes/ClearColorNode.hpp
+    Nodes/RenderingNode.hpp
+    Renderer/ControllableRenderer.hpp
+    Renderer/RenderGraphController.hpp
+    Nodes/RenderingBuiltInsNodes.hpp
+    RenderingGraph.hpp
+    Nodes/Sources/Scene.hpp
+    Nodes/Sinks/DisplaySinkNode.hpp
+    Nodes/Sources/TextureSourceNode.hpp
+    Nodes/RenderNodes/ClearColorNode.hpp
 )
