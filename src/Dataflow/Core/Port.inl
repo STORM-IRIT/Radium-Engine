@@ -96,15 +96,32 @@ void PortBase::setData( T* data ) {
             thisOut->setData( data );
             return;
         }
+        LOG( Ra::Core::Utils::logERROR )
+            << "Unable to set data with type " << simplifiedDemangledType( *data ) << " on port "
+            << getName() << " which expect " << getTypeName() << ".\n";
+        std::abort();
     }
+    LOG( Ra::Core::Utils::logERROR )
+        << "Could not call  PortBase::setData(T* data) on the input port " << getName() << ".\n";
+    std::abort();
 }
 
 template <typename T>
 void PortBase::getData( T& t ) {
     if ( !is_input() ) {
         auto thisOut = dynamic_cast<PortOut<T>*>( this );
-        if ( thisOut ) { t = thisOut->getData(); }
+        if ( thisOut ) {
+            t = thisOut->getData();
+            return;
+        }
+        LOG( Ra::Core::Utils::logERROR )
+            << "Unable to get data with type " << simplifiedDemangledType<T>() << " on port "
+            << getName() << " which expect " << getTypeName() << ".\n";
+        std::abort();
     }
+    LOG( Ra::Core::Utils::logERROR )
+        << "Could not call PortBase::getData( T& t ) on the input port " << getName() << ".\n";
+    std::abort();
 }
 
 template <typename T>
@@ -112,9 +129,13 @@ T& PortBase::getData() {
     if ( !is_input() ) {
         auto thisOut = dynamic_cast<PortOut<T>*>( this );
         if ( thisOut ) { return thisOut->getData(); }
+        LOG( Ra::Core::Utils::logERROR )
+            << "Unable to get data with type " << simplifiedDemangledType<T>() << " on port "
+            << getName() << " which expect " << getTypeName() << ".\n";
+        std::abort();
     }
     LOG( Ra::Core::Utils::logERROR )
-        << "Could not call T& PortBase::getData() on an input port !!!\n";
+        << "Could not call T& PortBase::getData<T>() on the input port " << getName() << ".\n";
     std::abort();
 }
 

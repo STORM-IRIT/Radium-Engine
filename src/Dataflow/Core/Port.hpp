@@ -20,6 +20,10 @@ class PortIn;
 /**
  * \brief Base class for nodes' ports
  * A port is a strongly typed extremity of connections between nodes.
+ * \warning when comparing and using typed port, beware of the const qualifier
+ * that is not always exposed by the C++ type system. There are some undefined behavior concerning
+ * const_casts and const qualifier in the C++ documentation
+ * (https://en.cppreference.com/w/cpp/language/const_cast).
  *
  */
 class RA_DATAFLOW_API PortBase
