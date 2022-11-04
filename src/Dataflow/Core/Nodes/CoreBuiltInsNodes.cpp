@@ -1,6 +1,5 @@
-
-
 #include <Dataflow/Core/DataflowGraph.hpp>
+DATAFLOW_LIBRARY_INITIALIZER_DECL( CoreNodes );
 
 #include <Dataflow/Core/Nodes/Private/FunctionalsNodeFactory.hpp>
 #include <Dataflow/Core/Nodes/Private/SinksNodeFactory.hpp>
@@ -34,6 +33,6 @@ void registerStandardFactories() {
 } // namespace Dataflow
 } // namespace Ra
 
-DATAFLOW_LIBRARY_INITIALIZER( CoreNodes ) {
+DATAFLOW_LIBRARY_INITIALIZER_IMPL( CoreNodes ) {
     Ra::Dataflow::Core::NodeFactoriesManager::registerStandardFactories();
 }

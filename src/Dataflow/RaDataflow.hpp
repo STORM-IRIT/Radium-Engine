@@ -11,10 +11,11 @@
 #endif
 
 /// Allow to define initializers for modules that need to be initialized transparently
-#define DATAFLOW_LIBRARY_INITIALIZER( f )             \
-    static void f##__Initializer();                   \
-    struct f##__Initializer_t_ {                      \
-        f##__Initializer_t_() { f##__Initializer(); } \
-    };                                                \
-    static f##__Initializer_t_ f##__Initializer__;    \
-    static void f##__Initializer()
+#define DATAFLOW_LIBRARY_INITIALIZER_DECL( f ) void f##__Initializer()
+
+#define DATAFLOW_LIBRARY_INITIALIZER_IMPL( f )          \
+    struct f##__Initializer_t_ {                        \
+        f##__Initializer_t_() { ::f##__Initializer(); } \
+    };                                                  \
+    static f##__Initializer_t_ f##__Initializer__;      \
+    void f##__Initializer()
