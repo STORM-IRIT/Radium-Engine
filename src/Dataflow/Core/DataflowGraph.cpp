@@ -257,6 +257,9 @@ bool DataflowGraph::addNode( Node* newNode ) {
 }
 
 bool DataflowGraph::removeNode( Node* node ) {
+    // This is to prevent graph destruction from the graph editor, depending on how it is used
+    if ( m_nodesAndLinksProtected ) { return false; }
+
     // Check if the new node already exists (= same name)
     int index = -1;
     if ( ( index = findNode( node ) ) == -1 ) { return false; }
@@ -363,6 +366,9 @@ bool DataflowGraph::addLink( Node* nodeFrom,
 }
 
 bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
+    // This is to prevent graph destruction from the graph editor, depending on how it is used
+    if ( m_nodesAndLinksProtected ) { return false; }
+
     // Check node's existence in the graph
     if ( findNode( node ) == -1 ) { return false; }
 
