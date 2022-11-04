@@ -29,6 +29,7 @@ class GraphEditorWindow : public QMainWindow
     Q_OBJECT
   public:
     explicit GraphEditorWindow( DataflowGraph* graph = nullptr );
+    ~GraphEditorWindow();
 
     void loadFile( const QString& fileName );
 #if 0
