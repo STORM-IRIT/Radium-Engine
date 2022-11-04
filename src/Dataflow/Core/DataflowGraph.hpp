@@ -110,6 +110,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// This flag is reset as soon as the graph is modified.
     bool m_ready { false };
 
+    /// Flag that indicates if the graph should be saved to a file
+    /// This flag is useless outside an load/edit/save scenario
+    bool m_shouldBeSaved {false};
+
     /// \brief Creates an output port connected to the named input port of the graph.
     /// Return the connected output port if success, sharing the ownership with the caller.
     /// Allows to set data to the graph from the caller .
