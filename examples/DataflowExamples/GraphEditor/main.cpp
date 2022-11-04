@@ -2,11 +2,9 @@
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 
-#include "MainWindow.hpp"
+#include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
 
 int main( int argc, char* argv[] ) {
-    Q_INIT_RESOURCE( GraphEditor );
-
     QApplication app( argc, argv );
     QCoreApplication::setOrganizationName( "STORM-IRIT" );
     QCoreApplication::setApplicationName( "Radium NodeGraph Editor" );
@@ -18,7 +16,7 @@ int main( int argc, char* argv[] ) {
     parser.addPositionalArgument( "file", "The file to open." );
     parser.process( app );
 
-    MainWindow mainWin;
+    Ra::Dataflow::QtGui::GraphEditor::GraphEditorWindow mainWin;
     if ( !parser.positionalArguments().isEmpty() )
         mainWin.loadFile( parser.positionalArguments().first() );
     mainWin.show();

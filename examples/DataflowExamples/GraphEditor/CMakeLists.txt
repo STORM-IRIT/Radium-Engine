@@ -45,14 +45,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 qt_wrap_ui(gui_uis ${gui_uis})
 
 # --------------------------------------------------------------------------------------------------
-
-set(app_sources main.cpp MainWindow.cpp)
-set(app_resources GraphEditor.qrc)
+set(app_sources main.cpp)
 
 # set(app_headers)
 
-# delete ${app_headers}
-add_executable(${PROJECT_NAME} ${app_sources} ${app_resources})
+add_executable(${PROJECT_NAME} ${app_sources})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
