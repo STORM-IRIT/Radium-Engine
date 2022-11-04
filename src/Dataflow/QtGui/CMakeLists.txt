@@ -25,7 +25,7 @@ find_package(PowerSlider REQUIRED)
 
 add_library(
     ${ra_dataflowqtgui_target} SHARED ${dataflow_qtgui_sources} ${dataflow_qtgui_headers}
-                                      ${dataflow_qtgui_inlines}
+                                      ${dataflow_qtgui_inlines} ${dataflow_qtgui_resources}
 )
 
 # This one should be extracted directly from parent project properties.
