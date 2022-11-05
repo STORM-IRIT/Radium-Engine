@@ -48,7 +48,7 @@ class FilterNode : public Node
     FilterNode( const std::string& instanceName, UnaryPredicate predicate );
 
     void init() override;
-    void execute() override;
+    bool execute() override;
 
     /// Sets the filtering predicate on the node
     void setFilterFunction( UnaryPredicate predicate );

@@ -45,7 +45,7 @@ class TransformNode : public Node
     TransformNode( const std::string& instanceName, TransformOperator op );
 
     void init() override;
-    void execute() override;
+    bool execute() override;
 
     /// Sets the operator on the node
     void setOperator( TransformOperator op );

@@ -27,7 +27,7 @@ class SingleDataSourceNode : public Node
     explicit SingleDataSourceNode( const std::string& name ) :
         SingleDataSourceNode( name, SingleDataSourceNode<T>::getTypename() ) {}
 
-    void execute() override;
+    bool execute() override;
 
     /** \brief Set the data to be delivered by the node.
      * @param data
