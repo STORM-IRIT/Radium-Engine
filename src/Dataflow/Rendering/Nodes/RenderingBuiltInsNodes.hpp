@@ -10,8 +10,10 @@ namespace Rendering {
  *
  * If needed, the definition of all the rendering nodes can be included using one of the headers
  *  - #include <Dataflow/Rendering/Nodes/ ... xxx ... .hpp>
+ *
+ *  \return the default resources location for rendering nodes
  */
-RA_DATAFLOW_API void registerRenderingNodesFactories();
+RA_DATAFLOW_API std::string registerRenderingNodesFactories();
 } // namespace Rendering
 } // namespace Dataflow
 } // namespace Ra

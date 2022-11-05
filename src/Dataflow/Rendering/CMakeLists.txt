@@ -9,6 +9,7 @@ include(filelist.cmake)
 add_library(
     ${ra_dataflowrendering_target} SHARED ${dataflow_rendering_sources}
                                           ${dataflow_rendering_headers}
+                                          ${dataflow_rendering_resources}
 )
 
 # This one should be extracted directly from parent project properties.
@@ -31,6 +32,13 @@ configure_radium_package(
     NAME ${ra_dataflowrendering_target} PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
     PACKAGE_DIR "lib/cmake/Radium/${ra_dataflowrendering_target}" NAME_PREFIX "Radium"
 )
+
+foreach(resourceDir ${dataflow_rendering_resources})
+    install_target_resources(
+        TARGET ${ra_dataflowrendering_target} RESOURCES_INSTALL_DIR "Radium/Dataflow"
+        RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${resourceDir}
+    )
+endforeach()
 
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_dataflowrendering_target} PARENT_SCOPE)
 

@@ -13,6 +13,8 @@ namespace Ra::Engine::Data {
 class ShaderProgramManager;
 }
 
+void RenderingNodes__Initializer();
+
 namespace Ra {
 namespace Dataflow {
 namespace Rendering {
@@ -54,9 +56,19 @@ class RA_DATAFLOW_API RenderingNode : public Dataflow::Core::Node,
     /// Indicate if the node needs to setup a rendertechnique on RenderObjects
     virtual bool hasRenderTechnique() { return false; }
 
+    /// Initialize shaders internally used by the node.
+    /// This method should be override by rendering nodes that requires specific shaders,
+    /// independent from renderObjects, to compute their result.
+    virtual bool initInternalShaders() { return true; }
+
     /// Sets the shader program manager
     void setShaderProgramManager( Ra::Engine::Data::ShaderProgramManager* shaderMngr ) {
         m_shaderMngr = shaderMngr;
+    }
+
+    /// Sets the filesystem (real or virtual) location for the node resources (shaders, ...)
+    void setResourcesDir( std::string resourcesRootDir ) {
+        m_resourceDir = std::move( resourcesRootDir );
     }
 
     static const std::string getTypename() { return "RenderingNode"; }
@@ -75,6 +87,13 @@ class RA_DATAFLOW_API RenderingNode : public Dataflow::Core::Node,
 
     /// The renderer's shader program manager
     Ra::Engine::Data::ShaderProgramManager* m_shaderMngr;
+    /// The resource directory to use
+    std::string m_resourceDir { s_defaultResourceDir };
+
+  private:
+    friend DATAFLOW_LIBRARY_INITIALIZER_DECL( ::RenderingNodes );
+    /// The default resources directory  for nodes, set once
+    static std::string s_defaultResourceDir;
 };
 
 } // namespace Nodes

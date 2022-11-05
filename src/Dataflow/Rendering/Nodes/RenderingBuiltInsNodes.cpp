@@ -1,18 +1,43 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
+DATAFLOW_LIBRARY_INITIALIZER_DECL( RenderingNodes );
 
 #include <Dataflow/Rendering/Nodes/Sinks/DisplaySinkNode.hpp>
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
 #include <Dataflow/Rendering/Nodes/Sources/TextureSourceNode.hpp>
 
 #include <Dataflow/Rendering/Nodes/RenderNodes/ClearColorNode.hpp>
+#include <Dataflow/Rendering/Nodes/RenderNodes/SimpleRenderNode.hpp>
 
 #include <Dataflow/Rendering/RenderingGraph.hpp>
+
+#include <Core/Resources/Resources.hpp>
 
 namespace Ra {
 namespace Dataflow {
 namespace Rendering {
 
-void registerRenderingNodesFactories() {
+namespace Nodes {
+// This is here right now, can be moved if requested :
+std::string RenderingNode::s_defaultResourceDir;
+} // namespace Nodes
+
+/// Todo, put this somewhere else. This is needed to locate resources by client applications
+/// Todo (bis), remove this requirement
+static int DataflowRendererMagic = 0x01020304;
+
+std::string registerRenderingNodesFactories() {
+    auto resourcesCheck = Ra::Core::Resources::getResourcesPath(
+        reinterpret_cast<void*>( &DataflowRendererMagic ), { "Resources/Radium/Dataflow" } );
+    if ( !resourcesCheck ) {
+        LOG( Ra::Core::Utils::logERROR ) << "Unable to find resources for renderingNodeFactory, "
+                                            "setting it to current directory!";
+        resourcesCheck = "./";
+    }
+    auto resourcesPath { *resourcesCheck };
+
+    LOG( Ra::Core::Utils::logINFO )
+        << "Resources for renderingNodes will be fetched from " << resourcesPath;
+
     Core::NodeFactorySet::mapped_type renderingFactory {
         new Core::NodeFactorySet::mapped_type::element_type( "RenderingNodes" ) };
 
@@ -31,18 +56,30 @@ void registerRenderingNodesFactories() {
     renderingFactory->registerNodeCreator<Nodes::ClearColorNode>(
         Nodes::ClearColorNode::getTypename() + "_", "Render" );
 
+    renderingFactory->registerNodeCreator<SimpleRenderNode>(
+        [resourcesPath, renderingFactory]( const nlohmann::json& data ) {
+            auto node = new SimpleRenderNode( "SimpleRender_" +
+                                              std::to_string( renderingFactory->nextNodeId() ) );
+            node->fromJson( data );
+            node->setResourcesDir( resourcesPath );
+            return node;
+        },
+        "Render" );
     /* --- Graphs --- */
     renderingFactory->registerNodeCreator<RenderingGraph>( RenderingGraph::getTypename() + "_",
                                                            "Graph" );
 
     /* -- end --*/
     Core::NodeFactoriesManager::registerFactory( renderingFactory );
+
+    return resourcesPath;
 }
 
 } // namespace Rendering
 } // namespace Dataflow
 } // namespace Ra
 
-DATAFLOW_LIBRARY_INITIALIZER( RenderingNodes ) {
-    Ra::Dataflow::Rendering::registerRenderingNodesFactories();
+DATAFLOW_LIBRARY_INITIALIZER_IMPL( RenderingNodes ) {
+    Ra::Dataflow::Rendering::Nodes::RenderingNode::s_defaultResourceDir =
+        Ra::Dataflow::Rendering::registerRenderingNodesFactories();
 }
