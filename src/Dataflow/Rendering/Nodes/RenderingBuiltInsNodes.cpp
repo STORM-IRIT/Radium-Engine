@@ -7,6 +7,7 @@ DATAFLOW_LIBRARY_INITIALIZER_DECL( RenderingNodes );
 #include <Dataflow/Rendering/Nodes/Sources/TextureSourceNode.hpp>
 
 #include <Dataflow/Rendering/Nodes/RenderNodes/ClearColorNode.hpp>
+#include <Dataflow/Rendering/Nodes/RenderNodes/EmissivityRenderNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/GeometryAovsNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/SimpleRenderNode.hpp>
 
@@ -36,9 +37,6 @@ std::string registerRenderingNodesFactories() {
         resourcesCheck = "./";
     }
     auto resourcesPath { *resourcesCheck };
-
-    LOG( Ra::Core::Utils::logINFO )
-        << "Resources for renderingNodes will be fetched from " << resourcesPath;
 
     Core::NodeFactorySet::mapped_type renderingFactory {
         new Core::NodeFactorySet::mapped_type::element_type( "RenderingNodes" ) };
@@ -76,6 +74,16 @@ std::string registerRenderingNodesFactories() {
         [resourcesPath, renderingFactory]( const nlohmann::json& data ) {
             auto node = new GeometryAovsNode( "GeometryAovs_" +
                                               std::to_string( renderingFactory->nextNodeId() ) );
+            node->fromJson( data );
+            node->setResourcesDir( resourcesPath );
+            return node;
+        },
+        "Render" );
+
+    renderingFactory->registerNodeCreator<EmissivityNode>(
+        [resourcesPath, renderingFactory]( const nlohmann::json& data ) {
+            auto node = new EmissivityNode( "Emissivity_" +
+                                            std::to_string( renderingFactory->nextNodeId() ) );
             node->fromJson( data );
             node->setResourcesDir( resourcesPath );
             return node;
