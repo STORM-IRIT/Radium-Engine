@@ -8,7 +8,6 @@ namespace GraphEditor {
 using namespace Ra::Dataflow::Core;
 
 GraphEditorWindow::~GraphEditorWindow() {
-
     // Prevent graph destruction if the editor is used to work with active graphs.
     auto graphProtection = m_graph->getNodesAndLinksProtection();
     if ( !m_ownGraph ) { m_graph->setNodesAndLinksProtection( true ); }
@@ -60,7 +59,7 @@ void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
     if ( maybeSave() ) {
         writeSettings();
         event->accept();
-        deleteLater();
+        if ( !m_ownGraph ) { deleteLater(); }
     }
     else {
         event->ignore();
