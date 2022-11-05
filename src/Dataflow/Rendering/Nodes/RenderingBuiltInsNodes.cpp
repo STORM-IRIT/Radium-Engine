@@ -2,6 +2,7 @@
 DATAFLOW_LIBRARY_INITIALIZER_DECL( RenderingNodes );
 
 #include <Dataflow/Rendering/Nodes/Sinks/DisplaySinkNode.hpp>
+#include <Dataflow/Rendering/Nodes/Sources/EnvMapSourceNode.hpp>
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
 #include <Dataflow/Rendering/Nodes/Sources/TextureSourceNode.hpp>
 
@@ -48,6 +49,10 @@ std::string registerRenderingNodesFactories() {
         Nodes::ColorTextureNode::getTypename() + "_", "Source" );
     renderingFactory->registerNodeCreator<Nodes::DepthTextureNode>(
         Nodes::DepthTextureNode::getTypename() + "_", "Source" );
+
+    renderingFactory->registerNodeCreator<Nodes::EnvMapSourceNode>(
+        Nodes::EnvMapSourceNode::getTypename() + "_", "Source" );
+
     /* --- Sinks --- */
     renderingFactory->registerNodeCreator<Nodes::DisplaySinkNode>(
         Nodes::DisplaySinkNode::getTypename() + "_", "Sinks" );

@@ -14,16 +14,17 @@ set(dataflow_rendering_sources
 )
 
 set(dataflow_rendering_headers
-    Nodes/RenderingNode.hpp
-    Renderer/ControllableRenderer.hpp
-    Renderer/RenderGraphController.hpp
     Nodes/RenderingBuiltInsNodes.hpp
-    RenderingGraph.hpp
-    Nodes/Sources/Scene.hpp
-    Nodes/Sinks/DisplaySinkNode.hpp
-    Nodes/Sources/TextureSourceNode.hpp
+    Nodes/RenderingNode.hpp
     Nodes/RenderNodes/ClearColorNode.hpp
     Nodes/RenderNodes/SimpleRenderNode.hpp
+    Nodes/Sinks/DisplaySinkNode.hpp
+    Nodes/Sources/Scene.hpp
+    Nodes/Sources/EnvMapSourceNode.hpp
+    Nodes/Sources/TextureSourceNode.hpp
+    Renderer/ControllableRenderer.hpp
+    Renderer/RenderGraphController.hpp
+    RenderingGraph.hpp
 )
 
 set(dataflow_rendering_resources Shaders)
