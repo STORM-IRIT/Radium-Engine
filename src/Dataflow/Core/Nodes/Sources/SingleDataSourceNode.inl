@@ -15,7 +15,7 @@ SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
 }
 
 template <typename T>
-void SingleDataSourceNode<T>::execute() {
+bool SingleDataSourceNode<T>::execute() {
     // interfaces ports are at the same index as output ports
     auto interfacePort = static_cast<PortIn<T>*>( m_interface[0] );
     if ( interfacePort->isLinked() ) {
@@ -27,6 +27,7 @@ void SingleDataSourceNode<T>::execute() {
         m_data = &m_localData;
     }
     m_portOut->setData( m_data );
+    return true;
 }
 
 template <typename T>

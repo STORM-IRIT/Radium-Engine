@@ -65,7 +65,8 @@ class RA_DATAFLOW_API Node
     /// \brief Executes the node.
     /// Execute the node function on the input ports (to be fetched) and write the results to the
     /// output ports.
-    virtual void execute() = 0;
+    /// \return the execution status.
+    virtual bool execute() = 0;
 
     /// \brief delete the node content
     /// The destroy() function is called once at the end of the lifetime of the node.

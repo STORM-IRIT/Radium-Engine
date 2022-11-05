@@ -27,8 +27,9 @@ void SinkNode<T>::init() {
 }
 
 template <typename T>
-void SinkNode<T>::execute() {
+bool SinkNode<T>::execute() {
     m_data = m_portIn->getData();
+    return true;
 }
 
 template <typename T>

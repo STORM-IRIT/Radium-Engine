@@ -33,7 +33,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     virtual ~DataflowGraph() = default;
 
     void init() override;
-    void execute() override;
+    bool execute() override;
     void destroy() override;
 
     /// Set the factory set to use when loading a graph

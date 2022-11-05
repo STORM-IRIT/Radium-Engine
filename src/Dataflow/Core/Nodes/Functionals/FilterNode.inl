@@ -28,7 +28,7 @@ void FilterNode<coll_t, v_t>::init() {
 }
 
 template <typename coll_t, typename v_t>
-void FilterNode<coll_t, v_t>::execute() {
+bool FilterNode<coll_t, v_t>::execute() {
     auto f = m_portPredicate->isLinked() ? m_portPredicate->getData() : m_predicate;
     // The following test will always be true if the node was integrated in a compiled graph
     if ( m_portIn->isLinked() ) {
@@ -38,6 +38,7 @@ void FilterNode<coll_t, v_t>::execute() {
         // SequenceContainer
         std::copy_if( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
     }
+    return true;
 }
 
 template <typename coll_t, typename v_t>

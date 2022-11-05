@@ -26,7 +26,7 @@ void TransformNode<coll_t, v_t>::init() {
 }
 
 template <typename coll_t, typename v_t>
-void TransformNode<coll_t, v_t>::execute() {
+bool TransformNode<coll_t, v_t>::execute() {
     auto f = m_portOperator->isLinked() ? m_portOperator->getData() : m_operator;
     // The following test will always be true if the node was integrated in a compiled graph
     if ( m_portIn->isLinked() ) {
@@ -36,6 +36,7 @@ void TransformNode<coll_t, v_t>::execute() {
         // SequenceContainer
         std::transform( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
     }
+    return true;
 }
 
 template <typename coll_t, typename v_t>

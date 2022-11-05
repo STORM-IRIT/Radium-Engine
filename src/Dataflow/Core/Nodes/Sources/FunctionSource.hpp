@@ -25,7 +25,7 @@ class FunctionSourceNode : public Node
     explicit FunctionSourceNode( const std::string& name ) :
         FunctionSourceNode( name, FunctionSourceNode<R, Args...>::getTypename() ) {}
 
-    void execute() override;
+    bool execute() override;
 
     /** \brief Set the function to be delivered by the node.
      * @param data
