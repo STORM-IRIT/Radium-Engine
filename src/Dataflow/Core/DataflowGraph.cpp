@@ -33,13 +33,17 @@ void DataflowGraph::init() {
     }
 }
 
-void DataflowGraph::execute() {
+bool DataflowGraph::execute() {
     if ( !m_ready ) {
-        if ( !compile() ) { return; }
+        if ( !compile() ) { return false; }
     }
-    std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( const auto& level ) {
-        std::for_each( level.begin(), level.end(), []( auto node ) { node->execute(); } );
+    bool result = true;
+    std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), [&result]( const auto& level ) {
+        std::for_each( level.begin(), level.end(), [&result]( auto node ) {
+            result = result && node->execute();
+        } );
     } );
+    return result;
 }
 
 void DataflowGraph::destroy() {
@@ -116,6 +120,12 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
 }
 
 bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
+
+    if ( !nlohmann::json::accept( std::ifstream( jsonFilePath ) ) ) {
+        LOG( logERROR ) << jsonFilePath << " is not a valid json file !!";
+        return false;
+    }
+
     std::ifstream file( jsonFilePath );
     nlohmann::json j;
     file >> j;
@@ -610,9 +620,15 @@ Node* DataflowGraph::getNode( const std::string& instanceNameNode ) {
 }
 
 DataflowGraph* DataflowGraph::loadGraphFromJsonFile( const std::string& filename ) {
+    if ( !nlohmann::json::accept( std::ifstream( filename ) ) ) {
+        LOG( logERROR ) << filename << " is not a valid json file !!";
+        return nullptr;
+    }
+
     std::ifstream jsonFile( filename );
     nlohmann::json j;
     jsonFile >> j;
+
     bool valid = false;
     if ( j.contains( "model" ) ) {
         if ( j["model"].contains( "name" ) && j["model"].contains( "instance" ) ) { valid = true; }

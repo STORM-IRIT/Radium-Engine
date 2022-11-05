@@ -33,7 +33,7 @@ void ReduceNode<coll_t, v_t>::init() {
 }
 
 template <typename coll_t, typename v_t>
-void ReduceNode<coll_t, v_t>::execute() {
+bool ReduceNode<coll_t, v_t>::execute() {
     auto f   = m_portF->isLinked() ? m_portF->getData() : m_operator;
     auto iv  = m_portInit->isLinked() ? m_portInit->getData() : m_init;
     m_result = iv;
@@ -42,6 +42,7 @@ void ReduceNode<coll_t, v_t>::execute() {
         const auto& inData = m_portIn->getData();
         m_result           = std::accumulate( inData.begin(), inData.end(), iv, f );
     }
+    return true;
 }
 
 template <typename coll_t, typename v_t>

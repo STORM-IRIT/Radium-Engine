@@ -23,7 +23,7 @@ class SinkNode : public Node
      * \brief initialize the interface port data pointer
      */
     void init() override;
-    void execute() override;
+    bool execute() override;
 
     /**
      * Get the delivered data

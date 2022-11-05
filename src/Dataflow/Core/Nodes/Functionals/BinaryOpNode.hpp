@@ -183,7 +183,7 @@ class BinaryOpNode : public Node
         Node::init();
     }
 
-    void execute() override {
+    bool execute() override {
         auto f = m_operator;
         if ( m_portF->isLinked() ) { f = m_portF->getData(); }
         // The following test will always be true if the node was integrated in a compiled graph
@@ -191,6 +191,7 @@ class BinaryOpNode : public Node
             m_result = internal::ExecutorHelper<t_a, t_b, t_out, BinaryOperator>::executeInternal(
                 m_portA->getData(), m_portB->getData(), f );
         }
+        return true;
     }
 
     /// \brief Sets the operator to be evaluated by the node.

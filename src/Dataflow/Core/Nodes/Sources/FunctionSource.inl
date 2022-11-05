@@ -15,13 +15,14 @@ FunctionSourceNode<R, Args...>::FunctionSourceNode( const std::string& instanceN
 }
 
 template <class R, class... Args>
-void FunctionSourceNode<R, Args...>::execute() {
+bool FunctionSourceNode<R, Args...>::execute() {
     auto interfacePort = static_cast<PortIn<function_type>*>( m_interface[0] );
     if ( interfacePort->isLinked() ) { m_data = &( interfacePort->getData() ); }
     else {
         m_data = &m_localData;
     }
     m_portOut->setData( m_data );
+    return true;
 }
 
 template <class R, class... Args>

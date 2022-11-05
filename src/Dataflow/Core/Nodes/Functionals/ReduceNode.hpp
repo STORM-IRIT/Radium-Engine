@@ -53,7 +53,7 @@ class ReduceNode : public Node
     ReduceNode( const std::string& instanceName, ReduceOperator op, v_t initialValue = v_t {} );
 
     void init() override;
-    void execute() override;
+    bool execute() override;
 
     /// Sets the operator on the node
     void setOperator( ReduceOperator op, v_t initialValue = v_t {} );
