@@ -10,6 +10,7 @@ set(dataflow_rendering_sources
     Nodes/Sinks/DisplaySinkNode.cpp
     Nodes/Sources/TextureSourceNode.cpp
     Nodes/RenderNodes/ClearColorNode.cpp
+    Nodes/RenderNodes/GeometryAovsNode.cpp
     Nodes/RenderNodes/SimpleRenderNode.cpp
 )
 
@@ -17,6 +18,7 @@ set(dataflow_rendering_headers
     Nodes/RenderingBuiltInsNodes.hpp
     Nodes/RenderingNode.hpp
     Nodes/RenderNodes/ClearColorNode.hpp
+    Nodes/RenderNodes/GeometryAovsNode.hpp
     Nodes/RenderNodes/SimpleRenderNode.hpp
     Nodes/Sinks/DisplaySinkNode.hpp
     Nodes/Sources/Scene.hpp

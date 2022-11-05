@@ -7,6 +7,7 @@ DATAFLOW_LIBRARY_INITIALIZER_DECL( RenderingNodes );
 #include <Dataflow/Rendering/Nodes/Sources/TextureSourceNode.hpp>
 
 #include <Dataflow/Rendering/Nodes/RenderNodes/ClearColorNode.hpp>
+#include <Dataflow/Rendering/Nodes/RenderNodes/GeometryAovsNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/SimpleRenderNode.hpp>
 
 #include <Dataflow/Rendering/RenderingGraph.hpp>
@@ -70,6 +71,17 @@ std::string registerRenderingNodesFactories() {
             return node;
         },
         "Render" );
+
+    renderingFactory->registerNodeCreator<GeometryAovsNode>(
+        [resourcesPath, renderingFactory]( const nlohmann::json& data ) {
+            auto node = new GeometryAovsNode( "GeometryAovs_" +
+                                              std::to_string( renderingFactory->nextNodeId() ) );
+            node->fromJson( data );
+            node->setResourcesDir( resourcesPath );
+            return node;
+        },
+        "Render" );
+
     /* --- Graphs --- */
     renderingFactory->registerNodeCreator<RenderingGraph>( RenderingGraph::getTypename() + "_",
                                                            "Graph" );
