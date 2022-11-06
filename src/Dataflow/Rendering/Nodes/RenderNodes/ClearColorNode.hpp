@@ -22,6 +22,10 @@ using namespace Ra::Dataflow::Core;
 using namespace Ra::Engine::Data;
 using EnvironmentType = std::shared_ptr<EnvironmentTexture>;
 
+/**
+ * \brief Initialize the given image either using a constant color or by rendering a sky box.
+ *
+ */
 class RA_DATAFLOW_API ClearColorNode : public RenderingNode
 {
   public:
