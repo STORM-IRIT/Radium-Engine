@@ -41,12 +41,13 @@ class FilterSelector final : public Node
 
     explicit FilterSelector( const std::string& name ) : FilterSelector( name, getTypename() ) {}
 
-    void execute() override {
+    bool execute() override {
         // get operator parameters
         if ( m_portName->isLinked() ) { m_operatorName = m_portName->getData(); }
         if ( m_portThreshold->isLinked() ) { m_threshold = m_portThreshold->getData(); }
         // compute the result associated to the output port
         m_currentFunction = m_functions[m_operatorName];
+        return true;
     }
 
     /** \brief Set the function name used to select the function to deliver.
