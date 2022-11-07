@@ -69,6 +69,7 @@ bool updateWidget( QWidget* widget, EditableParameterBase* editableParameter ) {
 }
 
 void initializeWidgetFactory() {
+    // TODO, rewrite this to use Control panel and its widgets !!!
     /*
      * Environment map "edition" widget
      */
