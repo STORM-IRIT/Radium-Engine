@@ -48,6 +48,7 @@ bool RenderingGraph::compile() {
                         m_rtIndexedNodes.push_back( renderNode );
                     }
                     renderNode->setShaderProgramManager( m_shaderMngr );
+                    renderNode->initInternalShaders();
                 }
             }
         }
