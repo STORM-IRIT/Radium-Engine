@@ -150,8 +150,8 @@ class DemoWindowFactory : public BaseApplication::WindowFactory
 /* ----------------------------------------------------------------------------------- */
 // Renderer controller
 #include <Dataflow/Rendering/Nodes/RenderNodes/ClearColorNode.hpp>
+#include <Dataflow/Rendering/Nodes/RenderNodes/GeometryAovsNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/SimpleRenderNode.hpp>
-
 #include <Dataflow/Rendering/Nodes/Sinks/DisplaySinkNode.hpp>
 
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
@@ -238,6 +238,8 @@ class MyRendererController : public RenderGraphController
             m_renderGraph->addNode( sceneNode );
             auto resultNode = new DisplaySinkNode( "Images" );
             m_renderGraph->addNode( resultNode );
+            auto geomAovs = new GeometryAovsNode( "Geometry Aovs" );
+            m_renderGraph->addNode( geomAovs );
 #if 0
             auto textureSource = new ColorTextureNode( "Beauty" );
             m_renderGraph->addNode( textureSource );
@@ -262,6 +264,11 @@ class MyRendererController : public RenderGraphController
                       m_renderGraph->addLink( simpleRenderNode, "Beauty", resultNode, "Beauty" );
             linksOK = linksOK &&
                       m_renderGraph->addLink( simpleRenderNode, "Depth AOV", resultNode, "AOV_0" );
+            linksOK =
+                linksOK && m_renderGraph->addLink( geomAovs, "world normal", resultNode, "AOV_1" );
+            linksOK = linksOK && m_renderGraph->addLink( sceneNode, "camera", geomAovs, "camera" );
+            linksOK =
+                linksOK && m_renderGraph->addLink( sceneNode, "objects", geomAovs, "objects" );
 
             if ( !linksOK ) { LOG( logERROR ) << "Something went wrong when linking nodes !!! "; }
             else {
