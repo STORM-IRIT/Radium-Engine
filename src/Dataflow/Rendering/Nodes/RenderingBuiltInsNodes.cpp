@@ -10,6 +10,7 @@ DATAFLOW_LIBRARY_INITIALIZER_DECL( RenderingNodes );
 #include <Dataflow/Rendering/Nodes/RenderNodes/EmissivityRenderNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/GeometryAovsNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/SimpleRenderNode.hpp>
+#include <Dataflow/Rendering/Nodes/RenderNodes/SsaoRenderNode.hpp>
 
 #include <Dataflow/Rendering/RenderingGraph.hpp>
 
@@ -84,6 +85,15 @@ std::string registerRenderingNodesFactories() {
         [resourcesPath, renderingFactory]( const nlohmann::json& data ) {
             auto node = new EmissivityNode( "Emissivity_" +
                                             std::to_string( renderingFactory->nextNodeId() ) );
+            node->fromJson( data );
+            node->setResourcesDir( resourcesPath );
+            return node;
+        },
+        "Render" );
+
+    renderingFactory->registerNodeCreator<SsaoNode>(
+        [resourcesPath, renderingFactory]( const nlohmann::json& data ) {
+            auto node = new SsaoNode( "Ssao_" + std::to_string( renderingFactory->nextNodeId() ) );
             node->fromJson( data );
             node->setResourcesDir( resourcesPath );
             return node;

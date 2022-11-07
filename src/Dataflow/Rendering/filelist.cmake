@@ -13,6 +13,7 @@ set(dataflow_rendering_sources
     Nodes/RenderNodes/EmissivityRenderNode.cpp
     Nodes/RenderNodes/GeometryAovsNode.cpp
     Nodes/RenderNodes/SimpleRenderNode.cpp
+    Nodes/RenderNodes/SsaoRenderNode.cpp
 )
 
 set(dataflow_rendering_headers
@@ -22,6 +23,7 @@ set(dataflow_rendering_headers
     Nodes/RenderNodes/EmissivityRenderNode.hpp
     Nodes/RenderNodes/GeometryAovsNode.hpp
     Nodes/RenderNodes/SimpleRenderNode.hpp
+    Nodes/RenderNodes/SsaoRenderNode.hpp
     Nodes/Sinks/DisplaySinkNode.hpp
     Nodes/Sources/Scene.hpp
     Nodes/Sources/EnvMapSourceNode.hpp
