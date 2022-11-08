@@ -98,7 +98,6 @@ void Texture::bindImageTexture( int unit,
 }
 
 void Texture::updateGL() {
-    //    CORE_ASSERT( m_textureParameters.texels != nullptr, "No cpu data" );
     CORE_ASSERT( m_texture != nullptr, "Cannot update non initialized texture" );
     switch ( m_texture->target() ) {
     case GL_TEXTURE_1D: {
@@ -220,8 +219,8 @@ void Texture::updateData( void* newData ) {
 
     if ( m_updateDataTaskId.isInvalid() ) {
         auto taskFunc = [this]() {
-            this->updateGL();
             std::lock_guard<std::mutex> taskLock( m_updateMutex );
+            this->updateGL();
             m_updateDataTaskId = Core::TaskQueue::TaskId::Invalid();
         };
         auto task          = std::make_unique<Core::FunctionTask>( taskFunc, getName() );
