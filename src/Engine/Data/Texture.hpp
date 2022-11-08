@@ -1,13 +1,12 @@
 #pragma once
 
+#include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Engine/OpenGL.hpp>
 #include <Engine/RaEngine.hpp>
 
 #include <memory>
 #include <string>
-
-#include <Engine/OpenGL.hpp>
-
-#include <Core/Utils/Color.hpp>
 
 namespace globjects {
 class Texture;
@@ -141,11 +140,14 @@ class RA_ENGINE_API Texture final
     inline std::string getName() const { return m_textureParameters.name; }
 
     /**
-     * Update the data contained by the texture
-     * @param newData The new data, must contain the same number of elements than old data, no
-     * check will be performed.
+     * Update the cpu representation of data contained by the texture
+     * @param newData user image pointer to wrap,
+     * must contain the same number of elements than old data (no test perform).
+     * Texture use here existing pixel memory owned by the calling application.
+     * The texture does not own the pixel storage and will not free/delete that memory,
+     * even when the texture is destroyed.
      */
-    void updateData( const void* newData );
+    void updateData( void* newData );
 
     /**
      * Update the parameters contained by the texture.
@@ -215,6 +217,9 @@ class RA_ENGINE_API Texture final
     void setParameters( const TextureParameters& textureParameters ) {
         m_textureParameters = textureParameters;
     }
+
+  protected:
+    void updateGL();
 
   private:
     /**
