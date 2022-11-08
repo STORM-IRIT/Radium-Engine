@@ -88,9 +88,9 @@ void CameraManager::generateTasks( Core::TaskQueue* taskQueue,
         auto comp = ( *m_data )[i];
         auto ro   = comp->getRenderObject();
         if ( ro->isVisible() ) {
-            auto updater      = new RoUpdater();
+            auto updater      = std::make_unique<RoUpdater>();
             updater->m_camera = comp;
-            taskQueue->registerTask( updater );
+            taskQueue->registerTask( std::move( updater ) );
         }
     }
 }
