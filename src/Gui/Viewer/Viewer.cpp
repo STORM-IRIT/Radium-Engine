@@ -661,6 +661,7 @@ bool Viewer::handleKeyPressEvent( QKeyEvent* event ) {
         eventCatched = m_camera->handleKeyPressEvent( event, actionCamera );
     }
     else if ( actionGizmo.isValid() ) {
+        // \todo add gizmo manager handleKeyPressEvent
         // m_gizmoManager->handleKeyPressEvent( event, action );
         // eventCatched = true;
     }
@@ -743,13 +744,6 @@ void Viewer::handleMousePressEvent( QMouseEvent* event,
             }
         }
     }
-    /*
-     * // action == KeyMappingManager::VIEWER_RAYCAST
-    LOG( logINFO ) << "Raycast query are disabled";
-    auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y()
-    )); RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f ); RA_DISPLAY_RAY( r,
-    Color::Yellow() );
-    }*/
 }
 
 void Viewer::handleMouseReleaseEvent( QMouseEvent* event ) {
