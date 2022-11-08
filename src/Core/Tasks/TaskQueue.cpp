@@ -27,10 +27,6 @@ TaskQueue::~TaskQueue() {
     }
 }
 
-TaskQueue::TaskId TaskQueue::registerTask( Task* task ) {
-    return registerTask( std::unique_ptr<Task>( task ) );
-}
-
 TaskQueue::TaskId TaskQueue::registerTask( std::unique_ptr<Task> task ) {
     std::lock_guard<std::mutex> lock( m_taskMutex );
     TimerData tdata;

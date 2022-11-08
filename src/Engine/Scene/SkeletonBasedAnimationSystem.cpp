@@ -53,29 +53,29 @@ void SkeletonBasedAnimationSystem::generateTasks( Core::TaskQueue* taskQueue,
                 // here we update the skeleton w.r.t. the animation
                 auto animFunc =
                     std::bind( &SkeletonComponent::update, animComp, frameInfo.m_animationTime );
-                auto animTask = new Core::FunctionTask(
+                auto animTask = std::make_unique<Core::FunctionTask>(
                     animFunc, "AnimatorTask_" + animComp->getSkeleton()->getName() );
-                taskQueue->registerTask( animTask );
+                taskQueue->registerTask( std::move( animTask ) );
             }
             else {
                 // here we update the skeleton w.r.t. the manipulation
                 auto animFunc = std::bind( &SkeletonComponent::updateDisplay, animComp );
-                auto animTask = new Core::FunctionTask(
+                auto animTask = std::make_unique<Core::FunctionTask>(
                     animFunc, "AnimatorTask_" + animComp->getSkeleton()->getName() );
-                taskQueue->registerTask( animTask );
+                taskQueue->registerTask( std::move( animTask ) );
             }
         }
         // deal with SkinningComponents
         else if ( auto skinComp = dynamic_cast<SkinningComponent*>( compEntry.second ) ) {
             auto skinFunc = std::bind( &SkinningComponent::skin, skinComp );
-            auto skinTask =
-                new Core::FunctionTask( skinFunc, "SkinnerTask_" + skinComp->getMeshName() );
+            auto skinTask = std::make_unique<Core::FunctionTask>(
+                skinFunc, "SkinnerTask_" + skinComp->getMeshName() );
             auto endFunc = std::bind( &SkinningComponent::endSkinning, skinComp );
-            auto endTask =
-                new Core::FunctionTask( endFunc, "SkinnerEndTask_" + skinComp->getMeshName() );
+            auto endTask = std::make_unique<Core::FunctionTask>(
+                endFunc, "SkinnerEndTask_" + skinComp->getMeshName() );
 
-            auto skinTaskId = taskQueue->registerTask( skinTask );
-            auto endTaskId  = taskQueue->registerTask( endTask );
+            auto skinTaskId = taskQueue->registerTask( std::move( skinTask ) );
+            auto endTaskId  = taskQueue->registerTask( std::move( endTask ) );
             taskQueue->addPendingDependency( "AnimatorTask_" + skinComp->getSkeletonName(),
                                              skinTaskId );
             taskQueue->addDependency( skinTaskId, endTaskId );

@@ -57,7 +57,6 @@ class RA_CORE_API TaskQueue
     /// Registers a task to be executed.
     /// Task must have been created with new and be initialized with its parameter.
     /// The task queue assumes ownership of the task.
-    TaskId registerTask( Task* task );
     TaskId registerTask( std::unique_ptr<Task> task );
 
     /// remove a task, in fact simply replace the task by a dummy empty one.
