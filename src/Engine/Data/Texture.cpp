@@ -1,5 +1,8 @@
+#include <Core/Tasks/Task.hpp>
+#include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/Texture.hpp>
+#include <Engine/RadiumEngine.hpp>
 
 #include <globjects/Texture.h>
 
@@ -73,7 +76,7 @@ void Texture::initializeGL( bool linearize ) {
                        m_textureParameters.minFilter == GL_LINEAR );
     updateParameters();
     // upload texture to the GPU
-    updateData( m_textureParameters.texels );
+    updateGL();
     // Generate mip-map if needed.
     if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
@@ -94,7 +97,9 @@ void Texture::bindImageTexture( int unit,
         uint( unit ), level, layered, layer, access, m_textureParameters.internalFormat );
 }
 
-void Texture::updateData( const void* data ) {
+void Texture::updateGL() {
+    //    CORE_ASSERT( m_textureParameters.texels != nullptr, "No cpu data" );
+    CORE_ASSERT( m_texture != nullptr, "Cannot update non initialized texture" );
     switch ( m_texture->target() ) {
     case GL_TEXTURE_1D: {
         m_texture->image1D( 0,
@@ -103,7 +108,7 @@ void Texture::updateData( const void* data ) {
                             0,
                             m_textureParameters.format,
                             m_textureParameters.type,
-                            data );
+                            m_textureParameters.texels );
         GL_CHECK_ERROR
     } break;
     case GL_TEXTURE_2D:
@@ -115,7 +120,7 @@ void Texture::updateData( const void* data ) {
                             0,
                             m_textureParameters.format,
                             m_textureParameters.type,
-                            data );
+                            m_textureParameters.texels );
         GL_CHECK_ERROR
     } break;
     case GL_TEXTURE_3D: {
@@ -127,13 +132,15 @@ void Texture::updateData( const void* data ) {
                             0,
                             m_textureParameters.format,
                             m_textureParameters.type,
-                            data );
+                            m_textureParameters.texels );
         GL_CHECK_ERROR
     } break;
     case GL_TEXTURE_CUBE_MAP: {
         // Load the 6 faces of the cube-map
         static const void* nullTexels[6] { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
-        auto texels = data != nullptr ? (const void**)data : nullTexels;
+        auto texels = m_textureParameters.texels != nullptr
+                          ? (const void**)m_textureParameters.texels
+                          : nullTexels;
 
         m_texture->bind();
         // track globjects updates that will hopefully support direct loading of
@@ -203,6 +210,21 @@ void Texture::updateData( const void* data ) {
     } break;
     }
     GL_CHECK_ERROR;
+}
+
+void Texture::updateData( void* newData ) {
+    m_textureParameters.texels = newData;
+
+    // register gpu task to update opengl representation before next rendering
+    static Core::TaskQueue::TaskId updateDataTaskId;
+    if ( updateDataTaskId.isInvalid() ) {
+        auto taskFunc = [this]() {
+            this->updateGL();
+            updateDataTaskId = Core::TaskQueue::TaskId::Invalid();
+        };
+        auto task        = std::make_unique<Core::FunctionTask>( taskFunc, getName() );
+        updateDataTaskId = RadiumEngine::getInstance()->addGpuTask( std::move( task ) );
+    }
 }
 
 // let the compiler warn about case fallthrough
@@ -293,7 +315,7 @@ void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     m_textureParameters.texels = pix;
     if ( m_texture == nullptr ) { initializeGL( false ); }
     else {
-        updateData( m_textureParameters.texels );
+        updateGL();
     }
     if ( m_isMipMapped ) { m_texture->generateMipmap(); }
 }
