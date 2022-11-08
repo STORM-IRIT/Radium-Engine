@@ -1,6 +1,7 @@
 // Include Radium base application and its simple Gui
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/Viewer/Viewer.hpp>
 
 // include the Engine/entity/component interface
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
@@ -9,6 +10,9 @@
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
+
+#include <chrono>
+#include <thread>
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
@@ -59,6 +63,41 @@ int main( int argc, char* argv[] ) {
     //! [Tell the window that something is to be displayed]
     app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
+
+    auto viewer = app.m_mainWindow->getViewer();
+    viewer->makeCurrent();
+    auto texture = app.m_engine->getTextureManager()->getOrLoadTexture( textureParameters );
+    viewer->doneCurrent();
+
+    constexpr int nSec = 4;
+    // terminate the app after nSec second (approximatively). Camera can be moved using mouse moves.
+    auto thread = std::thread( [=, &app, &texture]() {
+        const auto& startChrono = std::chrono::high_resolution_clock::now();
+        int dec                 = 0;
+
+        for ( int iSec = 0; iSec < nSec; ++iSec ) {
+            const auto& endChrono = startChrono + ( iSec + 1 ) * std::chrono::milliseconds( 1000 );
+
+            while ( std::chrono::high_resolution_clock::now() < endChrono ) {
+                unsigned char newData[size];
+                for ( int i = 0; i < width; ++i ) {
+                    for ( int j = 0; j < height; j++ ) {
+                        newData[( i * height + j )] =
+                            (unsigned char)( 200.0 * std::abs( std::sin( float( dec ) / 40_ra ) ) *
+                                             std::abs( std::sin( j * i * M_PI / 64.0 ) *
+                                                       std::cos( j * i * M_PI / 96.0 ) ) );
+                    }
+                }
+
+                texture->updateData( newData ); // update data multiple times per frame to check if
+                                                // only one update is done per frame.
+                ++dec;
+            }
+        }
+        std::cout << dec / (float)nSec << " texture updates per second." << std::endl;
+        app.appNeedsToQuit();
+    } );
+    thread.detach();
 
     return app.exec();
 }
