@@ -1,13 +1,13 @@
 #pragma once
 
+#include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Engine/OpenGL.hpp>
 #include <Engine/RaEngine.hpp>
 
 #include <memory>
+#include <mutex>
 #include <string>
-
-#include <Engine/OpenGL.hpp>
-
-#include <Core/Utils/Color.hpp>
 
 namespace globjects {
 class Texture;
@@ -106,7 +106,10 @@ class RA_ENGINE_API Texture final
      */
     ~Texture();
 
-    /** @brief Generate the OpenGL representation of the texture according to the stored TextureData
+    /** @brief Generate the OpenGL representation of the texture according to the stored
+     * TextureData.
+     *
+     * Need active OpenGL context.
      *
      * This method use the available m_textureParameters to generate and configure OpenGL
      * texture.
@@ -120,13 +123,20 @@ class RA_ENGINE_API Texture final
     void initializeGL( bool linearize = false );
 
     /**
-     * @brief Bind the texture to enable its use in a shader
+     *
+     * Need active OpenGL context.
+     *
+     * @brief Bind the texture to enable its use in a shader.
      * @param unit Index of the texture to be bound. If -1 only calls glBindTexture.
      */
     void bind( int unit = -1 );
 
     /**
-     * Bind the texture to an image unit for the purpose of reading and writing it from shaders.
+     * \brief Bind the texture to an image unit for the purpose of reading and writing it from
+     * shaders.
+     *
+     * Need active OpenGL context.
+     *
      * @note, only available since openGL 4.2, not available on MacOs
      * uses m_parameters.internalFormat as format.
      * see
@@ -141,18 +151,23 @@ class RA_ENGINE_API Texture final
     inline std::string getName() const { return m_textureParameters.name; }
 
     /**
-     * Update the data contained by the texture
-     * @param newData The new data, must contain the same number of elements than old data, no
-     * check will be performed.
+     * Update the cpu representation of data contained by the texture
+     * @param newData user image pointer to wrap,
+     * must contain the same number of elements than old data (no test perform).
+     * Texture use here existing pixel memory owned by the calling application.
+     * The texture does not own the pixel storage and will not free/delete that memory,
+     * even when the texture is destroyed.
      */
-    void updateData( const void* newData );
+    void updateData( void* newData );
 
     /**
      * Update the parameters contained by the texture.
+     *
+     * Need active OpenGL context.
+     *
      * User first modify the public attributes corresponding to the parameter he wants to change
      * the value (e.g wrap* or *Filter) and call this function to update the OpenGL texture
      * state ...
-     * @return
      */
     void updateParameters();
 
@@ -188,6 +203,9 @@ class RA_ENGINE_API Texture final
     globjects::Texture* texture() const { return m_texture.get(); }
 
     /** Resize the texture.
+     *
+     * Need active OpenGL context.
+     *
      * This allocate GPU memory to store the new resized texture and, if texels are not nullptr,
      * upload the new content.
      * @note : If texels are not nullptr, user must ensure the texels array is correctly
@@ -213,10 +231,13 @@ class RA_ENGINE_API Texture final
      * sufficient to update the GPU representation.
      */
     void setParameters( const TextureParameters& textureParameters ) {
+        std::lock_guard<std::mutex> lock( m_updateMutex );
         m_textureParameters = textureParameters;
     }
 
   private:
+    void updateGL();
+
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
      * The content of the array of texels.
@@ -243,6 +264,10 @@ class RA_ENGINE_API Texture final
     bool m_isMipMapped { false };
     /// Is the texture in LinearRGB ?
     bool m_isLinear { false };
+    /// is valid when a gpu update task is registered (e.g. after a call to setData)
+    Core::TaskQueue::TaskId m_updateDataTaskId;
+    /// mutex to protect non gpu setters, in a thread safe way.
+    std::mutex m_updateMutex;
 };
 } // namespace Data
 } // namespace Engine

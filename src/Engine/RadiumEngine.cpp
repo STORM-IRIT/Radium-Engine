@@ -3,8 +3,9 @@
 #include <Core/Asset/FileData.hpp>
 #include <Core/Asset/FileLoaderInterface.hpp>
 #include <Core/Resources/Resources.hpp>
+#include <Core/Tasks/Task.hpp>
+#include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/StringUtils.hpp>
-
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
@@ -63,8 +64,6 @@ void RadiumEngine::initialize() {
     // register the CameraManager so that it is always activated after all other systems
     Ra::Engine::RadiumEngine::getInstance()->registerSystem(
         "DefaultCameraManager", cameraManager, std::numeric_limits<int>::min() );
-
-    m_loadingState = false;
 }
 
 void RadiumEngine::initializeGL() {
@@ -471,6 +470,14 @@ void RadiumEngine::TimeData::updateTime( Scalar dt ) {
         m_isBackward = true;
         return;
     }
+}
+
+void RadiumEngine::runGpuTasks() {
+    m_gpuTaskQueue->runTasksInThisThread();
+}
+
+Core::TaskQueue::TaskId RadiumEngine::addGpuTask( std::unique_ptr<Core::Task> task ) {
+    return m_gpuTaskQueue->registerTask( std::move( task ) );
 }
 
 } // namespace Engine

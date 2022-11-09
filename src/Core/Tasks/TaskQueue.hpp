@@ -57,6 +57,7 @@ class RA_CORE_API TaskQueue
     /// Task must have been created with new and be initialized with its parameter.
     /// The task queue assumes ownership of the task.
     TaskId registerTask( Task* task );
+    TaskId registerTask( std::unique_ptr<Task> task );
 
     /// Add dependency between two tasks. The successor task will be executed only when all
     /// its predecessor completed.
@@ -79,6 +80,12 @@ class RA_CORE_API TaskQueue
     /// Launches the execution of all the threads in the task queue.
     /// No more tasks should be added at this point.
     void startTasks();
+
+    /// Launches the execution of all task in the thread of the caller.
+    /// Return when all tasks are done. Usefull for instance for opengl related tasks that must run
+    /// in the context thread.
+    /// Once tasks are all processed, this method call flushTasksQueue.
+    void runTasksInThisThread();
 
     /// Blocks until all tasks and dependencies are finished.
     void waitForTasks();

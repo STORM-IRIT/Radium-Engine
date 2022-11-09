@@ -26,12 +26,16 @@ TaskQueue::~TaskQueue() {
 }
 
 TaskQueue::TaskId TaskQueue::registerTask( Task* task ) {
+    return registerTask( std::unique_ptr<Task>( task ) );
+}
+
+TaskQueue::TaskId TaskQueue::registerTask( std::unique_ptr<Task> task ) {
     TimerData tdata;
     // init tdata with task name before moving ownership
     tdata.taskName = task->getName();
     m_timerData.push_back( tdata );
 
-    m_tasks.emplace_back( std::unique_ptr<Task>( task ) );
+    m_tasks.push_back( std::move( task ) );
     m_dependencies.push_back( std::vector<TaskId>() );
     m_remainingDependencies.push_back( 0 );
 
@@ -155,13 +159,45 @@ void TaskQueue::startTasks() {
     m_threadNotifier.notify_all();
 }
 
+void TaskQueue::runTasksInThisThread() {
+    // Add pending dependencies.
+    resolveDependencies();
+
+    // Do a debug check
+    detectCycles();
+
+    // Enqueue all tasks with no dependencies.
+    for ( uint t = 0; t < m_tasks.size(); ++t ) {
+        if ( m_remainingDependencies[t] == 0 ) { queueTask( TaskId { t } ); }
+    }
+    while ( !m_taskQueue.empty() ) {
+        TaskId task;
+        task = m_taskQueue.back();
+        m_taskQueue.pop_back();
+        // Run task
+        m_timerData[task].start    = Utils::Clock::now();
+        m_timerData[task].threadId = 0;
+        m_tasks[task]->process();
+        m_timerData[task].end = Utils::Clock::now();
+
+        for ( auto t : m_dependencies[task] ) {
+            uint& nDepends = m_remainingDependencies[t];
+            CORE_ASSERT( nDepends > 0, "Inconsistency in dependencies" );
+            --nDepends;
+            if ( nDepends == 0 ) { queueTask( t ); }
+        }
+    }
+    flushTaskQueue();
+}
+
 void TaskQueue::waitForTasks() {
     bool isFinished = false;
     while ( !isFinished ) {
         // TODO : use a notifier for task queue empty.
-        m_taskQueueMutex.lock();
-        isFinished = ( m_taskQueue.empty() && m_processingTasks == 0 );
-        m_taskQueueMutex.unlock();
+        {
+            std::lock_guard<std::mutex> lock( m_taskQueueMutex );
+            isFinished = ( m_taskQueue.empty() && m_processingTasks == 0 );
+        }
         if ( !isFinished ) { std::this_thread::yield(); }
     }
 }
