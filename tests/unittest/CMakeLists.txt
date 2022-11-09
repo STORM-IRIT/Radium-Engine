@@ -24,6 +24,8 @@ set(test_src
     Core/raycast.cpp
     Core/resources.cpp
     Core/string.cpp
+    Core/singleton.cpp
+    Core/taskqueue.cpp
     Core/topomesh.cpp
     Core/vectorarray.cpp
     Engine/environmentmap.cpp
