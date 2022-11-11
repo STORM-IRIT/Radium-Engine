@@ -49,7 +49,7 @@ jobs:
         shell: bash
         run: |
           GITHUB_REF=${{ github.ref }}
-          echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+          echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
         id: extract-branch
       - name: Configure Doc
         run: |
