@@ -42,7 +42,7 @@ jobs:
       - name: Fetch recent doxygen (1.9.1)
         run: |
           sudo apt-get install clang-9 libclang-9-dev
-          curl https://www.doxygen.nl/files/doxygen-1.9.1.linux.bin.tar.gz -o  doxygen-1.9.1.linux.bin.tar.gz
+          wget https://sourceforge.net/projects/doxygen/files/rel-1.9.1/doxygen-1.9.1.linux.bin.tar.gz
           tar -xvzf doxygen-1.9.1.linux.bin.tar.gz
       - name: Extract ref for badges prefix
         if: always()
