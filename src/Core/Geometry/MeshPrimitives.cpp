@@ -381,6 +381,92 @@ TriangleMesh makeCylinder( const Vector3& a,
     return result;
 }
 
+TriangleMesh makeSharpCylinder( const Vector3& a,
+                                const Vector3& b,
+                                Scalar radius,
+                                uint sideSegments,
+                                uint fillSegments,
+                                const Utils::optional<Utils::Color>& color ) {
+    TriangleMesh result;
+
+    TriangleMesh::PointAttribHandle::Container vertices;
+    TriangleMesh::NormalAttribHandle::Container normals;
+    TriangleMesh::IndexContainerType indices;
+
+    const Vector3 ab  = b - a;
+    const Vector3 dir = ab.normalized();
+
+    //  Create two circles normal centered on A and B and normal to ab (use dir, since first vector
+    //  must be normalized)
+    Vector3 xPlane, yPlane;
+    Math::getOrthogonalVectors( dir, xPlane, yPlane );
+    xPlane.normalize();
+    yPlane.normalize();
+
+    vertices.push_back( a );
+    normals.push_back( -dir );
+    vertices.push_back( b );
+    normals.push_back( dir );
+
+    const Scalar thetaInc( Core::Math::PiMul2 / Scalar( sideSegments ) );
+    for ( uint i = 0; i < sideSegments; ++i ) {
+        const Scalar theta   = i * thetaInc;
+        const Vector3 normal = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
+
+        // Even indices are A circle and odd indices are B circle.
+        vertices.push_back( a + radius * normal );
+        normals.push_back( -dir );
+
+        vertices.push_back( b + radius * normal );
+        normals.push_back( dir );
+    }
+
+    for ( uint i = 0; i < sideSegments; ++i ) {
+        uint bl = 2 * i + 2;
+        uint br = 2 + ( 2 * ( ( i + 1 ) % sideSegments ) );
+        uint tl = 2 * i + 3;
+        uint tr = 3 + ( 2 * ( ( i + 1 ) % sideSegments ) );
+        // order consistency (ccw face) here is important, e.g. when creating topomesh
+        indices.emplace_back( 0, br, bl );
+        indices.emplace_back( 1, tl, tr );
+    }
+
+    // sew tube between circles.
+    const uint offset = vertices.size();
+    Vector3 c         = a;
+    const Vector3 dh  = ab / Scalar( fillSegments );
+    for ( uint j = 0; j <= fillSegments; ++j ) {
+        for ( uint i = 0; i < sideSegments; ++i ) {
+            const Scalar theta = i * thetaInc;
+            Vector3 normal     = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
+
+            vertices.push_back( c + radius * normal );
+            normals.push_back( normal );
+        }
+        c += dh;
+    }
+
+    for ( uint j = 0; j < fillSegments; ++j ) {
+        for ( uint i = 0; i < sideSegments; ++i ) {
+            uint i0 = offset + i + j * sideSegments;
+            uint i1 = offset + ( i + 1 ) % sideSegments + j * sideSegments;
+            uint i2 = i0 + sideSegments;
+            uint i3 = i1 + sideSegments;
+
+            indices.emplace_back( i0, i1, i2 );
+            indices.emplace_back( i2, i1, i3 );
+        }
+    }
+
+    result.setVertices( std::move( vertices ) );
+    result.setNormals( std::move( normals ) );
+    result.setIndices( std::move( indices ) );
+    if ( bool( color ) ) result.colorize( *color );
+    result.checkConsistency();
+
+    return result;
+}
+
 TriangleMesh makeCapsule( Scalar length,
                           Scalar radius,
                           uint nFaces,
