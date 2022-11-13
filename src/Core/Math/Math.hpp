@@ -72,6 +72,14 @@ inline constexpr T saturate( T v );
 template <typename T>
 inline constexpr T lerp( const T& a, const T& b, Scalar t );
 
+/// As define by https://registry.khronos.org/OpenGL-Refpages/gl4/html/smoothstep.xhtml
+template <typename T, typename U, typename V>
+V smoothstep( T edge0, U edge1, V x ) {
+    using std::clamp;
+    V t = clamp( ( x - edge0 ) / ( edge1 - edge0 ), static_cast<V>( 0 ), static_cast<V>( 1 ) );
+    return t * t * ( 3.0 - 2.0 * t );
+}
+
 } // namespace Math
 } // namespace Core
 } // namespace Ra
