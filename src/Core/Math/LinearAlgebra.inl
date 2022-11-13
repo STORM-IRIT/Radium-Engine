@@ -1,5 +1,6 @@
 #pragma once
 #include <Core/Math/LinearAlgebra.hpp>
+#include <cmath>
 
 namespace Ra {
 namespace Core {
@@ -210,18 +211,18 @@ inline Matrix4 orthographic( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, S
 
 template <typename Matrix_>
 bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix, const bool FAIL_ON_ASSERT ) {
-    bool ok = false;
+    bool invalid = false;
     matrix
-        .unaryExpr( [&ok, FAIL_ON_ASSERT]( Scalar x ) {
-            ok |= !std::isnormal( x );
-            if ( !ok ) {
+        .unaryExpr( [&invalid, FAIL_ON_ASSERT]( Scalar x ) {
+            invalid |= !std::isfinite( x );
+            if ( invalid ) {
                 if ( FAIL_ON_ASSERT ) { CORE_ASSERT( false, "At least an element is nan" ); }
             }
             return 1;
         } )
         .eval();
 
-    return !ok;
+    return !invalid;
 }
 
 } // namespace Math
