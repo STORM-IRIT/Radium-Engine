@@ -105,7 +105,7 @@ class RA_ENGINE_API SkinningComponent : public Component
 
     /// Returns the name of the skinned mesh.
     const std::string& getMeshName() const;
-
+    void setMeshName( const std::string& name ) { m_meshName = name; }
     /// Returns the name of the skeleton skinning the mesh.
     const std::string& getSkeletonName() const;
 
@@ -134,6 +134,13 @@ class RA_ENGINE_API SkinningComponent : public Component
     /// Set the bone to show the weights of.
     void setWeightBone( uint bone );
     /// \}
+
+    void setPerBoneWeight( std::map<std::string, std::vector<std::pair<uint, Scalar>>>&& w ) {
+        m_loadedWeights = w;
+    }
+    void setPerBoneMatrix( std::map<std::string, Core::Transform>&& m ) {
+        m_loadedBindMatrices = m;
+    }
 
   private:
     /// Setup Component Communication.
