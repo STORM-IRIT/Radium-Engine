@@ -104,7 +104,7 @@ void SkeletonComponent::handleAnimationLoading(
             }
         }
     }
-    if ( m_animations.size() == 0 ) {
+    if ( m_animations.empty() ) {
         m_animations.emplace_back();
         for ( uint i = 0; i < m_skel.size(); ++i ) {
             m_animations[0].push_back( KeyFramedValue( 0_ra, pose[i] ) );
@@ -158,8 +158,11 @@ void SkeletonComponent::update( Scalar t ) {
 
     m_animationTime = m_speed * t;
     Scalar lastTime = 0;
-    for ( auto boneAnim : m_animations[m_animationID] ) {
-        lastTime = std::max( lastTime, *boneAnim.getTimes().rbegin() );
+    if ( !m_animations.empty() ) {
+        // m_animationID is always < m_animation.size() unless m_animations.empty()
+        for ( auto boneAnim : m_animations[m_animationID] ) {
+            lastTime = std::max( lastTime, *boneAnim.getTimes().rbegin() );
+        }
     }
     if ( m_autoRepeat ) {
         if ( !m_pingPong ) { m_animationTime = std::fmod( m_animationTime, lastTime ); }
