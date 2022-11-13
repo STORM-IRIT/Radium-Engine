@@ -93,6 +93,13 @@ RA_CORE_API TriangleMesh makeCylinder( const Vector3& a,
                                        uint nFaces                                = 32,
                                        const Utils::optional<Utils::Color>& color = {} );
 
+RA_CORE_API TriangleMesh makeSharpCylinder( const Vector3& a,
+                                            const Vector3& b,
+                                            Scalar radius,
+                                            uint sideSegments                          = 32,
+                                            uint fillSegments                          = 32,
+                                            const Utils::optional<Utils::Color>& color = {} );
+
 /// Create a capsule with given cylinder length and radius.
 /// Total length is length + 2*radius
 /// The capsule is along z axis
