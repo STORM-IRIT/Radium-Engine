@@ -65,6 +65,15 @@ void SkeletonComponent::setTransform( const Index& roIdx, const Core::Transform&
     m_skel.setTransform( boneIdx, TBoneLocal * diff, SpaceType::LOCAL );
 }
 
+Core::Transform SkeletonComponent::getBoneTransform( uint boneIdx, const SpaceType MODE ) {
+    return m_skel.getTransform( boneIdx, MODE );
+}
+void SkeletonComponent::setBoneTransform( uint boneIdx,
+                                          const Core::Transform& transform,
+                                          const SpaceType MODE ) {
+    m_skel.setTransform( boneIdx, transform, MODE );
+    updateDisplay();
+}
 // Build from fileData
 
 void SkeletonComponent::handleSkeletonLoading( const Core::Asset::HandleData* data ) {
