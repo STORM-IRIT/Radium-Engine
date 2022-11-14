@@ -145,9 +145,9 @@ class RA_ENGINE_API SkinningComponent : public Component
         m_loadedWeights = w;
     }
 
-    /// Set the assiciated bind matrix of named bones.
+    /// Set the associated bind matrix of named bones.
     /// A bind matrix is used to transform a vertex from object space to rest pose bone space.
-    /// Typical calue is obtained from skeleton getTransform( boneId, Skeleton::SpaceType::MODEL
+    /// Typical value is obtained from skeleton getTransform( boneId, Skeleton::SpaceType::MODEL
     /// ).inverse();
     void setPerBoneMatrix( std::map<std::string, Core::Transform>&& m ) {
         m_loadedBindMatrices = m;
