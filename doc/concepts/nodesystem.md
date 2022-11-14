@@ -179,7 +179,7 @@ the graph can be executed and a reference to the resulting vector can be fetched
 
 ### 4. Multiple run of the graph on different input
 
-As accessors use pointers and references on the data sent to / fetched from the graph, the HellowGraph example shows how
+As accessors use pointers and references on the data sent to / fetched from the graph, the HelloGraph example shows how
 to change the input using different available means so that every run of the graph process different values.
 See the file examples/DataflowExamples/HelloGraph/main.cpp for all the details.
 
