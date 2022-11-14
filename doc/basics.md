@@ -3,23 +3,28 @@
 
 This part of the documentation describes how to compile Radium and use it in your own project.
 
-TL;DR; (linux command line version)
+TL;DR; command line version.
 
 ```bash
 git clone --recurse-submodules https://github.com/STORM-IRIT/Radium-Engine.git
-mkdir radium-external # outside Radium Source dir
-cmake Radium-Engine/external -DCMAKE_BUILD_TYPE=Release -B radium-external/build-r/ -DCMAKE_INSTALL_PREFIX=`pwd`/radium-external/install-r
-cmake --build radium-external/build-r --parallel
 
-cd Radium-Engine # go in Radium-Engine root dir
-cmake -DCMAKE_BUILD_TYPE=Release -B build-r/ -C ../radium-external/install-r/radium-options.cmake  # or wherever you install radium externals
-cmake --build build-r --parallel --target install
+# configure and build (install automatically) external, outside Radium-Engine directory
+cmake -S Radium-Engine/external -B builds/radium-external-build-r -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=installs/radium-external-r
+cmake --build builds/radium-external-build-r --config Release --parallel
 
+#configure build and install radium-engine
+cmake -S Radium-Engine -B builds/radium-build-r -DCMAKE_BUILD_TYPE=Release -C installs/radium-external-r/radium-options.cmake
+cmake --build builds/radium-build-r --config Release --parallel
+cmake --install builds/radium-build-r
 ```
 
-Radium-Engine installed files are in `Bundle-GNU`
+default Radium-Engine install prefix is `Radium-Engine/Bundle-${CMAKE_CXX_COMPILER_ID}`.
 
-More details and other systems information are in the following pages, to be read in order.
+\note These commands might need some custom search directory for cmake config, e.g. for Qt, notably on windows. Please check detailed instructions below. Also several options are available, e.g. to compile examples or use double instead of float as scalar type.
+
+## Detailed instructions
+
+More details and other systems information (including visual studio setup) are in the following pages, to be read in order.
 
 * \subpage dependenciesmanagement : Fetch and compile dependencies
 * \subpage basicsCompileRadium : Compile and install Radium
