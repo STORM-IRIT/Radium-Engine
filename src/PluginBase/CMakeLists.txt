@@ -16,8 +16,7 @@ set(Qt_LIBRARIES Qt::Core)
 set(CMAKE_AUTOMOC ON)
 
 add_library(
-    ${ra_pluginbase_target} SHARED ${pluginbase_sources} ${pluginbase_headers}
-                                   ${pluginbase_inlines} ${pluginbase_json}
+    ${ra_pluginbase_target} SHARED ${pluginbase_sources} ${pluginbase_headers} ${pluginbase_json}
 )
 
 add_dependencies(${ra_pluginbase_target} Core Engine)
@@ -32,8 +31,7 @@ message(STATUS "Configuring library ${ra_pluginbase_target} with standard settin
 configure_radium_target(${ra_pluginbase_target})
 configure_radium_library(
     TARGET ${ra_pluginbase_target} COMPONENT
-    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    FILES "${pluginbase_headers};${pluginbase_inlines}"
+    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in FILES "${pluginbase_headers}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_pluginbase_target} PARENT_SCOPE)
 

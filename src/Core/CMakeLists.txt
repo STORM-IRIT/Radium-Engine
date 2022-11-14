@@ -23,9 +23,7 @@ find_package(Backtrace)
 
 include(filelist.cmake)
 
-add_library(
-    ${ra_core_target} SHARED ${core_sources} ${core_headers} ${core_inlines} ${RA_VERSION_CPP}
-)
+add_library(${ra_core_target} SHARED ${core_sources} ${core_headers} ${RA_VERSION_CPP})
 
 find_package(Eigen3 3.3 REQUIRED NO_DEFAULT_PATH)
 find_package(OpenMesh REQUIRED COMPONENTS Core Tools NO_DEFAULT_PATH)
@@ -71,7 +69,7 @@ message(STATUS "Configuring library ${ra_core_target} with standard settings")
 configure_radium_target(${ra_core_target})
 configure_radium_library(
     TARGET ${ra_core_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    FILES "${core_headers};${core_inlines}"
+    FILES "${core_headers}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_core_target} PARENT_SCOPE)
 

@@ -14,7 +14,7 @@ else()
     list(TRANSFORM engine_shaders_full PREPEND ${RADIUM_SHADERS_DIR}/)
 endif()
 
-add_library(${ra_engine_target} SHARED ${engine_sources} ${engine_headers} ${engine_inlines})
+add_library(${ra_engine_target} SHARED ${engine_sources} ${engine_headers})
 
 add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
 
@@ -42,7 +42,7 @@ message(STATUS "Configuring library ${ra_engine_target} with standard settings")
 configure_radium_target(${ra_engine_target})
 configure_radium_library(
     TARGET ${ra_engine_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    FILES "${engine_headers};${engine_inlines}"
+    FILES "${engine_headers}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_engine_target} PARENT_SCOPE)
 
