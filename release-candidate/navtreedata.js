@@ -31,13 +31,13 @@ var NAVTREE =
     [ "Radium Concepts", "conceptsmanual.html", "conceptsmanual" ],
     [ "Developer manual", "develmanual.html", "develmanual" ],
     [ "Licenses", "licenses.html", [
-      [ "Radium contributors", "licenses.html#autotoc_md3", null ],
-      [ "Third-party libraries", "licenses.html#autotoc_md4", [
-        [ "Qt", "licenses.html#autotoc_md5", null ],
-        [ "Eigen", "licenses.html#autotoc_md6", null ],
-        [ "Assimp", "licenses.html#autotoc_md7", null ],
-        [ "STB Image", "licenses.html#autotoc_md8", null ],
-        [ "Additional material", "licenses.html#autotoc_md9", null ]
+      [ "Radium contributors", "licenses.html#autotoc_md4", null ],
+      [ "Third-party libraries", "licenses.html#autotoc_md5", [
+        [ "Qt", "licenses.html#autotoc_md6", null ],
+        [ "Eigen", "licenses.html#autotoc_md7", null ],
+        [ "Assimp", "licenses.html#autotoc_md8", null ],
+        [ "STB Image", "licenses.html#autotoc_md9", null ],
+        [ "Additional material", "licenses.html#autotoc_md10", null ]
       ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
@@ -74,24 +74,24 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"",
-"HelpDialog_8cpp_source.html",
-"RenderObjectTypes_8hpp.html#a49447e503c13eb01d7b4d279e127f8e1aa603905470e2a5b8c13e96b579ef0dba",
-"Types_8hpp.html#a80f9f862ca67d4dcda0c277a93b8e334",
-"classRa_1_1Core_1_1Animation_1_1Sequence.html#ac0fd6197dbd6ba48569ffe45848ba19baab9f1267ec5d00f20c3a3493963e9d98",
-"classRa_1_1Core_1_1Asset_1_1MaterialData.html#a82ae1319e8f37ffbac735919accfc29e",
-"classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html",
-"classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210",
-"classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f",
-"classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a39e3dcd23c719f64e23af39ce94cc481",
-"classRa_1_1Engine_1_1RadiumEngine.html#a4225f204449a85659b7cdb82851a0cdb",
-"classRa_1_1Engine_1_1Scene_1_1CameraComponent.html#ad0b1e1854647e010932e86c32dc7d2bf",
-"classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a88bfaf8b0c3de753319158bfd54d428a",
-"classRa_1_1Gui_1_1Gizmo.html#ab7b1bac81ee68a8a061c6af0bad28365",
-"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a6adc3a15bef8e2b4b0fccbeaadda6461",
-"classRa_1_1IO_1_1AssimpCameraDataLoader.html#a162728fbf071166be8abacfc2b83dde0",
-"dir_e5ae3a9d3a26873eff00da258d44b53c.html",
-"structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html"
+"AboutDialog_8cpp_source.html",
+"Iterators_8hpp.html#a86d4647d6568a611158e93184877fbd5",
+"RenderTechnique_8hpp_source.html",
+"Types_8hpp.html#aa31b674a393e827ac23d1a1ddbee0afc",
+"classRa_1_1Core_1_1Animation_1_1Skeleton.html#a330f9262f3ad5310075b1940c34c778fa1abaa04f7b3727b8f45026e9f9e694e4",
+"classRa_1_1Core_1_1DualQuaternion.html#aac0a627396d0ec0bb85c1ab6f96c91aa",
+"classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d352c65cd2c75259cbb92689517ca18",
+"classRa_1_1Core_1_1Utils_1_1Attrib.html#a22aa759e2775c3ce4bf8c4a036dfca0a",
+"classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a131422ffe306373b1b5179cbb2d2c92a",
+"classRa_1_1Engine_1_1Data_1_1RenderParameters.html#abe08e05e074099402f163c31a1951e8d",
+"classRa_1_1Engine_1_1RadiumEngine.html#aeb9d4b10e0fb251d873e4387c7571de4",
+"classRa_1_1Engine_1_1Scene_1_1CameraManager.html#aa21cad46a0a319f4d505de84a14c41a7",
+"classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca5bea3f5314ab53fab7d0b4621c605b16",
+"classRa_1_1Gui_1_1GizmoManager.html#af578858d4a8f8b20e35a7aee9a1518ed",
+"classRa_1_1Gui_1_1TreeItem.html#a08e551d60e06e477050bca13a50096ef",
+"classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b",
+"functions_d.html",
+"structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a6c8f9552f52a054b7bbd360adad6c8ce"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

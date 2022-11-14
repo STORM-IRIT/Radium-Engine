@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.10</span>
+   &#160;<span id="projectnumber">1.3.11</span>
    </div>
   </td>
  </tr>
@@ -113,15 +113,15 @@ $(document).ready(function(){initNavTree('componentMessenger.html',''); initResi
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md23">Read</a></li>
-<li class="level1"><a href="#autotoc_md24">Write</a></li>
-<li class="level1"><a href="#autotoc_md25">Read&#39;n&#39;Write</a></li>
-<li class="level1"><a href="#autotoc_md26">The &lt;tt&gt;setupIO()&lt;/tt&gt; function</a></li>
+<ul><li class="level1"><a href="#autotoc_md24">Read</a></li>
+<li class="level1"><a href="#autotoc_md25">Write</a></li>
+<li class="level1"><a href="#autotoc_md26">Read&#39;n&#39;Write</a></li>
+<li class="level1"><a href="#autotoc_md27">The &lt;tt&gt;setupIO()&lt;/tt&gt; function</a></li>
 </ul>
 </div>
 <div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>check and update </dd></dl>
 <p>This class is used to make componenent share data between each others. The whole system is based on <b>callbacks</b> registered from both parts to publish, suscribe or both to a data.</p>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Read</h1>
 <p>The <b>suscriber</b> must define and register some <code>ComponentMessenger::CallbackTypes&lt;T&gt;::Setter</code> that will be used by the <code>ComponentMessenger</code> to set the data to the former. </p><pre class="fragment">// definition of callback
 ComponentMessenger::CallbackTypes&lt;T&gt;::Setter data_in = std::bind( &amp;FooComponent::setDataIn, this, std::placeholders::_1 );
@@ -134,7 +134,7 @@ if (ComponentMessenger::getInstance()-&gt;canGet&lt;T&gt;( entity, "name") )
 {
     data = ComponentMessenger::getInstance()-&gt;get&lt;T&gt;( entity, "name");
 }
-</pre> <h1><a class="anchor" id="autotoc_md24"></a>
+</pre> <h1><a class="anchor" id="autotoc_md25"></a>
 Write</h1>
 <pre class="fragment">// definition of callback
 ComponentMessenger::CallbackTypes&lt;T&gt;::Getter data_out = std::bind( &amp;FooComponent::getDataOut, this );
@@ -142,7 +142,7 @@ ComponentMessenger::CallbackTypes&lt;T&gt;::Getter data_out = std::bind( &amp;Fo
 // registration
 ComponentMessenger::getInstance()-&gt;registerOutput&lt;T&gt;( entity, this, "name", data_out );
 </pre><p> The <b>publisher</b> will define and register a <code>ComponentMessenger::CallbackTypes&lt;T&gt;::Getter</code> that will be used by the <code>ComponentMessenger</code> to fetch data from the former.</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 Read'n'Write</h1>
 <pre class="fragment">// definition of callback
 ComponentMessenger::CallbackTypes&lt;T&gt;::ReadWrite data_rw = std::bind( &amp;FooComponent::getDataRw, this );
@@ -156,7 +156,7 @@ if (ComponentMessenger::getInstance()-&gt;canRw&lt;T&gt;( entity, "name"))
     T&amp; data = ComponentMessenger::getInstance()-&gt;rw&lt;T&gt;( entity, "name" );
 }
 </pre><p> Here a pointer of the data is basically shared and everyone has only to do:</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 The &lt;tt&gt;setupIO()&lt;/tt&gt; function</h1>
 <p>A convention is to use the <code>setupIO()</code> function to interact with the messenger. </p>
 </div></div><!-- contents -->
@@ -166,7 +166,7 @@ The &lt;tt&gt;setupIO()&lt;/tt&gt; function</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li>
-    <li class="footer">Generated on Mon Nov 14 2022 14:54:34 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Nov 14 2022 16:29:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
