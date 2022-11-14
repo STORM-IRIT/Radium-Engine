@@ -238,6 +238,10 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
     return true;
 }
 
+bool DataflowGraph::canAdd( const Node* newNode ) const {
+    return findNode( newNode ) == -1;
+};
+
 bool DataflowGraph::addNode( Node* newNode ) {
     std::map<std::string, std::string> m_mapInputs;
     // Check if the new node already exists (= same name and type)
@@ -401,7 +405,7 @@ bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
 }
 
 // Todo, rewrite this method using std::find_if ?
-int DataflowGraph::findNode( const Node* node ) {
+int DataflowGraph::findNode( const Node* node ) const {
     for ( size_t i = 0; i < m_nodes.size(); i++ ) {
         if ( *m_nodes[i] == *node ) { return i; }
     }
@@ -610,7 +614,7 @@ std::vector<DataflowGraph::DataGetterDesc> DataflowGraph::getAllDataGetters() {
     return r;
 }
 
-Node* DataflowGraph::getNode( const std::string& instanceNameNode ) {
+Node* DataflowGraph::getNode( const std::string& instanceNameNode ) const {
     for ( const auto& node : m_nodes ) {
         if ( node->getInstanceName() == instanceNameNode ) { return node.get(); }
     }
