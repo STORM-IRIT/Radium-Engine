@@ -169,7 +169,7 @@ void SkeletonComponent::update( Scalar t ) {
     Scalar lastTime = 0;
     if ( !m_animations.empty() ) {
         // m_animationID is always < m_animation.size() unless m_animations.empty()
-        for ( auto boneAnim : m_animations[m_animationID] ) {
+        for ( const auto& boneAnim : m_animations[m_animationID] ) {
             lastTime = std::max( lastTime, *boneAnim.getTimes().rbegin() );
         }
     }
@@ -212,7 +212,7 @@ std::pair<Scalar, Scalar> SkeletonComponent::getAnimationTimeInterval() const {
     if ( m_animations.empty() ) { return { 0_ra, 0_ra }; }
     Scalar startTime = std::numeric_limits<Scalar>::max();
     Scalar endTime   = 0;
-    for ( auto boneAnim : m_animations[m_animationID] ) {
+    for ( const auto& boneAnim : m_animations[m_animationID] ) {
         const auto& times = boneAnim.getTimes();
         startTime         = std::min( startTime, *times.begin() );
         endTime           = std::max( endTime, *times.rbegin() );
