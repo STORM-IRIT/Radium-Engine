@@ -10,6 +10,7 @@
  */
 
 #ifdef __has_include
+// cppcheck-suppress preprocessorErrorDirective
 #    if __has_include( <experimental/type_traits> )
 #        include <experimental/type_traits>
 #        define have_experimental_type_traits
