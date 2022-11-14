@@ -47,8 +47,8 @@ jobs:
         id: set
         run: |
           # this echo remove \n from steps.read.outputs.content
-          echo "::set-output name=version::${{ steps.read.outputs.content }}"
-          [[ "${{ github.ref_name }}" == "master" ]] && echo "::set-output name=fragment::feature" || echo "::set-output name=fragment::bug"
+          echo "version=${{ steps.read.outputs.content }}" >> $GITHUB_OUTPUT
+          [[ "${{ github.ref_name }}" == "master" ]] && echo "fragment=feature" >> $GITHUB_OUTPUT || echo "fragment=bug" >> $GITHUB_OUTPUT
       - name: Increase version
         id: increment
         uses: christian-draeger/increment-semantic-version@1.0.2
