@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.8</span>
+   &#160;<span id="projectnumber">1.3.10</span>
    </div>
   </td>
  </tr>
@@ -215,9 +215,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ace35b8a957082a5c72c54c5088a6f437"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af7ea85d1a58e2e3581a8a97f81e7b0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a2af7ea85d1a58e2e3581a8a97f81e7b0">addApplicationExtension</a> ()</td></tr>
 <tr class="separator:a2af7ea85d1a58e2e3581a8a97f81e7b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a395de709a6de437639db84c60a17b059"><td class="memItemLeft" align="right" valign="top"><a id="a395de709a6de437639db84c60a17b059"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a395de709a6de437639db84c60a17b059">radiumFrame</a> ()</td></tr>
-<tr class="memdesc:a395de709a6de437639db84c60a17b059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advance the engine for one frame. <br /></td></tr>
+<tr class="memitem:a395de709a6de437639db84c60a17b059"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a395de709a6de437639db84c60a17b059">radiumFrame</a> ()</td></tr>
+<tr class="memdesc:a395de709a6de437639db84c60a17b059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advance the engine for one frame.  <a href="classRa_1_1Gui_1_1BaseApplication.html#a395de709a6de437639db84c60a17b059">More...</a><br /></td></tr>
 <tr class="separator:a395de709a6de437639db84c60a17b059"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc56ded35e12ed379689322bdd157968"><td class="memItemLeft" align="right" valign="top"><a id="acc56ded35e12ed379689322bdd157968"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isRunning</b> () const</td></tr>
@@ -460,7 +459,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <div class="line">                                    <span class="stringliteral">&quot;Set the default data path and store it in the settings.&quot;</span>,</div>
 <div class="line">                                    <span class="stringliteral">&quot;folder&quot;</span>,</div>
 <div class="line">                                    <span class="stringliteral">&quot;./&quot;</span> );</div>
-</div><!-- fragment --><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000078">Todo:</a></b></dt><dd>check optional </dd></dl>
+</div><!-- fragment --><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000079">Todo:</a></b></dt><dd>check optional </dd></dl>
 <p>[Command line arguments]</p>
 <p>[Command line arguments]</p>
 
@@ -524,9 +523,9 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Open the QSetting editor for the current application </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000081">Todo:</a></b></dt><dd>implement the editor </dd></dl>
+<p>Open the QSetting editor for the current application </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000083">Todo:</a></b></dt><dd>implement the editor </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00768">768</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00774">774</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -624,8 +623,8 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>The initialize method call virtual methods on the object being initialized to configure the engine and application services. When redefining those methods, it is recommended to call the inherited one to have consistent initialization wrt the <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html" title="This class contains the main application logic. It owns the engine and the GUI.">BaseApplication</a> ancestor. The initialize method could be also overloaded by derived classes. In this case, it is recommended that the overload explicetely call the ancestor method.. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000080">Todo:</a></b></dt><dd>allow the user to ask for some "standard" systems to be added to the initialized Engine. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000079">Todo:</a></b></dt><dd>Code updated wrt camera manager, TEST IT ! </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000082">Todo:</a></b></dt><dd>allow the user to ask for some "standard" systems to be added to the initialized Engine. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000080">Todo:</a></b></dt><dd>Code updated wrt camera manager, TEST IT ! </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00248">248</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -663,7 +662,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 </div><div class="memdoc">
 <p>slot called once the application window and its OpenGL services are ready. TODO : rename this to be more representative of post opengl &amp; gui operations </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00545">545</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00551">551</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -708,13 +707,43 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 </div><div class="memdoc">
 <p>Load plugins from the specified folder. If loadList is empty, attempts to load all DLLs in the folder (except those on the ignore list) If loadList contains names it will only look for DLLs in that folder with the given name. </p>
 
-<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00582">582</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00588">588</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1BaseApplication_ade2850bde46ffa889f9ca3a4c542d2e2_cgraph.svg" width="435" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a395de709a6de437639db84c60a17b059"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a395de709a6de437639db84c60a17b059">&#9670;&nbsp;</a></span>radiumFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Gui::BaseApplication::radiumFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Advance the engine for one frame. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000081">Todo:</a></b></dt><dd>make rendering one gpu task. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00469">469</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1BaseApplication_a395de709a6de437639db84c60a17b059_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -730,7 +759,7 @@ std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" va
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html">BaseApplication</a></li>
-    <li class="footer">Generated on Wed Oct 26 2022 12:54:49 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Nov 14 2022 14:54:35 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

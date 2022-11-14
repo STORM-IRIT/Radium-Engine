@@ -1,0 +1,24 @@
+<map id="Ra::Gui::BaseApplication::radiumFrame" name="Ra::Gui::BaseApplication::radiumFrame">
+<area shape="rect" id="node1" title="Advance the engine for one frame." alt="" coords="5,260,188,301"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="542,100,694,141"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1RadiumEngine.html#aeb9d4b10e0fb251d873e4387c7571de4" title=" " alt="" coords="253,48,446,89"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1Viewer.html#aa801426e3906c686bdbbc20bf553c041" title="Read&#45;only access to renderer." alt="" coords="244,114,455,140"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1RadiumEngine.html#a35e421132933b7c8d1a977ec3ea0b744" title=" " alt="" coords="253,165,446,206"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1aa09e5b99011891aa0c5b6e0d8ed808" title=" " alt="" coords="256,230,443,272"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="542,406,694,448"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1Viewer.html#aeee8e169e5cdca89d16cde152a7f4657" title="Emits signals corresponding to picking requests." alt="" coords="259,348,439,389"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d" title="Start rendering (potentially asynchronously in a separate thread)" alt="" coords="236,479,463,506"/>
+<area shape="rect" id="node20" href="$classRa_1_1Gui_1_1Viewer.html#a1ffe7aaecf91a91d6b1e98fb9dc75e5a" title="Blocks until rendering is finished." alt="" coords="244,296,455,323"/>
+<area shape="rect" id="node21" href="$classRa_1_1Gui_1_1Viewer.html#a48210627a598068db2492fc0aad99520" title="Update the internal viewer state to the (application) time dt." alt="" coords="262,602,437,628"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac42e4205ffd8ebb7aa736b78da26dae1" title=" " alt="" coords="511,276,725,317"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab8bd7377df698283d3f916cb53d90be5" title=" " alt="" coords="511,341,725,382"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5c448956bee4797f190a4a4b9da4f05c" title=" " alt="" coords="535,602,701,644"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a4bce4a0e7b0c92d787bfbc4f3589c973" title="Tell if the renderer has an usable light." alt="" coords="535,472,701,513"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a027cf22a1f9f48ea9f7dd7fae7108856" title="Tell the renderer it needs to render. This method does the following steps :" alt="" coords="535,537,701,578"/>
+<area shape="rect" id="node15" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a30c9f288f2ac8406c804c55b2623e348" title="Add the debug layer with useful informations." alt="" coords="793,406,979,448"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5fc9b2cb6c8fb0a7d1a7640a2ddc31b6" title="Do all post processing stuff. If you override this method, be careful to fill." alt="" coords="773,472,999,513"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afe2f99ba86df2575f32a79d3d01d8d2f" title="All the scene rendering magics basically happens here." alt="" coords="791,537,981,578"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abad46a9149c0d4578327325450b2472e" title="Draw the UI data." alt="" coords="803,602,969,644"/>
+<area shape="rect" id="node19" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac3f6b287470f899b6aa9306b82249765" title=" " alt="" coords="775,668,997,709"/>
+<area shape="rect" id="node22" href="$classRa_1_1Gui_1_1GizmoManager.html#a2733d1f2a992c50e41b93790b5323fe1" title="Retrieve the transform from the editable and update the gizmos." alt="" coords="530,668,706,709"/>
+</map>

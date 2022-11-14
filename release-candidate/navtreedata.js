@@ -74,24 +74,24 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"AboutDialog_8cpp_source.html",
-"Iterators_8hpp.html#a86d4647d6568a611158e93184877fbd5",
-"RenderTechnique_8hpp_source.html",
-"Types_8hpp.html#aa31b674a393e827ac23d1a1ddbee0afc",
-"classRa_1_1Core_1_1Animation_1_1Skeleton.html#a330f9262f3ad5310075b1940c34c778fa8d1bc4cf2a87e744c9d8c510f5bbce58",
-"classRa_1_1Core_1_1DualQuaternion.html#aac90a90e6f101b43c2dc8e304f1ff186",
-"classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4f2209deb980debd0c4676c9a72c9570",
-"classRa_1_1Core_1_1Utils_1_1Attrib.html#a31c36d396ab952ccc892c00b691490eb",
-"classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f",
-"classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e",
-"classRa_1_1Engine_1_1Rendering_1_1DebugRender.html#a392854006500980b3b54bbe78954c8a6",
-"classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ad4516473cebc8b540d2da18319985125",
-"classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a4a2917b63d608d3f0cb6ce8813deb7f7",
-"classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a4853aed2a7832f6e947d366b716f0534",
-"classRa_1_1Gui_1_1TreeItem.html#aaf8fc2e145fa7e0063e236f1aaaa1caa",
-"classRa_1_1IO_1_1FileManager.html#a457d7c3e87c8ce2954afc4254ce271c4",
-"functions_func.html",
-"structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html#a09a46c94034eb99b27792e605ac8e40d"
+"",
+"HelpDialog_8cpp_source.html",
+"RenderObjectTypes_8hpp.html#a49447e503c13eb01d7b4d279e127f8e1aa603905470e2a5b8c13e96b579ef0dba",
+"Types_8hpp.html#a80f9f862ca67d4dcda0c277a93b8e334",
+"classRa_1_1Core_1_1Animation_1_1Sequence.html#ac0fd6197dbd6ba48569ffe45848ba19baab9f1267ec5d00f20c3a3493963e9d98",
+"classRa_1_1Core_1_1Asset_1_1MaterialData.html#a82ae1319e8f37ffbac735919accfc29e",
+"classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html",
+"classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210",
+"classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f",
+"classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a39e3dcd23c719f64e23af39ce94cc481",
+"classRa_1_1Engine_1_1RadiumEngine.html#a4225f204449a85659b7cdb82851a0cdb",
+"classRa_1_1Engine_1_1Scene_1_1CameraComponent.html#ad0b1e1854647e010932e86c32dc7d2bf",
+"classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a88bfaf8b0c3de753319158bfd54d428a",
+"classRa_1_1Gui_1_1Gizmo.html#ab7b1bac81ee68a8a061c6af0bad28365",
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a6adc3a15bef8e2b4b0fccbeaadda6461",
+"classRa_1_1IO_1_1AssimpCameraDataLoader.html#a162728fbf071166be8abacfc2b83dde0",
+"dir_e5ae3a9d3a26873eff00da258d44b53c.html",
+"structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
