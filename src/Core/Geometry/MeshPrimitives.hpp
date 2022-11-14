@@ -85,20 +85,16 @@ RA_CORE_API TriangleMesh makeGeodesicSphere( Scalar radius                      
                                              uint numSubdiv                             = 3,
                                              const Utils::optional<Utils::Color>& color = {} );
 
-/// Create a cylinder approximation (n-faced prism) with base faces centered on A and B
+/// Create a cylinder approximation (sideSegments-faced prism) with base faces centered on a and b
 /// with given radius.
+/// Fill (the tube part) is split into equally sapced fill segments.
+/// Side and fill make a sharp edge.
 RA_CORE_API TriangleMesh makeCylinder( const Vector3& a,
                                        const Vector3& b,
                                        Scalar radius,
-                                       uint nFaces                                = 32,
+                                       uint sideSegments                          = 32,
+                                       uint fillSegments                          = 2,
                                        const Utils::optional<Utils::Color>& color = {} );
-
-RA_CORE_API TriangleMesh makeSharpCylinder( const Vector3& a,
-                                            const Vector3& b,
-                                            Scalar radius,
-                                            uint sideSegments                          = 32,
-                                            uint fillSegments                          = 32,
-                                            const Utils::optional<Utils::Color>& color = {} );
 
 /// Create a capsule with given cylinder length and radius.
 /// Total length is length + 2*radius

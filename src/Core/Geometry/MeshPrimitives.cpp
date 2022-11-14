@@ -310,83 +310,9 @@ makeGeodesicSphere( Scalar radius, uint numSubdiv, const Utils::optional<Utils::
 TriangleMesh makeCylinder( const Vector3& a,
                            const Vector3& b,
                            Scalar radius,
-                           uint nFaces,
+                           uint sideSegments,
+                           uint fillSegments,
                            const Utils::optional<Utils::Color>& color ) {
-    TriangleMesh result;
-
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
-
-    vertices.reserve( 2 + 3 * nFaces );
-    normals.reserve( 2 + 3 * nFaces );
-    indices.reserve( 6 * nFaces );
-
-    Vector3 ab  = b - a;
-    Vector3 dir = ab.normalized();
-
-    //  Create two circles normal centered on A and B and normal to ab (use dir, since first vector
-    //  must be normalized)
-    Vector3 xPlane, yPlane;
-    Math::getOrthogonalVectors( dir, xPlane, yPlane );
-    xPlane.normalize();
-    yPlane.normalize();
-
-    Vector3 c = 0.5 * ( a + b );
-
-    vertices.push_back( a );
-    vertices.push_back( b );
-    normals.push_back( -dir );
-    normals.push_back( dir );
-
-    const Scalar thetaInc( Core::Math::PiMul2 / Scalar( nFaces ) );
-    for ( uint i = 0; i < nFaces; ++i ) {
-        const Scalar theta = i * thetaInc;
-        Vector3 normal     = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
-
-        // Even indices are A circle and odd indices are B circle.
-        vertices.push_back( a + radius * normal );
-        vertices.push_back( c + radius * normal );
-        vertices.push_back( b + radius * normal );
-
-        normals.push_back( ( normal - dir ).normalized() );
-        normals.push_back( normal.normalized() );
-        normals.push_back( ( normal + dir ).normalized() );
-    }
-
-    for ( uint i = 0; i < nFaces; ++i ) {
-        uint bl = 3 * i + 2;                      // bottom left corner of face
-        uint br = 3 * ( ( i + 1 ) % nFaces ) + 2; // bottom right corner of face
-        uint ml = bl + 1;                         // mid left
-        uint mr = br + 1;                         // mid right
-        uint tl = ml + 1;                         // top left
-        uint tr = mr + 1;                         // top right
-
-        indices.emplace_back( bl, br, ml );
-        indices.emplace_back( br, mr, ml );
-
-        indices.emplace_back( ml, mr, tl );
-        indices.emplace_back( mr, tr, tl );
-
-        indices.emplace_back( 0, br, bl );
-        indices.emplace_back( 1, tl, tr );
-    }
-
-    result.setVertices( std::move( vertices ) );
-    result.setNormals( std::move( normals ) );
-    result.setIndices( std::move( indices ) );
-    if ( bool( color ) ) result.colorize( *color );
-    result.checkConsistency();
-
-    return result;
-}
-
-TriangleMesh makeSharpCylinder( const Vector3& a,
-                                const Vector3& b,
-                                Scalar radius,
-                                uint sideSegments,
-                                uint fillSegments,
-                                const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
 
     TriangleMesh::PointAttribHandle::Container vertices;
