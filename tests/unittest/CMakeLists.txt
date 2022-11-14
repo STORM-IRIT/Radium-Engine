@@ -27,6 +27,7 @@ set(test_src
     Core/singleton.cpp
     Core/taskqueue.cpp
     Core/topomesh.cpp
+    Core/variableset.cpp
     Core/vectorarray.cpp
     Engine/environmentmap.cpp
     Engine/renderparameters.cpp
