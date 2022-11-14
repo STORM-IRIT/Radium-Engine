@@ -10,7 +10,7 @@ option(RADIUM_IO_VOLUMES "Provide loader for volume pvm file format" ON)
 
 include(filelist.cmake)
 
-add_library(${ra_io_target} SHARED ${io_sources} ${io_headers} ${io_inlines})
+add_library(${ra_io_target} SHARED ${io_sources} ${io_headers})
 
 if(RADIUM_IO_ASSIMP)
     find_package(assimp 5.0 REQUIRED NO_DEFAULT_PATH)
@@ -57,7 +57,7 @@ message(STATUS "Configuring library ${ra_io_target} with standard settings")
 configure_radium_target(${ra_io_target})
 configure_radium_library(
     TARGET ${ra_io_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    FILES "${io_headers};${io_inlines}"
+    FILES "${io_headers}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_io_target} PARENT_SCOPE)
 
