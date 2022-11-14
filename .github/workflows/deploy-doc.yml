@@ -42,14 +42,14 @@ jobs:
       - name: Fetch recent doxygen (1.9.1)
         run: |
           sudo apt-get install clang-9 libclang-9-dev
-          curl https://www.doxygen.nl/files/doxygen-1.9.1.linux.bin.tar.gz -o  doxygen-1.9.1.linux.bin.tar.gz
+          wget https://sourceforge.net/projects/doxygen/files/rel-1.9.1/doxygen-1.9.1.linux.bin.tar.gz
           tar -xvzf doxygen-1.9.1.linux.bin.tar.gz
       - name: Extract ref for badges prefix
         if: always()
         shell: bash
         run: |
           GITHUB_REF=${{ github.ref }}
-          echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+          echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
         id: extract-branch
       - name: Configure Doc
         run: |
