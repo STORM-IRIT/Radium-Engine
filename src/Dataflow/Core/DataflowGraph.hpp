@@ -14,8 +14,10 @@ namespace Core {
  *      if sources must be used through interface port only, delete the set_data on all sources
  *  \todo Are node aliases a should-have (to make editing more user friendly)???
  */
+
 /**
- * \brief Represent a set of connected nodes that definea computational graph
+ * \brief Represent a set of connected nodes that define a computational graph
+ * Ownership of nodes is given to the graph at construction time.
  * \todo make a "graph embedding node" that allow to seemlesly integrate a graph as a node in
  * another graph
  *      --> Edition of a graph will allow loading and saving to a file directly
@@ -28,7 +30,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
   public:
     /// Constructor.
     /// The nodes pointing to external data are created here.
-    /// @param name The name of the render graph.
+    /// \param name The name of the render graph.
     explicit DataflowGraph( const std::string& name );
     virtual ~DataflowGraph() = default;
 
@@ -42,7 +44,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
     /// get the node factory set associated with from the graph.
     /// returns nullptr if no factoryset is associated with the graph
-    std::shared_ptr<NodeFactorySet> getNodeFactories();
+    std::shared_ptr<NodeFactorySet> getNodeFactories() const;
 
     /// Add a factory to the factoryset of the graph.
     /// Creates the factoryset if it does not exists
@@ -53,29 +55,35 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     void addFactory( std::shared_ptr<NodeFactory> f );
 
     /// Loads nodes and links from a JSON file.
-    /// @param jsonFilePath The path to the JSON file.
+    /// \param jsonFilePath The path to the JSON file.
     bool loadFromJson( const std::string& jsonFilePath );
 
     /// Saves nodes and links to a JSON file.
-    /// @param jsonFilePath The path to the JSON file.
+    /// \param jsonFilePath The path to the JSON file.
     void saveToJson( const std::string& jsonFilePath );
 
+    /// \brief Test if a node can be added to a graph
+    /// \param newNode const naked pointer to the candidate node
+    /// \return true if ownership could be transferred to the graph.
+    virtual bool canAdd( const Node* newNode ) const;
     /// Adds a node to the render graph. Adds interface ports to the node newNode and the
     /// corresponding input and output ports to the graph.
-    /// @param newNode The node to add to the render graph.
+    /// \param newNode The node to add to the render graph.
+    /// ownership of the node is transfered to the graph
+    /// \todo move ine unique_ptr and return an optional with the raw pointer
     virtual bool addNode( Node* newNode );
     /// Removes a node from the render graph. Removes input and output ports of the graph
     /// corresponding to interface ports of the node.
-    /// @param node The node to remove from the render graph.
+    /// \param node The node to remove from the render graph.
     virtual bool removeNode( Node* node );
     /// Connects two nodes of the render graph.
     /// The two nodes must already be in the render graph (with the addNode(Node* newNode)
     /// function), the first node's in port must be free and the connected in port and out port must
     /// have the same type of data.
-    /// @param nodeFrom The node that contains the out port.
-    /// @param nodeFromOutputName The name of the out port in nodeFrom.
-    /// @param nodeTo The node that contains the in port.
-    /// @param nodeToInputName The name of the in port in nodeTo.
+    /// \param nodeFrom The node that contains the out port.
+    /// \param nodeFromOutputName The name of the out port in nodeFrom.
+    /// \param nodeTo The node that contains the in port.
+    /// \param nodeToInputName The name of the in port in nodeTo.
     bool addLink( Node* nodeFrom,
                   const std::string& nodeFromOutputName,
                   Node* nodeTo,
@@ -86,9 +94,9 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Gets the nodes
     const std::vector<std::unique_ptr<Node>>* getNodes() const;
 
-    /// Gets a specific node according to its instance name as a parameter.
-    /// @param instanceNameNode The instance name of the node.
-    Node* getNode( const std::string& instanceNameNode );
+    /// Gets a specific node according to its instance name.
+    /// \param instanceNameNode The instance name of the node.
+    Node* getNode( const std::string& instanceNameNode ) const;
 
     /// Gets the nodes ordered by level (after compilation)
     const std::vector<std::vector<Node*>>* getNodesByLevel() const;
@@ -101,7 +109,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     bool compile() override;
 
     /// Gets the number of nodes
-    size_t getNodesCount();
+    size_t getNodesCount() const;
 
     /// Deletes all nodes from the render graph.
     virtual void clearNodes();
@@ -119,7 +127,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Allows to set data to the graph from the caller .
     /// \note As ownership is shared with the caller, the graph must survive the returned
     /// pointer to be able to use the dataSetter..
-    /// @params portName The name of the input port of the graph
+    /// \params portName The name of the input port of the graph
     std::shared_ptr<PortBase> getDataSetter( std::string portName );
 
     /// \brief disconnect the data setting port from its inputs.
@@ -131,7 +139,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Allows to get the data stored at this port after the execution of the graph.
     /// \note ownership is left to the graph. The graph must survive the returned
     /// pointer to be able to use the dataGetter..
-    /// @params portName the name of the output port
+    /// \params portName the name of the output port
     PortBase* getDataGetter( std::string portName );
 
     using DataSetterDesc = std::tuple<std::shared_ptr<PortBase>, std::string, std::string>;
@@ -169,20 +177,20 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     // Internal helper functions
     /// Internal compilation function that allows to go back in the render graph while filling an
     /// information map.
-    /// @param current The current node.
-    /// @param infoNodes The map that contains information about nodes.
+    /// \param current The current node.
+    /// \param infoNodes The map that contains information about nodes.
     void backtrackGraph( Node* current,
                          std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
     /// Internal compilation function that allows to go through the render graph, using an
     /// information map.
-    /// @param current The current node.
-    /// @param infoNodes The map that contains information about nodes.
+    /// \param current The current node.
+    /// \param infoNodes The map that contains information about nodes.
     int goThroughGraph( Node* current,
                         std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
     /// Returns the index of the given node in the graph.
     /// if there is none, returns -1.
-    /// @param name The name of the node to find.
-    int findNode( const Node* node );
+    /// \param name The name of the node to find.
+    int findNode( const Node* node ) const;
 
     /// Data setters management : used to pass parameter to the graph when the graph is not embedded
     /// into another graph (inputs are here for this case).
