@@ -1,6 +1,6 @@
-#include "Core/Utils/Log.hpp"
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <algorithm>
 #include <iostream>
@@ -227,9 +227,11 @@ const std::vector<TaskQueue::TimerData>& TaskQueue::getTimerData() {
 }
 
 void TaskQueue::flushTaskQueue() {
+    std::lock_guard<std::mutex> lock( m_taskMutex );
+
     CORE_ASSERT( m_processingTasks == 0, "You have tasks still in process" );
     CORE_ASSERT( m_taskQueue.empty(), " You have unprocessed tasks " );
-    std::lock_guard<std::mutex> lock( m_taskMutex );
+
     m_tasks.clear();
     m_dependencies.clear();
     m_timerData.clear();
