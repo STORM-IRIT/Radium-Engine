@@ -98,10 +98,11 @@ int main( int argc, char* argv[] ) {
         std::cout << dec / (float)nSec << " texture updates per second." << std::endl;
         app.appNeedsToQuit();
     } );
-    thread.detach();
 
-    auto thread2 = std::thread( [=, &app, &texture]() {
-        while ( true ) {
+    std::promise<void> exitSignal;
+    auto thread2 = std::thread( [=, &texture, &exitSignal]() {
+        auto future = exitSignal.get_future();
+        while ( future.wait_for( std::chrono::milliseconds( 1 ) ) == std::future_status::timeout ) {
             unsigned char newData[size];
             for ( int i = 0; i < width; ++i ) {
                 for ( int j = 0; j < height; j++ ) {
@@ -112,7 +113,12 @@ int main( int argc, char* argv[] ) {
             std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
         }
     } );
-    thread2.detach();
 
-    return app.exec();
+    const auto ret = app.exec();
+
+    thread.join();
+    exitSignal.set_value();
+    thread2.join();
+
+    return ret;
 }
