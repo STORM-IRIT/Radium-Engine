@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <mutex>
 #include <stack>
 
 namespace Ra {
@@ -30,6 +31,7 @@ TaskQueue::TaskId TaskQueue::registerTask( Task* task ) {
 }
 
 TaskQueue::TaskId TaskQueue::registerTask( std::unique_ptr<Task> task ) {
+    std::lock_guard<std::mutex> lock( m_taskMutex );
     TimerData tdata;
     // init tdata with task name before moving ownership
     tdata.taskName = task->getName();
@@ -56,6 +58,7 @@ void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId 
                             successor ) == m_dependencies[predecessor].end(),
                  "Cannot add a dependency twice" );
 
+    std::lock_guard<std::mutex> lock( m_taskMutex );
     m_dependencies[predecessor].push_back( successor );
     ++m_remainingDependencies[successor];
 }
@@ -84,10 +87,12 @@ bool TaskQueue::addDependency( TaskQueue::TaskId predecessor, const std::string&
 
 void TaskQueue::addPendingDependency( const std::string& predecessors,
                                       TaskQueue::TaskId successor ) {
+    std::lock_guard<std::mutex> lock( m_taskMutex );
     m_pendingDepsSucc.emplace_back( predecessors, successor );
 }
 
 void TaskQueue::addPendingDependency( TaskId predecessor, const std::string& successors ) {
+    std::lock_guard<std::mutex> lock( m_taskMutex );
     m_pendingDepsPre.emplace_back( predecessor, successors );
 }
 
@@ -104,6 +109,7 @@ void TaskQueue::resolveDependencies() {
                       "Pending dependency unresolved : (" << pre.first << ") -> "
                                                           << m_tasks[pre.second]->getName() );
     }
+    std::lock_guard<std::mutex> lock( m_taskMutex );
     m_pendingDepsPre.clear();
     m_pendingDepsSucc.clear();
 }
@@ -222,6 +228,7 @@ const std::vector<TaskQueue::TimerData>& TaskQueue::getTimerData() {
 void TaskQueue::flushTaskQueue() {
     CORE_ASSERT( m_processingTasks == 0, "You have tasks still in process" );
     CORE_ASSERT( m_taskQueue.empty(), " You have unprocessed tasks " );
+    std::lock_guard<std::mutex> lock( m_taskMutex );
     m_tasks.clear();
     m_dependencies.clear();
     m_timerData.clear();

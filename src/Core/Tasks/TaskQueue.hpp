@@ -147,6 +147,9 @@ class RA_CORE_API TaskQueue
     std::condition_variable m_threadNotifier;
     /// Global mutex over thread-sensitive variables.
     std::mutex m_taskQueueMutex;
+    /// Mutex for task registration (m_tasks, m_dependencies, m_timerData ...) if task queue is
+    /// fed from multiples threads
+    std::mutex m_taskMutex;
 };
 
 } // namespace Core
