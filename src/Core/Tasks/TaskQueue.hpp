@@ -43,7 +43,8 @@ class RA_CORE_API TaskQueue
     };
 
   public:
-    /// Constructor. Initializes the thread pools with numThreads threads.
+    /// Constructor. Initializes the thread worker pools with numThreads threads.
+    /// if numThreads == 0, its a runTasksInThisThread only task queu
     explicit TaskQueue( uint numThreads );
 
     /// Destructor. Waits for all the threads and safely deletes them.

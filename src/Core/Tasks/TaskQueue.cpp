@@ -1,3 +1,4 @@
+#include "Core/Utils/Log.hpp"
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
@@ -9,7 +10,6 @@ namespace Ra {
 namespace Core {
 
 TaskQueue::TaskQueue( uint numThreads ) : m_processingTasks( 0 ), m_shuttingDown( false ) {
-    CORE_ASSERT( numThreads > 0, " You need at least one thread" );
     m_workerThreads.reserve( numThreads );
     for ( uint i = 0; i < numThreads; ++i ) {
         m_workerThreads.emplace_back( &TaskQueue::runThread, this, i );
@@ -108,9 +108,11 @@ void TaskQueue::resolveDependencies() {
     m_pendingDepsSucc.clear();
 }
 
+// queueTask is always called with m_taskQueueMutex locked
 void TaskQueue::queueTask( TaskQueue::TaskId task ) {
     CORE_ASSERT( m_remainingDependencies[task] == 0,
                  " Task" << m_tasks[task]->getName() << "has unmet dependencies" );
+
     m_taskQueue.push_front( task );
 }
 
@@ -144,6 +146,13 @@ void TaskQueue::detectCycles() {
 }
 
 void TaskQueue::startTasks() {
+    using namespace Ra::Core::Utils;
+    if ( m_workerThreads.empty() ) {
+        LOG( logERROR ) << "TaskQueue as 0 threads, could not start tasks in parallel. Either "
+                           "create a task queue with more threads, or use runTasksInThisThread";
+        return;
+    }
+
     // Add pending dependencies.
     resolveDependencies();
 
@@ -175,9 +184,9 @@ void TaskQueue::runTasksInThisThread() {
         if ( m_remainingDependencies[t] == 0 ) { queueTask( TaskId { t } ); }
     }
     while ( !m_taskQueue.empty() ) {
-        TaskId task;
-        task = m_taskQueue.back();
+        TaskId task { m_taskQueue.back() };
         m_taskQueue.pop_back();
+
         // Run task
         m_timerData[task].start    = Utils::Clock::now();
         m_timerData[task].threadId = 0;
@@ -228,10 +237,8 @@ void TaskQueue::runThread( uint id ) {
             std::unique_lock<std::mutex> lock( m_taskQueueMutex );
 
             // Wait for a new task
-            // TODO : use the second form of wait()
-            while ( !m_shuttingDown && m_taskQueue.empty() ) {
-                m_threadNotifier.wait( lock );
-            }
+            m_threadNotifier.wait( lock,
+                                   [this]() { return m_shuttingDown || !m_taskQueue.empty(); } );
             // If the task queue is shutting down we quit, releasing
             // the lock.
             if ( m_shuttingDown ) { return; }
