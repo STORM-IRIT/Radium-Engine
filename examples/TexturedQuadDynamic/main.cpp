@@ -1,3 +1,4 @@
+
 // Include Radium base application and its simple Gui
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
@@ -98,6 +99,20 @@ int main( int argc, char* argv[] ) {
         app.appNeedsToQuit();
     } );
     thread.detach();
+
+    auto thread2 = std::thread( [=, &app, &texture]() {
+        while ( true ) {
+            unsigned char newData[size];
+            for ( int i = 0; i < width; ++i ) {
+                for ( int j = 0; j < height; j++ ) {
+                    newData[( i * height + j )] = ( i * 255 ) / width;
+                }
+                texture->updateData( newData );
+            }
+            std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
+        }
+    } );
+    thread2.detach();
 
     return app.exec();
 }
