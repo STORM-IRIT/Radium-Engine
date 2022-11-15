@@ -160,6 +160,10 @@ void TaskQueue::startTasks() {
 }
 
 void TaskQueue::runTasksInThisThread() {
+
+    // lock task queue so no other worker can start working while this thread do the job.
+    std::lock_guard<std::mutex> lock( m_taskQueueMutex );
+
     // Add pending dependencies.
     resolveDependencies();
 
