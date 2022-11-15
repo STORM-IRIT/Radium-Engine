@@ -48,6 +48,8 @@ TaskQueue::TaskId TaskQueue::registerTask( std::unique_ptr<Task> task ) {
 }
 
 void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId successor ) {
+    std::lock_guard<std::mutex> lock( m_taskMutex );
+
     CORE_ASSERT( predecessor.isValid() && ( predecessor < m_tasks.size() ),
                  "Invalid predecessor task" );
     CORE_ASSERT( successor.isValid() && ( successor < m_tasks.size() ), "Invalid successor task" );
@@ -58,7 +60,6 @@ void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId 
                             successor ) == m_dependencies[predecessor].end(),
                  "Cannot add a dependency twice" );
 
-    std::lock_guard<std::mutex> lock( m_taskMutex );
     m_dependencies[predecessor].push_back( successor );
     ++m_remainingDependencies[successor];
 }
