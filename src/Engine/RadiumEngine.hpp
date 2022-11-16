@@ -406,7 +406,7 @@ class RA_ENGINE_API RadiumEngine
     /// OpenGL State, usefull to set state of the rendering pipeline. Initialized during
     /// initializedGL()
     std::unique_ptr<globjects::State> m_openglState { nullptr };
-    std::unique_ptr<Core::TaskQueue> m_gpuTaskQueue { new Core::TaskQueue( 1 ) };
+    std::unique_ptr<Core::TaskQueue> m_gpuTaskQueue { new Core::TaskQueue( 0 ) };
 };
 } // namespace Engine
 } // namespace Ra
