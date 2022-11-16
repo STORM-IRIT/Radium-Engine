@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.12</span>
+   &#160;<span id="projectnumber">1.3.13</span>
    </div>
   </td>
  </tr>
@@ -143,9 +143,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1e9c7315ee7f8ba44990d2217b4b620b"><td class="memItemLeft" align="right" valign="top"><a id="a1e9c7315ee7f8ba44990d2217b4b620b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">TaskQueue</a> (uint numThreads)</td></tr>
-<tr class="memdesc:a1e9c7315ee7f8ba44990d2217b4b620b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. Initializes the thread pools with numThreads threads. <br /></td></tr>
+<tr class="memitem:a1e9c7315ee7f8ba44990d2217b4b620b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">TaskQueue</a> (uint numThreads)</td></tr>
 <tr class="separator:a1e9c7315ee7f8ba44990d2217b4b620b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7f1c6d7650e4b59ada2545f5829a353"><td class="memItemLeft" align="right" valign="top"><a id="af7f1c6d7650e4b59ada2545f5829a353"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">~TaskQueue</a> ()</td></tr>
@@ -193,7 +191,37 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="textblock"><p>This class allows tasks to be registered and then executed in parallel on separate threads. it maintains an internal pool of threads. When instructed, it dispatches the tasks to the pooled threads. <a class="el" href="classRa_1_1Core_1_1Task.html">Task</a> are allowed to have dependencies. A task will be executed only when all its dependencies are satisfied, i.e. all dependant tasks are finished. Note that most functions are not thread safe and must not be called when the task queue is running. </p>
 
 <p class="definition">Definition at line <a class="el" href="TaskQueue_8hpp_source.html#l00031">31</a> of file <a class="el" href="TaskQueue_8hpp_source.html">TaskQueue.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a1e9c7315ee7f8ba44990d2217b4b620b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e9c7315ee7f8ba44990d2217b4b620b">&#9670;&nbsp;</a></span>TaskQueue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ra::Core::TaskQueue::TaskQueue </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>numThreads</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor. Initializes the thread worker pools with numThreads threads. if numThreads == 0, its a runTasksInThisThread only task queue </p>
+
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00013">13</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8ed0cac0fb0ee0e1adcc7ec048c8585a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ed0cac0fb0ee0e1adcc7ec048c8585a">&#9670;&nbsp;</a></span>addDependency() <span class="overload">[1/2]</span></h2>
 
@@ -221,13 +249,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 <p>Add dependency between a task and all task with a given name. Will return false if no dependency has been added. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00063">63</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00067">67</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_a8ed0cac0fb0ee0e1adcc7ec048c8585a_cgraph.svg" width="167" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1TaskQueue_a8ed0cac0fb0ee0e1adcc7ec048c8585a_cgraph.svg" width="371" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -260,7 +288,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 <p>Add dependency between two tasks. The successor task will be executed only when all its predecessor completed. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00048">48</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00050">50</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 
 </div>
 </div>
@@ -291,7 +319,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 <p>Add a dependency between a task an all tasks with a given name, even if the task is not present yet, the name being resolved when task start. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00085">85</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00089">89</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 
 </div>
 </div>
@@ -312,7 +340,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 <p>Registers a task to be executed. <a class="el" href="classRa_1_1Core_1_1Task.html">Task</a> must have been created with new and be initialized with its parameter. The task queue assumes ownership of the task. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00028">28</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00029">29</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 
 </div>
 </div>
@@ -332,7 +360,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 <p>Launches the execution of all task in the thread of the caller. Return when all tasks are done. Usefull for instance for opengl related tasks that must run in the context thread. Once tasks are all processed, this method call flushTasksQueue. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00162">162</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00178">178</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -360,7 +388,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 <p>Launches the execution of all the threads in the task queue. No more tasks should be added at this point. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00146">146</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00155">155</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 
 </div>
 </div>
@@ -374,7 +402,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html">TaskQueue</a></li>
-    <li class="footer">Generated on Wed Nov 16 2022 08:42:01 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Nov 16 2022 09:54:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
