@@ -43,7 +43,8 @@ class RA_CORE_API TaskQueue
     };
 
   public:
-    /// Constructor. Initializes the thread pools with numThreads threads.
+    /// Constructor. Initializes the thread worker pools with numThreads threads.
+    /// if numThreads == 0, its a runTasksInThisThread only task queue
     explicit TaskQueue( uint numThreads );
 
     /// Destructor. Waits for all the threads and safely deletes them.
@@ -146,6 +147,9 @@ class RA_CORE_API TaskQueue
     std::condition_variable m_threadNotifier;
     /// Global mutex over thread-sensitive variables.
     std::mutex m_taskQueueMutex;
+    /// Mutex for task registration (m_tasks, m_dependencies, m_timerData ...), if tasks are
+    /// registered from multiple threads
+    std::mutex m_taskMutex;
 };
 
 } // namespace Core
