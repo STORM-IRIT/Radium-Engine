@@ -1,4 +1,6 @@
 // Include Radium base application and its simple Gui
+#include "Gui/Utils/KeyMappingManager.hpp"
+#include "Gui/Viewer/RotateAroundCameraManipulator.hpp"
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
@@ -22,6 +24,8 @@
 
 // To terminate the demo after a given time
 #include <QTimer>
+#include <qcoreevent.h>
+#include <qevent.h>
 
 using namespace Ra;
 using namespace Ra::Core;
@@ -81,14 +85,21 @@ int main( int argc, char* argv[] ) {
     //! [Cache the camera manager]
 
     //! [Add usefull custom key events]
-    auto callback = [cameraManager]( QKeyEvent* event ) {
-        // Convert ascii code to camera index
-        cameraManager->activate( event->key() - '0' );
+    auto callback = [cameraManager]( QEvent* event ) {
+        if ( event->type() == QEvent::KeyPress ) {
+            auto keyEvent = static_cast<QKeyEvent*>( event );
+            // Convert ascii code to camera index
+            cameraManager->activate( keyEvent->key() - '0' );
+        }
     };
-    app.m_mainWindow->getViewer()->addKeyPressEventAction(
-        "switchCam0", "Key_0", "ShiftModifier", "", "false", callback );
-    app.m_mainWindow->getViewer()->addKeyPressEventAction(
-        "switchCam1", "Key_1", "ShiftModifier", "", "false", callback );
+    app.m_mainWindow->getViewer()->addCustomAction(
+        "switchCam0",
+        Gui::KeyMappingManager::createEventBindingFromStrings( "", "ControlModifier", "Key_L" ),
+        callback );
+    app.m_mainWindow->getViewer()->addCustomAction(
+        "switchCam1",
+        Gui::KeyMappingManager::createEventBindingFromStrings( "", "ControlModifier", "Key_K" ),
+        callback );
     //! [Add usefull custom key events]
 
     //! [Create the camera animation system demonstrator]

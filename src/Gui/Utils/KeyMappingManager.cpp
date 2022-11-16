@@ -10,10 +10,7 @@ namespace Ra::Gui {
 
 using namespace Core::Utils; // log
 
-KeyMappingManager::KeyMappingManager() :
-    m_domDocument( "Key Mapping QDomDocument" ),
-    m_metaEnumKey( QMetaEnum::fromType<Qt::Key>() ),
-    m_file( nullptr ) {
+KeyMappingManager::KeyMappingManager() : m_file( nullptr ) {
 
     auto optionalPath { Core::Resources::getRadiumResourcesPath() };
     auto resourcesRootDir { optionalPath.value_or( "[[Default resrouces path not found]]" ) };
@@ -37,6 +34,22 @@ KeyMappingManager::KeyMappingManager() :
 
 KeyMappingManager::KeyMappingAction
 KeyMappingManager::getAction( const KeyMappingManager::Context& context,
+                              const QEvent* event,
+                              int key,
+                              bool wheel ) {
+
+    Qt::MouseButtons buttons;
+    Qt::KeyboardModifiers modifiers;
+    const QMouseEvent* mouseEvent = dynamic_cast<const QMouseEvent*>( event );
+    if ( mouseEvent ) {
+        buttons   = mouseEvent->buttons();
+        modifiers = mouseEvent->modifiers();
+    }
+    return getAction( context, buttons, modifiers, key, wheel );
+}
+
+KeyMappingManager::KeyMappingAction
+KeyMappingManager::getAction( const KeyMappingManager::Context& context,
                               const Qt::MouseButtons& buttons,
                               const Qt::KeyboardModifiers& modifiers,
                               int key,
@@ -51,52 +64,25 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
          ( key == Qt::Key_Meta ) ) {
         key = -1;
     }
-    KeyMappingManager::MouseBinding binding { buttons, modifiers, key, wheel };
 
-    auto action = m_mappingAction[context].find( binding );
-    if ( action != m_mappingAction[context].end() ) { return action->second; }
+    return getAction( context, EventBinding { buttons, modifiers, key, wheel } );
+}
+
+KeyMappingManager::KeyMappingAction
+KeyMappingManager::getAction( const KeyMappingManager::Context& context,
+                              const KeyMappingManager::EventBinding& binding ) {
+    auto action = m_bindingToAction[context].find( binding );
+    if ( action != m_bindingToAction[context].end() ) { return action->second; }
 
     return KeyMappingManager::KeyMappingAction();
 }
 
-KeyMappingManager::KeyMappingAction
-KeyMappingManager::addAction( const std::string& context,
-                              const std::string& keyString,
-                              const std::string& modifiersString,
-                              const std::string& buttonsString,
-                              const std::string& wheelString,
-                              const std::string& actionString,
-                              bool saveToConfigFile ) {
-    auto actionIndex = loadConfigurationMappingInternal(
-        context, keyString, modifiersString, buttonsString, wheelString, actionString );
-    if ( saveToConfigFile ) {
-        QDomElement domElement   = m_domDocument.documentElement();
-        QDomElement elementToAdd = m_domDocument.createElement( "keymap" );
-        elementToAdd.setAttribute( "context", context.c_str() );
-        elementToAdd.setAttribute( "key", keyString.c_str() );
-        elementToAdd.setAttribute( "modifiers", modifiersString.c_str() );
-        elementToAdd.setAttribute( "buttons", buttonsString.c_str() );
-        if ( !wheelString.empty() ) { elementToAdd.setAttribute( "wheel", wheelString.c_str() ); }
-        elementToAdd.setAttribute( "action", actionString.c_str() );
-
-        QString xmlAction;
-        QTextStream s( &xmlAction );
-        s << elementToAdd;
-#if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
-        QString xmlActionChopped = xmlAction;
-        xmlActionChopped.chop( 1 );
-        LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
-                        << xmlActionChopped.toStdString();
-
-#else
-        LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
-                        << xmlAction.chopped( 1 ).toStdString();
-#endif
-
-        domElement.appendChild( elementToAdd );
-        saveConfiguration();
-    }
-    return actionIndex;
+std::optional<KeyMappingManager::EventBinding>
+KeyMappingManager::getBinding( const KeyMappingManager::Context& context,
+                               KeyMappingAction action ) {
+    for ( const auto& [key, value] : m_bindingToAction[context] )
+        if ( value == action ) return key;
+    return {};
 }
 
 KeyMappingManager::Context KeyMappingManager::addContext( const std::string& contextName ) {
@@ -107,11 +93,10 @@ KeyMappingManager::Context KeyMappingManager::addContext( const std::string& con
         contextIndex                      = m_contextNameToIndex.size();
         m_contextNameToIndex[contextName] = contextIndex;
         m_actionNameToIndex.emplace_back();
-        m_mappingAction.emplace_back();
-
+        m_bindingToAction.emplace_back();
         CORE_ASSERT( m_actionNameToIndex.size() == size_t( contextIndex + 1 ),
                      "Corrupted actionName DB" );
-        CORE_ASSERT( m_mappingAction.size() == size_t( contextIndex + 1 ),
+        CORE_ASSERT( m_bindingToAction.size() == size_t( contextIndex + 1 ),
                      "Corrupted mappingAction DB" );
     }
     else
@@ -127,8 +112,8 @@ KeyMappingManager::Context KeyMappingManager::getContext( const std::string& con
     return Context {};
 }
 
-KeyMappingManager::KeyMappingAction
-KeyMappingManager::getActionIndex( const Context& context, const std::string& actionName ) {
+KeyMappingManager::KeyMappingAction KeyMappingManager::getAction( const Context& context,
+                                                                  const std::string& actionName ) {
     if ( size_t( context ) >= m_actionNameToIndex.size() || context.isInvalid() ) {
         LOG( logWARNING ) << "try to get action index ( " << actionName
                           << " ) from an invalid context ( " << context << " )";
@@ -186,15 +171,16 @@ void KeyMappingManager::removeListener( int callbackId ) {
     detach( callbackId );
 }
 
-void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
-                                         const MouseBinding& binding,
-                                         Ra::Core::Utils::Index actionIndex ) {
+void KeyMappingManager::setActionBinding( const Context& contextIndex,
+                                          const EventBinding& binding,
+                                          const KeyMappingAction& actionIndex ) {
 
-    CORE_ASSERT( contextIndex < m_contextNameToIndex.size(), "contextIndex is out of range" );
+    CORE_ASSERT( size_t( contextIndex ) < m_contextNameToIndex.size(),
+                 "contextIndex is out of range" );
 
     // search if an action already correspond to this binding.
-    auto f = m_mappingAction[contextIndex].find( binding );
-    if ( f != m_mappingAction[contextIndex].end() ) {
+    auto f = m_bindingToAction[contextIndex].find( binding );
+    if ( f != m_bindingToAction[contextIndex].end() ) {
 
         // if yes, search for its name
         auto findResult = std::find_if(
@@ -241,7 +227,7 @@ void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
                      << " keycode [" << binding.m_key << "]"
                      << " wheel [" << binding.m_wheel << "]";
 
-    m_mappingAction[contextIndex][binding] = actionIndex;
+    m_bindingToAction[contextIndex][binding] = actionIndex;
 }
 
 void KeyMappingManager::loadConfiguration( const std::string& inFilename ) {
@@ -265,8 +251,8 @@ void KeyMappingManager::loadConfiguration( const std::string& inFilename ) {
             return;
         }
     }
-
-    if ( !m_domDocument.setContent( m_file ) ) {
+    QDomDocument domDocument;
+    if ( !domDocument.setContent( m_file ) ) {
         LOG( logERROR ) << "Can't associate XML file to QDomDocument !";
         LOG( logERROR ) << "Trying to load default configuration...";
         m_file->close();
@@ -281,7 +267,7 @@ void KeyMappingManager::loadConfiguration( const std::string& inFilename ) {
     }
     m_file->close();
 
-    loadConfigurationInternal();
+    loadConfigurationInternal( domDocument );
 
     // notify observer that keymapping has changed.
     notify();
@@ -299,14 +285,10 @@ bool KeyMappingManager::saveConfiguration( const std::string& inFilename ) {
     stream.writeStartDocument();
     stream.writeComment( "\tRadium KeyMappingManager configuration file\t" );
     stream.writeComment(
-        "\n<keymap context=\"thecontext\" action=\"theAction\" buttons=\"QButton\" "
+        "\n<keymap context=\"theContext\" action=\"theAction\" buttons=\"QButton\" "
         "modifier=\"QModifier\" key=\"QKey\" wheel=\"boolean\"/>\n" );
-    QDomNode root = m_domDocument.documentElement();
-    while ( !root.isNull() ) {
-        saveNode( stream, root );
-        if ( stream.hasError() ) { break; }
-        root = root.nextSibling();
-    }
+
+    saveKeymap( stream );
 
     stream.writeEndDocument();
 
@@ -317,83 +299,63 @@ bool KeyMappingManager::saveConfiguration( const std::string& inFilename ) {
     return true;
 }
 
-void KeyMappingManager::saveNode( QXmlStreamWriter& stream, const QDomNode& domNode ) {
+void KeyMappingManager::saveKeymap( QXmlStreamWriter& stream ) {
+
+    // helper functor to write attrib
+    auto saveAttrib = [&stream]( const QString& attribName,
+                                 const QString& attribValue,
+                                 const QString& attribDefault ) {
+        if ( attribValue != attribDefault ) stream.writeAttribute( attribName, attribValue );
+    };
+
     if ( stream.hasError() ) { return; }
 
-    if ( domNode.isElement() ) {
-        const QDomElement domElement = domNode.toElement();
-        if ( !domElement.isNull() ) {
-            auto tagName = domElement.tagName().toStdString();
-            stream.writeStartElement( domElement.tagName() );
+    stream.writeStartElement( "keymaps" );
 
-            if ( tagName == "keymap" ) {
+    for ( const auto& contextPair : m_contextNameToIndex ) {
+        const auto& contextName = contextPair.first;
+        const auto& context     = contextPair.second;
+        for ( const auto& actionPair : m_bindingToAction[context] ) {
+            const auto& binding     = actionPair.first;
+            const auto& action      = actionPair.second;
+            const auto& actionNames = m_actionNameToIndex[context];
+            auto actionItr =
+                std::find_if( actionNames.begin(), actionNames.end(), [&action]( const auto& a ) {
+                    return a.second == action;
+                } );
+            if ( actionItr != actionNames.end() ) {
+                const auto& actionName = actionItr->first;
+                stream.writeStartElement( "keymap" );
+                stream.writeAttribute( "context", QString::fromStdString( contextName ) );
+                stream.writeAttribute( "action", QString::fromStdString( actionName ) );
 
-                auto saveAttrib = [&domElement, &stream]( const QString& attribName,
-                                                          const QString& attribDefault,
-                                                          bool optional = false ) {
-                    QString attribValue = domElement.attribute( attribName, attribDefault );
-                    if ( optional && attribValue == attribDefault ) { return false; }
-                    stream.writeAttribute( attribName, attribValue );
-                    return true;
-                };
+                saveAttrib(
+                    "buttons",
+                    QString::fromStdString( enumNamesFromMouseButtons( binding.m_buttons ) ),
+                    QString::fromStdString( enumNamesFromMouseButtons( Qt::NoButton ) ) );
+                saveAttrib(
+                    "modifiers",
+                    QString::fromStdString( enumNamesFromKeyboardModifiers( binding.m_modifiers ) ),
+                    QString::fromStdString( enumNamesFromKeyboardModifiers( Qt::NoModifier ) ) );
+                saveAttrib( "key", "Key_" + QKeySequence( binding.m_key ).toString(), "Key_" );
+                saveAttrib( "wheel", binding.m_wheel ? "true" : "false", "false" );
 
-                if ( !saveAttrib( "context", "" ) ) {
-                    LOG( logERROR ) << "Error, missing context when saving keymap element";
-                    return;
-                }
-                if ( !saveAttrib( "action", "" ) ) {
-                    LOG( logERROR ) << "Error, missing action when saving keymap element";
-                    return;
-                }
-                saveAttrib( "buttons", "" );
-                saveAttrib( "modifiers", "" );
-                saveAttrib( "key", "" );
-                saveAttrib( "wheel", "false", true );
+                stream.writeEndElement();
             }
-            else {
-                if ( domElement.hasAttributes() ) {
-                    QMap<QString, QString> attributes;
-                    const QDomNamedNodeMap attributeMap = domElement.attributes();
-                    for ( int i = 0; i < attributeMap.count(); ++i ) {
-                        const QDomNode attribute = attributeMap.item( i );
-                        attributes.insert( attribute.nodeName(), attribute.nodeValue() );
-                    }
-
-                    QMap<QString, QString>::const_iterator i = attributes.constBegin();
-                    while ( i != attributes.constEnd() ) {
-                        stream.writeAttribute( i.key(), i.value() );
-                        ++i;
-                    }
-                }
-            }
-
-            if ( domElement.hasChildNodes() ) {
-                QDomNode elementChild = domElement.firstChild();
-                while ( !elementChild.isNull() ) {
-                    saveNode( stream, elementChild );
-                    elementChild = elementChild.nextSibling();
-                }
-            }
-
-            stream.writeEndElement();
         }
     }
-    else if ( domNode.isComment() ) {
-        stream.writeComment( domNode.nodeValue() );
-    }
-    else if ( domNode.isText() ) {
-        stream.writeCharacters( domNode.nodeValue() );
-    }
+
+    stream.writeEndElement();
 }
 
-void KeyMappingManager::loadConfigurationInternal() {
+void KeyMappingManager::loadConfigurationInternal( const QDomDocument& domDocument ) {
     ///\todo maybe find a better way to handle load and reload.
     /// -> do not clear m_contextNameToIndex m_actionNameToIndex so the keep their index values ...
     m_contextNameToIndex.clear();
     m_actionNameToIndex.clear();
-    m_mappingAction.clear();
+    m_bindingToAction.clear();
 
-    QDomElement domElement = m_domDocument.documentElement();
+    QDomElement domElement = domDocument.documentElement();
 
     if ( domElement.tagName() != "keymaps" ) {
         LOG( logWARNING ) << "No <keymaps> global bounding tag ! Maybe you set a different global "
@@ -417,12 +379,12 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
         std::string keyString       = e.attribute( "key", "-1" ).toStdString();
         std::string modifiersString = e.attribute( "modifiers", "NoModifier" ).toStdString();
         std::string buttonsString   = e.attribute( "buttons", "NoButton" ).toStdString();
-        std::string contextString   = e.attribute( "context", "AppContext" ).toStdString();
+        std::string contextName     = e.attribute( "context", "AppContext" ).toStdString();
         std::string wheelString     = e.attribute( "wheel", "false" ).toStdString();
-        std::string actionString    = e.attribute( "action" ).toStdString();
+        std::string actionName      = e.attribute( "action" ).toStdString();
 
         loadConfigurationMappingInternal(
-            contextString, keyString, modifiersString, buttonsString, wheelString, actionString );
+            contextName, keyString, modifiersString, buttonsString, wheelString, actionName );
     }
     else {
         LOG( logERROR ) << "Unrecognized XML key mapping configuration file tag \""
@@ -434,39 +396,54 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
     }
 }
 
+KeyMappingManager::KeyMappingAction KeyMappingManager::addAction( const Context& context,
+                                                                  const std::string& actionName ) {
+    Ra::Core::Utils::Index actionIndex;
+    auto actionItr = m_actionNameToIndex[context].find( actionName );
+    if ( actionItr == m_actionNameToIndex[context].end() ) {
+        actionIndex                              = m_actionNameToIndex[context].size();
+        m_actionNameToIndex[context][actionName] = actionIndex;
+    }
+    else {
+        actionIndex = actionItr->second;
+    }
+
+    return actionIndex;
+}
+
+KeyMappingManager::KeyMappingAction KeyMappingManager::addAction( const Context& context,
+                                                                  const EventBinding& binding,
+                                                                  const std::string& actionName ) {
+    auto actionIndex = addAction( context, actionName );
+    setActionBinding( context, binding, actionIndex );
+    return actionIndex;
+}
+
+int KeyMappingManager::getKeyCode( const std::string& keyString ) {
+    auto metaEnumKey = QMetaEnum::fromType<Qt::Key>();
+    return metaEnumKey.keyToValue( keyString.c_str() );
+}
+
 KeyMappingManager::KeyMappingAction
 KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
                                                      const std::string& keyString,
                                                      const std::string& modifiersString,
                                                      const std::string& buttonsString,
                                                      const std::string& wheelString,
-                                                     const std::string& actionString ) {
+                                                     const std::string& actionName ) {
+    auto contextIndex = addContext( context );
+    auto actionIndex  = addAction( contextIndex, actionName );
 
-    Ra::Core::Utils::Index contextIndex = addContext( context );
+    auto binding =
+        createEventBindingFromStrings( buttonsString, modifiersString, keyString, wheelString );
 
-    Ra::Core::Utils::Index actionIndex;
-    auto actionItr = m_actionNameToIndex[contextIndex].find( actionString );
-    if ( actionItr == m_actionNameToIndex[contextIndex].end() ) {
-        actionIndex                                     = m_actionNameToIndex[contextIndex].size();
-        m_actionNameToIndex[contextIndex][actionString] = actionIndex;
+    if ( binding.m_key == -1 && binding.m_buttons == Qt::NoButton && !binding.m_wheel ) {
+        LOG( logERROR ) << "Invalid binding for action [" << actionName << "] with key ["
+                        << keyString << "], buttons [" << buttonsString << "], wheel ["
+                        << wheelString << "]";
     }
     else {
-        actionIndex = actionItr->second;
-    }
-
-    Qt::KeyboardModifiers modifiersValue = getQtModifiersValue( modifiersString );
-    auto keyValue                        = m_metaEnumKey.keyToValue( keyString.c_str() );
-    auto buttonsValue                    = getQtMouseButtonsValue( buttonsString );
-    auto wheel                           = wheelString.compare( "true" ) == 0;
-
-    if ( keyValue == -1 && buttonsValue == Qt::NoButton && !wheel ) {
-        LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionString
-                        << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
-    }
-    else {
-        bindKeyToAction( contextIndex,
-                         MouseBinding { buttonsValue, modifiersValue, keyValue, wheel },
-                         actionIndex );
+        setActionBinding( contextIndex, binding, actionIndex );
     }
     return actionIndex;
 }
@@ -529,16 +506,14 @@ KeyMappingManager::~KeyMappingManager() {
 }
 
 std::string KeyMappingManager::getHelpText() {
-    //    return m_domDocument.toString().toStdString();
     std::ostringstream text;
     for ( const auto& context : m_contextNameToIndex ) {
-        std::string contextString { context.first };
-        auto end      = contextString.find( "Context" );
-        contextString = contextString.substr( 0, end );
-        text << "<h2>" << contextString << "</h2>\n";
+        std::string contextName { context.first };
+        auto end    = contextName.find( "Context" );
+        contextName = contextName.substr( 0, end );
+        text << "<h2>" << contextName << "</h2>\n";
 
-        text << "<table>\n";
-        for ( const auto& action : m_mappingAction[context.second] ) {
+        for ( const auto& action : m_bindingToAction[context.second] ) {
             const auto& binding     = action.first;
             const auto& actionIndex = action.second;
             const auto& actionNames = m_actionNameToIndex[context.second];
@@ -636,6 +611,17 @@ KeyMappingManager::enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& 
 }
 
 #undef TEST_BUTTON_STRING
+
+KeyMappingManager::EventBinding
+KeyMappingManager::createEventBindingFromStrings( const std::string& buttonsString,
+                                                  const std::string& modifiersString,
+                                                  const std::string& keyString,
+                                                  const std::string& wheelString ) {
+    return { getQtMouseButtonsValue( buttonsString ),
+             getQtModifiersValue( modifiersString ),
+             getKeyCode( keyString ),
+             wheelString.compare( "true" ) == 0 };
+}
 
 RA_SINGLETON_IMPLEMENTATION( KeyMappingManager );
 } // namespace Ra::Gui

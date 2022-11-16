@@ -147,23 +147,11 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// get the currently used background color
     const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
-    /// Add a custom event handler on keyPressed event
+    /// Add a custom event callback
     KeyMappingManager::KeyMappingAction
-    addKeyPressEventAction( const std::string& actionName,
-                            const std::string& keyString,
-                            const std::string& modifiersString,
-                            const std::string& buttonsString,
-                            const std::string& wheelString,
-                            std::function<void( QKeyEvent* )> callback );
-
-    /// Add a custom event handler on keyRelease event
-    KeyMappingManager::KeyMappingAction
-    addKeyReleaseEventAction( const std::string& actionName,
-                              const std::string& keyString,
-                              const std::string& modifiersString,
-                              const std::string& buttonsString,
-                              const std::string& wheelString,
-                              std::function<void( QKeyEvent* )> callback );
+    addCustomAction( const std::string& actionName,
+                     const KeyMappingManager::EventBinding& binding,
+                     std::function<void( QEvent* )> callback );
     ///@}
 
     Scalar getDepthUnderMouse() const { return m_depthUnderMouse; }
@@ -284,15 +272,6 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     void propagateEventToParent( QEvent* event );
 
-    KeyMappingManager::KeyMappingAction
-    addCustomAction( int index,
-                     const std::string& actionName,
-                     const std::string& keyString,
-                     const std::string& modifiersString,
-                     const std::string& buttonsString,
-                     const std::string& wheelString,
-                     std::function<void( QKeyEvent* )> callback );
-
     std::tuple<KeyMappingManager::KeyMappingAction,
                KeyMappingManager::KeyMappingAction,
                KeyMappingManager::KeyMappingAction>
@@ -331,6 +310,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// Index is KeyEventType
     std::array<std::map<Core::Utils::Index, std::function<void( QKeyEvent* )>>, KeyEventTypeCount>
         m_customKeyActions;
+
+    KeyMappingCallbackManager m_keyMappingCallbackManager;
 
     KeyMappingManager::Context m_activeContext {};
 #define KeyMappingViewer                     \
