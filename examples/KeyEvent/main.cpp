@@ -39,17 +39,23 @@ class DemoWindow : public Ra::Gui::SimpleWindow
     }
     void configure() override {
 
-        DEMO_COLORUP = getViewer()->addKeyPressEventAction(
-            "DEMO_COLORUP", "Key_U", "", "", "false", [this]( QKeyEvent* event ) {
-                this->colorup( event );
+        DEMO_COLORUP = getViewer()->addCustomAction(
+            "DEMO_COLORUP",
+            Ra::Gui::KeyMappingManager::createEventBindingFromStrings( "", "", "Key_U" ),
+            [this]( QEvent* event ) {
+                if ( event->type() == QEvent::KeyPress ) this->colorup();
             } );
-        DEMO_COLORDOWN = getViewer()->addKeyPressEventAction(
-            "DEMO_COLORDOWN", "Key_D", "", "", "false", [this]( QKeyEvent* event ) {
-                this->colordown( event );
+        DEMO_COLORDOWN = getViewer()->addCustomAction(
+            "DEMO_COLORDOWN",
+            Ra::Gui::KeyMappingManager::createEventBindingFromStrings( "", "", "Key_D" ),
+            [this]( QEvent* event ) {
+                if ( event->type() == QEvent::KeyPress ) this->colordown();
             } );
-        DEMO_COLORRESET = getViewer()->addKeyReleaseEventAction(
-            "DEMO_COLORRESET", "Key_O", "", "", "false", [this]( QKeyEvent* event ) {
-                this->colorreset( event );
+        DEMO_COLORRESET = getViewer()->addCustomAction(
+            "DEMO_COLORRESET",
+            Ra::Gui::KeyMappingManager::createEventBindingFromStrings( "", "", "Key_O" ),
+            [this]( QEvent* event ) {
+                if ( event->type() == QEvent::KeyRelease ) this->colorreset();
             } );
         if ( DEMO_COLORUP.isInvalid() || DEMO_COLORDOWN.isInvalid() ) {
             LOG( Ra::Core::Utils::logERROR ) << "Error : invalid context or actions for custom"
@@ -67,19 +73,19 @@ class DemoWindow : public Ra::Gui::SimpleWindow
 
     //! [Manage KeyEvent reaching the window]
     /// Custom Key event management method
-    void colorup( QKeyEvent* ) {
+    void colorup() {
         auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
             m_obj->getMesh()->getAbstractGeometry() );
         m_colIdx = ( m_colIdx + 1 ) % 10;
         mesh.colorize( m_colors[m_colIdx] );
     }
-    void colordown( QKeyEvent* ) {
+    void colordown() {
         auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
             m_obj->getMesh()->getAbstractGeometry() );
         m_colIdx = ( m_colIdx + 9 ) % 10;
         mesh.colorize( m_colors[m_colIdx] );
     }
-    void colorreset( QKeyEvent* ) {
+    void colorreset() {
         auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
             m_obj->getMesh()->getAbstractGeometry() );
         m_colIdx = 0;

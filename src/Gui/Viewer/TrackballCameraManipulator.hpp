@@ -1,5 +1,6 @@
 #pragma once
 #include <Gui/RaGui.hpp>
+#include <Gui/Utils/KeyMappingManager.hpp>
 
 #include <Core/Asset/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
@@ -108,10 +109,19 @@ class RA_GUI_API TrackballCameraManipulator
     /// The distance from the camera to the trackball center.
     Scalar m_distFromCenter { 0_ra };
 
+    KeyMappingCallbackManager m_keyMappingCallbackManager;
+
   private:
+    void setupKeyMappingCallbacks();
     bool checkIntegrity( const std::string& mess ) const;
     static void configureKeyMapping_impl();
     void clampThetaPhi();
+    void rotateCallback( QEvent* event );
+    void panCallback( QEvent* event );
+    void moveForwardCallback( QEvent* event );
+    void zoomCallback( QEvent* event );
+    void mousePressSaveData( const QMouseEvent* mouseEvent );
+    std::tuple<Scalar, Scalar> computeDeltaMouseMove( const QMouseEvent* mouseEvent );
 
   protected:
     ///\todo move CAMERA_ to CameraManipulator, will be done soon ;)

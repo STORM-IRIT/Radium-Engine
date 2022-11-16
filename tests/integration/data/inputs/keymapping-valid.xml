@@ -1,25 +1,23 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!--	Radium KeyMappingManager configuration file	-->
+<!--
+<keymap context="theContext" action="theAction" buttons="QButton" modifier="QModifier" key="QKey" wheel="boolean"/>
+-->
 <keymaps>
-    <keymap context="CameraContext" key="" modifiers="" buttons="LeftButton" action="TRACKBALLCAMERA_ROTATE"/>
-    <keymap context="CameraContext" key="" modifiers="ShiftModifier" buttons="LeftButton" action="TRACKBALLCAMERA_PAN"/>
-    <keymap context="CameraContext" key="" modifiers="ControlModifier" buttons="LeftButton"
-            action="TRACKBALLCAMERA_ZOOM"/>
-    <keymap context="CameraContext" key="Key_A" modifiers="" buttons="" action="TRACKBALLCAMERA_ROTATE_AROUND"/>
-    <keymap context="GizmoContext" key="" modifiers="" buttons="RightButton"
-            action="GIZMOMANAGER_MANIPULATION"/>
-    <keymap context="GizmoContext" key="" modifiers="ControlModifier" buttons="RightButton" action="GIZMOMANAGER_STEP"/>
-    <keymap context="GizmoContext" key="" modifiers="ShiftModifier" buttons="RightButton" action="GIZMOMANAGER_WHOLE"/>
-    <keymap context="GizmoContext" key="" modifiers="ControlModifier,ShiftModifier" buttons="LeftButton"
-            action="GIZMOMANAGER_STEP_WHOLE"/>
-    <keymap context="ViewerContext" key="" modifiers="" buttons="RightButton" action="VIEWER_PICKING"/>
-    <keymap context="ViewerContext" key="Key_V" modifiers="" buttons="RightButton" action="VIEWER_PICKING_VERTEX"/>
-    <keymap context="ViewerContext" key="Key_E" modifiers="" buttons="RightButton" action="VIEWER_PICKING_EDGE"/>
-    <keymap context="ViewerContext" key="Key_T" modifiers="" buttons="RightButton" action="VIEWER_PICKING_TRIANGLE"/>
-    <keymap context="ViewerContext" key="Key_C" modifiers="" buttons="" action="VIEWER_PICKING_MULTI_CIRCLE"/>
-    <keymap context="ViewerContext" key="Key_W" modifiers="ControlModifier" buttons=""
-            action="VIEWER_TOGGLE_WIREFRAME"/>
-    <keymap context="ViewerContext" key="Key_R" modifiers="" buttons="RightButton" action="VIEWER_RAYCAST"/>
-    <keymap context="ViewerContext" key="" modifiers="ShiftModifier" buttons="" wheel="true"
-            action="VIEWER_SCALE_BRUSH"/>
+    <keymap context="CameraContext" action="TRACKBALLCAMERA_ROTATE_AROUND" key="Key_A"/>
+    <keymap context="CameraContext" action="TRACKBALLCAMERA_ROTATE" buttons="LeftButton"/>
+    <keymap context="CameraContext" action="TRACKBALLCAMERA_PAN" buttons="LeftButton" modifiers="ShiftModifier"/>
+    <keymap context="CameraContext" action="TRACKBALLCAMERA_ZOOM" buttons="LeftButton" modifiers="ControlModifier"/>
+    <keymap context="GizmoContext" action="GIZMOMANAGER_STEP_WHOLE" buttons="LeftButton" modifiers="ShiftModifier,ControlModifier"/>
+    <keymap context="GizmoContext" action="GIZMOMANAGER_MANIPULATION" buttons="RightButton"/>
+    <keymap context="GizmoContext" action="GIZMOMANAGER_WHOLE" buttons="RightButton" modifiers="ShiftModifier"/>
+    <keymap context="GizmoContext" action="GIZMOMANAGER_STEP" buttons="RightButton" modifiers="ControlModifier"/>
+    <keymap context="ViewerContext" action="VIEWER_PICKING_MULTI_CIRCLE" key="Key_C"/>
+    <keymap context="ViewerContext" action="VIEWER_SCALE_BRUSH" modifiers="ShiftModifier" wheel="true"/>
+    <keymap context="ViewerContext" action="VIEWER_TOGGLE_WIREFRAME" modifiers="ControlModifier" key="Key_W"/>
+    <keymap context="ViewerContext" action="VIEWER_PICKING" buttons="RightButton"/>
+    <keymap context="ViewerContext" action="VIEWER_PICKING_EDGE" buttons="RightButton" key="Key_E"/>
+    <keymap context="ViewerContext" action="VIEWER_RAYCAST" buttons="RightButton" key="Key_R"/>
+    <keymap context="ViewerContext" action="VIEWER_PICKING_TRIANGLE" buttons="RightButton" key="Key_T"/>
+    <keymap context="ViewerContext" action="VIEWER_PICKING_VERTEX" buttons="RightButton" key="Key_V"/>
 </keymaps>

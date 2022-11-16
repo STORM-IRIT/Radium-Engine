@@ -44,7 +44,7 @@ class RA_GUI_API CameraManipulator : public QObject
     /// associated Camera.
     virtual ~CameraManipulator();
 
-    /// @return the mapping context for keymapping, nullptr if no mapping is available
+    /// @return the mapping context for keymapping, Index::Invalid() if no mapping is available
     virtual KeyMappingManager::Context mappingContext();
 
     /// @return true if the event has been taken into account, false otherwise

@@ -39,25 +39,57 @@ void TrackballCameraManipulator::configureKeyMapping_impl() {
     }
 
 #define KMA_VALUE( XX ) \
-    XX = KeyMappingManager::getInstance()->getActionIndex( KeyMapping::getContext(), #XX );
+    XX = KeyMappingManager::getInstance()->getAction( KeyMapping::getContext(), #XX );
     KeyMappingCamera
 #undef KMA_VALUE
 }
 
-TrackballCameraManipulator::TrackballCameraManipulator() : CameraManipulator() {
+void TrackballCameraManipulator::setupKeyMappingCallbacks() {
+
+    m_keyMappingCallbackManager.addEventCallback(
+        TRACKBALLCAMERA_ROTATE, [=]( QEvent* event ) { rotateCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_PAN,
+                                                  [=]( QEvent* event ) { panCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ZOOM,
+                                                  [=]( QEvent* event ) { zoomCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback(
+        TRACKBALLCAMERA_MOVE_FORWARD, [=]( QEvent* event ) { moveForwardCallback( event ); } );
+
+    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_PROJ_MODE, [=]( QEvent* ) {
+        using ProjType = Ra::Core::Asset::Camera::ProjType;
+        m_camera->setType( m_camera->getType() == ProjType::ORTHOGRAPHIC ? ProjType::PERSPECTIVE
+                                                                         : ProjType::ORTHOGRAPHIC );
+    } );
+
+    m_keyMappingCallbackManager.addEventCallback( CAMERA_TOGGLE_QUICK, [=]( QEvent* ) {
+        static bool quick = false;
+        quick             = !quick;
+        if ( quick ) { m_quickCameraModifier = 10.0_ra; }
+        else {
+            m_quickCameraModifier = 1.0_ra;
+        }
+    } );
+}
+
+TrackballCameraManipulator::TrackballCameraManipulator() :
+    CameraManipulator(), m_keyMappingCallbackManager { KeyMapping::getContext() } {
     resetCamera();
+    setupKeyMappingCallbacks();
 }
 
 TrackballCameraManipulator::TrackballCameraManipulator( const CameraManipulator& other ) :
-    CameraManipulator( other ) {
+    CameraManipulator( other ), m_keyMappingCallbackManager { KeyMapping::getContext() } {
+
     m_referenceFrame = m_camera->getFrame();
     m_referenceFrame.translation() =
         m_camera->getPosition() + m_distFromCenter * m_camera->getDirection();
     m_distFromCenter = ( m_referenceFrame.translation() - m_camera->getPosition() ).norm();
     updatePhiTheta();
+
+    setupKeyMappingCallbacks();
 }
 
-TrackballCameraManipulator::~TrackballCameraManipulator() = default;
+TrackballCameraManipulator::~TrackballCameraManipulator() {};
 
 void TrackballCameraManipulator::resetCamera() {
     m_camera->setFrame( Core::Transform::Identity() );
@@ -110,35 +142,83 @@ KeyMappingManager::Context TrackballCameraManipulator::mappingContext() {
     return KeyMapping::getContext();
 }
 
+void TrackballCameraManipulator::mousePressSaveData( const QMouseEvent* mouseEvent ) {
+    m_lastMouseX = mouseEvent->pos().x();
+    m_lastMouseY = mouseEvent->pos().y();
+    m_phiDir     = -Core::Math::signNZ( m_theta );
+}
+
+std::tuple<Scalar, Scalar>
+TrackballCameraManipulator::computeDeltaMouseMove( const QMouseEvent* mouseEvent ) {
+    return { ( mouseEvent->pos().x() - m_lastMouseX ) / m_camera->getWidth(),
+             ( mouseEvent->pos().y() - m_lastMouseY ) / m_camera->getHeight() };
+}
+
+void TrackballCameraManipulator::rotateCallback( QEvent* event ) {
+    if ( event->type() == QEvent::MouseMove ) {
+        auto mouseEvent = reinterpret_cast<QMouseEvent*>( event );
+        auto [dx, dy]   = computeDeltaMouseMove( mouseEvent );
+        handleCameraRotate( dx, dy );
+    }
+}
+
+void TrackballCameraManipulator::panCallback( QEvent* event ) {
+    if ( event->type() == QEvent::MouseMove ) {
+        auto mouseEvent = reinterpret_cast<QMouseEvent*>( event );
+        auto [dx, dy]   = computeDeltaMouseMove( mouseEvent );
+        handleCameraPan( dx, dy );
+    }
+}
+
+void TrackballCameraManipulator::zoomCallback( QEvent* event ) {
+    if ( event->type() == QEvent::MouseMove ) {
+        auto mouseEvent = reinterpret_cast<QMouseEvent*>( event );
+        auto [dx, dy]   = computeDeltaMouseMove( mouseEvent );
+        handleCameraZoom( dx, dy );
+    }
+    else if ( event->type() == QEvent::Wheel ) {
+        auto wheelEvent = reinterpret_cast<QWheelEvent*>( event );
+        handleCameraZoom(
+            ( wheelEvent->angleDelta().y() * 0.01_ra + wheelEvent->angleDelta().x() * 0.01_ra ) *
+            m_wheelSpeedModifier );
+    }
+}
+
+void TrackballCameraManipulator::moveForwardCallback( QEvent* event ) {
+
+    if ( event->type() == QEvent::MouseMove ) {
+        auto mouseEvent = reinterpret_cast<QMouseEvent*>( event );
+        auto [dx, dy]   = computeDeltaMouseMove( mouseEvent );
+        handleCameraMoveForward( dx, dy );
+    }
+    else if ( event->type() == QEvent::Wheel ) {
+        auto wheelEvent = reinterpret_cast<QWheelEvent*>( event );
+
+        handleCameraMoveForward(
+            ( wheelEvent->angleDelta().y() * 0.01_ra + wheelEvent->angleDelta().x() * 0.01_ra ) *
+            m_wheelSpeedModifier );
+    }
+}
+
 bool TrackballCameraManipulator::handleMousePressEvent( QMouseEvent* event,
                                                         const Qt::MouseButtons& buttons,
                                                         const Qt::KeyboardModifiers& modifiers,
                                                         int key ) {
-    m_lastMouseX    = event->pos().x();
-    m_lastMouseY    = event->pos().y();
-    m_phiDir        = -Core::Math::signNZ( m_theta );
-    m_currentAction = KeyMappingManager::getInstance()->getAction(
-        KeyMapping::getContext(), buttons, modifiers, key, false );
 
-    return m_currentAction.isValid();
+    m_lastMouseX = event->pos().x();
+    m_lastMouseY = event->pos().y();
+    m_phiDir     = -Core::Math::signNZ( m_theta );
+
+    bool handled = m_keyMappingCallbackManager.triggerEventCallback( event, key );
+
+    return handled;
 }
 
 bool TrackballCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
-                                                       const Qt::MouseButtons& /*buttons*/,
-                                                       const Qt::KeyboardModifiers& /* modifiers*/,
-                                                       int /*key*/ ) {
-
-    Scalar dx = ( event->pos().x() - m_lastMouseX ) / m_camera->getWidth();
-    Scalar dy = ( event->pos().y() - m_lastMouseY ) / m_camera->getHeight();
-
-    if ( m_currentAction == TRACKBALLCAMERA_ROTATE )
-        handleCameraRotate( dx, dy );
-    else if ( m_currentAction == TRACKBALLCAMERA_PAN )
-        handleCameraPan( dx, dy );
-    else if ( m_currentAction == TRACKBALLCAMERA_ZOOM )
-        handleCameraZoom( dx, dy );
-    else if ( m_currentAction == TRACKBALLCAMERA_MOVE_FORWARD )
-        handleCameraMoveForward( dx, dy );
+                                                       const Qt::MouseButtons& buttons,
+                                                       const Qt::KeyboardModifiers& modifiers,
+                                                       int key ) {
+    bool handled = m_keyMappingCallbackManager.triggerEventCallback( event, key );
 
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();
@@ -148,7 +228,7 @@ bool TrackballCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
         m_light->setDirection( m_camera->getDirection() );
     }
 
-    return m_currentAction.isValid();
+    return handled;
 }
 
 bool TrackballCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
@@ -163,48 +243,20 @@ bool TrackballCameraManipulator::handleWheelEvent( QWheelEvent* event,
                                                    int key
 
 ) {
-    auto action = KeyMappingManager::getInstance()->getAction(
-        KeyMapping::getContext(), buttons, modifiers, key, true );
-
-    if ( action == TRACKBALLCAMERA_MOVE_FORWARD ) {
-        handleCameraMoveForward(
-            ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
-            m_wheelSpeedModifier );
-    }
-    else if ( action == TRACKBALLCAMERA_ZOOM ) {
-        handleCameraZoom(
-            ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
-            m_wheelSpeedModifier );
-    }
+    bool handled = m_keyMappingCallbackManager.triggerEventCallback( event, key, true );
 
     if ( m_light != nullptr ) {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
 
-    return action.isValid();
+    return handled;
 }
 
 bool TrackballCameraManipulator::handleKeyPressEvent(
-    QKeyEvent* /*event*/,
+    QKeyEvent* event,
     const KeyMappingManager::KeyMappingAction& action ) {
-
-    static bool quick = false;
-    using ProjType    = Ra::Core::Asset::Camera::ProjType;
-    if ( action == TRACKBALLCAMERA_PROJ_MODE ) {
-        m_camera->setType( m_camera->getType() == ProjType::ORTHOGRAPHIC ? ProjType::PERSPECTIVE
-                                                                         : ProjType::ORTHOGRAPHIC );
-        return true;
-    }
-    else if ( action == CAMERA_TOGGLE_QUICK ) {
-        quick = !quick;
-        if ( quick ) { m_quickCameraModifier = 10.0_ra; }
-        else {
-            m_quickCameraModifier = 1.0_ra;
-        }
-    }
-
-    return false;
+    return m_keyMappingCallbackManager.triggerEventCallback( action, event );
 }
 
 void TrackballCameraManipulator::setCameraPosition( const Core::Vector3& position ) {
@@ -355,8 +407,8 @@ void TrackballCameraManipulator::updatePhiTheta() {
     m_theta = std::acos( R.y() );
 
     // unlikely to have z and x to 0, unless direction is perfectly aligned with
-    // m_referenceFrame.z() in this case phi is given by the relative orientation of right/up in the
-    // z/x plane of m_reference frame.
+    // m_referenceFrame.z() in this case phi is given by the relative orientation of right/up in
+    // the z/x plane of m_reference frame.
     if ( UNLIKELY( areApproxEqual( R.z(), 0_ra ) && areApproxEqual( R.x(), 0_ra ) ) ) {
         Scalar fx = m_referenceFrame.matrix().block<3, 1>( 0, 2 ).dot( m_camera->getRightVector() );
         Scalar fy = m_referenceFrame.matrix().block<3, 1>( 0, 2 ).dot( m_camera->getUpVector() );

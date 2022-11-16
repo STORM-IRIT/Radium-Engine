@@ -25,7 +25,7 @@ void RotateAroundCameraManipulator::configureKeyMapping_impl() {
         return;
     }
 
-#define KMA_VALUE( XX ) XX = keyMappingManager->getActionIndex( KeyMapping::getContext(), #XX );
+#define KMA_VALUE( XX ) XX = keyMappingManager->getAction( KeyMapping::getContext(), #XX );
     KeyMappingRotateAroundCamera
 #undef KMA_VALUE
 }
