@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.11</span>
+   &#160;<span id="projectnumber">1.3.12</span>
    </div>
   </td>
  </tr>
@@ -109,6 +109,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1KeyMappingManager.ht
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -118,6 +119,9 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1KeyMappingManager.ht
 </div><!--header-->
 <div class="contents">
 
+<p>An utility class used to map a (combination of) key / modifiers / mouse buttons to a specific action. Configuration can be loaded/saved to files, or use dynamic binding management. See <a class="el" href="develkeymapping.html">KeyMapping</a> API documentation for detailed concept and usage description.  
+ <a href="classRa_1_1Gui_1_1KeyMappingManager.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="KeyMappingManager_8hpp_source.html">Gui/Utils/KeyMappingManager.hpp</a>&gt;</code></p>
 
 <p>Inherits Ra::Core::Utils::ObservableVoid.</p>
@@ -126,17 +130,25 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1KeyMappingManager.ht
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1KeyMappingManager__coll__graph.svg" width="295" height="308"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1KeyMappingManager__coll__graph.svg" width="295" height="396"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">EventBinding</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inner class to store event binding.  <a href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a41a05099c01660b695cdb70be3eb1655"><td class="memItemLeft" align="right" valign="top"><a id="a41a05099c01660b695cdb70be3eb1655"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>KeyMappingAction</b> = Ra::Core::Utils::Index</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a> = Ra::Core::Utils::Index</td></tr>
+<tr class="memdesc:a41a05099c01660b695cdb70be3eb1655"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle to an action <br /></td></tr>
 <tr class="separator:a41a05099c01660b695cdb70be3eb1655"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78183dd70a4a26eec1f46c0b523ddc18"><td class="memItemLeft" align="right" valign="top"><a id="a78183dd70a4a26eec1f46c0b523ddc18"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Context</b> = Ra::Core::Utils::Index</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> = Ra::Core::Utils::Index</td></tr>
+<tr class="memdesc:a78183dd70a4a26eec1f46c0b523ddc18"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle to a Context <br /></td></tr>
 <tr class="separator:a78183dd70a4a26eec1f46c0b523ddc18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -152,21 +164,33 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:aa3122cf424cc8ddcec4aa7c20be22a76"><td class="memItemLeft" align="right" valign="top"><a id="aa3122cf424cc8ddcec4aa7c20be22a76"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getLoadedFilename</b> ()</td></tr>
 <tr class="separator:aa3122cf424cc8ddcec4aa7c20be22a76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0cd628fd3008a5cbf9938d88b64418d"><td class="memItemLeft" align="right" valign="top">KeyMappingManager::KeyMappingAction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#ab0cd628fd3008a5cbf9938d88b64418d">getAction</a> (const KeyMappingManager::Context &amp;context, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key, bool wheel=false)</td></tr>
-<tr class="separator:ab0cd628fd3008a5cbf9938d88b64418d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addac15d9df1f44775ea2b248b054ca31"><td class="memItemLeft" align="right" valign="top">KeyMappingManager::KeyMappingAction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#addac15d9df1f44775ea2b248b054ca31">addAction</a> (const std::string &amp;context, const std::string &amp;keyString, const std::string &amp;modifiersString, const std::string &amp;buttonsString, const std::string &amp;wheelString, const std::string &amp;actionString, bool saveToConfigFile=true)</td></tr>
-<tr class="memdesc:addac15d9df1f44775ea2b248b054ca31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a given action within a possibly non existing context (also created in this case) to the mapping system. This allow to define default behavior when some <a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a> object is not parameterized in the application config file. The action can be added to the current config file so that it will remain for subsequent usage.  <a href="classRa_1_1Gui_1_1KeyMappingManager.html#addac15d9df1f44775ea2b248b054ca31">More...</a><br /></td></tr>
-<tr class="separator:addac15d9df1f44775ea2b248b054ca31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a333fc2c96c69caee3a8a96245eee8e05"><td class="memItemLeft" align="right" valign="top">Context&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a333fc2c96c69caee3a8a96245eee8e05">addContext</a> (const std::string &amp;contextName)</td></tr>
-<tr class="memdesc:a333fc2c96c69caee3a8a96245eee8e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the context index for the given context name. If the context already exist, return the existing index. If not, the context is created and its index is returned.  <a href="classRa_1_1Gui_1_1KeyMappingManager.html#a333fc2c96c69caee3a8a96245eee8e05">More...</a><br /></td></tr>
+<tr class="memitem:a2419ff12c8d58a06202d0225e4be4d94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a2419ff12c8d58a06202d0225e4be4d94">getAction</a> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key, bool wheel=false)</td></tr>
+<tr class="separator:a2419ff12c8d58a06202d0225e4be4d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a773672cee390a78a5605a8a45bff518b"><td class="memItemLeft" align="right" valign="top"><a id="a773672cee390a78a5605a8a45bff518b"></a>
+<a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getAction</b> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context, const QEvent *event, int key, bool wheel=false)</td></tr>
+<tr class="separator:a773672cee390a78a5605a8a45bff518b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae578d110433e48056b8cb786c9ca0d28"><td class="memItemLeft" align="right" valign="top"><a id="ae578d110433e48056b8cb786c9ca0d28"></a>
+<a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getAction</b> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context, const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">EventBinding</a> &amp;binding)</td></tr>
+<tr class="separator:ae578d110433e48056b8cb786c9ca0d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e555bf2dbbceeb676f345281719df7c"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">EventBinding</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a6e555bf2dbbceeb676f345281719df7c">getBinding</a> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context, <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a> action)</td></tr>
+<tr class="separator:a6e555bf2dbbceeb676f345281719df7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab95c41c67b46756514b13cfa0f4d5136"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#ab95c41c67b46756514b13cfa0f4d5136">addAction</a> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context, const std::string &amp;actionName)</td></tr>
+<tr class="separator:ab95c41c67b46756514b13cfa0f4d5136"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7899411c89baff9efb887f9ce2bad47a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a7899411c89baff9efb887f9ce2bad47a">addAction</a> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context, const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">EventBinding</a> &amp;binding, const std::string &amp;actionName)</td></tr>
+<tr class="separator:a7899411c89baff9efb887f9ce2bad47a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bfb3b63ccb7435860b3abceefe1d99f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a4bfb3b63ccb7435860b3abceefe1d99f">setActionBinding</a> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context, const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">EventBinding</a> &amp;binding, const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a> &amp;action)</td></tr>
+<tr class="memdesc:a4bfb3b63ccb7435860b3abceefe1d99f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind binding to action, in context.  <a href="classRa_1_1Gui_1_1KeyMappingManager.html#a4bfb3b63ccb7435860b3abceefe1d99f">More...</a><br /></td></tr>
+<tr class="separator:a4bfb3b63ccb7435860b3abceefe1d99f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a333fc2c96c69caee3a8a96245eee8e05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a333fc2c96c69caee3a8a96245eee8e05">addContext</a> (const std::string &amp;contextName)</td></tr>
+<tr class="memdesc:a333fc2c96c69caee3a8a96245eee8e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the context index for the given context name.  <a href="classRa_1_1Gui_1_1KeyMappingManager.html#a333fc2c96c69caee3a8a96245eee8e05">More...</a><br /></td></tr>
 <tr class="separator:a333fc2c96c69caee3a8a96245eee8e05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fee0746b2d2ef301af275de29daeb85"><td class="memItemLeft" align="right" valign="top">Context&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a4fee0746b2d2ef301af275de29daeb85">getContext</a> (const std::string &amp;contextName)</td></tr>
+<tr class="memitem:a4fee0746b2d2ef301af275de29daeb85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a4fee0746b2d2ef301af275de29daeb85">getContext</a> (const std::string &amp;contextName)</td></tr>
 <tr class="separator:a4fee0746b2d2ef301af275de29daeb85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add4cdc2ae505cda31e93d288f0613a6e"><td class="memItemLeft" align="right" valign="top">KeyMappingAction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#add4cdc2ae505cda31e93d288f0613a6e">getActionIndex</a> (const Context &amp;context, const std::string &amp;actionName)</td></tr>
-<tr class="separator:add4cdc2ae505cda31e93d288f0613a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abccab01753a7893402ba7bd927594433"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#abccab01753a7893402ba7bd927594433">getActionName</a> (const Context &amp;context, const KeyMappingAction &amp;action)</td></tr>
+<tr class="memitem:aada76270220013a08c052bbde66b5ec3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#aada76270220013a08c052bbde66b5ec3">getAction</a> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context, const std::string &amp;actionName)</td></tr>
+<tr class="separator:aada76270220013a08c052bbde66b5ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abccab01753a7893402ba7bd927594433"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#abccab01753a7893402ba7bd927594433">getActionName</a> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context, const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a> &amp;action)</td></tr>
 <tr class="separator:abccab01753a7893402ba7bd927594433"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac543b46b15697cdf1f4549e7ed56a4a1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#ac543b46b15697cdf1f4549e7ed56a4a1">getContextName</a> (const Context &amp;context)</td></tr>
+<tr class="memitem:ac543b46b15697cdf1f4549e7ed56a4a1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#ac543b46b15697cdf1f4549e7ed56a4a1">getContextName</a> (const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;context)</td></tr>
 <tr class="separator:ac543b46b15697cdf1f4549e7ed56a4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae940bc62f42ec8c7ded6e28f4ee34d4d"><td class="memItemLeft" align="right" valign="top"><a id="ae940bc62f42ec8c7ded6e28f4ee34d4d"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#ae940bc62f42ec8c7ded6e28f4ee34d4d">addListener</a> (<a class="el" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Observable::Observer</a> callback)</td></tr>
@@ -185,59 +209,37 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7ea2e9c63852b5a0455b134085e32dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a5cbf64a012151c7257c7c1c4117c85"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a9a5cbf64a012151c7257c7c1c4117c85">enumNamesFromKeyboardModifiers</a> (const Qt::KeyboardModifiers &amp;modifiers)</td></tr>
 <tr class="separator:a9a5cbf64a012151c7257c7c1c4117c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ae79acdcb0227414e9da094430671f0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">EventBinding</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a0ae79acdcb0227414e9da094430671f0">createEventBindingFromStrings</a> (const std::string &amp;buttonsString=&quot;&quot;, const std::string &amp;modifiersString=&quot;&quot;, const std::string &amp;keyString=&quot;&quot;, const std::string &amp;wheelString=&quot;&quot;)</td></tr>
+<tr class="separator:a0ae79acdcb0227414e9da094430671f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An utility class used to map a (combination) of key / modifier to a specific action. It can load configuration from a file or if no config is found it will load an internal version of the default configuration. </p>
+<div class="textblock"><p>An utility class used to map a (combination of) key / modifiers / mouse buttons to a specific action. Configuration can be loaded/saved to files, or use dynamic binding management. See <a class="el" href="develkeymapping.html">KeyMapping</a> API documentation for detailed concept and usage description. </p>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8hpp_source.html#l00020">20</a> of file <a class="el" href="KeyMappingManager_8hpp_source.html">KeyMappingManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8hpp_source.html#l00022">22</a> of file <a class="el" href="KeyMappingManager_8hpp_source.html">KeyMappingManager.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="addac15d9df1f44775ea2b248b054ca31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addac15d9df1f44775ea2b248b054ca31">&#9670;&nbsp;</a></span>addAction()</h2>
+<a id="a7899411c89baff9efb887f9ce2bad47a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7899411c89baff9efb887f9ce2bad47a">&#9670;&nbsp;</a></span>addAction() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">KeyMappingManager::KeyMappingAction Ra::Gui::KeyMappingManager::addAction </td>
+          <td class="memname"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> Ra::Gui::KeyMappingManager::addAction </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>keyString</em>, </td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">EventBinding</a> &amp;&#160;</td>
+          <td class="paramname"><em>binding</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>modifiersString</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>buttonsString</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>wheelString</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>actionString</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>saveToConfigFile</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>actionName</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -246,22 +248,40 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Add an action from its name, with the given binding. If the actionName was already present, the privously added action is returned. </p>
 
-<p>Add a given action within a possibly non existing context (also created in this case) to the mapping system. This allow to define default behavior when some <a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a> object is not parameterized in the application config file. The action can be added to the current config file so that it will remain for subsequent usage. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">context</td><td>the context of the action </td></tr>
-    <tr><td class="paramname">keyString</td><td>represents the key that needs to be pressed to trigger the event (ie Key_Z, for example), "" or "-1" corresponds to no key needed. </td></tr>
-    <tr><td class="paramname">modifiersString</td><td>represents the modifier used along with key or mouse button ` (needs to be a Qt::Modifier enum value) to trigger the action. Multiples modifiers can be specified, separated by commas as in "ControlModifier,ShiftModifier". </td></tr>
-    <tr><td class="paramname">buttonsString</td><td>represents the button to trigger the event (e.g. LeftButton). </td></tr>
-    <tr><td class="paramname">wheelString</td><td>if true, it's a wheel event ! </td></tr>
-    <tr><td class="paramname">actionString</td><td>represents the KeyMappingAction enum's value you want to trigger. </td></tr>
-    <tr><td class="paramname">saveToConfigFile</td><td>request to save the action on the config file (true by default). </td></tr>
-  </table>
-  </dd>
-</dl>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00414">414</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00063">63</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+</div>
+</div>
+<a id="ab95c41c67b46756514b13cfa0f4d5136"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab95c41c67b46756514b13cfa0f4d5136">&#9670;&nbsp;</a></span>addAction() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> Ra::Gui::KeyMappingManager::addAction </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>actionName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add an action from its name. If the actionName was already present, the privously added action is returned. </p>
+
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00399">399</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -272,7 +292,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">KeyMappingManager::Context Ra::Gui::KeyMappingManager::addContext </td>
+          <td class="memname"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a> Ra::Gui::KeyMappingManager::addContext </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>contextName</em></td><td>)</td>
@@ -281,8 +301,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the context index for the given context name. If the context already exist, return the existing index. If not, the context is created and its index is returned. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Creates the context index for the given context name. </p>
+<p>If the context already exist, return the existing index. If not, the context is created and its index is returned. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">contextName</td><td>the name of the context </td></tr>
   </table>
@@ -290,7 +310,58 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a valid context index for the given context name. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00102">102</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00088">88</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0ae79acdcb0227414e9da094430671f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ae79acdcb0227414e9da094430671f0">&#9670;&nbsp;</a></span>createEventBindingFromStrings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">KeyMappingManager::EventBinding</a> Ra::Gui::KeyMappingManager::createEventBindingFromStrings </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>buttonsString</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modifiersString</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>keyString</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>wheelString</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html" title="Inner class to store event binding.">EventBinding</a> factory from string description of buttons, modifiers, key and wheel. </p>
+
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00616">616</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -317,9 +388,9 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>return a string of enum names from keyboard modifiers, comma separated, without space </p>
+<p>return a string of enum names from keyboard modifiers, comma separated, without space. </p>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00622">622</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00597">597</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -346,22 +417,22 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>return a string of enum names from mouse buttons, comma separated, without space </p>
+<p>return a string of enum names from mouse buttons, comma separated, without space. </p>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00584">584</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00559">559</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab0cd628fd3008a5cbf9938d88b64418d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0cd628fd3008a5cbf9938d88b64418d">&#9670;&nbsp;</a></span>getAction()</h2>
+<a id="a2419ff12c8d58a06202d0225e4be4d94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2419ff12c8d58a06202d0225e4be4d94">&#9670;&nbsp;</a></span>getAction() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">KeyMappingManager::KeyMappingAction Ra::Gui::KeyMappingManager::getAction </td>
+          <td class="memname"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> Ra::Gui::KeyMappingManager::getAction </td>
           <td>(</td>
-          <td class="paramtype">const KeyMappingManager::Context &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -399,27 +470,27 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">context</td><td>is the context to get action from (e.g. camera or gizmo) </td></tr>
     <tr><td class="paramname">buttons</td><td>are the mouse buttons pressed, could be NoButton </td></tr>
-    <tr><td class="paramname">modifiers</td><td>are the keyboard modifiers, could be NoModifiers </td></tr>
+    <tr><td class="paramname">modifiers</td><td>are the keyboard modifiers, could be NoModifier </td></tr>
     <tr><td class="paramname">key</td><td>is the key pressed, could be -1 </td></tr>
     <tr><td class="paramname">wheel</td><td>specifies if we consider a wheel event </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00039">39</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00052">52</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
-<a id="add4cdc2ae505cda31e93d288f0613a6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add4cdc2ae505cda31e93d288f0613a6e">&#9670;&nbsp;</a></span>getActionIndex()</h2>
+<a id="aada76270220013a08c052bbde66b5ec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aada76270220013a08c052bbde66b5ec3">&#9670;&nbsp;</a></span>getAction() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">KeyMappingManager::KeyMappingAction Ra::Gui::KeyMappingManager::getActionIndex </td>
+          <td class="memname"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> Ra::Gui::KeyMappingManager::getAction </td>
           <td>(</td>
-          <td class="paramtype">const Context &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -444,7 +515,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an invalid action if context is not valid, or if actionName has not been created. (i,e action.isInvalid()) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00131">131</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00115">115</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -457,13 +528,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">std::string Ra::Gui::KeyMappingManager::getActionName </td>
           <td>(</td>
-          <td class="paramtype">const Context &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const KeyMappingAction &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a> &amp;&#160;</td>
           <td class="paramname"><em>action</em>&#160;</td>
         </tr>
         <tr>
@@ -475,7 +546,38 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Action name if context index and action index are valid, "Invalid" otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00150">150</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00135">135</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e555bf2dbbceeb676f345281719df7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e555bf2dbbceeb676f345281719df7c">&#9670;&nbsp;</a></span>getBinding()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">KeyMappingManager::EventBinding</a> &gt; Ra::Gui::KeyMappingManager::getBinding </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a>&#160;</td>
+          <td class="paramname"><em>action</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Return, if exists, the event binding associated with a context/action. if such binding doesn't exists, the optional does not contain a value. </p>
+
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00081">81</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -486,7 +588,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">KeyMappingManager::Context Ra::Gui::KeyMappingManager::getContext </td>
+          <td class="memname"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a> Ra::Gui::KeyMappingManager::getContext </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>contextName</em></td><td>)</td>
@@ -502,7 +604,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an invalid context if contextName has not been created </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00123">123</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00108">108</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -515,7 +617,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">std::string Ra::Gui::KeyMappingManager::getContextName </td>
           <td>(</td>
-          <td class="paramtype">const Context &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em></td><td>)</td>
           <td></td>
         </tr>
@@ -523,7 +625,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Context name if context index is valid, "Invalid" otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00167">167</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00152">152</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -542,9 +644,9 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>load configuration from filename, or default configration filename. It calls the listener callback then. </p>
+<p>load configuration from filename, or default configration filename. It calls listeners callbacks then. </p>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00247">247</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00233">233</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -570,7 +672,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00185">185</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00170">170</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -597,7 +699,46 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if file was correctly saved </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00290">290</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00276">276</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4bfb3b63ccb7435860b3abceefe1d99f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bfb3b63ccb7435860b3abceefe1d99f">&#9670;&nbsp;</a></span>setActionBinding()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Gui::KeyMappingManager::setActionBinding </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">EventBinding</a> &amp;&#160;</td>
+          <td class="paramname"><em>binding</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingAction</a> &amp;&#160;</td>
+          <td class="paramname"><em>action</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bind binding to action, in context. </p>
+<p>It replaces previously binded action, with a warning if binding was already present. </p>
+
+<p class="definition">Definition at line <a class="el" href="KeyMappingManager_8cpp_source.html#l00174">174</a> of file <a class="el" href="KeyMappingManager_8cpp_source.html">KeyMappingManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -611,7 +752,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html">KeyMappingManager</a></li>
-    <li class="footer">Generated on Mon Nov 14 2022 16:29:55 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Nov 16 2022 08:42:02 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

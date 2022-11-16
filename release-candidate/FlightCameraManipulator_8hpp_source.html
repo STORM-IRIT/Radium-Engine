@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.11</span>
+   &#160;<span id="projectnumber">1.3.12</span>
    </div>
   </td>
  </tr>
@@ -134,7 +134,7 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8hpp_source.ht
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html">FlightCameraManipulator</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a>&amp; other );</div>
 <div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a1e2d30a65bf9290793ecfb82ffccfe37">   24</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a1e2d30a65bf9290793ecfb82ffccfe37">~FlightCameraManipulator</a>();</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    KeyMappingManager::Context mappingContext() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a> mappingContext() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">bool</span> handleMousePressEvent( QMouseEvent* event,</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                                <span class="keyword">const</span> Qt::MouseButtons&amp; buttons,</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                                <span class="keyword">const</span> Qt::KeyboardModifiers&amp; modifiers,</div>
@@ -150,7 +150,7 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8hpp_source.ht
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                           <span class="keywordtype">int</span> key ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">bool</span> handleKeyPressEvent( QKeyEvent* event,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                              <span class="keyword">const</span> KeyMappingManager::KeyMappingAction&amp; action ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                              <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a>&amp; action ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> toggleRotateAround();</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> updateCamera() <span class="keyword">override</span>;</div>
@@ -202,7 +202,9 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8hpp_source.ht
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html">Ra::Gui::FlightCameraManipulator</a></div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8hpp_source.html#l00013">FlightCameraManipulator.hpp:15</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_a1e2d30a65bf9290793ecfb82ffccfe37"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a1e2d30a65bf9290793ecfb82ffccfe37">Ra::Gui::FlightCameraManipulator::~FlightCameraManipulator</a></div><div class="ttdeci">virtual ~FlightCameraManipulator()</div><div class="ttdoc">[Constructor]</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1FlightCameraManipulator_html_afa59a2d5dd5ff8befe2dbd9e3a0c7db3"><div class="ttname"><a href="classRa_1_1Gui_1_1FlightCameraManipulator.html#afa59a2d5dd5ff8befe2dbd9e3a0c7db3">Ra::Gui::FlightCameraManipulator::m_rotateAround</a></div><div class="ttdeci">bool m_rotateAround</div><div class="ttdoc">Whether the corresponding camera movement is active or not.</div><div class="ttdef"><b>Definition:</b> <a href="FlightCameraManipulator_8hpp_source.html#l00068">FlightCameraManipulator.hpp:68</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00208">KeyMappingManager.hpp:209</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdoc">KeyMappingManageable decorator to use as CRTP.</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00239">KeyMappingManager.hpp:240</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html_a41a05099c01660b695cdb70be3eb1655"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">Ra::Gui::KeyMappingManager::KeyMappingAction</a></div><div class="ttdeci">Ra::Core::Utils::Index KeyMappingAction</div><div class="ttdoc">handle to an action</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00078">KeyMappingManager.hpp:78</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html_a78183dd70a4a26eec1f46c0b523ddc18"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Ra::Gui::KeyMappingManager::Context</a></div><div class="ttdeci">Ra::Core::Utils::Index Context</div><div class="ttdoc">handle to a Context</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00079">KeyMappingManager.hpp:79</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -210,7 +212,7 @@ $(document).ready(function(){initNavTree('FlightCameraManipulator_8hpp_source.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>FlightCameraManipulator.hpp</b></li>
-    <li class="footer">Generated on Mon Nov 14 2022 16:29:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Nov 16 2022 08:42:01 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

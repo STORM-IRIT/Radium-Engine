@@ -25,10 +25,10 @@ var develmanual =
       ] ]
     ] ],
     [ "How to write your own plugin", "develplugin.html", [
-      [ "Radium Plugin", "develplugin.html#autotoc_md105", null ],
-      [ "Setting a CMakeLists.txt for a Radium plugin", "develplugin.html#autotoc_md106", null ],
-      [ "Configuring the plugin", "develplugin.html#autotoc_md107", null ],
-      [ "Using the Plugin", "develplugin.html#autotoc_md108", null ]
+      [ "Radium Plugin", "develplugin.html#autotoc_md107", null ],
+      [ "Setting a CMakeLists.txt for a Radium plugin", "develplugin.html#autotoc_md108", null ],
+      [ "Configuring the plugin", "develplugin.html#autotoc_md109", null ],
+      [ "Using the Plugin", "develplugin.html#autotoc_md110", null ]
     ] ],
     [ "How to write your own application", "apps.html", [
       [ "Radium Application", "apps.html#autotoc_md3", null ]
@@ -54,22 +54,22 @@ var develmanual =
     ] ],
     [ "API", "api.html", "api" ],
     [ "[deprecated] Radium Engine programmer manual", "develoldmanual.html", [
-      [ "Source code organization", "develoldmanual.html#autotoc_md91", [
-        [ "Import and export", "develoldmanual.html#autotoc_md92", null ]
+      [ "Source code organization", "develoldmanual.html#autotoc_md93", [
+        [ "Import and export", "develoldmanual.html#autotoc_md94", null ]
       ] ],
-      [ "Core Libs", "develoldmanual.html#autotoc_md93", null ],
-      [ "Engine Object Model", "develoldmanual.html#autotoc_md94", [
-        [ "Entities", "develoldmanual.html#autotoc_md95", null ],
-        [ "Systems and Components", "develoldmanual.html#autotoc_md96", null ],
-        [ "Frame and Tasks", "develoldmanual.html#autotoc_md97", null ],
-        [ "Rendering", "develoldmanual.html#autotoc_md98", null ],
-        [ "ItemEntry : Handles to engine objects", "develoldmanual.html#autotoc_md99", null ],
-        [ "Object manipulation and editable transforms", "develoldmanual.html#autotoc_md100", null ],
-        [ "The system Entity and Debug Display", "develoldmanual.html#autotoc_md101", null ]
+      [ "Core Libs", "develoldmanual.html#autotoc_md95", null ],
+      [ "Engine Object Model", "develoldmanual.html#autotoc_md96", [
+        [ "Entities", "develoldmanual.html#autotoc_md97", null ],
+        [ "Systems and Components", "develoldmanual.html#autotoc_md98", null ],
+        [ "Frame and Tasks", "develoldmanual.html#autotoc_md99", null ],
+        [ "Rendering", "develoldmanual.html#autotoc_md100", null ],
+        [ "ItemEntry : Handles to engine objects", "develoldmanual.html#autotoc_md101", null ],
+        [ "Object manipulation and editable transforms", "develoldmanual.html#autotoc_md102", null ],
+        [ "The system Entity and Debug Display", "develoldmanual.html#autotoc_md103", null ]
       ] ],
-      [ "The plugin framework", "develoldmanual.html#autotoc_md102", [
-        [ "Requirements", "develoldmanual.html#autotoc_md103", null ],
-        [ "Default plugins", "develoldmanual.html#autotoc_md104", null ]
+      [ "The plugin framework", "develoldmanual.html#autotoc_md104", [
+        [ "Requirements", "develoldmanual.html#autotoc_md105", null ],
+        [ "Default plugins", "develoldmanual.html#autotoc_md106", null ]
       ] ]
     ] ]
 ];

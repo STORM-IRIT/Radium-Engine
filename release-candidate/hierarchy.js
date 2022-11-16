@@ -148,6 +148,7 @@ var hierarchy =
     ] ],
     [ "Ra::Core::DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html", null ],
     [ "Ra::Engine::Data::EnvironmentTexture", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html", null ],
+    [ "Ra::Gui::KeyMappingManager::EventBinding", "classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html", null ],
     [ "Ra::IO::FileManager< DATA, Binary >", "classRa_1_1IO_1_1FileManager.html", null ],
     [ "Ra::IO::FileManager< Core::Geometry::TriangleMesh >", "classRa_1_1IO_1_1FileManager.html", [
       [ "Ra::IO::OBJFileManager", "classRa_1_1IO_1_1OBJFileManager.html", null ],
@@ -188,6 +189,7 @@ var hierarchy =
       [ "Ra::Core::Animation::KeyFramedValue< VALUE_TYPE >", "classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html", null ]
     ] ],
     [ "Ra::Core::Animation::KeyFramedValueController", "classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html", null ],
+    [ "Ra::Gui::KeyMappingCallbackManager", "classRa_1_1Gui_1_1KeyMappingCallbackManager.html", null ],
     [ "Ra::Gui::KeyMappingManageable< T >", "classRa_1_1Gui_1_1KeyMappingManageable.html", null ],
     [ "Ra::Gui::KeyMappingManageable< FlightCameraManipulator >", "classRa_1_1Gui_1_1KeyMappingManageable.html", [
       [ "Ra::Gui::FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html", null ]

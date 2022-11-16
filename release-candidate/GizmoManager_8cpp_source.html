@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.11</span>
+   &#160;<span id="projectnumber">1.3.12</span>
    </div>
   </td>
  </tr>
@@ -141,12 +141,12 @@ $(document).ready(function(){initNavTree('GizmoManager_8cpp_source.html',''); in
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define KMA_VALUE( XX ) \</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">    XX = Gui::KeyMappingManager::getInstance()-&gt;getActionIndex( GizmoMapping::getContext(), #XX );</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">    XX = Gui::KeyMappingManager::getInstance()-&gt;getAction( GizmoMapping::getContext(), #XX );</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    KeyMappingGizmo</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">bool</span> GizmoManager::isValidAction( <span class="keyword">const</span> Gui::KeyMappingManager::KeyMappingAction&amp; action )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">bool</span> GizmoManager::isValidAction( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">Gui::KeyMappingManager::KeyMappingAction</a>&amp; action )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> ( action.isInvalid() ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">bool</span> res = <span class="keyword">false</span>;</div>
@@ -286,6 +286,7 @@ $(document).ready(function(){initNavTree('GizmoManager_8cpp_source.html',''); in
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a></div><div class="ttdoc">Camera class storing the Camera frame and the projection properties The view direction is -z in camer...</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8hpp_source.html#l00015">Camera.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html">Ra::Gui::Gizmo</a></div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00041">Gizmo.hpp:42</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html_a41a05099c01660b695cdb70be3eb1655"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">Ra::Gui::KeyMappingManager::KeyMappingAction</a></div><div class="ttdeci">Ra::Core::Utils::Index KeyMappingAction</div><div class="ttdoc">handle to an action</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00078">KeyMappingManager.hpp:78</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00025">ItemEntry.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -294,7 +295,7 @@ $(document).ready(function(){initNavTree('GizmoManager_8cpp_source.html',''); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="dir_48f4a0e7ee74be957161ce5a9fe8f935.html">Gizmo</a></li><li class="navelem"><b>GizmoManager.cpp</b></li>
-    <li class="footer">Generated on Mon Nov 14 2022 16:29:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Nov 16 2022 08:42:01 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

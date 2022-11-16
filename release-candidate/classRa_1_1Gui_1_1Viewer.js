@@ -7,8 +7,7 @@ var classRa_1_1Gui_1_1Viewer =
     ] ],
     [ "Viewer", "classRa_1_1Gui_1_1Viewer.html#a8efe6dc9d27d1d12ee869f8a1cc4ed44", null ],
     [ "~Viewer", "classRa_1_1Gui_1_1Viewer.html#abec0b72d4b2e3a9719bb9de750384886", null ],
-    [ "addKeyPressEventAction", "classRa_1_1Gui_1_1Viewer.html#a19ed9658b803270f1cecaeee8638f0c5", null ],
-    [ "addKeyReleaseEventAction", "classRa_1_1Gui_1_1Viewer.html#a5d6c705b42d6aaf13833ceccc2e3a5e8", null ],
+    [ "addCustomAction", "classRa_1_1Gui_1_1Viewer.html#a8ad988d0252fc49d7dfdd24e0177f177", null ],
     [ "addRenderer", "classRa_1_1Gui_1_1Viewer.html#a5a23e360fb4500aeea04e83e2a5c8f36", null ],
     [ "changeRenderer", "classRa_1_1Gui_1_1Viewer.html#a94ca6b2d9205f3affdc98703e5d22a13", null ],
     [ "createGizmoManager", "classRa_1_1Gui_1_1Viewer.html#abcb7e8020ac7d36903b98cf4cbcaa350", null ],
@@ -75,6 +74,7 @@ var classRa_1_1Gui_1_1Viewer =
     [ "m_customKeyActions", "classRa_1_1Gui_1_1Viewer.html#aba07b78b7fdf3b92d6d77f78ade687f0", null ],
     [ "m_gizmoManager", "classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268", null ],
     [ "m_isBrushPickingEnabled", "classRa_1_1Gui_1_1Viewer.html#ac5ab9f7f6742ded2ee39e6e0463a0100", null ],
+    [ "m_keyMappingCallbackManager", "classRa_1_1Gui_1_1Viewer.html#a742cc5dd3a7bef830798743a004e4ac1", null ],
     [ "m_pendingRenderers", "classRa_1_1Gui_1_1Viewer.html#a2a8ea2cb4e7c2a608dff2be695201c24", null ],
     [ "m_pickingManager", "classRa_1_1Gui_1_1Viewer.html#a342ea1c814555d28a3fb4e226a9263a5", null ],
     [ "m_renderers", "classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8", null ]

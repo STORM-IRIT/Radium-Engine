@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.11</span>
+   &#160;<span id="projectnumber">1.3.12</span>
    </div>
   </td>
  </tr>
@@ -182,8 +182,8 @@ $(document).ready(function(){initNavTree('CameraManipulator_8cpp_source.html',''
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#ac74d63a529a9dd1b6706ddefaa5070ea">m_light</a>-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7">setDirection</a>( <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">m_camera</a>-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466">getDirection</a>() );</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1CameraManipulator.html#a7d3a18503f7453642c9b13cb4c809075">   71</a></span>&#160;KeyMappingManager::Context <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#a7d3a18503f7453642c9b13cb4c809075">Gui::CameraManipulator::mappingContext</a>() {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> Gui::KeyMappingManager::Context();</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1CameraManipulator.html#a7d3a18503f7453642c9b13cb4c809075">   71</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a> <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#a7d3a18503f7453642c9b13cb4c809075">Gui::CameraManipulator::mappingContext</a>() {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Gui::KeyMappingManager::Context</a>();</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1CameraManipulator.html#a1e4f76766f01b9d6702d9479bc969d61">   75</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#a1e4f76766f01b9d6702d9479bc969d61">CameraManipulator::handleMousePressEvent</a>( QMouseEvent*,</div>
@@ -212,12 +212,12 @@ $(document).ready(function(){initNavTree('CameraManipulator_8cpp_source.html',''
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
 <div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1CameraManipulator.html#aa9539d63bb185b615ddc996c6cca5dfe">  100</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#aa9539d63bb185b615ddc996c6cca5dfe">CameraManipulator::handleKeyPressEvent</a>( QKeyEvent*,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                             <span class="keyword">const</span> KeyMappingManager::KeyMappingAction&amp; ) {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                             <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a>&amp; ) {</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
 <div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1CameraManipulator.html#a229063b8e35f4acec2f951db00d081ad">  105</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#a229063b8e35f4acec2f951db00d081ad">CameraManipulator::handleKeyReleaseEvent</a>( QKeyEvent*,</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                               <span class="keyword">const</span> KeyMappingManager::KeyMappingAction&amp; ) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                               <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a>&amp; ) {</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
@@ -250,6 +250,8 @@ $(document).ready(function(){initNavTree('CameraManipulator_8cpp_source.html',''
 <div class="ttc" id="aclassRa_1_1Gui_1_1CameraManipulator_html_acd5d7bae6f5fbb5a6494010ebe4c9ac9"><div class="ttname"><a href="classRa_1_1Gui_1_1CameraManipulator.html#acd5d7bae6f5fbb5a6494010ebe4c9ac9">Ra::Gui::CameraManipulator::CameraManipulator</a></div><div class="ttdeci">CameraManipulator()</div><div class="ttdoc">Initializes a manipulator for a given viewport size.</div><div class="ttdef"><b>Definition:</b> <a href="CameraManipulator_8cpp_source.html#l00025">CameraManipulator.cpp:25</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1CameraManipulator_html_add774422ef4383531ab5f0f73551c981"><div class="ttname"><a href="classRa_1_1Gui_1_1CameraManipulator.html#add774422ef4383531ab5f0f73551c981">Ra::Gui::CameraManipulator::m_cameraSensitivity</a></div><div class="ttdeci">Scalar m_cameraSensitivity</div><div class="ttdoc">the Camera sensitivity to manipulation.</div><div class="ttdef"><b>Definition:</b> <a href="CameraManipulator_8hpp_source.html#l00127">CameraManipulator.hpp:127</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1CameraManipulator_html_ae13a7d36e3bb3ff9f7e93b392cb2a4e1"><div class="ttname"><a href="classRa_1_1Gui_1_1CameraManipulator.html#ae13a7d36e3bb3ff9f7e93b392cb2a4e1">Ra::Gui::CameraManipulator::attachLight</a></div><div class="ttdeci">void attachLight(Engine::Scene::Light *light)</div><div class="ttdef"><b>Definition:</b> <a href="CameraManipulator_8cpp_source.html#l00066">CameraManipulator.cpp:66</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html_a41a05099c01660b695cdb70be3eb1655"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">Ra::Gui::KeyMappingManager::KeyMappingAction</a></div><div class="ttdeci">Ra::Core::Utils::Index KeyMappingAction</div><div class="ttdoc">handle to an action</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00078">KeyMappingManager.hpp:78</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html_a78183dd70a4a26eec1f46c0b523ddc18"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Ra::Gui::KeyMappingManager::Context</a></div><div class="ttdeci">Ra::Core::Utils::Index Context</div><div class="ttdoc">handle to a Context</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00079">KeyMappingManager.hpp:79</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -257,7 +259,7 @@ $(document).ready(function(){initNavTree('CameraManipulator_8cpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>CameraManipulator.cpp</b></li>
-    <li class="footer">Generated on Mon Nov 14 2022 16:29:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Nov 16 2022 08:42:01 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

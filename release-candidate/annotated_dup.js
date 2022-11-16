@@ -192,6 +192,7 @@ var annotated_dup =
         [ "TreeModel", "classRa_1_1Gui_1_1TreeModel.html", "classRa_1_1Gui_1_1TreeModel" ],
         [ "KeyMappingManager", "classRa_1_1Gui_1_1KeyMappingManager.html", "classRa_1_1Gui_1_1KeyMappingManager" ],
         [ "KeyMappingManageable", "classRa_1_1Gui_1_1KeyMappingManageable.html", "classRa_1_1Gui_1_1KeyMappingManageable" ],
+        [ "KeyMappingCallbackManager", "classRa_1_1Gui_1_1KeyMappingCallbackManager.html", "classRa_1_1Gui_1_1KeyMappingCallbackManager" ],
         [ "CameraManipulator", "classRa_1_1Gui_1_1CameraManipulator.html", "classRa_1_1Gui_1_1CameraManipulator" ],
         [ "FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html", "classRa_1_1Gui_1_1FlightCameraManipulator" ],
         [ "Gizmo", "classRa_1_1Gui_1_1Gizmo.html", "classRa_1_1Gui_1_1Gizmo" ],

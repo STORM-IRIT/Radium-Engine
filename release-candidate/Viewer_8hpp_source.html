@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.11</span>
+   &#160;<span id="projectnumber">1.3.12</span>
    </div>
   </td>
  </tr>
@@ -206,160 +206,142 @@ $(document).ready(function(){initNavTree('Viewer_8hpp_source.html',''); initResi
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
 <div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a22ff1a85dd722cacf8607970ab7e8054">  148</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&amp; <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a22ff1a85dd722cacf8607970ab7e8054">getBackgroundColor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_backgroundColor; }</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    KeyMappingManager::KeyMappingAction</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    addKeyPressEventAction( <span class="keyword">const</span> std::string&amp; actionName,</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                            <span class="keyword">const</span> std::string&amp; keyString,</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                            <span class="keyword">const</span> std::string&amp; modifiersString,</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                            <span class="keyword">const</span> std::string&amp; buttonsString,</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                            <span class="keyword">const</span> std::string&amp; wheelString,</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                            std::function&lt;<span class="keywordtype">void</span>( QKeyEvent* )&gt; callback );</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    KeyMappingManager::KeyMappingAction</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    addKeyReleaseEventAction( <span class="keyword">const</span> std::string&amp; actionName,</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                              <span class="keyword">const</span> std::string&amp; keyString,</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                              <span class="keyword">const</span> std::string&amp; modifiersString,</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                              <span class="keyword">const</span> std::string&amp; buttonsString,</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                              <span class="keyword">const</span> std::string&amp; wheelString,</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                              std::function&lt;<span class="keywordtype">void</span>( QKeyEvent* )&gt; callback );</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    Scalar getDepthUnderMouse()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_depthUnderMouse; }</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  signals:</div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a3799eae2d58060b55f256b47f10e36d4">  173</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a3799eae2d58060b55f256b47f10e36d4">requestEngineOpenGLInitialization</a>();</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordtype">bool</span> glInitialized(); </div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a364b2eb1f02c0cabf286a3127ec4c5dc">  175</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a364b2eb1f02c0cabf286a3127ec4c5dc">rendererReady</a>(); </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#abf7a3519a22b398266730b2d8a459005">  178</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#abf7a3519a22b398266730b2d8a459005">rightClickPicking</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">Ra::Engine::Rendering::Renderer::PickingResult</a>&amp; result );</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    addCustomAction( <span class="keyword">const</span> std::string&amp; actionName,</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                     <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">KeyMappingManager::EventBinding</a>&amp; binding,</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                     std::function&lt;<span class="keywordtype">void</span>( QEvent* )&gt; callback );</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    Scalar getDepthUnderMouse()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_depthUnderMouse; }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  signals:</div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a3799eae2d58060b55f256b47f10e36d4">  161</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a3799eae2d58060b55f256b47f10e36d4">requestEngineOpenGLInitialization</a>();</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordtype">bool</span> glInitialized(); </div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a364b2eb1f02c0cabf286a3127ec4c5dc">  163</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a364b2eb1f02c0cabf286a3127ec4c5dc">rendererReady</a>(); </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#abf7a3519a22b398266730b2d8a459005">  166</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#abf7a3519a22b398266730b2d8a459005">rightClickPicking</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">Ra::Engine::Rendering::Renderer::PickingResult</a>&amp; result );</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a59561e6b897b75f16e7b16117b00c1fc">  169</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a59561e6b897b75f16e7b16117b00c1fc">toggleBrushPicking</a>( <span class="keywordtype">bool</span> on );</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">void</span> needUpdate();</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a3db7ed1e5682bd84d67c22281eb53d0e">  174</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a3db7ed1e5682bd84d67c22281eb53d0e">onMousePress</a>( QMouseEvent* event );</div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#aaa73cf0f805417d2ddf458d73b163b81">  176</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#aaa73cf0f805417d2ddf458d73b163b81">onMouseRelease</a>( QMouseEvent* event );</div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#acf4e392035ada48c6f13af74c82ef58f">  178</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#acf4e392035ada48c6f13af74c82ef58f">onMouseMove</a>( QMouseEvent* event );</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a59561e6b897b75f16e7b16117b00c1fc">  181</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a59561e6b897b75f16e7b16117b00c1fc">toggleBrushPicking</a>( <span class="keywordtype">bool</span> on );</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">void</span> needUpdate();</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a3db7ed1e5682bd84d67c22281eb53d0e">  186</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a3db7ed1e5682bd84d67c22281eb53d0e">onMousePress</a>( QMouseEvent* event );</div>
-<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#aaa73cf0f805417d2ddf458d73b163b81">  188</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#aaa73cf0f805417d2ddf458d73b163b81">onMouseRelease</a>( QMouseEvent* event );</div>
-<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#acf4e392035ada48c6f13af74c82ef58f">  190</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#acf4e392035ada48c6f13af74c82ef58f">onMouseMove</a>( QMouseEvent* event );</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordtype">void</span> reloadShaders();</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordtype">void</span> displayTexture( <span class="keyword">const</span> QString&amp; tex );</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordtype">bool</span> changeRenderer( <span class="keywordtype">int</span> index );</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordtype">void</span> enablePostProcess( <span class="keywordtype">int</span> enabled );</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordtype">void</span> enableDebugDraw( <span class="keywordtype">int</span> enabled );</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordtype">void</span> setBackgroundColor( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&amp; background );</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="comment">// Display help dialog about Viewer key-bindings</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordtype">void</span> displayHelpDialog();</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordtype">void</span> reloadShaders();</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">void</span> displayTexture( <span class="keyword">const</span> QString&amp; tex );</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordtype">bool</span> changeRenderer( <span class="keywordtype">int</span> index );</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordtype">void</span> enablePostProcess( <span class="keywordtype">int</span> enabled );</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordtype">void</span> enableDebugDraw( <span class="keywordtype">int</span> enabled );</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordtype">void</span> setBackgroundColor( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&amp; background );</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="comment">// Display help dialog about Viewer key-bindings</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordtype">void</span> displayHelpDialog();</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  <span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordtype">void</span> onAboutToCompose();</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordtype">void</span> onAboutToResize();</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordtype">void</span> onResized();</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordtype">void</span> onFrameSwapped();</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordtype">void</span> createGizmoManager();</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  <span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordtype">void</span> onAboutToCompose();</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordtype">void</span> onAboutToResize();</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordtype">void</span> onResized();</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordtype">void</span> onFrameSwapped();</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordtype">void</span> createGizmoManager();</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">void</span> initializeRenderer( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Engine::Rendering::Renderer</a>* renderer );</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordtype">bool</span> initializeGL() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordtype">void</span> resizeGL( QResizeEvent* event ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordtype">void</span> initializeRenderer( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Engine::Rendering::Renderer</a>* renderer );</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6be">Engine::Rendering::Renderer::PickingMode</a></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    getPickingMode( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">Ra::Gui::KeyMappingManager::KeyMappingAction</a>&amp; action ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordtype">bool</span> initializeGL() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordtype">void</span> resizeGL( QResizeEvent* event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6be">Engine::Rendering::Renderer::PickingMode</a></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    getPickingMode( <span class="keyword">const</span> Ra::Gui::KeyMappingManager::KeyMappingAction&amp; action ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordtype">void</span> keyPressEvent( QKeyEvent* event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordtype">void</span> keyReleaseEvent( QKeyEvent* event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordtype">void</span> mousePressEvent( QMouseEvent* event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordtype">void</span> mouseReleaseEvent( QMouseEvent* event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordtype">void</span> mouseMoveEvent( QMouseEvent* event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordtype">void</span> wheelEvent( QWheelEvent* event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordtype">void</span> showEvent( QShowEvent* ev ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordtype">void</span> focusOutEvent( QFocusEvent* event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> handleKeyPressEvent( QKeyEvent* event );</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> handleKeyReleaseEvent( QKeyEvent* event );</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleMousePressEvent( QMouseEvent* event,</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                                        <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">Ra::Engine::Rendering::Renderer::PickingResult</a>&amp; result );</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleMouseReleaseEvent( QMouseEvent* event );</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleMouseMoveEvent( QMouseEvent* event,</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                                       <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">Ra::Engine::Rendering::Renderer::PickingResult</a>&amp; result );</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleWheelEvent( QWheelEvent* event );</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> configureKeyMapping_impl();</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordtype">void</span> keyPressEvent( QKeyEvent* event ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keywordtype">void</span> keyReleaseEvent( QKeyEvent* event ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordtype">void</span> mousePressEvent( QMouseEvent* event ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordtype">void</span> mouseReleaseEvent( QMouseEvent* event ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordtype">void</span> mouseMoveEvent( QMouseEvent* event ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordtype">void</span> wheelEvent( QWheelEvent* event ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keywordtype">void</span> showEvent( QShowEvent* ev ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordtype">void</span> focusOutEvent( QFocusEvent* event ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> handleKeyPressEvent( QKeyEvent* event );</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> handleKeyReleaseEvent( QKeyEvent* event );</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleMousePressEvent( QMouseEvent* event,</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                                        <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">Ra::Engine::Rendering::Renderer::PickingResult</a>&amp; result );</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleMouseReleaseEvent( QMouseEvent* event );</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleMouseMoveEvent( QMouseEvent* event,</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                                       <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">Ra::Engine::Rendering::Renderer::PickingResult</a>&amp; result );</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleWheelEvent( QWheelEvent* event );</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> configureKeyMapping_impl();</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">Ra::Engine::Rendering::Renderer::PickingResult</a> pickAtPosition( Core::Vector2 position );</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordtype">void</span> propagateEventToParent( QEvent* event );</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    std::tuple&lt;<a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a>,</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;               <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a>,</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;               <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a>&gt;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    getComponentActions( <span class="keyword">const</span> Qt::MouseButtons&amp; buttons,</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                         <span class="keyword">const</span> Qt::KeyboardModifiers&amp; modifiers,</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                         <span class="keywordtype">int</span> key,</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                         <span class="keywordtype">bool</span> wheel );</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">Ra::Engine::Rendering::Renderer::PickingResult</a> pickAtPosition( Core::Vector2 position );</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordtype">void</span> propagateEventToParent( QEvent* event );</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    KeyMappingManager::KeyMappingAction</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    addCustomAction( <span class="keywordtype">int</span> index,</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;                     <span class="keyword">const</span> std::string&amp; actionName,</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                     <span class="keyword">const</span> std::string&amp; keyString,</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                     <span class="keyword">const</span> std::string&amp; modifiersString,</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;                     <span class="keyword">const</span> std::string&amp; buttonsString,</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                     <span class="keyword">const</span> std::string&amp; wheelString,</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                     std::function&lt;<span class="keywordtype">void</span>( QKeyEvent* )&gt; callback );</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    Scalar m_depthUnderMouse;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    std::unique_ptr&lt;QMessageBox&gt; m_helpDialog { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">  289</a></span>&#160;    std::vector&lt;std::shared_ptr&lt;Engine::Rendering::Renderer&gt;&gt; <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">m_renderers</a>;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    std::vector&lt;std::shared_ptr&lt;Engine::Rendering::Renderer&gt;&gt; m_pendingRenderers;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Engine::Rendering::Renderer</a>* m_currentRenderer;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00294"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a342ea1c814555d28a3fb4e226a9263a5">  294</a></span>&#160;    PickingManager* <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a342ea1c814555d28a3fb4e226a9263a5">m_pickingManager</a>;</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    std::tuple&lt;KeyMappingManager::KeyMappingAction,</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;               KeyMappingManager::KeyMappingAction,</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;               KeyMappingManager::KeyMappingAction&gt;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    getComponentActions( <span class="keyword">const</span> Qt::MouseButtons&amp; buttons,</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                         <span class="keyword">const</span> Qt::KeyboardModifiers&amp; modifiers,</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                         <span class="keywordtype">int</span> key,</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                         <span class="keywordtype">bool</span> wheel );</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    Scalar m_depthUnderMouse;</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    std::unique_ptr&lt;QMessageBox&gt; m_helpDialog { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordtype">bool</span> m_isBrushPickingEnabled;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    Scalar m_brushRadius;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00300"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">  300</a></span>&#160;    std::unique_ptr&lt;CameraManipulator&gt; <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">m_camera</a>;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268">  303</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a>* <a class="code" href="classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268">m_gizmoManager</a>;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_backgroundColor { Core::Utils::Color::Grey( 0.0392_ra, 0_ra ) };</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00310"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">  310</a></span>&#160;    std::vector&lt;std::shared_ptr&lt;Engine::Rendering::Renderer&gt;&gt; <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">m_renderers</a>;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    std::vector&lt;std::shared_ptr&lt;Engine::Rendering::Renderer&gt;&gt; m_pendingRenderers;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Engine::Rendering::Renderer</a>* m_currentRenderer;</div>
+<div class="line"><a name="l00308"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2">  308</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2">KeyEventType</a> { KeyPressed = 0, KeyReleased, KeyEventTypeCount };</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    std::array&lt;std::map&lt;Core::Utils::Index, std::function&lt;void( QKeyEvent* )&gt;&gt;, KeyEventTypeCount&gt;</div>
+<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#aba07b78b7fdf3b92d6d77f78ade687f0">  312</a></span>&#160;        <a class="code" href="classRa_1_1Gui_1_1Viewer.html#aba07b78b7fdf3b92d6d77f78ade687f0">m_customKeyActions</a>;</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
-<div class="line"><a name="l00315"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a342ea1c814555d28a3fb4e226a9263a5">  315</a></span>&#160;    PickingManager* <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a342ea1c814555d28a3fb4e226a9263a5">m_pickingManager</a>;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keywordtype">bool</span> m_isBrushPickingEnabled;</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    Scalar m_brushRadius;</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
-<div class="line"><a name="l00321"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">  321</a></span>&#160;    std::unique_ptr&lt;CameraManipulator&gt; <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">m_camera</a>;</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268">  324</a></span>&#160;    <a class="code" href="classRa_1_1Gui_1_1GizmoManager.html">GizmoManager</a>* <a class="code" href="classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268">m_gizmoManager</a>;</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> m_backgroundColor { Core::Utils::Color::Grey( 0.0392_ra, 0_ra ) };</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
-<div class="line"><a name="l00329"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2">  329</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2">KeyEventType</a> { KeyPressed = 0, KeyReleased, KeyEventTypeCount };</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    std::array&lt;std::map&lt;Core::Utils::Index, std::function&lt;void( QKeyEvent* )&gt;&gt;, KeyEventTypeCount&gt;</div>
-<div class="line"><a name="l00333"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#aba07b78b7fdf3b92d6d77f78ade687f0">  333</a></span>&#160;        <a class="code" href="classRa_1_1Gui_1_1Viewer.html#aba07b78b7fdf3b92d6d77f78ade687f0">m_customKeyActions</a>;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    KeyMappingManager::Context m_activeContext {};</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor">#define KeyMappingViewer                     \</span></div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING )              \</span></div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING_VERTEX )       \</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING_EDGE )         \</span></div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING_TRIANGLE )     \</span></div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING_MULTI_CIRCLE ) \</span></div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_RAYCAST )              \</span></div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_SCALE_BRUSH )          \</span></div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_RELOAD_SHADERS )       \</span></div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )     \</span></div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_SWITCH_CAMERA )        \</span></div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_CAMERA_FIT_SCENE )     \</span></div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_HELP )</span></div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="preprocessor">#define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    KeyMappingViewer</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;};</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html">KeyMappingCallbackManager</a> m_keyMappingCallbackManager;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">KeyMappingManager::Context</a> m_activeContext {};</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="preprocessor">#define KeyMappingViewer                     \</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING )              \</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING_VERTEX )       \</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING_EDGE )         \</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING_TRIANGLE )     \</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_PICKING_MULTI_CIRCLE ) \</span></div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_RAYCAST )              \</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_SCALE_BRUSH )          \</span></div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_RELOAD_SHADERS )       \</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )     \</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_SWITCH_CAMERA )        \</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_CAMERA_FIT_SCENE )     \</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="preprocessor">    KMA_VALUE( VIEWER_HELP )</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="preprocessor">#define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    KeyMappingViewer</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor">#undef KMA_VALUE</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;};</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; Scalar &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html">Ra::Engine::Rendering::Renderer::PickingResult</a></div><div class="ttdoc">Result of a PickingQuery.</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8hpp_source.html#l00112">Renderer.hpp:113</a></div></div>
@@ -367,21 +349,25 @@ $(document).ready(function(){initNavTree('Viewer_8hpp_source.html',''); initResi
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1Renderer_html_a95e55500d64fc149df5bda393234c6be"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a95e55500d64fc149df5bda393234c6be">Ra::Engine::Rendering::Renderer::PickingMode</a></div><div class="ttdeci">PickingMode</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8hpp_source.html#l00069">Renderer.hpp:69</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1CameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1CameraManipulator.html">Ra::Gui::CameraManipulator</a></div><div class="ttdoc">The CameraManipulator class is the generic class for camera manipulators.</div><div class="ttdef"><b>Definition:</b> <a href="CameraManipulator_8hpp_source.html#l00029">CameraManipulator.hpp:30</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1GizmoManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1GizmoManager.html">Ra::Gui::GizmoManager</a></div><div class="ttdef"><b>Definition:</b> <a href="GizmoManager_8hpp_source.html#l00023">GizmoManager.hpp:26</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00208">KeyMappingManager.hpp:209</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingCallbackManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html">Ra::Gui::KeyMappingCallbackManager</a></div><div class="ttdoc">This class manage a collection of binding/callback associated with a context.</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00269">KeyMappingManager.hpp:270</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdoc">KeyMappingManageable decorator to use as CRTP.</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00239">KeyMappingManager.hpp:240</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">Ra::Gui::KeyMappingManager::EventBinding</a></div><div class="ttdoc">Inner class to store event binding.</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00028">KeyMappingManager.hpp:29</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html_a41a05099c01660b695cdb70be3eb1655"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">Ra::Gui::KeyMappingManager::KeyMappingAction</a></div><div class="ttdeci">Ra::Core::Utils::Index KeyMappingAction</div><div class="ttdoc">handle to an action</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00078">KeyMappingManager.hpp:78</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html_a78183dd70a4a26eec1f46c0b523ddc18"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18">Ra::Gui::KeyMappingManager::Context</a></div><div class="ttdeci">Ra::Core::Utils::Index Context</div><div class="ttdoc">handle to a Context</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00079">KeyMappingManager.hpp:79</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:54</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a0522b4876b6a6e84ba5c8e40f66b714f"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">Ra::Gui::Viewer::m_camera</a></div><div class="ttdeci">std::unique_ptr&lt; CameraManipulator &gt; m_camera</div><div class="ttdoc">Owning pointer to the camera.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00321">Viewer.hpp:321</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a0522b4876b6a6e84ba5c8e40f66b714f"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">Ra::Gui::Viewer::m_camera</a></div><div class="ttdeci">std::unique_ptr&lt; CameraManipulator &gt; m_camera</div><div class="ttdoc">Owning pointer to the camera.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00300">Viewer.hpp:300</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a12da0e6456afc0e7a13a85636ec852d8"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a12da0e6456afc0e7a13a85636ec852d8">Ra::Gui::Viewer::getContext</a></div><div class="ttdeci">QOpenGLContext * getContext() const</div><div class="ttdoc">Access to the OpenGL context of the Viewer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00079">Viewer.hpp:79</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a22ff1a85dd722cacf8607970ab7e8054"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a22ff1a85dd722cacf8607970ab7e8054">Ra::Gui::Viewer::getBackgroundColor</a></div><div class="ttdeci">const Core::Utils::Color &amp; getBackgroundColor() const</div><div class="ttdoc">get the currently used background color</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00148">Viewer.hpp:148</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a29251f309d1429c09062056f4bfa8cb2"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2">Ra::Gui::Viewer::KeyEventType</a></div><div class="ttdeci">KeyEventType</div><div class="ttdoc">Name of the customisable key actions.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00329">Viewer.hpp:329</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a342ea1c814555d28a3fb4e226a9263a5"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a342ea1c814555d28a3fb4e226a9263a5">Ra::Gui::Viewer::m_pickingManager</a></div><div class="ttdeci">PickingManager * m_pickingManager</div><div class="ttdoc">Owning Pointer to the feature picking manager.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00315">Viewer.hpp:315</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a29251f309d1429c09062056f4bfa8cb2"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2">Ra::Gui::Viewer::KeyEventType</a></div><div class="ttdeci">KeyEventType</div><div class="ttdoc">Name of the customisable key actions.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00308">Viewer.hpp:308</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a342ea1c814555d28a3fb4e226a9263a5"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a342ea1c814555d28a3fb4e226a9263a5">Ra::Gui::Viewer::m_pickingManager</a></div><div class="ttdeci">PickingManager * m_pickingManager</div><div class="ttdoc">Owning Pointer to the feature picking manager.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00294">Viewer.hpp:294</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a364b2eb1f02c0cabf286a3127ec4c5dc"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a364b2eb1f02c0cabf286a3127ec4c5dc">Ra::Gui::Viewer::rendererReady</a></div><div class="ttdeci">void rendererReady()</div><div class="ttdoc">Emitted when GL context is ready. We except call to addRenderer here.</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a3799eae2d58060b55f256b47f10e36d4"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a3799eae2d58060b55f256b47f10e36d4">Ra::Gui::Viewer::requestEngineOpenGLInitialization</a></div><div class="ttdeci">void requestEngineOpenGLInitialization()</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a3db7ed1e5682bd84d67c22281eb53d0e"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a3db7ed1e5682bd84d67c22281eb53d0e">Ra::Gui::Viewer::onMousePress</a></div><div class="ttdeci">void onMousePress(QMouseEvent *event)</div><div class="ttdoc">Event sent after a mouse press event has been processed, but before emitting needUpdate()</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a59561e6b897b75f16e7b16117b00c1fc"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a59561e6b897b75f16e7b16117b00c1fc">Ra::Gui::Viewer::toggleBrushPicking</a></div><div class="ttdeci">void toggleBrushPicking(bool on)</div><div class="ttdoc">Emitted when the corresponding key is released (see keyReleaseEvent)</div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a61128f2f8e5b13fbcaa5d4e30db3b7e8"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">Ra::Gui::Viewer::m_renderers</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; Engine::Rendering::Renderer &gt; &gt; m_renderers</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00310">Viewer.hpp:310</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a61128f2f8e5b13fbcaa5d4e30db3b7e8"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">Ra::Gui::Viewer::m_renderers</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; Engine::Rendering::Renderer &gt; &gt; m_renderers</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00289">Viewer.hpp:289</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aaa73cf0f805417d2ddf458d73b163b81"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aaa73cf0f805417d2ddf458d73b163b81">Ra::Gui::Viewer::onMouseRelease</a></div><div class="ttdeci">void onMouseRelease(QMouseEvent *event)</div><div class="ttdoc">Event sent after a mouse release event has been processed, but before emitting needUpdate()</div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aba07b78b7fdf3b92d6d77f78ade687f0"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aba07b78b7fdf3b92d6d77f78ade687f0">Ra::Gui::Viewer::m_customKeyActions</a></div><div class="ttdeci">std::array&lt; std::map&lt; Core::Utils::Index, std::function&lt; void(QKeyEvent *)&gt; &gt;, KeyEventTypeCount &gt; m_customKeyActions</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00333">Viewer.hpp:333</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_abef7fd908618c0300a19f3437f6df268"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268">Ra::Gui::Viewer::m_gizmoManager</a></div><div class="ttdeci">GizmoManager * m_gizmoManager</div><div class="ttdoc">Owning (QObject child) pointer to gizmo manager.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00324">Viewer.hpp:324</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aba07b78b7fdf3b92d6d77f78ade687f0"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aba07b78b7fdf3b92d6d77f78ade687f0">Ra::Gui::Viewer::m_customKeyActions</a></div><div class="ttdeci">std::array&lt; std::map&lt; Core::Utils::Index, std::function&lt; void(QKeyEvent *)&gt; &gt;, KeyEventTypeCount &gt; m_customKeyActions</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00312">Viewer.hpp:312</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_abef7fd908618c0300a19f3437f6df268"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#abef7fd908618c0300a19f3437f6df268">Ra::Gui::Viewer::m_gizmoManager</a></div><div class="ttdeci">GizmoManager * m_gizmoManager</div><div class="ttdoc">Owning (QObject child) pointer to gizmo manager.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00303">Viewer.hpp:303</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_abf7a3519a22b398266730b2d8a459005"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#abf7a3519a22b398266730b2d8a459005">Ra::Gui::Viewer::rightClickPicking</a></div><div class="ttdeci">void rightClickPicking(const Ra::Engine::Rendering::Renderer::PickingResult &amp;result)</div><div class="ttdoc">Emitted when the rendered is correctly initialized.</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_acf4e392035ada48c6f13af74c82ef58f"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#acf4e392035ada48c6f13af74c82ef58f">Ra::Gui::Viewer::onMouseMove</a></div><div class="ttdeci">void onMouseMove(QMouseEvent *event)</div><div class="ttdoc">Event sent after a mouse move event has been processed, but before emitting needUpdate()</div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html">Ra::Gui::WindowQt</a></div><div class="ttdoc">Base class for OpenGL widgets, compatble with Qt and globjects/glbindings.</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00027">WindowQt.hpp:28</a></div></div>
@@ -392,7 +378,7 @@ $(document).ready(function(){initNavTree('Viewer_8hpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>Viewer.hpp</b></li>
-    <li class="footer">Generated on Mon Nov 14 2022 16:29:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Nov 16 2022 08:42:01 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

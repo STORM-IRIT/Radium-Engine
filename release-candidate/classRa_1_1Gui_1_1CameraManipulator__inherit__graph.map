@@ -1,5 +1,5 @@
 <map id="Ra::Gui::CameraManipulator" name="Ra::Gui::CameraManipulator">
-<area shape="rect" id="node1" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="132,5,388,669"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html" title=" " alt="" coords="5,769,248,1198"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras." alt="" coords="272,717,517,1249"/>
+<area shape="rect" id="node1" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="133,5,389,669"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html" title=" " alt="" coords="5,776,248,1205"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras." alt="" coords="273,717,522,1264"/>
 </map>

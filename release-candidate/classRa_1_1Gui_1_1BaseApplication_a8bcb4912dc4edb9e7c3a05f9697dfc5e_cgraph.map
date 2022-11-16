@@ -9,7 +9,7 @@
 <area shape="rect" id="node15" href="$classRa_1_1Engine_1_1RadiumEngine.html#a8d2085dbc31206d0bbdfc6014d247471" title=" " alt="" coords="241,449,434,491"/>
 <area shape="rect" id="node17" href="$classRa_1_1Gui_1_1BaseApplication.html#ade2850bde46ffa889f9ca3a4c542d2e2" title=" " alt="" coords="246,515,429,556"/>
 <area shape="rect" id="node20" href="$classRa_1_1Engine_1_1RadiumEngine.html#a90204861f4fe8ed044208eb05695afe0" title=" " alt="" coords="539,577,733,619"/>
-<area shape="rect" id="node21" href="$classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d" title="add observers to keyMappingManager for gizmo, camera and viewer." alt="" coords="242,643,433,684"/>
+<area shape="rect" id="node21" href="$classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d" title="add observers to keyMappingManager for gizmo, camera and viewer." alt="" coords="242,675,433,716"/>
 <area shape="rect" id="node4" href="$classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d" title="call deinitializeGL if needed, with context activated" alt="" coords="560,5,712,47"/>
 <area shape="rect" id="node5" href="$classRa_1_1Gui_1_1BaseApplication.html#afb15f30d1be4f32933204782cc797d43" title="slot called when the OpenGL need to be initialized" alt="" coords="545,71,727,112"/>
 <area shape="rect" id="node8" href="$classRa_1_1Gui_1_1BaseApplication.html#a6c00e85efcad67823ec51dad9d3a0d98" title=" " alt="" coords="545,136,727,177"/>
@@ -20,5 +20,6 @@
 <area shape="rect" id="node16" href="$namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c" title="Get the path of Radium internal resources." alt="" coords="538,381,734,423"/>
 <area shape="rect" id="node18" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="560,447,712,488"/>
 <area shape="rect" id="node19" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="560,512,712,553"/>
-<area shape="rect" id="node22" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec" title=" " alt="" coords="487,643,785,684"/>
+<area shape="rect" id="node22" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f" title=" " alt="" coords="529,643,743,684"/>
+<area shape="rect" id="node23" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec" title=" " alt="" coords="487,708,785,749"/>
 </map>
