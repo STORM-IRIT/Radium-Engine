@@ -86,7 +86,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classRa_1_1Gui_1_1Viewer.html#aa494c3894be5858ef29cd48bf67d9e96" target="_top" xlink:title="Read&#45;only access to renderer.">
+<g id="a_node6"><a xlink:href="classRa_1_1Gui_1_1Viewer.html#aa801426e3906c686bdbbc20bf553c041" target="_top" xlink:title="Read&#45;only access to renderer.">
 <polygon fill="white" stroke="black" points="191,-99 191,-118 349,-118 349,-99 191,-99"/>
 <text text-anchor="middle" x="270" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Viewer::getRenderer</text>
 </a>

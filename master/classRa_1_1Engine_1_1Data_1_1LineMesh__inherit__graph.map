@@ -1,10 +1,9 @@
 <map id="Ra::Engine::Data::LineMesh" name="Ra::Engine::Data::LineMesh">
-<area shape="rect" id="node1" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="148,2117,348,2209"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="145,1917,351,2068"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="373,1352,619,1855"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="364,293,585,752"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="238,801,485,1289"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="367,5,582,244"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="147,1535,349,1671"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="5,992,213,1099"/>
+<area shape="rect" id="node1" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="53,1693,253,1785"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="51,1493,256,1644"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="250,801,497,1245"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="141,1295,342,1431"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="263,293,484,752"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="266,5,481,244"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="5,970,213,1077"/>
 </map>

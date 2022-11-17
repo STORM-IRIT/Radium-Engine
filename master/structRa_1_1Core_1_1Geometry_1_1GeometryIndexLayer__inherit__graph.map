@@ -9,8 +9,8 @@
 <area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="373,5,567,229"/>
 <area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="591,35,855,200"/>
 <area shape="rect" id="node6" href="$structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title="Index layer for a point cloud." alt="" coords="19,1127,209,1263"/>
-<area shape="rect" id="node8" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title="Index layer for line mesh." alt="" coords="269,1141,442,1248"/>
-<area shape="rect" id="node10" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title="Index layer for polygonal mesh." alt="" coords="510,1141,683,1248"/>
+<area shape="rect" id="node8" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title="Index layer for polygonal mesh." alt="" coords="269,1141,442,1248"/>
+<area shape="rect" id="node10" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title="Index layer for line mesh." alt="" coords="510,1141,683,1248"/>
 <area shape="rect" id="node12" href="$structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title="Index layer for triangle mesh." alt="" coords="751,1141,925,1248"/>
 <area shape="rect" id="node14" href="$structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html" title="Index layer for quadrilateral mesh." alt="" coords="993,1141,1166,1248"/>
 </map>

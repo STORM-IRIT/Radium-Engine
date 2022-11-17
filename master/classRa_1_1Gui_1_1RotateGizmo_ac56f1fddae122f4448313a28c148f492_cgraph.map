@@ -1,10 +1,4 @@
 <map id="Ra::Gui::RotateGizmo::mouseMove" name="Ra::Gui::RotateGizmo::mouseMove">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,168,145"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo.html#a609064fa341157eae19e5a760e5044c2" title="Find a mouse&#45;designed point on a 3D plane." alt="" coords="216,71,400,112"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac1ab9a2afcc61f7505f185e895bf6b1d" title="Return the screen coordinates + depth of the given point p (in world coordinates)." alt="" coords="218,136,398,177"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a79e1631d8cc94ca6430572a0bc38d076" title=" " alt="" coords="448,71,628,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="676,5,856,47"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a64dc74dc61ceafce1b143f93c16f88f0" title=" " alt="" coords="676,71,856,112"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aaab8e9948fcf6982eff3735bc6c7f231" title="Return NDC cordinate in the view NDC cube ." alt="" coords="448,136,628,177"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aa461c56f0e95754cfb18d0616247d848" title="Return the projection matrix." alt="" coords="676,136,856,177"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,168,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac1ab9a2afcc61f7505f185e895bf6b1d" title="Return the screen coordinates + depth of the given point p (in world coordinates)." alt="" coords="216,5,396,47"/>
 </map>

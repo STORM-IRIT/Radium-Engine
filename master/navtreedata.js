@@ -1,24 +1,26 @@
 /*
-@licstart  The following is the entire license notice for the
-JavaScript code in this file.
+ @licstart  The following is the entire license notice for the JavaScript code in this file.
 
-Copyright (C) 1997-2019 by Dimitri van Heesch
+ The MIT License (MIT)
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of version 2 of the GNU General Public License as published by
-the Free Software Foundation
+ Copyright (C) 1997-2020 by Dimitri van Heesch
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ and associated documentation files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-You should have received a copy of the GNU General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ The above copyright notice and this permission notice shall be included in all copies or
+ substantial portions of the Software.
 
-@licend  The above is the entire license notice
-for the JavaScript code in this file
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ @licend  The above is the entire license notice for the JavaScript code in this file
 */
 var NAVTREE =
 [
@@ -29,13 +31,13 @@ var NAVTREE =
     [ "Radium Concepts", "conceptsmanual.html", "conceptsmanual" ],
     [ "Developer manual", "develmanual.html", "develmanual" ],
     [ "Licenses", "licenses.html", [
-      [ "Radium contributors", "licenses.html#autotoc_md3", null ],
-      [ "Third-party libraries", "licenses.html#autotoc_md4", [
-        [ "Qt", "licenses.html#autotoc_md5", null ],
-        [ "Eigen", "licenses.html#autotoc_md6", null ],
-        [ "Assimp", "licenses.html#autotoc_md7", null ],
-        [ "STB Image", "licenses.html#autotoc_md8", null ],
-        [ "Additional material", "licenses.html#autotoc_md9", null ]
+      [ "Radium contributors", "licenses.html#autotoc_md4", null ],
+      [ "Third-party libraries", "licenses.html#autotoc_md5", [
+        [ "Qt", "licenses.html#autotoc_md6", null ],
+        [ "Eigen", "licenses.html#autotoc_md7", null ],
+        [ "Assimp", "licenses.html#autotoc_md8", null ],
+        [ "STB Image", "licenses.html#autotoc_md9", null ],
+        [ "Additional material", "licenses.html#autotoc_md10", null ]
       ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
@@ -72,23 +74,24 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-".html",
-"MeshPrimitives_8cpp_source.html",
-"WindowQt_8inl_source.html",
-"classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7",
-"classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#af47a833432339c14be0c735b0e9b7d91",
-"classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html#a9d438df5511480f39bb6115af5078856",
-"classRa_1_1Core_1_1Utils_1_1AttribManager.html#a191ecf090eaf0b6d52ed390938e1e0c5",
-"classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac56b0d531d935508b1b5669010fe7ec1",
-"classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a3cccfd1b866104438bd209a42f0e3f76",
-"classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#ad2e585567b4d82569c729b0c6ec184f2",
-"classRa_1_1Engine_1_1Scene_1_1DebugComponent.html#a754146b71e827d3cf7400258b315f2bb",
-"classRa_1_1Engine_1_1Scene_1_1System.html#a099c55f55d7e7f39b4b0a0bc687a278b",
-"classRa_1_1Gui_1_1MainWindowInterface.html#a0e1597c5b741d3244d9c40360ddad67f",
-"classRa_1_1Gui_1_1Viewer.html#a2a8ea2cb4e7c2a608dff2be695201c24",
-"classRa_1_1Plugins_1_1RadiumPluginInterface.html#a3fe610032c1dbb240e179b139d00624f",
-"group__context.html#ga4cd9ffa4fc7d7629b15e2e3cb97b715f",
-"structRa_1_1Engine_1_1Data_1_1ViewingParameters.html#abbed2f4ad52d66589781225ddefed085"
+"AboutDialog_8cpp_source.html",
+"Iterators_8hpp.html#a86d4647d6568a611158e93184877fbd5",
+"RenderTechnique_8hpp.html#adcaf9b3e7385387d70bf9355541bcfb5",
+"Types_8hpp.html#aa31b674a393e827ac23d1a1ddbee0afc",
+"classRa_1_1Core_1_1Animation_1_1Skeleton.html#a330f9262f3ad5310075b1940c34c778f",
+"classRa_1_1Core_1_1DualQuaternion.html#a993260666048f4778119342bb5e0fa92",
+"classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004",
+"classRa_1_1Core_1_1Utils_1_1Attrib.html#a1aecf7dfdda7433ca789f8880b2fdb43",
+"classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a0c6a0e09f5c16664cfdecff1679beba8",
+"classRa_1_1Engine_1_1Data_1_1RenderParameters.html#abc4fa3270c85553423d315740e238e2c",
+"classRa_1_1Engine_1_1RadiumEngine.html#ae62311f30f31139f88940a4bf1fd8768",
+"classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a95204c94b8c1ba855539384a20b61344",
+"classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca039792b8a8781b3c454afcfd4784bd1a",
+"classRa_1_1Gui_1_1GizmoManager.html#ae44aff06a4dba2adf2c0ba63db4f7c39",
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64",
+"classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a652fe809115e90cbf6c254454f14ce49",
+"dir_89bb22796d297d82305d45a42e7934d2.html",
+"structRa_1_1Core_1_1Asset_1_1HandleAnimation.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

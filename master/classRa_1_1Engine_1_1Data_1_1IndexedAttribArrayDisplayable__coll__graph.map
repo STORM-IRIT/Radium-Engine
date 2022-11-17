@@ -1,11 +1,9 @@
 <map id="Ra::Engine::Data::IndexedAttribArrayDisplayable&lt; I &gt;" name="Ra::Engine::Data::IndexedAttribArrayDisplayable&lt; I &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="319,1437,523,1529"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="5,755,227,1213"/>
+<area shape="rect" id="node1" title=" " alt="" coords="253,1424,457,1516"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="5,741,227,1200"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="9,292,223,531"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="251,931,459,1037"/>
-<area shape="rect" id="node5" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="483,938,679,1030"/>
-<area shape="rect" id="node6" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="460,373,695,450"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles." alt="" coords="707,593,923,1375"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="719,299,916,523"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="719,5,916,229"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="251,917,459,1024"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles." alt="" coords="483,580,699,1361"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="492,299,689,523"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="492,5,689,229"/>
 </map>

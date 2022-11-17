@@ -131,7 +131,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classRa_1_1Gui_1_1KeyMappingManageable.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="classRa_1_1Gui_1_1KeyMappingManageable.html" target="_top" xlink:title="KeyMappingManageable decorator to use as CRTP.">
 <polygon fill="white" stroke="black" points="196,-904.5 196,-994.5 402,-994.5 402,-904.5 196,-904.5"/>
 <text text-anchor="middle" x="299" y="-982.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::KeyMappingManageable&lt; T &gt;</text>
 <polyline fill="none" stroke="black" points="196,-975.5 402,-975.5 "/>

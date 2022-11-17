@@ -118,7 +118,7 @@ var sectionId = 'dynsection-0';
 <polygon fill="white" stroke="black" points="181,-139.5 181,-328.5 344,-328.5 344,-139.5 181,-139.5"/>
 <text text-anchor="start" x="189" y="-316.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="start" x="189" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayer</text>
-<text text-anchor="middle" x="262.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2ui &gt;</text>
+<text text-anchor="middle" x="262.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; VectorNui &gt;</text>
 <polyline fill="none" stroke="black" points="181,-287.5 344,-287.5 "/>
 <text text-anchor="middle" x="262.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="181,-268.5 344,-268.5 "/>
@@ -141,7 +141,7 @@ var sectionId = 'dynsection-0';
 <title>Node1&#45;&gt;Node7</title>
 <path fill="none" stroke="orange" d="M367.62,-368.29C357.25,-355.14 346.62,-341.65 336.28,-328.55"/>
 <polygon fill="orange" stroke="orange" points="365.1,-370.74 374.04,-376.43 370.59,-366.41 365.1,-370.74"/>
-<text text-anchor="middle" x="394.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2ui &gt;</text>
+<text text-anchor="middle" x="395" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; VectorNui &gt;</text>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
@@ -150,7 +150,7 @@ var sectionId = 'dynsection-0';
 <polygon fill="white" stroke="black" points="362,-139.5 362,-328.5 525,-328.5 525,-139.5 362,-139.5"/>
 <text text-anchor="start" x="370" y="-316.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="start" x="370" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayer</text>
-<text text-anchor="middle" x="443.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; VectorNui &gt;</text>
+<text text-anchor="middle" x="443.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2ui &gt;</text>
 <polyline fill="none" stroke="black" points="362,-287.5 525,-287.5 "/>
 <text text-anchor="middle" x="443.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="362,-268.5 525,-268.5 "/>
@@ -173,7 +173,7 @@ var sectionId = 'dynsection-0';
 <title>Node1&#45;&gt;Node9</title>
 <path fill="none" stroke="orange" d="M443.5,-366.42C443.5,-353.87 443.5,-341.04 443.5,-328.55"/>
 <polygon fill="orange" stroke="orange" points="440,-366.43 443.5,-376.43 447,-366.43 440,-366.43"/>
-<text text-anchor="middle" x="480" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; VectorNui &gt;</text>
+<text text-anchor="middle" x="479.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2ui &gt;</text>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
@@ -346,15 +346,15 @@ var sectionId = 'dynsection-0';
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
-<g id="a_node8"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" target="_top" xlink:title="Index layer for line mesh.">
+<g id="a_node8"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" target="_top" xlink:title="Index layer for polygonal mesh.">
 <polygon fill="white" stroke="black" points="197.5,-11.5 197.5,-90.5 327.5,-90.5 327.5,-11.5 197.5,-11.5"/>
 <text text-anchor="start" x="205.5" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="262.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LineIndexLayer</text>
+<text text-anchor="middle" x="262.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PolyIndexLayer</text>
 <polyline fill="none" stroke="black" points="197.5,-60.5 327.5,-60.5 "/>
 <text text-anchor="start" x="205.5" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ staticSemanticName</text>
 <polyline fill="none" stroke="black" points="197.5,-41.5 327.5,-41.5 "/>
-<text text-anchor="start" x="205.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineIndexLayer()</text>
-<text text-anchor="start" x="205.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># LineIndexLayer()</text>
+<text text-anchor="start" x="205.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PolyIndexLayer()</text>
+<text text-anchor="start" x="205.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># PolyIndexLayer()</text>
 </a>
 </g>
 </g>
@@ -367,15 +367,15 @@ var sectionId = 'dynsection-0';
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
-<g id="a_node10"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" target="_top" xlink:title="Index layer for polygonal mesh.">
+<g id="a_node10"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" target="_top" xlink:title="Index layer for line mesh.">
 <polygon fill="white" stroke="black" points="378.5,-11.5 378.5,-90.5 508.5,-90.5 508.5,-11.5 378.5,-11.5"/>
 <text text-anchor="start" x="386.5" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="443.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PolyIndexLayer</text>
+<text text-anchor="middle" x="443.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LineIndexLayer</text>
 <polyline fill="none" stroke="black" points="378.5,-60.5 508.5,-60.5 "/>
 <text text-anchor="start" x="386.5" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ staticSemanticName</text>
 <polyline fill="none" stroke="black" points="378.5,-41.5 508.5,-41.5 "/>
-<text text-anchor="start" x="386.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PolyIndexLayer()</text>
-<text text-anchor="start" x="386.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># PolyIndexLayer()</text>
+<text text-anchor="start" x="386.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineIndexLayer()</text>
+<text text-anchor="start" x="386.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># LineIndexLayer()</text>
 </a>
 </g>
 </g>

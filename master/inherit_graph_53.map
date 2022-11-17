@@ -1,3 +1,28 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="5,5,195,47"/>
+<area shape="rect" id="node1" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="9,319,196,360"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,188,429,229"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,253,429,295"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,319,429,360"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="260,384,436,425"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,449,429,491"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="249,515,447,542"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,5,429,47"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,71,429,112"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="249,693,447,735"/>
+<area shape="rect" id="node22" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html" title=" " alt="" coords="253,566,443,593"/>
+<area shape="rect" id="node24" href="$classRa_1_1Core_1_1VectorArray.html" title="This class implements ContainerIntrospectionInterface for AlignedStdVector." alt="" coords="248,137,448,163"/>
+<area shape="rect" id="node11" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,686,682,742"/>
+<area shape="rect" id="node13" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,766,682,822"/>
+<area shape="rect" id="node15" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,846,682,902"/>
+<area shape="rect" id="node17" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,926,682,982"/>
+<area shape="rect" id="node19" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,539,682,595"/>
+<area shape="rect" id="node21" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title="Typed index collection." alt="" coords="496,620,701,661"/>
+<area shape="rect" id="node12" href="$structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title="Index layer for a point cloud." alt="" coords="749,693,921,735"/>
+<area shape="rect" id="node14" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title="Index layer for polygonal mesh." alt="" coords="760,773,911,815"/>
+<area shape="rect" id="node16" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title="Index layer for line mesh." alt="" coords="760,853,911,895"/>
+<area shape="rect" id="node18" href="$structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title="Index layer for triangle mesh." alt="" coords="759,933,912,975"/>
+<area shape="rect" id="node20" href="$structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html" title="Index layer for quadrilateral mesh." alt="" coords="760,547,911,588"/>
+<area shape="rect" id="node23" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html" title=" " alt="" coords="500,489,697,515"/>
+<area shape="rect" id="node25" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="5,693,200,735"/>
+<area shape="rect" id="node26" title=" " alt="" coords="38,261,167,287"/>
 </map>

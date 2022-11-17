@@ -1,7 +1,6 @@
 var classRa_1_1Engine_1_1RadiumEngine =
 [
-    [ "RadiumEngine", "classRa_1_1Engine_1_1RadiumEngine.html#ad80fa9eb5edd34c72cfbcd4e31b49851", null ],
-    [ "~RadiumEngine", "classRa_1_1Engine_1_1RadiumEngine.html#a2df2b800d2107e02e1fe7e5da5b6fd6a", null ],
+    [ "addGpuTask", "classRa_1_1Engine_1_1RadiumEngine.html#abaad8b112c9e7ff8b559d301deeac96e", null ],
     [ "cleanup", "classRa_1_1Engine_1_1RadiumEngine.html#a2980ef582a2e985abf53e51d147ac489", null ],
     [ "computeSceneAabb", "classRa_1_1Engine_1_1RadiumEngine.html#a3ae7fb71646b4b016287573b74497f93", null ],
     [ "endFrameSync", "classRa_1_1Engine_1_1RadiumEngine.html#aeb9d4b10e0fb251d873e4387c7571de4", null ],
@@ -33,6 +32,7 @@ var classRa_1_1Engine_1_1RadiumEngine =
     [ "registerSystem", "classRa_1_1Engine_1_1RadiumEngine.html#af93db44814bf4448267f84b8002c9d4d", null ],
     [ "releaseFile", "classRa_1_1Engine_1_1RadiumEngine.html#ad66028463fa0908bbd5859294967c73e", null ],
     [ "resetTime", "classRa_1_1Engine_1_1RadiumEngine.html#a8888a6daf92a9d593c5b9392c11b2b75", null ],
+    [ "runGpuTasks", "classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06", null ],
     [ "setConstantTimeStep", "classRa_1_1Engine_1_1RadiumEngine.html#ad52558a6a92db22bb4e24eedd00705e0", null ],
     [ "setEndTime", "classRa_1_1Engine_1_1RadiumEngine.html#a2c1a5415ad3e2e559cc52fefe1efb323", null ],
     [ "setForwardBackward", "classRa_1_1Engine_1_1RadiumEngine.html#a482dc6be69228508479233d1b0bcb500", null ],

@@ -1,8 +1,8 @@
 <map id="Ra::Engine::RadiumEngine::cleanup" name="Ra::Engine::RadiumEngine::cleanup">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,199,145"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html#a69e669c6df549aa0185cb2eaa14f5de9" title=" " alt="" coords="247,5,471,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aaf4d341e54a5c0dfde83e38e5af55a86" title=" " alt="" coords="253,71,465,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a23f911ca6e81eadd78e4c67cad032efb" title=" " alt="" coords="255,136,463,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af10c9fac9f32f1966eb2331e2790a6d1" title=" " alt="" coords="253,201,464,243"/>
-<area shape="rect" id="node6" href="$namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a07edf6afa24bd87c14434820c6ac9037" title=" " alt="" coords="519,194,777,250"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,135,199,177"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af10c9fac9f32f1966eb2331e2790a6d1" title=" " alt="" coords="253,37,464,78"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aaf4d341e54a5c0dfde83e38e5af55a86" title=" " alt="" coords="253,102,465,143"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html#a69e669c6df549aa0185cb2eaa14f5de9" title=" " alt="" coords="247,167,471,209"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a23f911ca6e81eadd78e4c67cad032efb" title=" " alt="" coords="255,233,463,274"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a07edf6afa24bd87c14434820c6ac9037" title=" " alt="" coords="519,29,777,85"/>
 </map>

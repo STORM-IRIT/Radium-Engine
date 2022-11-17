@@ -1,5 +1,4 @@
 <map id="Ra::Engine::Scene::PointLight::getRenderParameters" name="Ra::Engine::Scene::PointLight::getRenderParameters">
 <area shape="rect" id="node1" title=" " alt="" coords="5,5,241,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b" title=" " alt="" coords="540,5,735,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#abf82b4e7d426709c943f158978d77134" title=" " alt="" coords="289,35,492,76"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b" title=" " alt="" coords="289,5,484,47"/>
 </map>

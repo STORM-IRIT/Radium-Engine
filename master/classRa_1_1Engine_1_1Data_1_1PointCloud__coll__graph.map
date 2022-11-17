@@ -1,7 +1,9 @@
 <map id="Ra::Engine::Data::PointCloud" name="Ra::Engine::Data::PointCloud">
-<area shape="rect" id="node1" title="A PointCloud without indices." alt="" coords="25,1904,233,2040"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="5,1352,252,1855"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="13,293,234,752"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="144,801,391,1289"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="16,5,231,244"/>
+<area shape="rect" id="node1" title="A PointCloud without indices." alt="" coords="139,1945,347,2081"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="120,1437,367,1896"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="246,424,467,883"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="5,945,252,1375"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="249,57,464,295"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title=" " alt="" coords="38,475,219,831"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title="Bijective association between two sets {keys} and {values} having the same cardinality...." alt="" coords="39,5,219,347"/>
 </map>

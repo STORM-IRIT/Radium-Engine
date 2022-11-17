@@ -1,13 +1,6 @@
 <map id="Ra::Engine::Data::VolumeObject::loadGeometry" name="Ra::Engine::Data::VolumeObject::loadGeometry">
-<area shape="rect" id="node1" title=" " alt="" coords="5,201,192,243"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae933f13adcd54a11de0ed7e0663aea5c" title="Helper function that calls Ra::Core::CoreGeometry::addAttrib()" alt="" coords="240,5,473,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html#a2a314c7ff2ae4693dd06a85dec99b64c" title="Direct access to the managed data." alt="" coords="281,71,432,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html#a8cc588360ff97fc9d3d0b05d54f4671c" title="Returns the name of the mesh." alt="" coords="249,136,464,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a3896192c57de6b205245e97f15be2736" title="Return true if the volume is dense (implies isDiscrete to be true)" alt="" coords="260,201,453,243"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1Mesh.html#a215a55acdff155ac1705812ddeab2198" title=" " alt="" coords="270,267,443,308"/>
-<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a9c57a12bdc5cef136c095931e333cdfb" title=" " alt="" coords="263,332,450,373"/>
-<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html#acc43fd53785386c5eaf99372033083cd" title="return the size (number of bins ni each dimension) of the volume" alt="" coords="246,397,467,439"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a9fce3bf8c466aea7e724f3a6d73e3169" title="Set the render mode." alt="" coords="521,267,765,308"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a4ba75a89f6c80c147b1bca040928ef6a" title="Update the picking render mode according to the object render mode." alt="" coords="813,259,1048,315"/>
-<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f" title="Get the render mode." alt="" coords="1096,267,1341,308"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,192,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html#a2a314c7ff2ae4693dd06a85dec99b64c" title="Direct access to the managed data." alt="" coords="275,5,426,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a3896192c57de6b205245e97f15be2736" title="Return true if the volume is dense (implies isDiscrete to be true)" alt="" coords="254,71,447,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html#acc43fd53785386c5eaf99372033083cd" title="return the size (number of bins ni each dimension) of the volume" alt="" coords="240,136,461,177"/>
 </map>

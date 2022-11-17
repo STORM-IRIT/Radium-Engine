@@ -1,7 +1,5 @@
 <map id="Ra::Engine::Rendering::ForwardRenderer::renderInternal" name="Ra::Engine::Rendering::ForwardRenderer::renderInternal">
-<area shape="rect" id="node1" title="All the scene rendering magics basically happens here." alt="" coords="5,104,247,145"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b" title=" " alt="" coords="331,5,526,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a73db5789bbbb51ef1c4e4722999da2d8" title=" " alt="" coords="297,71,560,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a5567d423fb1fa17de616a9d63691d68d" title="Draw the picture background. This method allows custom renderers to draw objects on the background...." alt="" coords="295,136,563,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="337,201,520,243"/>
+<area shape="rect" id="node1" title="All the scene rendering magics basically happens here." alt="" coords="5,39,247,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b" title=" " alt="" coords="295,5,489,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="301,71,483,112"/>
 </map>

@@ -1,9 +1,8 @@
 <map id="Ra::Gui::TrackballCameraManipulator::handleMouseMoveEvent" name="Ra::Gui::TrackballCameraManipulator::handleMouseMoveEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,169,273,211"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="321,5,501,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a627f8c3e741a1d0f305886f1d8375de3" title="Return the height of the viewport." alt="" coords="321,71,501,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="321,136,501,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2b2f8b09a65409166a96b9bb30e3ee20" title="Return the width of the viewport." alt="" coords="321,201,501,243"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="338,267,485,308"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="338,332,485,373"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,136,273,177"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="343,5,523,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="343,71,523,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="359,136,506,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="359,201,506,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243" title=" " alt="" coords="321,267,544,308"/>
 </map>

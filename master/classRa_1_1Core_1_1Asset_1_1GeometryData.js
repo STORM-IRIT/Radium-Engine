@@ -17,7 +17,7 @@ var classRa_1_1Core_1_1Asset_1_1GeometryData =
     [ "displayInfo", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a7ae5d35a0639bd16020abc828fc29e52", null ],
     [ "getFrame", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac5f327cf5c09a41022e76c439f882937", null ],
     [ "getGeometry", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a8d05725649ec315b28b422fbbc856af4", null ],
-    [ "getGeometry", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a3b0e15858c477958f627efa9b6ee81cc", null ],
+    [ "getGeometry", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a83505189b58a6ca686fb3f66ae2737fe", null ],
     [ "getMaterial", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a46bf8bc9927a32a66c4cde6b92731ef2", null ],
     [ "getPrimitiveCount", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a019a3696a7f2a8da7a9c67d0c925dfac", null ],
     [ "getType", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a8745dcbcd5e4d910edef65b09c10cc02", null ],

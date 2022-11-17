@@ -1,10 +1,11 @@
 <map id="Ra::Engine::Data::Mesh" name="Ra::Engine::Data::Mesh">
-<area shape="rect" id="node1" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="161,2147,335,2239"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="145,1947,351,2097"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="373,1367,619,1869"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="351,293,572,752"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="238,801,485,1289"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="354,5,569,244"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="147,1550,349,1686"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="5,992,213,1099"/>
+<area shape="rect" id="node1" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="92,1837,265,1929"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="76,1637,281,1788"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="250,945,497,1375"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="141,1424,342,1560"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="128,424,349,883"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="131,57,346,295"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title=" " alt="" coords="373,475,555,831"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title="Bijective association between two sets {keys} and {values} having the same cardinality...." alt="" coords="374,5,554,347"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="5,1107,213,1213"/>
 </map>

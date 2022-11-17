@@ -1,7 +1,7 @@
 <map id="Ra::Core::Asset::GeometryData" name="Ra::Core::Asset::GeometryData">
-<area shape="rect" id="node1" title=" " alt="" coords="65,1836,291,2647"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="5,1417,201,1539"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per&#45;vertex attributes and layers of indices. Each layer represents a different ..." alt="" coords="225,1183,491,1773"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc..." alt="" coords="261,293,455,1133"/>
-<area shape="rect" id="node5" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="269,5,447,244"/>
+<area shape="rect" id="node1" title=" " alt="" coords="12,1865,237,2676"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="5,1432,201,1553"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per&#45;vertex attributes and layers of indices. Each layer represents a different ..." alt="" coords="226,1183,453,1803"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc..." alt="" coords="242,293,437,1133"/>
+<area shape="rect" id="node5" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="251,5,428,244"/>
 </map>

@@ -1,5 +1,4 @@
 <map id="Ra::Gui::TrackballCameraManipulator::handleKeyPressEvent" name="Ra::Gui::TrackballCameraManipulator::handleKeyPressEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,253,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ad4b69eb9e3053659f6913684aceca6fa" title="Return the projection type." alt="" coords="301,5,481,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ab3aba6e1ced1cc6e560c00bf9402a72c" title="Set the projection type to projectionType." alt="" coords="301,71,481,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,253,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243" title=" " alt="" coords="301,5,524,47"/>
 </map>

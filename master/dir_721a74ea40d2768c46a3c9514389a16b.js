@@ -1,7 +1,5 @@
 var dir_721a74ea40d2768c46a3c9514389a16b =
 [
-    [ "BulgeCorrection.cpp", "BulgeCorrection_8cpp_source.html", null ],
-    [ "BulgeCorrection.hpp", "BulgeCorrection_8hpp_source.html", null ],
     [ "Cage.cpp", "Cage_8cpp_source.html", null ],
     [ "Cage.hpp", "Cage_8hpp_source.html", null ],
     [ "DualQuaternionSkinning.cpp", "DualQuaternionSkinning_8cpp_source.html", null ],
@@ -27,7 +25,5 @@ var dir_721a74ea40d2768c46a3c9514389a16b =
     [ "Sequence.inl", "Sequence_8inl_source.html", null ],
     [ "Skeleton.cpp", "Skeleton_8cpp_source.html", null ],
     [ "Skeleton.hpp", "Skeleton_8hpp_source.html", null ],
-    [ "SkinningData.hpp", "SkinningData_8hpp_source.html", null ],
-    [ "StretchableTwistableBoneSkinning.cpp", "StretchableTwistableBoneSkinning_8cpp_source.html", null ],
-    [ "StretchableTwistableBoneSkinning.hpp", "StretchableTwistableBoneSkinning_8hpp_source.html", null ]
+    [ "SkinningData.hpp", "SkinningData_8hpp_source.html", null ]
 ];

@@ -1,12 +1,12 @@
 <map id="Ra::Gui::TrackballCameraManipulator::resetCamera" name="Ra::Gui::TrackballCameraManipulator::resetCamera">
-<area shape="rect" id="node1" title=" " alt="" coords="5,207,197,248"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="504,43,684,84"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="261,173,441,215"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a67f5d41f4d6814ffd247f6975feea06e" title=" " alt="" coords="261,43,441,84"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="277,239,424,280"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="261,304,441,345"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to position." alt="" coords="261,369,441,411"/>
-<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="277,435,424,476"/>
-<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592" title="Update the polar coordinates of the Camera w.r.t. the trackball center." alt="" coords="245,108,456,149"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="504,108,684,149"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,213,197,255"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="504,184,684,225"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="261,49,441,91"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a67f5d41f4d6814ffd247f6975feea06e" title=" " alt="" coords="261,115,441,156"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="277,180,424,221"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="261,245,441,287"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to position." alt="" coords="261,311,441,352"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="277,376,424,417"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592" title="Update the polar coordinates of the Camera w.r.t. the trackball center." alt="" coords="245,441,456,483"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="504,441,684,483"/>
 </map>

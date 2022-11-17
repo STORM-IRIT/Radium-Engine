@@ -1,16 +1,12 @@
 <map id="Ra::Gui::MaterialParameterEditor::setupFromMaterial" name="Ra::Gui::MaterialParameterEditor::setupFromMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="5,136,204,177"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html#a04361b455663fd68ec7235f4219262f0" title=" " alt="" coords="257,5,449,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1Material.html#a12b6f71b149e59868927a7a5f76d9f08" title=" " alt="" coords="257,71,449,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1Material.html#a7fab8c75a56db577b77d8168bf600420" title=" " alt="" coords="257,136,449,177"/>
-<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab9d18d7b290d3ada273516c162280451" title="Update the different UI element with the given renderParameter, using the given constraints." alt="" coords="252,201,455,243"/>
-<area shape="rect" id="node14" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b" title=" " alt="" coords="252,267,455,308"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae73e4271a8d07ae0eab25782831814ee" title="Get the list of properties the provider might use in a shader. Each property will be added to the sha..." alt="" coords="503,37,753,79"/>
-<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a069d97f67440a9a48918bd2fcfeb7580" title=" " alt="" coords="535,103,721,144"/>
-<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#aa9ae434e3034a51a2d7fd196551a5edb" title=" " alt="" coords="535,168,721,209"/>
-<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b" title=" " alt="" coords="531,233,725,275"/>
-<area shape="rect" id="node12" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#ac0b05ce960061203216eb79d7f79d14d" title=" " alt="" coords="535,299,721,340"/>
-<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e" title=" " alt="" coords="521,364,735,405"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a2a69bad748649d27a7b04eaed0d358e7" title="convert the color expressed in linear RGB color space to sRGB" alt="" coords="803,71,1017,112"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1a40d28bf57c428ea99ed917894f836f" title="convert the color expressed in sRGB color space to linear RGB" alt="" coords="801,136,1019,177"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab9d18d7b290d3ada273516c162280451" title="Update the different UI element with the given renderParameter, using the given constraints." alt="" coords="252,168,455,209"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b" title=" " alt="" coords="252,233,455,275"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a069d97f67440a9a48918bd2fcfeb7580" title=" " alt="" coords="517,37,702,79"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#aa9ae434e3034a51a2d7fd196551a5edb" title=" " alt="" coords="517,103,702,144"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b" title=" " alt="" coords="512,168,707,209"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#ac0b05ce960061203216eb79d7f79d14d" title=" " alt="" coords="517,233,702,275"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e" title=" " alt="" coords="503,299,716,340"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a2a69bad748649d27a7b04eaed0d358e7" title="convert the color expressed in linear RGB color space to sRGB" alt="" coords="765,5,980,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1a40d28bf57c428ea99ed917894f836f" title="convert the color expressed in sRGB color space to linear RGB" alt="" coords="764,71,981,112"/>
 </map>

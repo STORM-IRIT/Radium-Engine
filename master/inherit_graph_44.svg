@@ -15,7 +15,7 @@
 <g id="a_node1"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 154,-30.5 154,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribHandle</text>
-<text text-anchor="middle" x="77" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Scalar &gt;</text>
+<text text-anchor="middle" x="77" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector3 &gt;</text>
 </a>
 </g>
 </g>

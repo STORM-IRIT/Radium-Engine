@@ -59,20 +59,20 @@ var sectionId = 'dynsection-0';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="Base class for index collections stored in MultiIndexedGeometry.">
-<polygon fill="#bfbfbf" stroke="black" points="454.5,-592.5 454.5,-737.5 624.5,-737.5 624.5,-592.5 454.5,-592.5"/>
-<text text-anchor="start" x="462.5" y="-725.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="539.5" y="-714.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayerBase</text>
-<polyline fill="none" stroke="black" points="454.5,-707.5 624.5,-707.5 "/>
-<text text-anchor="middle" x="539.5" y="-695.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="454.5,-688.5 624.5,-688.5 "/>
-<text text-anchor="start" x="462.5" y="-676.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GeometryIndexLayerBase()</text>
-<text text-anchor="start" x="462.5" y="-665.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="462.5" y="-654.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="462.5" y="-643.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~GeometryIndexLayerBase()</text>
-<text text-anchor="start" x="462.5" y="-632.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clone()</text>
-<text text-anchor="start" x="462.5" y="-621.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
-<text text-anchor="start" x="462.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator==()</text>
-<text text-anchor="start" x="462.5" y="-599.5" font-family="Helvetica,sans-Serif" font-size="10.00"># GeometryIndexLayerBase()</text>
+<polygon fill="#bfbfbf" stroke="black" points="453.5,-592.5 453.5,-737.5 623.5,-737.5 623.5,-592.5 453.5,-592.5"/>
+<text text-anchor="start" x="461.5" y="-725.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="538.5" y="-714.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayerBase</text>
+<polyline fill="none" stroke="black" points="453.5,-707.5 623.5,-707.5 "/>
+<text text-anchor="middle" x="538.5" y="-695.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="453.5,-688.5 623.5,-688.5 "/>
+<text text-anchor="start" x="461.5" y="-676.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GeometryIndexLayerBase()</text>
+<text text-anchor="start" x="461.5" y="-665.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="461.5" y="-654.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="461.5" y="-643.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~GeometryIndexLayerBase()</text>
+<text text-anchor="start" x="461.5" y="-632.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clone()</text>
+<text text-anchor="start" x="461.5" y="-621.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
+<text text-anchor="start" x="461.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator==()</text>
+<text text-anchor="start" x="461.5" y="-599.5" font-family="Helvetica,sans-Serif" font-size="10.00"># GeometryIndexLayerBase()</text>
 </a>
 </g>
 </g>
@@ -104,8 +104,8 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M445.31,-627.04C406.75,-609.02 363.35,-584.75 329.5,-555 249.39,-484.6 224.41,-459.76 192.5,-358 189.41,-348.15 189.22,-338.23 191.06,-328.51"/>
-<polygon fill="none" stroke="midnightblue" points="443.93,-630.26 454.48,-631.25 446.85,-623.9 443.93,-630.26"/>
+<path fill="none" stroke="midnightblue" d="M444.27,-626.73C406.03,-608.72 363.05,-584.54 329.5,-555 249.46,-484.52 224.41,-459.76 192.5,-358 189.41,-348.15 189.22,-338.23 191.06,-328.51"/>
+<polygon fill="none" stroke="midnightblue" points="442.83,-629.92 453.37,-630.95 445.77,-623.57 442.83,-629.92"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
@@ -114,7 +114,7 @@ var sectionId = 'dynsection-0';
 <polygon fill="white" stroke="black" points="0,-139.5 0,-328.5 163,-328.5 163,-139.5 0,-139.5"/>
 <text text-anchor="start" x="8" y="-316.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="start" x="8" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayer</text>
-<text text-anchor="middle" x="81.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2ui &gt;</text>
+<text text-anchor="middle" x="81.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; VectorNui &gt;</text>
 <polyline fill="none" stroke="black" points="0,-287.5 163,-287.5 "/>
 <text text-anchor="middle" x="81.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="0,-268.5 163,-268.5 "/>
@@ -135,8 +135,8 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M444.37,-656.73C367.92,-646.05 262.58,-619.75 195.5,-555 133.65,-495.3 105.28,-399.86 92.31,-328.72"/>
-<polygon fill="none" stroke="midnightblue" points="444.11,-660.23 454.48,-658.07 445.03,-653.29 444.11,-660.23"/>
+<path fill="none" stroke="midnightblue" d="M443.27,-656.6C367.07,-645.85 262.27,-619.5 195.5,-555 133.68,-495.28 105.3,-399.83 92.32,-328.7"/>
+<polygon fill="none" stroke="midnightblue" points="442.98,-660.09 453.36,-657.96 443.91,-653.16 442.98,-660.09"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node">
@@ -145,7 +145,7 @@ var sectionId = 'dynsection-0';
 <polygon fill="white" stroke="black" points="362,-139.5 362,-328.5 525,-328.5 525,-139.5 362,-139.5"/>
 <text text-anchor="start" x="370" y="-316.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="start" x="370" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayer</text>
-<text text-anchor="middle" x="443.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector3ui &gt;</text>
+<text text-anchor="middle" x="443.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2ui &gt;</text>
 <polyline fill="none" stroke="black" points="362,-287.5 525,-287.5 "/>
 <text text-anchor="middle" x="443.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="362,-268.5 525,-268.5 "/>
@@ -166,8 +166,8 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node8 -->
 <g id="edge7" class="edge">
 <title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M562.54,-582.31C576.79,-515.98 586.7,-421.55 553.5,-347 548.63,-336.08 542.09,-337.32 533.5,-329 530.74,-326.33 527.95,-323.59 525.15,-320.82"/>
-<polygon fill="none" stroke="midnightblue" points="559.07,-581.77 560.32,-592.29 565.91,-583.29 559.07,-581.77"/>
+<path fill="none" stroke="midnightblue" d="M561.03,-582.53C574.98,-516.33 584.75,-421.97 552.5,-347 547.9,-336.31 541.75,-337.2 533.5,-329 530.78,-326.29 528.02,-323.53 525.24,-320.73"/>
+<polygon fill="none" stroke="midnightblue" points="557.57,-581.98 558.86,-592.5 564.41,-583.47 557.57,-581.98"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
@@ -176,7 +176,7 @@ var sectionId = 'dynsection-0';
 <polygon fill="white" stroke="black" points="724,-139.5 724,-328.5 887,-328.5 887,-139.5 724,-139.5"/>
 <text text-anchor="start" x="732" y="-316.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="start" x="732" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayer</text>
-<text text-anchor="middle" x="805.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4ui &gt;</text>
+<text text-anchor="middle" x="805.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector3ui &gt;</text>
 <polyline fill="none" stroke="black" points="724,-287.5 887,-287.5 "/>
 <text text-anchor="middle" x="805.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="724,-268.5 887,-268.5 "/>
@@ -197,8 +197,8 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node10 -->
 <g id="edge9" class="edge">
 <title>Node1&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M624.66,-584.61C633.18,-575.02 641.31,-565.05 648.5,-555 698.98,-484.4 741.27,-395.11 769.2,-328.8"/>
-<polygon fill="none" stroke="midnightblue" points="621.89,-582.45 617.77,-592.21 627.08,-587.16 621.89,-582.45"/>
+<path fill="none" stroke="midnightblue" d="M623.42,-584.84C632.02,-575.17 640.24,-565.13 647.5,-555 698.13,-484.38 740.71,-395.09 768.86,-328.79"/>
+<polygon fill="none" stroke="midnightblue" points="620.59,-582.74 616.46,-592.5 625.77,-587.45 620.59,-582.74"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
@@ -207,7 +207,7 @@ var sectionId = 'dynsection-0';
 <polygon fill="white" stroke="black" points="543,-139.5 543,-328.5 706,-328.5 706,-139.5 543,-139.5"/>
 <text text-anchor="start" x="551" y="-316.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
 <text text-anchor="start" x="551" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GeometryIndexLayer</text>
-<text text-anchor="middle" x="624.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; VectorNui &gt;</text>
+<text text-anchor="middle" x="624.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4ui &gt;</text>
 <polyline fill="none" stroke="black" points="543,-287.5 706,-287.5 "/>
 <text text-anchor="middle" x="624.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="543,-268.5 706,-268.5 "/>
@@ -228,8 +228,8 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node12 -->
 <g id="edge11" class="edge">
 <title>Node1&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M586.1,-583.35C617.89,-523.4 657.09,-438.4 673.5,-358 675.48,-348.32 675.41,-338.41 673.92,-328.64"/>
-<polygon fill="none" stroke="midnightblue" points="582.9,-581.92 581.27,-592.38 589.07,-585.22 582.9,-581.92"/>
+<path fill="none" stroke="midnightblue" d="M585.1,-583.35C616.89,-523.4 656.09,-438.4 672.5,-358 674.47,-348.34 674.43,-338.46 672.99,-328.7"/>
+<polygon fill="none" stroke="midnightblue" points="581.9,-581.92 580.27,-592.38 588.07,-585.22 581.9,-581.92"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
@@ -258,62 +258,62 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node14 -->
 <g id="edge13" class="edge">
 <title>Node1&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M491.13,-583.71C485.36,-574.15 479.46,-564.35 473.63,-554.68"/>
-<polygon fill="none" stroke="midnightblue" points="488.21,-585.66 496.37,-592.42 494.21,-582.05 488.21,-585.66"/>
+<path fill="none" stroke="midnightblue" d="M490.53,-583.71C484.82,-574.15 478.96,-564.35 473.19,-554.68"/>
+<polygon fill="none" stroke="midnightblue" points="487.6,-585.63 495.73,-592.42 493.61,-582.04 487.6,-585.63"/>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" target="_top" xlink:title="Object associated with one or multiple semantic names.">
-<polygon fill="white" stroke="black" points="371.5,-775.5 371.5,-942.5 517.5,-942.5 517.5,-775.5 371.5,-775.5"/>
-<text text-anchor="start" x="379.5" y="-930.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::ObjectWith</text>
-<text text-anchor="middle" x="444.5" y="-919.5" font-family="Helvetica,sans-Serif" font-size="10.00">Semantic</text>
-<polyline fill="none" stroke="black" points="371.5,-912.5 517.5,-912.5 "/>
-<text text-anchor="middle" x="444.5" y="-900.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="371.5,-893.5 517.5,-893.5 "/>
-<text text-anchor="start" x="379.5" y="-881.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ObjectWithSemantic()</text>
-<text text-anchor="start" x="379.5" y="-870.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~ObjectWithSemantic()</text>
-<text text-anchor="start" x="379.5" y="-859.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ hasSemantic()</text>
-<text text-anchor="start" x="379.5" y="-848.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ semantics()</text>
-<text text-anchor="start" x="379.5" y="-837.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="379.5" y="-826.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="379.5" y="-815.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ shareSemantic()</text>
-<text text-anchor="start" x="379.5" y="-804.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ sameSemantics()</text>
-<text text-anchor="start" x="379.5" y="-793.5" font-family="Helvetica,sans-Serif" font-size="10.00"># ObjectWithSemantic()</text>
-<text text-anchor="start" x="379.5" y="-782.5" font-family="Helvetica,sans-Serif" font-size="10.00"># ObjectWithSemantic()</text>
+<polygon fill="white" stroke="black" points="370.5,-775.5 370.5,-942.5 516.5,-942.5 516.5,-775.5 370.5,-775.5"/>
+<text text-anchor="start" x="378.5" y="-930.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::ObjectWith</text>
+<text text-anchor="middle" x="443.5" y="-919.5" font-family="Helvetica,sans-Serif" font-size="10.00">Semantic</text>
+<polyline fill="none" stroke="black" points="370.5,-912.5 516.5,-912.5 "/>
+<text text-anchor="middle" x="443.5" y="-900.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="370.5,-893.5 516.5,-893.5 "/>
+<text text-anchor="start" x="378.5" y="-881.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ObjectWithSemantic()</text>
+<text text-anchor="start" x="378.5" y="-870.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~ObjectWithSemantic()</text>
+<text text-anchor="start" x="378.5" y="-859.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ hasSemantic()</text>
+<text text-anchor="start" x="378.5" y="-848.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ semantics()</text>
+<text text-anchor="start" x="378.5" y="-837.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="378.5" y="-826.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="378.5" y="-815.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ shareSemantic()</text>
+<text text-anchor="start" x="378.5" y="-804.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ sameSemantics()</text>
+<text text-anchor="start" x="378.5" y="-793.5" font-family="Helvetica,sans-Serif" font-size="10.00"># ObjectWithSemantic()</text>
+<text text-anchor="start" x="378.5" y="-782.5" font-family="Helvetica,sans-Serif" font-size="10.00"># ObjectWithSemantic()</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M489.89,-766.26C494.66,-756.63 499.45,-746.95 504.07,-737.6"/>
-<polygon fill="none" stroke="midnightblue" points="486.64,-764.95 485.34,-775.46 492.91,-768.05 486.64,-764.95"/>
+<path fill="none" stroke="midnightblue" d="M488.89,-766.26C493.66,-756.63 498.45,-746.95 503.07,-737.6"/>
+<polygon fill="none" stroke="midnightblue" points="485.64,-764.95 484.34,-775.46 491.91,-768.05 485.64,-764.95"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" target="_top" xlink:title="This class defines the introspection interface a container need to implement.">
-<polygon fill="white" stroke="black" points="535.5,-797.5 535.5,-920.5 733.5,-920.5 733.5,-797.5 535.5,-797.5"/>
-<text text-anchor="start" x="543.5" y="-908.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Container</text>
-<text text-anchor="middle" x="634.5" y="-897.5" font-family="Helvetica,sans-Serif" font-size="10.00">IntrospectionInterface</text>
-<polyline fill="none" stroke="black" points="535.5,-890.5 733.5,-890.5 "/>
-<text text-anchor="middle" x="634.5" y="-878.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="535.5,-871.5 733.5,-871.5 "/>
-<text text-anchor="start" x="543.5" y="-859.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~ContainerIntrospectionInterface()</text>
-<text text-anchor="start" x="543.5" y="-848.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getSize()</text>
-<text text-anchor="start" x="543.5" y="-837.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getNumberOfComponents()</text>
-<text text-anchor="start" x="543.5" y="-826.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getBufferSize()</text>
-<text text-anchor="start" x="543.5" y="-815.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getStride()</text>
-<text text-anchor="start" x="543.5" y="-804.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ dataPtr()</text>
+<polygon fill="white" stroke="black" points="534.5,-797.5 534.5,-920.5 732.5,-920.5 732.5,-797.5 534.5,-797.5"/>
+<text text-anchor="start" x="542.5" y="-908.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Container</text>
+<text text-anchor="middle" x="633.5" y="-897.5" font-family="Helvetica,sans-Serif" font-size="10.00">IntrospectionInterface</text>
+<polyline fill="none" stroke="black" points="534.5,-890.5 732.5,-890.5 "/>
+<text text-anchor="middle" x="633.5" y="-878.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="534.5,-871.5 732.5,-871.5 "/>
+<text text-anchor="start" x="542.5" y="-859.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~ContainerIntrospectionInterface()</text>
+<text text-anchor="start" x="542.5" y="-848.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getSize()</text>
+<text text-anchor="start" x="542.5" y="-837.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getNumberOfComponents()</text>
+<text text-anchor="start" x="542.5" y="-826.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getBufferSize()</text>
+<text text-anchor="start" x="542.5" y="-815.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getStride()</text>
+<text text-anchor="start" x="542.5" y="-804.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ dataPtr()</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node1 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M599.99,-788.25C591.86,-771.82 583.18,-754.28 575.01,-737.77"/>
-<polygon fill="none" stroke="midnightblue" points="596.87,-789.84 604.44,-797.25 603.14,-786.73 596.87,-789.84"/>
+<path fill="none" stroke="midnightblue" d="M598.99,-788.25C590.86,-771.82 582.18,-754.28 574.01,-737.77"/>
+<polygon fill="none" stroke="midnightblue" points="595.87,-789.84 603.44,-797.25 602.14,-786.73 595.87,-789.84"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
@@ -341,15 +341,15 @@ var sectionId = 'dynsection-0';
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" target="_top" xlink:title="Index layer for line mesh.">
+<g id="a_node7"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" target="_top" xlink:title="Index layer for polygonal mesh.">
 <polygon fill="white" stroke="black" points="16.5,-11.5 16.5,-90.5 146.5,-90.5 146.5,-11.5 16.5,-11.5"/>
 <text text-anchor="start" x="24.5" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="81.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LineIndexLayer</text>
+<text text-anchor="middle" x="81.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PolyIndexLayer</text>
 <polyline fill="none" stroke="black" points="16.5,-60.5 146.5,-60.5 "/>
 <text text-anchor="start" x="24.5" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ staticSemanticName</text>
 <polyline fill="none" stroke="black" points="16.5,-41.5 146.5,-41.5 "/>
-<text text-anchor="start" x="24.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineIndexLayer()</text>
-<text text-anchor="start" x="24.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># LineIndexLayer()</text>
+<text text-anchor="start" x="24.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PolyIndexLayer()</text>
+<text text-anchor="start" x="24.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># PolyIndexLayer()</text>
 </a>
 </g>
 </g>
@@ -362,15 +362,15 @@ var sectionId = 'dynsection-0';
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" target="_top" xlink:title="Index layer for triangle mesh.">
+<g id="a_node9"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" target="_top" xlink:title="Index layer for line mesh.">
 <polygon fill="white" stroke="black" points="378.5,-11.5 378.5,-90.5 508.5,-90.5 508.5,-11.5 378.5,-11.5"/>
 <text text-anchor="start" x="386.5" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="443.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::TriangleIndexLayer</text>
+<text text-anchor="middle" x="443.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LineIndexLayer</text>
 <polyline fill="none" stroke="black" points="378.5,-60.5 508.5,-60.5 "/>
 <text text-anchor="start" x="386.5" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ staticSemanticName</text>
 <polyline fill="none" stroke="black" points="378.5,-41.5 508.5,-41.5 "/>
-<text text-anchor="start" x="386.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TriangleIndexLayer()</text>
-<text text-anchor="start" x="386.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># TriangleIndexLayer()</text>
+<text text-anchor="start" x="386.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineIndexLayer()</text>
+<text text-anchor="start" x="386.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># LineIndexLayer()</text>
 </a>
 </g>
 </g>
@@ -383,15 +383,15 @@ var sectionId = 'dynsection-0';
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html" target="_top" xlink:title="Index layer for quadrilateral mesh.">
+<g id="a_node11"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" target="_top" xlink:title="Index layer for triangle mesh.">
 <polygon fill="white" stroke="black" points="740.5,-11.5 740.5,-90.5 870.5,-90.5 870.5,-11.5 740.5,-11.5"/>
 <text text-anchor="start" x="748.5" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="805.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::QuadIndexLayer</text>
+<text text-anchor="middle" x="805.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::TriangleIndexLayer</text>
 <polyline fill="none" stroke="black" points="740.5,-60.5 870.5,-60.5 "/>
 <text text-anchor="start" x="748.5" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ staticSemanticName</text>
 <polyline fill="none" stroke="black" points="740.5,-41.5 870.5,-41.5 "/>
-<text text-anchor="start" x="748.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ QuadIndexLayer()</text>
-<text text-anchor="start" x="748.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># QuadIndexLayer()</text>
+<text text-anchor="start" x="748.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TriangleIndexLayer()</text>
+<text text-anchor="start" x="748.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># TriangleIndexLayer()</text>
 </a>
 </g>
 </g>
@@ -404,15 +404,15 @@ var sectionId = 'dynsection-0';
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
-<g id="a_node13"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" target="_top" xlink:title="Index layer for polygonal mesh.">
+<g id="a_node13"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html" target="_top" xlink:title="Index layer for quadrilateral mesh.">
 <polygon fill="white" stroke="black" points="559.5,-11.5 559.5,-90.5 689.5,-90.5 689.5,-11.5 559.5,-11.5"/>
 <text text-anchor="start" x="567.5" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="624.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PolyIndexLayer</text>
+<text text-anchor="middle" x="624.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::QuadIndexLayer</text>
 <polyline fill="none" stroke="black" points="559.5,-60.5 689.5,-60.5 "/>
 <text text-anchor="start" x="567.5" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ staticSemanticName</text>
 <polyline fill="none" stroke="black" points="559.5,-41.5 689.5,-41.5 "/>
-<text text-anchor="start" x="567.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PolyIndexLayer()</text>
-<text text-anchor="start" x="567.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># PolyIndexLayer()</text>
+<text text-anchor="start" x="567.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ QuadIndexLayer()</text>
+<text text-anchor="start" x="567.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00"># QuadIndexLayer()</text>
 </a>
 </g>
 </g>
@@ -434,28 +434,28 @@ var sectionId = 'dynsection-0';
 <title>Node14&#45;&gt;Node6</title>
 <path fill="none" stroke="orange" d="M329.71,-423.57C280.63,-399.41 220.27,-366.29 171.5,-329 168.72,-326.87 165.94,-324.66 163.18,-322.38"/>
 <polygon fill="orange" stroke="orange" points="328.21,-426.73 338.73,-427.97 331.28,-420.44 328.21,-426.73"/>
-<text text-anchor="middle" x="245.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2ui &gt;</text>
+<text text-anchor="middle" x="246" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; VectorNui &gt;</text>
 </g>
 <!-- Node14&#45;&gt;Node8 -->
-<g id="edge17" class="edge">
+<g id="edge16" class="edge">
 <title>Node14&#45;&gt;Node8</title>
 <path fill="none" stroke="orange" d="M383.3,-366.09C383.3,-359.65 383.98,-353.24 385.5,-347 386.98,-340.94 388.84,-334.84 391,-328.78"/>
 <polygon fill="orange" stroke="orange" points="379.81,-366.41 383.81,-376.22 386.8,-366.06 379.81,-366.41"/>
-<text text-anchor="middle" x="421.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3ui &gt;</text>
+<text text-anchor="middle" x="421.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2ui &gt;</text>
 </g>
 <!-- Node14&#45;&gt;Node10 -->
-<g id="edge18" class="edge">
+<g id="edge17" class="edge">
 <title>Node14&#45;&gt;Node10</title>
 <path fill="none" stroke="orange" d="M511.8,-432.88C572.63,-409.41 652.64,-373.77 715.5,-329 718.26,-327.03 721.01,-324.98 723.73,-322.84"/>
 <polygon fill="orange" stroke="orange" points="510.3,-429.71 502.21,-436.54 512.8,-436.25 510.3,-429.71"/>
-<text text-anchor="middle" x="721.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector4ui &gt;</text>
+<text text-anchor="middle" x="721.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3ui &gt;</text>
 </g>
 <!-- Node14&#45;&gt;Node12 -->
-<g id="edge16" class="edge">
+<g id="edge18" class="edge">
 <title>Node14&#45;&gt;Node12</title>
 <path fill="none" stroke="orange" d="M485,-368.68C491.57,-361.03 498.44,-353.69 505.5,-347 516.24,-336.83 522.06,-338.38 533.5,-329 536.66,-326.41 539.83,-323.72 542.99,-320.95"/>
 <polygon fill="orange" stroke="orange" points="482.26,-366.5 478.54,-376.42 487.63,-370.99 482.26,-366.5"/>
-<text text-anchor="middle" x="542" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; VectorNui &gt;</text>
+<text text-anchor="middle" x="541.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector4ui &gt;</text>
 </g>
 </g>
 </svg>

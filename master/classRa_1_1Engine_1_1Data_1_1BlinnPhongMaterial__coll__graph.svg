@@ -294,8 +294,8 @@ var sectionId = 'dynsection-1';
 <title>Node6&#45;&gt;Node1</title>
 <path fill="none" stroke="#404040" d="M386.92,-313.27C383.66,-306.05 380.35,-298.94 377,-292 369.46,-276.37 361.01,-260.27 352.3,-244.47"/>
 <polygon fill="none" stroke="#404040" points="352.07,-244.06 345.66,-240.77 346.23,-233.58 352.64,-236.88 352.07,-244.06"/>
-<text text-anchor="middle" x="387" y="-266" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_ks</text>
-<text text-anchor="middle" x="387" y="-255" font-family="Helvetica,sans-Serif" font-size="10.00">+m_kd</text>
+<text text-anchor="middle" x="387.5" y="-266" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_kd</text>
+<text text-anchor="middle" x="387.5" y="-255" font-family="Helvetica,sans-Serif" font-size="10.00">+m_ks</text>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">

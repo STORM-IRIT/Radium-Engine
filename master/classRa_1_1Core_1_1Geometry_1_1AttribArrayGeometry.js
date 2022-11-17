@@ -44,8 +44,8 @@ var classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry =
     [ "setNormals", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a646faabae9b936589fe03d8a9d2002e9", null ],
     [ "setVertices", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a86641169ce5457f0be0410dbd9f865c6", null ],
     [ "setVertices", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a", null ],
-    [ "vertexAttribs", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a31d0673f24d7d2ace4452f77310cbf5a", null ],
-    [ "vertexAttribs", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a9fc72c9e2036a3d95772385bc5fc6bbe", null ],
+    [ "vertexAttribs", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#afb7540bb4cee8ad41bcb15d1dcb118a6", null ],
+    [ "vertexAttribs", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a4f95209ace95db883b113dcbe265ffc6", null ],
     [ "vertices", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a", null ],
     [ "verticesUnlock", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a815c49137e348ae161fb3762f8c5b1ab", null ],
     [ "verticesWithLock", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a7f57cb8c0c0a79c2c69bffe5b8a20357", null ]

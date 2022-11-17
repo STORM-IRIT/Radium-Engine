@@ -1,10 +1,10 @@
 <map id="Ra::Engine::Data::VaoIndices" name="Ra::Engine::Data::VaoIndices">
-<area shape="rect" id="node1" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="301,5,509,112"/>
+<area shape="rect" id="node1" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="313,5,521,112"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="5,375,211,525"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="491,375,696,525"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html" title=" " alt="" coords="361,176,565,283"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="135,161,337,297"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="8,575,208,667"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="507,575,680,667"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1GeneralMesh.html" title=" " alt="" coords="257,397,458,503"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html" title=" " alt="" coords="373,176,577,283"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="147,161,349,297"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="21,575,195,667"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="493,575,693,667"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1GeneralMesh.html" title=" " alt="" coords="243,397,445,503"/>
 </map>

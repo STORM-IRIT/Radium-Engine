@@ -1,9 +1,7 @@
 <map id="Ra::Core::Animation::Cage" name="Ra::Core::Animation::Cage">
-<area shape="rect" id="node1" title=" " alt="" coords="51,907,203,1057"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html" title=" " alt="" coords="5,247,157,559"/>
-<area shape="rect" id="node3" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="84,5,319,83"/>
-<area shape="rect" id="node5" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="165,357,361,449"/>
-<area shape="rect" id="node7" href="$structRa_1_1Core_1_1AlignedStdVector.html" title=" " alt="" coords="273,145,508,223"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="165,737,341,844"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="291,583,491,675"/>
+<area shape="rect" id="node1" title=" " alt="" coords="27,940,179,1091"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html" title=" " alt="" coords="5,551,157,877"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="182,573,399,855"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="127,5,391,171"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1VectorArray.html" title="This class implements ContainerIntrospectionInterface for AlignedStdVector." alt="" coords="281,220,498,488"/>
 </map>

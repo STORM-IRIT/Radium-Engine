@@ -1,6 +1,4 @@
 <map id="Ra::Core::Asset::Camera::setFOV" name="Ra::Core::Asset::Camera::setFOV">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,185,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="233,39,413,80"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" title="Build a projection matrix from the parameters of the view volume Implements the algorithms described ..." alt="" coords="461,5,641,47"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="461,71,641,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,185,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="233,5,413,47"/>
 </map>
