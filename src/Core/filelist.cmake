@@ -24,6 +24,7 @@ set(core_sources
     Asset/LightData.cpp
     Asset/MaterialData.cpp
     Containers/AdjacencyList.cpp
+    Containers/VariableSet.cpp
     Geometry/CatmullClarkSubdivider.cpp
     Geometry/IndexedGeometry.cpp
     Geometry/LoopSubdivider.cpp
@@ -80,6 +81,7 @@ set(core_headers
     Containers/Iterators.hpp
     Containers/MakeShared.hpp
     Containers/Tex.hpp
+    Containers/VariableSet.hpp
     Containers/VectorArray.hpp
     CoreMacros.hpp
     Geometry/AbstractGeometry.hpp
@@ -123,6 +125,7 @@ set(core_headers
     Utils/Observable.hpp
     Utils/Singleton.hpp
     Utils/StackTrace.hpp
+    Utils/StdExperimentalTypeTraits.hpp
     Utils/StdFilesystem.hpp
     Utils/StdMapIterators.hpp
     Utils/StdOptional.hpp
