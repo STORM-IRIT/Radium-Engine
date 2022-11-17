@@ -147,6 +147,7 @@ var hierarchy =
       [ "Ra::Engine::Data::VolumeObject", "classRa_1_1Engine_1_1Data_1_1VolumeObject.html", null ]
     ] ],
     [ "Ra::Core::DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html", null ],
+    [ "Ra::Core::VariableSet::DynamicVisitor", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html", null ],
     [ "Ra::Engine::Data::EnvironmentTexture", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html", null ],
     [ "Ra::Gui::KeyMappingManager::EventBinding", "classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html", null ],
     [ "Ra::IO::FileManager< DATA, Binary >", "classRa_1_1IO_1_1FileManager.html", null ],
@@ -284,6 +285,7 @@ var hierarchy =
     [ "Ra::Core::Animation::SkinningFrameData", "structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html", null ],
     [ "Ra::Core::Animation::SkinningRefData", "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html", null ],
     [ "Ra::Core::Geometry::Spline< D, K >", "classRa_1_1Core_1_1Geometry_1_1Spline.html", null ],
+    [ "Ra::Core::VariableSet::StaticVisitor< TYPES >", "structRa_1_1Core_1_1VariableSet_1_1StaticVisitor.html", null ],
     [ "Ra::Engine::Scene::System", "classRa_1_1Engine_1_1Scene_1_1System.html", [
       [ "Ra::Engine::Scene::CameraManager", "classRa_1_1Engine_1_1Scene_1_1CameraManager.html", [
         [ "Ra::Engine::Scene::DefaultCameraManager", "classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager.html", null ]
@@ -316,6 +318,7 @@ var hierarchy =
       [ "Ra::Gui::ItemModel", "classRa_1_1Gui_1_1ItemModel.html", null ]
     ] ],
     [ "Ra::Core::Geometry::TriangleToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1TriangleToTriangleOutput.html", null ],
+    [ "Ra::Core::VariableSet::TypeList<... >", "structRa_1_1Core_1_1VariableSet_1_1TypeList.html", null ],
     [ "Ra::Engine::Data::Vao", "classRa_1_1Engine_1_1Data_1_1Vao.html", null ],
     [ "Ra::Engine::Data::VaoIndices", "classRa_1_1Engine_1_1Data_1_1VaoIndices.html", [
       [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::TriangleMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ],
@@ -323,6 +326,7 @@ var hierarchy =
       [ "Ra::Engine::Data::IndexedAttribArrayDisplayable< I >", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html", null ],
       [ "Ra::Engine::Data::IndexedGeometry< T >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ]
     ] ],
+    [ "Ra::Core::VariableSet", "classRa_1_1Core_1_1VariableSet.html", null ],
     [ "std::vector< T >", null, [
       [ "Ra::Core::VectorArray< Scalar >", "classRa_1_1Core_1_1VectorArray.html", null ],
       [ "Ra::Core::VectorArray< IndexType >", "classRa_1_1Core_1_1VectorArray.html", null ],

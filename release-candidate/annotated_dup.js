@@ -81,6 +81,7 @@ var annotated_dup =
         [ "AlignedAllocator", "classRa_1_1Core_1_1AlignedAllocator.html", "classRa_1_1Core_1_1AlignedAllocator" ],
         [ "Grid", "classRa_1_1Core_1_1Grid.html", "classRa_1_1Core_1_1Grid" ],
         [ "Tex", "classRa_1_1Core_1_1Tex.html", "classRa_1_1Core_1_1Tex" ],
+        [ "VariableSet", "classRa_1_1Core_1_1VariableSet.html", "classRa_1_1Core_1_1VariableSet" ],
         [ "VectorArrayTypeHelperInternal", "structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html", null ],
         [ "VectorArrayTypeHelper", "structRa_1_1Core_1_1VectorArrayTypeHelper.html", null ],
         [ "VectorArray", "classRa_1_1Core_1_1VectorArray.html", "classRa_1_1Core_1_1VectorArray" ],

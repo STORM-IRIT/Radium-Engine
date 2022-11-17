@@ -252,6 +252,9 @@ var namespaceRa =
         [ "Color", "Color_8hpp.html#a847b1262d9272f37005c731601da5580", null ],
         [ "Colord", "Color_8hpp.html#a7402d04e45d9694b5c551df7c9a5299b", null ],
         [ "Colorf", "Color_8hpp.html#ae87f6da6f023031afe53c818bc419ee7", null ],
+        [ "detected_or", "StdExperimentalTypeTraits_8hpp.html#aaaf536e6e9025d57820ddce6df49506c", null ],
+        [ "detected_t", "StdExperimentalTypeTraits_8hpp.html#a776a87368d7d19387d67892e3b083a9d", null ],
+        [ "is_detected", "StdExperimentalTypeTraits_8hpp.html#a5391adcbbd714d44ffeaa437727c4ac7", null ],
         [ "TimePoint", "Timer_8hpp.html#acb8047597f13436538ee03f0a4f31211", null ],
         [ "TLogLevel", "Log_8hpp.html#af356995a5aa68a868197746fe85f38ba", [
           [ "logERROR", "Log_8hpp.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1", null ],
@@ -283,6 +286,7 @@ var namespaceRa =
       [ "AlignedAllocator", "classRa_1_1Core_1_1AlignedAllocator.html", "classRa_1_1Core_1_1AlignedAllocator" ],
       [ "Grid", "classRa_1_1Core_1_1Grid.html", "classRa_1_1Core_1_1Grid" ],
       [ "Tex", "classRa_1_1Core_1_1Tex.html", "classRa_1_1Core_1_1Tex" ],
+      [ "VariableSet", "classRa_1_1Core_1_1VariableSet.html", "classRa_1_1Core_1_1VariableSet" ],
       [ "VectorArrayTypeHelperInternal", "structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html", null ],
       [ "VectorArrayTypeHelper", "structRa_1_1Core_1_1VectorArrayTypeHelper.html", null ],
       [ "VectorArray", "classRa_1_1Core_1_1VectorArray.html", "classRa_1_1Core_1_1VectorArray" ],

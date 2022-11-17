@@ -1,4 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="5,5,243,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1GizmoManager.html" title=" " alt="" coords="291,13,467,39"/>
+<area shape="rect" id="node1" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="21,71,228,98"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html" title=" " alt="" coords="292,27,535,54"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras." alt="" coords="320,93,507,135"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="6,5,243,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="5,123,244,164"/>
 </map>

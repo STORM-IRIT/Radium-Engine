@@ -11,5 +11,7 @@ var dir_1456dd235032e023892318efbecb420b =
     [ "MakeShared.hpp", "MakeShared_8hpp_source.html", null ],
     [ "Tex.hpp", "Tex_8hpp_source.html", null ],
     [ "Tex.inl", "Tex_8inl_source.html", null ],
+    [ "VariableSet.cpp", "VariableSet_8cpp_source.html", null ],
+    [ "VariableSet.hpp", "VariableSet_8hpp_source.html", null ],
     [ "VectorArray.hpp", "VectorArray_8hpp_source.html", null ]
 ];

@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Gui_1_1BaseApplication.html" title="This class contains the main application logic. It owns the engine and the GUI." alt="" coords="5,5,188,32"/>
+<area shape="rect" id="node1" href="$classRa_1_1Engine_1_1Scene_1_1LightStorage.html" title=" " alt="" coords="5,5,152,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html" title=" " alt="" coords="200,5,352,47"/>
 </map>

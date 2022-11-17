@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html" title="Management of parameter of enum type. This allow to set the parameter using a string representation o..." alt="" coords="5,13,264,54"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html" title="This class manage the bijective association between string and integral representation of an enumerat..." alt="" coords="312,5,517,61"/>
+<area shape="rect" id="node1" href="$classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html" title="Defines a spherical, infinite light sources and, optionally, sky boxes. An operator to convert an Env..." alt="" coords="5,5,227,47"/>
 </map>
