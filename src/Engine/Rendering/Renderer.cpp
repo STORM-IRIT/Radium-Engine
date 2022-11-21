@@ -412,9 +412,7 @@ void Renderer::feedRenderQueuesInternal( const Data::ViewingParameters& /*render
             m_xrayRenderObjects.push_back( *it );
             it = m_fancyRenderObjects.erase( it );
         }
-        else {
-            ++it;
-        }
+        else { ++it; }
     }
 
     for ( auto it = m_debugRenderObjects.begin(); it != m_debugRenderObjects.end(); ) {
@@ -422,9 +420,7 @@ void Renderer::feedRenderQueuesInternal( const Data::ViewingParameters& /*render
             m_xrayRenderObjects.push_back( *it );
             it = m_debugRenderObjects.erase( it );
         }
-        else {
-            ++it;
-        }
+        else { ++it; }
     }
 
     for ( auto it = m_uiRenderObjects.begin(); it != m_uiRenderObjects.end(); ) {
@@ -432,9 +428,7 @@ void Renderer::feedRenderQueuesInternal( const Data::ViewingParameters& /*render
             m_xrayRenderObjects.push_back( *it );
             it = m_uiRenderObjects.erase( it );
         }
-        else {
-            ++it;
-        }
+        else { ++it; }
     }
 }
 
@@ -703,9 +697,7 @@ void Renderer::displayTexture( const std::string& texName ) {
     if ( m_secondaryTextures.find( texName ) != m_secondaryTextures.end() ) {
         m_displayedTexture = m_secondaryTextures[texName];
     }
-    else {
-        m_displayedTexture = m_fancyTexture.get();
-    }
+    else { m_displayedTexture = m_fancyTexture.get(); }
 }
 
 std::vector<std::string> Renderer::getAvailableTextures() const {

@@ -11,9 +11,7 @@ QValidator::State ConstrainedNumericSpinBox<T>::validate( QString& input, int& )
     auto& spin = const_cast<ConstrainedNumericSpinBox&>( *this );
     spin.blockSignals( !valid );
     if ( valid ) { spin.setStyleSheet( "" ); }
-    else {
-        spin.setStyleSheet( "background-color: #FF8080" );
-    }
+    else { spin.setStyleSheet( "background-color: #FF8080" ); }
     return valid ? QValidator::Acceptable : QValidator::Invalid;
 }
 

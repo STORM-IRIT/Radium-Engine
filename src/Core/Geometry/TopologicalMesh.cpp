@@ -126,9 +126,7 @@ void TopologicalMesh::triangulate() {
             property( m_wedgeIndexPph, next_he ) =
                 m_wedges.newReference( property( m_wedgeIndexPph, *ref ) );
         }
-        else {
-            LOG( logERROR ) << "triangulate::fix reference halfedge not found";
-        }
+        else { LOG( logERROR ) << "triangulate::fix reference halfedge not found"; }
         status( next_he ).set_tagged( true );
     };
 
@@ -748,9 +746,7 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
             property( this->m_wedgeIndexPph, r1_ ) =
                 this->m_wedges.newReference( property( this->m_wedgeIndexPph, h1_ ) );
         }
-        else {
-            property( this->m_wedgeIndexPph, r0_ ) = WedgeIndex {};
-        }
+        else { property( this->m_wedgeIndexPph, r0_ ) = WedgeIndex {}; }
     };
 
     auto updateWedgeIndex2 = [this]( WedgeIndex widx_,
@@ -770,9 +766,7 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
             // from o0.
             property( this->m_wedgeIndexPph, s0_ ) = property( this->m_wedgeIndexPph, h0_ );
         }
-        else {
-            property( this->m_wedgeIndexPph, s0_ ) = WedgeIndex {};
-        }
+        else { property( this->m_wedgeIndexPph, s0_ ) = WedgeIndex {}; }
     };
 
     // this update read from o0, must be done before t which reads from o0
@@ -850,9 +844,7 @@ void TopologicalMesh::collapse_edge( HalfedgeHandle _hh, bool keepFrom ) {
                 }
                 replaceWedgeIndex( vih, currentWidx );
             }
-            else {
-                m_wedges.setWedgePosition( getWedgeIndex( vih ), point( vh ) );
-            }
+            else { m_wedges.setWedgePosition( getWedgeIndex( vih ), point( vh ) ); }
         }
         vih = prev_halfedge_handle( opposite_halfedge_handle( vih ) );
     } while ( vih != start );
@@ -986,9 +978,7 @@ void TopologicalMesh::delete_face( FaceHandle _fh, bool _delete_isolated_vertice
             LOG( logWARNING )
                 << "[TopologicalMesh::delete_face] halfedge has an invalid wedge index";
         }
-        else {
-            m_wedges.del( idx );
-        }
+        else { m_wedges.del( idx ); }
         // set an invalid index for the boundary halfedges
         property( m_wedgeIndexPph, *itr ) = WedgeIndex {};
     }
@@ -1021,9 +1011,7 @@ std::vector<int> TopologicalMesh::WedgeCollection::computeCleanupOffset() const 
             ++currentOffset;
             ret[i] = -1;
         }
-        else {
-            ret[i] = currentOffset;
-        }
+        else { ret[i] = currentOffset; }
     }
     return ret;
 }

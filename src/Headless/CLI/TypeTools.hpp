@@ -981,12 +981,8 @@ inline std::int64_t to_flag_value( std::string val ) {
         return ret;
     }
     if ( val == trueString || val == "on" || val == "yes" || val == "enable" ) { ret = 1; }
-    else if ( val == falseString || val == "off" || val == "no" || val == "disable" ) {
-        ret = -1;
-    }
-    else {
-        ret = std::stoll( val );
-    }
+    else if ( val == falseString || val == "off" || val == "no" || val == "disable" ) { ret = -1; }
+    else { ret = std::stoll( val ); }
     return ret;
 }
 
@@ -1383,9 +1379,7 @@ bool lexical_conversion( const std::vector<std::string>& strings, AssignTo& outp
         if ( worked ) { output = ConvertTo { x, y }; }
         return worked;
     }
-    else {
-        return lexical_assign<AssignTo, ConvertTo>( strings[0], output );
-    }
+    else { return lexical_assign<AssignTo, ConvertTo>( strings[0], output ); }
 }
 
 /// Conversion to a vector type using a particular single type as the conversion type
@@ -1554,9 +1548,7 @@ bool lexical_conversion( std::vector<std::string> strings, AssignTo& output ) {
             retval = retval && tuple_type_conversion<decltype( v2 ), decltype( v2 )>( strings, v2 );
         }
         if ( retval ) { output.insert( output.end(), typename AssignTo::value_type { v1, v2 } ); }
-        else {
-            return false;
-        }
+        else { return false; }
     }
     return ( !output.empty() );
 }

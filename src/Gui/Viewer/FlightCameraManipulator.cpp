@@ -147,17 +147,11 @@ bool Gui::FlightCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
     Scalar dy = ( event->pos().y() - m_lastMouseY ) / m_camera->getHeight();
 
     if ( event->modifiers().testFlag( Qt::AltModifier ) ) { m_quickCameraModifier = 10.0_ra; }
-    else {
-        m_quickCameraModifier = 2.0_ra;
-    }
+    else { m_quickCameraModifier = 2.0_ra; }
 
     if ( m_currentAction == FLIGHTMODECAMERA_ROTATE ) { handleCameraRotate( dx, dy ); }
-    else if ( m_currentAction == FLIGHTMODECAMERA_PAN ) {
-        handleCameraPan( dx, dy );
-    }
-    else if ( m_currentAction == FLIGHTMODECAMERA_ZOOM ) {
-        handleCameraZoom( dx, dy );
-    }
+    else if ( m_currentAction == FLIGHTMODECAMERA_PAN ) { handleCameraPan( dx, dy ); }
+    else if ( m_currentAction == FLIGHTMODECAMERA_ZOOM ) { handleCameraZoom( dx, dy ); }
 
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();
@@ -278,9 +272,7 @@ void Gui::FlightCameraManipulator::handleCameraRotate( Scalar dx, Scalar dy ) {
     if ( std::abs( dphi ) > std::abs( dtheta ) ) {
         R = Core::AngleAxis( -dphi, /*m_camera->getUpVector().normalized()*/ m_fixUpVector );
     }
-    else {
-        R = Core::AngleAxis( -dtheta, -m_camera->getRightVector().normalized() );
-    }
+    else { R = Core::AngleAxis( -dtheta, -m_camera->getRightVector().normalized() ); }
 
     Scalar d = ( m_target - m_camera->getPosition() ).norm();
 

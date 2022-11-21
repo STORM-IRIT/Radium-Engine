@@ -21,10 +21,10 @@ class RA_GUI_API SimpleWindow : public Ra::Gui::MainWindowInterface
      */
     /** @{ */
     explicit SimpleWindow( uint w = 800, uint h = 640, QWidget* parent = nullptr );
-    SimpleWindow( const SimpleWindow& ) = delete;
+    SimpleWindow( const SimpleWindow& )            = delete;
     SimpleWindow& operator=( const SimpleWindow& ) = delete;
     SimpleWindow( SimpleWindow&& )                 = delete;
-    SimpleWindow& operator=( SimpleWindow&& ) = delete;
+    SimpleWindow& operator=( SimpleWindow&& )      = delete;
     ~SimpleWindow() override;
     /**@}*/
 

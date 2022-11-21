@@ -67,16 +67,12 @@ void WindowQt::makeCurrent() {
         // reset counter (in case another viewer has broken our context activation counter)
         m_contextActivationCount = 0;
     }
-    else {
-        ++m_contextActivationCount;
-    }
+    else { ++m_contextActivationCount; }
 }
 
 void WindowQt::doneCurrent() {
     if ( m_contextActivationCount == 0 ) { m_context->doneCurrent(); }
-    else {
-        --m_contextActivationCount;
-    }
+    else { --m_contextActivationCount; }
 }
 
 void WindowQt::resizeEvent( QResizeEvent* event ) {

@@ -28,11 +28,11 @@ class RA_GUI_API ControlPanel : public QFrame
      */
     /** @{ */
     explicit ControlPanel( const std::string& name, bool hline = true, QWidget* parent = nullptr );
-    ControlPanel( const ControlPanel& ) = delete;
+    ControlPanel( const ControlPanel& )            = delete;
     ControlPanel& operator=( const ControlPanel& ) = delete;
     ControlPanel( ControlPanel&& )                 = delete;
-    ControlPanel& operator=( ControlPanel&& ) = delete;
-    ~ControlPanel() override                  = default;
+    ControlPanel& operator=( ControlPanel&& )      = delete;
+    ~ControlPanel() override                       = default;
     /**@}*/
 
     /**Methods to populate the panel with dedicated ui elements.

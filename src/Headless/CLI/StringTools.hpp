@@ -200,9 +200,7 @@ format_aliases( std::ostream& out, const std::vector<std::string>& aliases, std:
         bool front = true;
         for ( const auto& alias : aliases ) {
             if ( !front ) { out << ", "; }
-            else {
-                front = false;
-            }
+            else { front = false; }
             out << alias;
         }
         out << "\n";
@@ -319,9 +317,7 @@ inline std::ptrdiff_t find_member( std::string name,
                 return detail::remove_underscore( local_name ) == name;
             } );
     }
-    else {
-        it = std::find( std::begin( names ), std::end( names ), name );
-    }
+    else { it = std::find( std::begin( names ), std::end( names ), name ); }
 
     return ( it != std::end( names ) ) ? ( it - std::begin( names ) ) : ( -1 );
 }
@@ -364,9 +360,7 @@ inline std::vector<std::string> split_up( std::string str, char delimiter = '\0'
             if ( end != std::string::npos ) {
                 output.push_back( str.substr( 1, end - 1 ) );
                 if ( end + 2 < str.size() ) { str = str.substr( end + 2 ); }
-                else {
-                    str.clear();
-                }
+                else { str.clear(); }
             }
             else {
                 output.push_back( str.substr( 1 ) );

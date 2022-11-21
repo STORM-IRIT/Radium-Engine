@@ -37,9 +37,7 @@ int main( int argc, char* argv[] ) {
         k -= sz / 2;
         Scalar d = ( std::sqrt( i * i + j * j + k * k ) - r ) / r;
         if ( d > 0 ) { return 0_ra; }
-        else {
-            return -d;
-        }
+        else { return -d; }
     };
     for ( int i = 0; i < sx; ++i ) {
         for ( int j = 0; j < sy; ++j ) {

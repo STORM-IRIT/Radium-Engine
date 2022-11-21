@@ -166,9 +166,7 @@ void ForwardRenderer::updateStepInternal( const Data::ViewingParameters& renderD
                 m_volumetricRenderObjects.push_back( *it );
                 it = m_fancyRenderObjects.erase( it );
             }
-            else {
-                ++it;
-            }
+            else { ++it; }
         }
     }
     m_fancyTransparentCount = m_transparentRenderObjects.size();
@@ -252,9 +250,7 @@ void setupLineMesh( std::shared_ptr<Data::LineMesh>& disp, CoreGeometry& core ) 
         core.vertexAttribs().getAttrib( handle ).attach( VerticesUpdater( disp, core ) );
         core.attach( IndicesUpdater( disp, core ) );
     }
-    else {
-        disp.reset();
-    }
+    else { disp.reset(); }
 }
 
 void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData ) {
@@ -272,9 +268,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         glPolygonOffset( 1.f, 3.f );
         //    GL_ASSERT( glDepthRange( 0.001, 1.0 ) );
     }
-    else {
-        glDisable( GL_POLYGON_OFFSET_FILL );
-    }
+    else { glDisable( GL_POLYGON_OFFSET_FILL ); }
     static const auto clearZeros = Core::Utils::Color::Black().cast<GL_SCALAR_PLAIN>().eval();
     static const auto clearOnes  = Core::Utils::Color::White().cast<GL_SCALAR_PLAIN>().eval();
     static const float clearDepth { 1.0f };
@@ -341,9 +335,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             }
         }
     }
-    else {
-        LOG( logINFO ) << "Opaque : no light sources, unable to render";
-    }
+    else { LOG( logINFO ) << "Opaque : no light sources, unable to render"; }
 
     // Transparency (blending) pass
     if ( !m_transparentRenderObjects.empty() ) {
@@ -376,9 +368,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 }
             }
         }
-        else {
-            LOG( logINFO ) << "Transparent : no light sources, unable to render";
-        }
+        else { LOG( logINFO ) << "Transparent : no light sources, unable to render"; }
 
         m_oitFbo->unbind();
 
@@ -475,9 +465,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 m_wireframes[ro.get()] = disp;
                 wro                    = disp;
             }
-            else {
-                wro = it->second;
-            }
+            else { wro = it->second; }
 
             const Data::ShaderProgram* shader =
                 m_shaderProgramManager->getShaderProgram( "Wireframe" );
@@ -749,9 +737,7 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
             auto pr = std::make_shared<PointCloudParameterProvider>( material, pointCloud );
             rt->setParametersProvider( pr );
         }
-        else {
-            rt->setParametersProvider( material );
-        }
+        else { rt->setParametersProvider( material ); }
     }
     else {
         // make the material the parameter provider for the technique

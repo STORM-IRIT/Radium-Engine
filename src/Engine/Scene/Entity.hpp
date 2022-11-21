@@ -26,7 +26,7 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
     explicit Entity( const std::string& name = "" );
 
     // Entities are not copyable.
-    Entity( const Entity& entity ) = delete;
+    Entity( const Entity& entity )     = delete;
     Entity& operator=( const Entity& ) = delete;
 
     ~Entity() override;

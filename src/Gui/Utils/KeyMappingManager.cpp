@@ -26,9 +26,7 @@ KeyMappingManager::KeyMappingManager() : m_file( nullptr ) {
         LOG( logDEBUG ) << "Loading key mapping " << keyMappingFilename.toStdString() << " (from "
                         << settings.fileName().toStdString() << ")";
     }
-    else {
-        LOG( logDEBUG ) << "Loading default key mapping " << m_defaultConfigFile;
-    }
+    else { LOG( logDEBUG ) << "Loading default key mapping " << m_defaultConfigFile; }
     loadConfiguration( keyMappingFilename.toStdString() );
 }
 
@@ -404,9 +402,7 @@ KeyMappingManager::KeyMappingAction KeyMappingManager::addAction( const Context&
         actionIndex                              = m_actionNameToIndex[context].size();
         m_actionNameToIndex[context][actionName] = actionIndex;
     }
-    else {
-        actionIndex = actionItr->second;
-    }
+    else { actionIndex = actionItr->second; }
 
     return actionIndex;
 }
@@ -442,9 +438,7 @@ KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
                         << keyString << "], buttons [" << buttonsString << "], wheel ["
                         << wheelString << "]";
     }
-    else {
-        setActionBinding( contextIndex, binding, actionIndex );
-    }
+    else { setActionBinding( contextIndex, binding, actionIndex ); }
     return actionIndex;
 }
 
@@ -456,21 +450,11 @@ Qt::KeyboardModifiers KeyMappingManager::getQtModifiersValue( const std::string&
 
     while ( getline( f, s, ',' ) ) {
         if ( s == "ShiftModifier" ) { modifier |= Qt::ShiftModifier; }
-        else if ( s == "ControlModifier" ) {
-            modifier |= Qt::ControlModifier;
-        }
-        else if ( s == "AltModifier" ) {
-            modifier |= Qt::AltModifier;
-        }
-        else if ( s == "MetaModifier" ) {
-            modifier |= Qt::MetaModifier;
-        }
-        else if ( s == "KeypadModifier" ) {
-            modifier |= Qt::KeypadModifier;
-        }
-        else if ( s == "GroupSwitchModifier" ) {
-            modifier |= Qt::GroupSwitchModifier;
-        }
+        else if ( s == "ControlModifier" ) { modifier |= Qt::ControlModifier; }
+        else if ( s == "AltModifier" ) { modifier |= Qt::AltModifier; }
+        else if ( s == "MetaModifier" ) { modifier |= Qt::MetaModifier; }
+        else if ( s == "KeypadModifier" ) { modifier |= Qt::KeypadModifier; }
+        else if ( s == "GroupSwitchModifier" ) { modifier |= Qt::GroupSwitchModifier; }
     }
 
     return modifier;
@@ -480,18 +464,10 @@ Qt::MouseButtons KeyMappingManager::getQtMouseButtonsValue( const std::string& k
     Qt::MouseButtons key = Qt::NoButton;
 
     if ( keyString == "LeftButton" ) { key = Qt::LeftButton; }
-    else if ( keyString == "RightButton" ) {
-        key = Qt::RightButton;
-    }
-    else if ( keyString == "MidButton" || keyString == "MiddleButton" ) {
-        key = Qt::MiddleButton;
-    }
-    else if ( keyString == "XButton1" ) {
-        key = Qt::XButton1;
-    }
-    else if ( keyString == "XButton2" ) {
-        key = Qt::XButton2;
-    }
+    else if ( keyString == "RightButton" ) { key = Qt::RightButton; }
+    else if ( keyString == "MidButton" || keyString == "MiddleButton" ) { key = Qt::MiddleButton; }
+    else if ( keyString == "XButton1" ) { key = Qt::XButton1; }
+    else if ( keyString == "XButton2" ) { key = Qt::XButton2; }
     ///\todo add other buttons support here
     return key;
 }
