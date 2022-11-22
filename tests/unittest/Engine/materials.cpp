@@ -132,21 +132,17 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         LOG( Ra::Core::Utils::logINFO ) << "Testing Volumetric material";
         REQUIRE( code == 0 );
         VolumetricMaterial mat( "test VolumetricMaterial" );
-        float d = 1.f;
-        Texture density { { "simpleDensity",
-                            gl::GL_TEXTURE_3D,
-                            1,
-                            1,
-                            1,
-                            gl::GL_RED,
-                            gl::GL_RED,
-                            gl::GL_FLOAT,
-                            gl::GL_CLAMP_TO_EDGE,
-                            gl::GL_CLAMP_TO_EDGE,
-                            gl::GL_CLAMP_TO_EDGE,
-                            gl::GL_NEAREST,
-                            gl::GL_NEAREST,
-                            &d } };
+        auto d = std::shared_ptr<float[]>( new float[1] );
+        d[0]   = 1.f;
+        Texture density {
+            { "simpleDensity",
+              { gl::GL_CLAMP_TO_EDGE,
+                gl::GL_CLAMP_TO_EDGE,
+                gl::GL_CLAMP_TO_EDGE,
+                gl::GL_NEAREST,
+                gl::GL_NEAREST },
+              { gl::GL_TEXTURE_3D, 1, 1, 1, gl::GL_RED, gl::GL_RED, gl::GL_FLOAT, false, d } } };
+        density.initializeNow();
         mat.setTexture( &density );
 
         REQUIRE( mat.m_g == 0_ra );
