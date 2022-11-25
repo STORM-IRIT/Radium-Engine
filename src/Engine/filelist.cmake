@@ -122,7 +122,6 @@ set(engine_inlines
     Data/Material.inl
     Data/Mesh.inl
     Data/RawShaderMaterial.inl
-    Data/RenderParameters.inl
     Data/ShaderProgram.inl
     Data/SimpleMaterial.inl
     Data/VolumeObject.inl
