@@ -76,7 +76,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     explicit AttribArrayDisplayable( const std::string& name,
                                      MeshRenderMode renderMode = RM_TRIANGLES );
     AttribArrayDisplayable( const AttribArrayDisplayable& rhs ) = delete;
-    void operator=( const AttribArrayDisplayable& rhs ) = delete;
+    void operator=( const AttribArrayDisplayable& rhs )         = delete;
 
     ~AttribArrayDisplayable() {}
 

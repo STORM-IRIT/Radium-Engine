@@ -46,9 +46,7 @@ Core::Utils::optional<ShaderConfiguration> getConfiguration( const std::string& 
 
     auto found = configs.find( name );
     if ( found != configs.end() ) { return found->second; }
-    else {
-        return {};
-    }
+    else { return {}; }
 }
 
 } // namespace ShaderConfigurationFactory

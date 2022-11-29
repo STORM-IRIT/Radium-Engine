@@ -18,12 +18,8 @@ std::string getEntryName( const Engine::RadiumEngine* engine, const ItemEntry& e
         if ( ent.isRoNode() ) {
             return engine->getRenderObjectManager()->getRenderObject( ent.m_roIndex )->getName();
         }
-        else if ( ent.isComponentNode() ) {
-            return ent.m_component->getName();
-        }
-        else if ( ent.isEntityNode() ) {
-            return ent.m_entity->getName();
-        }
+        else if ( ent.isComponentNode() ) { return ent.m_component->getName(); }
+        else if ( ent.isEntityNode() ) { return ent.m_entity->getName(); }
     }
     return "Invalid Entry";
 }
@@ -33,9 +29,7 @@ std::vector<Ra::Core::Utils::Index> getItemROs( const Engine::RadiumEngine* /*en
     std::vector<Ra::Core::Utils::Index> result;
     if ( ent.isValid() ) {
         if ( ent.isRoNode() ) { result.push_back( ent.m_roIndex ); }
-        else if ( ent.isComponentNode() ) {
-            result = ent.m_component->m_renderObjects;
-        }
+        else if ( ent.isComponentNode() ) { result = ent.m_component->m_renderObjects; }
         else if ( ent.isEntityNode() ) {
             for ( const auto& c : ent.m_entity->getComponents() ) {
                 result.insert( result.end(), c->m_renderObjects.begin(), c->m_renderObjects.end() );

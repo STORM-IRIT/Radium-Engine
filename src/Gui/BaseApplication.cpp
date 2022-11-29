@@ -739,9 +739,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
     }
 
     if ( pluginCpt == 0 ) { LOG( logINFO ) << "No plugin found or loaded."; }
-    else {
-        LOG( logINFO ) << "Loaded " << pluginCpt << " plugins.";
-    }
+    else { LOG( logINFO ) << "Loaded " << pluginCpt << " plugins."; }
 
     return res;
 }

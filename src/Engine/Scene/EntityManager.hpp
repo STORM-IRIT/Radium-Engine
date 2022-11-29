@@ -23,7 +23,7 @@ class RA_ENGINE_API EntityManager
     EntityManager();
 
     // Entity manager is non-copyable
-    EntityManager( const EntityManager& ) = delete;
+    EntityManager( const EntityManager& )            = delete;
     EntityManager& operator=( const EntityManager& ) = delete;
 
     /// DESTRUCTOR

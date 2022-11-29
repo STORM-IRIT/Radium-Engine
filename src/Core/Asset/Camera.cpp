@@ -43,9 +43,7 @@ void Camera::setDirection( const Core::Vector3& direction ) {
     if ( c.isApprox( Core::Vector3::Zero() ) && d < 0.0 ) {
         T.rotate( Core::AngleAxis( Core::Math::Pi, getUpVector() ) );
     }
-    else {
-        T.rotate( Core::Quaternion::FromTwoVectors( d0, d1 ) );
-    }
+    else { T.rotate( Core::Quaternion::FromTwoVectors( d0, d1 ) ); }
     applyTransform( T );
 }
 

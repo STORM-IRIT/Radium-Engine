@@ -37,8 +37,8 @@ class Observable
     using Observer = std::function<void( Args... )>;
 
     /// Default constructor ... do nothing ;)
-    Observable()                    = default;
-    Observable( const Observable& ) = delete;
+    Observable()                               = default;
+    Observable( const Observable& )            = delete;
     Observable& operator=( const Observable& ) = delete;
     virtual ~Observable()                      = default;
 

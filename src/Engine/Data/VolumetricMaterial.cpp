@@ -56,9 +56,7 @@ void VolumetricMaterial::updateRenderingParameters() {
                                       m_texture->depth() * m_texture->depth() ) );
         m_renderParameters.addParameter( "material.stepsize", 1._ra / dim );
     }
-    else {
-        m_renderParameters.addParameter( "material.stepsize", m_stepsize );
-    }
+    else { m_renderParameters.addParameter( "material.stepsize", m_stepsize ); }
     m_renderParameters.addParameter( "material.density", m_texture );
     m_renderParameters.addParameter( "material.modelToDensity", m_modelToMedium.matrix() );
 }

@@ -123,9 +123,7 @@ class KeyFramedValue : public KeyFramedValueBase
         else {
             auto lower = upper - 1;
             if ( Math::areApproxEqual( lower->first, t ) ) { lower->second = frame; }
-            else {
-                m_keyframes.insert( upper, kf );
-            }
+            else { m_keyframes.insert( upper, kf ); }
         }
     }
 
