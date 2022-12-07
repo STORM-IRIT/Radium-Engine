@@ -22,8 +22,8 @@ using namespace Ra::Core::Utils;
 
 constexpr int defaultSystemPriority = 1000;
 
-CLIViewer::CLIViewer( const glbinding::Version& glVersion ) :
-    CLIBaseApplication(), m_glContext { new GlfwOpenGLContext { glVersion } } {
+CLIViewer::CLIViewer( std::unique_ptr<OpenGLContext> context ) :
+    CLIBaseApplication(), m_glContext { std::move( context ) } {
     // add ->required() to force user to give a filename;
     addOption( "-f,--file", m_parameters.m_dataFile, "Data file to process." )
         ->check( CLI::ExistingFile );
