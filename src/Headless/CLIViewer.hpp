@@ -76,7 +76,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
      * \brief Construct the viewer using an OpenGL context of the given version
      * \param glVersion
      */
-    explicit CLIViewer( const glbinding::Version& glVersion = { 4, 1 } );
+    explicit CLIViewer( std::unique_ptr<OpenGLContext> context );
     /// Base destructor
     virtual ~CLIViewer();
 
