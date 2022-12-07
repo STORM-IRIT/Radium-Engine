@@ -1,20 +1,13 @@
-#include <Headless/OpenGLContext/GlfwOpenGLContext.hpp>
+#ifdef HEADLESS_HAS_GLFW
+#    include <Headless/OpenGLContext/GlfwOpenGLContext.hpp>
 
-#include <GLFW/glfw3.h>
+#    include <GLFW/glfw3.h>
 
-#include <glbinding/AbstractFunction.h>
-#include <glbinding/Binding.h>
-#include <glbinding/CallbackMask.h>
-#include <glbinding/FunctionCall.h>
-#include <glbinding/glbinding.h>
+#    include <glbinding-aux/ValidVersions.h>
+#    include <glbinding/glbinding.h>
+#    include <globjects/globjects.h>
 
-#include <glbinding-aux/Meta.h>
-#include <glbinding-aux/ValidVersions.h>
-#include <glbinding-aux/types_to_string.h>
-
-#include <globjects/globjects.h>
-
-#include <iostream>
+#    include <iostream>
 
 namespace Ra {
 namespace Headless {
@@ -176,3 +169,4 @@ void GlfwOpenGLContext::renderLoop( std::function<void( float )> render ) {
 
 } // namespace Headless
 } // namespace Ra
+#endif

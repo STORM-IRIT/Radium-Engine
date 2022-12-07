@@ -4,7 +4,9 @@
 # from ./scripts directory
 # ----------------------------------------------------
 
-set(headless_sources CLIBaseApplication.cpp CLIViewer.cpp OpenGLContext/GlfwOpenGLContext.cpp)
+set(headless_sources CLIBaseApplication.cpp CLIViewer.cpp OpenGLContext/EglOpenGLContext.cpp
+                     OpenGLContext/GlfwOpenGLContext.cpp
+)
 
 set(headless_headers
     CLI/App.hpp
@@ -24,6 +26,7 @@ set(headless_headers
     CLI/Version.hpp
     CLIBaseApplication.hpp
     CLIViewer.hpp
+    OpenGLContext/EglOpenGLContext.hpp
     OpenGLContext/GlfwOpenGLContext.hpp
     OpenGLContext/OpenGLContext.hpp
     RaHeadless.hpp
