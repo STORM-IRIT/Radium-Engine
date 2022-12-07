@@ -38,7 +38,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
         /// Load animation system at startup
         bool m_animationEnable { false };
         /// Size of the image
-        std::array<int, 2> m_size { 512, 512 };
+        std::array<int, 2> m_size { { 512, 512 } };
         /// image name prefix
         std::string m_imgPrefix { "frame" };
         /// The data file to manage
@@ -53,8 +53,8 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     const Engine::RadiumEngine* getEngine() const { return m_engine; }
 
   private:
-    /// Headless OpenGLContext
-    OpenGLContext m_glContext;
+    /// Headless GlfwOpenGLContext
+    std::unique_ptr<OpenGLContext> m_glContext;
 
     /// Shared instance of the renderer
     std::shared_ptr<Ra::Engine::Rendering::Renderer> m_renderer;
@@ -178,7 +178,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     inline void setDataFileName( std::string filename );
 
   protected:
-    /// Observer of the resize event on the OpenGLContext
+    /// Observer of the resize event on the GlfwOpenGLContext
     void resize( int width, int height );
 };
 

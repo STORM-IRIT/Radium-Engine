@@ -6,18 +6,18 @@
 #include <functional>
 #include <string>
 
+#include <glbinding-aux/ContextInfo.h>
 #include <glbinding/Version.h>
-
-struct GLFWwindow;
+#include <glbinding/gl/gl.h>
 
 namespace Ra {
 namespace Headless {
 
 /**
- * This class defines GLFW based OpenGL Context.
+ * This class defines the interface for any off-screen OpenGL Context.
  * There are two use cases of such a context :
  *   - headless rendering application.
- *   - simple window with limited interaction
+ *   - simple window with limited interaction for context providers supporting windows
  */
 class HEADLESS_API OpenGLContext
 {
@@ -38,23 +38,23 @@ class HEADLESS_API OpenGLContext
      *  be compatible with. If there is no compatible context, the application will stop
      * \param size
      */
-    explicit OpenGLContext( const glbinding::Version& glVersion = { 4, 1 },
-                            const std::array<int, 2>& size      = { 1, 1 } );
+    explicit OpenGLContext( const glbinding::Version& /*glVersion*/ = { 4, 1 },
+                            const std::array<int, 2>& /*size*/      = { { 1, 1 } } ) {};
     /// destructor
-    ~OpenGLContext();
+    virtual ~OpenGLContext() = default;
     /// make the context active
-    void makeCurrent() const;
+    virtual void makeCurrent() const = 0;
     /// make the context inactive
-    void doneCurrent() const;
+    virtual void doneCurrent() const = 0;
     /// Check for validity of the context
-    bool isValid() const;
+    virtual bool isValid() const = 0;
 
-    [[nodiscard]] std::string getInfo() const;
+    [[nodiscard]] virtual std::string getInfo() const;
     /** @} */
 
     /** @defgroup window Window management from an openGL context
      *  These methods allow to display and interact with a simple window associated with the created
-     *  OpenGL Context.
+     *  OpenGL Context, if any.
      *  @{
      */
     /** Identify the event processing method when the window is exposed.
@@ -62,13 +62,13 @@ class HEADLESS_API OpenGLContext
      */
     enum class EventMode : int { POLL = 0, WAIT, TIMEOUT, NUM_MODES };
     /// Show the window
-    void show( EventMode mode, float delay );
+    virtual void show( EventMode /*mode*/, float /*delay*/ ) {};
     /// Hide the window
-    void hide();
+    virtual void hide() {};
     /// Resize the window
-    void resize( const std::array<int, 2>& size );
+    virtual void resize( const std::array<int, 2>& /*size*/ ) {};
     /// loop on events and execute the functor render after each event
-    void renderLoop( std::function<void( float )> render );
+    virtual void renderLoop( std::function<void( float )> /*render*/ ) {};
 
     /// Give access to the resize event observable so that client can add Observer to this
     /// event.
@@ -121,13 +121,12 @@ class HEADLESS_API OpenGLContext
     Ra::Core::Utils::Observable<int, int>& scrollListener() { return m_scrollObservers; }
 
     /** @} */
-  private:
-    GLFWwindow* m_glfwContext { nullptr };
+  protected:
     /** \addtogroup window
      *  @{
      */
     /// Process the pending events according to the window show mode
-    bool processEvents();
+    virtual bool processEvents() { return true; };
 
     /// Resize callback
     void resizeFrameBuffer( int width, int height );
@@ -160,6 +159,42 @@ class HEADLESS_API OpenGLContext
     float m_delay { 1.f / 60.f };
     /** @} */
 };
+
+inline std::string OpenGLContext::getInfo() const {
+    std::stringstream infoText;
+    using ContextInfo = glbinding::aux::ContextInfo;
+    makeCurrent();
+    infoText << "*** OffScreen OpenGL context ***" << std::endl;
+    infoText << "Renderer (glbinding) : " << ContextInfo::renderer() << "\n";
+    infoText << "Vendor   (glbinding) : " << ContextInfo::vendor() << "\n";
+    infoText << "OpenGL   (glbinding) : " << ContextInfo::version().toString() << "\n";
+    infoText << "GLSL                 : " << gl::glGetString( gl::GL_SHADING_LANGUAGE_VERSION )
+             << "\n";
+    doneCurrent();
+
+    return infoText.str();
+}
+
+inline void OpenGLContext::resizeFrameBuffer( int width, int height ) {
+    gl::glViewport( 0, 0, width, height );
+    m_resizers.notify( width, height );
+}
+
+inline void OpenGLContext::keyboardEventCallback( int key, int scancode, int action, int mods ) {
+    m_keyboardObservers.notify( key, scancode, action, mods );
+}
+
+inline void OpenGLContext::mouseEventCallback( int button, int action, int mods, int x, int y ) {
+    m_mouseObservers.notify( button, action, mods, x, y );
+}
+
+inline void OpenGLContext::mouseMoveEventCallback( int x, int y ) {
+    m_mouseMoveObservers.notify( x, y );
+}
+
+inline void OpenGLContext::scrollEventCallback( int xoffset, int yoffset ) {
+    m_scrollObservers.notify( xoffset, yoffset );
+}
 
 } // namespace Headless
 } // namespace Ra

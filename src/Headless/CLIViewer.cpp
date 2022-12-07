@@ -14,6 +14,8 @@
 #include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
+#include <Headless/OpenGLContext/GlfwOpenGLContext.hpp>
+
 namespace Ra {
 namespace Headless {
 using namespace Ra::Core::Utils;
@@ -21,7 +23,7 @@ using namespace Ra::Core::Utils;
 constexpr int defaultSystemPriority = 1000;
 
 CLIViewer::CLIViewer( const glbinding::Version& glVersion ) :
-    CLIBaseApplication(), m_glContext { glVersion } {
+    CLIBaseApplication(), m_glContext { new GlfwOpenGLContext { glVersion } } {
     // add ->required() to force user to give a filename;
     addOption( "-f,--file", m_parameters.m_dataFile, "Data file to process." )
         ->check( CLI::ExistingFile );
@@ -31,11 +33,11 @@ CLIViewer::CLIViewer( const glbinding::Version& glVersion ) :
 
 CLIViewer::~CLIViewer() {
     if ( m_engineInitialized ) {
-        m_glContext.makeCurrent();
+        m_glContext->makeCurrent();
         m_renderer.reset();
         m_engine->cleanup();
         Ra::Engine::RadiumEngine::destroyInstance();
-        m_glContext.doneCurrent();
+        m_glContext->doneCurrent();
     }
 }
 
@@ -50,13 +52,13 @@ int CLIViewer::init( int argc, const char* argv[] ) {
         return 1;
     };
     // Do the Viewer init
-    if ( !m_glContext.isValid() ) {
+    if ( !m_glContext->isValid() ) {
         LOG( logERROR ) << "Invalid openglContext, the application can't run";
         return 1;
     }
 
-    m_glContext.resize( m_parameters.m_size );
-    LOG( logINFO ) << "CLIViewer :\n" << m_glContext.getInfo();
+    m_glContext->resize( m_parameters.m_size );
+    LOG( logINFO ) << "CLIViewer :\n" << m_glContext->getInfo();
 
     // Initialize the Radium engine environment
 
@@ -78,12 +80,12 @@ int CLIViewer::init( int argc, const char* argv[] ) {
     }
 
     // initialize OpenGL part of the Engine
-    m_glContext.makeCurrent();
+    m_glContext->makeCurrent();
     m_engine->initializeGL();
-    m_glContext.doneCurrent();
+    m_glContext->doneCurrent();
 
     // register listeners on the OpenGL Context
-    m_glContext.resizeListener().attach(
+    m_glContext->resizeListener().attach(
         [this]( int width, int height ) { resize( width, height ); } );
     // Init is OK
     return 0;
@@ -116,12 +118,12 @@ std::unique_ptr<unsigned char[]> CLIViewer::grabFrame( size_t& w, size_t& h ) co
 }
 
 void CLIViewer::setRenderer( Ra::Engine::Rendering::Renderer* renderer ) {
-    m_glContext.makeCurrent();
+    m_glContext->makeCurrent();
 
     m_renderer.reset( renderer );
     m_renderer->initialize( m_parameters.m_size[0], m_parameters.m_size[1] );
 
-    m_glContext.doneCurrent();
+    m_glContext->doneCurrent();
 }
 
 void CLIViewer::addDataFileLoader( Ra::Core::Asset::FileLoaderInterface* loader ) {
@@ -146,15 +148,15 @@ void CLIViewer::compileScene() {
 }
 
 void CLIViewer::openGlAddOns( std::function<void()> f ) {
-    m_glContext.makeCurrent();
+    m_glContext->makeCurrent();
     f();
-    m_glContext.doneCurrent();
+    m_glContext->doneCurrent();
 }
 
 void CLIViewer::bindOpenGLContext( bool on ) {
-    if ( on ) { m_glContext.makeCurrent(); }
+    if ( on ) { m_glContext->makeCurrent(); }
     else {
-        m_glContext.doneCurrent();
+        m_glContext->doneCurrent();
     }
 }
 
@@ -193,19 +195,19 @@ void CLIViewer::setImageNamePrefix( std::string s ) {
     m_parameters.m_imgPrefix = std::move( s );
 }
 
-void CLIViewer::showWindow( bool on, OpenGLContext::EventMode mode, float delay ) {
+void CLIViewer::showWindow( bool on, GlfwOpenGLContext::EventMode mode, float delay ) {
     m_exposedWindow = on;
     if ( m_exposedWindow ) {
-        m_glContext.resize( m_parameters.m_size );
-        m_glContext.show( mode, delay );
+        m_glContext->resize( m_parameters.m_size );
+        m_glContext->show( mode, delay );
     }
     else {
-        m_glContext.hide();
+        m_glContext->hide();
     }
 }
 
 void CLIViewer::renderLoop( std::function<void( float )> render ) {
-    m_glContext.renderLoop( render );
+    m_glContext->renderLoop( render );
 }
 
 void CLIViewer::resize( int width, int height ) {
