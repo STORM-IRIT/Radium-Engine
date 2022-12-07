@@ -87,4 +87,20 @@ TEST_CASE( "Core/Math/Algebra", "[Core][Core/Math][Algebra]" ) {
                                              Vector3::Constant( min ),
                                              Vector3::Constant( max ) ) ) );
     }
+
+    SECTION( "smootsteop" ) {
+        using Math::smoothstep;
+        Scalar min = -12_ra;
+        Scalar max = +27_ra;
+        Scalar s   = 0.6_ra;
+
+        REQUIRE( Math::areApproxEqual( 0_ra, smoothstep( min, max, min ) ) );
+        REQUIRE( Math::areApproxEqual( 1_ra, smoothstep( min, max, max ) ) );
+        REQUIRE( Math::areApproxEqual( 1_ra, smoothstep( min, max, max + s ) ) );
+        REQUIRE( Math::areApproxEqual( 0_ra, smoothstep( min, max, min - s ) ) );
+
+        REQUIRE( Math::areApproxEqual( 0.5_ra, smoothstep( -1_ra, 1_ra, 0_ra ) ) );
+        REQUIRE( Math::areApproxEqual( 1_ra, smoothstep( 0_ra, 0_ra, 1_ra ) ) );
+        REQUIRE( Math::areApproxEqual( 0_ra, smoothstep( 1_ra, -1_ra, 1_ra ) ) );
+    }
 }
