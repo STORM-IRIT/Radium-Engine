@@ -26,6 +26,8 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 find_package(Radium REQUIRED COMPONENTS Headless)
 
 option(USE_RADIUM_IO_ASSIMPLOADER "Use assimp data loader from Radium IO" ON)
+option(USE_HEADLESS_EGL "Use EGL as OpenGL Context for headless rendering" ON)
+
 message(STATUS "Configuring ${PROJECT_NAME} application with Radium ${Radium_VERSION}")
 
 set(app_sources main.cpp)
@@ -52,6 +54,15 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
 endif()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Headless)
+
+if(USE_HEADLESS_EGL)
+    get_target_property(HEADLESS_HAS_EGL Radium::Headless HEADLESS_HAS_EGL)
+    if(${HEADLESS_HAS_EGL})
+        target_compile_definitions(${PROJECT_NAME} PRIVATE USE_EGL_CONTEXT)
+    else()
+        message(WARNING "Headless EGL requested but not supported by Radium, defaulting to glfw")
+    endif()
+endif()
 
 get_target_property(USE_ASSIMP Radium::IO IO_HAS_ASSIMP)
 if(${USE_ASSIMP})
