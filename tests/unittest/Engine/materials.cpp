@@ -7,6 +7,7 @@
 #include <Engine/RadiumEngine.hpp>
 
 #include <Headless/CLIViewer.hpp>
+#include <Headless/OpenGLContext/GlfwOpenGLContext.hpp>
 
 using namespace Ra::Headless;
 using namespace Ra::Engine::Data;
@@ -15,7 +16,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
 
     // Get the Engine and materials initialized
     glbinding::Version glVersion { 4, 4 };
-    CLIViewer viewer { glVersion };
+    CLIViewer viewer { std::make_unique<GlfwOpenGLContext>( glVersion ) };
     const char* testName = "Materials testing";
     auto code            = viewer.init( 1, &testName );
 
