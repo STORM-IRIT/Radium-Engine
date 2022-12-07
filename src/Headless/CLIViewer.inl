@@ -18,7 +18,7 @@ inline void CLIViewer::setDataFileName( std::string filename ) {
 }
 
 inline OpenGLContext& CLIViewer::getWindow() {
-    return m_glContext;
+    return *m_glContext;
 }
 } // namespace Headless
 } // namespace Ra
