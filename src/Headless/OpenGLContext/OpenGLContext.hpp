@@ -49,6 +49,10 @@ class HEADLESS_API OpenGLContext
     /// Check for validity of the context
     virtual bool isValid() const = 0;
 
+    /// Check if the context is associated to a window
+    virtual bool isWindow() const { return false; }
+
+    /// Return a string identifying the openGL Context and its supported versions
     [[nodiscard]] virtual std::string getInfo() const;
     /** @} */
 

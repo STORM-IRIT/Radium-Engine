@@ -1,5 +1,6 @@
 #pragma once
-#include <Headless/OpenGLContext/OpenGLContext.hpp>
+#ifdef HEADLESS_HAS_GLFW
+#    include <Headless/OpenGLContext/OpenGLContext.hpp>
 
 struct GLFWwindow;
 
@@ -15,14 +16,8 @@ namespace Headless {
 class HEADLESS_API GlfwOpenGLContext : public OpenGLContext
 {
   public:
-    /** @defgroup context OpenGL context management
-     *  These methods allow to create and manipulate an openGLContext.
-     *  Using this function, the openGL context created is an offscreen context with no exposed
-     *  window.
-     *  @{
-     */
     /**
-     * Create an offscreen openGl context.
+     * Create an offscreen openGl context based on GLFW.
      * The created context has the following properties
      *  - OpenGL version requested : (default >= 4.1)
      *  - OpenGL context profile : Core Profile
@@ -33,38 +28,21 @@ class HEADLESS_API GlfwOpenGLContext : public OpenGLContext
      */
     explicit GlfwOpenGLContext( const glbinding::Version& glVersion = { 4, 1 },
                                 const std::array<int, 2>& size      = { { 1, 1 } } );
-    /// destructor
+
     ~GlfwOpenGLContext() override;
-    /// make the context active
     void makeCurrent() const override;
-    /// make the context inactive
     void doneCurrent() const override;
-    /// Check for validity of the context
     bool isValid() const override;
+    bool isWindow() const override { return true; }
 
     [[nodiscard]] std::string getInfo() const override;
-    /** @} */
 
-    /** @defgroup window Window management from an openGL context
-     *  These methods allow to display and interact with a simple window associated with the created
-     *  OpenGL Context.
-     *  @{
-     */
-    /** Identify the event processing method when the window is exposed.
-     *
-     */
-    /// Show the window
     void show( EventMode mode, float delay ) override;
-    /// Hide the window
     void hide() override;
-    /// Resize the window
     void resize( const std::array<int, 2>& size ) override;
-    /// loop on events and execute the functor render after each event
     void renderLoop( std::function<void( float )> render ) override;
 
-    /** @} */
   protected:
-    /// Process the pending events according to the window show mode
     bool processEvents() override;
 
   private:
@@ -73,3 +51,4 @@ class HEADLESS_API GlfwOpenGLContext : public OpenGLContext
 
 } // namespace Headless
 } // namespace Ra
+#endif

@@ -27,9 +27,25 @@ if (Headless_FOUND AND NOT TARGET Headless)
 endif()
 
 if(Configure_Headless)
-    # find dependency on glfw
-    if (NOT glfw3_FOUND)
-        find_dependency(glfw3 3.3 REQUIRED)
+    define_property(
+        TARGET PROPERTY HEADLESS_HAS_GLFW BRIEF_DOCS "Radium::Headless has glfw3 support."
+        FULL_DOCS "Identify if Radium::Headless was compiled with glfw3 support."
+    )
+    define_property(
+        TARGET PROPERTY HEADLESS_HAS_EGL BRIEF_DOCS "Radium::Headless has EGL support."
+        FULL_DOCS "Identify if Radium::Headless was compiled with EGL support."
+    )
+    if(@HEADLESS_HAS_GLFW@)
+        set_target_properties(Radium::Headless PROPERTIES HEADLESS_HAS_GLFW TRUE)
+        if (NOT glfw3_FOUND)
+            find_dependency(glfw3 3.3 REQUIRED)
+        endif()
+    endif()
+    if(@HEADLESS_HAS_EGL@)
+        set_target_properties(Radium::Headless PROPERTIES HEADLESS_HAS_EGL TRUE)
+        if (NOT OpenGL_EGL_FOUND)
+            find_dependency(OpenGL COMPONENTS EGL REQUIRED)
+        endif()
     endif()
     include("${CMAKE_CURRENT_LIST_DIR}/HeadlessTargets.cmake")
 endif()
