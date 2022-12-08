@@ -109,8 +109,9 @@ Gizmo::UiSelectionControler::UiSelectionControler(
 
 void Gizmo::UiSelectionControler::updateGL() {
     m_associatedMaterial->updateGL();
-    m_renderParameters = m_associatedMaterial->getParameters();
-    if ( m_selected ) { m_renderParameters.addParameter( "material.color", m_selectedColor ); }
+    auto& renderParamaters = getParameters();
+    renderParamaters.mergeReplaceParameters( m_associatedMaterial->getParameters() );
+    if ( m_selected ) { renderParamaters.addParameter( "material.color", m_selectedColor ); }
 }
 
 void Gizmo::UiSelectionControler::toggleState() {
