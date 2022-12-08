@@ -53,7 +53,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     const Engine::RadiumEngine* getEngine() const { return m_engine; }
 
   private:
-    /// Headless GlfwOpenGLContext
+    /// Headless OpenGLContext
     std::unique_ptr<OpenGLContext> m_glContext;
 
     /// Shared instance of the renderer
@@ -178,7 +178,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     inline void setDataFileName( std::string filename );
 
   protected:
-    /// Observer of the resize event on the GlfwOpenGLContext
+    /// Observer of the resize event on the OpenGLContext
     void resize( int width, int height );
 };
 
