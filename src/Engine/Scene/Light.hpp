@@ -4,12 +4,10 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/Component.hpp>
 
+#include <Engine/Data/RenderParameters.hpp>
+
 namespace Ra {
 namespace Engine {
-namespace Data {
-class RenderParameters;
-}
-
 namespace Scene {
 
 class Entity;
@@ -26,7 +24,7 @@ class RA_ENGINE_API Light : public Component
      * @note POLYGONAL is not really supported.
      * @todo : replace this enum by something extensible as we plan to add new light type by plugins
      */
-    enum LightType { DIRECTIONAL = 0, POINT, SPOT, POLYGONAL };
+    enum LightType : int { DIRECTIONAL = 0, POINT, SPOT, POLYGONAL };
 
     /**
      * Define the attenuation of the light source
@@ -88,8 +86,9 @@ class RA_ENGINE_API Light : public Component
      * this light.
      * @param params
      */
-    virtual void getRenderParameters( Data::RenderParameters& params ) const;
+    void getRenderParameters( Data::RenderParameters& params ) const;
 
+    Data::RenderParameters& getRenderParameters() const;
     /**
      * Abstract method that define the glsl code that manage this light type
      * For the moment, this is not use (except by experimental plugins) but will part of the shader
@@ -103,14 +102,35 @@ class RA_ENGINE_API Light : public Component
      */
     void initialize() override;
 
+  protected:
+    Data::RenderParameters m_params;
+
   private:
     Core::Utils::Color m_color = Core::Utils::Color::White();
 
     LightType m_type { LightType::DIRECTIONAL };
 };
 
+// ---------------------------------------------------------------------------------------------
+// ---- inline methods implementation
+
+inline const Core::Utils::Color& Light::getColor() const {
+    return m_color;
+}
+
+inline void Light::setColor( const Core::Utils::Color& color ) {
+    m_color = color;
+    m_params.addParameter( "light.color", m_color );
+}
+
+inline const Light::LightType& Light::getType() const {
+    return m_type;
+}
+
+inline Data::RenderParameters& Light::getRenderParameters() const {
+    return const_cast<Data::RenderParameters&>( m_params );
+}
+
 } // namespace Scene
 } // namespace Engine
 } // namespace Ra
-
-#include "Light.inl"

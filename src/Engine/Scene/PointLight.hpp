@@ -1,18 +1,10 @@
 #pragma once
 
-#include <Core/CoreMacros.hpp>
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/Light.hpp>
 
-#include <Eigen/Dense>
-
-#include <string>
-
 namespace Ra {
 namespace Engine {
-namespace Data {
-class RenderParameters;
-} // namespace Data
 
 namespace Scene {
 class Entity;
@@ -26,8 +18,6 @@ class RA_ENGINE_API PointLight final : public Ra::Engine::Scene::Light
 
     explicit PointLight( Entity* entity, const std::string& name = "pointlight" );
     ~PointLight() override = default;
-
-    void getRenderParameters( Data::RenderParameters& params ) const override;
 
     void setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) override;
     inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;
@@ -43,8 +33,33 @@ class RA_ENGINE_API PointLight final : public Ra::Engine::Scene::Light
 
     Attenuation m_attenuation { 1, 0, 0 };
 };
+
+// ---------------------------------------------------------------------------------------------
+// ---- inline methods implementation
+
+inline void PointLight::setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) {
+    m_position = pos;
+    m_params.addParameter( "light.point.position", m_position );
+}
+
+inline const Eigen::Matrix<Scalar, 3, 1>& PointLight::getPosition() const {
+    return m_position;
+}
+
+inline void PointLight::setAttenuation( const PointLight::Attenuation& attenuation ) {
+    m_attenuation = attenuation;
+    m_params.addParameter( "light.point.attenuation.constant", m_attenuation.constant );
+    m_params.addParameter( "light.point.attenuation.linear", m_attenuation.linear );
+    m_params.addParameter( "light.point.attenuation.quadratic", m_attenuation.quadratic );
+}
+
+inline void PointLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic ) {
+    setAttenuation( { constant, linear, quadratic } );
+}
+
+inline const PointLight::Attenuation& PointLight::getAttenuation() const {
+    return m_attenuation;
+}
 } // namespace Scene
 } // namespace Engine
 } // namespace Ra
-
-#include "PointLight.inl"
