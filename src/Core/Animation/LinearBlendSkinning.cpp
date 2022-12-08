@@ -1,5 +1,3 @@
-#include <Core/Animation/HandleArray.hpp>
-#include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/LinearBlendSkinning.hpp>
 #include <Core/Animation/Skeleton.hpp>
 #include <Core/Animation/SkinningData.hpp>
@@ -43,9 +41,10 @@ void linearBlendSkinning( const SkinningRefData& refData,
             const Scalar w                 = it.value();
             // prepare the pose w.r.t. the bind matrix and the mesh transform
             const Transform M = refData.m_meshTransformInverse * pose[j] * bindMatrix[j];
+            const Matrix3 N   = M.matrix().inverse().transpose().block<3, 3>( 0, 0 );
             // apply LBS
             frameData.m_currentPosition[i] += w * ( M * vertices[i] );
-            frameData.m_currentNormal[i] += w * ( M.linear() * normals[i] );
+            frameData.m_currentNormal[i] += w * ( N * normals[i] );
             frameData.m_currentTangent[i] += w * ( M.linear() * tangents[i] );
             frameData.m_currentBitangent[i] += w * ( M.linear() * bitangents[i] );
         }
