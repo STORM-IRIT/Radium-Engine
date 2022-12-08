@@ -14,8 +14,6 @@
 #include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-#include <Headless/OpenGLContext/GlfwOpenGLContext.hpp>
-
 namespace Ra {
 namespace Headless {
 using namespace Ra::Core::Utils;
@@ -195,7 +193,7 @@ void CLIViewer::setImageNamePrefix( std::string s ) {
     m_parameters.m_imgPrefix = std::move( s );
 }
 
-void CLIViewer::showWindow( bool on, GlfwOpenGLContext::EventMode mode, float delay ) {
+void CLIViewer::showWindow( bool on, OpenGLContext::EventMode mode, float delay ) {
     m_exposedWindow = on;
     if ( m_exposedWindow ) {
         m_glContext->resize( m_parameters.m_size );
