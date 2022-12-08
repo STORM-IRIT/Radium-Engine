@@ -44,7 +44,7 @@ if(${HAS_VOLUMES})
 endif()
 
 if(RADIUM_ENABLE_GL_TESTING)
-    message(STATUS "Add gl related unit tests")
+    message(STATUS "Add gl related unit tests (will use EGL on Linux, glfw on macos and windows")
     list(APPEND test_src Engine/materials.cpp)
 endif()
 
