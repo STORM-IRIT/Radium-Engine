@@ -351,6 +351,12 @@ void SurfaceMeshComponent<CoreMeshType>::setupIO( const std::string& id ) {
 
     cm->registerOutput<CoreMeshType>( getEntity(), this, id, cbOut );
     cm->registerReadWrite<CoreMeshType>( getEntity(), this, id, cbRw );
+    if ( std::is_convertible<CoreMeshType*, Core::Geometry::AttribArrayGeometry*>() &&
+         !std::is_same<CoreMeshType, Core::Geometry::AttribArrayGeometry>() ) {
+
+        cm->registerOutput<Core::Geometry::AttribArrayGeometry>( getEntity(), this, id, cbOut );
+        cm->registerReadWrite<Core::Geometry::AttribArrayGeometry>( getEntity(), this, id, cbRw );
+    }
 
     base::setupIO( id );
 }
