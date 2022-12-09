@@ -99,8 +99,12 @@ TEST_CASE( "Core/Math/Algebra", "[Core][Core/Math][Algebra]" ) {
         REQUIRE( Math::areApproxEqual( 1_ra, smoothstep( min, max, max + s ) ) );
         REQUIRE( Math::areApproxEqual( 0_ra, smoothstep( min, max, min - s ) ) );
 
-        REQUIRE( Math::areApproxEqual( 0.5_ra, smoothstep( -1_ra, 1_ra, 0_ra ) ) );
-        REQUIRE( Math::areApproxEqual( 1_ra, smoothstep( 0_ra, 0_ra, 1_ra ) ) );
-        REQUIRE( Math::areApproxEqual( 0_ra, smoothstep( 1_ra, -1_ra, 1_ra ) ) );
+        REQUIRE( Math::areApproxEqual( 0.5f, smoothstep( -1.f, 1.f, 0.f ) ) );
+        REQUIRE( Math::areApproxEqual( 1.f, smoothstep( 0.f, 0.f, 1.f ) ) );
+        REQUIRE( Math::areApproxEqual( 0.f, smoothstep( 1.f, -1.f, 1.f ) ) );
+
+        REQUIRE( Math::areApproxEqual( 0.5f, smoothstep( -1.0f, 1.0f, 0.0f ) ) );
+        REQUIRE( Math::areApproxEqual( 1.0f, smoothstep( 0.0f, 0.0f, 1.0f ) ) );
+        REQUIRE( Math::areApproxEqual( 0.0f, smoothstep( 1.0f, -1.0f, 1.0f ) ) );
     }
 }
