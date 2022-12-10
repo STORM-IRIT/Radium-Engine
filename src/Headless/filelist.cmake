@@ -31,5 +31,3 @@ set(headless_headers
     OpenGLContext/OpenGLContext.hpp
     RaHeadless.hpp
 )
-
-set(headless_inlines CLIBaseApplication.inl CLIViewer.inl)
