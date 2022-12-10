@@ -182,7 +182,17 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     void resize( int width, int height );
 };
 
+inline std::string CLIViewer::getDataFileName() const {
+    return m_parameters.m_dataFile;
+}
+
+inline void CLIViewer::setDataFileName( std::string filename ) {
+    m_parameters.m_dataFile = std::move( filename );
+}
+
+inline OpenGLContext& CLIViewer::getWindow() {
+    return *m_glContext;
+}
+
 } // namespace Headless
 } // namespace Ra
-
-#include <Headless/CLIViewer.inl>
