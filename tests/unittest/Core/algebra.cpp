@@ -106,5 +106,16 @@ TEST_CASE( "Core/Math/Algebra", "[Core][Core/Math][Algebra]" ) {
         REQUIRE( Math::areApproxEqual( 0.5f, smoothstep( -1.0f, 1.0f, 0.0f ) ) );
         REQUIRE( Math::areApproxEqual( 1.0f, smoothstep( 0.0f, 0.0f, 1.0f ) ) );
         REQUIRE( Math::areApproxEqual( 0.0f, smoothstep( 1.0f, -1.0f, 1.0f ) ) );
+
+        Vector3 v { 0_ra, 0_ra, 0_ra };
+        auto v2 = smoothstep( -1_ra, 1_ra, v );
+        REQUIRE( v2.isApprox( Vector3 { 0.5_ra, 0.5_ra, 0.5_ra } ) );
+
+        Matrix2 m;
+        m << 0_ra, 0_ra, 0_ra, 0_ra;
+        Matrix2 m2;
+        m2 << 0.5_ra, 0.5_ra, 0.5_ra, 0.5_ra;
+        auto m3 = smoothstep( -1_ra, 1_ra, m );
+        REQUIRE( m3.isApprox( m2 ) );
     }
 }
