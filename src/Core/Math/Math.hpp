@@ -80,6 +80,11 @@ T smoothstep( T edge0, T edge1, T x ) {
     return t * t * ( 3.0 - 2.0 * t );
 }
 
+template <typename T, template <typename, int...> typename M, int... p>
+M<T, p...> smoothstep( T edge0, T edge1, M<T, p...> v ) {
+    return v.unaryExpr(
+        [edge0, edge1]( T x ) { return Ra::Core::Math::smoothstep( edge0, edge1, x ); } );
+}
 } // namespace Math
 } // namespace Core
 } // namespace Ra
