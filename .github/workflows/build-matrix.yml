@@ -76,7 +76,7 @@ jobs:
           echo '{ "config" : ['
           [[ "true" == "${{ inputs.windows }}" ]] && echo '{ "name": "Windows MSVC", "os": "windows-latest", "cc": "cl.exe", "cxx": "cl.exe", "icon": "Windows", "extra-flags": "" }'
           [[ "true" == "${{ inputs.windows }}" && "true" == "${{inputs.linux}}" ]] && echo ','
-          [[ "true" == "${{ inputs.linux }}" ]] && echo '{ "name": "Ubuntu gcc", "os": "ubuntu-latest", "cc": "gcc-10", "cxx": "g++-10", "icon": "Linux", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations" }'
+          [[ "true" == "${{ inputs.linux }}" ]] && echo '{ "name": "Ubuntu gcc", "os": "ubuntu-latest", "cc": "gcc-10", "cxx": "g++-10", "icon": "Linux", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations -DRADIUM_ENABLE_GL_TESTING=ON" }'
           [[ "true" == "${{ inputs.windows }}" || "true" == "${{inputs.linux}}" ]] && [[ "true" == "${{inputs.macos}}" ]] && echo ','
           [[ "true" == "${{ inputs.macos }}" ]] && echo '{ "name": "MacOS clang", "os": "macos-latest", "cc": "clang", "cxx": "clang++", "icon": "Apple", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations" }'
           echo '],'
@@ -261,7 +261,7 @@ jobs:
           cd build/Radium-Engine
           cmake --build . --config Debug --target lcov_init
           cmake --build . --config Debug --target lcov_zerocounter
-          xvfb-run -a cmake --build . --config Debug --target check
+          cmake --build . --config Debug --target check
           cmake --build . --config Debug --target lcov_capture
           # show report for debug
           cmake --build . --config Debug --target lcov_list

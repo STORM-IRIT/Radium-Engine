@@ -57,6 +57,16 @@ class HEADLESS_API CLIBaseApplication
      */
     virtual int init( int argc, const char* argv[] );
 };
+
+template <typename... Args>
+CLI::Option* CLIBaseApplication::addOption( Args&&... args ) {
+    return m_cmdLineParser.add_option( args... );
+}
+
+template <typename... Args>
+CLI::Option* CLIBaseApplication::addFlag( Args&&... args ) {
+    return m_cmdLineParser.add_flag( args... );
+}
+
 } // namespace Headless
 } // namespace Ra
-#include <Headless/CLIBaseApplication.inl>
