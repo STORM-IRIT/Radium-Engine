@@ -6,6 +6,8 @@
 #include <cmath>
 namespace Ra {
 namespace Core {
+
+/// This namespace contains usefull math functions.
 namespace Math {
 /// Mathematical constants casted to Scalar. Values taken from math.h
 constexpr Scalar Sqrt2  = Scalar( 1.41421356237309504880 ); // sqrt(2)
