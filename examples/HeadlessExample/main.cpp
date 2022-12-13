@@ -1,4 +1,11 @@
 #include <Headless/CLIViewer.hpp>
+
+#ifdef USE_EGL_CONTEXT
+#    include <Headless/OpenGLContext/EglOpenGLContext.hpp>
+#else
+#    include <Headless/OpenGLContext/GlfwOpenGLContext.hpp>
+#endif
+
 #include <iostream>
 
 #include <Engine/RadiumEngine.hpp>
@@ -18,7 +25,11 @@ int main( int argc, const char* argv[] ) {
     //! [Creating the viewer with custom parameters]
     bool showWindow { false };
     glbinding::Version glVersion { 4, 4 };
-    CLIViewer viewer { glVersion };
+#ifdef USE_EGL_CONTEXT
+    CLIViewer viewer { std::make_unique<EglOpenGLContext>( glVersion ) };
+#else
+    CLIViewer viewer { std::make_unique<GlfwOpenGLContext>( glVersion ) };
+#endif
     viewer.addFlag( "-w,--window", showWindow, "Map the viewer window." );
     //! [Creating the viewer with custom parameters]
 

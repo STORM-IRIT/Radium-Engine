@@ -1,24 +1,13 @@
-#include <Headless/OpenGLContext/OpenGLContext.hpp>
+#ifdef HEADLESS_HAS_GLFW
+#    include <Headless/OpenGLContext/GlfwOpenGLContext.hpp>
 
-#include <GLFW/glfw3.h>
+#    include <GLFW/glfw3.h>
 
-#include <glbinding/AbstractFunction.h>
-#include <glbinding/Binding.h>
-#include <glbinding/CallbackMask.h>
-#include <glbinding/FunctionCall.h>
-#include <glbinding/Version.h>
-#include <glbinding/glbinding.h>
+#    include <glbinding-aux/ValidVersions.h>
+#    include <glbinding/glbinding.h>
+#    include <globjects/globjects.h>
 
-#include <glbinding/gl/gl.h>
-
-#include <glbinding-aux/ContextInfo.h>
-#include <glbinding-aux/Meta.h>
-#include <glbinding-aux/ValidVersions.h>
-#include <glbinding-aux/types_to_string.h>
-
-#include <globjects/globjects.h>
-
-#include <iostream>
+#    include <iostream>
 
 namespace Ra {
 namespace Headless {
@@ -26,12 +15,13 @@ using namespace gl;
 using namespace glbinding;
 
 static void error( int errnum, const char* errmsg ) {
-    std::cerr << "OpenGLContext::GLFW error -- "
+    std::cerr << "GlfwOpenGLContext::GLFW error -- "
               << "0x" << std::hex << errnum << std::dec << ": " << errmsg << std::endl;
 }
 
-OpenGLContext::OpenGLContext( const glbinding::Version& glVersion,
-                              const std::array<int, 2>& size ) {
+GlfwOpenGLContext::GlfwOpenGLContext( const glbinding::Version& glVersion,
+                                      const std::array<int, 2>& size ) :
+    OpenGLContext( glVersion, size ) {
     // initialize openGL
     if ( glfwInit() ) {
         glfwSetErrorCallback( error );
@@ -68,18 +58,18 @@ OpenGLContext::OpenGLContext( const glbinding::Version& glVersion,
         globjects::init( []( const char* name ) { return glfwGetProcAddress( name ); } );
         glfwSetWindowUserPointer( m_glfwContext, this );
         auto resizeCB = []( GLFWwindow* window, int width, int height ) {
-            auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
+            auto context = static_cast<GlfwOpenGLContext*>( glfwGetWindowUserPointer( window ) );
             context->resizeFrameBuffer( width, height );
         };
         glfwSetFramebufferSizeCallback( m_glfwContext, resizeCB );
         auto keyCB = []( GLFWwindow* window, int key, int scancode, int action, int mods ) {
-            auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
+            auto context = static_cast<GlfwOpenGLContext*>( glfwGetWindowUserPointer( window ) );
             context->keyboardEventCallback( key, scancode, action, mods );
         };
         glfwSetKeyCallback( m_glfwContext, keyCB );
 
         auto mouseCB = []( GLFWwindow* window, int button, int action, int mods ) {
-            auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
+            auto context = static_cast<GlfwOpenGLContext*>( glfwGetWindowUserPointer( window ) );
             // see https://www.glfw.org/docs/latest/window_guide.html#window_scale
             float xscale, yscale;
             glfwGetWindowContentScale( window, &xscale, &yscale );
@@ -91,7 +81,7 @@ OpenGLContext::OpenGLContext( const glbinding::Version& glVersion,
         glfwSetMouseButtonCallback( m_glfwContext, mouseCB );
 
         auto scrollCB = []( GLFWwindow* window, double xoffset, double yoffset ) {
-            auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
+            auto context = static_cast<GlfwOpenGLContext*>( glfwGetWindowUserPointer( window ) );
             float xscale, yscale;
             glfwGetWindowContentScale( window, &xscale, &yscale );
             context->scrollEventCallback( int( xoffset ), int( yoffset ) );
@@ -99,56 +89,49 @@ OpenGLContext::OpenGLContext( const glbinding::Version& glVersion,
         glfwSetScrollCallback( m_glfwContext, scrollCB );
 
         auto mouseMoveCB = []( GLFWwindow* window, double xpos, double ypos ) {
-            auto context = static_cast<OpenGLContext*>( glfwGetWindowUserPointer( window ) );
+            auto context = static_cast<GlfwOpenGLContext*>( glfwGetWindowUserPointer( window ) );
             context->mouseMoveEventCallback( int( xpos ), int( ypos ) );
         };
         glfwSetCursorPosCallback( m_glfwContext, mouseMoveCB );
     }
 }
-OpenGLContext::~OpenGLContext() {
+GlfwOpenGLContext::~GlfwOpenGLContext() {
     glfwTerminate();
 }
-void OpenGLContext::makeCurrent() const {
+void GlfwOpenGLContext::makeCurrent() const {
     if ( m_glfwContext ) { glfwMakeContextCurrent( m_glfwContext ); }
 }
 
-void OpenGLContext::doneCurrent() const {
+void GlfwOpenGLContext::doneCurrent() const {
     if ( m_glfwContext ) { glfwMakeContextCurrent( nullptr ); }
 }
 
-bool OpenGLContext::isValid() const {
+bool GlfwOpenGLContext::isValid() const {
     return m_glfwContext != nullptr;
 }
 
-std::string OpenGLContext::getInfo() const {
+std::string GlfwOpenGLContext::getInfo() const {
+    auto generalInfo = OpenGLContext::getInfo();
     std::stringstream infoText;
-    using ContextInfo = glbinding::aux::ContextInfo;
-    makeCurrent();
-    infoText << "*** OffScreen OpenGL context ***" << std::endl;
-    infoText << "Renderer (glbinding) : " << ContextInfo::renderer() << "\n";
-    infoText << "Vendor   (glbinding) : " << ContextInfo::vendor() << "\n";
-    infoText << "OpenGL   (glbinding) : " << ContextInfo::version().toString() << "\n";
-    infoText << "GLSL                 : " << gl::glGetString( GL_SHADING_LANGUAGE_VERSION ) << "\n";
-    doneCurrent();
-
+    infoText << generalInfo << "Context provider     : GLFW\n";
     return infoText.str();
 }
 
-void OpenGLContext::show( EventMode mode, float delay ) {
+void GlfwOpenGLContext::show( EventMode mode, float delay ) {
     m_mode  = mode;
     m_delay = delay;
     glfwShowWindow( m_glfwContext );
 }
 
-void OpenGLContext::hide() {
+void GlfwOpenGLContext::hide() {
     glfwHideWindow( m_glfwContext );
 }
 
-void OpenGLContext::resize( const std::array<int, 2>& size ) {
+void GlfwOpenGLContext::resize( const std::array<int, 2>& size ) {
     glfwSetWindowSize( m_glfwContext, size[0], size[1] );
 }
 
-bool OpenGLContext::processEvents() {
+bool GlfwOpenGLContext::processEvents() {
     switch ( m_mode ) {
     case EventMode::POLL:
         glfwPollEvents();
@@ -166,28 +149,7 @@ bool OpenGLContext::processEvents() {
     return true;
 }
 
-void OpenGLContext::resizeFrameBuffer( int width, int height ) {
-    gl::glViewport( 0, 0, width, height );
-    m_resizers.notify( width, height );
-}
-
-void OpenGLContext::keyboardEventCallback( int key, int scancode, int action, int mods ) {
-    m_keyboardObservers.notify( key, scancode, action, mods );
-}
-
-void OpenGLContext::mouseEventCallback( int button, int action, int mods, int x, int y ) {
-    m_mouseObservers.notify( button, action, mods, x, y );
-}
-
-void OpenGLContext::mouseMoveEventCallback( int x, int y ) {
-    m_mouseMoveObservers.notify( x, y );
-}
-
-void OpenGLContext::scrollEventCallback( int xoffset, int yoffset ) {
-    m_scrollObservers.notify( xoffset, yoffset );
-}
-
-void OpenGLContext::renderLoop( std::function<void( float )> render ) {
+void GlfwOpenGLContext::renderLoop( std::function<void( float )> render ) {
     double prevFrameDate = glfwGetTime();
     double curFrameDate;
 
@@ -207,3 +169,4 @@ void OpenGLContext::renderLoop( std::function<void( float )> render ) {
 
 } // namespace Headless
 } // namespace Ra
+#endif

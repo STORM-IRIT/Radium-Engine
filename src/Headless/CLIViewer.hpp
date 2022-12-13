@@ -38,7 +38,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
         /// Load animation system at startup
         bool m_animationEnable { false };
         /// Size of the image
-        std::array<int, 2> m_size { 512, 512 };
+        std::array<int, 2> m_size { { 512, 512 } };
         /// image name prefix
         std::string m_imgPrefix { "frame" };
         /// The data file to manage
@@ -54,7 +54,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
 
   private:
     /// Headless OpenGLContext
-    OpenGLContext m_glContext;
+    std::unique_ptr<OpenGLContext> m_glContext;
 
     /// Shared instance of the renderer
     std::shared_ptr<Ra::Engine::Rendering::Renderer> m_renderer;
@@ -76,7 +76,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
      * \brief Construct the viewer using an OpenGL context of the given version
      * \param glVersion
      */
-    explicit CLIViewer( const glbinding::Version& glVersion = { 4, 1 } );
+    explicit CLIViewer( std::unique_ptr<OpenGLContext> context );
     /// Base destructor
     virtual ~CLIViewer();
 
@@ -182,7 +182,17 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     void resize( int width, int height );
 };
 
+inline std::string CLIViewer::getDataFileName() const {
+    return m_parameters.m_dataFile;
+}
+
+inline void CLIViewer::setDataFileName( std::string filename ) {
+    m_parameters.m_dataFile = std::move( filename );
+}
+
+inline OpenGLContext& CLIViewer::getWindow() {
+    return *m_glContext;
+}
+
 } // namespace Headless
 } // namespace Ra
-
-#include <Headless/CLIViewer.inl>
