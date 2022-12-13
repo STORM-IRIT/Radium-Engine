@@ -1,3 +1,7 @@
 <map id="Ra::Headless::OpenGLContext" name="Ra::Headless::OpenGLContext">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,223,288"/>
+<area shape="rect" id="node1" title=" " alt="" coords="215,623,435,1023"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="5,307,203,531"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="227,5,424,229"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="227,307,424,531"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="448,307,645,531"/>
 </map>

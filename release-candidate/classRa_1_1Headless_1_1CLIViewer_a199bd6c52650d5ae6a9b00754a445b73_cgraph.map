@@ -1,17 +1,11 @@
 <map id="Ra::Headless::CLIViewer::init" name="Ra::Headless::CLIViewer::init">
-<area shape="rect" id="node1" title="Application initialization method." alt="" coords="5,332,185,373"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d" title=" " alt="" coords="255,5,452,47"/>
-<area shape="rect" id="node3" href="$group__context.html#ga294af2892fbb87ec8bd168ce5ca79353" title="make the context inactive" alt="" coords="245,71,462,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85" title=" " alt="" coords="233,136,473,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1RadiumEngine.html#a8d2085dbc31206d0bbdfc6014d247471" title=" " alt="" coords="257,201,450,243"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RadiumEngine.html#af02fbe3c4fa7e24f878b0b5d32e760ff" title=" " alt="" coords="257,267,450,308"/>
-<area shape="rect" id="node9" href="$group__context.html#ga13c2672a6b23eeb6ffe567ca8b473db8" title="Check for validity of the context." alt="" coords="245,332,462,373"/>
-<area shape="rect" id="node10" href="$group__context.html#ga74f9c0ec7ac494ff57d23d2cec737840" title="make the context active" alt="" coords="245,397,462,439"/>
-<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1RadiumEngine.html#af93db44814bf4448267f84b8002c9d4d" title=" " alt="" coords="257,463,450,504"/>
-<area shape="rect" id="node12" href="$group__window.html#gaf9f083ad16a28f01dc9c35df9eb0dd0f" title="Resize the window." alt="" coords="245,528,462,569"/>
-<area shape="rect" id="node13" href="$classRa_1_1Headless_1_1CLIViewer.html#aab5af7cd39e98fe6f423903abf7c42db" title="Observer of the resize event on the OpenGLContext." alt="" coords="263,593,443,635"/>
-<area shape="rect" id="node15" href="$group__window.html#ga3b80dac3018d933382070b7897ebc7dc" title=" " alt="" coords="245,659,462,700"/>
-<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c" title="Get the path of Radium internal resources." alt="" coords="541,201,737,243"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a0d02d435bcfec498a22fc2b0beb9494f" title="set the OpenGL version to use in the generated header for shaders." alt="" coords="521,267,756,308"/>
-<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6" title="Change the viewport size. Also compute aspectRatio." alt="" coords="549,593,729,635"/>
+<area shape="rect" id="node1" title="Application initialization method." alt="" coords="5,136,185,177"/>
+<area shape="rect" id="node2" href="$classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85" title=" " alt="" coords="233,5,473,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1RadiumEngine.html#a8d2085dbc31206d0bbdfc6014d247471" title=" " alt="" coords="257,71,450,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1RadiumEngine.html#af02fbe3c4fa7e24f878b0b5d32e760ff" title=" " alt="" coords="257,136,450,177"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RadiumEngine.html#af93db44814bf4448267f84b8002c9d4d" title=" " alt="" coords="257,201,450,243"/>
+<area shape="rect" id="node8" href="$classRa_1_1Headless_1_1CLIViewer.html#aab5af7cd39e98fe6f423903abf7c42db" title="Observer of the resize event on the OpenGLContext." alt="" coords="263,267,443,308"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c" title="Get the path of Radium internal resources." alt="" coords="541,71,737,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a0d02d435bcfec498a22fc2b0beb9494f" title="set the OpenGL version to use in the generated header for shaders." alt="" coords="521,136,756,177"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6" title="Change the viewport size. Also compute aspectRatio." alt="" coords="549,267,729,308"/>
 </map>

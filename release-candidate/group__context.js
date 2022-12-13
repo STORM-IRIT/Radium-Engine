@@ -1,8 +1,10 @@
 var group__context =
 [
-    [ "doneCurrent", "group__context.html#ga294af2892fbb87ec8bd168ce5ca79353", null ],
-    [ "isValid", "group__context.html#ga13c2672a6b23eeb6ffe567ca8b473db8", null ],
-    [ "makeCurrent", "group__context.html#ga74f9c0ec7ac494ff57d23d2cec737840", null ],
-    [ "OpenGLContext", "group__context.html#ga65b9302e0098c3e3f1c370f4d966f927", null ],
-    [ "~OpenGLContext", "group__context.html#ga4cd9ffa4fc7d7629b15e2e3cb97b715f", null ]
+    [ "doneCurrent", "group__context.html#ga2efa34f2cdf70041cc594eadcbca55c9", null ],
+    [ "getInfo", "group__context.html#ga935a7352a5ee0ab0f51ecd2dcf1b96bd", null ],
+    [ "isValid", "group__context.html#gac575eef2c9317041cc7396539e2da20b", null ],
+    [ "isWindow", "group__context.html#gafe34fc2493689e18880aac396f8fb75c", null ],
+    [ "makeCurrent", "group__context.html#ga6b659ca2f27ffe695eea27f1e8d624a7", null ],
+    [ "OpenGLContext", "group__context.html#gaa3abdf782b1cf876777bdc3f66bc135e", null ],
+    [ "~OpenGLContext", "group__context.html#ga2e3d1002bcd60f64e3cde3f0364564b9", null ]
 ];

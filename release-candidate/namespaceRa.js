@@ -606,7 +606,6 @@ var namespaceRa =
       [ "CLIBaseApplication", "classRa_1_1Headless_1_1CLIBaseApplication.html", "classRa_1_1Headless_1_1CLIBaseApplication" ],
       [ "CLIViewer", "classRa_1_1Headless_1_1CLIViewer.html", "classRa_1_1Headless_1_1CLIViewer" ],
       [ "OpenGLContext", "classRa_1_1Headless_1_1OpenGLContext.html", "classRa_1_1Headless_1_1OpenGLContext" ],
-      [ "error", "OpenGLContext_8cpp.html#ace8cbaa95df9048e39402f42bd20be06", null ],
       [ "defaultSystemPriority", "CLIViewer_8cpp.html#a39a7c9b6d2f2741d9d7c572daaa4628a", null ]
     ] ],
     [ "IO", null, [
